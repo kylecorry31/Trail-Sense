@@ -172,7 +172,7 @@ class PathService(
         fun getInstance(context: Context): PathService {
             if (instance == null) {
                 instance = PathService(
-                    PathRepo(context),
+                    PathRepo.getInstance(context),
                     WaypointRepo.getInstance(context),
                     NavigationPreferences(context),
                     Preferences(context)

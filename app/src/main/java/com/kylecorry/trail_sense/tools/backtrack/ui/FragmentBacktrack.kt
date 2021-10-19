@@ -16,10 +16,11 @@ import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.paths.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
@@ -183,7 +184,14 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             if (!cancelled) {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        waypointRepo.deletePath(pathId)
+                        PathService.getInstance(requireContext()).deletePath(
+                            Path2(
+                                pathId,
+                                null,
+                                PathStyle(LineStyle.Dotted, PathPointColoringStyle.None, 0, true),
+                                PathMetadata.empty
+                            )
+                        )
                     }
                 }
             }

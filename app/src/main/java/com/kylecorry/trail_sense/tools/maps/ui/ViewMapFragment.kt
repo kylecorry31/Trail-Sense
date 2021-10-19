@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
@@ -231,7 +233,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun displayPaths() {
         val isTracking = BacktrackScheduler.isOn(requireContext())
-        val currentPathId = cache.getLong(getString(R.string.pref_last_backtrack_path_id))
+        val currentPathId = runBlocking {
+            PathService.getInstance(requireContext()).getBacktrackPathId()
+        }
         val backtrack = backtrack ?: return
 
         val points = if (isTracking && currentPathId != null){

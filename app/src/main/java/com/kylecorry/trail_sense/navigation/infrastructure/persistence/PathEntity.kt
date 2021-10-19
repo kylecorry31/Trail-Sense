@@ -24,8 +24,8 @@ data class PathEntity(
     // Metadata
     @ColumnInfo(name = "distance") val distance: Float,
     @ColumnInfo(name = "numWaypoints") val numWaypoints: Int,
-    @ColumnInfo(name = "startTime") val startTime: Instant?,
-    @ColumnInfo(name = "endTime") val endTime: Instant?,
+    @ColumnInfo(name = "startTime") val startTime: Long?,
+    @ColumnInfo(name = "endTime") val endTime: Long?,
     // Bounds
     @ColumnInfo(name = "north") val north: Double,
     @ColumnInfo(name = "east") val east: Double,
@@ -33,7 +33,7 @@ data class PathEntity(
     @ColumnInfo(name = "west") val west: Double,
 ) : Identifiable {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "_id")
     override var id: Long = 0L
 
     fun toPath(): Path2 {
@@ -49,7 +49,7 @@ data class PathEntity(
             PathMetadata(
                 Distance.meters(distance),
                 numWaypoints,
-                if (startTime != null && endTime != null) Range(startTime, endTime) else null,
+                if (startTime != null && endTime != null) Range(Instant.ofEpochMilli(startTime), Instant.ofEpochMilli(endTime)) else null,
                 CoordinateBounds(north, east, south, west)
             ),
             temporary
@@ -57,7 +57,7 @@ data class PathEntity(
     }
 
     companion object {
-        fun fromPath(path: Path2): PathEntity {
+        fun from(path: Path2): PathEntity {
             return PathEntity(
                 path.name,
                 path.style.line,
@@ -67,8 +67,8 @@ data class PathEntity(
                 path.temporary,
                 path.metadata.distance.meters().distance,
                 path.metadata.waypoints,
-                path.metadata.duration?.start,
-                path.metadata.duration?.end,
+                path.metadata.duration?.start?.toEpochMilli(),
+                path.metadata.duration?.end?.toEpochMilli(),
                 path.metadata.bounds.north,
                 path.metadata.bounds.east,
                 path.metadata.bounds.south,

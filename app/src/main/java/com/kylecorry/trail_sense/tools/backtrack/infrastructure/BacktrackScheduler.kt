@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.tools.backtrack.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.services.BacktrackAlwaysOnService
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 
 object BacktrackScheduler {
@@ -13,8 +13,9 @@ object BacktrackScheduler {
         val prefs = UserPreferences(context)
 
         if (startNewPath) {
-            val cache = Preferences(context)
-            cache.remove(context.getString(R.string.pref_last_backtrack_path_id))
+            runBlocking {
+                PathService.getInstance(context).endBacktrackPath()
+            }
         }
 
         if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack) {

@@ -41,6 +41,7 @@ import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
@@ -61,6 +62,7 @@ import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackSchedul
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
@@ -650,7 +652,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         val bt = backtrack
         if (userPrefs.navigation.showBacktrackPath && bt != null) {
             val isTracking = BacktrackScheduler.isOn(requireContext())
-            val currentPathId = cache.getLong(getString(R.string.pref_last_backtrack_path_id))
+            val currentPathId = runBlocking {
+                PathService.getInstance(requireContext()).getBacktrackPathId()
+            }
 
             val points = if (isTracking && currentPathId != null) {
                 bt + listOf(gps.getPathPoint(currentPathId))

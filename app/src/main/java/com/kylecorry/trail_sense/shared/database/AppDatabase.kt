@@ -11,9 +11,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.BeaconGroupEntity
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconDao
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconDatabaseMigrationWorker
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconGroupDao
+import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
@@ -27,14 +26,15 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
+import kotlinx.coroutines.runBlocking
 import java.io.File
 
 /**
  * The Room database for this app
  */
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class],
-    version = 17,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class],
+    version = 18,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -50,6 +50,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun mapDao(): MapDao
     abstract fun batteryDao(): BatteryDao
     abstract fun cloudDao(): CloudReadingDao
+    abstract fun pathDao(): PathDao
 
     companion object {
 
@@ -205,6 +206,17 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_17_18 = object : Migration(17, 18) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `paths` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `lineStyle` INTEGER NOT NULL, `pointStyle` INTEGER NOT NULL, `color` INTEGER NOT NULL, `visible` INTEGER NOT NULL, `temporary` INTEGER NOT NULL, `distance` REAL NOT NULL, `numWaypoints` INTEGER NOT NULL, `startTime` INTEGER, `endTime` INTEGER, `north` REAL NOT NULL, `east` REAL NOT NULL, `south` REAL NOT NULL, `west` REAL NOT NULL)")
+                    val prefs = NavigationPreferences(context)
+                    val pathService = PathService.getInstance(context)
+                    runBlocking {
+                        MigrateBacktrackPathsCommand(pathService, prefs).execute()
+                    }
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -222,7 +234,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_13_14,
                     MIGRATION_14_15,
                     MIGRATION_15_16,
-                    MIGRATION_16_17
+                    MIGRATION_16_17,
+                    MIGRATION_17_18
                 )
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
