@@ -41,18 +41,28 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         return waypointDao.getAllSync().map { it.toPathPoint() }
     }
 
-    override fun getAllLive(): LiveData<List<PathPoint>> {
-        return Transformations.map(waypointDao.getAll()) {
+    override fun getAllLive(since: Instant?): LiveData<List<PathPoint>> {
+        return Transformations.map(
+            if (since == null) waypointDao.getAll() else waypointDao.getAllSince(
+                since.toEpochMilli()
+            )
+        ) {
             it.map { waypoint -> waypoint.toPathPoint() }
         }
     }
 
     override suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint> {
         val points = mutableListOf<WaypointEntity>()
-        for (pathId in pathIds){
+        for (pathId in pathIds) {
             points.addAll(waypointDao.getAllInPathSync(pathId))
         }
         return points.map { it.toPathPoint() }
+    }
+
+    override fun getAllInPathLive(pathId: Long): LiveData<List<PathPoint>> {
+        return Transformations.map(waypointDao.getAllInPath(pathId)) {
+            it.map { waypoint -> waypoint.toPathPoint() }
+        }
     }
 
     companion object {

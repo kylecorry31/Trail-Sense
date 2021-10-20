@@ -17,7 +17,9 @@ interface IWaypointRepo {
 
     suspend fun getAll(): List<PathPoint>
 
-    fun getAllLive(): LiveData<List<PathPoint>>
+    fun getAllLive(since: Instant? = null): LiveData<List<PathPoint>>
 
     suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint>
+
+    fun getAllInPathLive(pathId: Long): LiveData<List<PathPoint>>
 }

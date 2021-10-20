@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.navigation.infrastructure
 
 import androidx.lifecycle.LiveData
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.ICleanable
 import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import java.time.Instant
 
 interface IPathService : ICleanable {
 
@@ -18,7 +20,11 @@ interface IPathService : ICleanable {
 
     suspend fun getWaypoints(paths: List<Long>? = null): Map<Long, List<PathPoint>>
     suspend fun getWaypoints(path: Long): List<PathPoint>
+    fun getWaypointsLive(path: Long): LiveData<List<PathPoint>>
     suspend fun addWaypoint(point: PathPoint): Long
     suspend fun deleteWaypoint(point: PathPoint)
     suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long)
+
+
+    fun getRecentAltitudes(since: Instant): LiveData<List<Reading<Float>>>
 }

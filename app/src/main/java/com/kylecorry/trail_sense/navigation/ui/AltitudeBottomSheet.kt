@@ -14,12 +14,12 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
 import java.time.Instant
@@ -27,7 +27,7 @@ import kotlin.math.pow
 
 class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHistoryBinding>() {
 
-    private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
+    private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val weatherRepo by lazy { WeatherRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -86,7 +86,8 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                     chart.configureXAxis(
                         labelCount = 0,
                         drawGridLines = false,
-                        minimum = (Instant.now().toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
+                        minimum = (Instant.now()
+                            .toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
                         maximum = Instant.now().toEpochMilli().toFloat()
                     )
                     updateChart()
@@ -140,12 +141,9 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     }
 
     private fun getBacktrackReadings(): LiveData<List<Reading<Float>>> {
-        return Transformations.map(backtrackRepo.getWaypoints()) {
-            it.mapNotNull { waypoint ->
-                waypoint.altitude ?: return@mapNotNull null
-                Reading(waypoint.altitude, waypoint.createdInstant)
-            }
-        }
+        return pathService.getRecentAltitudes(
+            Instant.now().minus(prefs.navigation.backtrackHistory)
+        )
     }
 
     override fun generateBinding(

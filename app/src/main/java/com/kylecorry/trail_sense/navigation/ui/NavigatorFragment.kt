@@ -50,7 +50,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
+import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.asMappable
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -59,10 +59,8 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
@@ -93,7 +91,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private lateinit var navController: NavController
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
+    private val pathService by lazy { PathService.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
@@ -104,7 +102,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
-    private var backtrack: List<PathPoint>? = null
+    private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
+    private var paths: List<Path2> = emptyList()
+    private var currentBacktrackPathId: Long? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
@@ -180,20 +180,33 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateUI()
         }
 
-        backtrackRepo.getWaypoints().observe(viewLifecycleOwner) {
-            val waypoints = it.filter {
-                it.createdInstant > Instant.now().minus(userPrefs.navigation.backtrackHistory)
-            }.sortedByDescending { it.createdInstant }
-            backtrack = waypoints.map { it.toPathPoint() }
-            updateUI()
+        pathService.getLivePaths().observe(viewLifecycleOwner) {
+            paths = it.filter { path -> path.style.visible }
+            runInBackground {
+                withContext(Dispatchers.IO) {
+                    currentBacktrackPathId = pathService.getBacktrackPathId()
+                    pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
+                        .mapValues { it.value.sortedByDescending { it.time } }
+                }
+                withContext(Dispatchers.Main) {
+                    updateUI()
+                }
+            }
+
         }
+
         navController = findNavController()
 
-        compass.asLiveData().observe(viewLifecycleOwner, { updateUI() })
-        orientation.asLiveData().observe(viewLifecycleOwner, { onOrientationUpdate() })
-        altimeter.asLiveData().observe(viewLifecycleOwner, { updateUI() })
-        gps.asLiveData().observe(viewLifecycleOwner, { onLocationUpdate() })
-        speedometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
+        compass.asLiveData().observe(viewLifecycleOwner,
+            { updateUI() })
+        orientation.asLiveData().observe(viewLifecycleOwner,
+            { onOrientationUpdate() })
+        altimeter.asLiveData().observe(viewLifecycleOwner,
+            { updateUI() })
+        gps.asLiveData().observe(viewLifecycleOwner,
+            { onLocationUpdate() })
+        speedometer.asLiveData().observe(viewLifecycleOwner,
+            { updateUI() })
 
         binding.location.setOnLongClickListener {
             Pickers.menu(it, R.menu.location_share_menu) { menuItem ->
@@ -216,7 +229,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.altitudeHolder.setOnClickListener {
             val sheet = AltitudeBottomSheet()
-            sheet.backtrackPoints = backtrack
             sheet.currentAltitude = Reading(altimeter.altitude, Instant.now())
             sheet.show(this)
         }
@@ -649,28 +661,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.showDirection(direction)
         }
 
-        val bt = backtrack
-        if (userPrefs.navigation.showBacktrackPath && bt != null) {
-            val isTracking = BacktrackScheduler.isOn(requireContext())
-            val currentPathId = runBlocking {
-                PathService.getInstance(requireContext()).getBacktrackPathId()
-            }
-
-            val points = if (isTracking && currentPathId != null) {
-                bt + listOf(gps.getPathPoint(currentPathId))
+        val isTracking = BacktrackScheduler.isOn(requireContext())
+        val mappablePaths = mutableListOf<IMappablePath>()
+        val currentPathId = currentBacktrackPathId
+        for (points in pathPoints) {
+            val path = paths.firstOrNull { it.id == points.key } ?: continue
+            val pts = if (isTracking && currentPathId == path.id) {
+                listOf(gps.getPathPoint(currentPathId)) + points.value
             } else {
-                bt
-            }.sortedByDescending { it.time }
-
-            val paths = BacktrackPathSplitter(userPrefs).split(points)
-
-            val mappablePaths = paths.map { it.asMappable(requireContext()) }
-
-            compasses.forEach {
-                it.showPaths(mappablePaths)
-                it.showPaths(mappablePaths)
-                it.showPaths(mappablePaths)
+                points.value
             }
+            mappablePaths.add(pts.asMappable(requireContext(), path))
+        }
+        compasses.forEach {
+            it.showPaths(mappablePaths)
+            it.showPaths(mappablePaths)
+            it.showPaths(mappablePaths)
         }
     }
 

@@ -9,6 +9,9 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints")
     fun getAll(): LiveData<List<WaypointEntity>>
 
+    @Query("SELECT * FROM waypoints WHERE createdOn > :since")
+    fun getAllSince(since: Long): LiveData<List<WaypointEntity>>
+
     @Query("SELECT * FROM waypoints")
     suspend fun getAllSync(): List<WaypointEntity>
 

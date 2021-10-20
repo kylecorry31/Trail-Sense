@@ -2,10 +2,12 @@ package com.kylecorry.trail_sense.navigation.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.IPathService
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.paths.Path2
@@ -15,6 +17,7 @@ import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.time.Instant
 
 class PathService(
     private val pathRepo: IPathRepo,
@@ -91,6 +94,10 @@ class PathService(
         return waypointRepo.getAllInPaths(listOf(path))
     }
 
+    override fun getWaypointsLive(path: Long): LiveData<List<PathPoint>> {
+        return waypointRepo.getAllInPathLive(path)
+    }
+
     override suspend fun addWaypoint(point: PathPoint): Long {
         val ret = waypointRepo.add(point)
         updatePathMetadata(point.pathId)
@@ -113,6 +120,14 @@ class PathService(
         updatePathMetadata(pathId)
         for (path in oldPaths) {
             updatePathMetadata(pathId)
+        }
+    }
+
+    override fun getRecentAltitudes(since: Instant): LiveData<List<Reading<Float>>> {
+        val recent = waypointRepo.getAllLive(since)
+        return Transformations.map(recent) {
+            it.filter { point -> point.elevation != null && point.time != null }
+                .map { point -> Reading(point.elevation!!, point.time!!) }
         }
     }
 

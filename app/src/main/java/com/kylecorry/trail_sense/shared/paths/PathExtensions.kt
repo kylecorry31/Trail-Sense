@@ -56,6 +56,18 @@ fun Path.asMappable(context: Context): IMappablePath {
     }, color, style)
 }
 
+fun List<PathPoint>.asMappable(context: Context, path: Path2): IMappablePath {
+    val colorFactory = TimePointDisplayFactory(context) // TODO: Use the path
+    val strategy = colorFactory.createColoringStrategy(this)
+    return MappablePath(path.id, this.map { point ->
+        MappableLocation(
+            point.id,
+            point.coordinate,
+            strategy.getColor(point) ?: Color.TRANSPARENT
+        )
+    }, path.style.color, path.style.line)
+}
+
 fun IMappablePath.toPixelLines(
     toPixelCoordinate: (coordinate: Coordinate) -> PixelCoordinate
 ): List<PixelLine> {

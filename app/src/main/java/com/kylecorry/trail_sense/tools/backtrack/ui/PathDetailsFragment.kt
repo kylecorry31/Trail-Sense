@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.beacons.Beacon
@@ -31,13 +32,11 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedPointDecorator
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsCurrentPathSpecification
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -53,7 +52,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
-    private val waypointRepo by lazy { WaypointRepo.getInstance(requireContext()) }
+    private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val geoService = GeologyService()
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
@@ -84,7 +83,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             viewWaypoint(it)
         }
 
-        waypointRepo.getWaypointsByPath(pathId).observe(viewLifecycleOwner, {
+        pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
             path = filterCurrentWaypoints(it).sortedByDescending { p -> p.time }
             val selected = selectedPointId
             if (selected != null && path.find { it.id == selected } == null) {
@@ -323,7 +322,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             if (!cancelled) {
                 runInBackground {
                     withContext(Dispatchers.IO) {
-                        waypointRepo.deleteWaypoint(WaypointEntity.from(point))
+                        pathService.deleteWaypoint(point)
                     }
                     withContext(Dispatchers.Main) {
                         if (selectedPointId == point.id) {
