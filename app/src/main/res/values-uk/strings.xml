@@ -534,9 +534,9 @@
     <string name="pip_button">Оновити системний час</string>
     <string name="beacon_2">Маячок 2</string>
     <string name="beacon_1">Маячок 1</string>
-    <string name="could_not_triangulate">Не вдалося виконати триангуляцію</string>
+    <string name="could_not_triangulate">Не вдалося виконати тріангуляцію</string>
     <string name="tool_triangulate_summary">Визначення вашого місця без GPS</string>
-    <string name="tool_triangulate_title">Триангуляція місцеперебування</string>
+    <string name="tool_triangulate_title">Тріангуляція місцеперебування</string>
     <string name="tool_category_signaling">Сигналізація</string>
     <string name="tool_category_angles">Кути</string>
     <string name="power">Живлення</string>
@@ -998,4 +998,6 @@
     <string name="notification_weather_update_title">Оновлення відстеження погоди</string>
     <string name="no_camera_access">Не вдається отримати доступ до камери</string>
     <string name="cloud_photo_mask_toast">Натисніть на зображення для перемикання маски</string>
+    <string name="paths">Шляхи</string>
+    <string name="keep_forever">Зберегти назавжди</string>
 </resources>

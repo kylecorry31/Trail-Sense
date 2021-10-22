@@ -988,4 +988,6 @@
     <string name="pref_background_compat_mode_summary">Ative isto se os serviços em segundo plano não estiverem a funcionar corretamente</string>
     <string name="cloud_photo_mask_toast">Toque na fotografia para alternar a máscara</string>
     <string name="no_camera_access">Não foi possível aceder à câmara</string>
+    <string name="paths">Percursos</string>
+    <string name="keep_forever">Manter para sempre</string>
 </resources>
