@@ -76,9 +76,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar))
             ?: true)
 
-    val showBacktrackPath: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
-
     var defaultPathColor: AppColor
         get() {
             val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))
