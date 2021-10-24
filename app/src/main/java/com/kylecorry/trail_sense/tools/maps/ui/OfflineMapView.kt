@@ -42,7 +42,6 @@ class OfflineMapView : CanvasView {
     private var translateY = 0f
     private var scale = 1f
 
-    private var pathLines: List<PixelLine>? = null
     private var beaconCircles: List<Pair<Beacon, PixelCircle>> = listOf()
 
     // Features
@@ -95,10 +94,6 @@ class OfflineMapView : CanvasView {
             }
         }
         val mapImage = mapImage ?: return
-
-        if (paths != null && pathLines == null && map.calibrationPoints.size >= 2) {
-            createPathLines()
-        }
 
         push()
         translate(translateX, translateY)
@@ -155,7 +150,10 @@ class OfflineMapView : CanvasView {
 
 
     private fun drawPaths() {
-        val pathLines = pathLines ?: return
+        val paths = paths ?: return
+        val pathLines = paths.flatMap { path ->
+            path.toPixelLines { getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f) }
+        }
 // TODO: Add mask
 //        val pathBitmap = mask(mapImage!!, pathBitmap!!){
         val lineDrawerFactory = PathLineDrawerFactory()
@@ -173,10 +171,25 @@ class OfflineMapView : CanvasView {
         noStroke()
         fill(Color.WHITE)
         noPathEffect()
+
+        paths.forEach { drawPathPoints(it) }
 //        }
 //
 //        imageMode(ImageMode.Center)
 //        image(pathBitmap, width / 2f, height / 2f)
+    }
+
+    private fun drawPathPoints(path: IMappablePath) {
+        for (point in path.points) {
+            if (point.color == Color.TRANSPARENT) {
+                continue
+            }
+            val pixel = getPixelCoordinate(point.coordinate, false) ?: continue
+            noTint()
+            noStroke()
+            fill(point.color)
+            circle(pixel.x, pixel.y, dp(8f) / scale * 0.3f)
+        }
     }
 
     private fun shouldDisplayLine(line: PixelLine): Boolean {
@@ -236,20 +249,8 @@ class OfflineMapView : CanvasView {
 
     fun showPaths(paths: List<IMappablePath>) {
         this.paths = paths
-        this.pathLines = null
         invalidate()
     }
-
-    private fun createPathLines() {
-        mapImage ?: return
-        val paths = paths ?: return
-        pathLines = paths.flatMap {
-            it.toPixelLines {
-                getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f)
-            }
-        }
-    }
-
 
     private fun loadMap(map: Map): Bitmap {
         val file = LocalFiles.getFile(context, map.filename, false)
