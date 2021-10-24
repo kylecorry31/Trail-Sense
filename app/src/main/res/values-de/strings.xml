@@ -986,4 +986,6 @@
     <string name="notification_backtrack_update_content">Aufnehmen des Standorts</string>
     <string name="no_camera_access">Kann nicht auf die Kamera zugreifen</string>
     <string name="humidity">Luftfeuchtigkeit</string>
+    <string name="paths">Pfade</string>
+    <string name="keep_forever">Für immer behalten</string>
 </resources>

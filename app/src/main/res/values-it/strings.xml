@@ -337,7 +337,6 @@
     <string name="tool_bubble_level_title">Livello a bolla</string>
     <string name="guide_weather_prediction_title">Previsioni meteo</string>
     <string name="tap_sun_moon_hint">Clicca il sole o la luna per dettagli sulla posizione</string>
-
     <string name="pref_sea_level_require_dwell_title">Ignora cambiamenti rapidi di altitudine</string>
     <string name="no_group">Nessun gruppo</string>
     <string name="group">Gruppo</string>
@@ -432,4 +431,86 @@
     <string name="pref_sea_level_use_rapid_title">Fattore nel rapido cambiamento di pressione</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
+    <string name="notification_channel_clock_sync_description">Una notifica per sincronizzare il tuo orologio con l\'orario del GPS</string>
+    <string name="clock_sync_instructions">Imposta l\'ora a %s quando la notifica arriva</string>
+    <string name="clock_sync_time_settings">Aprire impostazioni orario\?</string>
+    <string name="metal_detector_disclaimer">Rileva solo metalli magnetici (es. ferro)</string>
+    <string name="unit_inches">Pollici</string>
+    <string name="map_distance">Mappa: %s</string>
+    <string name="map_scale_verbal">Verbale</string>
+    <string name="max_temp_calibrated">Temperatura ambiente massima (calibrata)</string>
+    <string name="cirrocumulus">Cirrocumolo</string>
+    <string name="pref_backtrack_enabled_summary">Registra cronologia posizione</string>
+    <string name="pref_backtrack_frequency_title">Intervallo ritorno</string>
+    <string name="delete_tide_prompt">Eliminare marea\?</string>
+    <string name="pref_low_power_mode_title">Modalità risparmio energetico</string>
+    <string name="low_power_mode_on_message">Risparmio energetico attivo, alcune funzionalità potrebbero essere disabilitate.</string>
+    <string name="unsaved_changes">Modifiche non salvate</string>
+    <string name="pref_require_satellites_title">Richiedi aggancio satelliti</string>
+    <string name="cirrostratus">Cirrostrato</string>
+    <string name="altocumulus">Altocumulo</string>
+    <string name="altostratus">Altostrato</string>
+    <string name="stratus">Strato</string>
+    <string name="stratocumulus">Stratocumulo</string>
+    <string name="cumulus">Cumulo</string>
+    <string name="all_beacons">Tutti i Segnaposto</string>
+    <string name="your_height">La tua altezza</string>
+    <string name="pref_sea_level_require_dwell_summary">Mostra letture solo quando l\'altitudine non è cambiata per almeno un ora. Migliora l\'affidabilità della previsione.</string>
+    <string name="max_depth">Massimo: %s</string>
+    <string name="theme_sunset_sunrise">Alba/tramonto</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">"Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte,  premi %s una volta finito.
+\n
+\nQuesto avviso può essere disabilitato nelle impostazioni dell\'app."</string>
+    <string name="toast_destination_bearing_set">Direzione della destinazione impostata</string>
+    <string name="depth_disclaimer">Utilizza a tuo rischio.
+\n
+\nNon usare senza una protezione impermeabile e rimani entro una distanza sicura a nuoto se possibile.</string>
+    <string name="cliff_height_guide">Stima altezza precipizio</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="clock_waiting_for_gps">Aggiornamento orario dal GPS…</string>
+    <string name="note_content_hint">Contenuti</string>
+    <string name="freezing_temperatures_warning">Temperatura sotto zero</string>
+    <string name="map_scale_ratio">Rapporto</string>
+    <string name="location_input_help">Gradi decimali (es. 1.00, -2.00)
+\n
+\nGradi e minuti decimali (es. 1°23.12\'N, 3°12.1\'W)
+\n
+\nGradi minuti e secondi (es. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (es. 03T 12345E 67890N)
+\n
+\nMGRS (es. 27PXM 09601 05579)
+\n
+\nUSNG (es. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (es. TG 51409 13177)</string>
+    <string name="backtrack_disabled_low_power_toast">Ritorno è disabilitato in modalità risparmio energetico</string>
+    <string name="pref_low_power_mode_summary">Disabilita alcune funzioni per risparmiare energia</string>
+    <string name="cirrus">Cirro</string>
+    <string name="water_boil_timer_title">Bollitura acqua</string>
+    <string name="guide_conserving_battery_title">Conservare batteria</string>
+    <string name="max_temp_uncalibrated">Temperatura telefono massima (calibrata)</string>
+    <string name="min_temp_calibrated">Temperatura ambiente minima (calibrata)</string>
+    <string name="min_temp_uncalibrated">Temperatura telefono minima (calibrata)</string>
+    <string name="bearing">Direzione</string>
+    <string name="create_at_distance">Crea ad una distanza</string>
+    <string name="beacon_set_bearing_btn">Imposta direzione (%s)</string>
+    <string name="unsaved_changes_message">Le modifiche apportate non saranno salvate.</string>
+    <string name="dialog_leave">Esci</string>
+    <string name="cumulonimbus">Cumulonembo</string>
+    <string name="nimbostratus">Stratonembo</string>
+    <string name="units_mmhg">mmHg</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d secondo per essere potabile</item>
+        <item quantity="other">%d secondi per essere potabile</item>
+    </plurals>
+    <string name="cirrocumulus_desc">Nuvole a livello alto che formano un foglio ondulato. Il foglio è formato da piccoli punti che dall\'aspetto quasi bidimensionale.</string>
+    <string name="cirrostratus_desc">Una nuvola alta che copre il cielo. È trasparente e solitamente causa un bagliore attorno al sole.</string>
+    <string name="packing_lists">Liste Inventario</string>
+    <string name="no_packing_lists">Nessuna lista inventario</string>
+    <string name="tool_cliff_height_disclaimer">Utilizza questo strumento solo quando è sicuro farlo ed assicurati di controllare sotto al precipizio per evitare di ferirti. Leggi la guida utente per le istruzioni.</string>
+    <string name="action_inventory_clear_confirm">Eliminare tutte le quantità di inventario\?</string>
+    <string name="tool_solar_panel_summary">Posiziona pannelli solari per avere la potenza ottimale</string>
+    <string name="water_boil_timer">Timer bollitura acqua</string>
+    <string name="freezing_temperatures_description">L\'acqua si giaccerà se lasciata fuori e la pioggia potrebbe diventare neve</string>
 </resources>

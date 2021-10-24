@@ -980,4 +980,6 @@
     <string name="humidity">湿度</string>
     <string name="cloud_photo_mask_toast">轻按照片来切换蒙版</string>
     <string name="no_camera_access">无法访问相机</string>
+    <string name="paths">路径</string>
+    <string name="keep_forever">永久保留</string>
 </resources>
