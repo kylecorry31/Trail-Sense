@@ -184,7 +184,6 @@
     <string name="guide_conserving_battery_title">Oszczędzanie baterii</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
-
     <string name="beacon_create_beacon">Punkt nawigacyjny</string>
     <string name="beacon_create">Utwórz</string>
     <string name="tool_user_guide_summary">Poradnik dotyczący korzystania z Trail Sense</string>
@@ -956,4 +955,12 @@
     <string name="or">Lub</string>
     <string name="take_photo">Zrób zdjęcie</string>
     <string name="choose_photo">Wybierz zdjęcie</string>
+    <string name="precipitation_small_hail">Mały grad</string>
+    <string name="humidity">Wilgotność</string>
+    <string name="no_clouds">Bezchmurnie</string>
+    <string name="precipitation_hail">Grad</string>
+    <string name="precipitation_drizzle">Mżawka</string>
+    <string name="no_camera_access">Nie można uzyskać dostępu do aparatu</string>
+    <string name="results">Wyniki</string>
+    <string name="paths">Ścieżki</string>
 </resources>
