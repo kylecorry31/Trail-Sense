@@ -186,7 +186,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 withContext(Dispatchers.IO) {
                     currentBacktrackPathId = pathService.getBacktrackPathId()
                     pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
-                        .mapValues { it.value.sortedByDescending { it.time } }
+                        .mapValues { it.value.sortedByDescending { it.id } }
                 }
                 withContext(Dispatchers.Main) {
                     updateUI()

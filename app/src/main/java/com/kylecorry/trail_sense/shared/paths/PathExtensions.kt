@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
-import com.kylecorry.trail_sense.tools.backtrack.domain.factories.TimePointDisplayFactory
+import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.abs
@@ -57,7 +57,7 @@ fun Path.asMappable(context: Context): IMappablePath {
 }
 
 fun List<PathPoint>.asMappable(context: Context, path: Path2): IMappablePath {
-    val colorFactory = TimePointDisplayFactory(context) // TODO: Use the path
+    val colorFactory = getPointFactory(context, path.style.point)
     val strategy = colorFactory.createColoringStrategy(this)
     return MappablePath(path.id, this.map { point ->
         MappableLocation(
@@ -66,6 +66,19 @@ fun List<PathPoint>.asMappable(context: Context, path: Path2): IMappablePath {
             strategy.getColor(point) ?: Color.TRANSPARENT
         )
     }, path.style.color, path.style.line)
+}
+
+// TODO: Extract this and add solid style
+private fun getPointFactory(
+    context: Context,
+    pointColoringStyle: PathPointColoringStyle
+): IPointDisplayFactory {
+    return when (pointColoringStyle) {
+        PathPointColoringStyle.None -> NonePointDisplayFactory(context)
+        PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(context)
+        PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(context)
+        PathPointColoringStyle.Time -> TimePointDisplayFactory(context)
+    }
 }
 
 fun IMappablePath.toPixelLines(

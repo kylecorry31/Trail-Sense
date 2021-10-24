@@ -20,26 +20,25 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.getPathPoint
-import com.kylecorry.trail_sense.shared.paths.BacktrackPathSplitter
+import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.shared.paths.asMappable
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.time.Instant
 
 class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
@@ -48,7 +47,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val backtrackRepo by lazy { WaypointRepo.getInstance(requireContext()) }
+    private val pathService by lazy { PathService.getInstance(requireContext()) }
+    private var pathPoints: kotlin.collections.Map<Long, List<PathPoint>> = emptyMap()
+    private var paths: List<Path2> = emptyList()
+    private var currentBacktrackPathId: Long? = null
     private val geoService by lazy { GeologyService() }
     private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
@@ -102,18 +104,19 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 viewLifecycleOwner,
                 { binding.map.showBeacons(it.map { it.toBeacon() }.filter { it.visible }) })
 
-        if (prefs.navigation.showBacktrackPath) {
-            backtrackRepo.getWaypoints()
-                .observe(viewLifecycleOwner, { waypoints ->
-                    backtrack = waypoints
-                        .filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }
-                        .sortedByDescending { it.createdInstant }
-                        .map { it.toPathPoint() }
-
+        pathService.getLivePaths().observe(viewLifecycleOwner) {
+            paths = it.filter { path -> path.style.visible }
+            runInBackground {
+                withContext(Dispatchers.IO) {
+                    currentBacktrackPathId = pathService.getBacktrackPathId()
+                    pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
+                        .mapValues { it.value.sortedByDescending { it.id } }
+                }
+                withContext(Dispatchers.Main) {
                     displayPaths()
-                })
+                }
+            }
         }
-
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -233,20 +236,19 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun displayPaths() {
         val isTracking = BacktrackScheduler.isOn(requireContext())
-        val currentPathId = runBlocking {
-            PathService.getInstance(requireContext()).getBacktrackPathId()
+        val mappablePaths = mutableListOf<IMappablePath>()
+        val currentPathId = currentBacktrackPathId
+        for (points in pathPoints) {
+            val path = paths.firstOrNull { it.id == points.key } ?: continue
+            val pts = if (isTracking && currentPathId == path.id) {
+                listOf(gps.getPathPoint(currentPathId)) + points.value
+            } else {
+                points.value
+            }
+            mappablePaths.add(pts.asMappable(requireContext(), path))
         }
-        val backtrack = backtrack ?: return
 
-        val points = if (isTracking && currentPathId != null){
-            backtrack + listOf(gps.getPathPoint(currentPathId))
-        } else {
-            backtrack
-        }.sortedByDescending { it.time }
-
-        val paths = BacktrackPathSplitter(prefs).split(points)
-
-        binding.map.showPaths(paths)
+        binding.map.showPaths(mappablePaths)
     }
 
     private fun updateDestination() {

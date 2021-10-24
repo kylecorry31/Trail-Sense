@@ -18,18 +18,17 @@ import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
-import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.toPixelLines
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
-import java.time.Duration
 
 
 class OfflineMapView : CanvasView {
@@ -50,7 +49,7 @@ class OfflineMapView : CanvasView {
     private var myLocation: Coordinate? = null
     private var beacons: List<Beacon> = listOf()
     private var destination: Beacon? = null
-    private var paths: List<Path>? = null
+    private var paths: List<IMappablePath>? = null
     private var calibrationPoints = listOf<MapCalibrationPoint>()
     private var showCalibrationPoints = false
 
@@ -235,7 +234,7 @@ class OfflineMapView : CanvasView {
         invalidate()
     }
 
-    fun showPaths(paths: List<Path>) {
+    fun showPaths(paths: List<IMappablePath>) {
         this.paths = paths
         this.pathLines = null
         invalidate()
@@ -245,7 +244,7 @@ class OfflineMapView : CanvasView {
         mapImage ?: return
         val paths = paths ?: return
         pathLines = paths.flatMap {
-            it.toPixelLines(Duration.ofDays(2)) {
+            it.toPixelLines {
                 getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f)
             }
         }
