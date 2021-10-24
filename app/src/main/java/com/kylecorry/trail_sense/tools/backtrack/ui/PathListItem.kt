@@ -34,7 +34,7 @@ class PathListItem(
         val end = item.metadata.duration?.end
         val distance =
             item.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        itemBinding.title.text = if (item.name != null){
+        itemBinding.title.text = if (item.name != null) {
             item.name
         } else if (start != null && end != null) {
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
@@ -50,27 +50,31 @@ class PathListItem(
             action(item, PathAction.Show)
         }
         itemBinding.menuBtn.setOnClickListener {
-            // TODO: Don't use the menu XML to conditionally display options
-            Pickers.menu(it, R.menu.path_item_menu) {
-                when (it) {
-                    R.id.action_path_delete -> {
-                        action(item, PathAction.Delete)
-                    }
-                    R.id.action_path_export -> {
-                        action(item, PathAction.Export)
-                    }
-                    R.id.action_path_merge -> {
-                        action(item, PathAction.Merge)
-                    }
-                    R.id.action_path_rename -> {
-                        action(item, PathAction.Rename)
-                    }
-                    R.id.action_path_keep -> {
-                        action(item, PathAction.Keep)
-                    }
-                }
+            val actions = listOf(
+                PathAction.Rename,
+                PathAction.Keep,
+                PathAction.ToggleVisibility,
+                PathAction.Export,
+                PathAction.Merge,
+                PathAction.Delete,
+            )
+
+            Pickers.menu(
+                it, listOf(
+                    context.getString(R.string.rename),
+                    if (item.temporary) context.getString(R.string.keep_forever) else null,
+                    if (item.style.visible) context.getString(R.string.hide) else context.getString(
+                        R.string.show
+                    ),
+                    context.getString(R.string.export),
+                    context.getString(R.string.path_merge_previous),
+                    context.getString(R.string.delete),
+                )
+            ) {
+                action(item, actions[it])
                 true
             }
         }
     }
+
 }

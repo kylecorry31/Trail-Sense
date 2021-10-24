@@ -1127,4 +1127,6 @@
     <string name="no_camera_access">Unable to access camera</string>
     <string name="paths">Paths</string>
     <string name="keep_forever">Keep forever</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
 </resources>
