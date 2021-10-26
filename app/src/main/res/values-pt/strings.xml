@@ -990,4 +990,6 @@
     <string name="no_camera_access">Não foi possível aceder à câmara</string>
     <string name="paths">Percursos</string>
     <string name="keep_forever">Manter para sempre</string>
+    <string name="hide">Ocultar</string>
+    <string name="show">Mostrar</string>
 </resources>
