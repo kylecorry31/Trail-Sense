@@ -284,7 +284,7 @@
     <string name="experimental">Eksperimentalno</string>
     <string name="right_quick_action">Desna brza akcija</string>
     <string name="left_quick_action">Lijeva brza akcija</string>
-    <string name="quick_action_none">Nema</string>
+    <string name="none">Nema</string>
     <string name="no_gps_signal">Nema GPS Signala</string>
     <string name="low">Niska</string>
     <string name="moderate">Srednja</string>

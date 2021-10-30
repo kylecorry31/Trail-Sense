@@ -10,6 +10,8 @@ interface IPathRepo {
 
     suspend fun get(id: Long): Path2?
 
+    fun getLive(id: Long): LiveData<Path2?>
+
     suspend fun getAll(): List<Path2>
 
     fun getAllLive(): LiveData<List<Path2>>

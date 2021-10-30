@@ -787,7 +787,7 @@
     <string name="experimental">Experimenteel</string>
     <string name="right_quick_action">Snelle actie rechts</string>
     <string name="left_quick_action">Snelle actie links</string>
-    <string name="quick_action_none">Geen</string>
+    <string name="none">Geen</string>
     <string name="no_gps_signal">Geen GPS Signaal</string>
     <string name="low">Laag</string>
     <string name="onboarding_user_guide">Met de gebruikershandleiding leer je hoe je de functies van Trail Sense kunt gebruiken. Je kunt het vinden onderaan het Hulpmiddelen-tabblad.

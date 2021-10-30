@@ -65,6 +65,10 @@ class PathService(
         return pathRepo.get(id)
     }
 
+    override fun getLivePath(id: Long): LiveData<Path2?> {
+        return pathRepo.getLive(id)
+    }
+
     override suspend fun addPath(path: Path2): Long {
         return pathRepo.add(path)
     }

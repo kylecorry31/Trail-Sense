@@ -66,7 +66,7 @@
     <string name="tides">Gelgitler</string>
     <string name="left_quick_action">Sola hızlı hareket</string>
     <string name="right_quick_action">Sağa hızlı hareket</string>
-    <string name="quick_action_none">Yok</string>
+    <string name="none">Yok</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_today">Bugünle aynı</string>
     <string name="weather_worse_than_today">Bugünden daha kötü</string>

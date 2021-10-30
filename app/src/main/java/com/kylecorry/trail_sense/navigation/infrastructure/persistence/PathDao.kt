@@ -14,6 +14,9 @@ interface PathDao {
     @Query("SELECT * FROM paths WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): PathEntity?
 
+    @Query("SELECT * FROM paths WHERE _id = :id LIMIT 1")
+    fun getLive(id: Long): LiveData<PathEntity?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(path: PathEntity): Long
 

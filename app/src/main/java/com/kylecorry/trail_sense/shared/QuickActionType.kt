@@ -21,7 +21,7 @@ object QuickActionUtils {
 
     fun getName(context: Context, quickActionType: QuickActionType): String {
         return when (quickActionType) {
-            QuickActionType.None -> context.getString(R.string.quick_action_none)
+            QuickActionType.None -> context.getString(R.string.none)
             QuickActionType.Backtrack -> context.getString(R.string.backtrack)
             QuickActionType.Flashlight -> context.getString(R.string.flashlight_title)
             QuickActionType.Clouds -> context.getString(R.string.clouds)

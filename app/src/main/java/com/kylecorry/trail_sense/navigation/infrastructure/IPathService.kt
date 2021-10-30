@@ -15,6 +15,7 @@ interface IPathService : ICleanable {
 
     fun getLivePaths(): LiveData<List<Path2>>
     suspend fun getPath(id: Long): Path2?
+    fun getLivePath(id: Long): LiveData<Path2?>
     suspend fun addPath(path: Path2): Long
     suspend fun deletePath(path: Path2)
 

@@ -83,7 +83,7 @@
     <string name="experimental">Експериментально</string>
     <string name="right_quick_action">Швидка дія справа</string>
     <string name="left_quick_action">Швидка дія зліва</string>
-    <string name="quick_action_none">Нічого</string>
+    <string name="none">Нічого</string>
     <string name="no_gps_signal">Немає сигналу GPS</string>
     <string name="low">Низьке</string>
     <string name="moderate">Помірне</string>

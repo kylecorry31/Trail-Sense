@@ -604,7 +604,7 @@
     <string name="high_tide">Высокий прилив</string>
     <string name="right_quick_action">Быстрое действие направо</string>
     <string name="left_quick_action">Быстрое действие налево</string>
-    <string name="quick_action_none">Ничего</string>
+    <string name="none">Ничего</string>
     <string name="no_gps_signal">Нет сигнала GPS</string>
     <string name="always_on">Всегда включен</string>
     <string name="weather_same_as_today">Как и сегодня</string>

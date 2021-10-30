@@ -514,7 +514,7 @@
     <string name="high_tide">Høyvann</string>
     <string name="right_quick_action">Høyre hurtighandling</string>
     <string name="left_quick_action">Venstre hurtighandling</string>
-    <string name="quick_action_none">Ingen</string>
+    <string name="none">Ingen</string>
     <string name="weather_same_as_today">Samme som i dag</string>
     <string name="weather_worse_than_today">Verre enn i dag</string>
     <string name="weather_better_than_today">Bedre enn i dag</string>

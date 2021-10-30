@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.filterSatisfied
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -25,10 +24,10 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -36,7 +35,6 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedPointDecorator
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsCurrentPathSpecification
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsValidBacktrackPointSpecification
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -58,7 +56,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
 
     private var drawPathToGPS = false
-    private var path: List<PathPoint> = emptyList()
+    private var path: Path2? = null
+    private var waypoints: List<PathPoint> = emptyList()
     private var pathId: Long = 0L
     private var selectedPointId: Long? = null
     private lateinit var listView: ListView<PathPoint>
@@ -83,13 +82,20 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             viewWaypoint(it)
         }
 
+        pathService.getLivePath(pathId).observe(viewLifecycleOwner, {
+            path = it
+            pointColoringStyle = it?.style?.point ?: PathPointColoringStyle.None
+            updatePointStyleLegend()
+            onPathChanged()
+            // TODO: Update waypoints, distance, etc
+        })
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
-            path = filterCurrentWaypoints(it).sortedByDescending { p -> p.time }
+            waypoints = it.sortedByDescending { p -> p.id }
             val selected = selectedPointId
-            if (selected != null && path.find { it.id == selected } == null) {
+            if (selected != null && waypoints.find { it.id == selected } == null) {
                 selectedPointId = null
             }
-            listView.setData(path)
+            listView.setData(waypoints)
             updatePointStyleLegend()
             onPathChanged()
         })
@@ -108,7 +114,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathPointStyle.setOnClickListener {
             Pickers.item(
                 requireContext(), "", listOf(
-                    getString(R.string.path),
+                    getString(R.string.none),
                     getString(R.string.cell_signal),
                     getString(R.string.altitude),
                     getString(R.string.time)
@@ -119,43 +125,42 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                     pointColoringStyle =
                         PathPointColoringStyle.values().find { style -> style.ordinal == it }
                             ?: PathPointColoringStyle.None
-                    cache.putInt("pref_path_waypoint_style", pointColoringStyle.ordinal)
-                    updatePointStyleLegend()
-                    onPathChanged()
+                    runInBackground {
+                        withContext(Dispatchers.IO) {
+                            val path = path ?: return@withContext
+                            pathService.addPath(path.copy(style = path.style.copy(point = pointColoringStyle)))
+                        }
+                        withContext(Dispatchers.Main) {
+                            updatePointStyleLegend()
+                            onPathChanged()
+                        }
+                    }
                 }
             }
         }
-
-        val lastStyle = cache.getInt("pref_path_waypoint_style")
-        pointColoringStyle =
-            PathPointColoringStyle.values().find { style -> style.ordinal == lastStyle }
-                ?: PathPointColoringStyle.None
-
-        updatePointStyleLegend()
-        onPathChanged()
-    }
-
-    private fun filterCurrentWaypoints(waypoints: List<PathPoint>): List<PathPoint> {
-        return waypoints.filterSatisfied(IsValidBacktrackPointSpecification(prefs.navigation.backtrackHistory))
     }
 
     private fun onPathChanged() {
+        val path = path ?: return
+
         if (!isBound || throttle.isThrottled()) {
             return
         }
 
         drawPathToGPS = IsCurrentPathSpecification(requireContext()).isSatisfiedBy(pathId)
 
-        val distance = geoService.getPathDistance(path.map { it.coordinate })
-            .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        val distance = path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
 
-        val start = path.lastOrNull()?.time
-        val end = path.firstOrNull()?.time
+        val start = path.metadata.duration?.start
+        val end = path.metadata.duration?.end
 
-        binding.pathTimes.text = if (start != null && end != null) {
+
+        binding.pathTimes.text = if (!path.name.isNullOrBlank()) {
+            path.name
+        } else if (start != null && end != null) {
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
         } else {
-            ""
+            getString(android.R.string.untitled)
         }
 
         binding.pathDuration.text = if (start != null && end != null) {
@@ -164,29 +169,29 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             ""
         }
 
-        binding.pathWaypoints.text = path.size.toString()
+        binding.pathWaypoints.text = path.metadata.waypoints.toString()
 
         binding.pathDistance.text =
             formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
 
         binding.pathImage.path = if (drawPathToGPS) {
-            listOf(getGPSWaypoint(pathId)) + path
+            listOf(getGPSWaypoint(pathId)) + waypoints
         } else {
-            path
+            waypoints
         }
         binding.pathImage.location = gps.location
         binding.pathImage.azimuth = compass.bearing.value
 
         val factory = getPointFactory()
 
-        val baseStrategy = factory.createColoringStrategy(path)
+        val baseStrategy = factory.createColoringStrategy(waypoints)
 
         val selected = selectedPointId
 
         binding.pathPointValue.text = if (selected != null) {
-            val found = path.find { it.id == selected }
+            val found = waypoints.find { it.id == selected }
             if (found != null) {
-                factory.createValueStrategy(path).getValue(found)
+                factory.createValueStrategy(waypoints).getValue(found)
             } else {
                 ""
             }
@@ -213,14 +218,14 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         val factory = getPointFactory()
 
         binding.pathPointStyle.text = listOf(
-            getString(R.string.path),
+            getString(R.string.none),
             getString(R.string.cell_signal),
             getString(R.string.altitude),
             getString(R.string.time)
         )[pointColoringStyle.ordinal]
 
-        binding.pathLegend.colorScale = factory.createColorScale(path)
-        binding.pathLegend.labels = factory.createLabelMap(path)
+        binding.pathLegend.colorScale = factory.createColorScale(waypoints)
+        binding.pathLegend.labels = factory.createLabelMap(waypoints)
     }
 
     private fun getGPSWaypoint(pathId: Long): PathPoint {
@@ -262,10 +267,10 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             point.id
         }
         // TODO: Only redraw the last selected point and new point
-        listView.setData(path)
+        listView.setData(waypoints)
         if (selectedPointId != null) {
             tryOrNothing {
-                listView.scrollToPosition(path.indexOf(point), true)
+                listView.scrollToPosition(waypoints.indexOf(point), true)
             }
         }
         onPathChanged()
@@ -356,7 +361,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
     private fun getPointFactory(): IPointDisplayFactory {
         return when (pointColoringStyle) {
-            PathPointColoringStyle.None -> PathDisplayFactory(requireContext())
+            PathPointColoringStyle.None -> NonePointDisplayFactory(requireContext())
             PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
             PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
             PathPointColoringStyle.Time -> TimePointDisplayFactory(requireContext())

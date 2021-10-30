@@ -27,6 +27,10 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         return pathDao.get(id)?.toPath()
     }
 
+    override fun getLive(id: Long): LiveData<Path2?> {
+        return Transformations.map(pathDao.getLive(id)){ it?.toPath() }
+    }
+
     override suspend fun getAll(): List<Path2> {
         return pathDao.getAllSuspend().map { it.toPath() }
     }

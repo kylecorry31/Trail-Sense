@@ -558,7 +558,7 @@
     <string name="network_5g">5G</string>
     <string name="right_quick_action">Ação rápida da direita</string>
     <string name="left_quick_action">Ação rápida da esquerda</string>
-    <string name="quick_action_none">Nenhuma</string>
+    <string name="none">Nenhuma</string>
     <string name="no_gps_signal">Sem sinal do GPS</string>
     <string name="low">Baixo</string>
     <string name="moderate">Moderado</string>

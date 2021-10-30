@@ -309,7 +309,7 @@
     <string name="beacon_action_view_details">Vedere i dettagli</string>
     <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
     <string name="error_occurred_message">Trail Sense</string>
-    <string name="quick_action_none">Nessuno</string>
+    <string name="none">Nessuno</string>
     <string name="low">Bassa</string>
     <string name="moderate">Moderata</string>
     <string name="high">Elevata</string>

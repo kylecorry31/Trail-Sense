@@ -625,7 +625,7 @@
     <string name="speedometer_average">Durchschnitt (von Rückweg)</string>
     <string name="speedometer_real_time">Echtzeit</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
-    <string name="quick_action_none">Keine</string>
+    <string name="none">Keine</string>
     <string name="backtrack_notification_channel_description">Standortaktualisierungen für Rückweg</string>
     <string name="update_gps_override">GPS-Override aktualisieren</string>
     <string name="guide_speedometer_desc">Zurückgelegte Distanz und Ankunftszeiten herausfinden</string>

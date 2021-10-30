@@ -29,7 +29,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 4
+        private const val version = 5
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -75,6 +75,9 @@ class PreferenceMigrator private constructor() {
                 } catch (e: Exception) {
                     prefs.remove(context.getString(R.string.pref_backtrack_path_color))
                 }
+            },
+            PreferenceMigration(4, 5) { _, prefs ->
+                prefs.remove("pref_path_waypoint_style")
             }
         )
 
