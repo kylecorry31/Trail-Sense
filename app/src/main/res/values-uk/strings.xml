@@ -1000,4 +1000,6 @@
     <string name="cloud_photo_mask_toast">Натисніть на зображення для перемикання маски</string>
     <string name="paths">Шляхи</string>
     <string name="keep_forever">Зберегти назавжди</string>
+    <string name="show">Показати</string>
+    <string name="hide">Сховати</string>
 </resources>

@@ -988,4 +988,6 @@
     <string name="humidity">Luftfeuchtigkeit</string>
     <string name="paths">Pfade</string>
     <string name="keep_forever">Für immer behalten</string>
+    <string name="show">Anzeigen</string>
+    <string name="hide">Verstecken</string>
 </resources>

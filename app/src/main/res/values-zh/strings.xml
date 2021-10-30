@@ -982,4 +982,6 @@
     <string name="no_camera_access">无法访问相机</string>
     <string name="paths">路径</string>
     <string name="keep_forever">永久保留</string>
+    <string name="hide">隐藏</string>
+    <string name="show">显示</string>
 </resources>

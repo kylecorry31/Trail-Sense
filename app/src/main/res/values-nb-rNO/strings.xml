@@ -870,4 +870,8 @@
     <string name="precipitation_snow_pellets">Sprøhagl</string>
     <string name="precipitation_ice_pellets">Iskorn</string>
     <string name="precipitation_snow_grains">Kornsnø</string>
+    <string name="show">Vis</string>
+    <string name="hide">Skjul</string>
+    <string name="paths">Stier</string>
+    <string name="keep_forever">Behold for alltid</string>
 </resources>
