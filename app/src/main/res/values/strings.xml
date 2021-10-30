@@ -1131,4 +1131,5 @@
     <string name="show">Show</string>
     <string name="point_style">Point style</string>
     <string name="line_style">Line style</string>
+    <string name="path_color">Path color</string>
 </resources>

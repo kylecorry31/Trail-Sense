@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathServi
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.Path2
@@ -119,10 +120,31 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                 defaultSelectedIndex = path.style.line.ordinal
             ) {
                 if (it != null) {
-                    val line = LineStyle.values().find { style -> style.ordinal == it } ?: LineStyle.Dotted
+                    val line =
+                        LineStyle.values().find { style -> style.ordinal == it } ?: LineStyle.Dotted
                     runInBackground {
                         withContext(Dispatchers.IO) {
                             pathService.addPath(path.copy(style = path.style.copy(line = line)))
+                        }
+                        withContext(Dispatchers.Main) {
+                            onPathChanged()
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.pathColor.setOnClickListener {
+            val path = path ?: return@setOnClickListener
+            CustomUiUtils.pickColor(
+                requireContext(),
+                AppColor.values().firstOrNull { it.color == path.style.color } ?: AppColor.Gray,
+                getString(R.string.path_color)
+            ) {
+                if (it != null) {
+                    runInBackground {
+                        withContext(Dispatchers.IO) {
+                            pathService.addPath(path.copy(style = path.style.copy(color = it.color)))
                         }
                         withContext(Dispatchers.Main) {
                             onPathChanged()
@@ -202,6 +224,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathDistance.text =
             formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
 
+        CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
+
         binding.pathImage.pathColor = path.style.color
         binding.pathImage.pathStyle = path.style.line
         binding.pathImage.path = if (drawPathToGPS) {
@@ -238,9 +262,6 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                 NoDrawPointColoringStrategy()
             )
         }
-
-        binding.pathImage.arePointsHighlighted =
-            selected != null || pointColoringStyle != PathPointColoringStyle.None
     }
 
     private fun updatePointStyleLegend() {

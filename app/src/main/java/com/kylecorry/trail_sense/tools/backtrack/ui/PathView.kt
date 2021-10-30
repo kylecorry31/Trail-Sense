@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
-import com.kylecorry.trail_sense.shared.paths.GrayPathLineDrawerDecoratorStrategy
 import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.paths.PathPoint
@@ -55,12 +54,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
 
     var azimuth: Float = 0f
-        set(value) {
-            field = value
-            invalidate()
-        }
-
-    var arePointsHighlighted: Boolean = false
         set(value) {
             field = value
             invalidate()
@@ -218,12 +211,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         clear()
         for (line in pathLines) {
-            val drawer = if (arePointsHighlighted) {
-                GrayPathLineDrawerDecoratorStrategy(lineDrawerFactory.create(line.style))
-            } else {
-                lineDrawerFactory.create(line.style)
-            }
-
+            val drawer = lineDrawerFactory.create(line.style)
             drawer.draw(this, line)
         }
         opacity(255)
