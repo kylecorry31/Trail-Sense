@@ -1004,4 +1004,8 @@
     <string name="pref_background_compat_mode_summary">Включите эту функцию, если фоновые службы не работают должным образом</string>
     <string name="cloud_photo_mask_toast">Нажмите на фотографию, чтобы переключить маску</string>
     <string name="no_camera_access">Не удается получить доступ к камере</string>
+    <string name="hide">Скрыть</string>
+    <string name="show">Показать</string>
+    <string name="paths">Пути</string>
+    <string name="keep_forever">Сохранить навсегда</string>
 </resources>
