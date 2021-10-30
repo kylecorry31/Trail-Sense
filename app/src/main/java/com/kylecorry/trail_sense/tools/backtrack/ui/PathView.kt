@@ -35,6 +35,7 @@ import kotlin.math.min
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
 
+    // TODO: Update this to use a mappable path
     var pointColoringStrategy: IPointColoringStrategy = NoDrawPointColoringStrategy()
         set(value) {
             field = value
@@ -70,8 +71,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatService(context) }
-    private val pathColor by lazy { prefs.navigation.defaultPathStyle.color }
-    private val pathStyle by lazy { prefs.navigation.defaultPathStyle.line }
+    var pathColor = Color.BLACK
+    var pathStyle = LineStyle.Dotted
     private val geoService = GeologyService()
     private var metersPerPixel: Float = 1f
     private var center: Coordinate = Coordinate.zero

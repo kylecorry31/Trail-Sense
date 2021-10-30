@@ -1129,4 +1129,6 @@
     <string name="keep_forever">Keep forever</string>
     <string name="hide">Hide</string>
     <string name="show">Show</string>
+    <string name="point_style">Point style</string>
+    <string name="line_style">Line style</string>
 </resources>

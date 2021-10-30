@@ -13,8 +13,6 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
@@ -27,6 +25,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.Path2
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
@@ -43,7 +42,6 @@ import java.time.Instant
 class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val cache by lazy { Preferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -52,7 +50,6 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val geoService = GeologyService()
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
 
     private var drawPathToGPS = false
@@ -111,9 +108,33 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             onPathChanged()
         })
 
+        binding.pathLineStyle.setOnClickListener {
+            val path = path ?: return@setOnClickListener
+            Pickers.item(
+                requireContext(), getString(R.string.line_style), listOf(
+                    getString(R.string.solid),
+                    getString(R.string.dotted),
+                    getString(R.string.arrow)
+                ),
+                defaultSelectedIndex = path.style.line.ordinal
+            ) {
+                if (it != null) {
+                    val line = LineStyle.values().find { style -> style.ordinal == it } ?: LineStyle.Dotted
+                    runInBackground {
+                        withContext(Dispatchers.IO) {
+                            pathService.addPath(path.copy(style = path.style.copy(line = line)))
+                        }
+                        withContext(Dispatchers.Main) {
+                            onPathChanged()
+                        }
+                    }
+                }
+            }
+        }
+
         binding.pathPointStyle.setOnClickListener {
             Pickers.item(
-                requireContext(), "", listOf(
+                requireContext(), getString(R.string.point_style), listOf(
                     getString(R.string.none),
                     getString(R.string.cell_signal),
                     getString(R.string.altitude),
@@ -147,9 +168,16 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             return
         }
 
+        binding.pathLineStyle.text = listOf(
+            getString(R.string.solid),
+            getString(R.string.dotted),
+            getString(R.string.arrow)
+        )[path.style.line.ordinal]
+
         drawPathToGPS = IsCurrentPathSpecification(requireContext()).isSatisfiedBy(pathId)
 
-        val distance = path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        val distance =
+            path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
 
         val start = path.metadata.duration?.start
         val end = path.metadata.duration?.end
@@ -174,6 +202,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathDistance.text =
             formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
 
+        binding.pathImage.pathColor = path.style.color
+        binding.pathImage.pathStyle = path.style.line
         binding.pathImage.path = if (drawPathToGPS) {
             listOf(getGPSWaypoint(pathId)) + waypoints
         } else {

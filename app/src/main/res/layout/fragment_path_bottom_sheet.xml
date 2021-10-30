@@ -69,10 +69,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -86,6 +86,17 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="12sp"
                 tools:text="10" />
+
+            <TextView
+                android:id="@+id/path_line_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="16dp"
+                app:drawableEndCompat="@drawable/ic_drop_down"
+                app:drawableTint="?android:textColorSecondary"
+                tools:text="Dotted" />
 
             <TextView
                 android:id="@+id/path_point_style"
