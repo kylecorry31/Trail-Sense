@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
@@ -11,6 +10,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.Path2
 
 class PathListItem(
@@ -24,10 +24,17 @@ class PathListItem(
         itemBinding: ListItemPlainIconMenuBinding,
         item: Path2
     ) {
-        itemBinding.icon.setImageResource(if (item.temporary) R.drawable.ic_update else R.drawable.ic_tool_backtrack)
+        itemBinding.icon.setImageResource(if (!item.style.visible){
+            R.drawable.ic_not_visible
+        } else when(item.style.line){
+            LineStyle.Solid -> R.drawable.path_solid
+            LineStyle.Dotted -> R.drawable.path_dotted
+            LineStyle.Arrow -> R.drawable.path_arrow
+        })
+
         CustomUiUtils.setImageColor(
             itemBinding.icon,
-            Resources.androidTextColorSecondary(context)
+            item.style.color
         )
 
         val start = item.metadata.duration?.start
@@ -45,7 +52,7 @@ class PathListItem(
             distance,
             Units.getDecimalPlaces(distance.units),
             false
-        )
+        ) + if (item.temporary) { " - " + context.getString(R.string.temporary) } else ""
         itemBinding.root.setOnClickListener {
             action(item, PathAction.Show)
         }
