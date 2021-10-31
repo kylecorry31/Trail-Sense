@@ -53,7 +53,8 @@ class DailyWeatherAlertCommand(private val context: Context, private val forecas
             icon,
             showBigIcon = prefs.weather.showColoredNotificationIcon,
             group = NotificationChannels.GROUP_DAILY_WEATHER,
-            intent = openIntent
+            intent = openIntent,
+            autoCancel = true
         )
 
         Notify.send(context, DAILY_NOTIFICATION_ID, notification)

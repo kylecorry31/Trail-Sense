@@ -49,7 +49,8 @@ class LunarEclipseAlertCommand(private val context: Context) : LocationCommand {
             getEclipseDescription(context, eclipse),
             R.drawable.ic_astronomy,
             group = NotificationChannels.GROUP_ASTRONOMY_ALERTS,
-            intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
+            intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy),
+            autoCancel = true
         )
 
         Notify.send(context, 732094, notification)

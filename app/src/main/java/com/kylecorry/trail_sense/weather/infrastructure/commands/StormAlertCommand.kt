@@ -28,7 +28,8 @@ class StormAlertCommand(private val context: Context, private val forecast: Weat
                     context.getString(R.string.notification_storm_alert_text),
                     R.drawable.ic_alert,
                     group = NotificationChannels.GROUP_STORM,
-                    intent = NavigationUtils.pendingIntent(context, R.id.action_weather)
+                    intent = NavigationUtils.pendingIntent(context, R.id.action_weather),
+                    autoCancel = true
                 )
                 Notify.send(context, STORM_ALERT_NOTIFICATION_ID, notification)
                 cache.putBoolean(context.getString(R.string.pref_just_sent_alert), true)
