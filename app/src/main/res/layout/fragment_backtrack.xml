@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/backtrack_title"
@@ -15,6 +15,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/menu_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.86"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/backtrack_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backtrack_title"
+        app:srcCompat="@drawable/ic_menu_dots"
+        app:tint="?android:textColorSecondary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/waypoints_list"
@@ -44,14 +57,14 @@
         android:id="@+id/waypoints_empty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_paths"
         android:layout_marginTop="16dp"
-        android:visibility="gone"
+        android:text="@string/no_paths"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/waypoints_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/waypoints_list"
-        app:layout_constraintBottom_toBottomOf="@+id/waypoints_list"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

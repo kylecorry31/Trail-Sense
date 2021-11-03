@@ -36,8 +36,8 @@ data class PathEntity(
     @ColumnInfo(name = "_id")
     override var id: Long = 0L
 
-    fun toPath(): Path2 {
-        return Path2(
+    fun toPath(): Path {
+        return Path(
             id,
             name,
             PathStyle(
@@ -57,7 +57,7 @@ data class PathEntity(
     }
 
     companion object {
-        fun from(path: Path2): PathEntity {
+        fun from(path: Path): PathEntity {
             return PathEntity(
                 path.name,
                 path.style.line,

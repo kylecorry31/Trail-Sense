@@ -17,8 +17,10 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathServi
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.paths.Path2
+import com.kylecorry.trail_sense.shared.paths.Path
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
+import com.kylecorry.trail_sense.tools.backtrack.domain.pathsort.*
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,15 +34,20 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         PathService.getInstance(requireContext())
     }
 
+    private val gps by lazy {
+        SensorService(requireContext()).getGPS(false)
+    }
+
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
     }
 
     private var wasEnabled = false
 
-    private var paths = emptyList<Path2>()
+    private var paths = emptyList<Path>()
+    private var sort = PathSortMethod.MostRecent
 
-    private lateinit var listView: ListView<Path2>
+    private lateinit var listView: ListView<Path>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,6 +62,20 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
         pathService.getLivePaths().observe(viewLifecycleOwner) { paths ->
             onPathsChanged(paths)
+        }
+
+        binding.menuButton.setOnClickListener {
+            val defaultSort = prefs.navigation.pathSort
+            Pickers.menu(
+                it, listOf(
+                    getString(R.string.sort_by, defaultSort.name)
+                )
+            ) { selected ->
+                when (selected) {
+                    0 -> changeSort()
+                }
+                true
+            }
         }
 
         wasEnabled = prefs.backtrackEnabled
@@ -102,8 +123,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         return FragmentBacktrackBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun onPathsChanged(paths: List<Path2>) {
-        this.paths = paths.sortedByDescending { it.id }
+    private fun onPathsChanged(paths: List<Path>) {
+        this.paths = sortPaths(paths)
         listView.setData(this.paths)
 
         if (paths.isEmpty()) {
@@ -113,7 +134,38 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun drawPathListItem(itemBinding: ListItemPlainIconMenuBinding, item: Path2) {
+    private fun changeSort() {
+        val sortOptions = PathSortMethod.values()
+        Pickers.item(
+            requireContext(),
+            getString(R.string.sort),
+            sortOptions.map { getSortString(it) },
+            sortOptions.indexOf(prefs.navigation.pathSort)
+        ) { newSort ->
+            if (newSort != null) {
+                prefs.navigation.pathSort = sortOptions[newSort]
+                sort = sortOptions[newSort]
+                onSortChanged()
+            }
+        }
+    }
+
+    private fun getSortString(sortMethod: PathSortMethod): String {
+        return when (sortMethod) {
+            PathSortMethod.MostRecent -> getString(R.string.most_recent)
+            PathSortMethod.Longest -> getString(R.string.longest)
+            PathSortMethod.Shortest -> getString(R.string.shortest)
+            PathSortMethod.Closest -> getString(R.string.closest)
+            PathSortMethod.Name -> getString(R.string.name)
+        }
+    }
+
+    private fun onSortChanged() {
+        paths = sortPaths(paths)
+        listView.setData(paths)
+    }
+
+    private fun drawPathListItem(itemBinding: ListItemPlainIconMenuBinding, item: Path) {
         val itemStrategy =
             PathListItem(
                 requireContext(),
@@ -133,7 +185,18 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         itemStrategy.display(itemBinding, item)
     }
 
-    private fun togglePathVisibility(path: Path2) {
+    private fun sortPaths(paths: List<Path>): List<Path> {
+        val strategy = when (sort) {
+            PathSortMethod.MostRecent -> MostRecentPathSortStrategy()
+            PathSortMethod.Longest -> LongestPathSortStrategy()
+            PathSortMethod.Shortest -> ShortestPathSortStrategy()
+            PathSortMethod.Closest -> ClosestPathSortStrategy(gps.location)
+            PathSortMethod.Name -> NamePathSortStrategy()
+        }
+        return strategy.sort(paths)
+    }
+
+    private fun togglePathVisibility(path: Path) {
         runInBackground {
             withContext(Dispatchers.IO) {
                 pathService.addPath(path.copy(style = path.style.copy(visible = !path.style.visible)))
@@ -141,7 +204,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun renamePath(path: Path2) {
+    private fun renamePath(path: Path) {
         Pickers.text(
             requireContext(),
             getString(R.string.rename),
@@ -159,7 +222,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun keepPath(path: Path2) {
+    private fun keepPath(path: Path) {
         runInBackground {
             withContext(Dispatchers.IO) {
                 pathService.addPath(path.copy(temporary = false))
@@ -167,11 +230,11 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun showPath(path: Path2) {
+    private fun showPath(path: Path) {
         findNavController().navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to path.id))
     }
 
-    private fun exportPath(path: Path2) {
+    private fun exportPath(path: Path) {
         runInBackground {
             val waypoints = pathService.getWaypoints(path.id)
             val gpx = PathGPXConverter().toGPX(waypoints)
@@ -193,7 +256,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun deletePath(path: Path2) {
+    private fun deletePath(path: Path) {
         Alerts.dialog(
             requireContext(),
             getString(R.string.delete_path),
@@ -213,7 +276,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
         }
     }
 
-    private fun mergePreviousPath(path: Path2) {
+    private fun mergePreviousPath(path: Path) {
         val previousPath = paths.filter { it.id < path.id }.maxByOrNull { it.id }
         if (previousPath == null) {
             Alerts.toast(requireContext(), getString(R.string.no_previous_path))

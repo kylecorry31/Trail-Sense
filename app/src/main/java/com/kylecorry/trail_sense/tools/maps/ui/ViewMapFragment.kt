@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.getPathPoint
-import com.kylecorry.trail_sense.shared.paths.Path2
+import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.asMappable
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -49,7 +49,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private var pathPoints: kotlin.collections.Map<Long, List<PathPoint>> = emptyMap()
-    private var paths: List<Path2> = emptyList()
+    private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
     private val geoService by lazy { GeologyService() }
     private val cache by lazy { Preferences(requireContext()) }

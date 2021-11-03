@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.paths.PathStyle
+import com.kylecorry.trail_sense.tools.backtrack.ui.PathSortMethod
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
@@ -147,6 +149,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             }
         }
 
+    var pathSort: PathSortMethod by IntEnumPreference(
+        cache,
+        context.getString(R.string.pref_path_sort),
+        PathSortMethod.values().map { it.id.toInt() to it }.toMap(),
+        PathSortMethod.MostRecent
+    )
 
     val factorInNonLinearDistance: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_non_linear_distances)) ?: true

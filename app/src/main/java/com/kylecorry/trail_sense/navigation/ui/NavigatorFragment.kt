@@ -50,7 +50,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.trail_sense.shared.paths.Path2
+import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.asMappable
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -103,7 +103,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var beacons: Collection<Beacon> = listOf()
     private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
-    private var paths: List<Path2> = emptyList()
+    private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
 

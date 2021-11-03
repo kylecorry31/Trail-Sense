@@ -10,7 +10,7 @@ import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.IPathService
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.shared.paths.Path2
+import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathMetadata
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
@@ -57,23 +57,23 @@ class PathService(
         }
     }
 
-    override fun getLivePaths(): LiveData<List<Path2>> {
+    override fun getLivePaths(): LiveData<List<Path>> {
         return pathRepo.getAllLive()
     }
 
-    override suspend fun getPath(id: Long): Path2? {
+    override suspend fun getPath(id: Long): Path? {
         return pathRepo.get(id)
     }
 
-    override fun getLivePath(id: Long): LiveData<Path2?> {
+    override fun getLivePath(id: Long): LiveData<Path?> {
         return pathRepo.getLive(id)
     }
 
-    override suspend fun addPath(path: Path2): Long {
+    override suspend fun addPath(path: Path): Long {
         return pathRepo.add(path)
     }
 
-    override suspend fun deletePath(path: Path2) {
+    override suspend fun deletePath(path: Path) {
         backtrackLock.withLock {
             val backtrackId = cache.getLong(BACKTRACK_PATH_KEY)
             if (backtrackId == path.id) {
@@ -173,7 +173,7 @@ class PathService(
     }
 
     private suspend fun createBacktrackPath(): Long {
-        val path = Path2(
+        val path = Path(
             0,
             null,
             pathPreferences.defaultPathStyle,

@@ -71,7 +71,7 @@ internal class MigrateBacktrackPathsCommandTest {
             ),
         )
 
-        val expectedPath1 = Path2(
+        val expectedPath1 = Path(
             0L,
             null,
             prefs.defaultPathStyle,
@@ -107,7 +107,7 @@ internal class MigrateBacktrackPathsCommandTest {
             ),
         )
 
-        val expectedPath1 = Path2(
+        val expectedPath1 = Path(
             0L,
             null,
             prefs.defaultPathStyle,
@@ -128,7 +128,7 @@ internal class MigrateBacktrackPathsCommandTest {
             ),
         )
 
-        val expectedPath2 = Path2(
+        val expectedPath2 = Path(
             0L,
             null,
             prefs.defaultPathStyle,

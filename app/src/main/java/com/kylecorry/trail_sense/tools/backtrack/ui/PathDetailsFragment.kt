@@ -19,7 +19,6 @@ import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.*
@@ -28,7 +27,7 @@ import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.Path2
+import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -55,7 +54,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
 
     private var drawPathToGPS = false
-    private var path: Path2? = null
+    private var path: Path? = null
     private var waypoints: List<PathPoint> = emptyList()
     private var pathId: Long = 0L
     private var selectedPointId: Long? = null

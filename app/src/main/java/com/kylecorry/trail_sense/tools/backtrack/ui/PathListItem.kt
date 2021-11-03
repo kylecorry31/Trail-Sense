@@ -11,18 +11,18 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.Path2
+import com.kylecorry.trail_sense.shared.paths.Path
 
 class PathListItem(
     private val context: Context,
     private val formatService: FormatService,
     private val prefs: UserPreferences,
-    private val action: (path: Path2, action: PathAction) -> Unit
+    private val action: (path: Path, action: PathAction) -> Unit
 ) {
 
     fun display(
         itemBinding: ListItemPlainIconMenuBinding,
-        item: Path2
+        item: Path
     ) {
         itemBinding.icon.setImageResource(if (!item.style.visible){
             R.drawable.ic_not_visible

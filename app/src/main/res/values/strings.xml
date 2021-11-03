@@ -1133,4 +1133,10 @@
     <string name="line_style">Line style</string>
     <string name="path_color">Path color</string>
     <string name="temporary">Temporary</string>
+    <string name="pref_path_sort" translatable="false">pref_path_sort</string>
+    <string name="sort_by">Sort: %s</string>
+    <string name="most_recent">Most recent</string>
+    <string name="longest">Longest</string>
+    <string name="shortest">Shortest</string>
+    <string name="closest">Closest</string>
 </resources>
