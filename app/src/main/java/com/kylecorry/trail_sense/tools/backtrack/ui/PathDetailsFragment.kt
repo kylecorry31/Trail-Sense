@@ -101,11 +101,13 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         gps.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = getDeclination()
             // TODO: Only update path when needed
+            // TODO: Don't redraw the map, only the location indicator
             onPathChanged()
         })
 
         compass.asLiveData().observe(viewLifecycleOwner, {
             // TODO: Only update path when needed
+            // TODO: Don't redraw the map, only the location indicator
             onPathChanged()
         })
 

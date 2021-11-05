@@ -18,6 +18,8 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.paths.Path
+import com.kylecorry.trail_sense.shared.paths.PathMetadata
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.pathsort.*
@@ -68,11 +70,13 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
             val defaultSort = prefs.navigation.pathSort
             Pickers.menu(
                 it, listOf(
-                    getString(R.string.sort_by, defaultSort.name)
+                    getString(R.string.sort_by, defaultSort.name),
+                    getString(R.string.import_gpx)
                 )
             ) { selected ->
                 when (selected) {
                     0 -> changeSort()
+                    1 -> importPaths()
                 }
                 true
             }
@@ -232,6 +236,36 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
     private fun showPath(path: Path) {
         findNavController().navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to path.id))
+    }
+
+    private fun importPaths() {
+        runInBackground {
+            val gpx = gpxService.import() ?: return@runInBackground
+            val style = prefs.navigation.defaultPathStyle
+            val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
+            for (track in gpx.tracks) {
+                for (segment in track.segments) {
+                    paths.add(track.name to segment.points.map {
+                        PathPoint(
+                            0,
+                            0,
+                            it.coordinate,
+                            it.elevation,
+                            it.time
+                        )
+                    })
+                }
+            }
+
+            // TODO: Ask the users which paths they want to import (just like beacons)
+
+            // TODO: Show loading indicator
+            for (path in paths) {
+                val pathToCreate = Path(0, path.first, style, PathMetadata.empty)
+                val pathId = pathService.addPath(pathToCreate)
+                pathService.addWaypointsToPath(path.second, pathId)
+            }
+        }
     }
 
     private fun exportPath(path: Path) {

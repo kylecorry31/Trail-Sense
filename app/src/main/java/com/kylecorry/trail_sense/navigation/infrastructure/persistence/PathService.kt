@@ -102,6 +102,13 @@ class PathService(
         return waypointRepo.getAllInPathLive(path)
     }
 
+    override suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long) {
+        for (point in points){
+            waypointRepo.add(point.copy(pathId = pathId))
+        }
+        updatePathMetadata(pathId)
+    }
+
     override suspend fun addWaypoint(point: PathPoint): Long {
         val ret = waypointRepo.add(point)
         updatePathMetadata(point.pathId)
