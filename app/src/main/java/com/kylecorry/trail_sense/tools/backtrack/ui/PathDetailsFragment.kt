@@ -34,7 +34,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedPointDecorator
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.IsCurrentPathSpecification
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -84,8 +83,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             path = it
             pointColoringStyle = it?.style?.point ?: PathPointColoringStyle.None
             updatePointStyleLegend()
+            updatePathMap()
             onPathChanged()
-            // TODO: Update waypoints, distance, etc
         })
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
             waypoints = it.sortedByDescending { p -> p.id }
@@ -94,20 +93,17 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                 selectedPointId = null
             }
             listView.setData(waypoints)
+            updatePathMap()
             updatePointStyleLegend()
             onPathChanged()
         })
 
         gps.asLiveData().observe(viewLifecycleOwner, {
             compass.declination = getDeclination()
-            // TODO: Only update path when needed
-            // TODO: Don't redraw the map, only the location indicator
             onPathChanged()
         })
 
         compass.asLiveData().observe(viewLifecycleOwner, {
-            // TODO: Only update path when needed
-            // TODO: Don't redraw the map, only the location indicator
             onPathChanged()
         })
 
@@ -129,6 +125,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                             pathService.addPath(path.copy(style = path.style.copy(line = line)))
                         }
                         withContext(Dispatchers.Main) {
+                            updatePathMap()
                             onPathChanged()
                         }
                     }
@@ -149,6 +146,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                             pathService.addPath(path.copy(style = path.style.copy(color = it.color)))
                         }
                         withContext(Dispatchers.Main) {
+                            updatePathMap()
                             onPathChanged()
                         }
                     }
@@ -185,6 +183,16 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         }
     }
 
+    private fun updatePathMap(){
+        val path = path ?: return
+        if (!isBound) {
+            return
+        }
+        binding.pathImage.pathColor = path.style.color
+        binding.pathImage.pathStyle = path.style.line
+        binding.pathImage.path = waypoints
+    }
+
     private fun onPathChanged() {
         val path = path ?: return
 
@@ -197,8 +205,6 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             getString(R.string.dotted),
             getString(R.string.arrow)
         )[path.style.line.ordinal]
-
-        drawPathToGPS = IsCurrentPathSpecification(requireContext()).isSatisfiedBy(pathId)
 
         val distance =
             path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
@@ -220,7 +226,6 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         } else {
             ""
         }
-
         binding.pathWaypoints.text = path.metadata.waypoints.toString()
 
         binding.pathDistance.text =
@@ -228,13 +233,6 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
         CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
 
-        binding.pathImage.pathColor = path.style.color
-        binding.pathImage.pathStyle = path.style.line
-        binding.pathImage.path = if (drawPathToGPS) {
-            listOf(getGPSWaypoint(pathId)) + waypoints
-        } else {
-            waypoints
-        }
         binding.pathImage.location = gps.location
         binding.pathImage.azimuth = compass.bearing.value
 

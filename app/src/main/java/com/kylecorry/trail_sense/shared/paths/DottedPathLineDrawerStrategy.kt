@@ -4,14 +4,9 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.DottedPathEffect
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 
-class DottedPathLineDrawerStrategy: IPathLineDrawerStrategy {
+class DottedPathLineDrawerStrategy : IPathLineDrawerStrategy {
     override fun draw(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
-        val dotted = DottedPathEffect(3f / strokeScale, 10f / strokeScale)
-        canvas.apply {
-            pathEffect(dotted)
-            noStroke()
-            fill(line.color)
-            opacity(line.alpha)
+        draw(canvas, line.color, strokeScale) {
             line(
                 line.start.x,
                 line.start.y,
@@ -20,4 +15,21 @@ class DottedPathLineDrawerStrategy: IPathLineDrawerStrategy {
             )
         }
     }
+
+    override fun draw(
+        canvas: CanvasView,
+        color: Int,
+        strokeScale: Float,
+        block: CanvasView.() -> Unit
+    ) {
+        val dotted = DottedPathEffect(3f / strokeScale, 10f / strokeScale)
+        canvas.apply {
+            pathEffect(dotted)
+            noStroke()
+            fill(color)
+            block()
+        }
+    }
+
+
 }

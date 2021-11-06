@@ -162,7 +162,6 @@ class RadarCompassView : BaseCompassView {
             path.toPixelLines { coordinateToPixel(it) }
         }
         drawLines(lines)
-        _paths.forEach { drawPathPoints(it) }
     }
 
     private fun drawLocation(location: IMappableLocation) {
@@ -175,22 +174,6 @@ class RadarCompassView : BaseCompassView {
         strokeWeight(dp(0.5f))
         fill(location.color)
         circle(pixel.x, pixel.y, radarSize.toFloat())
-    }
-
-    private fun drawPathPoints(path: IMappablePath) {
-        for (point in path.points) {
-            if (point.color == Color.TRANSPARENT){
-                continue
-            }
-            val pixel = coordinateToPixel(point.coordinate)
-            if (getDistanceFromCenter(pixel) > compassSize / 2) {
-                continue
-            }
-            noTint()
-            noStroke()
-            fill(point.color)
-            circle(pixel.x, pixel.y, radarSize.toFloat() * 0.3f)
-        }
     }
 
     private fun drawReferencePoints() {

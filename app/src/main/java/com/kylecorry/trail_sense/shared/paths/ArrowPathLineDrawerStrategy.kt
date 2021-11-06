@@ -6,18 +6,28 @@ import com.kylecorry.trail_sense.shared.canvas.PixelLine
 
 class ArrowPathLineDrawerStrategy : IPathLineDrawerStrategy {
     override fun draw(canvas: CanvasView, line: PixelLine, strokeScale: Float) {
-        val arrow = ArrowPathEffect(6f / strokeScale, 10f / strokeScale)
-        canvas.apply {
-            pathEffect(arrow)
-            noStroke()
-            fill(line.color)
-            opacity(line.alpha)
+        draw(canvas, line.color, strokeScale) {
             line(
                 line.start.x,
                 line.start.y,
                 line.end.x,
                 line.end.y
             )
+        }
+    }
+
+    override fun draw(
+        canvas: CanvasView,
+        color: Int,
+        strokeScale: Float,
+        block: CanvasView.() -> Unit
+    ) {
+        val arrow = ArrowPathEffect(6f / strokeScale, 10f / strokeScale)
+        canvas.apply {
+            pathEffect(arrow)
+            noStroke()
+            fill(color)
+            block()
         }
     }
 }
