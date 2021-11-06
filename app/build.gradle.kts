@@ -59,7 +59,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.3.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31")
     implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.core:core-ktx:1.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
@@ -71,7 +71,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.room:room-runtime:2.3.0")
     implementation("androidx.room:room-ktx:2.3.0")
-    implementation("androidx.lifecycle:lifecycle-service:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-service:2.4.0")
     val cameraxVersion = "1.0.1"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
@@ -83,7 +83,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.3.0")
 
     // Andromeda
-    val andromedaVersion = "2.3.2"
+    val andromedaVersion = "2.3.3"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
