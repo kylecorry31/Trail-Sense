@@ -55,6 +55,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sort = prefs.navigation.pathSort
+
         listView =
             ListView(binding.waypointsList, R.layout.list_item_plain_icon_menu) { itemView, item ->
                 drawPathListItem(ListItemPlainIconMenuBinding.bind(itemView), item)
