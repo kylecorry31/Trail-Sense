@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -259,14 +261,43 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 }
             }
 
+            withContext(Dispatchers.Main) {
+                Pickers.items(requireContext(), getString(R.string.import_btn),
+                    paths.map {
+                        it.first ?: getString(android.R.string.untitled)
+                    },
+                    List(paths.size) { it }
+                ) {
+                    if (it != null) {
+                        runInBackground {
+                            // TODO: Show loading indicator
+                            withContext(Dispatchers.IO) {
+                                for (path in paths.filterIndices(it)) {
+                                    val pathToCreate =
+                                        Path(0, path.first, style, PathMetadata.empty)
+                                    val pathId = pathService.addPath(pathToCreate)
+                                    pathService.addWaypointsToPath(path.second, pathId)
+                                }
+                            }
+                            withContext(Dispatchers.Main) {
+                                toast(
+                                    resources.getQuantityString(
+                                        R.plurals.paths_imported,
+                                        it.size,
+                                        it.size
+                                    )
+                                )
+                                // TODO: Dismiss loading indicator
+                            }
+                        }
+                    }
+                }
+            }
+
             // TODO: Ask the users which paths they want to import (just like beacons)
 
             // TODO: Show loading indicator
-            for (path in paths) {
-                val pathToCreate = Path(0, path.first, style, PathMetadata.empty)
-                val pathId = pathService.addPath(pathToCreate)
-                pathService.addWaypointsToPath(path.second, pathId)
-            }
+
         }
     }
 
