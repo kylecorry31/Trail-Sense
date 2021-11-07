@@ -26,9 +26,12 @@ fun List<Coordinate>.toCanvasPath(
         toPixelCoordinate(it)
     }
     for (i in 1 until pixelWaypoints.size) {
-        val start = pixelWaypoints[i - 1]
+        if (i == 1) {
+            val start = pixelWaypoints[0]
+            path.moveTo(start.x, start.y)
+        }
+
         val end = pixelWaypoints[i]
-        path.moveTo(start.x, start.y)
         path.lineTo(end.x, end.y)
     }
     return path
