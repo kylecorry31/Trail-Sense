@@ -243,7 +243,6 @@
     <string name="boil_start">開始</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
-
     <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>
     <string name="error_occurred">一個錯誤發生</string>
     <string name="pref_open_source_licenses_title">許可證</string>
@@ -283,14 +282,74 @@
     <string name="share_action_send">寄送</string>
     <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下
 \n    實際位置的 %s  
+\n
 \n    實際高度的 %s  
+\n
 \n    %s 個衛星
 \n
-\nCompass: Rotate device in a figure 8 pattern and move away from metal."</string>
+\n電子羅盤校正: 以8字旋轉裝置或是於各方向旋轉並且遠離金屬"</string>
     <string name="accuracy_info_title">提升感測器資料精確度的訣竅</string>
     <string name="battery_temp">手機: %s</string>
     <string name="discharging_fast">快速放電中 (%s)</string>
     <string name="discharging_slow">慢速放電中 (%s)</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
+    <string name="all_beacons">所有指標</string>
+    <string name="pref_compass_filter_amt_title">電子羅盤平滑化</string>
+    <string name="weather_improving_slow">好轉中</string>
+    <string name="your_height">您的身高</string>
+    <string name="compass_auto_declination"></string>
+    <string name="daylight">日光時間</string>
+    <string name="pref_show_civil_times_summary">黎明與黃昏</string>
+    <string name="dawn_type">黎明 (%s)</string>
+    <string name="dusk_type">黃昏 (%s)</string>
+    <string name="tool_thermometer_title">溫度計</string>
+    <string name="convert">轉換</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">當 Trail Sense 開啟時</string>
+    <string name="pack_sort_weight_low_to_high">重量(低至高)</string>
+    <string name="unit_inches_abbreviation">吋</string>
+    <string name="volume">體積</string>
+    <string name="weight">重量</string>
+    <string name="unit_nautical_miles">海里</string>
+    <string name="unit_centimeters_abbreviation">公分</string>
+    <string name="units_mmhg_short">毫米</string>
+    <string name="water_boil_timer_done_content">您的水現在可以飲用</string>
+    <string name="log">紀錄</string>
+    <string name="weather_worsening_fast">快速惡化中</string>
+    <string name="weather_not_changing">近期不會改變</string>
+    <string name="disclaimer_message_title">聲明</string>
+    <string name="app_disclaimer_message_title">聲明/服務條款</string>
+    <string name="guide_thermometer_calibration_title">溫度計校正</string>
+    <string name="theme_sunset_sunrise">日出/日落</string>
+    <string name="temperature_disclaimer">由於您手機產生的熱，此處顯示的溫度可能比實際更高。</string>
+    <string name="battery_capacity_format">%s 毫安時</string>
+    <string name="current_format">%s 毫安</string>
+    <string name="turn_off">關閉</string>
+    <string name="units_mmhg">毫米汞柱</string>
+    <string name="ounces_weight">盎司</string>
+    <string name="ounces_weight_format">%s 盎司</string>
+    <string name="hours">小時</string>
+    <string name="minutes">分鐘</string>
+    <string name="no_data">無資料</string>
+    <string name="weather_improving_fast">快速好轉中</string>
+    <string name="weather_worsening_slow">惡化中</string>
+    <string name="forecast_improving">可能會好轉</string>
+    <string name="forecast_worsening">可能會惡化</string>
+    <string name="general">一班</string>
+    <string name="altitude">高度</string>
+    <string name="pref_altimeter_calibration_title">高度計</string>
+    <string name="pref_altitude_override_sea_level_title">使用已知海平面壓力</string>
+    <string name="hour_symbol">小時</string>
+    <string name="minute_symbol">分</string>
+    <string name="coordinates_tab">座標</string>
+    <string name="units">單位</string>
+    <string name="ounces_volume_format">%s 盎司</string>
+    <string name="us_ounces_volume">美制盎司</string>
+    <string name="imperial_ounces_volume">英制盎司</string>
+    <string name="unit_yards">碼</string>
+    <string name="liters">公升</string>
+    <string name="milliliters">毫升</string>
+    <string name="hours_format">%s 小時</string>
+    <string name="minutes_format">%s 分</string>
+    <string name="pack_sort_weight_high_to_low">重量(高至低)</string>
 </resources>
