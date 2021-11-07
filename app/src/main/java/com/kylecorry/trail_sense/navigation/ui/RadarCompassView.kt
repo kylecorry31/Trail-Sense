@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -32,7 +33,6 @@ import kotlin.math.min
 class RadarCompassView : BaseCompassView {
     private lateinit var center: PixelCoordinate
     private var compass: Bitmap? = null
-    private var pathBitmap: Bitmap? = null
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -46,6 +46,7 @@ class RadarCompassView : BaseCompassView {
     private var radarSize = 0
     private var directionSize = 0
     private var compassSize = 0
+    private lateinit var compassPath: Path
     private var distanceSize = 0f
     private var cardinalSize = 0f
 
@@ -110,29 +111,25 @@ class RadarCompassView : BaseCompassView {
     }
 
     private fun drawLines(lines: List<PixelLine>) {
-        val pathBitmap = mask(compass!!, pathBitmap!!) {
-            val lineDrawerFactory = PathLineDrawerFactory()
-            clear()
-            push()
-            translate(-(width - compassSize) / 2f, -(height - compassSize) / 2f)
-            for (line in lines) {
 
-                if (!shouldDisplayLine(line)) {
-                    continue
-                }
 
-                val drawer = lineDrawerFactory.create(line.style)
-                drawer.draw(this, line)
+        push()
+        canvas.clipPath(compassPath)
+        val lineDrawerFactory = PathLineDrawerFactory()
+        for (line in lines) {
+
+            if (!shouldDisplayLine(line)) {
+                continue
             }
-            pop()
-            opacity(255)
-            noStroke()
-            fill(Color.WHITE)
-            noPathEffect()
-        }
 
-        imageMode(ImageMode.Center)
-        image(pathBitmap, width / 2f, height / 2f)
+            val drawer = lineDrawerFactory.create(line.style)
+            drawer.draw(this, line)
+        }
+        opacity(255)
+        noStroke()
+        fill(Color.WHITE)
+        noPathEffect()
+        pop()
     }
 
     private fun shouldDisplayLine(line: PixelLine): Boolean {
@@ -156,7 +153,6 @@ class RadarCompassView : BaseCompassView {
         super.finalize()
         tryOrNothing {
             compass?.recycle()
-            pathBitmap?.recycle()
         }
     }
 
@@ -313,12 +309,14 @@ class RadarCompassView : BaseCompassView {
         radarSize = dp(10f).toInt()
         directionSize = dp(16f).toInt()
         compassSize = min(height, width) - 2 * iconSize - 2 * Resources.dp(context, 2f).toInt()
+        compassPath = Path().apply {
+            addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
+        }
         distanceSize = sp(8f)
         cardinalSize = sp(10f)
         primaryColor = Resources.color(context, R.color.colorPrimary)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
-        pathBitmap = Bitmap.createBitmap(compassSize, compassSize, Bitmap.Config.ARGB_8888)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
         metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
