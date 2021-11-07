@@ -40,25 +40,26 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
+import java.time.Duration
 
 class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
-    fun getGPS(background: Boolean = false): IGPS {
+    fun getGPS(background: Boolean = false, frequency: Duration = Duration.ofMillis(20)): IGPS {
 
         val hasForegroundPermission = hasLocationPermission(false)
 
         if (!userPrefs.useAutoLocation || !hasForegroundPermission) {
-            return OverrideGPS(context)
+            return OverrideGPS(context, frequency.toMillis())
         }
 
         if (hasLocationPermission(background) && GPS.isAvailable(context)) {
-            return CustomGPS(context)
+            return CustomGPS(context, frequency)
         }
 
-        return CachedGPS(context)
+        return CachedGPS(context, frequency.toMillis())
     }
 
     private fun hasLocationPermission(background: Boolean): Boolean {

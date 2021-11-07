@@ -74,6 +74,13 @@ class RadarCompassView : BaseCompassView {
         singleTapAction = action
     }
 
+    override fun showPaths(paths: List<IMappablePath>) {
+        // TODO: Create Paths or set a flag that paths need to be created
+        // TODO: Only invalidate paths if location or paths changed
+        _paths = paths
+        invalidate()
+    }
+
     private fun drawDestination() {
         val destination = _destination ?: return
         val color = destination.color

@@ -72,7 +72,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var shownAccuracyToast = false
     private var showSightingCompass = false
     private val compass by lazy { sensorService.getCompass() }
-    private val gps by lazy { sensorService.getGPS() }
+    private val gps by lazy { sensorService.getGPS(frequency = Duration.ofSeconds(1)) }
     private val sightingCompass by lazy {
         SightingCompassView(
             this,
@@ -661,6 +661,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.showDirection(direction)
         }
 
+        updateCompassPaths()
+    }
+
+    private fun updateCompassPaths(){
         val isTracking = BacktrackScheduler.isOn(requireContext())
         val mappablePaths = mutableListOf<IMappablePath>()
         val currentPathId = currentBacktrackPathId
@@ -673,11 +677,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
             mappablePaths.add(pts.asMappable(requireContext(), path))
         }
-        compasses.forEach {
-            it.showPaths(mappablePaths)
-            it.showPaths(mappablePaths)
-            it.showPaths(mappablePaths)
-        }
+        binding.radarCompass.showPaths(mappablePaths)
     }
 
     private fun getPosition(): Position {
