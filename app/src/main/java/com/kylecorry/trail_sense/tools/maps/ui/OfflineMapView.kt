@@ -1,10 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.Matrix
-import android.graphics.Rect
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -37,6 +34,7 @@ class OfflineMapView : CanvasView {
     private var azimuth = 0f
     private var map: Map? = null
     private var mapImage: Bitmap? = null
+    private val mapPath = Path()
     private var mapSize = Pair(0f, 0f)
     private var translateX = 0f
     private var translateY = 0f
@@ -91,6 +89,10 @@ class OfflineMapView : CanvasView {
             size?.let {
                 translateX = (width - it.first) / 2f
                 translateY = (height - it.second) / 2f
+                mapPath.apply {
+                    reset()
+                    addRect(0f, 0f, size.first, size.second, Path.Direction.CW)
+                }
             }
         }
         val mapImage = mapImage ?: return
@@ -98,6 +100,7 @@ class OfflineMapView : CanvasView {
         push()
         translate(translateX, translateY)
         scale(scale, scale, width / 2f, height / 2f)
+        canvas.clipPath(mapPath)
         if (!keepNorthUp) {
             myLocation?.let {
                 getPixelCoordinate(it, false)?.let { pos ->
@@ -154,8 +157,6 @@ class OfflineMapView : CanvasView {
         val pathLines = paths.flatMap { path ->
             path.toPixelLines { getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f) }
         }
-// TODO: Add mask
-//        val pathBitmap = mask(mapImage!!, pathBitmap!!){
         val lineDrawerFactory = PathLineDrawerFactory()
         clear()
         for (line in pathLines) {
@@ -171,25 +172,6 @@ class OfflineMapView : CanvasView {
         noStroke()
         fill(Color.WHITE)
         noPathEffect()
-
-        paths.forEach { drawPathPoints(it) }
-//        }
-//
-//        imageMode(ImageMode.Center)
-//        image(pathBitmap, width / 2f, height / 2f)
-    }
-
-    private fun drawPathPoints(path: IMappablePath) {
-        for (point in path.points) {
-            if (point.color == Color.TRANSPARENT) {
-                continue
-            }
-            val pixel = getPixelCoordinate(point.coordinate, false) ?: continue
-            noTint()
-            noStroke()
-            fill(point.color)
-            circle(pixel.x, pixel.y, dp(8f) / scale * 0.3f)
-        }
     }
 
     private fun shouldDisplayLine(line: PixelLine): Boolean {
