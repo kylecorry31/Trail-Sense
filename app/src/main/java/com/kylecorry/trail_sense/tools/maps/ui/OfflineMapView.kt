@@ -100,7 +100,7 @@ class OfflineMapView : CanvasView {
         push()
         translate(translateX, translateY)
         scale(scale, scale, width / 2f, height / 2f)
-        canvas.clipPath(mapPath)
+        clip(mapPath)
         if (!keepNorthUp) {
             myLocation?.let {
                 getPixelCoordinate(it, false)?.let { pos ->

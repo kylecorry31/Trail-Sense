@@ -114,7 +114,7 @@ class RadarCompassView : BaseCompassView {
 
 
         push()
-        canvas.clipPath(compassPath)
+        clip(compassPath)
         val lineDrawerFactory = PathLineDrawerFactory()
         for (line in lines) {
 
