@@ -187,6 +187,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     currentBacktrackPathId = pathService.getBacktrackPathId()
                     pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
                         .mapValues { it.value.sortedByDescending { it.id } }
+                    // TODO: Only load the nearby paths
+                    updateCompassPaths()
                 }
                 withContext(Dispatchers.Main) {
                     updateUI()
@@ -660,11 +662,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.showReferences(references)
             it.showDirection(direction)
         }
-
-        updateCompassPaths()
     }
 
     private fun updateCompassPaths(){
+        if (!isBound){
+            return
+        }
         val isTracking = BacktrackScheduler.isOn(requireContext())
         val mappablePaths = mutableListOf<IMappablePath>()
         val currentPathId = currentBacktrackPathId
@@ -735,6 +738,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             lifecycleScope.launch {
                 updateAstronomyData()
             }
+        }
+
+        if (BacktrackScheduler.isOn(requireContext())){
+            updateCompassPaths()
         }
 
         updateUI()

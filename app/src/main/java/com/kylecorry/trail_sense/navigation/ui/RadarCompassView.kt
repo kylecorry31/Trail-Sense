@@ -21,13 +21,13 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
+import com.kylecorry.trail_sense.navigation.domain.RenderedPath
+import com.kylecorry.trail_sense.navigation.domain.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
-import com.kylecorry.trail_sense.shared.paths.toPixelLines
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView {
@@ -55,6 +55,8 @@ class RadarCompassView : BaseCompassView {
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
     private lateinit var coordinateToPixelStrategy: ICoordinateToPixelStrategy
+    private var renderedPaths = mapOf<Long, RenderedPath>()
+    private var pathsRendered = false
 
     private var singleTapAction: (() -> Unit)? = null
 
@@ -76,9 +78,8 @@ class RadarCompassView : BaseCompassView {
     }
 
     override fun showPaths(paths: List<IMappablePath>) {
-        // TODO: Create Paths or set a flag that paths need to be created
-        // TODO: Only invalidate paths if location or paths changed
         _paths = paths
+        pathsRendered = false
         invalidate()
     }
 
@@ -110,41 +111,6 @@ class RadarCompassView : BaseCompassView {
         )
     }
 
-    private fun drawLines(lines: List<PixelLine>) {
-
-
-        push()
-        clip(compassPath)
-        val lineDrawerFactory = PathLineDrawerFactory()
-        for (line in lines) {
-
-            if (!shouldDisplayLine(line)) {
-                continue
-            }
-
-            val drawer = lineDrawerFactory.create(line.style)
-            drawer.draw(this, line)
-        }
-        opacity(255)
-        noStroke()
-        fill(Color.WHITE)
-        noPathEffect()
-        pop()
-    }
-
-    private fun shouldDisplayLine(line: PixelLine): Boolean {
-        if (line.alpha == 0) {
-            return false
-        }
-
-        if (getDistanceFromCenter(line.start) > compassSize / 2 && getDistanceFromCenter(line.end) > compassSize / 2) {
-            return false
-        }
-
-        return true
-    }
-
-
     private fun getDistanceFromCenter(pixel: PixelCoordinate): Float {
         return pixel.distanceTo(center)
     }
@@ -161,10 +127,29 @@ class RadarCompassView : BaseCompassView {
     }
 
     private fun drawPaths() {
-        val lines = _paths.flatMap { path ->
-            path.toPixelLines { coordinateToPixel(it) }
+        if (!pathsRendered){
+            renderedPaths = generatePaths(_paths)
+            pathsRendered = true
         }
-        drawLines(lines)
+
+        val factory = PathLineDrawerFactory()
+        push()
+        clip(compassPath)
+        for (path in _paths){
+            val rendered = renderedPaths[path.id] ?: continue
+            val drawer = factory.create(path.style)
+            val centerPixel = coordinateToPixel(rendered.center)
+            push()
+            translate(centerPixel.x, centerPixel.y)
+            drawer.draw(this, path.color){
+                path(rendered.path)
+            }
+            pop()
+        }
+        pop()
+        noStroke()
+        fill(Color.WHITE)
+        noPathEffect()
     }
 
     private fun drawLocation(location: IMappableLocation) {
@@ -343,6 +328,15 @@ class RadarCompassView : BaseCompassView {
         pop()
     }
 
+    private fun generatePaths(paths: List<IMappablePath>): Map<Long, RenderedPath> {
+        val factory = RenderedPathFactory(metersPerPixel, _declination, _useTrueNorth)
+        val map = mutableMapOf<Long, RenderedPath>()
+        for (path in paths){
+            map[path.id] = factory.createPath(path.points.map { it.coordinate })
+        }
+        return map
+    }
+
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -350,6 +344,7 @@ class RadarCompassView : BaseCompassView {
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
             metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
+            pathsRendered = false
             return true
         }
 
