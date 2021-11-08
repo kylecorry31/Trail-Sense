@@ -984,4 +984,16 @@
     <string name="keep_forever">永久保留</string>
     <string name="hide">隐藏</string>
     <string name="show">显示</string>
+    <string name="line_style">线段样式</string>
+    <string name="path_color">路径颜色</string>
+    <string name="temporary">临时的</string>
+    <string name="longest">最长</string>
+    <string name="shortest">最短</string>
+    <string name="closest">最近</string>
+    <plurals name="paths_imported">
+        <item quantity="other">导入了 %d 条路径</item>
+    </plurals>
+    <string name="point_style">圆点样式</string>
+    <string name="sort_by">排序：%s</string>
+    <string name="most_recent">最近</string>
 </resources>
