@@ -1,20 +1,31 @@
 package com.kylecorry.trail_sense.shared
 
-class ObjectPool<T>(initialSize: Int = 0, private val factory: () -> T) {
+class ObjectPool<T>(
+    private val maxSize: Int? = null,
+    private val factory: () -> T
+) {
 
     private val inUse = mutableListOf<T>()
-    private val available = MutableList(initialSize) { factory.invoke() }
+    private val available = mutableSetOf<T>()
     private val lock = Object()
+
+    val size: Int
+        get() = inUse.size + available.size
 
     /**
      * Gets an object from the pool, or creates a new one if the pool is empty
      */
     fun get(): T {
         synchronized(lock) {
-            val last = available.removeLastOrNull()
-            if (last != null) {
-                inUse.add(last)
-                return last
+            val existing = available.firstOrNull()
+            if (existing != null) {
+                available.remove(existing)
+                inUse.add(existing)
+                return existing
+            }
+
+            if (maxSize != null && size >= maxSize) {
+                throw RuntimeException("The pool is already at the maximum size")
             }
 
             val obj = factory.invoke()
@@ -28,8 +39,8 @@ class ObjectPool<T>(initialSize: Int = 0, private val factory: () -> T) {
      */
     fun release(obj: T) {
         synchronized(lock) {
-            inUse.remove(obj)
-            if (!available.contains(obj)) {
+            val removed = inUse.remove(obj)
+            if (removed) {
                 available.add(obj)
             }
         }
@@ -42,9 +53,7 @@ class ObjectPool<T>(initialSize: Int = 0, private val factory: () -> T) {
         synchronized(lock) {
             for (obj in inUse) {
                 inUse.remove(obj)
-                if (!available.contains(obj)) {
-                    available.add(obj)
-                }
+                available.add(obj)
             }
         }
     }
