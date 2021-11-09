@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -272,7 +271,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                     if (it != null) {
                         runInBackground {
                             val loading = withContext(Dispatchers.Main){
-                                CustomUiUtils.loading(requireContext(), "Importing")
+                                Alerts.loading(requireContext(), getString(R.string.importing))
                             }
 
                             withContext(Dispatchers.IO) {
@@ -297,11 +296,6 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                     }
                 }
             }
-
-            // TODO: Ask the users which paths they want to import (just like beacons)
-
-            // TODO: Show loading indicator
-
         }
     }
 

@@ -1139,6 +1139,7 @@
     <string name="longest">Longest</string>
     <string name="shortest">Shortest</string>
     <string name="closest">Closest</string>
+    <string name="importing">Importing</string>
     <plurals name="paths_imported">
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>

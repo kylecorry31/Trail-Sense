@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -25,7 +26,6 @@ import com.kylecorry.trail_sense.navigation.domain.RenderedPath
 import com.kylecorry.trail_sense.navigation.domain.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.ObjectPool
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
