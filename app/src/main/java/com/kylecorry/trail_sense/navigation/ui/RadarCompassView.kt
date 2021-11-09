@@ -143,7 +143,7 @@ class RadarCompassView : BaseCompassView {
         for (path in _paths) {
             val rendered = renderedPaths[path.id] ?: continue
             val drawer = factory.create(path.style)
-            val centerPixel = coordinateToPixel(rendered.center)
+            val centerPixel = coordinateToPixel(rendered.origin)
             push()
             translate(centerPixel.x, centerPixel.y)
             drawer.draw(this, path.color) {
@@ -334,7 +334,7 @@ class RadarCompassView : BaseCompassView {
     }
 
     private fun generatePaths(paths: List<IMappablePath>): Map<Long, RenderedPath> {
-        val factory = RenderedPathFactory(metersPerPixel, _declination, _useTrueNorth)
+        val factory = RenderedPathFactory(metersPerPixel, _location, _declination, _useTrueNorth)
         val map = mutableMapOf<Long, RenderedPath>()
         for (path in paths) {
             val pathObj = pathPool.get()

@@ -9,29 +9,30 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 
 class RenderedPathFactory(
     private val metersPerPixel: Float,
+    private val origin: Coordinate?,
     private val declination: Float,
     private val useTrueNorth: Boolean
 ) {
     fun createPath(points: List<Coordinate>, path: Path = Path()): RenderedPath {
-        val center = CoordinateBounds.from(points).center
+        val origin = origin ?: CoordinateBounds.from(points).center
         for (i in 1 until points.size) {
             if (i == 1) {
-                val start = toPixels(points[0], center)
+                val start = toPixels(points[0], origin)
                 path.moveTo(start.x, start.y)
             }
 
-            val end = toPixels(points[i], center)
+            val end = toPixels(points[i], origin)
             path.lineTo(end.x, end.y)
         }
-        return RenderedPath(center, path)
+        return RenderedPath(origin, path)
     }
 
-    private fun toPixels(coordinate: Coordinate, center: Coordinate): PixelCoordinate {
-        val distance = center.distanceTo(coordinate)
+    private fun toPixels(coordinate: Coordinate, origin: Coordinate): PixelCoordinate {
+        val distance = origin.distanceTo(coordinate)
         val direction = if (useTrueNorth){
-            center.bearingTo(coordinate)
+            origin.bearingTo(coordinate)
         } else {
-            DeclinationUtils.fromTrueNorthBearing(center.bearingTo(coordinate), declination)
+            DeclinationUtils.fromTrueNorthBearing(origin.bearingTo(coordinate), declination)
         }
         val angle = SolMath.wrap(-(direction.value - 90), 0f, 360f)
         val pixelDistance = distance / metersPerPixel
