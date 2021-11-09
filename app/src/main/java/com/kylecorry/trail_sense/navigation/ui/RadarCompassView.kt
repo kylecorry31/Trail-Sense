@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.navigation.domain.RenderedPath
 import com.kylecorry.trail_sense.navigation.domain.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.ObjectPool
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
@@ -55,6 +56,7 @@ class RadarCompassView : BaseCompassView {
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
     private lateinit var coordinateToPixelStrategy: ICoordinateToPixelStrategy
+    private var pathPool = ObjectPool { Path() }
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private var pathsRendered = false
 
@@ -127,7 +129,10 @@ class RadarCompassView : BaseCompassView {
     }
 
     private fun drawPaths() {
-        if (!pathsRendered){
+        if (!pathsRendered) {
+            for (path in renderedPaths) {
+                pathPool.release(path.value.path)
+            }
             renderedPaths = generatePaths(_paths)
             pathsRendered = true
         }
@@ -135,13 +140,13 @@ class RadarCompassView : BaseCompassView {
         val factory = PathLineDrawerFactory()
         push()
         clip(compassPath)
-        for (path in _paths){
+        for (path in _paths) {
             val rendered = renderedPaths[path.id] ?: continue
             val drawer = factory.create(path.style)
             val centerPixel = coordinateToPixel(rendered.center)
             push()
             translate(centerPixel.x, centerPixel.y)
-            drawer.draw(this, path.color){
+            drawer.draw(this, path.color) {
                 path(rendered.path)
             }
             pop()
@@ -331,8 +336,10 @@ class RadarCompassView : BaseCompassView {
     private fun generatePaths(paths: List<IMappablePath>): Map<Long, RenderedPath> {
         val factory = RenderedPathFactory(metersPerPixel, _declination, _useTrueNorth)
         val map = mutableMapOf<Long, RenderedPath>()
-        for (path in paths){
-            map[path.id] = factory.createPath(path.points.map { it.coordinate })
+        for (path in paths) {
+            val pathObj = pathPool.get()
+            pathObj.reset()
+            map[path.id] = factory.createPath(path.points.map { it.coordinate }, pathObj)
         }
         return map
     }
