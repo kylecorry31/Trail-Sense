@@ -990,4 +990,17 @@
     <string name="keep_forever">Für immer behalten</string>
     <string name="show">Anzeigen</string>
     <string name="hide">Verstecken</string>
+    <string name="longest">Längste</string>
+    <string name="shortest">Kürzeste</string>
+    <string name="point_style">Punktstil</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d Pfad importiert</item>
+        <item quantity="other">%d Pfade importiert</item>
+    </plurals>
+    <string name="line_style">Linienstil</string>
+    <string name="path_color">Pfadfarbe</string>
+    <string name="temporary">Temporär</string>
+    <string name="sort_by">Sortieren: %s</string>
+    <string name="closest">Nächste</string>
+    <string name="most_recent">Neueste</string>
 </resources>

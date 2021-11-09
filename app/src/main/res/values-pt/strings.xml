@@ -992,4 +992,17 @@
     <string name="keep_forever">Manter para sempre</string>
     <string name="hide">Ocultar</string>
     <string name="show">Mostrar</string>
+    <string name="path_color">Cor do percurso</string>
+    <string name="most_recent">Mais recente</string>
+    <string name="longest">Mais longo</string>
+    <string name="shortest">Mais curto</string>
+    <string name="closest">Mais próximo</string>
+    <string name="point_style">Estilo do ponto</string>
+    <string name="line_style">Estilo da linha</string>
+    <string name="temporary">Temporário</string>
+    <string name="sort_by">Ordenar: %s</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d percurso importado</item>
+        <item quantity="other">%d percursos importados</item>
+    </plurals>
 </resources>

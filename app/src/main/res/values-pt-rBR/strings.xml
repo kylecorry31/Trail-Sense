@@ -229,7 +229,6 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes de posição</string>
-
     <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
     <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras somente quando a altitude não mudou por pelo menos uma hora. Melhora a confiabilidade da previsão.</string>
     <string name="no_group">Nenhum grupo</string>
@@ -425,8 +424,8 @@
     <string name="map_fractional_separator">:</string>
     <string name="tool_white_noise_title">Ruído branco</string>
     <string name="cumulonimbus">Cumulonimbus</string>
-    <string name="cumulonimbus_desc">Cinza escuro, alto e em forma de bigorna.</string>
-    <string name="cumulus_desc">Parecem bolas de algodão inchado.</string>
+    <string name="cumulonimbus_desc">Nuvens baixas e fofas que são muito altas. Normalmente têm um formato de bigorna e são escuras.</string>
+    <string name="cumulus_desc">Nuvens baixas e fofas que parecem bolas de algodão. São espaçadas e normalmente são brancas com manchas mais escuras abaixo.</string>
     <string name="unavailable">Indisponível</string>
     <string name="gps_searching">Procurando</string>
     <string name="gps_stale">Obsoleto</string>
@@ -486,14 +485,14 @@
 \n- Obtenha sua localização atual, altitude e velocidade
 \n
 \n- Reconstitua seus passos com o Recuo (quando ativado, funciona em segundo plano)</string>
-    <string name="cirrus_desc">Alto e emplumado.</string>
-    <string name="cirrocumulus_desc">Forma uma camada ondulada, as nuvens quase parecem bidimensionais.</string>
-    <string name="stratocumulus_desc">Massas rolantes que formam uma camada.</string>
-    <string name="stratus_desc">Cobre o céu, os objetos não causam sombras.</string>
-    <string name="nimbostratus_desc">Cinza escuro e cobre o céu. Pode estar chovendo.</string>
-    <string name="altostratus_desc">Cobre o céu, o sol mal pode ser visto.</string>
-    <string name="altocumulus_desc">Parecem bolas de algodão inchado.</string>
-    <string name="cirrostratus_desc">Cobre o céu, mas o sol pode ser visto através dele.</string>
+    <string name="cirrus_desc">Nuvens altas e finas que parecem tufos de cabelo branco.</string>
+    <string name="cirrocumulus_desc">Nuvens de alto nível que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
+    <string name="stratocumulus_desc">Nuvens baixas que parecem uma folha de bolas de algodão com pequenas aberturas. A cor varia do branco ao cinza escuro.</string>
+    <string name="stratus_desc">Uma nuvem baixa que cobre o céu. Os objetos não projetam sombras e podem ser nebulosos.</string>
+    <string name="nimbostratus_desc">Uma nuvem de nível médio que é cinza escuro e cobre o céu. Pode estar chovendo.</string>
+    <string name="altostratus_desc">Uma nuvem de nível médio que cobre o céu. O sol mal pode ser visto como uma mancha brilhante.</string>
+    <string name="altocumulus_desc">Nuvens fofas de nível médio que parecem bolas de algodão. São tipicamente brancas com manchas mais escuras abaixo e podem ser espaçadas ou semelhantes a folhas.</string>
+    <string name="cirrostratus_desc">Uma nuvem alta que cobre o céu. É transparente e normalmente causa a formação de um halo ao redor do sol.</string>
     <string name="cumulus">Cúmulo</string>
     <string name="stratocumulus">Stratocumulus</string>
     <string name="stratus">Estrato</string>
@@ -860,7 +859,7 @@
 \n
 \n### Resolução
 \n%s</string>
-    <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"Apenas dispositivo\" ou \"Alta precisão\"</string>
+    <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"Somente dispositivo\" ou \"Alta precisão\"</string>
     <string name="battery_restricted_resolution">Definir o Trail Sense como \"Não otimizado\"</string>
     <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
     <string name="location_override_not_set_resolution">Insira a localização simulada em configurações</string>
@@ -969,4 +968,51 @@
 \n
 \n**Azimute**: %s</string>
     <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
+    <string name="sort_by">Ordenar: %s</string>
+    <string name="longest">Mais longo</string>
+    <string name="shortest">Mais curto</string>
+    <string name="closest">Mais próximo</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d caminho importado</item>
+        <item quantity="other">%d caminhos importados</item>
+    </plurals>
+    <string name="most_recent">Mais recente</string>
+    <string name="weather_monitoring_disabled">Monitoramento do clima desabilitado</string>
+    <string name="no_clouds">Sem nuvens</string>
+    <string name="pressure_logged">Pressão registrada</string>
+    <string name="no_camera_access">Incapaz de acessar a câmera</string>
+    <string name="temporary">Temporário</string>
+    <string name="enable">Habilitar</string>
+    <string name="log">Registro</string>
+    <string name="sky_detection_sensitivity">Sensibilidade de detecção do céu</string>
+    <string name="precipitation_small_hail">Granizo pequeno</string>
+    <string name="precipitation_rain">Chuva</string>
+    <string name="precipitation_drizzle">Chuviscos</string>
+    <string name="precipitation_snow_pellets">Flocos de neve</string>
+    <string name="precipitation_hail">Granizo</string>
+    <string name="precipitation_ice_pellets">Flocos de gelo</string>
+    <string name="precipitation_snow_grains">Grãos de neve</string>
+    <string name="precipitation_none">Sem precipitação</string>
+    <string name="cloud_photo_mask_toast">Toque na foto para alternar máscara</string>
+    <string name="path_color">Cor do caminho</string>
+    <string name="or">ou</string>
+    <string name="point_style">Estilo de ponto</string>
+    <string name="line_style">Estilo de linha</string>
+    <string name="hide">Esconder</string>
+    <string name="show">Mostrar</string>
+    <string name="obstacle_removal_sensitivity">Sensibilidade de remoção de obstáculos</string>
+    <string name="pref_experimental_cloud_scanner_title">Escâner de nuvens</string>
+    <string name="humidity">Umidade</string>
+    <string name="precipitation_snow">Neve</string>
+    <string name="capture">Capturar</string>
+    <string name="results">Resultados</string>
+    <string name="precipitation_chance">Chance de precipitação: %s</string>
+    <string name="take_photo">Tirar foto</string>
+    <string name="choose_photo">Escolher foto</string>
+    <string name="notification_weather_update_title">Atualização do monitor meteorológico</string>
+    <string name="notification_weather_update_content">Registrando a pressão</string>
+    <string name="notification_backtrack_update_title">Atualização de voltar para trás</string>
+    <string name="notification_backtrack_update_content">Registrando sua localização</string>
+    <string name="paths">Caminhos</string>
+    <string name="keep_forever">Mantenha para sempre</string>
 </resources>
