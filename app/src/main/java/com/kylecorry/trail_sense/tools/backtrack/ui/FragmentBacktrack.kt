@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -270,7 +271,10 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 ) {
                     if (it != null) {
                         runInBackground {
-                            // TODO: Show loading indicator
+                            val loading = withContext(Dispatchers.Main){
+                                CustomUiUtils.loading(requireContext(), "Importing")
+                            }
+
                             withContext(Dispatchers.IO) {
                                 for (path in paths.filterIndices(it)) {
                                     val pathToCreate =
@@ -287,7 +291,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                                         it.size
                                     )
                                 )
-                                // TODO: Dismiss loading indicator
+                                loading.dismiss()
                             }
                         }
                     }

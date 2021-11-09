@@ -11,9 +11,11 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
@@ -300,6 +302,36 @@ object CustomUiUtils {
         view.addView(imageView)
 
         Alerts.dialog(context, title, contentView = view, cancelText = null)
+    }
+
+    fun loading(
+        context: Context,
+        title: String
+    ): AlertDialog {
+        val view = FrameLayout(context)
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            Gravity.CENTER
+        )
+        view.layoutParams = params
+        val loading = CircularProgressIndicator(context)
+        loading.isIndeterminate = true
+
+        val loadingParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            Gravity.CENTER
+        )
+        loadingParams.bottomMargin = Resources.dp(context, 16f).toInt()
+        loadingParams.topMargin = Resources.dp(context, 16f).toInt()
+        loading.layoutParams = loadingParams
+        view.addView(loading)
+
+        val dialog = Alerts.dialog(context, title, contentView = view, okText = null, cancelText = null)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        return dialog
     }
 
     fun setImageColor(view: ImageView, @ColorInt color: Int?) {
