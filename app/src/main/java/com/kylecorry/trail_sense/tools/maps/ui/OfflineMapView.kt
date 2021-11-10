@@ -9,19 +9,20 @@ import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.domain.RenderedPath
+import com.kylecorry.trail_sense.navigation.domain.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
-import com.kylecorry.trail_sense.shared.paths.toPixelLines
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -49,6 +50,10 @@ class OfflineMapView : CanvasView {
     private var paths: List<IMappablePath>? = null
     private var calibrationPoints = listOf<MapCalibrationPoint>()
     private var showCalibrationPoints = false
+
+    private var pathPool = ObjectPool { Path() }
+    private var renderedPaths = mapOf<Long, RenderedPath>()
+    private var pathsRendered = false
 
     // Listeners
     var onSelectLocation: ((coordinate: Coordinate) -> Unit)? = null
@@ -154,33 +159,41 @@ class OfflineMapView : CanvasView {
 
     private fun drawPaths() {
         val paths = paths ?: return
-        val pathLines = paths.flatMap { path ->
-            path.toPixelLines { getPixelCoordinate(it, false) ?: PixelCoordinate(0f, 0f) }
-        }
-        val lineDrawerFactory = PathLineDrawerFactory()
-        clear()
-        for (line in pathLines) {
-
-            if (!shouldDisplayLine(line)) {
-                continue
+        if (!pathsRendered) {
+            val metersPerPixel = map?.distancePerPixel(mapSize.first, mapSize.second)?.meters()?.distance ?: return
+            for (path in renderedPaths) {
+                pathPool.release(path.value.path)
             }
-
-            val drawer = lineDrawerFactory.create(line.style)
-            drawer.draw(this, line, scale)
+            renderedPaths = generatePaths(paths, metersPerPixel)
+            pathsRendered = true
         }
-        opacity(255)
+
+        val factory = PathLineDrawerFactory()
+        for (path in paths) {
+            val rendered = renderedPaths[path.id] ?: continue
+            val drawer = factory.create(path.style)
+            val centerPixel = getPixelCoordinate(rendered.origin, false) ?: continue
+            push()
+            translate(centerPixel.x, centerPixel.y)
+            drawer.draw(this, path.color) {
+                path(rendered.path)
+            }
+            pop()
+        }
         noStroke()
         fill(Color.WHITE)
         noPathEffect()
     }
 
-    private fun shouldDisplayLine(line: PixelLine): Boolean {
-        if (line.alpha == 0) {
-            return false
+    private fun generatePaths(paths: List<IMappablePath>, metersPerPixel: Float): kotlin.collections.Map<Long, RenderedPath> {
+        val factory = RenderedPathFactory(metersPerPixel, myLocation, 0f, true)
+        val map = mutableMapOf<Long, RenderedPath>()
+        for (path in paths) {
+            val pathObj = pathPool.get()
+            pathObj.reset()
+            map[path.id] = factory.render(path.points.map { it.coordinate }, pathObj)
         }
-        // TODO: If off map, false
-
-        return true
+        return map
     }
 
     private fun drawCalibrationPoints() {
@@ -231,6 +244,7 @@ class OfflineMapView : CanvasView {
 
     fun showPaths(paths: List<IMappablePath>) {
         this.paths = paths
+        pathsRendered = false
         invalidate()
     }
 

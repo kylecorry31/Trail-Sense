@@ -13,7 +13,7 @@ class RenderedPathFactory(
     private val declination: Float,
     private val useTrueNorth: Boolean
 ) {
-    fun createPath(points: List<Coordinate>, path: Path = Path()): RenderedPath {
+    fun render(points: List<Coordinate>, path: Path = Path()): RenderedPath {
         val origin = origin ?: CoordinateBounds.from(points).center
         for (i in 1 until points.size) {
             if (i == 1) {

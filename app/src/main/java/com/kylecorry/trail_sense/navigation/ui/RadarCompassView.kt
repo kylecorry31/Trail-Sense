@@ -339,7 +339,7 @@ class RadarCompassView : BaseCompassView {
         for (path in paths) {
             val pathObj = pathPool.get()
             pathObj.reset()
-            map[path.id] = factory.createPath(path.points.map { it.coordinate }, pathObj)
+            map[path.id] = factory.render(path.points.map { it.coordinate }, pathObj)
         }
         return map
     }
