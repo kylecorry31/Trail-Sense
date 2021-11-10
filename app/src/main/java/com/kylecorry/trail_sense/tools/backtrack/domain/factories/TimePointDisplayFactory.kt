@@ -6,13 +6,11 @@ import android.util.Range
 import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.TimePointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.IPointValueStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.TimePointValueStrategy
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 import java.time.Instant
 
 class TimePointDisplayFactory(private val context: Context) : IPointDisplayFactory {
@@ -25,10 +23,6 @@ class TimePointDisplayFactory(private val context: Context) : IPointDisplayFacto
             timeRange,
             createColorScale(path)
         )
-    }
-
-    override fun createValueStrategy(path: List<PathPoint>): IPointValueStrategy {
-        return TimePointValueStrategy(context)
     }
 
     override fun createColorScale(path: List<PathPoint>): IColorScale {

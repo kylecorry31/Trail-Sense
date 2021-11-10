@@ -4,17 +4,15 @@ import android.content.Context
 import android.util.Range
 import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.AltitudePointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.AltitudePointValueStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.IPointValueStrategy
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class AltitudePointDisplayFactory(private val context: Context) : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {
@@ -23,10 +21,6 @@ class AltitudePointDisplayFactory(private val context: Context) : IPointDisplayF
             altitudeRange,
             createColorScale(path)
         )
-    }
-
-    override fun createValueStrategy(path: List<PathPoint>): IPointValueStrategy {
-        return AltitudePointValueStrategy(context)
     }
 
     override fun createColorScale(path: List<PathPoint>): IColorScale {

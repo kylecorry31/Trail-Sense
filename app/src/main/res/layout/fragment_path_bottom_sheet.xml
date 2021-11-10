@@ -23,69 +23,15 @@
             android:textSize="18sp"
             tools:text="Start - End" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/path_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                app:drawableStartCompat="@drawable/ic_tool_clock"
-                app:drawableTint="?android:textColorSecondary"
-                tools:text="18m" />
-
-            <TextView
-                android:id="@+id/path_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                app:drawableStartCompat="@drawable/ruler"
-                app:drawableTint="?android:textColorSecondary"
-                tools:text="1.1 km" />
-
-            <TextView
-                android:id="@+id/path_waypoints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                app:drawableStartCompat="@drawable/ic_location"
-                app:drawableTint="?android:textColorSecondary"
-                tools:text="10" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/path_point_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textSize="12sp"
-                tools:text="10" />
+            android:orientation="horizontal"
+            app:alignItems="center"
+            app:justifyContent="space_between">
 
             <ImageView
                 android:id="@+id/path_color"
@@ -115,12 +61,12 @@
                 app:drawableEndCompat="@drawable/ic_drop_down"
                 app:drawableTint="?android:textColorSecondary"
                 tools:text="Cell Signal" />
-        </LinearLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
         <com.kylecorry.trail_sense.tools.backtrack.ui.PathView
             android:id="@+id/path_image"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="250dp"
             android:layout_marginTop="8dp"
             android:background="@color/colorSecondary" />
 
@@ -133,11 +79,93 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/waypoints_list"
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="16dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:alignItems="center"
+            app:justifyContent="space_between">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/path_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    app:drawableTint="?android:textColorSecondary"
+                    app:drawableTopCompat="@drawable/ic_tool_clock"
+                    tools:text="18m" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:gravity="center"
+                    android:text="@string/duration"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/path_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    app:drawableTint="?android:textColorSecondary"
+                    app:drawableTopCompat="@drawable/ruler"
+                    tools:text="1.1 km" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:gravity="center"
+                    android:text="@string/distance"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/path_waypoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    app:drawableTint="?android:textColorSecondary"
+                    app:drawableTopCompat="@drawable/ic_location"
+                    tools:text="10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:gravity="center"
+                    android:text="@string/points"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
 
     </LinearLayout>
 

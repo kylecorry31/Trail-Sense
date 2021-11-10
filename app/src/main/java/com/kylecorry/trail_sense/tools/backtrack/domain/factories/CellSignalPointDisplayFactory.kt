@@ -4,21 +4,15 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.CellSignalPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.CellSignalPointValueStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.IPointValueStrategy
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class CellSignalPointDisplayFactory(private val context: Context) : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {
         return CellSignalPointColoringStrategy(createColorScale(path))
-    }
-
-    override fun createValueStrategy(path: List<PathPoint>): IPointValueStrategy {
-        return CellSignalPointValueStrategy(context)
     }
 
     override fun createColorScale(path: List<PathPoint>): IColorScale {

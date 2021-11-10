@@ -7,16 +7,10 @@ import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.IPointValueStrategy
-import com.kylecorry.trail_sense.tools.backtrack.domain.waypointvalues.NamePointValueStrategy
 
 class NonePointDisplayFactory(private val context: Context) : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {
         return DefaultPointColoringStrategy(Color.TRANSPARENT)
-    }
-
-    override fun createValueStrategy(path: List<PathPoint>): IPointValueStrategy {
-        return NamePointValueStrategy(context)
     }
 
     override fun createColorScale(path: List<PathPoint>): IColorScale {
