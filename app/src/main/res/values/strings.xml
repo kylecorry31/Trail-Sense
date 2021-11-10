@@ -1142,6 +1142,7 @@
     <string name="importing">Importing</string>
     <string name="points">Points</string>
     <string name="duration">Duration</string>
+    <string name="elevation">Elevation</string>
     <plurals name="paths_imported">
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>

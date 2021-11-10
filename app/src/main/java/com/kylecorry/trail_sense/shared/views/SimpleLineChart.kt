@@ -7,6 +7,7 @@ import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -127,6 +128,8 @@ class SimpleLineChart(
         } else {
             chart.xAxis.isGranularityEnabled = false
         }
+
+        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
 
         if (labelCount != null && labelCount != 0) {
             chart.xAxis.setDrawLabels(true)

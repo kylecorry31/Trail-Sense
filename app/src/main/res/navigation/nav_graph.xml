@@ -892,7 +892,7 @@
         android:label="DiagnosticsFragment" />
     <fragment
         android:id="@+id/pathDetailsFragment"
-        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.PathDetailsFragment"
+        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.PathOverviewFragment"
         android:label="PathDetailsFragment">
         <argument
             android:name="destination"

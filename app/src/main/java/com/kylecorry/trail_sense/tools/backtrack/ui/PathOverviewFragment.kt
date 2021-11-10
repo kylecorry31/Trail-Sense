@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentPathBottomSheetBinding
+import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
@@ -39,7 +39,7 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
-class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
+class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -53,6 +53,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
 
+    private lateinit var chart: PathElevationChart
     private var path: Path? = null
     private var waypoints: List<PathPoint> = emptyList()
     private var pathId: Long = 0L
@@ -68,6 +69,8 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        chart = PathElevationChart(binding.chart)
 
         binding.pathImage.setOnPointClickListener {
             viewWaypoint(it)
@@ -87,6 +90,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
             if (selected != null && waypoints.find { it.id == selected } == null) {
                 selectedPointId = null
             }
+            chart.plot(waypoints.reversed())
             updatePathMap()
             updatePointStyleLegend()
             onPathChanged()
@@ -153,7 +157,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
                 requireContext(), getString(R.string.point_style), listOf(
                     getString(R.string.none),
                     getString(R.string.cell_signal),
-                    getString(R.string.altitude),
+                    getString(R.string.elevation),
                     getString(R.string.time)
                 ),
                 defaultSelectedIndex = pointColoringStyle.ordinal
@@ -260,7 +264,7 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
         binding.pathPointStyle.text = listOf(
             getString(R.string.none),
             getString(R.string.cell_signal),
-            getString(R.string.altitude),
+            getString(R.string.elevation),
             getString(R.string.time)
         )[pointColoringStyle.ordinal]
 
@@ -271,14 +275,13 @@ class PathDetailsFragment : BoundFragment<FragmentPathBottomSheetBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPathBottomSheetBinding {
-        return FragmentPathBottomSheetBinding.inflate(layoutInflater, container, false)
+    ): FragmentPathOverviewBinding {
+        return FragmentPathOverviewBinding.inflate(layoutInflater, container, false)
     }
 
     private fun getDeclination(): Float {
         return declination.getDeclination()
     }
-
 
     // Waypoints
     private fun drawWaypointListItem(itemBinding: ListItemWaypointBinding, item: PathPoint) {
