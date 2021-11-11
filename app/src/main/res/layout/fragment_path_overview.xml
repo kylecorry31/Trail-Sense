@@ -230,7 +230,7 @@
                     android:drawablePadding="4dp"
                     android:gravity="center"
                     app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_altitude"
+                    app:drawableTopCompat="@drawable/ic_elevation_gain"
                     tools:text="1000m" />
 
                 <TextView
@@ -256,7 +256,7 @@
                     android:drawablePadding="4dp"
                     android:gravity="center"
                     app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_altitude"
+                    app:drawableTopCompat="@drawable/ic_elevation_loss"
                     tools:text="1000m" />
 
                 <TextView
