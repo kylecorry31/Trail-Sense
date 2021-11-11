@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
@@ -90,8 +92,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         binding.pathMapFullscreenToggle.setOnClickListener {
             isFullscreen = !isFullscreen
             binding.pathMapHolder.layoutParams = if (isFullscreen) {
-                val legendHeight = Resources.dp(requireContext(), 16f)
-                    .toInt() + binding.pathLegend.bottom - binding.pathMapHolder.bottom
+                val legendHeight = Resources.dp(requireContext(), 72f).toInt()
                 LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     binding.root.height - legendHeight
@@ -103,7 +104,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 )
             }
             binding.pathMapFullscreenToggle.setImageResource(if (isFullscreen) R.drawable.ic_fullscreen_exit else R.drawable.ic_recenter)
-            binding.root.scrollTo(0, binding.pathMapHolder.top)
+            val timer = Timer {
+                if (isBound){
+                    binding.root.scrollTo(0, binding.pathMapHolder.top)
+                }
+            }
+            timer.once(Duration.ofMillis(30))
         }
 
         binding.pathImage.setOnPointClickListener {
@@ -352,6 +358,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathLegend.colorScale = factory.createColorScale(waypoints)
         binding.pathLegend.labels = factory.createLabelMap(waypoints)
+        binding.pathLegend.isVisible = pointColoringStyle != PathPointColoringStyle.None
     }
 
     override fun generateBinding(
