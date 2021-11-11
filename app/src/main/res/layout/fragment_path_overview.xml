@@ -83,15 +83,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:flexWrap="wrap"
             app:alignItems="center"
-            app:justifyContent="space_between">
+            app:flexWrap="wrap"
+            app:justifyContent="space_evenly">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -116,8 +116,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -143,8 +143,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -169,8 +169,34 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/path_difficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    app:drawableTint="?android:textColorSecondary"
+                    app:drawableTopCompat="@drawable/steps"
+                    tools:text="Easy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:gravity="center"
+                    android:text="@string/difficulty"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -195,8 +221,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="16dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -218,57 +244,6 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/path_elevation_min"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_altitude"
-                    tools:text="1000m" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/elevation_min"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/path_elevation_max"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_altitude"
-                    tools:text="1000m" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/elevation_max"
-                    android:textSize="12sp" />
-            </LinearLayout>
 
         </com.google.android.flexbox.FlexboxLayout>
 

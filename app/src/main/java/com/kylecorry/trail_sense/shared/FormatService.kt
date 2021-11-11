@@ -25,6 +25,7 @@ import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.domain.Probability
+import com.kylecorry.trail_sense.shared.hiking.HikingDifficulty
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -551,6 +552,14 @@ class FormatService(private val context: Context) {
             Precipitation.IcePellets -> context.getString(R.string.precipitation_ice_pellets)
             Precipitation.SnowGrains -> context.getString(R.string.precipitation_snow_grains)
             Precipitation.Lightning -> context.getString(R.string.lightning)
+        }
+    }
+    
+    fun formatHikingDifficulty(difficulty: HikingDifficulty): String {
+        return when(difficulty){
+            HikingDifficulty.Easiest -> context.getString(R.string.easy)
+            HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> context.getString(R.string.moderate)
+            else -> context.getString(R.string.hard)
         }
     }
 

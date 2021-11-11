@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.navigation.domain.BeaconEntity
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.*
@@ -28,6 +27,8 @@ import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.hiking.HikingDifficulty
+import com.kylecorry.trail_sense.shared.hiking.HikingService
 import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathPoint
@@ -50,8 +51,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
-    private val navigationService = NavigationService()
     private val geologyService = GeologyService()
+    private val hikingService = HikingService()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
@@ -64,8 +65,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var calculatedDuration = Duration.ZERO
     private var elevationGain = Distance.meters(0f)
     private var elevationLoss = Distance.meters(0f)
-    private var minElevation = Distance.meters(0f)
-    private var maxElevation = Distance.meters(0f)
+    private var difficulty = HikingDifficulty.Easiest
+
+    private val gainThreshold = Distance.meters(2.75f)
+    private val paceFactor = 1.75f
 
     private var pointColoringStyle = PathPointColoringStyle.None
 
@@ -92,13 +95,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         })
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
             waypoints = it.sortedByDescending { p -> p.id }
-            calculatedDuration = navigationService.pathDuration(waypoints, 1.78816f)
+            val reversed = waypoints.reversed()
             val selected = selectedPointId
             if (selected != null && waypoints.find { it.id == selected } == null) {
                 selectedPointId = null
             }
-            chart.plot(waypoints.reversed())
+            chart.plot(reversed)
 
+
+            updateHikingStats()
             updateElevationOverview()
             updatePathMap()
             updatePointStyleLegend()
@@ -190,6 +195,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
+    private fun updateHikingStats(){
+        runInBackground {
+            val reversed = waypoints.reversed()
+            calculatedDuration = hikingService.getHikingDuration(reversed, gainThreshold, paceFactor)
+            difficulty = hikingService.getHikingDifficulty(reversed, gainThreshold)
+        }
+    }
+
     private fun updateElevationOverview() {
         runInBackground {
             val path = waypoints.reversed()
@@ -197,14 +210,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             val elevations =
                 path.mapNotNull { if (it.elevation == null) null else Distance.meters(it.elevation) }
 
-            val min = elevations.minByOrNull { it.distance }?.convertTo(prefs.baseDistanceUnits)
-            val max = elevations.maxByOrNull { it.distance }?.convertTo(prefs.baseDistanceUnits)
-            minElevation = min ?: Distance(0f, prefs.baseDistanceUnits)
-            maxElevation = max ?: Distance(0f, prefs.baseDistanceUnits)
             elevationGain =
-                geologyService.getElevationGain(elevations, Distance.meters(2.75f)).convertTo(prefs.baseDistanceUnits)
+                geologyService.getElevationGain(elevations, gainThreshold).convertTo(prefs.baseDistanceUnits)
             elevationLoss =
-                geologyService.getElevationLoss(elevations, Distance.meters(2.75f)).convertTo(prefs.baseDistanceUnits)
+                geologyService.getElevationLoss(elevations, gainThreshold).convertTo(prefs.baseDistanceUnits)
         }
     }
 
@@ -263,8 +272,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         // Elevations
         binding.pathElevationGain.text = formatService.formatDistance(elevationGain, Units.getDecimalPlaces(elevationGain.units), false)
         binding.pathElevationLoss.text = formatService.formatDistance(elevationLoss, Units.getDecimalPlaces(elevationLoss.units), false)
-        binding.pathElevationMin.text = formatService.formatDistance(minElevation, Units.getDecimalPlaces(minElevation.units), false)
-        binding.pathElevationMax.text = formatService.formatDistance(maxElevation, Units.getDecimalPlaces(maxElevation.units), false)
+
+        binding.pathDifficulty.text = formatService.formatHikingDifficulty(difficulty)
 
         binding.pathDistance.text =
             formatService.formatDistance(

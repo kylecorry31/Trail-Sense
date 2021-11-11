@@ -1145,8 +1145,10 @@
     <string name="elevation">Elevation</string>
     <string name="elevation_gain">Elevation gain</string>
     <string name="elevation_loss">Elevation loss</string>
-    <string name="elevation_min">Elevation min</string>
-    <string name="elevation_max">Elevation max</string>
+    <string name="easy">Easy</string>
+    <!--    Referring to the difficulty-->
+    <string name="hard">Hard</string>
+    <string name="difficulty">Difficulty</string>
     <plurals name="paths_imported">
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>
