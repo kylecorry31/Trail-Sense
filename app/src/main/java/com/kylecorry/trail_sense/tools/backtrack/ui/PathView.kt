@@ -77,6 +77,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         runEveryCycle = false
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        pathInitialized = false
+    }
+
     override fun setup() {
     }
 

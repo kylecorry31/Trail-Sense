@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -42,6 +44,7 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
+
 class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -70,6 +73,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val gainThreshold = Distance.meters(2.75f)
     private val paceFactor = 1.75f
 
+    private var isFullscreen = false
+
     private var pointColoringStyle = PathPointColoringStyle.None
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +86,25 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         chart = PathElevationChart(binding.chart)
+
+        binding.pathMapFullscreenToggle.setOnClickListener {
+            isFullscreen = !isFullscreen
+            binding.pathMapHolder.layoutParams = if (isFullscreen) {
+                val legendHeight = Resources.dp(requireContext(), 16f)
+                    .toInt() + binding.pathLegend.bottom - binding.pathMapHolder.bottom
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    binding.root.height - legendHeight
+                )
+            } else {
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    Resources.dp(requireContext(), 250f).toInt()
+                )
+            }
+            binding.pathMapFullscreenToggle.setImageResource(if (isFullscreen) R.drawable.ic_fullscreen_exit else R.drawable.ic_recenter)
+            binding.root.scrollTo(0, binding.pathMapHolder.top)
+        }
 
         binding.pathImage.setOnPointClickListener {
             viewWaypoint(it)
@@ -195,10 +219,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
-    private fun updateHikingStats(){
+    private fun updateHikingStats() {
         runInBackground {
             val reversed = waypoints.reversed()
-            calculatedDuration = hikingService.getHikingDuration(reversed, gainThreshold, paceFactor)
+            calculatedDuration =
+                hikingService.getHikingDuration(reversed, gainThreshold, paceFactor)
             difficulty = hikingService.getHikingDifficulty(reversed, gainThreshold)
         }
     }
@@ -211,9 +236,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 path.mapNotNull { if (it.elevation == null) null else Distance.meters(it.elevation) }
 
             elevationGain =
-                geologyService.getElevationGain(elevations, gainThreshold).convertTo(prefs.baseDistanceUnits)
+                geologyService.getElevationGain(elevations, gainThreshold)
+                    .convertTo(prefs.baseDistanceUnits)
             elevationLoss =
-                geologyService.getElevationLoss(elevations, gainThreshold).convertTo(prefs.baseDistanceUnits)
+                geologyService.getElevationLoss(elevations, gainThreshold)
+                    .convertTo(prefs.baseDistanceUnits)
         }
     }
 
@@ -270,8 +297,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         binding.pathWaypoints.text = path.metadata.waypoints.toString()
 
         // Elevations
-        binding.pathElevationGain.text = formatService.formatDistance(elevationGain, Units.getDecimalPlaces(elevationGain.units), false)
-        binding.pathElevationLoss.text = formatService.formatDistance(elevationLoss, Units.getDecimalPlaces(elevationLoss.units), false)
+        binding.pathElevationGain.text = formatService.formatDistance(
+            elevationGain,
+            Units.getDecimalPlaces(elevationGain.units),
+            false
+        )
+        binding.pathElevationLoss.text = formatService.formatDistance(
+            elevationLoss,
+            Units.getDecimalPlaces(elevationLoss.units),
+            false
+        )
 
         binding.pathDifficulty.text = formatService.formatHikingDifficulty(difficulty)
 
