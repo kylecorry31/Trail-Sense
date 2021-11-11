@@ -31,7 +31,8 @@ class PathElevationChart(chart: LineChart) {
                 val distance = Distance.meters(it).convertTo(units)
                 formatter.formatDistance(
                     distance,
-                    Units.getDecimalPlaces(distance.units)
+                    Units.getDecimalPlaces(distance.units),
+                    false
                 )
             }
         )
@@ -43,7 +44,8 @@ class PathElevationChart(chart: LineChart) {
                 val distance = Distance.meters(it).convertTo(units).toRelativeDistance()
                 formatter.formatDistance(
                     distance,
-                    Units.getDecimalPlaces(distance.units)
+                    Units.getDecimalPlaces(distance.units),
+                    false
                 )
             }
         )

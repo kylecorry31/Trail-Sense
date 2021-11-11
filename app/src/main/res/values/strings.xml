@@ -1143,6 +1143,10 @@
     <string name="points">Points</string>
     <string name="duration">Duration</string>
     <string name="elevation">Elevation</string>
+    <string name="elevation_gain">Elevation gain</string>
+    <string name="elevation_loss">Elevation loss</string>
+    <string name="elevation_min">Elevation min</string>
+    <string name="elevation_max">Elevation max</string>
     <plurals name="paths_imported">
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>

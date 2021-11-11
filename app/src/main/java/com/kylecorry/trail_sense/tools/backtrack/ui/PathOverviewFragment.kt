@@ -12,7 +12,9 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -49,6 +51,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
     private val navigationService = NavigationService()
+    private val geologyService = GeologyService()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
@@ -59,6 +62,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var pathId: Long = 0L
     private var selectedPointId: Long? = null
     private var calculatedDuration = Duration.ZERO
+    private var elevationGain = Distance.meters(0f)
+    private var elevationLoss = Distance.meters(0f)
+    private var minElevation = Distance.meters(0f)
+    private var maxElevation = Distance.meters(0f)
 
     private var pointColoringStyle = PathPointColoringStyle.None
 
@@ -91,6 +98,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 selectedPointId = null
             }
             chart.plot(waypoints.reversed())
+
+            updateElevationOverview()
             updatePathMap()
             updatePointStyleLegend()
             onPathChanged()
@@ -181,6 +190,25 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
+    private fun updateElevationOverview() {
+        runInBackground {
+            val path = waypoints.reversed()
+
+            val elevations =
+                path.mapNotNull { if (it.elevation == null) null else Distance.meters(it.elevation) }
+
+            val min = elevations.minByOrNull { it.distance }?.convertTo(prefs.baseDistanceUnits)
+            val max = elevations.maxByOrNull { it.distance }?.convertTo(prefs.baseDistanceUnits)
+            minElevation = min ?: Distance(0f, prefs.baseDistanceUnits)
+            maxElevation = max ?: Distance(0f, prefs.baseDistanceUnits)
+            elevationGain =
+                geologyService.getElevationGain(elevations).convertTo(prefs.baseDistanceUnits)
+            elevationLoss =
+                geologyService.getElevationLoss(elevations).convertTo(prefs.baseDistanceUnits)
+        }
+    }
+
+
     private fun updatePathMap() {
         val path = path ?: return
         if (!isBound) {
@@ -219,7 +247,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             getString(android.R.string.untitled)
         }
 
-        val duration = if (start != null && end != null && Duration.between(start, end) > Duration.ofMinutes(1)) {
+        val duration = if (start != null && end != null && Duration.between(
+                start,
+                end
+            ) > Duration.ofMinutes(1)
+        ) {
             Duration.between(start, end)
         } else {
             calculatedDuration
@@ -227,6 +259,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathDuration.text = formatService.formatDuration(duration, false)
         binding.pathWaypoints.text = path.metadata.waypoints.toString()
+
+        // Elevations
+        binding.pathElevationGain.text = formatService.formatDistance(elevationGain, Units.getDecimalPlaces(elevationGain.units), false)
+        binding.pathElevationLoss.text = formatService.formatDistance(elevationLoss, Units.getDecimalPlaces(elevationLoss.units), false)
+        binding.pathElevationMin.text = formatService.formatDistance(minElevation, Units.getDecimalPlaces(minElevation.units), false)
+        binding.pathElevationMax.text = formatService.formatDistance(maxElevation, Units.getDecimalPlaces(maxElevation.units), false)
 
         binding.pathDistance.text =
             formatService.formatDistance(
