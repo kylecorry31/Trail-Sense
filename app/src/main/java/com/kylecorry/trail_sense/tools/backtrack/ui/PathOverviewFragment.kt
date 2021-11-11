@@ -202,9 +202,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             minElevation = min ?: Distance(0f, prefs.baseDistanceUnits)
             maxElevation = max ?: Distance(0f, prefs.baseDistanceUnits)
             elevationGain =
-                geologyService.getElevationGain(elevations).convertTo(prefs.baseDistanceUnits)
+                geologyService.getElevationGain(elevations, Distance.meters(2.75f)).convertTo(prefs.baseDistanceUnits)
             elevationLoss =
-                geologyService.getElevationLoss(elevations).convertTo(prefs.baseDistanceUnits)
+                geologyService.getElevationLoss(elevations, Distance.meters(2.75f)).convertTo(prefs.baseDistanceUnits)
         }
     }
 
