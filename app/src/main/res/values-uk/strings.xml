@@ -1002,4 +1002,19 @@
     <string name="keep_forever">Зберегти назавжди</string>
     <string name="show">Показати</string>
     <string name="hide">Сховати</string>
+    <string name="sort_by">Упорядкування: %s</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d шлях імпортовано</item>
+        <item quantity="few">%d шляхи імпортовано</item>
+        <item quantity="many">%d шляхів імпортовано</item>
+        <item quantity="other">%d шляхів імпортовано</item>
+    </plurals>
+    <string name="most_recent">Найостанніший</string>
+    <string name="path_color">Колір шляху</string>
+    <string name="point_style">Стиль точки</string>
+    <string name="line_style">Стиль смуги</string>
+    <string name="temporary">Тимчасово</string>
+    <string name="shortest">Найкоротший</string>
+    <string name="longest">Найдовший</string>
+    <string name="closest">Найближчий</string>
 </resources>
