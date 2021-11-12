@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorPrimary" />
+        app:tint="@color/colorPrimary" />
 
     <ImageView
         android:id="@+id/crosshairs"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
-        app:tint="?attr/colorPrimary" />
+        app:tint="@color/colorPrimary" />
 
     <View
         android:id="@+id/bubble_y_background"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorPrimary" />
+        app:tint="@color/colorPrimary" />
 
     <ImageView
         android:id="@+id/bubble_x_center"

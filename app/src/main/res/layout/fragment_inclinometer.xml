@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        app:tint="?attr/colorPrimary"
+        app:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/incline"
         app:layout_constraintStart_toEndOf="@+id/incline"
         app:layout_constraintTop_toTopOf="@+id/incline"
@@ -110,6 +110,6 @@
         app:layout_constraintTop_toTopOf="@+id/incline"
         app:srcCompat="@drawable/avalanche"
         tools:visibility="visible"
-        app:tint="?attr/colorAccent" />
+        app:tint="@color/colorAccent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

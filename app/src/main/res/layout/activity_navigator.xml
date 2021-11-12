@@ -22,7 +22,7 @@
         android:id="@+id/view_camera_line"
         android:layout_width="1dp"
         android:layout_height="248dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/linear_compass"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textAppearance="@style/AppTheme.HeaderText"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/colorPrimary"
             tools:text="SE" />
     </LinearLayout>
 
@@ -112,7 +112,7 @@
         app:fabSize="mini"
         app:layout_constraintStart_toEndOf="@+id/ruler"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="?attr/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ruler" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -128,7 +128,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="?attr/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/flashlight" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -145,7 +145,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear_compass"
-        app:rippleColor="?attr/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_camera" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

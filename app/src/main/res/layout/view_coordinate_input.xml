@@ -14,7 +14,7 @@
         android:elevation="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="?attr/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         android:padding="8dp"
         app:tint="?android:textColorPrimary"
         app:srcCompat="@drawable/satellite" />
@@ -37,7 +37,7 @@
         android:elevation="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="?attr/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         android:padding="8dp"
         app:tint="?android:textColorPrimary"
         app:srcCompat="@drawable/ic_location" />

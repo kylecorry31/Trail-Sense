@@ -55,7 +55,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="?attr/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/thermometer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -71,7 +71,7 @@
         app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="?attr/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/cloudy" />
 
     <ImageView

@@ -304,7 +304,7 @@ class RadarCompassView : BaseCompassView {
         }
         distanceSize = sp(8f)
         cardinalSize = sp(10f)
-        primaryColor = Resources.getAndroidColorAttr(context, R.attr.colorPrimary)
+        primaryColor = Resources.color(context, R.color.colorPrimary)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)

@@ -90,7 +90,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         val itemBinding = ListItemPlainIconBinding.bind(itemView)
         itemBinding.icon.alpha = 0.86f
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(Resources.getAndroidColorAttr(context, R.attr.colorPrimary))
+            ColorStateList.valueOf(Resources.color(context, R.color.colorPrimary))
         if (beacon is Beacon) {
             itemBinding.icon.setImageResource(R.drawable.ic_location)
             itemBinding.icon.imageTintList = ColorStateList.valueOf(beacon.color)

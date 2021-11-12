@@ -193,7 +193,7 @@ class RoundCompassView : BaseCompassView {
         compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         cardinalSize = sp(18f)
-        primaryColor = Resources.getAndroidColorAttr(context, R.attr.colorPrimary)
+        primaryColor = Resources.color(context, R.color.colorPrimary)
     }
 
     override fun draw() {

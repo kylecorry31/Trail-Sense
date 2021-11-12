@@ -47,7 +47,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/one"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/two"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_one_label" />
 
@@ -91,7 +91,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/three"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_two_label" />
 

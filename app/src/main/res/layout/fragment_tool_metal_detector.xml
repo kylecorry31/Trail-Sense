@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/magnetic_field"
         app:layout_constraintStart_toEndOf="@+id/magnetic_field"
         app:layout_constraintTop_toTopOf="@+id/magnetic_field"
-        app:tint="?attr/colorPrimary"
+        app:tint="@color/colorPrimary"
         app:srcCompat="@drawable/metal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

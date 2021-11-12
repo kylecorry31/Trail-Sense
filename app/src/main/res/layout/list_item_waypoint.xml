@@ -69,6 +69,6 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:srcCompat="@drawable/ic_location"-->
-<!--        app:tint="?attr/colorPrimary" />-->
+<!--        app:tint="@color/colorPrimary" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,7 +63,7 @@ class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
         itemBinding.icon.alpha = 0.86f
         itemBinding.description.isVisible = false
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(Resources.getAndroidColorAttr(context, R.attr.colorPrimary))
+            ColorStateList.valueOf(Resources.color(context, R.color.colorPrimary))
         itemBinding.icon.setImageResource(R.drawable.ic_beacon_group)
         itemBinding.title.text = beacon.name
         itemBinding.root.setOnClickListener {
