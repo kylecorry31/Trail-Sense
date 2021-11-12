@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
@@ -115,6 +116,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathImage.setOnPointClickListener {
             viewWaypoint(it)
+        }
+
+        binding.pathViewPointsBtn.setOnClickListener {
+            viewPoints()
         }
 
         pathService.getLivePath(pathId).observe(viewLifecycleOwner, {
@@ -396,6 +401,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
 
         itemStrategy.display(itemBinding, item)
+    }
+
+    private fun viewPoints(){
+        toast("TODO: Show the points")
     }
 
     private fun viewWaypoint(point: PathPoint) {
