@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
+import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedPointDecorator
 import kotlinx.coroutines.Dispatchers
@@ -105,7 +106,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             }
             binding.pathMapFullscreenToggle.setImageResource(if (isFullscreen) R.drawable.ic_fullscreen_exit else R.drawable.ic_recenter)
             val timer = Timer {
-                if (isBound){
+                if (isBound) {
                     binding.root.scrollTo(0, binding.pathMapHolder.top)
                 }
             }
@@ -128,7 +129,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             val reversed = waypoints.reversed()
             val selected = selectedPointId
             if (selected != null && waypoints.find { it.id == selected } == null) {
-                selectedPointId = null
+                deselectPoint()
             }
             chart.plot(reversed)
 
@@ -339,10 +340,19 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         } else {
             SelectedPointDecorator(
                 selected,
-                baseStrategy,
+                if (pointColoringStyle == PathPointColoringStyle.None) {
+                    DefaultPointColoringStrategy(path.style.color)
+                } else {
+                    baseStrategy
+                },
                 NoDrawPointColoringStrategy()
             )
         }
+    }
+
+    private fun deselectPoint() {
+        selectedPointId = null
+        binding.pathSelectedPoint.isVisible = false
     }
 
     private fun updatePointStyleLegend() {
@@ -376,13 +386,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun drawWaypointListItem(itemBinding: ListItemWaypointBinding, item: PathPoint) {
         val itemStrategy = WaypointListItem(
             requireContext(),
-            selectedPointId == item.id,
+            false,
             formatService,
             prefs,
             { createBeacon(it) },
             { deleteWaypoint(it) },
             { navigateToWaypoint(it) },
-            { viewWaypoint(it) }
+            { /* Do nothing */ }
         )
 
         itemStrategy.display(itemBinding, item)
@@ -394,6 +404,18 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         } else {
             point.id
         }
+
+        binding.pathSelectedPoint.removeAllViews()
+
+        if (selectedPointId != null) {
+            binding.pathSelectedPoint.isVisible = true
+            val binding =
+                ListItemWaypointBinding.inflate(layoutInflater, binding.pathSelectedPoint, true)
+            drawWaypointListItem(binding, point)
+        } else {
+            deselectPoint()
+        }
+
         onPathChanged()
     }
 
@@ -452,7 +474,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     }
                     withContext(Dispatchers.Main) {
                         if (selectedPointId == point.id) {
-                            selectedPointId = null
+                            deselectPoint()
                         }
                     }
                 }

@@ -88,11 +88,18 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_recenter"
-                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/path_selected_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
 
         <com.kylecorry.trail_sense.shared.views.ColorScaleView
             android:id="@+id/path_legend"

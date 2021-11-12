@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 
 import android.content.Context
 import android.graphics.Color
-import android.view.View
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.Pickers
@@ -48,27 +48,23 @@ class WaypointListItem(
             itemBinding.waypointTime.text = context.getString(android.R.string.untitled)
         }
 
-        if (prefs.backtrackSaveCellHistory) {
-            itemBinding.signalStrength.setStatusText(
-                formatService.formatCellNetwork(
-                    CellNetwork.values().firstOrNull { it.id == item.cellSignal?.network?.id }
-                )
+        itemBinding.signalStrength.setStatusText(
+            formatService.formatCellNetwork(
+                CellNetwork.values().firstOrNull { it.id == item.cellSignal?.network?.id }
             )
-            itemBinding.signalStrength.setImageResource(
-                CellSignalUtils.getCellQualityImage(
-                    item.cellSignal?.quality ?: Quality.Unknown
-                )
+        )
+        itemBinding.signalStrength.setImageResource(
+            CellSignalUtils.getCellQualityImage(
+                item.cellSignal?.quality ?: Quality.Unknown
             )
-            itemBinding.signalStrength.setForegroundTint(Color.BLACK)
-            itemBinding.signalStrength.setBackgroundTint(
-                CustomUiUtils.getQualityColor(
-                    item.cellSignal?.quality ?: Quality.Unknown
-                )
+        )
+        itemBinding.signalStrength.setForegroundTint(Color.BLACK)
+        itemBinding.signalStrength.setBackgroundTint(
+            CustomUiUtils.getQualityColor(
+                item.cellSignal?.quality ?: Quality.Unknown
             )
-            itemBinding.signalStrength.visibility = View.VISIBLE
-        } else {
-            itemBinding.signalStrength.visibility = View.GONE
-        }
+        )
+        itemBinding.signalStrength.isVisible = item.cellSignal != null
 
         itemBinding.waypointMenuBtn.setOnClickListener {
             Pickers.menu(it, R.menu.waypoint_item_menu) {
