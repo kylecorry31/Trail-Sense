@@ -26,7 +26,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val primaryColor = Resources.color(requireContext(), R.color.colorPrimary)
+        val primaryColor = Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary)
         val textColor = Resources.androidTextColorPrimary(requireContext())
         val attrs = intArrayOf(android.R.attr.selectableItemBackground)
         val typedArray = requireContext().obtainStyledAttributes(attrs)

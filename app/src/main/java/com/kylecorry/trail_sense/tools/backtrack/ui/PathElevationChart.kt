@@ -17,7 +17,7 @@ class PathElevationChart(chart: LineChart) {
 
     private var granularity = 10f
 
-    private val color = Resources.color(chart.context, R.color.colorPrimary)
+    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
     private val units = UserPreferences(chart.context).baseDistanceUnits
     private val formatter = FormatService(chart.context)

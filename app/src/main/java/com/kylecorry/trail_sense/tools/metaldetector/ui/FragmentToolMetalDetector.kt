@@ -59,7 +59,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         super.onViewCreated(view, savedInstanceState)
         chart = MetalDetectorChart(
             binding.metalChart,
-            Resources.color(requireContext(), R.color.colorPrimary)
+            Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary)
         )
         binding.calibrateBtn.setOnClickListener {
             binding.threshold.progress = magnetometer.magneticField.magnitude().roundToInt() + 5

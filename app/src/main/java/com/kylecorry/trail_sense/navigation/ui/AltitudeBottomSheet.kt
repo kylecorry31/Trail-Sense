@@ -123,7 +123,10 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         val data = filteredReadings.map {
             it.time.toEpochMilli().toFloat() to Distance.meters(it.value).convertTo(units).distance
         }
-        chart.plot(data, Resources.color(requireContext(), R.color.colorPrimary), filled = true)
+        chart.plot(
+            data, Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary),
+            filled = true
+        )
 
         binding.altitudeHistoryLength.text =
             getString(R.string.last_duration, formatService.formatDuration(maxHistoryDuration))

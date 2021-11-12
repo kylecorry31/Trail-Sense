@@ -31,7 +31,7 @@ class BatteryChart(chart: LineChart) {
             it.time.toEpochMilli().toFloat() to if (showCapacity) it.capacity else it.percent
         }
 
-        simpleChart.plot(data, Resources.color(context, R.color.colorPrimary), true)
+        simpleChart.plot(data, Resources.getAndroidColorAttr(context, R.attr.colorPrimary), true)
     }
 
 }

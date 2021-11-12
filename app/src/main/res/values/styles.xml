@@ -31,7 +31,7 @@
     </style>
 
     <style name="AppFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="tint">@color/white</item>
     </style>
 

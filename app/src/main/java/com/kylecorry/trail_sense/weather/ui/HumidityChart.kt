@@ -13,7 +13,7 @@ class HumidityChart(chart: LineChart) {
 
     private var granularity = 1f
 
-    private val color = Resources.color(chart.context, R.color.colorPrimary)
+    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
     init {
         simpleChart.configureYAxis(
