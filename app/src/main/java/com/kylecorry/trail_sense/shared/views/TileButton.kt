@@ -46,11 +46,15 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     fun setState(on: Boolean) {
         isOn = on
         if (isOn) {
-            icon.backgroundTintList =
-                ColorStateList.valueOf(Resources.color(icon.context, R.color.colorPrimary))
-            textView.setTextColor(Resources.color(icon.context, R.color.colorSecondary))
-            icon.imageTintList =
-                ColorStateList.valueOf(Resources.color(icon.context, R.color.colorSecondary))
+            icon.backgroundTintList = ColorStateList.valueOf(
+                Resources.getAndroidColorAttr(icon.context, R.attr.colorPrimary)
+            )
+            textView.setTextColor(
+                Resources.getAndroidColorAttr(icon.context, R.attr.colorSecondary)
+            )
+            icon.imageTintList = ColorStateList.valueOf(
+                Resources.getAndroidColorAttr(icon.context, R.attr.colorSecondary)
+            )
         } else {
             textView.setTextColor(Resources.androidTextColorSecondary(icon.context))
             icon.imageTintList =

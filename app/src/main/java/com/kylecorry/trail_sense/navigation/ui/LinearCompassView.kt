@@ -130,7 +130,7 @@ class LinearCompassView : BaseCompassView {
                 when {
                     i % 45 == 0 -> {
                         noFill()
-                        stroke(Resources.color(context, R.color.colorPrimary))
+                        stroke(Resources.getAndroidColorAttr(context, R.attr.colorPrimary))
                         strokeWeight(8f)
                     }
                     else -> {

@@ -60,8 +60,8 @@ class TideClockView : View {
             )
         )
         textColor = Color.WHITE
-        accentColor = Resources.color(context, R.color.colorAccent)
-        clockColor = Resources.color(context, R.color.colorSecondary)
+        accentColor = Resources.getAndroidColorAttr(context, R.attr.colorAccent)
+        clockColor = Resources.getAndroidColorAttr(context, R.attr.colorSecondary)
         padding = numeralSpacing + 50
         fontSize = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP, 13f,

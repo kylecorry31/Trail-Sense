@@ -16,7 +16,7 @@
         android:pathData="m17.5,100 l-17.5,-0 8.75,-50L17.5,0 26.25,50 35,100Z"
         android:strokeAlpha="1"
         android:strokeWidth="3"
-        android:fillColor="@color/colorPrimary"
+        android:fillColor="?attr/colorPrimary"
         android:strokeColor="#00000000"
         android:fillAlpha="1"/>
   </group>

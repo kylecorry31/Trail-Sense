@@ -174,11 +174,9 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
         }
 
         val alertColor = when (alert) {
-            HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteDanger -> Resources.color(
-                requireContext(),
-                R.color.colorAccent
-            )
-            else -> Resources.color(requireContext(), R.color.colorPrimary)
+            HeatAlert.FrostbiteCaution, HeatAlert.FrostbiteWarning, HeatAlert.FrostbiteDanger ->
+                Resources.getAndroidColorAttr(requireContext(), R.attr.colorAccent)
+            else -> Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary)
         }
 
         binding.heatAlert.imageTintList = ColorStateList.valueOf(alertColor)

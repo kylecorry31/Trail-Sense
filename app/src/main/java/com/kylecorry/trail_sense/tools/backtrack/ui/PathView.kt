@@ -191,7 +191,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private fun drawLocation(pixels: PixelCoordinate) {
         stroke(Color.WHITE)
         strokeWeight(dp(1f))
-        fill(Resources.color(context, R.color.colorPrimary))
+        fill(Resources.getAndroidColorAttr(context, R.attr.colorPrimary))
         push()
         rotate(azimuth, pixels.x, pixels.y)
         triangle(

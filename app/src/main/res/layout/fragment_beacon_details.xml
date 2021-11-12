@@ -66,7 +66,7 @@
         app:layout_constraintStart_toStartOf="@+id/altitude_icon"
         app:layout_constraintTop_toBottomOf="@+id/altitude_icon"
         app:srcCompat="@drawable/ic_note"
-        app:tint="@color/colorPrimary" />
+        app:tint="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/comment_text"

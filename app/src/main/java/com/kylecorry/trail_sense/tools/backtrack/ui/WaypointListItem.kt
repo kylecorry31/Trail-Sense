@@ -89,7 +89,7 @@ class WaypointListItem(
 
         itemBinding.root.setBackgroundColor(
             if (isSelected) {
-                Resources.color(context, R.color.colorPrimary)
+                Resources.getAndroidColorAttr(context, R.attr.colorPrimary)
             } else {
                 Resources.getAndroidColorAttr(context, android.R.attr.colorBackground)
             }

@@ -18,7 +18,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
+        app:rippleColor="?attr/colorPrimary"
         app:srcCompat="@drawable/ic_altitude" />
 
     <TextView
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toStartOf="@+id/temperature"
         app:layout_constraintTop_toTopOf="@+id/temperature"
         app:srcCompat="@drawable/ic_alert"
-        app:tint="@color/colorPrimary"
+        app:tint="?attr/colorPrimary"
         tools:visibility="visible" />
 
     <ImageView
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toEndOf="@+id/temperature"
         app:layout_constraintTop_toTopOf="@+id/temperature"
         app:srcCompat="@drawable/avalanche"
-        app:tint="@color/colorAccent"
+        app:tint="?attr/colorAccent"
         tools:visibility="visible" />
 
     <TextView

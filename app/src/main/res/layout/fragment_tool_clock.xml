@@ -18,7 +18,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
+        app:rippleColor="?attr/colorPrimary"
         app:srcCompat="@drawable/ic_update" />
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        app:tint="@color/colorSecondary"
+        app:tint="?attr/colorSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
         app:layout_constraintEnd_toEndOf="@+id/analog_clock"
         app:layout_constraintStart_toStartOf="@+id/analog_clock"

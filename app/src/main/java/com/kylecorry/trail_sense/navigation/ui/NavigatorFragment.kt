@@ -631,9 +631,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateCompassView() {
         val destBearing = getDestinationBearing()
-        val destColor = destination?.color ?: Resources.color(
+        val destColor = destination?.color ?: Resources.getAndroidColorAttr(
             requireContext(),
-            R.color.colorAccent
+            R.attr.colorAccent
         )
 
         val direction = destBearing?.let {
