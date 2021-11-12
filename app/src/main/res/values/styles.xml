@@ -2,9 +2,9 @@
 
     <!--This is used for all Android versions-->
     <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#90000000</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:statusBarColor">#90000000</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>

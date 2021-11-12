@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.color.DynamicColors
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Exceptions
@@ -91,6 +92,7 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
         AppCompatDelegate.setDefaultNightMode(mode)
+        if (false) DynamicColors.applyIfAvailable(this)
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
