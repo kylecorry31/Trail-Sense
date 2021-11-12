@@ -83,7 +83,7 @@ class OfflineMapView : CanvasView {
 
     override fun setup() {
         primaryColor = Resources.getAndroidColorAttr(context, R.attr.colorPrimary)
-        secondaryColor = Resources.getAndroidColorAttr(context, R.attr.colorSecondary)
+        secondaryColor = Resources.color(context, R.color.colorSecondary)
     }
 
     override fun draw() {

@@ -118,13 +118,13 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             binding.solarTodayBtn,
             alignToRestOfDay,
             Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary),
-            Resources.getAndroidColorAttr(requireContext(), R.attr.colorSecondary)
+            Resources.color(requireContext(), R.color.colorSecondary)
         )
         setButtonState(
             binding.solarNowBtn,
             !alignToRestOfDay,
             Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary),
-            Resources.getAndroidColorAttr(requireContext(), R.attr.colorSecondary)
+            Resources.color(requireContext(), R.color.colorSecondary)
         )
     }
 

@@ -220,7 +220,7 @@ class RadarCompassView : BaseCompassView {
         circle(width / 2f, height / 2f, compassSize / 4f)
 
         fill(Color.WHITE)
-        stroke(Resources.getAndroidColorAttr(context, R.attr.colorSecondary))
+        stroke(Resources.color(context, R.color.colorSecondary))
 
         val quarterDist = maxDistanceBaseUnits.times(0.25f).toRelativeDistance()
         val threeQuarterDist = maxDistanceBaseUnits.times(0.75f).toRelativeDistance()
@@ -305,7 +305,7 @@ class RadarCompassView : BaseCompassView {
         distanceSize = sp(8f)
         cardinalSize = sp(10f)
         primaryColor = Resources.getAndroidColorAttr(context, R.attr.colorPrimary)
-        secondaryColor = Resources.getAndroidColorAttr(context, R.attr.colorSecondary)
+        secondaryColor = Resources.color(context, R.color.colorSecondary)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)

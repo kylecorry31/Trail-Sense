@@ -50,10 +50,10 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
                 Resources.getAndroidColorAttr(icon.context, R.attr.colorPrimary)
             )
             textView.setTextColor(
-                Resources.getAndroidColorAttr(icon.context, R.attr.colorSecondary)
+                Resources.color(icon.context, R.color.colorSecondary)
             )
             icon.imageTintList = ColorStateList.valueOf(
-                Resources.getAndroidColorAttr(icon.context, R.attr.colorSecondary)
+                Resources.color(icon.context, R.color.colorSecondary)
             )
         } else {
             textView.setTextColor(Resources.androidTextColorSecondary(icon.context))

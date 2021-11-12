@@ -60,7 +60,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        app:tint="?attr/colorSecondary"
+        app:tint="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
         app:layout_constraintEnd_toEndOf="@+id/analog_clock"
         app:layout_constraintStart_toStartOf="@+id/analog_clock"

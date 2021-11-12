@@ -35,7 +35,7 @@ object CustomUiUtils {
             button,
             state,
             Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary),
-            Resources.getAndroidColorAttr(button.context, R.attr.colorSecondary)
+            Resources.color(button.context, R.color.colorSecondary)
         )
     }
 
@@ -62,7 +62,7 @@ object CustomUiUtils {
     ) {
         if (isOn) {
             button.setTextColor(
-                Resources.getAndroidColorAttr(button.context, R.attr.colorSecondary)
+                Resources.color(button.context, R.color.colorSecondary)
             )
             button.backgroundTintList = ColorStateList.valueOf(
                 Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary)

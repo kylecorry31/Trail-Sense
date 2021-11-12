@@ -88,7 +88,7 @@ class RoundCompassView : BaseCompassView {
 
         textSize(cardinalSize)
         textMode(TextMode.Center)
-        stroke(Resources.getAndroidColorAttr(context, R.attr.colorSecondary))
+        stroke(Resources.color(context, R.color.colorSecondary))
         strokeWeight(32f)
         push()
         rotate(0f)
