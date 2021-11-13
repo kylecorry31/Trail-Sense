@@ -1017,4 +1017,13 @@
     <string name="shortest">Найкоротший</string>
     <string name="longest">Найдовший</string>
     <string name="closest">Найближчий</string>
+    <string name="importing">Імпортування</string>
+    <string name="elevation">Висота</string>
+    <string name="elevation_loss">Зменшення висоти</string>
+    <string name="easy">Легко</string>
+    <string name="hard">Важко</string>
+    <string name="difficulty">Важкість</string>
+    <string name="points">Точки</string>
+    <string name="elevation_gain">Підвищення висоти</string>
+    <string name="duration">Тривалість</string>
 </resources>
