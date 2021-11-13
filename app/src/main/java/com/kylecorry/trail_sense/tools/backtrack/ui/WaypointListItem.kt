@@ -4,25 +4,22 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
-import java.time.Duration
-import java.time.Instant
 
 class WaypointListItem(
     private val context: Context,
-    private val isSelected: Boolean,
     private val formatService: FormatService,
-    private val prefs: UserPreferences,
     private val createBeacon: (waypoint: PathPoint) -> Unit,
     private val delete: (waypoint: PathPoint) -> Unit,
     private val navigate: (waypoint: PathPoint) -> Unit,
@@ -32,10 +29,20 @@ class WaypointListItem(
         itemBinding: ListItemWaypointBinding,
         item: PathPoint
     ) {
-        if (item.time != null) {
-            val timeAgo = Duration.between(item.time, Instant.now())
+        if (item.elevation != null) {
+            itemBinding.waypointCoordinates.isVisible = true
+            val elevation = Distance.meters(item.elevation)
+                .convertTo(UserPreferences(context).baseDistanceUnits)
             itemBinding.waypointCoordinates.text =
-                context.getString(R.string.time_ago, formatService.formatDuration(timeAgo, false))
+                formatService.formatDistance(
+                    elevation,
+                    Units.getDecimalPlaces(elevation.units),
+                    false
+                )
+        } else {
+            itemBinding.waypointCoordinates.isVisible = false
+        }
+        if (item.time != null) {
             val date = item.time.toZonedDateTime()
             val time = date.toLocalTime()
             itemBinding.waypointTime.text = context.getString(
@@ -44,7 +51,6 @@ class WaypointListItem(
                 formatService.formatTime(time, false)
             )
         } else {
-            itemBinding.waypointCoordinates.text = ""
             itemBinding.waypointTime.text = context.getString(android.R.string.untitled)
         }
 
@@ -82,14 +88,6 @@ class WaypointListItem(
                 true
             }
         }
-
-        itemBinding.root.setBackgroundColor(
-            if (isSelected) {
-                Resources.color(context, R.color.colorPrimary)
-            } else {
-                Resources.getAndroidColorAttr(context, android.R.attr.colorBackground)
-            }
-        )
 
         itemBinding.root.setOnClickListener {
             view(item)

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,13 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
@@ -51,6 +52,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val hikingService = HikingService()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
+
+    private var pointSheet: PathPointsListFragment? = null
 
     private lateinit var chart: PathElevationChart
     private var path: Path? = null
@@ -128,6 +131,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 deselectPoint()
             }
 
+            pointSheet?.setPoints(waypoints)
             updateElevationPlot()
             updateHikingStats()
             updateElevationOverview()
@@ -285,11 +289,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         } else {
             SelectedPointDecorator(
                 selected,
-                if (path.style.point == PathPointColoringStyle.None) {
-                    DefaultPointColoringStrategy(path.style.color)
-                } else {
-                    baseStrategy
-                },
+                DefaultPointColoringStrategy(Color.WHITE),
                 NoDrawPointColoringStrategy()
             )
         }
@@ -333,9 +333,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun drawWaypointListItem(itemBinding: ListItemWaypointBinding, item: PathPoint) {
         val itemStrategy = WaypointListItem(
             requireContext(),
-            false,
             formatService,
-            prefs,
             { createBeacon(it) },
             { deleteWaypoint(it) },
             { navigateToWaypoint(it) },
@@ -346,7 +344,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun viewPoints() {
-        toast("TODO: Show the points")
+        binding.root.scrollTo(0, 0)
+        pointSheet = PathPointsListFragment()
+        pointSheet?.show(this)
+        pointSheet?.onCreateBeaconListener = { createBeacon(it) }
+        pointSheet?.onDeletePointListener = { deleteWaypoint(it) }
+        pointSheet?.onNavigateToPointListener = { navigateToWaypoint(it) }
+        pointSheet?.onViewPointListener = { viewWaypoint(it) }
+        pointSheet?.setPoints(waypoints)
     }
 
     private fun viewWaypoint(point: PathPoint) {
