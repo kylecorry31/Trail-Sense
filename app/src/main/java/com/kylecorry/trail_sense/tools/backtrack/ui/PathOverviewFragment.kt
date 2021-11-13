@@ -122,6 +122,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             viewPoints()
         }
 
+        chart.setOnPointClickListener {
+            viewWaypoint(it)
+        }
+
         pathService.getLivePath(pathId).observe(viewLifecycleOwner, {
             path = it
             pointColoringStyle = it?.style?.point ?: PathPointColoringStyle.None
@@ -129,6 +133,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             updatePathMap()
             onPathChanged()
         })
+
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
             waypoints = it.sortedByDescending { p -> p.id }
             val reversed = waypoints.reversed()

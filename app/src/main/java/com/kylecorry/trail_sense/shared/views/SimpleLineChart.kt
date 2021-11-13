@@ -176,7 +176,7 @@ class SimpleLineChart(
         plot(data.mapIndexed { index, value -> index.toFloat() to value }, color, filled)
     }
 
-    fun setOnValueSelectedListener(listener: ((point: Pair<Float, Float>?) -> Unit)?) {
+    fun setOnValueSelectedListener(listener: ((point: Point?) -> Unit)?) {
         if (listener == null) {
             chart.setTouchEnabled(false)
             chart.setOnChartValueSelectedListener(null)
@@ -188,7 +188,9 @@ class SimpleLineChart(
                         listener.invoke(null)
                         return
                     }
-                    listener.invoke(e.x to e.y)
+                    val datasetIndex = h?.dataSetIndex ?: 0
+                    val pointIndex = chart.data.dataSets[datasetIndex].getEntryIndex(e)
+                    listener.invoke(Point(datasetIndex, pointIndex, e.x, e.y))
                 }
 
                 override fun onNothingSelected() {
@@ -199,4 +201,8 @@ class SimpleLineChart(
             chart.setOnChartValueSelectedListener(onValueSelectedListener)
         }
     }
+
+
+    data class Point(val datasetIndex: Int, val pointIndex: Int, val x: Float, val y: Float)
+
 }

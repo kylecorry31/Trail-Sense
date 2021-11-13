@@ -44,9 +44,9 @@ class PressureChart(
                 selectionListener?.invoke(null, null)
                 return@setOnValueSelectedListener
             }
-            val seconds = it.first * 60 * 60
+            val seconds = it.x * 60 * 60
             val duration = Duration.ofSeconds(seconds.absoluteValue.toLong())
-            selectionListener?.invoke(duration, it.second)
+            selectionListener?.invoke(duration, it.y)
         }
     }
 
