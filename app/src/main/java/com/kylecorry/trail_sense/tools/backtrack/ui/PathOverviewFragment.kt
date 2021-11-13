@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
@@ -16,7 +17,6 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
@@ -30,11 +30,9 @@ import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathServi
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.hiking.HikingService
-import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
@@ -43,6 +41,9 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.tools.backtrack.domain.waypointcolors.SelectedPointDecorator
+import com.kylecorry.trail_sense.tools.backtrack.ui.commands.ChangePathColorCommand
+import com.kylecorry.trail_sense.tools.backtrack.ui.commands.ChangePathLineStyleCommand
+import com.kylecorry.trail_sense.tools.backtrack.ui.commands.ChangePointStyleCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -78,8 +79,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
-
-    private var pointColoringStyle = PathPointColoringStyle.None
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,7 +127,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         pathService.getLivePath(pathId).observe(viewLifecycleOwner, {
             path = it
-            pointColoringStyle = it?.style?.point ?: PathPointColoringStyle.None
+
+            updateElevationPlot()
             updatePointStyleLegend()
             updatePathMap()
             onPathChanged()
@@ -136,14 +136,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
             waypoints = it.sortedByDescending { p -> p.id }
-            val reversed = waypoints.reversed()
             val selected = selectedPointId
             if (selected != null && waypoints.find { it.id == selected } == null) {
                 deselectPoint()
             }
-            chart.plot(reversed)
 
-
+            updateElevationPlot()
             updateHikingStats()
             updateElevationOverview()
             updatePathMap()
@@ -162,78 +160,25 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathLineStyle.setOnClickListener {
             val path = path ?: return@setOnClickListener
-            Pickers.item(
-                requireContext(), getString(R.string.line_style), listOf(
-                    getString(R.string.solid),
-                    getString(R.string.dotted),
-                    getString(R.string.arrow)
-                ),
-                defaultSelectedIndex = path.style.line.ordinal
-            ) {
-                if (it != null) {
-                    val line =
-                        LineStyle.values().find { style -> style.ordinal == it } ?: LineStyle.Dotted
-                    runInBackground {
-                        withContext(Dispatchers.IO) {
-                            pathService.addPath(path.copy(style = path.style.copy(line = line)))
-                        }
-                        withContext(Dispatchers.Main) {
-                            updatePathMap()
-                            onPathChanged()
-                        }
-                    }
-                }
-            }
+            val command = ChangePathLineStyleCommand(requireContext(), lifecycleScope, path)
+            command.execute()
         }
 
         binding.pathColor.setOnClickListener {
             val path = path ?: return@setOnClickListener
-            CustomUiUtils.pickColor(
-                requireContext(),
-                AppColor.values().firstOrNull { it.color == path.style.color } ?: AppColor.Gray,
-                getString(R.string.path_color)
-            ) {
-                if (it != null) {
-                    runInBackground {
-                        withContext(Dispatchers.IO) {
-                            pathService.addPath(path.copy(style = path.style.copy(color = it.color)))
-                        }
-                        withContext(Dispatchers.Main) {
-                            updatePathMap()
-                            onPathChanged()
-                        }
-                    }
-                }
-            }
+            val command = ChangePathColorCommand(requireContext(), lifecycleScope, path)
+            command.execute()
         }
 
         binding.pathPointStyle.setOnClickListener {
-            Pickers.item(
-                requireContext(), getString(R.string.point_style), listOf(
-                    getString(R.string.none),
-                    getString(R.string.cell_signal),
-                    getString(R.string.elevation),
-                    getString(R.string.time)
-                ),
-                defaultSelectedIndex = pointColoringStyle.ordinal
-            ) {
-                if (it != null) {
-                    pointColoringStyle =
-                        PathPointColoringStyle.values().find { style -> style.ordinal == it }
-                            ?: PathPointColoringStyle.None
-                    runInBackground {
-                        withContext(Dispatchers.IO) {
-                            val path = path ?: return@withContext
-                            pathService.addPath(path.copy(style = path.style.copy(point = pointColoringStyle)))
-                        }
-                        withContext(Dispatchers.Main) {
-                            updatePointStyleLegend()
-                            onPathChanged()
-                        }
-                    }
-                }
-            }
+            val path = path ?: return@setOnClickListener
+            val command = ChangePointStyleCommand(requireContext(), lifecycleScope, path)
+            command.execute()
         }
+    }
+
+    private fun updateElevationPlot(){
+        chart.plot(waypoints.reversed(), path?.style?.color ?: prefs.navigation.defaultPathColor.color)
     }
 
     private fun updateHikingStats() {
@@ -350,7 +295,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         } else {
             SelectedPointDecorator(
                 selected,
-                if (pointColoringStyle == PathPointColoringStyle.None) {
+                if (path.style.point == PathPointColoringStyle.None) {
                     DefaultPointColoringStrategy(path.style.color)
                 } else {
                     baseStrategy
@@ -367,6 +312,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun updatePointStyleLegend() {
 
+        val path = path ?: return
+
         val factory = getPointFactory()
 
         binding.pathPointStyle.text = listOf(
@@ -374,11 +321,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             getString(R.string.cell_signal),
             getString(R.string.elevation),
             getString(R.string.time)
-        )[pointColoringStyle.ordinal]
+        )[path.style.point.ordinal]
 
         binding.pathLegend.colorScale = factory.createColorScale(waypoints)
         binding.pathLegend.labels = factory.createLabelMap(waypoints)
-        binding.pathLegend.isVisible = pointColoringStyle != PathPointColoringStyle.None
+        binding.pathLegend.isVisible = path.style.point != PathPointColoringStyle.None
     }
 
     override fun generateBinding(
@@ -434,6 +381,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun navigateToWaypoint(point: PathPoint) {
+        val path = path ?: return
         tryOrNothing {
             runInBackground {
                 val waypointTime = point.time ?: Instant.now()
@@ -456,13 +404,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                         visible = false,
                         elevation = point.elevation,
                         temporary = true,
-                        color = prefs.navigation.defaultPathColor.color,
+                        color = path.style.color,
                         owner = BeaconOwner.Backtrack
                     )
-                    beaconRepo.addBeacon(BeaconEntity.from(beacon))
-
-                    newTempId =
-                        beaconRepo.getTemporaryBeacon(BeaconOwner.Backtrack)?.id ?: 0L
+                    newTempId = beaconRepo.addBeacon(BeaconEntity.from(beacon))
                 }
 
                 withContext(Dispatchers.Main) {
@@ -517,11 +462,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun getPointFactory(): IPointDisplayFactory {
-        return when (pointColoringStyle) {
-            PathPointColoringStyle.None -> NonePointDisplayFactory(requireContext())
+        return when (path?.style?.point) {
             PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
             PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
             PathPointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
+            else -> NonePointDisplayFactory(requireContext())
         }
     }
 }

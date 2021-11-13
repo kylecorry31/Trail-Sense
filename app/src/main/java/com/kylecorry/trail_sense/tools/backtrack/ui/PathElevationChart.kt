@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.backtrack.ui
 
+import androidx.annotation.ColorInt
 import com.github.mikephil.charting.charts.LineChart
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -17,8 +17,6 @@ class PathElevationChart(chart: LineChart) {
     private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
 
     private var granularity = 10f
-
-    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
     private val units = UserPreferences(chart.context).baseDistanceUnits
     private val formatter = FormatService(chart.context)
@@ -71,7 +69,7 @@ class PathElevationChart(chart: LineChart) {
         _listener = listener
     }
 
-    fun plot(path: List<PathPoint>) {
+    fun plot(path: List<PathPoint>, @ColorInt color: Int) {
         val elevations = getElevationPlotPoints(path)
         simpleChart.plot(elevations, color)
     }
