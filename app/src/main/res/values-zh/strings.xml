@@ -996,4 +996,13 @@
     <string name="point_style">圆点样式</string>
     <string name="sort_by">排序：%s</string>
     <string name="most_recent">最近</string>
+    <string name="duration">持续时间</string>
+    <string name="elevation_gain">海拔增益</string>
+    <string name="easy">容易</string>
+    <string name="elevation_loss">海拔损失</string>
+    <string name="hard">困难</string>
+    <string name="difficulty">难度</string>
+    <string name="points">点</string>
+    <string name="importing">导入中</string>
+    <string name="elevation">海拔</string>
 </resources>
