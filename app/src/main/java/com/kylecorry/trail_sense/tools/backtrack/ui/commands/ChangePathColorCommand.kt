@@ -16,11 +16,10 @@ import kotlinx.coroutines.withContext
 class ChangePathColorCommand(
     private val context: Context,
     private val lifecycleScope: LifecycleCoroutineScope,
-    private val path: Path,
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathCommand {
 
-    override fun execute() {
+    override fun execute(path: Path) {
         CustomUiUtils.pickColor(
             context,
             AppColor.values().firstOrNull { it.color == path.style.color } ?: AppColor.Gray,

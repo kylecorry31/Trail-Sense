@@ -564,7 +564,6 @@
     <string name="tool_backtrack_summary">View location history</string>
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="waypoint_beacon_title_template">%s, %s Waypoint</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
@@ -1149,6 +1148,7 @@
     <!--    Referring to the difficulty-->
     <string name="hard">Hard</string>
     <string name="difficulty">Difficulty</string>
+    <string name="waypoint">Waypoint</string>
     <plurals name="paths_imported">
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>

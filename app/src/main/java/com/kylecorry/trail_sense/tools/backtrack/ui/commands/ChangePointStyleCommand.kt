@@ -16,11 +16,10 @@ import kotlinx.coroutines.withContext
 class ChangePointStyleCommand(
     private val context: Context,
     private val lifecycleScope: LifecycleCoroutineScope,
-    private val path: Path,
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathCommand {
 
-    override fun execute() {
+    override fun execute(path: Path) {
         Pickers.item(
             context, context.getString(R.string.point_style), listOf(
                 context.getString(R.string.none),
