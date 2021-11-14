@@ -23,13 +23,15 @@ class PathListItem(
         itemBinding: ListItemPlainIconMenuBinding,
         item: Path
     ) {
-        itemBinding.icon.setImageResource(if (!item.style.visible){
-            R.drawable.ic_not_visible
-        } else when(item.style.line){
-            LineStyle.Solid -> R.drawable.path_solid
-            LineStyle.Dotted -> R.drawable.path_dotted
-            LineStyle.Arrow -> R.drawable.path_arrow
-        })
+        itemBinding.icon.setImageResource(
+            if (!item.style.visible) {
+                R.drawable.ic_not_visible
+            } else when (item.style.line) {
+                LineStyle.Solid -> R.drawable.path_solid
+                LineStyle.Dotted -> R.drawable.path_dotted
+                LineStyle.Arrow -> R.drawable.path_arrow
+            }
+        )
 
         CustomUiUtils.setImageColor(
             itemBinding.icon,
@@ -44,7 +46,9 @@ class PathListItem(
             distance,
             Units.getDecimalPlaces(distance.units),
             false
-        ) + if (item.temporary) { " - " + context.getString(R.string.temporary) } else ""
+        ) + if (item.temporary) {
+            " - " + context.getString(R.string.temporary)
+        } else ""
         itemBinding.root.setOnClickListener {
             action(item, PathAction.Show)
         }
@@ -62,9 +66,11 @@ class PathListItem(
                 it, listOf(
                     context.getString(R.string.rename),
                     if (item.temporary) context.getString(R.string.keep_forever) else null,
-                    if (item.style.visible) context.getString(R.string.hide) else context.getString(
-                        R.string.show
-                    ),
+                    if (prefs.navigation.useRadarCompass || prefs.navigation.areMapsEnabled) {
+                        if (item.style.visible) context.getString(R.string.hide) else context.getString(
+                            R.string.show
+                        )
+                    } else null,
                     context.getString(R.string.export),
                     context.getString(R.string.merge),
                     context.getString(R.string.delete),

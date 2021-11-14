@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
@@ -27,6 +28,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.hiking.HikingService
+import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.paths.Path
 import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
@@ -109,6 +111,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathViewPointsBtn.setOnClickListener {
             viewPoints()
+        }
+
+        binding.menuButton.setOnClickListener {
+            showPathMenu()
         }
 
         chart.setOnPointClickListener {
@@ -200,6 +206,61 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
+    private fun showPathMenu() {
+        val path = path ?: return
+        val actions = listOf(
+            PathAction.Rename,
+            PathAction.Keep,
+            PathAction.ToggleVisibility,
+            PathAction.Export
+        )
+
+        Pickers.menu(
+            binding.menuButton, listOf(
+                getString(R.string.rename),
+                if (path.temporary) getString(R.string.keep_forever) else null,
+                if (prefs.navigation.useRadarCompass || prefs.navigation.areMapsEnabled) {
+                    if (path.style.visible) getString(R.string.hide) else getString(
+                        R.string.show
+                    )
+                } else null,
+                getString(R.string.export)
+            )
+        ) {
+            when (actions[it]) {
+                PathAction.Export -> exportPath(path)
+                PathAction.Rename -> renamePath(path)
+                PathAction.Keep -> keepPath(path)
+                PathAction.ToggleVisibility -> togglePathVisibility(path)
+            }
+            true
+        }
+    }
+
+    private fun exportPath(path: Path) {
+        val command = ExportPathCommand(
+            requireContext(),
+            lifecycleScope,
+            IOFactory().createGpxService(this),
+            pathService
+        )
+        command.execute(path)
+    }
+
+    private fun togglePathVisibility(path: Path) {
+        val command = TogglePathVisibilityCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
+    }
+
+    private fun renamePath(path: Path) {
+        val command = RenamePathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
+    }
+
+    private fun keepPath(path: Path) {
+        val command = KeepPathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
+    }
 
     private fun updatePathMap() {
         val path = path ?: return

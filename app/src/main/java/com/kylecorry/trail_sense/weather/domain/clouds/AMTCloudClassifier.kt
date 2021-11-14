@@ -7,7 +7,6 @@ import android.util.Log
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
 import com.kylecorry.andromeda.core.bitmap.ColorChannel
 import com.kylecorry.sol.math.SolMath.map
-import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.GLCMService
@@ -187,20 +186,6 @@ class AMTCloudClassifier(
     private fun percentDifference(color1: Double, color2: Double): Float {
         return map((color1 - color2).toFloat(), -255f, 255f, 0f, 1f)
     }
-
-    fun StatisticsService.skewness(
-        values: List<Float>,
-        mean: Float? = null,
-        stdev: Float? = null
-    ): Float {
-        val average = mean ?: values.average().toFloat()
-        val deviation = stdev ?: stdev(values, mean = average)
-
-        return values.sumOf {
-            power((it - average) / deviation.toDouble(), 3)
-        }.toFloat() / values.size
-    }
-
 
     private data class CloudImageFeatures(
         val cover: Float,

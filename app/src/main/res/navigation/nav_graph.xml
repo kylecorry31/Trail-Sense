@@ -655,7 +655,7 @@
         android:label="FragmentToolWhiteNoise" />
     <fragment
         android:id="@+id/fragmentBacktrack"
-        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.FragmentBacktrack"
+        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.PathsFragment"
         android:label="FragmentBacktrack">
         <action
             android:id="@+id/action_fragmentBacktrack_to_action_navigation"

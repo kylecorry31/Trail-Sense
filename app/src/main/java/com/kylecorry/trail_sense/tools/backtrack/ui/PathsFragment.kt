@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentBacktrackBinding
+import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.FormatService
@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.tools.backtrack.domain.pathsort.*
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.backtrack.ui.commands.*
 
-class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
+class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -120,8 +120,8 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentBacktrackBinding {
-        return FragmentBacktrackBinding.inflate(layoutInflater, container, false)
+    ): FragmentPathsBinding {
+        return FragmentPathsBinding.inflate(layoutInflater, container, false)
     }
 
     private fun onPathsChanged(paths: List<Path>) {
