@@ -212,7 +212,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             PathAction.Rename,
             PathAction.Keep,
             PathAction.ToggleVisibility,
-            PathAction.Export
+            PathAction.Export,
+            PathAction.Simplify
         )
 
         Pickers.menu(
@@ -224,7 +225,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                         R.string.show
                     )
                 } else null,
-                getString(R.string.export)
+                getString(R.string.export),
+                getString(R.string.simplify)
             )
         ) {
             when (actions[it]) {
@@ -232,9 +234,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 PathAction.Rename -> renamePath(path)
                 PathAction.Keep -> keepPath(path)
                 PathAction.ToggleVisibility -> togglePathVisibility(path)
+                PathAction.Simplify -> simplifyPath(path)
             }
             true
         }
+    }
+
+    private fun simplifyPath(path: Path) {
+        val command = SimplifyPathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
     }
 
     private fun exportPath(path: Path) {

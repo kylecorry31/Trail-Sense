@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.navigation.domain.PathSimplificationQuality
 import com.kylecorry.trail_sense.navigation.infrastructure.IPathService
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.paths.Path
@@ -18,6 +20,7 @@ import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant
+import kotlin.math.absoluteValue
 
 class PathService(
     private val pathRepo: IPathRepo,
@@ -102,7 +105,7 @@ class PathService(
         }
         addWaypointsToPath(allPoints, newPathId)
 
-        if (wasBacktrack){
+        if (wasBacktrack) {
             backtrackLock.withLock {
                 cache.putLong(BACKTRACK_PATH_KEY, newPathId)
             }
@@ -111,6 +114,35 @@ class PathService(
         deletePath(start)
         deletePath(end)
         return newPathId
+    }
+
+    override suspend fun simplifyPath(path: Long, quality: PathSimplificationQuality): Int {
+        val epsilon = when (quality) {
+            PathSimplificationQuality.Low -> 5f
+            PathSimplificationQuality.Medium -> 2f
+            PathSimplificationQuality.High -> 1f
+        }
+        val filter = RDPFilter<PathPoint>(epsilon) { point, start, end ->
+            geology.getCrossTrackDistance(
+                point.coordinate,
+                start.coordinate,
+                end.coordinate
+            ).distance.absoluteValue
+        }
+
+        val points = getWaypoints(path).sortedBy { it.id }.toMutableList()
+        val toKeep = filter.filter(points)
+
+        val numDeleted = points.size - toKeep.size
+
+        points.removeAll(toKeep)
+
+        for (point in points) {
+            waypointRepo.delete(point)
+        }
+
+        updatePathMetadata(path)
+        return numDeleted
     }
 
     override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {

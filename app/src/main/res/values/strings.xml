@@ -1149,6 +1149,13 @@
     <string name="merging">Merging</string>
     <string name="merge">Merge</string>
     <string name="append_onto">Append onto</string>
+    <string name="simplify">Simplify</string>
+    <string name="simplifying">Simplifying</string>
+    <string name="simplification_quality">Simplification quality</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d waypoint deleted</item>
+        <item quantity="other">%d waypoints deleted</item>
+    </plurals>
     <plurals name="paths_imported">
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>

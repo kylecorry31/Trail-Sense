@@ -60,6 +60,7 @@ class PathListItem(
                 PathAction.Export,
                 PathAction.Merge,
                 PathAction.Delete,
+                PathAction.Simplify
             )
 
             Pickers.menu(
@@ -74,6 +75,7 @@ class PathListItem(
                     context.getString(R.string.export),
                     context.getString(R.string.merge),
                     context.getString(R.string.delete),
+                    context.getString(R.string.simplify)
                 )
             ) {
                 action(item, actions[it])

@@ -181,9 +181,15 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                     PathAction.Rename -> renamePath(path)
                     PathAction.Keep -> keepPath(path)
                     PathAction.ToggleVisibility -> togglePathVisibility(path)
+                    PathAction.Simplify -> simplifyPath(path)
                 }
             }
         itemStrategy.display(itemBinding, item)
+    }
+
+    private fun simplifyPath(path: Path) {
+        val command = SimplifyPathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
     }
 
     private fun sortPaths(paths: List<Path>): List<Path> {
