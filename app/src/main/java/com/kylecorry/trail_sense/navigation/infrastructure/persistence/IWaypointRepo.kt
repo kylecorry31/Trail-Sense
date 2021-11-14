@@ -9,6 +9,10 @@ interface IWaypointRepo {
 
     suspend fun delete(value: PathPoint)
 
+    suspend fun addAll(value: List<PathPoint>)
+
+    suspend fun deleteAll(value: List<PathPoint>)
+
     suspend fun deleteInPath(pathId: Long)
 
     suspend fun deleteOlderInPath(pathId: Long, time: Instant)

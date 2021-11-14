@@ -25,6 +25,23 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         waypointDao.delete(WaypointEntity.from(value))
     }
 
+    override suspend fun addAll(value: List<PathPoint>) {
+        val toAdd = value.filter { it.id == 0L }.map { WaypointEntity.from(it) }
+        val toUpdate = value.filter { it.id != 0L }.map { WaypointEntity.from(it) }
+
+        if (toAdd.isNotEmpty()) {
+            waypointDao.bulkInsert(toAdd)
+        }
+
+        if (toUpdate.isNotEmpty()) {
+            waypointDao.bulkUpdate(toUpdate)
+        }
+    }
+
+    override suspend fun deleteAll(value: List<PathPoint>) {
+        waypointDao.bulkDelete(value.map { WaypointEntity.from(it) })
+    }
+
     override suspend fun deleteInPath(pathId: Long) {
         waypointDao.deleteByPath(pathId)
     }

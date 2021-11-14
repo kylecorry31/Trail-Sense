@@ -47,4 +47,13 @@ interface WaypointDao {
 
     @Query("UPDATE waypoints SET pathId = :toPathId WHERE pathId = :fromPathId")
     suspend fun changePath(fromPathId: Long, toPathId: Long)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun bulkInsert(waypoints: List<WaypointEntity>)
+
+    @Update
+    suspend fun bulkUpdate(waypoints: List<WaypointEntity>)
+
+    @Delete
+    suspend fun bulkDelete(waypoints: List<WaypointEntity>)
 }

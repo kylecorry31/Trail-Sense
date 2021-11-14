@@ -137,9 +137,7 @@ class PathService(
 
         points.removeAll(toKeep)
 
-        for (point in points) {
-            waypointRepo.delete(point)
-        }
+        waypointRepo.deleteAll(points)
 
         updatePathMetadata(path)
         return numDeleted
@@ -163,9 +161,7 @@ class PathService(
     }
 
     override suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long) {
-        for (point in points) {
-            waypointRepo.add(point.copy(pathId = pathId))
-        }
+        waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
         updatePathMetadata(pathId)
     }
 
@@ -181,13 +177,9 @@ class PathService(
     }
 
     override suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long) {
-        val oldPaths = mutableSetOf<Long>()
-        for (waypoint in points) {
-            if (waypoint.pathId != 0L) {
-                oldPaths.add(waypoint.pathId)
-            }
-            waypointRepo.add(waypoint.copy(pathId = pathId))
-        }
+        val oldPaths =
+            points.filter { it.pathId != 0L && it.pathId != pathId }.map { it.pathId }.distinct()
+        waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
         updatePathMetadata(pathId)
         for (path in oldPaths) {
             updatePathMetadata(pathId)
