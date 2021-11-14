@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.backtrack.ui
 
 import android.content.Context
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -37,17 +36,10 @@ class PathListItem(
             item.style.color
         )
 
-        val start = item.metadata.duration?.start
-        val end = item.metadata.duration?.end
         val distance =
             item.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        itemBinding.title.text = if (item.name != null) {
-            item.name
-        } else if (start != null && end != null) {
-            formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
-        } else {
-            context.getString(android.R.string.untitled)
-        }
+        val nameFactory = PathNameFactory(context)
+        itemBinding.title.text = nameFactory.getName(item)
         itemBinding.description.text = formatService.formatDistance(
             distance,
             Units.getDecimalPlaces(distance.units),
@@ -74,7 +66,7 @@ class PathListItem(
                         R.string.show
                     ),
                     context.getString(R.string.export),
-                    context.getString(R.string.path_merge_previous),
+                    context.getString(R.string.merge),
                     context.getString(R.string.delete),
                 )
             ) {

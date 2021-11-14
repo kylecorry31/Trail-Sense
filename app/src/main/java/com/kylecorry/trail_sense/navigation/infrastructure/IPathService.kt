@@ -18,6 +18,7 @@ interface IPathService : ICleanable {
     fun getLivePath(id: Long): LiveData<Path?>
     suspend fun addPath(path: Path): Long
     suspend fun deletePath(path: Path)
+    suspend fun mergePaths(startPathId: Long, endPathId: Long): Long
 
     suspend fun getWaypoints(paths: List<Long>? = null): Map<Long, List<PathPoint>>
     suspend fun getWaypoints(path: Long): List<PathPoint>

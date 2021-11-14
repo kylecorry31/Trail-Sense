@@ -8,14 +8,14 @@ import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class PathGPXConverter {
 
-    fun toGPX(path: List<PathPoint>): GPXData {
+    fun toGPX(name: String?, path: List<PathPoint>): GPXData {
         val waypoints = path.map {
             GPXWaypoint(it.coordinate, null, it.elevation, null, it.time, null)
         }
         val pathId = path.firstOrNull()?.pathId ?: 0
 
         val trackSegment = GPXTrackSegment(waypoints)
-        val track = GPXTrack(null, null, pathId, null, listOf(trackSegment))
+        val track = GPXTrack(name, null, pathId, null, listOf(trackSegment))
         return GPXData(emptyList(), listOf(track))
     }
 

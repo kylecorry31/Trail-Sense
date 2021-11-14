@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -20,15 +18,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathMetadata
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.backtrack.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.backtrack.domain.pathsort.*
 import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.time.Instant
+import com.kylecorry.trail_sense.tools.backtrack.ui.commands.*
 
 class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
 
@@ -183,7 +176,7 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
                 when (action) {
                     PathAction.Export -> exportPath(path)
                     PathAction.Delete -> deletePath(path)
-                    PathAction.Merge -> mergePreviousPath(path)
+                    PathAction.Merge -> merge(path)
                     PathAction.Show -> showPath(path)
                     PathAction.Rename -> renamePath(path)
                     PathAction.Keep -> keepPath(path)
@@ -205,163 +198,49 @@ class FragmentBacktrack : BoundFragment<FragmentBacktrackBinding>() {
     }
 
     private fun togglePathVisibility(path: Path) {
-        runInBackground {
-            withContext(Dispatchers.IO) {
-                pathService.addPath(path.copy(style = path.style.copy(visible = !path.style.visible)))
-            }
-        }
+        val command = TogglePathVisibilityCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
     }
 
     private fun renamePath(path: Path) {
-        Pickers.text(
-            requireContext(),
-            getString(R.string.rename),
-            default = path.name,
-            hint = getString(R.string.name)
-        ) {
-            if (it != null) {
-                runInBackground {
-                    withContext(Dispatchers.IO) {
-                        pathService.addPath(path.copy(name = if (it.isBlank()) null else it))
-                    }
-                }
-
-            }
-        }
+        val command = RenamePathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
     }
 
     private fun keepPath(path: Path) {
-        runInBackground {
-            withContext(Dispatchers.IO) {
-                pathService.addPath(path.copy(temporary = false))
-            }
-        }
+        val command = KeepPathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
     }
 
     private fun showPath(path: Path) {
-        findNavController().navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to path.id))
+        val command = ViewPathCommand(findNavController())
+        command.execute(path)
     }
 
     private fun importPaths() {
-        runInBackground {
-            val gpx = gpxService.import() ?: return@runInBackground
-            val style = prefs.navigation.defaultPathStyle
-            val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
-            for (track in gpx.tracks) {
-                for (segment in track.segments) {
-                    paths.add(track.name to segment.points.map {
-                        PathPoint(
-                            0,
-                            0,
-                            it.coordinate,
-                            it.elevation,
-                            it.time
-                        )
-                    })
-                }
-            }
-
-            withContext(Dispatchers.Main) {
-                Pickers.items(requireContext(), getString(R.string.import_btn),
-                    paths.map {
-                        it.first ?: getString(android.R.string.untitled)
-                    },
-                    List(paths.size) { it }
-                ) {
-                    if (it != null) {
-                        runInBackground {
-                            val loading = withContext(Dispatchers.Main){
-                                Alerts.loading(requireContext(), getString(R.string.importing))
-                            }
-
-                            withContext(Dispatchers.IO) {
-                                for (path in paths.filterIndices(it)) {
-                                    val pathToCreate =
-                                        Path(0, path.first, style, PathMetadata.empty)
-                                    val pathId = pathService.addPath(pathToCreate)
-                                    pathService.addWaypointsToPath(path.second, pathId)
-                                }
-                            }
-                            withContext(Dispatchers.Main) {
-                                toast(
-                                    resources.getQuantityString(
-                                        R.plurals.paths_imported,
-                                        it.size,
-                                        it.size
-                                    )
-                                )
-                                loading.dismiss()
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        val command = ImportPathsCommand(
+            requireContext(),
+            lifecycleScope,
+            gpxService,
+            pathService,
+            prefs.navigation
+        )
+        command.execute()
     }
 
     private fun exportPath(path: Path) {
-        runInBackground {
-            val waypoints = pathService.getWaypoints(path.id)
-            val gpx = PathGPXConverter().toGPX(waypoints)
-            val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
-            val success = gpxService.export(gpx, exportFile)
-            withContext(Dispatchers.Main) {
-                if (success) {
-                    Alerts.toast(
-                        requireContext(),
-                        getString(R.string.path_exported)
-                    )
-                } else {
-                    Alerts.toast(
-                        requireContext(),
-                        getString(R.string.export_path_error)
-                    )
-                }
-            }
-        }
+        val command = ExportPathCommand(requireContext(), lifecycleScope, gpxService, pathService)
+        command.execute(path)
     }
 
     private fun deletePath(path: Path) {
-        Alerts.dialog(
-            requireContext(),
-            getString(R.string.delete_path),
-            resources.getQuantityString(
-                R.plurals.waypoints_to_be_deleted,
-                path.metadata.waypoints,
-                path.metadata.waypoints
-            )
-        ) { cancelled ->
-            if (!cancelled) {
-                runInBackground {
-                    withContext(Dispatchers.IO) {
-                        pathService.deletePath(path)
-                    }
-                }
-            }
-        }
+        val command = DeletePathCommand(requireContext(), lifecycleScope, pathService)
+        command.execute(path)
     }
 
-    private fun mergePreviousPath(path: Path) {
-        val previousPath = paths.filter { it.id < path.id }.maxByOrNull { it.id }
-        if (previousPath == null) {
-            Alerts.toast(requireContext(), getString(R.string.no_previous_path))
-            return
-        }
-
-        Alerts.dialog(
-            requireContext(),
-            getString(R.string.merge_previous_path_title)
-        ) { cancelled ->
-            if (!cancelled) {
-                runInBackground {
-                    withContext(Dispatchers.IO) {
-                        val waypoints = pathService.getWaypoints(previousPath.id)
-                        pathService.moveWaypointsToPath(waypoints, path.id)
-                        pathService.deletePath(previousPath)
-                    }
-                }
-            }
-        }
+    private fun merge(path: Path) {
+        val command = MergePathCommand(requireContext(), lifecycleScope, paths, pathService)
+        command.execute(path)
     }
 
 }

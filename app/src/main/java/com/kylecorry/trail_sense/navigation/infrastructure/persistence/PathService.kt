@@ -85,6 +85,34 @@ class PathService(
         pathRepo.delete(path)
     }
 
+    override suspend fun mergePaths(startPathId: Long, endPathId: Long): Long {
+        val start = getPath(startPathId) ?: return 0L
+        val end = getPath(endPathId) ?: return 0L
+        val backtrackId = getBacktrackPathId()
+        val wasBacktrack = start.id == backtrackId || end.id == backtrackId
+        val style = start.style
+        val name = start.name
+        val startPoints = getWaypoints(startPathId)
+        val endPoints = getWaypoints(endPathId)
+
+        val newPathId = addPath(getEmptyPath(false).copy(name = name, style = style))
+
+        val allPoints = (startPoints + endPoints).map {
+            it.copy(id = 0)
+        }
+        addWaypointsToPath(allPoints, newPathId)
+
+        if (wasBacktrack){
+            backtrackLock.withLock {
+                cache.putLong(BACKTRACK_PATH_KEY, newPathId)
+            }
+        }
+
+        deletePath(start)
+        deletePath(end)
+        return newPathId
+    }
+
     override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {
         val points = if (paths != null) {
             waypointRepo.getAllInPaths(paths)
@@ -103,7 +131,7 @@ class PathService(
     }
 
     override suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long) {
-        for (point in points){
+        for (point in points) {
             waypointRepo.add(point.copy(pathId = pathId))
         }
         updatePathMetadata(pathId)
@@ -159,7 +187,7 @@ class PathService(
 
     private suspend fun updatePathMetadata(pathId: Long, deleteIfEmpty: Boolean = false) {
         val path = getPath(pathId) ?: return
-        val points = waypointRepo.getAllInPaths(listOf(pathId)).sortedBy { it.time }
+        val points = waypointRepo.getAllInPaths(listOf(pathId)).sortedBy { it.id }
 
         if (deleteIfEmpty && points.isEmpty()) {
             deletePath(path)
@@ -180,14 +208,18 @@ class PathService(
     }
 
     private suspend fun createBacktrackPath(): Long {
-        val path = Path(
+        val path = getEmptyPath(true)
+        return addPath(path)
+    }
+
+    private fun getEmptyPath(temporary: Boolean = false): Path {
+        return Path(
             0,
             null,
             pathPreferences.defaultPathStyle,
             PathMetadata.empty,
-            temporary = true
+            temporary = temporary
         )
-        return addPath(path)
     }
 
     companion object {
