@@ -1005,4 +1005,5 @@
     <string name="points">点</string>
     <string name="importing">导入中</string>
     <string name="elevation">海拔</string>
+    <string name="waypoint">路径点</string>
 </resources>
