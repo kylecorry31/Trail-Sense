@@ -118,9 +118,9 @@ class PathService(
 
     override suspend fun simplifyPath(path: Long, quality: PathSimplificationQuality): Int {
         val epsilon = when (quality) {
-            PathSimplificationQuality.Low -> 5f
-            PathSimplificationQuality.Medium -> 2f
-            PathSimplificationQuality.High -> 1f
+            PathSimplificationQuality.Low -> 8f
+            PathSimplificationQuality.Medium -> 4f
+            PathSimplificationQuality.High -> 2f
         }
         val filter = RDPFilter<PathPoint>(epsilon) { point, start, end ->
             geology.getCrossTrackDistance(
