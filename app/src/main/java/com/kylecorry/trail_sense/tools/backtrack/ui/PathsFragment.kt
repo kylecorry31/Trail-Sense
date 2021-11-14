@@ -67,7 +67,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             val defaultSort = prefs.navigation.pathSort
             Pickers.menu(
                 it, listOf(
-                    getString(R.string.sort_by, defaultSort.name),
+                    getString(R.string.sort_by, getSortString(defaultSort)),
                     getString(R.string.import_gpx)
                 )
             ) { selected ->
