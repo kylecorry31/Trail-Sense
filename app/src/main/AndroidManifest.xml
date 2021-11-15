@@ -99,7 +99,7 @@
             android:foregroundServiceType="location" />
 
         <service
-            android:name=".tools.backtrack.infrastructure.services.BacktrackAlwaysOnService"
+            android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
@@ -159,7 +159,7 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".tools.backtrack.infrastructure.receivers.StopBacktrackReceiver"
+            android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.receivers.StopBacktrackReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver

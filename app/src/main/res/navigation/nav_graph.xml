@@ -365,7 +365,7 @@
     </fragment>
     <fragment
         android:id="@+id/beacon_list"
-        android:name="com.kylecorry.trail_sense.navigation.ui.BeaconListFragment"
+        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.BeaconListFragment"
         android:label="BeaconListFragment">
 
         <argument
@@ -399,7 +399,7 @@
     </fragment>
     <fragment
         android:id="@+id/place_beacon"
-        android:name="com.kylecorry.trail_sense.navigation.ui.PlaceBeaconFragment"
+        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.PlaceBeaconFragment"
         android:label="PlaceBeaconFragment">
 
         <argument
@@ -520,7 +520,7 @@
         android:label="LevelFragment" />
     <fragment
         android:id="@+id/beaconDetailsFragment"
-        android:name="com.kylecorry.trail_sense.navigation.ui.BeaconDetailsFragment"
+        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.BeaconDetailsFragment"
         android:label="BeaconDetailsFragment">
 
         <argument
@@ -655,7 +655,7 @@
         android:label="FragmentToolWhiteNoise" />
     <fragment
         android:id="@+id/fragmentBacktrack"
-        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.PathsFragment"
+        android:name="com.kylecorry.trail_sense.navigation.paths.ui.PathsFragment"
         android:label="FragmentBacktrack">
         <action
             android:id="@+id/action_fragmentBacktrack_to_action_navigation"
@@ -892,7 +892,7 @@
         android:label="DiagnosticsFragment" />
     <fragment
         android:id="@+id/pathDetailsFragment"
-        android:name="com.kylecorry.trail_sense.tools.backtrack.ui.PathOverviewFragment"
+        android:name="com.kylecorry.trail_sense.navigation.paths.ui.PathOverviewFragment"
         android:label="PathDetailsFragment">
         <argument
             android:name="destination"

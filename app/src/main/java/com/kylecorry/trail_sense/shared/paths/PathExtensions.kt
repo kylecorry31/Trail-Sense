@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.shared.canvas.PixelLine
 import com.kylecorry.trail_sense.shared.canvas.PixelLineStyle
-import com.kylecorry.trail_sense.tools.backtrack.domain.factories.*
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.*
 
 fun List<PathPoint>.asMappable(context: Context, path: Path): IMappablePath {
     val colorFactory = getPointFactory(context, path.style.point)

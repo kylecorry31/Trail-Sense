@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 
 class DestinationPanel(private val view: View) {
 

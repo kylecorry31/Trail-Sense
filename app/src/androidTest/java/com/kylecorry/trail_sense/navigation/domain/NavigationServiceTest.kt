@@ -4,7 +4,7 @@ import android.graphics.Color
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.Position
-import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import org.junit.Assert
 import org.junit.Test
 

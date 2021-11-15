@@ -16,11 +16,11 @@ import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.RenderedPath
-import com.kylecorry.trail_sense.navigation.domain.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPath
+import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.tools.maps.domain.Map

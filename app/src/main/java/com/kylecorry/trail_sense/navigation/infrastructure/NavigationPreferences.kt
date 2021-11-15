@@ -11,14 +11,14 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.paths.LineStyle
 import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
 import com.kylecorry.trail_sense.shared.paths.PathStyle
-import com.kylecorry.trail_sense.tools.backtrack.ui.PathSortMethod
+import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,

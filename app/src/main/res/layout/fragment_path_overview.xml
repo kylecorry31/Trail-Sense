@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp">
 
-            <com.kylecorry.trail_sense.tools.backtrack.ui.PathView
+            <com.kylecorry.trail_sense.navigation.paths.ui.PathView
                 android:id="@+id/path_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

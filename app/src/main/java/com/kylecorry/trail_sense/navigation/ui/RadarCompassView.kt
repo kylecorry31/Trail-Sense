@@ -22,8 +22,8 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
-import com.kylecorry.trail_sense.navigation.domain.RenderedPath
-import com.kylecorry.trail_sense.navigation.domain.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPath
+import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units

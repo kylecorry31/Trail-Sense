@@ -25,7 +25,7 @@ import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.domain.Probability
-import com.kylecorry.trail_sense.shared.hiking.HikingDifficulty
+import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
