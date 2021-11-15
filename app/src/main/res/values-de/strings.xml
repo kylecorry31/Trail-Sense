@@ -1003,4 +1003,14 @@
     <string name="sort_by">Sortieren: %s</string>
     <string name="closest">Nächste</string>
     <string name="most_recent">Neueste</string>
+    <string name="importing">Importiere</string>
+    <string name="points">Punkte</string>
+    <string name="duration">Dauer</string>
+    <string name="elevation">Höhe</string>
+    <string name="elevation_gain">Höhenunterschied</string>
+    <string name="elevation_loss">Höhenverlust</string>
+    <string name="easy">Leicht</string>
+    <string name="hard">Schwer</string>
+    <string name="difficulty">Schwierigkeit</string>
+    <string name="waypoint">Wegpunkt</string>
 </resources>
