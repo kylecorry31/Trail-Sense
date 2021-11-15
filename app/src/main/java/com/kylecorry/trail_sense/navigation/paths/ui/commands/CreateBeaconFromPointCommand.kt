@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.AppUtils
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 
 
 class CreateBeaconFromPointCommand(private val context: Context) : IPathPointCommand {

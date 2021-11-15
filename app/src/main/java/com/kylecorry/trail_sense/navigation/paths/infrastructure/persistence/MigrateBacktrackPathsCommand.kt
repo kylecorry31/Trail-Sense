@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathMetadata
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
 
 class MigrateBacktrackPathsCommand(
     private val pathService: IPathService,

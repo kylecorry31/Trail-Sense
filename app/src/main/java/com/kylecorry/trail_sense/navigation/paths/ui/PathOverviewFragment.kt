@@ -23,21 +23,21 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingService
-import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.factories.*
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.SelectedPointDecorator
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
+import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 
 
@@ -290,7 +290,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         binding.pathLineStyle.text = listOf(
             getString(R.string.solid),
             getString(R.string.dotted),
-            getString(R.string.arrow)
+            getString(R.string.arrow),
+            getString(R.string.dashed),
         )[path.style.line.ordinal]
 
         val distance =

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import java.time.Instant
 
 interface IWaypointRepo {

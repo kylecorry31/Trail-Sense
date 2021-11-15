@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import java.time.Duration
 import kotlin.math.abs
 import kotlin.math.max

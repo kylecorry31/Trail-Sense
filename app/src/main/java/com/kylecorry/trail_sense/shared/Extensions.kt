@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity

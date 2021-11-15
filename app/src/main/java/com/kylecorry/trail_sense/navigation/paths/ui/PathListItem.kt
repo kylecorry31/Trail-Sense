@@ -4,13 +4,13 @@ import android.content.Context
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.Path
 
 class PathListItem(
     private val context: Context,
@@ -30,6 +30,7 @@ class PathListItem(
                 LineStyle.Solid -> R.drawable.path_solid
                 LineStyle.Dotted -> R.drawable.path_dotted
                 LineStyle.Arrow -> R.drawable.path_arrow
+                LineStyle.Dashed -> R.drawable.path_dashed
             }
         )
 

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation.paths.ui
+package com.kylecorry.trail_sense.navigation.paths.ui.drawing
 
 import android.graphics.Path
 import com.kylecorry.sol.units.Coordinate

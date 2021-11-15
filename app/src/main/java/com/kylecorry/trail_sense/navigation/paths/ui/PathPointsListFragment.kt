@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathPointsListBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 
 class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPointsListBinding>() {
 

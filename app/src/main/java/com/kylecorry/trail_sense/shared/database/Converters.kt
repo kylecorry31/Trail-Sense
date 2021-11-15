@@ -4,8 +4,8 @@ import androidx.room.TypeConverter
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import java.time.Instant
 

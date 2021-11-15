@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.ui
 import android.content.Context
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.paths.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 
 class PathNameFactory(private val context: Context) {
 

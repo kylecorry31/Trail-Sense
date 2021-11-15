@@ -12,7 +12,7 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.specifications.LocationChangedSpecification
 import kotlinx.coroutines.runBlocking
 import java.time.Duration

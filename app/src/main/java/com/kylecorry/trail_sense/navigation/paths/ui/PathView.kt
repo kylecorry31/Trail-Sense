@@ -22,9 +22,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.toCanvasPath
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy

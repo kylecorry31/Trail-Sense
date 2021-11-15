@@ -1,10 +1,9 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.MigrateBacktrackPathsCommand
-import com.kylecorry.trail_sense.shared.paths.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

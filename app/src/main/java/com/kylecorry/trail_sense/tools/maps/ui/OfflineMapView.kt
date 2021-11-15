@@ -16,13 +16,13 @@ import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPath
-import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -175,7 +175,7 @@ class OfflineMapView : CanvasView {
             val centerPixel = getPixelCoordinate(rendered.origin, false) ?: continue
             push()
             translate(centerPixel.x, centerPixel.y)
-            drawer.draw(this, path.color) {
+            drawer.draw(this, path.color, strokeScale = scale) {
                 path(rendered.path)
             }
             pop()

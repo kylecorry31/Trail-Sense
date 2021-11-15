@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.CellNetworkQuality
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 import java.time.Instant
 
 @Entity(tableName = "waypoints")

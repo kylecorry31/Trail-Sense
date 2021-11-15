@@ -5,9 +5,9 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.Path
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,7 +24,8 @@ class ChangePathLineStyleCommand(
             context, context.getString(R.string.line_style), listOf(
                 context.getString(R.string.solid),
                 context.getString(R.string.dotted),
-                context.getString(R.string.arrow)
+                context.getString(R.string.arrow),
+                context.getString(R.string.dashed),
             ),
             defaultSelectedIndex = path.style.line.ordinal
         ) {

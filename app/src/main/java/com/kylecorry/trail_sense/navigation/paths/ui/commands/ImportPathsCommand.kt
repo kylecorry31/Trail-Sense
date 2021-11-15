@@ -7,14 +7,11 @@ import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ImportService
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathMetadata
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,11 +58,18 @@ class ImportPathsCommand(
                             }
 
                             withContext(Dispatchers.IO) {
+                                val shouldSimplify = prefs.simplifyPathOnImport
                                 for (path in paths.filterIndices(it)) {
                                     val pathToCreate =
                                         Path(0, path.first, style, PathMetadata.empty)
                                     val pathId = pathService.addPath(pathToCreate)
                                     pathService.addWaypointsToPath(path.second, pathId)
+                                    if (shouldSimplify) {
+                                        pathService.simplifyPath(
+                                            pathId,
+                                            PathSimplificationQuality.High
+                                        )
+                                    }
                                 }
                             }
                             withContext(Dispatchers.Main) {

@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.database.Identifiable
-import com.kylecorry.trail_sense.shared.paths.*
 import java.time.Instant
 
 @Entity(tableName = "paths")

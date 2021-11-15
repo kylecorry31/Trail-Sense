@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors
 
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.shared.scales.IColorScale
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 
 class CellSignalPointColoringStrategy(private val colorScale: IColorScale) :
     IPointColoringStrategy {

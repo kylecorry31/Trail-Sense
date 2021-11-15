@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.shared.paths.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 
 interface IPathRepo {
     suspend fun add(value: Path): Long

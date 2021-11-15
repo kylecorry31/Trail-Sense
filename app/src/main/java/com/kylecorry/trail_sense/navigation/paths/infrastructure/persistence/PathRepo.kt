@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.trail_sense.shared.database.AppDatabase
-import com.kylecorry.trail_sense.shared.paths.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 
 class PathRepo private constructor(context: Context) : IPathRepo {
 

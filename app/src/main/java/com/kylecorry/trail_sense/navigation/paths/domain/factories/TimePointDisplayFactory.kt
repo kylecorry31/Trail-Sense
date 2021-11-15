@@ -6,7 +6,7 @@ import android.util.Range
 import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy

@@ -189,12 +189,14 @@
         <item>@string/solid</item>
         <item>@string/dotted</item>
         <item>@string/arrow</item>
+        <item>@string/dashed</item>
     </string-array>
 
     <string-array name="line_style_values">
         <item>solid</item>
         <item>dotted</item>
         <item>arrow</item>
+        <item>dashed</item>
     </string-array>
 
     <string-array name="whistle_signals_entries">

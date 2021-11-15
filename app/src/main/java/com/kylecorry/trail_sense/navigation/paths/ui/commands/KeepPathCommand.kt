@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.paths.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

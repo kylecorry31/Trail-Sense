@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors
 import android.util.Range
 import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.math.SolMath.norm
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 
 class AltitudePointColoringStrategy(

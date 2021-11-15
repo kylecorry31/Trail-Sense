@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.database.Identifiable
-import com.kylecorry.trail_sense.shared.paths.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 
 interface INearbyCompassView {
     fun setAzimuth(azimuth: Bearing)

@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.navigation.paths.domain
 import androidx.lifecycle.LiveData
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.ICleanable
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 import java.time.Instant
 
 interface IPathService : ICleanable {

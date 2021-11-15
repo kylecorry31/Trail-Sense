@@ -789,10 +789,11 @@
     <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
     <string name="solid">Solid</string>
     <string name="dotted">Dotted</string>
+    <string name="dashed">Dashed</string>
     <!--    The arrow line style-->
     <string name="arrow">Arrow</string>
-    <string name="pref_backtrack_path_style_title">Backtrack path style</string>
-    <string name="pref_backtrack_path_color_title">Backtrack path color</string>
+    <string name="pref_default_path_style_title">Default path style</string>
+    <string name="pref_default_path_color_title">Default path color</string>
     <string name="updates">Updates</string>
     <string name="backtrack_high_priority_notification">Placing a waypoint every %s</string>
     <string name="battery_warning">Battery drain warning</string>
@@ -1152,6 +1153,8 @@
     <string name="simplify">Simplify</string>
     <string name="simplifying">Simplifying</string>
     <string name="simplification_quality">Simplification quality</string>
+    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure
 
 import com.kylecorry.andromeda.core.specifications.Specification
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import java.time.Duration
 import java.time.Instant
 

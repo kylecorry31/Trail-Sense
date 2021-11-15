@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.paths
+package com.kylecorry.trail_sense.navigation.paths.domain
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.geology.CoordinateBounds

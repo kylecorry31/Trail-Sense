@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.paths.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.CellSignalPointColoringStrategy

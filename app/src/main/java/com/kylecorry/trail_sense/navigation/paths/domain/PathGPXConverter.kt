@@ -4,7 +4,6 @@ import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXTrack
 import com.kylecorry.andromeda.gpx.GPXTrackSegment
 import com.kylecorry.andromeda.gpx.GPXWaypoint
-import com.kylecorry.trail_sense.shared.paths.PathPoint
 
 class PathGPXConverter {
 

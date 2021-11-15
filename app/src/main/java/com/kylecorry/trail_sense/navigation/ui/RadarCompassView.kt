@@ -22,13 +22,13 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
-import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPath
-import com.kylecorry.trail_sense.navigation.paths.ui.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
-import com.kylecorry.trail_sense.shared.paths.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView {
