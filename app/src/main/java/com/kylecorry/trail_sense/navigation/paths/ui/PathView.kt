@@ -245,7 +245,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
     }
 
-    private fun recenter(){
+    fun recenter(){
         translateX = 0f
         translateY = 0f
         scale = 1f

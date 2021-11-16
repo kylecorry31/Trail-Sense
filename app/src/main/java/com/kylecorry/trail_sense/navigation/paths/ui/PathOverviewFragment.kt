@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -71,7 +72,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
@@ -82,8 +83,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         chart = PathElevationChart(binding.chart)
 
+        binding.pathImage.setOnTouchListener { v, event ->
+            binding.root.isScrollable = event.action == MotionEvent.ACTION_UP
+            false
+        }
+
         binding.pathMapFullscreenToggle.setOnClickListener {
             isFullscreen = !isFullscreen
+            binding.pathImage.recenter()
             binding.pathMapHolder.layoutParams = if (isFullscreen) {
                 val legendHeight = Resources.dp(requireContext(), 72f).toInt()
                 LinearLayout.LayoutParams(
