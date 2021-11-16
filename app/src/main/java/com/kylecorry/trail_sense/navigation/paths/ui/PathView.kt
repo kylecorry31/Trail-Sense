@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.toCanvasPath
+import kotlin.math.max
 
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
@@ -155,15 +156,16 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawLocation(pixels: PixelCoordinate) {
+        val scale = max(scale, 1f)
         stroke(Color.WHITE)
-        strokeWeight(dp(1f))
+        strokeWeight(dp(1f) / scale)
         fill(Resources.color(context, R.color.colorPrimary))
         push()
         rotate(azimuth, pixels.x, pixels.y)
         triangle(
-            pixels.x, pixels.y - dp(6f),
-            pixels.x - dp(5f), pixels.y + dp(6f),
-            pixels.x + dp(5f), pixels.y + dp(6f)
+            pixels.x, pixels.y - dp(6f) / scale,
+            pixels.x - dp(5f) / scale, pixels.y + dp(6f) / scale,
+            pixels.x + dp(5f) / scale, pixels.y + dp(6f) / scale
         )
         pop()
     }

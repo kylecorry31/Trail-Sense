@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
+import kotlin.math.max
 
 
 class OfflineMapView : CanvasView {
@@ -257,6 +258,7 @@ class OfflineMapView : CanvasView {
     }
 
     private fun drawMyLocation() {
+        val scale = max(scale, 1f)
         val location = myLocation ?: return
         val pixels = getPixelCoordinate(location) ?: return
 
