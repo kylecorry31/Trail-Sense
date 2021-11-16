@@ -1026,4 +1026,5 @@
     <string name="points">Точки</string>
     <string name="elevation_gain">Підвищення висоти</string>
     <string name="duration">Тривалість</string>
+    <string name="waypoint">Шляхова точка</string>
 </resources>
