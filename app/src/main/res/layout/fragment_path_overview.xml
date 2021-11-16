@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.kylecorry.trail_sense.shared.LockableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kylecorry.andromeda.list.LockableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -324,4 +324,4 @@
 
     </LinearLayout>
 
-</com.kylecorry.trail_sense.shared.LockableScrollView>
+</com.kylecorry.andromeda.list.LockableScrollView>

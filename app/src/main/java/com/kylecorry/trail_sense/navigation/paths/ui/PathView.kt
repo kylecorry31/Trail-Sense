@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.navigation.paths.ui
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
-import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -211,10 +210,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         scaleBar.reset()
         distanceScale.getScaleBar(scaleSize, metersPerPixel, scaleBar)
-        // TODO: Move the bounds compute to Andromeda
-        val rect = RectF()
-        scaleBar.computeBounds(rect, true)
-        val start = width - dp(16f) - rect.width()
+        val start = width - dp(16f) - pathWidth(scaleBar)
         val y = height - dp(16f)
         push()
         translate(start, y)
