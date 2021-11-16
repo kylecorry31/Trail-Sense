@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.geology.GeologyService
@@ -26,11 +25,10 @@ import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointCo
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.toCanvasPath
-import kotlin.math.floor
-import kotlin.math.log10
 
 
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
@@ -79,6 +77,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private var distanceX = 0f
 
     private val prefs by lazy { UserPreferences(context) }
+    private val units by lazy { prefs.baseDistanceUnits }
     private val formatService by lazy { FormatService(context) }
 
     init {
@@ -138,7 +137,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val circles = mutableListOf<Pair<PathPoint, PixelCircle>>()
         for (point in points) {
             val color = pointColoringStrategy.getColor(point) ?: continue
-            if (color == Color.TRANSPARENT){
+            if (color == Color.TRANSPARENT) {
                 continue
             }
             fill(color)
@@ -200,8 +199,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawScale() {
-        // TODO: Show distance bar instead of scale percent
-
         noFill()
         stroke(Color.WHITE)
 
@@ -209,7 +206,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         strokeWeight(strokeSize)
 
-        val scaleSize = getScaleSize(Distance.meters(distanceX / scale))
+        val scaleSize = getScaleSize(width / 2f)
 
         val length = scale * scaleSize.meters().distance / metersPerPixel
 
@@ -221,35 +218,41 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         line(start - strokeSize / 2, y - offset, start - strokeSize / 2, y + offset)
         line(end + strokeSize / 2, y - offset, end + strokeSize / 2, y + offset)
+        line((start + end) / 2, y + offset, (start + end) / 2, y)
         line(start, y, end, y)
 
         textMode(TextMode.Corner)
         textSize(sp(12f))
         noStroke()
         fill(Color.WHITE)
-        val scaleText = formatService.formatDistance(scaleSize)
-        text(scaleText, start - textWidth(scaleText) - dp(4f) - strokeSize, y + textHeight(scaleText) / 2)
+        val scaleText =
+            formatService.formatDistance(scaleSize, Units.getDecimalPlaces(scaleSize.units), false)
+        text(
+            scaleText,
+            start - textWidth(scaleText) - dp(4f) - strokeSize,
+            y + textHeight(scaleText) / 2
+        )
     }
 
-    private fun getScaleSize(distance: Distance): Distance {
-        val baseUnits = prefs.baseDistanceUnits
-
-        val d = distance.meters().distance
-
-        if (d == 0f) {
-            return Distance(1f, baseUnits)
-        }
-
-        val exponent = (floor(log10(d / 5f))).toInt()
-
-        return if (baseUnits == DistanceUnits.Meters) {
-            Distance.meters(power(10, exponent).toFloat() * 2)
+    private fun getScaleSize(maxLength: Float): Distance {
+        val intervals = if (units == DistanceUnits.Meters) {
+            metricScaleIntervals
         } else {
-            Distance.feet(power(10, exponent) * 10f)
+            imperialScaleIntervals
         }
+
+        for (i in 1..intervals.lastIndex) {
+            val current = intervals[i]
+            val length = scale * current.meters().distance / metersPerPixel
+            if (length > maxLength) {
+                return intervals[i - 1]
+            }
+        }
+
+        return intervals.last()
     }
 
-    fun recenter(){
+    fun recenter() {
         translateX = 0f
         translateY = 0f
         scale = 1f
@@ -310,5 +313,52 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         gestureDetector.onTouchEvent(event)
         invalidate()
         return true
+    }
+
+    companion object {
+        private val metricScaleIntervals = listOf(
+            Distance.meters(1f),
+            Distance.meters(2f),
+            Distance.meters(5f),
+            Distance.meters(10f),
+            Distance.meters(20f),
+            Distance.meters(50f),
+            Distance.meters(100f),
+            Distance.meters(200f),
+            Distance.meters(500f),
+            Distance.kilometers(1f),
+            Distance.kilometers(2f),
+            Distance.kilometers(5f),
+            Distance.kilometers(10f),
+            Distance.kilometers(20f),
+            Distance.kilometers(50f),
+            Distance.kilometers(100f),
+            Distance.kilometers(200f),
+            Distance.kilometers(500f),
+            Distance.kilometers(1000f),
+            Distance.kilometers(2000f),
+        )
+
+        private val imperialScaleIntervals = listOf(
+            Distance.feet(10f),
+            Distance.feet(20f),
+            Distance.feet(50f),
+            Distance.feet(100f),
+            Distance.feet(200f),
+            Distance.feet(500f),
+            Distance.miles(0.25f),
+            Distance.miles(0.5f),
+            Distance.miles(1f),
+            Distance.miles(2f),
+            Distance.miles(5f),
+            Distance.miles(10f),
+            Distance.miles(20f),
+            Distance.miles(50f),
+            Distance.miles(100f),
+            Distance.miles(200f),
+            Distance.miles(500f),
+            Distance.miles(1000f),
+            Distance.miles(2000f),
+        )
     }
 }
