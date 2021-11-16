@@ -6,6 +6,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -19,18 +20,20 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
+import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.toCanvasPath
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import kotlin.math.floor
 import kotlin.math.log10
 
+
+// TODO: Fix grid with scaling or replace with a distance bar
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
 
     // TODO: Update this to use a mappable path
@@ -73,6 +76,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private var metersPerPixel: Float = 1f
     private var center: Coordinate = Coordinate.zero
 
+    private var translateX = 0f
+    private var translateY = 0f
+    private var scale = 1f
+
     init {
         runEveryCycle = false
     }
@@ -83,11 +90,16 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     override fun setup() {
+        recenter()
     }
 
     override fun draw() {
         clear()
+        push()
+        translate(translateX, translateY)
+        scale(scale, scale, width / 2f, height / 2f)
         drawMap()
+        pop()
     }
 
     fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {
@@ -111,6 +123,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         center = bounds.center
 
         val gridGap = getGridSize(Distance.meters(distanceX))
+        // TODO: The grid shouldn't move - only the path (or the grid should move and scale and always remain on screen)
         drawGrid(metersPerPixel, gridGap.meters().distance)
         drawLegend(gridGap)
 
@@ -212,7 +225,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val lineDrawerFactory = PathLineDrawerFactory()
         val drawer = lineDrawerFactory.create(pathStyle)
         clear()
-        drawer.draw(this, pathColor) {
+        drawer.draw(this, pathColor, scale) {
             path(drawnPath)
         }
         noStroke()
@@ -232,7 +245,36 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
     }
 
+    private fun recenter(){
+        translateX = 0f
+        translateY = 0f
+        scale = 1f
+    }
+
+    private fun zoom(factor: Float) {
+        scale *= factor
+        translateX *= factor
+        translateY *= factor
+    }
+
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+
+        override fun onScroll(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            distanceX: Float,
+            distanceY: Float
+        ): Boolean {
+            translateX -= distanceX
+            translateY -= distanceY
+            return true
+        }
+
+        override fun onDoubleTap(e: MotionEvent): Boolean {
+            // TODO: Zoom to the place tapped
+            zoom(2F)
+            return super.onDoubleTap(e)
+        }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             val screenCoord = PixelCoordinate(e.x, e.y)
@@ -248,9 +290,19 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
     }
 
+    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            zoom(detector.scaleFactor)
+            return true
+        }
+    }
+
     private val gestureDetector = GestureDetector(context, mGestureListener)
+    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        mScaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
         invalidate()
         return true

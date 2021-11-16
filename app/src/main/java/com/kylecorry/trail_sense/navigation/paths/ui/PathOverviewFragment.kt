@@ -71,7 +71,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
