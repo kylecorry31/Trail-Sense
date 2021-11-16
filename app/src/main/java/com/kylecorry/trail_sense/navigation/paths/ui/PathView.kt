@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.ui
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -16,8 +17,6 @@ import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
@@ -80,6 +79,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val prefs by lazy { UserPreferences(context) }
     private val units by lazy { prefs.baseDistanceUnits }
     private val formatService by lazy { FormatService(context) }
+    private val scaleBar = Path()
+    private val distanceScale = DistanceScale()
 
     init {
         runEveryCycle = false
@@ -203,25 +204,22 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private fun drawScale() {
         noFill()
         stroke(Color.WHITE)
+        strokeWeight(4f)
 
-        val strokeSize = 4f
+        val metersPerPixel = metersPerPixel / scale
+        val scaleSize = distanceScale.getScaleDistance(units, width / 2f, metersPerPixel)
 
-        strokeWeight(strokeSize)
-
-        val scaleSize = getScaleSize(width / 2f)
-
-        val length = scale * scaleSize.meters().distance / metersPerPixel
-
-        val start = width - dp(16f) - length
-        val end = start + length
-        val y = height.toFloat() - dp(16f)
-
-        val offset = 14
-
-        line(start - strokeSize / 2, y - offset, start - strokeSize / 2, y + offset)
-        line(end + strokeSize / 2, y - offset, end + strokeSize / 2, y + offset)
-        line((start + end) / 2, y + offset, (start + end) / 2, y)
-        line(start, y, end, y)
+        scaleBar.reset()
+        distanceScale.getScaleBar(scaleSize, metersPerPixel, scaleBar)
+        // TODO: Move the bounds compute to Andromeda
+        val rect = RectF()
+        scaleBar.computeBounds(rect, true)
+        val start = width - dp(16f) - rect.width()
+        val y = height - dp(16f)
+        push()
+        translate(start, y)
+        path(scaleBar)
+        pop()
 
         textMode(TextMode.Corner)
         textSize(sp(12f))
@@ -231,27 +229,9 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             formatService.formatDistance(scaleSize, Units.getDecimalPlaces(scaleSize.units), false)
         text(
             scaleText,
-            start - textWidth(scaleText) - dp(4f) - strokeSize,
+            start - textWidth(scaleText) - dp(4f),
             y + textHeight(scaleText) / 2
         )
-    }
-
-    private fun getScaleSize(maxLength: Float): Distance {
-        val intervals = if (units == DistanceUnits.Meters) {
-            metricScaleIntervals
-        } else {
-            imperialScaleIntervals
-        }
-
-        for (i in 1..intervals.lastIndex) {
-            val current = intervals[i]
-            val length = scale * current.meters().distance / metersPerPixel
-            if (length > maxLength) {
-                return intervals[i - 1]
-            }
-        }
-
-        return intervals.last()
     }
 
     fun recenter() {
@@ -315,52 +295,5 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         gestureDetector.onTouchEvent(event)
         invalidate()
         return true
-    }
-
-    companion object {
-        private val metricScaleIntervals = listOf(
-            Distance.meters(1f),
-            Distance.meters(2f),
-            Distance.meters(5f),
-            Distance.meters(10f),
-            Distance.meters(20f),
-            Distance.meters(50f),
-            Distance.meters(100f),
-            Distance.meters(200f),
-            Distance.meters(500f),
-            Distance.kilometers(1f),
-            Distance.kilometers(2f),
-            Distance.kilometers(5f),
-            Distance.kilometers(10f),
-            Distance.kilometers(20f),
-            Distance.kilometers(50f),
-            Distance.kilometers(100f),
-            Distance.kilometers(200f),
-            Distance.kilometers(500f),
-            Distance.kilometers(1000f),
-            Distance.kilometers(2000f),
-        )
-
-        private val imperialScaleIntervals = listOf(
-            Distance.feet(10f),
-            Distance.feet(20f),
-            Distance.feet(50f),
-            Distance.feet(100f),
-            Distance.feet(200f),
-            Distance.feet(500f),
-            Distance.miles(0.25f),
-            Distance.miles(0.5f),
-            Distance.miles(1f),
-            Distance.miles(2f),
-            Distance.miles(5f),
-            Distance.miles(10f),
-            Distance.miles(20f),
-            Distance.miles(50f),
-            Distance.miles(100f),
-            Distance.miles(200f),
-            Distance.miles(500f),
-            Distance.miles(1000f),
-            Distance.miles(2000f),
-        )
     }
 }
