@@ -33,7 +33,6 @@ import kotlin.math.floor
 import kotlin.math.log10
 
 
-// TODO: Fix grid with scaling or replace with a distance bar
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
 
     // TODO: Update this to use a mappable path
@@ -68,8 +67,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private var pointClickListener: (point: PathPoint) -> Unit = {}
     private var pathCircles: List<Pair<PathPoint, PixelCircle>> = listOf()
 
-    private val prefs by lazy { UserPreferences(context) }
-    private val formatService by lazy { FormatService(context) }
     var pathColor = Color.BLACK
     var pathStyle = LineStyle.Dotted
     private val geoService = GeologyService()
@@ -79,6 +76,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private var translateX = 0f
     private var translateY = 0f
     private var scale = 1f
+    private var distanceX = 0f
+
+    private val prefs by lazy { UserPreferences(context) }
+    private val formatService by lazy { FormatService(context) }
 
     init {
         runEveryCycle = false
@@ -96,6 +97,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     override fun draw() {
         clear()
         push()
+        drawScale()
         translate(translateX, translateY)
         scale(scale, scale, width / 2f, height / 2f)
         drawMap()
@@ -109,7 +111,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private fun drawMap() {
         val bounds = geoService.getBounds(path.map { it.coordinate })
 
-        val distanceX = bounds.width().meters().distance
+        distanceX = bounds.width().meters().distance
         val distanceY = bounds.height().meters().distance
 
         if (distanceX == 0f || distanceY == 0f) {
@@ -122,33 +124,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         metersPerPixel = 1 / scale
         center = bounds.center
 
-        val gridGap = getGridSize(Distance.meters(distanceX))
-        // TODO: The grid shouldn't move - only the path (or the grid should move and scale and always remain on screen)
-        drawGrid(metersPerPixel, gridGap.meters().distance)
-        drawLegend(gridGap)
-
         drawPaths()
         drawWaypoints(path)
         location?.let {
             drawLocation(getPixels(it))
-        }
-    }
-
-    private fun getGridSize(distance: Distance): Distance {
-        val baseUnits = prefs.baseDistanceUnits
-
-        val d = distance.meters().distance
-
-        if (d == 0f) {
-            return Distance(1f, baseUnits)
-        }
-
-        val exponent = (floor(log10(d / 5f))).coerceAtLeast(1f).toInt()
-
-        return if (baseUnits == DistanceUnits.Meters) {
-            Distance.meters(power(10, exponent).toFloat())
-        } else {
-            Distance.feet(power(10, exponent) * 3f)
         }
     }
 
@@ -174,31 +153,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
 
         pathCircles = circles
-    }
-
-    private fun drawLegend(gridGap: Distance) {
-        textMode(TextMode.Corner)
-        textSize(sp(14f))
-        strokeWeight(0f)
-        fill(Color.WHITE)
-        val distanceText = context.getString(
-            R.string.grid_size,
-            formatService.formatDistance(gridGap)
-        )
-        val textWidth = textWidth(distanceText)
-        text(distanceText, width - textWidth - dp(16f), height.toFloat() - dp(16f))
-    }
-
-    private fun drawGrid(
-        metersPerPixel: Float,
-        gap: Float
-    ) {
-        noFill()
-        stroke(Color.WHITE)
-        strokeWeight(dp(0.5f))
-        opacity(50)
-        grid(gap / metersPerPixel)
-        opacity(255)
     }
 
     private fun drawLocation(pixels: PixelCoordinate) {
@@ -243,6 +197,56 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val xDiff = cosDegrees(angle.toDouble()).toFloat() * pixelDistance
         val yDiff = sinDegrees(angle.toDouble()).toFloat() * pixelDistance
         return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
+    }
+
+    private fun drawScale() {
+        // TODO: Show distance bar instead of scale percent
+
+        noFill()
+        stroke(Color.WHITE)
+
+        val strokeSize = 4f
+
+        strokeWeight(strokeSize)
+
+        val scaleSize = getScaleSize(Distance.meters(distanceX / scale))
+
+        val length = scale * scaleSize.meters().distance / metersPerPixel
+
+        val start = width - dp(16f) - length
+        val end = start + length
+        val y = height.toFloat() - dp(16f)
+
+        val offset = 14
+
+        line(start - strokeSize / 2, y - offset, start - strokeSize / 2, y + offset)
+        line(end + strokeSize / 2, y - offset, end + strokeSize / 2, y + offset)
+        line(start, y, end, y)
+
+        textMode(TextMode.Corner)
+        textSize(sp(12f))
+        noStroke()
+        fill(Color.WHITE)
+        val scaleText = formatService.formatDistance(scaleSize)
+        text(scaleText, start - textWidth(scaleText) - dp(4f) - strokeSize, y + textHeight(scaleText) / 2)
+    }
+
+    private fun getScaleSize(distance: Distance): Distance {
+        val baseUnits = prefs.baseDistanceUnits
+
+        val d = distance.meters().distance
+
+        if (d == 0f) {
+            return Distance(1f, baseUnits)
+        }
+
+        val exponent = (floor(log10(d / 5f))).toInt()
+
+        return if (baseUnits == DistanceUnits.Meters) {
+            Distance.meters(power(10, exponent).toFloat() * 2)
+        } else {
+            Distance.feet(power(10, exponent) * 10f)
+        }
     }
 
     fun recenter(){
