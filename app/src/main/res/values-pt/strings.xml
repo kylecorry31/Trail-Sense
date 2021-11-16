@@ -1005,4 +1005,29 @@
         <item quantity="one">%d percurso importado</item>
         <item quantity="other">%d percursos importados</item>
     </plurals>
+    <string name="importing">A importar</string>
+    <string name="points">Pontos</string>
+    <string name="duration">Duração</string>
+    <string name="elevation">Elevação</string>
+    <string name="elevation_gain">Ganho de elevação</string>
+    <string name="elevation_loss">Perda de elevação</string>
+    <string name="easy">Fácil</string>
+    <string name="hard">Difícil</string>
+    <string name="waypoint">Ponto do percurso</string>
+    <string name="merging">Fusão</string>
+    <string name="merge">Fundir</string>
+    <string name="append_onto">Anexar a</string>
+    <string name="simplify">Simplificar</string>
+    <string name="simplifying">Simplificar</string>
+    <string name="simplification_quality">Qualidade de simplificação</string>
+    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="pref_auto_simplify_paths_title">Simplificar percursos ao importar</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d ponto do percurso eliminado</item>
+        <item quantity="other">%d pontos do percurso eliminados</item>
+    </plurals>
+    <string name="pref_default_path_color_title">Cor predefinida do percurso</string>
+    <string name="difficulty">Dificuldade</string>
+    <string name="dashed">Tracejado</string>
+    <string name="pref_default_path_style_title">Estilo predefinido do percurso</string>
 </resources>
