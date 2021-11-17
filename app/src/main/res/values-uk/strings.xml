@@ -1027,4 +1027,21 @@
     <string name="elevation_gain">Підвищення висоти</string>
     <string name="duration">Тривалість</string>
     <string name="waypoint">Шляхова точка</string>
+    <string name="dashed">Пунктир</string>
+    <string name="pref_default_path_style_title">Типовий стиль шляху</string>
+    <string name="pref_default_path_color_title">Типовий колір шляху</string>
+    <string name="merging">Злиття</string>
+    <string name="merge">Злити</string>
+    <string name="append_onto">Додати до</string>
+    <string name="simplification_quality">Якість спрощення</string>
+    <string name="pref_auto_simplify_paths_title">Спростити шляхи при імпорті</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d шляхову точку видалено</item>
+        <item quantity="few">%d шляхові точки видалено</item>
+        <item quantity="many">%d шляхових точок видалено</item>
+        <item quantity="other">%d шляхових точок видалено</item>
+    </plurals>
+    <string name="simplify">Спростити</string>
+    <string name="simplifying">Спрощування</string>
+    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
 </resources>
