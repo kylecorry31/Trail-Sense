@@ -1013,4 +1013,19 @@
     <string name="hard">Schwer</string>
     <string name="difficulty">Schwierigkeit</string>
     <string name="waypoint">Wegpunkt</string>
+    <string name="merging">Zusammenführen</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d Wegpunkt gelöscht</item>
+        <item quantity="other">%d Wegpunkte gelöscht</item>
+    </plurals>
+    <string name="pref_default_path_color_title">Standard-Pfadfarbe</string>
+    <string name="pref_default_path_style_title">Standard-Pfadstil</string>
+    <string name="append_onto">Anhängen an</string>
+    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="pref_auto_simplify_paths_title">Vereinfachen der Pfade beim Import</string>
+    <string name="dashed">Gestrichelt</string>
+    <string name="merge">Zusammenführen</string>
+    <string name="simplify">Vereinfachen Sie</string>
+    <string name="simplifying">Vereinfachung</string>
+    <string name="simplification_quality">Vereinfachungsqualität</string>
 </resources>
