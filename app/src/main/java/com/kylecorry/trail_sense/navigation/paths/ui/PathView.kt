@@ -237,9 +237,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun zoom(factor: Float) {
-        scale *= factor
-        translateX *= factor
-        translateY *= factor
+        val newScale = (scale * factor).coerceIn(0.25f, 8f)
+        val newFactor = newScale / scale
+        scale *= newFactor
+        translateX *= newFactor
+        translateY *= newFactor
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
