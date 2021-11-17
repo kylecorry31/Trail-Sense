@@ -1006,4 +1006,18 @@
     <string name="importing">导入中</string>
     <string name="elevation">海拔</string>
     <string name="waypoint">路径点</string>
+    <string name="dashed">虚线</string>
+    <string name="pref_default_path_style_title">默认路径样式</string>
+    <string name="pref_default_path_color_title">默认路径颜色</string>
+    <string name="merge">合并</string>
+    <string name="append_onto">附加到</string>
+    <string name="simplify">简化</string>
+    <string name="simplifying">简化中</string>
+    <string name="simplification_quality">简化质量</string>
+    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="pref_auto_simplify_paths_title">导入时简化路径</string>
+    <string name="merging">合并中</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="other">删除了 %d 个航点</item>
+    </plurals>
 </resources>
