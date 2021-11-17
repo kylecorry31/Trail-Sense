@@ -26,12 +26,6 @@ class WeatherPreferences(private val context: Context) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
 
-    val useExperimentalCalibration by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_experimental_barometer_calibration),
-        false
-    )
-
     val useAltitudeVariance: Boolean = true
 
     val altitudeOutlier: Float
@@ -83,25 +77,11 @@ class WeatherPreferences(private val context: Context) {
     val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
 
-    val seaLevelFactorInRapidChanges: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_sea_level_use_rapid)) ?: true
-
     val pressureHistory: Duration
         get() {
             val raw = cache.getString(context.getString(R.string.pref_pressure_history)) ?: "48"
             return Duration.ofHours(raw.toLong())
         }
-
-    val requireDwell: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_sea_level_require_dwell)) ?: false
-
-    val maxNonTravellingAltitudeChange: Float
-        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_change))?.toFloat()
-            ?: 60f
-
-    val maxNonTravellingPressureChange: Float
-        get() = 20 * (cache.getInt(context.getString(R.string.pref_sea_level_pressure_change_thresh))
-            ?.toFloat() ?: 50f) / 200f
 
     val sendStormAlerts: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true

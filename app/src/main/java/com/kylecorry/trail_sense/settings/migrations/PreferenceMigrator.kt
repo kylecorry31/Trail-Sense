@@ -29,7 +29,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 5
+        private const val version = 6
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -78,6 +78,13 @@ class PreferenceMigrator private constructor() {
             },
             PreferenceMigration(4, 5) { _, prefs ->
                 prefs.remove("pref_path_waypoint_style")
+            },
+            PreferenceMigration(5, 6) { _, prefs ->
+                prefs.remove("pref_experimental_barometer_calibration")
+                prefs.remove("pref_sea_level_require_dwell")
+                prefs.remove("pref_barometer_altitude_change")
+                prefs.remove("pref_sea_level_pressure_change_thresh")
+                prefs.remove("pref_sea_level_use_rapid")
             }
         )
 

@@ -279,9 +279,6 @@
     <!--    Text for using the temperature in the sea level pressure calibration formula-->
     <string name="pref_adjust_for_temperature_title">Factor in temperature</string>
     <string name="pref_adjust_for_temperature_summary">Use the temperature in sea level pressure conversions</string>
-    <!--    Text for treating rapid changes in pressure as altitude changes in the sea level pressure calibration formula-->
-    <string name="pref_sea_level_use_rapid_title">Factor in rapid pressure changes</string>
-    <string name="pref_sea_level_use_rapid_summary">Use rapid pressure changes in sea level pressure conversions</string>
     <!--Settings - Navigation-->
     <string name="pref_display_multi_beacons_title">Show nearby beacons</string>
     <string name="pref_show_linear_compass_title">Show linear compass</string>
@@ -389,7 +386,6 @@
     <string name="pref_non_linear_distances" translatable="false">pref_non_linear_distances</string>
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
-    <string name="pref_sea_level_use_rapid" translatable="false">pref_sea_level_use_rapid</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
     <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency</string>
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
@@ -406,9 +402,6 @@
     <string name="beacon_create_beacon">Beacon</string>
     <string name="group">Group</string>
     <string name="no_group">No group</string>
-    <string name="pref_sea_level_require_dwell" translatable="false">pref_sea_level_require_dwell</string>
-    <string name="pref_sea_level_require_dwell_summary">Only show readings when the altitude hasn\'t changed for at least an hour. Improves forecast reliability.</string>
-    <string name="pref_sea_level_require_dwell_title">Ignore rapid altitude changes</string>
     <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
     <string name="advanced">Advanced</string>
     <string name="forecasts_category">Forecasts</string>
@@ -420,10 +413,6 @@
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
     <string name="beacon_action_view_details">View details</string>
-    <string name="pref_barometer_altitude_change" translatable="false">pref_barometer_altitude_change</string>
-    <string name="pref_barometer_altitude_change_title">Travelling altitude change threshold</string>
-    <string name="pref_sea_level_pressure_change_thresh" translatable="false">pref_sea_level_pressure_change_thresh</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Travelling pressure change threshold</string>
     <string name="other">Other</string>
     <string name="category_food">Food</string>
     <string name="category_hydration">Hydration</string>
@@ -832,8 +821,6 @@
     <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
     <string name="pref_nmea_altitude_title">NMEA altitude offsets</string>
     <string name="pref_nmea_altitude_summary">Uses NMEA offsets for altitude conversion</string>
-    <string name="pref_experimental_barometer_calibration" translatable="false">pref_experimental_barometer_calibration</string>
-    <string name="pref_experimental_barometer_calibration_title">Use experimental calibration</string>
     <string name="pref_barometer_altitude_outlier" translatable="false">pref_barometer_altitude_outlier</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
     <string name="pref_barometer_altitude_smoothing" translatable="false">pref_barometer_altitude_smoothing</string>
