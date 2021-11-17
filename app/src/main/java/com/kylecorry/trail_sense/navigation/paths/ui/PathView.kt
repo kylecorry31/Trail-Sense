@@ -237,7 +237,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun zoom(factor: Float) {
-        val newScale = (scale * factor).coerceIn(0.25f, 8f)
+        val newScale = (scale * factor).coerceIn(0.25f, 16f)
         val newFactor = newScale / scale
         scale *= newFactor
         translateX *= newFactor
@@ -252,13 +252,14 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             distanceX: Float,
             distanceY: Float
         ): Boolean {
+            // TODO: Keep path on screen
             translateX -= distanceX
             translateY -= distanceY
             return true
         }
 
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            // TODO: Zoom to the place tapped
+            // TODO: Center place tapped before zooming
             zoom(2F)
             return super.onDoubleTap(e)
         }
