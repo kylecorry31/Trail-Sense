@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
@@ -45,4 +46,18 @@ fun IGPS.getPathPoint(pathId: Long): PathPoint {
         altitude,
         time
     )
+}
+
+fun CoordinateBounds.intersects(other: CoordinateBounds): Boolean {
+    val inOther =
+        other.contains(northEast) || other.contains(northWest) || other.contains(southEast) || other.contains(
+            southWest
+        )
+
+    val otherIn =
+        contains(other.northEast) || contains(other.northWest) || contains(other.southEast) || contains(
+            other.southWest
+        )
+
+    return inOther || otherIn
 }
