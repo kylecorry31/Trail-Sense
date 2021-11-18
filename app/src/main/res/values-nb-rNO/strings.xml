@@ -561,7 +561,7 @@
     <string name="pref_show_nautical_times_title">Nautisk tid</string>
     <string name="noon">Kulminasjon</string>
     <string name="fields">Felter</string>
-    <string name="dotted">Stiplet</string>
+    <string name="dotted">Prikket</string>
     <string name="solid">Heltrukken</string>
     <string name="pref_odometer_reset_daily_title">Nullstill daglig</string>
     <string name="import_gpx">Importer GPX</string>
@@ -874,4 +874,23 @@
     <string name="hide">Skjul</string>
     <string name="paths">Stier</string>
     <string name="keep_forever">Behold for alltid</string>
+    <string name="elevation">Høyde</string>
+    <string name="elevation_gain">Total stigning</string>
+    <string name="elevation_loss">Total nedstigning</string>
+    <string name="points">Punkter</string>
+    <string name="pref_default_path_color_title">Standard stifarge</string>
+    <string name="dashed">Stiplet</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d sti importert</item>
+        <item quantity="other">%d stier importert</item>
+    </plurals>
+    <string name="waypoint">Rutepunkt</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d rutepunkt slettet</item>
+        <item quantity="other">%d rutepunkter slettet</item>
+    </plurals>
+    <string name="pref_default_path_style_title">Standard stistil</string>
+    <string name="point_style">Punktstil</string>
+    <string name="line_style">Linjestil</string>
+    <string name="path_color">Stifarge</string>
 </resources>
