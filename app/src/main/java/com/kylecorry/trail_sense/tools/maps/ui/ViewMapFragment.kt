@@ -17,21 +17,21 @@ import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.getPathPoint
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -67,8 +67,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var calibrationPoint2: Coordinate? = null
     private var calibrationIndex = 0
     private var isCalibrating = false
-
-    private var backtrack: List<PathPoint>? = null
 
     private var rotateMap = false
 
