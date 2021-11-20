@@ -9,12 +9,8 @@ import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.navigation.paths.domain.PathSimplificationQuality
-import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex
@@ -144,6 +140,10 @@ class PathService(
     }
 
     override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {
+        if (paths?.isEmpty() == true){
+            return mapOf()
+        }
+
         val points = if (paths != null) {
             waypointRepo.getAllInPaths(paths)
         } else {

@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
@@ -28,6 +29,8 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -36,29 +39,29 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -72,7 +75,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var shownAccuracyToast = false
     private var showSightingCompass = false
     private val compass by lazy { sensorService.getCompass() }
-    private val gps by lazy { sensorService.getGPS(frequency = Duration.ofSeconds(1)) }
+    private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
     private val sightingCompass by lazy {
         SightingCompassView(
             this,
@@ -102,7 +105,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
-    private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
     private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
@@ -120,6 +122,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var gpsTimeoutShown = false
 
     private var lastOrientation: DeviceOrientation.Orientation? = null
+
+    private val pathLoader by lazy { PathLoader(pathService) }
+
+    private val loadPathRunner = ControlledRunner<Unit>()
 
     private val astronomyIntervalometer = Timer {
         lifecycleScope.launch {
@@ -185,10 +191,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             runInBackground {
                 withContext(Dispatchers.IO) {
                     currentBacktrackPathId = pathService.getBacktrackPathId()
-                    pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
-                        .mapValues { it.value.sortedByDescending { it.id } }
-                    // TODO: Only load the nearby paths
-                    updateCompassPaths()
+                    updateCompassPaths(true)
                 }
                 withContext(Dispatchers.Main) {
                     updateUI()
@@ -483,6 +486,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onPause() {
         super.onPause()
+        loadPathRunner.cancel()
         sightingCompass.stop()
         astronomyIntervalometer.stop()
         requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
@@ -664,23 +668,46 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun updateCompassPaths(){
-        if (!isBound){
-            return
-        }
-        val isTracking = BacktrackScheduler.isOn(requireContext())
-        val mappablePaths = mutableListOf<IMappablePath>()
-        val currentPathId = currentBacktrackPathId
-        for (points in pathPoints) {
-            val path = paths.firstOrNull { it.id == points.key } ?: continue
-            val pts = if (isTracking && currentPathId == path.id) {
-                listOf(gps.getPathPoint(currentPathId)) + points.value
-            } else {
-                points.value
+    private fun updateCompassPaths(reload: Boolean = false) {
+        runInBackground {
+            loadPathRunner.joinPreviousOrRun {
+                val mappablePaths = withContext(Dispatchers.IO) {
+                    val loadGeofence = Geofence(
+                        gps.location,
+                        Distance.meters(userPrefs.navigation.maxBeaconDistance + 10)
+                    )
+                    val load = CoordinateBounds.from(loadGeofence)
+
+                    val unloadGeofence =
+                        loadGeofence.copy(radius = Distance.meters(loadGeofence.radius.distance + 1000))
+                    val unload = CoordinateBounds.from(unloadGeofence)
+
+                    pathLoader.update(paths, load, unload, reload)
+
+                    val isTracking = BacktrackScheduler.isOn(requireContext())
+                    val mappablePaths = mutableListOf<IMappablePath>()
+                    val currentPathId = currentBacktrackPathId
+                    for (points in pathLoader.points) {
+                        val path = paths.firstOrNull { it.id == points.key } ?: continue
+                        val pts = if (isTracking && currentPathId == path.id) {
+                            listOf(gps.getPathPoint(currentPathId)) + points.value
+                        } else {
+                            points.value
+                        }
+                        mappablePaths.add(pts.asMappable(requireContext(), path))
+                    }
+                    mappablePaths
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (isBound) {
+                        binding.radarCompass.showPaths(mappablePaths)
+                    }
+                }
             }
-            mappablePaths.add(pts.asMappable(requireContext(), path))
         }
-        binding.radarCompass.showPaths(mappablePaths)
+
+
     }
 
     private fun getPosition(): Position {
@@ -740,9 +767,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
 
-        if (BacktrackScheduler.isOn(requireContext())){
-            updateCompassPaths()
-        }
+        updateCompassPaths()
 
         updateUI()
     }

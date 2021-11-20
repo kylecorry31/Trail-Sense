@@ -6,6 +6,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geofence
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
@@ -60,4 +63,13 @@ fun CoordinateBounds.intersects(other: CoordinateBounds): Boolean {
         )
 
     return inOther || otherIn
+}
+
+fun CoordinateBounds.Companion.from(geofence: Geofence): CoordinateBounds {
+    val north = geofence.center.plus(geofence.radius, Bearing.from(CompassDirection.North)).latitude
+    val south = geofence.center.plus(geofence.radius, Bearing.from(CompassDirection.South)).latitude
+    val east = geofence.center.plus(geofence.radius, Bearing.from(CompassDirection.East)).longitude
+    val west = geofence.center.plus(geofence.radius, Bearing.from(CompassDirection.West)).longitude
+
+    return CoordinateBounds(north, east, south, west)
 }
