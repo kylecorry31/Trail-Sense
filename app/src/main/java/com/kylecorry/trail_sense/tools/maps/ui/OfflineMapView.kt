@@ -14,16 +14,17 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.SolMath.clamp
+import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.domain.Mercator
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.toPixel
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -61,6 +62,8 @@ class OfflineMapView : CanvasView {
     var onSelectLocation: ((coordinate: Coordinate) -> Unit)? = null
     var onSelectBeacon: ((beacon: Beacon) -> Unit)? = null
     var onMapImageClick: ((percent: PercentCoordinate) -> Unit)? = null
+
+    private val geology = GeologyService()
 
     @ColorInt
     private var primaryColor: Int = Color.BLACK
@@ -342,11 +345,9 @@ class OfflineMapView : CanvasView {
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
 
-        val mercator = Mercator()
-
         val bounds = map?.boundary(mapSize.first, mapSize.second) ?: return null
 
-        val pixels = mercator.toPixel(coordinate, bounds, mapSize)
+        val pixels = geology.toMercator(coordinate, bounds, mapSize).toPixel()
 
         if (nullIfOffMap && (pixels.x < 0 || pixels.x > mapSize.first)) {
             return null

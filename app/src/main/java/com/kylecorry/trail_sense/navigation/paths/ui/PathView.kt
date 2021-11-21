@@ -22,11 +22,11 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.toCanvasPath
 import kotlin.math.max
 
 
@@ -124,6 +124,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         metersPerPixel = 1 / scale
         center = bounds.center
 
+        clear()
         drawPaths()
         drawWaypoints(path)
         location?.let {
@@ -173,19 +174,23 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private fun drawPaths() {
         if (!pathInitialized) {
             drawnPath.reset()
-            this.path.map { it.coordinate }.toCanvasPath(drawnPath) { getPixels(it) }
+            val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
+            factory.render(this.path.map {it.coordinate}, drawnPath)
             pathInitialized = true
         }
 
         val lineDrawerFactory = PathLineDrawerFactory()
         val drawer = lineDrawerFactory.create(pathStyle)
-        clear()
+        push()
+        val offset = getPixels(center)
+        translate(offset.x, offset.y)
         drawer.draw(this, pathColor, scale) {
             path(drawnPath)
         }
         noStroke()
         fill(Color.WHITE)
         noPathEffect()
+        pop()
     }
 
     private fun getPixels(

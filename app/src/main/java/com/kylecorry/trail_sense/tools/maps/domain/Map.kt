@@ -1,15 +1,13 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.sinDegrees
-import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.navigation.domain.Mercator
+import com.kylecorry.trail_sense.shared.toVector2
 
 data class Map(
     val id: Long,
@@ -20,23 +18,11 @@ data class Map(
     val rotated: Boolean
 ) {
 
-    fun getPixels(location: Coordinate, width: Float, height: Float): PixelCoordinate? {
-        val metersPerPixel = distancePerPixel(width, height)?.meters()?.distance ?: return null
-        val calibrationPixels = calibrationPoints[0].imageLocation.toPixels(width, height)
-        val distance = calibrationPoints[0].location.distanceTo(location)
-        val bearing =
-            wrap(-(calibrationPoints[0].location.bearingTo(location).value - 90), 0f, 360f)
-        val distanceNorth = sinDegrees(bearing.toDouble()).toFloat() * distance
-        val distanceEast = cosDegrees(bearing.toDouble()).toFloat() * distance
-        val x = calibrationPixels.x + distanceEast / metersPerPixel
-        val y = calibrationPixels.y - distanceNorth / metersPerPixel
-        return PixelCoordinate(x, y)
-    }
+    private val geology = GeologyService()
 
     fun getCoordinate(pixels: PixelCoordinate, width: Float, height: Float): Coordinate? {
         val bounds = boundary(width, height) ?: return null
-        val mercator = Mercator()
-        return mercator.fromPixel(pixels, bounds, width to height)
+        return geology.fromMercator(pixels.toVector2(), bounds, width to height)
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {
