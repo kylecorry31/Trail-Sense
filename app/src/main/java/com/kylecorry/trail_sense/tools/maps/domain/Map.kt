@@ -5,7 +5,11 @@ import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.navigation.domain.Mercator
 
 data class Map(
     val id: Long,
@@ -30,13 +34,9 @@ data class Map(
     }
 
     fun getCoordinate(pixels: PixelCoordinate, width: Float, height: Float): Coordinate? {
-        val metersPerPixel = distancePerPixel(width, height)?.meters()?.distance ?: return null
-        val distanceSouth = Distance.meters(pixels.y * metersPerPixel)
-        val distanceEast = Distance.meters(pixels.x * metersPerPixel)
-        val border = boundary(width, height) ?: return null
-        return Coordinate(border.north, border.west)
-            .plus(distanceSouth, Bearing.from(CompassDirection.South))
-            .plus(distanceEast, Bearing.from(CompassDirection.East))
+        val bounds = boundary(width, height) ?: return null
+        val mercator = Mercator()
+        return mercator.fromPixel(pixels, bounds, width to height)
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {

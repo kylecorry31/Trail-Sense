@@ -17,6 +17,7 @@ import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.domain.Mercator
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
@@ -161,7 +162,8 @@ class OfflineMapView : CanvasView {
     private fun drawPaths() {
         val paths = paths ?: return
         if (!pathsRendered) {
-            val metersPerPixel = map?.distancePerPixel(mapSize.first, mapSize.second)?.meters()?.distance ?: return
+            val metersPerPixel =
+                map?.distancePerPixel(mapSize.first, mapSize.second)?.meters()?.distance ?: return
             for (path in renderedPaths) {
                 pathPool.release(path.value.path)
             }
@@ -186,7 +188,10 @@ class OfflineMapView : CanvasView {
         noPathEffect()
     }
 
-    private fun generatePaths(paths: List<IMappablePath>, metersPerPixel: Float): kotlin.collections.Map<Long, RenderedPath> {
+    private fun generatePaths(
+        paths: List<IMappablePath>,
+        metersPerPixel: Float
+    ): kotlin.collections.Map<Long, RenderedPath> {
         val factory = RenderedPathFactory(metersPerPixel, myLocation, 0f, true)
         val map = mutableMapOf<Long, RenderedPath>()
         for (path in paths) {
@@ -336,9 +341,12 @@ class OfflineMapView : CanvasView {
         coordinate: Coordinate,
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
-        val pixels =
-            map?.getPixels(coordinate, mapSize.first, mapSize.second)
-                ?: return null
+
+        val mercator = Mercator()
+
+        val bounds = map?.boundary(mapSize.first, mapSize.second) ?: return null
+
+        val pixels = mercator.toPixel(coordinate, bounds, mapSize)
 
         if (nullIfOffMap && (pixels.x < 0 || pixels.x > mapSize.first)) {
             return null
