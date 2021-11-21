@@ -10,6 +10,9 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.canvas.ArcMode
+import com.kylecorry.andromeda.canvas.ImageMode
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing

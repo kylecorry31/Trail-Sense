@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.drawing
 
-import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.ICanvasDrawer
 
 class SolidPathLineDrawerStrategy : IPathLineDrawerStrategy {
     override fun draw(
-        canvas: CanvasView,
+        canvasDrawer: ICanvasDrawer,
         color: Int,
         strokeScale: Float,
-        block: CanvasView.() -> Unit
+        block: ICanvasDrawer.() -> Unit
     ) {
-        canvas.apply {
+        canvasDrawer.apply {
             noPathEffect()
             noFill()
             stroke(color)

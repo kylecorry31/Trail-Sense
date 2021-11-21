@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
@@ -8,6 +9,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath

@@ -9,6 +9,9 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.util.AttributeSet
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.canvas.ImageMode
+import com.kylecorry.andromeda.canvas.TextAlign
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
