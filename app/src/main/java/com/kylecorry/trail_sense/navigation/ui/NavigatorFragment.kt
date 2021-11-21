@@ -635,6 +635,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateCompassView() {
         val destBearing = getDestinationBearing()
+        val destination = destination
         val destColor = destination?.color ?: Resources.color(
             requireContext(),
             R.color.colorAccent
@@ -665,6 +666,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.showLocations(nearby)
             it.showReferences(references)
             it.showDirection(direction)
+            it.highlightLocation(destination)
         }
     }
 

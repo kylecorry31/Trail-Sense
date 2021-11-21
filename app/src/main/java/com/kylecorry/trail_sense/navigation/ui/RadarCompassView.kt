@@ -22,13 +22,13 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView {
@@ -41,6 +41,9 @@ class RadarCompassView : BaseCompassView {
     @ColorInt
     private var secondaryColor: Int = Color.WHITE
 
+    @ColorInt
+    private var textColor: Int = Color.WHITE
+
     private val formatService by lazy { FormatService(context) }
 
     private var iconSize = 0
@@ -50,6 +53,7 @@ class RadarCompassView : BaseCompassView {
     private lateinit var compassPath: Path
     private var distanceSize = 0f
     private var cardinalSize = 0f
+    private var locationStrokeWeight = 0f
 
     private var metersPerPixel = 1f
 
@@ -125,7 +129,21 @@ class RadarCompassView : BaseCompassView {
     }
 
     private fun drawLocations() {
-        _locations.forEach { drawLocation(it) }
+        val highlighted = _highlightedLocation
+        var containsHighlighted = false
+        _locations.forEach {
+            if (it.id == highlighted?.id) {
+                containsHighlighted = true
+            }
+            drawLocation(
+                it,
+                highlighted == null || it.id == highlighted.id
+            )
+        }
+
+        if (highlighted != null && !containsHighlighted) {
+            drawLocation(highlighted, true)
+        }
     }
 
     private fun drawPaths() {
@@ -157,15 +175,20 @@ class RadarCompassView : BaseCompassView {
         noPathEffect()
     }
 
-    private fun drawLocation(location: IMappableLocation) {
+    private fun drawLocation(location: IMappableLocation, highlight: Boolean) {
         val pixel = coordinateToPixel(location.coordinate)
         if (getDistanceFromCenter(pixel) > compassSize / 2) {
             return
         }
         noTint()
-        stroke(Color.WHITE)
-        strokeWeight(dp(0.5f))
+        stroke(secondaryColor)
+        strokeWeight(locationStrokeWeight)
         fill(location.color)
+        if (highlight) {
+            opacity(255)
+        } else {
+            opacity(127)
+        }
         circle(pixel.x, pixel.y, radarSize.toFloat())
     }
 
@@ -206,46 +229,47 @@ class RadarCompassView : BaseCompassView {
         drawPaths()
 
         noFill()
-        stroke(color(60))
+        stroke(Color.WHITE)
+        opacity(30)
         strokeWeight(3f)
         push()
         rotate(_azimuth)
         if (_destination == null) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
-        image(getBitmap(R.drawable.ic_beacon, directionSize), width / 2f, height / 2f)
-        stroke(color(100))
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
 
-        fill(Color.WHITE)
-        stroke(Resources.color(context, R.color.colorSecondary))
+        opacity(255)
 
-        val quarterDist = maxDistanceBaseUnits.times(0.25f).toRelativeDistance()
-        val threeQuarterDist = maxDistanceBaseUnits.times(0.75f).toRelativeDistance()
+        image(getBitmap(R.drawable.ic_beacon, directionSize), width / 2f, height / 2f)
+
+        // Distance Text
+        val distance = maxDistanceBaseUnits.toRelativeDistance()
+        val distanceText = formatService.formatDistance(
+            distance,
+            Units.getDecimalPlaces(distance.units),
+            false
+        )
 
         textSize(distanceSize)
-
-        // TODO: This doesn't need to happen on every draw
-        val quarterText = formatService.formatDistance(
-            quarterDist,
-            Units.getDecimalPlaces(quarterDist.units),
-            false
-        )
-        val threeQuarterText = formatService.formatDistance(
-            threeQuarterDist,
-            Units.getDecimalPlaces(threeQuarterDist.units),
-            false
+        fill(textColor)
+        noStroke()
+        textMode(TextMode.Corner)
+        opacity(200)
+        text(
+            distanceText,
+            (width - compassSize) / 2f + 16,
+            height - (height - compassSize) / 2f + 16
         )
 
-        textMode(TextMode.Center)
-        text(quarterText, width / 2f + compassSize / 8f, height / 2f)
-        text(threeQuarterText, width / 2f + 3 * compassSize / 8f, height / 2f)
-
+        // Directions
         pop()
-
+        textMode(TextMode.Center)
         textSize(cardinalSize)
+        stroke(Resources.color(context, R.color.colorSecondary))
+        opacity(255)
         push()
         rotate(0f)
         fill(primaryColor)
@@ -302,10 +326,11 @@ class RadarCompassView : BaseCompassView {
         compassPath = Path().apply {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
-        distanceSize = sp(8f)
+        distanceSize = sp(10f)
         cardinalSize = sp(10f)
         primaryColor = Resources.color(context, R.color.colorPrimary)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
+        textColor = Resources.androidTextColorSecondary(context)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
@@ -315,6 +340,7 @@ class RadarCompassView : BaseCompassView {
         east = context.getString(R.string.direction_east)
         west = context.getString(R.string.direction_west)
         center = PixelCoordinate(width / 2f, height / 2f)
+        locationStrokeWeight = dp(0.5f)
         updateCoordinateToPixelStrategy()
     }
 

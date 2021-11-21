@@ -2,14 +2,15 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.database.Identifiable
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.shared.database.Identifiable
 
 interface INearbyCompassView {
     fun setAzimuth(azimuth: Bearing)
     fun setLocation(location: Coordinate)
     fun setDeclination(declination: Float)
     fun showLocations(locations: List<IMappableLocation>)
+    fun highlightLocation(location: IMappableLocation?)
     fun showPaths(paths: List<IMappablePath>)
     fun showReferences(references: List<IMappableReferencePoint>)
     fun showDirection(bearing: IMappableBearing?)

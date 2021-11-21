@@ -18,6 +18,7 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
     protected var _azimuth = 0f
     protected var _destination: IMappableBearing? = null
     protected var _locations: List<IMappableLocation> = emptyList()
+    protected var _highlightedLocation: IMappableLocation? = null
     protected var _paths: List<IMappablePath> = emptyList()
     protected var _references: List<IMappableReferencePoint> = emptyList()
     protected var _location = Coordinate.zero
@@ -70,6 +71,11 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
 
     override fun showDirection(bearing: IMappableBearing?) {
         _destination = bearing
+        invalidate()
+    }
+
+    override fun highlightLocation(location: IMappableLocation?) {
+        _highlightedLocation = location
         invalidate()
     }
 
