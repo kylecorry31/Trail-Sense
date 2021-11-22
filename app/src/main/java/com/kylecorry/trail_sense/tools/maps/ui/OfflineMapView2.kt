@@ -33,6 +33,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
     private var isSetup = false
     private var myLocation: Coordinate? = null
     private var map: Map? = null
+    private val mapPath = Path()
     private val geology = GeologyService()
     private var azimuth = 0f
     private var locations = emptyList<IMappableLocation>()
@@ -71,6 +72,14 @@ class OfflineMapView2 : SubsamplingScaleImageView {
 
     fun draw() {
         map ?: return
+
+        // TODO: This only needs to be changed when the scale or translate changes
+        mapPath.apply {
+            rewind()
+            val topLeft = sourceToViewCoord(0f, 0f)!!
+            val bottomRight = sourceToViewCoord(sWidth.toFloat(), sHeight.toFloat())!!
+            addRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y, Path.Direction.CW)
+        }
 
         if (scale != lastScale){
             pathsRendered = false
@@ -152,7 +161,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
 
         val factory = PathLineDrawerFactory()
         drawer.push()
-//        clip(compassPath)
+        drawer.clip(mapPath)
         for (path in paths) {
             val rendered = renderedPaths[path.id] ?: continue
             val lineDrawer = factory.create(path.style)
