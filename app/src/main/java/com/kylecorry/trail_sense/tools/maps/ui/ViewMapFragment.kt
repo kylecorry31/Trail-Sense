@@ -262,14 +262,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
         if (!isCalibrating) {
-//            binding.map.showDestination(beacon)
+            binding.map.highlightLocation(beacon)
             binding.cancelNavigationBtn.show()
             updateDestination()
         }
     }
 
     private fun hideNavigation() {
-//        binding.map.showDestination(null)
+        binding.map.highlightLocation(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
     }
@@ -319,7 +319,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         map = map?.copy(calibrationPoints = points)
-//        binding.map.showMap(map!!, false)
+        binding.map.showMap(map!!)
     }
 
     fun calibrateMap() {
@@ -340,7 +340,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     fun recenter(){
-//        binding.map.recenter()
+        binding.map.recenter()
     }
 
     private fun calibratePoint(index: Int) {

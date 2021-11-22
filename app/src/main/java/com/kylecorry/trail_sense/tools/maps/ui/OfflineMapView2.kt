@@ -41,6 +41,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private var pathsRendered = false
     private var lastScale = 1f
+    private var highlightedLocation: IMappableLocation? = null
 
     private val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
@@ -64,7 +65,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
     }
 
     fun setup() {
-
+        setPanLimit(PAN_LIMIT_OUTSIDE)
     }
 
     fun draw() {
@@ -76,8 +77,8 @@ class OfflineMapView2 : SubsamplingScaleImageView {
         }
 
         drawPaths()
-        drawMyLocation()
         drawLocations()
+        drawMyLocation()
     }
 
     fun showMap(map: Map) {
@@ -168,26 +169,65 @@ class OfflineMapView2 : SubsamplingScaleImageView {
         drawer.noPathEffect()
     }
 
+    fun highlightLocation(location: IMappableLocation?){
+        this.highlightedLocation = location
+        invalidate()
+    }
+
     private fun drawLocations() {
-        val scale = layerScale
-        for (beacon in locations) {
-            val coord = getPixelCoordinate(beacon.coordinate)
-            if (coord != null) {
-//                drawer.opacity(
-//                    if (beacon.id == destination?.id || destination == null) {
-//                        255
-//                    } else {
-//                        200
-//                    }
-//                )
-                drawer.stroke(Color.WHITE)
-                drawer.strokeWeight(drawer.dp(1f) / scale)
-                drawer.fill(beacon.color)
-                drawer.circle(coord.x, coord.y, drawer.dp(8f) / scale)
+        val highlighted = highlightedLocation
+
+        val gpsLocation = myLocation
+        if (highlighted != null && gpsLocation != null){
+            val start = getPixelCoordinate(gpsLocation, false)
+            val end = getPixelCoordinate(highlighted.coordinate, false)
+
+            if (start != null && end != null){
+                drawer.noFill()
+                drawer.stroke(highlighted.color)
+                drawer.strokeWeight(drawer.dp(4f) / layerScale)
+                drawer.opacity(127)
+                drawer.line(start.x, start.y, end.x, end.y)
             }
         }
+
+        var containsHighlighted = false
+        for (location in locations) {
+            if (location.id == highlighted?.id){
+                containsHighlighted = true
+            }
+            drawLocation(location, location.id == highlighted?.id || highlighted == null)
+        }
+
+        if (highlighted != null && !containsHighlighted){
+            drawLocation(highlighted, true)
+        }
+
         drawer.opacity(255)
     }
+
+    fun recenter(){
+        resetScaleAndCenter()
+    }
+
+    private fun drawLocation(location: IMappableLocation, highlighted: Boolean) {
+        val scale = layerScale
+        val coord = getPixelCoordinate(location.coordinate)
+        if (coord != null) {
+            drawer.stroke(Color.WHITE)
+            drawer.strokeWeight(drawer.dp(1f) / scale)
+            drawer.fill(location.color)
+            drawer.opacity(
+                if (highlighted) {
+                    255
+                } else {
+                    127
+                }
+            )
+            drawer.circle(coord.x, coord.y, drawer.dp(8f) / scale)
+        }
+    }
+
 
     private fun getPixelCoordinate(
         coordinate: Coordinate,
