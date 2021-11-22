@@ -150,16 +150,16 @@
 \n- Mevcut konumunu, irtifanı, ve hızını bul.
 \n
 \n- Geri iz sürme ile aynı yoldan geri git. (özellik arkaplanda çalışır)</string>
-    <string name="cirrus_desc">Yüksektedir ve tüy gibidir.</string>
-    <string name="cumulonimbus_desc">Koyu gri, uzun, ve örse benzer.</string>
-    <string name="stratocumulus_desc">Tabaka oluşturan yuvarlanan kütleler gibi gözükür.</string>
-    <string name="cumulus_desc">Şişkin pamuk yumağı gibi görünür.</string>
-    <string name="stratus_desc">Göğü örter ve nesneler gölge yapmaz.</string>
-    <string name="nimbostratus_desc">Koyu gridir ve göğü tamamen örter. Yağmur yağıyor olabilir.</string>
-    <string name="altostratus_desc">Göğü örter ve güneş çok az görülür.</string>
-    <string name="altocumulus_desc">Şişkin pamuk yumağı gibi görünür.</string>
-    <string name="cirrostratus_desc">Göğü örter, ama güneş hala görülebilir.</string>
-    <string name="cirrocumulus_desc">Bulutların neredeyse iki boyutlu durduğu bir dalgalı şekil alır.</string>
+    <string name="cirrus_desc">Beyaz saç tutamlarına benzeyen yüksek ince bulutlar.</string>
+    <string name="cumulonimbus_desc">Çok uzun olan alçak kabarık bulutlar. Genellikle bir örs şekline sahiptirler ve karanlıktırlar.</string>
+    <string name="stratocumulus_desc">Küçük boşluklara sahip pamuk topları gibi görünen alçak bulutlar. Renk beyazdan koyu griye kadar değişir.</string>
+    <string name="cumulus_desc">Pamuk topları gibi görünen alçak kabarık bulutlar. Aralıklıdırlar ve genellikle aşağıda daha koyu yamaları olan beyazdırlar.</string>
+    <string name="stratus_desc">Gökyüzünü kaplayan alçak bir bulut. Nesneler gölge oluşturmaz ve hava sisli olabilir.</string>
+    <string name="nimbostratus_desc">Koyu gri renkli ve gökyüzünü kaplayan orta seviye bir bulut. Yağmur yağıyor olabilir.</string>
+    <string name="altostratus_desc">Gökyüzünü kaplayan orta seviye bir bulut. Güneş, parlak bir yama olarak zar zor görülebilir.</string>
+    <string name="altocumulus_desc">Pamuk topları gibi görünen orta seviye kabarık bulutlar. Genellikle aşağıda daha koyu yamaları olan beyazdırlar ve aralıklı veya tabaka şeklinde olabilirler.</string>
+    <string name="cirrostratus_desc">Gökyüzünü kaplayan yüksek bir bulut. Saydamdır ve genellikle güneşin etrafında bir halenin oluşmasına neden olur.</string>
+    <string name="cirrocumulus_desc">Dalgalı bir tabaka oluşturan yüksek seviyeli bulutlar. Tabaka, neredeyse iki boyutlu görünen küçük noktalardan oluşur.</string>
     <string name="cumulonimbus">Kümülonimbus</string>
     <string name="cumulus">Kümülüs</string>
     <string name="stratocumulus">Stratokümülüs</string>
@@ -328,7 +328,6 @@
     <string name="forecasts_category">Hava durumu tahminleri</string>
     <string name="advanced">Gelişmiş</string>
     <string name="tap_sun_moon_hint">Pozisyon detayları için aya veya güneşe dokunun</string>
-
     <string name="pref_sea_level_require_dwell_title">Hızlı irtifa değişimlerini yoksay</string>
     <string name="pref_sea_level_require_dwell_summary">Okunan değerleri sadece irtifa en az bir saat boyunca değişmediğinde göster. Hava durumu tahimini güvenirliliğini arttırır.</string>
     <string name="no_group">Grup yok</string>
@@ -900,4 +899,111 @@
 \n**Gece**: %s
 \n
 \n**Mevsim**: %s</string>
+    <string name="humidity">Nem</string>
+    <string name="astro_dialog_moon_phase">**Aşama**: %s
+\n
+\n**Aydınlatma**: %s</string>
+    <string name="elevation">Yükseklik</string>
+    <string name="elevation_gain">Yükseklik kazancı</string>
+    <string name="elevation_loss">Yükseklik kaybı</string>
+    <string name="easy">Kolay</string>
+    <string name="hard">Zor</string>
+    <string name="difficulty">Zorluk</string>
+    <string name="sun">Güneş</string>
+    <string name="precipitation_chance">Yağış ihtimali: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Başlangıç**: %s
+\n
+\n**Tepe**: %s
+\n
+\n**Bitiş**: %s
+\n
+\n**Süre**: %s
+\n
+\n**Büyüklük**: %s
+\n
+\n**Rakım**: %s</string>
+    <string name="weather_monitoring_disabled">Hava durumu izleme devre dışı bırakıldı</string>
+    <string name="enable">Etkinleştir</string>
+    <string name="no_clouds">Bulut Yok</string>
+    <string name="precipitation_snow_pellets">Kar topakları</string>
+    <string name="precipitation_drizzle">Çisenti</string>
+    <string name="precipitation_snow">Kar</string>
+    <string name="results">Sonuçlar</string>
+    <string name="capture">Yakala</string>
+    <string name="take_photo">Fotoğraf çek</string>
+    <string name="or">Veya</string>
+    <string name="no_camera_access">Kameraya erişilemiyor</string>
+    <string name="point_style">Nokta şekli</string>
+    <string name="line_style">Çizgi şekli</string>
+    <string name="path_color">Yol rengi</string>
+    <string name="temporary">Geçici</string>
+    <string name="points">Noktalar</string>
+    <string name="duration">Süre</string>
+    <string name="importing">İçe aktarılıyor</string>
+    <string name="simplification_quality">Sadeleştirme kalitesi</string>
+    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="pref_auto_simplify_paths_title">İçe aktarma sırasında yolları sadeleştir</string>
+    <string name="dashed">Kesikli</string>
+    <string name="pref_default_path_style_title">Öntanımlı yol şekli</string>
+    <string name="pref_default_path_color_title">Öntanımlı yol rengi</string>
+    <string name="pref_export_weather_csv_title">Hava durumu okumalarını dışa aktar</string>
+    <string name="weather_exported">Hava durumu dışa aktarıldı</string>
+    <string name="pref_show_nearest_tide_title">En yakın gelgiti göster</string>
+    <string name="astro_dialog_rise_set">**Zaman**: %s
+\n
+\n**Yön**: %s</string>
+    <string name="astro_dialog_noon">**Zaman**: %s
+\n
+\n**Rakım**: %s</string>
+    <string name="duration_of_charge">Şarj süresi</string>
+    <string name="sun_moon_position_template">### %s
+\n**Rakım**: %s
+\n
+\n**Azimut**: %s</string>
+    <string name="moon">Ay</string>
+    <string name="sky_detection_sensitivity">Gökyüzü algılama hassasiyeti</string>
+    <string name="obstacle_removal_sensitivity">Engel kaldırma hassasiyeti</string>
+    <string name="pref_experimental_cloud_scanner_title">Bulut tarayıcı</string>
+    <string name="precipitation_none">Yağış yok</string>
+    <string name="precipitation_rain">Yağmur</string>
+    <string name="precipitation_hail">Dolu</string>
+    <string name="precipitation_small_hail">Küçük dolu</string>
+    <string name="precipitation_ice_pellets">Buz topakları</string>
+    <string name="precipitation_snow_grains">Kar taneleri</string>
+    <string name="choose_photo">Fotoğraf seç</string>
+    <string name="waypoint">Ara nokta</string>
+    <string name="merging">Birleştiriliyor</string>
+    <string name="merge">Birleştir</string>
+    <string name="append_onto">Üzerine ekle</string>
+    <string name="cloud_photo_mask_toast">Maskeyi değiştirmek için fotoğrafa dokunun</string>
+    <string name="simplify">Sadeleştir</string>
+    <string name="simplifying">Sadeleştiriliyor</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d ara nokta silindi</item>
+        <item quantity="other">%d ara nokta silindi</item>
+    </plurals>
+    <string name="sort_by">Sırala: %s</string>
+    <string name="most_recent">En yeni</string>
+    <string name="longest">En uzun</string>
+    <string name="shortest">En kısa</string>
+    <string name="closest">En yakın</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d yol içe aktarıldı</item>
+        <item quantity="other">%d yol içe aktarıldı</item>
+    </plurals>
+    <string name="hide">Gizle</string>
+    <string name="show">Göster</string>
+    <string name="tilt">Eğim</string>
+    <string name="up_to_amount">%s\'e kadar</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="notification_weather_update_title">Hava Durumu İzleme Güncellemesi</string>
+    <string name="astro_dialog_meteor_shower">**Tepe**: %s
+\n
+\n**Tepe rakımı**: %s
+\n
+\n**Tepe yönü**: %s
+\n
+\n**Oran**: %s</string>
+    <string name="paths">Yollar</string>
+    <string name="keep_forever">Sonsuza kadar sakla</string>
 </resources>
