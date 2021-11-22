@@ -3,17 +3,23 @@ package com.kylecorry.trail_sense.tools.maps.ui
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import androidx.core.net.toUri
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
+import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.toPixel
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -30,6 +36,14 @@ class OfflineMapView2 : SubsamplingScaleImageView {
     private val geology = GeologyService()
     private var azimuth = 0f
     private var locations = emptyList<IMappableLocation>()
+    private var paths = emptyList<IMappablePath>()
+    private var pathPool = ObjectPool { Path() }
+    private var renderedPaths = mapOf<Long, RenderedPath>()
+    private var pathsRendered = false
+    private var lastScale = 1f
+
+    private val layerScale: Float
+        get() = min(1f, max(scale, 0.9f))
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -40,7 +54,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
             return
         }
 
-        if (!isSetup){
+        if (!isSetup) {
             drawer = CanvasDrawer(context, canvas)
             setup()
         }
@@ -49,17 +63,24 @@ class OfflineMapView2 : SubsamplingScaleImageView {
         draw()
     }
 
-    fun setup(){
+    fun setup() {
 
     }
 
-    fun draw(){
+    fun draw() {
         map ?: return
+
+        if (scale != lastScale){
+            pathsRendered = false
+            lastScale = scale
+        }
+
+        drawPaths()
         drawMyLocation()
         drawLocations()
     }
 
-    fun showMap(map: Map){
+    fun showMap(map: Map) {
         val file = LocalFiles.getFile(context, map.filename, false)
         setImage(ImageSource.uri(file.toUri()))
         this.map = map
@@ -71,7 +92,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
     }
 
     private fun drawMyLocation() {
-        val scale = min(1f, max(scale, 0.9f))
+        val scale = layerScale
         val location = myLocation ?: return
         val pixels = getPixelCoordinate(location) ?: return
 
@@ -98,8 +119,57 @@ class OfflineMapView2 : SubsamplingScaleImageView {
         invalidate()
     }
 
+    fun showPaths(paths: List<IMappablePath>) {
+        this.paths = paths
+        pathsRendered = false
+        invalidate()
+    }
+
+    private fun generatePaths(paths: List<IMappablePath>): kotlin.collections.Map<Long, RenderedPath> {
+        val metersPerPixel =
+            map?.distancePerPixel(sWidth * scale, sHeight * scale)?.meters()?.distance ?: 1f
+        val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
+        val map = mutableMapOf<Long, RenderedPath>()
+        for (path in paths) {
+            val pathObj = pathPool.get()
+            pathObj.reset()
+            map[path.id] = factory.render(path.points.map { it.coordinate }, pathObj)
+        }
+        return map
+    }
+
+    private fun drawPaths() {
+        val scale = layerScale
+        if (!pathsRendered) {
+            for (path in renderedPaths) {
+                pathPool.release(path.value.path)
+            }
+            renderedPaths = generatePaths(paths)
+            pathsRendered = true
+        }
+
+        val factory = PathLineDrawerFactory()
+        drawer.push()
+//        clip(compassPath)
+        for (path in paths) {
+            val rendered = renderedPaths[path.id] ?: continue
+            val lineDrawer = factory.create(path.style)
+            val centerPixel = getPixelCoordinate(rendered.origin, false) ?: continue
+            drawer.push()
+            drawer.translate(centerPixel.x, centerPixel.y)
+            lineDrawer.draw(drawer, path.color, strokeScale = scale) {
+                path(rendered.path)
+            }
+            drawer.pop()
+        }
+        drawer.pop()
+        drawer.noStroke()
+        drawer.fill(Color.WHITE)
+        drawer.noPathEffect()
+    }
+
     private fun drawLocations() {
-        val scale = min(1f, max(scale, 0.9f))
+        val scale = layerScale
         for (beacon in locations) {
             val coord = getPixelCoordinate(beacon.coordinate)
             if (coord != null) {

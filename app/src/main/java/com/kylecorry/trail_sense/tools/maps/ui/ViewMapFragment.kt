@@ -241,7 +241,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             mappablePaths.add(pts.asMappable(requireContext(), path))
         }
 
-//        binding.map.showPaths(mappablePaths)
+        binding.map.showPaths(mappablePaths)
     }
 
     private fun updateDestination() {
