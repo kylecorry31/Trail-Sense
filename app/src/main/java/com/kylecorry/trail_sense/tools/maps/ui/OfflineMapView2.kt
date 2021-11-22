@@ -58,6 +58,7 @@ class OfflineMapView2 : SubsamplingScaleImageView {
         if (!isSetup) {
             drawer = CanvasDrawer(context, canvas)
             setup()
+            isSetup = true
         }
 
         drawer.canvas = canvas
