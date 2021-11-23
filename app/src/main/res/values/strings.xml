@@ -550,7 +550,6 @@
     <string name="backtrack">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="create_beacon">Create beacon</string>
-    <string name="tool_backtrack_summary">View location history</string>
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
@@ -754,9 +753,6 @@
     <string name="time_until_empty">until empty</string>
     <string name="time_until_full">until full</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
-    <string name="pref_backtrack_path_radar" translatable="false">pref_backtrack_path_radar</string>
-    <string name="pref_backtrack_path_radar_title">Show Backtrack path</string>
-    <string name="pref_backtrack_path_radar_summary">On the radar compass and maps</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="minute_symbol">m</string>
     <string name="hour_symbol">h</string>
@@ -1007,13 +1003,10 @@
     <string name="autofill">Autofill</string>
     <string name="lightning_dangerously_close">Lightning dangerously close</string>
     <string name="auto">Auto</string>
-    <string name="pref_last_backtrack_path_id" translatable="false">last_backtrack_path_id</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="delete_path">Delete path?</string>
-    <string name="grid_size">%s grid</string>
     <!--    This will always be in mm-->
     <string name="units_mmhg_short">mm</string>
-    <string name="path">Path</string>
     <string name="old">Old</string>
     <string name="new_text">New</string>
     <string name="navigate">Navigate</string>
