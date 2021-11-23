@@ -242,7 +242,6 @@
     <string name="access_background_location_rationale">Erlauben Sie Trail Sense jederzeit den Zugriff auf Ihre Ortsdaten. Diese werden zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor und zum Anzeigen einer genaueren Sonnenuntergangsbenachrichtigung genutzt. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
-    <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
     <string name="navigation_nearby_category">Nahegelegen</string>
     <string name="forecasts_category">Vorhersagen</string>
@@ -263,9 +262,6 @@
     <string name="beacon_action_view_details">Zeige Details</string>
     <string name="guide_weather_prediction_title">Wettervorhersage</string>
     <string name="guide_conserving_battery_title">Stromsparmodus</string>
-    <string name="pref_sea_level_require_dwell_title">Schnelle Höhenänderungen ignorieren</string>
-    <string name="pref_sea_level_require_dwell_summary">Zeige nur Werte, wenn sich die Höhe in der letzten Stunde nicht geändert hat. Dies verbessert die Zuverlässigkeit der Vorhersage.</string>
-    <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
     <string name="pref_adjust_for_temperature_summary">Verwende die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Libelle</string>
     <string name="edit_item_title">Gegenstand bearbeiten</string>
@@ -394,8 +390,6 @@
     <string name="freezing_temperatures_description">Wasser kann im Freien gefrieren, und Regen geht möglicherweise in Schneefall über</string>
     <string name="freezing_temperatures_warning">Frostgefahr</string>
     <string name="clock_sync_instructions">Bei Benachrichtigung Zeit auf %s setzen</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Schwellwert für Druckänderung</string>
-    <string name="pref_barometer_altitude_change_title">Schwellwert für Höhenänderung</string>
     <string name="charging_fast">Batterie lädt schnell (%s)</string>
     <string name="discharging_fast">Schnelle Entladung (%s)</string>
     <string name="discharging_slow">Langsame Entladung (%s)</string>
@@ -429,7 +423,6 @@
     <string name="strobe_warning_title">Stroboskob / Blitzlicht</string>
     <string name="toast_destination_bearing_set">Zielrichtung gesetzt</string>
     <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="waypoint_beacon_title_template">%s, %s Wegpunkt</string>
     <string name="create_beacon">Wegpunkt anlegen</string>
     <string name="charging_wireless">Batterie wird geladen (%s)</string>
     <string name="bubble_level_angles">X: %s
@@ -679,8 +672,6 @@
     <string name="battery_warning">Batterieentladungswarnung</string>
     <string name="backtrack_high_priority_notification">Platziere einen Wegpunkt alle %s</string>
     <string name="updates">Aktualisierungen</string>
-    <string name="pref_backtrack_path_color_title">Pfadfarbe für Backtrack</string>
-    <string name="pref_backtrack_path_style_title">Pfadstil für Rückweg</string>
     <string name="dotted">Gepunktet</string>
     <string name="time_until_full">bis voll</string>
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
@@ -714,7 +705,6 @@
     <string name="pref_barometer_altitude_outlier_title">Entfernung von Höhenausreißern</string>
     <string name="pref_barometer_altitude_smoothing_title">Höhenglättung</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
-    <string name="pref_experimental_barometer_calibration_title">Nutze experimentelle Kalibration</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="beacon_moved_to">Nach %s verschoben</string>
     <string name="move">Verschieben</string>
@@ -880,9 +870,6 @@
     <string name="path">Pfad</string>
     <string name="units_mmhg_short">mm</string>
     <string name="grid_size">%s Raster</string>
-    <string name="no_previous_path">Kein vorheriger Pfad</string>
-    <string name="merge_previous_path_title">Mit dem vorherigen Pfad zusammenführen\?</string>
-    <string name="path_merge_previous">Vorherige zusammenführen</string>
     <string name="delete_path">Pfad löschen\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Auto</string>

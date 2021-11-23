@@ -36,8 +36,8 @@
     <string name="name">Tên</string>
     <string name="beacon_invalid_name">Tên không hợp lệ</string>
     <string name="beacon_comment">Ghi chú (Tùy chọn)</string>
-    <string name="charging_fast">Sạc nhanh</string>
-    <string name="charging_slow">Sạc chậm</string>
+    <string name="charging_fast">Sạc nhanh (%s)</string>
+    <string name="charging_slow">Sạc chậm (%s)</string>
     <string name="unknown">Không biết</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_info_title">Mẹo tăng độ chính xác của dữ liệu cảm biến</string>

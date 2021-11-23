@@ -218,8 +218,6 @@
     <string name="inclinometer_rotate_device">Segure seu celular na vertical para medir a inclinação</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
     <string name="estimated_height">altura estimada</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão de viagem</string>
-    <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude de viagem</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
@@ -229,8 +227,6 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes de posição</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
-    <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras somente quando a altitude não mudou por pelo menos uma hora. Melhora a confiabilidade da previsão.</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Ponto de orientação</string>
@@ -246,8 +242,6 @@
     <string name="update_30_minutes">30 minutos</string>
     <string name="pref_weather_update_frequency_title">Freqüência de atualização meteorológica</string>
     <string name="pref_max_beacon_distance_title">Raio de pontos de orientação mais próximos</string>
-    <string name="pref_sea_level_use_rapid_summary">Usar mudanças rápidas de pressão em conversões de pressão ao nível do mar</string>
-    <string name="pref_sea_level_use_rapid_title">Fator em rápidas mudanças de pressão</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
@@ -538,7 +532,6 @@
 \nOSNG (OSGB36) (ex. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
-    <string name="waypoint_beacon_title_template">%s, %s ponto de passagem</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="backtrack_notification_channel_description">Atualizações de localização do recuo</string>
     <string name="backtrack">Recuar</string>
@@ -625,8 +618,6 @@
     <string name="pref_tiles_enabled_summary">Pode impedir que o app que gerencia a economia da bateria suspenda o Trail Sense</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="pref_backtrack_history_days_title">Histórico do caminho de recuo</string>
-    <string name="pref_backtrack_path_color_title">Cor de caminho de recuo</string>
-    <string name="pref_backtrack_path_style_title">Modo de caminho de recuo</string>
     <string name="pref_backtrack_path_radar_title">Mostrar o caminho de recuo</string>
     <string name="delete_tide_prompt">Excluir maré\?</string>
     <string name="theme_sunset_sunrise">Nascer do sol/pôr do sol</string>
@@ -679,7 +670,6 @@
     <string name="pref_barometer_altitude_outlier_title">Remoção de altitudes periféricas</string>
     <string name="pref_barometer_altitude_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
-    <string name="pref_experimental_barometer_calibration_title">Use a calibração experimental</string>
     <string name="pref_nmea_altitude_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_altitude_title">Compensação de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente da das estações próximas</string>
@@ -893,9 +883,6 @@
     <string name="path">Caminho</string>
     <string name="units_mmhg_short">mm</string>
     <string name="grid_size">%s grade</string>
-    <string name="no_previous_path">Nenhum caminho anterior</string>
-    <string name="merge_previous_path_title">Unir com o caminho anterior\?</string>
-    <string name="path_merge_previous">Adicionar o anterior</string>
     <string name="delete_path">Eliminar o caminho\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automático</string>

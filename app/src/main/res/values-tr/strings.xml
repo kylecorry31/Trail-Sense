@@ -17,8 +17,6 @@
     <string name="battery_warning">Pil tüketimi uyarısı</string>
     <string name="backtrack_high_priority_notification">Her %s\'de ara nokta konuluyor</string>
     <string name="updates">Güncellemeler</string>
-    <string name="pref_backtrack_path_color_title">Geri iz sürme yolu rengi</string>
-    <string name="pref_backtrack_path_style_title">Geri iz sürme yolu şekli</string>
     <string name="arrow">Ok şekli</string>
     <string name="dotted">Benekli</string>
     <string name="solid">Düz / dolu</string>
@@ -178,7 +176,6 @@
     <string name="battery_power_ac">AC</string>
     <string name="pref_backtrack_frequency_title">Geri iz sürme aralığı</string>
     <string name="delete_waypoint_prompt">Ara noktayı silmek istediğinizden emin misiniz\?</string>
-    <string name="waypoint_beacon_title_template">%s, %s Ara nokta</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Konum geçmişini görüntüle</string>
     <string name="create_beacon">İşaret oluştur</string>
@@ -321,16 +318,12 @@
     <string name="category_hydration">Sıvı</string>
     <string name="category_food">Yemek</string>
     <string name="other">Diğer</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Seyahat basıncı değişikliği eşiği</string>
-    <string name="pref_barometer_altitude_change_title">Seyahat irtifası değişikliği eşiği</string>
     <string name="guide_conserving_battery_title">Güç tasarrufu</string>
     <string name="navigation_nearby_category">Yakındakiler</string>
     <string name="forecasts_category">Hava durumu tahminleri</string>
     <string name="advanced">Gelişmiş</string>
     <string name="tap_sun_moon_hint">Pozisyon detayları için aya veya güneşe dokunun</string>
 
-    <string name="pref_sea_level_require_dwell_title">Hızlı irtifa değişimlerini yoksay</string>
-    <string name="pref_sea_level_require_dwell_summary">Okunan değerleri sadece irtifa en az bir saat boyunca değişmediğinde göster. Hava durumu tahimini güvenirliliğini arttırır.</string>
     <string name="no_group">Grup yok</string>
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">İşaret</string>
@@ -383,8 +376,6 @@
     <string name="pref_show_linear_compass_summary">Telefon dik durumdayken</string>
     <string name="pref_show_linear_compass_title">Doğrusal pusulayı göster</string>
     <string name="pref_display_multi_beacons_title">Yakındaki işaretleri göster</string>
-    <string name="pref_sea_level_use_rapid_summary">Deniz seviyesi basınç dönüşümlerinde hızlı basınç değişimlerini kullan</string>
-    <string name="pref_sea_level_use_rapid_title">Hızlı basınç değişimlerindeki faktör</string>
     <string name="pref_adjust_for_temperature_summary">Deniz seviyesi basınç dönüşümlerinde ısı derecesini kullan</string>
     <string name="pref_adjust_for_temperature_title">Isı derecesindeki faktör</string>
     <string name="pref_use_sea_level_pressure_title">Deniz seviyesi basıncı</string>
@@ -714,7 +705,6 @@
     <string name="delete_map">Harita silinsin mi\?</string>
     <string name="pref_barometer_altitude_outlier_title">İrtifa uç değerini kaldırma</string>
     <string name="pref_barometer_pressure_smoothing_title">Basınç düzenleme</string>
-    <string name="pref_experimental_barometer_calibration_title">Deneysel kalibrasyon kullan</string>
     <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
     <string name="battery_history">Pil geçmişi - son %s</string>
     <string name="no_data">Veri yok</string>
@@ -778,9 +768,6 @@
     <string name="old">Eski</string>
     <string name="path">Yol</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="no_previous_path">Önceki yol yok</string>
-    <string name="merge_previous_path_title">Önceki yolla birleştirilsin mi\?</string>
-    <string name="path_merge_previous">Öncekini birleştir</string>
     <string name="delete_path">Yol silinsin mi\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Otomatik</string>

@@ -220,8 +220,6 @@
     <string name="category_hydration">Hidratação</string>
     <string name="category_food">Comida</string>
     <string name="other">Outros</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão da viagem</string>
-    <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude da viagem</string>
     <string name="beacon_action_view_details">Ver detalhes</string>
     <string name="tool_bubble_level_summary">Indica se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
@@ -231,8 +229,6 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes da posição</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
-    <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras apenas quando a altitude não mudou pelo menos durante a última hora. Melhora a fiabilidade da previsão.</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Alfinete</string>
@@ -269,8 +265,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
     <string name="pref_display_multi_beacons_summary">Mostrar alfinetes mais próximos na bússola</string>
     <string name="pref_num_visible_beacons_title">Alfinetes por perto</string>
-    <string name="pref_sea_level_use_rapid_summary">Usar mudanças rápidas de pressão em conversões de pressão ao nível do mar</string>
-    <string name="pref_sea_level_use_rapid_title">Fator em rápidas mudanças de pressão</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
@@ -575,7 +569,6 @@
     <string name="location_input_help_title">Formatos de localização suportados</string>
     <string name="pref_backtrack_frequency_title">Intervalo do voltar para trás</string>
     <string name="pref_backtrack_enabled_summary">Registar histórico de localização</string>
-    <string name="waypoint_beacon_title_template">%s, %s ponto do percurso</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Ver histórico de localização</string>
     <string name="create_beacon">Criar alfinete</string>
@@ -604,9 +597,6 @@
     <string name="path">Percurso</string>
     <string name="units_mmhg_short">mm</string>
     <string name="grid_size">%s grelha</string>
-    <string name="no_previous_path">Nenhum percurso anterior</string>
-    <string name="merge_previous_path_title">Unir ao percurso anterior\?</string>
-    <string name="path_merge_previous">Fundir com o anterior</string>
     <string name="delete_path">Eliminar o percurso\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automático</string>
@@ -728,7 +718,6 @@
     <string name="pref_barometer_altitude_outlier_title">Remover valores discrepantes de altitude</string>
     <string name="pref_barometer_altitude_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
-    <string name="pref_experimental_barometer_calibration_title">Usar calibração experimental</string>
     <string name="pref_nmea_altitude_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_altitude_title">Compensação de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente de estações próximas</string>
@@ -760,8 +749,6 @@
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="backtrack_high_priority_notification">A adicionar um ponto de passagem a cada %s</string>
     <string name="updates">Atualizações</string>
-    <string name="pref_backtrack_path_color_title">Cor do percurso de voltar para trás</string>
-    <string name="pref_backtrack_path_style_title">Estilo do percurso de voltar para trás</string>
     <string name="arrow">Seta</string>
     <string name="dotted">Pontilhado</string>
     <string name="solid">Sólido</string>
@@ -976,16 +963,14 @@
     <string name="capture">Capturar</string>
     <string name="results">Resultados</string>
     <string name="or">ou</string>
-    <string name="notification_weather_update_title">Atualização do monitor de metereologia</string>
+    <string name="notification_weather_update_title">Atualização do monitor de meteorologia</string>
     <string name="notification_weather_update_content">A gravar a pressão</string>
     <string name="notification_backtrack_update_title">Atualização do voltar para trás</string>
     <string name="humidity">Humidade</string>
     <string name="precipitation_chance">Probabilidade de precipitação: %s</string>
     <string name="take_photo">Tirar fotografia</string>
     <string name="notification_backtrack_update_content">A gravar a sua localização</string>
-    <string name="pref_background_compat_mode_title">Modo de compatibilidade em segundo plano</string>
     <string name="choose_photo">Escolher fotografia</string>
-    <string name="pref_background_compat_mode_summary">Ative isto se os serviços em segundo plano não estiverem a funcionar corretamente</string>
     <string name="cloud_photo_mask_toast">Toque na fotografia para alternar a máscara</string>
     <string name="no_camera_access">Não foi possível aceder à câmara</string>
     <string name="paths">Percursos</string>

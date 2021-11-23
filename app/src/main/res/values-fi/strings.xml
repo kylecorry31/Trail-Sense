@@ -148,8 +148,6 @@
     <string name="pref_show_linear_compass_summary">Kun puhelin on pystysuorassa</string>
     <string name="pref_show_linear_compass_title">Näytä lineaarinen kompassi</string>
     <string name="pref_display_multi_beacons_title">Näytä lähellä olevat reittipisteet</string>
-    <string name="pref_sea_level_use_rapid_summary">Käytä nopeita paineenmuutoksia merenpinnan paineenmuunnoksissa</string>
-    <string name="pref_sea_level_use_rapid_title">Kerroin nopeissa paineen muutoksissa</string>
     <string name="pref_adjust_for_temperature_summary">Käytä lämpötilaa merenpinnan painemuunnoksissa</string>
     <string name="pref_adjust_for_temperature_title">Kerroin lämpötilaan</string>
     <string name="pref_use_sea_level_pressure_title">Merenpinnan paine</string>

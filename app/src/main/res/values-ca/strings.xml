@@ -18,8 +18,6 @@
     <string name="forecasts_category">Previsions</string>
     <string name="advanced">Avançat</string>
     <string name="tap_sun_moon_hint">Premeu sol o lluna per obtenir els detalls de posició</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorar els canvis ràpids d\'altitud</string>
-    <string name="pref_sea_level_require_dwell_summary">Només mostrar les lectures quan la altitud no canvii en una hora. Permet millorar la fiabilitat del pronòstic.</string>
     <string name="no_group">Sense grup</string>
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">Fita</string>
@@ -73,8 +71,6 @@
     <string name="pref_show_linear_compass_summary">Quan el dispositiu està vertical</string>
     <string name="pref_show_linear_compass_title">Mostrar brúixola linial</string>
     <string name="pref_display_multi_beacons_title">Mostrar fites properes</string>
-    <string name="pref_sea_level_use_rapid_summary">Utilitzar els canvis rápids de pressió en les conversions de pressió atmosfèrica</string>
-    <string name="pref_sea_level_use_rapid_title">Factor en canvis ràpids de pressió</string>
     <string name="pref_adjust_for_temperature_summary">Utilitzar la temperatura en les conversions de pressió atmosfèrica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
     <string name="pref_use_sea_level_pressure_title">Pressió a nivell del mar</string>
