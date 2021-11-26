@@ -51,7 +51,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
-    private val geologyService = GeologyService()
     private val hikingService = HikingService()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
@@ -68,7 +67,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var elevationLoss = Distance.meters(0f)
     private var difficulty = HikingDifficulty.Easiest
 
-    private val gainThreshold = Distance.meters(2.75f)
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
@@ -192,8 +190,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         runInBackground {
             val reversed = waypoints.reversed()
             calculatedDuration =
-                hikingService.getHikingDuration(reversed, gainThreshold, paceFactor)
-            difficulty = hikingService.getHikingDifficulty(reversed, gainThreshold)
+                hikingService.getHikingDuration(reversed, paceFactor)
+            difficulty = hikingService.getHikingDifficulty(reversed)
         }
     }
 
@@ -201,15 +199,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         runInBackground {
             val path = waypoints.reversed()
 
-            val elevations =
-                path.mapNotNull { if (it.elevation == null) null else Distance.meters(it.elevation) }
+            val gainLoss = hikingService.getElevationLossGain(path)
 
-            elevationGain =
-                geologyService.getElevationGain(elevations, gainThreshold)
-                    .convertTo(prefs.baseDistanceUnits)
-            elevationLoss =
-                geologyService.getElevationLoss(elevations, gainThreshold)
-                    .convertTo(prefs.baseDistanceUnits)
+            elevationGain = gainLoss.second.convertTo(prefs.baseDistanceUnits)
+            elevationLoss = gainLoss.first.convertTo(prefs.baseDistanceUnits)
         }
     }
 
