@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.io.FileSaver
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -36,6 +37,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.util.*
 
 class MapListFragment : BoundFragment<FragmentMapListBinding>() {
@@ -213,7 +215,18 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 val type = requireContext().contentResolver.getType(uri)
                 var calibration1: MapCalibrationPoint? = null
                 var calibration2: MapCalibrationPoint? = null
-                val bitmap = if (type == "application/pdf") {
+
+                val extension = if (type == "application/pdf"){
+                    "jpg"
+                } else {
+                    MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
+                }
+
+                println(extension)
+
+                val filename = "maps/" + UUID.randomUUID().toString() + "." + extension
+
+                if (type == "application/pdf") {
                     val geopoints = PDFUtils.getGeospatialCalibration(requireContext(), uri)
                     if (geopoints.size >= 2) {
                         calibration1 = geopoints[0]
@@ -228,10 +241,24 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 getString(R.string.error_importing_map)
                             )
                             binding.mapLoading.isVisible = false
+                            binding.addBtn.isEnabled = true
                         }
                         return@withContext
                     }
-                    bp
+
+                    try {
+                        copyToLocalStorage(bp, filename)
+                    } catch (e: IOException) {
+                        withContext(Dispatchers.Main) {
+                            Alerts.toast(
+                                requireContext(),
+                                getString(R.string.error_importing_map)
+                            )
+                            binding.mapLoading.isVisible = false
+                            binding.addBtn.isEnabled = true
+                        }
+                        return@withContext
+                    }
                 } else {
                     val stream = try {
                         @Suppress("BlockingMethodInNonBlockingContext")
@@ -250,30 +277,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         }
                         return@withContext
                     }
-                    val bp = BitmapFactory.decodeStream(stream)
-                    @Suppress("BlockingMethodInNonBlockingContext")
-                    stream.close()
-                    bp
-                }
-
-                val filename = "maps/" + UUID.randomUUID().toString() + ".jpg"
-                try {
-                    @Suppress("BlockingMethodInNonBlockingContext")
-                    FileOutputStream(LocalFiles.getFile(requireContext(), filename)).use { out ->
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-                    }
-                } catch (e: IOException) {
-                    withContext(Dispatchers.Main) {
-                        Alerts.toast(
-                            requireContext(),
-                            getString(R.string.error_importing_map)
-                        )
-                        binding.mapLoading.isVisible = false
-                        binding.addBtn.isEnabled = true
-                    }
-                    return@withContext
-                } finally {
-                    bitmap.recycle()
+                    copyToLocalStorage(stream, filename)
                 }
 
                 val calibrationPoints = listOfNotNull(calibration1, calibration2)
@@ -306,5 +310,23 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         }
     }
+
+
+    private fun copyToLocalStorage(bitmap: Bitmap, filename: String) {
+        try {
+            @Suppress("BlockingMethodInNonBlockingContext")
+            FileOutputStream(LocalFiles.getFile(requireContext(), filename)).use { out ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+            }
+        } finally {
+            bitmap.recycle()
+        }
+    }
+
+    private fun copyToLocalStorage(stream: InputStream, filename: String) {
+        val saver = FileSaver()
+        saver.save(stream, LocalFiles.getFile(requireContext(), filename))
+    }
+
 
 }
