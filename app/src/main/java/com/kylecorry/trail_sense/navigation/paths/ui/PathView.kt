@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -83,6 +83,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
 
+    private val lookupMatrix = Matrix()
+
     init {
         runEveryCycle = false
     }
@@ -135,7 +137,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawWaypoints(points: List<PathPoint>) {
-        val pointDiameter = dp(5f)
+        val scale = max(scale, 1f)
+        val pointDiameter = dp(5f) / scale
         noPathEffect()
         noStroke()
         val circles = mutableListOf<Pair<PathPoint, PixelCircle>>()
@@ -272,12 +275,12 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val screenCoord = PixelCoordinate(e.x, e.y)
+            val pixel = viewToSourceCoord(PixelCoordinate(e.x, e.y))
 
             val tapRadius = dp(12f)
-            val closest = pathCircles.minByOrNull { it.second.center.distanceTo(screenCoord) }
+            val closest = pathCircles.minByOrNull { it.second.center.distanceTo(pixel) }
 
-            if (closest != null && closest.second.center.distanceTo(screenCoord) < tapRadius) {
+            if (closest != null && closest.second.center.distanceTo(pixel) < tapRadius) {
                 pointClickListener.invoke(closest.first)
             }
 
@@ -302,4 +305,15 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         invalidate()
         return true
     }
+
+    private fun viewToSourceCoord(screen: PixelCoordinate): PixelCoordinate {
+        lookupMatrix.reset()
+        val point = floatArrayOf(screen.x, screen.y)
+        lookupMatrix.postScale(scale, scale, width / 2f, height / 2f)
+        lookupMatrix.postTranslate(translateX, translateY)
+        lookupMatrix.invert(lookupMatrix)
+        lookupMatrix.mapPoints(point)
+        return PixelCoordinate(point[0], point[1])
+    }
+
 }
