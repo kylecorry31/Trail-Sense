@@ -288,8 +288,6 @@
     <string name="category_hydration">水和作用</string>
     <string name="category_food">食物</string>
     <string name="other">其他</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">旅行气压变更阈值</string>
-    <string name="pref_barometer_altitude_change_title">旅行高度变更阈值</string>
     <string name="beacon_action_view_details">查看详情</string>
     <string name="tool_bubble_level_summary">确定表面是否平坦</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
@@ -300,8 +298,6 @@
     <string name="forecasts_category">预测</string>
     <string name="advanced">高级设置</string>
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
-    <string name="pref_sea_level_require_dwell_title">忽略快速高度变化</string>
-    <string name="pref_sea_level_require_dwell_summary">只有当高度至少一小时没有变化时才显示读数。提高预报的可靠性。</string>
     <string name="no_group">无群组</string>
     <string name="group">群组</string>
     <string name="beacon_create_beacon">信标</string>
@@ -336,8 +332,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">导航前矫正</string>
     <string name="pref_display_multi_beacons_summary">在指南针上显示最近的信标</string>
     <string name="pref_num_visible_beacons_title">附近的信标</string>
-    <string name="pref_sea_level_use_rapid_summary">在海平面压力转换中使用快速压力变化</string>
-    <string name="pref_sea_level_use_rapid_title">将快速压力变化考虑在内</string>
     <string name="pref_adjust_for_temperature_summary">使用海平面压力转换中的温度</string>
     <string name="pref_adjust_for_temperature_title">将温度考虑在内</string>
     <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
@@ -404,7 +398,6 @@
     <string name="backtrack">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
-    <string name="waypoint_beacon_title_template">路径点 %s, %s</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">查看位置历史</string>
     <string name="create_beacon">创建信标</string>
@@ -673,8 +666,6 @@
     <string name="battery_warning">电池耗竭警告</string>
     <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>
     <string name="updates">更新</string>
-    <string name="pref_backtrack_path_color_title">Backtrack路径颜色</string>
-    <string name="pref_backtrack_path_style_title">Backtrack 路径样式</string>
     <string name="dotted">点线</string>
     <string name="solid">实心</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
@@ -709,7 +700,6 @@
     <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
     <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
     <string name="pref_barometer_pressure_smoothing_title">压力平滑</string>
-    <string name="pref_experimental_barometer_calibration_title">使用实验性校准</string>
     <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
     <string name="beacon_moved_to">已移动到 %s</string>
     <string name="move">移动</string>
@@ -866,13 +856,10 @@
     <string name="quarter_moon">上弦月</string>
     <string name="autofill">自动填充</string>
     <string name="lightning_dangerously_close">你离闪电太近了</string>
-    <string name="merge_previous_path_title">与先前路径合并？</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="other">%d 个航点将被删除</item>
     </plurals>
     <string name="grid_size">%s 网格</string>
-    <string name="no_previous_path">无先前路径</string>
-    <string name="path_merge_previous">合并先前路径</string>
     <string name="delete_path">删除路径？</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">自动</string>
@@ -974,8 +961,6 @@
     <string name="notification_weather_update_title">天气监测器更新</string>
     <string name="notification_backtrack_update_title">Backtrack 更新</string>
     <string name="notification_backtrack_update_content">正在记录你的位置</string>
-    <string name="pref_background_compat_mode_summary">如果后台服务不能正常运行，请启用此选项</string>
-    <string name="pref_background_compat_mode_title">后台兼容模式</string>
     <string name="notification_weather_update_content">正在记录气压</string>
     <string name="humidity">湿度</string>
     <string name="cloud_photo_mask_toast">轻按照片来切换蒙版</string>

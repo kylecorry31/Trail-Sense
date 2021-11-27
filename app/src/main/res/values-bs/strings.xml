@@ -211,8 +211,6 @@
     <string name="battery_warning">Upozorenje o pražnjenju baterije</string>
     <string name="backtrack_high_priority_notification">Postavljanje međutočke svakih %s</string>
     <string name="updates">Ažuriranja</string>
-    <string name="pref_backtrack_path_color_title">Boja Izatražne staze</string>
-    <string name="pref_backtrack_path_style_title">Stil Izatražne staze</string>
     <string name="arrow">Strijelica</string>
     <string name="dotted">Tačkasta</string>
     <string name="solid">Solidna</string>
@@ -560,8 +558,6 @@
     <string name="category_hydration">Hidratacija</string>
     <string name="category_food">Hrana</string>
     <string name="other">Ostalo</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Prag promjene tlaka na putu</string>
-    <string name="pref_barometer_altitude_change_title">Prag promjene visine na putu</string>
     <string name="beacon_action_view_details">Pokaži detalje</string>
     <string name="tool_bubble_level_summary">Utvrdite jesu li površine ravne</string>
     <string name="tool_bubble_level_title">Nivo mjehurića</string>
@@ -597,7 +593,6 @@
     <string name="update_90_minutes">1 sat 30 minuta</string>
     <string name="pref_center_sun_and_moon_title">Nek bude sunce/mjesec centriran</string>
     <string name="pref_barometer_pressure_smoothing_title">Izravnavanje pritiska</string>
-    <string name="pref_experimental_barometer_calibration_title">Koristite eksperimentalnu kalibraciju</string>
     <string name="pref_nmea_altitude_summary">Koristi NMEA pomake za pretvaranje visine</string>
     <string name="pref_nmea_altitude_title">NMEA pomake nadmorske visine</string>
     <string name="sun_moon_compass_when_up">Kad je gore</string>
@@ -737,7 +732,6 @@
     <string name="location_input_help_title">Podržani formati za lokacije</string>
     <string name="pref_backtrack_frequency_title">Interval Izatraga</string>
     <string name="pref_backtrack_enabled_summary">Svinje lokacijsku historiju</string>
-    <string name="waypoint_beacon_title_template">%s, %s Međutočka</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Pogledajte lokacijsku historiju</string>
     <string name="backtrack_notification_channel_description">Ažuriranja lokacija Izatraga</string>
@@ -760,14 +754,10 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrirajte prije navigacije</string>
     <string name="pref_display_multi_beacons_summary">Pokažite najbliže svjetionike na kompasu</string>
     <string name="pref_num_visible_beacons_title">Obližnji svjetionici</string>
-    <string name="pref_sea_level_require_dwell_title">Zanemarite brze promjene visine</string>
-    <string name="pref_sea_level_require_dwell_summary">Prikazujte očitanja samo kada se nadmorska visina nije promijenila za najmanje sat vremena. Poboljšava pouzdanost prognoze.</string>
-    <string name="pref_sea_level_use_rapid_summary">Koristite brze promjene pritiska u pretvorbama tlaka na razini mora</string>
     <string name="pref_adjust_for_temperature_summary">Koristite temperaturu u pretvorbama pritiska na razini mora</string>
     <string name="pref_altitude_override_sea_level_title">Koristeći poznati pritisak na razini mora</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Unesite pritisak na razini mora</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Unesite trenutni pritisak na razini mora u hPa</string>
-    <string name="pref_sea_level_use_rapid_title">Uzmi brze promjene pritiska u obzir</string>
     <string name="pref_adjust_for_temperature_title">Uzmi temperaturu u obzir</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-kalibracija</string>
     <string name="never">Nikad</string>

@@ -220,7 +220,6 @@
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">il y a %s - %s</string>
     <string name="maps">Cartes</string>
-    <string name="pref_sea_level_use_rapid_summary">Utiliser les variation rapides des niveaux de pression locale pour estimer les valeurs de pression au niveau de la mer</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
     <string name="pref_sunset_alert_time_title">Heure de la notification de coucher de soleil</string>
     <string name="sun_moon_compass_when_up">Lorsque l\'astre est levé</string>
@@ -238,7 +237,6 @@
     <string name="tide_normal">Amplitude de marée moyenne</string>
     <string name="tide_spring">Vives-eaux</string>
     <string name="tide_neap">Mortes-eaux</string>
-    <string name="pref_sea_level_use_rapid_title">Se baser sur les variations rapides de la pression</string>
     <string name="pref_adjust_for_temperature_title">Se baser sur la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
     <string name="offline_maps">Cartes hors-ligne</string>
@@ -269,12 +267,8 @@
     <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
     <string name="tool_bubble_level_title">Niveau à bulle</string>
     <string name="guide_weather_prediction_title">Prévisions météorologiques</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorer les variations d\'altitude rapides</string>
-    <string name="pref_sea_level_require_dwell_summary">Ne fournir des informations que lorsque l\'altitude a été constante pour au moins une heure. Cela permet d\'améliorer la fiabilité des prévisions.</string>
     <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
     <string name="tool_user_guide_title">Guide d\'utilisation</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">La pression atmosphérique de voyage change le seuil</string>
-    <string name="pref_barometer_altitude_change_title">L\'altitude de voyage change le seuil</string>
     <string name="category_natural">Naturel</string>
     <string name="category_safety">Sécurité</string>
     <string name="category_shelter">Abri</string>
@@ -411,7 +405,6 @@
     <string name="location_input_help_title">Formats de localisation supportés</string>
     <string name="pref_backtrack_frequency_title">Fréquence d\'enregistrement</string>
     <string name="pref_backtrack_enabled_summary">Enregistrer l\'historique des positions</string>
-    <string name="waypoint_beacon_title_template">%s, %s point de passage</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Voire l\'historique des positions</string>
     <string name="create_beacon">Ajouter un repère</string>

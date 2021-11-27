@@ -352,8 +352,6 @@
     <string name="pref_backtrack_history_days_title">Terugweg-geschiedenis</string>
     <string name="backtrack_battery_warning">Kleine intervallen (minder dan 15 minuten) kunnen de batterij snel doen leeglopen</string>
     <string name="backtrack_high_priority_notification">Er wordt elke %s een routepunt geplaatst</string>
-    <string name="pref_backtrack_path_color_title">Padkleur voor Terugweg</string>
-    <string name="pref_backtrack_path_style_title">Padstijl voor Terugweg</string>
     <string name="pref_backtrack_path_radar_summary">Op het radarkompas en op de kaarten</string>
     <string name="pref_backtrack_path_radar_title">Toon pad van Terugweg</string>
     <string name="speedometer_odometer_accuracy_dialog">Om de hoogste juistheid te bereiken moet je Terugweg aanzetten, en in de instellingen te kilometertellerbron op \'stappenteller\' zetten.</string>
@@ -393,7 +391,6 @@
     <string name="location_input_help_title">Ondersteunde locatieformaten</string>
     <string name="pref_backtrack_frequency_title">Afstand tussen routepunten</string>
     <string name="pref_backtrack_enabled_summary">Routepunten opnemen</string>
-    <string name="waypoint_beacon_title_template">%s, %s Routepunt</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="clock_sync_time_settings">Tijdsinstellingen openen\?</string>
     <string name="clock_sync_instructions">Stel de tijd in op %s wanneer de melding binnenkomt</string>
@@ -473,7 +470,6 @@
     <string name="category_hydration">Hydratie</string>
     <string name="category_food">Levensmiddelen</string>
     <string name="other">Anders</string>
-    <string name="pref_barometer_altitude_change_title">Drempelwaarde voor hoogteverandering</string>
     <string name="beacon_action_view_details">Details bekijken</string>
     <string name="tool_bubble_level_summary">Bepalen of oppervlakken vlak zijn</string>
     <string name="tool_bubble_level_title">Waterpas</string>
@@ -484,8 +480,6 @@
     <string name="advanced">Geavanceerd</string>
     <string name="tap_sun_moon_hint">Tik op zon of maan voor positiedetails</string>
 
-    <string name="pref_sea_level_require_dwell_title">Snelle hoogteveranderingen negeren</string>
-    <string name="pref_sea_level_require_dwell_summary">Alleen metingen tonen als de hoogte minstens een uur niet is veranderd. Verbetert de betrouwbaarheid van de voorspelling.</string>
     <string name="no_group">Geen groep</string>
     <string name="group">Groep</string>
     <string name="beacon_create_beacon">Baken</string>
@@ -522,8 +516,6 @@
     <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
     <string name="app_disclaimer_message_title">Disclaimer / Servicevoorwaarden</string>
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="pref_sea_level_use_rapid_summary">Snelle drukveranderingen gebruiken in zeeniveau-druk-conversies</string>
-    <string name="pref_sea_level_use_rapid_title">Snelle drukveranderingen meenemen</string>
     <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
     <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
     <string name="pref_altimeter_calibration_mode_title">Automatische kalibratie</string>
@@ -692,7 +684,6 @@
     <string name="pref_barometer_altitude_outlier_title">Hoogte uitbijter verwijderen</string>
     <string name="pref_barometer_altitude_smoothing_title">Hoogtevereffening</string>
     <string name="pref_barometer_pressure_smoothing_title">Drukvereffening</string>
-    <string name="pref_experimental_barometer_calibration_title">Experimentele kalibratie gebruiken</string>
     <string name="pref_nmea_altitude_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
     <string name="pref_nmea_altitude_title">NMEA hoogte offsets</string>
     <string name="pref_barometer_info_summary">De druk kan verschillen van die van nabijgelegen stations</string>
@@ -820,7 +811,6 @@
 \n
 \nOSNG (OSGB36) (vb. TG 51409 13177)</string>
     <string name="action_inventory_clear_confirm">Alle verpakte bedragen wissen\?</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Reizende druk drempel veranderen</string>
     <string name="altitude_history">Hoogtegeschiedenis</string>
     <string name="climate_zone">%s klimaat</string>
     <string name="climate_tropical">Tropisch</string>

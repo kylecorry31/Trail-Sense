@@ -10,11 +10,11 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 
 class WaypointListItem(
@@ -51,7 +51,7 @@ class WaypointListItem(
                 formatService.formatTime(time, false)
             )
         } else {
-            itemBinding.waypointTime.text = context.getString(android.R.string.untitled)
+            itemBinding.waypointTime.text = context.getString(R.string.waypoint)
         }
 
         itemBinding.signalStrength.setStatusText(

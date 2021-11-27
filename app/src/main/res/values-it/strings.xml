@@ -337,7 +337,6 @@
     <string name="tool_bubble_level_title">Livello a bolla</string>
     <string name="guide_weather_prediction_title">Previsioni meteo</string>
     <string name="tap_sun_moon_hint">Clicca il sole o la luna per dettagli sulla posizione</string>
-    <string name="pref_sea_level_require_dwell_title">Ignora cambiamenti rapidi di altitudine</string>
     <string name="no_group">Nessun gruppo</string>
     <string name="group">Gruppo</string>
     <string name="beacon_create_beacon">Segnaposto</string>
@@ -427,8 +426,6 @@
     <string name="pref_show_pressure_in_notification_title">Mostra notifiche di temperatura</string>
     <string name="pref_show_weather_notification_title">Mostra notifiche meteo</string>
     <string name="pref_forecast_sensitivity_title">Sensibilità delle previsioni</string>
-    <string name="pref_sea_level_use_rapid_summary">Utilizza cambiamenti rapidi di pressione nelle conversioni di pressione su livello mare</string>
-    <string name="pref_sea_level_use_rapid_title">Fattore nel rapido cambiamento di pressione</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
     <string name="notification_channel_clock_sync_description">Una notifica per sincronizzare il tuo orologio con l\'orario del GPS</string>
@@ -455,7 +452,6 @@
     <string name="cumulus">Cumulo</string>
     <string name="all_beacons">Tutti i Segnaposto</string>
     <string name="your_height">La tua altezza</string>
-    <string name="pref_sea_level_require_dwell_summary">Mostra letture solo quando l\'altitudine non è cambiata per almeno un ora. Migliora l\'affidabilità della previsione.</string>
     <string name="max_depth">Massimo: %s</string>
     <string name="theme_sunset_sunrise">Alba/tramonto</string>
     <string name="calibrate_compass_on_navigate_dialog_content">"Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte,  premi %s una volta finito.

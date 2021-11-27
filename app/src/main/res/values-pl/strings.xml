@@ -363,7 +363,6 @@
     <string name="battery_health">Stan zdrowia baterii: %s</string>
     <string name="battery_health_dead">Wyładowana</string>
     <string name="pref_backtrack_enabled_summary">Rejestruj historię lokalizacji</string>
-    <string name="waypoint_beacon_title_template">%s, %s punkt trasy</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Wyświetl historię lokalizacji</string>
     <string name="guide_location_no_gps_title">Określ lokalizację bez GPS</string>
@@ -398,7 +397,6 @@
     <string name="degree">%s°</string>
     <string name="clock_sync_time_settings">Przejść do ustawień czasu\?</string>
     <string name="threshold">Próg</string>
-    <string name="pref_sea_level_use_rapid_title">Uwzględnij gwałtowne zmiany ciśnienia</string>
     <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
     <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
     <string name="pref_altitude_override_title">Zastępowanie wysokości</string>
@@ -489,8 +487,6 @@
 \n- Prześledź swoje kroki za pomocą funkcji Backtrack (działa w tle, gdy jest włączona)</string>
     <string name="cirrostratus_desc">Zakrywa niebo, ale słońce można przez nie zobaczyć.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
-    <string name="pref_barometer_altitude_change_title">Próg zmiany wysokości podróży</string>
-    <string name="pref_sea_level_use_rapid_summary">Wykorzystanie gwałtownych zmian ciśnienia w przeliczeniach ciśnienia na poziomie morza</string>
     <string name="quality_good">Dobra</string>
     <string name="quality_poor">Słaba</string>
     <string name="unavailable">Niedostępny</string>
@@ -537,9 +533,6 @@
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
     <string name="location_override_updated">Zaktualizowano zastępowanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Używaj tego narzędzia tylko wtedy, gdy jest to bezpieczne i sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Próg zmiany ciśnienia w podróży</string>
-    <string name="pref_sea_level_require_dwell_title">Ignoruj gwałtowne zmiany wysokości</string>
-    <string name="pref_sea_level_require_dwell_summary">Pokaż odczyty tylko wtedy, gdy wysokość nie zmieniła się przez co najmniej godzinę. Poprawia wiarygodność prognoz.</string>
     <string name="pref_altitude_override_sea_level_title">Korzystanie ze znanego ciśnienia na poziomie morza</string>
     <string name="altitude_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
@@ -732,8 +725,6 @@
     <string name="sleep_timer">Minutnik</string>
     <string name="pref_experimental_metal_direction_title">Pokaż kierunek metalu</string>
     <string name="pref_backtrack_history_days_title">Historia śladu powrotnego</string>
-    <string name="pref_backtrack_path_color_title">Kolor śladu powrotnego</string>
-    <string name="pref_backtrack_path_style_title">Styl śladu powrotnego</string>
     <string name="pref_backtrack_path_radar_title">Pokaż ślad powrotny</string>
     <string name="location_mocked">Korzystanie z udawanej lokalizacji</string>
     <string name="underwater_mode">Tryb podwodny</string>
@@ -747,7 +738,6 @@
     <string name="pref_barometer_altitude_outlier_title">Usuwanie wartości odstających wysokości</string>
     <string name="pref_barometer_altitude_smoothing_title">Wygładzanie wysokości</string>
     <string name="pref_barometer_pressure_smoothing_title">Wygładzanie ciśnienia</string>
-    <string name="pref_experimental_barometer_calibration_title">Użyj eksperymentalnej kalibracji</string>
     <string name="pref_nmea_altitude_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od ciśnienia w pobliskich stacjach</string>
     <string name="battery_history">Historia baterii - ostatnie %s</string>
@@ -911,7 +901,6 @@
     <string name="astro_dialog_rise_set">**Czas**: %s
 \n
 \n**Kierunek**: %s</string>
-    <string name="path_merge_previous">Scal z poprzednim</string>
     <string name="delete_pack">Usunąć plecak\?</string>
     <string name="default_pack_name">Plecak domyślny</string>
     <string name="astro_dialog_day_length">**Dzień**: %s
@@ -920,8 +909,6 @@
 \n
 \n**Pora roku**: %s</string>
     <string name="path_exported">Ślad wyeksportowany</string>
-    <string name="no_previous_path">Brak poprzednich śladów</string>
-    <string name="merge_previous_path_title">Scalić z poprzednim śladem\?</string>
     <string name="astro_dialog_moon_phase">**Faza**: %s
 \n
 \n**Oświetlenie**: %s</string>

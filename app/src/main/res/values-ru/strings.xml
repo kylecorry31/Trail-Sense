@@ -167,8 +167,6 @@
     <string name="pref_max_beacon_distance_title">Максимальный радиус для ближайших</string>
     <string name="pref_display_multi_beacons_summary">Показывать ближайшие маячки на компасе</string>
     <string name="pref_num_visible_beacons_title">Ближайших маячков</string>
-    <string name="pref_sea_level_use_rapid_summary">Использовать данные барометра при расчете давления на уровне моря</string>
-    <string name="pref_sea_level_use_rapid_title">Учитывать быстрые изменения давления</string>
     <string name="pref_adjust_for_temperature_title">Использовать данные о температуре</string>
     <string name="pref_adjust_for_temperature_summary">Использовать данные о температуре при расчете давления на уровне моря</string>
     <string name="pref_altitude_override_sea_level_title">Используя данные о давлении на уровне моря</string>
@@ -249,8 +247,6 @@
 \n
 \nКомпас: Вращайте устройство по траектории восьмерки или во всех направлениях и постарайтесь находиться подальше от крупных металлоконструкций."</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Порог изменения давления при движении</string>
-    <string name="pref_barometer_altitude_change_title">Порог изменения высоты движения</string>
     <string name="beacon_action_view_details">Подробнее</string>
     <string name="tool_bubble_level_summary">Определите, являются ли поверхности плоскими</string>
     <string name="tool_bubble_level_title">Уровень пузыря</string>
@@ -271,8 +267,6 @@
     <string name="beacon_create_beacon">Маячок</string>
     <string name="group">Группа</string>
     <string name="no_group">Нет группы</string>
-    <string name="pref_sea_level_require_dwell_summary">Показывать показания только тогда, когда высота не менялась в течение как минимум часа. Повышает надежность прогнозов.</string>
-    <string name="pref_sea_level_require_dwell_title">Игнорировать быстрые изменения высоты</string>
     <string name="tap_sun_moon_hint">Коснитесь солнца или луны, чтобы узнать о местоположении</string>
     <string name="forecasts_category">Прогнозы</string>
     <string name="guide_conserving_battery_title">Экономия батареи</string>
@@ -441,7 +435,6 @@
     <string name="location_input_help_title">Поддерживаемые форматы местоположения</string>
     <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
     <string name="pref_backtrack_enabled_summary">Записывать историю местоположений</string>
-    <string name="waypoint_beacon_title_template">%s, %s Путевая точка</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="tool_backtrack_summary">Просмотр истории местоположений</string>
     <string name="create_beacon">Создать маячок</string>
@@ -679,8 +672,6 @@
         <item quantity="many">%d маячков импортировано</item>
         <item quantity="other">%d маячков импортировано</item>
     </plurals>
-    <string name="pref_backtrack_path_color_title">Цвет истории маршрута</string>
-    <string name="pref_backtrack_path_style_title">Стиль истории маршрута</string>
     <string name="calibrate_new_tide">Откалибровать новый прилив\?</string>
     <string name="background_update">Фоновое обновление</string>
     <string name="sunset_alert_location_update">Обновление местоположения для оповещения о закате</string>
@@ -744,7 +735,6 @@
     <string name="delete_map">Удалить карту\?</string>
     <string name="pref_barometer_altitude_smoothing_title">Сглаживание высоты</string>
     <string name="pref_barometer_pressure_smoothing_title">Сглаживание давления</string>
-    <string name="pref_experimental_barometer_calibration_title">Использовать экспериментальную калибровку</string>
     <string name="pref_nmea_altitude_summary">Использует смещения NMEA для преобразования высоты</string>
     <string name="pref_nmea_altitude_title">Смещение высоты по NMEA</string>
     <string name="pref_barometer_info_summary">Давление может отличаться от давления на близлежащих станциях</string>
@@ -965,9 +955,6 @@
     <string name="path">Путь</string>
     <string name="units_mmhg_short">мм</string>
     <string name="grid_size">Сетка %s</string>
-    <string name="no_previous_path">Нет предыдущего пути</string>
-    <string name="merge_previous_path_title">Объединить с предыдущим путем\?</string>
-    <string name="path_merge_previous">Объединить предыдущий</string>
     <string name="delete_path">Удалить путь\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Авто</string>
@@ -1000,8 +987,6 @@
     <string name="notification_weather_update_content">Запись давления</string>
     <string name="notification_backtrack_update_title">Обновление истории маршрута</string>
     <string name="notification_backtrack_update_content">Запись вашего местоположения</string>
-    <string name="pref_background_compat_mode_title">Режим фоновой совместимости</string>
-    <string name="pref_background_compat_mode_summary">Включите эту функцию, если фоновые службы не работают должным образом</string>
     <string name="cloud_photo_mask_toast">Нажмите на фотографию, чтобы переключить маску</string>
     <string name="no_camera_access">Не удается получить доступ к камере</string>
     <string name="hide">Скрыть</string>

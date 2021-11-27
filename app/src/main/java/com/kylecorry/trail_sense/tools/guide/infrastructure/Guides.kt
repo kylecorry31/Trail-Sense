@@ -29,7 +29,7 @@ object Guides {
             context.getString(R.string.navigation), listOf(
                 UserGuide(
                     context.getString(R.string.navigation),
-                    null,
+                    context.getString(R.string.navigation_guide_description),
                     R.raw.navigate
                 ),
                 UserGuide(

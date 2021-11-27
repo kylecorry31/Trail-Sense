@@ -128,8 +128,8 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     var maxBeaconDistance: Float
         get() {
             val raw =
-                cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.75"
-            return Distance.kilometers(raw.toFloatCompat() ?: 0.75f).meters().distance
+                cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.5"
+            return Distance.kilometers(raw.toFloatCompat() ?: 0.5f).meters().distance
         }
         set(value) = cache.putString(
             context.getString(R.string.pref_max_beacon_distance),

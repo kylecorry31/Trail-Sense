@@ -252,8 +252,6 @@
     <string name="advanced">Avanzado</string>
     <string name="tap_sun_moon_hint">Tocar sol o luna para detalles de posición</string>
 
-    <string name="pref_sea_level_require_dwell_title">Ignorar cambios rápidos de altitud</string>
-    <string name="pref_sea_level_require_dwell_summary">Sólo mostrar lecturas cuando la altitud no cambió en al menos una hora. Mejora la legibilidad del pronóstico.</string>
     <string name="no_group">Sin grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Baliza</string>
@@ -286,8 +284,6 @@
     <string name="pref_forecast_sensitivity_title">Sensibilidad de pronóstico</string>
     <string name="pref_max_beacon_distance_title">Radio de balizas cercanas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
-    <string name="pref_sea_level_use_rapid_summary">Usar cambios rápidos de presión en conversiones de presión atmosférica</string>
-    <string name="pref_sea_level_use_rapid_title">Factor en cambios rápidos de presión</string>
     <string name="pref_adjust_for_temperature_summary">Usar la temperatura en conversiones de presión atmosférica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibración</string>
