@@ -180,7 +180,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun updateElevationPlot() {
         chart.plot(
-            waypoints.reversed(),
+            hikingService.filterValidElevations(waypoints.reversed()),
             path?.style?.color ?: prefs.navigation.defaultPathColor.color
         )
     }

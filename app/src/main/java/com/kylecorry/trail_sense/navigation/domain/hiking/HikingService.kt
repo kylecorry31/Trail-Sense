@@ -54,7 +54,7 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
     }
 
     override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
-        val elevations = filterElevations(path).map { Distance.meters(it.elevation!!) }
+        val elevations = filterValidElevations(path).map { Distance.meters(it.elevation!!) }
         val gain = geology.getElevationGain(elevations)
         val loss = geology.getElevationLoss(elevations)
         return loss to gain
@@ -83,12 +83,12 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
         return getHikingDuration(path, getAveragePace(difficulty, paceFactor))
     }
 
-    private fun filterElevations(points: List<PathPoint>): List<PathPoint> {
+    fun filterValidElevations(points: List<PathPoint>): List<PathPoint> {
         return elevationFilter.filter(points.filter { it.elevation != null })
     }
 
     private fun getElevationGain(path: List<PathPoint>): Distance {
-        val elevations = filterElevations(path).map { Distance.meters(it.elevation!!) }
+        val elevations = filterValidElevations(path).map { Distance.meters(it.elevation!!) }
         return geology.getElevationGain(elevations)
     }
 }
