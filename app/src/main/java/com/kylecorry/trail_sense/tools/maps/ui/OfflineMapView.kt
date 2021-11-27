@@ -1,253 +1,162 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
-import androidx.annotation.ColorInt
-import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import androidx.core.net.toUri
+import com.davemorrissey.labs.subscaleview.ImageSource
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.kylecorry.andromeda.canvas.CanvasDrawer
+import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
-import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.toPixel
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
-import com.kylecorry.trail_sense.tools.maps.infrastructure.getFitSize
 import kotlin.math.max
+import kotlin.math.min
 
 
-class OfflineMapView : CanvasView {
+class OfflineMapView : SubsamplingScaleImageView {
 
-    private var keepNorthUp = true
-    private var azimuth = 0f
-    private var map: Map? = null
-    private var mapImage: Bitmap? = null
-    private val mapPath = Path()
-    private var mapSize = Pair(0f, 0f)
-    private var translateX = 0f
-    private var translateY = 0f
-    private var scale = 1f
+    var onMapLongClick: ((coordinate: Coordinate) -> Unit)? = null
+    var onLocationClick: ((location: IMappableLocation) -> Unit)? = null
+    var onMapClick: ((percent: PercentCoordinate) -> Unit)? = null
 
-    private var beaconCircles: List<Pair<Beacon, PixelCircle>> = listOf()
-
-    // Features
+    private lateinit var drawer: ICanvasDrawer
+    private var isSetup = false
     private var myLocation: Coordinate? = null
-    private var beacons: List<Beacon> = listOf()
-    private var destination: Beacon? = null
-    private var paths: List<IMappablePath>? = null
-    private var calibrationPoints = listOf<MapCalibrationPoint>()
-    private var showCalibrationPoints = false
-
+    private var map: Map? = null
+    private val mapPath = Path()
+    private val geology = GeologyService()
+    private var azimuth = 0f
+    private var locations = emptyList<IMappableLocation>()
+    private var paths = emptyList<IMappablePath>()
     private var pathPool = ObjectPool { Path() }
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private var pathsRendered = false
+    private var lastScale = 1f
+    private var highlightedLocation: IMappableLocation? = null
+    private var showCalibrationPoints = false
 
-    // Listeners
-    var onSelectLocation: ((coordinate: Coordinate) -> Unit)? = null
-    var onSelectBeacon: ((beacon: Beacon) -> Unit)? = null
-    var onMapImageClick: ((percent: PercentCoordinate) -> Unit)? = null
+    private var lastImage: String? = null
 
-    private val geology = GeologyService()
-
-    @ColorInt
-    private var primaryColor: Int = Color.BLACK
-
-    @ColorInt
-    private var secondaryColor: Int = Color.BLACK
-
-    private val prefs by lazy { UserPreferences(context) }
+    private val layerScale: Float
+        get() = min(1f, max(scale, 0.9f))
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
 
-    init {
-        runEveryCycle = false
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        if (!isReady || canvas == null) {
+            return
+        }
+
+        if (!isSetup) {
+            drawer = CanvasDrawer(context, canvas)
+            setup()
+            isSetup = true
+        }
+
+        drawer.canvas = canvas
+        draw()
     }
 
-
-    override fun setup() {
-        primaryColor = Resources.color(context, R.color.colorPrimary)
-        secondaryColor = Resources.color(context, R.color.colorSecondary)
+    fun setup() {
+        setPanLimit(PAN_LIMIT_OUTSIDE)
     }
 
-    override fun draw() {
-        val map = map ?: return
-        if (mapImage == null) {
-            mapImage = loadMap(map)
-            val size = mapImage?.getFitSize(width, height)
-            size?.let {
-                translateX = (width - it.first) / 2f
-                translateY = (height - it.second) / 2f
-                mapPath.apply {
-                    reset()
-                    addRect(0f, 0f, size.first, size.second, Path.Direction.CW)
-                }
-            }
+    fun draw() {
+        map ?: return
+
+        // TODO: This only needs to be changed when the scale or translate changes
+        mapPath.apply {
+            rewind()
+            val topLeft = sourceToViewCoord(0f, 0f)!!
+            val bottomRight = sourceToViewCoord(sWidth.toFloat(), sHeight.toFloat())!!
+            addRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y, Path.Direction.CW)
         }
-        val mapImage = mapImage ?: return
 
-        push()
-        translate(translateX, translateY)
-        scale(scale, scale, width / 2f, height / 2f)
-        clip(mapPath)
-        if (!keepNorthUp) {
-            myLocation?.let {
-                getPixelCoordinate(it, false)?.let { pos ->
-                    rotate(-azimuth, pos.x, pos.y)
-                }
-            }
-
+        if (scale != lastScale){
+            pathsRendered = false
+            lastScale = scale
         }
-        mapSize = mapImage.getFitSize(width, height)
-        image(mapImage, 0f, 0f, mapSize.first, mapSize.second, 0f, 0f)
 
-        drawPaths()
-        drawDestination()
-        drawMyLocation()
-        drawBeacons()
         drawCalibrationPoints()
-
-        pop()
+        drawPaths()
+        drawLocations()
+        drawMyLocation()
     }
 
-    private fun getVisiblePartOfMap(): Rect {
-        var topLeft = toMapCoordinate(PixelCoordinate(0f, 0f))
-        var bottomRight = toMapCoordinate(PixelCoordinate(width.toFloat(), height.toFloat()))
-
-        topLeft = PixelCoordinate(
-            clamp(topLeft.x, 0f, mapSize.first),
-            clamp(topLeft.y, 0f, mapSize.second)
-        )
-        bottomRight = PixelCoordinate(
-            clamp(bottomRight.x, 0f, mapSize.first),
-            clamp(bottomRight.y, 0f, mapSize.second)
-        )
-
-        return Rect(
-            topLeft.x.toInt(),
-            topLeft.y.toInt(),
-            bottomRight.x.toInt(),
-            bottomRight.y.toInt()
-        )
-    }
-
-    fun recenter() {
-        val size = mapImage?.getFitSize(width, height)
-        size?.let {
-            translateX = (width - it.first) / 2f
-            translateY = (height - it.second) / 2f
+    fun showMap(map: Map) {
+        if (lastImage != map.filename) {
+            val file = LocalFiles.getFile(context, map.filename, false)
+            setImage(ImageSource.uri(file.toUri()))
+            lastImage = map.filename
         }
-        scale = 1f
-    }
-
-
-    private fun drawPaths() {
-        val paths = paths ?: return
-        if (!pathsRendered) {
-            val metersPerPixel =
-                map?.distancePerPixel(mapSize.first, mapSize.second)?.meters()?.distance ?: return
-            for (path in renderedPaths) {
-                pathPool.release(path.value.path)
-            }
-            renderedPaths = generatePaths(paths, metersPerPixel)
-            pathsRendered = true
-        }
-
-        val factory = PathLineDrawerFactory()
-        for (path in paths) {
-            val rendered = renderedPaths[path.id] ?: continue
-            val drawer = factory.create(path.style)
-            val centerPixel = getPixelCoordinate(rendered.origin, false) ?: continue
-            push()
-            translate(centerPixel.x, centerPixel.y)
-            drawer.draw(this, path.color, strokeScale = scale) {
-                path(rendered.path)
-            }
-            pop()
-        }
-        noStroke()
-        fill(Color.WHITE)
-        noPathEffect()
-    }
-
-    private fun generatePaths(
-        paths: List<IMappablePath>,
-        metersPerPixel: Float
-    ): kotlin.collections.Map<Long, RenderedPath> {
-        val factory = RenderedPathFactory(metersPerPixel, myLocation, 0f, true)
-        val map = mutableMapOf<Long, RenderedPath>()
-        for (path in paths) {
-            val pathObj = pathPool.get()
-            pathObj.reset()
-            map[path.id] = factory.render(path.points.map { it.coordinate }, pathObj)
-        }
-        return map
-    }
-
-    private fun drawCalibrationPoints() {
-        if (!showCalibrationPoints) return
-        for (point in calibrationPoints) {
-            val coord = point.imageLocation.toPixels(
-                mapSize.first,
-                mapSize.second
-            )
-            stroke(Color.WHITE)
-            strokeWeight(dp(1f) / scale)
-            fill(secondaryColor)
-            circle(coord.x, coord.y, dp(8f) / scale)
-        }
-    }
-
-
-    fun showMap(map: Map, refresh: Boolean = true) {
         this.map = map
-        if (refresh) {
-            this.mapImage = null
-        }
-        invalidate()
     }
 
-    fun setAzimuth(azimuth: Float, rotateMap: Boolean = false) {
-        this.azimuth = azimuth
-        this.keepNorthUp = !rotateMap
-        invalidate()
-    }
-
-    // TODO: Include error radius
     fun setMyLocation(coordinate: Coordinate?) {
         myLocation = coordinate
         invalidate()
     }
 
-    // TODO: Switch to layers
-    fun showBeacons(beacons: List<Beacon>) {
-        this.beacons = beacons
+    private fun drawCalibrationPoints() {
+        if (!showCalibrationPoints) return
+        val calibrationPoints = map?.calibrationPoints ?: emptyList()
+        for (point in calibrationPoints) {
+            val sourceCoord = point.imageLocation.toPixels(
+                sWidth.toFloat(),
+                sHeight.toFloat()
+            )
+            val coord = sourceToViewCoord(sourceCoord.x, sourceCoord.y) ?: continue
+            drawer.stroke(Color.WHITE)
+            drawer.strokeWeight(drawer.dp(1f) / layerScale)
+            drawer.fill(Color.BLACK)
+            drawer.circle(coord.x, coord.y, drawer.dp(8f) / layerScale)
+        }
+    }
+
+    private fun drawMyLocation() {
+        val scale = layerScale
+        val location = myLocation ?: return
+        val pixels = getPixelCoordinate(location) ?: return
+
+        drawer.stroke(Color.WHITE)
+        drawer.strokeWeight(drawer.dp(1f) / scale)
+        drawer.fill(AppColor.Orange.color)
+        drawer.push()
+        drawer.rotate(azimuth, pixels.x, pixels.y)
+        drawer.triangle(
+            pixels.x, pixels.y - drawer.dp(6f) / scale,
+            pixels.x - drawer.dp(5f) / scale, pixels.y + drawer.dp(6f) / scale,
+            pixels.x + drawer.dp(5f) / scale, pixels.y + drawer.dp(6f) / scale
+        )
+        drawer.pop()
+    }
+
+    fun setAzimuth(azimuth: Float) {
+        this.azimuth = azimuth
         invalidate()
     }
 
-    fun showDestination(destination: Beacon?) {
-        this.destination = destination
+    fun showLocations(locations: List<IMappableLocation>) {
+        this.locations = locations
         invalidate()
     }
 
@@ -257,80 +166,91 @@ class OfflineMapView : CanvasView {
         invalidate()
     }
 
-    private fun loadMap(map: Map): Bitmap {
-        val file = LocalFiles.getFile(context, map.filename, false)
-        if (prefs.navigation.useLowResolutionMaps) {
-            return BitmapUtils.decodeBitmapScaled(file.path, width, height)
+    private fun generatePaths(paths: List<IMappablePath>): kotlin.collections.Map<Long, RenderedPath> {
+        val metersPerPixel =
+            map?.distancePerPixel(sWidth * scale, sHeight * scale)?.meters()?.distance ?: 1f
+        val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
+        val map = mutableMapOf<Long, RenderedPath>()
+        for (path in paths) {
+            val pathObj = pathPool.get()
+            pathObj.reset()
+            map[path.id] = factory.render(path.points.map { it.coordinate }, pathObj)
         }
-        return BitmapUtils.decodeBitmapScaled(file.path, width * 4, height * 4)
+        return map
     }
 
-    private fun drawMyLocation() {
-        val scale = max(scale, 1f)
-        val location = myLocation ?: return
-        val pixels = getPixelCoordinate(location) ?: return
-
-        stroke(Color.WHITE)
-        strokeWeight(dp(1f) / scale)
-        fill(primaryColor)
-        push()
-        if (keepNorthUp) {
-            rotate(azimuth, pixels.x, pixels.y)
+    private fun drawPaths() {
+        val scale = layerScale
+        if (!pathsRendered) {
+            for (path in renderedPaths) {
+                pathPool.release(path.value.path)
+            }
+            renderedPaths = generatePaths(paths)
+            pathsRendered = true
         }
-        triangle(
-            pixels.x, pixels.y - dp(6f) / scale,
-            pixels.x - dp(5f) / scale, pixels.y + dp(6f) / scale,
-            pixels.x + dp(5f) / scale, pixels.y + dp(6f) / scale
-        )
-        pop()
+
+        val factory = PathLineDrawerFactory()
+        drawer.push()
+        drawer.clip(mapPath)
+        for (path in paths) {
+            val rendered = renderedPaths[path.id] ?: continue
+            val lineDrawer = factory.create(path.style)
+            val centerPixel = getPixelCoordinate(rendered.origin, false) ?: continue
+            drawer.push()
+            drawer.translate(centerPixel.x, centerPixel.y)
+            lineDrawer.draw(drawer, path.color, strokeScale = scale) {
+                path(rendered.path)
+            }
+            drawer.pop()
+        }
+        drawer.pop()
+        drawer.noStroke()
+        drawer.fill(Color.WHITE)
+        drawer.noPathEffect()
     }
 
-    private fun drawDestination() {
-        val startLocation = myLocation ?: return
-        val endLocation = destination?.coordinate ?: return
-        val lineColor = destination?.color ?: return
-
-        val startPixel = getPixelCoordinate(startLocation) ?: return
-        val endPixel = getPixelCoordinate(endLocation) ?: return
-
-        noFill()
-        stroke(lineColor)
-        strokeWeight(dp(4f) / scale)
-        opacity(127)
-        line(startPixel.x, startPixel.y, endPixel.x, endPixel.y)
-        opacity(255)
+    fun highlightLocation(location: IMappableLocation?){
+        this.highlightedLocation = location
+        invalidate()
     }
 
-    private fun drawBeacons() {
-        val circles = mutableListOf<Pair<Beacon, PixelCircle>>()
-        for (beacon in beacons) {
-            val coord = getPixelCoordinate(beacon.coordinate)
-            if (coord != null) {
-                opacity(
-                    if (beacon.id == destination?.id || destination == null) {
-                        255
-                    } else {
-                        200
-                    }
-                )
-                stroke(Color.WHITE)
-                strokeWeight(dp(1f) / scale)
-                fill(beacon.color)
-                circle(coord.x, coord.y, dp(8f) / scale)
-                circles.add(
-                    beacon to PixelCircle(
-                        PixelCoordinate(coord.x, coord.y),
-                        3 * dp(4f) / scale
-                    )
-                )
+    private fun drawLocations() {
+        val highlighted = highlightedLocation
+
+        val gpsLocation = myLocation
+        if (highlighted != null && gpsLocation != null){
+            val start = getPixelCoordinate(gpsLocation, false)
+            val end = getPixelCoordinate(highlighted.coordinate, false)
+
+            if (start != null && end != null){
+                drawer.noFill()
+                drawer.stroke(highlighted.color)
+                drawer.strokeWeight(drawer.dp(4f) / layerScale)
+                drawer.opacity(127)
+                drawer.line(start.x, start.y, end.x, end.y)
             }
         }
-        beaconCircles = circles
-        opacity(255)
+
+        var containsHighlighted = false
+        for (location in locations) {
+            if (location.id == highlighted?.id){
+                containsHighlighted = true
+            }
+            drawLocation(location, location.id == highlighted?.id || highlighted == null)
+        }
+
+        if (highlighted != null && !containsHighlighted){
+            drawLocation(highlighted, true)
+        }
+
+        drawer.opacity(255)
     }
 
-    fun showCalibrationPoints(points: List<MapCalibrationPoint>? = null) {
-        calibrationPoints = points ?: map?.calibrationPoints ?: listOf()
+    fun recenter(){
+        resetScaleAndCenter()
+    }
+
+    fun showCalibrationPoints() {
         showCalibrationPoints = true
         invalidate()
     }
@@ -340,10 +260,31 @@ class OfflineMapView : CanvasView {
         invalidate()
     }
 
+    private fun drawLocation(location: IMappableLocation, highlighted: Boolean) {
+        val scale = layerScale
+        val coord = getPixelCoordinate(location.coordinate)
+        if (coord != null) {
+            drawer.stroke(Color.WHITE)
+            drawer.strokeWeight(drawer.dp(1f) / scale)
+            drawer.fill(location.color)
+            drawer.opacity(
+                if (highlighted) {
+                    255
+                } else {
+                    127
+                }
+            )
+            drawer.circle(coord.x, coord.y, drawer.dp(8f) / scale)
+        }
+    }
+
+
     private fun getPixelCoordinate(
         coordinate: Coordinate,
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
+
+        val mapSize = sWidth.toFloat() to sHeight.toFloat()
 
         val bounds = map?.boundary(mapSize.first, mapSize.second) ?: return null
 
@@ -357,137 +298,57 @@ class OfflineMapView : CanvasView {
             return null
         }
 
-        return pixels
-    }
+        val view = sourceToViewCoord(pixels.x, pixels.y)!!
 
-    private fun keepMapOnScreen() {
-
-        var wasOffScreen: Boolean
-        var iterations = 0
-        val maxIterations = 100
-
-        do {
-            wasOffScreen = false
-            val bounds = getVisiblePartOfMap()
-            // TODO: Calculate how much to move on screen
-            if (bounds.width() == 0) {
-                if (translateX < 0) {
-                    translateX++
-                } else {
-                    translateX--
-                }
-                wasOffScreen = true
-            }
-
-            if (bounds.height() == 0) {
-                if (translateY < 0) {
-                    translateY++
-                } else {
-                    translateY--
-                }
-                wasOffScreen = true
-            }
-            iterations++
-        } while (wasOffScreen && iterations < maxIterations)
-
+        return PixelCoordinate(view.x, view.y)
     }
 
 
-    // Gesture detectors
-
-    private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onScroll(
-            e1: MotionEvent,
-            e2: MotionEvent,
-            distanceX: Float,
-            distanceY: Float
-        ): Boolean {
-            translateX -= distanceX
-            translateY -= distanceY
-
-            keepMapOnScreen()
-
-            return true
-        }
-
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
-            val x = e.x
-            val y = e.y
+            val source = viewToSourceCoord(e.x, e.y) ?: return
 
-            if (mapImage != null) {
-                val mapCoords = toMapCoordinate(PixelCoordinate(x, y))
-                val coordinate = map?.getCoordinate(
-                    mapCoords,
-                    mapSize.first,
-                    mapSize.second
-                )
-                if (coordinate != null) {
-                    onSelectLocation?.invoke(coordinate)
-                }
+            val coordinate = map?.getCoordinate(
+                PixelCoordinate(source.x, source.y),
+                sWidth.toFloat(),
+                sHeight.toFloat()
+            )
+            if (coordinate != null) {
+                onMapLongClick?.invoke(coordinate)
             }
-        }
-
-        override fun onDoubleTap(e: MotionEvent): Boolean {
-            // TODO: Zoom to the place tapped
-            zoom(2F)
-            return super.onDoubleTap(e)
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            if (mapImage != null) {
-                val mapCoords = toMapCoordinate(PixelCoordinate(e.x, e.y))
-                val circles = beaconCircles.sortedBy { it.second.center.distanceTo(mapCoords) }
-                for (circle in circles) {
-                    if (circle.second.contains(mapCoords)) {
-                        onSelectBeacon?.invoke(circle.first)
-                        return super.onSingleTapConfirmed(e)
-                    }
-                }
 
-                val percent = PercentCoordinate(
-                    mapCoords.x / mapSize.first,
-                    mapCoords.y / mapSize.second
-                )
-                onMapImageClick?.invoke(percent)
+            val clickRadius = drawer.dp(16f)
+
+            val pixel = PixelCoordinate(e.x, e.y)
+
+            for (location in locations){
+                val locationPixel = getPixelCoordinate(location.coordinate)
+                if (locationPixel != null && locationPixel.distanceTo(pixel) < clickRadius){
+                    onLocationClick?.invoke(location)
+                    break
+                }
+            }
+
+            viewToSourceCoord(pixel.x, pixel.y)?.let {
+                val percentX = it.x / sWidth
+                val percentY = it.y / sHeight
+                val percent = PercentCoordinate(percentX, percentY)
+                onMapClick?.invoke(percent)
             }
             return super.onSingleTapConfirmed(e)
         }
     }
 
-    private fun toMapCoordinate(screen: PixelCoordinate): PixelCoordinate {
-        val matrix = Matrix()
-        val point = floatArrayOf(screen.x, screen.y)
-        matrix.postScale(scale, scale, width / 2f, height / 2f)
-        matrix.postTranslate(translateX, translateY)
-        matrix.invert(matrix)
-        matrix.mapPoints(point)
-        return PixelCoordinate(point[0], point[1])
-    }
+    private val gestureDetector = GestureDetector(context, gestureListener)
 
-    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            zoom(detector.scaleFactor)
-            return true
-        }
-    }
-
-    fun zoom(factor: Float) {
-        scale *= factor
-        translateX *= factor
-        translateY *= factor
-        keepMapOnScreen()
-    }
-
-    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
-    private val mPanDetector = GestureDetector(context, mGestureListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        mPanDetector.onTouchEvent(event)
-        invalidate()
-        return true
+        val consumed = gestureDetector.onTouchEvent(event)
+        return consumed || super.onTouchEvent(event)
     }
 
 }

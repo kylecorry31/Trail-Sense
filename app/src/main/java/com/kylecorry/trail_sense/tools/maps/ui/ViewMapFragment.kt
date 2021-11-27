@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
@@ -24,7 +29,6 @@ import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -50,7 +54,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -62,8 +65,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var calibrationPoint2: Coordinate? = null
     private var calibrationIndex = 0
     private var isCalibrating = false
-
-    private var rotateMap = false
 
     private val throttle = Throttle(20)
 
@@ -130,7 +131,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     navigateTo(destination!!)
                 }
                 binding.mapCalibrationBottomPanel.isVisible = false
-//                binding.map.hideCalibrationPoints()
+                binding.map.hideCalibrationPoints()
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         map?.let {
@@ -157,43 +158,45 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 }
 
                 updateMapCalibration()
-//                binding.map.showCalibrationPoints()
+                binding.map.showCalibrationPoints()
             }
         }
 
-//        binding.map.onMapImageClick = {
-//            if (isCalibrating) {
-//                if (calibrationIndex == 0) {
-//                    calibrationPoint1Percent = it
-//                } else {
-//                    calibrationPoint2Percent = it
-//                }
-//                updateMapCalibration()
-//                binding.map.showCalibrationPoints()
-//            }
-//        }
-//
-//        binding.map.onSelectLocation = {
-//            val formatted = formatService.formatLocation(it)
-//            // TODO: ask to create or navigate
-//            Alerts.dialog(
-//                requireContext(),
-//                getString(R.string.create_beacon),
-//                getString(R.string.place_beacon_at, formatted),
-//                okText = getString(R.string.beacon_create)
-//            ) { cancelled ->
-//                if (!cancelled) {
-//                    val bundle = bundleOf(
-//                        "initial_location" to MyNamedCoordinate(it)
-//                    )
-//                    findNavController().navigate(R.id.place_beacon, bundle)
-//                }
-//            }
-//        }
-//
-//        binding.map.onSelectBeacon = {
-//            navigateTo(it)
-//        }
+        binding.map.onMapClick = {
+            if (isCalibrating) {
+                if (calibrationIndex == 0) {
+                    calibrationPoint1Percent = it
+                } else {
+                    calibrationPoint2Percent = it
+                }
+                updateMapCalibration()
+                binding.map.showCalibrationPoints()
+            }
+        }
+
+        binding.map.onMapLongClick = {
+            val formatted = formatService.formatLocation(it)
+            // TODO: ask to create or navigate
+            Alerts.dialog(
+                requireContext(),
+                getString(R.string.create_beacon),
+                getString(R.string.place_beacon_at, formatted),
+                okText = getString(R.string.beacon_create)
+            ) { cancelled ->
+                if (!cancelled) {
+                    val bundle = bundleOf(
+                        "initial_location" to MyNamedCoordinate(it)
+                    )
+                    findNavController().navigate(R.id.place_beacon, bundle)
+                }
+            }
+        }
+
+        binding.map.onLocationClick = {
+            if (it is Beacon) {
+                navigateTo(it)
+            }
+        }
 
         binding.cancelNavigationBtn.setOnClickListener {
             cancelNavigation()
@@ -259,13 +262,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun navigateTo(beacon: Beacon) {
+        if (isCalibrating){
+            return
+        }
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
-        if (!isCalibrating) {
-            binding.map.highlightLocation(beacon)
-            binding.cancelNavigationBtn.show()
-            updateDestination()
-        }
+        binding.map.highlightLocation(beacon)
+        binding.cancelNavigationBtn.show()
+        updateDestination()
     }
 
     private fun hideNavigation() {
@@ -336,10 +340,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         calibratePoint(calibrationIndex)
-//        binding.map.showCalibrationPoints()
+        binding.map.showCalibrationPoints()
     }
 
-    fun recenter(){
+    fun recenter() {
         binding.map.recenter()
     }
 
