@@ -2,12 +2,10 @@ package com.kylecorry.trail_sense.tools.maps.domain
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.toVector2
 
 data class Map(
     val id: Long,
@@ -18,11 +16,10 @@ data class Map(
     val rotated: Boolean
 ) {
 
-    private val geology = GeologyService()
+    private val calibrator = MapCalibrator()
 
     fun getCoordinate(pixels: PixelCoordinate, width: Float, height: Float): Coordinate? {
-        val bounds = boundary(width, height) ?: return null
-        return geology.fromMercator(pixels.toVector2(), bounds, width to height)
+        return calibrator.getCoordinate(pixels, calibrationPoints.map { it.imageLocation.toPixels(width, height) to it.location })
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {

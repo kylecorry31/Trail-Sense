@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
-import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
@@ -23,8 +22,8 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.toPixel
 import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrator
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
 import kotlin.math.min
@@ -41,7 +40,7 @@ class OfflineMapView : SubsamplingScaleImageView {
     private var myLocation: Coordinate? = null
     private var map: Map? = null
     private val mapPath = Path()
-    private val geology = GeologyService()
+    private val calibrator = MapCalibrator()
     private var azimuth = 0f
     private var locations = emptyList<IMappableLocation>()
     private var paths = emptyList<IMappablePath>()
@@ -91,7 +90,7 @@ class OfflineMapView : SubsamplingScaleImageView {
             addRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y, Path.Direction.CW)
         }
 
-        if (scale != lastScale){
+        if (scale != lastScale) {
             pathsRendered = false
             lastScale = scale
         }
@@ -209,7 +208,7 @@ class OfflineMapView : SubsamplingScaleImageView {
         drawer.noPathEffect()
     }
 
-    fun highlightLocation(location: IMappableLocation?){
+    fun highlightLocation(location: IMappableLocation?) {
         this.highlightedLocation = location
         invalidate()
     }
@@ -218,11 +217,11 @@ class OfflineMapView : SubsamplingScaleImageView {
         val highlighted = highlightedLocation
 
         val gpsLocation = myLocation
-        if (highlighted != null && gpsLocation != null){
+        if (highlighted != null && gpsLocation != null) {
             val start = getPixelCoordinate(gpsLocation, false)
             val end = getPixelCoordinate(highlighted.coordinate, false)
 
-            if (start != null && end != null){
+            if (start != null && end != null) {
                 drawer.noFill()
                 drawer.stroke(highlighted.color)
                 drawer.strokeWeight(drawer.dp(4f) / layerScale)
@@ -233,20 +232,20 @@ class OfflineMapView : SubsamplingScaleImageView {
 
         var containsHighlighted = false
         for (location in locations) {
-            if (location.id == highlighted?.id){
+            if (location.id == highlighted?.id) {
                 containsHighlighted = true
             }
             drawLocation(location, location.id == highlighted?.id || highlighted == null)
         }
 
-        if (highlighted != null && !containsHighlighted){
+        if (highlighted != null && !containsHighlighted) {
             drawLocation(highlighted, true)
         }
 
         drawer.opacity(255)
     }
 
-    fun recenter(){
+    fun recenter() {
         resetScaleAndCenter()
     }
 
@@ -284,17 +283,20 @@ class OfflineMapView : SubsamplingScaleImageView {
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
 
-        val mapSize = sWidth.toFloat() to sHeight.toFloat()
+        val pixels = calibrator.getPixel(
+            coordinate,
+            map?.calibrationPoints?.map {
+                it.imageLocation.toPixels(
+                    sWidth.toFloat(),
+                    sHeight.toFloat()
+                ) to it.location
+            } ?: emptyList()) ?: return null
 
-        val bounds = map?.boundary(mapSize.first, mapSize.second) ?: return null
-
-        val pixels = geology.toMercator(coordinate, bounds, mapSize).toPixel()
-
-        if (nullIfOffMap && (pixels.x < 0 || pixels.x > mapSize.first)) {
+        if (nullIfOffMap && (pixels.x < 0 || pixels.x > sWidth)) {
             return null
         }
 
-        if (nullIfOffMap && (pixels.y < 0 || pixels.y > mapSize.second)) {
+        if (nullIfOffMap && (pixels.y < 0 || pixels.y > sHeight)) {
             return null
         }
 
@@ -325,9 +327,9 @@ class OfflineMapView : SubsamplingScaleImageView {
 
             val pixel = PixelCoordinate(e.x, e.y)
 
-            for (location in locations){
+            for (location in locations) {
                 val locationPixel = getPixelCoordinate(location.coordinate)
-                if (locationPixel != null && locationPixel.distanceTo(pixel) < clickRadius){
+                if (locationPixel != null && locationPixel.distanceTo(pixel) < clickRadius) {
                     onLocationClick?.invoke(location)
                     break
                 }
