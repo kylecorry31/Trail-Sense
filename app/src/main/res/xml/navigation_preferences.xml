@@ -77,7 +77,7 @@
         app:title="@string/navigation_nearby_category">
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_display_multi_beacons"
             app:singleLineTitle="false"
@@ -86,7 +86,7 @@
 
         <EditTextPreference
             android:inputType="number"
-            app:defaultValue="5"
+            app:defaultValue="10"
             app:dependency="@string/pref_display_multi_beacons"
             app:iconSpaceReserved="false"
             app:key="@string/pref_num_visible_beacons"
@@ -104,7 +104,7 @@
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_display_multi_beacons"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_nearby_radar"
             app:singleLineTitle="false"
