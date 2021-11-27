@@ -181,9 +181,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         bitmaps[it.id] = bitmap
                     }
 
-                    fileSizes[it.id] = file.length()
                     boundMap[it.id] = bounds
                 }
+                fileSizes[it.id] = file.length()
             }
 
             maps = maps.sortedBy {
@@ -221,8 +221,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 } else {
                     MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
                 }
-
-                println(extension)
 
                 val filename = "maps/" + UUID.randomUUID().toString() + "." + extension
 
