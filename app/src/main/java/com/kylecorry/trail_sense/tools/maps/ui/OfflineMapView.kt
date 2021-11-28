@@ -22,9 +22,9 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.maps.domain.CalibratedMapCoordinateConverter
 import com.kylecorry.trail_sense.tools.maps.domain.IMapCoordinateConverter
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.CalibratedMapCoordinateConverter
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
 import kotlin.math.min
@@ -115,6 +115,18 @@ class OfflineMapView : SubsamplingScaleImageView {
                 sHeight.toFloat()
             ) to it.location
         })
+        invalidate()
+    }
+
+    override fun onImageLoaded() {
+        super.onImageLoaded()
+        coordinateConverter = CalibratedMapCoordinateConverter(map?.calibrationPoints?.map {
+            it.imageLocation.toPixels(
+                sWidth.toFloat(),
+                sHeight.toFloat()
+            ) to it.location
+        } ?: emptyList())
+        invalidate()
     }
 
     fun setMyLocation(coordinate: Coordinate?) {

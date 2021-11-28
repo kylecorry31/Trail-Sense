@@ -14,10 +14,13 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pdf.GeospatialPDFParser
+import com.kylecorry.andromeda.pdf.PDFRenderer
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -30,8 +33,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.maps.infrastructure.PDFUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -224,14 +227,15 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
                 val filename = "maps/" + UUID.randomUUID().toString() + "." + extension
 
+                @Suppress("BlockingMethodInNonBlockingContext")
                 if (type == "application/pdf") {
-                    val geopoints = PDFUtils.getGeospatialCalibration(requireContext(), uri)
-                    if (geopoints.size >= 2) {
-                        calibration1 = geopoints[0]
-                        calibration2 = geopoints[1]
+                    val parser = GeospatialPDFParser()
+                    val metadata = requireContext().contentResolver.openInputStream(uri)?.use {
+                        parser.parse(it)
                     }
-                    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-                    val bp = PDFUtils.asBitmap(requireContext(), uri)
+
+                    val scale = Screen.dpi(requireContext()) / 72
+                    val bp = PDFRenderer().toBitmap(requireContext(), uri, scale = scale)
                     if (bp == null) {
                         withContext(Dispatchers.Main) {
                             Alerts.toast(
@@ -242,6 +246,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                             binding.addBtn.isEnabled = true
                         }
                         return@withContext
+                    }
+
+                    if (metadata != null && metadata.points.size >= 4){
+                        val points = listOf(metadata.points[1], metadata.points[3]).map {
+                            MapCalibrationPoint(it.second, PercentCoordinate(scale * it.first.x / bp.width, scale * it.first.y / bp.height))
+                        }
+                        calibration1 = points[0]
+                        calibration2 = points[1]
                     }
 
                     try {
