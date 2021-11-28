@@ -22,8 +22,9 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.maps.domain.IMapCoordinateConverter
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrator
+import com.kylecorry.trail_sense.tools.maps.domain.CalibratedMapCoordinateConverter
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
 import kotlin.math.min
@@ -40,7 +41,7 @@ class OfflineMapView : SubsamplingScaleImageView {
     private var myLocation: Coordinate? = null
     private var map: Map? = null
     private val mapPath = Path()
-    private val calibrator = MapCalibrator()
+    private var coordinateConverter: IMapCoordinateConverter? = null
     private var azimuth = 0f
     private var locations = emptyList<IMappableLocation>()
     private var paths = emptyList<IMappablePath>()
@@ -108,6 +109,12 @@ class OfflineMapView : SubsamplingScaleImageView {
             lastImage = map.filename
         }
         this.map = map
+        coordinateConverter = CalibratedMapCoordinateConverter(map.calibrationPoints.map {
+            it.imageLocation.toPixels(
+                sWidth.toFloat(),
+                sHeight.toFloat()
+            ) to it.location
+        })
     }
 
     fun setMyLocation(coordinate: Coordinate?) {
@@ -283,14 +290,7 @@ class OfflineMapView : SubsamplingScaleImageView {
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
 
-        val pixels = calibrator.getPixel(
-            coordinate,
-            map?.calibrationPoints?.map {
-                it.imageLocation.toPixels(
-                    sWidth.toFloat(),
-                    sHeight.toFloat()
-                ) to it.location
-            } ?: emptyList()) ?: return null
+        val pixels = coordinateConverter?.toPixels(coordinate) ?: return null
 
         if (nullIfOffMap && (pixels.x < 0 || pixels.x > sWidth)) {
             return null

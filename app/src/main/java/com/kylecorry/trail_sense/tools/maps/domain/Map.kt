@@ -16,10 +16,9 @@ data class Map(
     val rotated: Boolean
 ) {
 
-    private val calibrator = MapCalibrator()
-
     fun getCoordinate(pixels: PixelCoordinate, width: Float, height: Float): Coordinate? {
-        return calibrator.getCoordinate(pixels, calibrationPoints.map { it.imageLocation.toPixels(width, height) to it.location })
+        val calibrator = CalibratedMapCoordinateConverter(calibrationPoints.map { it.imageLocation.toPixels(width, height) to it.location })
+        return calibrator.toCoordinate(pixels)
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {
