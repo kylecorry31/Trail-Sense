@@ -1005,4 +1005,5 @@
     <plurals name="waypoints_deleted">
         <item quantity="other">删除了 %d 个航点</item>
     </plurals>
+    <string name="navigation_guide_description">使用信标和路径</string>
 </resources>
