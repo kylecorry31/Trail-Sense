@@ -2,9 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.domain
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 
 data class Map(
@@ -16,9 +13,11 @@ data class Map(
     val rotated: Boolean
 ) {
 
-    fun getCoordinate(pixels: PixelCoordinate, width: Float, height: Float): Coordinate? {
-        val calibrator = CalibratedMapCoordinateConverter(calibrationPoints.map { it.imageLocation.toPixels(width, height) to it.location })
-        return calibrator.toCoordinate(pixels)
+    fun projection(width: Float, height: Float): IProjection {
+        // TODO: Support projections other than mercator
+        return CalibratedMercatorProjection(calibrationPoints.map {
+            it.imageLocation.toPixels(width, height) to it.location
+        })
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {
@@ -49,28 +48,14 @@ data class Map(
             return null
         }
 
-        val first = calibrationPoints[0]
-        val firstPixels = first.imageLocation.toPixels(width, height)
-        val metersPerPixel = distancePerPixel(width, height)?.meters()?.distance ?: return null
+        val projection = projection(width, height)
 
-        val north = first.location.plus(
-            Distance.meters(firstPixels.y * metersPerPixel),
-            Bearing.from(CompassDirection.North)
-        ).latitude
-        val south = first.location.plus(
-            Distance.meters((height - firstPixels.y) * metersPerPixel),
-            Bearing.from(CompassDirection.South)
-        ).latitude
-        val east = first.location.plus(
-            Distance.meters((width - firstPixels.x) * metersPerPixel),
-            Bearing.from(CompassDirection.East)
-        ).longitude
-        val west = first.location.plus(
-            Distance.meters(firstPixels.x * metersPerPixel),
-            Bearing.from(CompassDirection.West)
-        ).longitude
+        val topLeft = projection.toCoordinate(PixelCoordinate(0f, 0f)) ?: return null
+        val bottomLeft = projection.toCoordinate(PixelCoordinate(0f, height)) ?: return null
+        val topRight = projection.toCoordinate(PixelCoordinate(width, 0f)) ?: return null
+        val bottomRight = projection.toCoordinate(PixelCoordinate(width, height)) ?: return null
 
-        return CoordinateBounds(north, east, south, west)
+        return CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
     }
 
 }

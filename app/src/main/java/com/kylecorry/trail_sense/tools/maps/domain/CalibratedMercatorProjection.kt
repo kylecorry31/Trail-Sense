@@ -1,16 +1,15 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Coordinate
 
-class CalibratedMapCoordinateConverter(
+class CalibratedMercatorProjection(
     calibration: List<Pair<PixelCoordinate, Coordinate>>,
-    private val geology: IGeologyService = GeologyService()
-) : IMapCoordinateConverter {
+    geology: IGeologyService = GeologyService()
+) : IProjection {
 
     private val left = getLeft(calibration)
     private val right = getRight(calibration)
@@ -25,6 +24,8 @@ class CalibratedMapCoordinateConverter(
         left?.second?.longitude ?: 0.0
     )
 
+    private val projection = MercatorProjection(bounds, width to height, geology)
+
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate? {
 
@@ -35,7 +36,7 @@ class CalibratedMapCoordinateConverter(
         val x = pixel.x - left.first.x
         val y = pixel.y - top.first.y
 
-        return geology.fromMercator(Vector2(x, y), bounds, width to height)
+        return projection.toCoordinate(PixelCoordinate(x, y))
     }
 
     override fun toPixels(coordinate: Coordinate): PixelCoordinate? {
@@ -44,7 +45,7 @@ class CalibratedMapCoordinateConverter(
             return null
         }
 
-        val coords = geology.toMercator(coordinate, bounds, width to height)
+        val coords = projection.toPixels(coordinate)
 
         val x = coords.x + left.first.x
         val y = coords.y + top.first.y

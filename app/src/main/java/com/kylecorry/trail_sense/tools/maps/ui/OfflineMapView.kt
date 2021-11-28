@@ -22,8 +22,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.maps.domain.CalibratedMapCoordinateConverter
-import com.kylecorry.trail_sense.tools.maps.domain.IMapCoordinateConverter
+import com.kylecorry.trail_sense.tools.maps.domain.IProjection
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
@@ -41,7 +40,7 @@ class OfflineMapView : SubsamplingScaleImageView {
     private var myLocation: Coordinate? = null
     private var map: Map? = null
     private val mapPath = Path()
-    private var coordinateConverter: IMapCoordinateConverter? = null
+    private var projection: IProjection? = null
     private var azimuth = 0f
     private var locations = emptyList<IMappableLocation>()
     private var paths = emptyList<IMappablePath>()
@@ -109,23 +108,13 @@ class OfflineMapView : SubsamplingScaleImageView {
             lastImage = map.filename
         }
         this.map = map
-        coordinateConverter = CalibratedMapCoordinateConverter(map.calibrationPoints.map {
-            it.imageLocation.toPixels(
-                sWidth.toFloat(),
-                sHeight.toFloat()
-            ) to it.location
-        })
+        projection = map.projection(sWidth.toFloat(), sHeight.toFloat())
         invalidate()
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        coordinateConverter = CalibratedMapCoordinateConverter(map?.calibrationPoints?.map {
-            it.imageLocation.toPixels(
-                sWidth.toFloat(),
-                sHeight.toFloat()
-            ) to it.location
-        } ?: emptyList())
+        projection = map?.projection(sWidth.toFloat(), sHeight.toFloat())
         invalidate()
     }
 
@@ -302,7 +291,7 @@ class OfflineMapView : SubsamplingScaleImageView {
         nullIfOffMap: Boolean = true
     ): PixelCoordinate? {
 
-        val pixels = coordinateConverter?.toPixels(coordinate) ?: return null
+        val pixels = projection?.toPixels(coordinate) ?: return null
 
         if (nullIfOffMap && (pixels.x < 0 || pixels.x > sWidth)) {
             return null
@@ -323,11 +312,8 @@ class OfflineMapView : SubsamplingScaleImageView {
             super.onLongPress(e)
             val source = viewToSourceCoord(e.x, e.y) ?: return
 
-            val coordinate = map?.getCoordinate(
-                PixelCoordinate(source.x, source.y),
-                sWidth.toFloat(),
-                sHeight.toFloat()
-            )
+            val coordinate = projection?.toCoordinate(PixelCoordinate(source.x, source.y))
+
             if (coordinate != null) {
                 onMapLongClick?.invoke(coordinate)
             }
