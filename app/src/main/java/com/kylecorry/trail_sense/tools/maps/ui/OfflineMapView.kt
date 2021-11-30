@@ -15,6 +15,8 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
@@ -22,7 +24,6 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.maps.domain.IProjection
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
@@ -40,7 +41,7 @@ class OfflineMapView : SubsamplingScaleImageView {
     private var myLocation: Coordinate? = null
     private var map: Map? = null
     private val mapPath = Path()
-    private var projection: IProjection? = null
+    private var projection: IMapProjection? = null
     private var azimuth = 0f
     private var locations = emptyList<IMappableLocation>()
     private var paths = emptyList<IMappablePath>()
@@ -312,7 +313,7 @@ class OfflineMapView : SubsamplingScaleImageView {
             super.onLongPress(e)
             val source = viewToSourceCoord(e.x, e.y) ?: return
 
-            val coordinate = projection?.toCoordinate(PixelCoordinate(source.x, source.y))
+            val coordinate = projection?.toCoordinate(Vector2(source.x, source.y))
 
             if (coordinate != null) {
                 onMapLongClick?.invoke(coordinate)
