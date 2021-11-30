@@ -1031,4 +1031,5 @@
     <string name="simplify">Спростити</string>
     <string name="simplifying">Спрощування</string>
     <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="navigation_guide_description">Використання маяків і шляхів</string>
 </resources>
