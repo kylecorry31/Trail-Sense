@@ -7,14 +7,12 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import androidx.core.net.toUri
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
@@ -78,6 +76,7 @@ class OfflineMapView : SubsamplingScaleImageView {
 
     fun setup() {
         setPanLimit(PAN_LIMIT_OUTSIDE)
+        maxScale = 6f
     }
 
     fun draw() {
@@ -104,8 +103,9 @@ class OfflineMapView : SubsamplingScaleImageView {
 
     fun showMap(map: Map) {
         if (lastImage != map.filename) {
-            val file = LocalFiles.getFile(context, map.filename, false)
-            setImage(ImageSource.uri(file.toUri()))
+            setImage(ImageSource.asset("earth_december.webp"))
+//            val file = LocalFiles.getFile(context, map.filename, false)
+//            setImage(ImageSource.uri(file.toUri()))
             lastImage = map.filename
         }
         this.map = map

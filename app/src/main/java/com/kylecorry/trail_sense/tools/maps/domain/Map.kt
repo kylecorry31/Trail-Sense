@@ -13,7 +13,7 @@ data class Map(
     val warped: Boolean,
     val rotated: Boolean,
     // TODO: Support projections other than mercator
-    val projection: MapProjectionType = MapProjectionType.TransverseMercator
+    val projection: MapProjectionType = MapProjectionType.Equirectangular
 ) {
 
     fun projection(width: Float, height: Float): IMapProjection {
