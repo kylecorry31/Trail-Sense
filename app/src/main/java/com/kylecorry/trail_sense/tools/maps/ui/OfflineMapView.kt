@@ -78,6 +78,7 @@ class OfflineMapView : SubsamplingScaleImageView {
 
     fun setup() {
         setPanLimit(PAN_LIMIT_OUTSIDE)
+        maxScale = 6f
     }
 
     fun draw() {
