@@ -1,16 +1,15 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.projections.CylindricalEquidistantProjection
 import com.kylecorry.sol.science.geology.projections.IMapProjection
-import com.kylecorry.sol.science.geology.projections.MercatorMapProjection
+import com.kylecorry.sol.science.geology.projections.MercatorProjection
 
-class MapProjectionFactory(private val bounds: CoordinateBounds, private val size: Size) {
+class MapProjectionFactory {
 
     fun getProjection(type: MapProjectionType): IMapProjection {
         return when (type) {
-            MapProjectionType.TransverseMercator -> MercatorMapProjection(bounds, size)
-            MapProjectionType.Equirectangular -> EquirectangularProjection(bounds, size)
+            MapProjectionType.Mercator -> MercatorProjection()
+            MapProjectionType.CylindricalEquidistant -> CylindricalEquidistantProjection()
         }
     }
 

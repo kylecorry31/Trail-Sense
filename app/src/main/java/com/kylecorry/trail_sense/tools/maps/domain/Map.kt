@@ -12,14 +12,13 @@ data class Map(
     val calibrationPoints: List<MapCalibrationPoint>,
     val warped: Boolean,
     val rotated: Boolean,
-    // TODO: Support projections other than mercator
-    val projection: MapProjectionType = MapProjectionType.TransverseMercator
+    val projection: MapProjectionType = MapProjectionType.Mercator
 ) {
 
     fun projection(width: Float, height: Float): IMapProjection {
         return CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location
-        }) { bounds, size -> MapProjectionFactory(bounds, size).getProjection(projection) }
+        }, MapProjectionFactory().getProjection(projection))
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {

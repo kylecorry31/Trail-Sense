@@ -6,6 +6,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 data class MapMetadata(
     val size: Size,
     val fileSize: Float,
-    val projection: MapProjectionType = MapProjectionType.TransverseMercator,
+    val projectionType: MapProjectionType = MapProjectionType.Mercator,
     val bounds: CoordinateBounds? = null
 )

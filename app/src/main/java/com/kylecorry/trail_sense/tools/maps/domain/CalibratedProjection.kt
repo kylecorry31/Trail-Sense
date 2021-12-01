@@ -1,15 +1,16 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 
 class CalibratedProjection(
     calibration: List<Pair<PixelCoordinate, Coordinate>>,
-    projectionFn: (bounds: CoordinateBounds, size: Size) -> IMapProjection
+    private val projection: IMapProjection
 ) : IMapProjection {
 
     private val left = getLeft(calibration)
@@ -20,7 +21,8 @@ class CalibratedProjection(
     private val height = (bottom?.first?.y ?: 0f) - (top?.first?.y ?: 0f)
     private val bounds = getBounds(calibration.map { it.second })
 
-    private val projection = projectionFn(bounds, Size(width, height))
+    private val bottomLeft = projection.toPixels(bounds.southWest)
+    private val topRight = projection.toPixels(bounds.northEast)
 
 
     override fun toCoordinate(pixel: Vector2): Coordinate {
@@ -28,8 +30,8 @@ class CalibratedProjection(
             return Coordinate.zero
         }
 
-        val x = pixel.x - left.first.x
-        val y = pixel.y - top.first.y
+        val x = map((pixel.x - left.first.x) / width, 0f, 1f, bottomLeft.x, topRight.x)
+        val y = map((pixel.y - top.first.y - height) / -height, 0f, 1f, bottomLeft.y, topRight.y)
 
         return projection.toCoordinate(Vector2(x, y))
     }
@@ -46,9 +48,8 @@ class CalibratedProjection(
             projection.toPixels(coordinate)
         }
 
-        val x = coords.x + left.first.x
-        val y = coords.y + top.first.y
-
+        val x = left.first.x + width * norm(coords.x, bottomLeft.x, topRight.x)
+        val y = top.first.y + height - height * norm(coords.y, bottomLeft.y, topRight.y)
         return Vector2(x, y)
     }
 
