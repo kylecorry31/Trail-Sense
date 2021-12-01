@@ -556,7 +556,7 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">从手机到手电筒的距离</string>
     <string name="beacon_export_error">无法导出信标</string>
-    <string name="pref_backtrack_save_cell_summary">在航点记录电池信号。 不使用互联网。</string>
+    <string name="pref_backtrack_save_cell_summary">在航点记录手机信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录电池信号</string>
     <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
