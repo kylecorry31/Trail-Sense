@@ -1015,4 +1015,5 @@
     <string name="difficulty">Dificuldade</string>
     <string name="dashed">Tracejado</string>
     <string name="pref_default_path_style_title">Estilo predefinido do percurso</string>
+    <string name="navigation_guide_description">Utilizando alfinetes e percursos</string>
 </resources>
