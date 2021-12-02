@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Navegación</string>
     <string name="weather">Clima</string>
     <string name="settings">Ajustes</string>
@@ -251,7 +251,6 @@
     <string name="forecasts_category">Pronósticos</string>
     <string name="advanced">Avanzado</string>
     <string name="tap_sun_moon_hint">Tocar sol o luna para detalles de posición</string>
-
     <string name="no_group">Sin grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Baliza</string>
@@ -327,4 +326,381 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="object_height_guide">Estimar alturas de objetos</string>
     <string name="tool_depth_title">Profundidad</string>
+    <string name="pref_altitude_override_title">Anulación de altitud</string>
+    <string name="boil_start">Iniciar</string>
+    <string name="tool_boil_summary">Dime cuando el agua sea potable</string>
+    <string name="pref_sensor_details_title">Detalles del sensor</string>
+    <string name="clock_waiting_for_gps">Actualizando el tiempo del GPS…</string>
+    <string name="precise_inches_format">%s adentro</string>
+    <string name="water_purification_step_1">Filtrar el agua</string>
+    <string name="note_title_hint">Titulo</string>
+    <string name="note_content_hint">Contenidos</string>
+    <string name="clock_sync_time_settings">¿Abrir configuración de tiempo\?</string>
+    <string name="location_input_help_title">Formatos de ubicacion soportados</string>
+    <string name="location_input_help">Grados decimales(ejemplo, 1.00,-2.00)
+\n
+\nGrados en minutos decimales(ejemplo 1°23.12\'N, 3°12.1\'W)
+\n
+\nGrados en minutos decimales (ejemplo 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (ejemplo 03T 12345E 67890N)
+\n
+\nMGRS (ejemplo 27PXM 09601 05579)
+\n
+\nUSNG (ejemplo14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (ejemplo TG 51409 13177)</string>
+    <string name="current_format">%s mA</string>
+    <string name="pref_low_power_mode_summary">Desactivado algunas funciones para ahorrar energía</string>
+    <string name="pref_require_satellites_description">Requiere al menos 4 satélites, mejora la precisión</string>
+    <string name="altocumulus_desc">Nubes hinchadas de nivel medio que parecen bolas de algodón. Por lo general, son de color blanco con manchas más oscuras debajo y se pueden espaciar o en forma de hoja.</string>
+    <string name="cirrocumulus_desc">Nubes de gran altura que forman una hoja ondulada. La hoja está compuesta por pequeños puntos que casi parecen bidimensionales.</string>
+    <string name="stratus_desc">Una nube baja que cubre el cielo. Los objetos no proyectan sombras y puede haber niebla.</string>
+    <string name="cumulus_desc">Nubes bajas e hinchadas que parecen bolas de algodón. Están espaciados y son típicamente blancos con manchas más oscuras debajo.</string>
+    <string name="tool_lightning_title">Distancia del rayo</string>
+    <string name="tool_battery_title">Bateria</string>
+    <string name="nimbostratus">Nimboestrato</string>
+    <string name="onboarding_weather">- Obtenga pronósticos hiperlocales usando el barómetro de su teléfono
+\n
+\n- No usa una conexión a Internet
+\n
+\n- Esté alerta de las tormentas que se avecinan</string>
+    <string name="thunder">Tormenta</string>
+    <string name="pedometer">Pedometro</string>
+    <string name="weather_better_than_yesterday">Mejor que ayer</string>
+    <string name="onboarding_tools">-Recibe acceso a herramientas que te ayuden en cualquier tipo de emergencia en la intemperie
+\n
+\n-Usa el flash de tu telefono para hacer señales o silvar
+\n
+\n-Convierte ubicaciones de un mapa de papel a tu telefono
+\n
+\n-Mide angulos y determina la altura de un objeto
+\n
+\n-Sincroniza tu reloj sin conexion a Internet
+\n
+\n-Toma notas y manten seguimiento de los objetos que tienes disponibles
+\n
+\n-Encuentra objetos de hierro y acero que se te hayan caido</string>
+    <string name="import_btn">Importar</string>
+    <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de ubicación nunca salen de tu dispositivo
+\n
+\n- Trail Sense nunca requerirá permiso de Internet
+\n
+\n- Ver la [Política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html) (se abre en el navegador de su teléfono)
+\n
+\n- Algunas funciones de Trail Sense requieren acceso a tu ubicación
+\n
+\n- Otorgar el permiso de ubicación habilitará las siguientes funciones:
+\n
+\n- Navegando a balizas
+\n
+\n- Precisión de pronóstico mejorada (requiere ubicación en segundo plano, no disponible en todos los dispositivos)
+\n
+\n- Retroceso (requiere ubicación en segundo plano)
+\n
+\n- Horas de sol y luna para su ubicación actual
+\n
+\n- Si elige no otorgar el permiso de ubicación, puede ingresar manualmente una ubicación en el menú Configuración&gt; Calibración de GPS en Trail Sense
+\n
+\n- Después de hacer clic en Continuar, se le pedirá que otorgue los permisos de ubicación y ubicación en segundo plano. Denegar esos permisos evitará que Trail Sense acceda a su ubicación, por lo que se recomienda una entrada de ubicación manual.</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d baliza importada</item>
+        <item quantity="other">%d balizas importadas</item>
+    </plurals>
+    <string name="gps_searching">Buscando</string>
+    <string name="unavailable">No esta disponible</string>
+    <string name="quality_good">Bueno</string>
+    <string name="network_2g">2G</string>
+    <string name="network_3g">3G</string>
+    <string name="pref_backtrack_save_cell_summary">Registra la señal de la celda en el punto de referencia. No usa Internet.</string>
+    <string name="candela_format">%s cd</string>
+    <string name="todays_forecast">El clima de hoy</string>
+    <string name="weather_worse_than_yesterday">Peor que ayer</string>
+    <string name="guide_light_meter_description">Cómo determinar la distancia del haz de linternas</string>
+    <string name="weather_same_as_yesterday">Igual que ayer</string>
+    <string name="weather_better_than_today">Mejor que hoy</string>
+    <string name="weather_worse_than_today">Peor que hoy</string>
+    <string name="weather_same_as_today">Igual que hoy</string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="time_not_set">El tiempo no esta establecido</string>
+    <string name="no_tides">No hay marea</string>
+    <string name="tide_location_label">Ubicación de la marea (opcional)</string>
+    <string name="create_map">Crear mapa</string>
+    <string name="create_tide">Crear marea</string>
+    <string name="time_until_empty">Hasta que este vacio</string>
+    <string name="backtrack_battery_warning">Pequeños intervalos (menos de 15 minutos) pueden causar un agotamiento excesivo de la batería</string>
+    <string name="hour_symbol">h</string>
+    <string name="map_auto_calibrated">Mapa autocalibrado, verifique su precisión</string>
+    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="noon">Medio dia</string>
+    <string name="pref_show_civil_times_summary">Amanecer y anochecer</string>
+    <string name="color">Color</string>
+    <string name="camera_permission_denied">Permiso de la cámara denegado, no se pueden activar las funciones de la cámara. Puede habilitarlo en la configuración.</string>
+    <string name="pref_show_civil_times_title">Tiempos civiles</string>
+    <string name="coordinate_input_invalid_location">Ubicación inválida</string>
+    <string name="open_beacon_in_maps">Ver en mapa</string>
+    <string name="cumulonimbus_desc">Nubes bajas e hinchadas que son muy altas. Por lo general, tienen forma de yunque y son oscuros.</string>
+    <string name="cirrus_desc">Nubes altas y tenues que parecen mechones de cabello blanco.</string>
+    <string name="privacy_and_location">Privacidad y Ubicacion</string>
+    <string name="menu">Menu</string>
+    <string name="freezing_temperatures_description">El agua se congelará si se deja afuera y la lluvia puede convertirse en nieve</string>
+    <string name="unit_centimeters">Centímetros</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="unit_inches_abbreviation">pulgadas</string>
+    <string name="unit_inches">Pulgadas</string>
+    <string name="map_distance">Mapa:%s</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="map_scale_title">Escala del Mapa</string>
+    <string name="guide_thermometer_calibration_title">Calibración del termómetro</string>
+    <string name="action_inventory_clear_confirm">¿Borrar todas las cantidades empaquetadas\?</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d segundo para que sea potable</item>
+        <item quantity="other">%d segundos para que sea potable</item>
+    </plurals>
+    <string name="flashlight_strobe">Parpadea de forma intermitente.</string>
+    <string name="tool_clock_title">Reloj</string>
+    <string name="utc_format">UTC %s</string>
+    <string name="lightning">Relámpago</string>
+    <string name="reset">Reiniciar</string>
+    <string name="tool_lightning_description">Mide la distancia desde la caída de un rayo</string>
+    <string name="water_purification_step_3">Iniciar el cronometro</string>
+    <string name="battery_health_dead">Muerto</string>
+    <string name="tool_category_angles">Angulos</string>
+    <string name="notification_channel_clock_sync_description">Una notificación para sincronizar su reloj con la hora del GPS</string>
+    <string name="clock_sync_instructions">Establece el tiempo para %s cuando llega la notificacion</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="threshold">Umbral</string>
+    <string name="tool_metal_detector_title">Detector de metales</string>
+    <string name="update_gps_override">Actualizar anulación de GPS</string>
+    <string name="location_override_updated">Se actualizó la anulación de ubicación</string>
+    <string name="notes_empty_text">No hay notas</string>
+    <string name="delete_note_title">¿Eliminar nota\?</string>
+    <string name="tool_notes_title">Notas</string>
+    <string name="bubble_level_angles">X:%s
+\nY:%s</string>
+    <string name="freezing_temperatures_warning">Temperaturas de congelación</string>
+    <string name="tool_white_noise_title">Sonido Blanco</string>
+    <string name="tool_white_noise_summary">Te ayuda a dormir</string>
+    <string name="map_scale_ratio">Radio</string>
+    <string name="map_scale_verbal">Verbal</string>
+    <string name="max_temp_calibrated">Temperatura ambiente máxima (calibrada)</string>
+    <string name="max_temp_uncalibrated">Temperatura máxima del teléfono (sin calibrar)</string>
+    <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrada)</string>
+    <string name="min_temp_uncalibrated">Temperatura mínima del teléfono (sin calibrar)</string>
+    <string name="bearing">Soportando</string>
+    <string name="create_at_distance">Crear a distancia</string>
+    <string name="beacon_set_bearing_btn">Establecer rumbo (%s)</string>
+    <string name="guide_location_no_gps_title">Determinar ubicacion sin GPS</string>
+    <string name="backtrack">Retractarse</string>
+    <string name="backtrack_notification_channel_description">Retractar actualizaciones de ubicacion</string>
+    <string name="create_beacon">Crear Faro</string>
+    <string name="low">Bajo</string>
+    <string name="speedometer">Velocímetro</string>
+    <string name="tool_speedometer_odometer_title">Velocímetro / cuentakilómetros</string>
+    <string name="value_since_time">%s desde %s</string>
+    <string name="value_average">%s promedio</string>
+    <string name="distance_away">Distancia lejana</string>
+    <string name="distance_away_not_set">Estimado de distancia no establecido</string>
+    <string name="saltwater_switch">¿Es agua salada\?</string>
+    <string name="odometer">Odometro</string>
+    <string name="source">Recurso</string>
+    <string name="pref_meteor_showers_title">Lluvia de meteoritos</string>
+    <string name="guide_signaling_for_help_title">Enviando señales pidiendo ayuda</string>
+    <string name="guide_using_printed_maps">Usando mapas impresos</string>
+    <string name="pedometer_disclaimer">La precisión y el uso de la batería del podómetro dependen del fabricante de su dispositivo y de la longitud de paso ingresada. Pruébelo en casa por un tiempo para verificar el agotamiento de la batería y la precisión antes de usarlo en el camino.</string>
+    <string name="rename">Renombrar</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="pref_backtrack_enabled_summary">Grabar historial de ubicacion</string>
+    <string name="pref_backtrack_frequency_title">Intervalo de retroceso</string>
+    <string name="altitude_override_updated_toast">Anulación de altitud actualizada</string>
+    <string name="pref_altitude_override_sea_level_dialog_msg">Ingrese la presión actual al nivel del mar en hPa</string>
+    <string name="two">2</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="tool_ruler_title">Regla</string>
+    <string name="one">1</string>
+    <string name="three">3</string>
+    <string name="water_purification_step_2">Hacer hervir el agua</string>
+    <string name="strobe_warning_content">La función parpadear contiene luces intermitentes, que pueden ser peligrosas para algunos usuarios.</string>
+    <string name="battery_health_overheat">Sobrecalentar</string>
+    <string name="battery_health_cold">Frio</string>
+    <string name="battery_health_over_voltage">Sobrecarga</string>
+    <string name="battery_health">Salud: %s</string>
+    <string name="power">Carga</string>
+    <string name="clock_sync_notification">Sincronizar tu reloj - %s</string>
+    <string name="units_mmhg">mmHg</string>
+    <string name="water_boil_timer">Temporizador de hervir agua</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="none">Ninguna</string>
+    <string name="network_no_signal">Sin señal</string>
+    <string name="pref_gps_override_title">Anular de ubicación</string>
+    <string name="delete_waypoint_prompt">¿Eliminar punto de referencia\?</string>
+    <string name="delete_tide_prompt">¿Eliminar marea\?</string>
+    <string name="tool_thermometer_title">Termometro</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="battery_power_wireless">Inalámbrico</string>
+    <string name="charging_wireless">Cargando(%s)</string>
+    <string name="guide_barometer_calibration_title">Calibración del barómetro</string>
+    <string name="pref_low_power_mode_title">Modo de ahorro de energía</string>
+    <string name="low_power_mode_on_message">Modo de ahorro de energía activado, algunas funciones pueden estar deshabilitadas.</string>
+    <string name="backtrack_disabled_low_power_toast">El retroceso está desactivado en el modo de ahorro de energía</string>
+    <string name="compass_calibrate_toast">Precisión de la brújula %s, se recomienda calibración</string>
+    <string name="how">Como</string>
+    <string name="clouds">Nubes</string>
+    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="pref_require_satellites_title">Requiere corrección de satélite</string>
+    <string name="cirrus">Cirro</string>
+    <string name="cirrocumulus">Cirrocúmulo</string>
+    <string name="cirrostratus">Cirrocúmulo</string>
+    <string name="altocumulus">Altocúmulo</string>
+    <string name="altostratus">Altostrato</string>
+    <string name="stratus">Estrato</string>
+    <string name="stratocumulus">Estratocúmulos</string>
+    <string name="cumulus">Cúmulo</string>
+    <string name="cumulonimbus">Cumulonimbo</string>
+    <string name="cirrostratus_desc">Una nube alta que cubre el cielo. Es transparente y normalmente hace que se forme un halo alrededor del sol.</string>
+    <string name="altostratus_desc">Una nube de nivel medio que cubre el cielo. El sol apenas puede verse como una mancha brillante.</string>
+    <string name="nimbostratus_desc">Una nube de nivel medio que es de color gris oscuro y cubre el cielo. Puede que esté lloviendo.</string>
+    <string name="stratocumulus_desc">Nubes bajas que parecen una sábana de bolas de algodón con pequeños huecos. El color va del blanco al gris oscuro.</string>
+    <string name="onboarding_navigation">- Coloca faros y navega de regreso a ellas.
+\n
+\n- Obten su ubicación, altitud y velocidad actuales
+\n
+\n- Vuelve sobre tus pasos con Backtrack (se ejecuta en segundo plano cuando está habilitado)</string>
+    <string name="onboarding_astronomy">- Enterate cuándo saldrá y se pondrá el sol / luna
+\n
+\n-Recibe una alerta cuando se vaya a poner el sol
+\n
+\n-Ubica el sol y la luna en el compas</string>
+    <string name="onboarding_user_guide">Aprenda a utilizar las funciones de Trail Sense con la guía del usuario. Disponible en la parte inferior de la pestaña Herramientas
+\n
+\nMas guias estaran disponibles pronto.</string>
+    <string name="export">Exportar</string>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d baliza importada</item>
+        <item quantity="other">%d balizas importadas</item>
+    </plurals>
+    <string name="gps_user">Usuario</string>
+    <string name="gps_stale">Barado</string>
+    <string name="quality_poor">Linmitado</string>
+    <string name="time_ago">Hace %s</string>
+    <string name="network_5g">5G</string>
+    <string name="network_4g">4G</string>
+    <string name="barometer">Barometro</string>
+    <string name="cell_signal">Señal del celular</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="satellites">Satelites</string>
+    <string name="hygrometer">Higrómetro</string>
+    <string name="gravity">Gravedad</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="magnetometer">Magnetómetro</string>
+    <string name="help">Ayuda</string>
+    <string name="beacon_export_error">No se pudo exportar balizas</string>
+    <string name="distance_from_flashlight">Distancia del teléfono a la linterna</string>
+    <string name="lux_format">%s lx</string>
+    <string name="beam_distance">%s distancia del rayo de luz</string>
+    <string name="tool_light_meter_title">Medidor de luz</string>
+    <string name="pref_backtrack_save_cell_title">Registra la señal celular</string>
+    <string name="location_not_set">Ubicacion no establecida</string>
+    <string name="set">Establecer</string>
+    <string name="location_disabled">La ubicacion esta deshabilitada</string>
+    <string name="gps_cache">Cache del GPS</string>
+    <string name="guide_light_meter_title">Determinar la efectividad de la linterna</string>
+    <string name="tomorrows_forecast">El clima de mañana</string>
+    <string name="pref_daily_weather_notification_title">Notificaciones diarias del clima</string>
+    <string name="always_on">Siempre activado</string>
+    <string name="service_update_frequency">Actualizaciones cada %s</string>
+    <string name="battery_usage">%s uso de bateria</string>
+    <string name="high">Alto</string>
+    <string name="moderate">Moderado</string>
+    <string name="no_gps_signal">No hay señal de GPS</string>
+    <string name="left_quick_action">Acción rápida izquierda</string>
+    <string name="right_quick_action">Acción rápida derecha</string>
+    <string name="experimental">Experimental</string>
+    <string name="tides">Mareas</string>
+    <string name="high_tide">Marea Alta</string>
+    <string name="low_tide">Marea Baja</string>
+    <string name="half_tide">Marea media</string>
+    <string name="tide_calibration_instructions">Establezca la hora de una marea alta cerca de usted, preferiblemente en la fecha de luna nueva o luna llena. Esto se puede obtener en línea o mediante tablas de mareas impresas. Las mareas que se muestran en Trail Sense pueden tener una diferencia de hasta dos horas, lo cual es lo suficientemente bueno como referencia pero no confiable.</string>
+    <string name="date_not_set">La fecha no esta establecida</string>
+    <string name="pref_daily_weather_time_title">Tiempo meteorológico diario</string>
+    <string name="screen_flashlight">Pantalla</string>
+    <string name="speedometer_real_time">Tiempo real</string>
+    <string name="speedometer_average">Promedio (de Backtrack)</string>
+    <string name="pref_stride_length_title">Longitud de zancada</string>
+    <string name="pref_nearby_radar_title">Mostrar brújula de radar cercana</string>
+    <string name="meteor_shower">Lluvia de meteoritos</string>
+    <string name="tomorrow_at">Mañana a %s</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Numero maximo de meteoritos por hora %d</string>
+    <string name="speedometer_odometer_accuracy_dialog">Para obtener la mejor precisión, habilite Retroceso y configure la fuente del odómetro en podómetro en la configuración.</string>
+    <string name="no_maps">Sin mapas</string>
+    <string name="on_map">En el mapa</string>
+    <string name="select_map_image">Selecciona una imagen del mapa</string>
+    <string name="place_beacon_at">¿Colocar una baliza en %s\?</string>
+    <string name="create_map_description">Ingresar el nombre en el mapa</string>
+    <string name="guide_importing_maps_title">Importando mapas</string>
+    <string name="previous">Previo</string>
+    <string name="next">Siguiente</string>
+    <string name="guide_speedometer_title">Determinar velocidad y distancia</string>
+    <string name="guide_speedometer_desc">Como determinar distancia viajada y tiempos de llegada</string>
+    <string name="time_until_full">Hasta que este lleno</string>
+    <string name="minute_symbol">m</string>
+    <string name="importing_map">Importando mapa</string>
+    <string name="error_importing_map">Error importando mapa</string>
+    <string name="import_gpx">Importar GPX</string>
+    <string name="sleep_timer">Temporizador de hora de dormir</string>
+    <string name="pref_odometer_reset_daily_title">Resetear a diario</string>
+    <string name="search">Buscar</string>
+    <string name="actual_frequency_disclaimer">La frecuencia real puede variar ya que algunos dispositivos tienen límites de fondo establecidos.</string>
+    <string name="pref_weather_show_detailed_icon_title">Mostrar icono de notificación de color</string>
+    <string name="solid">Solido</string>
+    <string name="dotted">Punteado</string>
+    <string name="dashed">Punteado</string>
+    <string name="arrow">Flecha</string>
+    <string name="pref_default_path_style_title">Estilo de ruta predeterminado</string>
+    <string name="pref_default_path_color_title">Color de ruta predeterminado</string>
+    <string name="updates">Actualizaciones</string>
+    <string name="backtrack_high_priority_notification">Colocando un punto de referencia cada %s</string>
+    <string name="battery_warning">Advertencia de descarga de batería</string>
+    <string name="sunset_alert_location_update">Actualizando la ubicación para la alerta de puesta de sol</string>
+    <string name="background_update">Actualización en segundo plano</string>
+    <string name="calibrate_new_tide">¿Calibrar a una nueva marea\?</string>
+    <string name="water_boil_guide_title">Hacer que el agua sea segura para beber</string>
+    <string name="last_signal_beacon_name">Última señal -%s (%s)</string>
+    <string name="pref_show_last_signal_beacon_title">Baliza de última señal</string>
+    <string name="pref_show_last_signal_beacon_summary">Crea una baliza para la ubicación de la última señal de celular</string>
+    <string name="fields">Campos</string>
+    <string name="pref_show_noon_summary">Mediodía solar y lunar</string>
+    <string name="for_sunrise_and_set">Para el amanecer y el atardecer</string>
+    <string name="pref_show_nautical_times_title">Tiempos náuticos</string>
+    <string name="pref_show_astronomical_times_title">Tiempos astronómicos</string>
+    <string name="whistle_signal_where_are_you">¿Dónde estás\?</string>
+    <string name="whistle_signal_acknowledged">Admitido</string>
+    <string name="whistle_signal_come_here">Ven aquí</string>
+    <string name="weather_monitor">Monitor meteorológico</string>
+    <string name="dawn_type">Amanecer (%s)</string>
+    <string name="dusk_type">Anochecer (%s)</string>
+    <string name="battery_history">Historial de la batería: último %s</string>
+    <string name="altitude_from_pressure">Establecer la anulación del barómetro</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">Ingrese la presión al nivel del mar</string>
+    <string name="pref_altitude_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
+    <string name="unsaved_changes">Lo cambios no se guardaron</string>
+    <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
+    <string name="water_boil_timer_channel_description">El agua esta hirviendo</string>
+    <string name="water_boil_timer_title">El agua esta hirviendo</string>
+    <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
+    <string name="water_boil_timer_done_content">Ahora tu agua es potable</string>
+    <string name="strobe_warning_title">Linternas</string>
+    <string name="tool_category_signaling">Señalización</string>
+    <string name="tool_triangulate_title">Ubicación triangular</string>
+    <string name="tool_triangulate_summary">Determinar tu ubicacion sin GPS</string>
+    <string name="could_not_triangulate">No se pudo triangular</string>
+    <string name="beacon_1">Faro 1</string>
+    <string name="beacon_2">Faro 2</string>
+    <string name="pip_button">Actualizar el tiempo del sistema</string>
+    <string name="pip_notification_scheduled">Notificacion programada para %s</string>
+    <string name="notification_channel_clock_sync">Sincronizar Reloj</string>
+    <string name="metal_detector_disclaimer">Solo detecta metales magneticos ( ejemplo: Hierro)</string>
+    <string name="unsaved_changes_message">Los cambios que hiciste no seran guardados.</string>
+    <string name="dialog_leave">Salir</string>
+    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
 </resources>
