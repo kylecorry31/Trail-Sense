@@ -98,9 +98,12 @@ class OfflineMapView : SubsamplingScaleImageView {
         }
 
         drawCalibrationPoints()
-        drawPaths()
-        drawLocations()
-        drawMyLocation()
+
+        if (map?.calibrationPoints?.size == 2) {
+            drawPaths()
+            drawLocations()
+            drawMyLocation()
+        }
     }
 
     fun showMap(map: Map) {

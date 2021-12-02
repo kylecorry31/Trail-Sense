@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.TidalRange
+import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
@@ -94,14 +95,14 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.loading.isVisible = false
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
         binding.tideClock.time = ZonedDateTime.now()
-        val next = oceanService.getNextTide(reference)
+        val next = oceanService.getNextTide(reference, TideFrequency.Semidiurnal)
         binding.tideClock.nextTide = next
         binding.tideLocation.text = referenceTide?.name
             ?: if (referenceTide?.coordinate != null) formatService.formatLocation(referenceTide!!.coordinate!!) else getString(
                 android.R.string.untitled
             )
-        binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference))
-        val tides = oceanService.getTides(reference, displayDate)
+        binding.tideHeight.text = getTideTypeName(oceanService.getTideType(reference, TideFrequency.Semidiurnal))
+        val tides = oceanService.getTides(reference, TideFrequency.Semidiurnal, displayDate)
         val tideStrings = tides.map {
             val type = if (it.type == TideType.High) {
                 getString(R.string.high_tide)

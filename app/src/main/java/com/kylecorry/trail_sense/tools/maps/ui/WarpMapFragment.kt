@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.os.Build
@@ -11,12 +10,13 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
+import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
-import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.andromeda.fragments.BoundFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -106,7 +106,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
             try {
                 @Suppress("BlockingMethodInNonBlockingContext")
                 FileOutputStream(file).use { out ->
-                    warped.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                    ImageSaver().save(warped, out)
                 }
             } catch (e: IOException) {
                 // TODO: Fix this

@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -220,7 +221,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 var calibration2: MapCalibrationPoint? = null
 
                 val extension = if (type == "application/pdf"){
-                    "jpg"
+                    "webp"
                 } else {
                     MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
                 }
@@ -326,7 +327,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         try {
             @Suppress("BlockingMethodInNonBlockingContext")
             FileOutputStream(LocalFiles.getFile(requireContext(), filename)).use { out ->
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                ImageSaver().save(bitmap, out)
             }
         } finally {
             bitmap.recycle()
