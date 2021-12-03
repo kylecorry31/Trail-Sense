@@ -38,6 +38,8 @@ class PerspectiveCorrectionView : CanvasView {
     private var bottomRight = PixelCoordinate(0f, 0f)
     private var movingCorner: Corner? = null
 
+    var hasChanges = false
+
     var isPreview = false
         set(value) {
             field = value
@@ -135,7 +137,6 @@ class PerspectiveCorrectionView : CanvasView {
         matrix.postTranslate(-center.x + magCenter.x, -center.y + magCenter.y)
         shader.setLocalMatrix(matrix)
 
-//        canvas.drawCircle(pos.x + magnifierSize, pos.y + magnifierSize, magnifierSize, shaderPaint)
         canvas.drawRect(pos.x, pos.y, pos.x + magnifierSize, pos.y + magnifierSize, shaderPaint)
         stroke(primaryColor)
         noFill()
@@ -248,15 +249,19 @@ class PerspectiveCorrectionView : CanvasView {
                 when (movingCorner) {
                     Corner.TopLeft -> {
                         topLeft = constrain(position, null, bottomLeft.y, null, topRight.x)
+                        hasChanges = true
                     }
                     Corner.TopRight -> {
                         topRight = constrain(position, null, bottomRight.y, topLeft.x, null)
+                        hasChanges = true
                     }
                     Corner.BottomLeft -> {
                         bottomLeft = constrain(position, topLeft.y, null, null, bottomRight.x)
+                        hasChanges = true
                     }
                     Corner.BottomRight -> {
                         bottomRight = constrain(position, topRight.y, null, bottomLeft.x, null)
+                        hasChanges = true
                     }
                     null -> {}
                 }

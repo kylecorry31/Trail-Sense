@@ -1133,9 +1133,11 @@
     <string name="simplify">Simplify</string>
     <string name="simplifying">Simplifying</string>
     <string name="simplification_quality">Simplification quality</string>
-    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
+    <string name="pref_auto_simplify_paths" translatable="false">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
     <string name="navigation_guide_description">Using beacons and paths</string>
+    <string name="saving">Saving</string>
+    <string name="pref_auto_reduce_maps" translatable="false">pref_auto_reduce_maps</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

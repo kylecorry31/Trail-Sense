@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSaver
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,6 +53,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var mapList: ListView<Map>
     private var maps: List<Map> = listOf()
@@ -292,16 +295,20 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
 
                 val calibrationPoints = listOfNotNull(calibration1, calibration2)
-                val id = mapRepo.addMap(
-                    Map(
-                        0,
-                        mapName,
-                        filename,
-                        calibrationPoints,
-                        warped = calibrationPoints.isNotEmpty(),
-                        rotated = calibrationPoints.isNotEmpty()
-                    )
+                val map = Map(
+                    0,
+                    mapName,
+                    filename,
+                    calibrationPoints,
+                    warped = calibrationPoints.isNotEmpty(),
+                    rotated = calibrationPoints.isNotEmpty()
                 )
+                val id = mapRepo.addMap(map)
+
+                if (prefs.navigation.autoReduceMaps){
+                    val reducer = HighQualityMapReducer(requireContext())
+                    reducer.reduce(map.copy(id = id))
+                }
 
                 withContext(Dispatchers.Main) {
                     if (calibration1 != null) {

@@ -208,6 +208,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         false
     )
 
+    val autoReduceMaps by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_auto_reduce_maps),
+        true
+    )
+
     enum class SpeedometerMode {
         Average,
         Instantaneous

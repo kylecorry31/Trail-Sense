@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
@@ -83,9 +85,11 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
     }
 
     private suspend fun next() {
-        // TODO: Show loading indicator
         val map = map ?: return
         val rotation = binding.rotateView.angle
+        val loading = withContext(Dispatchers.Main) {
+            Alerts.loading(requireContext(), getString(R.string.saving))
+        }
         withContext(Dispatchers.IO) {
             if (rotation != 0f) {
                 val file = LocalFiles.getFile(requireContext(), map.filename, false)
@@ -100,6 +104,9 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
                         ImageSaver().save(rotated, out)
                     }
                 } catch (e: IOException) {
+                    withContext(Dispatchers.Main){
+                        loading.dismiss()
+                    }
                     return@withContext
                 } finally {
                     rotated.recycle()
@@ -110,6 +117,7 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
         }
 
         withContext(Dispatchers.Main) {
+            loading.dismiss()
             onDone.invoke()
         }
     }

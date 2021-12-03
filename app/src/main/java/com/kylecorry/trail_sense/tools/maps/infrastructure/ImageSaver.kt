@@ -6,7 +6,7 @@ import java.io.OutputStream
 
 class ImageSaver {
 
-    fun save(image: Bitmap, stream: OutputStream, quality: Int = 80) {
+    fun save(image: Bitmap, stream: OutputStream, quality: Int = 90) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (quality == 100) {
                 image.compress(Bitmap.CompressFormat.WEBP_LOSSLESS, 50, stream)
