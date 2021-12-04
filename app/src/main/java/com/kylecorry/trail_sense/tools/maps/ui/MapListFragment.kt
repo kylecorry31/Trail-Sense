@@ -174,7 +174,17 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 val file = LocalFiles.getFile(requireContext(), it.filename, false)
 
                 val size = BitmapUtils.getBitmapSize(file.path)
-                val bounds = it.boundary(size.first.toFloat(), size.second.toFloat())
+                val width = if (it.rotation == 90 || it.rotation == 270){
+                    size.second
+                } else {
+                    size.first
+                }
+                val height = if (it.rotation == 90 || it.rotation == 270){
+                    size.first
+                } else {
+                    size.second
+                }
+                val bounds = it.boundary(width.toFloat(), height.toFloat())
                 if (bounds != null) {
                     val onMap = bounds.contains(gps.location)
                     val distance = gps.location.distanceTo(bounds.center)

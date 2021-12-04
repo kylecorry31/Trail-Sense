@@ -88,7 +88,7 @@ class OfflineMapView : SubsamplingScaleImageView {
         mapPath.apply {
             rewind()
             val topLeft = sourceToViewCoord(0f, 0f)!!
-            val bottomRight = sourceToViewCoord(sWidth.toFloat(), sHeight.toFloat())!!
+            val bottomRight = sourceToViewCoord(realWidth.toFloat(), realHeight.toFloat())!!
             addRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y, Path.Direction.CW)
         }
 
@@ -107,19 +107,27 @@ class OfflineMapView : SubsamplingScaleImageView {
     }
 
     fun showMap(map: Map) {
+        if (orientation != map.rotation) {
+            orientation = when (map.rotation) {
+                90 -> ORIENTATION_90
+                180 -> ORIENTATION_180
+                270 -> ORIENTATION_270
+                else -> ORIENTATION_0
+            }
+        }
         if (lastImage != map.filename) {
             val file = LocalFiles.getFile(context, map.filename, false)
             setImage(ImageSource.uri(file.toUri()))
             lastImage = map.filename
         }
         this.map = map
-        projection = map.projection(sWidth.toFloat(), sHeight.toFloat())
+        projection = map.projection(realWidth.toFloat(), realHeight.toFloat())
         invalidate()
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        projection = map?.projection(sWidth.toFloat(), sHeight.toFloat())
+        projection = map?.projection(realWidth.toFloat(), realHeight.toFloat())
         invalidate()
     }
 
@@ -133,8 +141,8 @@ class OfflineMapView : SubsamplingScaleImageView {
         val calibrationPoints = map?.calibrationPoints ?: emptyList()
         for (point in calibrationPoints) {
             val sourceCoord = point.imageLocation.toPixels(
-                sWidth.toFloat(),
-                sHeight.toFloat()
+                realWidth.toFloat(),
+                realHeight.toFloat()
             )
             val coord = sourceToViewCoord(sourceCoord.x, sourceCoord.y) ?: continue
             drawer.stroke(Color.WHITE)
@@ -180,7 +188,7 @@ class OfflineMapView : SubsamplingScaleImageView {
 
     private fun generatePaths(paths: List<IMappablePath>): kotlin.collections.Map<Long, RenderedPath> {
         val metersPerPixel =
-            map?.distancePerPixel(sWidth * scale, sHeight * scale)?.meters()?.distance ?: 1f
+            map?.distancePerPixel(realWidth * scale, realHeight * scale)?.meters()?.distance ?: 1f
         val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
         val map = mutableMapOf<Long, RenderedPath>()
         for (path in paths) {
@@ -339,14 +347,32 @@ class OfflineMapView : SubsamplingScaleImageView {
             }
 
             viewToSourceCoord(pixel.x, pixel.y)?.let {
-                val percentX = it.x / sWidth
-                val percentY = it.y / sHeight
+                val percentX = it.x / realWidth
+                val percentY = it.y / realHeight
                 val percent = PercentCoordinate(percentX, percentY)
                 onMapClick?.invoke(percent)
             }
             return super.onSingleTapConfirmed(e)
         }
     }
+
+    private val realWidth: Int
+        get() {
+            return if (orientation == 90 || orientation == 270){
+                sHeight
+            } else {
+                sWidth
+            }
+        }
+
+    private val realHeight: Int
+        get() {
+            return if (orientation == 90 || orientation == 270){
+                sWidth
+            } else {
+                sHeight
+            }
+        }
 
     private val gestureDetector = GestureDetector(context, gestureListener)
 

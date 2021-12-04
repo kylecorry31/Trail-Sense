@@ -1,26 +1,18 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
-import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.FileOutputStream
-import java.io.IOException
 
 class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
 
@@ -87,37 +79,11 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
     private suspend fun next() {
         val map = map ?: return
         val rotation = binding.rotateView.angle
-        val loading = withContext(Dispatchers.Main) {
-            Alerts.loading(requireContext(), getString(R.string.saving))
-        }
         withContext(Dispatchers.IO) {
-            if (rotation != 0f) {
-                val file = LocalFiles.getFile(requireContext(), map.filename, false)
-                val bitmap = BitmapFactory.decodeFile(file.path)
-                val rotated = bitmap.rotate(rotation)
-                bitmap.recycle()
-
-                // TODO: Just save the rotation amount and apply it on the mapview or if that can't be done, implement it in native code
-                try {
-                    @Suppress("BlockingMethodInNonBlockingContext")
-                    FileOutputStream(file).use { out ->
-                        ImageSaver().save(rotated, out)
-                    }
-                } catch (e: IOException) {
-                    withContext(Dispatchers.Main){
-                        loading.dismiss()
-                    }
-                    return@withContext
-                } finally {
-                    rotated.recycle()
-                }
-            }
-
-            mapRepo.addMap(map.copy(rotated = true))
+            mapRepo.addMap(map.copy(rotated = true, rotation = rotation.toInt()))
         }
 
         withContext(Dispatchers.Main) {
-            loading.dismiss()
             onDone.invoke()
         }
     }

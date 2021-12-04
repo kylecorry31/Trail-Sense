@@ -12,6 +12,7 @@ data class Map(
     val calibrationPoints: List<MapCalibrationPoint>,
     val warped: Boolean,
     val rotated: Boolean,
+    val rotation: Int = 0,
     val projection: MapProjectionType = MapProjectionType.Mercator
 ) {
 

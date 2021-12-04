@@ -9,8 +9,6 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.*
 import com.kylecorry.trail_sense.navigation.paths.domain.WaypointEntity
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathDao
@@ -35,7 +33,7 @@ import java.io.File
  */
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class],
-    version = 18,
+    version = 19,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -216,6 +214,13 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_18_19 = object : Migration(18, 19) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `projection` INTEGER NOT NULL DEFAULT 1")
+                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `rotation` INTEGER NOT NULL DEFAULT 0")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -234,7 +239,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_14_15,
                     MIGRATION_15_16,
                     MIGRATION_16_17,
-                    MIGRATION_17_18
+                    MIGRATION_17_18,
+                    MIGRATION_18_19
                 )
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

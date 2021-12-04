@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.shared.database.Identifiable
 
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
@@ -33,4 +34,12 @@ fun PixelCoordinate.toVector2(): Vector2 {
 
 fun Vector2.toPixel(): PixelCoordinate {
     return PixelCoordinate(x, y)
+}
+
+fun <T : Identifiable> Array<T>.withId(id: Long): T? {
+    return firstOrNull { it.id == id }
+}
+
+fun <T : Identifiable> Collection<T>.withId(id: Long): T? {
+    return firstOrNull { it.id == id }
 }
