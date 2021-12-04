@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
@@ -225,13 +226,17 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun mapFromUri(uri: Uri) {
-        binding.mapLoading.isVisible = true
         binding.addBtn.isEnabled = false
         lifecycleScope.launch {
+            val loading = withContext(Dispatchers.Main){
+                Alerts.loading(requireContext(), getString(R.string.importing_map))
+            }
+
             withContext(Dispatchers.IO) {
                 val type = requireContext().contentResolver.getType(uri)
                 var calibration1: MapCalibrationPoint? = null
                 var calibration2: MapCalibrationPoint? = null
+                var projection = MapProjectionType.CylindricalEquidistant
 
                 val extension = if (type == "application/pdf"){
                     "webp"
@@ -256,7 +261,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 requireContext(),
                                 getString(R.string.error_importing_map)
                             )
-                            binding.mapLoading.isVisible = false
+                            loading.dismiss()
                             binding.addBtn.isEnabled = true
                         }
                         return@withContext
@@ -270,6 +275,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         calibration2 = points[1]
                     }
 
+                    val projectionName = metadata?.projection?.projection
+
+                    if (projectionName != null && projectionName.contains("mercator", true)){
+                        projection = MapProjectionType.Mercator
+                    }
+
                     try {
                         copyToLocalStorage(bp, filename)
                     } catch (e: IOException) {
@@ -278,7 +289,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 requireContext(),
                                 getString(R.string.error_importing_map)
                             )
-                            binding.mapLoading.isVisible = false
+                            loading.dismiss()
                             binding.addBtn.isEnabled = true
                         }
                         return@withContext
@@ -296,7 +307,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 requireContext(),
                                 getString(R.string.error_importing_map)
                             )
-                            binding.mapLoading.isVisible = false
+                            loading.dismiss()
                             binding.addBtn.isEnabled = true
                         }
                         return@withContext
@@ -311,7 +322,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     filename,
                     calibrationPoints,
                     warped = calibrationPoints.isNotEmpty(),
-                    rotated = calibrationPoints.isNotEmpty()
+                    rotated = calibrationPoints.isNotEmpty(),
+                    projection = projection
                 )
                 val id = mapRepo.addMap(map)
 
@@ -327,7 +339,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                             getString(R.string.map_auto_calibrated)
                         )
                     }
-                    binding.mapLoading.isVisible = true
+                    loading.dismiss()
                     binding.addBtn.isEnabled = true
                     findNavController().navigate(
                         R.id.action_mapList_to_maps,
