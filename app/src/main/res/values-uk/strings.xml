@@ -1032,4 +1032,5 @@
     <string name="simplifying">Спрощування</string>
     <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="navigation_guide_description">Використання маяків і шляхів</string>
+    <string name="saving">Зберігання</string>
 </resources>
