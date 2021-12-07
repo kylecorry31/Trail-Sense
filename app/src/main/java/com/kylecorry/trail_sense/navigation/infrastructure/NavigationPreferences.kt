@@ -202,15 +202,9 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         false
     )
 
-    val useLowResolutionMaps by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_low_resolution_maps),
-        false
-    )
-
     val autoReduceMaps by BooleanPreference(
         cache,
-        context.getString(R.string.pref_auto_reduce_maps),
+        context.getString(R.string.pref_low_resolution_maps),
         true
     )
 

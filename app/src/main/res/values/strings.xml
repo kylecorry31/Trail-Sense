@@ -879,8 +879,6 @@
     <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
     <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
     <string name="pref_maps_header_key" translatable="false">pref_maps_header_key</string>
-    <string name="pref_low_resolution_maps_summary">For devices with memory constraints</string>
-    <string name="pref_low_resolution_maps_title">Use low resolution</string>
     <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
     <string name="pref_auto_low_power_summary">When your battery is low</string>
     <string name="pref_auto_low_power_title">Automatic power saving</string>
@@ -1137,10 +1135,10 @@
     <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
     <string name="navigation_guide_description">Using beacons and paths</string>
     <string name="saving">Saving</string>
-    <string name="pref_auto_reduce_maps" translatable="false">pref_auto_reduce_maps</string>
     <string name="change_map_projection">Change projection</string>
     <string name="map_projection_mercator">Mercator</string>
     <string name="map_projection_equidistant">Equidistant</string>
+    <string name="reduce_map_resolution">Reduce map resolution</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>
