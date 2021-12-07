@@ -14,17 +14,22 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class MapsFragment: BoundFragment<FragmentMapsBinding>() {
+class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val mapService by lazy { MapService(mapRepo) }
+    private val formatter by lazy { FormatService(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -48,7 +53,7 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
         binding.recenterBtn.isVisible = false
 
         lifecycleScope.launch {
-           loadMap()
+            loadMap()
         }
 
         binding.recenterBtn.setOnClickListener {
@@ -59,32 +64,28 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
         }
 
         binding.menuBtn.setOnClickListener {
-            Pickers.menu(it, R.menu.map_menu) {
+            val fragment = currentFragment
+            val isMapView = fragment != null && fragment is ViewMapFragment
+            Pickers.menu(
+                it, listOf(
+                    if (isMapView) getString(R.string.calibrate) else null,
+                    getString(R.string.tool_user_guide_title),
+                    getString(R.string.rename),
+                    if (isMapView) getString(R.string.change_map_projection) else null,
+                    getString(R.string.delete)
+                )
+            ) {
                 when (it) {
-                    R.id.action_map_delete -> {
-                        Alerts.dialog(
-                            requireContext(),
-                            getString(R.string.delete_map),
-                            map?.name,
-                        ) { cancelled ->
-                            if (!cancelled) {
-                                lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
-                                        map?.let {
-                                            mapRepo.deleteMap(it)
-                                        }
-                                    }
-                                    withContext(Dispatchers.Main) {
-                                        findNavController().popBackStack()
-                                    }
-                                }
-                            }
+                    0 -> { // Calibrate
+                        val fragment = currentFragment
+                        if (fragment != null && fragment is ViewMapFragment) {
+                            fragment.calibrateMap()
                         }
                     }
-                    R.id.action_map_guide -> {
+                    1 -> { // Guide
                         UserGuideUtils.openGuide(this, R.raw.importing_maps)
                     }
-                    R.id.action_map_rename -> {
+                    2 -> { // Rename
                         Pickers.text(
                             requireContext(),
                             getString(R.string.create_map),
@@ -105,10 +106,52 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
                             }
                         }
                     }
-                    R.id.action_map_calibrate -> {
-                        val fragment = currentFragment
-                        if (fragment != null && fragment is ViewMapFragment) {
-                            fragment.calibrateMap()
+                    3 -> { // Change projection
+                        val projections = MapProjectionType.values()
+                        val projectionNames = projections.map { formatter.formatMapProjection(it) }
+                        Pickers.item(
+                            requireContext(),
+                            getString(R.string.change_map_projection),
+                            projectionNames,
+                            projections.indexOf(map?.projection)
+                        ) {
+                            if (it != null) {
+                                map?.let { m ->
+                                    val newProjection = projections[it]
+                                    runInBackground {
+                                        withContext(Dispatchers.IO) {
+                                            mapService.setProjection(m, newProjection)
+                                            map = map?.copy(projection = newProjection)
+                                        }
+                                        withContext(Dispatchers.Main){
+                                            val fragment = currentFragment
+                                            if (fragment != null && fragment is ViewMapFragment) {
+                                                fragment.reloadMap()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    4 -> { // Delete
+                        Alerts.dialog(
+                            requireContext(),
+                            getString(R.string.delete_map),
+                            map?.name,
+                        ) { cancelled ->
+                            if (!cancelled) {
+                                lifecycleScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        map?.let {
+                                            mapRepo.deleteMap(it)
+                                        }
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        findNavController().popBackStack()
+                                    }
+                                }
+                            }
                         }
                     }
                     else -> {
@@ -120,7 +163,7 @@ class MapsFragment: BoundFragment<FragmentMapsBinding>() {
 
     }
 
-    private suspend fun loadMap(){
+    private suspend fun loadMap() {
         withContext(Dispatchers.IO) {
             map = mapRepo.getMap(mapId)
         }

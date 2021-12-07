@@ -24,8 +24,9 @@ import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
+import com.kylecorry.trail_sense.shared.domain.Probability
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -560,6 +561,13 @@ class FormatService(private val context: Context) {
             HikingDifficulty.Easiest -> context.getString(R.string.easy)
             HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> context.getString(R.string.moderate)
             else -> context.getString(R.string.hard)
+        }
+    }
+
+    fun formatMapProjection(projection: MapProjectionType): String {
+        return when(projection){
+            MapProjectionType.Mercator -> context.getString(R.string.map_projection_mercator)
+            MapProjectionType.CylindricalEquidistant -> context.getString(R.string.map_projection_equidistant)
         }
     }
 

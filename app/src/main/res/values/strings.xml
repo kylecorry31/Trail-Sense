@@ -1138,6 +1138,9 @@
     <string name="navigation_guide_description">Using beacons and paths</string>
     <string name="saving">Saving</string>
     <string name="pref_auto_reduce_maps" translatable="false">pref_auto_reduce_maps</string>
+    <string name="change_map_projection">Change projection</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="map_projection_equidistant">Equidistant</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

@@ -112,16 +112,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
         }
 
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                map = mapRepo.getMap(mapId)
-            }
-            withContext(Dispatchers.Main) {
-                map?.let {
-                    onMapLoad(it)
-                }
-            }
-        }
+        reloadMap()
 
         binding.calibrationNext.setOnClickListener {
             if (calibrationIndex == 1) {
@@ -228,6 +219,19 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     override fun onResume() {
         super.onResume()
         binding.map.setMyLocation(gps.location)
+    }
+
+    fun reloadMap(){
+        runInBackground {
+            withContext(Dispatchers.IO) {
+                map = mapRepo.getMap(mapId)
+            }
+            withContext(Dispatchers.Main) {
+                map?.let {
+                    onMapLoad(it)
+                }
+            }
+        }
     }
 
     private fun displayPaths() {
