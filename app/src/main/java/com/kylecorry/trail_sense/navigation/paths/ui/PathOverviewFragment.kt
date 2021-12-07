@@ -77,7 +77,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         chart = PathElevationChart(binding.chart)
 
         binding.pathImage.setOnTouchListener { v, event ->
@@ -318,24 +317,24 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             calculatedDuration
         }
 
-        binding.pathDuration.text = formatService.formatDuration(duration, false)
-        binding.pathWaypoints.text = path.metadata.waypoints.toString()
+        binding.pathDuration.title = formatService.formatDuration(duration, false)
+        binding.pathWaypoints.title = path.metadata.waypoints.toString()
 
         // Elevations
-        binding.pathElevationGain.text = formatService.formatDistance(
+        binding.pathElevationGain.title = formatService.formatDistance(
             elevationGain,
             Units.getDecimalPlaces(elevationGain.units),
             false
         )
-        binding.pathElevationLoss.text = formatService.formatDistance(
+        binding.pathElevationLoss.title = formatService.formatDistance(
             elevationLoss,
             Units.getDecimalPlaces(elevationLoss.units),
             false
         )
 
-        binding.pathDifficulty.text = formatService.formatHikingDifficulty(difficulty)
+        binding.pathDifficulty.title = formatService.formatHikingDifficulty(difficulty)
 
-        binding.pathDistance.text =
+        binding.pathDistance.title =
             formatService.formatDistance(
                 distance,
                 Units.getDecimalPlaces(distance.units),

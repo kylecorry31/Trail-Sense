@@ -130,173 +130,72 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp" />
 
-        <com.google.android.flexbox.FlexboxLayout
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/path_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:alignItems="center"
-            app:flexWrap="wrap"
-            app:justifyContent="space_evenly">
+            android:layout_gravity="center"
+            app:useDefaultMargins="false"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:columnCount="2">
 
-            <LinearLayout
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:dataPointDescription="@string/duration"
+                android:layout_margin="8dp"
+                app:layout_columnWeight="1"
+                app:dataPointIcon="@drawable/ic_tool_clock" />
 
-                <TextView
-                    android:id="@+id/path_duration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_tool_clock"
-                    tools:text="18m" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/duration"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:dataPointDescription="@string/distance"
+                android:layout_margin="8dp"
+                app:layout_columnWeight="1"
+                app:dataPointIcon="@drawable/ruler" />
 
-                <TextView
-                    android:id="@+id/path_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ruler"
-                    tools:text="1.1 km" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/distance"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_waypoints"
                 android:layout_width="wrap_content"
+                app:layout_columnWeight="1"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:dataPointDescription="@string/points"
+                android:layout_margin="8dp"
+                app:dataPointIcon="@drawable/ic_location" />
 
-                <TextView
-                    android:id="@+id/path_waypoints"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_location"
-                    tools:text="10" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/points"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_difficulty"
                 android:layout_width="wrap_content"
+                app:layout_columnWeight="1"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:dataPointDescription="@string/difficulty"
+                android:layout_margin="8dp"
+                app:dataPointIcon="@drawable/steps" />
 
-                <TextView
-                    android:id="@+id/path_difficulty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/steps"
-                    tools:text="Easy" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/difficulty"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_elevation_gain"
                 android:layout_width="wrap_content"
+                app:layout_columnWeight="1"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:dataPointDescription="@string/elevation_gain"
+                android:layout_margin="8dp"
+                app:dataPointIcon="@drawable/ic_elevation_gain" />
 
-                <TextView
-                    android:id="@+id/path_elevation_gain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_elevation_gain"
-                    tools:text="1000m" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/elevation_gain"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_elevation_loss"
                 android:layout_width="wrap_content"
+                app:layout_columnWeight="1"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:dataPointDescription="@string/elevation_loss"
+                android:layout_margin="8dp"
+                app:dataPointIcon="@drawable/ic_elevation_loss" />
 
-                <TextView
-                    android:id="@+id/path_elevation_loss"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    app:drawableTint="?android:textColorSecondary"
-                    app:drawableTopCompat="@drawable/ic_elevation_loss"
-                    tools:text="1000m" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:text="@string/elevation_loss"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-        </com.google.android.flexbox.FlexboxLayout>
+        </androidx.gridlayout.widget.GridLayout>
 
         <TextView
             android:layout_width="wrap_content"

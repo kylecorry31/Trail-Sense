@@ -63,6 +63,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.2")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.work:work-runtime-ktx:2.7.1")
