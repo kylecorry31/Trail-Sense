@@ -1007,4 +1007,8 @@
     </plurals>
     <string name="navigation_guide_description">使用信标和路径</string>
     <string name="saving">节省</string>
+    <string name="change_map_projection">更改地图投影</string>
+    <string name="map_projection_mercator">墨卡托</string>
+    <string name="map_projection_equidistant">等距离</string>
+    <string name="reduce_map_resolution">降低地图分辨率</string>
 </resources>
