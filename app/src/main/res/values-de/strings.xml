@@ -1015,4 +1015,6 @@
     <string name="simplify">Vereinfachen Sie</string>
     <string name="simplifying">Vereinfachung</string>
     <string name="simplification_quality">Vereinfachungsqualität</string>
+    <string name="saving">Speichert</string>
+    <string name="navigation_guide_description">Mit Wegpunkten und Pfaden</string>
 </resources>
