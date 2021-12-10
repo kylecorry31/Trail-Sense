@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.tools.inclinometer.ui.InclinometerView
-        android:id="@+id/inclinometer_view"
+    <com.kylecorry.trail_sense.tools.inclinometer.ui.SideInclinometerView
+        android:id="@+id/side_inclinometer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.inclinometer.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
@@ -13,7 +14,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.hypot
 
-class InclinometerView : CanvasView {
+class SideInclinometerView : CanvasView {
 
     private val formatter = FormatService(context)
 
@@ -62,27 +63,31 @@ class InclinometerView : CanvasView {
     private var lockedIcon: Bitmap? = null
     private var primaryColor: Int = Color.BLACK
     private var secondaryColor: Int = Color.BLACK
+    private val groundPath = Path()
 
     override fun setup() {
         lockedIcon = loadImage(R.drawable.lock, dp(24f).toInt(), dp(24f).toInt())
         primaryColor = Resources.androidTextColorPrimary(context)
         secondaryColor = Resources.androidTextColorSecondary(context)
+        groundPath.apply {
+            val w = hypot(width.toFloat(), height.toFloat())
+            val h = w / 2
+            val dw = w - width
+            addRect(-dw / 2, height / 2f, -dw / 2 + w, height / 2f + h, Path.Direction.CW)
+        }
     }
 
     override fun draw() {
         push()
         rotate(angle)
 
-        val w = hypot(width.toFloat(), height.toFloat())
-        val h = w / 2
-
-        val dw = w - width
-
+        // Draw ground
         fill(color)
         opacity(127)
-        rect(-dw / 2, height / 2f, w, h, 0f)
+        path(groundPath)
         opacity(255)
 
+        // Draw text
         noStroke()
         fill(primaryColor)
         textSize(sp(28f))
@@ -91,12 +96,16 @@ class InclinometerView : CanvasView {
         val inclineTextHeight = textHeight(inclineText)
         text(inclineText, width / 2f, height / 2f - inclineTextHeight)
 
-        if (locked){
+        if (locked) {
             lockedIcon?.let {
                 val inclineTextWidth = textWidth(inclineText)
                 imageMode(ImageMode.Center)
                 tint(secondaryColor)
-                image(it, width / 2f + inclineTextWidth / 2f + dp(32f), height / 2f - inclineTextHeight)
+                image(
+                    it,
+                    width / 2f + inclineTextWidth / 2f + dp(32f),
+                    height / 2f - inclineTextHeight
+                )
                 noTint()
             }
         }
@@ -109,7 +118,7 @@ class InclinometerView : CanvasView {
         pop()
     }
 
-    fun reset(){
+    fun reset() {
         angle = 90f
         incline = 0f
         color = AppColor.Gray.color

@@ -20,7 +20,6 @@ import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
-import com.kylecorry.andromeda.sense.inclinometer.IInclinometer
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
@@ -39,7 +38,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
-import com.kylecorry.trail_sense.tools.inclinometer.ui.Inclinometer2
+import com.kylecorry.trail_sense.tools.inclinometer.ui.SideInclinometer
 import java.time.Duration
 
 class SensorService(ctx: Context) {
@@ -142,8 +141,8 @@ class SensorService(ctx: Context) {
         return if (userPrefs.weather.hasBarometer) Barometer(context) else NullBarometer()
     }
 
-    fun getInclinometer(): Inclinometer2 {
-        return Inclinometer2(context)
+    fun getInclinometer(): SideInclinometer {
+        return SideInclinometer(context)
     }
 
     @Suppress("DEPRECATION")

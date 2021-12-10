@@ -121,26 +121,26 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
         }
 
         if (!isOrientationValid() && slopeIncline == null) {
-            binding.inclinometerView.reset()
-            binding.inclinometerView.message = getString(R.string.inclinometer_rotate_device)
+            binding.sideInclinometer.reset()
+            binding.sideInclinometer.message = getString(R.string.inclinometer_rotate_device)
             return
         }
 
-        binding.inclinometerView.angle = slopeAngle ?: inclinometer.angle
-        binding.inclinometerView.incline = slopeIncline ?: inclinometer.incline
+        binding.sideInclinometer.angle = slopeAngle ?: inclinometer.angle
+        binding.sideInclinometer.incline = slopeIncline ?: inclinometer.incline
 
         val avalancheRisk = geoService.getAvalancheRisk(
             slopeIncline ?: inclinometer.incline
         )
 
-        binding.inclinometerView.color = when(avalancheRisk){
+        binding.sideInclinometer.color = when(avalancheRisk){
             AvalancheRisk.Low -> AppColor.Gray.color
             AvalancheRisk.High -> AppColor.Red.color
             AvalancheRisk.Moderate -> AppColor.Yellow.color
         }
 
-        binding.inclinometerView.locked = slopeAngle != null
-        binding.inclinometerView.message = getAvalancheRiskString(avalancheRisk)
+        binding.sideInclinometer.locked = slopeAngle != null
+        binding.sideInclinometer.message = getAvalancheRiskString(avalancheRisk)
 
         updateObjectHeight()
     }

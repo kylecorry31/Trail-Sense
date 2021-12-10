@@ -181,7 +181,7 @@
     <string name="avalanche_risk_med">Moderate avalanche risk</string>
     <string name="avalanche_risk_high">High avalanche risk</string>
     <string name="inclinometer_rotate_device">Hold your phone vertically to measure inclination</string>
-    <string name="set_inclination_instructions">Tap anywhere to set/unset inclination angle</string>
+    <string name="set_inclination_instructions">Tap anywhere to lock/unlock</string>
     <string name="estimated_height">estimated height</string>
     <string name="your_height">Your height</string>
     <!--Inventory-->

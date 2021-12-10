@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.sense.inclinometer.IInclinometer
 import com.kylecorry.sol.math.Vector3
 import kotlin.math.atan2
 
-class Inclinometer2(context: Context) : AbstractSensor(), IInclinometer {
+class SideInclinometer(context: Context) : AbstractSensor(), IInclinometer {
 
     override val angle: Float
         get() = _angle
