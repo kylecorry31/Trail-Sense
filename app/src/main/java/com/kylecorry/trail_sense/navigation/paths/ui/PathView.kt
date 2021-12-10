@@ -48,6 +48,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             invalidate()
         }
 
+    var isInteractive = false
+
     private var pathInitialized = false
     private var drawnPath = Path()
 
@@ -300,9 +302,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        gestureDetector.onTouchEvent(event)
-        invalidate()
+        if (isInteractive) {
+            mScaleDetector.onTouchEvent(event)
+            gestureDetector.onTouchEvent(event)
+            invalidate()
+        }
         return true
     }
 

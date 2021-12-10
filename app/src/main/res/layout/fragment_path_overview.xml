@@ -18,7 +18,7 @@
 
             <TextView
                 android:id="@+id/path_times"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:textAlignment="center"
@@ -87,13 +87,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/path_map_holder"
             android:layout_width="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_height="250dp">
 
             <com.kylecorry.trail_sense.navigation.paths.ui.PathView
                 android:id="@+id/path_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorSecondary"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/colorSecondary"
                 android:keepScreenOn="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

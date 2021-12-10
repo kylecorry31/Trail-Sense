@@ -79,6 +79,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         super.onViewCreated(view, savedInstanceState)
         chart = PathElevationChart(binding.chart)
 
+        binding.pathImage.isInteractive = true
+
         binding.pathImage.setOnTouchListener { v, event ->
             binding.root.isScrollable = event.action == MotionEvent.ACTION_UP
             false
@@ -86,7 +88,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathMapFullscreenToggle.setOnClickListener {
             isFullscreen = !isFullscreen
-            binding.pathImage.recenter()
             binding.pathMapHolder.layoutParams = if (isFullscreen) {
                 val legendHeight = Resources.dp(requireContext(), 72f).toInt()
                 LinearLayout.LayoutParams(
@@ -97,12 +98,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     Resources.dp(requireContext(), 250f).toInt()
-                )
+                ).also {
+                    it.marginStart = Resources.dp(requireContext(), 16f).toInt()
+                    it.marginEnd = Resources.dp(requireContext(), 16f).toInt()
+                }
             }
             binding.pathMapFullscreenToggle.setImageResource(if (isFullscreen) R.drawable.ic_fullscreen_exit else R.drawable.ic_recenter)
             val timer = Timer {
                 if (isBound) {
                     binding.root.scrollTo(0, binding.pathMapHolder.top)
+                    binding.pathImage.recenter()
                 }
             }
             timer.once(Duration.ofMillis(30))
