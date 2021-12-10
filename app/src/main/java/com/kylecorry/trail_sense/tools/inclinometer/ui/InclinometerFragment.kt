@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
@@ -30,6 +31,7 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
 
+    private var slopeIncline: Float? = null
     private var slopeAngle: Float? = null
 
     private var objectDistance: Distance? = null
@@ -89,13 +91,13 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
         }
 
         binding.root.setOnClickListener {
-            slopeAngle = if (slopeAngle == null && isOrientationValid()) {
-                inclinometer.angle
+            if (slopeIncline == null && isOrientationValid()) {
+                slopeAngle = inclinometer.angle
+                slopeIncline = inclinometer.incline
             } else {
-                null
+                slopeAngle = null
+                slopeIncline = null
             }
-            binding.inclineLock.visibility =
-                if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
         }
 
     }
@@ -118,30 +120,33 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
             return
         }
 
-        if (!isOrientationValid() && slopeAngle == null) {
-            // Display rotate icon / message
-            binding.avalancheAlert.visibility = View.INVISIBLE
-            binding.incline.text = getString(R.string.dash)
-            binding.avalancheRisk.text = getString(R.string.inclinometer_rotate_device)
+        if (!isOrientationValid() && slopeIncline == null) {
+            binding.inclinometerView.reset()
+            binding.inclinometerView.message = getString(R.string.inclinometer_rotate_device)
             return
         }
 
+        binding.inclinometerView.angle = slopeAngle ?: inclinometer.angle
+        binding.inclinometerView.incline = slopeIncline ?: inclinometer.incline
+
         val avalancheRisk = geoService.getAvalancheRisk(
-            slopeAngle ?: inclinometer.angle
+            slopeIncline ?: inclinometer.incline
         )
 
-        binding.avalancheAlert.visibility =
-            if (avalancheRisk == AvalancheRisk.Low) View.INVISIBLE else View.VISIBLE
-        binding.inclineLock.visibility = if (slopeAngle != null) View.VISIBLE else View.INVISIBLE
+        binding.inclinometerView.color = when(avalancheRisk){
+            AvalancheRisk.Low -> AppColor.Gray.color
+            AvalancheRisk.High -> AppColor.Red.color
+            AvalancheRisk.Moderate -> AppColor.Yellow.color
+        }
 
-        binding.incline.text = getString(R.string.degree_format, slopeAngle ?: inclinometer.angle)
-        binding.avalancheRisk.text = getAvalancheRiskString(avalancheRisk)
+        binding.inclinometerView.locked = slopeAngle != null
+        binding.inclinometerView.message = getAvalancheRiskString(avalancheRisk)
 
         updateObjectHeight()
     }
 
     private fun updateObjectHeight() {
-        val incline = slopeAngle ?: inclinometer.angle
+        val incline = slopeIncline ?: inclinometer.incline
 
         if (objectDistance == null) {
             binding.estimatedHeight.text = getString(R.string.dash)
