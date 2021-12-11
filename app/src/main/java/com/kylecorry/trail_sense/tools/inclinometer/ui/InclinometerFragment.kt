@@ -127,6 +127,7 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
         }
 
         binding.sideInclinometer.angle = slopeAngle ?: inclinometer.angle
+        binding.unitAngle.angle = slopeAngle ?: inclinometer.angle
         binding.sideInclinometer.incline = slopeIncline ?: inclinometer.incline
 
         val avalancheRisk = geoService.getAvalancheRisk(

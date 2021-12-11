@@ -11,6 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.kylecorry.trail_sense.tools.inclinometer.ui.UnitAngleView
+        android:id="@+id/unit_angle"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/inclinometer_instructions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/estimated_height"
         android:layout_width="wrap_content"
@@ -36,6 +45,7 @@
 
 
     <TextView
+        android:id="@+id/inclinometer_instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
