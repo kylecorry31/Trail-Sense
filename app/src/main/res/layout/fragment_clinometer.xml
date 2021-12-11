@@ -54,13 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:dataPointDescription="@string/avalanche_risk"
-        app:dataPointIcon="@drawable/ic_precipitation_snow"
+        app:dataPointIcon="@drawable/avalanche"
         app:layout_constraintBottom_toTopOf="@+id/clinometer_instructions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clinometer" />
 
-    
+
     <TextView
         android:id="@+id/inclination_description"
         android:layout_width="wrap_content"
