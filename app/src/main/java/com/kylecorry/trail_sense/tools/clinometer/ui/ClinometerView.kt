@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.clinometer.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
@@ -48,18 +49,26 @@ class ClinometerView : CanvasView {
     private var lockImage: Bitmap? = null
     private var radius = 1f
 
+    private val avalancheRiskClipPath = Path()
+
 
     override fun setup() {
         dialColor = Resources.color(context, R.color.colorSecondary)
         tickLength = dp(4f)
         lockImage = loadImage(R.drawable.lock, dp(24f).toInt(), dp(24f).toInt())
         textSize(sp(10f))
+        radius = min(width.toFloat(), height.toFloat()) / 2
+        avalancheRiskClipPath.addCircle(
+            width / 2f,
+            height / 2f,
+            radius - tickLength,
+            Path.Direction.CW
+        )
     }
 
     override fun draw() {
         push()
         val onLeft = angle in 180.0..360.0
-        radius = min(width.toFloat(), height.toFloat()) / 2
         val realAngle = if (onLeft) {
             angle - 180
         } else {
@@ -92,6 +101,10 @@ class ClinometerView : CanvasView {
 
         val alpha = 150
 
+        push()
+
+        clipInverse(avalancheRiskClipPath)
+
         // High
         fill(AppColor.Red.color)
         opacity(alpha)
@@ -111,6 +124,8 @@ class ClinometerView : CanvasView {
         arc(x, y, d, d, 60f, 90f)
 
         opacity(255)
+
+        pop()
 
     }
 
