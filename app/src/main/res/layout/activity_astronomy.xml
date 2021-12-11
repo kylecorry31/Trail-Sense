@@ -19,7 +19,6 @@
         app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_tool_whistle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,7 +34,6 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/flashlight" />
 
     <ImageView

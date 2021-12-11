@@ -12,6 +12,7 @@ import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
@@ -29,6 +30,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
+        CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
 
         binding.root.setOnClickListener {
             if (slopeIncline == null && isOrientationValid()) {
