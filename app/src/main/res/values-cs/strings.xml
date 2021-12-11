@@ -35,12 +35,12 @@
     <string name="subtract">Odečíst</string>
     <string name="add">Přidat</string>
     <string name="estimated_height">odhadovaná výška</string>
-    <string name="inclinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
+    <string name="clinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="avalanche_risk_high">Vysoká pravděpodobnost laviny</string>
     <string name="avalanche_risk_med">Středně velká pravděpodobnost laviny</string>
     <string name="avalanche_risk_low">Malá pravděpodobnost laviny</string>
-    <string name="tool_inclinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
-    <string name="inclinometer_title">Sklonoměr</string>
+    <string name="tool_clinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
+    <string name="clinometer_title">Sklonoměr</string>
     <string name="offline_maps">Offline mapy</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>
     <string name="moon_phase">Měsíční fáze</string>

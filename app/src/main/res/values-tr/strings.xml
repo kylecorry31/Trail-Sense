@@ -450,12 +450,12 @@
     <string name="your_height">Sizin boyunuz</string>
     <string name="estimated_height">tahmini yükseklik</string>
     <string name="set_inclination_instructions">Eğim açısını belirlemek/değiştirmek için herhangi bir yere dokunun</string>
-    <string name="inclinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
+    <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
     <string name="avalanche_risk_high">Yüksek çığ riski</string>
     <string name="avalanche_risk_med">Orta çığ riski</string>
     <string name="avalanche_risk_low">Düşük çığ riski</string>
-    <string name="tool_inclinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
-    <string name="inclinometer_title">Eğim ölçer</string>
+    <string name="tool_clinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
+    <string name="clinometer_title">Eğim ölçer</string>
     <string name="offline_maps">Çevrimdışı Haritalar</string>
     <string name="moon_illumination">Ayın aydınlığı</string>
     <string name="moon_phase">Ayın evresi</string>

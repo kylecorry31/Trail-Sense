@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inclinometer.ui
+package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.content.Context
 import android.util.AttributeSet

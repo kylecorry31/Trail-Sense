@@ -220,12 +220,12 @@
     <string name="add">Lisää</string>
     <string name="estimated_height">arvioitu korkeus</string>
     <string name="set_inclination_instructions">Napauta mistä tahansa asettaaksesi / poistaaksesi kallistuskulman</string>
-    <string name="inclinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>
+    <string name="clinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>
     <string name="avalanche_risk_high">Korkea vyöryriski</string>
     <string name="avalanche_risk_med">Kohtuullinen vyöryriski</string>
     <string name="avalanche_risk_low">Matala vyöryriski</string>
-    <string name="tool_inclinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
-    <string name="inclinometer_title">Kaltevuusmittari</string>
+    <string name="tool_clinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
+    <string name="clinometer_title">Kaltevuusmittari</string>
     <string name="offline_maps">Offline kartat</string>
     <string name="moon_illumination">Kuun valaistus</string>
     <string name="moon_phase">Kuunvaihe</string>

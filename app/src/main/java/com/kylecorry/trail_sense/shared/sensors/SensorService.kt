@@ -38,7 +38,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
-import com.kylecorry.trail_sense.tools.inclinometer.ui.SideInclinometer
+import com.kylecorry.trail_sense.tools.clinometer.infrastructure.SideClinometer
 import java.time.Duration
 
 class SensorService(ctx: Context) {
@@ -141,8 +141,8 @@ class SensorService(ctx: Context) {
         return if (userPrefs.weather.hasBarometer) Barometer(context) else NullBarometer()
     }
 
-    fun getInclinometer(): SideInclinometer {
-        return SideInclinometer(context)
+    fun getClinometer(): SideClinometer {
+        return SideClinometer(context)
     }
 
     @Suppress("DEPRECATION")

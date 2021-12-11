@@ -398,12 +398,12 @@
     <string name="your_height">Ваш зріст</string>
     <string name="estimated_height">розрахункова висота</string>
     <string name="set_inclination_instructions">Торкніться екрана для закріплення значення</string>
-    <string name="inclinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
+    <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
     <string name="avalanche_risk_high">Високий ризик лавини</string>
     <string name="avalanche_risk_med">Середній ризик лавини</string>
     <string name="avalanche_risk_low">Низький ризик лавини</string>
-    <string name="tool_inclinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
-    <string name="inclinometer_title">Нахиломір</string>
+    <string name="tool_clinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
+    <string name="clinometer_title">Нахиломір</string>
     <string name="offline_maps">Безмережеві мапи</string>
     <string name="moon_illumination">Місячне освітлення</string>
     <string name="moon_phase">Фаза Місяця</string>

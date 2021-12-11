@@ -6,50 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.tools.inclinometer.ui.InclinometerView
-        android:id="@+id/inclinometer"
+    <com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerView
+        android:id="@+id/clinometer"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.kylecorry.trail_sense.tools.inclinometer.ui.UnitAngleView
+    <com.kylecorry.trail_sense.tools.clinometer.ui.UnitAngleView
         android:id="@+id/unit_angle"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/inclinometer_instructions"
+        app:layout_constraintBottom_toTopOf="@id/clinometer_instructions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/estimated_height"
+        android:id="@+id/inclination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/dash"
         android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="10 m" />
+        tools:text="90" />
 
     <TextView
-        android:id="@+id/estimated_height_lbl"
+        android:id="@+id/inclination_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/estimated_height"
         android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="@+id/estimated_height"
-        app:layout_constraintStart_toStartOf="@+id/estimated_height"
-        app:layout_constraintTop_toBottomOf="@+id/estimated_height" />
+        app:layout_constraintEnd_toEndOf="@+id/inclination"
+        app:layout_constraintStart_toStartOf="@+id/inclination"
+        app:layout_constraintTop_toBottomOf="@+id/inclination"
+        tools:text="@string/avalanche_risk_low" />
 
 
     <TextView
-        android:id="@+id/inclinometer_instructions"
+        android:id="@+id/clinometer_instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -58,31 +57,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/estimated_height_lbl">
-
-        <Button
-            android:id="@+id/select_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            tools:text="Distance away\n-" />
-
-        <Button
-            android:id="@+id/select_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="Your height\n-" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

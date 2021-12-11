@@ -121,7 +121,7 @@
     <string name="delete">Ezabatu</string>
     <string name="subtract">Atera</string>
     <string name="add">Gehitu</string>
-    <string name="inclinometer_title">Klinometroa</string>
+    <string name="clinometer_title">Klinometroa</string>
     <string name="tide_normal">Arrunta</string>
     <string name="sunset_alert_notification_text">Eguzkia %setan sartuko da</string>
     <string name="sunset_alert_notification_title">Eguzkia laster sartuko da</string>

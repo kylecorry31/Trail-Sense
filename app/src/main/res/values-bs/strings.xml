@@ -804,12 +804,12 @@
     <string name="your_height">Vaša visina</string>
     <string name="estimated_height">procijenjena visina</string>
     <string name="set_inclination_instructions">Dodirnite bilo gdje da postavite/poništite kut nagiba</string>
-    <string name="inclinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
+    <string name="clinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
     <string name="avalanche_risk_high">Visok rizik od lavine</string>
     <string name="avalanche_risk_med">Umjereni rizik od lavine</string>
     <string name="avalanche_risk_low">Nizak rizik od lavine</string>
-    <string name="tool_inclinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
-    <string name="inclinometer_title">Inklinometar</string>
+    <string name="tool_clinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
+    <string name="clinometer_title">Inklinometar</string>
     <string name="offline_maps">Karte bez Interneta</string>
     <string name="moon_illumination">Mjesečevo osvjetljenje</string>
     <string name="moon_phase">Mjesečeva faza</string>

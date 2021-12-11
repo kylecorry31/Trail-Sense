@@ -186,7 +186,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         val speedometer = getString(R.string.speedometer)
         val odometer = getString(R.string.odometer)
         val waterBoil = getString(R.string.water_boil_timer_title)
-        val inclinometer = getString(R.string.inclinometer_title)
+        val clinometer = getString(R.string.clinometer_title)
         val level = getString(R.string.tool_bubble_level_title)
         val solar = getString(R.string.tool_solar_panel_title)
         val lightMeter = getString(R.string.tool_light_meter_title)
@@ -205,7 +205,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
         val accelAffectedTools = listOf(
             navigation,
-            inclinometer,
+            clinometer,
             level,
             solar
         )

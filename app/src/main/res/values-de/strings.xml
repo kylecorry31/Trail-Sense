@@ -125,7 +125,7 @@
     <string name="maps">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
-    <string name="inclinometer_title">Neigungsmesser</string>
+    <string name="clinometer_title">Neigungsmesser</string>
     <string name="estimated_height">geschätzte Höhe</string>
     <string name="sensors">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
@@ -218,11 +218,11 @@
     <string name="compass_azimuth">Azimut</string>
     <string name="compass_auto_declination">Deklination automatisch anpassen</string>
     <string name="compass_declination_override">Deklination festlegen</string>
-    <string name="inclinometer_rotate_device">Halten Sie Ihr Telefon vertikal um die Inklination zu messen</string>
+    <string name="clinometer_rotate_device">Halten Sie Ihr Telefon vertikal um die Inklination zu messen</string>
     <string name="avalanche_risk_high">Hohe Lawinengefahr</string>
     <string name="avalanche_risk_med">Mittlere Lawinengefahr</string>
     <string name="avalanche_risk_low">Niedrige Lawinengefahr</string>
-    <string name="tool_inclinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
+    <string name="tool_clinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
     <string name="offline_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
     <plurals name="beacon_group_summary">

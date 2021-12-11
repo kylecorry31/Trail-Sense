@@ -130,12 +130,12 @@
     <string name="coordinate_format_decimal_degrees">10進数</string>
     <string name="estimated_height">estimated height</string>
     <string name="set_inclination_instructions">Tap anywhere to set/unset inclination angle</string>
-    <string name="inclinometer_rotate_device">Hold your phone vertically to measure inclination</string>
+    <string name="clinometer_rotate_device">Hold your phone vertically to measure inclination</string>
     <string name="avalanche_risk_high">High avalanche risk</string>
     <string name="avalanche_risk_med">Moderate avalanche risk</string>
     <string name="avalanche_risk_low">Low avalanche risk</string>
-    <string name="tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
-    <string name="inclinometer_title">Inclinometer</string>
+    <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
+    <string name="clinometer_title">Clinometer</string>
     <string name="moon_illumination">月の輝度</string>
     <string name="moon_phase">月相</string>
     <string name="lunar_noon">月の南中</string>

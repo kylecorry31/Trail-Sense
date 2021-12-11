@@ -119,12 +119,12 @@
     <string name="subtract">Aftrekken</string>
     <string name="estimated_height">geschatte hoogte</string>
     <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
-    <string name="inclinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
+    <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="avalanche_risk_high">Hoog risico op lawines</string>
     <string name="avalanche_risk_med">Gemiddeld risico op lawines</string>
     <string name="avalanche_risk_low">Laag risico op lawines</string>
-    <string name="tool_inclinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
-    <string name="inclinometer_title">Hellingsmeter</string>
+    <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
+    <string name="clinometer_title">Hellingsmeter</string>
     <string name="offline_maps">Offline Kaarten</string>
     <string name="moon_illumination">Maanverlichting</string>
     <string name="moon_phase">Maanstand</string>

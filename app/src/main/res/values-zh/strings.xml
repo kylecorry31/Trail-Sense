@@ -102,12 +102,12 @@
     <string name="pref_coordinate_format_title">坐标格式</string>
     <string name="estimated_height">预计的高度</string>
     <string name="set_inclination_instructions">轻触任何地方以设定/复位倾斜角度</string>
-    <string name="inclinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
+    <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="avalanche_risk_high">高雪崩风险</string>
     <string name="avalanche_risk_med">中度雪崩风险</string>
     <string name="avalanche_risk_low">低雪崩风险</string>
-    <string name="tool_inclinometer_summary">预估雪崩风险与物体高度</string>
-    <string name="inclinometer_title">测斜仪</string>
+    <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
+    <string name="clinometer_title">测斜仪</string>
     <string name="offline_maps">离线地图</string>
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>

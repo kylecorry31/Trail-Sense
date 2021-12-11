@@ -64,8 +64,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_toolsFragment_to_inclinometerFragment"
-            app:destination="@id/action_inclinometer"
+            android:id="@+id/action_toolsFragment_to_clinometerFragment"
+            app:destination="@id/action_clinometer"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -428,9 +428,9 @@
         <!--            app:popUpToInclusive="true" />-->
     </fragment>
     <fragment
-        android:id="@+id/action_inclinometer"
-        android:name="com.kylecorry.trail_sense.tools.inclinometer.ui.InclinometerFragment"
-        android:label="InclinometerFragment" />
+        android:id="@+id/action_clinometer"
+        android:name="com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment"
+        android:label="ClinometerFragment" />
     <fragment
         android:id="@+id/calibrateAltimeterFragment"
         android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment"

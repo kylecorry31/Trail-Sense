@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.inclinometer.ui
+package com.kylecorry.trail_sense.tools.clinometer.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.sense.inclinometer.IInclinometer
 import com.kylecorry.sol.math.Vector3
 import kotlin.math.atan2
 
-class SideInclinometer(context: Context) : AbstractSensor(), IInclinometer {
+class SideClinometer(context: Context) : AbstractSensor(), IInclinometer {
 
     override val angle: Float
         get() = _angle

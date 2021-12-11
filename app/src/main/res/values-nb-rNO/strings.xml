@@ -125,9 +125,9 @@
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_use_24_hour_title">Bruk 24-timersklokke</string>
     <string name="set_inclination_instructions">Trykk hvor som helst for å låse/låse opp helningsvinkel</string>
-    <string name="inclinometer_rotate_device">Hold telefonen vertikalt for å måle helning</string>
-    <string name="tool_inclinometer_summary">Anslå snøskredfare og objekthøyder</string>
-    <string name="inclinometer_title">Klinometer</string>
+    <string name="clinometer_rotate_device">Hold telefonen vertikalt for å måle helning</string>
+    <string name="tool_clinometer_summary">Anslå snøskredfare og objekthøyder</string>
+    <string name="clinometer_title">Klinometer</string>
     <string name="offline_maps">Frakoblede kart</string>
     <string name="tidal_range">Tidevannsforskjell</string>
     <string name="sunset_alert_channel_title">Solnedgangsvarsel</string>

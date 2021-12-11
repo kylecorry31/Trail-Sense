@@ -1,16 +1,19 @@
-package com.kylecorry.trail_sense.tools.inclinometer.ui
+package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
-class InclinometerView : CanvasView {
+class ClinometerView : CanvasView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -30,42 +33,91 @@ class InclinometerView : CanvasView {
             invalidate()
         }
 
+    var locked = false
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     private val formatter = FormatService(context)
     private var dialColor = Color.BLACK
     private val tickInterval = 10
     private var tickLength = 1f
     private val needlePercent = 0.8f
     private val labelInterval = 30
+    private var lockImage: Bitmap? = null
+    private var radius = 1f
 
 
     override fun setup() {
         dialColor = Resources.color(context, R.color.colorSecondary)
         tickLength = dp(4f)
+        lockImage = loadImage(R.drawable.lock, dp(24f).toInt(), dp(24f).toInt())
         textSize(sp(10f))
     }
 
     override fun draw() {
-        val radius = min(width.toFloat(), height.toFloat()) / 2
+        push()
+        val onLeft = angle in 180.0..360.0
+        radius = min(width.toFloat(), height.toFloat()) / 2
+        val realAngle = if (onLeft) {
+            angle - 180
+        } else {
+            angle
+        }
 
-        // Background
+        if (onLeft) {
+            rotate(180f)
+        }
+
+        drawBackground()
+
+        if (locked) {
+            drawLock()
+        }
+
+        drawTicks()
+        drawNeedle(realAngle)
+        pop()
+    }
+
+    private fun drawBackground() {
         fill(dialColor)
         noStroke()
         circle(width / 2f, height / 2f, radius * 2)
 
-        // Ticks
+        val x = width / 2f - radius
+        val y = height / 2f - radius
+        val d = radius * 2
+
+        val alpha = 150
+
+        // High
+        fill(AppColor.Red.color)
+        opacity(alpha)
+        arc(x, y, d, d, 30f, 45f)
+        arc(x, y, d, d, -30f, -45f)
+
+        // Moderate
+        fill(AppColor.Yellow.color)
+        opacity(alpha)
+        arc(x, y, d, d, 45f, 60f)
+        arc(x, y, d, d, -45f, -60f)
+
+        fill(AppColor.Green.color)
+        opacity(alpha)
+        arc(x, y, d, d, -30f, 30f)
+        arc(x, y, d, d, -60f, -90f)
+        arc(x, y, d, d, 60f, 90f)
+
+        opacity(255)
+
+    }
+
+    private fun drawTicks() {
         strokeWeight(dp(2f))
 
-        val onLeft = angle in 180.0..360.0
-
-        val tickRange = if (onLeft) {
-            180..360
-        } else {
-            0..180
-        }
-
-        // TODO: Draw avalanche risk zones
-
-        for (i in tickRange step tickInterval) {
+        for (i in 0..180 step tickInterval) {
             push()
             rotate(i.toFloat())
             stroke(Color.WHITE)
@@ -74,18 +126,10 @@ class InclinometerView : CanvasView {
             if (i % labelInterval == 0) {
                 noStroke()
                 fill(Color.WHITE)
-                val degrees = if (onLeft) {
-                    if (i <= 270) {
-                        270 - i
-                    } else {
-                        i - 270
-                    }
+                val degrees = if (i <= 90) {
+                    90 - i
                 } else {
-                    if (i <= 90) {
-                        90 - i
-                    } else {
-                        i - 90
-                    }
+                    i - 90
                 }
 
                 val degreeText = formatter.formatDegrees(degrees.toFloat())
@@ -101,9 +145,11 @@ class InclinometerView : CanvasView {
 
             pop()
         }
+    }
 
-        // Needle
+    private fun drawNeedle(angle: Float) {
         stroke(Color.WHITE)
+        strokeWeight(dp(4f))
         push()
         rotate(angle)
         line(width / 2f, height / 2f, width / 2f, height / 2f - radius * needlePercent)
@@ -112,6 +158,20 @@ class InclinometerView : CanvasView {
         fill(Color.WHITE)
         noStroke()
         circle(width / 2f, height / 2f, dp(12f))
+    }
+
+    private fun drawLock() {
+        push()
+        rotate(-90f, width / 2f - radius / 2, height / 2f)
+        lockImage?.let {
+            imageMode(ImageMode.Center)
+            image(it, width / 2f - radius / 2, height / 2f)
+        }
+        pop()
+    }
+
+    fun finalize() {
+        lockImage?.recycle()
     }
 
 

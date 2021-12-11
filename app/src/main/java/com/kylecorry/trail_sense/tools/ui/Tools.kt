@@ -87,10 +87,10 @@ object Tools {
         val angles = ToolGroup(
             context.getString(R.string.tool_category_angles), listOfNotNull(
                 Tool(
-                    context.getString(R.string.inclinometer_title),
-                    R.drawable.inclinometer,
-                    R.id.action_toolsFragment_to_inclinometerFragment,
-                    context.getString(R.string.tool_inclinometer_summary)
+                    context.getString(R.string.clinometer_title),
+                    R.drawable.clinometer,
+                    R.id.action_toolsFragment_to_clinometerFragment,
+                    context.getString(R.string.tool_clinometer_summary)
                 ),
                 Tool(
                     context.getString(R.string.tool_bubble_level_title),

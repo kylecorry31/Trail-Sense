@@ -174,13 +174,13 @@
     <string name="moon_illumination">Moon illumination</string>
     <!--Tools-->
     <string name="offline_maps">Offline Maps</string>
-    <!--Inclinometer-->
-    <string name="inclinometer_title">Inclinometer</string>
-    <string name="tool_inclinometer_summary">Estimate avalanche risks and the height of objects</string>
+    <!--Clinometer-->
+    <string name="clinometer_title">Clinometer</string>
+    <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
     <string name="avalanche_risk_low">Low avalanche risk</string>
     <string name="avalanche_risk_med">Moderate avalanche risk</string>
     <string name="avalanche_risk_high">High avalanche risk</string>
-    <string name="inclinometer_rotate_device">Hold your phone vertically to measure inclination</string>
+    <string name="clinometer_rotate_device">Hold your phone vertically</string>
     <string name="set_inclination_instructions">Tap anywhere to lock/unlock</string>
     <string name="estimated_height">estimated height</string>
     <string name="your_height">Your height</string>

@@ -103,7 +103,7 @@
     <string name="sensors">Датчики</string>
     <string name="temperature">Температура</string>
     <string name="pref_coordinate_format_title">Формат координат</string>
-    <string name="inclinometer_title">Инклинометр (креномер)</string>
+    <string name="clinometer_title">Инклинометр (креномер)</string>
     <string name="offline_maps">Офлайн-карты</string>
     <string name="moon_phase">Фазы Луны</string>
     <string name="tide_spring">Сизигийный</string>
@@ -199,11 +199,11 @@
     <string name="coordinate_format_decimal_degrees">Только градусы с десятичной дробной частью</string>
     <string name="estimated_height">расчетная высота</string>
     <string name="set_inclination_instructions">Коснитесь экрана для фиксации значения</string>
-    <string name="inclinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
+    <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
     <string name="avalanche_risk_high">Высокий риск лавины</string>
     <string name="avalanche_risk_med">Средний риск лавины</string>
     <string name="avalanche_risk_low">Низкий риск лавины</string>
-    <string name="tool_inclinometer_summary">Оценка риска лавин и высоты объектов</string>
+    <string name="tool_clinometer_summary">Оценка риска лавин и высоты объектов</string>
     <string name="moon_illumination">Освещение</string>
     <string name="lunar_noon">Полночь</string>
     <string name="solar_noon">Полдень</string>
