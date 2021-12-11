@@ -33,19 +33,10 @@
         android:id="@+id/clinometer"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.kylecorry.trail_sense.tools.clinometer.ui.UnitAngleView
-        android:id="@+id/unit_angle"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/clinometer_instructions"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/inclination_description" />
 
     <TextView
         android:id="@+id/inclination"
@@ -58,6 +49,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="90" />
 
+    <com.kylecorry.trail_sense.shared.views.DataPointView
+        android:id="@+id/avalanche_risk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:dataPointDescription="@string/avalanche_risk"
+        app:dataPointIcon="@drawable/ic_precipitation_snow"
+        app:layout_constraintBottom_toTopOf="@+id/clinometer_instructions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clinometer" />
+
+    
     <TextView
         android:id="@+id/inclination_description"
         android:layout_width="wrap_content"
@@ -67,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="@+id/inclination"
         app:layout_constraintStart_toStartOf="@+id/inclination"
         app:layout_constraintTop_toBottomOf="@+id/inclination"
-        tools:text="@string/avalanche_risk_low" />
+        tools:text="10% slope" />
 
 
     <TextView

@@ -1139,6 +1139,8 @@
     <string name="map_projection_mercator">Mercator</string>
     <string name="map_projection_equidistant">Equidistant</string>
     <string name="reduce_map_resolution">Reduce map resolution</string>
+    <string name="slope_amount">%s slope</string>
+    <string name="avalanche_risk">Avalanche risk</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

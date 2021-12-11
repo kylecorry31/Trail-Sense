@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.trail_sense.R
@@ -56,33 +57,39 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
 
         if (!isOrientationValid() && slopeIncline == null) {
-            binding.clinometer.angle = 0f
             binding.clinometerInstructions.text = getString(R.string.clinometer_rotate_device)
             return
         }
 
         binding.clinometerInstructions.text = getString(R.string.set_inclination_instructions)
 
-        binding.unitAngle.angle = slopeAngle ?: clinometer.angle
-
         val avalancheRisk = geology.getAvalancheRisk(
             slopeIncline ?: clinometer.incline
         )
 
         val angle = 270 - (slopeAngle ?: clinometer.angle)
+        val incline = slopeIncline ?: clinometer.incline
 
         binding.clinometer.angle = angle
         binding.clinometer.locked = slopeAngle != null
 
         binding.inclination.text = formatter.formatDegrees(slopeIncline ?: clinometer.incline)
-        binding.inclinationDescription.text = getAvalancheRiskString(avalancheRisk)
+        binding.avalancheRisk.title = getAvalancheRiskString(avalancheRisk)
+
+        binding.inclinationDescription.text =
+            getString(R.string.slope_amount, formatter.formatPercentage(getSlopePercent(incline)))
+
+    }
+
+    private fun getSlopePercent(incline: Float): Float {
+        return SolMath.tanDegrees(incline) * 100
     }
 
     private fun getAvalancheRiskString(risk: AvalancheRisk): String {
         return when (risk) {
-            AvalancheRisk.Low -> getString(R.string.avalanche_risk_low)
-            AvalancheRisk.Moderate -> getString(R.string.avalanche_risk_med)
-            AvalancheRisk.High -> getString(R.string.avalanche_risk_high)
+            AvalancheRisk.Low -> getString(R.string.low)
+            AvalancheRisk.Moderate -> getString(R.string.moderate)
+            AvalancheRisk.High -> getString(R.string.high)
         }
     }
 

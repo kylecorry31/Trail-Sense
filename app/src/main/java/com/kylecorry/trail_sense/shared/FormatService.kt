@@ -215,8 +215,8 @@ class FormatService(private val context: Context) {
         return context.getString(R.string.dbm_format, dbm.toString())
     }
 
-    fun formatPercentage(percent: Float, decimalPlaces: Int = 0): String {
-        val formatted = DecimalFormatter.format(percent, decimalPlaces)
+    fun formatPercentage(percent: Float, decimalPlaces: Int = 0, strict: Boolean = true): String {
+        val formatted = DecimalFormatter.format(percent, decimalPlaces, strict)
         return context.getString(R.string.precise_percent_format, formatted)
     }
 
