@@ -17,7 +17,6 @@ import com.kylecorry.trail_sense.databinding.FragmentInclinometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
@@ -121,29 +120,26 @@ class InclinometerFragment : BoundFragment<FragmentInclinometerBinding>() {
         }
 
         if (!isOrientationValid() && slopeIncline == null) {
-            binding.sideInclinometer.reset()
-            binding.sideInclinometer.message = getString(R.string.inclinometer_rotate_device)
+            binding.inclinometer.angle = 0f
+            binding.inclinometerInstructions.text = getString(R.string.inclinometer_rotate_device)
             return
         }
 
-        binding.sideInclinometer.angle = slopeAngle ?: inclinometer.angle
         binding.unitAngle.angle = slopeAngle ?: inclinometer.angle
-        binding.sideInclinometer.incline = slopeIncline ?: inclinometer.incline
 
         val avalancheRisk = geoService.getAvalancheRisk(
             slopeIncline ?: inclinometer.incline
         )
 
-        binding.sideInclinometer.color = when(avalancheRisk){
-            AvalancheRisk.Low -> AppColor.Gray.color
-            AvalancheRisk.High -> AppColor.Red.color
-            AvalancheRisk.Moderate -> AppColor.Yellow.color
-        }
+        val angle = 270 - (slopeAngle ?: inclinometer.angle)
 
-        binding.sideInclinometer.locked = slopeAngle != null
-        binding.sideInclinometer.message = getAvalancheRiskString(avalancheRisk)
+        binding.inclinometer.angle = angle
 
-        updateObjectHeight()
+//        binding.sideInclinometer.locked = slopeAngle != null
+        binding.estimatedHeight.text = formatService.formatDegrees(slopeIncline ?: inclinometer.incline)
+        binding.estimatedHeightLbl.text = getAvalancheRiskString(avalancheRisk)
+
+//        updateObjectHeight()
     }
 
     private fun updateObjectHeight() {
