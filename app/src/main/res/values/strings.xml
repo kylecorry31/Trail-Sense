@@ -182,7 +182,7 @@
     <string name="avalanche_risk_high">High avalanche risk</string>
     <string name="clinometer_rotate_device">Hold your phone vertically</string>
     <string name="set_inclination_instructions">Tap anywhere to lock/unlock</string>
-    <string name="estimated_height">estimated height</string>
+    <string name="estimated_height">Estimated height</string>
     <string name="your_height">Your height</string>
     <!--Inventory-->
     <string name="add">Add</string>
@@ -1141,6 +1141,7 @@
     <string name="reduce_map_resolution">Reduce map resolution</string>
     <string name="slope_amount">%s slope</string>
     <string name="avalanche_risk">Avalanche risk</string>
+    <string name="distance_unset">Distance unset</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

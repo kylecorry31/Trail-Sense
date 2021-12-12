@@ -13,13 +13,17 @@ import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.math.InclinationService
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.CameraClinometer
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.Clinometer
@@ -39,7 +43,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
     private val sideClinometer by lazy { SideClinometer(requireContext()) }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
+    private val prefs by lazy { UserPreferences(requireContext()) }
     private val geology = GeologyService()
+    private val inclinationService = InclinationService()
     private val formatter by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -47,6 +53,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private var slopeIncline: Float? = null
     private var slopeAngle: Float? = null
+
+    private var distanceAway: Distance? = null
 
     private var useCamera = false
 
@@ -60,6 +68,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
         CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
+
+        val units = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
+            listOf(DistanceUnits.Meters, DistanceUnits.Feet)
+        } else {
+            listOf(DistanceUnits.Feet, DistanceUnits.Meters)
+        }
 
         binding.clinometerLeftQuickAction.setOnClickListener {
             if (useCamera) {
@@ -86,6 +100,20 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                             short = false
                         )
                     }
+                }
+            }
+        }
+
+        binding.clinometerRightQuickAction.setOnClickListener {
+            CustomUiUtils.pickDistance(
+                requireContext(),
+                units,
+                distanceAway,
+                getString(R.string.distance_away)
+            ) {
+                if (it != null) {
+                    distanceAway = it
+                    CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
                 }
             }
         }
@@ -128,7 +156,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             return
         }
 
-        if (!isOrientationValid() && slopeIncline == null) {
+        binding.lock.isVisible = slopeAngle != null
+
+        if (!isOrientationValid() && slopeAngle == null) {
             binding.clinometerInstructions.text = getString(R.string.clinometer_rotate_device)
             return
         }
@@ -145,13 +175,19 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         val avalancheRisk = geology.getAvalancheRisk(incline)
 
         binding.clinometer.angle = angle
-        binding.lock.isVisible = slopeAngle != null
 
         binding.inclination.text = formatter.formatDegrees(incline)
         binding.avalancheRisk.title = getAvalancheRiskString(avalancheRisk)
 
         binding.inclinationDescription.text =
             getString(R.string.slope_amount, formatter.formatPercentage(getSlopePercent(incline)))
+
+        val distance = distanceAway
+        binding.estimatedHeight.title = if (distance != null) {
+            formatter.formatDistance(getHeight(distance, 0f, incline))
+        } else {
+            getString(R.string.distance_unset)
+        }
 
     }
 
@@ -185,6 +221,16 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         container: ViewGroup?
     ): FragmentClinometerBinding {
         return FragmentClinometerBinding.inflate(layoutInflater, container, false)
+    }
+
+    private fun getHeight(distanceAway: Distance, bottom: Float, top: Float): Distance {
+        return Distance.meters(
+            inclinationService.estimateHeightAngles(
+                distanceAway.meters().distance,
+                bottom,
+                top
+            )
+        ).convertTo(distanceAway.units)
     }
 
 }
