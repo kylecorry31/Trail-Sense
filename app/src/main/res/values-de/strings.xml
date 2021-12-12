@@ -1012,9 +1012,13 @@
     <string name="pref_auto_simplify_paths_title">Vereinfachen der Pfade beim Import</string>
     <string name="dashed">Gestrichelt</string>
     <string name="merge">Zusammenführen</string>
-    <string name="simplify">Vereinfachen Sie</string>
+    <string name="simplify">Vereinfachen</string>
     <string name="simplifying">Vereinfachung</string>
     <string name="simplification_quality">Vereinfachungsqualität</string>
     <string name="saving">Speichert</string>
     <string name="navigation_guide_description">Mit Wegpunkten und Pfaden</string>
+    <string name="map_projection_equidistant">Längentreue Kegelprojektion</string>
+    <string name="reduce_map_resolution">Kartenauflösung reduzieren</string>
+    <string name="change_map_projection">Projektion ändern</string>
+    <string name="map_projection_mercator">Mercator-Projektion</string>
 </resources>

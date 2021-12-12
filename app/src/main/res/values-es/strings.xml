@@ -1012,4 +1012,8 @@
     <string name="paths">Rutas</string>
     <string name="keep_forever">Mantener para siempre</string>
     <string name="saving">Guardando</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="map_projection_equidistant">Equidistante</string>
+    <string name="reduce_map_resolution">Reducir resolución de mapa</string>
+    <string name="change_map_projection">Cambiar proyección</string>
 </resources>

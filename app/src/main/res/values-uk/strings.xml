@@ -1033,4 +1033,8 @@
     <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="navigation_guide_description">Використання маяків і шляхів</string>
     <string name="saving">Зберігання</string>
+    <string name="change_map_projection">Змінити проєкцію</string>
+    <string name="map_projection_mercator">Меркатор</string>
+    <string name="map_projection_equidistant">Рівновіддалена</string>
+    <string name="reduce_map_resolution">Зменшення роздільності мапи</string>
 </resources>
