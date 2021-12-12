@@ -449,7 +449,7 @@
     <string name="add">Ekle</string>
     <string name="your_height">Sizin boyunuz</string>
     <string name="estimated_height">tahmini yükseklik</string>
-    <string name="set_inclination_instructions">Eğim açısını belirlemek/değiştirmek için herhangi bir yere dokunun</string>
+    <string name="set_inclination_instructions">Kilitlemek/kilidini açmak için herhangi bir yere dokunun</string>
     <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
     <string name="avalanche_risk_high">Yüksek çığ riski</string>
     <string name="avalanche_risk_med">Orta çığ riski</string>
@@ -993,4 +993,7 @@
 \n**Oran**: %s</string>
     <string name="paths">Yollar</string>
     <string name="keep_forever">Sonsuza kadar sakla</string>
+    <string name="slope_amount">%s eğim</string>
+    <string name="avalanche_risk">Çığ riski</string>
+    <string name="reduce_map_resolution">Harita çözünürlüğünü azalt</string>
 </resources>
