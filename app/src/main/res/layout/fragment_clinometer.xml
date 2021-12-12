@@ -44,21 +44,21 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="64dp"
+        app:scaleType="fitCenter"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inclination_description"
         tools:visibility="visible" />
 
-    <View
-        android:id="@+id/view_camera_line"
-        android:layout_width="250dp"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimary"
+    <com.kylecorry.trail_sense.tools.clinometer.ui.CameraClinometerView
+        android:id="@+id/camera_clinometer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/camera_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/camera_view"
+        app:layout_constraintStart_toStartOf="@id/camera_view"
         app:layout_constraintTop_toTopOf="@id/camera_view" />
 
     <ImageView
@@ -88,11 +88,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/clinometer_instructions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/clinometer">
 
         <com.kylecorry.trail_sense.shared.views.DataPointView
