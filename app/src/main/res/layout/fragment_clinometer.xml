@@ -15,7 +15,7 @@
         app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_screen_flashlight" />
+        app:srcCompat="@drawable/ic_camera" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/clinometer_right_quick_action"
@@ -37,6 +37,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inclination_description" />
+
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/camera_view"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="64dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inclination_description"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/view_camera_line"
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/camera_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/camera_view" />
+
+    <ImageView
+        android:id="@+id/lock"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/lock"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/inclination"
+        app:layout_constraintStart_toEndOf="@id/inclination"
+        app:layout_constraintTop_toTopOf="@id/inclination"
+        app:tint="?android:textColorPrimary"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/inclination"

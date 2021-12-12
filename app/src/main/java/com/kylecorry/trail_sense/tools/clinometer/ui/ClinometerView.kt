@@ -1,12 +1,10 @@
 package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
@@ -30,13 +28,7 @@ class ClinometerView : CanvasView {
 
     var angle = 0f
         set(value) {
-            field = value
-            invalidate()
-        }
-
-    var locked = false
-        set(value) {
-            field = value
+            field = value + 90f
             invalidate()
         }
 
@@ -46,7 +38,6 @@ class ClinometerView : CanvasView {
     private var tickLength = 1f
     private val needlePercent = 0.8f
     private val labelInterval = 30
-    private var lockImage: Bitmap? = null
     private var radius = 1f
 
     private val avalancheRiskClipPath = Path()
@@ -55,7 +46,6 @@ class ClinometerView : CanvasView {
     override fun setup() {
         dialColor = Resources.color(context, R.color.colorSecondary)
         tickLength = dp(4f)
-        lockImage = loadImage(R.drawable.lock, dp(24f).toInt(), dp(24f).toInt())
         textSize(sp(10f))
         radius = min(width.toFloat(), height.toFloat()) / 2
         avalancheRiskClipPath.addCircle(
@@ -68,25 +58,15 @@ class ClinometerView : CanvasView {
 
     override fun draw() {
         push()
-        val onLeft = angle in 180.0..360.0
-        val realAngle = if (onLeft) {
-            angle - 180
-        } else {
-            angle
-        }
-
-        if (onLeft) {
-            rotate(180f)
-        }
-
         drawBackground()
-
-        if (locked) {
-            drawLock()
-        }
-
         drawTicks()
-        drawNeedle(realAngle)
+
+        push()
+        rotate(180f)
+        drawTicks()
+        pop()
+
+        drawNeedle(angle)
         pop()
     }
 
@@ -110,18 +90,25 @@ class ClinometerView : CanvasView {
         opacity(alpha)
         arc(x, y, d, d, 30f, 45f)
         arc(x, y, d, d, -30f, -45f)
+        arc(x, y, d, d, 210f, 225f)
+        arc(x, y, d, d, -210f, -225f)
 
         // Moderate
         fill(AppColor.Yellow.color)
         opacity(alpha)
         arc(x, y, d, d, 45f, 60f)
         arc(x, y, d, d, -45f, -60f)
+        arc(x, y, d, d, 225f, 240f)
+        arc(x, y, d, d, -225f, -240f)
 
         fill(AppColor.Green.color)
         opacity(alpha)
         arc(x, y, d, d, -30f, 30f)
         arc(x, y, d, d, -60f, -90f)
         arc(x, y, d, d, 60f, 90f)
+        arc(x, y, d, d, -210f, -150f)
+        arc(x, y, d, d, -240f, -270f)
+        arc(x, y, d, d, 240f, 270f)
 
         opacity(255)
 
@@ -174,20 +161,4 @@ class ClinometerView : CanvasView {
         noStroke()
         circle(width / 2f, height / 2f, dp(12f))
     }
-
-    private fun drawLock() {
-        push()
-        rotate(-90f, width / 2f - radius / 2, height / 2f)
-        lockImage?.let {
-            imageMode(ImageMode.Center)
-            image(it, width / 2f - radius / 2, height / 2f)
-        }
-        pop()
-    }
-
-    fun finalize() {
-        lockImage?.recycle()
-    }
-
-
 }
