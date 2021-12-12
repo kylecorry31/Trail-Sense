@@ -63,6 +63,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var startIncline: Float = 0f
     private var touchTime = Instant.now()
 
+    private var lockState = ClinometerLockState.Unlocked
+
     private var distanceAway: Distance? = null
 
     private var useCamera = false
@@ -132,34 +134,40 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         // TODO: Make this discoverable by the user
         binding.root.setOnTouchListener { v, event ->
-            // TODO: Clean up this code
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                if (isOrientationValid() && slopeIncline == null) {
-                    touchTime = Instant.now()
-                    startIncline = clinometer.incline
-                    binding.cameraClinometer.startInclination = startIncline
-                    binding.clinometer.startAngle = clinometer.angle
-                } else {
-                    startIncline = 0f
-                    binding.cameraClinometer.startInclination = null
-                    binding.clinometer.startAngle = null
+            when(lockState){
+                ClinometerLockState.Unlocked -> {
+                    if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()){
+                        touchTime = Instant.now()
+                        startIncline = clinometer.incline
+                        binding.cameraClinometer.startInclination = startIncline
+                        binding.clinometer.startAngle = clinometer.angle
+                        lockState = ClinometerLockState.PartiallyLocked
+                    }
                 }
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                if (Duration.between(touchTime, Instant.now()) < Duration.ofMillis(500)) {
-                    startIncline = 0f
-                    binding.cameraClinometer.startInclination = null
-                    binding.clinometer.startAngle = null
-                }
+                ClinometerLockState.PartiallyLocked -> {
+                    if (event.action == MotionEvent.ACTION_UP){
+                        if (Duration.between(touchTime, Instant.now()) < Duration.ofMillis(500)) {
+                            // No sweep angle
+                            startIncline = 0f
+                            binding.cameraClinometer.startInclination = null
+                            binding.clinometer.startAngle = null
+                        }
 
-                if (slopeIncline == null && isOrientationValid()) {
-                    slopeAngle = clinometer.angle
-                    slopeIncline = clinometer.incline
-                } else {
-                    startIncline = 0f
-                    binding.cameraClinometer.startInclination = null
-                    binding.clinometer.startAngle = null
-                    slopeAngle = null
-                    slopeIncline = null
+                        slopeAngle = clinometer.angle
+                        slopeIncline = clinometer.incline
+
+                        lockState = ClinometerLockState.Locked
+                    }
+                }
+                ClinometerLockState.Locked -> {
+                    if (event.action == MotionEvent.ACTION_DOWN){
+                        startIncline = 0f
+                        binding.cameraClinometer.startInclination = null
+                        binding.clinometer.startAngle = null
+                        slopeAngle = null
+                        slopeIncline = null
+                        lockState = ClinometerLockState.Unlocked
+                    }
                 }
             }
             true
@@ -276,4 +284,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             )
         ).convertTo(distanceAway.units)
     }
+
+    private enum class ClinometerLockState {
+        Unlocked,
+        PartiallyLocked,
+        Locked
+    }
+
+
 }
