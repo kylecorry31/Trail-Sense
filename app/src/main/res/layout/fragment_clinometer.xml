@@ -39,27 +39,42 @@
         app:layout_constraintTop_toBottomOf="@+id/inclination_description" />
 
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/camera_view"
+    <LinearLayout
+        android:id="@+id/camera_view_holder"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="64dp"
-        app:scaleType="fitCenter"
+        android:background="@drawable/rounded_rectangle"
+        android:orientation="horizontal"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inclination_description"
-        tools:visibility="visible" />
+        tools:visibility="visible">
 
-    <com.kylecorry.trail_sense.tools.clinometer.ui.CameraClinometerView
-        android:id="@+id/camera_clinometer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/camera_view"
-        app:layout_constraintEnd_toEndOf="@id/camera_view"
-        app:layout_constraintStart_toStartOf="@id/camera_view"
-        app:layout_constraintTop_toTopOf="@id/camera_view" />
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/camera_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary" />
+        </FrameLayout>
+
+        <com.kylecorry.trail_sense.tools.clinometer.ui.CameraClinometerView
+            android:id="@+id/camera_clinometer"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/lock"

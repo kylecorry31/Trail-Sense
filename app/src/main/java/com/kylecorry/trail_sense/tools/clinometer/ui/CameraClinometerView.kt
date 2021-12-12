@@ -1,9 +1,13 @@
 package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.absoluteValue
@@ -23,27 +27,15 @@ class CameraClinometerView : CanvasView {
         runEveryCycle = false
     }
 
-    var angle = 0f
-        set(value) {
-            field = value + 90f
-            invalidate()
-        }
-
-    var imageAngleCalculator: ImageAngleCalculator? = null
+    var inclination = 0f
         set(value) {
             field = value
             invalidate()
         }
 
-    var startAngle: Float? = null
+    var startInclination: Float? = null
         set(value) {
-            field = if (value == null) null else value + 90
-            invalidate()
-        }
-
-    var endAngle: Float? = null
-        set(value) {
-            field = if (value == null) null else value + 90
+            field = value
             invalidate()
         }
 
@@ -51,64 +43,99 @@ class CameraClinometerView : CanvasView {
     private val tickInterval = 10
     private var tickLength = 1f
     private val labelInterval = 30
-    private var lineColor = AppColor.Orange.color
+    private var dialColor = Color.BLACK
 
 
     override fun setup() {
+        dialColor = Resources.color(context, R.color.colorSecondary)
         tickLength = dp(4f)
         textSize(sp(10f))
     }
 
     override fun draw() {
+        drawBackground()
         drawTicks()
         drawNeedle()
     }
 
-    private fun drawTicks() {
-        // TODO: Draw the ticks
+    private fun drawBackground(){
+        background(dialColor)
+        val alpha = 150
+
+        noStroke()
+        val w = tickLength
+
+        // High
+        fill(AppColor.Red.color)
+        opacity(alpha)
+        rect(0f, getY(45f), w, (getY(30f) - getY(45f)))
+        rect(0f, getY(-30f), w, (getY(-45f) - getY(-30f)))
+
+        // Moderate
+        fill(AppColor.Yellow.color)
+        opacity(alpha)
+        rect(0f, getY(60f), w, (getY(45f) - getY(60f)))
+        rect(0f, getY(-45f), w, (getY(-60f) - getY(-45f)))
+
+        // Low
+        fill(AppColor.Green.color)
+        opacity(alpha)
+        rect(0f, getY(90f), w, (getY(60f) - getY(90f)))
+        rect(0f, getY(-60f), w, (getY(-90f) - getY(-60f)))
+        rect(0f, getY(30f), w, (getY(-30f) - getY(30f)))
+
+        opacity(255)
     }
 
-    private fun drawNeedle() {
-        val start = startAngle?.let { getPercent(it) }
-        val end = endAngle?.let { getPercent(it) }
+    private fun drawTicks() {
+        strokeWeight(dp(2f))
+        for (i in -90..90 step tickInterval) {
+            stroke(Color.WHITE)
+            val y = getY(i.toFloat())
 
-        when {
-            start != null -> {
-                fill(lineColor)
-                opacity(100)
+            line(0f, y, tickLength, y)
+            if (i % labelInterval == 0) {
                 noStroke()
-                if (end != null) {
-                    rect(0f, min(start, end), width.toFloat(), (start - end).absoluteValue)
-                } else {
-                    rect(
-                        0f,
-                        min(start, height / 2f),
-                        width.toFloat(),
-                        (start - height / 2f).absoluteValue
-                    )
-                }
-                opacity(255)
-            }
-            end != null -> {
-                stroke(lineColor)
-                strokeWeight(dp(4f))
-                line(0f, end, width.toFloat(), end)
-            }
-            else -> {
-                stroke(lineColor)
-                strokeWeight(dp(4f))
-                line(0f, height / 2f, width.toFloat(), height / 2f)
+                fill(Color.WHITE)
+                val degrees = i.absoluteValue
+                val degreeText = formatter.formatDegrees(degrees.toFloat())
+                textMode(TextMode.Center)
+                val offset = textWidth(degreeText)
+                val x = tickLength + offset
+                text(degreeText, x, y)
             }
         }
     }
 
-    private fun getPercent(a: Float): Float? {
-        val delta = deltaAngle(angle, a)
-        val calculator = imageAngleCalculator ?: return null
-        return (calculator.getImagePercent(0f, delta).y * height).coerceIn(
-            0f,
-            height.toFloat()
-        )
+    private fun drawNeedle() {
+        val start = startInclination?.let { getY(it) }
+        val current = getY(inclination)
+
+        when {
+            start != null -> {
+                fill(Color.WHITE)
+                opacity(100)
+                noStroke()
+                rect(
+                    0f,
+                    min(start, current),
+                    width.toFloat(),
+                    (start - current).absoluteValue
+                )
+                opacity(255)
+            }
+            else -> {
+                stroke(Color.WHITE)
+                strokeWeight(dp(4f))
+                line(0f, current, width.toFloat(), current)
+            }
+        }
+    }
+
+    private fun getY(inclination: Float): Float {
+        val padding = 20f//textHeight("9")
+        val h = height - 2 * padding
+        return h - (map(inclination, -90f, 90f, 0f, 1f) * h) + padding
     }
 
 }

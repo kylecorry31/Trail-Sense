@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
-class ClinometerView : CanvasView {
+class ClinometerView : CanvasView, IClinometerView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -26,13 +26,13 @@ class ClinometerView : CanvasView {
         runEveryCycle = false
     }
 
-    var angle = 0f
+    override var angle = 0f
         set(value) {
             field = value + 90f
             invalidate()
         }
 
-    var startAngle: Float? = null
+    override var startAngle: Float? = null
         set(value){
             field = if (value == null) null else value + 90
             invalidate()

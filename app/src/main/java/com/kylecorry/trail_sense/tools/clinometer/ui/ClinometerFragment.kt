@@ -2,14 +2,11 @@ package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.hardware.camera2.CameraCharacteristics
-import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.getSystemService
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
@@ -20,7 +17,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.sol.math.InclinationService
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Distance
@@ -51,15 +47,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             previewView = binding.cameraView,
             analyze = false
         )
-    }
-    private val angleLocator by lazy {
-        val f = getFocalLength()
-        val s = getSensorSize()
-        if (f != null && s != null){
-            ImageAngleCalculator(f, s, if (s.width > s.height) 90 else 0)
-        } else {
-            null
-        }
     }
     private val sideClinometer by lazy { SideClinometer(requireContext()) }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
@@ -98,6 +85,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             listOf(DistanceUnits.Feet, DistanceUnits.Meters)
         }
 
+        binding.cameraViewHolder.clipToOutline = true
+
         binding.clinometerLeftQuickAction.setOnClickListener {
             if (useCamera) {
                 camera.stop(null)
@@ -110,6 +99,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     if (Camera.isAvailable(requireContext())) {
                         useCamera = true
                         camera.start {
+                            camera.setZoom(0.25f)
                             true
                         }
                         binding.clinometerLeftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
@@ -142,22 +132,23 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         // TODO: Make this discoverable by the user
         binding.root.setOnTouchListener { v, event ->
+            // TODO: Clean up this code
             if (event.action == MotionEvent.ACTION_DOWN) {
                 if (isOrientationValid() && slopeIncline == null) {
                     touchTime = Instant.now()
                     startIncline = clinometer.incline
-                    binding.cameraClinometer.startAngle = clinometer.angle
+                    binding.cameraClinometer.startInclination = startIncline
                     binding.clinometer.startAngle = clinometer.angle
                 } else {
                     startIncline = 0f
-                    binding.cameraClinometer.startAngle = null
+                    binding.cameraClinometer.startInclination = null
                     binding.clinometer.startAngle = null
                 }
             } else if (event.action == MotionEvent.ACTION_UP) {
                 if (Duration.between(touchTime, Instant.now()) < Duration.ofMillis(500)) {
                     startIncline = 0f
+                    binding.cameraClinometer.startInclination = null
                     binding.clinometer.startAngle = null
-                    binding.cameraClinometer.startAngle = null
                 }
 
                 if (slopeIncline == null && isOrientationValid()) {
@@ -165,7 +156,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     slopeIncline = clinometer.incline
                 } else {
                     startIncline = 0f
-                    binding.cameraClinometer.startAngle = null
+                    binding.cameraClinometer.startInclination = null
                     binding.clinometer.startAngle = null
                     slopeAngle = null
                     slopeIncline = null
@@ -210,8 +201,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             return
         }
 
-        binding.cameraView.isVisible = useCamera
-        binding.cameraClinometer.isVisible = useCamera
+        binding.cameraViewHolder.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
         binding.clinometerInstructions.text = getString(R.string.set_inclination_instructions)
@@ -222,11 +212,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         val avalancheRisk = geology.getAvalancheRisk(incline)
 
         binding.clinometer.angle = angle
-        binding.cameraClinometer.angle = clinometer.angle
-        binding.cameraClinometer.endAngle = slopeAngle
-        if (useCamera) {
-            binding.cameraClinometer.imageAngleCalculator = angleLocator
-        }
+        binding.cameraClinometer.inclination = incline
 
         binding.inclination.text = formatter.formatDegrees(incline)
         binding.avalancheRisk.title = getAvalancheRiskString(avalancheRisk)
@@ -290,51 +276,4 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             )
         ).convertTo(distanceAway.units)
     }
-
-
-    // TODO: Extract these to the camera class
-
-    private fun getFocalLength(): Float? {
-        val isBackCamera = true
-        val manager = requireContext().getSystemService<CameraManager>() ?: return null
-        try {
-            val desiredOrientation =
-                if (isBackCamera) CameraCharacteristics.LENS_FACING_BACK else CameraCharacteristics.LENS_FACING_FRONT
-            for (cameraId in manager.cameraIdList) {
-                val characteristics = manager.getCameraCharacteristics(cameraId)
-                val orientation = characteristics.get(CameraCharacteristics.LENS_FACING)!!
-                if (orientation == desiredOrientation) {
-                    val maxFocus =
-                        characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
-                    return maxFocus!![0]
-                }
-            }
-            return null
-        } catch (e: Exception) {
-            return null
-        }
-    }
-
-    private fun getSensorSize(): Size? {
-        val isBackCamera = true
-        val manager = requireContext().getSystemService<CameraManager>() ?: return null
-        try {
-            val desiredOrientation =
-                if (isBackCamera) CameraCharacteristics.LENS_FACING_BACK else CameraCharacteristics.LENS_FACING_FRONT
-            for (cameraId in manager.cameraIdList) {
-                val characteristics = manager.getCameraCharacteristics(cameraId)
-                val orientation = characteristics.get(CameraCharacteristics.LENS_FACING)!!
-                if (orientation == desiredOrientation) {
-                    val size = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
-                        ?: return null
-                    return Size(size.width, size.height)
-                }
-            }
-            return null
-        } catch (e: Exception) {
-            return null
-        }
-    }
-
-
 }
