@@ -101,7 +101,7 @@
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
     <string name="estimated_height">预计的高度</string>
-    <string name="set_inclination_instructions">轻触任何地方以设定/复位倾斜角度</string>
+    <string name="set_inclination_instructions">轻按任意位置以锁定/解锁</string>
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="avalanche_risk_high">高雪崩风险</string>
     <string name="avalanche_risk_med">中度雪崩风险</string>
@@ -1011,4 +1011,6 @@
     <string name="map_projection_mercator">墨卡托</string>
     <string name="map_projection_equidistant">等距离</string>
     <string name="reduce_map_resolution">降低地图分辨率</string>
+    <string name="slope_amount">%s 坡</string>
+    <string name="avalanche_risk">雪崩风险</string>
 </resources>
