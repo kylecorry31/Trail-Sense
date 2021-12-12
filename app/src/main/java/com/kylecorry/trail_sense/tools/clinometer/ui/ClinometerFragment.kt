@@ -185,6 +185,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         if (useCamera) {
             camera.stop(null)
             useCamera = false
+            clinometer = getClinometer()
         }
     }
 
