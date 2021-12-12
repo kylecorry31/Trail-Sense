@@ -64,6 +64,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var touchTime = Instant.now()
 
     private var lockState = ClinometerLockState.Unlocked
+    private val holdDuration = Duration.ofMillis(200)
 
     private var distanceAway: Distance? = null
 
@@ -134,9 +135,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         // TODO: Make this discoverable by the user
         binding.root.setOnTouchListener { v, event ->
-            when(lockState){
+            when (lockState) {
                 ClinometerLockState.Unlocked -> {
-                    if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()){
+                    if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()) {
                         touchTime = Instant.now()
                         startIncline = clinometer.incline
                         binding.cameraClinometer.startInclination = startIncline
@@ -145,8 +146,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     }
                 }
                 ClinometerLockState.PartiallyLocked -> {
-                    if (event.action == MotionEvent.ACTION_UP){
-                        if (Duration.between(touchTime, Instant.now()) < Duration.ofMillis(500)) {
+                    if (event.action == MotionEvent.ACTION_UP) {
+                        if (Duration.between(touchTime, Instant.now()) < holdDuration) {
                             // No sweep angle
                             startIncline = 0f
                             binding.cameraClinometer.startInclination = null
@@ -160,13 +161,32 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     }
                 }
                 ClinometerLockState.Locked -> {
-                    if (event.action == MotionEvent.ACTION_DOWN){
-                        startIncline = 0f
-                        binding.cameraClinometer.startInclination = null
-                        binding.clinometer.startAngle = null
+                    if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()) {
+                        touchTime = Instant.now()
+                        startIncline = clinometer.incline
+                        binding.cameraClinometer.startInclination = startIncline
+                        binding.clinometer.startAngle = clinometer.angle
                         slopeAngle = null
                         slopeIncline = null
-                        lockState = ClinometerLockState.Unlocked
+                        lockState = ClinometerLockState.PartiallyUnlocked
+                    }
+                }
+                ClinometerLockState.PartiallyUnlocked -> {
+                    if (event.action == MotionEvent.ACTION_UP) {
+                        if (Duration.between(touchTime, Instant.now()) < holdDuration) {
+                            // User wants to unlock
+                            startIncline = 0f
+                            binding.cameraClinometer.startInclination = null
+                            binding.clinometer.startAngle = null
+                            slopeAngle = null
+                            slopeIncline = null
+                            lockState = ClinometerLockState.Unlocked
+                        } else {
+                            // User wants to do another sweep angle
+                            slopeAngle = clinometer.angle
+                            slopeIncline = clinometer.incline
+                            lockState = ClinometerLockState.Locked
+                        }
                     }
                 }
             }
@@ -286,6 +306,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private enum class ClinometerLockState {
+        PartiallyUnlocked,
         Unlocked,
         PartiallyLocked,
         Locked
