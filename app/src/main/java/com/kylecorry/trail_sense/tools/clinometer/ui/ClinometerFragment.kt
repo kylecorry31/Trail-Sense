@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
@@ -28,6 +30,11 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.CameraClinometer
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.Clinometer
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.SideClinometer
+import java.time.Duration
+import java.time.Instant
+import kotlin.math.absoluteValue
+import kotlin.math.max
+import kotlin.math.min
 
 class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
@@ -53,6 +60,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private var slopeIncline: Float? = null
     private var slopeAngle: Float? = null
+    private var startIncline: Float = 0f
+    private var touchTime = Instant.now()
 
     private var distanceAway: Distance? = null
 
@@ -63,6 +72,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         clinometer = getClinometer()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -118,15 +128,36 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
         }
 
-        binding.root.setOnClickListener {
-            if (slopeIncline == null && isOrientationValid()) {
-                slopeAngle = clinometer.angle
-                slopeIncline = clinometer.incline
-            } else {
-                slopeAngle = null
-                slopeIncline = null
+        // TODO: Make this discoverable by the user
+        binding.root.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                if (isOrientationValid() && slopeIncline == null) {
+                    touchTime = Instant.now()
+                    startIncline = clinometer.incline
+                    binding.clinometer.startAngle = clinometer.angle
+                } else {
+                    startIncline = 0f
+                    binding.clinometer.startAngle = null
+                }
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                if (Duration.between(touchTime, Instant.now()) < Duration.ofMillis(500)) {
+                    startIncline = 0f
+                    binding.clinometer.startAngle = null
+                }
+
+                if (slopeIncline == null && isOrientationValid()) {
+                    slopeAngle = clinometer.angle
+                    slopeIncline = clinometer.incline
+                } else {
+                    startIncline = 0f
+                    binding.clinometer.startAngle = null
+                    slopeAngle = null
+                    slopeIncline = null
+                }
             }
+            true
         }
+
 
         sideClinometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
         cameraClinometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
@@ -184,7 +215,13 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         val distance = distanceAway
         binding.estimatedHeight.title = if (distance != null) {
-            formatter.formatDistance(getHeight(distance, 0f, incline))
+            formatter.formatDistance(
+                getHeight(
+                    distance,
+                    min(startIncline, incline),
+                    max(startIncline, incline)
+                )
+            )
         } else {
             getString(R.string.distance_unset)
         }
@@ -227,7 +264,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         return Distance.meters(
             inclinationService.estimateHeightAngles(
                 distanceAway.meters().distance,
-                bottom,
+                if ((top - bottom).absoluteValue < 3f) 0f else bottom,
                 top
             )
         ).convertTo(distanceAway.units)

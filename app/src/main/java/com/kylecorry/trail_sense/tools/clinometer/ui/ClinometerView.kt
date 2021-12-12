@@ -32,6 +32,12 @@ class ClinometerView : CanvasView {
             invalidate()
         }
 
+    var startAngle: Float? = null
+        set(value){
+            field = if (value == null) null else value + 90
+            invalidate()
+        }
+
     private val formatter = FormatService(context)
     private var dialColor = Color.BLACK
     private val tickInterval = 10
@@ -150,6 +156,18 @@ class ClinometerView : CanvasView {
     }
 
     private fun drawNeedle(angle: Float) {
+
+        startAngle?.let {
+            val x = width / 2f - radius
+            val y = height / 2f - radius
+            fill(Color.WHITE)
+            noStroke()
+            opacity(127)
+            arc(x, y, radius * 2, radius * 2, it - 90, angle - 90)
+            opacity(255)
+        }
+
+
         stroke(Color.WHITE)
         strokeWeight(dp(4f))
         push()
