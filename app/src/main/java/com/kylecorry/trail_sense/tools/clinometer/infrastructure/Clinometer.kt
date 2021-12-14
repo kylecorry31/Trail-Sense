@@ -7,16 +7,15 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
-import com.kylecorry.andromeda.sense.inclinometer.IInclinometer
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.Vector3
 
-abstract class Clinometer(context: Context) : AbstractSensor(), IInclinometer {
+abstract class Clinometer(context: Context) : AbstractSensor(), IClinometer {
 
     override val angle: Float
         get() = _angle
 
-    val incline: Float
+    override val incline: Float
         get() {
             return when (angle) {
                 in 90f..270f -> 180f - angle

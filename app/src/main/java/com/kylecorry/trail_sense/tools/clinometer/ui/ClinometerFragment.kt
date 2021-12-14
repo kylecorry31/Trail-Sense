@@ -138,10 +138,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             when (lockState) {
                 ClinometerLockState.Unlocked -> {
                     if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()) {
-                        touchTime = Instant.now()
-                        startIncline = clinometer.incline
-                        binding.cameraClinometer.startInclination = startIncline
-                        binding.clinometer.startAngle = clinometer.angle
+                        setStartAngle()
                         lockState = ClinometerLockState.PartiallyLocked
                     }
                 }
@@ -149,43 +146,32 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     if (event.action == MotionEvent.ACTION_UP) {
                         if (Duration.between(touchTime, Instant.now()) < holdDuration) {
                             // No sweep angle
-                            startIncline = 0f
-                            binding.cameraClinometer.startInclination = null
-                            binding.clinometer.startAngle = null
+                            clearStartAngle()
                         }
 
-                        slopeAngle = clinometer.angle
-                        slopeIncline = clinometer.incline
+                        setEndAngle()
 
                         lockState = ClinometerLockState.Locked
                     }
                 }
                 ClinometerLockState.Locked -> {
                     if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()) {
-                        touchTime = Instant.now()
-                        startIncline = clinometer.incline
-                        binding.cameraClinometer.startInclination = startIncline
-                        binding.clinometer.startAngle = clinometer.angle
-                        slopeAngle = null
-                        slopeIncline = null
+                        setStartAngle()
+                        clearEndAngle()
                         lockState = ClinometerLockState.PartiallyUnlocked
                     }
                 }
                 ClinometerLockState.PartiallyUnlocked -> {
                     if (event.action == MotionEvent.ACTION_UP) {
-                        if (Duration.between(touchTime, Instant.now()) < holdDuration) {
+                        lockState = if (Duration.between(touchTime, Instant.now()) < holdDuration) {
                             // User wants to unlock
-                            startIncline = 0f
-                            binding.cameraClinometer.startInclination = null
-                            binding.clinometer.startAngle = null
-                            slopeAngle = null
-                            slopeIncline = null
-                            lockState = ClinometerLockState.Unlocked
+                            clearStartAngle()
+                            clearEndAngle()
+                            ClinometerLockState.Unlocked
                         } else {
                             // User wants to do another sweep angle
-                            slopeAngle = clinometer.angle
-                            slopeIncline = clinometer.incline
-                            lockState = ClinometerLockState.Locked
+                            setEndAngle()
+                            ClinometerLockState.Locked
                         }
                     }
                 }
@@ -197,6 +183,29 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         cameraClinometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
         deviceOrientation.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
+    }
+
+    private fun clearStartAngle() {
+        startIncline = 0f
+        binding.cameraClinometer.startInclination = null
+        binding.clinometer.startAngle = null
+    }
+
+    private fun setStartAngle() {
+        touchTime = Instant.now()
+        startIncline = clinometer.incline
+        binding.cameraClinometer.startInclination = startIncline
+        binding.clinometer.startAngle = clinometer.angle
+    }
+
+    private fun setEndAngle() {
+        slopeAngle = clinometer.angle
+        slopeIncline = clinometer.incline
+    }
+
+    private fun clearEndAngle() {
+        slopeAngle = null
+        slopeIncline = null
     }
 
     override fun onPause() {
