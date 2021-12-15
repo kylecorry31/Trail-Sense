@@ -5,12 +5,6 @@
         app:singleLineTitle="false"
         app:title="@string/clinometer_title">
         <SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="@string/pref_clinometer_restrict_valid"
-            android:title="@string/pref_clinometer_restrict_valid_title"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="@string/pref_clinometer_lock_with_volume_buttons"
             android:title="@string/pref_clinometer_lock_with_volume_buttons_title"

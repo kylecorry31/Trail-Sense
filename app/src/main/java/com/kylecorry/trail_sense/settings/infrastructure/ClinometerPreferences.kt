@@ -16,13 +16,6 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
         context.getString(R.string.pref_clinometer_lock_with_volume_buttons),
         false
     )
-
-    override var restrictToValidSlopes by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_clinometer_restrict_valid),
-        true
-    )
-
     override var baselineDistance: Distance?
         get() {
             val baseline =

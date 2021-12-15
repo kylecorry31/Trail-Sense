@@ -58,7 +58,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val formatter by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
     private var measureInstructionsSent = false
-    private var restrictToValidGrades = false
 
     private lateinit var clinometer: Clinometer
 
@@ -236,7 +235,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             distanceAway = prefs.clinometer.baselineDistance
             CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, distanceAway != null)
         }
-        restrictToValidGrades = prefs.clinometer.restrictToValidSlopes
     }
 
     override fun onPause() {
@@ -288,24 +286,18 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.inclination.text = formatter.formatDegrees(incline)
         binding.avalancheRisk.title = getAvalancheRiskString(avalancheRisk)
 
-        val grade = getSlopePercent(incline)
-
         binding.inclinationDescription.text =
-            getString(R.string.slope_amount, formatter.formatPercentage(grade))
+            getString(R.string.slope_amount, formatter.formatPercentage(getSlopePercent(incline)))
 
         val distance = distanceAway
         binding.estimatedHeight.title = if (distance != null) {
-            val height = getHeight(
-                distance,
-                min(startIncline, incline),
-                max(startIncline, incline)
+            formatter.formatDistance(
+                getHeight(
+                    distance,
+                    min(startIncline, incline),
+                    max(startIncline, incline)
+                )
             )
-
-            if (height.distance.isInfinite()) {
-                getString(R.string.too_tall)
-            } else {
-                formatter.formatDistance(height)
-            }
         } else {
             getString(R.string.distance_unset)
         }
@@ -313,17 +305,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun getSlopePercent(incline: Float): Float {
-        val pct = SolMath.tanDegrees(incline) * 100
-
-        if (restrictToValidGrades) {
-            if (pct > 150) {
-                return Float.POSITIVE_INFINITY
-            } else if (pct < -150) {
-                return Float.NEGATIVE_INFINITY
-            }
-        }
-
-        return pct
+        return SolMath.tanDegrees(incline) * 100
     }
 
     private fun getAvalancheRiskString(risk: AvalancheRisk): String {
@@ -355,11 +337,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun getHeight(distanceAway: Distance, bottom: Float, top: Float): Distance {
-
-        if (getSlopePercent(bottom).isInfinite() || getSlopePercent(top).isInfinite()) {
-            return Distance(Float.POSITIVE_INFINITY, distanceAway.units)
-        }
-
         return Distance.meters(
             inclinationService.estimateHeightAngles(
                 distanceAway.meters().distance,
