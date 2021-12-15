@@ -1150,6 +1150,9 @@
     <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="pref_clinometer_baseline_distance_title">Baseline distance</string>
+    <string name="too_tall">Too tall</string>
+    <string name="pref_clinometer_restrict_valid" translatable="false">pref_clinometer_restrict_valid</string>
+    <string name="pref_clinometer_restrict_valid_title">Restrict to valid slope percentages</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>
