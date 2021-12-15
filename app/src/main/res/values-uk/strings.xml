@@ -396,7 +396,7 @@
     <string name="subtract">Відняти</string>
     <string name="add">Додати</string>
     <string name="your_height">Ваш зріст</string>
-    <string name="estimated_height">розрахункова висота</string>
+    <string name="estimated_height">Розрахункова висота</string>
     <string name="set_inclination_instructions">Торкніться будь-де, щоб заблок./розблок.</string>
     <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
     <string name="avalanche_risk_high">Високий ризик лавини</string>
@@ -1039,4 +1039,5 @@
     <string name="reduce_map_resolution">Зменшення роздільності мапи</string>
     <string name="slope_amount">Нахил %s</string>
     <string name="avalanche_risk">Лавинний ризик</string>
+    <string name="distance_unset">Відстань не встановлено</string>
 </resources>
