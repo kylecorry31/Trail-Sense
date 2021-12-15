@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
@@ -55,6 +56,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val inclinationService = InclinationService()
     private val formatter by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
+    private var measureInstructionsSent = false
 
     private lateinit var clinometer: Clinometer
 
@@ -78,6 +80,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toast(getString(R.string.set_inclination_instructions))
 
         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
         CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
@@ -129,11 +133,14 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 if (it != null) {
                     distanceAway = it
                     CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
+                    if (!measureInstructionsSent){
+                        toast(getString(R.string.clinometer_height_instructions))
+                        measureInstructionsSent = true
+                    }
                 }
             }
         }
 
-        // TODO: Make this discoverable by the user
         binding.root.setOnTouchListener { v, event ->
             when (lockState) {
                 ClinometerLockState.Unlocked -> {
@@ -159,6 +166,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                         setStartAngle()
                         clearEndAngle()
                         lockState = ClinometerLockState.PartiallyUnlocked
+                    } else if (event.action == MotionEvent.ACTION_DOWN){
+                        clearStartAngle()
+                        clearEndAngle()
+                        lockState = ClinometerLockState.Unlocked
                     }
                 }
                 ClinometerLockState.PartiallyUnlocked -> {
@@ -234,14 +245,17 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.lock.isVisible = slopeAngle != null
 
         if (!isOrientationValid() && slopeAngle == null) {
-            binding.clinometerInstructions.text = getString(R.string.clinometer_rotate_device)
+            binding.clinometerInstructions.isVisible = !useCamera
+            binding.cameraClinometerInstructions.isVisible = useCamera
+            binding.cameraViewHolder.isVisible = false
+            binding.clinometer.isInvisible = true
             return
         }
 
+        binding.clinometerInstructions.isVisible = false
+        binding.cameraClinometerInstructions.isVisible = false
         binding.cameraViewHolder.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
-
-        binding.clinometerInstructions.text = getString(R.string.set_inclination_instructions)
 
         val angle = slopeAngle ?: clinometer.angle
         val incline = slopeIncline ?: clinometer.incline

@@ -1142,6 +1142,7 @@
     <string name="slope_amount">%s slope</string>
     <string name="avalanche_risk">Avalanche risk</string>
     <string name="distance_unset">Distance unset</string>
+    <string name="clinometer_height_instructions">Tap and hold to measure height</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/clinometer_instructions"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clinometer">
@@ -143,13 +143,31 @@
 
     <TextView
         android:id="@+id/clinometer_instructions"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="@string/set_inclination_instructions"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:text="@string/clinometer_rotate_device"
+        app:drawableTint="?android:textColorSecondary"
+        app:drawableTopCompat="@drawable/ic_rotate_flat_to_portrait"
+        app:layout_constraintBottom_toBottomOf="@+id/clinometer"
+        app:layout_constraintEnd_toEndOf="@+id/clinometer"
+        app:layout_constraintStart_toStartOf="@+id/clinometer"
+        app:layout_constraintTop_toTopOf="@+id/clinometer" />
+
+    <TextView
+        android:id="@+id/camera_clinometer_instructions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:text="@string/clinometer_rotate_device"
+        app:drawableTint="?android:textColorSecondary"
+        app:drawableTopCompat="@drawable/ic_rotate_landscape_to_portrait"
+        app:layout_constraintBottom_toBottomOf="@+id/clinometer"
+        app:layout_constraintEnd_toEndOf="@+id/clinometer"
+        app:layout_constraintStart_toStartOf="@+id/clinometer"
+        app:layout_constraintTop_toTopOf="@+id/clinometer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
