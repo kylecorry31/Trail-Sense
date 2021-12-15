@@ -81,9 +81,9 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
                 listOf(userPrefs.baseDistanceUnits),
                 userPrefs.strideLength.convertTo(userPrefs.baseDistanceUnits),
                 getString(R.string.pref_stride_length_title)
-            ) {
-                if (it != null) {
-                    userPrefs.strideLength = it
+            ) { distance, _ ->
+                if (distance != null) {
+                    userPrefs.strideLength = distance
                     updateStrideLength()
                 }
             }

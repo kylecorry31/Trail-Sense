@@ -1,5 +1,8 @@
 package com.kylecorry.trail_sense.settings.infrastructure
 
+import com.kylecorry.sol.units.Distance
+
 interface IClinometerPreferences {
-    val lockWithVolumeButtons: Boolean
+    var lockWithVolumeButtons: Boolean
+    var baselineDistance: Distance?
 }

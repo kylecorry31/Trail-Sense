@@ -1146,6 +1146,10 @@
     <string name="pref_clinometer_lock_with_volume_buttons" translatable="false">pref_clinometer_lock_with_volume_buttons</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Lock with volume buttons</string>
     <string name="pref_clinometer_settings" translatable="false">pref_clinometer_settings</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="pref_clinometer_baseline_distance_title">Baseline distance</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

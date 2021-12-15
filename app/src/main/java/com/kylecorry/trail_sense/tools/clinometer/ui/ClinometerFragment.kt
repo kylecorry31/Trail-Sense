@@ -130,9 +130,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 units,
                 distanceAway,
                 getString(R.string.distance_away)
-            ) {
-                if (it != null) {
-                    distanceAway = it
+            ) { distance, _ ->
+                if (distance != null) {
+                    distanceAway = distance
                     CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
                     if (!measureInstructionsSent) {
                         toast(getString(R.string.clinometer_height_instructions))
@@ -227,6 +227,14 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private fun clearEndAngle() {
         slopeAngle = null
         slopeIncline = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (distanceAway == null) {
+            distanceAway = prefs.clinometer.baselineDistance
+            CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, distanceAway != null)
+        }
     }
 
     override fun onPause() {

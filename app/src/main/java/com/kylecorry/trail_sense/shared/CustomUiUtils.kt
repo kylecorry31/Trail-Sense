@@ -119,7 +119,7 @@ object CustomUiUtils {
         units: List<DistanceUnits>,
         default: Distance? = null,
         title: String,
-        onDistancePick: (distance: Distance?) -> Unit
+        onDistancePick: (distance: Distance?, cancelled: Boolean) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
         var distance: Distance? = default
@@ -139,9 +139,9 @@ object CustomUiUtils {
             contentView = view
         ) { cancelled ->
             if (cancelled) {
-                onDistancePick.invoke(null)
+                onDistancePick.invoke(null, true)
             } else {
-                onDistancePick.invoke(distance)
+                onDistancePick.invoke(distance, false)
             }
         }
     }
