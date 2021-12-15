@@ -10,6 +10,7 @@ import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -36,6 +37,8 @@ import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
+import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
+import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
 import java.time.Duration
@@ -120,7 +123,7 @@ class MainActivity : AndromedaActivity() {
             return
         }
 
-        requestPermissions(permissions){
+        requestPermissions(permissions) {
             if (shouldRequestBackgroundLocation()) {
                 requestBackgroundLocation {
                     startApp()
@@ -240,7 +243,7 @@ class MainActivity : AndromedaActivity() {
             allowLinks = true
         ) { cancelled ->
             if (!cancelled) {
-                requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)){
+                requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                     action()
                 }
             } else {
@@ -309,6 +312,13 @@ class MainActivity : AndromedaActivity() {
 
 
     private fun getVolumeDownAction(): VolumeAction? {
+
+        val fragment = getFragment()
+        if (userPrefs.clinometer.lockWithVolumeButtons && fragment is ClinometerFragment) {
+            return ClinometerLockVolumeAction(fragment)
+        }
+
+
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
             return FlashlightToggleVolumeAction(this)
         }
@@ -317,11 +327,20 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun getVolumeUpAction(): VolumeAction? {
+        val fragment = getFragment()
+        if (userPrefs.clinometer.lockWithVolumeButtons && fragment is ClinometerFragment) {
+            return ClinometerLockVolumeAction(fragment)
+        }
+
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
             return FlashlightToggleVolumeAction(this)
         }
 
         return null
+    }
+
+    private fun getFragment(): Fragment? {
+        return supportFragmentManager.fragments.firstOrNull()?.childFragmentManager?.fragments?.firstOrNull()
     }
 
 

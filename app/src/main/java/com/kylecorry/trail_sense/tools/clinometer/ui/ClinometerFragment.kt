@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.CameraClinometer
@@ -133,7 +134,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 if (it != null) {
                     distanceAway = it
                     CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
-                    if (!measureInstructionsSent){
+                    if (!measureInstructionsSent) {
                         toast(getString(R.string.clinometer_height_instructions))
                         measureInstructionsSent = true
                     }
@@ -141,51 +142,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
         }
 
-        binding.root.setOnTouchListener { v, event ->
-            when (lockState) {
-                ClinometerLockState.Unlocked -> {
-                    if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()) {
-                        setStartAngle()
-                        lockState = ClinometerLockState.PartiallyLocked
-                    }
-                }
-                ClinometerLockState.PartiallyLocked -> {
-                    if (event.action == MotionEvent.ACTION_UP) {
-                        if (Duration.between(touchTime, Instant.now()) < holdDuration) {
-                            // No sweep angle
-                            clearStartAngle()
-                        }
-
-                        setEndAngle()
-
-                        lockState = ClinometerLockState.Locked
-                    }
-                }
-                ClinometerLockState.Locked -> {
-                    if (event.action == MotionEvent.ACTION_DOWN && isOrientationValid()) {
-                        setStartAngle()
-                        clearEndAngle()
-                        lockState = ClinometerLockState.PartiallyUnlocked
-                    } else if (event.action == MotionEvent.ACTION_DOWN){
-                        clearStartAngle()
-                        clearEndAngle()
-                        lockState = ClinometerLockState.Unlocked
-                    }
-                }
-                ClinometerLockState.PartiallyUnlocked -> {
-                    if (event.action == MotionEvent.ACTION_UP) {
-                        lockState = if (Duration.between(touchTime, Instant.now()) < holdDuration) {
-                            // User wants to unlock
-                            clearStartAngle()
-                            clearEndAngle()
-                            ClinometerLockState.Unlocked
-                        } else {
-                            // User wants to do another sweep angle
-                            setEndAngle()
-                            ClinometerLockState.Locked
-                        }
-                    }
-                }
+        binding.root.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                updateLockState(PressState.Down)
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                updateLockState(PressState.Up)
             }
             true
         }
@@ -195,6 +156,55 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         deviceOrientation.asLiveData().observe(viewLifecycleOwner, { updateUI() })
 
     }
+
+    fun updateLockState(pressState: PressState) {
+        when (lockState) {
+            ClinometerLockState.Unlocked -> {
+                if (pressState == PressState.Down && isOrientationValid()) {
+                    setStartAngle()
+                    lockState = ClinometerLockState.PartiallyLocked
+                }
+            }
+            ClinometerLockState.PartiallyLocked -> {
+                if (pressState == PressState.Up) {
+                    if (Duration.between(touchTime, Instant.now()) < holdDuration) {
+                        // No sweep angle
+                        clearStartAngle()
+                    }
+
+                    setEndAngle()
+
+                    lockState = ClinometerLockState.Locked
+                }
+            }
+            ClinometerLockState.Locked -> {
+                if (pressState == PressState.Down && isOrientationValid()) {
+                    setStartAngle()
+                    clearEndAngle()
+                    lockState = ClinometerLockState.PartiallyUnlocked
+                } else if (pressState == PressState.Down) {
+                    clearStartAngle()
+                    clearEndAngle()
+                    lockState = ClinometerLockState.Unlocked
+                }
+            }
+            ClinometerLockState.PartiallyUnlocked -> {
+                if (pressState == PressState.Up) {
+                    lockState = if (Duration.between(touchTime, Instant.now()) < holdDuration) {
+                        // User wants to unlock
+                        clearStartAngle()
+                        clearEndAngle()
+                        ClinometerLockState.Unlocked
+                    } else {
+                        // User wants to do another sweep angle
+                        setEndAngle()
+                        ClinometerLockState.Locked
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun clearStartAngle() {
         startIncline = 0f

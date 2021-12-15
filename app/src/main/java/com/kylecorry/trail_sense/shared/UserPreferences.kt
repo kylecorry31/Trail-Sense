@@ -31,6 +31,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val power by lazy { PowerPreferences(context) }
     val packs by lazy { PackPreferences(context) }
     val depth by lazy { DepthPreferences(context) }
+    val clinometer by lazy { ClinometerPreferences(context) }
 
     val distanceUnits: DistanceUnits
         get() {

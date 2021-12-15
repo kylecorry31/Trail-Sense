@@ -65,7 +65,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_toolsFragment_to_clinometerFragment"
-            app:destination="@id/action_clinometer"
+            app:destination="@id/clinometerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -320,6 +320,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_clinometer_settings"
+            app:destination="@id/clinometerSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_privacy_settings"
             app:destination="@id/privacySettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -428,7 +435,7 @@
         <!--            app:popUpToInclusive="true" />-->
     </fragment>
     <fragment
-        android:id="@+id/action_clinometer"
+        android:id="@+id/clinometerFragment"
         android:name="com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment"
         android:label="ClinometerFragment" />
     <fragment
@@ -913,5 +920,9 @@
         android:id="@+id/tideSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.TideSettingsFragment"
         android:label="TideSettingsFragment" />
+    <fragment
+        android:id="@+id/clinometerSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.ClinometerSettingsFragment"
+        android:label="ClinometerSettingsFragment" />
 
 </navigation>

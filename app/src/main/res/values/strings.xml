@@ -1143,6 +1143,9 @@
     <string name="avalanche_risk">Avalanche risk</string>
     <string name="distance_unset">Distance unset</string>
     <string name="clinometer_height_instructions">Tap and hold to measure height</string>
+    <string name="pref_clinometer_lock_with_volume_buttons" translatable="false">pref_clinometer_lock_with_volume_buttons</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Lock with volume buttons</string>
+    <string name="pref_clinometer_settings" translatable="false">pref_clinometer_settings</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>
