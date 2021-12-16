@@ -15,8 +15,10 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
+import com.kylecorry.andromeda.sense.clinometer.IClinometer
+import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
-import com.kylecorry.sol.math.InclinationService
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.GeologyService
@@ -29,9 +31,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.clinometer.infrastructure.CameraClinometer
-import com.kylecorry.trail_sense.tools.clinometer.infrastructure.Clinometer
-import com.kylecorry.trail_sense.tools.clinometer.infrastructure.SideClinometer
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
@@ -54,12 +53,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val geology = GeologyService()
-    private val inclinationService = InclinationService()
     private val formatter by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
     private var measureInstructionsSent = false
 
-    private lateinit var clinometer: Clinometer
+    private lateinit var clinometer: IClinometer
 
     private var slopeIncline: Float? = null
     private var slopeAngle: Float? = null
@@ -70,6 +68,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val holdDuration = Duration.ofMillis(200)
 
     private var distanceAway: Distance? = null
+    private var knownHeight: Distance? = null
 
     private var useCamera = false
 
@@ -246,7 +245,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
     }
 
-    private fun getClinometer(): Clinometer {
+    private fun getClinometer(): IClinometer {
         return if (useCamera) {
             cameraClinometer
         } else {
@@ -337,13 +336,19 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun getHeight(distanceAway: Distance, bottom: Float, top: Float): Distance {
-        return Distance.meters(
-            inclinationService.estimateHeightAngles(
-                distanceAway.meters().distance,
-                if ((top - bottom).absoluteValue < 3f) 0f else bottom,
-                top
-            )
-        ).convertTo(distanceAway.units)
+        return geology.getHeightFromInclination(
+            distanceAway,
+            if ((top - bottom).absoluteValue < 3f) 0f else bottom,
+            top
+        )
+    }
+
+    private fun getDistance(height: Distance, bottom: Float, top: Float): Distance {
+        return geology.getDistanceFromInclination(
+            height,
+            if ((top - bottom).absoluteValue < 3f) 0f else bottom,
+            top
+        )
     }
 
     private enum class ClinometerLockState {
