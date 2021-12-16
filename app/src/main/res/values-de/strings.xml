@@ -126,7 +126,7 @@
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
     <string name="clinometer_title">Neigungsmesser</string>
-    <string name="estimated_height">geschätzte Höhe</string>
+    <string name="estimated_height">Geschätzte Höhe</string>
     <string name="sensors">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
@@ -255,7 +255,7 @@
     <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
+    <string name="set_inclination_instructions">Tippen zum Sperren/Entsperren</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
     <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>
@@ -1021,4 +1021,13 @@
     <string name="reduce_map_resolution">Kartenauflösung reduzieren</string>
     <string name="change_map_projection">Projektion ändern</string>
     <string name="map_projection_mercator">Mercator-Projektion</string>
+    <string name="slope_amount">%s Neigung</string>
+    <string name="avalanche_risk">Lawinenrisiko</string>
+    <string name="distance_unset">Entfernung nicht gesetzt</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Mit Lautstärketasten sperren</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_title">Distanz zur Grundlinie</string>
+    <string name="clinometer_height_instructions">Drücken und Halten, um die Höhe zu messen</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
 </resources>
