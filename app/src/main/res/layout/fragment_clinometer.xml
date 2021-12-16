@@ -26,7 +26,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tree" />
+        app:srcCompat="@drawable/ruler" />
 
 
     <com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerView
@@ -123,8 +123,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:dataPointDescription="@string/estimated_height"
-            app:dataPointIcon="@drawable/tree" />
+            app:dataPointDescription="@string/height"
+            app:dataPointIcon="@drawable/ruler" />
 
     </LinearLayout>
 

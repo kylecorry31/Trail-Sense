@@ -181,9 +181,7 @@
     <string name="avalanche_risk_med">Moderate avalanche risk</string>
     <string name="avalanche_risk_high">High avalanche risk</string>
     <string name="clinometer_rotate_device">Hold your phone vertically</string>
-    <string name="set_inclination_instructions">Tap anywhere to lock/unlock</string>
-    <string name="estimated_height">Estimated height</string>
-    <string name="your_height">Your height</string>
+    <string name="set_inclination_instructions">Tap or hold anywhere to lock/unlock</string>
     <!--Inventory-->
     <string name="add">Add</string>
     <string name="subtract">Subtract</string>
@@ -1142,7 +1140,14 @@
     <string name="slope_amount">%s slope</string>
     <string name="avalanche_risk">Avalanche risk</string>
     <string name="distance_unset">Distance unset</string>
-    <string name="clinometer_height_instructions">Tap and hold to measure height</string>
+    <!--The %s is the distance away-->
+    <string name="clinometer_measure_height_instructions">
+        To measure the height of a target that is %s away:\n\n1. Align the clinometer to the base of the target\n2. Tap the screen and hold\n3. Realign the clinometer to the top of the target\n4. Release to lock and see the height of the target
+    </string>
+    <!--The %s is the height-->
+    <string name="clinometer_measure_distance_instructions">
+        To measure the distance to a target that is %s tall:\n\n1. Align the clinometer to the base of the target\n2. Tap the screen and hold\n3. Realign the clinometer to the top of the target\n4. Release to lock and see the distance to the target
+    </string>
     <string name="pref_clinometer_lock_with_volume_buttons" translatable="false">pref_clinometer_lock_with_volume_buttons</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Lock with volume buttons</string>
     <string name="pref_clinometer_settings" translatable="false">pref_clinometer_settings</string>
@@ -1150,6 +1155,11 @@
     <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="pref_clinometer_baseline_distance_title">Baseline distance</string>
+    <string name="height">Height</string>
+    <string name="clinometer_measure_distance_title">Height of target</string>
+    <string name="instructions">Instructions</string>
+    <string name="measure">Measure</string>
+    <string name="clinometer_measure_height_title">Distance to target</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

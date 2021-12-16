@@ -10,11 +10,14 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
@@ -53,9 +56,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val geology = GeologyService()
+    private val markdown by lazy { MarkdownService(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
     private val throttle = Throttle(20)
-    private var measureInstructionsSent = false
 
     private lateinit var clinometer: IClinometer
 
@@ -85,12 +88,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
         CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
-
-        val units = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
-            listOf(DistanceUnits.Meters, DistanceUnits.Feet)
-        } else {
-            listOf(DistanceUnits.Feet, DistanceUnits.Meters)
-        }
 
         binding.cameraViewHolder.clipToOutline = true
 
@@ -124,21 +121,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
 
         binding.clinometerRightQuickAction.setOnClickListener {
-            CustomUiUtils.pickDistance(
-                requireContext(),
-                units,
-                distanceAway,
-                getString(R.string.distance_away)
-            ) { distance, _ ->
-                if (distance != null) {
-                    distanceAway = distance
-                    CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
-                    if (!measureInstructionsSent) {
-                        toast(getString(R.string.clinometer_height_instructions))
-                        measureInstructionsSent = true
-                    }
-                }
-            }
+            askForHeightOrDistance()
         }
 
         binding.root.setOnTouchListener { _, event ->
@@ -204,6 +187,91 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
     }
 
+    private fun askForHeightOrDistance() {
+        Pickers.item(
+            requireContext(), getString(R.string.measure), listOf(
+                getString(R.string.height),
+                getString(R.string.distance)
+            ), when {
+                distanceAway != null -> 0
+                knownHeight != null -> 1
+                else -> -1
+            }
+        ) {
+            if (it != null) {
+                when (it) {
+                    0 -> measureHeightPrompt()
+                    1 -> measureDistancePrompt()
+                }
+            }
+        }
+    }
+
+    private fun measureHeightPrompt() {
+        CustomUiUtils.pickDistance(
+            requireContext(),
+            getUnits(),
+            distanceAway,
+            getString(R.string.clinometer_measure_height_title)
+        ) { distance, _ ->
+            if (distance != null) {
+                distanceAway = distance
+                knownHeight = null
+                CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
+                if (!prefs.clinometer.measureHeightInstructionsSent) {
+                    dialog(
+                        getString(R.string.instructions),
+                        markdown.toMarkdown(
+                            getString(
+                                R.string.clinometer_measure_height_instructions,
+                                formatter.formatDistance(distance, 2, false)
+                            )
+                        ),
+                        cancelText = null
+                    ) {
+                        prefs.clinometer.measureHeightInstructionsSent = true
+                    }
+                }
+            }
+        }
+    }
+
+    private fun measureDistancePrompt() {
+        CustomUiUtils.pickDistance(
+            requireContext(),
+            getUnits(),
+            knownHeight,
+            getString(R.string.clinometer_measure_distance_title)
+        ) { distance, _ ->
+            if (distance != null) {
+                knownHeight = distance
+                distanceAway = null
+                CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
+                if (!prefs.clinometer.measureDistanceInstructionsSent) {
+                    dialog(
+                        getString(R.string.instructions),
+                        markdown.toMarkdown(
+                            getString(
+                                R.string.clinometer_measure_distance_instructions,
+                                formatter.formatDistance(distance, 2, false)
+                            )
+                        ),
+                        cancelText = null
+                    ) {
+                        prefs.clinometer.measureDistanceInstructionsSent = true
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getUnits(): List<DistanceUnits> {
+        return if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
+            listOf(DistanceUnits.Meters, DistanceUnits.Feet)
+        } else {
+            listOf(DistanceUnits.Feet, DistanceUnits.Meters)
+        }
+    }
 
     private fun clearStartAngle() {
         startIncline = 0f
@@ -230,7 +298,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (distanceAway == null) {
+        if (distanceAway == null && knownHeight == null) {
             distanceAway = prefs.clinometer.baselineDistance
             CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, distanceAway != null)
         }
@@ -288,19 +356,36 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.inclinationDescription.text =
             getString(R.string.slope_amount, formatter.formatPercentage(getSlopePercent(incline)))
 
-        val distance = distanceAway
-        binding.estimatedHeight.title = if (distance != null) {
-            formatter.formatDistance(
-                getHeight(
-                    distance,
-                    min(startIncline, incline),
-                    max(startIncline, incline)
-                )
-            )
-        } else {
-            getString(R.string.distance_unset)
-        }
+        val distanceAway = distanceAway
+        val knownHeight = knownHeight
 
+        when {
+            distanceAway != null -> {
+                binding.estimatedHeight.description = getString(R.string.height)
+                binding.estimatedHeight.title = formatter.formatDistance(
+                    getHeight(
+                        distanceAway,
+                        min(startIncline, incline),
+                        max(startIncline, incline)
+                    ),
+                    1, false
+                )
+            }
+            knownHeight != null -> {
+                binding.estimatedHeight.description = getString(R.string.distance)
+                binding.estimatedHeight.title = formatter.formatDistance(
+                    getDistance(
+                        knownHeight,
+                        min(startIncline, incline),
+                        max(startIncline, incline)
+                    ),
+                    1, false
+                )
+            }
+            else -> {
+                binding.estimatedHeight.title = getString(R.string.distance_unset)
+            }
+        }
     }
 
     private fun getSlopePercent(incline: Float): Float {
