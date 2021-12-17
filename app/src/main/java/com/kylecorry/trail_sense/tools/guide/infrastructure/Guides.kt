@@ -84,14 +84,9 @@ object Guides {
                     R.raw.packing_lists
                 ),
                 UserGuide(
-                    context.getString(R.string.guide_avalanche_risk),
-                    null,
-                    R.raw.determine_avalanche_risk
-                ),
-                UserGuide(
-                    context.getString(R.string.object_height_guide),
-                    null,
-                    R.raw.height_estimation
+                    context.getString(R.string.clinometer_title),
+                    context.getString(R.string.tool_clinometer_summary),
+                    R.raw.clinometer
                 ),
                 UserGuide(
                     context.getString(R.string.cliff_height_guide),
