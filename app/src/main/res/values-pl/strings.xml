@@ -201,7 +201,7 @@
     <string name="request_permission">Poproś o uprawnienia</string>
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
-    <string name="estimated_height">szacunkowa wysokość</string>
+    <string name="estimated_height">Szacunkowa wysokość</string>
     <string name="clinometer_rotate_device">Trzymaj telefon pionowo, aby zmierzyć nachylenie</string>
     <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego i wysokości obiektów</string>
     <string name="tide_normal">Normalny</string>
@@ -372,7 +372,7 @@
     <string name="max_temp_calibrated">Maksymalna temperatura otoczenia (skalibrowana)</string>
     <string name="tool_white_noise_summary">Pomaga zasnąć</string>
     <string name="freezing_temperatures_description">Woda zamarznie, jeśli zostanie pozostawiona, a deszcz może zamienić się w śnieg</string>
-    <string name="clock_sync_instructions">Ustaw czas na %s, kiedy nadejdzie powiadomienie</string>
+    <string name="clock_sync_instructions">Ustaw czas na %s, wtedy kiedy pojawi się powiadomienie</string>
     <string name="clock_sync_notification">Synchronizacja zegara - %s</string>
     <string name="notification_channel_clock_sync_description">Powiadomienie o synchronizacji zegara z czasem GPS</string>
     <string name="notification_channel_clock_sync">Synchronizacja zegara</string>
@@ -402,7 +402,7 @@
     <string name="pref_altitude_override_title">Zastępowanie wysokości</string>
     <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="set_inclination_instructions">Dotknij dowolnego miejsca, aby ustawić/anulować ustawienie kąta nachylenia</string>
+    <string name="set_inclination_instructions">Dotknij dowolnego miejsca, aby zablokować/odblokować</string>
     <string name="accuracy_info">"GPS: Wyjdź na zewnątrz, w miejsce z niezakłóconym widokiem nieba.
 \n    %s rzeczywistej lokalizacji
 \n    %s rzeczywistej wysokości
@@ -485,7 +485,7 @@
 \n- Uzyskaj aktualną lokalizację, wysokość i prędkość
 \n
 \n- Prześledź swoje kroki za pomocą funkcji Backtrack (działa w tle, gdy jest włączona)</string>
-    <string name="cirrostratus_desc">Zakrywa niebo, ale słońce można przez nie zobaczyć.</string>
+    <string name="cirrostratus_desc">Chmura wysokiego piętra, zakrywająca niebo. Jest przezroczysta i zazwyczaj tworzy wokół słońca aureolę.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
     <string name="quality_good">Dobra</string>
     <string name="quality_poor">Słaba</string>
@@ -525,7 +525,7 @@
     <string name="cumulonimbus_desc">Ciemnoszara, wysoka, o kowadełkowatym kształcie.</string>
     <string name="cumulus_desc">Wygląda jak puchate kulki z waty.</string>
     <string name="stratus_desc">Zasłania niebo, obiekty nie rzucają cieni.</string>
-    <string name="nimbostratus_desc">Ciemnoszara i zakrywa niebo. Może padać deszcz.</string>
+    <string name="nimbostratus_desc">Ciemnoszara chmura średniego pietra, zakrywająca niebo. Może padać deszcz.</string>
     <string name="altostratus_desc">Zakrywa niebo, słońce jest ledwo widoczne.</string>
     <string name="altocumulus_desc">Wygląda jak puchate kulki z waty.</string>
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
@@ -950,4 +950,58 @@
     <string name="no_camera_access">Nie można uzyskać dostępu do aparatu</string>
     <string name="results">Wyniki</string>
     <string name="paths">Ścieżki</string>
+    <string name="avalanche_risk">Zagrożenie lawinowe</string>
+    <string name="slope_amount">nachylenie %s</string>
+    <string name="pref_show_last_signal_beacon_title">Ostatni sygnał nadajnika</string>
+    <string name="stratocumulus_desc">Chmury niskie wyglądające jak płaszczyzna z wełnianych kul z przerwami pomiędzy. Białe do ciemno szarych.</string>
+    <string name="pref_default_path_style_title">Domyślny styl ścieżki</string>
+    <string name="pref_default_path_color_title">Domyślny kolor ścieżki</string>
+    <string name="base_elevation">Wysokość bazowa</string>
+    <string name="us_cups">Jednostki miary US</string>
+    <string name="imperial_cups">Imperialne Jednostki Miary</string>
+    <string name="overridden">Nadpisane</string>
+    <string name="on">Wł.</string>
+    <string name="up_to_amount">Maks. do %s</string>
+    <string name="tilt">Przesunięcie</string>
+    <string name="sort_by">Sortuj: %s</string>
+    <string name="most_recent">Najnowsze</string>
+    <string name="importing">Importowanie</string>
+    <string name="waypoint">Punkt trasy</string>
+    <string name="merging">Scalanie</string>
+    <string name="merge">Połącz</string>
+    <string name="append_onto">Dołącz do</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d punkt trasy zostanie usunięty</item>
+        <item quantity="few">%d punkty trasy zostaną usunięte</item>
+        <item quantity="many">%d punktów trasy zostanie usuniętych</item>
+        <item quantity="other">%d punktów trasy zostanie usuniętych</item>
+    </plurals>
+    <string name="longest">Najdłuższe</string>
+    <string name="show">Pokaż</string>
+    <string name="hide">Ukryj</string>
+    <string name="base_temperature">Temperatura bazowa</string>
+    <string name="precipitation_chance">Prawdopodobieństwo opadów: %s</string>
+    <string name="pressure_logged">Ciśnienie zapisane</string>
+    <string name="easy">Łatwe</string>
+    <string name="hard">Trudne</string>
+    <string name="difficulty">Trudność</string>
+    <string name="precipitation_none">Brak opadów</string>
+    <string name="precipitation_snow_pellets">Krupa śnieżna</string>
+    <string name="precipitation_ice_pellets">Krupa lodowa</string>
+    <string name="precipitation_snow_grains">Śnieg ziarnisty</string>
+    <string name="notification_weather_update_content">Rejestrowanie ciśnienia</string>
+    <string name="notification_backtrack_update_content">Rejestrowanie Twojej lokalizacji</string>
+    <string name="line_style">Styl linii</string>
+    <string name="path_color">Kolor ścieżki</string>
+    <string name="temporary">Tymczasowo</string>
+    <string name="points">Punkty</string>
+    <string name="duration">Czas trwania</string>
+    <string name="simplify">Uprość</string>
+    <string name="simplifying">Upraszczanie</string>
+    <string name="change_map_projection">Zmień projekcję</string>
+    <string name="map_projection_mercator">Merkatora</string>
+    <string name="shortest">Najkrótsze</string>
+    <string name="closest">Najbliższe</string>
+    <string name="reduce_map_resolution">Zmniejszenie rozdzielczości mapy</string>
+    <string name="keep_forever">Zachowaj na zawsze</string>
 </resources>
