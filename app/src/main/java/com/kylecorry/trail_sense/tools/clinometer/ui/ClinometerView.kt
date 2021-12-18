@@ -76,45 +76,43 @@ class ClinometerView : CanvasView, IClinometerView {
         pop()
     }
 
+    private fun drawAvalancheZone(start: Float, stop: Float, color: Int){
+        val x = width / 2f - radius
+        val y = height / 2f - radius
+        val d = radius * 2
+        fill(color)
+        opacity(150)
+        arc(x, y, d, d, start, stop)
+    }
+
     private fun drawBackground() {
         fill(dialColor)
         noStroke()
         circle(width / 2f, height / 2f, radius * 2)
-
-        val x = width / 2f - radius
-        val y = height / 2f - radius
-        val d = radius * 2
-
-        val alpha = 150
 
         push()
 
         clipInverse(avalancheRiskClipPath)
 
         // High
-        fill(AppColor.Red.color)
-        opacity(alpha)
-        arc(x, y, d, d, 30f, 45f)
-        arc(x, y, d, d, -30f, -45f)
-        arc(x, y, d, d, 210f, 225f)
-        arc(x, y, d, d, -210f, -225f)
+        drawAvalancheZone( 30f, 45f, AppColor.Red.color)
+        drawAvalancheZone( -30f, -45f, AppColor.Red.color)
+        drawAvalancheZone( 210f, 225f, AppColor.Red.color)
+        drawAvalancheZone( -210f, -225f, AppColor.Red.color)
 
         // Moderate
-        fill(AppColor.Yellow.color)
-        opacity(alpha)
-        arc(x, y, d, d, 45f, 60f)
-        arc(x, y, d, d, -45f, -60f)
-        arc(x, y, d, d, 225f, 240f)
-        arc(x, y, d, d, -225f, -240f)
+        drawAvalancheZone(45f, 60f, AppColor.Yellow.color)
+        drawAvalancheZone(-45f, -60f, AppColor.Yellow.color)
+        drawAvalancheZone(225f, 240f, AppColor.Yellow.color)
+        drawAvalancheZone(-225f, -240f, AppColor.Yellow.color)
 
-        fill(AppColor.Green.color)
-        opacity(alpha)
-        arc(x, y, d, d, -30f, 30f)
-        arc(x, y, d, d, -60f, -90f)
-        arc(x, y, d, d, 60f, 90f)
-        arc(x, y, d, d, -210f, -150f)
-        arc(x, y, d, d, -240f, -270f)
-        arc(x, y, d, d, 240f, 270f)
+        // Low
+        drawAvalancheZone(-30f, 30f, AppColor.Green.color)
+        drawAvalancheZone(-60f, -90f, AppColor.Green.color)
+        drawAvalancheZone(60f, 90f, AppColor.Green.color)
+        drawAvalancheZone(-210f, -150f, AppColor.Green.color)
+        drawAvalancheZone(-240f, -270f, AppColor.Green.color)
+        drawAvalancheZone(240f, 270f, AppColor.Green.color)
 
         opacity(255)
 
