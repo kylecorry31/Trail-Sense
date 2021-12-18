@@ -102,9 +102,6 @@
     <string name="pref_coordinate_format_title">坐标格式</string>
     <string name="set_inclination_instructions">轻按任意位置以锁定/解锁</string>
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
-    <string name="avalanche_risk_high">高雪崩风险</string>
-    <string name="avalanche_risk_med">中度雪崩风险</string>
-    <string name="avalanche_risk_low">低雪崩风险</string>
     <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
     <string name="clinometer_title">测斜仪</string>
     <string name="offline_maps">离线地图</string>
@@ -597,8 +594,6 @@
     <string name="value_since_time">%s自%s</string>
     <string name="tool_speedometer_odometer_title">速度计/里程表</string>
     <string name="saltwater_switch">是咸水吗？</string>
-    <string name="distance_away_not_set">距离未设定</string>
-    <string name="distance_away">距离</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="source">源</string>
     <string name="pref_stride_length_title">步幅</string>

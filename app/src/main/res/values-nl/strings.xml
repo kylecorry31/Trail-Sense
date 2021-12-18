@@ -119,9 +119,6 @@
     <string name="subtract">Aftrekken</string>
     <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
-    <string name="avalanche_risk_high">Hoog risico op lawines</string>
-    <string name="avalanche_risk_med">Gemiddeld risico op lawines</string>
-    <string name="avalanche_risk_low">Laag risico op lawines</string>
     <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="clinometer_title">Hellingsmeter</string>
     <string name="offline_maps">Offline Kaarten</string>
@@ -749,8 +746,6 @@
     <string name="pedometer">Stappenteller</string>
     <string name="odometer">Kilometerteller</string>
     <string name="saltwater_switch">Is het zout water\?</string>
-    <string name="distance_away_not_set">afstand niet ingesteld</string>
-    <string name="distance_away">Afstand</string>
     <string name="value_average">%s gemiddelde</string>
     <string name="value_since_time">%s sinds %s</string>
     <string name="tool_speedometer_odometer_title">Snelheidsmeter / Kilometerteller</string>

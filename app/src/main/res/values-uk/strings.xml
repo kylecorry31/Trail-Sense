@@ -55,8 +55,6 @@
     <string name="pedometer">Крокомір</string>
     <string name="odometer">Відстанемір</string>
     <string name="saltwater_switch">Вода є солоною\?</string>
-    <string name="distance_away_not_set">відстань не встановлено</string>
-    <string name="distance_away">Відстань до</string>
     <string name="value_average">%s у середньому</string>
     <string name="value_since_time">%s з %s</string>
     <string name="tool_speedometer_odometer_title">Спідометр / Відстанемір</string>
@@ -393,9 +391,6 @@
     <string name="add">Додати</string>
     <string name="set_inclination_instructions">Торкніться будь-де, щоб заблок./розблок.</string>
     <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
-    <string name="avalanche_risk_high">Високий ризик лавини</string>
-    <string name="avalanche_risk_med">Середній ризик лавини</string>
-    <string name="avalanche_risk_low">Низький ризик лавини</string>
     <string name="tool_clinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
     <string name="clinometer_title">Нахиломір</string>
     <string name="offline_maps">Безмережеві мапи</string>
