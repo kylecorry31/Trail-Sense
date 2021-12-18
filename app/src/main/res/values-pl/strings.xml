@@ -176,7 +176,6 @@
     <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
     <string name="cliff_height_guide">Szacowanie wysokości klifu</string>
     <string name="tool_cliff_height_title">Wysokość klifu</string>
-    <string name="object_height_guide">Szacowanie wysokości obiektu</string>
     <string name="tool_depth_title">Głębokość</string>
     <string name="category_safety">Bezpieczeństwo</string>
     <string name="category_clothing">Odzież</string>
@@ -201,7 +200,6 @@
     <string name="request_permission">Poproś o uprawnienia</string>
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
-    <string name="estimated_height">Szacunkowa wysokość</string>
     <string name="clinometer_rotate_device">Trzymaj telefon pionowo, aby zmierzyć nachylenie</string>
     <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego i wysokości obiektów</string>
     <string name="tide_normal">Normalny</string>
@@ -241,7 +239,6 @@
     <string name="first_quarter">Pierwsza kwadra</string>
     <string name="max_depth">Maks.: %s</string>
     <string name="tool_whistle_title">Gwizdek</string>
-    <string name="guide_avalanche_risk">Ocena ryzyka lawinowego</string>
     <string name="category_shelter">Schronienie</string>
     <string name="category_food">Jedzenie</string>
     <string name="other">Pozostałe</string>
@@ -364,7 +361,6 @@
     <string name="battery_health_dead">Wyładowana</string>
     <string name="pref_backtrack_enabled_summary">Rejestruj historię lokalizacji</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Wyświetl historię lokalizacji</string>
     <string name="guide_location_no_gps_title">Określ lokalizację bez GPS</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefonu (nieskalibrowana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura otoczenia (skalibrowana)</string>
@@ -608,7 +604,6 @@
     <string name="saltwater_switch">Czy to słona woda\?</string>
     <string name="distance_away_not_set">odległość nie jest ustawiona</string>
     <string name="distance_away">Odległość od</string>
-    <string name="your_height">Twój wzrost</string>
     <string name="source">Źródło</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
@@ -725,7 +720,6 @@
     <string name="sleep_timer">Minutnik</string>
     <string name="pref_experimental_metal_direction_title">Pokaż kierunek metalu</string>
     <string name="pref_backtrack_history_days_title">Historia śladu powrotnego</string>
-    <string name="pref_backtrack_path_radar_title">Pokaż ślad powrotny</string>
     <string name="location_mocked">Korzystanie z udawanej lokalizacji</string>
     <string name="underwater_mode">Tryb podwodny</string>
     <string name="leave_underwater_mode">Pod wodą: naciśnij wstecz, aby wyjść</string>
@@ -744,7 +738,6 @@
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt dla ostatniej lokalizacji z sygnałem komórkowym</string>
     <string name="backtrack_high_priority_notification">Umieszczanie punktu trasy co %s</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
-    <string name="pref_backtrack_path_radar_summary">Na kompasie radarowym i mapach</string>
     <string name="speedometer_odometer_accuracy_dialog">Aby uzyskać najlepszą dokładność, włącz funkcję śladu powrotnego i ustaw źródło licznika kilometrów na krokomierz w ustawieniach.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
     <string name="cirrocumulus_desc">Tworzy falistą taflę, chmury wyglądają niemal dwuwymiarowo.</string>
@@ -757,8 +750,6 @@
     <string name="daylight">Światło dzienne</string>
     <string name="pref_auto_low_power_title">Automatyczne oszczędzanie energii</string>
     <string name="pref_auto_low_power_summary">Gdy poziom naładowania baterii jest niski</string>
-    <string name="pref_low_resolution_maps_title">Użyj niskiej rozdzielczości</string>
-    <string name="pref_low_resolution_maps_summary">Dla urządzeń z ograniczeniami pamięci</string>
     <string name="pref_flashlight_toggle_with_volume_title">Przełącz za pomocą przycisków głośności</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Podczas, gdy program Trail Sense jest otwarty</string>
     <string name="back_press_confirm">Naciśnij jeszcze raz wstecz, aby wyjść</string>
@@ -877,7 +868,6 @@
     <string name="navigate">Nawigacja</string>
     <string name="new_text">Nowy</string>
     <string name="old">Stary</string>
-    <string name="path">Ścieżka</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Usunąć ścieżkę\?</string>
     <string name="dash_separated_pair">%s - %s</string>

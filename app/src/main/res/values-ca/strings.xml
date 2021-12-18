@@ -249,8 +249,6 @@
     <string name="delete">Eliminar</string>
     <string name="subtract">Restar</string>
     <string name="add">Afegir</string>
-    <string name="your_height">La teva alçada</string>
-    <string name="estimated_height">alçada estimada</string>
     <string name="set_inclination_instructions">Premeu en qualsevol lloc per establir / desactivar l\'angle d\'inclinació</string>
     <string name="clinometer_rotate_device">Sostingui el telèfon verticalment per mesurar la inclinació</string>
     <string name="avalanche_risk_high">Risc d\'allau alt</string>
@@ -308,8 +306,6 @@
     <string name="weather_not_changing">Estable</string>
     <string name="weather_storm_incoming">Tempesta inminent</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="guide_avalanche_risk">Estimació del risc d\'allaus</string>
-    <string name="object_height_guide">Estimar altures d\'objectes</string>
     <string name="unit_meters">Metres</string>
     <string name="unit_feet">Peus</string>
     <string name="unit_miles">Milles</string>

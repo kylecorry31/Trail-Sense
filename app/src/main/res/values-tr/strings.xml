@@ -31,8 +31,6 @@
     <string name="importing_map">Harita içe aktarılıyor</string>
     <string name="hour_symbol">sa</string>
     <string name="minute_symbol">d</string>
-    <string name="pref_backtrack_path_radar_summary">Radar pusulası ve haritasında</string>
-    <string name="pref_backtrack_path_radar_title">Geri iz sürme yolunu göster</string>
     <string name="time_until_full">dolmasına kalan süre</string>
     <string name="time_until_empty">bitmesine kalan süre</string>
     <string name="guide_speedometer_desc">Gidilen mesafe ve varış süreleri nasıl belirlenir</string>
@@ -177,7 +175,6 @@
     <string name="pref_backtrack_frequency_title">Geri iz sürme aralığı</string>
     <string name="delete_waypoint_prompt">Ara noktayı silmek istediğinizden emin misiniz\?</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Konum geçmişini görüntüle</string>
     <string name="create_beacon">İşaret oluştur</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack">Geri iz sürme</string>
@@ -303,8 +300,6 @@
     <string name="tool_cliff_height_disclaimer">Bu aracı yalnızca kullanımı güvenli olduğunda kullanın ve yaralanmayı önlemek için uçurumun altında ne olduğunu kontrol ettiğinizden emin olun. Talimatlar için kullanım kılavuzuna bakın.</string>
     <string name="tool_cliff_height_title">Kayalık Yüksekliği</string>
     <string name="tool_cliff_height_description">Kayalığın yüksekliğini belirleyin</string>
-    <string name="object_height_guide">Nesnelerin boyutunu belirle</string>
-    <string name="guide_avalanche_risk">Çığ riski tahmini</string>
     <string name="depth_disclaimer">Riski size ait olmak üzere kullanın.
 \n
 \nSu geçirmez kılıf olmadan kullanmayın ve mümkünse güvenli bir dalış mesafesinde kalın.</string>
@@ -447,8 +442,6 @@
     <string name="delete">Sil</string>
     <string name="subtract">Çıkar</string>
     <string name="add">Ekle</string>
-    <string name="your_height">Sizin boyunuz</string>
-    <string name="estimated_height">tahmini yükseklik</string>
     <string name="set_inclination_instructions">Kilitlemek/kilidini açmak için herhangi bir yere dokunun</string>
     <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
     <string name="avalanche_risk_high">Yüksek çığ riski</string>
@@ -765,7 +758,6 @@
     <string name="navigate">Gezin</string>
     <string name="new_text">Yeni</string>
     <string name="old">Eski</string>
-    <string name="path">Yol</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Yol silinsin mi\?</string>
     <string name="dash_separated_pair">%s - %s</string>
@@ -866,8 +858,6 @@
     <string name="daylight">Gün ışığı</string>
     <string name="pref_auto_low_power_title">Otomatik güç tasarrufu</string>
     <string name="pref_auto_low_power_summary">Piliniz azaldığında</string>
-    <string name="pref_low_resolution_maps_title">Düşük çözünürlük kullan</string>
-    <string name="pref_low_resolution_maps_summary">Bellek kısıtlamaları olan aygıtlar için</string>
     <string name="pref_flashlight_toggle_with_volume_title">Ses düğmeleri ile aç/kapat</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Trail Sense açıkken</string>
     <string name="back_press_confirm">Ayrılmak için tekrar geri düğmesine basın</string>
@@ -928,7 +918,6 @@
     <string name="duration">Süre</string>
     <string name="importing">İçe aktarılıyor</string>
     <string name="simplification_quality">Sadeleştirme kalitesi</string>
-    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">İçe aktarma sırasında yolları sadeleştir</string>
     <string name="dashed">Kesikli</string>
     <string name="pref_default_path_style_title">Öntanımlı yol şekli</string>

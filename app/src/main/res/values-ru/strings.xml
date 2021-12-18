@@ -197,7 +197,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Градусы, минуты и секунды</string>
     <string name="coordinate_format_degrees_decimal_minutes">Градусы и минуты с дробью</string>
     <string name="coordinate_format_decimal_degrees">Только градусы с десятичной дробной частью</string>
-    <string name="estimated_height">расчетная высота</string>
     <string name="set_inclination_instructions">Коснитесь экрана для фиксации значения</string>
     <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
     <string name="avalanche_risk_high">Высокий риск лавины</string>
@@ -292,8 +291,6 @@
     <string name="delete">Удалить</string>
     <string name="subtract">Вычесть</string>
     <string name="add">Добавить</string>
-    <string name="guide_avalanche_risk">Оценка риска схода лавин</string>
-    <string name="object_height_guide">Оценка высоты объекта</string>
     <string name="tool_cliff_height_title">Высота скалы</string>
     <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
@@ -436,7 +433,6 @@
     <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
     <string name="pref_backtrack_enabled_summary">Записывать историю местоположений</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Просмотр истории местоположений</string>
     <string name="create_beacon">Создать маячок</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack">История маршрута</string>
@@ -634,8 +630,6 @@
     <string name="value_since_time">%s с %s</string>
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
-    <string name="your_height">Ваш рост</string>
-    <string name="pref_backtrack_path_radar_title">Показать путь истории маршрута</string>
     <string name="import_gpx">Импорт GPX</string>
     <string name="error_importing_map">Ошибка при импорте карты</string>
     <string name="importing_map">Импорт карты</string>
@@ -684,7 +678,6 @@
     <string name="pref_weather_show_detailed_icon_title">Показать цветной значок уведомления</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Фактическая частота может отличаться, так как для некоторых устройств установлены фоновые ограничения.</string>
-    <string name="pref_backtrack_path_radar_summary">На компасе радара и картах</string>
     <string name="time_until_full">до полного</string>
     <string name="theme_sunset_sunrise">Восход/закат</string>
     <string name="app_disclaimer_message_title">Отказ от ответственности / Условия использования</string>
@@ -825,8 +818,6 @@
     <string name="daylight">Дневной свет</string>
     <string name="pref_auto_low_power_title">Автоматическое энергосбережение</string>
     <string name="pref_auto_low_power_summary">Когда батарея разряжена</string>
-    <string name="pref_low_resolution_maps_title">Использовать низкое разрешение</string>
-    <string name="pref_low_resolution_maps_summary">Для устройств с ограниченным объемом памяти</string>
     <string name="pref_flashlight_toggle_with_volume_title">Переключение с помощью кнопок громкости</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Пока Trail Sense открыт</string>
     <string name="back_press_confirm">Нажмите назад ещё раз, чтобы выйти</string>
@@ -952,9 +943,7 @@
     <string name="navigate">Навигация</string>
     <string name="new_text">Новый</string>
     <string name="old">Старый</string>
-    <string name="path">Путь</string>
     <string name="units_mmhg_short">мм</string>
-    <string name="grid_size">Сетка %s</string>
     <string name="delete_path">Удалить путь\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Авто</string>

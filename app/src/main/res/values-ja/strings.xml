@@ -128,7 +128,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">度分</string>
     <string name="coordinate_format_decimal_degrees">10進数</string>
-    <string name="estimated_height">estimated height</string>
     <string name="set_inclination_instructions">Tap anywhere to set/unset inclination angle</string>
     <string name="clinometer_rotate_device">Hold your phone vertically to measure inclination</string>
     <string name="avalanche_risk_high">High avalanche risk</string>

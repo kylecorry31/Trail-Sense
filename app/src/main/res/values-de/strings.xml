@@ -126,7 +126,6 @@
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
     <string name="clinometer_title">Neigungsmesser</string>
-    <string name="estimated_height">geschätzte Höhe</string>
     <string name="sensors">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
@@ -285,8 +284,6 @@
     <string name="tool_cliff_height_disclaimer">Tool nur benutzen, wenn es sicher ist. Überprüfen, was sich unter der Klippe befindet, um Verletzungen zu vermeiden. Bedienungsanleitung lesen für Verwendungsanweisungen.</string>
     <string name="tool_cliff_height_description">Höhe einer Klippe oder Versenkung messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
-    <string name="object_height_guide">Höhe von Objekten abschätzen</string>
-    <string name="guide_avalanche_risk">Lawinengefahr bestimmen</string>
     <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
 \n
 \nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
@@ -415,7 +412,6 @@
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Wegpunkte für den Rückweg zeigen</string>
     <string name="beacon_set_bearing_btn">Richtung festlegen (%s)</string>
     <string name="bearing">Richtung</string>
     <string name="clock_sync_notification">Zeit-Synchronisation - %s</string>
@@ -571,7 +567,6 @@
     <string name="turn_off">Ausschalten</string>
     <string name="cirrocumulus_desc">Hohe Wolken, die eine gewellte Schicht bilden. Die Schicht besteht aus kleinen Punkten, die fast zweidimensional aussehen.</string>
     <string name="pref_require_satellites_title">Mehr Satelliten erforderlich</string>
-    <string name="your_height">Ihre Körpergröße</string>
     <string name="delete_tide_prompt">Gezeiten löschen\?</string>
     <string name="right_quick_action">Rechter Schnellzugriff</string>
     <string name="left_quick_action">Linker Schnellzugriff</string>
@@ -644,7 +639,6 @@
     <string name="importing_map">Karte importieren</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">min</string>
-    <string name="pref_backtrack_path_radar_title">Zeige Pfad von Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
     <string name="search">Suche</string>
@@ -661,7 +655,6 @@
     <string name="pref_weather_show_detailed_icon_title">Farbiges Benachrichtigungssymbol anzeigen</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Die tatsächliche Frequenz kann stark variieren, da einige Geräte Hintergrundbeschränkungen haben.</string>
-    <string name="pref_backtrack_path_radar_summary">Auf dem Radarkompass und der Karte</string>
     <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
     <string name="solid">Durchgängig</string>
@@ -737,8 +730,6 @@
     <string name="privacy">Privatsphäre</string>
     <string name="units">Einheiten</string>
     <string name="pref_privacy_screenshot_protection_title">Screenshots verhindern</string>
-    <string name="pref_low_resolution_maps_title">Geringe Auflösung verwenden</string>
-    <string name="pref_low_resolution_maps_summary">Für Geräte mit Speichereinschränkungen</string>
     <string name="pref_flashlight_toggle_with_volume_title">Mit Lautstärketasten steuern</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Während Trail Sense geöffnet ist</string>
     <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
@@ -867,9 +858,7 @@
     </plurals>
     <string name="new_text">Neu</string>
     <string name="old">Alt</string>
-    <string name="path">Pfad</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="grid_size">%s Raster</string>
     <string name="delete_path">Pfad löschen\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Auto</string>
@@ -1008,7 +997,6 @@
     <string name="pref_default_path_color_title">Standard-Pfadfarbe</string>
     <string name="pref_default_path_style_title">Standard-Pfadstil</string>
     <string name="append_onto">Anhängen an</string>
-    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">Vereinfachen der Pfade beim Import</string>
     <string name="dashed">Gestrichelt</string>
     <string name="merge">Zusammenführen</string>

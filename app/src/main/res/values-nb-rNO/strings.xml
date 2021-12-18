@@ -42,7 +42,6 @@
     <string name="pref_theme_title">Tema</string>
     <string name="pressure">Lufttrykk</string>
     <string name="general">Generelt</string>
-    <string name="estimated_height">anslått høyde</string>
     <string name="avalanche_risk_high">Høy snøskredfare</string>
     <string name="avalanche_risk_med">Middels snøskredfare</string>
     <string name="avalanche_risk_low">Lav snøskredfare</string>
@@ -224,7 +223,6 @@
     <string name="cliff_height_guide">Anslå høyden på en klippe</string>
     <string name="tool_cliff_height_disclaimer">Bruk bare dette verktøyet når det er trygt å gjøre det, og sørg for å sjekke hva som er under klippen for å unngå skade. Se brukerveiledningen for instruksjoner.</string>
     <string name="tool_cliff_height_description">Mål høyden på en klippe eller på et fall</string>
-    <string name="object_height_guide">Anslå objekthøyder</string>
     <string name="pref_use_legacy_compass_summary">Kan fikse kompassproblemer</string>
     <string name="pref_privacy_policy_title">Personvernspraksis</string>
     <string name="unit_miles">Engelsk mil</string>
@@ -264,7 +262,6 @@
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
-    <string name="guide_avalanche_risk">Vurdering av skredfare</string>
     <string name="max_depth">Maks: %s</string>
     <string name="guide_recommended_apps">Anbefalte apper</string>
     <string name="guide_recommended_apps_description">Nyttige apper for overlevelsessituasjoner</string>
@@ -364,7 +361,6 @@
     <string name="freezing_temperatures_description">Vann vil fryse ute og regn kan gå over til snø</string>
     <string name="freezing_temperatures_warning">Kuldegrader</string>
     <string name="pref_backtrack_enabled_summary">Ta opp posisjonshistorikk</string>
-    <string name="tool_backtrack_summary">Vis posisjonshistorikk</string>
     <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
     <string name="degree">%s°</string>
     <string name="coordinate_input_invalid_location">Ugyldig posisjon</string>
@@ -571,7 +567,6 @@
     <string name="battery_history">Batterihistorikk - siste %s</string>
     <string name="pref_flashlight_toggle_with_system_summary">Viser et varsel når lommelykten er slått på utenfor Trail Sense</string>
     <string name="import_map">Importer kart</string>
-    <string name="pref_low_resolution_maps_title">Bruk lav oppløsning</string>
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
     <string name="location_override_updated">Posisjon oppdatert</string>
@@ -579,7 +574,6 @@
     <string name="category_fire">Ild</string>
     <string name="distance_away_not_set">avstand ikke satt</string>
     <string name="distance_away">Avstand</string>
-    <string name="your_height">Din høyde</string>
     <string name="no_data">Ingen data</string>
     <string name="pref_barometer_info_summary">Trykket kan være forskjellig fra stasjoner i nærheten</string>
     <string name="location_mocked">Bruker overstyrt posisjon</string>
@@ -702,8 +696,6 @@
     <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
     <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
-    <string name="pref_backtrack_path_radar_summary">På radarkompasset og kartene</string>
-    <string name="pref_backtrack_path_radar_title">Vis tilbakesporingssti</string>
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
     <string name="pref_barometer_altitude_smoothing_title">Høydeutjevning</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
@@ -749,14 +741,11 @@
     <string name="navigate">Naviger</string>
     <string name="new_text">Ny</string>
     <string name="old">Gammel</string>
-    <string name="path">Sti</string>
-    <string name="grid_size">%s-rutenett</string>
     <string name="delete_path">Slett sti\?</string>
     <string name="no_resolution">Ingen oppløsning</string>
     <string name="notifications_blocked">Merknader blokkert</string>
     <string name="battery_usage_restricted">Batteribruk begrenset</string>
     <string name="on">På</string>
-    <string name="pref_low_resolution_maps_summary">For enheter med minnebegrensninger</string>
     <string name="back_press_confirm">Trykk «Tilbake» igjen for å forlate</string>
     <string name="underwater_mode">Undervannsmodus</string>
     <string name="map_perspective_instructions">Omriss av kartet</string>

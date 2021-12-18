@@ -177,9 +177,6 @@
     <!--Clinometer-->
     <string name="clinometer_title">Clinometer</string>
     <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
-    <string name="avalanche_risk_low">Low avalanche risk</string>
-    <string name="avalanche_risk_med">Moderate avalanche risk</string>
-    <string name="avalanche_risk_high">High avalanche risk</string>
     <string name="clinometer_rotate_device">Hold your phone vertically</string>
     <string name="set_inclination_instructions">Tap or hold anywhere to lock/unlock</string>
     <!--Inventory-->
@@ -706,8 +703,6 @@
     <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
     <string name="value_since_time">%s since %s</string>
     <string name="value_average">%s average</string>
-    <string name="distance_away">Distance away</string>
-    <string name="distance_away_not_set">distance away not set</string>
     <string name="saltwater_switch">Is saltwater?</string>
     <string name="odometer">Odometer</string>
     <string name="pedometer">Pedometer</string>

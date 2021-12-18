@@ -212,7 +212,6 @@
     <string name="coordinate_format_decimal_degrees">Gradu dezimalak</string>
     <string name="edit_item_title">Elementua editatu</string>
     <string name="create_item_title">Elementua sortu</string>
-    <string name="estimated_height">ustezko altuera</string>
     <string name="offline_maps">Konexiorik gabeko mapak</string>
     <string name="moon_illumination">Ilargiaren argiztapena</string>
     <string name="moon_phase">Ilargialdia</string>
@@ -380,7 +379,6 @@
     <string name="theme_sunset_sunrise">Egunsentia/ilunabarra</string>
     <string name="experimental">Esperimentala</string>
     <string name="tides">Mareak</string>
-    <string name="your_height">Zure altuera</string>
     <string name="value_average">%s batezbesteko</string>
     <string name="unsaved_changes">Gorde gabeko aldaketak</string>
     <string name="turn_off">Itzali</string>

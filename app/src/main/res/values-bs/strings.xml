@@ -142,8 +142,6 @@
     <string name="daylight">Dnevno svjetlo</string>
     <string name="pref_auto_low_power_title">Automatska ušteda energije</string>
     <string name="pref_auto_low_power_summary">Kad vam je baterija niska</string>
-    <string name="pref_low_resolution_maps_title">Koristite nisku rezoluciju</string>
-    <string name="pref_low_resolution_maps_summary">Za uređaje s ograničenjima memorije</string>
     <string name="pref_flashlight_toggle_with_volume_title">Prebacivanje sa zvučnim tipkama</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Dok je Trail Sense otvoren</string>
     <string name="back_press_confirm">Pritisnite natrag ponovno da izađete</string>
@@ -225,8 +223,6 @@
     <string name="importing_map">Uvozi se karta</string>
     <string name="hour_symbol">S</string>
     <string name="minute_symbol">m</string>
-    <string name="pref_backtrack_path_radar_summary">Na radarskom kompasu i kartama</string>
-    <string name="pref_backtrack_path_radar_title">Prikaži put Izatraga</string>
     <string name="map_auto_calibrated">Mapa je automatski kalibrirana, molimo provjerite njezinu preciznost</string>
     <string name="time_until_full">dok nije puno</string>
     <string name="time_until_empty">dok nije prazno</string>
@@ -543,8 +539,6 @@
     <string name="tool_cliff_height_description">Izmjerite visinu litice ili pada</string>
     <string name="tool_cliff_height_title">Visina Litice</string>
     <string name="toast_destination_bearing_set">Odredišni ležaj postavljen</string>
-    <string name="object_height_guide">Procijenite visine predmeta</string>
-    <string name="guide_avalanche_risk">Procjena rizika od lavine</string>
     <string name="depth_disclaimer">Koristite pod vlastitim rizikom.
 \n
 \nNe koristite bez vodootpornog kućišta, i ako je moguće držite se na sigurnoj udaljenosti za ronjenje.</string>
@@ -733,7 +727,6 @@
     <string name="pref_backtrack_frequency_title">Interval Izatraga</string>
     <string name="pref_backtrack_enabled_summary">Svinje lokacijsku historiju</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Pogledajte lokacijsku historiju</string>
     <string name="backtrack_notification_channel_description">Ažuriranja lokacija Izatraga</string>
     <string name="backtrack">Izatrag</string>
     <string name="pref_show_last_signal_beacon_summary">Stvara svjetionik za lokaciju posljednjeg signala ćelije</string>
@@ -801,8 +794,6 @@
     <string name="delete">Izbriši</string>
     <string name="subtract">Oduzmi</string>
     <string name="add">Sabiraj</string>
-    <string name="your_height">Vaša visina</string>
-    <string name="estimated_height">procijenjena visina</string>
     <string name="set_inclination_instructions">Dodirnite bilo gdje da postavite/poništite kut nagiba</string>
     <string name="clinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
     <string name="avalanche_risk_high">Visok rizik od lavine</string>

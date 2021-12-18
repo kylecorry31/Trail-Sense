@@ -117,7 +117,6 @@
     <string name="edit">Aanpassen</string>
     <string name="delete">Verwijderen</string>
     <string name="subtract">Aftrekken</string>
-    <string name="estimated_height">geschatte hoogte</string>
     <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="avalanche_risk_high">Hoog risico op lawines</string>
@@ -352,8 +351,6 @@
     <string name="pref_backtrack_history_days_title">Terugweg-geschiedenis</string>
     <string name="backtrack_battery_warning">Kleine intervallen (minder dan 15 minuten) kunnen de batterij snel doen leeglopen</string>
     <string name="backtrack_high_priority_notification">Er wordt elke %s een routepunt geplaatst</string>
-    <string name="pref_backtrack_path_radar_summary">Op het radarkompas en op de kaarten</string>
-    <string name="pref_backtrack_path_radar_title">Toon pad van Terugweg</string>
     <string name="speedometer_odometer_accuracy_dialog">Om de hoogste juistheid te bereiken moet je Terugweg aanzetten, en in de instellingen te kilometertellerbron op \'stappenteller\' zetten.</string>
     <string name="speedometer_average">Gemiddeld (van Terugweg)</string>
     <string name="pref_backtrack_save_cell_title">Mobiele signaal opnemen</string>
@@ -455,8 +452,6 @@
     <string name="tool_cliff_height_description">Klif- of dalhoogte meten</string>
     <string name="tool_cliff_height_title">Klifhoogte</string>
     <string name="toast_destination_bearing_set">Peiling bestemming ingesteld</string>
-    <string name="object_height_guide">Objecthoogtes schatten</string>
-    <string name="guide_avalanche_risk">Inschatting lawinegevaar</string>
     <string name="depth_disclaimer">Gebruik op eigen risico.
 \n
 \nNiet gebruiken zonder waterdichte behuizing en blijf indien mogelijk binnen een veilige duikafstand.</string>
@@ -525,7 +520,6 @@
     <string name="request_permission">Toestemming vragen</string>
     <string name="compass_declination">Magnetische declinatie</string>
     <string name="theme_sunset_sunrise">Zonsopkomst/zonsondergang</string>
-    <string name="your_height">je lengte</string>
     <string name="no_data">Geen gegevens</string>
     <string name="all_beacons">Alle bakens</string>
     <string name="battery_capacity_format">%s mAh</string>
@@ -571,7 +565,6 @@
     <string name="distance_to">Naar</string>
     <string name="distance_from">Van</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Locatiegeschiedenis tonen</string>
     <string name="create_beacon">Baken maken</string>
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="beacon_set_bearing_btn">Peiling vastzetten (%s)</string>
@@ -645,8 +638,6 @@
     <string name="daylight">Daglicht</string>
     <string name="pref_auto_low_power_title">Automatische energiebesparing</string>
     <string name="pref_auto_low_power_summary">Wanneer je batterij bijna leeg is</string>
-    <string name="pref_low_resolution_maps_title">Lage resolutie gebruiken</string>
-    <string name="pref_low_resolution_maps_summary">Voor apparaten met geheugenbeperkingen</string>
     <string name="pref_flashlight_toggle_with_volume_title">Schakelen met volumeknoppen</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Terwijl Trail Sense open is</string>
     <string name="back_press_confirm">Druk nogmaals op terug om te verlaten</string>

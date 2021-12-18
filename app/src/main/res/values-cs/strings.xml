@@ -34,7 +34,6 @@
     <string name="delete">Smazat</string>
     <string name="subtract">Odečíst</string>
     <string name="add">Přidat</string>
-    <string name="estimated_height">odhadovaná výška</string>
     <string name="clinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="avalanche_risk_high">Vysoká pravděpodobnost laviny</string>
     <string name="avalanche_risk_med">Středně velká pravděpodobnost laviny</string>
@@ -191,7 +190,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
-    <string name="your_height">Vaše výška</string>
     <string name="set_inclination_instructions">Klepnutím kamkoli nastavte/zrušte úhel sklonu</string>
     <string name="tide_neap"/>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>

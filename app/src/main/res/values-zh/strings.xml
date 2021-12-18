@@ -100,7 +100,6 @@
     <string name="celsius">摄氏度</string>
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
-    <string name="estimated_height">预计的高度</string>
     <string name="set_inclination_instructions">轻按任意位置以锁定/解锁</string>
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="avalanche_risk_high">高雪崩风险</string>
@@ -273,8 +272,6 @@
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
     <string name="tool_cliff_height_title">悬崖高度</string>
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
-    <string name="object_height_guide">预测物体高度</string>
-    <string name="guide_avalanche_risk">雪崩风险预测</string>
     <string name="depth_disclaimer">如果可能请保持在安全的潜水距离内。使用本软件测量水深，风险自负。
 \n
 \n不要在没有防水外壳的情况下使用，如果可能请保持在安全的潜水距离内。</string>
@@ -399,7 +396,6 @@
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">查看位置历史</string>
     <string name="create_beacon">创建信标</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
@@ -603,7 +599,6 @@
     <string name="saltwater_switch">是咸水吗？</string>
     <string name="distance_away_not_set">距离未设定</string>
     <string name="distance_away">距离</string>
-    <string name="your_height">你的身高</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="source">源</string>
     <string name="pref_stride_length_title">步幅</string>
@@ -642,7 +637,6 @@
     <string name="importing_map">导入地图中</string>
     <string name="hour_symbol">小时</string>
     <string name="minute_symbol">分钟</string>
-    <string name="pref_backtrack_path_radar_title">显示 Backtrack 路径</string>
     <string name="map_auto_calibrated">以自动校准地图，请验证其精度</string>
     <string name="time_until_empty">离空还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
@@ -657,7 +651,6 @@
     <string name="pref_weather_show_detailed_icon_title">显示彩色通知图标</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">实际频率可能会因某些设备的后台限制而变化。</string>
-    <string name="pref_backtrack_path_radar_summary">关于雷达、指南针和地图</string>
     <string name="app_disclaimer_message_title">免责声明/服务条款</string>
     <string name="disclaimer_message_title">免责声明</string>
     <string name="background_update">后台升级</string>
@@ -736,8 +729,6 @@
     <string name="back_press_confirm">再次按下返回离开</string>
     <string name="underwater_mode">水下模式</string>
     <string name="leave_underwater_mode">水下模式：按返回键退出</string>
-    <string name="pref_low_resolution_maps_title">使用低分辨率</string>
-    <string name="pref_low_resolution_maps_summary">对于内存有限的设备</string>
     <string name="unit_yards">码</string>
     <string name="yards_format">%s码</string>
     <string name="find_next_occurrence">查找下一个出现</string>
@@ -859,13 +850,11 @@
     <plurals name="waypoints_to_be_deleted">
         <item quantity="other">%d 个航点将被删除</item>
     </plurals>
-    <string name="grid_size">%s 网格</string>
     <string name="delete_path">删除路径？</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">自动</string>
     <string name="new_text">新</string>
     <string name="old">旧</string>
-    <string name="path">路径</string>
     <string name="units_mmhg_short">毫米</string>
     <string name="pick_file">挑选文件</string>
     <string name="export_path_error">无法导出路径</string>
@@ -999,7 +988,6 @@
     <string name="simplify">简化</string>
     <string name="simplifying">简化中</string>
     <string name="simplification_quality">简化质量</string>
-    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">导入时简化路径</string>
     <string name="merging">合并中</string>
     <plurals name="waypoints_deleted">

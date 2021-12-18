@@ -218,7 +218,6 @@
     <string name="delete">Poista</string>
     <string name="subtract">Vähennä</string>
     <string name="add">Lisää</string>
-    <string name="estimated_height">arvioitu korkeus</string>
     <string name="set_inclination_instructions">Napauta mistä tahansa asettaaksesi / poistaaksesi kallistuskulman</string>
     <string name="clinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>
     <string name="avalanche_risk_high">Korkea vyöryriski</string>

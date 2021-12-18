@@ -113,7 +113,6 @@
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_degrees_minutes_seconds">Grados Minutos Segundos</string>
     <string name="coordinate_format_degrees_decimal_minutes">Grados Decimales Minutos</string>
-    <string name="estimated_height">altura estimada</string>
     <string name="set_inclination_instructions">Toque en cualquier lugar para establecer/desactivar el ángulo de inclinación</string>
     <string name="clinometer_rotate_device">Sostenga su teléfono verticalmente para medir la inclinación</string>
     <string name="avalanche_risk_high">Alto riesgo de avalanchas</string>
@@ -229,7 +228,6 @@
     <string name="tool_cliff_height_disclaimer">Sólo use esta herramienta cuando sea seguro hacerlo, y asegúrese de revisar qué hay debajo del precipicio para evitar heridas. Vea la guía de usuario para las instrucciones.</string>
     <string name="tool_cliff_height_title">Altura de precipicio</string>
     <string name="toast_destination_bearing_set">Orientación al destino establecida</string>
-    <string name="guide_avalanche_risk">Estimación de riesgo de avalancha</string>
     <string name="depth_disclaimer">Use bajo su propio riesgo
 \n
 \nNo usar sin funda a prueba de agua, y quedarse a una distancia de nadado segura, de ser posible.</string>
@@ -315,7 +313,6 @@
     <string name="delete">Eliminar</string>
     <string name="subtract">Restar</string>
     <string name="add">Agregar</string>
-    <string name="your_height">Tu altura</string>
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
@@ -324,7 +321,6 @@
     <string name="heat_alert_heat_caution_title">Precaución de calor</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="object_height_guide">Estimar alturas de objetos</string>
     <string name="tool_depth_title">Profundidad</string>
     <string name="pref_altitude_override_title">Anulación de altitud</string>
     <string name="boil_start">Iniciar</string>
@@ -824,8 +820,6 @@
     <string name="underwater_mode">Modo submarino</string>
     <string name="back_press_confirm">Presione de nuevo para salir</string>
     <string name="pref_flashlight_toggle_with_volume_title">Alternar con botones de volumen</string>
-    <string name="pref_low_resolution_maps_summary">Para dispositivos con limitaciones de memoria</string>
-    <string name="pref_low_resolution_maps_title">Usa baja resolución</string>
     <string name="pref_auto_low_power_summary">Cuando tu batería está baja</string>
     <string name="pref_auto_low_power_title">Ahorro de energía automático</string>
     <string name="daylight">Luz de dia</string>
@@ -993,7 +987,6 @@
     <string name="simplify">Simplificar</string>
     <string name="simplifying">Simplificando</string>
     <string name="simplification_quality">Calidad de simplificación</string>
-    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
     <string name="navigation_guide_description">Usando balizas y caminos</string>
     <plurals name="waypoints_deleted">

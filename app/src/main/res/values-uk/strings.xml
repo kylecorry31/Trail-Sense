@@ -18,12 +18,10 @@
     <string name="pref_odometer_reset_daily_title">Скидувати щодня</string>
     <string name="sleep_timer">Відлік часу сну</string>
     <string name="import_gpx">Імпорт GPX</string>
-    <string name="pref_backtrack_path_radar_summary">На компасі радару та мапах</string>
     <string name="error_importing_map">Помилка під час імпортування мапи</string>
     <string name="importing_map">Імпортування мапи</string>
     <string name="hour_symbol">год</string>
     <string name="minute_symbol">м</string>
-    <string name="pref_backtrack_path_radar_title">Показати шлях історії маршруту</string>
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
     <string name="time_until_full">до повного</string>
     <string name="time_until_empty">до спустошення</string>
@@ -239,7 +237,6 @@
     <string name="tool_cliff_height_description">Виміряйте висоту скелі чи обриву</string>
     <string name="tool_cliff_height_title">Висота скелі</string>
     <string name="toast_destination_bearing_set">Орієнтацію встановлено</string>
-    <string name="object_height_guide">Оцінити висоту об\'єкта</string>
     <string name="pref_altimeter_calibration_mode_title">Автокалібрування</string>
     <string name="calibrate_compass_dialog_title">Калібрувати компас</string>
     <string name="calibrate">Калібрувати</string>
@@ -250,7 +247,6 @@
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
     <string name="altitude_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
-    <string name="guide_avalanche_risk">Оцінка ризику зсуву лавин</string>
     <string name="depth_disclaimer">Використовуйте на свій страх і ризик.
 \n
 \nНе використовуйте без водонепроникного чохла і за можливості залишайтеся на безпечній відстані для плавання.</string>
@@ -395,8 +391,6 @@
     <string name="delete">Видалити</string>
     <string name="subtract">Відняти</string>
     <string name="add">Додати</string>
-    <string name="your_height">Ваш зріст</string>
-    <string name="estimated_height">Розрахункова висота</string>
     <string name="set_inclination_instructions">Торкніться будь-де, щоб заблок./розблок.</string>
     <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
     <string name="avalanche_risk_high">Високий ризик лавини</string>
@@ -479,7 +473,6 @@
     <string name="pref_backtrack_frequency_title">Інтервал історії маршруту</string>
     <string name="pref_backtrack_enabled_summary">Записувати історію місцеперебувань</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Перегляд історії місцеперебувань</string>
     <string name="create_beacon">Створити маячок</string>
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack">Історія маршруту</string>
@@ -747,8 +740,6 @@
     <string name="privacy">Приватність</string>
     <string name="units">Одиниці</string>
     <string name="pref_privacy_screenshot_protection_title">Запобігати зняткам екрана</string>
-    <string name="pref_low_resolution_maps_title">Використовувати низьку роздільну здатність</string>
-    <string name="pref_low_resolution_maps_summary">Для пристроїв з обмеженнями пам’яті</string>
     <string name="pref_flashlight_toggle_with_volume_title">Перемикання кнопками гучності</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Поки Trail Sense відкритий</string>
     <string name="back_press_confirm">Натисніть ще раз, щоб вийти</string>
@@ -877,7 +868,6 @@
         <item quantity="many">%d шляхових точок буде видалено</item>
         <item quantity="other">%d шляхових точок буде видалено</item>
     </plurals>
-    <string name="grid_size">Сітка %s</string>
     <string name="delete_path">Видалити шлях\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Авто</string>
@@ -885,7 +875,6 @@
     <string name="units_inhg">дюйм рт.ст.</string>
     <string name="new_text">Нове</string>
     <string name="old">Старе</string>
-    <string name="path">Шлях</string>
     <string name="units_mmhg_short">мм</string>
     <string name="pick_file">Виберіть файл</string>
     <string name="export_path_error">Не вдалося експортувати шлях</string>
@@ -1030,7 +1019,6 @@
     </plurals>
     <string name="simplify">Спростити</string>
     <string name="simplifying">Спрощування</string>
-    <string name="pref_auto_simplify_paths">pref_auto_simplify_paths</string>
     <string name="navigation_guide_description">Використання маяків і шляхів</string>
     <string name="saving">Зберігання</string>
     <string name="change_map_projection">Змінити проєкцію</string>
