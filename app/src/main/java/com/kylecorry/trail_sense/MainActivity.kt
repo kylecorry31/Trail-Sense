@@ -101,8 +101,7 @@ class MainActivity : AndromedaActivity() {
         val cache = Preferences(this)
 
         setContentView(R.layout.activity_main)
-        navController =
-            (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
+        navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setupWithNavController(navController)
 
@@ -339,8 +338,12 @@ class MainActivity : AndromedaActivity() {
         return null
     }
 
-    private fun getFragment(): Fragment? {
+    fun getFragment(): Fragment? {
         return supportFragmentManager.fragments.firstOrNull()?.childFragmentManager?.fragments?.firstOrNull()
+    }
+
+    private fun findNavController(): NavController {
+        return (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
     }
 
 

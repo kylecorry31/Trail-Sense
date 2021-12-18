@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class BarometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
+class BarometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IBarometer>(
         context,
         lifecycleOwner,
@@ -19,7 +19,7 @@ class BarometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
             return listOf(DiagnosticCode.BarometerUnavailable)
         }
 
-        if (sensor.quality == Quality.Poor) {
+        if (canRun && sensor!!.quality == Quality.Poor) {
             return listOf(DiagnosticCode.BarometerPoor)
         }
 
