@@ -33,6 +33,8 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val depth by lazy { DepthPreferences(context) }
     val clinometer by lazy { ClinometerPreferences(context) }
 
+    var hapticsEnabled = false
+
     val distanceUnits: DistanceUnits
         get() {
             val rawUnits =

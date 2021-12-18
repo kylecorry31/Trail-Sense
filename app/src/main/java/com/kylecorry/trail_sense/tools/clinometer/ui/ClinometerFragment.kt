@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
@@ -58,7 +59,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val geology = GeologyService()
     private val markdown by lazy { MarkdownService(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
+    private val feedback by lazy { DialHapticFeedback(requireContext(), 1) }
     private val throttle = Throttle(20)
+    private val hapticsEnabled by lazy { prefs.hapticsEnabled }
 
     private lateinit var clinometer: IClinometer
 
@@ -311,6 +314,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             useCamera = false
             clinometer = getClinometer()
         }
+        if (hapticsEnabled) {
+            feedback.stop()
+        }
     }
 
     private fun getClinometer(): IClinometer {
@@ -335,6 +341,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             binding.cameraViewHolder.isVisible = false
             binding.clinometer.isInvisible = true
             return
+        }
+
+        if (slopeAngle == null && hapticsEnabled) {
+            feedback.angle = clinometer.angle
         }
 
         binding.clinometerInstructions.isVisible = false
