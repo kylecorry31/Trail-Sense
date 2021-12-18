@@ -7,8 +7,10 @@ import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.canvas.Dial
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
@@ -33,7 +35,7 @@ class ClinometerView : CanvasView, IClinometerView {
         }
 
     override var startAngle: Float? = null
-        set(value){
+        set(value) {
             field = if (value == null) null else value + 90
             invalidate()
         }
@@ -45,6 +47,8 @@ class ClinometerView : CanvasView, IClinometerView {
     private val needlePercent = 0.8f
     private val labelInterval = 30
     private var radius = 1f
+
+    private lateinit var tickPath: Path
 
     private val avalancheRiskClipPath = Path()
 
@@ -60,23 +64,26 @@ class ClinometerView : CanvasView, IClinometerView {
             radius - tickLength,
             Path.Direction.CW
         )
+        tickPath =
+            Dial.ticks(PixelCoordinate(width / 2f, height / 2f), radius, tickLength, tickInterval)
     }
 
     override fun draw() {
         push()
         drawBackground()
         drawTicks()
+        drawLabels()
 
         push()
         rotate(180f)
-        drawTicks()
+        drawLabels()
         pop()
 
         drawNeedle(angle)
         pop()
     }
 
-    private fun drawAvalancheZone(start: Float, stop: Float, color: Int){
+    private fun drawAvalancheZone(start: Float, stop: Float, color: Int) {
         val x = width / 2f - radius
         val y = height / 2f - radius
         val d = radius * 2
@@ -95,10 +102,10 @@ class ClinometerView : CanvasView, IClinometerView {
         clipInverse(avalancheRiskClipPath)
 
         // High
-        drawAvalancheZone( 30f, 45f, AppColor.Red.color)
-        drawAvalancheZone( -30f, -45f, AppColor.Red.color)
-        drawAvalancheZone( 210f, 225f, AppColor.Red.color)
-        drawAvalancheZone( -210f, -225f, AppColor.Red.color)
+        drawAvalancheZone(30f, 45f, AppColor.Red.color)
+        drawAvalancheZone(-30f, -45f, AppColor.Red.color)
+        drawAvalancheZone(210f, 225f, AppColor.Red.color)
+        drawAvalancheZone(-210f, -225f, AppColor.Red.color)
 
         // Moderate
         drawAvalancheZone(45f, 60f, AppColor.Yellow.color)
@@ -122,32 +129,35 @@ class ClinometerView : CanvasView, IClinometerView {
 
     private fun drawTicks() {
         strokeWeight(dp(2f))
+        stroke(Color.WHITE)
+        opacity(255)
+        noFill()
+        path(tickPath)
+    }
 
-        for (i in 0..180 step tickInterval) {
+    private fun drawLabels() {
+        strokeWeight(dp(2f))
+
+        for (i in 0..180 step labelInterval) {
             push()
             rotate(i.toFloat())
-            stroke(Color.WHITE)
-            line(width / 2f, height / 2f - radius, width / 2f, height / 2f - radius + tickLength)
-
-            if (i % labelInterval == 0) {
-                noStroke()
-                fill(Color.WHITE)
-                val degrees = if (i <= 90) {
-                    90 - i
-                } else {
-                    i - 90
-                }
-
-                val degreeText = formatter.formatDegrees(degrees.toFloat())
-                textMode(TextMode.Center)
-                val offset = textHeight(degreeText)
-                push()
-                val x = width / 2f
-                val y = height / 2f - radius + tickLength + offset
-                rotate(180f, x, y)
-                text(degreeText, x, y)
-                pop()
+            noStroke()
+            fill(Color.WHITE)
+            val degrees = if (i <= 90) {
+                90 - i
+            } else {
+                i - 90
             }
+
+            val degreeText = formatter.formatDegrees(degrees.toFloat())
+            textMode(TextMode.Center)
+            val offset = textHeight(degreeText)
+            push()
+            val x = width / 2f
+            val y = height / 2f - radius + tickLength + offset
+            rotate(180f, x, y)
+            text(degreeText, x, y)
+            pop()
 
             pop()
         }
@@ -177,4 +187,5 @@ class ClinometerView : CanvasView, IClinometerView {
         noStroke()
         circle(width / 2f, height / 2f, dp(12f))
     }
+
 }
