@@ -301,11 +301,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 if (Camera.isAvailable(requireContext())) {
                     enableSightingCompass()
                 } else {
-                    Alerts.toast(
-                        requireContext(),
-                        getString(R.string.camera_permission_denied),
-                        short = false
-                    )
+                    alertNoCameraPermission()
                     setSightingCompassStatus(false)
                 }
             }

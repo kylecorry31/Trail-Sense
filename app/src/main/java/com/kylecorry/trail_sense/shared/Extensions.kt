@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.math.Vector2
@@ -42,4 +43,12 @@ fun <T : Identifiable> Array<T>.withId(id: Long): T? {
 
 fun <T : Identifiable> Collection<T>.withId(id: Long): T? {
     return firstOrNull { it.id == id }
+}
+
+fun Fragment.alertNoCameraPermission(){
+    Alerts.toast(
+        requireContext(),
+        getString(R.string.camera_permission_denied),
+        short = false
+    )
 }

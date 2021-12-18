@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
@@ -22,17 +21,13 @@ import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.PressState
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
@@ -113,11 +108,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
                         clinometer = getClinometer()
                     } else {
-                        Alerts.toast(
-                            requireContext(),
-                            getString(R.string.camera_permission_denied),
-                            short = false
-                        )
+                        alertNoCameraPermission()
                     }
                 }
             }
@@ -333,18 +324,16 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             return
         }
 
-        binding.lock.isVisible = slopeAngle != null
+        val locked = isLocked()
 
-        if (!isOrientationValid() && slopeAngle == null) {
+        binding.lock.isVisible = locked
+
+        if (!isOrientationValid() && !locked) {
             binding.clinometerInstructions.isVisible = !useCamera
             binding.cameraClinometerInstructions.isVisible = useCamera
             binding.cameraViewHolder.isVisible = false
             binding.clinometer.isInvisible = true
             return
-        }
-
-        if (slopeAngle == null && hapticsEnabled) {
-            feedback.angle = clinometer.angle
         }
 
         binding.clinometerInstructions.isVisible = false
@@ -354,6 +343,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         val angle = slopeAngle ?: clinometer.angle
         val incline = slopeIncline ?: clinometer.incline
+
+        if (hapticsEnabled) {
+            feedback.angle = angle
+        }
 
         val avalancheRisk = geology.getAvalancheRisk(incline)
 
@@ -398,8 +391,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
     }
 
+    private fun isLocked(): Boolean {
+        return slopeAngle != null
+    }
+
     private fun getSlopePercent(incline: Float): Float {
-        return SolMath.tanDegrees(incline) * 100
+        return geology.getSlopeGrade(incline)
     }
 
     private fun getAvalancheRiskString(risk: AvalancheRisk): String {

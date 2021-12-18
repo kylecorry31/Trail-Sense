@@ -35,6 +35,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
+import com.kylecorry.trail_sense.shared.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
@@ -117,11 +118,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                         if (Camera.isAvailable(requireContext())) {
                             importBeaconFromQR()
                         } else {
-                            Alerts.toast(
-                                requireContext(),
-                                getString(R.string.camera_permission_denied),
-                                short = false
-                            )
+                            alertNoCameraPermission()
                         }
                     }
                     setCreateMenuVisibility(false)
