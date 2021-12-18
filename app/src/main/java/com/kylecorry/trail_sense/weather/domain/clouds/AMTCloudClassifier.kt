@@ -180,7 +180,13 @@ class AMTCloudClassifier(
             features.blueSkewness
         )
 
-        Log.d("CloudFeatures", values.joinToString(",") { it.roundPlaces(2).toString() })
+        Log.d("CloudFeatures", values.joinToString(",") {
+            if (it.isNaN()) {
+                it
+            } else {
+                it.roundPlaces(2)
+            }.toString()
+        })
     }
 
     private fun percentDifference(color1: Double, color2: Double): Float {
