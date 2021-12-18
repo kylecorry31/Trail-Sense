@@ -197,7 +197,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">Градусы, минуты и секунды</string>
     <string name="coordinate_format_degrees_decimal_minutes">Градусы и минуты с дробью</string>
     <string name="coordinate_format_decimal_degrees">Только градусы с десятичной дробной частью</string>
-    <string name="set_inclination_instructions">Коснитесь экрана для фиксации значения</string>
+    <string name="set_inclination_instructions">Нажмите в любом месте для блокировки/разблокировки</string>
     <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
     <string name="tool_clinometer_summary">Оценка риска лавин и высоты объектов</string>
     <string name="moon_illumination">Освещение</string>
@@ -592,7 +592,7 @@
     <string name="left_quick_action">Быстрое действие налево</string>
     <string name="none">Ничего</string>
     <string name="no_gps_signal">Нет сигнала GPS</string>
-    <string name="always_on">Всегда включен</string>
+    <string name="always_on">Всегда включено</string>
     <string name="weather_same_as_today">Как и сегодня</string>
     <string name="weather_worse_than_today">Хуже, чем сегодня</string>
     <string name="weather_better_than_today">Лучше, чем сегодня</string>
@@ -831,7 +831,7 @@
     <string name="gps_signal_lost">Сигнал GPS потерян</string>
     <string name="altitude_history_length">Длина истории высот</string>
     <string name="last_duration">Последняя %s</string>
-    <string name="overridden">Переопределенный</string>
+    <string name="overridden">Переопределено</string>
     <string name="autofill">Автозаполнение</string>
     <string name="diagnostic_message_template">%s
 \n
@@ -977,4 +977,60 @@
     <string name="show">Показать</string>
     <string name="paths">Пути</string>
     <string name="keep_forever">Сохранить навсегда</string>
+    <string name="slope_amount">Наклон %s</string>
+    <string name="avalanche_risk">Риск лавины</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d путь импортирован</item>
+        <item quantity="few">%d путя импортировано</item>
+        <item quantity="many">%d путей импортировано</item>
+        <item quantity="other">%d путей импортировано</item>
+    </plurals>
+    <string name="distance_unset">Расстояние не установлено</string>
+    <string name="dashed">Пунктир</string>
+    <string name="pref_default_path_color_title">Цвет пути по умолчанию</string>
+    <string name="importing">Импорт</string>
+    <string name="temporary">Временно</string>
+    <string name="sort_by">Сортировка: %s</string>
+    <string name="difficulty">Сложность</string>
+    <string name="merging">Слияние</string>
+    <string name="simplification_quality">Качество упрощения</string>
+    <string name="pref_auto_simplify_paths_title">Упростить пути при импорте</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d путевая точка удалена</item>
+        <item quantity="few">%d путевые точки удалены</item>
+        <item quantity="many">%d путевых точек удалено</item>
+        <item quantity="other">%d путевых точек удалено</item>
+    </plurals>
+    <string name="clinometer_height_instructions">Нажмите и удерживайте для измерения высоты</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="append_onto">Добавить в</string>
+    <string name="saving">Хранение</string>
+    <string name="hard">Трудно</string>
+    <string name="merge">Слить</string>
+    <string name="simplify">Упростить</string>
+    <string name="simplifying">Упрощение</string>
+    <string name="pref_default_path_style_title">Стиль пути по умолчанию</string>
+    <string name="waypoint">Путевая точка</string>
+    <string name="pref_clinometer_baseline_distance_title">Базовое расстояние</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Блокировка с помощью кнопок регулировки громкости</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="point_style">Стиль точки</string>
+    <string name="most_recent">Самый последний</string>
+    <string name="longest">Самый длинный</string>
+    <string name="shortest">Самый короткий</string>
+    <string name="line_style">Стиль линии</string>
+    <string name="path_color">Цвет пути</string>
+    <string name="closest">Ближайший</string>
+    <string name="points">Точки</string>
+    <string name="duration">Продолжительность</string>
+    <string name="elevation">Высота</string>
+    <string name="elevation_gain">Повышение высоты</string>
+    <string name="elevation_loss">Понижение высоты</string>
+    <string name="easy">Легко</string>
+    <string name="navigation_guide_description">Использование маячков и путей</string>
+    <string name="change_map_projection">Изменить проекцию</string>
+    <string name="map_projection_mercator">Меркатор</string>
+    <string name="map_projection_equidistant">Ровно удаленная</string>
+    <string name="reduce_map_resolution">Уменьшение разрешения карты</string>
 </resources>

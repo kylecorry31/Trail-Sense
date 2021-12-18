@@ -1023,4 +1023,10 @@
     <string name="slope_amount">Нахил %s</string>
     <string name="avalanche_risk">Лавинний ризик</string>
     <string name="distance_unset">Відстань не встановлено</string>
+    <string name="clinometer_height_instructions">Натисніть і утримуйте, щоб виміряти висоту</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Блокування кнопками гучності</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="pref_clinometer_baseline_distance_title">Основна відстань</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
 </resources>
