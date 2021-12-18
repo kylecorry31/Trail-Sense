@@ -251,9 +251,6 @@
     <string name="add">Afegir</string>
     <string name="set_inclination_instructions">Premeu en qualsevol lloc per establir / desactivar l\'angle d\'inclinació</string>
     <string name="clinometer_rotate_device">Sostingui el telèfon verticalment per mesurar la inclinació</string>
-    <string name="avalanche_risk_high">Risc d\'allau alt</string>
-    <string name="avalanche_risk_med">Risc d\'allau moderat</string>
-    <string name="avalanche_risk_low">Risc d\'allau baix</string>
     <string name="tool_clinometer_summary">Permet d\'estimar l\'alçada dels objectes i evaluar el risc d’allau</string>
     <string name="clinometer_title">Inclinòmetre</string>
     <string name="offline_maps">Mapes Offline</string>

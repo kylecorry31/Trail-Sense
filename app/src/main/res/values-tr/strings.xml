@@ -43,8 +43,6 @@
     <string name="tide_location_label">Gelgit konumu (isteğe bağlı)</string>
     <string name="pedometer">Adımsayar</string>
     <string name="odometer">Odometre/kilometre sayacı</string>
-    <string name="distance_away_not_set">Mesafe uzaklığı belirlenmedi</string>
-    <string name="distance_away">Mesafe uzaklığı</string>
     <string name="value_average">ortalama %s</string>
     <string name="value_since_time">%s\'den beri %s</string>
     <string name="tool_speedometer_odometer_title">Hız ölçer / Kilometre sayacı</string>
@@ -444,9 +442,6 @@
     <string name="add">Ekle</string>
     <string name="set_inclination_instructions">Kilitlemek/kilidini açmak için herhangi bir yere dokunun</string>
     <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
-    <string name="avalanche_risk_high">Yüksek çığ riski</string>
-    <string name="avalanche_risk_med">Orta çığ riski</string>
-    <string name="avalanche_risk_low">Düşük çığ riski</string>
     <string name="tool_clinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
     <string name="clinometer_title">Eğim ölçer</string>
     <string name="offline_maps">Çevrimdışı Haritalar</string>

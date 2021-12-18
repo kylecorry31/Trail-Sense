@@ -105,9 +105,6 @@
     <string name="edit">Edytuj</string>
     <string name="delete">Usuń</string>
     <string name="add">Dodaj</string>
-    <string name="avalanche_risk_high">Wysokie zagrożenie lawinowe</string>
-    <string name="avalanche_risk_med">Umiarkowane zagrożenie lawinowe</string>
-    <string name="avalanche_risk_low">Niskie zagrożenie lawinowe</string>
     <string name="offline_maps">Mapy offline</string>
     <string name="moon_phase">Faza Księżyca</string>
     <string name="sunset_alerts">Alerty o zachodzie słońca</string>
@@ -602,8 +599,6 @@
     <string name="value_average">%s średnia</string>
     <string name="value_since_time">%s od %s</string>
     <string name="saltwater_switch">Czy to słona woda\?</string>
-    <string name="distance_away_not_set">odległość nie jest ustawiona</string>
-    <string name="distance_away">Odległość od</string>
     <string name="source">Źródło</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>

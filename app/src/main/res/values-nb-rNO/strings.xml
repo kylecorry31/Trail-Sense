@@ -42,9 +42,6 @@
     <string name="pref_theme_title">Tema</string>
     <string name="pressure">Lufttrykk</string>
     <string name="general">Generelt</string>
-    <string name="avalanche_risk_high">Høy snøskredfare</string>
-    <string name="avalanche_risk_med">Middels snøskredfare</string>
-    <string name="avalanche_risk_low">Lav snøskredfare</string>
     <string name="moon_phase">Månefase</string>
     <string name="sunset_alert_notification_title">Solen går snart ned</string>
     <string name="full_moon">Fullmåne</string>
@@ -572,8 +569,6 @@
     <string name="location_override_updated">Posisjon oppdatert</string>
     <string name="update_gps_override">Oppdater GPS-overstyring</string>
     <string name="category_fire">Ild</string>
-    <string name="distance_away_not_set">avstand ikke satt</string>
-    <string name="distance_away">Avstand</string>
     <string name="no_data">Ingen data</string>
     <string name="pref_barometer_info_summary">Trykket kan være forskjellig fra stasjoner i nærheten</string>
     <string name="location_mocked">Bruker overstyrt posisjon</string>

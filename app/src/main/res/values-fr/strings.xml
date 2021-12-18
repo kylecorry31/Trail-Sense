@@ -153,9 +153,6 @@
     <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>
     <string name="set_inclination_instructions">Appuyez sur un point de l\'écran pour verrouiller / déverrouiller une inclinaison donnée</string>
     <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
-    <string name="avalanche_risk_high">Risque d\'avalanche élevé</string>
-    <string name="avalanche_risk_med">Risque d\'avalanche modéré</string>
-    <string name="avalanche_risk_low">Risque d\'avalanche faible</string>
     <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
     <string name="clinometer_title">Inclinomètre</string>
     <string name="solar_noon">Midi solaire</string>

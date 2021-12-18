@@ -115,9 +115,6 @@
     <string name="coordinate_format_degrees_decimal_minutes">Grados Decimales Minutos</string>
     <string name="set_inclination_instructions">Toque en cualquier lugar para establecer/desactivar el ángulo de inclinación</string>
     <string name="clinometer_rotate_device">Sostenga su teléfono verticalmente para medir la inclinación</string>
-    <string name="avalanche_risk_high">Alto riesgo de avalanchas</string>
-    <string name="avalanche_risk_med">Riesgo moderado de avalancha</string>
-    <string name="avalanche_risk_low">Riesgo bajo de avalancha</string>
     <string name="tool_clinometer_summary">Estimar los riesgos de avalanchas y la altura de los objetos.</string>
     <string name="clinometer_title">Inclinómetro</string>
     <string name="moon_illumination">Iluminación de la luna</string>
@@ -495,8 +492,6 @@
     <string name="tool_speedometer_odometer_title">Velocímetro / cuentakilómetros</string>
     <string name="value_since_time">%s desde %s</string>
     <string name="value_average">%s promedio</string>
-    <string name="distance_away">Distancia lejana</string>
-    <string name="distance_away_not_set">Estimado de distancia no establecido</string>
     <string name="saltwater_switch">¿Es agua salada\?</string>
     <string name="odometer">Odometro</string>
     <string name="source">Recurso</string>

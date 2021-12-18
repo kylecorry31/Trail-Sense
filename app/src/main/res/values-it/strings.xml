@@ -135,9 +135,6 @@
     <string name="add">Aggiungi</string>
     <string name="set_inclination_instructions">Tocca un qualsiasi punto per impostare/rimuovere l\'angolo di inclinazione</string>
     <string name="clinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
-    <string name="avalanche_risk_high">RIschio valanghe elevato</string>
-    <string name="avalanche_risk_med">Rischio valanghe moderato</string>
-    <string name="avalanche_risk_low">Basso rischio valanghe</string>
     <string name="tool_clinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
     <string name="clinometer_title">Inclinometro</string>
     <string name="offline_maps">Mappe Offline</string>

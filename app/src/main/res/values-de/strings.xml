@@ -218,9 +218,6 @@
     <string name="compass_auto_declination">Deklination automatisch anpassen</string>
     <string name="compass_declination_override">Deklination festlegen</string>
     <string name="clinometer_rotate_device">Halten Sie Ihr Telefon vertikal um die Inklination zu messen</string>
-    <string name="avalanche_risk_high">Hohe Lawinengefahr</string>
-    <string name="avalanche_risk_med">Mittlere Lawinengefahr</string>
-    <string name="avalanche_risk_low">Niedrige Lawinengefahr</string>
     <string name="tool_clinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
     <string name="offline_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
@@ -606,8 +603,6 @@
     <string name="pref_nearby_radar_title">Kompass in Radarform anzeigen</string>
     <string name="source">Quelle</string>
     <string name="pref_stride_length_title">Schrittlänge</string>
-    <string name="distance_away_not_set">Entfernung nicht festgelegt</string>
-    <string name="distance_away">Entfernung</string>
     <string name="value_average">%s Durchschnitt</string>
     <string name="value_since_time">%s seit %s</string>
     <string name="speedometer_average">Durchschnitt (von Rückweg)</string>

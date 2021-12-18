@@ -199,9 +199,6 @@
     <string name="coordinate_format_decimal_degrees">Только градусы с десятичной дробной частью</string>
     <string name="set_inclination_instructions">Коснитесь экрана для фиксации значения</string>
     <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
-    <string name="avalanche_risk_high">Высокий риск лавины</string>
-    <string name="avalanche_risk_med">Средний риск лавины</string>
-    <string name="avalanche_risk_low">Низкий риск лавины</string>
     <string name="tool_clinometer_summary">Оценка риска лавин и высоты объектов</string>
     <string name="moon_illumination">Освещение</string>
     <string name="lunar_noon">Полночь</string>
@@ -624,8 +621,6 @@
     <string name="pedometer">Шагомер</string>
     <string name="odometer">Одометр</string>
     <string name="saltwater_switch">Вода солёная\?</string>
-    <string name="distance_away_not_set">расстояние не установлено</string>
-    <string name="distance_away">Расстояние до</string>
     <string name="value_average">%s в среднем</string>
     <string name="value_since_time">%s с %s</string>
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>

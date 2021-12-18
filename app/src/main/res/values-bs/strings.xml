@@ -252,8 +252,6 @@
     <string name="tool_speedometer_odometer_title">Brzinomjer / Odometar</string>
     <string name="odometer">Odometar</string>
     <string name="saltwater_switch">Je li slana voda\?</string>
-    <string name="distance_away_not_set">Dalja udaljenost nije postavljena</string>
-    <string name="distance_away">Dalja udaljenost</string>
     <string name="value_average">%s prosječno</string>
     <string name="value_since_time">%s od %s</string>
     <string name="speedometer">Brzinomjer</string>
@@ -796,9 +794,6 @@
     <string name="add">Sabiraj</string>
     <string name="set_inclination_instructions">Dodirnite bilo gdje da postavite/poništite kut nagiba</string>
     <string name="clinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
-    <string name="avalanche_risk_high">Visok rizik od lavine</string>
-    <string name="avalanche_risk_med">Umjereni rizik od lavine</string>
-    <string name="avalanche_risk_low">Nizak rizik od lavine</string>
     <string name="tool_clinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
     <string name="clinometer_title">Inklinometar</string>
     <string name="offline_maps">Karte bez Interneta</string>

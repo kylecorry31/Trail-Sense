@@ -318,9 +318,6 @@
     <string name="add">Adicionar</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
     <string name="clinometer_rotate_device">Segure o seu telemóvel na vertical para medir a inclinação</string>
-    <string name="avalanche_risk_high">Risco de avalanche alto</string>
-    <string name="avalanche_risk_med">Risco de avalanche moderado</string>
-    <string name="avalanche_risk_low">Baixo risco de avalanche</string>
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
     <string name="offline_maps">Mapas off-line</string>
@@ -787,8 +784,6 @@
     <string name="pedometer">Pedómetro</string>
     <string name="odometer">Conta-quilómetros</string>
     <string name="saltwater_switch">É água salgada\?</string>
-    <string name="distance_away_not_set">distância longe não definida</string>
-    <string name="distance_away">Distância longe</string>
     <string name="value_average">%s média</string>
     <string name="value_since_time">%s desde %s</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / conta-quilómetros</string>

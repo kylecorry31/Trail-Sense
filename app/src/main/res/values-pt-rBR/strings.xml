@@ -212,9 +212,6 @@
     <string name="clinometer_title">Inclinômetro</string>
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
-    <string name="avalanche_risk_low">Baixo risco de avalanche</string>
-    <string name="avalanche_risk_med">Risco de avalanche moderada</string>
-    <string name="avalanche_risk_high">Alto risco de avalanche</string>
     <string name="clinometer_rotate_device">Segure seu celular na vertical para medir a inclinação</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
@@ -735,8 +732,6 @@
     <string name="pedometer">Pedômetro</string>
     <string name="odometer">Odômetro</string>
     <string name="saltwater_switch">É água salgada\?</string>
-    <string name="distance_away_not_set">certa distância não definida</string>
-    <string name="distance_away">A certa distância</string>
     <string name="value_average">%s média</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / Odômetro</string>
     <string name="pref_daily_weather_time_title">Tempo do dia</string>
