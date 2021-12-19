@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import kotlin.math.roundToInt
 
@@ -32,18 +33,6 @@ class SightingCompassView(
         Preferences(preview.context)
     }
 
-    private val zoomListener = object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            val zoom = (progress / 100f).coerceIn(0f, 1f)
-            camera.setZoom(zoom)
-            prefs.putFloat(NavigatorFragment.CACHE_CAMERA_ZOOM, zoom)
-        }
-
-        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-    }
-
     private var _isRunning = false
 
     fun start() {
@@ -61,7 +50,11 @@ class SightingCompassView(
 
         _isRunning = true
 
-        zoom.setOnSeekBarChangeListener(zoomListener)
+        zoom.setOnProgressChangeListener { progress, _ ->
+            val zoom = (progress / 100f).coerceIn(0f, 1f)
+            camera.setZoom(zoom)
+            prefs.putFloat(NavigatorFragment.CACHE_CAMERA_ZOOM, zoom)
+        }
 
         preview.isVisible = true
         reticle.isVisible = true

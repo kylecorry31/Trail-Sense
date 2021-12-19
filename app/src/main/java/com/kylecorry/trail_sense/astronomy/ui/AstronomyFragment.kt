@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SeekBar
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -39,6 +38,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.shared.views.UserError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -171,30 +171,21 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         binding.timeSeeker.max = maxProgress
 
-        binding.timeSeeker.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val seconds = (Duration.between(
-                    minChartTime,
-                    maxChartTime
-                ).seconds * progress / maxProgress.toFloat()).toLong()
-                currentSeekChartTime = minChartTime.plusSeconds(seconds)
-                binding.seekTime.text =
-                    formatService.formatTime(
-                        currentSeekChartTime.toLocalTime(),
-                        includeSeconds = false
-                    )
-                plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, currentSeekChartTime)
-                plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, currentSeekChartTime)
-                updateSeekPositions()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
-
+        binding.timeSeeker.setOnProgressChangeListener { progress, _ ->
+            val seconds = (Duration.between(
+                minChartTime,
+                maxChartTime
+            ).seconds * progress / maxProgress.toFloat()).toLong()
+            currentSeekChartTime = minChartTime.plusSeconds(seconds)
+            binding.seekTime.text =
+                formatService.formatTime(
+                    currentSeekChartTime.toLocalTime(),
+                    includeSeconds = false
+                )
+            plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, currentSeekChartTime)
+            plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, currentSeekChartTime)
+            updateSeekPositions()
+        }
     }
 
     private fun showTimeSeeker() {

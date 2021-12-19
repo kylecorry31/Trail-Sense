@@ -32,7 +32,6 @@ import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
@@ -101,7 +100,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     if (Camera.isAvailable(requireContext())) {
                         useCamera = true
                         camera.start {
-                            camera.setZoom(0.25f)
+                            camera.setZoom(binding.cameraZoom.progress / 100f)
                             true
                         }
                         binding.clinometerLeftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
@@ -111,6 +110,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                         alertNoCameraPermission()
                     }
                 }
+            }
+
+            binding.cameraZoom.setOnProgressChangeListener { progress, _ ->
+                camera.setZoom(progress / 100f)
             }
         }
 
@@ -333,6 +336,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             binding.clinometerInstructions.isVisible = !useCamera
             binding.cameraClinometerInstructions.isVisible = useCamera
             binding.cameraViewHolder.isVisible = false
+            binding.cameraZoom.isVisible = false
             binding.clinometer.isInvisible = true
             return
         }
@@ -340,6 +344,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.clinometerInstructions.isVisible = false
         binding.cameraClinometerInstructions.isVisible = false
         binding.cameraViewHolder.isVisible = useCamera
+        binding.cameraZoom.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
         val angle = slopeAngle ?: clinometer.angle
@@ -431,7 +436,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private fun getHeight(distanceAway: Distance, bottom: Float, top: Float): Distance {
         return geology.getHeightFromInclination(
             distanceAway,
-            if ((top - bottom).absoluteValue < 3f) 0f else bottom,
+            bottom,
             top
         )
     }
@@ -439,7 +444,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private fun getDistance(height: Distance, bottom: Float, top: Float): Distance {
         return geology.getDistanceFromInclination(
             height,
-            if ((top - bottom).absoluteValue < 3f) 0f else bottom,
+            bottom,
             top
         )
     }

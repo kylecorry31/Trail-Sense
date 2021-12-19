@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.alerts.Alerts
@@ -45,10 +46,25 @@ fun <T : Identifiable> Collection<T>.withId(id: Long): T? {
     return firstOrNull { it.id == id }
 }
 
-fun Fragment.alertNoCameraPermission(){
+fun Fragment.alertNoCameraPermission() {
     Alerts.toast(
         requireContext(),
         getString(R.string.camera_permission_denied),
         short = false
     )
+}
+
+fun SeekBar.setOnProgressChangeListener(listener: (progress: Int, fromUser: Boolean) -> Unit) {
+    setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            listener(progress, fromUser)
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {
+        }
+
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        }
+
+    })
 }
