@@ -1020,4 +1020,11 @@
 \n2.点击屏幕并按住
 \n3. 将测斜仪重新对准目标顶部
 \n4. 松开以锁定并查看到目标的距离</string>
+    <string name="weather_monitor_disabled_resolution">从天气设置启用天气监测</string>
+    <string name="error_banners">错误横幅</string>
+    <string name="errors">错去</string>
+    <string name="compass_accuracy">指南针精度</string>
+    <string name="compass_unavailable">指南针不可用</string>
+    <string name="gps_unavailable">GPS 不可用</string>
+    <string name="gps_timeouts">GPS 超时</string>
 </resources>
