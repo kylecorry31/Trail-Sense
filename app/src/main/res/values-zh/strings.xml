@@ -100,7 +100,7 @@
     <string name="celsius">摄氏度</string>
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
-    <string name="set_inclination_instructions">轻按任意位置以锁定/解锁</string>
+    <string name="set_inclination_instructions">点击或按住任意位置以锁定/解锁</string>
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
     <string name="clinometer_title">测斜仪</string>
@@ -1003,4 +1003,21 @@
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="clinometer_height_instructions">点击并按住以测量高度</string>
     <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="clinometer_measure_height_instructions">如何测量距离 %s 远的目标的高度：
+\n
+\n1. 将测斜仪对准目标底座
+\n2.点击屏幕并按住
+\n3. 将测斜仪重新对准目标顶部
+\n4. 松开以锁定并查看目标高度</string>
+    <string name="height">高度</string>
+    <string name="clinometer_measure_distance_title">目标高度</string>
+    <string name="instructions">用法说明</string>
+    <string name="measure">测量</string>
+    <string name="clinometer_measure_height_title">到目标的距离</string>
+    <string name="clinometer_measure_distance_instructions">如何测量 %s 高的目标的距离：
+\n
+\n1. 将测斜仪对准目标底座
+\n2.点击屏幕并按住
+\n3. 将测斜仪重新对准目标顶部
+\n4. 松开以锁定并查看到目标的距离</string>
 </resources>

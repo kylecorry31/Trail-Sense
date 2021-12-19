@@ -20,8 +20,9 @@
     <string name="import_gpx">Імпорт GPX</string>
     <string name="error_importing_map">Помилка під час імпортування мапи</string>
     <string name="importing_map">Імпортування мапи</string>
-    <string name="hour_symbol">год</string>
-    <string name="minute_symbol">м</string>
+    <string name="hour_symbol">год.</string>
+    <string name="minute_symbol">хв.</string>
+    <string name="pref_backtrack_path_radar_title">Показати шлях історії маршруту</string>
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
     <string name="time_until_full">до повного</string>
     <string name="time_until_empty">до спустошення</string>
@@ -38,7 +39,7 @@
     <string name="no_maps">Немає мап</string>
     <string name="rename">Переназвати</string>
     <string name="speedometer_odometer_accuracy_dialog">Для щонайбільшої точності увімкніть історію маршруту й установіть у налаштуваннях в якості джерела відстанеміра (одометра) крокомір.</string>
-    <string name="pedometer_disclaimer">Точність крокоміра та його енергоспоживання залежать від виробника вашого пристрою і введеної довжини кроку. Спробуйте походити трохи вдома, щоб перевірити розряджання батареї та точність перед використанням в поході.</string>
+    <string name="pedometer_disclaimer">Точність крокоміра та його зарядоспоживання залежать від виробника вашого пристрою і введеної довжини кроку. Спробуйте походити трохи вдома, щоб перевірити розряджання батареї та точність перед використанням в поході.</string>
     <string name="guide_using_printed_maps">Використання друкованих (паперових) мап</string>
     <string name="guide_signaling_for_help_title">Сигналізація про допомогу</string>
     <string name="pref_meteor_showers_title">Зорепади</string>
@@ -82,7 +83,7 @@
     <string name="low">Низьке</string>
     <string name="moderate">Помірне</string>
     <string name="high">Високе</string>
-    <string name="battery_usage">%s енергоспоживання</string>
+    <string name="battery_usage">%s зарядоспоживання</string>
     <string name="service_update_frequency">Оновлюється кожні %s</string>
     <string name="always_on">Завжди увімкнено</string>
     <string name="pref_daily_weather_notification_title">Щоденне сповіщення про погоду</string>
@@ -223,8 +224,8 @@
     <string name="how">Як</string>
     <string name="compass_calibrate_toast">Точність компаса %s, пораджено калібрування</string>
     <string name="open_beacon_in_maps">Переглянути на мапі</string>
-    <string name="pref_low_power_mode_summary">Вимикає деякі функції для енергоощадження</string>
-    <string name="backtrack_disabled_low_power_toast">Історія маршруту вимкнена в режимі енергоощадження</string>
+    <string name="pref_low_power_mode_summary">Вимикає деякі функції для зарядоощадження</string>
+    <string name="backtrack_disabled_low_power_toast">Історія маршруту вимкнена в режимі зарядоощадження</string>
     <string name="dialog_leave">Покинути</string>
     <string name="unsaved_changes_message">Внесені вами зміни не будуть збережені.</string>
     <string name="inventory_empty_text">Порожньо</string>
@@ -262,7 +263,7 @@
     <string name="tool_bubble_level_summary">Визначте, чи є поверхні плоскими</string>
     <string name="tool_bubble_level_title">Рівномір</string>
     <string name="guide_weather_prediction_title">Прогноз погоди</string>
-    <string name="guide_conserving_battery_title">Ощада батареї</string>
+    <string name="guide_conserving_battery_title">Зарядоощадження</string>
     <string name="navigation_nearby_category">Поблизу</string>
     <string name="forecasts_category">Прогнози</string>
     <string name="advanced">Додатково</string>
@@ -389,7 +390,7 @@
     <string name="delete">Видалити</string>
     <string name="subtract">Відняти</string>
     <string name="add">Додати</string>
-    <string name="set_inclination_instructions">Торкніться будь-де, щоб заблок./розблок.</string>
+    <string name="set_inclination_instructions">Торкніться чи утримуйте будь-де, щоб заблок./розблок.</string>
     <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
     <string name="tool_clinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
     <string name="clinometer_title">Нахиломір</string>
@@ -442,8 +443,8 @@
     <string name="forecast_improving">Можливо, поліпшиться пізніше</string>
     <string name="weather_not_changing">Найближчим часом без змін</string>
     <string name="unsaved_changes">Незбережені зміни</string>
-    <string name="low_power_mode_on_message">Режим енергоощадження ввімкнувся, деякі функції може бути вимкнено.</string>
-    <string name="pref_low_power_mode_title">Режим енергоощадження</string>
+    <string name="low_power_mode_on_message">Режим зарядоощадження увімкнувся, деякі функції може бути вимкнено.</string>
+    <string name="pref_low_power_mode_title">Режим зарядоощадження</string>
     <string name="guide_barometer_calibration_title">Калібрування барометра</string>
     <string name="charging_wireless">Заряджання (%s)</string>
     <string name="battery_power_wireless">Безпровідне</string>
@@ -560,7 +561,7 @@
     <string name="water_boil_timer">Відлік часу кип\'ятіння води</string>
     <string name="solar_panel_instructions">Для початку покладіть телефон на сонячну панель.</string>
     <string name="tool_solar_panel_title">Вирівнювач сонячних панелей</string>
-    <string name="tool_solar_panel_summary">Дає найвигідніше положення сонячних батарей</string>
+    <string name="tool_solar_panel_summary">Визначає найвигідніше положення сонячних батарей</string>
     <string name="pref_privacy_policy_title">Політика приватності</string>
     <string name="guide_recommended_apps_description">Корисні застосунки для виживання</string>
     <string name="guide_recommended_apps">Пораджені застосунки</string>
@@ -744,7 +745,7 @@
     <string name="yards_format">%s ярд(ів)</string>
     <string name="find_next_occurrence">Знайти наступну подію</string>
     <string name="daylight">Денне світло</string>
-    <string name="pref_auto_low_power_title">Автоматичне енергоощадження</string>
+    <string name="pref_auto_low_power_title">Автоматичне зарядоощадження</string>
     <string name="pref_auto_low_power_summary">Коли заряд акумулятора низький</string>
     <string name="base_elevation">Основна висота</string>
     <string name="time">Час</string>
@@ -836,7 +837,7 @@
 \n%s</string>
     <string name="gps_unavailable_resolution">Увімкніть \"Місцезнаходження\" або змініть джерело місцезнаходження на \"Лише пристрій\" або \"Висока точність\"</string>
     <string name="battery_restricted_resolution">Установіть Trail Sense як Не оптимізований</string>
-    <string name="power_saving_mode_resolution">Вимкніть режим енергоощадження</string>
+    <string name="power_saving_mode_resolution">Вимкніть режим зарядоощадження</string>
     <string name="location_override_not_set_resolution">Установіть перевизначення розташування в налаштуваннях</string>
     <string name="location_override_resolution">Увімкніть автоматичне налаштування розташування в налаштуваннях.</string>
     <string name="altitude_override_resolution">Увімкніть автоматичне калібрування в налаштуваннях.</string>
@@ -1029,4 +1030,21 @@
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="pref_clinometer_baseline_distance_title">Основна відстань</string>
     <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="height">Висота</string>
+    <string name="clinometer_measure_distance_title">Висота цілі</string>
+    <string name="instructions">Указівки</string>
+    <string name="measure">Вимірювання</string>
+    <string name="clinometer_measure_height_title">Відстань до цілі</string>
+    <string name="clinometer_measure_height_instructions">Щоб виміряти висоту цілі, яка знаходиться на відстані %s:
+\n
+\n1. Вирівняйте клінометр на основі цілі
+\n2. Торкніться екрана й утримуйте
+\n3. Перевирівняйте клінометр на верхній частині цілі
+\n4. Відпустіть, щоб закріпити і побачити висоту цілі</string>
+    <string name="clinometer_measure_distance_instructions">Щоб виміряти відстань до цілі висотою %s:
+\n
+\n1. Вирівняйте клінометр на основі цілі
+\n2. Торкніться екрана й утримуйте
+\n3. Перевирівняйте клінометр на верхній частині цілі
+\n4. Відпустіть, щоб закріпити і побачити висоту цілі</string>
 </resources>
