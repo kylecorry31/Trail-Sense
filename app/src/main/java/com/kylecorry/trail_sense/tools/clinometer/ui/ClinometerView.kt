@@ -44,7 +44,11 @@ class ClinometerView : CanvasView, IClinometerView {
     private var dialColor = Color.BLACK
     private val tickInterval = 10
     private var tickLength = 1f
-    private val needlePercent = 0.8f
+    private val needlePercent = 0.75f
+    private val dividerPercent = 0.8f
+    private val avalancheIndicatorPercent = 0.97f
+    private val tickRadiusPercent = 0.9f
+    private val tickLengthPercent = 0.03f
     private val labelInterval = 30
     private var radius = 1f
 
@@ -55,23 +59,26 @@ class ClinometerView : CanvasView, IClinometerView {
 
     override fun setup() {
         dialColor = Resources.color(context, R.color.colorSecondary)
-        tickLength = dp(4f)
         textSize(sp(10f))
         radius = min(width.toFloat(), height.toFloat()) / 2
+        tickLength = radius * tickLengthPercent
+
         avalancheRiskClipPath.addCircle(
             width / 2f,
             height / 2f,
-            radius - tickLength,
+            radius * avalancheIndicatorPercent,
             Path.Direction.CW
         )
         tickPath =
-            Dial.ticks(PixelCoordinate(width / 2f, height / 2f), radius, tickLength, tickInterval)
+            Dial.ticks(PixelCoordinate(width / 2f, height / 2f), radius * tickRadiusPercent, tickLength, tickInterval)
     }
 
     override fun draw() {
         push()
         drawBackground()
         drawTicks()
+        drawNeedle(angle)
+
         drawLabels()
 
         push()
@@ -79,7 +86,6 @@ class ClinometerView : CanvasView, IClinometerView {
         drawLabels()
         pop()
 
-        drawNeedle(angle)
         pop()
     }
 
@@ -87,6 +93,7 @@ class ClinometerView : CanvasView, IClinometerView {
         val x = width / 2f - radius
         val y = height / 2f - radius
         val d = radius * 2
+        noStroke()
         fill(color)
         opacity(150)
         arc(x, y, d, d, start, stop)
@@ -96,6 +103,12 @@ class ClinometerView : CanvasView, IClinometerView {
         fill(dialColor)
         noStroke()
         circle(width / 2f, height / 2f, radius * 2)
+
+        noFill()
+        stroke(Color.WHITE)
+        opacity(30)
+        strokeWeight(3f)
+        circle(width / 2f, height / 2f, radius * 2 * dividerPercent)
 
         push()
 
@@ -141,7 +154,7 @@ class ClinometerView : CanvasView, IClinometerView {
         for (i in 0..180 step labelInterval) {
             push()
             rotate(i.toFloat())
-            noStroke()
+            stroke(dialColor)
             fill(Color.WHITE)
             val degrees = if (i <= 90) {
                 90 - i
@@ -154,7 +167,7 @@ class ClinometerView : CanvasView, IClinometerView {
             val offset = textHeight(degreeText)
             push()
             val x = width / 2f
-            val y = height / 2f - radius + tickLength + offset
+            val y = height / 2f - radius * dividerPercent + tickLength + offset
             rotate(180f, x, y)
             text(degreeText, x, y)
             pop()
@@ -175,16 +188,18 @@ class ClinometerView : CanvasView, IClinometerView {
             opacity(255)
         }
 
+        val overhang = radius * 0.1f
 
         stroke(Color.WHITE)
         strokeWeight(dp(4f))
         push()
         rotate(angle)
-        line(width / 2f, height / 2f, width / 2f, height / 2f - radius * needlePercent)
+        line(width / 2f, height / 2f + overhang, width / 2f, height / 2f - radius * needlePercent)
         pop()
 
         fill(Color.WHITE)
-        noStroke()
+        stroke(dialColor)
+        strokeWeight(dp(1f))
         circle(width / 2f, height / 2f, dp(12f))
     }
 
