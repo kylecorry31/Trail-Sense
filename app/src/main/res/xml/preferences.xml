@@ -33,6 +33,10 @@
             app:key="@string/pref_privacy_settings"
             app:title="@string/privacy" />
         <Preference
+            app:icon="@drawable/ic_alert"
+            app:key="@string/pref_error_settings"
+            app:title="@string/errors" />
+        <Preference
             app:icon="@drawable/ic_experimental"
             app:key="@string/pref_experimental_settings"
             app:title="@string/experimental" />

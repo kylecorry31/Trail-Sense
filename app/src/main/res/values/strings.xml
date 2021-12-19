@@ -1153,6 +1153,15 @@
     <string name="instructions">Instructions</string>
     <string name="measure">Measure</string>
     <string name="clinometer_measure_height_title">Distance to target</string>
+    <string name="weather_monitor_disabled_resolution">Enable monitor weather from weather settings</string>
+    <string name="error_banners">Error banners</string>
+    <string name="errors">Errors</string>
+    <string name="pref_error_banner_category" translatable="false">pref_error_banner_category</string>
+    <string name="compass_accuracy">Compass accuracy</string>
+    <string name="compass_unavailable">Compass unavailable</string>
+    <string name="gps_unavailable">GPS unavailable</string>
+    <string name="pref_error_settings" translatable="false">pref_error_settings</string>
+    <string name="gps_timeouts">GPS timeouts</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

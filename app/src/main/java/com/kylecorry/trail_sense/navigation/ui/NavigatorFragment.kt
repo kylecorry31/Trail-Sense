@@ -167,7 +167,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (!Sensors.hasCompass(requireContext())) {
             requireMainActivity().errorBanner.report(
                 UserError(
-                    USER_ERROR_NO_COMPASS,
+                    ErrorBannerReason.NoCompass,
                     getString(R.string.no_compass_message),
                     R.drawable.ic_compass_icon
                 )
@@ -485,7 +485,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadPathRunner.cancel()
         sightingCompass.stop()
         astronomyIntervalometer.stop()
-        requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
         gpsErrorShown = false
     }
@@ -581,7 +581,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val banner = requireMainActivity().errorBanner
             banner.report(
                 UserError(
-                    USER_ERROR_COMPASS_POOR,
+                    ErrorBannerReason.CompassPoor,
                     getString(
                         R.string.compass_calibrate_toast, formatService.formatQuality(
                             compass.quality
@@ -595,7 +595,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 })
             shownAccuracyToast = true
         } else if (compass.quality == Quality.Good || compass.quality == Quality.Moderate) {
-            requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
+            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         }
 
         // Speed
@@ -753,7 +753,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (gps is CustomGPS && !(gps as CustomGPS).isTimedOut) {
             gpsTimeoutShown = false
-            requireMainActivity().errorBanner.dismiss(USER_ERROR_GPS_TIMEOUT)
+            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
         }
 
         nearbyBeacons = getNearbyBeacons()
@@ -835,19 +835,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val activity = requireMainActivity()
             val navController = findNavController()
             val error = UserError(
-                USER_ERROR_GPS_NOT_SET,
+                ErrorBannerReason.LocationNotSet,
                 getString(R.string.location_not_set),
                 R.drawable.satellite,
                 getString(R.string.set)
             ) {
-                activity.errorBanner.dismiss(USER_ERROR_GPS_NOT_SET)
+                activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
                 navController.navigate(R.id.calibrateGPSFragment)
             }
             activity.errorBanner.report(error)
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero && !gpsErrorShown) {
             val error = UserError(
-                USER_ERROR_NO_GPS,
+                ErrorBannerReason.NoGPS,
                 getString(R.string.location_disabled),
                 R.drawable.satellite
             )
@@ -855,7 +855,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             gpsErrorShown = true
         } else if (gps is CustomGPS && (gps as CustomGPS).isTimedOut && !gpsTimeoutShown) {
             val error = UserError(
-                USER_ERROR_GPS_TIMEOUT,
+                ErrorBannerReason.GPSTimeout,
                 getString(R.string.gps_signal_lost),
                 R.drawable.satellite
             )

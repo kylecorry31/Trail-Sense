@@ -32,6 +32,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val packs by lazy { PackPreferences(context) }
     val depth by lazy { DepthPreferences(context) }
     val clinometer by lazy { ClinometerPreferences(context) }
+    val errors by lazy { ErrorPreferences(context) }
 
     var hapticsEnabled = false
 

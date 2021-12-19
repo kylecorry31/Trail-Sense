@@ -285,6 +285,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_error_settings"
+            app:destination="@id/errorSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_experimental_settings"
             app:destination="@id/experimentalSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -924,5 +931,9 @@
         android:id="@+id/clinometerSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ClinometerSettingsFragment"
         android:label="ClinometerSettingsFragment" />
+    <fragment
+        android:id="@+id/errorSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.ErrorSettingsFragment"
+        android:label="ErrorSettingsFragment" />
 
 </navigation>

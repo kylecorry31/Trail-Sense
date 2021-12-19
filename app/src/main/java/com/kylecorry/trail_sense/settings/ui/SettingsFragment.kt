@@ -19,6 +19,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_privacy_settings to R.id.action_settings_to_privacy_settings,
         R.string.pref_power_settings to R.id.action_settings_to_power_settings,
         R.string.pref_experimental_settings to R.id.action_settings_to_experimental_settings,
+        R.string.pref_error_settings to R.id.action_settings_to_error_settings,
         R.string.pref_sensor_settings to R.id.action_settings_to_sensor_settings,
 
         // Tools

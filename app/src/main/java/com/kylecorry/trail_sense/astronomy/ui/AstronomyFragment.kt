@@ -32,9 +32,8 @@ import com.kylecorry.trail_sense.astronomy.ui.fields.providers.*
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
 import com.kylecorry.trail_sense.quickactions.AstronomyQuickActionBinder
+import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.USER_ERROR_GPS_NOT_SET
-import com.kylecorry.trail_sense.shared.USER_ERROR_NO_GPS
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -538,19 +537,19 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val activity = requireActivity() as MainActivity
             val navController = findNavController()
             val error = UserError(
-                USER_ERROR_GPS_NOT_SET,
+                ErrorBannerReason.LocationNotSet,
                 getString(R.string.location_not_set),
                 R.drawable.satellite,
                 getString(R.string.set)
             ) {
-                activity.errorBanner.dismiss(USER_ERROR_GPS_NOT_SET)
+                activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
                 navController.navigate(R.id.calibrateGPSFragment)
             }
             activity.errorBanner.report(error)
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
             val error = UserError(
-                USER_ERROR_NO_GPS,
+                ErrorBannerReason.NoGPS,
                 getString(R.string.location_disabled),
                 R.drawable.satellite
             )
