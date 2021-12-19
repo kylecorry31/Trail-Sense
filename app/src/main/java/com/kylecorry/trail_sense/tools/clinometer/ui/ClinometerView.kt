@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.canvas.Dial
@@ -187,7 +188,13 @@ class ClinometerView : CanvasView, IClinometerView {
             fill(Color.WHITE)
             noStroke()
             opacity(127)
-            arc(x, y, radius * 2, radius * 2, it - 90, angle - 90)
+
+            val delta = deltaAngle(it, angle)
+
+            val start = it - 90
+            val end = start + delta
+
+            arc(x, y, radius * 2, radius * 2, start, end)
             opacity(255)
         }
 
