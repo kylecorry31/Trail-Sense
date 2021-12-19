@@ -70,7 +70,12 @@ class ClinometerView : CanvasView, IClinometerView {
             Path.Direction.CW
         )
         tickPath =
-            Dial.ticks(PixelCoordinate(width / 2f, height / 2f), radius * tickRadiusPercent, tickLength, tickInterval)
+            Dial.ticks(
+                PixelCoordinate(width / 2f, height / 2f),
+                radius * tickRadiusPercent,
+                tickLength,
+                tickInterval
+            )
     }
 
     override fun draw() {
@@ -104,9 +109,8 @@ class ClinometerView : CanvasView, IClinometerView {
         noStroke()
         circle(width / 2f, height / 2f, radius * 2)
 
-        noFill()
-        stroke(Color.WHITE)
-        opacity(30)
+        fill(Color.WHITE)
+        opacity(10)
         strokeWeight(3f)
         circle(width / 2f, height / 2f, radius * 2 * dividerPercent)
 
@@ -150,12 +154,12 @@ class ClinometerView : CanvasView, IClinometerView {
 
     private fun drawLabels() {
         strokeWeight(dp(2f))
+        stroke(dialColor)
+        fill(Color.WHITE)
 
         for (i in 0..180 step labelInterval) {
             push()
             rotate(i.toFloat())
-            stroke(dialColor)
-            fill(Color.WHITE)
             val degrees = if (i <= 90) {
                 90 - i
             } else {
@@ -171,7 +175,6 @@ class ClinometerView : CanvasView, IClinometerView {
             rotate(180f, x, y)
             text(degreeText, x, y)
             pop()
-
             pop()
         }
     }
