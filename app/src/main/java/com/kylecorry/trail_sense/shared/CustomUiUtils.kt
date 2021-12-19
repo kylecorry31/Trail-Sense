@@ -119,6 +119,7 @@ object CustomUiUtils {
         units: List<DistanceUnits>,
         default: Distance? = null,
         title: String,
+        showFeetAndInches: Boolean = false,
         onDistancePick: (distance: Distance?, cancelled: Boolean) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
@@ -132,6 +133,8 @@ object CustomUiUtils {
         if (default == null) {
             distanceInput?.unit = units.firstOrNull()
         }
+
+        distanceInput?.showFeetAndInches = showFeetAndInches
 
         Alerts.dialog(
             context,

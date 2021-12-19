@@ -80,7 +80,8 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
                 requireContext(),
                 listOf(userPrefs.baseDistanceUnits),
                 userPrefs.strideLength.convertTo(userPrefs.baseDistanceUnits),
-                getString(R.string.pref_stride_length_title)
+                getString(R.string.pref_stride_length_title),
+                showFeetAndInches = true
             ) { distance, _ ->
                 if (distance != null) {
                     userPrefs.strideLength = distance

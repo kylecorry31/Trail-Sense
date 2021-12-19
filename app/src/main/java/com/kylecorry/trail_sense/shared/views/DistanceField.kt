@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
+import com.kylecorry.andromeda.forms.Forms
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.andromeda.forms.Forms
 
 class DistanceField(
     context: Context,
@@ -14,7 +14,7 @@ class DistanceField(
     label: CharSequence? = null,
     hint: CharSequence? = null,
     onChanged: (value: Distance?) -> Unit = {}
-) : BaseUnitField<Distance, DistanceUnits>(
+) : BaseMultipartUnitField<Distance, DistanceUnits>(
     context,
     id,
     units,
@@ -24,7 +24,7 @@ class DistanceField(
     hint,
     onChanged
 ) {
-    override fun getInputView(context: Context): BaseUnitInputView<Distance, DistanceUnits> {
+    override fun getInputView(context: Context): BaseMultipartUnitInputView<Distance, DistanceUnits> {
         return DistanceInputView(context)
     }
 

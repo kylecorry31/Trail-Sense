@@ -235,7 +235,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             requireContext(),
             getUnits(),
             knownHeight,
-            getString(R.string.clinometer_measure_distance_title)
+            getString(R.string.clinometer_measure_distance_title),
+            showFeetAndInches = true
         ) { distance, _ ->
             if (distance != null) {
                 knownHeight = distance
