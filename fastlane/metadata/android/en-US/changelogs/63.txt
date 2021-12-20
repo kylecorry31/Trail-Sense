@@ -6,6 +6,9 @@ Clinometer
 - Add clinometer settings
 - Add clinometer user guide
 
+Cliff height
+- Tap and hold to measure
+
 Maps (experimental)
 - Reduce memory usage
 - Reduce map storage size
