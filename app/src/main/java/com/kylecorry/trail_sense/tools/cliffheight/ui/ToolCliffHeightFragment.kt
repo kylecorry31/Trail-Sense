@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.cliffheight.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.core.time.Timer
@@ -12,9 +14,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.cliffheight.domain.CliffHeightService
+import java.time.Duration
 import java.time.Instant
 
 class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() {
@@ -32,19 +36,66 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     private var running = false
     private var location: Coordinate? = null
 
+    private val singlePressDuration = Duration.ofMillis(200)
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.startBtn.setOnClickListener {
-            if (running) {
-                timer.stop()
-                running = false
-            } else {
-                startTime = Instant.now()
-                timer.interval(16)
+
+        binding.startBtn.setOnTouchListener { _, event ->
+            when (event.action){
+                MotionEvent.ACTION_UP -> updateState(PressState.Up)
+                MotionEvent.ACTION_DOWN -> updateState(PressState.Down)
+            }
+            true
+        }
+
+//        binding.startBtn.setOnClickListener {
+//            if (running) {
+//                timer.stop()
+//                running = false
+//            } else {
+//                startTime = Instant.now()
+//                timer.interval(16)
+//                running = true
+//            }
+//            binding.startBtn.setState(running)
+//        }
+    }
+
+    private fun updateState(action: PressState) {
+        if (!running) {
+            if (action == PressState.Down) {
+                start()
                 running = true
             }
-            binding.startBtn.setState(running)
+        } else {
+            if (action == PressState.Up && Duration.between(
+                    startTime,
+                    Instant.now()
+                ) > singlePressDuration
+            ) {
+                stop()
+                running = false
+            }
+
+            if (action == PressState.Down) {
+                stop()
+                running = false
+            }
         }
+    }
+
+    private fun stop() {
+        timer.stop()
+        binding.startBtn.setState(false)
+
+    }
+
+    private fun start() {
+        startTime = Instant.now()
+        timer.interval(16)
+        binding.startBtn.setState(true)
     }
 
 
@@ -83,5 +134,4 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     ): FragmentToolCliffHeightBinding {
         return FragmentToolCliffHeightBinding.inflate(layoutInflater, container, false)
     }
-
 }
