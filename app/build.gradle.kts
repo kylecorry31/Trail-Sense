@@ -57,7 +57,7 @@ android {
 
 dependencies {
     kapt("androidx.room:room-compiler:2.4.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
@@ -82,10 +82,10 @@ dependencies {
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:5.6.0-beta03")
+    implementation("com.github.kylecorry31:sol:5.6.0")
 
     // Andromeda
-    val andromedaVersion = "2.6.0-beta01"
+    val andromedaVersion = "2.6.0"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
