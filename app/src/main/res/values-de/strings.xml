@@ -251,7 +251,7 @@
     <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="set_inclination_instructions">Tippen zum Sperren/Entsperren</string>
+    <string name="set_inclination_instructions">Tippen oder halten zum Sperren/Entsperren</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
     <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>
@@ -1013,4 +1013,28 @@
     <string name="pref_clinometer_baseline_distance_title">Distanz zur Grundlinie</string>
     <string name="clinometer_height_instructions">Drücken und Halten, um die Höhe zu messen</string>
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="instructions">Anweisungen</string>
+    <string name="clinometer_measure_distance_title">Höhe des Zieles</string>
+    <string name="clinometer_measure_height_instructions">Um die Höhe eines Zieles zu messen, welches %s entfernt ist:
+\n
+\n1. Richten Sie den Neigungsmesser auf die Basis des Zieles
+\n2. Drücken Sie auf den Bildschirm und halten Sie ihn
+\n3. Richten Sie den Neigungsmesser auf die obere Seite des Zieles
+\n4. Lassen Sie los, um es zu sperren und die Höhe zu sehen</string>
+    <string name="errors">Fehler</string>
+    <string name="clinometer_measure_distance_instructions">Um die Entfernung eines Zieles zu messen, welches %s hoch ist:
+\n
+\n1. Richten Sie den Neigungsmesser auf die Basis des Zieles
+\n2. Drücken Sie auf den Bildschirm und halten Sie ihn
+\n3. Richten Sie den Neigungsmesser auf die obere Seite des Zieles
+\n4. Lassen Sie los, um es zu sperren und die Entfernung zu sehen</string>
+    <string name="clinometer_measure_height_title">Entfernung des Zieles</string>
+    <string name="height">Höhe</string>
+    <string name="measure">Messung</string>
+    <string name="weather_monitor_disabled_resolution">Aktivieren Sie den Wettermonitor in den Wettereinstellungen</string>
+    <string name="error_banners">Fehlerbanner</string>
+    <string name="compass_accuracy">Kompassgenauigkeit</string>
+    <string name="compass_unavailable">Kompass nicht verfügbar</string>
+    <string name="gps_unavailable">GPS nicht verfügbar</string>
+    <string name="gps_timeouts">GPS-Timeouts</string>
 </resources>

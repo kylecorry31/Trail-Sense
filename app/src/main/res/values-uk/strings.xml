@@ -1047,4 +1047,11 @@
 \n2. Торкніться екрана й утримуйте
 \n3. Перевирівняйте клінометр на верхній частині цілі
 \n4. Відпустіть, щоб закріпити і побачити висоту цілі</string>
+    <string name="error_banners">Банери помилок</string>
+    <string name="errors">Помилки</string>
+    <string name="gps_unavailable">GPS недоступний</string>
+    <string name="gps_timeouts">Час очікування GPS</string>
+    <string name="weather_monitor_disabled_resolution">Увімкніть відстеження погоди в налаштуваннях погоди</string>
+    <string name="compass_accuracy">Точність компаса</string>
+    <string name="compass_unavailable">Компас недоступний</string>
 </resources>
