@@ -197,7 +197,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">Градусы, минуты и секунды</string>
     <string name="coordinate_format_degrees_decimal_minutes">Градусы и минуты с дробью</string>
     <string name="coordinate_format_decimal_degrees">Только градусы с десятичной дробной частью</string>
-    <string name="set_inclination_instructions">Нажмите в любом месте для блокировки/разблокировки</string>
+    <string name="set_inclination_instructions">Нажмите или удерживайте в любом месте для блокировки/разблокировки</string>
     <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
     <string name="tool_clinometer_summary">Оценка риска лавин и высоты объектов</string>
     <string name="moon_illumination">Освещение</string>
@@ -1013,7 +1013,7 @@
     <string name="pref_default_path_style_title">Стиль пути по умолчанию</string>
     <string name="waypoint">Путевая точка</string>
     <string name="pref_clinometer_baseline_distance_title">Базовое расстояние</string>
-    <string name="pref_clinometer_lock_with_volume_buttons_title">Блокировка с помощью кнопок регулировки громкости</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Блокировка кнопками громкости</string>
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="point_style">Стиль точки</string>
     <string name="most_recent">Самый последний</string>
@@ -1033,4 +1033,28 @@
     <string name="map_projection_mercator">Меркатор</string>
     <string name="map_projection_equidistant">Ровно удаленная</string>
     <string name="reduce_map_resolution">Уменьшение разрешения карты</string>
+    <string name="height">Высота</string>
+    <string name="clinometer_measure_distance_title">Высота цели</string>
+    <string name="instructions">Инструкции</string>
+    <string name="measure">Измерение</string>
+    <string name="clinometer_measure_height_title">Расстояние до цели</string>
+    <string name="weather_monitor_disabled_resolution">Включите мониторинг погоды из настроек погоды</string>
+    <string name="errors">Ошибки</string>
+    <string name="compass_accuracy">Точность компаса</string>
+    <string name="gps_timeouts">Таймауты GPS</string>
+    <string name="compass_unavailable">Компас недоступен</string>
+    <string name="clinometer_measure_height_instructions">Чтобы измерить высоту цели на расстоянии %s:
+\n
+\n1. Выровняйте клинометр на основе цели
+\n2. Нажмите на экран и удерживайте
+\n3. Выровняйте клинометр на верхней части цели
+\n4. Отпустите, чтобы закрепить и увидеть высоту цели</string>
+    <string name="clinometer_measure_distance_instructions">Чтобы измерить расстояние до цели высотой %s:
+\n
+\n1. Выровняйте клинометр на основе цели
+\n2. Нажмите на экран и удерживайте
+\n3. Выровняйте клинометр на верхней части цели
+\n4. Отпустите, чтобы закрепить и увидеть высоту цели</string>
+    <string name="error_banners">Баннеры ошибок</string>
+    <string name="gps_unavailable">GPS недоступен</string>
 </resources>
