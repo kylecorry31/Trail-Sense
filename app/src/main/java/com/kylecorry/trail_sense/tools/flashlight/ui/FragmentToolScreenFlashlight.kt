@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.torch.ScreenTorch
+import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.ScreenTorch
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
@@ -52,6 +54,20 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
                 cache.putBoolean("cache_red_light", true)
             }
         }
+
+        setBrightness(cache.getInt("pref_flashlight_brightness") ?: 100)
+        binding.brightnessSeek.setOnProgressChangeListener { progress, isFromUser ->
+            if (isFromUser) {
+                setBrightness(progress)
+            }
+        }
+    }
+
+    private fun setBrightness(percent: Int){
+        binding.brightnessSeek.progress = percent
+        flashlight.brightness = map(percent / 100f, 0f, 1f, 0.1f, 1f)
+        cache.putInt("pref_flashlight_brightness", percent)
+        flashlight.on()
     }
 
     override fun onResume() {
@@ -62,6 +78,10 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
     override fun onPause() {
         super.onPause()
         flashlight.off()
+    }
+
+    companion object {
+        const val KEY_BRIGHTNESS = "pref_flashlight_brightness"
     }
 
 }
