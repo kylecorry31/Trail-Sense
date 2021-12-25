@@ -9,12 +9,14 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
@@ -29,6 +31,8 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     private var selectedState = FlashlightState.On
+
+    private val cache by lazy { Preferences(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,17 +50,26 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         }
 
         binding.flashlightDial.options = listOf(
-            getString(R.string.flashlight_torch),
-            getString(R.string.flashlight_strobe),
+            0.toString(),
+            1.toString(),
+            2.toString(),
+            3.toString(),
+            4.toString(),
+            5.toString(),
+            6.toString(),
+            7.toString(),
+            8.toString(),
+            9.toString(),
+            200.toString(),
             getString(R.string.sos)
         )
-        binding.flashlightDial.range = 360f
+        binding.flashlightDial.range = 180f
         binding.flashlightDial.alignToTop = true
         binding.flashlightDial.background =
             Resources.androidBackgroundColorSecondary(requireContext())
         binding.flashlightDial.foreground = Resources.androidTextColorPrimary(requireContext())
         binding.flashlightDial.selectionChangeListener = {
-            val isStrobe = it == 1
+            val isStrobe = it in 1..10
 
             if (isStrobe) {
                 CustomUiUtils.disclaimer(
@@ -66,8 +79,9 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                     getString(R.string.pref_fine_with_strobe),
                     considerShownIfCancelled = false,
                 ) { cancelled ->
+                    val frequency = if (it == 10) 200 else it
+                    cache.putLong(StrobeService.STROBE_DURATION_KEY, 1000L / frequency)
                     selectedState = if (!cancelled) {
-                        // TODO: Set strobe frequency
                         FlashlightState.Strobe
                     } else {
                         FlashlightState.On
@@ -76,7 +90,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                 }
             } else {
                 selectedState = when (it) {
-                    2 -> FlashlightState.SOS
+                    11 -> FlashlightState.SOS
                     else -> FlashlightState.On
                 }
                 changeMode()

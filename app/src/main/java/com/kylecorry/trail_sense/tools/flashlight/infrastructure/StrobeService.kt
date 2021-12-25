@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
@@ -17,11 +18,14 @@ class StrobeService : ForegroundService() {
 
     private var torch: ITorch? = null
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
+    private var delay = 5L
     private var on = false
 
     private var runnable = Runnable {
         runNextState()
     }
+
+    private val prefs by lazy { Preferences(applicationContext) }
 
     private fun runNextState() {
         if (!isRunning) {
@@ -38,7 +42,7 @@ class StrobeService : ForegroundService() {
 
         on = !on
 
-        handler.postDelayed(runnable, STROBE_DELAY)
+        handler.postDelayed(runnable, delay)
     }
 
     override val foregroundNotificationId: Int
@@ -67,6 +71,7 @@ class StrobeService : ForegroundService() {
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         torch = Torch(this)
         isRunning = true
+        delay = prefs.getLong(STROBE_DURATION_KEY) ?: 1000
         handler.post(runnable)
         return START_STICKY_COMPATIBILITY
     }
@@ -74,7 +79,7 @@ class StrobeService : ForegroundService() {
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 763925
-        private const val STROBE_DELAY = 5L
+        const val STROBE_DURATION_KEY = "pref_flashlight_strobe_duration"
 
         var isRunning = false
             private set

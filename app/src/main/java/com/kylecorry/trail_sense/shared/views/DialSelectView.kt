@@ -104,7 +104,7 @@ class DialSelectView : CanvasView {
         gradientPaint.isDither = true
         gradientPaint.shader = gradient
         tickLength = dp(6f)
-        textSize(sp(12f))
+        textSize(sp(14f))
         strokeWeight(dp(1.5f))
     }
 
