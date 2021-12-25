@@ -38,6 +38,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
+import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
 import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
@@ -319,7 +320,7 @@ class MainActivity : AndromedaActivity() {
 
 
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(this)
+            return FlashlightToggleVolumeAction(this, if (fragment is FragmentToolFlashlight) fragment else null)
         }
 
         return null
@@ -332,7 +333,7 @@ class MainActivity : AndromedaActivity() {
         }
 
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(this)
+            return FlashlightToggleVolumeAction(this, if (fragment is FragmentToolFlashlight) fragment else null)
         }
 
         return null

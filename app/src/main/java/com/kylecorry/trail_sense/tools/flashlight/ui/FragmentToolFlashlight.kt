@@ -122,7 +122,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         binding.flashlightOnBtn.setState(flashlightState != FlashlightState.Off)
     }
 
-    private fun toggle() {
+    fun toggle() {
         if (flashlight.getState() != FlashlightState.Off) {
             flashlight.set(FlashlightState.Off)
         } else {
