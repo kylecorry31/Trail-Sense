@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.buzz.Buzz
+import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -103,12 +105,15 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         flashlightState = flashlight.getState()
         updateFlashlightUI()
         intervalometer.interval(20)
+        binding.flashlightDial.areHapticsEnabled = true
     }
 
     override fun onPause() {
         super.onPause()
+        Buzz.off(requireContext())
         intervalometer.stop()
         switchStateTimer.stop()
+        binding.flashlightDial.areHapticsEnabled = false
     }
 
     private fun changeMode() {
@@ -123,6 +128,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     fun toggle() {
+        Buzz.feedback(requireContext(), HapticFeedbackType.Click)
         if (flashlight.getState() != FlashlightState.Off) {
             flashlight.set(FlashlightState.Off)
         } else {

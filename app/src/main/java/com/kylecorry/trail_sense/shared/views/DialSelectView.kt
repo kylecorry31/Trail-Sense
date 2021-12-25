@@ -8,6 +8,8 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import com.kylecorry.andromeda.buzz.Buzz
+import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -78,6 +80,15 @@ class DialSelectView : CanvasView {
     var alignToTop = false
         set(value) {
             field = value
+            invalidate()
+        }
+
+    var areHapticsEnabled = false
+        set(value) {
+            field = value
+            if (!value){
+                Buzz.off(context)
+            }
             invalidate()
         }
 
@@ -187,6 +198,10 @@ class DialSelectView : CanvasView {
                 val pos = degPerOption * index
                 index to deltaAngle(pos, scrollPosition).absoluteValue
             }.minByOrNull { it.second }?.first ?: 0
+
+            if (areHapticsEnabled && nearestOption != selected){
+                Buzz.feedback(context, HapticFeedbackType.Tick)
+            }
 
             selected = nearestOption
             return true
