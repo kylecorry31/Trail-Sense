@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.torch.Torch
@@ -23,21 +24,20 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         update()
     }
 
+    private val switchStateTimer = Timer {
+        flashlight.set(selectedState)
+    }
+
+    private var selectedState = FlashlightState.On
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val hasFlashlight = Torch.isAvailable(requireContext())
-        binding.flashlightBtn.isVisible = hasFlashlight
-        binding.strobeBtn.isVisible = hasFlashlight
-        binding.sosBtn.isVisible = hasFlashlight
-        binding.flashlightBtn.setOnClickListener {
-            flashlight.toggle()
-        }
-        binding.sosBtn.setOnClickListener {
-            if (flashlight.getState() == FlashlightState.SOS) {
-                flashlight.set(FlashlightState.Off)
-            } else {
-                flashlight.set(FlashlightState.SOS)
-            }
+        binding.flashlightOnBtn.isVisible = hasFlashlight
+        binding.flashlightDial.isVisible = hasFlashlight
+        binding.flashlightOnBtn.setOnClickListener {
+            switchStateTimer.stop()
+            toggle()
         }
 
         binding.screenFlashlightBtn.setOnClickListener {
@@ -45,10 +45,20 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
             findNavController().navigate(R.id.action_flashlight_to_screen_flashlight)
         }
 
-        binding.strobeBtn.setOnClickListener {
-            if (flashlight.getState() == FlashlightState.Strobe) {
-                flashlight.set(FlashlightState.Off)
-            } else {
+        binding.flashlightDial.options = listOf(
+            getString(R.string.flashlight_torch),
+            getString(R.string.flashlight_strobe),
+            getString(R.string.sos)
+        )
+        binding.flashlightDial.range = 360f
+        binding.flashlightDial.alignToTop = true
+        binding.flashlightDial.background =
+            Resources.androidBackgroundColorSecondary(requireContext())
+        binding.flashlightDial.foreground = Resources.androidTextColorPrimary(requireContext())
+        binding.flashlightDial.selectionChangeListener = {
+            val isStrobe = it == 1
+
+            if (isStrobe) {
                 CustomUiUtils.disclaimer(
                     requireContext(),
                     getString(R.string.strobe_warning_title),
@@ -56,10 +66,20 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                     getString(R.string.pref_fine_with_strobe),
                     considerShownIfCancelled = false,
                 ) { cancelled ->
-                    if (!cancelled) {
-                        flashlight.set(FlashlightState.Strobe)
+                    selectedState = if (!cancelled) {
+                        // TODO: Set strobe frequency
+                        FlashlightState.Strobe
+                    } else {
+                        FlashlightState.On
                     }
+                    changeMode()
                 }
+            } else {
+                selectedState = when (it) {
+                    2 -> FlashlightState.SOS
+                    else -> FlashlightState.On
+                }
+                changeMode()
             }
         }
     }
@@ -74,12 +94,30 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     override fun onPause() {
         super.onPause()
         intervalometer.stop()
+        switchStateTimer.stop()
+    }
+
+    private fun changeMode() {
+        if (flashlight.getState() != FlashlightState.Off) {
+            turnOff()
+            switchStateTimer.once(400)
+        }
     }
 
     private fun updateFlashlightUI() {
-        binding.flashlightBtn.setState(flashlightState == FlashlightState.On)
-        binding.sosBtn.setState(flashlightState == FlashlightState.SOS)
-        binding.strobeBtn.setState(flashlightState == FlashlightState.Strobe)
+        binding.flashlightOnBtn.setState(flashlightState != FlashlightState.Off)
+    }
+
+    private fun toggle() {
+        if (flashlight.getState() != FlashlightState.Off) {
+            flashlight.set(FlashlightState.Off)
+        } else {
+            flashlight.set(selectedState)
+        }
+    }
+
+    private fun turnOff() {
+        flashlight.set(FlashlightState.Off)
     }
 
 
