@@ -14,15 +14,18 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 
-    <TextView
+    <com.kylecorry.trail_sense.shared.views.Notepad
         android:id="@+id/text"
-        android:textIsSelectable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="16sp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:scrollbars="vertical" />
+        android:hint="@string/no_qr_code_found"
+        android:imeOptions="actionNone"
+        android:lineSpacingMultiplier="1.5"
+        android:scrollbars="vertical"
+        android:textIsSelectable="true" />
 
 </LinearLayout>

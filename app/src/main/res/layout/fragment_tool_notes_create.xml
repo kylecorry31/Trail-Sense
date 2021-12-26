@@ -20,43 +20,43 @@
         android:id="@+id/content_edit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:hint="@string/note_content_hint"
+        android:imeOptions="actionNone"
+        android:lineSpacingMultiplier="1.5"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_edit"
-        android:layout_margin="16dp"
-        android:lineSpacingMultiplier="1.5"
-        android:imeOptions="actionNone"
-        android:hint="@string/note_content_hint"
-        android:scrollbars="vertical"/>
+        app:layout_constraintTop_toBottomOf="@id/title_edit" />
 
 
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:clipToPadding="false"-->
-<!--        android:paddingBottom="96dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/title_edit">-->
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:clipToPadding="false"-->
+    <!--        android:paddingBottom="96dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/title_edit">-->
 
-<!--        <EditText-->
-<!--            android:id="@+id/content_edit"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:gravity="start|top"-->
-<!--            android:hint="@string/note_content_hint"-->
-<!--            android:inputType="textMultiLine|textNoSuggestions"-->
-<!--            android:minHeight="1000dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/title_edit" />-->
-<!--    </ScrollView>-->
+    <!--        <EditText-->
+    <!--            android:id="@+id/content_edit"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:layout_marginEnd="16dp"-->
+    <!--            android:background="@android:color/transparent"-->
+    <!--            android:gravity="start|top"-->
+    <!--            android:hint="@string/note_content_hint"-->
+    <!--            android:inputType="textMultiLine|textNoSuggestions"-->
+    <!--            android:minHeight="1000dp"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/title_edit" />-->
+    <!--    </ScrollView>-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/note_create_btn"

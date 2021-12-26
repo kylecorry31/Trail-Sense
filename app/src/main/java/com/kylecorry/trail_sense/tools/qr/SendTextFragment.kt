@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.text
+package com.kylecorry.trail_sense.tools.qr
 
 import android.graphics.Bitmap
 import android.os.Bundle

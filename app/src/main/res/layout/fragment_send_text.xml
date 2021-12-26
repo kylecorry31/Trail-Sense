@@ -12,19 +12,20 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
-        android:background="@color/white"
-        android:layout_marginTop="@dimen/default_top_margin" />
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:background="@color/white" />
 
-    <EditText
+    <com.kylecorry.trail_sense.shared.views.Notepad
         android:id="@+id/text_entry"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:gravity="center"
-        android:scrollbars="vertical"
         android:hint="@string/enter_text"
-        android:inputType="textMultiLine|textNoSuggestions" />
+        android:imeOptions="actionNone"
+        android:lineSpacingMultiplier="1.5"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

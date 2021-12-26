@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.text
+package com.kylecorry.trail_sense.tools.qr
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTabsBinding
 import com.kylecorry.trail_sense.shared.views.CustomViewPagerAdapter
 
-class TextTransmissionFragment : BoundFragment<FragmentTabsBinding>() {
+class QRFragment : BoundFragment<FragmentTabsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -1164,6 +1164,7 @@
     <string name="gps_timeouts">GPS timeouts</string>
     <string name="enter_text">Enter text</string>
     <string name="scan">Scan</string>
+    <string name="no_qr_code_found">No QR code detected</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>
