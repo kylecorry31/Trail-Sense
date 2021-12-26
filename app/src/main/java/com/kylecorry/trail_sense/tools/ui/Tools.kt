@@ -32,11 +32,6 @@ object Tools {
                     context.getString(R.string.tool_whistle_title),
                     R.drawable.ic_tool_whistle,
                     R.id.action_action_experimental_tools_to_toolWhistleFragment,
-                ),
-                Tool(
-                    context.getString(R.string.qr_code),
-                    R.drawable.ic_qr_code,
-                    R.id.action_tools_to_text
                 )
             )
         )
@@ -198,6 +193,11 @@ object Tools {
                     context.getString(R.string.tool_notes_title),
                     R.drawable.ic_tool_notes,
                     R.id.action_action_experimental_tools_to_fragmentToolNotes
+                ),
+                Tool(
+                    context.getString(R.string.qr_code),
+                    R.drawable.ic_qr_code,
+                    R.id.action_tools_to_text
                 ),
                 Tool(
                     context.getString(R.string.tool_user_guide_title),
