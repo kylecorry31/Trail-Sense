@@ -4,6 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.torch.ITorch
@@ -14,6 +15,10 @@ import com.kylecorry.trail_sense.R
 class FlashlightService: ForegroundService() {
 
     private var torch: ITorch? = null
+
+    private val timer = Timer {
+        torch?.on()
+    }
 
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
@@ -31,6 +36,7 @@ class FlashlightService: ForegroundService() {
     }
 
     override fun onDestroy() {
+        timer.stop()
         torch?.off()
         isRunning = false
         stopService(true)
@@ -40,7 +46,7 @@ class FlashlightService: ForegroundService() {
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         isRunning = true
         torch = Torch(this)
-        torch?.on()
+        timer.interval(200)
         return START_STICKY_COMPATIBILITY
     }
 
