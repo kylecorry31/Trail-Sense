@@ -1162,6 +1162,8 @@
     <string name="gps_unavailable">GPS unavailable</string>
     <string name="pref_error_settings" translatable="false">pref_error_settings</string>
     <string name="gps_timeouts">GPS timeouts</string>
+    <string name="enter_text">Enter text</string>
+    <string name="scan">Scan</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>
