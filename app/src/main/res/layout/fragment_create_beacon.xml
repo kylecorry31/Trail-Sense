@@ -78,22 +78,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/beacon_location" />
 
 
-            <EditText
-                android:id="@+id/comment"
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/beacon_comment"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
+                android:layout_weight="1"
+                android:elevation="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_color_picker" />
+                app:layout_constraintTop_toBottomOf="@+id/beacon_color_picker">
 
+                <com.kylecorry.trail_sense.shared.views.Notepad
+                    android:id="@+id/comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/beacon_comment"
+                    android:imeOptions="actionNone"
+                    android:lineSpacingMultiplier="1.5"
+                    android:padding="16dp"
+                    android:scrollbars="vertical" />
+            </androidx.cardview.widget.CardView>
+            
             <Spinner
                 android:id="@+id/beacon_group_spinner"
                 android:layout_width="0dp"
@@ -131,8 +138,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="@string/color" />
+                    android:text="@string/color"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
 
             <androidx.appcompat.widget.SwitchCompat
@@ -205,8 +212,8 @@
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone"
         android:src="@drawable/ic_check"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible" />
