@@ -24,8 +24,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.shared.AppUtils
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.tools.notes.domain.Note
@@ -88,12 +87,13 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
 
         binding.qrLocation.setOnClickListener {
             val location = GeoUriParser.parse(Uri.parse(text)) ?: return@setOnClickListener
-            AppUtils.placeBeacon(requireContext(), MyNamedCoordinate.from(location))
+            val sender = LocationGeoSender(requireContext())
+            sender.send(location.coordinate)
         }
 
         binding.qrWeb.setOnClickListener {
             val intent = Intents.url(text)
-            startActivity(intent)
+            Intents.openChooser(requireContext(), intent, text)
         }
 
 

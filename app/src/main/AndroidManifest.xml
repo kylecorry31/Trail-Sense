@@ -49,17 +49,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:label="@string/create_beacon">
                 <action android:name="android.intent.action.VIEW" />
                 <data android:scheme="geo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:label="@string/create_beacon">
                 <action android:name="com.kylecorry.trail_sense.PLACE_BEACON" />
                 <data android:scheme="geo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity-alias
             android:name=".AliasMainActivity"
             android:exported="true"
