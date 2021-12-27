@@ -44,7 +44,7 @@ class Notepad(context: Context, attrs: AttributeSet?) :
         drawer.noFill()
         offset = drawer.dp(4f)
         drawer.strokeWeight(drawer.dp(1f))
-        drawer.opacity(60)
+        drawer.opacity(25)
     }
 
     fun draw() {
