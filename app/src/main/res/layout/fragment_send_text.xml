@@ -3,29 +3,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/qr"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:background="@color/white" />
+        android:background="@color/white"
+        android:elevation="8dp" />
 
-    <com.kylecorry.trail_sense.shared.views.Notepad
-        android:id="@+id/text_entry"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="16dp"
         android:layout_weight="1"
-        android:hint="@string/enter_text"
-        android:imeOptions="actionNone"
-        android:lineSpacingMultiplier="1.5"
-        android:scrollbars="vertical" />
+        android:elevation="8dp">
+
+        <com.kylecorry.trail_sense.shared.views.Notepad
+            android:id="@+id/text_entry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/enter_text"
+            android:imeOptions="actionNone"
+            android:lineSpacingMultiplier="1.5"
+            android:padding="16dp"
+            android:scrollbars="vertical" />
+    </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>

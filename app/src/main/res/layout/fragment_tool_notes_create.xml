@@ -16,47 +16,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.kylecorry.trail_sense.shared.views.Notepad
-        android:id="@+id/content_edit"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        android:hint="@string/note_content_hint"
-        android:imeOptions="actionNone"
-        android:lineSpacingMultiplier="1.5"
-        android:scrollbars="vertical"
+        android:layout_weight="1"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_edit" />
+        app:layout_constraintTop_toBottomOf="@id/title_edit">
 
-
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:clipToPadding="false"-->
-    <!--        android:paddingBottom="96dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/title_edit">-->
-
-    <!--        <EditText-->
-    <!--            android:id="@+id/content_edit"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="16dp"-->
-    <!--            android:layout_marginEnd="16dp"-->
-    <!--            android:background="@android:color/transparent"-->
-    <!--            android:gravity="start|top"-->
-    <!--            android:hint="@string/note_content_hint"-->
-    <!--            android:inputType="textMultiLine|textNoSuggestions"-->
-    <!--            android:minHeight="1000dp"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/title_edit" />-->
-    <!--    </ScrollView>-->
+        <com.kylecorry.trail_sense.shared.views.Notepad
+            android:id="@+id/content_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/note_content_hint"
+            android:imeOptions="actionNone"
+            android:lineSpacingMultiplier="1.5"
+            android:padding="16dp"
+            android:scrollbars="vertical" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/note_create_btn"
