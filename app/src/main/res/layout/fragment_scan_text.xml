@@ -8,12 +8,43 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/qr_scan"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
-        android:elevation="8dp" />
+        android:elevation="8dp">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/qr_scan"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/qr_torch_state"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="@id/qr_scan"
+            app:layout_constraintTop_toTopOf="@id/qr_scan"
+            app:srcCompat="@drawable/ic_torch_off"
+            app:tint="@color/white" />
+
+        <SeekBar
+            android:id="@+id/qr_zoom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="0"
+            app:layout_constraintBottom_toBottomOf="@id/qr_scan"
+            app:layout_constraintEnd_toEndOf="@id/qr_scan"
+            app:layout_constraintStart_toStartOf="@id/qr_scan" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

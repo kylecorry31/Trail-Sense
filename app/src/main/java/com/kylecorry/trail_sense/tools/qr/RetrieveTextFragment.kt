@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import kotlinx.coroutines.Dispatchers
@@ -53,10 +54,14 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.text.keyListener = null
 
-        // TODO: Bind this to a torch button
-        binding.qrScan.setOnClickListener {
+        binding.qrTorchState.setOnClickListener {
             torchOn = !torchOn
+            binding.qrTorchState.setImageResource(if (torchOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
             camera.setTorch(torchOn)
+        }
+
+        binding.qrZoom.setOnProgressChangeListener { progress, _ ->
+            camera.setZoom(progress / 100f)
         }
 
         binding.qrCopy.setOnClickListener {
@@ -94,6 +99,9 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
 
     override fun onResume() {
         super.onResume()
+        torchOn = false
+        binding.qrZoom.progress = 0
+        binding.qrTorchState.setImageResource(R.drawable.ic_torch_off)
         requestPermissions(listOf(Manifest.permission.CAMERA)) {
             if (Camera.isAvailable(requireContext())) {
                 camera.start(this::onCameraUpdate)
