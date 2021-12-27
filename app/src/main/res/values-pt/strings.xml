@@ -119,7 +119,7 @@
     <string name="freezing_temperatures_warning">Temperaturas de congelamento</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Conteúdos</string>
+    <string name="contents">Conteúdos</string>
     <string name="note_title_hint">Título</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="delete_note_title">Eliminar anotação\?</string>

@@ -344,7 +344,7 @@
     <string name="precise_meters_format">%s m</string>
     <string name="unit_inches">Zoll</string>
     <string name="unit_centimeters">Zentimeter</string>
-    <string name="note_content_hint">Inhalt</string>
+    <string name="contents">Inhalt</string>
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notizen</string>
     <string name="delete_note_title">Notiz löschen\?</string>

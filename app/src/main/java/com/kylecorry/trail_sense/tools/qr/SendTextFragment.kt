@@ -26,7 +26,7 @@ class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
         updateQR()
     }
 
-    private fun updateQR(){
+    private fun updateQR() {
         binding.qr.setImageBitmap(null)
         image?.recycle()
         if (text.isNotEmpty()) {
@@ -39,6 +39,7 @@ class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         show(text)
+        binding.qr.clipToOutline = true
         binding.textEntry.addTextChangedListener {
             this.text = binding.textEntry.text.toString()
             updateQR()

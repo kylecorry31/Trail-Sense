@@ -356,7 +356,7 @@
     <string name="unit_centimeters">Centimètres</string>
     <string name="bubble_level_angles">X : %s
 \nY : %s</string>
-    <string name="note_content_hint">Contenu</string>
+    <string name="contents">Contenu</string>
     <string name="note_title_hint">Titre</string>
     <string name="tool_notes_title">Notes</string>
     <string name="delete_note_title">Supprimer la note \?</string>

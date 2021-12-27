@@ -382,7 +382,7 @@
     <string name="charging_fast">Carregamento rápido (%s)</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="note_title_hint">Título</string>
-    <string name="note_content_hint">Conteúdos</string>
+    <string name="contents">Conteúdos</string>
     <string name="delete_note_title">Excluir anotação\?</string>
     <string name="notes_empty_text">Sem anotações</string>
     <string name="unit_centimeters">Centímetros</string>

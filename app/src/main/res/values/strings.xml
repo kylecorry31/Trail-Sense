@@ -509,7 +509,7 @@
     <string name="delete_note_title">Delete note?</string>
     <string name="tool_notes_title">Notes</string>
     <string name="note_title_hint">Title</string>
-    <string name="note_content_hint">Contents</string>
+    <string name="contents">Contents</string>
     <string name="bubble_level_angles">X: %s\nY: %s</string>
     <string name="freezing_temperatures_warning">Freezing Temperatures</string>
     <string name="freezing_temperatures_description">Water will freeze if left out and rain may turn to snow</string>

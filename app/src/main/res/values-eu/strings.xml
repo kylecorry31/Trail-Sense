@@ -193,7 +193,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches">Hazbeteak</string>
     <string name="unit_centimeters">Zentimetroak</string>
-    <string name="note_content_hint">Edukiak</string>
+    <string name="contents">Edukiak</string>
     <string name="note_title_hint">Izenburua</string>
     <string name="tool_notes_title">Oharrak</string>
     <string name="threshold">Atalasea</string>

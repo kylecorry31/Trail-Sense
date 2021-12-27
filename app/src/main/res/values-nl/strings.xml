@@ -431,7 +431,7 @@
     <string name="freezing_temperatures_warning">Vriesgevaar</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Inhoud</string>
+    <string name="contents">Inhoud</string>
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notities</string>
     <string name="delete_note_title">Notitie verwijderen\?</string>

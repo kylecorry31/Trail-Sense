@@ -290,7 +290,7 @@
     <string name="update_30_minutes">30 хвилин</string>
     <string name="update_180_minutes">3 години</string>
     <string name="update_150_minutes">2 години 30 хвилин</string>
-    <string name="note_content_hint">Зміст</string>
+    <string name="contents">Зміст</string>
     <string name="pref_sensor_details_title">Подробиці датників</string>
     <string name="pref_altitude_override_title">Зсув висоти</string>
     <string name="declination_override_updated_toast">Зсув компаса оновлено</string>

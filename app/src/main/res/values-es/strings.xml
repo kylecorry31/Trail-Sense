@@ -327,7 +327,7 @@
     <string name="precise_inches_format">%s adentro</string>
     <string name="water_purification_step_1">Filtrar el agua</string>
     <string name="note_title_hint">Titulo</string>
-    <string name="note_content_hint">Contenidos</string>
+    <string name="contents">Contenidos</string>
     <string name="clock_sync_time_settings">¿Abrir configuración de tiempo\?</string>
     <string name="location_input_help_title">Formatos de ubicacion soportados</string>
     <string name="location_input_help">Grados decimales(ejemplo, 1.00,-2.00)

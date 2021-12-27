@@ -24,6 +24,7 @@ class QRFragment : BoundFragment<FragmentTabsBinding>() {
             getString(R.string.scan)
         )
 
+        binding.viewpager.isUserInputEnabled = false
         binding.viewpager.adapter = CustomViewPagerAdapter(this, tabs)
 
         TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->

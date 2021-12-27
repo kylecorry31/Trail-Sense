@@ -379,7 +379,7 @@
     <string name="freezing_temperatures_warning">冻结温度</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">内容</string>
+    <string name="contents">内容</string>
     <string name="note_title_hint">标题</string>
     <string name="tool_notes_title">附注</string>
     <string name="delete_note_title">删除附注？</string>

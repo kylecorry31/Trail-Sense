@@ -54,6 +54,8 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.text.keyListener = null
 
+        binding.qrCameraHolder.clipToOutline = true
+
         binding.qrTorchState.setOnClickListener {
             torchOn = !torchOn
             binding.qrTorchState.setImageResource(if (torchOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
@@ -134,7 +136,7 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
     private fun onQRScanned(message: String) {
         if (message.isNotEmpty() && text != message) {
             text = message
-            binding.text.setText(message)
+            binding.text.text = message
             binding.qrWeb.isVisible = isURL(text)
             binding.qrLocation.isVisible = isLocation(text)
             Buzz.feedback(requireContext(), HapticFeedbackType.Click)

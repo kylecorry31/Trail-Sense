@@ -31,7 +31,7 @@
             android:id="@+id/content_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/note_content_hint"
+            android:hint="@string/contents"
             android:imeOptions="actionNone"
             android:lineSpacingMultiplier="1.5"
             android:padding="16dp"

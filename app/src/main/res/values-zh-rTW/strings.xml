@@ -159,7 +159,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches">吋</string>
     <string name="unit_centimeters">公分</string>
-    <string name="note_content_hint">內容</string>
+    <string name="contents">內容</string>
     <string name="note_title_hint">標題</string>
     <string name="tool_notes_title">筆記</string>
     <string name="threshold">閾值</string>

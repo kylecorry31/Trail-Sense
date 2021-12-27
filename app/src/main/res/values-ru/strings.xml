@@ -394,7 +394,7 @@
     <string name="freezing_temperatures_warning">Температура замерзания</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Содержание</string>
+    <string name="contents">Содержание</string>
     <string name="note_title_hint">Название</string>
     <string name="tool_notes_title">Заметки</string>
     <string name="delete_note_title">Удалить заметку\?</string>

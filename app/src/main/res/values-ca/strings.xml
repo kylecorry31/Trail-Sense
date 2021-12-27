@@ -363,7 +363,7 @@
     <string name="clock_sync_notification">Sincronització del rellotge - %s</string>
     <string name="metal_detector_disclaimer">Només detecta metalls magnètics (ex. ferro)</string>
     <string name="notes_empty_text">Sense notes</string>
-    <string name="note_content_hint">Contingut</string>
+    <string name="contents">Contingut</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="freezing_temperatures_description">L\'aigua es congelarà si es deixa fora i la pluja pot convertir-se en neu</string>

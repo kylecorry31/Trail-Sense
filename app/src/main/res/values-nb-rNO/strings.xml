@@ -339,7 +339,7 @@
     <string name="unit_centimeters">Centimeter</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Innhold</string>
+    <string name="contents">Innhold</string>
     <string name="note_title_hint">Tittel</string>
     <string name="tool_notes_title">Notater</string>
     <string name="battery_temp">Telefon: %s</string>

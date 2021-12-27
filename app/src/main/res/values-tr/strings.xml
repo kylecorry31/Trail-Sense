@@ -197,7 +197,7 @@
     <string name="freezing_temperatures_warning">Dondurucu Sıcaklıklar</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">İçerikler</string>
+    <string name="contents">İçerikler</string>
     <string name="note_title_hint">Başlık</string>
     <string name="tool_notes_title">Notlar</string>
     <string name="delete_note_title">Notu silmek istediğinden emin misin\?</string>

@@ -341,7 +341,7 @@
     <string name="power">Zasilanie</string>
     <string name="tool_solar_panel_title">Pozycjonowanie paneli słonecznych</string>
     <string name="solar_panel_instructions">Połóż telefon na powierzchni ogniwa słonecznego.</string>
-    <string name="note_content_hint">Treść</string>
+    <string name="contents">Treść</string>
     <string name="tool_metal_detector_title">Wykrywacz metalu</string>
     <string name="metal_detector_disclaimer">Wykrywa jedynie metale magnetyczne (np. żelazo, stal)</string>
     <string name="tool_triangulate_summary">Określ swoją lokalizację bez użycia GPS</string>

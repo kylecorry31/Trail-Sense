@@ -456,7 +456,7 @@
     <string name="cliff_height_guide">Stima altezza precipizio</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="clock_waiting_for_gps">Aggiornamento orario dal GPS…</string>
-    <string name="note_content_hint">Contenuti</string>
+    <string name="contents">Contenuti</string>
     <string name="freezing_temperatures_warning">Temperatura sotto zero</string>
     <string name="map_scale_ratio">Rapporto</string>
     <string name="location_input_help">Gradi decimali (es. 1.00, -2.00)

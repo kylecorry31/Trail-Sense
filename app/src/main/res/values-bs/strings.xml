@@ -442,7 +442,7 @@
     <string name="freezing_temperatures_warning">Smrzavajuće Temperature</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Sadržaj</string>
+    <string name="contents">Sadržaj</string>
     <string name="note_title_hint">Naslov</string>
     <string name="tool_notes_title">Napomene</string>
     <string name="delete_note_title">Izbrisati bilješku\?</string>
