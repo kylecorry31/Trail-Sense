@@ -2,21 +2,36 @@ package com.kylecorry.trail_sense.tools.qr
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.buzz.Buzz
 import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
+import com.kylecorry.andromeda.core.system.GeoUriParser
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.qr.QR
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
+import com.kylecorry.trail_sense.tools.notes.domain.Note
+import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.time.Instant
 
 class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
 
@@ -32,10 +47,49 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
     private var text = ""
+    private var torchOn = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.text.keyListener = null
+
+        // TODO: Bind this to a torch button
+        binding.qrScan.setOnClickListener {
+            torchOn = !torchOn
+            camera.setTorch(torchOn)
+        }
+
+        binding.qrCopy.setOnClickListener {
+            Clipboard.copy(requireContext(), text, getString(R.string.copied_to_clipboard_toast))
+        }
+
+        binding.qrSaveNote.setOnClickListener {
+            Alerts.dialog(requireContext(), getString(R.string.create_note), text) {
+                if (!it) {
+                    runInBackground {
+                        withContext(Dispatchers.IO) {
+                            NoteRepo.getInstance(requireContext())
+                                .addNote(Note(null, text, Instant.now().toEpochMilli()))
+                        }
+                        withContext(Dispatchers.Main) {
+                            toast(getString(R.string.saved_to_note))
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.qrLocation.setOnClickListener {
+            val location = GeoUriParser.parse(Uri.parse(text)) ?: return@setOnClickListener
+            AppUtils.placeBeacon(requireContext(), MyNamedCoordinate.from(location))
+        }
+
+        binding.qrWeb.setOnClickListener {
+            val intent = Intents.url(text)
+            startActivity(intent)
+        }
+
+
     }
 
     override fun onResume() {
@@ -73,6 +127,8 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         if (message.isNotEmpty() && text != message) {
             text = message
             binding.text.setText(message)
+            binding.qrWeb.isVisible = isURL(text)
+            binding.qrLocation.isVisible = isLocation(text)
             Buzz.feedback(requireContext(), HapticFeedbackType.Click)
         }
     }
@@ -89,4 +145,14 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         camera.stop(this::onCameraUpdate)
         Buzz.off(requireContext())
     }
+
+    private fun isLocation(text: String): Boolean {
+        return GeoUriParser.parse(Uri.parse(text)) != null
+    }
+
+    private fun isURL(text: String): Boolean {
+        return android.util.Patterns.WEB_URL.matcher(text).matches()
+    }
+
+
 }

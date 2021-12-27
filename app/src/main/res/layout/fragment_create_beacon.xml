@@ -100,7 +100,7 @@
                     android:padding="16dp"
                     android:scrollbars="vertical" />
             </androidx.cardview.widget.CardView>
-            
+
             <Spinner
                 android:id="@+id/beacon_group_spinner"
                 android:layout_width="0dp"
