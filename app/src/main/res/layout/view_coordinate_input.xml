@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageButton
@@ -11,20 +11,21 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        android:elevation="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/colorPrimary"
+        android:elevation="4dp"
         android:padding="8dp"
-        app:tint="?android:textColorPrimary"
-        app:srcCompat="@drawable/satellite" />
+        app:srcCompat="@drawable/satellite"
+        app:tint="?android:textColorPrimary" />
+
     <ProgressBar
         android:id="@+id/gps_loading"
         style="?android:attr/progressBarStyle"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="8dp"
         android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
         android:indeterminate="true"
         android:visibility="invisible"
         tools:visibility="visible" />
@@ -34,29 +35,35 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        android:elevation="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/colorPrimary"
+        android:elevation="4dp"
         android:padding="8dp"
-        app:tint="?android:textColorPrimary"
-        app:srcCompat="@drawable/ic_location" />
+        app:srcCompat="@drawable/ic_location"
+        app:tint="?android:textColorPrimary" />
 
-    <EditText
-        android:id="@+id/utm"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:hint="@string/location"
-        android:inputType="textNoSuggestions" />
+        android:hint="@string/location">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/utm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
         android:id="@+id/coordinate_input_help_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        app:tint="?android:textColorPrimary"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/ic_help" />
+        app:srcCompat="@drawable/ic_help"
+        app:tint="?android:textColorPrimary" />
 
 </LinearLayout>
