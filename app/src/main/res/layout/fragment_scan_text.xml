@@ -151,10 +151,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@android:string/copy"
+                    android:visibility="gone"
                     app:chipIcon="@drawable/ic_copy"
                     app:chipIconSize="@dimen/chip_icon_size"
                     app:chipIconTint="?android:textColorSecondary"
-                    app:iconStartPadding="4dp" />
+                    app:iconStartPadding="4dp"
+                    tools:visibility="visible" />
 
 
             </com.google.android.material.chip.ChipGroup>
