@@ -28,6 +28,7 @@
 
 ## Table of Contents
 
+- [Goals](#goals)
 - [Features](#features)
 - [Privacy](#privacy)
 - [Contributing](#contributing)
@@ -35,6 +36,12 @@
 - [Support](#support)
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
+
+## Goals
+- Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
+- Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
+- Features should make use of the sensors on a phone rather than relying on stored information such as guides
+- Features must be based on peer-reviewed science
 
 ## Features
 
