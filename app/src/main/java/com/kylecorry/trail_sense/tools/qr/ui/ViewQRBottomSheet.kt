@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation.beacons.ui
+package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,33 +8,24 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrShareBinding
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 
-class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShareBinding>() {
-
-    var beacon: Beacon? = null
-        set(value) {
-            field = value
-            updateUI()
-        }
-
+class ViewQRBottomSheet(
+    private val title: String,
+    private val text: String
+) : BoundBottomSheetDialogFragment<FragmentBeaconQrShareBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateUI()
     }
 
-    private fun updateUI(){
-        val beacon = this.beacon ?: return
-        if (!isBound){
+    private fun updateUI() {
+        if (!isBound) {
             return
         }
-        binding.beaconName.text = beacon.name
-        val encoder = BeaconQREncoder()
-        val encoded = encoder.encode(beacon)
+        binding.beaconName.text = title
         val size = Resources.dp(requireContext(), 250f).toInt()
-        val bitmap = QR.encode(encoded, size, size)
+        val bitmap = QR.encode(text, size, size)
         binding.beaconQr.setImageBitmap(bitmap)
     }
 

@@ -8,23 +8,23 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
-import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconCopy
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoSender
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSharesheet
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -142,9 +142,7 @@ class BeaconListItem(
                     sender.send(beacon)
                 }
                 R.id.action_qr -> {
-                    val sheet = BeaconQRBottomSheet()
-                    sheet.beacon = beacon
-                    sheet.show(fragment)
+                    CustomUiUtils.showQR(fragment, beacon.name, BeaconQREncoder().encode(beacon))
                 }
                 R.id.action_copy -> {
                     val sender = BeaconCopy(view.context)

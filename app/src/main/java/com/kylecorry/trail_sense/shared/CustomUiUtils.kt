@@ -12,12 +12,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -27,6 +30,8 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.*
+import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
+import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
 
 object CustomUiUtils {
@@ -340,6 +345,26 @@ object CustomUiUtils {
             }
             it.show()
         }
+    }
+
+    fun showQR(
+        fragment: Fragment,
+        title: String,
+        qr: String
+    ): BottomSheetDialogFragment {
+        val sheet = ViewQRBottomSheet(title, qr)
+        sheet.show(fragment)
+        return sheet
+    }
+
+    fun scanQR(
+        fragment: Fragment,
+        title: String,
+        onScan: (text: String?) -> Boolean
+    ): BottomSheetDialogFragment {
+        val sheet = ScanQRBottomSheet(title, onScan)
+        sheet.show(fragment)
+        return sheet
     }
 
 }

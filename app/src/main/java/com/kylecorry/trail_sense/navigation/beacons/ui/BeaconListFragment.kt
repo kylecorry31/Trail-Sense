@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -33,12 +32,14 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoUriConverter
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.uri.GeoUri
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -403,16 +404,18 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun importBeaconFromQR() {
-        val sheet = BeaconImportQRBottomSheet()
-        sheet.onBeaconScanned = {
-            val bundle = bundleOf("initial_location" to BeaconGeoUriConverter().encode(it))
-            sheet.dismiss()
-            navController.navigate(
-                R.id.action_beaconListFragment_to_placeBeaconFragment,
-                bundle
-            )
+        val encoder = BeaconQREncoder()
+        CustomUiUtils.scanQR(this, getString(R.string.beacon_qr_import_instructions)) {
+            if (it != null) {
+                val beacon = encoder.decode(it) ?: return@scanQR true
+                val geo: GeoUri = GeoUri.from(BeaconGeoUriConverter().encode(beacon)) ?: return@scanQR true
+                navController.navigate(
+                    R.id.action_beaconListFragment_to_placeBeaconFragment,
+                    bundleOf("initial_location" to geo)
+                )
+            }
+            false
         }
-        sheet.show(this)
     }
 
     private fun export(gpx: GPXData) {

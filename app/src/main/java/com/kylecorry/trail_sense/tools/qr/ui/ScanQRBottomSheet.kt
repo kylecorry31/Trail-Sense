@@ -1,11 +1,14 @@
-package com.kylecorry.trail_sense.navigation.beacons.ui
+package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.buzz.Buzz
+import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.asLiveData
@@ -14,12 +17,11 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 
-class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
+class ScanQRBottomSheet(private val title: String, private val onTextScanned: (text: String?) -> Boolean) :
+    BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 
-    private val cameraSizePixels by lazy { Resources.dp(requireContext(), 250f).toInt() }
+    private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
     private val camera by lazy {
         Camera(
             requireContext(),
@@ -30,14 +32,15 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
         )
     }
 
-    private val beaconQREncoder = BeaconQREncoder()
-
-    var onBeaconScanned: ((beacon: Beacon) -> Unit)? = null
+    private var lastMessage: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.scanQrSheetTitle.text = title
+
         binding.cancelButton.setOnClickListener {
+            onTextScanned(null)
             dismiss()
         }
 
@@ -48,7 +51,7 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate() {
-        if (!isBound){
+        if (!isBound) {
             return
         }
         var message: String? = null
@@ -59,16 +62,19 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
         }
         camera.image?.close()
 
-        if (message != null) {
-            onQRScanned(message!!)
+        if (message != null && lastMessage != message) {
+            Buzz.feedback(requireContext(), HapticFeedbackType.Click)
+            lastMessage = message
+            if (!onTextScanned(message)) {
+                dismiss()
+            }
         }
     }
 
-    private fun onQRScanned(message: String) {
-        val beacon = beaconQREncoder.decode(message) ?: return
-        onBeaconScanned?.invoke(beacon)
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        Buzz.off(requireContext())
     }
-
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,

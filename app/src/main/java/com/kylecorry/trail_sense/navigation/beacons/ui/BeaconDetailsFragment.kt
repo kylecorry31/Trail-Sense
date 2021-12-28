@@ -8,16 +8,17 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -72,9 +73,11 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                     }
 
                     binding.beaconQrBtn.setOnClickListener {
-                        val sheet = BeaconQRBottomSheet()
-                        sheet.beacon = this
-                        sheet.show(this@BeaconDetailsFragment)
+                        CustomUiUtils.showQR(
+                            this@BeaconDetailsFragment,
+                            name,
+                            BeaconQREncoder().encode(this)
+                        )
                     }
 
                     binding.beaconMapBtn.setOnClickListener {
