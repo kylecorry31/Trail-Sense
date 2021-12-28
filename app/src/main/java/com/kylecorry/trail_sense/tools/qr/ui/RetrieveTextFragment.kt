@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.qr
+package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -8,9 +8,9 @@ import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.toast
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.buzz.Buzz
 import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
@@ -24,46 +24,49 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
-import com.kylecorry.trail_sense.shared.AppUtils
-import com.kylecorry.trail_sense.shared.alertNoCameraPermission
-import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
-import com.kylecorry.trail_sense.shared.uri.GeoUri
-import com.kylecorry.trail_sense.tools.notes.domain.Note
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
+import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.Instant
 
 class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
-    private val camera by lazy {
-        Camera(
+    private var camera: Camera? = null
+
+    private var text = ""
+    private var torchOn = false
+
+    private val beaconQREncoder = BeaconQREncoder()
+    private val noteQREncoder = NoteQREncoder()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.text.keyListener = null
+        text = ""
+
+        camera?.stop(this::onCameraUpdate)
+        camera = Camera(
             requireContext(),
             viewLifecycleOwner,
             previewView = binding.qrScan,
             analyze = true,
             targetResolution = Size(cameraSizePixels, cameraSizePixels)
         )
-    }
-
-    private var text = ""
-    private var torchOn = false
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.text.keyListener = null
 
         binding.qrCameraHolder.clipToOutline = true
 
         binding.qrTorchState.setOnClickListener {
             torchOn = !torchOn
             binding.qrTorchState.setImageResource(if (torchOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
-            camera.setTorch(torchOn)
+            camera?.setTorch(torchOn)
         }
 
         binding.qrZoom.setOnProgressChangeListener { progress, _ ->
-            camera.setZoom(progress / 100f)
+            camera?.setZoom(progress / 100f)
         }
 
         binding.qrCopy.setOnClickListener {
@@ -71,16 +74,21 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         }
 
         binding.qrSaveNote.setOnClickListener {
-            Alerts.dialog(requireContext(), getString(R.string.create_note), text) {
-                if (!it) {
-                    runInBackground {
-                        withContext(Dispatchers.IO) {
-                            NoteRepo.getInstance(requireContext())
-                                .addNote(Note(null, text, Instant.now().toEpochMilli()))
-                        }
-                        withContext(Dispatchers.Main) {
-                            toast(getString(R.string.saved_to_note))
-                        }
+            runInBackground {
+                val id = withContext(Dispatchers.IO) {
+                    NoteRepo.getInstance(requireContext())
+                        .addNote(noteQREncoder.decode(text))
+                }
+                withContext(Dispatchers.Main) {
+                    CustomUiUtils.snackbar(
+                        binding.root,
+                        getString(R.string.saved_to_note),
+                        action = getString(R.string.edit)
+                    ) {
+                        findNavController().navigate(
+                            R.id.fragmentToolNotesCreate,
+                            bundleOf("edit_note_id" to id)
+                        )
                     }
                 }
             }
@@ -92,19 +100,26 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         }
 
         binding.qrBeacon.setOnClickListener {
-            val geo = GeoUri.parse(text) ?: return@setOnClickListener
-            AppUtils.placeBeacon(
-                requireContext(),
-                geo
-            )
+            val beacon = beaconQREncoder.decode(text) ?: return@setOnClickListener
+            runInBackground {
+                val id = BeaconService(requireContext()).addBeacon(beacon)
+                CustomUiUtils.snackbar(
+                    binding.root,
+                    getString(R.string.beacon_created),
+                    action = getString(R.string.edit)
+                ) {
+                    findNavController().navigate(
+                        R.id.place_beacon,
+                        bundleOf("edit_beacon" to id)
+                    )
+                }
+            }
         }
 
         binding.qrWeb.setOnClickListener {
             val intent = Intents.url(text)
             Intents.openChooser(requireContext(), intent, text)
         }
-
-
     }
 
     override fun onResume() {
@@ -114,7 +129,7 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         binding.qrTorchState.setImageResource(R.drawable.ic_torch_off)
         requestPermissions(listOf(Manifest.permission.CAMERA)) {
             if (Camera.isAvailable(requireContext())) {
-                camera.start(this::onCameraUpdate)
+                camera?.start(this::onCameraUpdate)
             } else {
                 alertNoCameraPermission()
             }
@@ -128,11 +143,11 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
         }
         var message: String? = null
         tryOrNothing {
-            val bitmap = camera.image?.image?.toBitmap() ?: return@tryOrNothing
+            val bitmap = camera?.image?.image?.toBitmap() ?: return@tryOrNothing
             message = QR.decode(bitmap)
             bitmap.recycle()
         }
-        camera.image?.close()
+        camera?.image?.close()
 
         if (message != null) {
             onQRScanned(message!!)
@@ -179,7 +194,7 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
 
     override fun onPause() {
         super.onPause()
-        camera.stop(this::onCameraUpdate)
+        camera?.stop(this::onCameraUpdate)
         Buzz.off(requireContext())
     }
 

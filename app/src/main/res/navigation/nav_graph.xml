@@ -944,7 +944,7 @@
         android:label="ErrorSettingsFragment" />
     <fragment
         android:id="@+id/textTransmissionFragment"
-        android:name="com.kylecorry.trail_sense.tools.qr.QRFragment"
+        android:name="com.kylecorry.trail_sense.tools.qr.ui.QRFragment"
         android:label="TextTransmissionFragment" />
 
 </navigation>

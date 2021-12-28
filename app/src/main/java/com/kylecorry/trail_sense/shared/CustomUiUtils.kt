@@ -14,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
@@ -323,4 +324,22 @@ object CustomUiUtils {
         }
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
+
+    fun snackbar(
+        anchor: View,
+        text: String,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String? = null,
+        onAction: () -> Unit = {}
+    ): Snackbar {
+        return Snackbar.make(anchor, text, duration).also {
+            if (action != null) {
+                it.setAction(action) {
+                    onAction()
+                }
+            }
+            it.show()
+        }
+    }
+
 }

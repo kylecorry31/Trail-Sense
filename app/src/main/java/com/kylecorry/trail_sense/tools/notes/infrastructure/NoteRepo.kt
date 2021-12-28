@@ -17,9 +17,10 @@ class NoteRepo private constructor(context: Context) : INoteRepo {
 
     override suspend fun deleteNote(note: Note) = noteDao.delete(note)
 
-    override suspend fun addNote(note: Note) {
-        if (note.id != 0L){
+    override suspend fun addNote(note: Note): Long {
+        return if (note.id != 0L){
             noteDao.update(note)
+            note.id
         } else {
             noteDao.insert(note)
         }

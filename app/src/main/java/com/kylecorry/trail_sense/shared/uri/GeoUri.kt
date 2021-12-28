@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.uri
 
 import android.net.Uri
 import android.os.Parcelable
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import kotlinx.parcelize.Parcelize
 
@@ -12,11 +13,11 @@ data class GeoUri(
     val queryParameters: Map<String, String> = mapOf()
 ) : Parcelable {
 
-    val uri = Uri.parse(toString())
+    val uri: Uri = Uri.parse(toString())
 
     override fun toString(): String {
-        val base = "geo:${coordinate.latitude},${coordinate.longitude}"
-        val elevation = if (altitude != null) ",$altitude" else ""
+        val base = "geo:${coordinate.latitude.roundPlaces(6)},${coordinate.longitude.roundPlaces(6)}"
+        val elevation = if (altitude != null) ",${altitude.roundPlaces(2)}" else ""
         val query = if (queryParameters.isEmpty()) {
             ""
         } else {

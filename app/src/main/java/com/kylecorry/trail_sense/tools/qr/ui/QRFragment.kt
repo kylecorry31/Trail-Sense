@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.qr
+package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

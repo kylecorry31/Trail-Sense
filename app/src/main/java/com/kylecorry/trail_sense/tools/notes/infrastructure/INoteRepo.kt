@@ -12,5 +12,5 @@ interface INoteRepo {
 
     suspend fun deleteNote(note: Note)
 
-    suspend fun addNote(note: Note)
+    suspend fun addNote(note: Note): Long
 }

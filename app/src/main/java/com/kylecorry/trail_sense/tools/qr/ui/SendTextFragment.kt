@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.qr
+package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -12,10 +12,11 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSendTextBinding
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoUri
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
+import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -24,6 +25,9 @@ class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
     private var text = ""
     private var image: Bitmap? = null
     private val gps by lazy { SensorService(requireContext()).getGPS(false) }
+
+    private val beaconQREncoder = BeaconQREncoder()
+    private val noteQREncoder = NoteQREncoder()
 
     fun show(text: String) {
         this.text = text
@@ -57,9 +61,7 @@ class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
         binding.qrSendBeacon.setOnClickListener {
             CustomUiUtils.pickBeacon(requireContext(), getString(R.string.beacon), gps.location) {
                 if (it != null) {
-                    val encoder = BeaconGeoUri()
-                    val uri = encoder.encode(it)
-                    show(uri.toString())
+                    show(beaconQREncoder.encode(it))
                 }
             }
         }
@@ -77,7 +79,7 @@ class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
                 Pickers.item(requireContext(), getString(R.string.note), titles) {
                     if (it != null) {
                         val note = notes[it]
-                        show(note.title + "\n\n" + note.contents)
+                        show(noteQREncoder.encode(note))
                     }
                 }
 

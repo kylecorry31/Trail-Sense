@@ -1,19 +1,24 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.share
 
 import android.net.Uri
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.uri.GeoUri
 import com.kylecorry.trail_sense.shared.uri.IUriDecoder
 import com.kylecorry.trail_sense.shared.uri.IUriEncoder
 
-class BeaconGeoUri : IUriEncoder<Beacon>, IUriDecoder<Beacon> {
+class BeaconGeoUriConverter : IUriEncoder<Beacon>, IUriDecoder<Beacon> {
 
     override fun encode(value: Beacon): Uri {
+        val params = mutableMapOf("label" to value.name)
+        if (value.elevation != null) {
+            params["ele"] = value.elevation.roundPlaces(2).toString()
+        }
         val geo = GeoUri(
             value.coordinate,
             null,
-            mapOf("label" to value.name, "ele" to value.elevation.toString())
+            params
         )
         return geo.uri
     }
