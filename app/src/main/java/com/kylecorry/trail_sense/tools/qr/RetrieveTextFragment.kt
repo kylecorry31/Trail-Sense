@@ -24,7 +24,9 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
+import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
+import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.tools.notes.domain.Note
@@ -91,6 +93,11 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
             sender.send(location.coordinate)
         }
 
+        binding.qrBeacon.setOnClickListener {
+            val location = GeoUriParser.parse(Uri.parse(text)) ?: return@setOnClickListener
+            AppUtils.placeBeacon(requireContext(), MyNamedCoordinate.from(location))
+        }
+
         binding.qrWeb.setOnClickListener {
             val intent = Intents.url(text)
             Intents.openChooser(requireContext(), intent, text)
@@ -136,9 +143,26 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
     private fun onQRScanned(message: String) {
         if (message.isNotEmpty() && text != message) {
             text = message
+
+            val type = when {
+                isURL(text) -> ScanType.Url
+                isLocation(text) -> ScanType.Geo
+                else -> ScanType.Text
+            }
+
             binding.text.text = message
-            binding.qrWeb.isVisible = isURL(text)
-            binding.qrLocation.isVisible = isLocation(text)
+            binding.qrWeb.isVisible = type == ScanType.Url
+            binding.qrLocation.isVisible = type == ScanType.Geo
+            binding.qrBeacon.isVisible = type == ScanType.Geo
+
+            binding.qrMessageType.setImageResource(
+                when (type) {
+                    ScanType.Text -> R.drawable.ic_note
+                    ScanType.Url -> R.drawable.ic_link
+                    ScanType.Geo -> R.drawable.ic_location
+                }
+            )
+
             Buzz.feedback(requireContext(), HapticFeedbackType.Click)
         }
     }
@@ -162,6 +186,12 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private fun isURL(text: String): Boolean {
         return android.util.Patterns.WEB_URL.matcher(text).matches()
+    }
+
+    private enum class ScanType {
+        Text,
+        Url,
+        Geo
     }
 
 

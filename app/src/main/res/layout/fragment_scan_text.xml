@@ -68,12 +68,13 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:alpha="0.3"
+                    android:id="@+id/qr_message_type"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_margin="8dp"
+                    android:alpha="0.75"
                     app:srcCompat="@drawable/ic_note"
-                    app:tint="?android:textColorSecondary" />
+                    app:tint="?android:textColorPrimary" />
 
                 <TextView
                     android:id="@+id/text"
@@ -91,62 +92,70 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.2"
-                android:background="@drawable/rectangle"
-                android:backgroundTint="?android:textColorSecondary" />
-
-            <com.google.android.flexbox.FlexboxLayout
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:alignItems="center"
-                app:flexDirection="row"
-                app:justifyContent="flex_start">
+                android:layout_marginTop="8dp">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/qr_copy"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_copy"
-                    app:tint="?android:textColorSecondary" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/qr_save_note"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_tool_notes"
-                    app:tint="?android:textColorSecondary" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
+                <com.google.android.material.chip.Chip
                     android:id="@+id/qr_web"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/ic_link"
-                    app:tint="?android:textColorSecondary"
+                    app:chipIcon="@drawable/ic_link"
+                    app:chipIconSize="@dimen/chip_icon_size"
+                    app:chipIconTint="?android:textColorSecondary"
+                    app:iconStartPadding="4dp"
                     tools:visibility="visible" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/qr_beacon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/beacon"
+                    android:visibility="gone"
+                    app:chipIcon="@drawable/ic_location"
+                    app:chipIconSize="@dimen/chip_icon_size"
+                    app:chipIconTint="?android:textColorSecondary"
+                    app:iconStartPadding="4dp"
+                    tools:visibility="visible" />
+
+
+                <com.google.android.material.chip.Chip
                     android:id="@+id/qr_location"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/maps"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/ic_location"
-                    app:tint="?android:textColorSecondary"
+                    app:chipIcon="@drawable/maps"
+                    app:chipIconSize="@dimen/chip_icon_size"
+                    app:chipIconTint="?android:textColorSecondary"
+                    app:iconStartPadding="4dp"
                     tools:visibility="visible" />
 
-            </com.google.android.flexbox.FlexboxLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/qr_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@android:string/copy"
+                    app:chipIcon="@drawable/ic_copy"
+                    app:chipIconSize="@dimen/chip_icon_size"
+                    app:chipIconTint="?android:textColorSecondary"
+                    app:iconStartPadding="4dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/qr_save_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/note"
+                    app:chipIcon="@drawable/ic_tool_notes"
+                    app:chipIconSize="@dimen/chip_icon_size"
+                    app:chipIconTint="?android:textColorSecondary"
+                    app:iconStartPadding="4dp" />
+
+
+            </com.google.android.material.chip.ChipGroup>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

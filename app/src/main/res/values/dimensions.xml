@@ -6,4 +6,5 @@
     <dimen name="ruler_label">8dp</dimen>
     <dimen name="ruler_top">8dp</dimen>
     <dimen name="circular_display_size">248dp</dimen>
+    <dimen name="chip_icon_size">16dp</dimen>
 </resources>
