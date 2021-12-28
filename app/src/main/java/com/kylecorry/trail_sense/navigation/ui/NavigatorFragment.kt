@@ -43,7 +43,6 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
@@ -61,6 +60,7 @@ import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 import com.kylecorry.trail_sense.shared.views.UserError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -265,9 +265,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.beaconBtn.setOnLongClickListener {
             if (gps.hasValidReading) {
                 val bundle = bundleOf(
-                    "initial_location" to MyNamedCoordinate(
+                    "initial_location" to GeoUri(
                         gps.location,
-                        elevation = if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
+                        null,
+                        mapOf("ele" to (if (altimeter.hasValidReading) altimeter.altitude else gps.altitude).toString())
                     )
                 )
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment, bundle)

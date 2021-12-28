@@ -10,6 +10,9 @@ class NoteRepo private constructor(context: Context) : INoteRepo {
 
     override fun getNotes() = noteDao.getAll()
 
+    override suspend fun getNotesSync() = noteDao.getAllSync()
+
+
     override suspend fun getNote(id: Long) = noteDao.get(id)
 
     override suspend fun deleteNote(note: Note) = noteDao.delete(note)

@@ -19,7 +19,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
@@ -31,6 +30,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -176,7 +176,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             ) { cancelled ->
                 if (!cancelled) {
                     val bundle = bundleOf(
-                        "initial_location" to MyNamedCoordinate(it)
+                        "initial_location" to GeoUri(it)
                     )
                     findNavController().navigate(R.id.place_beacon, bundle)
                 }

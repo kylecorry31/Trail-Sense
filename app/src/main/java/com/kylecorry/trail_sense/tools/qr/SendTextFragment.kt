@@ -8,13 +8,22 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.qr.QR
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSendTextBinding
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoUri
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
 
     private var text = ""
     private var image: Bitmap? = null
+    private val gps by lazy { SensorService(requireContext()).getGPS(false) }
 
     fun show(text: String) {
         this.text = text
@@ -44,6 +53,38 @@ class SendTextFragment : BoundFragment<FragmentSendTextBinding>() {
             this.text = binding.textEntry.text.toString()
             updateQR()
         }
+
+        binding.qrSendBeacon.setOnClickListener {
+            CustomUiUtils.pickBeacon(requireContext(), getString(R.string.beacon), gps.location) {
+                if (it != null) {
+                    val encoder = BeaconGeoUri()
+                    val uri = encoder.encode(it)
+                    show(uri.toString())
+                }
+            }
+        }
+
+        binding.qrSendNote.setOnClickListener {
+            // TODO: Use a better UI for this
+            runInBackground {
+                // TODO: Only load note titles and dates (notes should be revamped to use the first line of text as a title)
+                val notes = withContext(Dispatchers.IO) {
+                    NoteRepo.getInstance(requireContext()).getNotesSync()
+                }
+
+                val titles = notes.map { it.title ?: getString(android.R.string.untitled) }
+
+                Pickers.item(requireContext(), getString(R.string.note), titles) {
+                    if (it != null) {
+                        val note = notes[it]
+                        show(note.title + "\n\n" + note.contents)
+                    }
+                }
+
+
+            }
+        }
+
     }
 
 

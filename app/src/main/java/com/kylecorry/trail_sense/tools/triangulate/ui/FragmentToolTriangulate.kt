@@ -13,11 +13,11 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
@@ -57,7 +57,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         binding.placeBeaconBtn.setOnClickListener {
             location?.let {
-                AppUtils.placeBeacon(requireContext(), MyNamedCoordinate(it))
+                AppUtils.placeBeacon(requireContext(), GeoUri(it))
             }
         }
 

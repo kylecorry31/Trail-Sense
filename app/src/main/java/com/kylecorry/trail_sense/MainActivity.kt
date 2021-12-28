@@ -18,7 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Exceptions
-import com.kylecorry.andromeda.core.system.GeoUriParser
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -29,13 +28,13 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
@@ -166,10 +165,10 @@ class MainActivity : AndromedaActivity() {
     private fun handleIntentAction(intent: Intent) {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
-            val namedCoordinate = GeoUriParser.parse(intentData)
+            val geo = GeoUri.from(intentData)
             bottomNavigation.selectedItemId = R.id.action_navigation
-            if (namedCoordinate != null) {
-                val bundle = bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
+            if (geo != null) {
+                val bundle = bundleOf("initial_location" to geo)
                 navController.navigate(
                     R.id.beacon_list,
                     bundle

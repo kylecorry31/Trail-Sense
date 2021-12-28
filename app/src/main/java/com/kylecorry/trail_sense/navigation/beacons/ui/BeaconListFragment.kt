@@ -24,20 +24,20 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxConverter
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxConverter
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -71,7 +71,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (requireArguments().containsKey("initial_location")) {
-            val loc: MyNamedCoordinate? = requireArguments().getParcelable("initial_location")
+            val loc: GeoUri? = requireArguments().getParcelable("initial_location")
             if (loc != null) {
                 findNavController().navigate(
                     R.id.action_beaconListFragment_to_placeBeaconFragment,

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
@@ -10,13 +9,12 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.andromeda.core.system.GeoUriParser
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 
 class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 
@@ -31,7 +29,7 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
         )
     }
 
-    var onBeaconScanned: ((beacon: MyNamedCoordinate) -> Unit)? = null
+    var onBeaconScanned: ((beacon: GeoUri) -> Unit)? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,8 +62,8 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
     }
 
     private fun onQRScanned(message: String) {
-        val parsed = GeoUriParser.parse(Uri.parse(message)) ?: return
-        onBeaconScanned?.invoke(MyNamedCoordinate.from(parsed))
+        val geo = GeoUri.parse(message) ?: return
+        onBeaconScanned?.invoke(geo)
     }
 
 

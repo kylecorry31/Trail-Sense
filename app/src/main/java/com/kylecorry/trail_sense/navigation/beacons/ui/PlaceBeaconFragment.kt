@@ -26,12 +26,12 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.uri.GeoUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,7 +58,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private var editingBeaconId: Long? = null
     private var initialGroupId: Long? = null
     private var initialGroupIndex = 0
-    private var initialLocation: MyNamedCoordinate? = null
+    private var initialLocation: GeoUri? = null
     private val geoService = GeologyService()
 
     private var bearingTo: Bearing? = null
@@ -177,11 +177,12 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         // Fill in the initial location information
         if (initialLocation != null) {
-            binding.beaconName.setText(initialLocation!!.name ?: "")
+            binding.beaconName.setText(initialLocation!!.queryParameters.getOrDefault("label", ""))
             binding.beaconLocation.coordinate = initialLocation!!.coordinate
+            val altitude = initialLocation!!.altitude ?: initialLocation!!.queryParameters.getOrDefault("ele", "").toFloatOrNull()
             binding.beaconElevation.setText(
-                if (initialLocation!!.elevation != null) {
-                    val dist = Distance.meters(initialLocation!!.elevation!!)
+                if (altitude != null) {
+                    val dist = Distance.meters(altitude)
                     val userUnits = dist.convertTo(prefs.baseDistanceUnits)
                     userUnits.distance.toString()
                 } else {

@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,13 +10,42 @@
 
     <ImageView
         android:id="@+id/qr"
-        android:layout_marginTop="8dp"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/white"
         android:elevation="8dp" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/qr_send_beacon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/beacon"
+            app:chipIcon="@drawable/ic_location"
+            app:chipIconSize="@dimen/chip_icon_size"
+            app:chipIconTint="?android:textColorSecondary"
+            app:iconStartPadding="4dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/qr_send_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/note"
+            app:chipIcon="@drawable/ic_tool_notes"
+            app:chipIconSize="@dimen/chip_icon_size"
+            app:chipIconTint="?android:textColorSecondary"
+            app:iconStartPadding="4dp" />
+
+
+    </com.google.android.material.chip.ChipGroup>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -23,6 +53,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_weight="1"
+        app:endIconMode="clear_text"
+        app:endIconTint="?android:textColorSecondary"
+        app:endIconDrawable="@drawable/ic_cancel"
         android:hint="@string/contents">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -30,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNone"
-            android:inputType="textNoSuggestions|textMultiLine"/>
+            android:inputType="textNoSuggestions|textMultiLine" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

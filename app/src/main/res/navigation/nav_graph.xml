@@ -392,7 +392,7 @@
         <argument
             android:name="initial_location"
             android:defaultValue="@null"
-            app:argType="com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate" />
+            app:argType="com.kylecorry.trail_sense.shared.uri.GeoUri" />
 
         <action
             android:id="@+id/action_beaconListFragment_to_placeBeaconFragment"
@@ -436,7 +436,7 @@
         <argument
             android:name="initial_location"
             android:defaultValue="@null"
-            app:argType="com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate" />
+            app:argType="com.kylecorry.trail_sense.shared.uri.GeoUri" />
 
         <!--        <action-->
         <!--            android:id="@+id/action_place_beacon_to_beacon_list"-->
