@@ -18,7 +18,6 @@
         android:elevation="8dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -31,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNone"
-            android:inputType="textNoSuggestions|textMultiLine"
-            android:lineSpacingMultiplier="1.5" />
+            android:inputType="textNoSuggestions|textMultiLine"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

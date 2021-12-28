@@ -21,6 +21,8 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
@@ -28,8 +30,6 @@ import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
@@ -329,9 +329,9 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         if (units == UserPreferences.DistanceUnits.Feet) {
-            binding.beaconElevation.hint = getString(R.string.beacon_elevation_hint_feet)
+            binding.beaconElevationHolder.hint = getString(R.string.beacon_elevation_hint_feet)
         } else {
-            binding.beaconElevation.hint = getString(R.string.beacon_elevation_hint_meters)
+            binding.beaconElevationHolder.hint = getString(R.string.beacon_elevation_hint_meters)
         }
 
         binding.bearingToBtn.text =
