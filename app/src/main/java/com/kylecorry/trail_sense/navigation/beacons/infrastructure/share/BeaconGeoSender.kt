@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 class BeaconGeoSender(private val context: Context): IBeaconSender {
 
     override fun send(beacon: Beacon) {
-        val uri = BeaconGeoUriConverter().encode(beacon)
+        val uri = BeaconUriEncoder().encode(beacon)
         val intent = Intents.url(uri.toString())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val chooser = Intent.createChooser(intent, context.getString(R.string.open_beacon_in_maps))

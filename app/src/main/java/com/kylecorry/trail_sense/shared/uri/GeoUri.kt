@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Parcelable
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -35,6 +36,17 @@ data class GeoUri(
 
         fun from(uri: Uri): GeoUri? {
             return parse(uri.toString())
+        }
+
+        fun from(beacon: Beacon): GeoUri {
+            val params = mutableMapOf(
+                "label" to beacon.name
+            )
+            if (beacon.elevation != null) {
+                params["ele"] = beacon.elevation.roundPlaces(2).toString()
+            }
+
+            return GeoUri(beacon.coordinate, null, params)
         }
 
         fun parse(uriString: String): GeoUri? {

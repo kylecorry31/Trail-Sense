@@ -31,7 +31,6 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoUriConverter
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -408,10 +407,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         CustomUiUtils.scanQR(this, getString(R.string.beacon_qr_import_instructions)) {
             if (it != null) {
                 val beacon = encoder.decode(it) ?: return@scanQR true
-                val geo: GeoUri = GeoUri.from(BeaconGeoUriConverter().encode(beacon)) ?: return@scanQR true
                 navController.navigate(
                     R.id.action_beaconListFragment_to_placeBeaconFragment,
-                    bundleOf("initial_location" to geo)
+                    bundleOf("initial_location" to GeoUri.from(beacon))
                 )
             }
             false

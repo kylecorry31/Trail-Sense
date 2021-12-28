@@ -4,4 +4,5 @@ import android.net.Uri
 
 interface IUriEncoder<T> {
     fun encode(value: T): Uri
+    fun decode(uri: Uri): T?
 }
