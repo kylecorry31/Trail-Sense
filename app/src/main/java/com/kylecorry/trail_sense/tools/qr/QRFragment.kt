@@ -14,14 +14,15 @@ class QRFragment : BoundFragment<FragmentTabsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO: Check arguments for send text, and switch to send tab if needed
         val textFragment = SendTextFragment()
         val tabs = listOf(
-            textFragment,
-            RetrieveTextFragment()
+            RetrieveTextFragment(),
+            textFragment
         )
         val names = listOf(
+            getString(R.string.scan),
             getString(R.string.share_action_send),
-            getString(R.string.scan)
         )
 
         binding.viewpager.isUserInputEnabled = false
