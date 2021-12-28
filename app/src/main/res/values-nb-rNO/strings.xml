@@ -746,7 +746,7 @@
     <string name="map_perspective_instructions">Omriss av kartet</string>
     <string name="preview">Forhåndsvis</string>
     <string name="delete_map">Slett kart\?</string>
-    <string name="error_importing_map">Kunne ikke importere kart</string>
+    <string name="error_importing_map">Feil ved importering av kart</string>
     <string name="importing_map">Importering av kart</string>
     <string name="next">Neste</string>
     <string name="previous">Forrige</string>
@@ -870,4 +870,13 @@
     <string name="compass_unavailable">Kompass utilgjengelig</string>
     <string name="gps_unavailable">GPS utilgjengelig</string>
     <string name="gps_timeouts">GPS-tidsavbrudd</string>
+    <string name="avalanche_risk">Snøskredfare</string>
+    <string name="distance_unset">Avstand ikke satt</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Lås med volumknapper</string>
+    <string name="location_not_set">Posisjon ikke satt</string>
+    <string name="height">Høyde</string>
+    <string name="clinometer_measure_distance_title">Høyde på målet</string>
+    <string name="measure">Mål</string>
+    <string name="clinometer_measure_height_title">Avstand til målet</string>
+    <string name="error_banners">Feilbannere</string>
 </resources>
