@@ -154,6 +154,7 @@ class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
             binding.qrWeb.isVisible = type == ScanType.Url
             binding.qrLocation.isVisible = type == ScanType.Geo
             binding.qrBeacon.isVisible = type == ScanType.Geo
+            binding.qrSaveNote.isVisible = type == ScanType.Text
 
             binding.qrMessageType.setImageResource(
                 when (type) {
