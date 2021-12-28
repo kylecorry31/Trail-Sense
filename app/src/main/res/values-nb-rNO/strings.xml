@@ -120,7 +120,7 @@
     <string name="compass_declination">Misvisning</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_use_24_hour_title">Bruk 24-timersklokke</string>
-    <string name="set_inclination_instructions">Trykk hvor som helst for å låse/låse opp helningsvinkel</string>
+    <string name="set_inclination_instructions">Trykk eller hold hvor som helst for å låse/låse opp</string>
     <string name="clinometer_rotate_device">Hold telefonen vertikalt for å måle helning</string>
     <string name="tool_clinometer_summary">Anslå snøskredfare og objekthøyder</string>
     <string name="clinometer_title">Klinometer</string>
@@ -862,4 +862,12 @@
     <string name="point_style">Punktstil</string>
     <string name="line_style">Linjestil</string>
     <string name="path_color">Stifarge</string>
+    <string name="export_path_error">Kunne ikke eksportere sti</string>
+    <string name="slope_amount">%s helning</string>
+    <string name="weather_monitor_disabled_resolution">Slå på værovervåking i værinnstillingene</string>
+    <string name="errors">Feil</string>
+    <string name="compass_accuracy">Kompassnøyaktighet</string>
+    <string name="compass_unavailable">Kompass utilgjengelig</string>
+    <string name="gps_unavailable">GPS utilgjengelig</string>
+    <string name="gps_timeouts">GPS-tidsavbrudd</string>
 </resources>
