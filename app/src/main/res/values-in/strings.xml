@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="navigation">Navigasi</string>
+    <string name="weather">Cuaca</string>
+    <string name="settings">Pengaturan</string>
+    <string name="astronomy">Astronomi</string>
+    <string name="tools">Alat</string>
+    <string name="dialog_grant">Perbarui pengaturan</string>
+    <string name="dialog_deny">Tidak, terima kasih</string>
+    <string name="disclaimer_message_title">Penyangkalan</string>
+    <string name="app_disclaimer_message_title">Penyangkalan/Syarat dan Ketentuan</string>
+    <string name="precise_miles_format">%s mil</string>
+    <string name="precise_feet_format">%s kaki</string>
+    <string name="precise_nautical_miles_format">%s mil laut</string>
+    <string name="precise_meters_format">%s m</string>
+    <string name="precise_kilometers_format">%s km</string>
+    <string name="kilometers_per_hour_format">%.1f km/jam</string>
+    <string name="miles_per_hour_format">%.1f mil/jam</string>
+    <string name="duration_minute_format">%dm</string>
+    <string name="copied_to_clipboard_toast">Disalin ke papan klip</string>
+    <string name="access_background_location_rationale">Trail Sense menggunakan data lokasi di latar belakang. Data tersebut digunakan untuk kalibrasi tekanan level laut di pemantauan cuaca dan untuk memberikan peringatan matahari terbenam yang lebih akurat. [Lihat Kebijakan Privasi](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="duration_hour_format">%djam</string>
+</resources>
