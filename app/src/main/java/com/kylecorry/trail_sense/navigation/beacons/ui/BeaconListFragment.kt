@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoUriConverter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alertNoCameraPermission
@@ -404,7 +405,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun importBeaconFromQR() {
         val sheet = BeaconImportQRBottomSheet()
         sheet.onBeaconScanned = {
-            val bundle = bundleOf("initial_location" to it)
+            val bundle = bundleOf("initial_location" to BeaconGeoUriConverter().encode(it))
             sheet.dismiss()
             navController.navigate(
                 R.id.action_beaconListFragment_to_placeBeaconFragment,

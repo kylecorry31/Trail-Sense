@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrShareBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoUriConverter
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 
 class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShareBinding>() {
 
@@ -31,8 +31,8 @@ class BeaconQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrShare
             return
         }
         binding.beaconName.text = beacon.name
-        val encoder = BeaconGeoUriConverter()
-        val encoded = encoder.encode(beacon).toString()
+        val encoder = BeaconQREncoder()
+        val encoded = encoder.encode(beacon)
         val size = Resources.dp(requireContext(), 250f).toInt()
         val bitmap = QR.encode(encoded, size, size)
         binding.beaconQr.setImageBitmap(bitmap)

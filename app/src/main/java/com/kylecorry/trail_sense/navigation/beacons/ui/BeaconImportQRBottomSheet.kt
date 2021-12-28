@@ -14,7 +14,8 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
-import com.kylecorry.trail_sense.shared.uri.GeoUri
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 
 class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
 
@@ -29,7 +30,9 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
         )
     }
 
-    var onBeaconScanned: ((beacon: GeoUri) -> Unit)? = null
+    private val beaconQREncoder = BeaconQREncoder()
+
+    var onBeaconScanned: ((beacon: Beacon) -> Unit)? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,8 +65,8 @@ class BeaconImportQRBottomSheet : BoundBottomSheetDialogFragment<FragmentBeaconQ
     }
 
     private fun onQRScanned(message: String) {
-        val geo = GeoUri.parse(message) ?: return
-        onBeaconScanned?.invoke(geo)
+        val beacon = beaconQREncoder.decode(message) ?: return
+        onBeaconScanned?.invoke(beacon)
     }
 
 
