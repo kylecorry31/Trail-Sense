@@ -36,13 +36,20 @@
             android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/tide_name"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint="@string/name"
-                android:inputType="text" />
+                android:id="@+id/tide_name_holder">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tide_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNone"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
