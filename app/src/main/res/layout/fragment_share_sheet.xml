@@ -47,7 +47,7 @@
             android:layout_width="@dimen/share_sheet_icon_size"
             android:layout_height="@dimen/share_sheet_icon_size"
             android:layout_margin="@dimen/share_sheet_icon_margin"
-            app:tileIcon="@drawable/ic_share"
+            app:tileIcon="@drawable/ic_send"
             app:tilePadding="@dimen/share_sheet_icon_padding"
             app:tileText="@string/share_action_send" />
 
