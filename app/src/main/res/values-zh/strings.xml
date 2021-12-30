@@ -1027,4 +1027,9 @@
     <string name="compass_unavailable">指南针不可用</string>
     <string name="gps_unavailable">GPS 不可用</string>
     <string name="gps_timeouts">GPS 超时</string>
+    <string name="enter_text">输入文字</string>
+    <string name="scan">扫描</string>
+    <string name="no_qr_code_found">未检测到二维码</string>
+    <string name="saved_to_note">已保存到笔记</string>
+    <string name="create_note">创建笔记</string>
 </resources>

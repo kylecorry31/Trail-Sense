@@ -1054,4 +1054,9 @@
     <string name="weather_monitor_disabled_resolution">Увімкніть відстеження погоди в налаштуваннях погоди</string>
     <string name="compass_accuracy">Точність компаса</string>
     <string name="compass_unavailable">Компас недоступний</string>
+    <string name="scan">Зчитати</string>
+    <string name="create_note">Створити примітку</string>
+    <string name="enter_text">Введіть текст</string>
+    <string name="no_qr_code_found">QR-код не виявлено</string>
+    <string name="saved_to_note">Збережено у примітках</string>
 </resources>
