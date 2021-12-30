@@ -1163,7 +1163,7 @@
     <string name="pref_error_settings" translatable="false">pref_error_settings</string>
     <string name="gps_timeouts">GPS timeouts</string>
     <string name="enter_text">Enter text</string>
-    <string name="scan">Scan</string>
+    <string name="qr_code_scanner">QR Code Scanner</string>
     <string name="no_qr_code_found">No QR code detected</string>
     <string name="saved_to_note">Saved to note</string>
     <string name="open">Open</string>

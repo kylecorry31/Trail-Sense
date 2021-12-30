@@ -195,9 +195,9 @@ object Tools {
                     R.id.action_action_experimental_tools_to_fragmentToolNotes
                 ),
                 Tool(
-                    context.getString(R.string.qr_code),
+                    context.getString(R.string.qr_code_scanner),
                     R.drawable.ic_qr_code,
-                    R.id.action_tools_to_text
+                    R.id.action_tools_to_qr
                 ),
                 Tool(
                     context.getString(R.string.tool_user_guide_title),

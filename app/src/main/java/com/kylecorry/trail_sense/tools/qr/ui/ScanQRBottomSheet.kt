@@ -16,17 +16,17 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
-import com.kylecorry.trail_sense.databinding.FragmentBeaconQrImportBinding
+import com.kylecorry.trail_sense.databinding.FragmentQrImportSheetBinding
 
 class ScanQRBottomSheet(private val title: String, private val onTextScanned: (text: String?) -> Boolean) :
-    BoundBottomSheetDialogFragment<FragmentBeaconQrImportBinding>() {
+    BoundBottomSheetDialogFragment<FragmentQrImportSheetBinding>() {
 
     private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
     private val camera by lazy {
         Camera(
             requireContext(),
             viewLifecycleOwner,
-            previewView = binding.beaconQrScan,
+            previewView = binding.qrScanner,
             analyze = true,
             targetResolution = Size(cameraSizePixels, cameraSizePixels)
         )
@@ -36,6 +36,8 @@ class ScanQRBottomSheet(private val title: String, private val onTextScanned: (t
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.qrScanner.clipToOutline = true
 
         binding.scanQrSheetTitle.text = title
 
@@ -79,8 +81,8 @@ class ScanQRBottomSheet(private val title: String, private val onTextScanned: (t
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentBeaconQrImportBinding {
-        return FragmentBeaconQrImportBinding.inflate(layoutInflater, container, false)
+    ): FragmentQrImportSheetBinding {
+        return FragmentQrImportSheetBinding.inflate(layoutInflater, container, false)
     }
 
 }

@@ -16,13 +16,13 @@
 
 <!--    TODO: Add zoom and torch-->
     <androidx.camera.view.PreviewView
-        android:id="@+id/beacon_qr_scan"
+        android:id="@+id/qr_scanner"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_rectangle"
-        android:elevation="8dp"/>
+        android:elevation="4dp"/>
 
     <Button
         android:id="@+id/cancel_button"

@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_rectangle"
-        android:elevation="8dp">
+        android:elevation="4dp">
 
         <androidx.camera.view.PreviewView
             android:id="@+id/qr_scan"

@@ -32,7 +32,7 @@ import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RetrieveTextFragment : BoundFragment<FragmentScanTextBinding>() {
+class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
     private var camera: Camera? = null
