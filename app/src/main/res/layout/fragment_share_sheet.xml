@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/share_sheet_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Share" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/share_sheet_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:alignItems="center"
+        app:flexWrap="wrap"
+        app:justifyContent="center">
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/share_sheet_copy"
+            android:layout_width="@dimen/share_sheet_icon_size"
+            android:layout_height="@dimen/share_sheet_icon_size"
+            android:layout_margin="@dimen/share_sheet_icon_margin"
+            app:tileIcon="@drawable/ic_copy"
+            app:tilePadding="@dimen/share_sheet_icon_padding"
+            app:tileText="@android:string/copy" />
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/share_sheet_qr"
+            android:layout_width="@dimen/share_sheet_icon_size"
+            android:layout_height="@dimen/share_sheet_icon_size"
+            android:layout_margin="@dimen/share_sheet_icon_margin"
+            app:tileIcon="@drawable/ic_qr_code"
+            app:tilePadding="@dimen/share_sheet_icon_padding"
+            app:tileText="@string/qr_code" />
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/share_sheet_send"
+            android:layout_width="@dimen/share_sheet_icon_size"
+            android:layout_height="@dimen/share_sheet_icon_size"
+            android:layout_margin="@dimen/share_sheet_icon_margin"
+            app:tileIcon="@drawable/ic_share"
+            app:tilePadding="@dimen/share_sheet_icon_padding"
+            app:tileText="@string/share_action_send" />
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/share_sheet_maps"
+            android:layout_width="@dimen/share_sheet_icon_size"
+            android:layout_height="@dimen/share_sheet_icon_size"
+            android:layout_margin="@dimen/share_sheet_icon_margin"
+            app:tileIcon="@drawable/maps"
+            app:tilePadding="@dimen/share_sheet_icon_padding"
+            app:tileText="@string/maps" />
+
+        <com.kylecorry.trail_sense.shared.views.TileButton
+            android:id="@+id/share_sheet_file"
+            android:layout_width="@dimen/share_sheet_icon_size"
+            android:layout_height="@dimen/share_sheet_icon_size"
+            android:layout_margin="@dimen/share_sheet_icon_margin"
+            app:tileIcon="@drawable/ic_file"
+            app:tilePadding="@dimen/share_sheet_icon_padding"
+            app:tileText="@string/export" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

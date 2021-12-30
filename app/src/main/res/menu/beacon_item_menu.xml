@@ -4,24 +4,15 @@
         android:id="@+id/action_view_beacon"
         android:title="@string/beacon_action_view_details" />
     <item
-        android:id="@+id/action_copy"
-        android:title="@android:string/copy" />
-    <item
         android:id="@+id/action_send"
-        android:title="@string/share_action_send" />
-    <item
-        android:id="@+id/action_qr"
-        android:title="@string/qr_code" />
-    <item
-        android:id="@+id/action_map"
-        android:title="@string/maps" />
+        android:title="@string/share_ellipsis" />
     <item
         android:id="@+id/action_move"
         android:title="@string/move" />
     <item
         android:id="@+id/action_delete_beacon"
-        android:title="@string/delete_beacon" />
+        android:title="@string/delete" />
     <item
         android:id="@+id/action_edit_beacon"
-        android:title="@string/edit_beacon" />
+        android:title="@string/edit" />
 </menu>
