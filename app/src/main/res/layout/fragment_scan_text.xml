@@ -93,9 +93,12 @@
             </LinearLayout>
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/qr_actions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/qr_web"

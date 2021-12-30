@@ -172,6 +172,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
             binding.qrBeacon.isVisible = type == ScanType.Geo
             binding.qrSaveNote.isVisible = type == ScanType.Text
             binding.qrCopy.isVisible = true
+            binding.qrActions.isVisible = true
 
             binding.qrMessageType.setImageResource(
                 when (type) {
