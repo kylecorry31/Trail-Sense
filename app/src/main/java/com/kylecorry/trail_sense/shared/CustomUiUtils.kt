@@ -331,18 +331,19 @@ object CustomUiUtils {
     }
 
     fun snackbar(
-        anchor: View,
+        fragment: Fragment,
         text: String,
         duration: Int = Snackbar.LENGTH_SHORT,
         action: String? = null,
         onAction: () -> Unit = {}
     ): Snackbar {
-        return Snackbar.make(anchor, text, duration).also {
+        return Snackbar.make(fragment.requireView(), text, duration).also {
             if (action != null) {
                 it.setAction(action) {
                     onAction()
                 }
             }
+            it.setAnchorView(R.id.bottom_navigation)
             it.show()
         }
     }

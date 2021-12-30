@@ -21,9 +21,11 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
+import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
@@ -37,16 +39,68 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
     private var camera: Camera? = null
 
-    private var text = ""
     private var torchOn = false
+
+    private var history = mutableListOf<String>()
+    private lateinit var qrHistoryList: ListView<String>
 
     private val beaconQREncoder = BeaconQREncoder()
     private val noteQREncoder = NoteQREncoder()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.text.keyListener = null
-        text = ""
+
+        qrHistoryList =
+            ListView(binding.qrHistory, R.layout.list_item_qr_result) { itemView, text ->
+                val itemBinding = ListItemQrResultBinding.bind(itemView)
+
+                val type = when {
+                    isURL(text) -> ScanType.Url
+                    isLocation(text) -> ScanType.Geo
+                    else -> ScanType.Text
+                }
+
+                itemBinding.text.text = if (text.isEmpty()) null else text
+                itemBinding.qrWeb.isVisible = type == ScanType.Url
+                itemBinding.qrLocation.isVisible = type == ScanType.Geo
+                itemBinding.qrBeacon.isVisible = type == ScanType.Geo
+                itemBinding.qrSaveNote.isVisible = type == ScanType.Text
+                itemBinding.qrCopy.isVisible = true
+                itemBinding.qrDelete.isVisible = true
+                itemBinding.qrActions.isVisible = text.isNotEmpty()
+
+                itemBinding.qrMessageType.setImageResource(
+                    when (type) {
+                        ScanType.Text -> R.drawable.ic_note
+                        ScanType.Url -> R.drawable.ic_link
+                        ScanType.Geo -> R.drawable.ic_location
+                    }
+                )
+
+                itemBinding.qrCopy.setOnClickListener {
+                    copy(text)
+                }
+
+                itemBinding.qrSaveNote.setOnClickListener {
+                    createNote(text)
+                }
+
+                itemBinding.qrLocation.setOnClickListener {
+                    openMap(text)
+                }
+
+                itemBinding.qrBeacon.setOnClickListener {
+                    createBeacon(text)
+                }
+
+                itemBinding.qrWeb.setOnClickListener {
+                    openUrl(text)
+                }
+
+                itemBinding.qrDelete.setOnClickListener {
+                    deleteResult(text)
+                }
+            }
 
         camera?.stop(this::onCameraUpdate)
         camera = Camera(
@@ -68,65 +122,88 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         binding.qrZoom.setOnProgressChangeListener { progress, _ ->
             camera?.setZoom(progress / 100f)
         }
+    }
 
-        binding.qrCopy.setOnClickListener {
-            Clipboard.copy(requireContext(), text, getString(R.string.copied_to_clipboard_toast))
-        }
 
-        binding.qrSaveNote.setOnClickListener {
-            runInBackground {
-                val id = withContext(Dispatchers.IO) {
-                    NoteRepo.getInstance(requireContext())
-                        .addNote(noteQREncoder.decode(text))
-                }
-                withContext(Dispatchers.Main) {
-                    CustomUiUtils.snackbar(
-                        binding.root,
-                        getString(R.string.saved_to_note),
-                        action = getString(R.string.edit)
-                    ) {
-                        findNavController().navigate(
-                            R.id.fragmentToolNotesCreate,
-                            bundleOf("edit_note_id" to id)
-                        )
-                    }
-                }
+    private fun copy(text: String) {
+        Clipboard.copy(requireContext(), text, getString(R.string.copied_to_clipboard_toast))
+    }
+
+    private fun createNote(text: String) {
+        runInBackground {
+            val id = withContext(Dispatchers.IO) {
+                NoteRepo.getInstance(requireContext())
+                    .addNote(noteQREncoder.decode(text))
             }
-        }
-
-        binding.qrLocation.setOnClickListener {
-            val intent = Intents.url(text)
-            Intents.openChooser(requireContext(), intent, text)
-        }
-
-        binding.qrBeacon.setOnClickListener {
-            val beacon = beaconQREncoder.decode(text) ?: return@setOnClickListener
-            runInBackground {
-                val id = BeaconService(requireContext()).addBeacon(beacon)
+            withContext(Dispatchers.Main) {
                 CustomUiUtils.snackbar(
-                    binding.root,
-                    getString(R.string.beacon_created),
+                    this@ScanQRFragment,
+                    getString(R.string.saved_to_note),
                     action = getString(R.string.edit)
                 ) {
                     findNavController().navigate(
-                        R.id.place_beacon,
-                        bundleOf("edit_beacon" to id)
+                        R.id.fragmentToolNotesCreate,
+                        bundleOf("edit_note_id" to id)
                     )
                 }
             }
         }
+    }
 
-        binding.qrWeb.setOnClickListener {
-            val intent = Intents.url(text)
-            Intents.openChooser(requireContext(), intent, text)
+    private fun openMap(text: String) {
+        val intent = Intents.url(text)
+        Intents.openChooser(requireContext(), intent, text)
+    }
+
+    private fun openUrl(text: String) {
+        val intent = Intents.url(text)
+        Intents.openChooser(requireContext(), intent, text)
+    }
+
+    private fun createBeacon(text: String) {
+        val beacon = beaconQREncoder.decode(text) ?: return
+        runInBackground {
+            val id = BeaconService(requireContext()).addBeacon(beacon)
+            CustomUiUtils.snackbar(
+                this@ScanQRFragment,
+                getString(R.string.beacon_created),
+                action = getString(R.string.edit)
+            ) {
+                findNavController().navigate(
+                    R.id.place_beacon,
+                    bundleOf("edit_beacon" to id)
+                )
+            }
         }
     }
+
+    private fun deleteResult(text: String) {
+        val idx = history.indexOf(text)
+        history.remove(text)
+        updateHistoryList(false)
+        CustomUiUtils.snackbar(
+            this@ScanQRFragment,
+            getString(R.string.result_deleted),
+            action = getString(R.string.undo)
+        ) {
+            if (!history.contains(text)) {
+                if (idx <= history.size) {
+                    history.add(idx, text)
+                } else {
+                    history.add(text)
+                }
+                updateHistoryList(false)
+            }
+        }
+    }
+
 
     override fun onResume() {
         super.onResume()
         torchOn = false
         binding.qrZoom.progress = 0
         binding.qrTorchState.setImageResource(R.drawable.ic_torch_off)
+        updateHistoryList()
         requestPermissions(listOf(Manifest.permission.CAMERA)) {
             if (Camera.isAvailable(requireContext())) {
                 camera?.start(this::onCameraUpdate)
@@ -156,32 +233,31 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         return true
     }
 
+    private fun addReading(text: String) {
+        if (history.contains(text)) {
+            history.remove(text)
+        }
+
+        history.add(0, text)
+
+        while (history.size > 10) {
+            history.removeLast()
+        }
+
+        updateHistoryList()
+    }
+
+    private fun updateHistoryList(scrollToTop: Boolean = true) {
+        qrHistoryList.setData(if (history.isEmpty()) listOf("") else history)
+        if (scrollToTop) {
+            qrHistoryList.scrollToPosition(0, true)
+        }
+    }
+
     private fun onQRScanned(message: String) {
-        if (message.isNotEmpty() && text != message) {
-            text = message
-
-            val type = when {
-                isURL(text) -> ScanType.Url
-                isLocation(text) -> ScanType.Geo
-                else -> ScanType.Text
-            }
-
-            binding.text.text = message
-            binding.qrWeb.isVisible = type == ScanType.Url
-            binding.qrLocation.isVisible = type == ScanType.Geo
-            binding.qrBeacon.isVisible = type == ScanType.Geo
-            binding.qrSaveNote.isVisible = type == ScanType.Text
-            binding.qrCopy.isVisible = true
-            binding.qrActions.isVisible = true
-
-            binding.qrMessageType.setImageResource(
-                when (type) {
-                    ScanType.Text -> R.drawable.ic_note
-                    ScanType.Url -> R.drawable.ic_link
-                    ScanType.Geo -> R.drawable.ic_location
-                }
-            )
-
+        val lastMessage = history.firstOrNull()
+        if (message.isNotEmpty() && lastMessage != message) {
+            addReading(message)
             Buzz.feedback(requireContext(), HapticFeedbackType.Click)
         }
     }
