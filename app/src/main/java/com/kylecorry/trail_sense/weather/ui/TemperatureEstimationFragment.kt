@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.forms.*
-import com.kylecorry.andromeda.forms.Forms.add
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.WeatherService
 import com.kylecorry.sol.units.Distance
@@ -35,8 +35,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private val baseUnits by lazy { prefs.baseDistanceUnits }
     private val weatherService = WeatherService()
     private val formatService by lazy { FormatService(requireContext()) }
-
-    private var form: Forms.Section? = null
 
     private val intervalometer = Timer {
         if (!isBound) {
@@ -71,38 +69,33 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             )
         )
 
-        val tempHint = if (temperatureUnits == TemperatureUnits.C) {
-            getString(R.string.celsius)
+        val temps = if (temperatureUnits == TemperatureUnits.C) {
+            listOf(TemperatureUnits.C, TemperatureUnits.F)
         } else {
-            getString(R.string.fahrenheit)
+            listOf(TemperatureUnits.F, TemperatureUnits.C)
+        }.map {
+            UnitInputView.DisplayUnit(
+                it,
+                formatService.getTemperatureUnitName(it, true),
+                formatService.getTemperatureUnitName(it, false)
+            )
         }
 
+        binding.tempEstBaseElevation.units = distanceUnits
+        binding.tempEstBaseElevation.unit = baseUnits
+        binding.tempEstBaseElevation.hint = getString(R.string.base_elevation)
 
-        form = Forms.Section(requireContext()) {
-            distance(
-                "base",
-                distanceUnits,
-                defaultUnit = baseUnits,
-                label = getString(R.string.base_elevation),
-                hint = getString(R.string.altitude)
-            )
-            distance(
-                "destination",
-                distanceUnits,
-                defaultUnit = baseUnits,
-                label = getString(R.string.destination_elevation),
-                hint = getString(R.string.altitude)
-            )
-            number("temperature", label = getString(R.string.base_temperature), hint = tempHint)
-            button("autofill", label = getString(R.string.autofill)) {
-                autofill()
-            }
-            loading("loading")
+        binding.tempEstDestElevation.units = distanceUnits
+        binding.tempEstDestElevation.unit = baseUnits
+        binding.tempEstDestElevation.hint = getString(R.string.destination_elevation)
+
+        binding.tempEstBaseTemperature.units = temps
+        binding.tempEstBaseTemperature.unit = temperatureUnits
+        binding.tempEstBaseTemperature.hint = getString(R.string.base_temperature)
+
+        binding.tempEstAutofill.setOnClickListener {
+            autofill()
         }
-
-        form?.hide("loading")
-
-        binding.temperatureEstimationInput.add(form!!)
 
         setFieldsFromSensors()
     }
@@ -120,10 +113,10 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private fun autofill() {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
-                form?.hide("autofill")
-                form?.show("loading")
-                form?.get<DistanceField>("base")?.isEnabled = false
-                form?.get<NumberTextField>("temperature")?.isEnabled = false
+                binding.tempEstAutofill.isVisible = false
+                binding.tempEstLoading.isVisible = true
+                binding.tempEstBaseTemperature.isEnabled = false
+                binding.tempEstBaseElevation.isEnabled = false
             }
             withContext(Dispatchers.IO) {
                 withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
@@ -136,10 +129,10 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
             withContext(Dispatchers.Main) {
                 setFieldsFromSensors()
-                form?.show("autofill")
-                form?.hide("loading")
-                form?.get<DistanceField>("base")?.isEnabled = true
-                form?.get<NumberTextField>("temperature")?.isEnabled = true
+                binding.tempEstAutofill.isVisible = true
+                binding.tempEstLoading.isVisible = false
+                binding.tempEstBaseTemperature.isEnabled = true
+                binding.tempEstBaseElevation.isEnabled = true
             }
         }
     }
@@ -147,7 +140,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private fun setFieldsFromSensors() {
         if (altimeter.hasValidReading) {
             val altitude = Distance.meters(altimeter.altitude).convertTo(baseUnits)
-            form?.setValue<Distance?>("base", altitude)
+            binding.tempEstBaseElevation.value = altitude
         }
 
         if (thermometer.hasValidReading) {
@@ -156,9 +149,10 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
                     getCalibratedReading(thermometer.temperature),
                     TemperatureUnits.C
                 ).convertTo(
-                    prefs.temperatureUnits
+                    temperatureUnits
                 )
-                form?.setValue<Number>("temperature", temp.temperature.roundToInt())
+                binding.tempEstBaseTemperature.amount = temp.temperature.roundToInt()
+                binding.tempEstBaseTemperature.unit = temperatureUnits
             }
         }
     }
@@ -176,19 +170,20 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private fun getBaseTemperature(): Temperature? {
-        val ui = form?.getValue<Number?>("temperature")?.toFloat() ?: return null
-        val uiTemp = Temperature(ui, temperatureUnits)
+        val amount = binding.tempEstBaseTemperature.amount?.toFloat() ?: return null
+        val units = binding.tempEstBaseTemperature.unit as TemperatureUnits
+        val uiTemp = Temperature(amount, units)
         return uiTemp.convertTo(TemperatureUnits.C)
     }
 
     private fun getBaseElevation(): Distance? {
-        val value = form?.getValue<Distance?>("base") ?: return null
-        return value.meters()
+        val distance = binding.tempEstBaseElevation.value ?: return null
+        return distance.meters()
     }
 
     private fun getDestElevation(): Distance? {
-        val value = form?.getValue<Distance?>("destination") ?: return null
-        return value.meters()
+        val distance = binding.tempEstDestElevation.value ?: return null
+        return distance.meters()
     }
 
     // TODO: Extract this

@@ -463,6 +463,20 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
+        if (short){
+            return when(unit){
+                TemperatureUnits.F -> context.getString(R.string.temp_f_short)
+                TemperatureUnits.C -> context.getString(R.string.temp_c_short)
+            }
+        } else {
+            return when(unit){
+                TemperatureUnits.F -> context.getString(R.string.fahrenheit)
+                TemperatureUnits.C -> context.getString(R.string.celsius)
+            }
+        }
+    }
+
     fun getDistanceUnitName(unit: DistanceUnits, short: Boolean = false): String {
         if (short) {
             return when (unit) {
