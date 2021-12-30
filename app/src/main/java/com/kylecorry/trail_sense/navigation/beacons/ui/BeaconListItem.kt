@@ -14,9 +14,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconCopy
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconGeoSender
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSharesheet
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -24,9 +22,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
-import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.shared.sharing.ShareAction
-import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -140,39 +135,7 @@ class BeaconListItem(
                     onView()
                 }
                 R.id.action_send -> {
-                    Share.share(
-                        fragment, beacon.name, listOf(
-                            ShareAction.Copy,
-                            ShareAction.QR,
-                            ShareAction.Maps,
-                            ShareAction.Send
-                        )
-                    ) {
-                        when (it) {
-                            ShareAction.Copy -> {
-                                val sender = BeaconCopy(view.context)
-                                sender.send(beacon)
-                            }
-                            ShareAction.QR -> {
-                                CustomUiUtils.showQR(
-                                    fragment,
-                                    beacon.name,
-                                    BeaconQREncoder().encode(beacon)
-                                )
-                            }
-                            ShareAction.Maps -> {
-                                val sender = BeaconGeoSender(view.context)
-                                sender.send(beacon)
-                            }
-                            ShareAction.Send -> {
-                                val sender = BeaconSharesheet(view.context)
-                                sender.send(beacon)
-                            }
-                            else -> {
-                                // Do nothing
-                            }
-                        }
-                    }
+                    BeaconSender(fragment).send(beacon)
                 }
                 R.id.action_move -> {
                     CustomUiUtils.pickBeaconGroup(

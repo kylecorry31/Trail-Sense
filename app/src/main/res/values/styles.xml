@@ -57,11 +57,12 @@
     <style name="ButtonTheme" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
         <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
     </style>
 
     <style name="ButtonAppearance">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">@dimen/rounded_corner_size</item>
     </style>
 
 </resources>

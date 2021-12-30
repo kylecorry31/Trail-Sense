@@ -549,14 +549,20 @@
             app:argType="long" />
 
         <action
+            android:id="@+id/action_beacon_details_to_beacon_edit"
+            app:destination="@id/place_beacon"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
             android:id="@+id/action_beaconDetailsFragment_to_action_navigation"
             app:destination="@id/action_navigation"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_left"
+            app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/action_navigation"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
