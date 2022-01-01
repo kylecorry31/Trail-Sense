@@ -1032,4 +1032,9 @@
     <string name="no_qr_code_found">未检测到二维码</string>
     <string name="saved_to_note">已保存到笔记</string>
     <string name="create_note">创建笔记</string>
+    <string name="qr_code_scanner">二维码扫描器</string>
+    <string name="open">打开</string>
+    <string name="note">笔记</string>
+    <string name="beacon">信标</string>
+    <string name="beacon_created">已创建信标</string>
 </resources>
