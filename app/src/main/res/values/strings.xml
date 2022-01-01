@@ -1174,7 +1174,8 @@
     <string name="beacon_created">Beacon created</string>
     <string name="result_deleted">Result deleted</string>
     <string name="undo">Undo</string>
-    <string name="share_ellipsis">Share...</string>
+    <string name="share_ellipsis">Share…</string>
+    <string name="night">Night</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

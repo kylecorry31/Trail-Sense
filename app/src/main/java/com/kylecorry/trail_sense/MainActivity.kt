@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense
 import android.Manifest
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -88,8 +90,7 @@ class MainActivity : AndromedaActivity() {
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
-            UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
-            UserPreferences.Theme.Black -> AppCompatDelegate.MODE_NIGHT_YES
+            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
@@ -101,11 +102,17 @@ class MainActivity : AndromedaActivity() {
         val cache = Preferences(this)
 
         setContentView(R.layout.activity_main)
+
+        val root = findViewById<ColorFilterConstraintLayout>(R.id.coordinator)
+        if (userPrefs.theme == UserPreferences.Theme.Night) {
+            root.setColorFilter(PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY))
+        }
+
         navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setupWithNavController(navController)
 
-        if (userPrefs.theme == UserPreferences.Theme.Black) {
+        if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
             window.decorView.rootView.setBackgroundColor(Color.BLACK)
             bottomNavigation.setBackgroundColor(Color.BLACK)
         }
@@ -319,7 +326,10 @@ class MainActivity : AndromedaActivity() {
 
 
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(this, if (fragment is FragmentToolFlashlight) fragment else null)
+            return FlashlightToggleVolumeAction(
+                this,
+                if (fragment is FragmentToolFlashlight) fragment else null
+            )
         }
 
         return null
@@ -332,7 +342,10 @@ class MainActivity : AndromedaActivity() {
         }
 
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(this, if (fragment is FragmentToolFlashlight) fragment else null)
+            return FlashlightToggleVolumeAction(
+                this,
+                if (fragment is FragmentToolFlashlight) fragment else null
+            )
         }
 
         return null

@@ -97,6 +97,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
                 "dark" -> Theme.Dark
                 "black" -> Theme.Black
                 "sunrise_sunset" -> Theme.SunriseSunset
+                "night" -> Theme.Night
                 else -> Theme.System
             }
         }
@@ -270,7 +271,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     }
 
     enum class Theme {
-        Light, Dark, Black, System, SunriseSunset
+        Light, Dark, Black, System, SunriseSunset, Night
     }
 
     enum class AltimeterMode {
