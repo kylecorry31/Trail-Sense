@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.databinding.FragmentQrImportSheetBinding
 class ScanQRBottomSheet(private val title: String, private val onTextScanned: (text: String?) -> Boolean) :
     BoundBottomSheetDialogFragment<FragmentQrImportSheetBinding>() {
 
-    private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
+    private val cameraSizePixels = 200
     private val camera by lazy {
         Camera(
             requireContext(),

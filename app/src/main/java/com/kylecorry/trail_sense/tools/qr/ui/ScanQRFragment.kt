@@ -18,7 +18,6 @@ import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.system.GeoUriParser
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
@@ -36,7 +35,7 @@ import kotlinx.coroutines.withContext
 
 class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
-    private val cameraSizePixels by lazy { Resources.dp(requireContext(), 100f).toInt() }
+    private val cameraSizePixels = 200
     private var camera: Camera? = null
 
     private var torchOn = false
