@@ -16,9 +16,13 @@ import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
+import java.time.Duration
+import java.time.Instant
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
@@ -35,6 +39,8 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private var selectedState = FlashlightState.On
 
     private val cache by lazy { Preferences(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
+    private val formatter by lazy { FormatService(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -125,6 +131,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private fun updateFlashlightUI() {
         binding.flashlightOnBtn.setState(flashlightState != FlashlightState.Off)
+        updateTimer()
     }
 
     fun toggle() {
@@ -144,6 +151,22 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private fun update() {
         flashlightState = flashlight.getState()
         updateFlashlightUI()
+    }
+
+    private fun updateTimer() {
+        if (!prefs.flashlight.shouldTimeout) {
+            binding.flashlightOnBtn.setText(null)
+            return
+        }
+
+        val instant = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        val duration = if (instant != null && instant.isAfter(Instant.now())) {
+            Duration.between(Instant.now(), instant)
+        } else {
+            prefs.flashlight.timeout
+        }
+
+        binding.flashlightOnBtn.setText(formatter.formatDuration(duration, short = false, includeSeconds = true))
     }
 
     override fun generateBinding(

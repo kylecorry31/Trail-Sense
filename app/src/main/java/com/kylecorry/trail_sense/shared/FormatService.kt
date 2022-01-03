@@ -270,22 +270,34 @@ class FormatService(private val context: Context) {
         return context.resources.getQuantityString(R.plurals.number_days, days, days)
     }
 
-    fun formatDuration(duration: Duration, short: Boolean = false): String {
+    fun formatDuration(
+        duration: Duration,
+        short: Boolean = false,
+        includeSeconds: Boolean = false
+    ): String {
         val hours = duration.toHours()
-        val minutes = duration.toMinutes() % 60
+        val minutes = duration.toMinutesPart()
+        val seconds = duration.toSecondsPart()
 
-        return if (short) {
-            when (hours) {
-                0L -> context.getString(R.string.duration_minute_format, minutes)
-                else -> context.getString(R.string.duration_hour_format, hours)
-            }
-        } else {
-            when {
-                hours == 0L -> context.getString(R.string.duration_minute_format, minutes)
-                minutes == 0L -> context.getString(R.string.duration_hour_format, hours)
-                else -> context.getString(R.string.duration_hour_minute_format, hours, minutes)
-            }
+        val h = context.getString(R.string.duration_hour_format, hours)
+        val m = context.getString(R.string.duration_minute_format, minutes)
+        val s = context.getString(R.string.duration_second_format, seconds)
+
+        val strs = mutableListOf<String>()
+
+        if (hours > 0) {
+            strs.add(h)
         }
+
+        if (minutes > 0 && (!short || hours == 0L)) {
+            strs.add(m)
+        }
+
+        if (seconds > 0 && includeSeconds && (!short || (hours == 0L && minutes == 0))) {
+            strs.add(s)
+        }
+
+        return strs.joinToString(" ")
     }
 
     fun formatAcceleration(acceleration: Float, decimalPlaces: Int = 0): String {
@@ -464,13 +476,13 @@ class FormatService(private val context: Context) {
     }
 
     fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
-        if (short){
-            return when(unit){
+        if (short) {
+            return when (unit) {
                 TemperatureUnits.F -> context.getString(R.string.temp_f_short)
                 TemperatureUnits.C -> context.getString(R.string.temp_c_short)
             }
         } else {
-            return when(unit){
+            return when (unit) {
                 TemperatureUnits.F -> context.getString(R.string.fahrenheit)
                 TemperatureUnits.C -> context.getString(R.string.celsius)
             }
@@ -569,9 +581,9 @@ class FormatService(private val context: Context) {
             Precipitation.Lightning -> context.getString(R.string.lightning)
         }
     }
-    
+
     fun formatHikingDifficulty(difficulty: HikingDifficulty): String {
-        return when(difficulty){
+        return when (difficulty) {
             HikingDifficulty.Easiest -> context.getString(R.string.easy)
             HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> context.getString(R.string.moderate)
             else -> context.getString(R.string.hard)
@@ -579,7 +591,7 @@ class FormatService(private val context: Context) {
     }
 
     fun formatMapProjection(projection: MapProjectionType): String {
-        return when(projection){
+        return when (projection) {
             MapProjectionType.Mercator -> context.getString(R.string.map_projection_mercator)
             MapProjectionType.CylindricalEquidistant -> context.getString(R.string.map_projection_equidistant)
         }

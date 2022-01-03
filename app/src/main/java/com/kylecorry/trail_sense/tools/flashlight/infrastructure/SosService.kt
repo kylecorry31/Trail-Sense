@@ -4,7 +4,9 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
@@ -15,13 +17,19 @@ import com.kylecorry.trail_sense.shared.morse.Signal
 import com.kylecorry.trail_sense.shared.morse.SignalPlayer
 import com.kylecorry.trail_sense.shared.morse.Signals
 import java.time.Duration
+import java.time.Instant
 
 class SosService : ForegroundService() {
 
     private var torch: ITorch? = null
     private val signalPlayer by lazy { if (torch == null) null else SignalPlayer(torch!!.asSignal()) }
+    private val cache by lazy { Preferences(this) }
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
+
+    private val offTimer = Timer {
+        stopSelf()
+    }
 
     override fun getForegroundNotification(): Notification {
         return Notify.persistent(
@@ -39,6 +47,7 @@ class SosService : ForegroundService() {
         isRunning = false
         signalPlayer?.cancel()
         torch?.off()
+        offTimer.stop()
         stopService(true)
         super.onDestroy()
     }
@@ -50,6 +59,12 @@ class SosService : ForegroundService() {
             Signal.off(Duration.ofMillis(200L * 7))
         )
         signalPlayer?.play(sos, true)
+
+        val stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        if (stopAt != null && Instant.now() < stopAt) {
+            offTimer.once(Duration.between(Instant.now(), stopAt))
+        }
+
         return START_STICKY_COMPATIBILITY
     }
 

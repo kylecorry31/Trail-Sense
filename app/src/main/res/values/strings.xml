@@ -30,6 +30,7 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="duration_hour_format">%dh</string>
     <string name="duration_minute_format">%dm</string>
+    <string name="duration_second_format">%ds</string>
     <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="direction_north">N</string>
     <string name="direction_south">S</string>
@@ -1177,6 +1178,11 @@
     <string name="share_ellipsis">Share…</string>
     <string name="night">Night</string>
     <string name="qr_text_too_long">Text is too long, QR code was truncated</string>
+    <string name="pref_flashlight_should_timeout" translatable="false">pref_flashlight_should_timeout</string>
+    <string name="pref_flashlight_timeout" translatable="false">pref_flashlight_timeout</string>
+    <string name="pref_flashlight_timeout_instant" translatable="false">pref_flashlight_timeout_instant</string>
+    <string name="pref_flashlight_should_timeout_title">Automatically turn off</string>
+    <string name="pref_flashlight_timeout_title">Turn off after</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

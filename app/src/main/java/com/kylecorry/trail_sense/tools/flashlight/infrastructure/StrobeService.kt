@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
@@ -13,13 +14,20 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import java.time.Duration
+import java.time.Instant
 
 class StrobeService : ForegroundService() {
 
     private var torch: ITorch? = null
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
     private var delay = 5L
+    private val cache by lazy { Preferences(this) }
     private var on = false
+
+    private val offTimer = Timer {
+        stopSelf()
+    }
 
     private var runnable = Runnable {
         runNextState()
@@ -64,6 +72,7 @@ class StrobeService : ForegroundService() {
         isRunning = false
         handler.removeCallbacks(runnable)
         torch?.off()
+        offTimer.stop()
         stopService(true)
         super.onDestroy()
     }
@@ -73,6 +82,10 @@ class StrobeService : ForegroundService() {
         isRunning = true
         delay = prefs.getLong(STROBE_DURATION_KEY) ?: 1000
         handler.post(runnable)
+        val stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        if (stopAt != null && Instant.now() < stopAt) {
+            offTimer.once(Duration.between(Instant.now(), stopAt))
+        }
         return START_STICKY_COMPATIBILITY
     }
 
