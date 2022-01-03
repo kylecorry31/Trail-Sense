@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import java.time.Duration
 import java.time.Instant
 
 class FlashlightService: ForegroundService() {
@@ -25,8 +24,13 @@ class FlashlightService: ForegroundService() {
     }
 
     private val offTimer = Timer {
-        stopSelf()
+        val end = stopAt
+        if (end != null && end <= Instant.now()){
+            stopSelf()
+        }
     }
+
+    private var stopAt: Instant? = null
 
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
@@ -46,8 +50,8 @@ class FlashlightService: ForegroundService() {
     override fun onDestroy() {
         timer.stop()
         torch?.off()
-        isRunning = false
         offTimer.stop()
+        isRunning = false
         stopService(true)
         super.onDestroy()
     }
@@ -56,10 +60,8 @@ class FlashlightService: ForegroundService() {
         isRunning = true
         torch = Torch(this)
         timer.interval(200)
-        val stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
-        if (stopAt != null && Instant.now() < stopAt) {
-            offTimer.once(Duration.between(Instant.now(), stopAt))
-        }
+        stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        offTimer.interval(1000)
         return START_STICKY_COMPATIBILITY
     }
 

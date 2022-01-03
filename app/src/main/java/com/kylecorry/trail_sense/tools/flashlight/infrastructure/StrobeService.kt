@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import java.time.Duration
 import java.time.Instant
 
 class StrobeService : ForegroundService() {
@@ -26,8 +25,13 @@ class StrobeService : ForegroundService() {
     private var on = false
 
     private val offTimer = Timer {
-        stopSelf()
+        val end = stopAt
+        if (end != null && end <= Instant.now()){
+            stopSelf()
+        }
     }
+
+    private var stopAt: Instant? = null
 
     private var runnable = Runnable {
         runNextState()
@@ -69,10 +73,10 @@ class StrobeService : ForegroundService() {
     }
 
     override fun onDestroy() {
+        offTimer.stop()
         isRunning = false
         handler.removeCallbacks(runnable)
         torch?.off()
-        offTimer.stop()
         stopService(true)
         super.onDestroy()
     }
@@ -82,10 +86,8 @@ class StrobeService : ForegroundService() {
         isRunning = true
         delay = prefs.getLong(STROBE_DURATION_KEY) ?: 1000
         handler.post(runnable)
-        val stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
-        if (stopAt != null && Instant.now() < stopAt) {
-            offTimer.once(Duration.between(Instant.now(), stopAt))
-        }
+        stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        offTimer.interval(1000)
         return START_STICKY_COMPATIBILITY
     }
 

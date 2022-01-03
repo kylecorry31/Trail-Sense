@@ -28,8 +28,13 @@ class SosService : ForegroundService() {
         get() = NOTIFICATION_ID
 
     private val offTimer = Timer {
-        stopSelf()
+        val end = stopAt
+        if (end != null && end <= Instant.now()){
+            stopSelf()
+        }
     }
+
+    private var stopAt: Instant? = null
 
     override fun getForegroundNotification(): Notification {
         return Notify.persistent(
@@ -44,10 +49,10 @@ class SosService : ForegroundService() {
     }
 
     override fun onDestroy() {
+        offTimer.stop()
         isRunning = false
         signalPlayer?.cancel()
         torch?.off()
-        offTimer.stop()
         stopService(true)
         super.onDestroy()
     }
@@ -60,10 +65,8 @@ class SosService : ForegroundService() {
         )
         signalPlayer?.play(sos, true)
 
-        val stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
-        if (stopAt != null && Instant.now() < stopAt) {
-            offTimer.once(Duration.between(Instant.now(), stopAt))
-        }
+        stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        offTimer.interval(1000)
 
         return START_STICKY_COMPATIBILITY
     }
