@@ -9,6 +9,7 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/AppFloatingActionButtonStyle</item>
+        <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
     </style>
 
     <!--Override this for other Android versions-->
@@ -63,6 +64,10 @@
     <style name="ButtonAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/rounded_corner_size</item>
+    </style>
+
+    <style name="SnackBarButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
 </resources>
