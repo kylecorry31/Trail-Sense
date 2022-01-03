@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -14,15 +15,46 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-<!--    TODO: Add zoom and torch-->
-    <androidx.camera.view.PreviewView
-        android:id="@+id/qr_scanner"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/qr_camera_holder"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_rectangle"
-        android:elevation="4dp"/>
+        android:elevation="4dp">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/qr_scan"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/qr_torch_state"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="@id/qr_scan"
+            app:layout_constraintTop_toTopOf="@id/qr_scan"
+            app:srcCompat="@drawable/ic_torch_off"
+            app:tint="@color/white" />
+
+        <SeekBar
+            android:id="@+id/qr_zoom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="0"
+            app:layout_constraintBottom_toBottomOf="@id/qr_scan"
+            app:layout_constraintEnd_toEndOf="@id/qr_scan"
+            app:layout_constraintStart_toStartOf="@id/qr_scan" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/cancel_button"

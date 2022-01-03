@@ -12,11 +12,12 @@ import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.sensors.asLiveData
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.qr.QR
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentQrImportSheetBinding
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 
 class ScanQRBottomSheet(private val title: String, private val onTextScanned: (text: String?) -> Boolean) :
     BoundBottomSheetDialogFragment<FragmentQrImportSheetBinding>() {
@@ -26,18 +27,32 @@ class ScanQRBottomSheet(private val title: String, private val onTextScanned: (t
         Camera(
             requireContext(),
             viewLifecycleOwner,
-            previewView = binding.qrScanner,
+            previewView = binding.qrScan,
             analyze = true,
             targetResolution = Size(cameraSizePixels, cameraSizePixels)
         )
     }
+    private var torchOn = false
 
     private var lastMessage: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.qrScanner.clipToOutline = true
+        torchOn = false
+        binding.qrZoom.progress = 0
+        binding.qrTorchState.setImageResource(R.drawable.ic_torch_off)
+        binding.qrCameraHolder.clipToOutline = true
+
+        binding.qrTorchState.setOnClickListener {
+            torchOn = !torchOn
+            binding.qrTorchState.setImageResource(if (torchOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
+            camera.setTorch(torchOn)
+        }
+
+        binding.qrZoom.setOnProgressChangeListener { progress, _ ->
+            camera.setZoom(progress / 100f)
+        }
 
         binding.scanQrSheetTitle.text = title
 
@@ -75,6 +90,7 @@ class ScanQRBottomSheet(private val title: String, private val onTextScanned: (t
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
+        camera.setTorch(false)
         Buzz.off(requireContext())
     }
 
