@@ -65,6 +65,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     }
 
     override fun on(handleTimeout: Boolean) {
+        clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
@@ -104,6 +105,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     }
 
     override fun sos(handleTimeout: Boolean) {
+        clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
@@ -114,6 +116,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     }
 
     override fun strobe(handleTimeout: Boolean) {
+        clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
