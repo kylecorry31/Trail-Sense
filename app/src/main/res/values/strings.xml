@@ -1176,6 +1176,7 @@
     <string name="undo">Undo</string>
     <string name="share_ellipsis">Share…</string>
     <string name="night">Night</string>
+    <string name="qr_text_too_long">Text is too long, QR code was truncated</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>
