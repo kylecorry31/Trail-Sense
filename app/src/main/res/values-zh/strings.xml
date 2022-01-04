@@ -868,7 +868,7 @@
     <string name="high_amount">高 (%s)</string>
     <string name="medium_amount">中等 (%s)</string>
     <string name="low_amount">低 (%s)</string>
-    <string name="units_mmhg">mmHg</string>
+    <string name="units_mmhg">毫米汞柱</string>
     <string name="season_fall">秋季</string>
     <string name="season_summer">夏季</string>
     <string name="season_spring">春季</string>
@@ -1042,4 +1042,9 @@
     <string name="share_ellipsis">分享…</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
+    <string name="night">夜晚</string>
+    <string name="qr_text_too_long">文本太长，二维码被截短</string>
+    <string name="pref_flashlight_should_timeout_title">自动关闭</string>
+    <string name="pref_flashlight_timeout_title">多少秒后关闭</string>
+    <string name="duration_second_format">%d秒</string>
 </resources>
