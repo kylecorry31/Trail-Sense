@@ -1068,5 +1068,10 @@
     <string name="beacon_created">Маячок створено</string>
     <string name="result_deleted">Результат видалено</string>
     <string name="undo">Вернути</string>
-    <string name="share_ellipsis">Поділитися...</string>
+    <string name="share_ellipsis">Поділитися…</string>
+    <string name="duration_second_format">%dс</string>
+    <string name="qr_text_too_long">Текст задовгий, QR-код скорочено</string>
+    <string name="pref_flashlight_should_timeout_title">Автовимкнення</string>
+    <string name="pref_flashlight_timeout_title">Вимкнути після</string>
+    <string name="night">Ніч</string>
 </resources>
