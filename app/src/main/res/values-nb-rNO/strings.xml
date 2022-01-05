@@ -879,4 +879,8 @@
     <string name="measure">Mål</string>
     <string name="clinometer_measure_height_title">Avstand til målet</string>
     <string name="error_banners">Feilbannere</string>
+    <string name="enter_text">Skriv inn tekst</string>
+    <string name="no_qr_code_found">Ingen QR-kode oppdaget</string>
+    <string name="saved_to_note">Lagret til notat</string>
+    <string name="pref_clinometer_baseline_distance_title">Grunnlinjedistanse</string>
 </resources>
