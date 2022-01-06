@@ -1001,7 +1001,6 @@
     <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
     <string name="pref_clinometer_baseline_distance_title">基线距离</string>
     <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
-    <string name="clinometer_height_instructions">点击并按住以测量高度</string>
     <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
     <string name="clinometer_measure_height_instructions">如何测量距离 %s 远的目标的高度：
 \n
@@ -1028,10 +1027,8 @@
     <string name="gps_unavailable">GPS 不可用</string>
     <string name="gps_timeouts">GPS 超时</string>
     <string name="enter_text">输入文字</string>
-    <string name="scan">扫描</string>
     <string name="no_qr_code_found">未检测到二维码</string>
     <string name="saved_to_note">已保存到笔记</string>
-    <string name="create_note">创建笔记</string>
     <string name="qr_code_scanner">二维码扫描器</string>
     <string name="open">打开</string>
     <string name="note">笔记</string>

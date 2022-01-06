@@ -1001,7 +1001,6 @@
         <item quantity="many">%d путевых точек удалено</item>
         <item quantity="other">%d путевых точек удалено</item>
     </plurals>
-    <string name="clinometer_height_instructions">Нажмите и удерживайте для измерения высоты</string>
     <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
     <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
     <string name="append_onto">Добавить в</string>
@@ -1058,8 +1057,6 @@
     <string name="error_banners">Баннеры ошибок</string>
     <string name="gps_unavailable">GPS недоступен</string>
     <string name="enter_text">Введите текст</string>
-    <string name="scan">Сканировать</string>
     <string name="no_qr_code_found">QR-код не обнаружен</string>
     <string name="saved_to_note">Сохранено в заметку</string>
-    <string name="create_note">Создать заметку</string>
 </resources>
