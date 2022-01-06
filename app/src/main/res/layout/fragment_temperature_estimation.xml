@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
-            <com.kylecorry.andromeda.forms.UnitInputView
+            <com.kylecorry.trail_sense.shared.views.UnitInputView
                 android:id="@+id/temp_est_base_temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

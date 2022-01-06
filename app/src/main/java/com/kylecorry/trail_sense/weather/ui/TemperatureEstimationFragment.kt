@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.forms.*
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.WeatherService
 import com.kylecorry.sol.units.Distance

@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import com.kylecorry.andromeda.forms.UnitInputView
 
 abstract class BaseUnitInputView<T, Units : Enum<*>>(
     context: Context,
