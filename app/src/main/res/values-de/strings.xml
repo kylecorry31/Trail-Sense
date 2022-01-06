@@ -1049,5 +1049,10 @@
     <string name="beacon_created">Wegpunkt erstellt</string>
     <string name="result_deleted">Ergebnis gelöscht</string>
     <string name="undo">Rückgängig</string>
-    <string name="share_ellipsis">Teilen...</string>
+    <string name="share_ellipsis">Teilen…</string>
+    <string name="duration_second_format">%d s</string>
+    <string name="night">Nacht</string>
+    <string name="qr_text_too_long">Text zu lang, QR-Code war abgeschnitten</string>
+    <string name="pref_flashlight_should_timeout_title">Automatisch ausschalten</string>
+    <string name="pref_flashlight_timeout_title">Danach ausschalten</string>
 </resources>
