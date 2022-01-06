@@ -4,19 +4,20 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
+import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toDoubleCompat
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.trail_sense.R
 
 open class MultipartUnitInputView<Units : Enum<*>>(
     context: Context,
     attrs: AttributeSet? = null
-) : LinearLayout(context, attrs) {
+) : FrameLayout(context, attrs) {
 
     private var _unit: Units? = null
     private var _amount: Number? = null
@@ -24,12 +25,12 @@ open class MultipartUnitInputView<Units : Enum<*>>(
     private var _showSecondary: Boolean = false
 
     override fun isEnabled(): Boolean {
-        return amountEdit.isEnabled
+        return amountEditHolder.isEnabled
     }
 
     override fun setEnabled(enabled: Boolean) {
-        amountEdit.isEnabled = enabled
-        secondaryAmountEdit.isEnabled = enabled
+        amountEditHolder.isEnabled = enabled
+        secondaryAmountEditHolder.isEnabled = enabled
         unitBtn.isEnabled = enabled
     }
 
@@ -76,22 +77,22 @@ open class MultipartUnitInputView<Units : Enum<*>>(
         }
 
     var hint: CharSequence?
-        get() = amountEdit.hint
+        get() = amountEditHolder.hint
         set(value) {
-            amountEdit.hint = value
+            amountEditHolder.hint = value
         }
 
     var secondaryHint: CharSequence?
-        get() = secondaryAmountEdit.hint
+        get() = secondaryAmountEditHolder.hint
         set(value) {
-            secondaryAmountEdit.hint = value
+            secondaryAmountEditHolder.hint = value
         }
 
     var showSecondaryAmount: Boolean
         get() = _showSecondary
         set(value) {
             _showSecondary = value
-            secondaryAmountEdit.isVisible = value
+            secondaryAmountEditHolder.isVisible = value
         }
 
     var unitPickerTitle: CharSequence = ""
@@ -99,8 +100,10 @@ open class MultipartUnitInputView<Units : Enum<*>>(
 
     var onChange: ((amount: Number?, secondaryAmount: Number?, unit: Units?) -> Unit)? = null
 
-    private var amountEdit = EditText(context)
-    private var secondaryAmountEdit = EditText(context)
+    private var amountEdit: TextInputEditText
+    private var amountEditHolder: TextInputLayout
+    private var secondaryAmountEdit: TextInputEditText
+    private var secondaryAmountEditHolder: TextInputLayout
     private var unitBtn: Button
 
     private fun setSelectedUnitText(unit: Units?) {
@@ -134,6 +137,11 @@ open class MultipartUnitInputView<Units : Enum<*>>(
     }
 
     init {
+        inflate(context, R.layout.view_multi_unit_input, this)
+        amountEditHolder = findViewById(R.id.amount_holder)
+        amountEdit = findViewById(R.id.amount)
+        secondaryAmountEditHolder = findViewById(R.id.secondary_amount_holder)
+        secondaryAmountEdit = findViewById(R.id.secondary_amount)
         amountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
                 InputType.TYPE_NUMBER_FLAG_DECIMAL or
                 InputType.TYPE_NUMBER_FLAG_SIGNED
@@ -141,27 +149,10 @@ open class MultipartUnitInputView<Units : Enum<*>>(
         secondaryAmountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
                 InputType.TYPE_NUMBER_FLAG_DECIMAL
 
-        val editParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
-        amountEdit.layoutParams = editParams
+        secondaryAmountEditHolder.isVisible = _showSecondary
 
-        val secondaryEditParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
-        secondaryEditParams.marginStart = Resources.dp(context, 8f).toInt()
-        secondaryAmountEdit.layoutParams = secondaryEditParams
-
-        secondaryAmountEdit.isVisible = _showSecondary
-
-        unitBtn = Button(context)
-        val btnParams = LayoutParams(
-            LayoutParams.WRAP_CONTENT,
-            LayoutParams.WRAP_CONTENT
-        )
-        btnParams.marginStart = Resources.dp(context, 8f).toInt()
-        unitBtn.layoutParams = btnParams
+        unitBtn = findViewById(R.id.units)
         unitBtn.isAllCaps = false
-
-        addView(amountEdit)
-        addView(secondaryAmountEdit)
-        addView(unitBtn)
 
         amountEdit.addTextChangedListener {
             _amount = it?.toString()?.toDoubleCompat()
