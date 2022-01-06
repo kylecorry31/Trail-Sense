@@ -438,15 +438,6 @@
             android:defaultValue="@null"
             app:argType="com.kylecorry.trail_sense.shared.uri.GeoUri" />
 
-        <!--        <action-->
-        <!--            android:id="@+id/action_place_beacon_to_beacon_list"-->
-        <!--            app:destination="@id/beacon_list"-->
-        <!--            app:enterAnim="@anim/slide_in_left"-->
-        <!--            app:exitAnim="@anim/slide_out_right"-->
-        <!--            app:popEnterAnim="@anim/slide_in_right"-->
-        <!--            app:popExitAnim="@anim/slide_out_left"-->
-        <!--            app:popUpTo="@id/beacon_list"-->
-        <!--            app:popUpToInclusive="true" />-->
     </fragment>
     <fragment
         android:id="@+id/clinometerFragment"

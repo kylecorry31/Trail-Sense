@@ -138,7 +138,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
                 CustomUiUtils.snackbar(
                     this@ScanQRFragment,
                     getString(R.string.saved_to_note),
-                    action = getString(R.string.edit)
+                    action = getString(R.string.view)
                 ) {
                     findNavController().navigate(
                         R.id.fragmentToolNotesCreate,
@@ -166,11 +166,11 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
             CustomUiUtils.snackbar(
                 this@ScanQRFragment,
                 getString(R.string.beacon_created),
-                action = getString(R.string.edit)
+                action = getString(R.string.view)
             ) {
                 findNavController().navigate(
-                    R.id.place_beacon,
-                    bundleOf("edit_beacon" to id)
+                    R.id.beaconDetailsFragment,
+                    bundleOf("beacon_id" to id)
                 )
             }
         }
@@ -196,6 +196,17 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestPermissions(listOf(Manifest.permission.CAMERA)) {
+            if (Camera.isAvailable(requireContext())) {
+                camera?.start(this::onCameraUpdate)
+            } else {
+                alertNoCameraPermission()
+            }
+        }
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -203,12 +214,8 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         binding.qrZoom.progress = 0
         binding.qrTorchState.setImageResource(R.drawable.ic_torch_off)
         updateHistoryList()
-        requestPermissions(listOf(Manifest.permission.CAMERA)) {
-            if (Camera.isAvailable(requireContext())) {
-                camera?.start(this::onCameraUpdate)
-            } else {
-                alertNoCameraPermission()
-            }
+        if (Camera.isAvailable(requireContext())) {
+            camera?.start(this::onCameraUpdate)
         }
     }
 
