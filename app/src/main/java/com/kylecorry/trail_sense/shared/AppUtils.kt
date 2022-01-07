@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.trail_sense.shared.uri.GeoUri
 
 object AppUtils {
 

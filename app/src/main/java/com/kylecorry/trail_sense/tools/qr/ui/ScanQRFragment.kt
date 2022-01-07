@@ -16,7 +16,7 @@ import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
-import com.kylecorry.andromeda.core.system.GeoUriParser
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -282,7 +282,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
     private fun isLocation(text: String): Boolean {
-        return GeoUriParser.parse(Uri.parse(text)) != null
+        return GeoUri.from(Uri.parse(text)) != null
     }
 
     private fun isURL(text: String): Boolean {

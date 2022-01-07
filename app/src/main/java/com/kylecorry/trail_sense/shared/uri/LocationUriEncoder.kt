@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.uri
 
 import android.net.Uri
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.sol.units.Coordinate
 
 class LocationUriEncoder : IUriEncoder<Coordinate> {
