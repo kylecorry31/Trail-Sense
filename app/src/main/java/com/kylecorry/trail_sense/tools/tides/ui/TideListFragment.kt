@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.OceanographyService
-import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
@@ -52,7 +51,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
         listView = ListView(binding.tideList, R.layout.list_item_plain_menu){ listItemView, tide ->
             val itemBinding = ListItemPlainMenuBinding.bind(listItemView)
             itemBinding.title.text = getTideTitle(tide)
-            itemBinding.description.text = getTideTypeName(oceanographyService.getTideType(tide.reference, TideFrequency.Semidiurnal))
+//            itemBinding.description.text = getTideTypeName(oceanographyService.getTideType(tide.reference, TideFrequency.Semidiurnal))
             itemBinding.root.setOnClickListener {
                 tryOrNothing {
                     selectTide(tide)

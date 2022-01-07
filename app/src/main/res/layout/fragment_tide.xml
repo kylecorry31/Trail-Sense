@@ -39,11 +39,13 @@
         tools:text="Tidal range: Neap" />
 
 
-    <com.kylecorry.trail_sense.tools.tides.ui.TideClockView
-        android:id="@+id/tide_clock"
-        android:layout_width="225dp"
-        android:layout_height="225dp"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tide_location" />
@@ -57,7 +59,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tide_clock">
+        app:layout_constraintTop_toBottomOf="@id/chart">
 
         <TextView
             android:id="@+id/tide_list_date_text"
@@ -96,5 +98,18 @@
         app:layout_constraintTop_toTopOf="@id/tide_height"
         app:srcCompat="@drawable/ic_tool_tides"
         app:tint="?android:textColorSecondary" />
+
+    <ImageView
+        android:id="@+id/position"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/chart"
+        app:layout_constraintStart_toStartOf="@+id/chart"
+        app:layout_constraintTop_toTopOf="@+id/chart"
+        app:srcCompat="@drawable/bubble"
+        app:tint="?android:textColorPrimary"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
