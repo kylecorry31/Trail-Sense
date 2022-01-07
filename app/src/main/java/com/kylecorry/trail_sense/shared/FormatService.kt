@@ -276,8 +276,8 @@ class FormatService(private val context: Context) {
         includeSeconds: Boolean = false
     ): String {
         val hours = duration.toHours()
-        val minutes = duration.toMinutesPart()
-        val seconds = duration.toSecondsPart()
+        val minutes = duration.toMinutes() % 60
+        val seconds = duration.seconds % 60
 
         val h = context.getString(R.string.duration_hour_format, hours)
         val m = context.getString(R.string.duration_minute_format, minutes)
@@ -293,7 +293,7 @@ class FormatService(private val context: Context) {
             strs.add(m)
         }
 
-        if (seconds > 0 && includeSeconds && (!short || (hours == 0L && minutes == 0))) {
+        if (seconds > 0 && includeSeconds && (!short || (hours == 0L && minutes == 0L))) {
             strs.add(s)
         }
 
