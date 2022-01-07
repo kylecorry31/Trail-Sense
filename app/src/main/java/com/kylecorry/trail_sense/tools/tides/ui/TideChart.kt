@@ -37,7 +37,12 @@ class TideChart(private val chart: LineChart) {
     }
 
     fun getPoint(index: Int): PixelCoordinate {
-        val point = simpleChart.getPoint(0, index)
+        val point = try {
+            simpleChart.getPoint(0, index)
+        } catch (e: Exception) {
+            SimpleLineChart.Point(0, index, 0f, 0f)
+        }
+
         return PixelCoordinate(point.x + chart.x, point.y + chart.y)
     }
 }
