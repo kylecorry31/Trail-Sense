@@ -1059,4 +1059,20 @@
     <string name="enter_text">Введите текст</string>
     <string name="no_qr_code_found">QR-код не обнаружен</string>
     <string name="saved_to_note">Сохранено в заметку</string>
+    <string name="create_note">Создать заметку</string>
+    <string name="qr_code_scanner">Сканер QR-кода</string>
+    <string name="open">Открыть</string>
+    <string name="night">Ночь</string>
+    <string name="beacon">Маячок</string>
+    <string name="beacon_created">Маячок создан</string>
+    <string name="result_deleted">Результат удален</string>
+    <string name="duration_second_format">%dс</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="note">Примечание</string>
+    <string name="undo">Отменить</string>
+    <string name="share_ellipsis">Поделиться…</string>
+    <string name="qr_text_too_long">Текст слишком длинный, QR-код был обрезан</string>
+    <string name="pref_flashlight_should_timeout_title">Автовыключение</string>
+    <string name="pref_flashlight_timeout_title">Выключить после</string>
 </resources>
