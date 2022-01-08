@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
-import com.kylecorry.trail_sense.tools.tides.domain.SineWave
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.Wave
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.abs
@@ -43,20 +43,20 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
                 sortedTides.lastIndex - 1
             }
         }
-        return getSineWaveBetween(
+        return getWaveBetween(
             sortedTides[idx],
             sortedTides[idx + 1],
             sortedTides[0].time
         ).cosine(t)
     }
 
-    private fun getSineWaveBetween(tide1: Tide, tide2: Tide, reference: ZonedDateTime): SineWave {
+    private fun getWaveBetween(tide1: Tide, tide2: Tide, reference: ZonedDateTime): Wave {
         val period = Duration.between(tide1.time, tide2.time).seconds / 3600f
         val deltaHeight = abs(tide1.height - tide2.height)
         val verticalShift = deltaHeight / 2 + min(tide1.height, tide2.height)
         val frequency = (360 / (2 * period)).toRadians()
         val amplitude = (if (tide1.type == TideType.High) 1 else -1) * deltaHeight / 2
         val t = Duration.between(reference, tide1.time).seconds / 3600f
-        return SineWave(amplitude, frequency, t, verticalShift)
+        return Wave(amplitude, frequency, t, verticalShift)
     }
 }

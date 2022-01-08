@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.domain
 
 import kotlin.math.cos
 
-data class SineWave(
+data class Wave(
     val amplitude: Float,
     val frequency: Float,
     val horizontalShift: Float,
