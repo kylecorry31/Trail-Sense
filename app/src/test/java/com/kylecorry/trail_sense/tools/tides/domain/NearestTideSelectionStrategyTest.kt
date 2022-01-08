@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.tides.domain.selection.NearestTideSelectionStrategy
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

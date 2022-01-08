@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

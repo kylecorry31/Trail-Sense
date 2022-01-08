@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.trail_sense.settings.infrastructure.ITidePreferences
+import com.kylecorry.trail_sense.tools.tides.domain.selection.DefaultTideSelectionStrategy
+import com.kylecorry.trail_sense.tools.tides.domain.selection.FallbackTideSelectionStrategy
+import com.kylecorry.trail_sense.tools.tides.domain.selection.LastTideSelectionStrategy
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

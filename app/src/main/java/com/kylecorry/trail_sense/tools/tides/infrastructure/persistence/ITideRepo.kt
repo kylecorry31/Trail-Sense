@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 
 interface ITideRepo {
     fun getTides(): LiveData<List<TideEntity>>
