@@ -172,6 +172,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             val current = withContext(Dispatchers.Default) {
                 tideService.getCurrentTide(tide)
             }
+            val isRising = withContext(Dispatchers.Default) {
+                tideService.isRising(tide)
+            }
             withContext(Dispatchers.Main) {
                 if (!isBound) {
                     return@withContext
@@ -186,6 +189,8 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
                 binding.position.isInvisible = point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
                 binding.position.x = point.x - binding.position.width / 2f
                 binding.position.y = point.y - binding.position.height / 2f
+                binding.tideTendency.isVisible = true
+                binding.tideTendency.setImageResource(if (isRising) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
             }
         }
     }

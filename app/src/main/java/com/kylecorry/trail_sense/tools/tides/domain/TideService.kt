@@ -61,6 +61,10 @@ class TideService {
         }
     }
 
+    fun isRising(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): Boolean {
+        return getNextTide(tide, time).type == TideType.High
+    }
+
     private fun getNextTide(tide: TideEntity, time: LocalDateTime): Tide {
         val todayTides = getTides(tide, time.toLocalDate())
         val next = todayTides.firstOrNull { it.time > time.toZonedDateTime() }
