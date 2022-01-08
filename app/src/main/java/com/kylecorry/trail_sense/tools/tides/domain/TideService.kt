@@ -140,7 +140,7 @@ class TideService {
 
     private fun getNextTide(table: TideTable, time: LocalDateTime): Tide {
         val todayTides = getTides(table, time.toLocalDate())
-        val next = todayTides.firstOrNull { it.time > time.toZonedDateTime() }
+        val next = todayTides.firstOrNull { it.time >= time.toZonedDateTime() }
         return next ?: getNextTide(table, time.toLocalDate().atStartOfDay().plusDays(1))
     }
 
