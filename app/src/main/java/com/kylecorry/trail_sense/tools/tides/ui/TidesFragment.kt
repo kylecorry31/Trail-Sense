@@ -19,6 +19,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.domain.TideLoaderFactory
@@ -62,6 +63,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
 
+        CustomUiUtils.setButtonState(binding.tideCalibration, false)
         binding.tideCalibration.setOnClickListener {
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
@@ -72,6 +74,12 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
                     onDisplayDateChanged()
                 }
             }
+        }
+
+        binding.tideListDatePicker.setOnLongClickListener {
+            displayDate = LocalDate.now()
+            onDisplayDateChanged()
+            true
         }
 
         binding.loading.isVisible = true
@@ -97,6 +105,17 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
                 }
             }
         }
+
+        binding.nextDate.setOnClickListener {
+            displayDate = displayDate.plusDays(1)
+            onDisplayDateChanged()
+        }
+
+        binding.prevDate.setOnClickListener {
+            displayDate = displayDate.minusDays(1)
+            onDisplayDateChanged()
+        }
+
 
         scheduleUpdates(Duration.ofSeconds(1))
     }

@@ -59,22 +59,44 @@
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tide_location" />
+        app:layout_constraintTop_toBottomOf="@id/tide_list_date" />
+
+    <ImageButton
+        android:id="@+id/prev_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:rotation="180"
+        app:layout_constraintBottom_toTopOf="@+id/chart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right"
+        app:tint="?android:textColorSecondary" />
+
+    <ImageButton
+        android:id="@+id/next_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right"
+        app:tint="?android:textColorSecondary" />
 
     <LinearLayout
         android:id="@+id/tide_list_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chart">
+        app:layout_constraintTop_toBottomOf="@id/tide_location">
 
         <TextView
             android:id="@+id/tide_list_date_text"
@@ -100,19 +122,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tide_list_date" />
+        app:layout_constraintTop_toBottomOf="@id/chart" />
 
-    <ImageButton
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/tide_calibration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@id/tide_height"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="?android:textColorSecondary"
+        app:backgroundTint="?android:colorBackgroundFloating"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tide_height"
-        app:srcCompat="@drawable/ic_tool_tides"
-        app:tint="?android:textColorSecondary" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_tool_tides" />
 
     <ImageView
         android:id="@+id/position"
