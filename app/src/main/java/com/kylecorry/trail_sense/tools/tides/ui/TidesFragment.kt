@@ -184,6 +184,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
                         getString(R.string.low_tide)
                     }
                     val isCalculated = tide.tides.none { t -> t.time == it.time }
+                    // TODO: If height is not set in the tide table, don't show it
                     val time = if (isCalculated) {
                         formatService.formatTime(it.time.toLocalTime(), false)
                     } else {

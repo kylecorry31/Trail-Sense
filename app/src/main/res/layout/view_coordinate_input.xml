@@ -17,7 +17,7 @@
         android:elevation="4dp"
         android:padding="8dp"
         app:srcCompat="@drawable/satellite"
-        app:tint="?android:textColorPrimary" />
+        app:tint="@color/black" />
 
     <ProgressBar
         android:id="@+id/gps_loading"
@@ -41,7 +41,7 @@
         android:elevation="4dp"
         android:padding="8dp"
         app:srcCompat="@drawable/ic_location"
-        app:tint="?android:textColorPrimary" />
+        app:tint="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
