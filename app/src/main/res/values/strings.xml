@@ -687,9 +687,9 @@
     <string name="right_quick_action">Right quick action</string>
     <string name="experimental">Experimental</string>
     <string name="tides">Tides</string>
-    <string name="high_tide">High Tide</string>
-    <string name="low_tide">Low Tide</string>
-    <string name="half_tide">Half Tide</string>
+    <string name="high_tide">High</string>
+    <string name="low_tide">Low</string>
+    <string name="half_tide">Half</string>
     <string name="reference_high_tide" translatable="false">reference_high_tide</string>
     <string name="last_tide_id" translatable="false">last_tide_id</string>
     <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to two hours, which is good enough for reference but not to rely on.</string>
@@ -1185,6 +1185,7 @@
     <string name="pref_flashlight_timeout_title">Turn off after</string>
     <string name="view">View</string>
     <string name="tide_is_diurnal">Is diurnal?</string>
+    <string name="calculated">Calculated</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

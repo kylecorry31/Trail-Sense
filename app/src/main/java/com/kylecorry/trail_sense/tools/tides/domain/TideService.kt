@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
+import com.kylecorry.andromeda.core.rangeOrNull
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
@@ -18,14 +20,6 @@ import kotlin.math.min
 class TideService {
 
     private val ocean = OceanographyService()
-
-    fun getTides(tide: TideEntity, date: LocalDate): List<Tide> {
-        val harmonics = ocean.estimateHarmonics(
-            tide.reference,
-            tide.frequency
-        )
-        return ocean.getTides(harmonics, date.atStartOfDay().toZonedDateTime())
-    }
 
     fun getTides(table: TideTable, date: LocalDate): List<Tide> {
         var time = date.atStartOfDay().toZonedDateTime()
@@ -64,16 +58,25 @@ class TideService {
         }
 
         val sortedTides = table.tides.sortedBy { it.time }
-        val idx = sortedTides.indexOfFirst { it.time >= time }
+        var idx = -1
 
-        return if (idx == -1 || idx == sortedTides.lastIndex){
-            // TODO: estimate the tide
-            0f
-        } else {
-            // TODO: Make sure these two tides aren't too far apart
-            val t = Duration.between(sortedTides[idx].time, time).seconds / 3600f
-            getSineWaveBetween(sortedTides[idx], sortedTides[idx + 1]).cosine(t)
+        for (i in 0 until sortedTides.lastIndex){
+            if (sortedTides[i].time <= time && sortedTides[i + 1].time >= time){
+                idx = i
+                break
+            }
         }
+
+        val t = Duration.between(sortedTides[0].time, time).seconds / 3600f
+
+        if (idx == -1) {
+            idx = if (time <= sortedTides[0].time) {
+                0
+            } else {
+                sortedTides.lastIndex - 1
+            }
+        }
+        return getSineWaveBetween(sortedTides[idx], sortedTides[idx + 1], sortedTides[0].time).cosine(t)
     }
 
     fun getWaterLevels(table: TideTable, date: LocalDate): List<Reading<Float>> {
@@ -94,44 +97,23 @@ class TideService {
         return levels
     }
 
-    fun getWaterLevels(tide: TideEntity, date: LocalDate): List<Reading<Float>> {
-        val harmonics = ocean.estimateHarmonics(
-            tide.reference,
-            tide.frequency
-        )
-        val granularityMinutes = 10L
-        var time = date.atStartOfDay().toZonedDateTime()
-
-        val levels = mutableListOf<Reading<Float>>()
-        while (time.toLocalDate() == date) {
-            levels.add(
-                Reading(
-                    ocean.getWaterLevel(harmonics, time),
-                    time.toInstant()
-                )
-            )
-            time = time.plusMinutes(granularityMinutes)
+    fun getRange(table: TideTable): Range<Float> {
+        return if (table.tides.size <= 1){
+            Range(-1f, 1f)
+        } else {
+            val range = table.tides.map { it.height }.rangeOrNull()
+            Range(range?.lower ?: -1f, range?.upper ?: 1f)
         }
-
-        return levels
     }
 
-    fun getCurrentTide(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): TideType? {
-        val next = getNextTide(tide, time)
-        val timeToNextTide = Duration.between(time, next.time)
-        return if (next.type == TideType.High && timeToNextTide < Duration.ofHours(2) || (next.type == TideType.Low && timeToNextTide > Duration.ofHours(
-                4
-            ))
-        ) {
-            TideType.High
-        } else if (next.type == TideType.Low && timeToNextTide < Duration.ofHours(2) || (next.type == TideType.High && timeToNextTide > Duration.ofHours(
-                4
-            ))
-        ) {
-            TideType.Low
-        } else {
-            null
+    fun isWithinTideTable(table: TideTable, time: LocalDateTime = LocalDateTime.now()): Boolean {
+        val sortedTides = table.tides.sortedBy { it.time }
+        for (i in 0 until sortedTides.lastIndex){
+            if (sortedTides[i].time <= time.toZonedDateTime() && sortedTides[i + 1].time >= time.toZonedDateTime()){
+                return true
+            }
         }
+        return false
     }
 
     fun getCurrentTide(table: TideTable, time: LocalDateTime = LocalDateTime.now()): TideType? {
@@ -152,18 +134,8 @@ class TideService {
         }
     }
 
-    fun isRising(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): Boolean {
-        return getNextTide(tide, time).type == TideType.High
-    }
-
     fun isRising(table: TideTable, time: LocalDateTime = LocalDateTime.now()): Boolean {
         return getNextTide(table, time).type == TideType.High
-    }
-
-    private fun getNextTide(tide: TideEntity, time: LocalDateTime): Tide {
-        val todayTides = getTides(tide, time.toLocalDate())
-        val next = todayTides.firstOrNull { it.time > time.toZonedDateTime() }
-        return next ?: getNextTide(tide, time.toLocalDate().atStartOfDay().plusDays(1))
     }
 
     private fun getNextTide(table: TideTable, time: LocalDateTime): Tide {
@@ -172,13 +144,14 @@ class TideService {
         return next ?: getNextTide(table, time.toLocalDate().atStartOfDay().plusDays(1))
     }
 
-    private fun getSineWaveBetween(tide1: Tide, tide2: Tide): SineWave {
+    private fun getSineWaveBetween(tide1: Tide, tide2: Tide, reference: ZonedDateTime): SineWave {
         val period = Duration.between(tide1.time, tide2.time).seconds / 3600f
         val deltaHeight = abs(tide1.height - tide2.height)
         val verticalShift = deltaHeight / 2 + min(tide1.height, tide2.height)
         val frequency = (360 / (2 * period)).toRadians()
         val amplitude = (if (tide1.type == TideType.High) 1 else -1) * deltaHeight / 2
-        return SineWave(amplitude, frequency, 0f, verticalShift)
+        val t = Duration.between(reference, tide1.time).seconds / 3600f
+        return SineWave(amplitude, frequency, t, verticalShift)
     }
 
 
