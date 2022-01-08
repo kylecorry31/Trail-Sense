@@ -9,10 +9,13 @@ class NearestTideSelectionStrategy(
 ) : ITideSelectionStrategy {
     override suspend fun getTide(tides: List<TideEntity>): TideEntity? =
         withContext(Dispatchers.IO) {
+            val tidesWithLocation = tides.filter { it.coordinate != null }
+            if (tidesWithLocation.size <= 1){
+                return@withContext tidesWithLocation.firstOrNull()
+            }
             if (!gps.hasValidReading) {
                 gps.read()
             }
-            tides.filter { it.coordinate != null }
-                .minByOrNull { it.coordinate!!.distanceTo(gps.location) }
+            tidesWithLocation.minByOrNull { it.coordinate!!.distanceTo(gps.location) }
         }
 }

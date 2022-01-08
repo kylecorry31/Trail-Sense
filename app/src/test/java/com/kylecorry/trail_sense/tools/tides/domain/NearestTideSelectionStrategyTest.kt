@@ -69,7 +69,7 @@ internal class NearestTideSelectionStrategyTest {
     fun getTideNoCoords() = runBlocking {
         val gps = mock<IGPS>()
         gps.stub {
-            on(gps.hasValidReading).thenReturn(true)
+            on(gps.hasValidReading).thenReturn(false)
             on(gps.location).thenReturn(Coordinate.zero)
             onBlocking { read() }.doReturn(Unit)
         }
@@ -80,6 +80,26 @@ internal class NearestTideSelectionStrategyTest {
             }
         )
 
+        verify(gps, never()).read()
         Assertions.assertNull(strategy.getTide(tides))
+    }
+
+    @Test
+    fun getTideOneLocation() = runBlocking {
+        val gps = mock<IGPS>()
+        gps.stub {
+            on(gps.hasValidReading).thenReturn(false)
+            on(gps.location).thenReturn(Coordinate.zero)
+            onBlocking { read() }.doReturn(Unit)
+        }
+        val strategy = NearestTideSelectionStrategy(gps)
+        val tides = listOf(
+            TideEntity(100, null, 1.0, 1.0).also {
+                it.id = 1
+            }
+        )
+
+        verify(gps, never()).read()
+        Assertions.assertEquals(tides[0], strategy.getTide(tides))
     }
 }
