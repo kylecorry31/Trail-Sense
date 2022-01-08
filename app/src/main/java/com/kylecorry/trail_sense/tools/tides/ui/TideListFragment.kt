@@ -120,11 +120,11 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
         return tide.name ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(android.R.string.untitled)
     }
 
-    private fun getTideTypeName(tideType: TideType): String {
+    private fun getTideTypeName(tideType: TideType?): String {
         return when (tideType) {
             TideType.High -> getString(R.string.high_tide)
             TideType.Low -> getString(R.string.low_tide)
-            TideType.Half -> getString(R.string.half_tide)
+            null -> getString(R.string.half_tide)
         }
     }
 

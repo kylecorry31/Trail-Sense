@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.TidalRange
+import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
@@ -21,9 +22,9 @@ import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import com.kylecorry.trail_sense.tools.tides.domain.TideLoaderFactory
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
+import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -38,7 +39,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private var displayDate = LocalDate.now()
     private val tideService = TideService()
     private lateinit var tideList: ListView<Pair<String, String>>
-    private var tide: TideEntity? = null
+    private var table: TideTable? = null
     private lateinit var chart: TideChart
     private var waterLevels = listOf<Reading<Float>>()
     private val updateCurrentTideTimer = Timer {
@@ -85,11 +86,14 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.loading.isVisible = true
         runInBackground {
             val loader = TideLoaderFactory().getTideLoader(requireContext())
-            tide = loader.getReferenceTide()
+            val entity = loader.getReferenceTide()
+            entity?.let {
+                table = TideTable(it.id, listOf(Tide.high(it.reference)), it.name, it.coordinate)
+            }
             withContext(Dispatchers.Main) {
                 if (isBound) {
                     binding.loading.isVisible = false
-                    if (tide == null) {
+                    if (table == null) {
                         Alerts.dialog(
                             requireContext(),
                             getString(R.string.no_tides),
@@ -124,9 +128,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         if (!isBound) {
             return
         }
-        val tide = tide ?: return
+        val tide = table ?: return
         binding.tideLocation.text = tide.name
-            ?: if (tide.coordinate != null) formatService.formatLocation(tide.coordinate!!) else getString(
+            ?: if (tide.location != null) formatService.formatLocation(tide.location!!) else getString(
                 android.R.string.untitled
             )
         updateTideChart()
@@ -145,7 +149,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     }
 
     private fun updateTideChart() {
-        val tide = tide ?: return
+        val tide = table ?: return
         runInBackground {
             waterLevels = withContext(Dispatchers.Default) {
                 tideService.getWaterLevels(tide, displayDate)
@@ -161,7 +165,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     }
 
     private fun updateTideTable() {
-        val tide = tide ?: return
+        val tide = table ?: return
         runInBackground {
             val tides = withContext(Dispatchers.Default) {
                 tideService.getTides(tide, displayDate)
@@ -186,7 +190,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     }
 
     private fun updateCurrentTide() {
-        val tide = tide ?: return
+        val tide = table ?: return
         runInBackground {
             val current = withContext(Dispatchers.Default) {
                 tideService.getCurrentTide(tide)
@@ -205,7 +209,8 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
                 }
                 val currentIdx = waterLevels.indexOf(currentLevel)
                 val point = chart.getPoint(currentIdx)
-                binding.position.isInvisible = point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
+                binding.position.isInvisible =
+                    point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
                 binding.position.x = point.x - binding.position.width / 2f
                 binding.position.y = point.y - binding.position.height / 2f
                 binding.tideTendency.isVisible = true
@@ -227,11 +232,11 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         }
     }
 
-    private fun getTideTypeName(tideType: TideType): String {
+    private fun getTideTypeName(tideType: TideType?): String {
         return when (tideType) {
             TideType.High -> getString(R.string.high_tide)
             TideType.Low -> getString(R.string.low_tide)
-            TideType.Half -> getString(R.string.half_tide)
+            null -> getString(R.string.half_tide)
         }
     }
 
