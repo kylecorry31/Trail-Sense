@@ -13,7 +13,10 @@ data class TideEntity(
     @ColumnInfo(name = "reference_high") val referenceHighTide: Long,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "latitude") val latitude: Double?,
-    @ColumnInfo(name = "longitude") val longitude: Double?
+    @ColumnInfo(name = "longitude") val longitude: Double?,
+    @ColumnInfo(name = "mtl") val meanTideLevel: Float? = null,
+    @ColumnInfo(name = "mllw") val meanLowerLowWater: Float? = null,
+    @ColumnInfo(name = "mn") val meanRange: Float? = null
 ) {
 
     @PrimaryKey(autoGenerate = true)
@@ -31,4 +34,7 @@ data class TideEntity(
                 null
             }
         }
+
+    val hasHeightInfo: Boolean
+        get() = meanTideLevel != null && meanLowerLowWater != null && meanRange != null
 }

@@ -15,13 +15,18 @@ class TideService {
     private val ocean = OceanographyService()
 
     fun getTides(tide: TideEntity, date: LocalDate): List<Tide> {
-        val harmonics = ocean.estimateHarmonics(tide.reference, TideFrequency.Semidiurnal)
+        val harmonics = ocean.estimateHarmonics(
+            tide.reference,
+            TideFrequency.Semidiurnal
+        )
         return ocean.getTides(harmonics, date.atStartOfDay().toZonedDateTime())
     }
 
     fun getWaterLevels(tide: TideEntity, date: LocalDate): List<Reading<Float>> {
-        val harmonics = ocean.estimateHarmonics(tide.reference, TideFrequency.Semidiurnal)
-
+        val harmonics = ocean.estimateHarmonics(
+            tide.reference,
+            TideFrequency.Semidiurnal
+        )
         val granularityMinutes = 10L
         var time = date.atStartOfDay()
 
@@ -37,6 +42,14 @@ class TideService {
         }
 
         return levels
+    }
+
+    fun getWaterLevel(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): Float {
+        val harmonics = ocean.estimateHarmonics(
+            tide.reference,
+            TideFrequency.Semidiurnal
+        )
+        return ocean.getWaterLevel(harmonics, time.toZonedDateTime())
     }
 
     fun getCurrentTide(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): TideType {
