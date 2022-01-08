@@ -15,21 +15,22 @@ import java.time.ZonedDateTime
 class TideService {
 
     fun getTides(table: TideTable, date: LocalDate): List<Tide> {
+        // TODO: Calculate the tides instead of brute forcing if possible
         var time = date.atStartOfDay().toZonedDateTime()
         val tides = mutableListOf<Tide>()
         var previous = getWaterLevel(table, time.minusMinutes(1))
         var next = getWaterLevel(table, time)
-        while (time.toLocalDate() == date){
+        while (time.toLocalDate() == date) {
             val level = next
             next = getWaterLevel(table, time.plusMinutes(1))
             val isHigh = previous < level && next < level
             val isLow = previous > level && next > level
 
-            if (isHigh){
+            if (isHigh) {
                 tides.add(Tide.high(time, level))
             }
 
-            if (isLow){
+            if (isLow) {
                 tides.add(Tide.low(time, level))
             }
 
@@ -64,7 +65,7 @@ class TideService {
     }
 
     fun getRange(table: TideTable): Range<Float> {
-        return if (table.tides.size <= 1){
+        return if (table.tides.size <= 1) {
             Range(-1f, 1f)
         } else {
             val range = table.tides.map { it.height }.rangeOrNull()
@@ -74,8 +75,8 @@ class TideService {
 
     fun isWithinTideTable(table: TideTable, time: LocalDateTime = LocalDateTime.now()): Boolean {
         val sortedTides = table.tides.sortedBy { it.time }
-        for (i in 0 until sortedTides.lastIndex){
-            if (sortedTides[i].time <= time.toZonedDateTime() && sortedTides[i + 1].time >= time.toZonedDateTime()){
+        for (i in 0 until sortedTides.lastIndex) {
+            if (sortedTides[i].time <= time.toZonedDateTime() && sortedTides[i + 1].time >= time.toZonedDateTime()) {
                 return true
             }
         }
@@ -85,15 +86,13 @@ class TideService {
     fun getCurrentTide(table: TideTable, time: LocalDateTime = LocalDateTime.now()): TideType? {
         val next = getNextTide(table, time)
         val timeToNextTide = Duration.between(time, next.time)
-        return if (next.type == TideType.High && timeToNextTide < Duration.ofHours(2) || (next.type == TideType.Low && timeToNextTide > Duration.ofHours(
-                4
-            ))
-        ) {
+        val closeToNextTide = timeToNextTide < Duration.ofHours(2)
+        val farFromNextTide = timeToNextTide > Duration.ofHours(4)
+        val nextIsHigh = next.type == TideType.High
+        val nextIsLow = next.type == TideType.Low
+        return if ((nextIsHigh && closeToNextTide) || (nextIsLow && farFromNextTide)) {
             TideType.High
-        } else if (next.type == TideType.Low && timeToNextTide < Duration.ofHours(2) || (next.type == TideType.High && timeToNextTide > Duration.ofHours(
-                4
-            ))
-        ) {
+        } else if ((nextIsLow && closeToNextTide) || (nextIsHigh && farFromNextTide)) {
             TideType.Low
         } else {
             null
