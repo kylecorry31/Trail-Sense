@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
@@ -17,7 +16,7 @@ class TideService {
     fun getTides(tide: TideEntity, date: LocalDate): List<Tide> {
         val harmonics = ocean.estimateHarmonics(
             tide.reference,
-            TideFrequency.Semidiurnal
+            tide.frequency
         )
         return ocean.getTides(harmonics, date.atStartOfDay().toZonedDateTime())
     }
@@ -25,31 +24,23 @@ class TideService {
     fun getWaterLevels(tide: TideEntity, date: LocalDate): List<Reading<Float>> {
         val harmonics = ocean.estimateHarmonics(
             tide.reference,
-            TideFrequency.Semidiurnal
+            tide.frequency
         )
         val granularityMinutes = 10L
-        var time = date.atStartOfDay()
+        var time = date.atStartOfDay().toZonedDateTime()
 
         val levels = mutableListOf<Reading<Float>>()
         while (time.toLocalDate() == date) {
             levels.add(
                 Reading(
-                    ocean.getWaterLevel(harmonics, time.toZonedDateTime()),
-                    time.toZonedDateTime().toInstant()
+                    ocean.getWaterLevel(harmonics, time),
+                    time.toInstant()
                 )
             )
             time = time.plusMinutes(granularityMinutes)
         }
 
         return levels
-    }
-
-    fun getWaterLevel(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): Float {
-        val harmonics = ocean.estimateHarmonics(
-            tide.reference,
-            TideFrequency.Semidiurnal
-        )
-        return ocean.getWaterLevel(harmonics, time.toZonedDateTime())
     }
 
     fun getCurrentTide(tide: TideEntity, time: LocalDateTime = LocalDateTime.now()): TideType {

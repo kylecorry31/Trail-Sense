@@ -129,6 +129,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.time.text = formatService.formatTime(tide.reference.toLocalTime(), false)
         referenceDate = tide.reference.toLocalDate()
         referenceTime = tide.reference.toLocalTime()
+        binding.diurnal.isChecked = tide.diurnal
     }
 
     private fun formIsValid(): Boolean {
@@ -149,12 +150,14 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val rawName = binding.tideName.text?.toString()
         val name = if (rawName.isNullOrBlank()) null else rawName
         val location = binding.tideLocation.coordinate
+        val diurnal = binding.diurnal.isChecked
 
         return TideEntity(
             reference.toInstant().toEpochMilli(),
             name,
             location?.latitude,
-            location?.longitude
+            location?.longitude,
+            diurnal = diurnal
         ).also {
             it.id = editingId ?: 0
         }

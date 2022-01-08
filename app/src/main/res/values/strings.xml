@@ -1184,6 +1184,7 @@
     <string name="pref_flashlight_should_timeout_title">Automatically turn off</string>
     <string name="pref_flashlight_timeout_title">Turn off after</string>
     <string name="view">View</string>
+    <string name="tide_is_diurnal">Is diurnal?</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import java.time.Instant
@@ -16,7 +17,8 @@ data class TideEntity(
     @ColumnInfo(name = "longitude") val longitude: Double?,
     @ColumnInfo(name = "mtl") val meanTideLevel: Float? = null,
     @ColumnInfo(name = "mllw") val meanLowerLowWater: Float? = null,
-    @ColumnInfo(name = "mn") val meanRange: Float? = null
+    @ColumnInfo(name = "mn") val meanRange: Float? = null,
+    @ColumnInfo(name = "diurnal") val diurnal: Boolean = false
 ) {
 
     @PrimaryKey(autoGenerate = true)
@@ -35,6 +37,7 @@ data class TideEntity(
             }
         }
 
-    val hasHeightInfo: Boolean
-        get() = meanTideLevel != null && meanLowerLowWater != null && meanRange != null
+    val frequency: TideFrequency
+        get() = if (diurnal) TideFrequency.Diurnal else TideFrequency.Semidiurnal
+
 }
