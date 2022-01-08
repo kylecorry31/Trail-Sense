@@ -21,6 +21,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -33,6 +34,7 @@ import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
+import java.time.LocalDateTime
 
 object CustomUiUtils {
 
@@ -366,6 +368,27 @@ object CustomUiUtils {
         val sheet = ScanQRBottomSheet(title, onScan)
         sheet.show(fragment)
         return sheet
+    }
+
+    fun pickDatetime(
+        context: Context,
+        use24Hours: Boolean,
+        default: LocalDateTime = LocalDateTime.now(),
+        onDatetimePick: (value: LocalDateTime?) -> Unit
+    ) {
+        Pickers.date(context, default.toLocalDate()) { date ->
+            if (date != null) {
+                Pickers.time(context, use24Hours, default.toLocalTime()) { time ->
+                    if (time != null) {
+                        onDatetimePick(LocalDateTime.of(date, time))
+                    } else {
+                        onDatetimePick(null)
+                    }
+                }
+            } else {
+                onDatetimePick(null)
+            }
+        }
     }
 
 }

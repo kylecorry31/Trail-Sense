@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -9,8 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
@@ -18,16 +22,12 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
-    private var referenceDate: LocalDate? = null
-    private var referenceTime: LocalTime? = null
+    private var referenceDatetime: LocalDateTime? = null
     private var editingId: Long? = null
     private var editingTide: TideEntity? = null
 
@@ -75,45 +75,42 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         super.onPause()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.datePicker.setOnClickListener {
-            Pickers.date(requireContext(), referenceDate ?: LocalDate.now()) {
-                if (it != null) {
-                    referenceDate = it
-                    binding.date.text = formatService.formatDate(
-                        ZonedDateTime.of(
-                            referenceDate,
-                            LocalTime.NOON,
-                            ZoneId.systemDefault()
-                        ), false
-                    )
-                }
-            }
-        }
 
-        binding.timePicker.setOnClickListener {
-            Pickers.time(
-                requireContext(),
-                prefs.use24HourTime,
-                referenceTime ?: LocalTime.now()
-            ) {
-                if (it != null) {
-                    referenceTime = it
-                    binding.time.text = formatService.formatTime(referenceTime!!, false)
+        binding.tideTime.inputType = InputType.TYPE_NULL
+
+        binding.tideTime.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                CustomUiUtils.pickDatetime(
+                    requireContext(),
+                    prefs.use24HourTime,
+                    referenceDatetime ?: LocalDateTime.now()
+                ) {
+                    if (it != null) {
+                        referenceDatetime = it
+                        binding.tideTime.setText(
+                            formatService.formatDateTime(
+                                it.toZonedDateTime(),
+                                false
+                            )
+                        )
+                    }
                 }
             }
+            true
         }
 
         binding.createTideBtn.setOnClickListener {
             val tide = getTide()
-            if (tide != null){
+            if (tide != null) {
                 lifecycleScope.launch {
-                    withContext(Dispatchers.IO){
+                    withContext(Dispatchers.IO) {
                         tideRepo.addTide(tide)
                     }
 
-                    withContext(Dispatchers.Main){
+                    withContext(Dispatchers.Main) {
                         findNavController().popBackStack()
                     }
                 }
@@ -125,10 +122,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private fun fillExistingTideValues(tide: TideEntity) {
         binding.tideName.setText(tide.name)
         binding.tideLocation.coordinate = tide.coordinate
-        binding.date.text = formatService.formatDate(tide.reference, false)
-        binding.time.text = formatService.formatTime(tide.reference.toLocalTime(), false)
-        referenceDate = tide.reference.toLocalDate()
-        referenceTime = tide.reference.toLocalTime()
+        binding.tideTime.setText(formatService.formatDateTime(tide.reference, false))
+        referenceDatetime = tide.reference.toLocalDateTime()
         binding.diurnal.isChecked = tide.diurnal
     }
 
@@ -137,11 +132,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     }
 
     private fun getTide(): TideEntity? {
-        if (referenceTime == null || referenceDate == null) {
-            return null
-        }
-
-        val reference = ZonedDateTime.of(referenceDate!!, referenceTime!!, ZoneId.systemDefault())
+        val reference = referenceDatetime?.toZonedDateTime() ?: return null
 
         if (editingId != null && editingTide == null) {
             return null
