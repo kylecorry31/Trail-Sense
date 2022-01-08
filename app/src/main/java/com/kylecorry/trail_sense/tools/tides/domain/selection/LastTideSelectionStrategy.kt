@@ -1,6 +1,7 @@
-package com.kylecorry.trail_sense.tools.tides.domain
+package com.kylecorry.trail_sense.tools.tides.domain.selection
 
 import com.kylecorry.trail_sense.settings.infrastructure.ITidePreferences
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

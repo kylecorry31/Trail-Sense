@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.tides.domain
+package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 
 @Dao
 interface TideDao {

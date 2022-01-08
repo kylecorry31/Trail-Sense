@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.*
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.*

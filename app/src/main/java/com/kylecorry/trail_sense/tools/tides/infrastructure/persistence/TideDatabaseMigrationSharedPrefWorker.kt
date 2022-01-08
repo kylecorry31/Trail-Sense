@@ -5,7 +5,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 import java.time.Instant
 
 class TideDatabaseMigrationSharedPrefWorker(
