@@ -21,6 +21,9 @@ interface TideDao {
     @Delete
     suspend fun delete(tide: TideEntity)
 
+    @Query("DELETE FROM tides")
+    suspend fun deleteAll()
+
     @Update
     suspend fun update(tide: TideEntity)
 

@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.TidalRange
-import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -22,9 +21,9 @@ import com.kylecorry.trail_sense.databinding.ListItemTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.tides.domain.loading.TideLoaderFactory
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.loading.TideLoaderFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.*
@@ -86,12 +85,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.loading.isVisible = true
         runInBackground {
             val loader = TideLoaderFactory().getTideLoader(requireContext())
-            val entity = loader.getReferenceTide()
-            entity?.let {
-                table = TideTable(
-                    it.id, listOf(Tide.high(it.reference)), it.name, it.coordinate
-                )
-            }
+            table = loader.getTideTable()
             withContext(Dispatchers.Main) {
                 if (isBound) {
                     binding.loading.isVisible = false

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain.loading
 
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
+import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 
 interface ITideLoader {
-    suspend fun getReferenceTide(): TideEntity?
+    suspend fun getTideTable(): TideTable?
 }

@@ -22,9 +22,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.*
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDao
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideDatabaseMigrationSharedPrefWorker
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.*
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
 import java.io.File
 
@@ -32,8 +30,8 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class],
-    version = 21,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class],
+    version = 22,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -42,6 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun packDao(): PackDao
     abstract fun waypointDao(): WaypointDao
     abstract fun tideDao(): TideDao
+    abstract fun tideTableDao(): TideTableDao
     abstract fun pressureDao(): PressureReadingDao
     abstract fun beaconDao(): BeaconDao
     abstract fun beaconGroupDao(): BeaconGroupDao
@@ -135,9 +134,6 @@ abstract class AppDatabase : RoomDatabase() {
             val MIGRATION_7_8 = object : Migration(7, 8) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     database.execSQL("CREATE TABLE IF NOT EXISTS `tides` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reference_high` INTEGER NOT NULL, `name` TEXT DEFAULT NULL, `latitude` REAL DEFAULT NULL, `longitude` REAL DEFAULT NULL)")
-                    val request =
-                        OneTimeWorkRequestBuilder<TideDatabaseMigrationSharedPrefWorker>().build()
-                    WorkManager.getInstance(context).enqueue(request)
                 }
             }
 
@@ -235,6 +231,16 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_21_22 = object : Migration(21, 22){
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `tide_tables` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `latitude` REAL, `longitude` REAL)")
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `tide_table_rows` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `table_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `high` INTEGER NOT NULL, `height` REAL)")
+                    val request =
+                        OneTimeWorkRequestBuilder<TideTableDatabaseMigrationWorker>().build()
+                    WorkManager.getInstance(context).enqueue(request)
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -256,7 +262,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_17_18,
                     MIGRATION_18_19,
                     MIGRATION_19_20,
-                    MIGRATION_20_21
+                    MIGRATION_20_21,
+                    MIGRATION_21_22
                 )
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

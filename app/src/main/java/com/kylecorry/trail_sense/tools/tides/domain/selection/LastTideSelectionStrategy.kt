@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain.selection
 
 import com.kylecorry.trail_sense.settings.infrastructure.ITidePreferences
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
+import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -10,7 +10,7 @@ class LastTideSelectionStrategy(
     private val clearLastTideAfterUse: Boolean = false
 ) :
     ITideSelectionStrategy {
-    override suspend fun getTide(tides: List<TideEntity>): TideEntity? =
+    override suspend fun getTide(tides: List<TideTable>): TideTable? =
         withContext(Dispatchers.IO) {
             val lastTide = prefs.lastTide
             if (clearLastTideAfterUse) {

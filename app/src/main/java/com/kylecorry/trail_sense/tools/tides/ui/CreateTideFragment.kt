@@ -12,13 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideEntity
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
+import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,9 +30,9 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private var referenceDatetime: LocalDateTime? = null
     private var editingId: Long? = null
-    private var editingTide: TideEntity? = null
+    private var editingTide: TideTable? = null
 
-    private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
+    private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val intervalometer = Timer {
@@ -52,7 +53,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         if (editingId != null) {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    editingTide = tideRepo.getTide(editingId!!)
+                    editingTide = tideRepo.getTideTable(editingId!!)
                 }
                 withContext(Dispatchers.Main) {
                     if (editingTide != null) {
@@ -107,7 +108,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             if (tide != null) {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        tideRepo.addTide(tide)
+                        tideRepo.addTideTable(tide)
                     }
 
                     withContext(Dispatchers.Main) {
@@ -119,19 +120,20 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     }
 
 
-    private fun fillExistingTideValues(tide: TideEntity) {
+    private fun fillExistingTideValues(tide: TideTable) {
         binding.tideName.setText(tide.name)
-        binding.tideLocation.coordinate = tide.coordinate
-        binding.tideTime.setText(formatService.formatDateTime(tide.reference, false))
-        referenceDatetime = tide.reference.toLocalDateTime()
-        binding.diurnal.isChecked = tide.diurnal
+        binding.tideLocation.coordinate = tide.location
+        if (tide.tides.isNotEmpty()) {
+            binding.tideTime.setText(formatService.formatDateTime(tide.tides.first().time, false))
+            referenceDatetime = tide.tides.first().time.toLocalDateTime()
+        }
     }
 
     private fun formIsValid(): Boolean {
         return getTide() != null
     }
 
-    private fun getTide(): TideEntity? {
+    private fun getTide(): TideTable? {
         val reference = referenceDatetime?.toZonedDateTime() ?: return null
 
         if (editingId != null && editingTide == null) {
@@ -141,17 +143,13 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val rawName = binding.tideName.text?.toString()
         val name = if (rawName.isNullOrBlank()) null else rawName
         val location = binding.tideLocation.coordinate
-        val diurnal = binding.diurnal.isChecked
 
-        return TideEntity(
-            reference.toInstant().toEpochMilli(),
+        return TideTable(
+            editingId ?: 0,
+            listOf(Tide.high(reference)),
             name,
-            location?.latitude,
-            location?.longitude,
-            diurnal = diurnal
-        ).also {
-            it.id = editingId ?: 0
-        }
+            location
+        )
     }
 
 }
