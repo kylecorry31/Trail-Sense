@@ -1187,6 +1187,8 @@
     <string name="tide_is_diurnal">Is diurnal?</string>
     <string name="calculated">Calculated</string>
     <string name="tide_table">Tide table</string>
+    <string name="high_tide_letter">H</string>
+    <string name="low_tide_letter">L</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.toFloatCompat
@@ -50,6 +52,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.createTideBtn.isVisible = formIsValid()
     }
 
+    private val watchers = mutableMapOf<TextInputEditText, TextWatcher>()
+
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -59,7 +63,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editingId = arguments?.getLong("edit_tide_id")
+        val editingIdValue = arguments?.getLong("edit_tide_id")
+        editingId = if (editingIdValue != null && editingIdValue != 0L) editingIdValue else null
     }
 
     override fun onResume() {
@@ -96,11 +101,28 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
             val itemBinding = ListItemTideEntryBinding.bind(view)
-            itemBinding.tideType.text = if (tide.isHigh) "H" else "L"
+            itemBinding.tideHeight.removeTextChangedListener(
+                watchers.getOrDefault(
+                    itemBinding.tideHeight,
+                    null
+                )
+            )
+            watchers.remove(itemBinding.tideHeight)
+
+            itemBinding.tideType.text =
+                if (tide.isHigh) getString(R.string.high_tide_letter) else getString(
+                    R.string.low_tide_letter
+                )
             itemBinding.tideType.setOnClickListener {
                 tide.isHigh = !tide.isHigh
-                itemBinding.tideType.text = if (tide.isHigh) "H" else "L"
+                itemBinding.tideType.text =
+                    if (tide.isHigh) getString(R.string.high_tide_letter) else getString(
+                        R.string.low_tide_letter
+                    )
             }
+            itemBinding.tideTime.text = null
+            itemBinding.tideHeight.text = null
+
             tide.time?.let {
                 itemBinding.tideTime.setText(
                     formatService.formatDateTime(
@@ -139,7 +161,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
                 itemBinding.tideHeight.setText(DecimalFormatter.format(it.distance, 2))
             }
 
-            itemBinding.tideHeight.addTextChangedListener {
+            val watcher = itemBinding.tideHeight.addTextChangedListener {
                 val height = it?.toString()?.trim()?.toFloatCompat()
                 if (height != null) {
                     tide.height = Distance(height, units)
@@ -148,6 +170,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
                 }
             }
 
+            watchers[itemBinding.tideHeight] = watcher
         }
 
         binding.addTideEntry.setOnClickListener {
@@ -203,7 +226,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             return null
         }
 
-        if (tides.isEmpty()){
+        if (tides.isEmpty()) {
             return null
         }
 

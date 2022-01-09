@@ -12,7 +12,7 @@ class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTa
         val tables = mutableListOf<TideTable>()
 
         for (entity in tableEntities) {
-            val rows = dao.getTideTableRows(entity.id).map { it.toTide() }
+            val rows = dao.getTideTableRows(entity.id).map { it.toTide() }.sortedBy { it.time }
             tables.add(entity.toTable(rows))
         }
 
@@ -20,7 +20,7 @@ class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTa
     }
 
     override suspend fun getTideTable(id: Long): TideTable? {
-        val rows = dao.getTideTableRows(id).map { it.toTide() }
+        val rows = dao.getTideTableRows(id).map { it.toTide() }.sortedBy { it.time }
         return dao.getTideTable(id)?.toTable(rows)
     }
 
