@@ -47,7 +47,7 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatRelativeDate(date: LocalDate): String {
+    fun formatRelativeDate(date: LocalDate, abbreviateMonth: Boolean = false): String {
         val now = LocalDate.now()
 
         return when (date) {
@@ -64,7 +64,7 @@ class FormatService(private val context: Context) {
                 DateUtils.formatDateTime(
                     context,
                     date.atStartOfDay().toEpochMillis(),
-                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE
+                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE or (if (abbreviateMonth) DateUtils.FORMAT_ABBREV_MONTH else 0)
                 )
             }
         }
@@ -83,18 +83,30 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatDate(date: ZonedDateTime, includeWeekDay: Boolean = true): String {
+    fun formatDate(
+        date: ZonedDateTime,
+        includeWeekDay: Boolean = true,
+        abbreviateMonth: Boolean = false
+    ): String {
         return DateUtils.formatDateTime(
             context,
             date.toEpochSecond() * 1000,
-            DateUtils.FORMAT_SHOW_DATE or (if (includeWeekDay) DateUtils.FORMAT_SHOW_WEEKDAY else 0) or DateUtils.FORMAT_SHOW_YEAR
+            DateUtils.FORMAT_SHOW_DATE or (if (includeWeekDay) DateUtils.FORMAT_SHOW_WEEKDAY else 0) or DateUtils.FORMAT_SHOW_YEAR or (if (abbreviateMonth) DateUtils.FORMAT_ABBREV_MONTH else 0)
         )
     }
 
-    fun formatDateTime(dateTime: ZonedDateTime, relative: Boolean = false): String {
-        val date = if (relative) formatRelativeDate(dateTime.toLocalDate()) else formatDate(
+    fun formatDateTime(
+        dateTime: ZonedDateTime,
+        relative: Boolean = false,
+        abbreviateMonth: Boolean = false
+    ): String {
+        val date = if (relative) formatRelativeDate(
+            dateTime.toLocalDate(),
+            abbreviateMonth = abbreviateMonth
+        ) else formatDate(
             dateTime,
-            false
+            false,
+            abbreviateMonth
         )
         val time = formatTime(dateTime.toLocalTime(), false)
         return "$date $time"

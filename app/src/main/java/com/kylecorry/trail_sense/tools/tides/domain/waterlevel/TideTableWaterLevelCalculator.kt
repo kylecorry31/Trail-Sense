@@ -56,9 +56,10 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
     }
 
     private fun getAverageAmplitude(): Float {
-        val averageHigh =
-            tides.sumOf { if (it.type == TideType.High) it.height.toDouble() else 0.0 }
-        val averageLow = tides.sumOf { if (it.type == TideType.Low) it.height.toDouble() else 0.0 }
+        val highs = tides.filter { it.type == TideType.High }
+        val lows = tides.filter { it.type == TideType.Low }
+        val averageHigh = if (highs.isEmpty()) 0.0 else highs.sumOf { it.height.toDouble() } / highs.size
+        val averageLow = if (lows.isEmpty()) 0.0 else lows.sumOf { it.height.toDouble() } / lows.size
         return (averageHigh - averageLow).toFloat() / 2
     }
 
@@ -76,12 +77,12 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
     }
 
     private fun getComputedWaveFrom(tide: Tide): Wave {
-        val amplitude = getAverageAmplitude()
-        val z0 = amplitude.absoluteValue + (tides.minByOrNull { it.height }?.height ?: 0f)
+        val amplitude = (if (tide.type == TideType.Low) -1 else 1) * getAverageAmplitude()
+        val z0 = tide.height - amplitude
         val frequency = if (isSemidiurnal()) TideConstituent.M2.speed else TideConstituent.K1.speed
         val t = Duration.between(tides[0].time, tide.time).seconds / 3600f
         return Wave(
-            if (tide.type == TideType.Low) -amplitude else amplitude,
+            amplitude,
             frequency.toRadians(),
             t,
             z0
