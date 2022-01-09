@@ -1,16 +1,16 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.Wave
+import com.kylecorry.trail_sense.tools.tides.domain.WaveMath
 import java.time.Duration
 import java.time.ZonedDateTime
-import kotlin.math.abs
 import kotlin.math.absoluteValue
-import kotlin.math.min
 
 class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
 
@@ -68,9 +68,8 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
         var count = 0
         for (i in 0 until tides.lastIndex) {
             // TODO: Check for gap before summing them up
-            val period = Duration.between(tides[0].time, tides[1].time).seconds / 3600f
-            val frequency = (360 / (2 * period)).toRadians()
-            averageFrequency += frequency
+            val wave = getWaveBetween(tides[i], tides[i + 1])
+            averageFrequency += wave.frequency
             count++
         }
         averageFrequency /= count
@@ -93,13 +92,13 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
     }
 
     private fun getWaveBetween(tide1: Tide, tide2: Tide): Wave {
-        // TODO: If tides are far apart, use a computed wave
-        val period = Duration.between(tide1.time, tide2.time).seconds / 3600f
-        val deltaHeight = abs(tide1.height - tide2.height)
-        val verticalShift = deltaHeight / 2 + min(tide1.height, tide2.height)
-        val frequency = (360 / (2 * period)).toRadians()
-        val amplitude = (if (tide1.type == TideType.High) 1 else -1) * deltaHeight / 2
-        val t = Duration.between(tides[0].time, tide1.time).seconds / 3600f
-        return Wave(amplitude, frequency, t, verticalShift)
+        val first = Vector2(getX(tide1.time), tide1.height)
+        val second = Vector2(getX(tide2.time), tide2.height)
+        return WaveMath.interpolateWave(first, second)
     }
+
+    private fun getX(time: ZonedDateTime): Float {
+        return Duration.between(tides[0].time, time).seconds / 3600f
+    }
+
 }
