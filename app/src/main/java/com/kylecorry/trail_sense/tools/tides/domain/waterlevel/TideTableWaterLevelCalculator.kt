@@ -65,18 +65,21 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
 
     private fun isSemidiurnal(): Boolean {
         var averageFrequency = 0f
+        var count = 0
         for (i in 0 until tides.lastIndex) {
             // TODO: Check for gap before summing them up
             val period = Duration.between(tides[0].time, tides[1].time).seconds / 3600f
             val frequency = (360 / (2 * period)).toRadians()
             averageFrequency += frequency
+            count++
         }
-        averageFrequency /= tides.size
+        averageFrequency /= count
 
         return (TideConstituent.M2.speed.toRadians() - averageFrequency).absoluteValue <= (TideConstituent.K1.speed.toRadians() - averageFrequency).absoluteValue
     }
 
     private fun getComputedWaveFrom(tide: Tide): Wave {
+        // TODO: Use the table to generate two waves: high to low and low to high
         val amplitude = (if (tide.type == TideType.Low) -1 else 1) * getAverageAmplitude()
         val z0 = tide.height - amplitude
         val frequency = if (isSemidiurnal()) TideConstituent.M2.speed else TideConstituent.K1.speed

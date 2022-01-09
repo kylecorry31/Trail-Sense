@@ -120,6 +120,12 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
                         R.string.low_tide_letter
                     )
             }
+
+            itemBinding.delete.setOnClickListener {
+                tides.remove(tide)
+                tideTimesList.setData(tides)
+            }
+
             itemBinding.tideTime.text = null
             itemBinding.tideHeight.text = null
 

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:layout_marginBottom="16dp"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <TextView
@@ -52,5 +52,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--    TODO: Add delete btn-->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/delete"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete"
+        app:tint="?android:textColorSecondary" />
 
 </LinearLayout>
