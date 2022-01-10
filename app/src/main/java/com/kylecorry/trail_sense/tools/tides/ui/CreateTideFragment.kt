@@ -80,24 +80,6 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tides.clear()
-        if (editingId != null) {
-            runInBackground {
-                withContext(Dispatchers.IO) {
-                    editingTide = tideRepo.getTideTable(editingId!!)
-                }
-                withContext(Dispatchers.Main) {
-                    if (editingTide != null) {
-                        fillExistingTideValues(editingTide!!)
-                    } else {
-                        editingId = null
-                    }
-                }
-            }
-        } else {
-            tides.add(TideEntry(true, null, null))
-            tideTimesList.setData(tides)
-        }
 
         tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
             val itemBinding = ListItemTideEntryBinding.bind(view)
@@ -177,6 +159,25 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             }
 
             watchers[itemBinding.tideHeight] = watcher
+        }
+
+        tides.clear()
+        if (editingId != null) {
+            runInBackground {
+                withContext(Dispatchers.IO) {
+                    editingTide = tideRepo.getTideTable(editingId!!)
+                }
+                withContext(Dispatchers.Main) {
+                    if (editingTide != null) {
+                        fillExistingTideValues(editingTide!!)
+                    } else {
+                        editingId = null
+                    }
+                }
+            }
+        } else {
+            tides.add(TideEntry(true, null, null))
+            tideTimesList.setData(tides)
         }
 
         binding.addTideEntry.setOnClickListener {
