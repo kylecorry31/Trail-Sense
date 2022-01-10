@@ -2,28 +2,23 @@ package com.kylecorry.trail_sense.tools.tides.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
-import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
-import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
+import com.kylecorry.trail_sense.databinding.ListItemTideEntry2Binding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -52,8 +47,6 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.createTideBtn.isVisible = formIsValid()
     }
 
-    private val watchers = mutableMapOf<TextInputEditText, TextWatcher>()
-
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -81,20 +74,14 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
-            val itemBinding = ListItemTideEntryBinding.bind(view)
-            itemBinding.tideHeight.removeTextChangedListener(
-                watchers.getOrDefault(
-                    itemBinding.tideHeight,
-                    null
-                )
-            )
-            watchers.remove(itemBinding.tideHeight)
+        tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry2) { view, tide ->
+            val itemBinding = ListItemTideEntry2Binding.bind(view)
 
             itemBinding.tideType.text =
                 if (tide.isHigh) getString(R.string.high_tide_letter) else getString(
                     R.string.low_tide_letter
                 )
+
             itemBinding.tideType.setOnClickListener {
                 tide.isHigh = !tide.isHigh
                 itemBinding.tideType.text =
@@ -106,60 +93,75 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             itemBinding.delete.setOnClickListener {
                 tides.remove(tide)
                 tideTimesList.setData(tides)
+                CustomUiUtils.snackbar(
+                    this,
+                    getString(R.string.tide_deleted),
+                    action = getString(R.string.undo)
+                ) {
+                    tides.add(tide)
+                    tideTimesList.setData(tides)
+                }
             }
 
-            itemBinding.tideTime.text = null
-            itemBinding.tideHeight.text = null
+            itemBinding.tideTime.text = getString(R.string.time_not_set)
 
             tide.time?.let {
-                itemBinding.tideTime.setText(
-                    formatService.formatDateTime(
-                        it,
-                        false,
-                        abbreviateMonth = true
-                    )
+                itemBinding.tideTime.text = formatService.formatDateTime(
+                    it,
+                    false,
+                    abbreviateMonth = true
                 )
             }
 
-            itemBinding.tideTime.setOnTouchListener { _, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    CustomUiUtils.pickDatetime(
-                        requireContext(),
-                        prefs.use24HourTime,
-                        tide.time?.toLocalDateTime() ?: LocalDateTime.now()
-                    ) {
-                        if (it != null) {
-                            tide.time = it.toZonedDateTime()
-                            itemBinding.tideTime.setText(
-                                formatService.formatDateTime(
-                                    it.toZonedDateTime(),
-                                    false,
-                                    abbreviateMonth = true
-                                )
-                            )
+            itemBinding.tideTime.setOnClickListener {
+                CustomUiUtils.pickDatetime(
+                    requireContext(),
+                    prefs.use24HourTime,
+                    tide.time?.toLocalDateTime() ?: LocalDateTime.now()
+                ) {
+                    if (it != null) {
+                        tide.time = it.toZonedDateTime()
+                        itemBinding.tideTime.text = formatService.formatDateTime(
+                            it.toZonedDateTime(),
+                            false,
+                            abbreviateMonth = true
+                        )
+                    }
+                }
+            }
+
+            val initialHeight = tide.height
+            itemBinding.tideHeight.text = if (initialHeight == null) {
+                getString(R.string.dash)
+            } else {
+                formatService.formatDistance(initialHeight, 2)
+            }
+
+            itemBinding.tideHeight.setOnClickListener {
+                CustomUiUtils.pickDistance(
+                    requireContext(),
+                    formatService.sortDistanceUnits(
+                        listOf(
+                            DistanceUnits.Meters,
+                            DistanceUnits.Feet
+                        )
+                    ),
+                    tide.height,
+                    getString(R.string.height)
+                ) { distance, cancelled ->
+                    if (!cancelled) {
+                        tide.height = distance
+                        itemBinding.tideHeight.text = if (distance == null) {
+                            getString(R.string.dash)
+                        } else {
+                            formatService.formatDistance(distance, 2)
                         }
                     }
                 }
-                true
             }
-
-            itemBinding.tideHeightHolder.hint = formatService.getDistanceUnitName(units)
-
-            tide.height?.let {
-                itemBinding.tideHeight.setText(DecimalFormatter.format(it.distance, 2))
-            }
-
-            val watcher = itemBinding.tideHeight.addTextChangedListener {
-                val height = it?.toString()?.trim()?.toFloatCompat()
-                if (height != null) {
-                    tide.height = Distance(height, units)
-                } else {
-                    tide.height = null
-                }
-            }
-
-            watchers[itemBinding.tideHeight] = watcher
         }
+
+        tideTimesList.addLineSeparator()
 
         tides.clear()
         if (editingId != null) {
@@ -183,6 +185,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.addTideEntry.setOnClickListener {
             tides.add(TideEntry(true, null, null))
             tideTimesList.setData(tides)
+            tideTimesList.scrollToPosition(tides.lastIndex)
         }
 
         binding.createTideBtn.setOnClickListener {

@@ -1189,6 +1189,7 @@
     <string name="tide_table">Tide table</string>
     <string name="high_tide_letter">H</string>
     <string name="low_tide_letter">L</string>
+    <string name="tide_deleted">Tide deleted</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

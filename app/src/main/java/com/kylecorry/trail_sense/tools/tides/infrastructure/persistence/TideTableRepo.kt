@@ -33,6 +33,7 @@ class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTa
             // TODO: Only delete the tides if they changed
             deleteTides(table.id)
             addTides(table.id, table.tides)
+            dao.update(TideTableEntity.from(table))
             table.id
         }
     }

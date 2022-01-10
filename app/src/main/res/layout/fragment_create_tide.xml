@@ -51,18 +51,51 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
 
-        <Button
-            android:id="@+id/add_tide_entry"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Add row" />
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/add_tide_entry"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_add"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tide_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="16dp"
+                android:text="@string/time" />
+
+            <TextView
+                android:id="@+id/tide_height"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:text="@string/height" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tide_times"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
             android:clipToPadding="false"
             android:paddingBottom="96dp" />
 
