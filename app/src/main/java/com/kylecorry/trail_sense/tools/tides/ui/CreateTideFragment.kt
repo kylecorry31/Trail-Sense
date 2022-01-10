@@ -18,7 +18,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
-import com.kylecorry.trail_sense.databinding.ListItemTideEntry2Binding
+import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -73,8 +73,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry2) { view, tide ->
-            val itemBinding = ListItemTideEntry2Binding.bind(view)
+        tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
+            val itemBinding = ListItemTideEntryBinding.bind(view)
 
             itemBinding.tideType.text =
                 if (tide.isHigh) getString(R.string.high_tide_letter) else getString(
