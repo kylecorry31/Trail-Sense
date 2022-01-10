@@ -33,7 +33,7 @@ import java.time.ZonedDateTime
 class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
-    private var editingId: Long? = null
+    private var editingId: Long = 0
     private var editingTide: TideTable? = null
 
     private lateinit var tideTimesList: ListView<TideEntry>
@@ -56,8 +56,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val editingIdValue = arguments?.getLong("edit_tide_id")
-        editingId = if (editingIdValue != null && editingIdValue != 0L) editingIdValue else null
+        editingId = arguments?.getLong("edit_tide_id") ?: 0L
     }
 
     override fun onResume() {
@@ -164,16 +163,16 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         tideTimesList.addLineSeparator()
 
         tides.clear()
-        if (editingId != null) {
+        if (editingId != 0L) {
             runInBackground {
                 withContext(Dispatchers.IO) {
-                    editingTide = tideRepo.getTideTable(editingId!!)
+                    editingTide = tideRepo.getTideTable(editingId)
                 }
                 withContext(Dispatchers.Main) {
                     if (editingTide != null) {
                         fillExistingTideValues(editingTide!!)
                     } else {
-                        editingId = null
+                        editingId = 0L
                     }
                 }
             }
@@ -232,7 +231,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             )
         }
 
-        if (editingId != null && editingTide == null) {
+        if (editingId != 0L && editingTide == null) {
             return null
         }
 
@@ -245,7 +244,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val location = binding.tideLocation.coordinate
 
         return TideTable(
-            editingId ?: 0,
+            editingId,
             tides,
             name,
             location
