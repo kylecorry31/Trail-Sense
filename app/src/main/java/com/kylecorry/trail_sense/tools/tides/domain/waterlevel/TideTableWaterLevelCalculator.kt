@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -37,8 +38,8 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
             Range(tides.last().time, maxTime) to getAfterCalculator()
         )
 
-        // TODO: Check for gaps and create a calculator for them
         for (i in 0 until tides.lastIndex) {
+            // TODO: Check for gaps and create a calculator for them
             val range = Range(tides[i].time, tides[i + 1].time)
             calculators.add(range to RuleOfTwelfthsWaterLevelCalculator(tides[i], tides[i + 1]))
         }
@@ -46,25 +47,25 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
         return PiecewiseWaterLevelCalculator(calculators)
     }
 
-    private fun getBeforeCalculator(): IWaterLevelCalculator {
-        val amplitude = (if (tides.first().type == TideType.Low) -1 else 1) * getAverageAmplitude()
-        val z0 = tides.first().height - amplitude
+    private fun getCalculatorForTide(tide: Tide): IWaterLevelCalculator {
+        val amplitude = (if (tide.type == TideType.Low) -1 else 1) * getAverageAmplitude()
+        val z0 = tide.height - amplitude
         val tideFrequency = getFrequency()
         return TideClockWaterLevelCalculator(
-            tides.first(),
+            tide,
             tideFrequency,
             getAverageAmplitude(),
             z0
         )
     }
 
-    private fun getAfterCalculator(): IWaterLevelCalculator {
-        val amplitude = (if (tides.last().type == TideType.Low) -1 else 1) * getAverageAmplitude()
-        val z0 = tides.last().height - amplitude
-        val tideFrequency = getFrequency()
-        return TideClockWaterLevelCalculator(tides.last(), tideFrequency, getAverageAmplitude(), z0)
+    private fun getBeforeCalculator(): IWaterLevelCalculator {
+        return getCalculatorForTide(tides.first())
     }
 
+    private fun getAfterCalculator(): IWaterLevelCalculator {
+        return getCalculatorForTide(tides.last())
+    }
 
     private fun getAverageAmplitude(): Float {
         val highs = tides.filter { it.type == TideType.High }

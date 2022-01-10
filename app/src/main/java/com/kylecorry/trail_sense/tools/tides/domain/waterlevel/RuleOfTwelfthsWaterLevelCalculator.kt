@@ -12,7 +12,7 @@ class RuleOfTwelfthsWaterLevelCalculator(private val first: Tide, private val se
     private val wave by lazy {
         val firstVec = Vector2(getX(first.time), first.height)
         val secondVec = Vector2(getX(second.time), second.height)
-        WaveMath.interpolateWave(firstVec, secondVec)
+        WaveMath.connect(firstVec, secondVec)
     }
 
     override fun calculate(time: ZonedDateTime): Float {
