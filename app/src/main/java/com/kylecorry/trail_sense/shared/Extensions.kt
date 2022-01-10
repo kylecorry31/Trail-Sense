@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.database.Identifiable
+import java.time.Duration
+import java.time.ZonedDateTime
 
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
@@ -81,4 +83,8 @@ fun GeoUri.Companion.from(beacon: Beacon): GeoUri {
     }
 
     return GeoUri(beacon.coordinate, null, params)
+}
+
+fun hoursBetween(first: ZonedDateTime, second: ZonedDateTime): Float {
+    return Duration.between(first, second).seconds / 3600f
 }

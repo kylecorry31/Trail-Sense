@@ -20,6 +20,7 @@ object WaveMath {
 
     /**
      * Connects the first and second points using a wave (Cosine), trying to approximate the frequency provided
+     * @param approximateFrequency the frequency in radians
      */
     fun connect(first: Vector2, second: Vector2, approximateFrequency: Float): Wave {
         val period = second.x - first.x

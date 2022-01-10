@@ -1,9 +1,12 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.science.oceanography.TideType
+import com.kylecorry.sol.time.Time.hours
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import java.time.Duration
@@ -22,8 +25,9 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
 
         if (tides.size == 1) {
             val tide = tides[0]
-            // TODO: Let the user specify if this should be diurnal or semidiurnal
-            return TideClockWaterLevelCalculator(tide).calculate(time)
+            val frequency =
+                if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
+            return TideClockWaterLevelCalculator(tide, frequency).calculate(time)
         }
 
         return piecewise.calculate(time)
@@ -39,7 +43,10 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
         )
 
         for (i in 0 until tides.lastIndex) {
-            // TODO: Check for gaps and create a calculator for them
+            if (hasGap(tides[i], tides[i + 1])) {
+                calculators.addAll(getGapCalculators(tides[i], tides[i + 1]))
+                continue
+            }
             val range = Range(tides[i].time, tides[i + 1].time)
             calculators.add(range to RuleOfTwelfthsWaterLevelCalculator(tides[i], tides[i + 1]))
         }
@@ -47,10 +54,59 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
         return PiecewiseWaterLevelCalculator(calculators)
     }
 
-    private fun getCalculatorForTide(tide: Tide): IWaterLevelCalculator {
+    private fun hasGap(first: Tide, second: Tide): Boolean {
+        val period = Duration.between(first.time, second.time)
+        val constituent =
+            if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2 else TideConstituent.K1
+        val maxPeriod = hours(180 / constituent.speed.toDouble() + 3.0)
+        return first.type == second.type || period > maxPeriod
+    }
+
+    private fun getGapCalculators(
+        first: Tide,
+        second: Tide
+    ): List<Pair<Range<ZonedDateTime>, IWaterLevelCalculator>> {
+        val calculators = mutableListOf<Pair<Range<ZonedDateTime>, IWaterLevelCalculator>>()
+
+        val frequency =
+            if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
+
+        val start = if (first.type == second.type) {
+            val nextTime = first.time.plus(hours(180 / frequency.toDouble()))
+            val nextHeight = if (first.type == TideType.High) getAverageLow() else getAverageHigh()
+            val nextTide = Tide(
+                nextTime,
+                if (first.type == TideType.High) TideType.Low else TideType.High,
+                nextHeight
+            )
+            calculators.add(
+                Range(first.time, nextTime) to RuleOfTwelfthsWaterLevelCalculator(
+                    first,
+                    nextTide
+                )
+            )
+            nextTide
+        } else {
+            first
+        }
+
+        calculators.add(
+            Range(start.time, second.time) to RuleOfTwelfthsWaterLevelCalculator(
+                start,
+                second,
+                frequency.toRadians()
+            )
+        )
+
+
+        return calculators
+    }
+
+    private fun getPastFutureCalculator(tide: Tide): IWaterLevelCalculator {
         val amplitude = (if (tide.type == TideType.Low) -1 else 1) * getAverageAmplitude()
         val z0 = tide.height - amplitude
-        val tideFrequency = getFrequency()
+        val tideFrequency =
+            if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
         return TideClockWaterLevelCalculator(
             tide,
             tideFrequency,
@@ -60,32 +116,38 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
     }
 
     private fun getBeforeCalculator(): IWaterLevelCalculator {
-        return getCalculatorForTide(tides.first())
+        return getPastFutureCalculator(tides.first())
     }
 
     private fun getAfterCalculator(): IWaterLevelCalculator {
-        return getCalculatorForTide(tides.last())
+        return getPastFutureCalculator(tides.last())
+    }
+
+    private fun getAverageHigh(): Float {
+        val highs = tides.filter { it.type == TideType.High }
+        val high = if (highs.isEmpty()) 0.0 else highs.sumOf { it.height.toDouble() } / highs.size
+        return high.toFloat()
+    }
+
+    private fun getAverageLow(): Float {
+        val lows = tides.filter { it.type == TideType.Low }
+        val low = if (lows.isEmpty()) 0.0 else lows.sumOf { it.height.toDouble() } / lows.size
+        return low.toFloat()
     }
 
     private fun getAverageAmplitude(): Float {
-        val highs = tides.filter { it.type == TideType.High }
-        val lows = tides.filter { it.type == TideType.Low }
-        val averageHigh =
-            if (highs.isEmpty()) 0.0 else highs.sumOf { it.height.toDouble() } / highs.size
-        val averageLow =
-            if (lows.isEmpty()) 0.0 else lows.sumOf { it.height.toDouble() } / lows.size
-        return (averageHigh - averageLow).toFloat() / 2
+        val averageHigh = getAverageHigh()
+        val averageLow = getAverageLow()
+        return (averageHigh - averageLow) / 2
     }
 
     private fun getFrequency(): TideFrequency {
-        val periods = mutableListOf<Duration>()
-        for (i in 0 until tides.lastIndex) {
-            val period = Duration.between(tides[i].time, tides[i + 1].time)
-            periods.add(period)
-        }
-        val semidiurnalThreshold = Duration.ofHours(8)
-        val semidiurnal = periods.any { it < semidiurnalThreshold }
-        return if (semidiurnal) TideFrequency.Semidiurnal else TideFrequency.Diurnal
+        /* TODO:
+            1. If user provided a value for this, use it
+            2. If user provide a location for the table, calculate this
+            3. Default to semidiurnal
+         */
+        return TideFrequency.Semidiurnal
     }
 
 }
