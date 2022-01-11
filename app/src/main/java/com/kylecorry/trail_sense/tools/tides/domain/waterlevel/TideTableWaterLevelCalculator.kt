@@ -13,7 +13,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
-class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
+class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelCalculator {
 
     private val tides = table.tides.sortedBy { it.time }
     private val piecewise by lazy { generatePiecewiseCalculator() }
@@ -142,12 +142,7 @@ class TideTableWaterLevelCalculator(table: TideTable) : IWaterLevelCalculator {
     }
 
     private fun getFrequency(): TideFrequency {
-        /* TODO:
-            1. If user provided a value for this, use it
-            2. If user provide a location for the table, calculate this
-            3. Default to semidiurnal
-         */
-        return TideFrequency.Semidiurnal
+        return table.frequency
     }
 
 }

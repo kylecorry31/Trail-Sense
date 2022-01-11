@@ -1185,11 +1185,17 @@
     <string name="pref_flashlight_timeout_title">Turn off after</string>
     <string name="view">View</string>
     <string name="tide_is_diurnal">Is diurnal?</string>
-    <string name="calculated">Calculated</string>
+    <string name="estimated">Estimated</string>
     <string name="tide_table">Tide table</string>
     <string name="high_tide_letter">H</string>
     <string name="low_tide_letter">L</string>
     <string name="tide_deleted">Tide deleted</string>
+    <string name="disclaimer_estimated_tide">Estimated tides may be inaccurate. Please use an official tide table for the exact times.</string>
+    <string name="disclaimer_estimated_tide_title">Estimated tide</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d tide</item>
+        <item quantity="other">%d tides</item>
+    </plurals>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d waypoint deleted</item>
         <item quantity="other">%d waypoints deleted</item>

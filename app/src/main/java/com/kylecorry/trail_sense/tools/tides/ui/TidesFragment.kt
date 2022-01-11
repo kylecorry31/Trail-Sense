@@ -8,10 +8,12 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.TidalRange
+import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -34,7 +36,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private var displayDate = LocalDate.now()
     private val tideService = TideService()
-    private lateinit var tideList: ListView<Triple<String, String, Boolean>>
+    private lateinit var tideList: ListView<Tide>
     private var table: TideTable? = null
     private lateinit var chart: TideChart
     private var waterLevels = listOf<Reading<Float>>()
@@ -53,12 +55,32 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         chart = TideChart(binding.chart)
         tideList = ListView(binding.tideList, R.layout.list_item_tide) { itemView, tide ->
             val tideBinding = ListItemTideBinding.bind(itemView)
-            tideBinding.tideType.text = tide.first + if (tide.third) {
-                " (${getString(R.string.calculated)})"
+            tideBinding.tideType.text = if (tide.type == TideType.High) {
+                getString(R.string.high_tide_letter)
             } else {
-                ""
+                getString(R.string.low_tide_letter)
             }
-            tideBinding.tideTime.text = tide.second
+
+            tideBinding.tideTime.text = formatService.formatTime(tide.time.toLocalTime(), false)
+
+            val isCalculated = this.table?.tides?.none { t -> t.time == tide.time } ?: true
+
+            tideBinding.tideHeight.text = if (isCalculated) {
+                getString(R.string.estimated)
+            } else {
+                formatService.formatDistance(Distance.meters(tide.height).convertTo(units), 2, true)
+            }
+
+            tideBinding.root.setOnClickListener {
+                if (isCalculated) {
+                    dialog(
+                        getString(R.string.disclaimer_estimated_tide_title),
+                        getString(R.string.disclaimer_estimated_tide),
+                        cancelText = null
+                    )
+                }
+            }
+
         }
 
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
@@ -171,27 +193,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
                 if (!isBound) {
                     return@withContext
                 }
-                val tideStrings = tides.map {
-                    val type = if (it.type == TideType.High) {
-                        getString(R.string.high_tide)
-                    } else {
-                        getString(R.string.low_tide)
-                    }
-                    val isCalculated = tide.tides.none { t -> t.time == it.time }
-                    // TODO: If height is not set in the tide table, don't show it
-                    val time = if (isCalculated) {
-                        formatService.formatTime(it.time.toLocalTime(), false)
-                    } else {
-                        val height = Distance.meters(it.height).convertTo(units)
-                        val formattedHeight = formatService.formatDistance(height, 2, true)
-                        formatService.formatTime(
-                            it.time.toLocalTime(),
-                            false
-                        ) + " (${formattedHeight})"
-                    }
-                    Triple(type, time, isCalculated)
-                }
-                tideList.setData(tideStrings)
+                tideList.setData(tides)
             }
         }
     }

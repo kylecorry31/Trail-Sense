@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class TideListFragment: BoundFragment<FragmentTideListBinding>() {
+class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     private lateinit var listView: ListView<TideTable>
     private val formatService by lazy { FormatService(requireContext()) }
@@ -44,19 +44,23 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listView = ListView(binding.tideList, R.layout.list_item_plain_menu){ listItemView, tide ->
+        listView = ListView(binding.tideList, R.layout.list_item_plain_menu) { listItemView, tide ->
             val itemBinding = ListItemPlainMenuBinding.bind(listItemView)
             itemBinding.title.text = getTideTitle(tide)
-//            itemBinding.description.text = getTideTypeName(oceanographyService.getTideType(tide.reference, TideFrequency.Semidiurnal))
+            itemBinding.description.text = resources.getQuantityString(
+                R.plurals.tides_entered_count,
+                tide.tides.size,
+                tide.tides.size
+            )
             itemBinding.root.setOnClickListener {
                 tryOrNothing {
                     selectTide(tide)
                 }
             }
-            
+
             itemBinding.menuBtn.setOnClickListener {
-                Pickers.menu(it, R.menu.tide_menu){ action ->
-                    when (action){
+                Pickers.menu(it, R.menu.tide_menu) { action ->
+                    when (action) {
                         R.id.action_tide_delete -> {
                             deleteTide(tide)
                         }
@@ -78,7 +82,7 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
         }
     }
 
-    private fun deleteTide(tide: TideTable){
+    private fun deleteTide(tide: TideTable) {
         Alerts.dialog(
             requireContext(),
             getString(R.string.delete_tide_prompt),
@@ -96,31 +100,37 @@ class TideListFragment: BoundFragment<FragmentTideListBinding>() {
         }
     }
 
-    private fun editTide(tide: TideTable){
-        findNavController().navigate(R.id.action_tideList_to_createTide, bundleOf("edit_tide_id" to tide.id))
+    private fun editTide(tide: TideTable) {
+        findNavController().navigate(
+            R.id.action_tideList_to_createTide,
+            bundleOf("edit_tide_id" to tide.id)
+        )
     }
 
-    private fun createTide(){
+    private fun createTide() {
         findNavController().navigate(R.id.action_tideList_to_createTide)
     }
 
-    private fun selectTide(tide: TideTable){
+    private fun selectTide(tide: TideTable) {
         prefs.tides.lastTide = tide.id
-        findNavController().popBackStack()
+        findNavController().navigateUp()
     }
 
     private fun getTideTitle(tide: TideTable): String {
-        return tide.name ?: if (tide.location != null) formatService.formatLocation(tide.location!!) else getString(android.R.string.untitled)
+        return tide.name
+            ?: if (tide.location != null) formatService.formatLocation(tide.location!!) else getString(
+                android.R.string.untitled
+            )
     }
 
-    private fun refreshTides(){
+    private fun refreshTides() {
         runInBackground {
-            val tides = withContext(Dispatchers.IO){
+            val tides = withContext(Dispatchers.IO) {
                 tideRepo.getTideTables()
             }
 
-            withContext(Dispatchers.Main){
-                if (isBound){
+            withContext(Dispatchers.Main) {
+                if (isBound) {
                     listView.setData(tides.sortedBy { tide ->
                         tide.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
                     })
