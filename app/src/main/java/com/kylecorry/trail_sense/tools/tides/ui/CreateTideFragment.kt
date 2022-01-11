@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -23,9 +23,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
@@ -42,6 +42,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val units by lazy { prefs.baseDistanceUnits }
+
+    private var backCallback: OnBackPressedCallback? = null
 
     private val intervalometer = Timer {
         binding.createTideBtn.isVisible = formIsValid()
@@ -190,17 +192,22 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.createTideBtn.setOnClickListener {
             val tide = getTide()
             if (tide != null) {
-                lifecycleScope.launch {
+                runInBackground {
                     withContext(Dispatchers.IO) {
                         tideRepo.addTideTable(tide)
                     }
 
                     withContext(Dispatchers.Main) {
-                        findNavController().popBackStack()
+                        backCallback?.remove()
+                        findNavController().navigateUp()
                     }
                 }
             }
         }
+
+        backCallback =
+            CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+
     }
 
 
@@ -249,6 +256,11 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             name,
             location
         )
+    }
+
+    private fun hasChanges(): Boolean {
+        val specification = TideTableIsDirtySpecification(editingTide)
+        return specification.isSatisfiedBy(getTide())
     }
 
 
