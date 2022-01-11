@@ -28,6 +28,7 @@
 
 ## Table of Contents
 
+- [2022](#2022-focus-areas)
 - [Goals](#goals)
 - [Features](#features)
 - [Privacy](#privacy)
@@ -36,6 +37,12 @@
 - [Support](#support)
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
+
+## 2022 Focus Areas
+- Tides
+- Maps
+- Paths
+- Stability, usability, performance, testing
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
