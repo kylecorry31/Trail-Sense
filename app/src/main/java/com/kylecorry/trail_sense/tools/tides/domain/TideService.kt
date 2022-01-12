@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.findExtrema
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 class TideService {
@@ -62,10 +61,10 @@ class TideService {
         }
     }
 
-    fun isWithinTideTable(table: TideTable, time: LocalDateTime = LocalDateTime.now()): Boolean {
+    fun isWithinTideTable(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): Boolean {
         val sortedTides = table.tides.sortedBy { it.time }
         for (i in 0 until sortedTides.lastIndex) {
-            if (sortedTides[i].time <= time.toZonedDateTime() && sortedTides[i + 1].time >= time.toZonedDateTime()) {
+            if (sortedTides[i].time <= time && sortedTides[i + 1].time >= time) {
                 val period = Duration.between(sortedTides[i].time, sortedTides[i + 1].time)
                 val constituent =
                     if (table.frequency == TideFrequency.Semidiurnal) TideConstituent.M2 else TideConstituent.K1
@@ -76,7 +75,7 @@ class TideService {
         return false
     }
 
-    fun getCurrentTide(table: TideTable, time: LocalDateTime = LocalDateTime.now()): TideType? {
+    fun getCurrentTide(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): TideType? {
         val next = getNextTide(table, time)
         val timeToNextTide = Duration.between(time, next.time)
         val closeToNextTide = timeToNextTide < Duration.ofHours(2)
@@ -92,13 +91,16 @@ class TideService {
         }
     }
 
-    fun isRising(table: TideTable, time: LocalDateTime = LocalDateTime.now()): Boolean {
+    fun isRising(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): Boolean {
         return getNextTide(table, time).isHigh
     }
 
-    private fun getNextTide(table: TideTable, time: LocalDateTime): Tide {
+    private fun getNextTide(table: TideTable, time: ZonedDateTime): Tide {
         val todayTides = getTides(table, time.toLocalDate())
-        val next = todayTides.firstOrNull { it.time >= time.toZonedDateTime() }
-        return next ?: getNextTide(table, time.toLocalDate().atStartOfDay().plusDays(1))
+        val next = todayTides.firstOrNull { it.time >= time }
+        return next ?: getNextTide(
+            table,
+            time.toLocalDate().plusDays(1).atStartOfDay().atZone(time.zone)
+        )
     }
 }

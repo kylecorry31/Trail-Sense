@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.sol.science.oceanography.TidalRange
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
@@ -246,14 +245,6 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     override fun onUpdate() {
         super.onUpdate()
         updateCurrentTide()
-    }
-
-    private fun getTidalRangeName(range: TidalRange): String {
-        return when (range) {
-            TidalRange.Neap -> getString(R.string.tide_neap)
-            TidalRange.Spring -> getString(R.string.tide_spring)
-            TidalRange.Normal -> getString(R.string.tide_normal)
-        }
     }
 
     private fun getTideTypeName(tideType: TideType?): String {
