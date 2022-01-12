@@ -9,6 +9,7 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.findExtrema
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
 import java.time.LocalDate
@@ -18,30 +19,15 @@ import java.time.ZonedDateTime
 class TideService {
 
     fun getTides(table: TideTable, date: LocalDate): List<Tide> {
-        // TODO: Calculate the tides instead of brute forcing if possible
-        var time = date.atStartOfDay().toZonedDateTime()
-        val tides = mutableListOf<Tide>()
-        var previous = getWaterLevel(table, time.minusMinutes(1))
-        var next = getWaterLevel(table, time)
-        while (time.toLocalDate() == date) {
-            val level = next
-            next = getWaterLevel(table, time.plusMinutes(1))
-            val isHigh = previous < level && next < level
-            val isLow = previous > level && next > level
-
-            if (isHigh) {
-                tides.add(Tide.high(time, level))
-            }
-
-            if (isLow) {
-                tides.add(Tide.low(time, level))
-            }
-
-            previous = level
-            time = time.plusMinutes(1)
+        // TODO: The tide table extrema can be calculated without a brute force approach
+        val start = date.atStartOfDay().toZonedDateTime()
+        val end = date.plusDays(1).atStartOfDay().toZonedDateTime()
+        val range = Duration.between(start, end).toMinutes()
+        val waterLevelCalculator = TideTableWaterLevelCalculator(table)
+        val extrema = findExtrema(0f, range.toFloat(), 1f) {
+            waterLevelCalculator.calculate(start.plusMinutes(it.toLong()))
         }
-
-        return tides
+        return extrema.map { Tide(start.plusMinutes(it.point.x.toLong()), it.isHigh, it.point.y) }
     }
 
     fun getWaterLevel(table: TideTable, time: ZonedDateTime): Float {

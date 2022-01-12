@@ -88,3 +88,32 @@ fun GeoUri.Companion.from(beacon: Beacon): GeoUri {
 fun hoursBetween(first: ZonedDateTime, second: ZonedDateTime): Float {
     return Duration.between(first, second).seconds / 3600f
 }
+
+// TODO: Move this into sol
+fun findExtrema(start: Float, end: Float, increment: Float, fn: (x: Float) -> Float): List<Extrema> {
+    val extrema = mutableListOf<Extrema>()
+    var previous = start - increment
+    var x = start
+    var next = fn(x)
+    while (x <= end){
+        val y = next
+        next = fn(x + increment)
+        val isHigh = previous < y && next < y
+        val isLow = previous > y && next > y
+
+        if (isHigh) {
+            extrema.add(Extrema(Vector2(x, y), true))
+        }
+
+        if (isLow) {
+            extrema.add(Extrema(Vector2(x, y), false))
+        }
+
+        previous = y
+        x += increment
+    }
+    return extrema
+}
+
+
+data class Extrema(val point: Vector2, val isHigh: Boolean)
