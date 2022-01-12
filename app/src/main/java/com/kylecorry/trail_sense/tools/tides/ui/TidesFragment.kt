@@ -55,7 +55,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         chart = TideChart(binding.chart)
         tideList = ListView(binding.tideList, R.layout.list_item_tide) { itemView, tide ->
             val tideBinding = ListItemTideBinding.bind(itemView)
-            tideBinding.tideType.text = if (tide.type == TideType.High) {
+            tideBinding.tideType.text = if (tide.isHigh) {
                 getString(R.string.high_tide_letter)
             } else {
                 getString(R.string.low_tide_letter)
@@ -65,10 +65,16 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
             val isCalculated = this.table?.tides?.none { t -> t.time == tide.time } ?: true
 
-            tideBinding.tideHeight.text = if (isCalculated) {
-                getString(R.string.estimated)
-            } else {
-                formatService.formatDistance(Distance.meters(tide.height).convertTo(units), 2, true)
+            tideBinding.tideHeight.text = when {
+                isCalculated -> {
+                    getString(R.string.estimated)
+                }
+                tide.height == null -> {
+                    getString(R.string.dash)
+                }
+                else -> {
+                    formatService.formatDistance(Distance.meters(tide.height!!).convertTo(units), 2, true)
+                }
             }
 
             tideBinding.root.setOnClickListener {

@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.shared.database.Identifiable
 import java.time.Instant
 import java.time.ZoneId
@@ -21,8 +20,8 @@ data class TideTableRowEntity(
     fun toTide(): Tide {
         return Tide(
             time.atZone(ZoneId.systemDefault()),
-            if (isHigh) TideType.High else TideType.Low,
-            heightMeters ?: 0f // TODO: This field should be nullable
+            isHigh,
+            heightMeters
         )
     }
 
@@ -32,7 +31,7 @@ data class TideTableRowEntity(
                 id,
                 tableId,
                 tide.time.toInstant(),
-                tide.type == TideType.High,
+                tide.isHigh,
                 tide.height
             )
         }

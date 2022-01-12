@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -215,10 +214,11 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.tideName.setText(tide.name)
         binding.tideLocation.coordinate = tide.location
         tides.addAll(tide.tides.map {
+            val h = it.height
             TideEntry(
-                it.type == TideType.High,
+                it.isHigh,
                 it.time,
-                Distance.meters(it.height).convertTo(units)
+                if (h != null) Distance.meters(h).convertTo(units) else null
             )
         })
         tideTimesList.setData(tides)
@@ -233,8 +233,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             val time = it.time ?: return@mapNotNull null
             Tide(
                 time,
-                if (it.isHigh) TideType.High else TideType.Low,
-                it.height?.meters()?.distance ?: 0f
+                it.isHigh,
+                it.height?.meters()?.distance
             )
         }
 

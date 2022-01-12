@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.analysis.CosineWave
+import com.kylecorry.sol.math.analysis.Waveform
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
-import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.shared.hoursBetween
-import com.kylecorry.trail_sense.tools.tides.domain.Wave
 import java.time.ZonedDateTime
 
 class TideClockWaterLevelCalculator(
@@ -19,12 +19,12 @@ class TideClockWaterLevelCalculator(
 
     override fun calculate(time: ZonedDateTime): Float {
         val t = hoursBetween(reference.time, time)
-        return wave.cosine(t)
+        return wave.calculate(t)
     }
 
-    private fun getWave(): Wave {
-        val amplitude = if (reference.type == TideType.Low) -amplitude else amplitude
-        return Wave(amplitude, frequency.toRadians(), 0f, z0)
+    private fun getWave(): Waveform {
+        val amplitude = if (!reference.isHigh) -amplitude else amplitude
+        return CosineWave(amplitude, frequency.toRadians(), 0f, z0)
     }
 
 }

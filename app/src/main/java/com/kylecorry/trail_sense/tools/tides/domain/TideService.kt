@@ -71,7 +71,7 @@ class TideService {
         return if (table.tides.size <= 1) {
             Range(-1f, 1f)
         } else {
-            val range = table.tides.map { it.height }.rangeOrNull()
+            val range = table.tides.mapNotNull { it.height }.rangeOrNull()
             Range(range?.lower ?: -1f, range?.upper ?: 1f)
         }
     }
@@ -84,7 +84,7 @@ class TideService {
                 val constituent =
                     if (table.frequency == TideFrequency.Semidiurnal) TideConstituent.M2 else TideConstituent.K1
                 val maxPeriod = Time.hours(180 / constituent.speed.toDouble() + 3.0)
-                return !(sortedTides[i].type == sortedTides[i + 1].type || period > maxPeriod)
+                return !(sortedTides[i].isHigh == sortedTides[i + 1].isHigh || period > maxPeriod)
             }
         }
         return false
@@ -95,8 +95,8 @@ class TideService {
         val timeToNextTide = Duration.between(time, next.time)
         val closeToNextTide = timeToNextTide < Duration.ofHours(2)
         val farFromNextTide = timeToNextTide > Duration.ofHours(4)
-        val nextIsHigh = next.type == TideType.High
-        val nextIsLow = next.type == TideType.Low
+        val nextIsHigh = next.isHigh
+        val nextIsLow = !next.isHigh
         return if ((nextIsHigh && closeToNextTide) || (nextIsLow && farFromNextTide)) {
             TideType.High
         } else if ((nextIsLow && closeToNextTide) || (nextIsHigh && farFromNextTide)) {
@@ -107,7 +107,7 @@ class TideService {
     }
 
     fun isRising(table: TideTable, time: LocalDateTime = LocalDateTime.now()): Boolean {
-        return getNextTide(table, time).type == TideType.High
+        return getNextTide(table, time).isHigh
     }
 
     private fun getNextTide(table: TideTable, time: LocalDateTime): Tide {
