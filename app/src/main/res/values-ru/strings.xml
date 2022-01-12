@@ -1075,4 +1075,9 @@
     <string name="qr_text_too_long">Текст слишком длинный, QR-код был обрезан</string>
     <string name="pref_flashlight_should_timeout_title">Автовыключение</string>
     <string name="pref_flashlight_timeout_title">Выключить после</string>
+    <string name="tide_is_diurnal">Суточный\?</string>
+    <string name="calculated">Рассчитано</string>
+    <string name="tide_table">Таблица приливов</string>
+    <string name="high_tide_letter">В</string>
+    <string name="low_tide_letter">Н</string>
 </resources>

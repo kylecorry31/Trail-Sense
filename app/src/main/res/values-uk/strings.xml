@@ -70,9 +70,9 @@
     <string name="date_not_set">Дату не встановлено</string>
     <string name="time_not_set">Час не встановлено</string>
     <string name="tide_calibration_instructions">Установіть час припливу поруч з вами, бажано на дату нового місяця чи повного місяця. Його можна отримати в Інтернеті або роздрукувавши таблиці припливів і відливів. Припливи, показані в Trail Sense, можуть відрізнятися до двох годин, чого досить для довідки, але на що не можна покладатися.</string>
-    <string name="half_tide">Половина припливу</string>
-    <string name="low_tide">Низький приплив</string>
-    <string name="high_tide">Високий приплив</string>
+    <string name="half_tide">Половинний</string>
+    <string name="low_tide">Низький</string>
+    <string name="high_tide">Високий</string>
     <string name="tides">Припливи</string>
     <string name="experimental">Експериментально</string>
     <string name="right_quick_action">Швидка дія справа</string>
@@ -1070,4 +1070,10 @@
     <string name="pref_flashlight_should_timeout_title">Автовимкнення</string>
     <string name="pref_flashlight_timeout_title">Вимкнути після</string>
     <string name="night">Ніч</string>
+    <string name="tide_is_diurnal">Є добовим\?</string>
+    <string name="calculated">Обчислено</string>
+    <string name="tide_table">Таблиця припливів</string>
+    <string name="low_tide_letter">Н</string>
+    <string name="view">Показ</string>
+    <string name="high_tide_letter">В</string>
 </resources>
