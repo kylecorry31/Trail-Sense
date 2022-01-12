@@ -1050,4 +1050,5 @@
     <string name="low_tide_letter">落潮</string>
     <string name="tide_is_diurnal">是全日潮吗？</string>
     <string name="view">查看</string>
+    <string name="tide_deleted">检查到潮汐</string>
 </resources>
