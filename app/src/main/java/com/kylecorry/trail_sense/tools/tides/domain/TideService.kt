@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.tides.domain
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
-import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -61,8 +60,7 @@ class TideService {
         for (i in 0 until sortedTides.lastIndex) {
             if (sortedTides[i].time <= time && sortedTides[i + 1].time >= time) {
                 val period = Duration.between(sortedTides[i].time, sortedTides[i + 1].time)
-                val constituent =
-                    if (table.frequency == TideFrequency.Semidiurnal) TideConstituent.M2 else TideConstituent.K1
+                val constituent = if (table.isSemidiurnal) TideConstituent.M2 else TideConstituent.K1
                 val maxPeriod = Time.hours(180 / constituent.speed.toDouble() + 3.0)
                 return !(sortedTides[i].isHigh == sortedTides[i + 1].isHigh || period > maxPeriod)
             }

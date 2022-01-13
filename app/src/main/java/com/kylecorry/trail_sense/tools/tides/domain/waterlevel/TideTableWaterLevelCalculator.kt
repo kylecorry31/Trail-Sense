@@ -4,7 +4,6 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
-import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.time.Time.hours
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
@@ -20,62 +19,47 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     private val piecewise by lazy { generatePiecewiseCalculator() }
 
     override fun calculate(time: ZonedDateTime): Float {
-        if (tides.isEmpty()) {
-            return 0f
-        }
-
-        if (tides.size == 1) {
-            val tide = tides[0]
-            val frequency =
-                if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
-            val amplitude = getAmplitude()
-            return TideClockWaterLevelCalculator(tide, frequency, amplitude = amplitude, tide.height!! - amplitude).calculate(time)
-        }
-
-        return piecewise.calculate(time)
+        return if (tides.isEmpty()) 0f else piecewise.calculate(time)
     }
 
     private fun generatePiecewiseCalculator(): IWaterLevelCalculator {
-        val minTime = LocalDate.of(2000, 1, 1).atStartOfDay().toZonedDateTime()
-        val maxTime = LocalDate.of(3000, 1, 1).atStartOfDay().toZonedDateTime()
-
         val calculators = mutableListOf(
-            Range(minTime, tides.first().time) to getBeforeCalculator(),
-            Range(tides.last().time, maxTime) to getAfterCalculator()
+            Range(MIN_TIME, tides.first().time) to getBeforeCalculator(),
+            Range(tides.last().time, MAX_TIME) to getAfterCalculator()
         )
 
-        for (i in 0 until tides.lastIndex) {
-            if (hasGap(tides[i], tides[i + 1])) {
-                calculators.addAll(getGapCalculators(tides[i], tides[i + 1]))
-                continue
+        val tableCalculators = tides.zipWithNext().map {
+            if (hasGap(it.first, it.second)){
+               getGapCalculator(it.first, it.second)
+            } else {
+                val range = Range(it.first.time, it.second.time)
+                range to RuleOfTwelfthsWaterLevelCalculator(it.first, it.second)
             }
-            val range = Range(tides[i].time, tides[i + 1].time)
-            calculators.add(range to RuleOfTwelfthsWaterLevelCalculator(tides[i], tides[i + 1]))
         }
+
+        calculators.addAll(tableCalculators)
 
         return PiecewiseWaterLevelCalculator(calculators)
     }
 
     private fun hasGap(first: Tide, second: Tide): Boolean {
         val period = Duration.between(first.time, second.time)
-        val constituent =
-            if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2 else TideConstituent.K1
-        val maxPeriod = hours(180 / constituent.speed.toDouble() + 3.0)
+        val frequency = getMainConstituent().speed
+        val maxPeriod = hours(180 / frequency.toDouble() + 3.0)
         return first.isHigh == second.isHigh || period > maxPeriod
     }
 
-    private fun getGapCalculators(
+    private fun getGapCalculator(
         first: Tide,
         second: Tide
-    ): List<Pair<Range<ZonedDateTime>, IWaterLevelCalculator>> {
+    ): Pair<Range<ZonedDateTime>, IWaterLevelCalculator> {
         val calculators = mutableListOf<Pair<Range<ZonedDateTime>, IWaterLevelCalculator>>()
 
-        val frequency =
-            if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
+        val frequency = getMainConstituent().speed
 
         val start = if (first.isHigh == second.isHigh) {
             val nextTime = first.time.plus(hours(180 / frequency.toDouble()))
-            val nextHeight = if (first.isHigh) getAverageLow() else getAverageHigh()
+            val nextHeight = if (first.isHigh) range.start else range.end
             val nextTide = Tide(
                 nextTime,
                 !first.isHigh,
@@ -101,17 +85,15 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         )
 
 
-        return calculators
+        return Range(first.time, second.time) to PiecewiseWaterLevelCalculator(calculators)
     }
 
     private fun getPastFutureCalculator(tide: Tide): IWaterLevelCalculator {
         val amplitude = (if (!tide.isHigh) -1 else 1) * getAmplitude()
         val z0 = tide.height!! - amplitude
-        val tideFrequency =
-            if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
         return TideClockWaterLevelCalculator(
             tide,
-            tideFrequency,
+            getMainConstituent().speed,
             getAmplitude(),
             z0
         )
@@ -125,14 +107,6 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         return getPastFutureCalculator(tides.last())
     }
 
-    private fun getAverageHigh(): Float {
-        return range.end
-    }
-
-    private fun getAverageLow(): Float {
-        return range.start
-    }
-
     private fun getHeight(tide: Tide): Float {
         return tide.height ?: (if (tide.isHigh) range.end else range.start)
     }
@@ -142,13 +116,20 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getAmplitude(): Float {
-        val averageHigh = getAverageHigh()
-        val averageLow = getAverageLow()
-        return (averageHigh - averageLow) / 2
+        return (range.end - range.start) / 2
     }
 
-    private fun getFrequency(): TideFrequency {
-        return table.frequency
+    private fun getMainConstituent(): TideConstituent {
+        return if (table.isSemidiurnal) {
+            TideConstituent.M2
+        } else {
+            TideConstituent.K1
+        }
+    }
+
+    companion object {
+        private val MIN_TIME = LocalDate.of(2000, 1, 1).atStartOfDay().toZonedDateTime()
+        private val MAX_TIME = LocalDate.of(3000, 1, 1).atStartOfDay().toZonedDateTime()
     }
 
 }

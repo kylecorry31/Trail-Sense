@@ -6,11 +6,6 @@ import java.time.ZonedDateTime
 class PiecewiseWaterLevelCalculator(private val calculators: List<Pair<Range<ZonedDateTime>, IWaterLevelCalculator>>) :
     IWaterLevelCalculator {
     override fun calculate(time: ZonedDateTime): Float {
-        for (calculator in calculators) {
-            if (calculator.first.contains(time)) {
-                return calculator.second.calculate(time)
-            }
-        }
-        return 0f
+        return calculators.firstOrNull { it.first.contains(time) }?.second?.calculate(time) ?: 0f
     }
 }
