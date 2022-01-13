@@ -1054,4 +1054,11 @@
     <string name="qr_text_too_long">Text zu lang, QR-Code war abgeschnitten</string>
     <string name="pref_flashlight_should_timeout_title">Automatisch ausschalten</string>
     <string name="pref_flashlight_timeout_title">Danach ausschalten</string>
+    <string name="view">Anzeige</string>
+    <string name="tide_is_diurnal">Täglich\?</string>
+    <string name="calculated">Berechnet</string>
+    <string name="tide_table">Gezeitentabelle</string>
+    <string name="high_tide_letter">F</string>
+    <string name="low_tide_letter">E</string>
+    <string name="tide_deleted">Gezeit gelöscht</string>
 </resources>
