@@ -8,13 +8,15 @@ import com.kylecorry.sol.science.oceanography.TideFrequency
 import com.kylecorry.sol.time.Time.hours
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelCalculator {
 
-    private val tides = table.tides.sortedBy { it.time }
+    private val range = TideTableRangeCalculator().getRange(table)
+    private val tides = table.tides.sortedBy { it.time }.map { populateHeight(it) }
     private val piecewise by lazy { generatePiecewiseCalculator() }
 
     override fun calculate(time: ZonedDateTime): Float {
@@ -26,7 +28,8 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
             val tide = tides[0]
             val frequency =
                 if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
-            return TideClockWaterLevelCalculator(tide, frequency).calculate(time)
+            val amplitude = getAmplitude()
+            return TideClockWaterLevelCalculator(tide, frequency, amplitude = amplitude, tide.height!! - amplitude).calculate(time)
         }
 
         return piecewise.calculate(time)
@@ -102,14 +105,14 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getPastFutureCalculator(tide: Tide): IWaterLevelCalculator {
-        val amplitude = (if (!tide.isHigh) -1 else 1) * getAverageAmplitude()
-        val z0 = (tide.height ?: 0.0f) - amplitude
+        val amplitude = (if (!tide.isHigh) -1 else 1) * getAmplitude()
+        val z0 = tide.height!! - amplitude
         val tideFrequency =
             if (getFrequency() == TideFrequency.Semidiurnal) TideConstituent.M2.speed else TideConstituent.K1.speed
         return TideClockWaterLevelCalculator(
             tide,
             tideFrequency,
-            getAverageAmplitude(),
+            getAmplitude(),
             z0
         )
     }
@@ -123,18 +126,22 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getAverageHigh(): Float {
-        val highs = tides.filter { it.isHigh }
-        val high = if (highs.isEmpty()) 0.0 else highs.sumOf { it.height?.toDouble() ?: 0.0 } / highs.size
-        return high.toFloat()
+        return range.end
     }
 
     private fun getAverageLow(): Float {
-        val lows = tides.filter { !it.isHigh }
-        val low = if (lows.isEmpty()) 0.0 else lows.sumOf { it.height?.toDouble() ?: 0.0 } / lows.size
-        return low.toFloat()
+        return range.start
     }
 
-    private fun getAverageAmplitude(): Float {
+    private fun getHeight(tide: Tide): Float {
+        return tide.height ?: (if (tide.isHigh) range.end else range.start)
+    }
+
+    private fun populateHeight(tide: Tide): Tide {
+        return tide.copy(height = getHeight(tide))
+    }
+
+    private fun getAmplitude(): Float {
         val averageHigh = getAverageHigh()
         val averageLow = getAverageLow()
         return (averageHigh - averageLow) / 2

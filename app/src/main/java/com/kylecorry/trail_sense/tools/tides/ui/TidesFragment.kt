@@ -8,14 +8,13 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
@@ -25,6 +24,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.loading.TideLoaderFactory
+import com.kylecorry.trail_sense.tools.tides.ui.tidelistitem.DefaultTideListItemFactory
+import com.kylecorry.trail_sense.tools.tides.ui.tidelistitem.EstimatedTideListItemFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.*
@@ -38,9 +39,15 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private lateinit var tideList: ListView<Tide>
     private var table: TideTable? = null
     private lateinit var chart: TideChart
-    private var waterLevels = listOf<Reading<Float>>()
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val units by lazy { prefs.baseDistanceUnits }
+
+    private var current: CurrentTideData? = null
+    private var daily: DailyTideData? = null
+
+    private var currentRefreshTimer = Timer {
+        runInBackground { refreshCurrent() }
+    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -54,38 +61,14 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         chart = TideChart(binding.chart)
         tideList = ListView(binding.tideList, R.layout.list_item_tide) { itemView, tide ->
             val tideBinding = ListItemTideBinding.bind(itemView)
-            tideBinding.tideType.text = if (tide.isHigh) {
-                getString(R.string.high_tide_letter)
+            val isEstimated = this.table?.tides?.none { t -> t.time == tide.time } ?: true
+            val factory = if (isEstimated){
+                EstimatedTideListItemFactory(requireContext())
             } else {
-                getString(R.string.low_tide_letter)
+                DefaultTideListItemFactory(requireContext())
             }
-
-            tideBinding.tideTime.text = formatService.formatTime(tide.time.toLocalTime(), false)
-
-            val isCalculated = this.table?.tides?.none { t -> t.time == tide.time } ?: true
-
-            tideBinding.tideHeight.text = when {
-                isCalculated -> {
-                    getString(R.string.estimated)
-                }
-                tide.height == null -> {
-                    getString(R.string.dash)
-                }
-                else -> {
-                    formatService.formatDistance(Distance.meters(tide.height!!).convertTo(units), 2, true)
-                }
-            }
-
-            tideBinding.root.setOnClickListener {
-                if (isCalculated) {
-                    dialog(
-                        getString(R.string.disclaimer_estimated_tide_title),
-                        getString(R.string.disclaimer_estimated_tide),
-                        cancelText = null
-                    )
-                }
-            }
-
+            val item = factory.create(tide)
+            item.display(tideBinding)
         }
 
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
@@ -144,108 +127,112 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         }
 
 
-        scheduleUpdates(Duration.ofSeconds(1))
+        scheduleUpdates(20)
     }
 
     private fun onTideLoaded() {
-        if (!isBound) {
-            return
-        }
+        if (!isBound) return
         val tide = table ?: return
         binding.tideLocation.text = tide.name
-            ?: if (tide.location != null) formatService.formatLocation(tide.location!!) else getString(
+            ?: if (tide.location != null) formatService.formatLocation(tide.location) else getString(
                 android.R.string.untitled
             )
-        updateTideChart()
-        updateTideTable()
-        updateCurrentTide()
+        runInBackground {
+            refreshDaily()
+            refreshCurrent()
+        }
     }
 
     private fun onDisplayDateChanged() {
-        if (!isBound) {
-            return
+        if (!isBound) return
+        runInBackground {
+            refreshDaily()
         }
-        updateTideChart()
-        updateTideTable()
-        updateCurrentTide()
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
     }
 
-    private fun updateTideChart() {
-        val tide = table ?: return
-        runInBackground {
-            waterLevels = withContext(Dispatchers.Default) {
-                tideService.getWaterLevels(tide, displayDate)
-            }
-            withContext(Dispatchers.Main) {
-                if (!isBound) {
-                    return@withContext
-                }
-                chart.plot(waterLevels, tideService.getRange(tide))
-            }
-        }
+    private fun updateDaily() {
+        if (!isBound) return
+        val daily = daily ?: return
+        chart.plot(daily.waterLevels, daily.waterLevelRange)
+        tideList.setData(daily.tides)
 
     }
 
-    private fun updateTideTable() {
-        val tide = table ?: return
-        runInBackground {
-            val tides = withContext(Dispatchers.Default) {
-                tideService.getTides(tide, displayDate)
-            }
+    private fun updateCurrent() {
+        if (!isBound) return
+        val current = current ?: return
+        val daily = daily ?: return
 
-            withContext(Dispatchers.Main) {
-                if (!isBound) {
-                    return@withContext
-                }
-                tideList.setData(tides)
+        binding.tideHeight.text =
+            getTideTypeName(current.type) + if (current.waterLevel != null) {
+                val height = Distance.meters(current.waterLevel).convertTo(units)
+                " (${formatService.formatDistance(height, 2, true)})"
+            } else {
+                ""
             }
+        val currentLevel = daily.waterLevels.minByOrNull {
+            Duration.between(Instant.now(), it.time).abs()
         }
+        val currentIdx = daily.waterLevels.indexOf(currentLevel)
+        val point = chart.getPoint(currentIdx)
+        binding.position.isInvisible =
+            point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
+        binding.position.x = point.x - binding.position.width / 2f
+        binding.position.y = point.y - binding.position.height / 2f
+        binding.tideTendency.isVisible = true
+        binding.tideTendency.setImageResource(if (current.rising) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
     }
 
-    private fun updateCurrentTide() {
-        val tide = table ?: return
-        runInBackground {
-            val current = withContext(Dispatchers.Default) {
-                tideService.getCurrentTide(tide)
-            }
-            val isRising = withContext(Dispatchers.Default) {
-                tideService.isRising(tide)
-            }
-            val height = withContext(Dispatchers.Default) {
-                tideService.getWaterLevel(tide, ZonedDateTime.now())
-            }
-            withContext(Dispatchers.Main) {
-                if (!isBound) {
-                    return@withContext
-                }
-                binding.tideHeight.text =
-                    getTideTypeName(current) + if (tideService.isWithinTideTable(tide)) {
-                        val height = Distance.meters(height).convertTo(units)
-                        " (${formatService.formatDistance(height, 2, true)})"
-                    } else {
-                        ""
-                    }
-                // TODO: Draw position on chart
-                val currentLevel = waterLevels.minByOrNull {
-                    Duration.between(Instant.now(), it.time).abs()
-                }
-                val currentIdx = waterLevels.indexOf(currentLevel)
-                val point = chart.getPoint(currentIdx)
-                binding.position.isInvisible =
-                    point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
-                binding.position.x = point.x - binding.position.width / 2f
-                binding.position.y = point.y - binding.position.height / 2f
-                binding.tideTendency.isVisible = true
-                binding.tideTendency.setImageResource(if (isRising) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        currentRefreshTimer.interval(Duration.ofMinutes(1))
+        displayDate = LocalDate.now()
+        onDisplayDateChanged()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        currentRefreshTimer.stop()
     }
 
     override fun onUpdate() {
         super.onUpdate()
-        updateCurrentTide()
+        updateCurrent()
     }
+
+    private suspend fun refreshCurrent() {
+        current = getCurrentTideData()
+        withContext(Dispatchers.Main) {
+            updateCurrent()
+        }
+    }
+
+    private suspend fun refreshDaily() {
+        daily = getDailyTideData(displayDate)
+        withContext(Dispatchers.Main) {
+            updateDaily()
+        }
+    }
+
+    private suspend fun getCurrentTideData(): CurrentTideData? = withContext(Dispatchers.Default) {
+        val table = table ?: return@withContext null
+        val now = ZonedDateTime.now()
+        val level = tideService.getWaterLevel(table, now)
+        val isRising = tideService.isRising(table, now)
+        val type = tideService.getCurrentTide(table, now)
+        val withinTable = tideService.isWithinTideTable(table, now)
+        CurrentTideData(if (withinTable) level else null, type, isRising)
+    }
+
+    private suspend fun getDailyTideData(date: LocalDate): DailyTideData? =
+        withContext(Dispatchers.Default) {
+            val table = table ?: return@withContext null
+            val levels = tideService.getWaterLevels(table, date)
+            val tides = tideService.getTides(table, date)
+            val range = tideService.getRange(table)
+            DailyTideData(levels, tides, range)
+        }
 
     private fun getTideTypeName(tideType: TideType?): String {
         return when (tideType) {
@@ -254,5 +241,4 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             null -> getString(R.string.half_tide)
         }
     }
-
 }

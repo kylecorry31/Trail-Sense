@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
-import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.optimization.SimpleExtremaFinder
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.TideFrequency
@@ -10,6 +8,7 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
 import java.time.LocalDate
@@ -54,12 +53,7 @@ class TideService {
     }
 
     fun getRange(table: TideTable): Range<Float> {
-        return if (table.tides.size <= 1) {
-            Range(-1f, 1f)
-        } else {
-            val range = table.tides.mapNotNull { it.height }.rangeOrNull()
-            Range(range?.lower ?: -1f, range?.upper ?: 1f)
-        }
+        return TideTableRangeCalculator().getRange(table)
     }
 
     fun isWithinTideTable(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): Boolean {
