@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.analysis.WaveService
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.trail_sense.shared.hoursBetween
+import com.kylecorry.sol.time.Time.hoursBetween
 import java.time.ZonedDateTime
 
 class RuleOfTwelfthsWaterLevelCalculator(

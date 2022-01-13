@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.optimization.SimpleExtremaFinder
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.TideFrequency
@@ -9,7 +10,6 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.findExtrema
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
 import java.time.LocalDate
@@ -23,8 +23,9 @@ class TideService {
         val end = date.plusDays(1).atStartOfDay().toZonedDateTime()
         val range = Duration.between(start, end).toMinutes()
         val waterLevelCalculator = TideTableWaterLevelCalculator(table)
-        val extrema = findExtrema(0f, range.toFloat(), 1f) {
-            waterLevelCalculator.calculate(start.plusMinutes(it.toLong()))
+        val extremaFinder = SimpleExtremaFinder(1.0)
+        val extrema = extremaFinder.find(Range(0.0, range.toDouble())){
+            waterLevelCalculator.calculate(start.plusMinutes(it.toLong())).toDouble()
         }
         return extrema.map { Tide(start.plusMinutes(it.point.x.toLong()), it.isHigh, it.point.y) }
     }

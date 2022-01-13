@@ -5,7 +5,7 @@ import com.kylecorry.sol.math.analysis.CosineWave
 import com.kylecorry.sol.math.analysis.Waveform
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
-import com.kylecorry.trail_sense.shared.hoursBetween
+import com.kylecorry.sol.time.Time.hoursBetween
 import java.time.ZonedDateTime
 
 class TideClockWaterLevelCalculator(
