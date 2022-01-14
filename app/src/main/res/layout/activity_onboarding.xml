@@ -31,9 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="32sp"
-                android:textStyle="bold"
+                android:textAppearance="@style/AppTheme.HeaderText"
                 tools:text="Page Name" />
 
             <ImageView
@@ -70,7 +68,7 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:text="@string/continue_button"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorPrimary"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

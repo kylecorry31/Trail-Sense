@@ -2,8 +2,12 @@ package com.kylecorry.trail_sense.shared.database
 
 import androidx.room.TypeConverter
 import com.kylecorry.sol.units.WeightUnits
-import com.kylecorry.trail_sense.shared.AppColor
-import com.kylecorry.trail_sense.shared.beacons.BeaconOwner
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import java.time.Instant
 
@@ -49,12 +53,42 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromAppColor(value: AppColor): Int {
+    fun fromAppColor(value: AppColor): Long {
         return value.id
     }
 
     @TypeConverter
-    fun toAppColor(value: Int): AppColor {
-        return AppColor.values().firstOrNull { it.id == value } ?: AppColor.Orange
+    fun toAppColor(value: Long): AppColor {
+        return AppColor.values().withId(value) ?: AppColor.Orange
+    }
+
+    @TypeConverter
+    fun fromPathPointColoringStyle(value: PathPointColoringStyle): Long {
+        return value.id
+    }
+
+    @TypeConverter
+    fun toPathPointColoringStyle(value: Long): PathPointColoringStyle {
+        return PathPointColoringStyle.values().withId(value) ?: PathPointColoringStyle.None
+    }
+
+    @TypeConverter
+    fun fromLineStyle(value: LineStyle): Int {
+        return value.id
+    }
+
+    @TypeConverter
+    fun toLineStyle(value: Int): LineStyle {
+        return LineStyle.values().firstOrNull { it.id == value } ?: LineStyle.Dotted
+    }
+
+    @TypeConverter
+    fun fromMapProjectionType(mapProjectionType: MapProjectionType): Long {
+        return mapProjectionType.id
+    }
+
+    @TypeConverter
+    fun toMapProjectionType(value: Long): MapProjectionType {
+        return MapProjectionType.values().withId(value) ?: MapProjectionType.Mercator
     }
 }

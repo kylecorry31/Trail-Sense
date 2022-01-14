@@ -12,9 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:text="@string/create_beacon"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,19 +33,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/beacon_name"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="@string/name"
+                android:id="@+id/beacon_name_holder">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/beacon_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNone"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.kylecorry.trail_sense.shared.views.CoordinateInputView
                 android:id="@+id/beacon_location"
@@ -58,43 +63,53 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_name">
+                app:layout_constraintTop_toBottomOf="@+id/beacon_name_holder">
 
             </com.kylecorry.trail_sense.shared.views.CoordinateInputView>
 
 
-            <EditText
-                android:id="@+id/beacon_elevation"
+            <!--TODO: Replace this with a distance input-->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:autofillHints=""
-                android:ems="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/beacon_location"
                 android:hint="@string/beacon_elevation_hint_meters"
-                android:inputType="text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_location" />
+                android:id="@+id/beacon_elevation_holder">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/beacon_elevation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNone"
+                    android:inputType="numberSigned|numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            <EditText
-                android:id="@+id/comment"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/beacon_comment"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_color_picker" />
+                app:layout_constraintTop_toBottomOf="@+id/beacon_color_picker"
+                android:hint="@string/beacon_comment">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNone"
+                    android:inputType="textNoSuggestions|textMultiLine"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
                 android:id="@+id/beacon_group_spinner"
@@ -133,8 +148,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="@string/color" />
+                    android:text="@string/color"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
 
             <androidx.appcompat.widget.SwitchCompat
@@ -144,24 +159,22 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/create_at_distance"
-                app:layout_constraintEnd_toEndOf="@+id/beacon_elevation"
-                app:layout_constraintStart_toStartOf="@+id/beacon_elevation"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_elevation" />
+                app:layout_constraintEnd_toEndOf="@+id/beacon_elevation_holder"
+                app:layout_constraintStart_toStartOf="@+id/beacon_elevation_holder"
+                app:layout_constraintTop_toBottomOf="@+id/beacon_elevation_holder" />
 
             <com.kylecorry.trail_sense.shared.views.DistanceInputView
                 android:id="@+id/distance_away"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/create_at_distance"
-                tools:visibility="visible">
-
-            </com.kylecorry.trail_sense.shared.views.DistanceInputView>
+                tools:visibility="visible"/>
 
             <LinearLayout
                 android:id="@+id/bearing_to_holder"
@@ -172,8 +185,8 @@
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/beacon_elevation"
-                app:layout_constraintStart_toStartOf="@+id/beacon_elevation"
+                app:layout_constraintEnd_toEndOf="@+id/beacon_elevation_holder"
+                app:layout_constraintStart_toStartOf="@+id/beacon_elevation_holder"
                 app:layout_constraintTop_toBottomOf="@+id/distance_away"
                 tools:visibility="visible">
 
@@ -207,8 +220,8 @@
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone"
         android:src="@drawable/ic_check"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible" />

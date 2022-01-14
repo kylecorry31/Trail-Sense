@@ -9,71 +9,75 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.specifications.LocationChangedSpecification
-import com.kylecorry.trail_sense.tools.backtrack.domain.WaypointEntity
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.persistence.WaypointRepo
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
-import java.time.Instant
 
 class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISpeedometer {
 
-    private val backtrackRepo by lazy { WaypointRepo.getInstance(context) }
+    private val pathService by lazy { PathService.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
 
-    private var waypointsLiveData: LiveData<List<WaypointEntity>>? = null
-    private var waypoints = listOf<WaypointEntity>()
+    private var path: LiveData<List<PathPoint>>? = null
 
-    private var waypointObserver = Observer<List<WaypointEntity>> {
-        waypoints = it.filter { it.createdInstant > Instant.now().minus(prefs.navigation.backtrackHistory) }.sortedBy { it.createdInstant }
+    private var _speed: Speed? = null
+
+    private var pathObserver = Observer<List<PathPoint>> {
+        _speed = getSpeed(it.sortedBy { point -> point.time })
         notifyListeners()
     }
 
     override val hasValidReading: Boolean
-        get() = prefs.backtrackEnabled && waypoints.size >= 2
+        get() = prefs.backtrackEnabled && _speed != null
 
     override val speed: Speed
-        get() {
-            // TODO: Store accuracy with waypoints
-            return if (waypoints.size < 2) {
-                Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
-            } else {
-                val last = waypoints.last()
-                val secondLast = waypoints[waypoints.size - 2]
-                val distance = secondLast.coordinate.distanceTo(last.coordinate)
+        get() = _speed ?: Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
 
-                val defaultError = Distance.meters(10f)
+    private fun getSpeed(waypoints: List<PathPoint>): Speed? {
+        return if (waypoints.size < 2) {
+            null
+        } else {
+            val last = waypoints.last()
+            val secondLast = waypoints[waypoints.size - 2]
+            val distance = secondLast.coordinate.distanceTo(last.coordinate)
 
-                val locationIsTheSame = LocationChangedSpecification(
+            val defaultError = Distance.meters(10f)
+
+            val locationIsTheSame = LocationChangedSpecification(
+                ApproximateCoordinate.from(
+                    secondLast.coordinate,
+                    defaultError
+                ),
+                prefs.odometerDistanceThreshold
+            ).not()
+
+            if (locationIsTheSame.isSatisfiedBy(
                     ApproximateCoordinate.from(
-                        secondLast.coordinate,
+                        last.coordinate,
                         defaultError
-                    ),
-                    prefs.odometerDistanceThreshold
-                ).not()
-
-                if (locationIsTheSame.isSatisfiedBy(
-                        ApproximateCoordinate.from(
-                            last.coordinate,
-                            defaultError
-                        )
                     )
-                ) {
-                    return Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
-                }
-
-                val time = Duration.between(secondLast.createdInstant, last.createdInstant)
-                Speed(distance / time.seconds.toFloat(), DistanceUnits.Meters, TimeUnits.Seconds)
+                )
+            ) {
+                return Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
             }
+
+            val time = Duration.between(secondLast.time, last.time)
+            Speed(distance / time.seconds.toFloat(), DistanceUnits.Meters, TimeUnits.Seconds)
         }
+    }
 
     override fun startImpl() {
-        waypointsLiveData = backtrackRepo.getWaypoints()
-        waypointsLiveData?.observeForever(waypointObserver)
+        // TODO: Listen for path changes for backtrack ID
+        val backtrack = runBlocking { pathService.getBacktrackPathId() } ?: return
+        path = pathService.getWaypointsLive(backtrack)
+        path?.observeForever(pathObserver)
     }
 
     override fun stopImpl() {
-        waypointsLiveData?.removeObserver(waypointObserver)
+        path?.removeObserver(pathObserver)
     }
 }

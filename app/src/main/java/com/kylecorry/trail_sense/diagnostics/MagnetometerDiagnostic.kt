@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class MagnetometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
+class MagnetometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IMagnetometer>(
         context,
         lifecycleOwner,
@@ -20,7 +20,7 @@ class MagnetometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
             return listOf(DiagnosticCode.MagnetometerUnavailable)
         }
 
-        if (sensor.quality == Quality.Poor) {
+        if (canRun && sensor!!.quality == Quality.Poor) {
             return listOf(DiagnosticCode.MagnetometerPoor)
         }
 

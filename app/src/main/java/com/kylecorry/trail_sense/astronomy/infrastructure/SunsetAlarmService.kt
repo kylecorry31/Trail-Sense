@@ -146,7 +146,8 @@ class SunsetAlarmService : CoroutineForegroundService() {
                 formattedTime
             ),
             R.drawable.ic_sunset_notification,
-            intent = openIntent
+            intent = openIntent,
+            autoCancel = true
         )
 
         Notify.send(this, NOTIFICATION_ID, notification)

@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SeekBar
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
@@ -32,17 +30,16 @@ import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
 import com.kylecorry.trail_sense.astronomy.ui.fields.providers.*
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
-import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.quickactions.AstronomyQuickActionBinder
+import com.kylecorry.trail_sense.shared.ErrorBannerReason
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.shared.views.QuickActionNone
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.flashlight.ui.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.whistle.ui.QuickActionWhistle
-import com.kylecorry.trail_sense.tools.whitenoise.ui.QuickActionWhiteNoise
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
@@ -69,9 +66,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val markdownService by lazy { MarkdownService(requireContext()) }
 
-    private var leftQuickAction: QuickActionButton? = null
-    private var rightQuickAction: QuickActionButton? = null
-
     private var lastAstronomyEventSearch: AstronomyEvent? = null
 
     private var moonAltitudes: List<Pair<LocalDateTime, Float>> = emptyList()
@@ -92,15 +86,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        leftQuickAction =
-            getQuickActionButton(prefs.astronomy.leftQuickAction, binding.astronomyLeftQuickAction)
-        leftQuickAction?.onCreate()
-
-        rightQuickAction = getQuickActionButton(
-            prefs.astronomy.rightQuickAction,
-            binding.astronomyRightQuickAction
-        )
-        rightQuickAction?.onCreate()
+        AstronomyQuickActionBinder(
+            this,
+            binding,
+            prefs.astronomy
+        ).bind()
 
         val recyclerView = binding.astronomyDetailList
         detailList =
@@ -181,30 +171,21 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         binding.timeSeeker.max = maxProgress
 
-        binding.timeSeeker.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val seconds = (Duration.between(
-                    minChartTime,
-                    maxChartTime
-                ).seconds * progress / maxProgress.toFloat()).toLong()
-                currentSeekChartTime = minChartTime.plusSeconds(seconds)
-                binding.seekTime.text =
-                    formatService.formatTime(
-                        currentSeekChartTime.toLocalTime(),
-                        includeSeconds = false
-                    )
-                plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, currentSeekChartTime)
-                plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, currentSeekChartTime)
-                updateSeekPositions()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
-
+        binding.timeSeeker.setOnProgressChangeListener { progress, _ ->
+            val seconds = (Duration.between(
+                minChartTime,
+                maxChartTime
+            ).seconds * progress / maxProgress.toFloat()).toLong()
+            currentSeekChartTime = minChartTime.plusSeconds(seconds)
+            binding.seekTime.text =
+                formatService.formatTime(
+                    currentSeekChartTime.toLocalTime(),
+                    includeSeconds = false
+                )
+            plotCelestialBodyImage(binding.moonPosition, moonAltitudes, 0, currentSeekChartTime)
+            plotCelestialBodyImage(binding.sunPosition, sunAltitudes, 1, currentSeekChartTime)
+            updateSeekPositions()
+        }
     }
 
     private fun showTimeSeeker() {
@@ -282,16 +263,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        leftQuickAction?.onDestroy()
-        rightQuickAction?.onDestroy()
-    }
-
     override fun onResume() {
         super.onResume()
-        leftQuickAction?.onResume()
-        rightQuickAction?.onResume()
         displayDate = LocalDate.now()
         requestLocationUpdate()
         intervalometer.interval(Duration.ofMinutes(1), Duration.ofMillis(200))
@@ -309,8 +282,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         tryOrNothing {
             uiUpdateJob?.cancel()
         }
-        leftQuickAction?.onPause()
-        rightQuickAction?.onPause()
         gps.stop(this::onLocationUpdate)
         intervalometer.stop()
         gpsErrorShown = false
@@ -557,37 +528,24 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val activity = requireActivity() as MainActivity
             val navController = findNavController()
             val error = UserError(
-                USER_ERROR_GPS_NOT_SET,
+                ErrorBannerReason.LocationNotSet,
                 getString(R.string.location_not_set),
                 R.drawable.satellite,
                 getString(R.string.set)
             ) {
-                activity.errorBanner.dismiss(USER_ERROR_GPS_NOT_SET)
+                activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
                 navController.navigate(R.id.calibrateGPSFragment)
             }
             activity.errorBanner.report(error)
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
             val error = UserError(
-                USER_ERROR_NO_GPS,
+                ErrorBannerReason.NoGPS,
                 getString(R.string.location_disabled),
                 R.drawable.satellite
             )
             (requireActivity() as MainActivity).errorBanner.report(error)
             gpsErrorShown = true
-        }
-    }
-
-    private fun getQuickActionButton(
-        type: QuickActionType,
-        button: FloatingActionButton
-    ): QuickActionButton {
-        return when (type) {
-            QuickActionType.Whistle -> QuickActionWhistle(button, this)
-            QuickActionType.Flashlight -> QuickActionFlashlight(button, this)
-            QuickActionType.WhiteNoise -> QuickActionWhiteNoise(button, this)
-            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, this)
-            else -> QuickActionNone(button, this)
         }
     }
 

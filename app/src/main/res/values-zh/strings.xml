@@ -100,14 +100,10 @@
     <string name="celsius">摄氏度</string>
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
-    <string name="estimated_height">预计的高度</string>
-    <string name="set_inclination_instructions">轻触任何地方以设定/复位倾斜角度</string>
-    <string name="inclinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
-    <string name="avalanche_risk_high">高雪崩风险</string>
-    <string name="avalanche_risk_med">中度雪崩风险</string>
-    <string name="avalanche_risk_low">低雪崩风险</string>
-    <string name="tool_inclinometer_summary">预估雪崩风险与物体高度</string>
-    <string name="inclinometer_title">测斜仪</string>
+    <string name="set_inclination_instructions">点击或按住任意位置以锁定/解锁</string>
+    <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
+    <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
+    <string name="clinometer_title">测斜仪</string>
     <string name="offline_maps">离线地图</string>
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
@@ -144,7 +140,6 @@
     <string name="heat_alert_frostbite_message">存在低体温症/冻伤风险。请确保水分充足，穿着暖和并且限制暴露的皮肤，并注意低体温症或冻伤的迹象。</string>
     <string name="heat_alert_heat_danger_title">酷热威胁</string>
     <string name="dew_point">露点 %s</string>
-    <string name="no_humidity_data">无湿度数据</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">后台监测天气</string>
     <string name="notification_storm_alert_title">暴风雨警报</string>
@@ -255,7 +250,6 @@
     <string name="water_boil_timer_channel_description">水在沸腾</string>
     <string name="water_boil_timer">水沸腾计时器</string>
     <string name="solar_panel_instructions">要开始，请把你的手机放在太阳能电池板的面上。</string>
-    <string name="solar_align_now">立刻</string>
     <string name="tool_solar_panel_title">太阳能电池板对准器</string>
     <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产</string>
     <string name="pref_privacy_policy_title">隐私政策</string>
@@ -275,8 +269,6 @@
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
     <string name="tool_cliff_height_title">悬崖高度</string>
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
-    <string name="object_height_guide">预测物体高度</string>
-    <string name="guide_avalanche_risk">雪崩风险预测</string>
     <string name="depth_disclaimer">如果可能请保持在安全的潜水距离内。使用本软件测量水深，风险自负。
 \n
 \n不要在没有防水外壳的情况下使用，如果可能请保持在安全的潜水距离内。</string>
@@ -290,8 +282,6 @@
     <string name="category_hydration">水和作用</string>
     <string name="category_food">食物</string>
     <string name="other">其他</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">旅行气压变更阈值</string>
-    <string name="pref_barometer_altitude_change_title">旅行高度变更阈值</string>
     <string name="beacon_action_view_details">查看详情</string>
     <string name="tool_bubble_level_summary">确定表面是否平坦</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
@@ -302,17 +292,6 @@
     <string name="forecasts_category">预测</string>
     <string name="advanced">高级设置</string>
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
-    <string name="sun_and_moon_position_details">太阳
-\n\t高度: %s
-\n\t方位: %s
-\n
-\n月亮
-\n\t高度: %s
-\n\t方位: %s</string>
-    <string name="sun_and_moon">太阳 &amp; 月亮位置</string>
-    <string name="pref_sea_level_require_dwell_title">忽略快速高度变化</string>
-    <string name="pref_sea_level_require_dwell_summary">只有当高度至少一小时没有变化时才显示读数。提高预报的可靠性。</string>
-    <string name="weather_update_notification_channel">天气更新</string>
     <string name="no_group">无群组</string>
     <string name="group">群组</string>
     <string name="beacon_create_beacon">信标</string>
@@ -341,38 +320,12 @@
     <string name="pref_weather_update_frequency_title">天气更新频率</string>
     <string name="pref_show_pressure_in_notification_title">在通知中显示气压</string>
     <string name="pref_show_weather_notification_title">显示天气通知</string>
-    <string name="storm_sensitivity_high_in">高 （0089 英寸 / 3h）</string>
-    <string name="storm_sensitivity_med_in">中等 （0.133 英寸 / 3h）</string>
-    <string name="storm_sensitivity_low_in">低 （0.177 英尺 / 3h）</string>
-    <string name="storm_sensitivity_high_psi">高 （0.044 磅每平方英寸 / 3h）</string>
-    <string name="storm_sensitivity_med_psi">中等 （0.065 磅每平方英寸 / 3h）</string>
-    <string name="storm_sensitivity_low_psi">低 （0.087 磅每平方英尺 / 3h）</string>
-    <string name="storm_sensitivity_high_mbar">高 （3 豪巴 / 3h）</string>
-    <string name="storm_sensitivity_med_mbar">中等 （4.5 豪巴 / 3h）</string>
-    <string name="storm_sensitivity_low_mbar">低 （3 豪巴 / 3h）</string>
-    <string name="storm_sensitivity_high_hpa">高 （3 百帕 / 3h）</string>
-    <string name="storm_sensitivity_med_hpa">中等 （4.5 百帕 / 3h）</string>
-    <string name="storm_sensitivity_low_hpa">低 （6 百帕 / 3h）</string>
-    <string name="forecast_sensitivity_high_in">高 （0.015 英寸 / 3h）</string>
-    <string name="forecast_sensitivity_med_in">中等 （0.044 英寸 / 3h）</string>
-    <string name="forecast_sensitivity_low_in">低 （0.074 英寸 / 3h ）</string>
-    <string name="forecast_sensitivity_high_psi">高 （0.007 磅每平方英寸 / 3h）</string>
-    <string name="forecast_sensitivity_med_psi">中等 （0.022 磅每平方英寸 / 3h）</string>
-    <string name="forecast_sensitivity_low_psi">低 （0.036 磅每平方英寸 / 3h）</string>
-    <string name="forecast_sensitivity_high_mbar">高 （0.5 豪巴/ 3h）</string>
-    <string name="forecast_sensitivity_med_mbar">中等 （1.5 豪巴 / 3h）</string>
-    <string name="forecast_sensitivity_low_mbar">低 （2.5 豪巴 / 3h）</string>
-    <string name="forecast_sensitivity_high_hpa">高 （0.5 百帕 / 3h）</string>
-    <string name="forecast_sensitivity_med_hpa">中等 （1.5 百帕 / 3h）</string>
-    <string name="forecast_sensitivity_low_hpa">低 （2.5 百帕 / 3h）</string>
     <string name="pref_forecast_sensitivity_title">预报敏感度</string>
     <string name="pref_monitor_weather_title">监测天气</string>
     <string name="pref_monitor_weather_summary">在后台</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">导航前矫正</string>
     <string name="pref_display_multi_beacons_summary">在指南针上显示最近的信标</string>
     <string name="pref_num_visible_beacons_title">附近的信标</string>
-    <string name="pref_sea_level_use_rapid_summary">在海平面压力转换中使用快速压力变化</string>
-    <string name="pref_sea_level_use_rapid_title">将快速压力变化考虑在内</string>
     <string name="pref_adjust_for_temperature_summary">使用海平面压力转换中的温度</string>
     <string name="pref_adjust_for_temperature_title">将温度考虑在内</string>
     <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
@@ -393,7 +346,6 @@
     <string name="lunar_noon">月亮升到晚上的最高点</string>
     <string name="tide_normal">正常</string>
     <string name="pressure_reading_time_ago">%s - %s 前</string>
-    <string name="pressure_setpoint_format">设定: %s - %s 前</string>
     <string name="pressure_format">%s %s</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="dash">-</string>
@@ -427,7 +379,7 @@
     <string name="freezing_temperatures_warning">冻结温度</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">内容</string>
+    <string name="contents">内容</string>
     <string name="note_title_hint">标题</string>
     <string name="tool_notes_title">附注</string>
     <string name="delete_note_title">删除附注？</string>
@@ -440,11 +392,8 @@
     <string name="backtrack">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
-    <string name="waypoint_beacon_title_template">路径点 %s, %s</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">查看位置历史</string>
     <string name="create_beacon">创建信标</string>
-    <string name="backtrack_notification_description">放置位置路径点</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
     <string name="beacon_set_bearing_btn">设定方位（%s）</string>
@@ -491,20 +440,16 @@
     <string name="dialog_leave">离开</string>
     <string name="unsaved_changes_message">你所做的更改将不被保存。</string>
     <string name="unsaved_changes">未保存的变更</string>
-    <string name="cirrus_desc">高且柔软如羽毛。</string>
-    <string name="cumulonimbus_desc">深灰色、高大、砧形。</string>
-    <string name="cumulus_desc">看起来像蓬松的棉球。</string>
-    <string name="stratocumulus_desc">形成薄片的滚动体。</string>
-    <string name="stratus_desc">遮住天空，物体不会投下阴影。</string>
-    <string name="nimbostratus_desc">深灰色笼罩着天空。可能在下雨。</string>
-    <string name="altostratus_desc">遮住天空，太阳几乎看不见。</string>
-    <string name="altocumulus_desc">看起来像蓬松的棉球。</string>
-    <string name="cirrostratus_desc">遮住了天空，却能透过它看到太阳。</string>
-    <string name="cirrocumulus_desc">形成波浪形片状，云看起来几乎是二维的。</string>
-    <string name="cloud_likely_storm">可能有暴风雨</string>
-    <string name="cloud_likely_rain">有可能降水</string>
-    <string name="cloud_possible_rain">有可能降水</string>
-    <string name="cloud_fair">可能是好天气</string>
+    <string name="cirrus_desc">看起来像一簇簇白发的高而稀薄的云。</string>
+    <string name="cumulonimbus_desc">非常高的低浮云。 它们通常是砧形的并且是深色的。</string>
+    <string name="cumulus_desc">看起来像棉球的低浮云。 它们间隔开，通常是白色的，下面有较暗的斑块。</string>
+    <string name="stratocumulus_desc">看起来像有小缝隙的棉球的低云。 颜色范围从白色到深灰色。</string>
+    <string name="stratus_desc">覆盖天空的低云。 物体不会投射阴影，可能雾蒙蒙的。</string>
+    <string name="nimbostratus_desc">深灰色并覆盖天空的中层云。 可能正在下雨。</string>
+    <string name="altostratus_desc">覆盖天空的中层云。 肉眼勉强可见太阳形似明亮的补丁。</string>
+    <string name="altocumulus_desc">看起来像棉球的中层浮云。 它们通常是白色的，下方有较深的斑块，可以间隔开或呈片状。</string>
+    <string name="cirrostratus_desc">覆盖了天空的高云。 它是透明的，通常会在太阳周围形成光晕。</string>
+    <string name="cirrocumulus_desc">形成波浪板的高云。板由几乎看起来二维的小点组成。</string>
     <string name="cumulonimbus">积雨云</string>
     <string name="cumulus">积云</string>
     <string name="stratocumulus">层积云</string>
@@ -604,7 +549,7 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">从手机到手电筒的距离</string>
     <string name="beacon_export_error">无法导出信标</string>
-    <string name="pref_backtrack_save_cell_summary">在航点记录电池信号。 不使用互联网。</string>
+    <string name="pref_backtrack_save_cell_summary">在航点记录手机信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录电池信号</string>
     <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
@@ -619,7 +564,6 @@
     <string name="weather_worse_than_yesterday">比昨天差</string>
     <string name="weather_better_than_yesterday">比昨天好</string>
     <string name="todays_forecast">今日预报</string>
-    <string name="no_temperature_history">无温度历史</string>
     <string name="low">低</string>
     <string name="moderate">中等</string>
     <string name="high">高</string>
@@ -629,7 +573,7 @@
     <string name="no_gps_signal">无 GPS 信号</string>
     <string name="right_quick_action">右导航栏快速操作</string>
     <string name="left_quick_action">左导航栏快速操作</string>
-    <string name="quick_action_none">无</string>
+    <string name="none">无</string>
     <string name="tide_calibration_instructions">设定在你附近的涨潮时间，最好是在新月或满月的日期。这可以从网上或通过印刷的潮汐表获得。Trail Sense 中显示的潮汐可能至多偏离两个小时，这足供参考之用，但不能依赖。</string>
     <string name="date_not_set">未设置日期</string>
     <string name="time_not_set">未设置时间</string>
@@ -650,9 +594,6 @@
     <string name="value_since_time">%s自%s</string>
     <string name="tool_speedometer_odometer_title">速度计/里程表</string>
     <string name="saltwater_switch">是咸水吗？</string>
-    <string name="distance_away_not_set">距离未设定</string>
-    <string name="distance_away">距离</string>
-    <string name="your_height">你的身高</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="source">源</string>
     <string name="pref_stride_length_title">步幅</string>
@@ -691,7 +632,6 @@
     <string name="importing_map">导入地图中</string>
     <string name="hour_symbol">小时</string>
     <string name="minute_symbol">分钟</string>
-    <string name="pref_backtrack_path_radar_title">显示 Backtrack 路径</string>
     <string name="map_auto_calibrated">以自动校准地图，请验证其精度</string>
     <string name="time_until_empty">离空还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
@@ -706,7 +646,6 @@
     <string name="pref_weather_show_detailed_icon_title">显示彩色通知图标</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">实际频率可能会因某些设备的后台限制而变化。</string>
-    <string name="pref_backtrack_path_radar_summary">关于雷达、指南针和地图</string>
     <string name="app_disclaimer_message_title">免责声明/服务条款</string>
     <string name="disclaimer_message_title">免责声明</string>
     <string name="background_update">后台升级</string>
@@ -715,8 +654,6 @@
     <string name="battery_warning">电池耗竭警告</string>
     <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>
     <string name="updates">更新</string>
-    <string name="pref_backtrack_path_color_title">Backtrack路径颜色</string>
-    <string name="pref_backtrack_path_style_title">Backtrack 路径样式</string>
     <string name="dotted">点线</string>
     <string name="solid">实心</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
@@ -751,7 +688,6 @@
     <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
     <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
     <string name="pref_barometer_pressure_smoothing_title">压力平滑</string>
-    <string name="pref_experimental_barometer_calibration_title">使用实验性校准</string>
     <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
     <string name="beacon_moved_to">已移动到 %s</string>
     <string name="move">移动</string>
@@ -762,12 +698,6 @@
     <string name="map_rotate_instructions">旋转直到北指向上</string>
     <string name="map_perspective_instructions">勾勒地图轮廓</string>
     <string name="preview">预览</string>
-    <string name="weather_prediction">天气：%s</string>
-    <string name="pressure_no_change">气压未更改</string>
-    <string name="pressure_falling_fast">气压在快速下降</string>
-    <string name="pressure_falling">气压在下降</string>
-    <string name="pressure_rising">气压在上升</string>
-    <string name="pressure_rising_fast">气压快速上升</string>
     <string name="pref_flashlight_toggle_with_system_summary">当手电筒在 Trail Sense 外打开时显示一则通知</string>
     <string name="pref_flashlight_toggle_with_system_title">随系统切换</string>
     <string name="pref_navigation_lock_screen_presence_title">导航时在锁定屏幕上显示</string>
@@ -794,8 +724,6 @@
     <string name="back_press_confirm">再次按下返回离开</string>
     <string name="underwater_mode">水下模式</string>
     <string name="leave_underwater_mode">水下模式：按返回键退出</string>
-    <string name="pref_low_resolution_maps_title">使用低分辨率</string>
-    <string name="pref_low_resolution_maps_summary">对于内存有限的设备</string>
     <string name="unit_yards">码</string>
     <string name="yards_format">%s码</string>
     <string name="find_next_occurrence">查找下一个出现</string>
@@ -866,7 +794,6 @@
     <string name="pack_sort_percent_high_to_low">已打包百分比 (从高到低)</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比 (从低到高)</string>
     <string name="sort">排序</string>
-    <string name="humidity">%s 湿度</string>
     <string name="guide_packing_list">创建包装清单</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s 毫安</string>
@@ -915,19 +842,14 @@
     <string name="quarter_moon">上弦月</string>
     <string name="autofill">自动填充</string>
     <string name="lightning_dangerously_close">你离闪电太近了</string>
-    <string name="merge_previous_path_title">与先前路径合并？</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="other">%d 个航点将被删除</item>
     </plurals>
-    <string name="grid_size">%s 网格</string>
-    <string name="no_previous_path">无先前路径</string>
-    <string name="path_merge_previous">合并先前路径</string>
     <string name="delete_path">删除路径？</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">自动</string>
     <string name="new_text">新</string>
     <string name="old">旧</string>
-    <string name="path">路径</string>
     <string name="units_mmhg_short">毫米</string>
     <string name="pick_file">挑选文件</string>
     <string name="export_path_error">无法导出路径</string>
@@ -937,7 +859,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">天文警报</string>
-    <string name="checking_for_astronomy_events">检查天文事件</string>
     <string name="lunar_eclipse">月食</string>
     <string name="lunar_eclipse_end">月食 (结束)</string>
     <string name="lunar_eclipse_start">月食 (开始)</string>
@@ -947,8 +868,7 @@
     <string name="high_amount">高 (%s)</string>
     <string name="medium_amount">中等 (%s)</string>
     <string name="low_amount">低 (%s)</string>
-    <string name="middle">中间</string>
-    <string name="units_mmhg">mmHg</string>
+    <string name="units_mmhg">毫米汞柱</string>
     <string name="season_fall">秋季</string>
     <string name="season_summer">夏季</string>
     <string name="season_spring">春季</string>
@@ -992,10 +912,7 @@
     <string name="up_to_amount">最多 %s</string>
     <string name="pref_export_weather_csv_title">导出气温读数</string>
     <string name="weather_exported">已导出气温</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">显示最近的潮汐</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="sun">太阳</string>
     <string name="sun_moon_position_template">### %s
 \n**高度**: %s
@@ -1004,13 +921,134 @@
     <string name="moon">月亮</string>
     <string name="enable">启用</string>
     <string name="weather_monitoring_disabled">已禁用天气检测</string>
-    <string name="cloud_cover_isolated">孤云</string>
-    <string name="cloud_cover_scattered">疏云</string>
-    <string name="exclude_obstacles_experimental">排除障碍（实验性）</string>
-    <string name="exclude_sun_experimental">排除太阳（实验性）</string>
-    <string name="sensitivity">敏感度</string>
-    <string name="cloud_cover_overcast">阴云</string>
-    <string name="cloud_cover_broken">碎云</string>
-    <string name="cloud_cover_few">少云</string>
-    <string name="cloud_cover_none">没有云</string>
+    <string name="no_clouds">没有云</string>
+    <string name="log">日志</string>
+    <string name="sky_detection_sensitivity">天空探测灵敏度</string>
+    <string name="precipitation_rain">雨</string>
+    <string name="precipitation_snow_pellets">雪粒</string>
+    <string name="pressure_logged">已记录气压</string>
+    <string name="obstacle_removal_sensitivity">障碍物清除灵敏度</string>
+    <string name="pref_experimental_cloud_scanner_title">云扫描仪</string>
+    <string name="precipitation_none">无降水</string>
+    <string name="precipitation_drizzle">细雨</string>
+    <string name="precipitation_snow">雪</string>
+    <string name="precipitation_hail">冰雹</string>
+    <string name="precipitation_small_hail">小冰雹</string>
+    <string name="precipitation_ice_pellets">冰粒</string>
+    <string name="precipitation_snow_grains">雪粒</string>
+    <string name="capture">捕获</string>
+    <string name="results">结果</string>
+    <string name="precipitation_chance">降水概率：%s</string>
+    <string name="take_photo">拍照</string>
+    <string name="choose_photo">选择照片</string>
+    <string name="or">或</string>
+    <string name="notification_weather_update_title">天气监测器更新</string>
+    <string name="notification_backtrack_update_title">Backtrack 更新</string>
+    <string name="notification_backtrack_update_content">正在记录你的位置</string>
+    <string name="notification_weather_update_content">正在记录气压</string>
+    <string name="humidity">湿度</string>
+    <string name="cloud_photo_mask_toast">轻按照片来切换蒙版</string>
+    <string name="no_camera_access">无法访问相机</string>
+    <string name="paths">路径</string>
+    <string name="keep_forever">永久保留</string>
+    <string name="hide">隐藏</string>
+    <string name="show">显示</string>
+    <string name="line_style">线段样式</string>
+    <string name="path_color">路径颜色</string>
+    <string name="temporary">临时的</string>
+    <string name="longest">最长</string>
+    <string name="shortest">最短</string>
+    <string name="closest">最近</string>
+    <plurals name="paths_imported">
+        <item quantity="other">导入了 %d 条路径</item>
+    </plurals>
+    <string name="point_style">圆点样式</string>
+    <string name="sort_by">排序：%s</string>
+    <string name="most_recent">最近</string>
+    <string name="duration">持续时间</string>
+    <string name="elevation_gain">海拔增益</string>
+    <string name="easy">容易</string>
+    <string name="elevation_loss">海拔损失</string>
+    <string name="hard">困难</string>
+    <string name="difficulty">难度</string>
+    <string name="points">点</string>
+    <string name="importing">导入中</string>
+    <string name="elevation">海拔</string>
+    <string name="waypoint">路径点</string>
+    <string name="dashed">虚线</string>
+    <string name="pref_default_path_style_title">默认路径样式</string>
+    <string name="pref_default_path_color_title">默认路径颜色</string>
+    <string name="merge">合并</string>
+    <string name="append_onto">附加到</string>
+    <string name="simplify">简化</string>
+    <string name="simplifying">简化中</string>
+    <string name="simplification_quality">简化质量</string>
+    <string name="pref_auto_simplify_paths_title">导入时简化路径</string>
+    <string name="merging">合并中</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="other">删除了 %d 个航点</item>
+    </plurals>
+    <string name="navigation_guide_description">使用信标和路径</string>
+    <string name="saving">节省</string>
+    <string name="change_map_projection">更改地图投影</string>
+    <string name="map_projection_mercator">墨卡托</string>
+    <string name="map_projection_equidistant">等距离</string>
+    <string name="reduce_map_resolution">降低地图分辨率</string>
+    <string name="slope_amount">%s 坡</string>
+    <string name="avalanche_risk">雪崩风险</string>
+    <string name="distance_unset">未设置距离</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">用音量键锁定</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_title">基线距离</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="clinometer_measure_height_instructions">如何测量距离 %s 远的目标的高度：
+\n
+\n1. 将测斜仪对准目标底座
+\n2.点击屏幕并按住
+\n3. 将测斜仪重新对准目标顶部
+\n4. 松开以锁定并查看目标高度</string>
+    <string name="height">高度</string>
+    <string name="clinometer_measure_distance_title">目标高度</string>
+    <string name="instructions">用法说明</string>
+    <string name="measure">测量</string>
+    <string name="clinometer_measure_height_title">到目标的距离</string>
+    <string name="clinometer_measure_distance_instructions">如何测量 %s 高的目标的距离：
+\n
+\n1. 将测斜仪对准目标底座
+\n2.点击屏幕并按住
+\n3. 将测斜仪重新对准目标顶部
+\n4. 松开以锁定并查看到目标的距离</string>
+    <string name="weather_monitor_disabled_resolution">从天气设置启用天气监测</string>
+    <string name="error_banners">错误横幅</string>
+    <string name="errors">错去</string>
+    <string name="compass_accuracy">指南针精度</string>
+    <string name="compass_unavailable">指南针不可用</string>
+    <string name="gps_unavailable">GPS 不可用</string>
+    <string name="gps_timeouts">GPS 超时</string>
+    <string name="enter_text">输入文字</string>
+    <string name="no_qr_code_found">未检测到二维码</string>
+    <string name="saved_to_note">已保存到笔记</string>
+    <string name="qr_code_scanner">二维码扫描器</string>
+    <string name="open">打开</string>
+    <string name="note">笔记</string>
+    <string name="beacon">信标</string>
+    <string name="beacon_created">已创建信标</string>
+    <string name="result_deleted">已删除结果</string>
+    <string name="undo">撤销</string>
+    <string name="share_ellipsis">分享…</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="night">夜晚</string>
+    <string name="qr_text_too_long">文本太长，二维码被截短</string>
+    <string name="pref_flashlight_should_timeout_title">自动关闭</string>
+    <string name="pref_flashlight_timeout_title">多少秒后关闭</string>
+    <string name="duration_second_format">%d秒</string>
+    <string name="calculated">已计算</string>
+    <string name="tide_table">潮汐表</string>
+    <string name="high_tide_letter">涨潮</string>
+    <string name="low_tide_letter">落潮</string>
+    <string name="tide_is_diurnal">是全日潮吗？</string>
+    <string name="view">查看</string>
+    <string name="tide_deleted">检查到潮汐</string>
 </resources>

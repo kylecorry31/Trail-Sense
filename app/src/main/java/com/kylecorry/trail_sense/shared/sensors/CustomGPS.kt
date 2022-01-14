@@ -17,7 +17,7 @@ import java.time.Duration
 import java.time.Instant
 
 
-class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
+class CustomGPS(private val context: Context, private val frequency: Duration = Duration.ofMillis(20)) : AbstractSensor(), IGPS {
 
     private val odometer by lazy { SensorService(context).getOdometer() }
 
@@ -59,7 +59,7 @@ class CustomGPS(private val context: Context) : AbstractSensor(), IGPS {
     val isTimedOut: Boolean
         get() = _isTimedOut
 
-    private val baseGPS by lazy { GPS(context.applicationContext) }
+    private val baseGPS by lazy { GPS(context.applicationContext, frequency = frequency) }
     private val cache by lazy { Preferences(context.applicationContext) }
     private val userPrefs by lazy { UserPreferences(context) }
 

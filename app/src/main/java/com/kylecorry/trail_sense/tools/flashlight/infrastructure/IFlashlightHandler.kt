@@ -6,11 +6,12 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 interface IFlashlightHandler {
     fun initialize()
     fun release()
-    fun on()
+    fun on(handleTimeout: Boolean = true)
     fun off()
-    fun sos()
-    fun strobe()
-    fun set(state: FlashlightState)
+    fun toggle(handleTimeout: Boolean = true)
+    fun sos(handleTimeout: Boolean = true)
+    fun strobe(handleTimeout: Boolean = true)
+    fun set(state: FlashlightState, handleTimeout: Boolean = true)
     fun getState(): FlashlightState
     fun isAvailable(): Boolean
 }

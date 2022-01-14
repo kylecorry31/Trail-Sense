@@ -24,7 +24,7 @@ class PressureChart(
     private var minRange = MIN_RANGE
     private var granularity = 1f
 
-    private val color = Resources.color(chart.context, R.color.colorPrimary)
+    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
     init {
         simpleChart.configureYAxis(
@@ -44,9 +44,9 @@ class PressureChart(
                 selectionListener?.invoke(null, null)
                 return@setOnValueSelectedListener
             }
-            val seconds = it.first * 60 * 60
+            val seconds = it.x * 60 * 60
             val duration = Duration.ofSeconds(seconds.absoluteValue.toLong())
-            selectionListener?.invoke(duration, it.second)
+            selectionListener?.invoke(duration, it.y)
         }
     }
 

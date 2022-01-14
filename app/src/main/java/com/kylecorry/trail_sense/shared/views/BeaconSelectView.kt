@@ -14,14 +14,14 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconSelectBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
-import com.kylecorry.trail_sense.shared.beacons.IBeacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import kotlinx.coroutines.*
 
 

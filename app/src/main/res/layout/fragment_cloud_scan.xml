@@ -1,88 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:layout_marginEnd="64dp"
-        android:text="Scan Sky"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/cloud_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginTop="16dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
-
-    <LinearLayout
-        android:id="@+id/results"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/cloud_image"
-        app:layout_constraintStart_toStartOf="@id/cloud_image"
-        app:layout_constraintTop_toBottomOf="@id/cloud_image">
-
-        <TextView
-            android:id="@+id/coverage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            app:drawableTint="?android:textColorSecondary"
-            app:drawableTopCompat="@drawable/cloud"
-            tools:text="10 %" />
-
-        <TextView
-            android:id="@+id/luminance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            app:drawableTint="?android:textColorSecondary"
-            app:drawableTopCompat="@drawable/light_rain"
-            tools:text="10 %" />
-
-    </LinearLayout>
+        android:background="@color/black" />
 
     <LinearLayout
         android:id="@+id/calibration"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/results">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/sensitivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sky detection sensitivity"
+            android:text="@string/sky_detection_sensitivity"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -113,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Obstacle removal sensitivity"
+            android:text="@string/obstacle_removal_sensitivity"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -140,16 +84,11 @@
 
     </LinearLayout>
 
-
     <Button
-        android:id="@+id/record_btn"
+        android:id="@+id/done_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:text="Log"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="16dp"
+        android:text="@android:string/ok" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

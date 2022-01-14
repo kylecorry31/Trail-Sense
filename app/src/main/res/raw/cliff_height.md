@@ -2,8 +2,8 @@
 
 1. Open the cliff height tool
 2. Ensure the area below the cliff is safe (no risk of landslide or people/animals)
-3. Drop a small rock or similar object down the cliff while clicking the measure button
-4. Click stop when the object hits the bottom to obtain the approximate height
+3. Drop a small rock or similar object down the cliff while holding the measure button
+4. Release the button when the object hits the bottom to obtain the approximate height
 
 ## Disclaimer
 

@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
 
 @Dao
 interface TideDao {
@@ -21,6 +20,9 @@ interface TideDao {
 
     @Delete
     suspend fun delete(tide: TideEntity)
+
+    @Query("DELETE FROM tides")
+    suspend fun deleteAll()
 
     @Update
     suspend fun update(tide: TideEntity)

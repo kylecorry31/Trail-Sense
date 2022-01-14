@@ -5,28 +5,36 @@ import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.*
-import com.kylecorry.trail_sense.shared.beacons.Beacon
-import com.kylecorry.trail_sense.shared.beacons.BeaconGroup
+import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
+import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
+import java.time.LocalDateTime
 
 object CustomUiUtils {
 
@@ -34,7 +42,7 @@ object CustomUiUtils {
         setButtonState(
             button,
             state,
-            Resources.color(button.context, R.color.colorPrimary),
+            Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary),
             Resources.color(button.context, R.color.colorSecondary)
         )
     }
@@ -61,9 +69,12 @@ object CustomUiUtils {
         isOn: Boolean
     ) {
         if (isOn) {
-            button.setTextColor(Resources.color(button.context, R.color.colorSecondary))
-            button.backgroundTintList =
-                ColorStateList.valueOf(Resources.color(button.context, R.color.colorPrimary))
+            button.setTextColor(
+                Resources.color(button.context, R.color.colorSecondary)
+            )
+            button.backgroundTintList = ColorStateList.valueOf(
+                Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary)
+            )
         } else {
             button.setTextColor(Resources.androidTextColorSecondary(button.context))
             button.backgroundTintList =
@@ -116,7 +127,8 @@ object CustomUiUtils {
         units: List<DistanceUnits>,
         default: Distance? = null,
         title: String,
-        onDistancePick: (distance: Distance?) -> Unit
+        showFeetAndInches: Boolean = false,
+        onDistancePick: (distance: Distance?, cancelled: Boolean) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
         var distance: Distance? = default
@@ -130,15 +142,17 @@ object CustomUiUtils {
             distanceInput?.unit = units.firstOrNull()
         }
 
+        distanceInput?.showFeetAndInches = showFeetAndInches
+
         Alerts.dialog(
             context,
             title,
             contentView = view
         ) { cancelled ->
             if (cancelled) {
-                onDistancePick.invoke(null)
+                onDistancePick.invoke(null, true)
             } else {
-                onDistancePick.invoke(distance)
+                onDistancePick.invoke(distance, false)
             }
         }
     }
@@ -276,6 +290,32 @@ object CustomUiUtils {
         }
     }
 
+    fun showImage(
+        context: Context,
+        title: String,
+        @DrawableRes image: Int
+    ) {
+        val view = LinearLayout(context)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.gravity = Gravity.CENTER
+        view.layoutParams = params
+        val imageView = ImageView(context)
+        val imageParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            1f
+        )
+        imageParams.gravity = Gravity.CENTER
+        imageView.layoutParams = imageParams
+        imageView.setImageResource(image)
+        view.addView(imageView)
+
+        Alerts.dialog(context, title, contentView = view, cancelText = null)
+    }
+
     fun setImageColor(view: ImageView, @ColorInt color: Int?) {
         if (color == null) {
             view.clearColorFilter()
@@ -290,6 +330,65 @@ object CustomUiUtils {
             return
         }
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+    }
+
+    fun snackbar(
+        fragment: Fragment,
+        text: String,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String? = null,
+        onAction: () -> Unit = {}
+    ): Snackbar {
+        return Snackbar.make(fragment.requireView(), text, duration).also {
+            if (action != null) {
+                it.setAction(action) {
+                    onAction()
+                }
+            }
+            it.setAnchorView(R.id.bottom_navigation)
+            it.show()
+        }
+    }
+
+    fun showQR(
+        fragment: Fragment,
+        title: String,
+        qr: String
+    ): BottomSheetDialogFragment {
+        val sheet = ViewQRBottomSheet(title, qr)
+        sheet.show(fragment)
+        return sheet
+    }
+
+    fun scanQR(
+        fragment: Fragment,
+        title: String,
+        onScan: (text: String?) -> Boolean
+    ): BottomSheetDialogFragment {
+        val sheet = ScanQRBottomSheet(title, onScan)
+        sheet.show(fragment)
+        return sheet
+    }
+
+    fun pickDatetime(
+        context: Context,
+        use24Hours: Boolean,
+        default: LocalDateTime = LocalDateTime.now(),
+        onDatetimePick: (value: LocalDateTime?) -> Unit
+    ) {
+        Pickers.date(context, default.toLocalDate()) { date ->
+            if (date != null) {
+                Pickers.time(context, use24Hours, default.toLocalTime()) { time ->
+                    if (time != null) {
+                        onDatetimePick(LocalDateTime.of(date, time))
+                    } else {
+                        onDatetimePick(null)
+                    }
+                }
+            } else {
+                onDatetimePick(null)
+            }
+        }
     }
 
 }

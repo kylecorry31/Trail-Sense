@@ -10,58 +10,46 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.math.filters.MovingAverageFilter
+import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.sol.math.SolMath.movingAverage
 import com.kylecorry.sol.science.meteorology.HeatAlert
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentThermometerHygrometerBinding
+import com.kylecorry.trail_sense.databinding.FragmentThermometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
 import java.time.Instant
 
-class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>() {
+class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val thermometer by lazy { sensorService.getThermometer() }
-    private val hygrometer by lazy { sensorService.getHygrometer() }
+
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private val newWeatherService = com.kylecorry.sol.science.meteorology.WeatherService()
     private val weatherService by lazy {
-        WeatherService(
-            prefs.weather.stormAlertThreshold,
-            prefs.weather.dailyForecastChangeThreshold,
-            prefs.weather.hourlyForecastChangeThreshold
-        )
+        WeatherService(prefs.weather)
     }
 
-    private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
+    private val repo by lazy { WeatherRepo.getInstance(requireContext()) }
 
     private lateinit var temperatureChart: TemperatureChart
 
-    private val readings = mutableListOf<Float>()
-    private var maxReadings = 30
-    private var readingInterval = 500L
-    private var lastReadingTime = Instant.MIN
-
     private lateinit var units: TemperatureUnits
-
-    private var useLawOfCooling = false
 
     private var heatAlertTitle = ""
     private var heatAlertContent = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        temperatureChart =
-            TemperatureChart(binding.chart, Resources.color(requireContext(), R.color.colorPrimary))
+        temperatureChart = TemperatureChart(binding.chart)
 
         binding.heatAlert.setOnClickListener {
             Alerts.dialog(requireContext(), heatAlertTitle, heatAlertContent, cancelText = null)
@@ -77,34 +65,36 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
 
         CustomUiUtils.setButtonState(binding.temperatureEstimationBtn, false)
         binding.temperatureEstimationBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_thermometer_to_temperature_estimation)
+            findNavController().navigate(if (Sensors.hasHygrometer(requireContext())) R.id.action_temperature_humidity_to_temperature_estimation else R.id.action_thermometer_to_temperature_estimation)
         }
 
         thermometer.asLiveData().observe(viewLifecycleOwner, { onTemperatureUpdate() })
-        hygrometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
-        pressureRepo.getPressures()
-            .observe(
-                viewLifecycleOwner,
-                {
-                    updateChart(it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
-                        .filter { it.time <= Instant.now() })
-                })
+        repo.getAllLive().observe(viewLifecycleOwner) {
+            updateChart(
+                it.map {
+                    Reading(
+                        weatherService.calibrateTemperature(it.value.temperature),
+                        it.time
+                    )
+                }
+                    .sortedBy { it.time }
+                    .filter { it.time <= Instant.now() }
+            )
+        }
+
+        updateUI()
 
     }
 
     override fun onResume() {
         super.onResume()
         units = prefs.temperatureUnits
-        useLawOfCooling = prefs.weather.useLawOfCooling
-        maxReadings = prefs.weather.lawOfCoolingReadings
-        readingInterval = prefs.weather.lawOfCoolingReadingInterval
     }
 
-    private fun updateChart(readings: List<PressureAltitudeReading>) {
-        val filter = MovingAverageFilter(8)
-        if (readings.size >= 2) {
+    private fun updateChart(readings: List<Reading<Float>>) {
+        if (readings.isNotEmpty()) {
             val totalTime = Duration.between(
-                readings.first().time, readings.last().time
+                readings.first().time, Instant.now()
             )
             var hours = totalTime.toHours()
             val minutes = totalTime.toMinutes() % 60
@@ -130,40 +120,18 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
 
         }
 
-        if (readings.isNotEmpty()) {
-            val chartData = readings.map {
-                val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
-                Pair(
-                    timeAgo as Number,
-                    Temperature(
-                        getCalibratedReading(
-                            filter.filter(it.temperature.toDouble()).toFloat()
-                        ), TemperatureUnits.C
-                    ).convertTo(
-                        prefs.temperatureUnits
-                    ).temperature as Number
-                )
-            }
-
-            temperatureChart.plot(chartData)
+        val filtered = movingAverage(readings.map { it.value }, 8).mapIndexed { index, value ->
+            Reading(Temperature.celsius(value).convertTo(units).temperature, readings[index].time)
         }
+
+        temperatureChart.plot(filtered)
     }
 
     private fun updateUI() {
         val hasTemp = thermometer.hasValidReading
-        val hasHumidity = hygrometer.hasValidReading
         val uncalibrated = thermometer.temperature
 
-        val calibrated = getCalibratedReading(thermometer.temperature)
-
-        val reading = if (useLawOfCooling && readings.size == maxReadings) {
-            val first = readings.subList(0, maxReadings / 3).average().toFloat()
-            val second = readings.subList(maxReadings / 3, 2 * maxReadings / 3).average().toFloat()
-            val third = readings.subList(2 * maxReadings / 3, readings.size).average().toFloat()
-            newWeatherService.getAmbientTemperature(first, second, third) ?: calibrated
-        } else {
-            calibrated
-        }
+        val reading = weatherService.calibrateTemperature(thermometer.temperature)
 
         if (!hasTemp) {
             binding.temperature.text = getString(R.string.dash)
@@ -183,29 +151,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
             binding.freezingAlert.visibility = if (reading <= 0f) View.VISIBLE else View.INVISIBLE
         }
 
-        if (!hasHumidity) {
-            binding.humidity.text = getString(R.string.no_humidity_data)
-        } else {
-            binding.humidity.text =
-                getString(R.string.humidity, formatService.formatPercentage(hygrometer.humidity))
-        }
-
-        if (hasTemp && hasHumidity) {
-            val heatIndex =
-                weatherService.getHeatIndex(reading, hygrometer.humidity)
-            val alert = weatherService.getHeatAlert(heatIndex)
-            val dewPoint = weatherService.getDewPoint(reading, hygrometer.humidity)
-            binding.dewPoint.text = getString(
-                R.string.dew_point,
-                formatService.formatTemperature(
-                    Temperature(
-                        dewPoint,
-                        TemperatureUnits.C
-                    ).convertTo(prefs.temperatureUnits)
-                )
-            )
-            showHeatAlert(alert)
-        } else if (hasTemp) {
+        if (hasTemp) {
             val alert =
                 weatherService.getHeatAlert(
                     weatherService.getHeatIndex(
@@ -270,32 +216,14 @@ class ThermometerFragment : BoundFragment<FragmentThermometerHygrometerBinding>(
         if (thermometer.temperature == 0f) {
             return true
         }
-
-        val calibrated = getCalibratedReading(thermometer.temperature)
-        if (Duration.between(lastReadingTime, Instant.now()) > Duration.ofMillis(readingInterval)) {
-            readings.add(calibrated)
-            while (readings.size > maxReadings) {
-                readings.removeAt(0)
-            }
-            lastReadingTime = Instant.now()
-        }
         updateUI()
         return true
-    }
-
-    private fun getCalibratedReading(temp: Float): Float {
-        val calibrated1 = prefs.weather.minActualTemperature
-        val uncalibrated1 = prefs.weather.minBatteryTemperature
-        val calibrated2 = prefs.weather.maxActualTemperature
-        val uncalibrated2 = prefs.weather.maxBatteryTemperature
-
-        return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
     }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentThermometerHygrometerBinding {
-        return FragmentThermometerHygrometerBinding.inflate(layoutInflater, container, false)
+    ): FragmentThermometerBinding {
+        return FragmentThermometerBinding.inflate(layoutInflater, container, false)
     }
 }

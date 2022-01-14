@@ -10,14 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        tools:text="X: 10\nY: 25"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="X: 10\nY: 25" />
 
     <ImageView
         android:id="@+id/bubble_outline"
@@ -28,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:colorBackgroundFloating" />
+        app:tint="@color/colorSecondary" />
 
     <ImageView
         android:id="@+id/bubble"
@@ -50,14 +48,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:attr/textColorPrimary" />
+        app:tint="?android:textColorPrimary" />
 
     <View
         android:id="@+id/bubble_x_background"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
-        android:background="?android:colorBackgroundFloating"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/colorSecondary"
         app:layout_constraintBottom_toTopOf="@+id/bubble_outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -79,7 +78,8 @@
         android:layout_width="48dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
-        android:background="?android:colorBackgroundFloating"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bubble_outline"
         app:layout_constraintTop_toTopOf="parent" />
@@ -99,23 +99,23 @@
         android:id="@+id/bubble_x_center"
         android:layout_width="2dp"
         android:layout_height="0dp"
+        android:src="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
         app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
-        app:tint="?android:textColorPrimary"
-        android:src="@drawable/rectangle"/>
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/bubble_y_center"
-        android:layout_height="2dp"
         android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:src="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="@+id/bubble_y_background"
         app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_y_background"
-        app:tint="?android:textColorPrimary"
-        android:src="@drawable/rectangle"/>
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

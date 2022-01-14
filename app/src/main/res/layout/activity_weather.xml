@@ -24,9 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         android:textIsSelectable="true"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure"
@@ -57,7 +55,6 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/thermometer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -73,7 +70,6 @@
         app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/cloudy" />
 
     <ImageView
@@ -139,17 +135,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/weather_now_img"
             app:layout_constraintStart_toEndOf="@+id/weather_now_img"
             app:layout_constraintTop_toTopOf="@+id/weather_now_img"
-            tools:text="@string/pressure_falling" />
+            tools:text="@string/weather_worsening_slow" />
 
-        <TextView
-            android:id="@+id/weather_now_prediction_lbl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/weather_now_lbl"
-            app:layout_constraintStart_toStartOf="@+id/weather_now_lbl"
-            app:layout_constraintTop_toBottomOf="@+id/weather_now_img"
-            tools:text="Prediction: Worsening soon " />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -173,5 +160,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/chart"
         app:layout_constraintStart_toStartOf="@+id/chart" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/log_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/log_btn"
+        app:layout_constraintEnd_toEndOf="@+id/log_btn"
+        app:layout_constraintStart_toStartOf="@+id/log_btn"
+        app:layout_constraintTop_toTopOf="@id/log_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

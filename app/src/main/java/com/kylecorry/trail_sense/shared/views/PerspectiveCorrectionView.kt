@@ -12,14 +12,18 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.maps.domain.ImageMagnifier
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
+import kotlin.math.min
 
 
+// TODO: Extend subsampling image view and disable scrolling
 class PerspectiveCorrectionView : CanvasView {
 
     private var image: Bitmap? = null
@@ -33,6 +37,8 @@ class PerspectiveCorrectionView : CanvasView {
     private var bottomLeft = PixelCoordinate(0f, 0f)
     private var bottomRight = PixelCoordinate(0f, 0f)
     private var movingCorner: Corner? = null
+
+    var hasChanges = false
 
     var isPreview = false
         set(value) {
@@ -121,18 +127,23 @@ class PerspectiveCorrectionView : CanvasView {
         val shaderPaint = Paint()
         shaderPaint.shader = shader
 
+        val magnifierSize = min(image.width, image.height) / 4f
+        val magnifier = ImageMagnifier(Size(image.width.toFloat(), image.height.toFloat()), Size(magnifierSize, magnifierSize))
+        val pos = magnifier.getMagnifierPosition(center)
+        val magCenter = PixelCoordinate(pos.x + magnifierSize / 2f, pos.y + magnifierSize / 2f)
+
         matrix.reset()
         matrix.postScale(1f, 1f)
-        matrix.postTranslate(-center.x + width / 2f, -center.y + height / 2f)
+        matrix.postTranslate(-center.x + magCenter.x, -center.y + magCenter.y)
         shader.setLocalMatrix(matrix)
 
-        canvas.drawCircle(width / 2f, height / 2f, dp(32f), shaderPaint)
+        canvas.drawRect(pos.x, pos.y, pos.x + magnifierSize, pos.y + magnifierSize, shaderPaint)
         stroke(primaryColor)
         noFill()
         strokeWeight(dp(2f))
         val plusSize = dp(8f)
-        line(width / 2f - plusSize / 2f, height / 2f, width / 2f + plusSize / 2f, height / 2f)
-        line(width / 2f, height / 2f - plusSize / 2f, width / 2f, height / 2f + plusSize / 2f)
+        line(magCenter.x - plusSize / 2f, magCenter.y, magCenter.x + plusSize / 2f, magCenter.y)
+        line(magCenter.x, magCenter.y - plusSize / 2f, magCenter.x, magCenter.y + plusSize / 2f)
     }
 
     private fun drawPreviewCanvas(){
@@ -238,15 +249,19 @@ class PerspectiveCorrectionView : CanvasView {
                 when (movingCorner) {
                     Corner.TopLeft -> {
                         topLeft = constrain(position, null, bottomLeft.y, null, topRight.x)
+                        hasChanges = true
                     }
                     Corner.TopRight -> {
                         topRight = constrain(position, null, bottomRight.y, topLeft.x, null)
+                        hasChanges = true
                     }
                     Corner.BottomLeft -> {
                         bottomLeft = constrain(position, topLeft.y, null, null, bottomRight.x)
+                        hasChanges = true
                     }
                     Corner.BottomRight -> {
                         bottomRight = constrain(position, topRight.y, null, bottomLeft.x, null)
+                        hasChanges = true
                     }
                     null -> {}
                 }

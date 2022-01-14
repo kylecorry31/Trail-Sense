@@ -106,9 +106,9 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                 listOf(distanceUnits),
                 Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits),
                 it.title.toString()
-            ) {
-                if (it != null) {
-                    prefs.altitudeOverride = it.meters().distance
+            ) { distance, _ ->
+                if (distance != null) {
+                    prefs.altitudeOverride = distance.meters().distance
                     updateAltitude()
                 }
             }

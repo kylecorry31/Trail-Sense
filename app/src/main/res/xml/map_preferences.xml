@@ -7,12 +7,11 @@
         app:title="@string/maps">
 
         <SwitchPreferenceCompat
-            android:summary="@string/pref_low_resolution_maps_summary"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_low_resolution_maps"
             app:singleLineTitle="false"
-            app:title="@string/pref_low_resolution_maps_title" />
+            app:title="@string/reduce_map_resolution" />
 
 
     </PreferenceCategory>

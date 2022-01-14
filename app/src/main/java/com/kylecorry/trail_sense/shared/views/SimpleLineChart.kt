@@ -7,6 +7,8 @@ import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -89,7 +91,7 @@ class SimpleLineChart(
             chart.axisLeft.setLabelCount(6, false)
         }
 
-        if (labelFormatter == null){
+        if (labelFormatter == null) {
             chart.axisLeft.valueFormatter = null
         } else {
             chart.axisLeft.valueFormatter = object : ValueFormatter() {
@@ -128,6 +130,8 @@ class SimpleLineChart(
             chart.xAxis.isGranularityEnabled = false
         }
 
+        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+
         if (labelCount != null && labelCount != 0) {
             chart.xAxis.setDrawLabels(true)
             chart.xAxis.setLabelCount(labelCount, true)
@@ -147,7 +151,13 @@ class SimpleLineChart(
         chart.xAxis.setDrawGridLines(drawGridLines)
     }
 
-    fun plot(data: List<Pair<Float, Float>>, @ColorInt color: Int, filled: Boolean = false) {
+    fun plot(
+        data: List<Pair<Float, Float>>,
+        @ColorInt color: Int,
+        filled: Boolean = false,
+        circles: Boolean = false,
+        cubic: Boolean = true
+    ) {
         val values = data.map { Entry(it.first, it.second) }
 
         val set1 = LineDataSet(values, "Set 1")
@@ -158,9 +168,14 @@ class SimpleLineChart(
         set1.fillColor = color
         set1.setCircleColor(color)
         set1.setDrawCircleHole(false)
-        set1.setDrawCircles(true)
+        set1.setDrawCircles(circles)
         set1.circleRadius = 1.5f
         set1.setDrawFilled(filled)
+
+        if (cubic) {
+            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
+            set1.cubicIntensity = 0.005f
+        }
 
         val lineData = LineData(set1)
         chart.data = lineData
@@ -173,7 +188,7 @@ class SimpleLineChart(
         plot(data.mapIndexed { index, value -> index.toFloat() to value }, color, filled)
     }
 
-    fun setOnValueSelectedListener(listener: ((point: Pair<Float, Float>?) -> Unit)?) {
+    fun setOnValueSelectedListener(listener: ((point: Point?) -> Unit)?) {
         if (listener == null) {
             chart.setTouchEnabled(false)
             chart.setOnChartValueSelectedListener(null)
@@ -185,7 +200,9 @@ class SimpleLineChart(
                         listener.invoke(null)
                         return
                     }
-                    listener.invoke(e.x to e.y)
+                    val datasetIndex = h?.dataSetIndex ?: 0
+                    val pointIndex = chart.data.dataSets[datasetIndex].getEntryIndex(e)
+                    listener.invoke(Point(datasetIndex, pointIndex, e.x, e.y))
                 }
 
                 override fun onNothingSelected() {
@@ -196,4 +213,13 @@ class SimpleLineChart(
             chart.setOnChartValueSelectedListener(onValueSelectedListener)
         }
     }
+
+    fun getPoint(datasetIdx: Int, entryIdx: Int): Point {
+        val entry = chart.lineData.getDataSetByIndex(datasetIdx).getEntryForIndex(entryIdx)
+        val point =  chart.getPixelForValues(entry.x, entry.y, YAxis.AxisDependency.LEFT)
+        return Point(datasetIdx, entryIdx, point.x.toFloat(), point.y.toFloat())
+    }
+
+    data class Point(val datasetIndex: Int, val pointIndex: Int, val x: Float, val y: Float)
+
 }

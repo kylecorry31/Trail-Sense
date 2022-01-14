@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
-import com.kylecorry.andromeda.forms.UnitInputView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 

@@ -71,10 +71,9 @@ object Tools {
                     context.getString(R.string.experimental)
                 ) else null,
                 Tool(
-                    context.getString(R.string.backtrack),
+                    context.getString(R.string.paths),
                     R.drawable.ic_tool_backtrack,
-                    R.id.action_action_experimental_tools_to_fragmentBacktrack,
-                    context.getString(R.string.tool_backtrack_summary)
+                    R.id.action_action_experimental_tools_to_fragmentBacktrack
                 ),
                 Tool(
                     context.getString(R.string.tool_triangulate_title),
@@ -88,10 +87,10 @@ object Tools {
         val angles = ToolGroup(
             context.getString(R.string.tool_category_angles), listOfNotNull(
                 Tool(
-                    context.getString(R.string.inclinometer_title),
-                    R.drawable.inclinometer,
-                    R.id.action_toolsFragment_to_inclinometerFragment,
-                    context.getString(R.string.tool_inclinometer_summary)
+                    context.getString(R.string.clinometer_title),
+                    R.drawable.clinometer,
+                    R.id.action_toolsFragment_to_clinometerFragment,
+                    context.getString(R.string.tool_clinometer_summary)
                 ),
                 Tool(
                     context.getString(R.string.tool_bubble_level_title),
@@ -151,7 +150,7 @@ object Tools {
                 Tool(
                     context.getString(R.string.tool_thermometer_title),
                     R.drawable.thermometer,
-                    R.id.action_action_experimental_tools_to_thermometerFragment
+                    if (Sensors.hasHygrometer(context)) R.id.action_tools_to_temperature_humidity else R.id.action_action_experimental_tools_to_thermometerFragment
                 ),
                 Tool(
                     context.getString(R.string.clouds),
@@ -194,6 +193,11 @@ object Tools {
                     context.getString(R.string.tool_notes_title),
                     R.drawable.ic_tool_notes,
                     R.id.action_action_experimental_tools_to_fragmentToolNotes
+                ),
+                Tool(
+                    context.getString(R.string.qr_code_scanner),
+                    R.drawable.ic_qr_code,
+                    R.id.action_tools_to_qr
                 ),
                 Tool(
                     context.getString(R.string.tool_user_guide_title),

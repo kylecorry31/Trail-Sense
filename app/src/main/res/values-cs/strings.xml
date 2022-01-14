@@ -34,13 +34,9 @@
     <string name="delete">Smazat</string>
     <string name="subtract">Odečíst</string>
     <string name="add">Přidat</string>
-    <string name="estimated_height">odhadovaná výška</string>
-    <string name="inclinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
-    <string name="avalanche_risk_high">Vysoká pravděpodobnost laviny</string>
-    <string name="avalanche_risk_med">Středně velká pravděpodobnost laviny</string>
-    <string name="avalanche_risk_low">Malá pravděpodobnost laviny</string>
-    <string name="tool_inclinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
-    <string name="inclinometer_title">Sklonoměr</string>
+    <string name="clinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
+    <string name="tool_clinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
+    <string name="clinometer_title">Sklonoměr</string>
     <string name="offline_maps">Offline mapy</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>
     <string name="moon_phase">Měsíční fáze</string>
@@ -73,7 +69,6 @@
     <string name="weather_worsening_slow">Bude se brzo zhoršovat</string>
     <string name="weather_improving_slow">Bude se brzo zlepšovat</string>
     <string name="weather_improving_fast">Bude se velmi brzo zlepšovat</string>
-    <string name="no_humidity_data">Žádné data o vlhkosti</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
@@ -192,7 +187,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
-    <string name="your_height">Vaše výška</string>
     <string name="set_inclination_instructions">Klepnutím kamkoli nastavte/zrušte úhel sklonu</string>
     <string name="tide_neap"/>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
@@ -225,7 +219,6 @@
     <string name="storm_alerts">Výstrahy před bouřkami</string>
     <string name="alerts">Výstrahy</string>
     <string name="pressure_reading_time_ago">před %s - %s</string>
-    <string name="pressure_setpoint_format">Nastaveno před: %s - %s</string>
     <string name="turn_off">Vypnout</string>
     <string name="battery_temp">Telefon: %s</string>
     <string name="precise_percent_format">%s%%</string>

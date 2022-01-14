@@ -7,9 +7,10 @@ import com.kylecorry.sol.science.geology.NavigationVector
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.Position
-import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import java.time.Duration
-import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -37,18 +38,43 @@ class NavigationService {
         return originalVector.copy(altitudeChange = altitudeChange)
     }
 
-    fun eta(from: Position, to: Beacon, nonLinear: Boolean = false): Duration {
+    fun eta(from: Position, to: Beacon): Duration {
         val speed =
             if (from.speed < 3) clamp(from.speed, 0.89408f, 1.78816f) else from.speed
+
+        val time = scarfsDistance(from.location, to.coordinate, from.altitude, to.elevation) / speed
+
+        return Duration.ofSeconds(time.toLong())
+    }
+
+    fun pathDuration(path: List<PathPoint>, speed: Float = 0f): Duration {
+        val realSpeed = if (speed < 3) clamp(speed, 0.89408f, 1.78816f) else speed
+        var distance = 0f
+        for (i in 1..path.lastIndex) {
+            distance += scarfsDistance(
+                path[i - 1].coordinate,
+                path[i].coordinate,
+                path[i - 1].elevation,
+                path[i].elevation
+            )
+        }
+        return Duration.ofSeconds((distance / realSpeed).toLong())
+    }
+
+    private fun scarfsDistance(
+        from: Coordinate,
+        to: Coordinate,
+        fromAltitude: Float? = null,
+        toAltitude: Float? = null
+    ): Float {
+        val distance = from.distanceTo(to)
         val elevationGain =
-            max(if (to.elevation == null) 0f else (to.elevation - from.altitude), 0f)
-        val distance =
-            from.location.distanceTo(to.coordinate) * (if (nonLinear) PI.toFloat() / 2f else 1f)
+            max(
+                if (toAltitude == null || fromAltitude == null) 0f else (toAltitude - fromAltitude),
+                0f
+            )
 
-        val baseTime = distance / speed
-        val elevationSeconds = (elevationGain / 300f) * 30f * 60f
-
-        return Duration.ofSeconds(baseTime.toLong()).plusSeconds(elevationSeconds.toLong())
+        return distance + 7.92f * elevationGain
     }
 
     fun getNearbyBeacons(
@@ -79,18 +105,20 @@ class NavigationService {
         usingTrueNorth: Boolean = true
     ): Beacon? {
         return beacons.map {
-                val declinationAdjustment = if (usingTrueNorth) {
-                    0f
+            Pair(
+                it,
+                if (usingTrueNorth) {
+                    position.location.bearingTo(it.coordinate)
                 } else {
-                    -declination
+                    DeclinationUtils.fromTrueNorthBearing(
+                        position.location.bearingTo(it.coordinate),
+                        declination
+                    )
                 }
-                Pair(
-                    it,
-                    position.location.bearingTo(it.coordinate).withDeclination(declinationAdjustment)
-                )
-            }.filter {
-                isFacingBearing(position.bearing, it.second)
-            }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
+            )
+        }.filter {
+            isFacingBearing(position.bearing, it.second)
+        }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
     }
 
 }

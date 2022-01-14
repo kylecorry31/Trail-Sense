@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.sinDegrees
-import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.science.geology.projections.IMapProjection
+import com.kylecorry.sol.units.Distance
 
 data class Map(
     val id: Long,
@@ -13,30 +11,15 @@ data class Map(
     val filename: String,
     val calibrationPoints: List<MapCalibrationPoint>,
     val warped: Boolean,
-    val rotated: Boolean
+    val rotated: Boolean,
+    val rotation: Int = 0,
+    val projection: MapProjectionType = MapProjectionType.Mercator
 ) {
 
-    fun getPixels(location: Coordinate, width: Float, height: Float): PixelCoordinate? {
-        val metersPerPixel = distancePerPixel(width, height)?.meters()?.distance ?: return null
-        val calibrationPixels = calibrationPoints[0].imageLocation.toPixels(width, height)
-        val distance = calibrationPoints[0].location.distanceTo(location)
-        val bearing =
-            wrap(-(calibrationPoints[0].location.bearingTo(location).value - 90), 0f, 360f)
-        val distanceNorth = sinDegrees(bearing.toDouble()).toFloat() * distance
-        val distanceEast = cosDegrees(bearing.toDouble()).toFloat() * distance
-        val x = calibrationPixels.x + distanceEast / metersPerPixel
-        val y = calibrationPixels.y - distanceNorth / metersPerPixel
-        return PixelCoordinate(x, y)
-    }
-
-    fun getCoordinate(pixels: PixelCoordinate, width: Float, height: Float): Coordinate? {
-        val metersPerPixel = distancePerPixel(width, height)?.meters()?.distance ?: return null
-        val distanceSouth = Distance.meters(pixels.y * metersPerPixel)
-        val distanceEast = Distance.meters(pixels.x * metersPerPixel)
-        val border = boundary(width, height) ?: return null
-        return Coordinate(border.north, border.west)
-            .plus(distanceSouth, Bearing.from(CompassDirection.South))
-            .plus(distanceEast, Bearing.from(CompassDirection.East))
+    fun projection(width: Float, height: Float): IMapProjection {
+        return CalibratedProjection(calibrationPoints.map {
+            it.imageLocation.toPixels(width, height) to it.location
+        }, MapProjectionFactory().getProjection(projection))
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {
@@ -67,28 +50,14 @@ data class Map(
             return null
         }
 
-        val first = calibrationPoints[0]
-        val firstPixels = first.imageLocation.toPixels(width, height)
-        val metersPerPixel = distancePerPixel(width, height)?.meters()?.distance ?: return null
+        val projection = projection(width, height)
 
-        val north = first.location.plus(
-            Distance.meters(firstPixels.y * metersPerPixel),
-            Bearing.from(CompassDirection.North)
-        ).latitude
-        val south = first.location.plus(
-            Distance.meters((height - firstPixels.y) * metersPerPixel),
-            Bearing.from(CompassDirection.South)
-        ).latitude
-        val east = first.location.plus(
-            Distance.meters((width - firstPixels.x) * metersPerPixel),
-            Bearing.from(CompassDirection.East)
-        ).longitude
-        val west = first.location.plus(
-            Distance.meters(firstPixels.x * metersPerPixel),
-            Bearing.from(CompassDirection.West)
-        ).longitude
+        val topLeft = projection.toCoordinate(Vector2(0f, 0f))
+        val bottomLeft = projection.toCoordinate(Vector2(0f, height))
+        val topRight = projection.toCoordinate(Vector2(width, 0f))
+        val bottomRight = projection.toCoordinate(Vector2(width, height))
 
-        return CoordinateBounds(north, east, south, west)
+        return CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
     }
 
 }

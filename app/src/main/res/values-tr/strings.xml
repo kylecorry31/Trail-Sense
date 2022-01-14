@@ -17,8 +17,6 @@
     <string name="battery_warning">Pil tüketimi uyarısı</string>
     <string name="backtrack_high_priority_notification">Her %s\'de ara nokta konuluyor</string>
     <string name="updates">Güncellemeler</string>
-    <string name="pref_backtrack_path_color_title">Geri iz sürme yolu rengi</string>
-    <string name="pref_backtrack_path_style_title">Geri iz sürme yolu şekli</string>
     <string name="arrow">Ok şekli</string>
     <string name="dotted">Benekli</string>
     <string name="solid">Düz / dolu</string>
@@ -33,8 +31,6 @@
     <string name="importing_map">Harita içe aktarılıyor</string>
     <string name="hour_symbol">sa</string>
     <string name="minute_symbol">d</string>
-    <string name="pref_backtrack_path_radar_summary">Radar pusulası ve haritasında</string>
-    <string name="pref_backtrack_path_radar_title">Geri iz sürme yolunu göster</string>
     <string name="time_until_full">dolmasına kalan süre</string>
     <string name="time_until_empty">bitmesine kalan süre</string>
     <string name="guide_speedometer_desc">Gidilen mesafe ve varış süreleri nasıl belirlenir</string>
@@ -47,8 +43,6 @@
     <string name="tide_location_label">Gelgit konumu (isteğe bağlı)</string>
     <string name="pedometer">Adımsayar</string>
     <string name="odometer">Odometre/kilometre sayacı</string>
-    <string name="distance_away_not_set">Mesafe uzaklığı belirlenmedi</string>
-    <string name="distance_away">Mesafe uzaklığı</string>
     <string name="value_average">ortalama %s</string>
     <string name="value_since_time">%s\'den beri %s</string>
     <string name="tool_speedometer_odometer_title">Hız ölçer / Kilometre sayacı</string>
@@ -66,7 +60,7 @@
     <string name="tides">Gelgitler</string>
     <string name="left_quick_action">Sola hızlı hareket</string>
     <string name="right_quick_action">Sağa hızlı hareket</string>
-    <string name="quick_action_none">Yok</string>
+    <string name="none">Yok</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_today">Bugünle aynı</string>
     <string name="weather_worse_than_today">Bugünden daha kötü</string>
@@ -150,20 +144,16 @@
 \n- Mevcut konumunu, irtifanı, ve hızını bul.
 \n
 \n- Geri iz sürme ile aynı yoldan geri git. (özellik arkaplanda çalışır)</string>
-    <string name="cirrus_desc">Yüksektedir ve tüy gibidir.</string>
-    <string name="cumulonimbus_desc">Koyu gri, uzun, ve örse benzer.</string>
-    <string name="stratocumulus_desc">Tabaka oluşturan yuvarlanan kütleler gibi gözükür.</string>
-    <string name="cumulus_desc">Şişkin pamuk yumağı gibi görünür.</string>
-    <string name="stratus_desc">Göğü örter ve nesneler gölge yapmaz.</string>
-    <string name="nimbostratus_desc">Koyu gridir ve göğü tamamen örter. Yağmur yağıyor olabilir.</string>
-    <string name="altostratus_desc">Göğü örter ve güneş çok az görülür.</string>
-    <string name="altocumulus_desc">Şişkin pamuk yumağı gibi görünür.</string>
-    <string name="cirrostratus_desc">Göğü örter, ama güneş hala görülebilir.</string>
-    <string name="cirrocumulus_desc">Bulutların neredeyse iki boyutlu durduğu bir dalgalı şekil alır.</string>
-    <string name="cloud_likely_storm">Muhtemel fırtına</string>
-    <string name="cloud_likely_rain">Muhtemel yağış</string>
-    <string name="cloud_possible_rain">Yağış mümkün</string>
-    <string name="cloud_fair">Muhtemel açık hava</string>
+    <string name="cirrus_desc">Beyaz saç tutamlarına benzeyen yüksek ince bulutlar.</string>
+    <string name="cumulonimbus_desc">Çok uzun olan alçak kabarık bulutlar. Genellikle bir örs şekline sahiptirler ve karanlıktırlar.</string>
+    <string name="stratocumulus_desc">Küçük boşluklara sahip pamuk topları gibi görünen alçak bulutlar. Renk beyazdan koyu griye kadar değişir.</string>
+    <string name="cumulus_desc">Pamuk topları gibi görünen alçak kabarık bulutlar. Aralıklıdırlar ve genellikle aşağıda daha koyu yamaları olan beyazdırlar.</string>
+    <string name="stratus_desc">Gökyüzünü kaplayan alçak bir bulut. Nesneler gölge oluşturmaz ve hava sisli olabilir.</string>
+    <string name="nimbostratus_desc">Koyu gri renkli ve gökyüzünü kaplayan orta seviye bir bulut. Yağmur yağıyor olabilir.</string>
+    <string name="altostratus_desc">Gökyüzünü kaplayan orta seviye bir bulut. Güneş, parlak bir yama olarak zar zor görülebilir.</string>
+    <string name="altocumulus_desc">Pamuk topları gibi görünen orta seviye kabarık bulutlar. Genellikle aşağıda daha koyu yamaları olan beyazdırlar ve aralıklı veya tabaka şeklinde olabilirler.</string>
+    <string name="cirrostratus_desc">Gökyüzünü kaplayan yüksek bir bulut. Saydamdır ve genellikle güneşin etrafında bir halenin oluşmasına neden olur.</string>
+    <string name="cirrocumulus_desc">Dalgalı bir tabaka oluşturan yüksek seviyeli bulutlar. Tabaka, neredeyse iki boyutlu görünen küçük noktalardan oluşur.</string>
     <string name="cumulonimbus">Kümülonimbus</string>
     <string name="cumulus">Kümülüs</string>
     <string name="stratocumulus">Stratokümülüs</string>
@@ -182,11 +172,8 @@
     <string name="battery_power_ac">AC</string>
     <string name="pref_backtrack_frequency_title">Geri iz sürme aralığı</string>
     <string name="delete_waypoint_prompt">Ara noktayı silmek istediğinizden emin misiniz\?</string>
-    <string name="waypoint_beacon_title_template">%s, %s Ara nokta</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Konum geçmişini görüntüle</string>
     <string name="create_beacon">İşaret oluştur</string>
-    <string name="backtrack_notification_description">Konum hedefi yerleştiriliyor</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack">Geri iz sürme</string>
     <string name="guide_location_no_gps_title">GPS olmadan konum belirle</string>
@@ -210,7 +197,7 @@
     <string name="freezing_temperatures_warning">Dondurucu Sıcaklıklar</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">İçerikler</string>
+    <string name="contents">İçerikler</string>
     <string name="note_title_hint">Başlık</string>
     <string name="tool_notes_title">Notlar</string>
     <string name="delete_note_title">Notu silmek istediğinden emin misin\?</string>
@@ -294,7 +281,6 @@
     <string name="water_boil_timer_channel_description">Su kaynıyor</string>
     <string name="water_boil_timer">Su Kaynama Zamanlayıcısı</string>
     <string name="solar_panel_instructions">Başlamak için telefonunuzu güneş panelinin yüzüne koyun.</string>
-    <string name="solar_align_now">Şimdi</string>
     <string name="tool_solar_panel_title">Güneş Paneli Ayarlayıcısı</string>
     <string name="tool_solar_panel_summary">İdeal güç üretimi için güneş panellerini yerleştir</string>
     <string name="pref_privacy_policy_title">Gizlilik politikası</string>
@@ -312,8 +298,6 @@
     <string name="tool_cliff_height_disclaimer">Bu aracı yalnızca kullanımı güvenli olduğunda kullanın ve yaralanmayı önlemek için uçurumun altında ne olduğunu kontrol ettiğinizden emin olun. Talimatlar için kullanım kılavuzuna bakın.</string>
     <string name="tool_cliff_height_title">Kayalık Yüksekliği</string>
     <string name="tool_cliff_height_description">Kayalığın yüksekliğini belirleyin</string>
-    <string name="object_height_guide">Nesnelerin boyutunu belirle</string>
-    <string name="guide_avalanche_risk">Çığ riski tahmini</string>
     <string name="depth_disclaimer">Riski size ait olmak üzere kullanın.
 \n
 \nSu geçirmez kılıf olmadan kullanmayın ve mümkünse güvenli bir dalış mesafesinde kalın.</string>
@@ -327,24 +311,11 @@
     <string name="category_hydration">Sıvı</string>
     <string name="category_food">Yemek</string>
     <string name="other">Diğer</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Seyahat basıncı değişikliği eşiği</string>
-    <string name="pref_barometer_altitude_change_title">Seyahat irtifası değişikliği eşiği</string>
     <string name="guide_conserving_battery_title">Güç tasarrufu</string>
     <string name="navigation_nearby_category">Yakındakiler</string>
     <string name="forecasts_category">Hava durumu tahminleri</string>
     <string name="advanced">Gelişmiş</string>
     <string name="tap_sun_moon_hint">Pozisyon detayları için aya veya güneşe dokunun</string>
-    <string name="sun_and_moon_position_details">Güneş
-\n İrtifa: %s
-\n Azimut: %s
-\n
-\nAy
-\n İrtifa: %s
-\n Azimut: %s</string>
-    <string name="sun_and_moon">Güneş &amp; Ay Pozisyonları</string>
-    <string name="pref_sea_level_require_dwell_title">Hızlı irtifa değişimlerini yoksay</string>
-    <string name="pref_sea_level_require_dwell_summary">Okunan değerleri sadece irtifa en az bir saat boyunca değişmediğinde göster. Hava durumu tahimini güvenirliliğini arttırır.</string>
-    <string name="weather_update_notification_channel">Hava durumu güncellemesi</string>
     <string name="no_group">Grup yok</string>
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">İşaret</string>
@@ -380,30 +351,6 @@
     <string name="pref_weather_update_frequency_title">Hava durumu güncellenme sıklığı</string>
     <string name="pref_show_pressure_in_notification_title">Bildirimde basıncı göster</string>
     <string name="pref_show_weather_notification_title">Hava durumu bildirimini göster</string>
-    <string name="storm_sensitivity_high_in">Yüksek (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">Orta (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_low_in">Düşük (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Yüksek (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Orta (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Düşük (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">Yüksek (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Orta (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Yüksek(3 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Düşük (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Orta (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Düşük (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Yüksek (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Orta (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Düşük (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Yüksek (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Orta (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Düşük (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Yüksek (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Orta (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Düşük (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Yüksek (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Orta (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_hpa">Düşük (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Hava tahmini hassaslığı</string>
     <string name="pref_monitor_weather_title">Hava durumunu gözlemle</string>
     <string name="pref_monitor_weather_summary">arkaplanda</string>
@@ -421,8 +368,6 @@
     <string name="pref_show_linear_compass_summary">Telefon dik durumdayken</string>
     <string name="pref_show_linear_compass_title">Doğrusal pusulayı göster</string>
     <string name="pref_display_multi_beacons_title">Yakındaki işaretleri göster</string>
-    <string name="pref_sea_level_use_rapid_summary">Deniz seviyesi basınç dönüşümlerinde hızlı basınç değişimlerini kullan</string>
-    <string name="pref_sea_level_use_rapid_title">Hızlı basınç değişimlerindeki faktör</string>
     <string name="pref_adjust_for_temperature_summary">Deniz seviyesi basınç dönüşümlerinde ısı derecesini kullan</string>
     <string name="pref_adjust_for_temperature_title">Isı derecesindeki faktör</string>
     <string name="pref_use_sea_level_pressure_title">Deniz seviyesi basıncı</string>
@@ -495,15 +440,10 @@
     <string name="delete">Sil</string>
     <string name="subtract">Çıkar</string>
     <string name="add">Ekle</string>
-    <string name="your_height">Sizin boyunuz</string>
-    <string name="estimated_height">tahmini yükseklik</string>
-    <string name="set_inclination_instructions">Eğim açısını belirlemek/değiştirmek için herhangi bir yere dokunun</string>
-    <string name="inclinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
-    <string name="avalanche_risk_high">Yüksek çığ riski</string>
-    <string name="avalanche_risk_med">Orta çığ riski</string>
-    <string name="avalanche_risk_low">Düşük çığ riski</string>
-    <string name="tool_inclinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
-    <string name="inclinometer_title">Eğim ölçer</string>
+    <string name="set_inclination_instructions">Kilitlemek/kilidini açmak için herhangi bir yere dokunun</string>
+    <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
+    <string name="tool_clinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
+    <string name="clinometer_title">Eğim ölçer</string>
     <string name="offline_maps">Çevrimdışı Haritalar</string>
     <string name="moon_illumination">Ayın aydınlığı</string>
     <string name="moon_phase">Ayın evresi</string>
@@ -558,7 +498,6 @@
     <string name="weather_improving_slow">Yakında iyileşiyor</string>
     <string name="weather_improving_fast">Çok yakında iyileşiyor</string>
     <string name="dew_point">Çiy noktası %s</string>
-    <string name="no_humidity_data">Nemlilik verisi yok</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -576,7 +515,6 @@
     <string name="storm_alerts">Fırtına uyarıları</string>
     <string name="alerts">Uyarılar</string>
     <string name="pressure_reading_time_ago">%s - %s önce</string>
-    <string name="pressure_setpoint_format">Ayarla: %s - %s önce</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 sa</string>
     <string name="stop_monitoring">Dur</string>
@@ -728,7 +666,6 @@
     <string name="saltwater_switch">Tuzlu su mu\?</string>
     <string name="experimental">Deneysel</string>
     <string name="no_gps_signal">GPS Sinyali Yok</string>
-    <string name="no_temperature_history">Sıcaklık geçmişi yok</string>
     <string name="low">Düşük</string>
     <string name="moderate">Orta</string>
     <string name="high">Yüksek</string>
@@ -755,7 +692,6 @@
     <string name="delete_map">Harita silinsin mi\?</string>
     <string name="pref_barometer_altitude_outlier_title">İrtifa uç değerini kaldırma</string>
     <string name="pref_barometer_pressure_smoothing_title">Basınç düzenleme</string>
-    <string name="pref_experimental_barometer_calibration_title">Deneysel kalibrasyon kullan</string>
     <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
     <string name="battery_history">Pil geçmişi - son %s</string>
     <string name="no_data">Veri yok</string>
@@ -768,12 +704,6 @@
     <string name="map_rotate_instructions">Kuzey yukarıyı işaret edene kadar döndür</string>
     <string name="map_perspective_instructions">Haritanın ana hatlarını çiz</string>
     <string name="preview">Ön izleme</string>
-    <string name="weather_prediction">Hava durumu: %s</string>
-    <string name="pressure_no_change">Basınç değişmiyor</string>
-    <string name="pressure_falling_fast">Basınç hızla düşüyor</string>
-    <string name="pressure_falling">Basınç düşüyor</string>
-    <string name="pressure_rising">Basınç yükseliyor</string>
-    <string name="pressure_rising_fast">Basınç hızla yükseliyor</string>
     <string name="pref_flashlight_toggle_with_system_summary">El feneri Trail Sense dışında açıldığında bir bildirim görüntüler</string>
     <string name="pref_flashlight_toggle_with_system_title">Sistem ile aç/kapat</string>
     <string name="pref_navigation_lock_screen_presence_title">Gezinirken kilit ekranında göster</string>
@@ -795,7 +725,6 @@
     <string name="privacy">Gizlilik</string>
     <string name="units">Birimler</string>
     <string name="pref_privacy_screenshot_protection_title">Ekran görüntüsü alınmasını engelle</string>
-    <string name="checking_for_astronomy_events">Astronomi olaylarının denetlenmesi</string>
     <string name="battery_restricted_resolution">Trail Sense\'i Optimize Edilmedi Olarak Ayarla</string>
     <string name="ounces_weight_format">%s ons</string>
     <string name="ounces_volume_format">%s ons</string>
@@ -824,11 +753,7 @@
     <string name="navigate">Gezin</string>
     <string name="new_text">Yeni</string>
     <string name="old">Eski</string>
-    <string name="path">Yol</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="no_previous_path">Önceki yol yok</string>
-    <string name="merge_previous_path_title">Önceki yolla birleştirilsin mi\?</string>
-    <string name="path_merge_previous">Öncekini birleştir</string>
     <string name="delete_path">Yol silinsin mi\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Otomatik</string>
@@ -875,7 +800,6 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d uydu</string>
     <string name="no_compass_message">Aygıtınızda pusula sensörü yok</string>
-    <string name="humidity">%s nem</string>
     <string name="guide_packing_list">Paketleme listeleri oluştur</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Öge başına ağırlık</string>
@@ -929,14 +853,11 @@
     <string name="daylight">Gün ışığı</string>
     <string name="pref_auto_low_power_title">Otomatik güç tasarrufu</string>
     <string name="pref_auto_low_power_summary">Piliniz azaldığında</string>
-    <string name="pref_low_resolution_maps_title">Düşük çözünürlük kullan</string>
-    <string name="pref_low_resolution_maps_summary">Bellek kısıtlamaları olan aygıtlar için</string>
     <string name="pref_flashlight_toggle_with_volume_title">Ses düğmeleri ile aç/kapat</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Trail Sense açıkken</string>
     <string name="back_press_confirm">Ayrılmak için tekrar geri düğmesine basın</string>
     <string name="leave_underwater_mode">Su altı: çıkmak için geri düğmesine basın</string>
     <string name="underwater_mode">Su altı modu</string>
-    <string name="middle">Orta</string>
     <string name="action_inventory_clear_confirm">Tüm paketlenen miktarlar silinsin mi\?</string>
     <string name="units_mmhg">mmHg</string>
     <string name="current_format">%s mA</string>
@@ -950,4 +871,113 @@
 \n**Gece**: %s
 \n
 \n**Mevsim**: %s</string>
+    <string name="humidity">Nem</string>
+    <string name="astro_dialog_moon_phase">**Aşama**: %s
+\n
+\n**Aydınlatma**: %s</string>
+    <string name="elevation">Yükseklik</string>
+    <string name="elevation_gain">Yükseklik kazancı</string>
+    <string name="elevation_loss">Yükseklik kaybı</string>
+    <string name="easy">Kolay</string>
+    <string name="hard">Zor</string>
+    <string name="difficulty">Zorluk</string>
+    <string name="sun">Güneş</string>
+    <string name="precipitation_chance">Yağış ihtimali: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Başlangıç**: %s
+\n
+\n**Tepe**: %s
+\n
+\n**Bitiş**: %s
+\n
+\n**Süre**: %s
+\n
+\n**Büyüklük**: %s
+\n
+\n**Rakım**: %s</string>
+    <string name="weather_monitoring_disabled">Hava durumu izleme devre dışı bırakıldı</string>
+    <string name="enable">Etkinleştir</string>
+    <string name="no_clouds">Bulut Yok</string>
+    <string name="precipitation_snow_pellets">Kar topakları</string>
+    <string name="precipitation_drizzle">Çisenti</string>
+    <string name="precipitation_snow">Kar</string>
+    <string name="results">Sonuçlar</string>
+    <string name="capture">Yakala</string>
+    <string name="take_photo">Fotoğraf çek</string>
+    <string name="or">Veya</string>
+    <string name="no_camera_access">Kameraya erişilemiyor</string>
+    <string name="point_style">Nokta şekli</string>
+    <string name="line_style">Çizgi şekli</string>
+    <string name="path_color">Yol rengi</string>
+    <string name="temporary">Geçici</string>
+    <string name="points">Noktalar</string>
+    <string name="duration">Süre</string>
+    <string name="importing">İçe aktarılıyor</string>
+    <string name="simplification_quality">Sadeleştirme kalitesi</string>
+    <string name="pref_auto_simplify_paths_title">İçe aktarma sırasında yolları sadeleştir</string>
+    <string name="dashed">Kesikli</string>
+    <string name="pref_default_path_style_title">Öntanımlı yol şekli</string>
+    <string name="pref_default_path_color_title">Öntanımlı yol rengi</string>
+    <string name="pref_export_weather_csv_title">Hava durumu okumalarını dışa aktar</string>
+    <string name="weather_exported">Hava durumu dışa aktarıldı</string>
+    <string name="pref_show_nearest_tide_title">En yakın gelgiti göster</string>
+    <string name="astro_dialog_rise_set">**Zaman**: %s
+\n
+\n**Yön**: %s</string>
+    <string name="astro_dialog_noon">**Zaman**: %s
+\n
+\n**Rakım**: %s</string>
+    <string name="duration_of_charge">Şarj süresi</string>
+    <string name="sun_moon_position_template">### %s
+\n**Rakım**: %s
+\n
+\n**Azimut**: %s</string>
+    <string name="moon">Ay</string>
+    <string name="sky_detection_sensitivity">Gökyüzü algılama hassasiyeti</string>
+    <string name="obstacle_removal_sensitivity">Engel kaldırma hassasiyeti</string>
+    <string name="pref_experimental_cloud_scanner_title">Bulut tarayıcı</string>
+    <string name="precipitation_none">Yağış yok</string>
+    <string name="precipitation_rain">Yağmur</string>
+    <string name="precipitation_hail">Dolu</string>
+    <string name="precipitation_small_hail">Küçük dolu</string>
+    <string name="precipitation_ice_pellets">Buz topakları</string>
+    <string name="precipitation_snow_grains">Kar taneleri</string>
+    <string name="choose_photo">Fotoğraf seç</string>
+    <string name="waypoint">Ara nokta</string>
+    <string name="merging">Birleştiriliyor</string>
+    <string name="merge">Birleştir</string>
+    <string name="append_onto">Üzerine ekle</string>
+    <string name="cloud_photo_mask_toast">Maskeyi değiştirmek için fotoğrafa dokunun</string>
+    <string name="simplify">Sadeleştir</string>
+    <string name="simplifying">Sadeleştiriliyor</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d ara nokta silindi</item>
+        <item quantity="other">%d ara nokta silindi</item>
+    </plurals>
+    <string name="sort_by">Sırala: %s</string>
+    <string name="most_recent">En yeni</string>
+    <string name="longest">En uzun</string>
+    <string name="shortest">En kısa</string>
+    <string name="closest">En yakın</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d yol içe aktarıldı</item>
+        <item quantity="other">%d yol içe aktarıldı</item>
+    </plurals>
+    <string name="hide">Gizle</string>
+    <string name="show">Göster</string>
+    <string name="tilt">Eğim</string>
+    <string name="up_to_amount">%s\'e kadar</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="notification_weather_update_title">Hava Durumu İzleme Güncellemesi</string>
+    <string name="astro_dialog_meteor_shower">**Tepe**: %s
+\n
+\n**Tepe rakımı**: %s
+\n
+\n**Tepe yönü**: %s
+\n
+\n**Oran**: %s</string>
+    <string name="paths">Yollar</string>
+    <string name="keep_forever">Sonsuza kadar sakla</string>
+    <string name="slope_amount">%s eğim</string>
+    <string name="avalanche_risk">Çığ riski</string>
+    <string name="reduce_map_resolution">Harita çözünürlüğünü azalt</string>
 </resources>

@@ -11,9 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,10 +21,53 @@
         android:id="@+id/temperature_estimation_input"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dest_temperature">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+                android:id="@+id/temp_est_base_elevation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+                android:id="@+id/temp_est_dest_elevation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.UnitInputView
+                android:id="@+id/temp_est_base_temperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <Button
+                android:id="@+id/temp_est_autofill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/autofill" />
+
+            <ProgressBar
+                android:id="@+id/temp_est_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+
+        </LinearLayout>
 
     </ScrollView>
 

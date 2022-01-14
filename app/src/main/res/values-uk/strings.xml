@@ -9,8 +9,6 @@
     <string name="battery_warning">Попередження про розряджання акумулятора</string>
     <string name="backtrack_high_priority_notification">Розміщення шляхової точки кожні %s</string>
     <string name="updates">Оновлення</string>
-    <string name="pref_backtrack_path_color_title">Колір історії маршруту</string>
-    <string name="pref_backtrack_path_style_title">Стиль історії маршруту</string>
     <string name="arrow">Стрілка</string>
     <string name="dotted">Крапкований</string>
     <string name="solid">Суцільний</string>
@@ -20,15 +18,13 @@
     <string name="pref_odometer_reset_daily_title">Скидувати щодня</string>
     <string name="sleep_timer">Відлік часу сну</string>
     <string name="import_gpx">Імпорт GPX</string>
-    <string name="pref_backtrack_path_radar_summary">На компасі радару та мапах</string>
     <string name="error_importing_map">Помилка під час імпортування мапи</string>
     <string name="importing_map">Імпортування мапи</string>
-    <string name="hour_symbol">год</string>
-    <string name="minute_symbol">м</string>
-    <string name="pref_backtrack_path_radar_title">Показати шлях історії маршруту</string>
+    <string name="hour_symbol">год.</string>
+    <string name="minute_symbol">хв.</string>
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
     <string name="time_until_full">до повного</string>
-    <string name="time_until_empty">до порожнього</string>
+    <string name="time_until_empty">до спустошення</string>
     <string name="guide_speedometer_desc">Як визначити пройдену відстань і час прибуття</string>
     <string name="guide_speedometer_title">Визначте швидкість і відстань</string>
     <string name="next">Далі</string>
@@ -42,7 +38,7 @@
     <string name="no_maps">Немає мап</string>
     <string name="rename">Переназвати</string>
     <string name="speedometer_odometer_accuracy_dialog">Для щонайбільшої точності увімкніть історію маршруту й установіть у налаштуваннях в якості джерела відстанеміра (одометра) крокомір.</string>
-    <string name="pedometer_disclaimer">Точність крокоміра та його енергоспоживання залежать від виробника вашого пристрою і введеної довжини кроку. Спробуйте походити трохи вдома, щоб перевірити розряджання батареї та точність перед використанням в поході.</string>
+    <string name="pedometer_disclaimer">Точність крокоміра та його зарядоспоживання залежать від виробника вашого пристрою і введеної довжини кроку. Спробуйте походити трохи вдома, щоб перевірити розряджання батареї та точність перед використанням в поході.</string>
     <string name="guide_using_printed_maps">Використання друкованих (паперових) мап</string>
     <string name="guide_signaling_for_help_title">Сигналізація про допомогу</string>
     <string name="pref_meteor_showers_title">Зорепади</string>
@@ -59,8 +55,6 @@
     <string name="pedometer">Крокомір</string>
     <string name="odometer">Відстанемір</string>
     <string name="saltwater_switch">Вода є солоною\?</string>
-    <string name="distance_away_not_set">відстань не встановлено</string>
-    <string name="distance_away">Відстань до</string>
     <string name="value_average">%s у середньому</string>
     <string name="value_since_time">%s з %s</string>
     <string name="tool_speedometer_odometer_title">Спідометр / Відстанемір</string>
@@ -76,20 +70,19 @@
     <string name="date_not_set">Дату не встановлено</string>
     <string name="time_not_set">Час не встановлено</string>
     <string name="tide_calibration_instructions">Установіть час припливу поруч з вами, бажано на дату нового місяця чи повного місяця. Його можна отримати в Інтернеті або роздрукувавши таблиці припливів і відливів. Припливи, показані в Trail Sense, можуть відрізнятися до двох годин, чого досить для довідки, але на що не можна покладатися.</string>
-    <string name="half_tide">Половина припливу</string>
-    <string name="low_tide">Низький приплив</string>
-    <string name="high_tide">Високий приплив</string>
+    <string name="half_tide">Половинний</string>
+    <string name="low_tide">Низький</string>
+    <string name="high_tide">Високий</string>
     <string name="tides">Припливи</string>
     <string name="experimental">Експериментально</string>
     <string name="right_quick_action">Швидка дія справа</string>
     <string name="left_quick_action">Швидка дія зліва</string>
-    <string name="quick_action_none">Нічого</string>
+    <string name="none">Нічого</string>
     <string name="no_gps_signal">Немає сигналу GPS</string>
-    <string name="no_temperature_history">Немає історії температури</string>
     <string name="low">Низьке</string>
     <string name="moderate">Помірне</string>
     <string name="high">Високе</string>
-    <string name="battery_usage">%s енергоспоживання</string>
+    <string name="battery_usage">%s зарядоспоживання</string>
     <string name="service_update_frequency">Оновлюється кожні %s</string>
     <string name="always_on">Завжди увімкнено</string>
     <string name="pref_daily_weather_notification_title">Щоденне сповіщення про погоду</string>
@@ -101,7 +94,7 @@
     <string name="weather_better_than_yesterday">Краще, ніж учора</string>
     <string name="tomorrows_forecast">Завтрашній прогноз</string>
     <string name="todays_forecast">Сьогоднішній прогноз</string>
-    <string name="guide_light_meter_description">Як визначити відстань променя ліхтарика</string>
+    <string name="guide_light_meter_description">Визначає відстань променя ліхтарика</string>
     <string name="guide_light_meter_title">Визначення дієвості ліхтарика</string>
     <string name="gps_cache">GPS-кеш</string>
     <string name="location_disabled">Місцеперебування вимкнено</string>
@@ -204,20 +197,16 @@
 \n- Отримайте своє місцеперебування, висоту та швидкість
 \n
 \n- Повторюйте свої кроки за допомогою історії маршруту (працює у тлі, коли увімкнено)</string>
-    <string name="cirrus_desc">Високі та перисті.</string>
-    <string name="cumulonimbus_desc">Темно-сірі, високі, у формі ковадла.</string>
-    <string name="cumulus_desc">Схожі на пухкі ватяні кульки.</string>
-    <string name="stratocumulus_desc">Стяжні маси, що утворюють лист.</string>
-    <string name="stratus_desc">Покривають небо, об\'єкти не відкидають тіні.</string>
-    <string name="nimbostratus_desc">Темно-сірі та покривають небо. Може бути дощ.</string>
-    <string name="altostratus_desc">Покривають небо, сонце ледь видно.</string>
-    <string name="altocumulus_desc">Схожі на пухкі ватяні кульки.</string>
-    <string name="cirrostratus_desc">Покривають небо, але через них видно сонце.</string>
-    <string name="cirrocumulus_desc">Формують хвилястий лист, хмари виглядають майже двомірними.</string>
-    <string name="cloud_likely_storm">Імовірний шторм</string>
-    <string name="cloud_likely_rain">Імовірні опади</string>
-    <string name="cloud_possible_rain">Можливі опади</string>
-    <string name="cloud_fair">Імовірна хороша погода</string>
+    <string name="cirrus_desc">Високі білі хмари, схожі на пучки білого волосся.</string>
+    <string name="cumulonimbus_desc">Низькі пухкі хмари, дуже високі. Вони зазвичай мають форму ковадла і темні.</string>
+    <string name="cumulus_desc">Низькі пухкі хмари, схожі на ватяні кульки. Вони розташовані на невеликій відстані один від одного і зазвичай білі з темнішими плямами знизу.</string>
+    <string name="stratocumulus_desc">Низькі хмари, схожі на лист ватних кульок з невеликими просвічуваннями. Колір варіюється від білого до темно-сірого.</string>
+    <string name="stratus_desc">Низька хмара, що закриває небо. Об\'єкти не відкидають тіні, і може бути туман.</string>
+    <string name="nimbostratus_desc">Хмара середньої висоти, темно-сірого кольору, що закриває небо. Може йти дощ.</string>
+    <string name="altostratus_desc">Хмара середньої висоти, що закриває небо. Сонце ледь видно у вигляді яскравої плями.</string>
+    <string name="altocumulus_desc">Пухкі хмари середнього рівня, схожі на ватяні кульки. Вони зазвичай білі з темнішими плямами внизу і можуть бути розрізненими або схожими на лист.</string>
+    <string name="cirrostratus_desc">Висока хмара, що закриває небо. Вона прозора і зазвичай викликає утворення ореолу навколо сонця.</string>
+    <string name="cirrocumulus_desc">Хмари високого рівня, які утворюють хвилястий лист. Лист складається з маленьких крапок, які виглядають майже двовимірними.</string>
     <string name="cumulonimbus">Купчасто-дощові</string>
     <string name="cumulus">Купчасті</string>
     <string name="stratocumulus">Шарувато-купчасті</string>
@@ -246,7 +235,6 @@
     <string name="tool_cliff_height_description">Виміряйте висоту скелі чи обриву</string>
     <string name="tool_cliff_height_title">Висота скелі</string>
     <string name="toast_destination_bearing_set">Орієнтацію встановлено</string>
-    <string name="object_height_guide">Оцінити висоту об\'єкта</string>
     <string name="pref_altimeter_calibration_mode_title">Автокалібрування</string>
     <string name="calibrate_compass_dialog_title">Калібрувати компас</string>
     <string name="calibrate">Калібрувати</string>
@@ -255,10 +243,8 @@
 \n- Виміряйте значення однієї одиниці віртуальної лінійки.
 \n- Уведіть це значення сюди.</string>
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="pref_sea_level_use_rapid_summary">Використовувати дані барометра під час обчислення тиску на рівні моря</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
     <string name="altitude_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
-    <string name="guide_avalanche_risk">Оцінка ризику зсуву лавин</string>
     <string name="depth_disclaimer">Використовуйте на свій страх і ризик.
 \n
 \nНе використовуйте без водонепроникного чохла і за можливості залишайтеся на безпечній відстані для плавання.</string>
@@ -272,28 +258,15 @@
     <string name="category_clothing">Одяг</string>
     <string name="category_food">Їжа</string>
     <string name="other">Інше</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Поріг зміни тиску в русі</string>
-    <string name="pref_barometer_altitude_change_title">Поріг зміни висоти руху</string>
     <string name="beacon_action_view_details">Докладніше</string>
     <string name="tool_bubble_level_summary">Визначте, чи є поверхні плоскими</string>
     <string name="tool_bubble_level_title">Рівномір</string>
     <string name="guide_weather_prediction_title">Прогноз погоди</string>
-    <string name="guide_conserving_battery_title">Ощада батареї</string>
+    <string name="guide_conserving_battery_title">Енергоощадження</string>
     <string name="navigation_nearby_category">Поблизу</string>
     <string name="forecasts_category">Прогнози</string>
     <string name="advanced">Додатково</string>
     <string name="tap_sun_moon_hint">Торкніться Сонця або Місяця, щоб дізнатися про місцеперебування</string>
-    <string name="sun_and_moon_position_details">Сонце
-\n\tВисота: %s
-\n\tАзимут: %s
-\n
-\nМісяць
-\n\tВисота: %s
-\n\tАзимут: %s</string>
-    <string name="sun_and_moon">Положення Сонця і Місяця</string>
-    <string name="pref_sea_level_require_dwell_title">Нехтувати швидкими змінами висоти</string>
-    <string name="pref_sea_level_require_dwell_summary">Відображати показники тільки тоді, коли висота не змінювалася щонайменш протягом години. Підвищує надійність прогнозів.</string>
-    <string name="weather_update_notification_channel">Оновлення погоди</string>
     <string name="no_group">Немає групи</string>
     <string name="group">Група</string>
     <string name="beacon_create_beacon">Маячок</string>
@@ -316,7 +289,7 @@
     <string name="update_30_minutes">30 хвилин</string>
     <string name="update_180_minutes">3 години</string>
     <string name="update_150_minutes">2 години 30 хвилин</string>
-    <string name="note_content_hint">Зміст</string>
+    <string name="contents">Зміст</string>
     <string name="pref_sensor_details_title">Подробиці датників</string>
     <string name="pref_altitude_override_title">Зсув висоти</string>
     <string name="declination_override_updated_toast">Зсув компаса оновлено</string>
@@ -340,30 +313,6 @@
     <string name="pref_weather_update_frequency_title">Частота оновлення погоди</string>
     <string name="pref_show_pressure_in_notification_title">Показувати тиск у сповіщенні</string>
     <string name="pref_show_weather_notification_title">Показувати сповіщення про погоду</string>
-    <string name="storm_sensitivity_high_in">Висока (0,089 дюйм / 3 год)</string>
-    <string name="storm_sensitivity_med_in">Середня (0,133 дюйм / 3 год)</string>
-    <string name="storm_sensitivity_low_in">Низька (0,177 дюйм / 3 год)</string>
-    <string name="storm_sensitivity_high_psi">Висока (0.007 фт/дюйм² / 3 год)</string>
-    <string name="storm_sensitivity_med_psi">Середня (0.065 фт/дюйм² / 3 год)</string>
-    <string name="storm_sensitivity_low_psi">Низька (0.087 фт/дюйм² / 3 год)</string>
-    <string name="storm_sensitivity_high_mbar">Висока (3 мбар / 3 год)</string>
-    <string name="storm_sensitivity_med_mbar">Середня (4,5 мбар / 3 год)</string>
-    <string name="storm_sensitivity_low_mbar">Низька (3 мбар / 3 год)</string>
-    <string name="storm_sensitivity_high_hpa">Висока (3 гПа / 3 год)</string>
-    <string name="storm_sensitivity_med_hpa">Середня (4,5 гПа / 3 год)</string>
-    <string name="storm_sensitivity_low_hpa">Низька (6 гПа / 3 год)</string>
-    <string name="forecast_sensitivity_high_in">Висока (0,015 дюйм / 3 год)</string>
-    <string name="forecast_sensitivity_med_in">Середня (0,044 дюйм / 3 год)</string>
-    <string name="forecast_sensitivity_low_in">Низька (0.074 дюйм / 3 год)</string>
-    <string name="forecast_sensitivity_high_psi">Висока (0.007 фт/дюйм² / 3 год)</string>
-    <string name="forecast_sensitivity_med_psi">Середня (0.022 фт/дюйм² / 3 год)</string>
-    <string name="forecast_sensitivity_low_psi">Низька (0.036 фт/дюйм² / 3 год)</string>
-    <string name="forecast_sensitivity_high_mbar">Висока (0,5 мбар / 3 год)</string>
-    <string name="forecast_sensitivity_med_mbar">Середня (1,5 мбар / 3 год)</string>
-    <string name="forecast_sensitivity_low_mbar">Низька (2,5 мбар / 3 год)</string>
-    <string name="forecast_sensitivity_high_hpa">Висока (0,5 гПа / 3 год)</string>
-    <string name="forecast_sensitivity_med_hpa">Середня (1,5 гПа / 3 год)</string>
-    <string name="forecast_sensitivity_low_hpa">Низька (2,5 гПа / 3 год)</string>
     <string name="pref_forecast_sensitivity_title">Чутливість прогнозу</string>
     <string name="pref_monitor_weather_title">Відстеження погоди</string>
     <string name="pref_monitor_weather_summary">У тлі</string>
@@ -381,7 +330,6 @@
     <string name="pref_show_linear_compass_summary">Коли телефон розташовано вертикально</string>
     <string name="pref_show_linear_compass_title">Показувати компас-лінійку</string>
     <string name="pref_display_multi_beacons_title">Показувати найближчі маячки</string>
-    <string name="pref_sea_level_use_rapid_title">Враховувати швидкі зміни тиску</string>
     <string name="pref_adjust_for_temperature_summary">Використовувати дані про температуру під час обчислення тиску на рівні моря</string>
     <string name="pref_adjust_for_temperature_title">Використовувати дані про температуру</string>
     <string name="pref_use_sea_level_pressure_title">Тиск на рівні моря</string>
@@ -441,15 +389,10 @@
     <string name="delete">Видалити</string>
     <string name="subtract">Відняти</string>
     <string name="add">Додати</string>
-    <string name="your_height">Ваш зріст</string>
-    <string name="estimated_height">розрахункова висота</string>
-    <string name="set_inclination_instructions">Торкніться екрана для закріплення значення</string>
-    <string name="inclinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
-    <string name="avalanche_risk_high">Високий ризик лавини</string>
-    <string name="avalanche_risk_med">Середній ризик лавини</string>
-    <string name="avalanche_risk_low">Низький ризик лавини</string>
-    <string name="tool_inclinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
-    <string name="inclinometer_title">Нахиломір</string>
+    <string name="set_inclination_instructions">Торкніться чи утримуйте будь-де, щоб заблок./розблок.</string>
+    <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
+    <string name="tool_clinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
+    <string name="clinometer_title">Нахиломір</string>
     <string name="offline_maps">Безмережеві мапи</string>
     <string name="moon_illumination">Місячне освітлення</string>
     <string name="moon_phase">Фаза Місяця</string>
@@ -499,7 +442,7 @@
     <string name="forecast_improving">Можливо, поліпшиться пізніше</string>
     <string name="weather_not_changing">Найближчим часом без змін</string>
     <string name="unsaved_changes">Незбережені зміни</string>
-    <string name="low_power_mode_on_message">Режим енергоощадження ввімкнувся, деякі функції може бути вимкнено.</string>
+    <string name="low_power_mode_on_message">Режим енергоощадження увімкнувся, деякі функції може бути вимкнено.</string>
     <string name="pref_low_power_mode_title">Режим енергоощадження</string>
     <string name="guide_barometer_calibration_title">Калібрування барометра</string>
     <string name="charging_wireless">Заряджання (%s)</string>
@@ -524,11 +467,8 @@
     <string name="location_input_help_title">Підтримувані формати місцеперебування</string>
     <string name="pref_backtrack_frequency_title">Інтервал історії маршруту</string>
     <string name="pref_backtrack_enabled_summary">Записувати історію місцеперебувань</string>
-    <string name="waypoint_beacon_title_template">%s, %s Шляхова точка</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Перегляд історії місцеперебувань</string>
     <string name="create_beacon">Створити маячок</string>
-    <string name="backtrack_notification_description">Розміщення шляхової точки</string>
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack">Історія маршруту</string>
     <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
@@ -573,9 +513,9 @@
     <string name="pip_button">Оновити системний час</string>
     <string name="beacon_2">Маячок 2</string>
     <string name="beacon_1">Маячок 1</string>
-    <string name="could_not_triangulate">Не вдалося виконати триангуляцію</string>
-    <string name="tool_triangulate_summary">Визначте своє місцеперебування без GPS</string>
-    <string name="tool_triangulate_title">Триангуляція місцеперебування</string>
+    <string name="could_not_triangulate">Не вдалося виконати тріангуляцію</string>
+    <string name="tool_triangulate_summary">Визначення вашого місця без GPS</string>
+    <string name="tool_triangulate_title">Тріангуляція місцеперебування</string>
     <string name="tool_category_signaling">Сигналізація</string>
     <string name="tool_category_angles">Кути</string>
     <string name="power">Живлення</string>
@@ -598,14 +538,14 @@
     <string name="precise_inches_format">%s дюйм</string>
     <string name="precise_centimeters_format">%s см</string>
     <string name="tool_lightning_title">Дальність удару блискавки</string>
-    <string name="tool_lightning_description">Виміряйте відстань від удару блискавки</string>
+    <string name="tool_lightning_description">Виміряє відстань від удару блискавки</string>
     <string name="reset">Скинути</string>
     <string name="thunder">Грім</string>
     <string name="lightning">Блискавки</string>
     <string name="utc_format">Всесвітній час %s</string>
     <string name="tool_clock_title">Годинник</string>
     <string name="flashlight_strobe">Стробоскоп</string>
-    <string name="tool_boil_summary">Дізнайтеся, коли вода придатна для пиття</string>
+    <string name="tool_boil_summary">Сповіщає, коли вода питна</string>
     <string name="boil_start">Почати</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d секунда до пиття</item>
@@ -619,9 +559,8 @@
     <string name="water_boil_timer_channel_description">Вода кипить</string>
     <string name="water_boil_timer">Відлік часу кип\'ятіння води</string>
     <string name="solar_panel_instructions">Для початку покладіть телефон на сонячну панель.</string>
-    <string name="solar_align_now">Зараз</string>
     <string name="tool_solar_panel_title">Вирівнювач сонячних панелей</string>
-    <string name="tool_solar_panel_summary">Розмістіть сонячні панелі для оптимального виробництва електроенергії</string>
+    <string name="tool_solar_panel_summary">Визначає найвигідніше положення сонячних батарей</string>
     <string name="pref_privacy_policy_title">Політика приватності</string>
     <string name="guide_recommended_apps_description">Корисні застосунки для виживання</string>
     <string name="guide_recommended_apps">Пораджені застосунки</string>
@@ -638,7 +577,6 @@
     <string name="weather_improving_slow">Скоро поліпшиться</string>
     <string name="weather_improving_fast">Дуже скоро поліпшиться</string>
     <string name="dew_point">Точка роси %s</string>
-    <string name="no_humidity_data">Немає даних про вологість</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -660,7 +598,6 @@
     <string name="storm_alerts">Штормові попередження</string>
     <string name="alerts">Попередження</string>
     <string name="pressure_reading_time_ago">%s - %s тому</string>
-    <string name="pressure_setpoint_format">Задано: %s - %s тому</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 год</string>
     <string name="stop_monitoring">Зупин</string>
@@ -760,7 +697,6 @@
     <string name="delete_map">Видалити мапу\?</string>
     <string name="pref_barometer_altitude_smoothing_title">Згладжування висоти</string>
     <string name="pref_barometer_pressure_smoothing_title">Згладжування тиску</string>
-    <string name="pref_experimental_barometer_calibration_title">Використовувати експериментальне калібрування</string>
     <string name="pref_nmea_altitude_summary">Використовує зсуви NMEA для перетворення висоти</string>
     <string name="pref_nmea_altitude_title">Зсуви висоти NMEA</string>
     <string name="pref_barometer_info_summary">Тиск може відрізнятися від тиску сусідніх станцій</string>
@@ -775,12 +711,6 @@
     <string name="map_rotate_instructions">Обертайте, поки північ не буде вгорі</string>
     <string name="map_perspective_instructions">Накресліть мапу</string>
     <string name="preview">Попередній перегляд</string>
-    <string name="weather_prediction">Погода: %s</string>
-    <string name="pressure_no_change">Тиск не змінюється</string>
-    <string name="pressure_falling_fast">Тиск швидко спадає</string>
-    <string name="pressure_falling">Тиск спадає</string>
-    <string name="pressure_rising">Тиск зростає</string>
-    <string name="pressure_rising_fast">Тиск швидко зростає</string>
     <string name="pref_flashlight_toggle_with_system_summary">Показує сповіщення, коли ліхтарик увімкнено за межами Trail Sense</string>
     <string name="pref_flashlight_toggle_with_system_title">Перемикати із системою</string>
     <string name="pref_navigation_lock_screen_presence_title">Показувати на екрані блокування під час навігації</string>
@@ -797,7 +727,7 @@
         <item quantity="other">%d днів</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Історія зворотного маршруту</string>
-    <string name="pref_tiles_enabled_summary">Може перешкоджати застосункам зарядоощадження повністю зупиняти Trail Sense</string>
+    <string name="pref_tiles_enabled_summary">Може перешкоджати застосункам енергоощадження повністю зупиняти Trail Sense</string>
     <string name="pref_tiles_enabled_title">Системні плитки</string>
     <string name="location_not_mocked">Використання фактичного місцеперебування</string>
     <string name="location_mocked">Використання імітації місцеперебування</string>
@@ -805,8 +735,6 @@
     <string name="privacy">Приватність</string>
     <string name="units">Одиниці</string>
     <string name="pref_privacy_screenshot_protection_title">Запобігати зняткам екрана</string>
-    <string name="pref_low_resolution_maps_title">Використовувати низьку роздільну здатність</string>
-    <string name="pref_low_resolution_maps_summary">Для пристроїв з обмеженнями пам’яті</string>
     <string name="pref_flashlight_toggle_with_volume_title">Перемикання кнопками гучності</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Поки Trail Sense відкритий</string>
     <string name="back_press_confirm">Натисніть ще раз, щоб вийти</string>
@@ -882,7 +810,6 @@
     <string name="packed_amount">Запакована ємність</string>
     <string name="default_pack_name">Типовий пакет</string>
     <string name="action_inventory_clear_confirm">Очистити всі запаковані ємності\?</string>
-    <string name="humidity">%s вологості</string>
     <string name="guide_packing_list">Створення списків пакування</string>
     <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s мА</string>
@@ -936,10 +863,6 @@
         <item quantity="many">%d шляхових точок буде видалено</item>
         <item quantity="other">%d шляхових точок буде видалено</item>
     </plurals>
-    <string name="grid_size">Сітка %s</string>
-    <string name="no_previous_path">Попереднього шляху немає</string>
-    <string name="merge_previous_path_title">Об’єднати з попереднім шляхом\?</string>
-    <string name="path_merge_previous">Об\'єднати попередні</string>
     <string name="delete_path">Видалити шлях\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Авто</string>
@@ -947,7 +870,6 @@
     <string name="units_inhg">дюйм рт.ст.</string>
     <string name="new_text">Нове</string>
     <string name="old">Старе</string>
-    <string name="path">Шлях</string>
     <string name="units_mmhg_short">мм</string>
     <string name="pick_file">Виберіть файл</string>
     <string name="export_path_error">Не вдалося експортувати шлях</string>
@@ -957,7 +879,6 @@
     <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Астрономічні попередження</string>
-    <string name="checking_for_astronomy_events">Перевіряння астрономічних подій</string>
     <string name="lunar_eclipse">Місячне затемнення</string>
     <string name="lunar_eclipse_end">Місячне затемнення (кінець)</string>
     <string name="lunar_eclipse_start">Місячне затемнення (початок)</string>
@@ -967,7 +888,6 @@
     <string name="high_amount">Високо (%s)</string>
     <string name="medium_amount">Середньо (%s)</string>
     <string name="low_amount">Низько (%s)</string>
-    <string name="middle">Середньо</string>
     <string name="units_mmhg">мм рт.ст.</string>
     <string name="season_fall">Осінь</string>
     <string name="season_summer">Літо</string>
@@ -1012,10 +932,7 @@
     <string name="up_to_amount">До %s</string>
     <string name="weather_exported">Покази погоди експортовано</string>
     <string name="pref_export_weather_csv_title">Експорт показів погоди</string>
-    <string name="pref_export_weather_csv">pref_export_weather_csv</string>
-    <string name="pref_tide_settings">pref_tide_settings</string>
     <string name="pref_show_nearest_tide_title">Показати найближчий приплив</string>
-    <string name="pref_show_nearest_tide">pref_show_nearest_tide</string>
     <string name="moon">Місяць</string>
     <string name="sun">Сонце</string>
     <string name="sun_moon_position_template">### %s
@@ -1024,4 +941,140 @@
 \n**Азимут**: %s</string>
     <string name="enable">Увімкнути</string>
     <string name="weather_monitoring_disabled">Відстеження погоди вимкнено</string>
+    <string name="no_clouds">Хмар немає</string>
+    <string name="precipitation_drizzle">Мряка</string>
+    <string name="precipitation_snow">Сніг</string>
+    <string name="precipitation_snow_pellets">Снігова крупа</string>
+    <string name="precipitation_hail">Град</string>
+    <string name="precipitation_snow_grains">Снігові зернята</string>
+    <string name="capture">Захоплення</string>
+    <string name="results">Підсумки</string>
+    <string name="log">Журнал</string>
+    <string name="precipitation_small_hail">Дрібний град</string>
+    <string name="precipitation_ice_pellets">Льодяна крупа</string>
+    <string name="pref_experimental_cloud_scanner_title">Зчитувач хмар</string>
+    <string name="pressure_logged">Тиск записано</string>
+    <string name="sky_detection_sensitivity">Чутливість виявлення неба</string>
+    <string name="obstacle_removal_sensitivity">Чутливість усунення перешкод</string>
+    <string name="precipitation_none">Без опадів</string>
+    <string name="precipitation_rain">Дощ</string>
+    <string name="humidity">Вологість</string>
+    <string name="choose_photo">Обрати знімок</string>
+    <string name="precipitation_chance">Імовірність опадів: %s</string>
+    <string name="take_photo">Зробити знімок</string>
+    <string name="or">або</string>
+    <string name="notification_backtrack_update_title">Оновлення історії маршруту</string>
+    <string name="notification_backtrack_update_content">Записування місцеперебування</string>
+    <string name="notification_weather_update_content">Натисніть на зображення для перемикання маски</string>
+    <string name="notification_weather_update_title">Оновлення відстеження погоди</string>
+    <string name="no_camera_access">Не вдається отримати доступ до камери</string>
+    <string name="cloud_photo_mask_toast">Натисніть на зображення для перемикання маски</string>
+    <string name="paths">Шляхи</string>
+    <string name="keep_forever">Зберегти назавжди</string>
+    <string name="show">Показати</string>
+    <string name="hide">Сховати</string>
+    <string name="sort_by">Упорядкування: %s</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d шлях імпортовано</item>
+        <item quantity="few">%d шляхи імпортовано</item>
+        <item quantity="many">%d шляхів імпортовано</item>
+        <item quantity="other">%d шляхів імпортовано</item>
+    </plurals>
+    <string name="most_recent">Найостанніший</string>
+    <string name="path_color">Колір шляху</string>
+    <string name="point_style">Стиль точки</string>
+    <string name="line_style">Стиль смуги</string>
+    <string name="temporary">Тимчасово</string>
+    <string name="shortest">Найкоротший</string>
+    <string name="longest">Найдовший</string>
+    <string name="closest">Найближчий</string>
+    <string name="importing">Імпортування</string>
+    <string name="elevation">Висота</string>
+    <string name="elevation_loss">Зменшення висоти</string>
+    <string name="easy">Легко</string>
+    <string name="hard">Важко</string>
+    <string name="difficulty">Важкість</string>
+    <string name="points">Точки</string>
+    <string name="elevation_gain">Підвищення висоти</string>
+    <string name="duration">Тривалість</string>
+    <string name="waypoint">Шляхова точка</string>
+    <string name="dashed">Пунктир</string>
+    <string name="pref_default_path_style_title">Типовий стиль шляху</string>
+    <string name="pref_default_path_color_title">Типовий колір шляху</string>
+    <string name="merging">Злиття</string>
+    <string name="merge">Злити</string>
+    <string name="append_onto">Додати до</string>
+    <string name="simplification_quality">Якість спрощення</string>
+    <string name="pref_auto_simplify_paths_title">Спростити шляхи при імпорті</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d шляхову точку видалено</item>
+        <item quantity="few">%d шляхові точки видалено</item>
+        <item quantity="many">%d шляхових точок видалено</item>
+        <item quantity="other">%d шляхових точок видалено</item>
+    </plurals>
+    <string name="simplify">Спростити</string>
+    <string name="simplifying">Спрощування</string>
+    <string name="navigation_guide_description">Використання маяків і шляхів</string>
+    <string name="saving">Зберігання</string>
+    <string name="change_map_projection">Змінити проєкцію</string>
+    <string name="map_projection_mercator">Меркатор</string>
+    <string name="map_projection_equidistant">Рівновіддалена</string>
+    <string name="reduce_map_resolution">Зменшення роздільності мапи</string>
+    <string name="slope_amount">Нахил %s</string>
+    <string name="avalanche_risk">Лавинний ризик</string>
+    <string name="distance_unset">Відстань не встановлено</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Блокування кнопками гучності</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="pref_clinometer_baseline_distance_title">Основна відстань</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="height">Висота</string>
+    <string name="clinometer_measure_distance_title">Висота цілі</string>
+    <string name="instructions">Указівки</string>
+    <string name="measure">Вимірювання</string>
+    <string name="clinometer_measure_height_title">Відстань до цілі</string>
+    <string name="clinometer_measure_height_instructions">Щоб виміряти висоту цілі, яка знаходиться на відстані %s:
+\n
+\n1. Вирівняйте клінометр на основі цілі
+\n2. Торкніться екрана й утримуйте
+\n3. Перевирівняйте клінометр на верхній частині цілі
+\n4. Відпустіть, щоб закріпити і побачити висоту цілі</string>
+    <string name="clinometer_measure_distance_instructions">Щоб виміряти відстань до цілі висотою %s:
+\n
+\n1. Вирівняйте клінометр на основі цілі
+\n2. Торкніться екрана й утримуйте
+\n3. Перевирівняйте клінометр на верхній частині цілі
+\n4. Відпустіть, щоб закріпити і побачити висоту цілі</string>
+    <string name="error_banners">Банери помилок</string>
+    <string name="errors">Помилки</string>
+    <string name="gps_unavailable">GPS недоступний</string>
+    <string name="gps_timeouts">Час очікування GPS</string>
+    <string name="weather_monitor_disabled_resolution">Увімкніть відстеження погоди в налаштуваннях погоди</string>
+    <string name="compass_accuracy">Точність компаса</string>
+    <string name="compass_unavailable">Компас недоступний</string>
+    <string name="enter_text">Введіть текст</string>
+    <string name="no_qr_code_found">QR-код не виявлено</string>
+    <string name="saved_to_note">Збережено у примітках</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="qr_code_scanner">Зчитувач QR-коду</string>
+    <string name="open">Відкрити</string>
+    <string name="note">Примітка</string>
+    <string name="beacon">Маячок</string>
+    <string name="beacon_created">Маячок створено</string>
+    <string name="result_deleted">Результат видалено</string>
+    <string name="undo">Вернути</string>
+    <string name="share_ellipsis">Поділитися…</string>
+    <string name="duration_second_format">%dс</string>
+    <string name="qr_text_too_long">Текст задовгий, QR-код скорочено</string>
+    <string name="pref_flashlight_should_timeout_title">Автовимкнення</string>
+    <string name="pref_flashlight_timeout_title">Вимкнути після</string>
+    <string name="night">Ніч</string>
+    <string name="tide_is_diurnal">Є добовим\?</string>
+    <string name="calculated">Обчислено</string>
+    <string name="tide_table">Таблиця припливів</string>
+    <string name="low_tide_letter">Н</string>
+    <string name="view">Показ</string>
+    <string name="high_tide_letter">В</string>
+    <string name="tide_deleted">Приплив видалено</string>
 </resources>

@@ -18,7 +18,6 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_update" />
 
     <TextView
@@ -27,9 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
         tools:text="10:00:00 AM"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,8 +35,8 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         app:layout_constraintEnd_toEndOf="@+id/clock"
         app:layout_constraintStart_toStartOf="@+id/clock"
         app:layout_constraintTop_toBottomOf="@+id/clock"
@@ -50,8 +47,8 @@
         android:id="@+id/utc_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         app:layout_constraintEnd_toEndOf="@+id/date"
         app:layout_constraintStart_toStartOf="@+id/date"
         app:layout_constraintTop_toBottomOf="@+id/date"

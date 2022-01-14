@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -47,7 +47,8 @@ class MeteorShowerAlertCommand(private val context: Context) : LocationCommand {
             getShowerDescription(context, shower),
             R.drawable.ic_astronomy,
             group = NotificationChannels.GROUP_ASTRONOMY_ALERTS,
-            intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
+            intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy),
+            autoCancel = true
         )
 
         Notify.send(context, 732094, notification)

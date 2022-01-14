@@ -2,22 +2,28 @@ package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.WeatherService
-import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 import java.time.Instant
 
-class WeatherService(
-    private val stormThreshold: Float,
-    dailyForecastChangeThreshold: Float,
-    private val hourlyForecastChangeThreshold: Float
-) {
-    private val longTermForecaster = DailyForecaster(dailyForecastChangeThreshold)
+class WeatherService(private val prefs: WeatherPreferences) {
+    private val stormThreshold = prefs.stormAlertThreshold
+    private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
+    private val longTermForecaster = DailyForecaster(prefs.dailyForecastChangeThreshold)
     private val newWeatherService: IWeatherService = WeatherService()
 
+    fun calibrateTemperature(temp: Float): Float {
+        val calibrated1 = prefs.minActualTemperature
+        val uncalibrated1 = prefs.minBatteryTemperature
+        val calibrated2 = prefs.maxActualTemperature
+        val uncalibrated2 = prefs.maxBatteryTemperature
+
+        return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
+    }
 
     fun getHourlyWeather(readings: List<PressureReading>): Weather {
         val tendency = getTendency(readings)

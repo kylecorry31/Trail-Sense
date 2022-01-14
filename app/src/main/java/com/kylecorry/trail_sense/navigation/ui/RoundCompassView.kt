@@ -5,27 +5,22 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.ArcMode
+import com.kylecorry.andromeda.canvas.ImageMode
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import kotlin.math.min
 
 
-class RoundCompassView : CanvasView, ICompassView {
-    private val icons = mutableMapOf<Int, Bitmap>()
-    private var indicators = listOf<BearingIndicator>()
+class RoundCompassView : BaseCompassView {
     private var compass: Bitmap? = null
-    private var azimuth = 0f
-    private var destination: Float? = null
-    @ColorInt
-    private var destinationColor: Int? = null
 
     private var iconSize = 0
     private var compassSize = 0
@@ -48,17 +43,11 @@ class RoundCompassView : CanvasView, ICompassView {
         defStyleAttr
     )
 
-    init {
-        runEveryCycle = false
-        setupAfterVisible = true
-    }
-
     private fun drawDestination() {
-        val d = destination
+        val d = _destination
         d ?: return
-        val color = destinationColor ?: primaryColor
         push()
-        fill(color)
+        fill(d.color)
         opacity(100)
         val dp2 = dp(2f)
         arc(
@@ -66,40 +55,22 @@ class RoundCompassView : CanvasView, ICompassView {
             iconSize.toFloat() + dp2,
             compassSize.toFloat(),
             compassSize.toFloat(),
-            azimuth - 90,
-            azimuth - 90 + deltaAngle(azimuth, d),
+            _azimuth - 90,
+            _azimuth - 90 + deltaAngle(_azimuth, d.bearing.value),
             ArcMode.Pie
         )
         opacity(255)
         pop()
     }
 
-    override fun setAzimuth(azimuth: Float) {
-        this.azimuth = azimuth
-        invalidate()
-    }
-
-    override fun setLocation(location: Coordinate) {
-        // Nothing
-    }
-
-    override fun setIndicators(indicators: List<BearingIndicator>) {
-        this.indicators = indicators
-        invalidate()
-    }
-
-    override fun setDestination(bearing: Float?, @ColorInt color: Int?) {
-        destination = bearing
-        destinationColor = color
-        invalidate()
-    }
-
     private fun drawAzimuth() {
         tint(Resources.androidTextColorPrimary(context))
         imageMode(ImageMode.Corner)
-        image(getBitmap(R.drawable.ic_arrow_target),
+        image(
+            getBitmap(R.drawable.ic_arrow_target, iconSize),
             width / 2f - iconSize / 2f,
-            0f)
+            0f
+        )
         noTint()
     }
 
@@ -165,42 +136,82 @@ class RoundCompassView : CanvasView, ICompassView {
         noStroke()
     }
 
-    private fun drawBearings() {
-        for (indicator in indicators) {
-            if (indicator.tint != null){
-                tint(indicator.tint)
-            } else {
-                noTint()
-            }
-            opacity((255 * indicator.opacity).toInt())
-            push()
-            rotate(indicator.bearing)
-            val bitmap = getBitmap(indicator.icon)
-            imageMode(ImageMode.Corner)
-            image(bitmap, width / 2f - iconSize / 2f, 0f)
-            pop()
+    private fun drawReferences() {
+        for (reference in _references) {
+            drawReference(reference)
         }
+    }
+
+    private fun drawReference(reference: IMappableReferencePoint) {
+        val tint = reference.tint
+        if (tint != null) {
+            tint(tint)
+        } else {
+            noTint()
+        }
+        opacity((255 * reference.opacity).toInt())
+        push()
+        rotate(reference.bearing.value)
+        val bitmap = getBitmap(reference.drawableId, iconSize)
+        imageMode(ImageMode.Corner)
+        image(bitmap, width / 2f - iconSize / 2f, 0f)
+        pop()
         noTint()
         opacity(255)
     }
 
-    override fun setDeclination(declination: Float) {
-        // Do nothing for now
+    private fun drawLocations() {
+        val highlighted = _highlightedLocation
+        var containsHighlighted = false
+        _locations.forEach {
+            if (it.id == highlighted?.id) {
+                containsHighlighted = true
+            }
+            drawLocation(
+                it,
+                highlighted == null || it.id == highlighted.id
+            )
+        }
+
+        if (highlighted != null && !containsHighlighted) {
+            drawLocation(highlighted, true)
+        }
     }
 
-    private fun getBitmap(@DrawableRes id: Int): Bitmap {
-        val bitmap = if (icons.containsKey(id)) {
-            icons[id]
+    private fun drawLocation(location: IMappableLocation, highlight: Boolean) {
+        val bearing = if (_useTrueNorth) {
+            _location.bearingTo(location.coordinate)
         } else {
-            val drawable = Resources.drawable(context, id)
-            val bm = drawable?.toBitmap(iconSize, iconSize)
-            icons[id] = bm!!
-            icons[id]
+            DeclinationUtils.fromTrueNorthBearing(
+                _location.bearingTo(location.coordinate),
+                _declination
+            )
         }
-        return bitmap!!
+        val opacity = if (highlight) {
+            1f
+        } else {
+            0.5f
+        }
+        drawReference(
+            MappableReferencePoint(
+                location.id,
+                R.drawable.ic_arrow_target,
+                bearing,
+                location.color,
+                opacity = opacity
+            )
+        )
+    }
+
+    override fun finalize() {
+        super.finalize()
+        tryOrNothing {
+            compass?.recycle()
+        }
     }
 
     override fun setup() {
+        super.setup()
         iconSize = dp(24f).toInt()
         compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
@@ -215,9 +226,10 @@ class RoundCompassView : CanvasView, ICompassView {
         clear()
         drawAzimuth()
         push()
-        rotate(-azimuth)
+        rotate(-_azimuth)
         drawCompass()
-        drawBearings()
+        drawReferences()
+        drawLocations()
         drawDestination()
         pop()
     }

@@ -9,6 +9,9 @@ interface NoteDao {
     @Query("SELECT * FROM notes")
     fun getAll(): LiveData<List<Note>>
 
+    @Query("SELECT * FROM notes")
+    suspend fun getAllSync(): List<Note>
+
     @Query("SELECT * FROM notes WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): Note?
 

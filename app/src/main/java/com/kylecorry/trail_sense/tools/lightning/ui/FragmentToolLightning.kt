@@ -54,11 +54,13 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
                 binding.startBtn.setImageResource(R.drawable.ic_thunder)
                 binding.startBtn.setText(getString(R.string.thunder))
                 binding.startBtn.setState(true)
+                binding.startBtn.keepScreenOn = true
             } else {
                 lightningTime = null
-                binding.startBtn.setImageResource(R.drawable.ic_lightning)
+                binding.startBtn.setImageResource(R.drawable.ic_torch_on)
                 binding.startBtn.setText(getString(R.string.lightning))
                 binding.startBtn.setState(false)
+                binding.startBtn.keepScreenOn = false
             }
         }
     }
@@ -76,7 +78,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         distance = null
         lightningTime = null
         binding.strikeDistance.text = ""
-        binding.startBtn.setImageResource(R.drawable.ic_lightning)
+        binding.startBtn.setImageResource(R.drawable.ic_torch_on)
         binding.startBtn.setText(getString(R.string.lightning))
         binding.startBtn.setState(false)
         intervalometer.interval(20)

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.scales.IColorScale
 

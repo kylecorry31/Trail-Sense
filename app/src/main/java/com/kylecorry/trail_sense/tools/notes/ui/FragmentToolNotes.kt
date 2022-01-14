@@ -15,8 +15,10 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesBinding
 import com.kylecorry.trail_sense.databinding.ListItemNoteBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
+import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,6 +46,9 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
                 when (it.itemId) {
                     R.id.action_note_delete -> {
                         deleteNote(note)
+                    }
+                    R.id.action_note_qr -> {
+                        showQR(note)
                     }
                 }
                 true
@@ -78,6 +83,14 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
         binding.addBtn.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate)
         }
+    }
+
+    private fun showQR(note: Note) {
+        CustomUiUtils.showQR(
+            this,
+            note.title ?: getString(android.R.string.untitled),
+            NoteQREncoder().encode(note)
+        )
     }
 
     private fun deleteNote(note: Note) {

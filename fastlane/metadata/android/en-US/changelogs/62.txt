@@ -1,0 +1,6 @@
+- Path customization: name, color, style, simplify, merge, hide/show
+- Path details: map, elevation gain/loss, duration, distance, difficulty
+- Import paths from GPX
+- Backtrack tool renamed to Paths
+- Improved path loading on radar compass
+- Improved barometer calibration

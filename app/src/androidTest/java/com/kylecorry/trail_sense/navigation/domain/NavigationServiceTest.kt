@@ -4,7 +4,7 @@ import android.graphics.Color
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.Position
-import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import org.junit.Assert
 import org.junit.Test
 
@@ -38,15 +38,11 @@ internal class NavigationServiceTest {
         val destinationAltitude = 1900f
         val beacon = Beacon(0, "", destination, elevation = destinationAltitude, color = Color.BLACK)
 
-        val linearEta = service.eta(Position(location, altitude, Bearing(0f), speed), beacon, false)
-        val nonLinearEta = service.eta(Position(location, altitude, Bearing(0f), speed), beacon, true)
+        val linearEta = service.eta(Position(location, altitude, Bearing(0f), speed), beacon)
 
-        val linearEtaDownhill = service.eta(Position(location, destinationAltitude, Bearing(0f), speed), beacon.copy(elevation = altitude), false)
-        val nonLinearEtaDownhill = service.eta(Position(location, destinationAltitude, Bearing(0f), speed), beacon.copy(elevation = altitude), true)
+        val linearEtaDownhill = service.eta(Position(location, destinationAltitude, Bearing(0f), speed), beacon.copy(elevation = altitude))
 
-        Assert.assertEquals(137L, linearEta.toMinutes())
-        Assert.assertEquals(165L, nonLinearEta.toMinutes())
+        Assert.assertEquals(127L, linearEta.toMinutes())
         Assert.assertEquals(47L, linearEtaDownhill.toMinutes())
-        Assert.assertEquals(75L, nonLinearEtaDownhill.toMinutes())
     }
 }

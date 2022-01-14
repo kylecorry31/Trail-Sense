@@ -4,43 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/title_edit"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/title_edit_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/note_title_hint"
-        android:inputType="text|textNoSuggestions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ScrollView
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/title_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|textNoSuggestions" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:paddingBottom="96dp"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_edit">
+        app:layout_constraintTop_toBottomOf="@id/title_edit_holder">
 
-        <EditText
+        <com.kylecorry.trail_sense.shared.views.Notepad
             android:id="@+id/content_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            android:gravity="start|top"
-            android:hint="@string/note_content_hint"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:minHeight="1000dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_edit" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:hint="@string/contents"
+            android:imeOptions="actionNone"
+            android:lineSpacingMultiplier="1.5"
+            android:padding="16dp"
+            android:scrollbars="vertical" />
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/note_create_btn"

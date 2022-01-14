@@ -11,8 +11,8 @@
         android:id="@+id/view_camera"
         android:layout_width="200dp"
         android:layout_height="248dp"
-        android:visibility="invisible"
         android:keepScreenOn="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/linear_compass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,9 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textSize="32sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/AppTheme.HeaderText"
             tools:text="120°" />
 
         <TextView
@@ -54,9 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textAppearance="@style/AppTheme.HeaderText"
             android:textColor="@color/colorPrimary"
-            android:textSize="32sp"
-            android:textStyle="bold"
             tools:text="SE" />
     </LinearLayout>
 
@@ -67,17 +64,17 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"/>
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <com.kylecorry.trail_sense.navigation.ui.RadarCompassView
         android:id="@+id/radar_compass"
-        android:visibility="gone"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
         android:layout_marginTop="32dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"/>
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"
@@ -115,7 +112,6 @@
         app:fabSize="mini"
         app:layout_constraintStart_toEndOf="@+id/ruler"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ruler" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -131,7 +127,6 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/flashlight" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -148,7 +143,6 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear_compass"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_camera" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -160,7 +154,6 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_beacon"
-        app:tint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -169,7 +162,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="12sp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
@@ -189,18 +182,18 @@
 
         <com.kylecorry.trail_sense.shared.views.StatusBadgeView
             android:id="@+id/gps_status"
-            app:foregroundTint="@android:color/black"
-            app:icon="@drawable/satellite"
-            android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:foregroundTint="@android:color/black"
+            app:icon="@drawable/satellite" />
 
         <com.kylecorry.trail_sense.shared.views.StatusBadgeView
             android:id="@+id/compass_status"
-            app:foregroundTint="@android:color/black"
-            app:icon="@drawable/ic_compass_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:foregroundTint="@android:color/black"
+            app:icon="@drawable/ic_compass_icon" />
     </LinearLayout>
 
     <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
@@ -209,7 +202,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -238,9 +231,9 @@
                 android:id="@+id/altitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="20sp"
-                android:textAlignment="center"
                 android:textStyle="bold"
                 tools:text="180 ft" />
         </LinearLayout>
@@ -260,10 +253,10 @@
                 android:id="@+id/speed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textAlignment="center"
                 tools:text="1.8 mph" />
         </LinearLayout>
     </LinearLayout>

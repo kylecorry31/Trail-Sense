@@ -42,10 +42,6 @@
     <string name="pref_theme_title">Tema</string>
     <string name="pressure">Lufttrykk</string>
     <string name="general">Generelt</string>
-    <string name="estimated_height">anslått høyde</string>
-    <string name="avalanche_risk_high">Høy snøskredfare</string>
-    <string name="avalanche_risk_med">Middels snøskredfare</string>
-    <string name="avalanche_risk_low">Lav snøskredfare</string>
     <string name="moon_phase">Månefase</string>
     <string name="sunset_alert_notification_title">Solen går snart ned</string>
     <string name="full_moon">Fullmåne</string>
@@ -100,15 +96,12 @@
     <string name="settings">Innstillinger</string>
     <string name="weather">Vær</string>
     <string name="navigation">Navigasjon</string>
-    <string name="no_humidity_data">Ingen luftfuktighetsdata</string>
     <string name="pressure_format">%s %s</string>
     <string name="dialog_deny">Nei takk</string>
     <string name="dialog_grant">Oppdater innstillinger</string>
     <string name="navigation_nearby_category">I nærheten</string>
     <string name="forecasts_category">Værvarsler</string>
     <string name="advanced">Avansert</string>
-    <string name="sun_and_moon">Solens og månens posisjon</string>
-    <string name="weather_update_notification_channel">Væroppdatering</string>
     <string name="no_group">Ingen gruppe</string>
     <string name="group">Gruppe</string>
     <string name="beacon_create">Opprett</string>
@@ -127,10 +120,10 @@
     <string name="compass_declination">Misvisning</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_use_24_hour_title">Bruk 24-timersklokke</string>
-    <string name="set_inclination_instructions">Trykk hvor som helst for å låse/låse opp helningsvinkel</string>
-    <string name="inclinometer_rotate_device">Hold telefonen vertikalt for å måle helning</string>
-    <string name="tool_inclinometer_summary">Anslå snøskredfare og objekthøyder</string>
-    <string name="inclinometer_title">Klinometer</string>
+    <string name="set_inclination_instructions">Trykk eller hold hvor som helst for å låse/låse opp</string>
+    <string name="clinometer_rotate_device">Hold telefonen vertikalt for å måle helning</string>
+    <string name="tool_clinometer_summary">Anslå snøskredfare og objekthøyder</string>
+    <string name="clinometer_title">Klinometer</string>
     <string name="offline_maps">Frakoblede kart</string>
     <string name="tidal_range">Tidevannsforskjell</string>
     <string name="sunset_alert_channel_title">Solnedgangsvarsel</string>
@@ -157,7 +150,6 @@
     <string name="dew_point">Duggpunkt %s</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
-    <string name="pressure_setpoint_format">Satt: %s - %s siden</string>
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
@@ -181,24 +173,6 @@
     <string name="tool_user_guide_title">Brukerveiledning</string>
     <string name="degree_format">%.0f°</string>
     <string name="duration_hour_minute_format">%dt %dm</string>
-    <string name="storm_sensitivity_med_hpa">Middels (4,5 hPa / 3t)</string>
-    <string name="forecast_sensitivity_high_psi">Høy (0,007 PSI / 3t)</string>
-    <string name="forecast_sensitivity_med_psi">Middels (0,022 PSI / 3t)</string>
-    <string name="forecast_sensitivity_low_psi">Lav (0,036 PSI / 3t)</string>
-    <string name="forecast_sensitivity_high_mbar">Høy (0,5 mbar / 3t)</string>
-    <string name="forecast_sensitivity_med_mbar">Middels (1,5 mbar / 3t)</string>
-    <string name="forecast_sensitivity_low_mbar">Lav (2,5 mbar / 3t)</string>
-    <string name="forecast_sensitivity_high_hpa">Høy (0,5 hPa / 3t)</string>
-    <string name="forecast_sensitivity_med_hpa">Middels (1,5 hPa / 3t)</string>
-    <string name="forecast_sensitivity_low_hpa">Lav (2,5 hPa / 3t)</string>
-    <string name="storm_sensitivity_high_psi">Høy (0,044 PSI / 3t)</string>
-    <string name="storm_sensitivity_med_psi">Middels (0,065 PSI / 3t)</string>
-    <string name="storm_sensitivity_low_psi">Lav (0,087 PSI / 3t)</string>
-    <string name="storm_sensitivity_high_mbar">Høy (3 mbar / 3t)</string>
-    <string name="storm_sensitivity_med_mbar">Middels (4,5 mbar / 3t)</string>
-    <string name="storm_sensitivity_low_mbar">Lav (3 mbar / 3t)</string>
-    <string name="storm_sensitivity_high_hpa">Høy (3 hPa / 3t)</string>
-    <string name="storm_sensitivity_low_hpa">Lav (6 hPa / 3t)</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Roter telefonen i et åttetallsmønster eller i alle retninger flere ganger, trykk %s når du er ferdig.
 \n
 \nDenne meldingen kan slås av i appinnstillingene.</string>
@@ -241,28 +215,13 @@
     <string name="moon_set">Månenedgang</string>
     <string name="moon_rise">Måneoppgang</string>
     <string name="tap_sun_moon_hint">Trykk på solen eller månen for posisjonsdetaljer</string>
-    <string name="sun_and_moon_position_details">Solen
-\n\tHøyde: %s
-\n\tRetning: %s
-\n
-\nMånen
-\n\tHøyde: %s
-\n\tRetning: %s</string>
     <string name="pref_storm_alert_sensitivity_title">Stormfølsomhet</string>
     <string name="pref_forecast_sensitivity_title">Værvarselfølsomhet</string>
     <string name="cliff_height_guide">Anslå høyden på en klippe</string>
     <string name="tool_cliff_height_disclaimer">Bruk bare dette verktøyet når det er trygt å gjøre det, og sørg for å sjekke hva som er under klippen for å unngå skade. Se brukerveiledningen for instruksjoner.</string>
     <string name="tool_cliff_height_description">Mål høyden på en klippe eller på et fall</string>
-    <string name="object_height_guide">Anslå objekthøyder</string>
-    <string name="storm_sensitivity_med_in">Middels (0,133 in / 3t)</string>
-    <string name="storm_sensitivity_low_in">Lav (0,177 in / 3t)</string>
-    <string name="storm_sensitivity_high_in">Høy (0,089 in / 3t)</string>
-    <string name="forecast_sensitivity_high_in">Høy (0,015 in / 3t)</string>
-    <string name="forecast_sensitivity_med_in">Middels (0,044 in / 3t)</string>
-    <string name="forecast_sensitivity_low_in">Lav (0,074 in / 3t)</string>
     <string name="pref_use_legacy_compass_summary">Kan fikse kompassproblemer</string>
     <string name="pref_privacy_policy_title">Personvernspraksis</string>
-    <string name="solar_align_now">Nå</string>
     <string name="unit_miles">Engelsk mil</string>
     <string name="unit_feet">Fot</string>
     <string name="unit_kilometers">Kilometer</string>
@@ -296,12 +255,10 @@
     <string name="category_safety">Sikkerhet</string>
     <string name="other">Annet</string>
     <string name="category_clothing">Klær</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorer raske høydeendringer</string>
     <string name="pressure_tendency_indicator_alt">Trykktendensindikator</string>
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
-    <string name="guide_avalanche_risk">Vurdering av skredfare</string>
     <string name="max_depth">Maks: %s</string>
     <string name="guide_recommended_apps">Anbefalte apper</string>
     <string name="guide_recommended_apps_description">Nyttige apper for overlevelsessituasjoner</string>
@@ -314,7 +271,6 @@
     <string name="water_boil_timer_done_content">Vannet ditt er nå drikkelig</string>
     <string name="tool_bubble_level_summary">Bestem om overflater er flate</string>
     <string name="tool_bubble_level_title">Vater</string>
-    <string name="pref_sea_level_require_dwell_summary">Vis bare avlesninger når høyden ikke har endret seg på minst en time. Forbedrer prognosepålitelighet.</string>
     <string name="pref_center_sun_and_moon_title">Sentrer solen/månen på grafen</string>
     <string name="pref_use_legacy_compass_title">Bruk eldre kompassensor</string>
     <string name="pref_sensor_details_title">Sensordetaljer</string>
@@ -383,7 +339,7 @@
     <string name="unit_centimeters">Centimeter</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Innhold</string>
+    <string name="contents">Innhold</string>
     <string name="note_title_hint">Tittel</string>
     <string name="tool_notes_title">Notater</string>
     <string name="battery_temp">Telefon: %s</string>
@@ -402,7 +358,6 @@
     <string name="freezing_temperatures_description">Vann vil fryse ute og regn kan gå over til snø</string>
     <string name="freezing_temperatures_warning">Kuldegrader</string>
     <string name="pref_backtrack_enabled_summary">Ta opp posisjonshistorikk</string>
-    <string name="tool_backtrack_summary">Vis posisjonshistorikk</string>
     <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
     <string name="degree">%s°</string>
     <string name="coordinate_input_invalid_location">Ugyldig posisjon</string>
@@ -433,8 +388,6 @@
     <string name="charging_wireless">Lader (%s)</string>
     <string name="battery_power_wireless">Trådløs</string>
     <string name="battery_power_ac">Nettstrøm</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Trykkendringsterskel ved forflytning</string>
-    <string name="pref_barometer_altitude_change_title">Høydeendringsterskel ved forflytning</string>
     <string name="how">Hvordan</string>
     <string name="compass_calibrate_toast">Kompassnøyaktighet %s, kalibrering anbefales</string>
     <string name="open_beacon_in_maps">Vis på kart</string>
@@ -443,10 +396,6 @@
     <string name="unsaved_changes">Ulagrede endringer</string>
     <string name="pref_require_satellites_description">Krever minst 4 satellitter for posisjonsbestemmelse, forbedrer nøyaktigheten</string>
     <string name="clouds">Skyer</string>
-    <string name="cloud_likely_storm">Storm sannsynlig</string>
-    <string name="cloud_likely_rain">Nedbør sannsynlig</string>
-    <string name="cloud_possible_rain">Nedbør mulig</string>
-    <string name="cloud_fair">Pent vær sannsynlig</string>
     <string name="cumulonimbus">Cumulonimbus (Bygeskyer)</string>
     <string name="cumulus">Cumulus (Haugskyer)</string>
     <string name="stratocumulus">Stratocumulus (Bukleskyer)</string>
@@ -457,16 +406,16 @@
     <string name="cirrostratus">Cirrostratus (Slørskyer)</string>
     <string name="cirrocumulus">Cirrocumulus (Makrellskyer)</string>
     <string name="cirrus">Cirrus (Fjærskyer)</string>
-    <string name="cirrus_desc">Høye, hvite og fjæraktige.</string>
-    <string name="cumulonimbus_desc">Mørk grå, høy og amboltlignende form.</string>
-    <string name="cumulus_desc">Tette, oppblåste, skarpe konturer i form av kupler eller tårn.</string>
-    <string name="stratocumulus_desc">Hvitaktige eller gråblåe flak av dotter eller valker.</string>
-    <string name="stratus_desc">Jevne og ullene, grå til hvite, dekker himmelen, gjenstander kaster ikke skygger.</string>
-    <string name="nimbostratus_desc">Mørk grå, diffus og dekker himmelen. Det kan regne.</string>
-    <string name="altostratus_desc">Jevn gråfarge, dekker himmelen, solen kan knapt sees.</string>
-    <string name="altocumulus_desc">Kuleformede, oppblåste dotter eller ruller.</string>
-    <string name="cirrostratus_desc">Tynne og hvitaktige, dekker himmelen, men solen kan sees gjennom.</string>
-    <string name="cirrocumulus_desc">Tynne, hvite dotter eller små krusninger.</string>
+    <string name="cirrus_desc">Høye skyer, hvite og fjæraktige.</string>
+    <string name="cumulonimbus_desc">Lave skyer. De har vanligvis en amboltlignende form, er veldig høye og er mørke.</string>
+    <string name="cumulus_desc">Lave skyer. Tette, oppblåste, skarpe konturer i form av kupler eller tårn. De er atskilt fra hverandre og vanligvis hvite med mørkere flekker under.</string>
+    <string name="stratocumulus_desc">Lave skyer. Hvitaktige eller gråblåe flak av dotter eller valker.</string>
+    <string name="stratus_desc">En lav sky som dekker himmelen. Jevn og ullen, grå til hvit, gjenstander kaster ikke skygger og det kan være tåkete.</string>
+    <string name="nimbostratus_desc">En middels høy sky som er mørk grå, diffus og dekker himmelen. Det kan regne.</string>
+    <string name="altostratus_desc">En middels høy sky som dekker himmelen. Jevn gråfarge, solen kan knapt sees.</string>
+    <string name="altocumulus_desc">Middels høye skyer. Kuleformede, oppblåste dotter eller ruller. Vanligvis hvite med mørkere flekker under.</string>
+    <string name="cirrostratus_desc">En høy sky som dekker himmelen. Tynn, hvitaktig, gjennomsiktig og forårsaker vanligvis at en halo dannes rundt solen.</string>
+    <string name="cirrocumulus_desc">Høye skyer. Tynne, hvite dotter eller små krusninger.</string>
     <string name="import_btn">Importer</string>
     <string name="export">Eksporter</string>
     <string name="privacy_and_location">Personvern og posisjon</string>
@@ -502,7 +451,7 @@
 \n- Lokaliser solen og månen på kompasset</string>
     <string name="onboarding_weather">- Få veldig lokale værvarsler med telefonens barometer
 \n
-\n- Bruker ikke internett-tilkobling
+\n- Bruker ikke Internett-tilkobling
 \n
 \n- Bli varslet om stormer som nærmer seg</string>
     <string name="unavailable">Utilgjengelig</string>
@@ -527,8 +476,6 @@
     <string name="quality_good">God</string>
     <string name="quality_poor">Dårlig</string>
     <string name="help">Hjelp</string>
-    <string name="pref_sea_level_use_rapid_title">Ta hensyn til hurtige lufttrykksendringer</string>
-    <string name="pref_sea_level_use_rapid_summary">Bruk hurtige lufttrykkendringer i omregninger for havnivåtrykk</string>
     <string name="pref_daily_weather_notification_title">Daglig værmelding</string>
     <string name="weather_same_as_yesterday">Samme som i går</string>
     <string name="weather_worse_than_yesterday">Verre enn i går</string>
@@ -554,8 +501,7 @@
     <string name="high_tide">Høyvann</string>
     <string name="right_quick_action">Høyre hurtighandling</string>
     <string name="left_quick_action">Venstre hurtighandling</string>
-    <string name="quick_action_none">Ingen</string>
-    <string name="no_temperature_history">Ingen temperaturhistorikk</string>
+    <string name="none">Ingen</string>
     <string name="weather_same_as_today">Samme som i dag</string>
     <string name="weather_worse_than_today">Verre enn i dag</string>
     <string name="weather_better_than_today">Bedre enn i dag</string>
@@ -591,12 +537,6 @@
     <string name="dusk_type">Solnedgang (%s)</string>
     <string name="dawn_type">Soloppgang (%s)</string>
     <string name="weather_monitor">Værovervåking</string>
-    <string name="weather_prediction">Vær: %s</string>
-    <string name="pressure_no_change">Trykket endres ikke</string>
-    <string name="pressure_falling_fast">Trykket faller raskt</string>
-    <string name="pressure_falling">Trykkfall</string>
-    <string name="pressure_rising">Trykkstigning</string>
-    <string name="pressure_rising_fast">Trykket stiger raskt</string>
     <string name="no_groups">Ingen grupper</string>
     <string name="coordinates_tab">Koordinater</string>
     <string name="distance">Distanse</string>
@@ -608,7 +548,7 @@
     <string name="pref_show_nautical_times_title">Nautisk tid</string>
     <string name="noon">Kulminasjon</string>
     <string name="fields">Felter</string>
-    <string name="dotted">Stiplet</string>
+    <string name="dotted">Prikket</string>
     <string name="solid">Heltrukken</string>
     <string name="pref_odometer_reset_daily_title">Nullstill daglig</string>
     <string name="import_gpx">Importer GPX</string>
@@ -622,18 +562,13 @@
     <string name="create_map_description">Skriv inn navnet på kartet</string>
     <string name="create_map">Opprett kart</string>
     <string name="battery_history">Batterihistorikk - siste %s</string>
-    <string name="pref_experimental_barometer_calibration_title">Bruk eksperimentell kalibrering</string>
     <string name="pref_flashlight_toggle_with_system_summary">Viser et varsel når lommelykten er slått på utenfor Trail Sense</string>
     <string name="import_map">Importer kart</string>
-    <string name="pref_low_resolution_maps_title">Bruk lav oppløsning</string>
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
     <string name="location_override_updated">Posisjon oppdatert</string>
     <string name="update_gps_override">Oppdater GPS-overstyring</string>
     <string name="category_fire">Ild</string>
-    <string name="distance_away_not_set">avstand ikke satt</string>
-    <string name="distance_away">Avstand</string>
-    <string name="your_height">Din høyde</string>
     <string name="no_data">Ingen data</string>
     <string name="pref_barometer_info_summary">Trykket kan være forskjellig fra stasjoner i nærheten</string>
     <string name="location_mocked">Bruker overstyrt posisjon</string>
@@ -684,7 +619,6 @@
     <string name="climate_zone">%s sone</string>
     <string name="num_satellites">%d satellitter</string>
     <string name="no_compass_message">Enheten din har ikke kompassensor</string>
-    <string name="humidity">%s luftfuktighet</string>
     <string name="sort">Sorter</string>
     <string name="packing_lists">Pakkelister</string>
     <string name="pref_backtrack_history_days_title">Tilbakesporingshistorikk</string>
@@ -702,7 +636,6 @@
         <item quantity="one">%d navigeringsmarkør importert</item>
         <item quantity="other">%d navigeringsmarkører importert</item>
     </plurals>
-    <string name="waypoint_beacon_title_template">%s, %s rutepunkt</string>
     <string name="create_beacon">Opprett navigeringsmarkør</string>
     <string name="pref_map_url_source_title">Posisjonsdelingskart</string>
     <string name="beacon_2">Markør 2</string>
@@ -730,7 +663,7 @@
     <string name="pref_nmea_altitude_summary">Bruker NMEA-offset for høydeomregning</string>
     <string name="pref_nmea_altitude_title">NMEA høyde-offset</string>
     <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
-    <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke internett.</string>
+    <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke Internett.</string>
     <string name="pack_sort_weight_high_to_low">Vekt (høy til lav)</string>
     <string name="pack_sort_weight_low_to_high">Vekt (lav til høy)</string>
     <string name="pack_sort_percent_high_to_low">Prosent pakket (høy til lav)</string>
@@ -755,13 +688,9 @@
     <string name="app_disclaimer_message_title">Ansvarsfraskrivelse / Bruksbetingelser</string>
     <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
     <string name="value_average">%s gjennomsnitt</string>
-    <string name="pref_backtrack_path_color_title">Farge for tilbakesporingssti</string>
-    <string name="pref_backtrack_path_style_title">Stil for tilbakesporingssti</string>
     <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
     <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
-    <string name="pref_backtrack_path_radar_summary">På radarkompasset og kartene</string>
-    <string name="pref_backtrack_path_radar_title">Vis tilbakesporingssti</string>
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
     <string name="pref_barometer_altitude_smoothing_title">Høydeutjevning</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
@@ -798,40 +727,26 @@
     <string name="packed_amount">Sammenpakket mengde</string>
     <string name="default_pack_name">Forvalgt pakke</string>
     <string name="us_gallons">Amerikanske gallon</string>
-    <string name="exclude_obstacles_experimental">Utelukk hindre (eksperimentelt)</string>
-    <string name="exclude_sun_experimental">Utelukk sol (eksperimentelt)</string>
-    <string name="sensitivity">Sensitivitet</string>
-    <string name="cloud_cover_overcast">Overskyet</string>
-    <string name="cloud_cover_broken">Brutt</string>
-    <string name="cloud_cover_scattered">Spredt</string>
-    <string name="cloud_cover_isolated">Isolert</string>
-    <string name="cloud_cover_few">Få</string>
-    <string name="cloud_cover_none">Ingen skyer</string>
-    <string name="moon">Måne</string>
-    <string name="sun">Sol</string>
+    <string name="no_clouds">Ingen skyer</string>
+    <string name="moon">Månen</string>
+    <string name="sun">Solen</string>
     <string name="pick_file">Velg fil</string>
     <string name="path_exported">Sti eksportert</string>
     <string name="no_paths">Ingen stier</string>
     <string name="navigate">Naviger</string>
     <string name="new_text">Ny</string>
     <string name="old">Gammel</string>
-    <string name="path">Sti</string>
-    <string name="grid_size">%s-rutenett</string>
-    <string name="no_previous_path">Ingen tidligere sti</string>
-    <string name="merge_previous_path_title">Flett med forrige sti\?</string>
-    <string name="path_merge_previous">Flett forrige</string>
     <string name="delete_path">Slett sti\?</string>
     <string name="no_resolution">Ingen oppløsning</string>
     <string name="notifications_blocked">Merknader blokkert</string>
     <string name="battery_usage_restricted">Batteribruk begrenset</string>
     <string name="on">På</string>
-    <string name="pref_low_resolution_maps_summary">For enheter med minnebegrensninger</string>
     <string name="back_press_confirm">Trykk «Tilbake» igjen for å forlate</string>
     <string name="underwater_mode">Undervannsmodus</string>
     <string name="map_perspective_instructions">Omriss av kartet</string>
     <string name="preview">Forhåndsvis</string>
     <string name="delete_map">Slett kart\?</string>
-    <string name="error_importing_map">Kunne ikke importere kart</string>
+    <string name="error_importing_map">Feil ved importering av kart</string>
     <string name="importing_map">Importering av kart</string>
     <string name="next">Neste</string>
     <string name="previous">Forrige</string>
@@ -845,10 +760,141 @@
     <string name="set">Sett</string>
     <string name="delete_tide_prompt">Slett tidevann\?</string>
     <string name="solar_panel_instructions">Plasser telefonen din på overflaten av solcellepanelet for å begynne.</string>
-    <string name="tool_solar_panel_title">Solcellejustrerer</string>
-    <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal kraftproduksjon</string>
+    <string name="tool_solar_panel_title">Solcellepaneljustering</string>
+    <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal strømproduksjon</string>
     <string name="depth_disclaimer">Bruk på egen risiko.
 \n
 \nBruk med vanntett omslag og hold deg på trygg dykkeavstand hvis mulig.</string>
     <string name="tide_normal">Normal</string>
+    <string name="astro_dialog_rise_set">**Tid**: %s
+\n
+\n**Retning**: %s</string>
+    <string name="astro_dialog_meteor_shower">**Maksimum**: %s
+\n
+\n**Maksimum - høyde**: %s
+\n
+\n**Maksimum - retning**: %s
+\n
+\n**Rate**: %s</string>
+    <string name="season_winter">Vinter</string>
+    <string name="season_spring">Vår</string>
+    <string name="season_summer">Sommer</string>
+    <string name="season_fall">Høst</string>
+    <string name="astro_dialog_moon_phase">**Fase**: %s
+\n
+\n**Opplyst**: %s</string>
+    <string name="astro_dialog_day_length">**Dag**: %s
+\n
+\n**Natt**: %s
+\n
+\n**Årstid**: %s</string>
+    <string name="astro_dialog_noon">**Tid**: %s
+\n
+\n**Høyde**: %s</string>
+    <string name="pref_export_weather_csv_title">Eksporter væravlesninger</string>
+    <string name="find_next_occurrence">Finn neste hendelse</string>
+    <string name="sun_moon_position_template">### %s
+\n**Høyde**: %s
+\n
+\n**Asimut**: %s</string>
+    <string name="weather_monitoring_disabled">Værovervåking slått av</string>
+    <string name="enable">Slå på</string>
+    <string name="supermoon">Supermåne</string>
+    <string name="astro_dialog_lunar_eclipse">**Start**: %s
+\n
+\n**Maksimal**: %s
+\n
+\n**Slutt**: %s
+\n
+\n**Varighet**: %s
+\n
+\n**Magnitude**: %s
+\n
+\n**Høyde**: %s</string>
+    <string name="weather_exported">Værdata eksportert</string>
+    <string name="log">Logg</string>
+    <string name="pressure_logged">Trykk logget</string>
+    <string name="duration_of_charge">Ladevarighet</string>
+    <string name="precipitation_rain">Regn</string>
+    <string name="precipitation_drizzle">Duskregn</string>
+    <string name="precipitation_hail">Hagl</string>
+    <string name="precipitation_small_hail">Småhagl</string>
+    <string name="results">Resultater</string>
+    <string name="precipitation_chance">Nedbørsmulighet: %s</string>
+    <string name="take_photo">Ta bilde</string>
+    <string name="choose_photo">Velg bilde</string>
+    <string name="notification_weather_update_title">Værovervåkingsoppdatering</string>
+    <string name="pref_experimental_cloud_scanner_title">Skyskanner</string>
+    <string name="precipitation_none">Ingen nedbør</string>
+    <string name="precipitation_snow">Snø</string>
+    <string name="updates">Oppdateringer</string>
+    <string name="no_tides">Ingen tidevann</string>
+    <string name="humidity">Luftfuktighet</string>
+    <string name="no_issues">Ingen problemer oppdaget</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d rutepunkt blir slettet</item>
+        <item quantity="other">%d rutepunkter blir slettet</item>
+    </plurals>
+    <string name="no_camera_access">Ikke i stand til å få tilgang til kamera</string>
+    <string name="precipitation_snow_pellets">Sprøhagl</string>
+    <string name="precipitation_ice_pellets">Iskorn</string>
+    <string name="precipitation_snow_grains">Kornsnø</string>
+    <string name="show">Vis</string>
+    <string name="hide">Skjul</string>
+    <string name="paths">Stier</string>
+    <string name="keep_forever">Behold for alltid</string>
+    <string name="elevation">Høyde</string>
+    <string name="elevation_gain">Total stigning</string>
+    <string name="elevation_loss">Total nedstigning</string>
+    <string name="points">Punkter</string>
+    <string name="pref_default_path_color_title">Standard stifarge</string>
+    <string name="dashed">Stiplet</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d sti importert</item>
+        <item quantity="other">%d stier importert</item>
+    </plurals>
+    <string name="waypoint">Rutepunkt</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d rutepunkt slettet</item>
+        <item quantity="other">%d rutepunkter slettet</item>
+    </plurals>
+    <string name="pref_default_path_style_title">Standard stistil</string>
+    <string name="point_style">Punktstil</string>
+    <string name="line_style">Linjestil</string>
+    <string name="path_color">Stifarge</string>
+    <string name="export_path_error">Kunne ikke eksportere sti</string>
+    <string name="slope_amount">%s helning</string>
+    <string name="weather_monitor_disabled_resolution">Slå på værovervåking i værinnstillingene</string>
+    <string name="errors">Feil</string>
+    <string name="compass_accuracy">Kompassnøyaktighet</string>
+    <string name="compass_unavailable">Kompass utilgjengelig</string>
+    <string name="gps_unavailable">GPS utilgjengelig</string>
+    <string name="gps_timeouts">GPS-tidsavbrudd</string>
+    <string name="avalanche_risk">Snøskredfare</string>
+    <string name="distance_unset">Avstand ikke satt</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Lås med volumknapper</string>
+    <string name="location_not_set">Posisjon ikke satt</string>
+    <string name="height">Høyde</string>
+    <string name="clinometer_measure_distance_title">Høyde på målet</string>
+    <string name="measure">Mål</string>
+    <string name="clinometer_measure_height_title">Avstand til målet</string>
+    <string name="error_banners">Feilbannere</string>
+    <string name="enter_text">Skriv inn tekst</string>
+    <string name="no_qr_code_found">Ingen QR-kode oppdaget</string>
+    <string name="saved_to_note">Lagret til notat</string>
+    <string name="pref_clinometer_baseline_distance_title">Grunnlinjedistanse</string>
+    <string name="beacon_created">Navigeringsmarkør opprettet</string>
+    <string name="result_deleted">Resultat slettet</string>
+    <string name="undo">Angre</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="open">Åpne</string>
+    <string name="note">Notat</string>
+    <string name="beacon">Navigeringsmarkør</string>
+    <string name="share_ellipsis">Del…</string>
+    <string name="night">Natt</string>
+    <string name="qr_text_too_long">Teksten er for lang, QR-kode ble avkortet</string>
+    <string name="pref_flashlight_should_timeout_title">Slå av automatisk</string>
+    <string name="pref_flashlight_timeout_title">Slå av etter</string>
 </resources>

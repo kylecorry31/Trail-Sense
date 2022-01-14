@@ -6,14 +6,20 @@ import android.hardware.camera2.CameraManager.TorchCallback
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.getSystemService
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.Torch
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+import java.time.Instant
 
 
 class FlashlightHandler private constructor(private val context: Context) : IFlashlightHandler {
 
     private val torchCallback: TorchCallback
+    private val cache by lazy { Preferences(context) }
+    private val prefs by lazy { UserPreferences(context) }
     private val handler: Handler
     private var isTurningOff = false
     private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
@@ -23,7 +29,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
             override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
                 try {
                     super.onTorchModeChanged(cameraId, enabled)
-                    if (!flashlightSettings.toggleWithSystem){
+                    if (!flashlightSettings.toggleWithSystem) {
                         return
                     }
                     if (isTurningOff) {
@@ -35,7 +41,7 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
                     }
 
                     if (enabled && !FlashlightService.isRunning && !SosService.isRunning && !StrobeService.isRunning) {
-                        on()
+                        on(false)
                     }
                 } catch (e: Exception) {
                     // Ignore
@@ -51,24 +57,38 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     }
 
     override fun release() {
+        clearTimeout()
         unregisterTorchCallback()
         SosService.stop(context)
         StrobeService.stop(context)
         FlashlightService.stop(context)
     }
 
-    override fun on() {
+    override fun on(handleTimeout: Boolean) {
+        clearTimeout()
+        if (handleTimeout) {
+            setTimeout()
+        }
         SosService.stop(context)
         StrobeService.stop(context)
         FlashlightService.start(context)
     }
 
     override fun off() {
+        clearTimeout()
         SosService.stop(context)
         StrobeService.stop(context)
         FlashlightService.stop(context)
         isTurningOff = true
         forceOff(200)
+    }
+
+    override fun toggle(handleTimeout: Boolean) {
+        if (getState() == FlashlightState.On) {
+            off()
+        } else {
+            on(handleTimeout)
+        }
     }
 
     private fun forceOff(millis: Long) {
@@ -84,26 +104,34 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
         }, increment)
     }
 
-    override fun sos() {
+    override fun sos(handleTimeout: Boolean) {
+        clearTimeout()
+        if (handleTimeout) {
+            setTimeout()
+        }
 //        unregisterTorchCallback()
         StrobeService.stop(context)
         FlashlightService.stop(context)
         SosService.start(context)
     }
 
-    override fun strobe() {
+    override fun strobe(handleTimeout: Boolean) {
+        clearTimeout()
+        if (handleTimeout) {
+            setTimeout()
+        }
 //        unregisterTorchCallback()
         SosService.stop(context)
         FlashlightService.stop(context)
         StrobeService.start(context)
     }
 
-    override fun set(state: FlashlightState) {
+    override fun set(state: FlashlightState, handleTimeout: Boolean) {
         when (state) {
             FlashlightState.Off -> off()
-            FlashlightState.On -> on()
-            FlashlightState.SOS -> sos()
-            FlashlightState.Strobe -> strobe()
+            FlashlightState.On -> on(handleTimeout)
+            FlashlightState.SOS -> sos(handleTimeout)
+            FlashlightState.Strobe -> strobe(handleTimeout)
         }
     }
 
@@ -130,6 +158,21 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
         } catch (e: Exception) {
 
         }
+    }
+
+    private fun setTimeout() {
+        if (prefs.flashlight.shouldTimeout) {
+            cache.putInstant(
+                context.getString(R.string.pref_flashlight_timeout_instant),
+                Instant.now().plus(prefs.flashlight.timeout)
+            )
+        } else {
+            clearTimeout()
+        }
+    }
+
+    private fun clearTimeout(){
+        cache.remove(context.getString(R.string.pref_flashlight_timeout_instant))
     }
 
     private fun unregisterTorchCallback() {

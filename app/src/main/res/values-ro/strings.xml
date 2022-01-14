@@ -48,7 +48,6 @@
     <string name="weather_improving_fast">Se îmbunătățește foarte curând</string>
     <string name="dew_point">Punct de rouă %s</string>
     <string name="no_data">Nu există date</string>
-    <string name="no_humidity_data">Nu există date privind umiditatea</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -68,7 +67,6 @@
     <string name="storm_alerts">Alerte de furtună</string>
     <string name="alerts">Alerte</string>
     <string name="pressure_reading_time_ago">%s - %s în urmă</string>
-    <string name="pressure_setpoint_format">Setat: %s - %s în urmă</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop_monitoring">Oprire</string>

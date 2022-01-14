@@ -6,16 +6,23 @@ import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.AppColor
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.paths.PathStyle
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.Duration
 
-class NavigationPreferences(private val context: Context) {
+class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
+    IPathPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -55,47 +62,52 @@ class NavigationPreferences(private val context: Context) {
     val showLastSignalBeacon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_last_signal_beacon)) ?: true
 
-    val showLinearCompass: Boolean
+    override val useLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
 
     val showMultipleBeacons: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: false
+        get() = cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
 
     val numberOfVisibleBeacons: Int
         get() {
-            val raw = cache.getString(context.getString(R.string.pref_num_visible_beacons)) ?: "1"
-            return raw.toIntOrNull() ?: 1
+            val raw = cache.getString(context.getString(R.string.pref_num_visible_beacons)) ?: "10"
+            return raw.toIntOrNull() ?: 10
         }
 
-    val useRadarCompass: Boolean
+    override val useRadarCompass: Boolean
         get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar))
-            ?: false)
+            ?: true)
 
-    val showBacktrackPath: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_backtrack_path_radar)) ?: true
-
-    var backtrackPathColor: AppColor
+    var defaultPathColor: AppColor
         get() {
-            val id = cache.getInt(context.getString(R.string.pref_backtrack_path_color))
-            return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Blue
+            val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))
+            return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Gray
         }
         set(value) {
-            cache.putInt(context.getString(R.string.pref_backtrack_path_color), value.id)
+            cache.putLong(context.getString(R.string.pref_backtrack_path_color), value.id)
         }
 
-    val backtrackPathStyle: PathStyle
+    private val backtrackPathLineStyle: LineStyle
         get() {
             return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
-                "solid" -> PathStyle.Solid
-                "arrow" -> PathStyle.Arrow
-                else -> PathStyle.Dotted
+                "solid" -> LineStyle.Solid
+                "arrow" -> LineStyle.Arrow
+                "dashed" -> LineStyle.Dashed
+                else -> LineStyle.Dotted
             }
         }
+    private val defaultPathPointStyle: PathPointColoringStyle
+        get() = PathPointColoringStyle.None
 
-    val showBacktrackPathDuration: Duration
-        get() = Duration.ofDays(1)
+    override val defaultPathStyle: PathStyle
+        get() = PathStyle(
+            backtrackPathLineStyle,
+            defaultPathPointStyle,
+            defaultPathColor.color,
+            true
+        )
 
-    var backtrackHistory: Duration
+    override var backtrackHistory: Duration
         get() {
             val days = cache.getInt(context.getString(R.string.pref_backtrack_history_days)) ?: 2
             return Duration.ofDays(days.toLong())
@@ -107,11 +119,17 @@ class NavigationPreferences(private val context: Context) {
                 if (d > 0) d else 1
             )
         }
+    override val simplifyPathOnImport by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_auto_simplify_paths),
+        true
+    )
 
     var maxBeaconDistance: Float
         get() {
-            val raw = cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "100"
-            return Distance.kilometers(raw.toFloatCompat() ?: 100f).meters().distance
+            val raw =
+                cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.5"
+            return Distance.kilometers(raw.toFloatCompat() ?: 0.5f).meters().distance
         }
         set(value) = cache.putString(
             context.getString(R.string.pref_max_beacon_distance),
@@ -137,6 +155,12 @@ class NavigationPreferences(private val context: Context) {
             }
         }
 
+    var pathSort: PathSortMethod by IntEnumPreference(
+        cache,
+        context.getString(R.string.pref_path_sort),
+        PathSortMethod.values().map { it.id.toInt() to it }.toMap(),
+        PathSortMethod.MostRecent
+    )
 
     val factorInNonLinearDistance: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_non_linear_distances)) ?: true
@@ -178,10 +202,10 @@ class NavigationPreferences(private val context: Context) {
         false
     )
 
-    val useLowResolutionMaps by BooleanPreference(
+    val autoReduceMaps by BooleanPreference(
         cache,
         context.getString(R.string.pref_low_resolution_maps),
-        false
+        true
     )
 
     enum class SpeedometerMode {

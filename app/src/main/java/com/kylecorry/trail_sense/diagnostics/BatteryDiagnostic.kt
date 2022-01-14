@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 
 class BatteryDiagnostic(
     context: Context,
-    lifecycleOwner: LifecycleOwner
+    lifecycleOwner: LifecycleOwner?
 ) :
     BaseSensorQualityDiagnostic<IBattery>(context, lifecycleOwner, Battery(context)) {
 
@@ -27,7 +27,7 @@ class BatteryDiagnostic(
             issues.add(DiagnosticCode.BatteryUsageRestricted)
         }
 
-        if (sensor.health != BatteryHealth.Good && sensor.health != BatteryHealth.Unknown) {
+        if (canRun && sensor!!.health != BatteryHealth.Good && sensor.health != BatteryHealth.Unknown) {
             issues.add(DiagnosticCode.BatteryHealthPoor)
         }
 

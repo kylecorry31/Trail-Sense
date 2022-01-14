@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/incline_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/clinometer_left_quick_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:fabSize="mini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_camera" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/clinometer_right_quick_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ruler" />
+
+
+    <com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerView
+        android:id="@+id/clinometer"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inclination_description" />
+
+
+    <LinearLayout
+        android:id="@+id/camera_view_holder"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/rounded_rectangle"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inclination_description"
+        tools:visibility="visible">
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/camera_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary" />
+        </FrameLayout>
+
+        <com.kylecorry.trail_sense.tools.clinometer.ui.CameraClinometerView
+            android:id="@+id/camera_clinometer"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/camera_zoom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:max="100"
+        android:progress="50"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/camera_view_holder"
+        app:layout_constraintStart_toStartOf="@+id/camera_view_holder"
+        app:layout_constraintTop_toBottomOf="@+id/camera_view_holder" />
+
+
+    <ImageView
+        android:id="@+id/lock"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/lock"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/inclination"
+        app:layout_constraintStart_toEndOf="@id/inclination"
+        app:layout_constraintTop_toTopOf="@id/inclination"
+        app:tint="?android:textColorPrimary"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/inclination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:textAppearance="@style/AppTheme.HeaderText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="90" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clinometer">
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/avalanche_risk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:dataPointDescription="@string/avalanche_risk"
+            app:dataPointIcon="@drawable/avalanche" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/estimated_height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:dataPointDescription="@string/height"
+            app:dataPointIcon="@drawable/ruler" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/inclination_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
+        app:layout_constraintEnd_toEndOf="@+id/inclination"
+        app:layout_constraintStart_toStartOf="@+id/inclination"
+        app:layout_constraintTop_toBottomOf="@+id/inclination"
+        tools:text="10% slope" />
+
+
+    <TextView
+        android:id="@+id/clinometer_instructions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:text="@string/clinometer_rotate_device"
+        app:drawableTint="?android:textColorSecondary"
+        app:drawableTopCompat="@drawable/ic_rotate_flat_to_portrait"
+        app:layout_constraintBottom_toBottomOf="@+id/clinometer"
+        app:layout_constraintEnd_toEndOf="@+id/clinometer"
+        app:layout_constraintStart_toStartOf="@+id/clinometer"
+        app:layout_constraintTop_toTopOf="@+id/clinometer" />
+
+    <TextView
+        android:id="@+id/camera_clinometer_instructions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:text="@string/clinometer_rotate_device"
+        app:drawableTint="?android:textColorSecondary"
+        app:drawableTopCompat="@drawable/ic_rotate_landscape_to_portrait"
+        app:layout_constraintBottom_toBottomOf="@+id/clinometer"
+        app:layout_constraintEnd_toEndOf="@+id/clinometer"
+        app:layout_constraintStart_toStartOf="@+id/clinometer"
+        app:layout_constraintTop_toTopOf="@+id/clinometer" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

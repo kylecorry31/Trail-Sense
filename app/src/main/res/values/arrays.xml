@@ -41,6 +41,7 @@
         <item>@string/theme_black</item>
         <item>@string/theme_system</item>
         <item>@string/theme_sunset_sunrise</item>
+        <item>@string/night</item>
     </string-array>
 
     <string-array name="theme_values">
@@ -49,6 +50,7 @@
         <item>black</item>
         <item>system</item>
         <item>sunrise_sunset</item>
+        <item>night</item>
     </string-array>
 
     <string-array name="storm_alert_sensitivity_values">
@@ -189,12 +191,14 @@
         <item>@string/solid</item>
         <item>@string/dotted</item>
         <item>@string/arrow</item>
+        <item>@string/dashed</item>
     </string-array>
 
     <string-array name="line_style_values">
         <item>solid</item>
         <item>dotted</item>
         <item>arrow</item>
+        <item>dashed</item>
     </string-array>
 
     <string-array name="whistle_signals_entries">

@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -208,11 +208,10 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun exportWeatherData() {
         val exporter = IOFactory().createCsvService(requireMainActivity())
-        val repo = PressureRepo.getInstance(requireContext())
+        val repo = WeatherRepo.getInstance(requireContext())
         lifecycleScope.launch {
             val exported = withContext(Dispatchers.IO) {
-                val readings = repo.getPressuresSync().map { it.toPressureAltitudeReading() }
-                    .sortedByDescending { it.time }
+                val readings = repo.getAll().sortedByDescending { it.time }
                 val csv = WeatherCsvConverter().toCSV(readings)
                 exporter.export(csv, "weather-${Instant.now().toEpochMilli()}.csv")
             }

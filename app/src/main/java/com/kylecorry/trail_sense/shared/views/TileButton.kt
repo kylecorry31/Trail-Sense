@@ -29,10 +29,10 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
         val textSize = a.getDimension(R.styleable.TileButton_tileTextSize, -1f)
         textView.text = a.getString(R.styleable.TileButton_tileText)
         a.recycle()
-        if (padding != -1){
+        if (padding != -1) {
             icon.setPadding(padding)
         }
-        if (textSize != -1f){
+        if (textSize != -1f) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         }
         setState(false)
@@ -46,11 +46,15 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     fun setState(on: Boolean) {
         isOn = on
         if (isOn) {
-            icon.backgroundTintList =
-                ColorStateList.valueOf(Resources.color(icon.context, R.color.colorPrimary))
-            textView.setTextColor(Resources.color(icon.context, R.color.colorSecondary))
-            icon.imageTintList =
-                ColorStateList.valueOf(Resources.color(icon.context, R.color.colorSecondary))
+            icon.backgroundTintList = ColorStateList.valueOf(
+                Resources.getAndroidColorAttr(icon.context, R.attr.colorPrimary)
+            )
+            textView.setTextColor(
+                Resources.color(icon.context, R.color.colorSecondary)
+            )
+            icon.imageTintList = ColorStateList.valueOf(
+                Resources.color(icon.context, R.color.colorSecondary)
+            )
         } else {
             textView.setTextColor(Resources.androidTextColorSecondary(icon.context))
             icon.imageTintList =

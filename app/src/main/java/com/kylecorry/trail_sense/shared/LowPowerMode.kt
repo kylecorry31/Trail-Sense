@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.app.Activity
 import android.content.Context
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 

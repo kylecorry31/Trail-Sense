@@ -29,7 +29,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 3
+        private const val version = 6
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -57,11 +57,34 @@ class PreferenceMigrator private constructor() {
                     }
                 }
             },
-            PreferenceMigration(2, 3) { context, prefs ->
+            PreferenceMigration(2, 3) { _, prefs ->
                 prefs.remove("cache_pressure_setpoint")
                 prefs.remove("cache_pressure_setpoint_altitude")
                 prefs.remove("cache_pressure_setpoint_temperature")
                 prefs.remove("cache_pressure_setpoint_time")
+            },
+            PreferenceMigration(3, 4) { context, prefs ->
+                try {
+                    val color = prefs.getInt(context.getString(R.string.pref_backtrack_path_color))
+                        ?: return@PreferenceMigration
+                    prefs.remove(context.getString(R.string.pref_backtrack_path_color))
+                    prefs.putLong(
+                        context.getString(R.string.pref_backtrack_path_color),
+                        color.toLong()
+                    )
+                } catch (e: Exception) {
+                    prefs.remove(context.getString(R.string.pref_backtrack_path_color))
+                }
+            },
+            PreferenceMigration(4, 5) { _, prefs ->
+                prefs.remove("pref_path_waypoint_style")
+            },
+            PreferenceMigration(5, 6) { _, prefs ->
+                prefs.remove("pref_experimental_barometer_calibration")
+                prefs.remove("pref_sea_level_require_dwell")
+                prefs.remove("pref_barometer_altitude_change")
+                prefs.remove("pref_sea_level_pressure_change_thresh")
+                prefs.remove("pref_sea_level_use_rapid")
             }
         )
 

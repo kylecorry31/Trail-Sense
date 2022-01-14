@@ -37,8 +37,6 @@ class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
             MeteorShowerAlertCommand(context)
         )
 
-        withContext(Dispatchers.Main) {
-            commands.forEach { it.execute(location) }
-        }
+        commands.forEach { it.execute(location) }
     }
 }

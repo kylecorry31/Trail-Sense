@@ -23,7 +23,7 @@ class KalmanSeaLevelPressureConverter(
     ): List<PressureReading> {
         val altitudes = readings.map { it.altitude.toDouble() }
         val altitudeErrors =
-            readings.map { if (it.altitudeError == null || it.altitudeError == 0f) defaultGPSError.toDouble() else it.altitudeError!!.toDouble() }
+            readings.map { if (it.altitudeError == null || it.altitudeError == 0f) defaultGPSError.toDouble() else it.altitudeError.toDouble() }
         val pressures = readings.map { it.pressure.toDouble() }
         val times = readings.map { it.time.toEpochMilli() / (1000.0 * 60.0) }
 

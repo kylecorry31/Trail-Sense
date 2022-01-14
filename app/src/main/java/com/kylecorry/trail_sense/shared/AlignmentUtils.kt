@@ -30,6 +30,7 @@ data class VerticalConstraint(val view: View, val type: VerticalConstraintType, 
 
 fun align(view: View, top: VerticalConstraint?, left: HorizontalConstraint?, bottom: VerticalConstraint?, right: HorizontalConstraint?, verticalPct: Float = 0.5f, horizontalPct: Float = 0.5f){
 
+    @Suppress("ControlFlowWithEmptyBody")
     if (top != null && bottom == null){
         view.y = (if (top.type == VerticalConstraintType.Top) top.view.y else (top.view.y + top.view.height)) + top.offset
     } else if (bottom != null && top == null){
@@ -43,6 +44,7 @@ fun align(view: View, top: VerticalConstraint?, left: HorizontalConstraint?, bot
         // Do nothing
     }
 
+    @Suppress("ControlFlowWithEmptyBody")
     if (left != null && right == null){
         view.x = (if (left.type == HorizontalConstraintType.Left) left.view.x else (left.view.x + left.view.width)) + left.offset
     } else if (right != null && left == null){

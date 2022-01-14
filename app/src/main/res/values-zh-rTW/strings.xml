@@ -67,7 +67,6 @@
     <string name="tomorrow">明日</string>
     <string name="today">今日</string>
     <string name="dew_point">露點溫度 %s</string>
-    <string name="no_humidity_data">無濕度資料</string>
     <plurals name="last_hours">
         <item quantity="other">持續 %d 小時</item>
     </plurals>
@@ -146,7 +145,6 @@
     <string name="tool_bubble_level_title">水平儀</string>
     <string name="guide_weather_prediction_title">天氣預測</string>
     <string name="guide_conserving_battery_title">節省電量</string>
-    <string name="weather_update_notification_channel">更新天氣</string>
     <string name="no_group">無群組</string>
     <string name="edit_beacon_group">編輯群組</string>
     <string name="delete_beacon_group">刪除群組</string>
@@ -161,7 +159,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches">吋</string>
     <string name="unit_centimeters">公分</string>
-    <string name="note_content_hint">內容</string>
+    <string name="contents">內容</string>
     <string name="note_title_hint">標題</string>
     <string name="tool_notes_title">筆記</string>
     <string name="threshold">閾值</string>
@@ -210,13 +208,9 @@
     <string name="coordinate_format_degrees_minutes_seconds">角度 角分 角秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">角度 角分小數點</string>
     <string name="edit">編輯</string>
-    <string name="estimated_height">估計高度</string>
     <string name="set_inclination_instructions">輕觸螢幕任意處 固定/解除固定 傾斜角度</string>
-    <string name="inclinometer_rotate_device">垂直握持您的手機以測量傾斜</string>
-    <string name="avalanche_risk_high">高度雪崩風險</string>
-    <string name="avalanche_risk_med">中等雪崩風險</string>
-    <string name="avalanche_risk_low">低雪崩風險</string>
-    <string name="inclinometer_title">傾斜儀</string>
+    <string name="clinometer_rotate_device">垂直握持您的手機以測量傾斜</string>
+    <string name="clinometer_title">傾斜儀</string>
     <string name="lunar_noon">月球正午</string>
     <string name="solar_noon">太陽正午</string>
     <string name="tide_normal">正常</string>
@@ -245,14 +239,6 @@
     <string name="boil_start">開始</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
-    <string name="sun_and_moon_position_details">太陽
-\n\t高度: %s
-\n\t方位角: %s
-\n
-\n月球
-\n\t高度: %s
-\n\t方位角: %s</string>
-    <string name="sun_and_moon">太陽與月亮位置</string>
     <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>
     <string name="error_occurred">一個錯誤發生</string>
     <string name="pref_open_source_licenses_title">許可證</string>
@@ -266,24 +252,6 @@
     <string name="pref_weather_update_frequency_title">天氣更新頻率</string>
     <string name="pref_show_pressure_in_notification_title">於通知中顯示壓力</string>
     <string name="pref_show_weather_notification_title">顯示天氣通知</string>
-    <string name="storm_sensitivity_high_in">高 (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">中 (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_low_in">低 (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">高 (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">中 (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_psi">低 (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">高 (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">中 (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">低 (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">高 (3 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">中 (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">低 (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">高 (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">中 (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_low_in">低 (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">高 (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">中 (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">低 (0.036 PSI / 3h)</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">導航前校正</string>
     <string name="pref_show_linear_compass_title">顯示線性羅盤</string>
     <string name="pref_display_multi_beacons_title">顯示附近地標</string>
@@ -306,19 +274,77 @@
     </plurals>
     <string name="notification_storm_alert_title">暴風雨警報</string>
     <string name="pressure_reading_time_ago">%s - %s 之前</string>
-    <string name="pressure_setpoint_format">Set: %s - %s 之前</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="share_action_send">寄送</string>
     <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下
 \n    實際位置的 %s  
+\n
 \n    實際高度的 %s  
+\n
 \n    %s 個衛星
 \n
-\nCompass: Rotate device in a figure 8 pattern and move away from metal."</string>
+\n電子羅盤校正: 以8字旋轉裝置或是於各方向旋轉並且遠離金屬"</string>
     <string name="accuracy_info_title">提升感測器資料精確度的訣竅</string>
     <string name="battery_temp">手機: %s</string>
     <string name="discharging_fast">快速放電中 (%s)</string>
     <string name="discharging_slow">慢速放電中 (%s)</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
+    <string name="all_beacons">所有指標</string>
+    <string name="pref_compass_filter_amt_title">電子羅盤平滑化</string>
+    <string name="weather_improving_slow">好轉中</string>
+    <string name="compass_auto_declination"></string>
+    <string name="daylight">日光時間</string>
+    <string name="pref_show_civil_times_summary">黎明與黃昏</string>
+    <string name="dawn_type">黎明 (%s)</string>
+    <string name="dusk_type">黃昏 (%s)</string>
+    <string name="tool_thermometer_title">溫度計</string>
+    <string name="convert">轉換</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">當 Trail Sense 開啟時</string>
+    <string name="pack_sort_weight_low_to_high">重量(低至高)</string>
+    <string name="unit_inches_abbreviation">吋</string>
+    <string name="volume">體積</string>
+    <string name="weight">重量</string>
+    <string name="unit_nautical_miles">海里</string>
+    <string name="unit_centimeters_abbreviation">公分</string>
+    <string name="units_mmhg_short">毫米</string>
+    <string name="water_boil_timer_done_content">您的水現在可以飲用</string>
+    <string name="log">紀錄</string>
+    <string name="weather_worsening_fast">快速惡化中</string>
+    <string name="weather_not_changing">近期不會改變</string>
+    <string name="disclaimer_message_title">聲明</string>
+    <string name="app_disclaimer_message_title">聲明/服務條款</string>
+    <string name="guide_thermometer_calibration_title">溫度計校正</string>
+    <string name="theme_sunset_sunrise">日出/日落</string>
+    <string name="temperature_disclaimer">由於您手機產生的熱，此處顯示的溫度可能比實際更高。</string>
+    <string name="battery_capacity_format">%s 毫安時</string>
+    <string name="current_format">%s 毫安</string>
+    <string name="turn_off">關閉</string>
+    <string name="units_mmhg">毫米汞柱</string>
+    <string name="ounces_weight">盎司</string>
+    <string name="ounces_weight_format">%s 盎司</string>
+    <string name="hours">小時</string>
+    <string name="minutes">分鐘</string>
+    <string name="no_data">無資料</string>
+    <string name="weather_improving_fast">快速好轉中</string>
+    <string name="weather_worsening_slow">惡化中</string>
+    <string name="forecast_improving">可能會好轉</string>
+    <string name="forecast_worsening">可能會惡化</string>
+    <string name="general">一班</string>
+    <string name="altitude">高度</string>
+    <string name="pref_altimeter_calibration_title">高度計</string>
+    <string name="pref_altitude_override_sea_level_title">使用已知海平面壓力</string>
+    <string name="hour_symbol">小時</string>
+    <string name="minute_symbol">分</string>
+    <string name="coordinates_tab">座標</string>
+    <string name="units">單位</string>
+    <string name="ounces_volume_format">%s 盎司</string>
+    <string name="us_ounces_volume">美制盎司</string>
+    <string name="imperial_ounces_volume">英制盎司</string>
+    <string name="unit_yards">碼</string>
+    <string name="liters">公升</string>
+    <string name="milliliters">毫升</string>
+    <string name="hours_format">%s 小時</string>
+    <string name="minutes_format">%s 分</string>
+    <string name="pack_sort_weight_high_to_low">重量(高至低)</string>
 </resources>

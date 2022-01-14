@@ -4,24 +4,26 @@ import android.content.Context
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
 
-class MonitorWeatherCommand(private val context: Context, private val background: Boolean = true) : CoroutineCommand {
+class MonitorWeatherCommand(private val context: Context, private val background: Boolean = true) :
+    CoroutineCommand {
 
     private val sensorService by lazy { SensorService(context) }
     private val altimeter by lazy { sensorService.getGPSAltimeter(background) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
-    private val pressureRepo by lazy { PressureRepo.getInstance(context) }
+    private val repo by lazy { WeatherRepo.getInstance(context) }
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(context) }
 
     override suspend fun execute() {
@@ -70,18 +72,18 @@ class MonitorWeatherCommand(private val context: Context, private val background
             return
         }
         withContext(Dispatchers.IO) {
-            pressureRepo.addPressure(
-                PressureReadingEntity(
-                    barometer.pressure,
-                    altimeter.altitude,
-                    if (altimeter is IGPS) ((altimeter as IGPS).verticalAccuracy ?: 0f) else 0f,
-                    if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
-                    hygrometer.humidity,
-                    Instant.now().toEpochMilli()
+            repo.add(
+                Reading(
+                    WeatherObservation(
+                        0,
+                        barometer.pressure,
+                        altimeter.altitude,
+                        if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
+                        if (altimeter is IGPS) ((altimeter as IGPS).verticalAccuracy ?: 0f) else 0f,
+                        hygrometer.humidity,
+                    ),
+                    Instant.now()
                 )
-            )
-            pressureRepo.deleteOlderThan(
-                Instant.now().minus(PressureRepo.PRESSURE_HISTORY_DURATION)
             )
         }
     }

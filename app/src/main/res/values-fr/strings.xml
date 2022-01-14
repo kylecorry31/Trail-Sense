@@ -151,14 +151,10 @@
     <string name="pref_coordinate_format_title">Unité des coordonnées géographiques</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrés (notation sexagésimale)</string>
     <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>
-    <string name="estimated_height">hauteur estimée</string>
     <string name="set_inclination_instructions">Appuyez sur un point de l\'écran pour verrouiller / déverrouiller une inclinaison donnée</string>
-    <string name="inclinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
-    <string name="avalanche_risk_high">Risque d\'avalanche élevé</string>
-    <string name="avalanche_risk_med">Risque d\'avalanche modéré</string>
-    <string name="avalanche_risk_low">Risque d\'avalanche faible</string>
-    <string name="tool_inclinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
-    <string name="inclinometer_title">Inclinomètre</string>
+    <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
+    <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
+    <string name="clinometer_title">Inclinomètre</string>
     <string name="solar_noon">Midi solaire</string>
     <string name="sunset_alert_channel_title">Alerte de coucher de soleil</string>
     <string name="sunset_alerts">Alertes associées au coucher de soleil</string>
@@ -192,7 +188,6 @@
     <string name="notification_storm_alert_text">Une tempête est peut-être imminente</string>
     <string name="storm_alerts">Alertes relatives aux tempêtes</string>
     <string name="alerts">Alertes</string>
-    <string name="no_humidity_data">Données d\'hygrométrie indisponibles</string>
     <string name="beacon_comment">Notes (optionnel)</string>
     <string name="beacon_elevation_hint_meters">Altitude, en mètres (optionnel)</string>
     <string name="beacon_elevation_hint_feet">Altitude, en pieds (optionnel)</string>
@@ -220,36 +215,10 @@
     <string name="lunar_noon">Midi lunaire</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">il y a %s - %s</string>
-    <string name="pressure_setpoint_format">Défini : il y a %s - %s</string>
     <string name="maps">Cartes</string>
-    <string name="pref_sea_level_use_rapid_summary">Utiliser les variation rapides des niveaux de pression locale pour estimer les valeurs de pression au niveau de la mer</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
     <string name="pref_sunset_alert_time_title">Heure de la notification de coucher de soleil</string>
     <string name="sun_moon_compass_when_up">Lorsque l\'astre est levé</string>
-    <string name="storm_sensitivity_low_in">Faible (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Faible (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Faible (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Faible (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Faible (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Faible (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Faible (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Moyen (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Moyen (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Moyen (0.044 in / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Moyen (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Moyen (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_in">Moyen (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_high_in">Élevé (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Élevé (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Moyen (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">Élevé (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Élevé (3 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Élevé (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Élevé (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Élevé (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Élevé (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Moyen (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_hpa">Faible (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Niveau de sensibilité pour les prévisions</string>
     <string name="pref_num_visible_beacons_title">Repères à proximité</string>
     <string name="pref_altitude_override_sea_level_title">En se basant sur une valeur de pression au niveau de la mer</string>
@@ -264,7 +233,6 @@
     <string name="tide_normal">Amplitude de marée moyenne</string>
     <string name="tide_spring">Vives-eaux</string>
     <string name="tide_neap">Mortes-eaux</string>
-    <string name="pref_sea_level_use_rapid_title">Se baser sur les variations rapides de la pression</string>
     <string name="pref_adjust_for_temperature_title">Se baser sur la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
     <string name="offline_maps">Cartes hors-ligne</string>
@@ -290,25 +258,13 @@
     <string name="forecasts_category">Prévisions</string>
     <string name="advanced">Avancé</string>
     <string name="tap_sun_moon_hint">Appuyer sur les astres pour obtenir des détails sur leurs positions</string>
-    <string name="sun_and_moon_position_details">Soleil
-\n\tHauteur : %s
-\n\tAzimuth : %s
-\n
-\nLune
-\n\tHauteur : %s
-\n\tAzimuth: %s</string>
+
     <string name="beacon_action_view_details">Voir les détails</string>
     <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
     <string name="tool_bubble_level_title">Niveau à bulle</string>
     <string name="guide_weather_prediction_title">Prévisions météorologiques</string>
-    <string name="sun_and_moon">Position du soleil et de la lune</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorer les variations d\'altitude rapides</string>
-    <string name="pref_sea_level_require_dwell_summary">Ne fournir des informations que lorsque l\'altitude a été constante pour au moins une heure. Cela permet d\'améliorer la fiabilité des prévisions.</string>
-    <string name="weather_update_notification_channel">Mise à jour des données météorologiques</string>
     <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
     <string name="tool_user_guide_title">Guide d\'utilisation</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">La pression atmosphérique de voyage change le seuil</string>
-    <string name="pref_barometer_altitude_change_title">L\'altitude de voyage change le seuil</string>
     <string name="category_natural">Naturel</string>
     <string name="category_safety">Sécurité</string>
     <string name="category_shelter">Abri</string>
@@ -332,8 +288,6 @@
     <string name="tool_cliff_height_disclaimer">N\'utilisez cet outil que lorsque cela ne présente pas de danger, et vérifiez bien ce qu\'il y a au bas de la chute pour éviter toute blessure. Voir le guide pour plus d\'instructions.</string>
     <string name="tool_cliff_height_title">Hauteur de falaise</string>
     <string name="toast_destination_bearing_set">Orientation établie</string>
-    <string name="object_height_guide">Estimation de la hauteur</string>
-    <string name="guide_avalanche_risk">Estimation du risque d\'avalanche</string>
     <string name="depth_disclaimer">À utiliser avec précaution.
 \n
 \nN\'employer que si vous disposez d\'une coque étanche et ne plongez pas au delà d\'une profondeur qui pourrait vous mettre en danger.</string>
@@ -376,7 +330,6 @@
     <string name="water_boil_timer_done_content">Votre eau est maintenant potable</string>
     <string name="water_boil_timer_channel_description">L\'eau est en train de bouillir</string>
     <string name="water_boil_timer">Minuteur d\'ébullition</string>
-    <string name="solar_align_now">Maintenant</string>
     <string name="tool_solar_panel_title">Alignement du panneau solaire</string>
     <string name="tool_solar_panel_summary">Position des panneaux solaires pour une production optimale</string>
     <string name="pref_privacy_policy_title">Politique de confidentialité</string>
@@ -403,7 +356,7 @@
     <string name="unit_centimeters">Centimètres</string>
     <string name="bubble_level_angles">X : %s
 \nY : %s</string>
-    <string name="note_content_hint">Contenu</string>
+    <string name="contents">Contenu</string>
     <string name="note_title_hint">Titre</string>
     <string name="tool_notes_title">Notes</string>
     <string name="delete_note_title">Supprimer la note \?</string>
@@ -446,9 +399,7 @@
     <string name="location_input_help_title">Formats de localisation supportés</string>
     <string name="pref_backtrack_frequency_title">Fréquence d\'enregistrement</string>
     <string name="pref_backtrack_enabled_summary">Enregistrer l\'historique des positions</string>
-    <string name="waypoint_beacon_title_template">%s, %s point de passage</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Voire l\'historique des positions</string>
     <string name="create_beacon">Ajouter un repère</string>
     <string name="backtrack">Historique de l\'itinéraire</string>
     <string name="guide_location_no_gps_title">Déterminer sa position sans GPS</string>
@@ -478,7 +429,6 @@
     <string name="distance">Distance</string>
     <string name="convert">Convertir</string>
     <string name="move">Déplacer</string>
-    <string name="weather_prediction">Météo : %s</string>
     <string name="preview">Prévisualiser</string>
     <string name="weather_same_as_today">Comme aujourd\'hui</string>
     <string name="weather_worse_than_today">Pire qu\'aujourd\'hui</string>
@@ -529,7 +479,6 @@
     <string name="unsaved_changes_message">Les modifications que vous avez apportées ne seront pas enregistrées.</string>
     <string name="unsaved_changes">Modifications non enregistrées</string>
     <string name="pref_gps_override_title">Remplacement d\'emplacement</string>
-    <string name="backtrack_notification_description">Placer un repère de localisation</string>
     <string name="backtrack_notification_channel_description">Mises à jour des emplacements de retour</string>
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches_abbreviation">po</string>
@@ -538,7 +487,6 @@
     <string name="update_gps_override">Mettre à jour le remplacement du GPS</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="theme_sunset_sunrise">Lever du soleil/Coucher du soleil</string>
-    <string name="your_height">Votre taille</string>
     <string name="no_data">Aucune donnée</string>
     <string name="all_beacons">Tous les repères</string>
     <string name="turn_off">Éteindre</string>

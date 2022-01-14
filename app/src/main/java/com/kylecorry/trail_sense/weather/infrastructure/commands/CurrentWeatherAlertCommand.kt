@@ -32,7 +32,7 @@ class CurrentWeatherAlertCommand(
     private val formatService by lazy { FormatService(context) }
 
     override fun execute() {
-        if (prefs.weather.shouldShowWeatherNotification) {
+        if (prefs.weather.shouldShowWeatherNotification && prefs.weather.shouldMonitorWeather) {
             updateNotificationForecast(
                 hourly,
                 tendency,
@@ -89,8 +89,7 @@ class CurrentWeatherAlertCommand(
         }
 
         val description = formatService.formatShortTermWeather(
-            forecast,
-            prefs.weather.useRelativeWeatherPredictions
+            forecast
         )
 
         val newNotification = getNotification(

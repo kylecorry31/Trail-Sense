@@ -76,7 +76,6 @@
     <string name="heat_alert_heat_warning_title">Allarme surriscaldamento</string>
     <string name="heat_alert_heat_alert_title">Allerta surriscaldamento</string>
     <string name="dew_point">Punto di rugiada %s</string>
-    <string name="no_humidity_data">Nessun dato sull\'umidità</string>
     <string name="beacon_comment">Note (opzionale)</string>
     <string name="beacon_elevation_hint_meters">Altezza in metri (opzionale)</string>
     <string name="beacon_elevation_hint_feet">Altezza in piedi (opzionale)</string>
@@ -134,14 +133,10 @@
     <string name="edit">Modifica</string>
     <string name="delete">Elimina</string>
     <string name="add">Aggiungi</string>
-    <string name="estimated_height">altezza stimata</string>
     <string name="set_inclination_instructions">Tocca un qualsiasi punto per impostare/rimuovere l\'angolo di inclinazione</string>
-    <string name="inclinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
-    <string name="avalanche_risk_high">RIschio valanghe elevato</string>
-    <string name="avalanche_risk_med">Rischio valanghe moderato</string>
-    <string name="avalanche_risk_low">Basso rischio valanghe</string>
-    <string name="tool_inclinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
-    <string name="inclinometer_title">Inclinometro</string>
+    <string name="clinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
+    <string name="tool_clinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
+    <string name="clinometer_title">Inclinometro</string>
     <string name="offline_maps">Mappe Offline</string>
     <string name="moon_illumination">Illuminazione lunare</string>
     <string name="tide_neap">di quadratura</string>
@@ -254,7 +249,6 @@
     <string name="storm_alerts">Allarme temporali</string>
     <string name="alerts">Allarmi</string>
     <string name="pressure_reading_time_ago">%s - %s fa</string>
-    <string name="pressure_setpoint_format">Impostato: %s - %s fa</string>
     <string name="quality_good">Buono</string>
     <string name="quality_poor">Debole</string>
     <string name="unavailable">Non disponibile</string>
@@ -266,9 +260,7 @@
     <string name="how">Come</string>
     <string name="guide_barometer_calibration_title">Calibrazione barometro</string>
     <string name="tool_thermometer_title">Termometro</string>
-    <string name="tool_backtrack_summary">Visualizza lo storico delle posizioni</string>
     <string name="create_beacon">Crea Segnaposto</string>
-    <string name="backtrack_notification_description">Posizionamento del waypoint</string>
     <string name="backtrack_notification_channel_description">Aggiornamento delle posizioni per il ritorno</string>
     <string name="backtrack">Ritorno</string>
     <string name="map_scale_title">Scala della mappa</string>
@@ -306,14 +298,11 @@
     <string name="tool_whistle_title">Fischio</string>
     <string name="tool_cliff_height_description">Misurare l’altezza di un precipizio o di una caduta</string>
     <string name="tool_cliff_height_title">Altezza precipizio</string>
-    <string name="object_height_guide">Stima dell’altezza di oggetti</string>
-    <string name="guide_avalanche_risk">Stima del rischio valanghe</string>
     <string name="tool_depth_title">Profondità</string>
     <string name="beacon_action_view_details">Vedere i dettagli</string>
     <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
     <string name="error_occurred_message">Trail Sense</string>
-    <string name="quick_action_none">Nessuno</string>
-    <string name="no_temperature_history">Nessuno storico temperatura</string>
+    <string name="none">Nessuno</string>
     <string name="low">Bassa</string>
     <string name="moderate">Moderata</string>
     <string name="high">Elevata</string>
@@ -325,7 +314,6 @@
     <string name="weather_better_than_yesterday">Migliore di ieri</string>
     <string name="tomorrows_forecast">Previsioni per domani</string>
     <string name="todays_forecast">Previsioni per oggi</string>
-    <string name="solar_align_now">Ora</string>
     <string name="tool_solar_panel_title">Allineamento pannelli solari</string>
     <string name="guide_recommended_apps_description">App utili in situazioni di emergenza</string>
     <string name="guide_recommended_apps">App consigliate</string>
@@ -342,16 +330,6 @@
     <string name="tool_bubble_level_title">Livello a bolla</string>
     <string name="guide_weather_prediction_title">Previsioni meteo</string>
     <string name="tap_sun_moon_hint">Clicca il sole o la luna per dettagli sulla posizione</string>
-    <string name="sun_and_moon_position_details">Sole
-\n\tAltitudine: %s
-\n\tAzimut: %s
-\n
-\nMoon
-\n\tAltitudine: %s
-\n\tAzimut: %s</string>
-    <string name="sun_and_moon">Posizioni di sole e luna</string>
-    <string name="pref_sea_level_require_dwell_title">Ignora cambiamenti rapidi di altitudine</string>
-    <string name="weather_update_notification_channel">Aggiornamenti meteo</string>
     <string name="no_group">Nessun gruppo</string>
     <string name="group">Gruppo</string>
     <string name="beacon_create_beacon">Segnaposto</string>
@@ -440,33 +418,87 @@
     <string name="pref_weather_update_frequency_title">Frequenza aggiornamento del meteo</string>
     <string name="pref_show_pressure_in_notification_title">Mostra notifiche di temperatura</string>
     <string name="pref_show_weather_notification_title">Mostra notifiche meteo</string>
-    <string name="storm_sensitivity_high_in">Alta (0.089 in / 3h)</string>
-    <string name="storm_sensitivity_med_in">Media (0.133 in / 3h)</string>
-    <string name="storm_sensitivity_low_in">Bassa (0.177 in / 3h)</string>
-    <string name="storm_sensitivity_high_psi">Alta (0.044 PSI / 3h)</string>
-    <string name="storm_sensitivity_med_psi">Media (0.065 PSI / 3h)</string>
-    <string name="storm_sensitivity_low_psi">Bassa (0.087 PSI / 3h)</string>
-    <string name="storm_sensitivity_high_mbar">Alta (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_med_mbar">Media (4.5 mbar / 3h)</string>
-    <string name="storm_sensitivity_low_mbar">Bassa (3 mbar / 3h)</string>
-    <string name="storm_sensitivity_high_hpa">Alta (3 hPa / 3h)</string>
-    <string name="storm_sensitivity_med_hpa">Media (4.5 hPa / 3h)</string>
-    <string name="storm_sensitivity_low_hpa">Bassa (6 hPa / 3h)</string>
-    <string name="forecast_sensitivity_high_in">Alta (0.015 in / 3h)</string>
-    <string name="forecast_sensitivity_med_in">Media (0.044 in / 3h)</string>
-    <string name="forecast_sensitivity_low_in">Bassa (0.074 in / 3h)</string>
-    <string name="forecast_sensitivity_high_psi">Alta (0.007 PSI / 3h)</string>
-    <string name="forecast_sensitivity_med_psi">Media (0.022 PSI / 3h)</string>
-    <string name="forecast_sensitivity_low_psi">Bassa (0.036 PSI / 3h)</string>
-    <string name="forecast_sensitivity_high_mbar">Alta (0.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_med_mbar">Media (1.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_low_mbar">Bassa (2.5 mbar / 3h)</string>
-    <string name="forecast_sensitivity_high_hpa">Alta (0.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_med_hpa">Media (1.5 hPa / 3h)</string>
-    <string name="forecast_sensitivity_low_hpa">Bassa (2.5 hPa / 3h)</string>
     <string name="pref_forecast_sensitivity_title">Sensibilità delle previsioni</string>
-    <string name="pref_sea_level_use_rapid_summary">Utilizza cambiamenti rapidi di pressione nelle conversioni di pressione su livello mare</string>
-    <string name="pref_sea_level_use_rapid_title">Fattore nel rapido cambiamento di pressione</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
+    <string name="notification_channel_clock_sync_description">Una notifica per sincronizzare il tuo orologio con l\'orario del GPS</string>
+    <string name="clock_sync_instructions">Imposta l\'ora a %s quando la notifica arriva</string>
+    <string name="clock_sync_time_settings">Aprire impostazioni orario\?</string>
+    <string name="metal_detector_disclaimer">Rileva solo metalli magnetici (es. ferro)</string>
+    <string name="unit_inches">Pollici</string>
+    <string name="map_distance">Mappa: %s</string>
+    <string name="map_scale_verbal">Verbale</string>
+    <string name="max_temp_calibrated">Temperatura ambiente massima (calibrata)</string>
+    <string name="cirrocumulus">Cirrocumolo</string>
+    <string name="pref_backtrack_enabled_summary">Registra cronologia posizione</string>
+    <string name="pref_backtrack_frequency_title">Intervallo ritorno</string>
+    <string name="delete_tide_prompt">Eliminare marea\?</string>
+    <string name="pref_low_power_mode_title">Modalità risparmio energetico</string>
+    <string name="low_power_mode_on_message">Risparmio energetico attivo, alcune funzionalità potrebbero essere disabilitate.</string>
+    <string name="unsaved_changes">Modifiche non salvate</string>
+    <string name="pref_require_satellites_title">Richiedi aggancio satelliti</string>
+    <string name="cirrostratus">Cirrostrato</string>
+    <string name="altocumulus">Altocumulo</string>
+    <string name="altostratus">Altostrato</string>
+    <string name="stratus">Strato</string>
+    <string name="stratocumulus">Stratocumulo</string>
+    <string name="cumulus">Cumulo</string>
+    <string name="all_beacons">Tutti i Segnaposto</string>
+    <string name="max_depth">Massimo: %s</string>
+    <string name="theme_sunset_sunrise">Alba/tramonto</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">"Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte,  premi %s una volta finito.
+\n
+\nQuesto avviso può essere disabilitato nelle impostazioni dell\'app."</string>
+    <string name="toast_destination_bearing_set">Direzione della destinazione impostata</string>
+    <string name="depth_disclaimer">Utilizza a tuo rischio.
+\n
+\nNon usare senza una protezione impermeabile e rimani entro una distanza sicura a nuoto se possibile.</string>
+    <string name="cliff_height_guide">Stima altezza precipizio</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="clock_waiting_for_gps">Aggiornamento orario dal GPS…</string>
+    <string name="contents">Contenuti</string>
+    <string name="freezing_temperatures_warning">Temperatura sotto zero</string>
+    <string name="map_scale_ratio">Rapporto</string>
+    <string name="location_input_help">Gradi decimali (es. 1.00, -2.00)
+\n
+\nGradi e minuti decimali (es. 1°23.12\'N, 3°12.1\'W)
+\n
+\nGradi minuti e secondi (es. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (es. 03T 12345E 67890N)
+\n
+\nMGRS (es. 27PXM 09601 05579)
+\n
+\nUSNG (es. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (es. TG 51409 13177)</string>
+    <string name="backtrack_disabled_low_power_toast">Ritorno è disabilitato in modalità risparmio energetico</string>
+    <string name="pref_low_power_mode_summary">Disabilita alcune funzioni per risparmiare energia</string>
+    <string name="cirrus">Cirro</string>
+    <string name="water_boil_timer_title">Bollitura acqua</string>
+    <string name="guide_conserving_battery_title">Conservare batteria</string>
+    <string name="max_temp_uncalibrated">Temperatura telefono massima (calibrata)</string>
+    <string name="min_temp_calibrated">Temperatura ambiente minima (calibrata)</string>
+    <string name="min_temp_uncalibrated">Temperatura telefono minima (calibrata)</string>
+    <string name="bearing">Direzione</string>
+    <string name="create_at_distance">Crea ad una distanza</string>
+    <string name="beacon_set_bearing_btn">Imposta direzione (%s)</string>
+    <string name="unsaved_changes_message">Le modifiche apportate non saranno salvate.</string>
+    <string name="dialog_leave">Esci</string>
+    <string name="cumulonimbus">Cumulonembo</string>
+    <string name="nimbostratus">Stratonembo</string>
+    <string name="units_mmhg">mmHg</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d secondo per essere potabile</item>
+        <item quantity="other">%d secondi per essere potabile</item>
+    </plurals>
+    <string name="cirrocumulus_desc">Nuvole a livello alto che formano un foglio ondulato. Il foglio è formato da piccoli punti che dall\'aspetto quasi bidimensionale.</string>
+    <string name="cirrostratus_desc">Una nuvola alta che copre il cielo. È trasparente e solitamente causa un bagliore attorno al sole.</string>
+    <string name="packing_lists">Liste Inventario</string>
+    <string name="no_packing_lists">Nessuna lista inventario</string>
+    <string name="tool_cliff_height_disclaimer">Utilizza questo strumento solo quando è sicuro farlo ed assicurati di controllare sotto al precipizio per evitare di ferirti. Leggi la guida utente per le istruzioni.</string>
+    <string name="action_inventory_clear_confirm">Eliminare tutte le quantità di inventario\?</string>
+    <string name="tool_solar_panel_summary">Posiziona pannelli solari per avere la potenza ottimale</string>
+    <string name="water_boil_timer">Timer bollitura acqua</string>
+    <string name="freezing_temperatures_description">L\'acqua si giaccerà se lasciata fuori e la pioggia potrebbe diventare neve</string>
 </resources>

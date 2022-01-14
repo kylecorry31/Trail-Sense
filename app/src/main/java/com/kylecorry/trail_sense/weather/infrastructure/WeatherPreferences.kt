@@ -8,9 +8,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import java.time.Duration
-import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -27,12 +25,6 @@ class WeatherPreferences(private val context: Context) {
         set(value) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
-
-    val useExperimentalCalibration by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_experimental_barometer_calibration),
-        false
-    )
 
     val useAltitudeVariance: Boolean = true
 
@@ -85,25 +77,11 @@ class WeatherPreferences(private val context: Context) {
     val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
 
-    val seaLevelFactorInRapidChanges: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_sea_level_use_rapid)) ?: true
-
     val pressureHistory: Duration
         get() {
             val raw = cache.getString(context.getString(R.string.pref_pressure_history)) ?: "48"
             return Duration.ofHours(raw.toLong())
         }
-
-    val requireDwell: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_sea_level_require_dwell)) ?: false
-
-    val maxNonTravellingAltitudeChange: Float
-        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_change))?.toFloat()
-            ?: 60f
-
-    val maxNonTravellingPressureChange: Float
-        get() = 20 * (cache.getInt(context.getString(R.string.pref_sea_level_pressure_change_thresh))
-            ?.toFloat() ?: 50f) / 200f
 
     val sendStormAlerts: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true
@@ -138,9 +116,6 @@ class WeatherPreferences(private val context: Context) {
                 else -> HPA_STORM_MEDIUM
             }
         }
-
-    val useRelativeWeatherPredictions: Boolean
-        get() = true
 
     var minBatteryTemperature: Float
         get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))
@@ -222,14 +197,8 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    val useLawOfCooling: Boolean
-        get() = false
-
     val lawOfCoolingReadings: Int
         get() = 180
-
-    val lawOfCoolingReadingInterval: Long
-        get() = 500L
 
     var dailyWeatherLastSent: LocalDate
         get() {
@@ -271,6 +240,12 @@ class WeatherPreferences(private val context: Context) {
     val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
+
+    val showCloudScanner by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_experimental_cloud_scanner),
+        false
+    )
 
 
     companion object {

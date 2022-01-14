@@ -11,9 +11,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/AppTheme.HeaderText"
         tools:text="5.0 mph" />
 
     <TextView
@@ -21,6 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/AppTheme.SubHeaderText"
         tools:text="1.0 mph average" />
 
     <LinearLayout

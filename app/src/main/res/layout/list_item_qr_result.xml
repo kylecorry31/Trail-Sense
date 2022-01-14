@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/qr_message_type"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
+                android:alpha="0.75"
+                app:srcCompat="@drawable/ic_note"
+                app:tint="?android:textColorPrimary" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="@string/no_qr_code_found"
+                android:textIsSelectable="true"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/qr_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/qr_web"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/open"
+                android:visibility="gone"
+                app:chipIcon="@drawable/ic_link"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp"
+                tools:visibility="visible" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/qr_beacon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beacon"
+                android:visibility="gone"
+                app:chipIcon="@drawable/ic_location"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp"
+                tools:visibility="visible" />
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/qr_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/maps"
+                android:visibility="gone"
+                app:chipIcon="@drawable/maps"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp"
+                tools:visibility="visible" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/qr_save_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/note"
+                android:visibility="gone"
+                app:chipIcon="@drawable/ic_tool_notes"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp"
+                tools:visibility="visible" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/qr_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@android:string/copy"
+                android:visibility="gone"
+                app:chipIcon="@drawable/ic_copy"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp"
+                tools:visibility="visible" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/qr_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:visibility="gone"
+                app:chipIcon="@drawable/ic_delete"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp"
+                tools:visibility="visible" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

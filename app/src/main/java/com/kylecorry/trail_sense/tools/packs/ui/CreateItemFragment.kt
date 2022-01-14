@@ -31,14 +31,13 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
     private var editingItem: PackItem? = null
 
     private var packId: Long = 0
+    private var itemId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val itemId = arguments?.getLong("edit_item_id") ?: 0L
+        itemId = arguments?.getLong("edit_item_id") ?: 0L
         packId = arguments?.getLong("pack_id") ?: 0L
-        if (itemId != 0L) {
-            loadEditingItem(itemId)
-        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,11 +85,15 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         binding.categorySelectSpinner.prompt = getString(R.string.category)
         binding.categorySelectSpinner.adapter = adapter
 
-        if (editingItem == null) {
+        if (itemId == 0L) {
             binding.categorySelectSpinner.setSelection(0)
         }
 
         CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+
+        if (itemId != 0L) {
+            loadEditingItem(itemId)
+        }
     }
 
     private fun loadEditingItem(id: Long) {

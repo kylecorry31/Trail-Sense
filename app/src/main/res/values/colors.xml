@@ -6,6 +6,7 @@
     <color name="colorSecondary">#222222</color>
     <color name="colorSecondaryContainer">#20FD750E</color>
     <color name="white">#FFFFFF</color>
+    <color name="offWhite">#cccccc</color>
     <color name="positive">#0F9A05</color>
     <color name="negative">#FF001E</color>
 
@@ -17,4 +18,5 @@
     <color name="blue">#a0caff</color>
     <color name="orange">#FF6D00</color>
     <color name="black">#000000</color>
+    <color name="transparentWhite">#99FFFFFF</color>
 </resources>

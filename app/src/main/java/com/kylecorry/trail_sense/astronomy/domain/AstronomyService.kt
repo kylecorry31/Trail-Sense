@@ -175,10 +175,6 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return newAstronomyService.getSunAzimuth(time.toZonedDateTime(), location)
     }
 
-    fun getSolarNoon(location: Coordinate, date: LocalDate = LocalDate.now()): LocalDateTime? {
-        return getSunTimes(location, SunTimesMode.Actual, date).transit?.toLocalDateTime()
-    }
-
     fun getSunAltitude(location: Coordinate, time: LocalDateTime = LocalDateTime.now()): Float {
         return newAstronomyService.getSunAltitude(time.toZonedDateTime(), location, true)
     }

@@ -6,12 +6,16 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewErrorBannerBinding
+import com.kylecorry.trail_sense.shared.ErrorBannerReason
+import com.kylecorry.trail_sense.shared.UserPreferences
 
 class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
     private val binding: ViewErrorBannerBinding
 
     private val errors: MutableList<UserError> = mutableListOf()
+
+    private val prefs by lazy { UserPreferences(this.context) }
 
     private var onAction: (() -> Unit)? = null
 
@@ -22,40 +26,43 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
             onAction?.invoke()
         }
         binding.errorClose.setOnClickListener {
-            val id = synchronized(this) {
-                errors.firstOrNull()?.id
+            val reason = synchronized(this) {
+                errors.firstOrNull()?.reason
             }
-            if (id != null) {
-                dismiss(id)
+            if (reason != null) {
+                dismiss(reason)
             }
         }
     }
 
     fun report(error: UserError) {
+        if (!prefs.errors.canShowError(error.reason)) {
+            return
+        }
         synchronized(this) {
-            errors.removeAll { it.id == id }
+            errors.removeAll { it.reason == error.reason }
             errors.add(error)
-            errors.sortBy { it.id }
+            errors.sortBy { it.reason.id }
         }
         displayNextError()
         show()
     }
 
-    fun dismiss(id: Int){
+    fun dismiss(reason: ErrorBannerReason) {
         synchronized(this) {
-            errors.removeAll { it.id == id }
+            errors.removeAll { it.reason == reason }
         }
         displayNextError()
     }
 
-    fun dismissAll(){
+    fun dismissAll() {
         synchronized(this) {
             errors.clear()
         }
         displayNextError()
     }
 
-    private fun displayNextError(){
+    private fun displayNextError() {
         val first = synchronized(this) {
             errors.firstOrNull()
         }
@@ -67,12 +74,12 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
         }
     }
 
-    private fun displayError(error: UserError){
+    private fun displayError(error: UserError) {
         binding.errorText.text = error.title
         binding.errorAction.text = error.action
         binding.errorIcon.setImageResource(error.icon)
         onAction = error.onAction
-        if (error.action.isNullOrEmpty()){
+        if (error.action.isNullOrEmpty()) {
             binding.errorAction.visibility = View.GONE
         } else {
             binding.errorAction.visibility = View.VISIBLE

@@ -7,11 +7,15 @@ import com.kylecorry.andromeda.core.sensors.asLiveData
 
 abstract class BaseSensorQualityDiagnostic<T : ISensor>(
     protected val context: Context,
-    lifecycleOwner: LifecycleOwner,
-    protected val sensor: T
+    lifecycleOwner: LifecycleOwner? = null,
+    protected val sensor: T? = null
 ) : IDiagnostic {
 
+    protected val canRun = lifecycleOwner != null && sensor != null
+
     init {
-        sensor.asLiveData().observe(lifecycleOwner) {}
+        lifecycleOwner?.let {
+            sensor?.asLiveData()?.observe(it) {}
+        }
     }
 }
