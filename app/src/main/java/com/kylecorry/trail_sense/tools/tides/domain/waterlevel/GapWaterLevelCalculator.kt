@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.analysis.WaveService
 import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.time.Time
 import java.time.ZonedDateTime
 

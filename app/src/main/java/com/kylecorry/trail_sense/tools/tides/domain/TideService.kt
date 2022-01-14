@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.TideType
@@ -15,17 +16,14 @@ import java.time.ZonedDateTime
 
 class TideService {
 
+    private val ocean = OceanographyService()
+
     fun getTides(table: TideTable, date: LocalDate): List<Tide> {
-        // TODO: The tide table extrema can be calculated without a brute force approach
         val start = date.atStartOfDay().toZonedDateTime()
         val end = date.plusDays(1).atStartOfDay().toZonedDateTime()
-        val range = Duration.between(start, end).toMinutes()
         val waterLevelCalculator = TideTableWaterLevelCalculator(table)
         val extremaFinder = SimpleExtremaFinder(1.0)
-        val extrema = extremaFinder.find(Range(0.0, range.toDouble())){
-            waterLevelCalculator.calculate(start.plusMinutes(it.toLong())).toDouble()
-        }
-        return extrema.map { Tide(start.plusMinutes(it.point.x.toLong()), it.isHigh, it.point.y) }
+        return ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
     }
 
     fun getWaterLevel(table: TideTable, time: ZonedDateTime): Float {
