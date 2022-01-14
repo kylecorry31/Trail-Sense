@@ -1076,4 +1076,5 @@
     <string name="low_tide_letter">Н</string>
     <string name="view">Показ</string>
     <string name="high_tide_letter">В</string>
+    <string name="tide_deleted">Приплив видалено</string>
 </resources>

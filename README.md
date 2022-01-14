@@ -42,6 +42,7 @@
 - Tides
 - Maps
 - Paths
+- Clouds
 - Stability, usability, performance, testing
 
 ## Goals
