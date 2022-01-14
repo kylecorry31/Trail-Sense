@@ -125,8 +125,7 @@
     <string name="maps">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
     <string name="units_inhg_short">in</string>
-    <string name="inclinometer_title">Neigungsmesser</string>
-    <string name="estimated_height">geschätzte Höhe</string>
+    <string name="clinometer_title">Neigungsmesser</string>
     <string name="sensors">Sensoren</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="copied_to_clipboard_toast">In die Zwischenablage kopiert</string>
@@ -218,11 +217,8 @@
     <string name="compass_azimuth">Azimut</string>
     <string name="compass_auto_declination">Deklination automatisch anpassen</string>
     <string name="compass_declination_override">Deklination festlegen</string>
-    <string name="inclinometer_rotate_device">Halten Sie Ihr Telefon vertikal um die Inklination zu messen</string>
-    <string name="avalanche_risk_high">Hohe Lawinengefahr</string>
-    <string name="avalanche_risk_med">Mittlere Lawinengefahr</string>
-    <string name="avalanche_risk_low">Niedrige Lawinengefahr</string>
-    <string name="tool_inclinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
+    <string name="clinometer_rotate_device">Halten Sie Ihr Telefon vertikal um die Inklination zu messen</string>
+    <string name="tool_clinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
     <string name="offline_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
     <plurals name="beacon_group_summary">
@@ -242,7 +238,6 @@
     <string name="access_background_location_rationale">Erlauben Sie Trail Sense jederzeit den Zugriff auf Ihre Ortsdaten. Diese werden zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor und zum Anzeigen einer genaueren Sonnenuntergangsbenachrichtigung genutzt. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
-    <string name="pref_sea_level_use_rapid_title">Faktor für schnelle Luftdruckänderungen</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
     <string name="navigation_nearby_category">Nahegelegen</string>
     <string name="forecasts_category">Vorhersagen</string>
@@ -256,16 +251,13 @@
     <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="set_inclination_instructions">Tippen um den Inklinationswinkel zu setzen/löschen</string>
+    <string name="set_inclination_instructions">Tippen oder halten zum Sperren/Entsperren</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
     <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Feststellen, ob eine Oberfläche flach ist</string>
     <string name="beacon_action_view_details">Zeige Details</string>
     <string name="guide_weather_prediction_title">Wettervorhersage</string>
     <string name="guide_conserving_battery_title">Stromsparmodus</string>
-    <string name="pref_sea_level_require_dwell_title">Schnelle Höhenänderungen ignorieren</string>
-    <string name="pref_sea_level_require_dwell_summary">Zeige nur Werte, wenn sich die Höhe in der letzten Stunde nicht geändert hat. Dies verbessert die Zuverlässigkeit der Vorhersage.</string>
-    <string name="pref_sea_level_use_rapid_summary">Verwende schnelle Luftdruckänderungen für die Umrechnung auf Meereshöhe</string>
     <string name="pref_adjust_for_temperature_summary">Verwende die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Libelle</string>
     <string name="edit_item_title">Gegenstand bearbeiten</string>
@@ -289,8 +281,6 @@
     <string name="tool_cliff_height_disclaimer">Tool nur benutzen, wenn es sicher ist. Überprüfen, was sich unter der Klippe befindet, um Verletzungen zu vermeiden. Bedienungsanleitung lesen für Verwendungsanweisungen.</string>
     <string name="tool_cliff_height_description">Höhe einer Klippe oder Versenkung messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
-    <string name="object_height_guide">Höhe von Objekten abschätzen</string>
-    <string name="guide_avalanche_risk">Lawinengefahr bestimmen</string>
     <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
 \n
 \nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
@@ -354,7 +344,7 @@
     <string name="precise_meters_format">%s m</string>
     <string name="unit_inches">Zoll</string>
     <string name="unit_centimeters">Zentimeter</string>
-    <string name="note_content_hint">Inhalt</string>
+    <string name="contents">Inhalt</string>
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notizen</string>
     <string name="delete_note_title">Notiz löschen\?</string>
@@ -394,8 +384,6 @@
     <string name="freezing_temperatures_description">Wasser kann im Freien gefrieren, und Regen geht möglicherweise in Schneefall über</string>
     <string name="freezing_temperatures_warning">Frostgefahr</string>
     <string name="clock_sync_instructions">Bei Benachrichtigung Zeit auf %s setzen</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Schwellwert für Druckänderung</string>
-    <string name="pref_barometer_altitude_change_title">Schwellwert für Höhenänderung</string>
     <string name="charging_fast">Batterie lädt schnell (%s)</string>
     <string name="discharging_fast">Schnelle Entladung (%s)</string>
     <string name="discharging_slow">Langsame Entladung (%s)</string>
@@ -421,7 +409,6 @@
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Wegpunkte für den Rückweg zeigen</string>
     <string name="beacon_set_bearing_btn">Richtung festlegen (%s)</string>
     <string name="bearing">Richtung</string>
     <string name="clock_sync_notification">Zeit-Synchronisation - %s</string>
@@ -429,7 +416,6 @@
     <string name="strobe_warning_title">Stroboskob / Blitzlicht</string>
     <string name="toast_destination_bearing_set">Zielrichtung gesetzt</string>
     <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="waypoint_beacon_title_template">%s, %s Wegpunkt</string>
     <string name="create_beacon">Wegpunkt anlegen</string>
     <string name="charging_wireless">Batterie wird geladen (%s)</string>
     <string name="bubble_level_angles">X: %s
@@ -578,7 +564,6 @@
     <string name="turn_off">Ausschalten</string>
     <string name="cirrocumulus_desc">Hohe Wolken, die eine gewellte Schicht bilden. Die Schicht besteht aus kleinen Punkten, die fast zweidimensional aussehen.</string>
     <string name="pref_require_satellites_title">Mehr Satelliten erforderlich</string>
-    <string name="your_height">Ihre Körpergröße</string>
     <string name="delete_tide_prompt">Gezeiten löschen\?</string>
     <string name="right_quick_action">Rechter Schnellzugriff</string>
     <string name="left_quick_action">Linker Schnellzugriff</string>
@@ -618,8 +603,6 @@
     <string name="pref_nearby_radar_title">Kompass in Radarform anzeigen</string>
     <string name="source">Quelle</string>
     <string name="pref_stride_length_title">Schrittlänge</string>
-    <string name="distance_away_not_set">Entfernung nicht festgelegt</string>
-    <string name="distance_away">Entfernung</string>
     <string name="value_average">%s Durchschnitt</string>
     <string name="value_since_time">%s seit %s</string>
     <string name="speedometer_average">Durchschnitt (von Rückweg)</string>
@@ -651,7 +634,6 @@
     <string name="importing_map">Karte importieren</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">min</string>
-    <string name="pref_backtrack_path_radar_title">Zeige Pfad von Rückweg</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe die Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
     <string name="search">Suche</string>
@@ -668,7 +650,6 @@
     <string name="pref_weather_show_detailed_icon_title">Farbiges Benachrichtigungssymbol anzeigen</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Die tatsächliche Frequenz kann stark variieren, da einige Geräte Hintergrundbeschränkungen haben.</string>
-    <string name="pref_backtrack_path_radar_summary">Auf dem Radarkompass und der Karte</string>
     <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
     <string name="solid">Durchgängig</string>
@@ -679,8 +660,6 @@
     <string name="battery_warning">Batterieentladungswarnung</string>
     <string name="backtrack_high_priority_notification">Platziere einen Wegpunkt alle %s</string>
     <string name="updates">Aktualisierungen</string>
-    <string name="pref_backtrack_path_color_title">Pfadfarbe für Backtrack</string>
-    <string name="pref_backtrack_path_style_title">Pfadstil für Rückweg</string>
     <string name="dotted">Gepunktet</string>
     <string name="time_until_full">bis voll</string>
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
@@ -714,7 +693,6 @@
     <string name="pref_barometer_altitude_outlier_title">Entfernung von Höhenausreißern</string>
     <string name="pref_barometer_altitude_smoothing_title">Höhenglättung</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
-    <string name="pref_experimental_barometer_calibration_title">Nutze experimentelle Kalibration</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="beacon_moved_to">Nach %s verschoben</string>
     <string name="move">Verschieben</string>
@@ -747,8 +725,6 @@
     <string name="privacy">Privatsphäre</string>
     <string name="units">Einheiten</string>
     <string name="pref_privacy_screenshot_protection_title">Screenshots verhindern</string>
-    <string name="pref_low_resolution_maps_title">Geringe Auflösung verwenden</string>
-    <string name="pref_low_resolution_maps_summary">Für Geräte mit Speichereinschränkungen</string>
     <string name="pref_flashlight_toggle_with_volume_title">Mit Lautstärketasten steuern</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Während Trail Sense geöffnet ist</string>
     <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
@@ -877,12 +853,7 @@
     </plurals>
     <string name="new_text">Neu</string>
     <string name="old">Alt</string>
-    <string name="path">Pfad</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="grid_size">%s Raster</string>
-    <string name="no_previous_path">Kein vorheriger Pfad</string>
-    <string name="merge_previous_path_title">Mit dem vorherigen Pfad zusammenführen\?</string>
-    <string name="path_merge_previous">Vorherige zusammenführen</string>
     <string name="delete_path">Pfad löschen\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Auto</string>
@@ -1003,4 +974,91 @@
     <string name="sort_by">Sortieren: %s</string>
     <string name="closest">Nächste</string>
     <string name="most_recent">Neueste</string>
+    <string name="importing">Importiere</string>
+    <string name="points">Punkte</string>
+    <string name="duration">Dauer</string>
+    <string name="elevation">Höhe</string>
+    <string name="elevation_gain">Höhenunterschied</string>
+    <string name="elevation_loss">Höhenverlust</string>
+    <string name="easy">Leicht</string>
+    <string name="hard">Schwer</string>
+    <string name="difficulty">Schwierigkeit</string>
+    <string name="waypoint">Wegpunkt</string>
+    <string name="merging">Zusammenführen</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d Wegpunkt gelöscht</item>
+        <item quantity="other">%d Wegpunkte gelöscht</item>
+    </plurals>
+    <string name="pref_default_path_color_title">Standard-Pfadfarbe</string>
+    <string name="pref_default_path_style_title">Standard-Pfadstil</string>
+    <string name="append_onto">Anhängen an</string>
+    <string name="pref_auto_simplify_paths_title">Vereinfachen der Pfade beim Import</string>
+    <string name="dashed">Gestrichelt</string>
+    <string name="merge">Zusammenführen</string>
+    <string name="simplify">Vereinfachen</string>
+    <string name="simplifying">Vereinfachung</string>
+    <string name="simplification_quality">Vereinfachungsqualität</string>
+    <string name="saving">Speichert</string>
+    <string name="navigation_guide_description">Mit Wegpunkten und Pfaden</string>
+    <string name="map_projection_equidistant">Längentreue Kegelprojektion</string>
+    <string name="reduce_map_resolution">Kartenauflösung reduzieren</string>
+    <string name="change_map_projection">Projektion ändern</string>
+    <string name="map_projection_mercator">Mercator-Projektion</string>
+    <string name="slope_amount">%s Neigung</string>
+    <string name="avalanche_risk">Lawinenrisiko</string>
+    <string name="distance_unset">Entfernung nicht gesetzt</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Mit Lautstärketasten sperren</string>
+    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
+    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_title">Distanz zur Grundlinie</string>
+    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="instructions">Anweisungen</string>
+    <string name="clinometer_measure_distance_title">Höhe des Zieles</string>
+    <string name="clinometer_measure_height_instructions">Um die Höhe eines Zieles zu messen, welches %s entfernt ist:
+\n
+\n1. Richten Sie den Neigungsmesser auf die Basis des Zieles
+\n2. Drücken Sie auf den Bildschirm und halten Sie ihn
+\n3. Richten Sie den Neigungsmesser auf die obere Seite des Zieles
+\n4. Lassen Sie los, um es zu sperren und die Höhe zu sehen</string>
+    <string name="errors">Fehler</string>
+    <string name="clinometer_measure_distance_instructions">Um die Entfernung eines Zieles zu messen, welches %s hoch ist:
+\n
+\n1. Richten Sie den Neigungsmesser auf die Basis des Zieles
+\n2. Drücken Sie auf den Bildschirm und halten Sie ihn
+\n3. Richten Sie den Neigungsmesser auf die obere Seite des Zieles
+\n4. Lassen Sie los, um es zu sperren und die Entfernung zu sehen</string>
+    <string name="clinometer_measure_height_title">Entfernung des Zieles</string>
+    <string name="height">Höhe</string>
+    <string name="measure">Messung</string>
+    <string name="weather_monitor_disabled_resolution">Aktivieren Sie den Wettermonitor in den Wettereinstellungen</string>
+    <string name="error_banners">Fehlerbanner</string>
+    <string name="compass_accuracy">Kompassgenauigkeit</string>
+    <string name="compass_unavailable">Kompass nicht verfügbar</string>
+    <string name="gps_unavailable">GPS nicht verfügbar</string>
+    <string name="gps_timeouts">GPS-Timeouts</string>
+    <string name="enter_text">Text eingeben</string>
+    <string name="no_qr_code_found">Keinen QR-Code erkannt</string>
+    <string name="saved_to_note">Als Notiz gespeichert</string>
+    <string name="qr_code_scanner">QR-Code-Scanner</string>
+    <string name="open">Öffnen</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="note">Notiz</string>
+    <string name="beacon">Wegpunkt</string>
+    <string name="beacon_created">Wegpunkt erstellt</string>
+    <string name="result_deleted">Ergebnis gelöscht</string>
+    <string name="undo">Rückgängig</string>
+    <string name="share_ellipsis">Teilen…</string>
+    <string name="duration_second_format">%d s</string>
+    <string name="night">Nacht</string>
+    <string name="qr_text_too_long">Text zu lang, QR-Code war abgeschnitten</string>
+    <string name="pref_flashlight_should_timeout_title">Automatisch ausschalten</string>
+    <string name="pref_flashlight_timeout_title">Danach ausschalten</string>
+    <string name="view">Anzeige</string>
+    <string name="tide_is_diurnal">Täglich\?</string>
+    <string name="calculated">Berechnet</string>
+    <string name="tide_table">Gezeitentabelle</string>
+    <string name="high_tide_letter">F</string>
+    <string name="low_tide_letter">E</string>
+    <string name="tide_deleted">Gezeit gelöscht</string>
 </resources>

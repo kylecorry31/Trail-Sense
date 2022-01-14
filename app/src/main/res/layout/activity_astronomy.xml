@@ -19,7 +19,6 @@
         app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_tool_whistle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,13 +34,12 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/flashlight" />
 
     <ImageView
         android:id="@+id/chart_night"
         android:layout_width="0dp"
-        android:layout_height="92dp"
+        android:layout_height="85dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
@@ -53,7 +51,7 @@
     <ImageView
         android:id="@+id/chart_day"
         android:layout_width="0dp"
-        android:layout_height="92dp"
+        android:layout_height="85dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
@@ -69,7 +67,6 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display_date" />
 

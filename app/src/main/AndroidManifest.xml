@@ -48,17 +48,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:label="@string/create_beacon">
                 <action android:name="android.intent.action.VIEW" />
                 <data android:scheme="geo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:label="@string/create_beacon">
                 <action android:name="com.kylecorry.trail_sense.PLACE_BEACON" />
                 <data android:scheme="geo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity-alias
             android:name=".AliasMainActivity"
             android:exported="true"
@@ -99,7 +100,7 @@
             android:foregroundServiceType="location" />
 
         <service
-            android:name=".tools.backtrack.infrastructure.services.BacktrackAlwaysOnService"
+            android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
@@ -159,7 +160,7 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".tools.backtrack.infrastructure.receivers.StopBacktrackReceiver"
+            android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.receivers.StopBacktrackReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver

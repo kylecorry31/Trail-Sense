@@ -117,14 +117,10 @@
     <string name="edit">Aanpassen</string>
     <string name="delete">Verwijderen</string>
     <string name="subtract">Aftrekken</string>
-    <string name="estimated_height">geschatte hoogte</string>
     <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
-    <string name="inclinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
-    <string name="avalanche_risk_high">Hoog risico op lawines</string>
-    <string name="avalanche_risk_med">Gemiddeld risico op lawines</string>
-    <string name="avalanche_risk_low">Laag risico op lawines</string>
-    <string name="tool_inclinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
-    <string name="inclinometer_title">Hellingsmeter</string>
+    <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
+    <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
+    <string name="clinometer_title">Hellingsmeter</string>
     <string name="offline_maps">Offline Kaarten</string>
     <string name="moon_illumination">Maanverlichting</string>
     <string name="moon_phase">Maanstand</string>
@@ -352,10 +348,6 @@
     <string name="pref_backtrack_history_days_title">Terugweg-geschiedenis</string>
     <string name="backtrack_battery_warning">Kleine intervallen (minder dan 15 minuten) kunnen de batterij snel doen leeglopen</string>
     <string name="backtrack_high_priority_notification">Er wordt elke %s een routepunt geplaatst</string>
-    <string name="pref_backtrack_path_color_title">Padkleur voor Terugweg</string>
-    <string name="pref_backtrack_path_style_title">Padstijl voor Terugweg</string>
-    <string name="pref_backtrack_path_radar_summary">Op het radarkompas en op de kaarten</string>
-    <string name="pref_backtrack_path_radar_title">Toon pad van Terugweg</string>
     <string name="speedometer_odometer_accuracy_dialog">Om de hoogste juistheid te bereiken moet je Terugweg aanzetten, en in de instellingen te kilometertellerbron op \'stappenteller\' zetten.</string>
     <string name="speedometer_average">Gemiddeld (van Terugweg)</string>
     <string name="pref_backtrack_save_cell_title">Mobiele signaal opnemen</string>
@@ -393,7 +385,6 @@
     <string name="location_input_help_title">Ondersteunde locatieformaten</string>
     <string name="pref_backtrack_frequency_title">Afstand tussen routepunten</string>
     <string name="pref_backtrack_enabled_summary">Routepunten opnemen</string>
-    <string name="waypoint_beacon_title_template">%s, %s Routepunt</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="clock_sync_time_settings">Tijdsinstellingen openen\?</string>
     <string name="clock_sync_instructions">Stel de tijd in op %s wanneer de melding binnenkomt</string>
@@ -440,7 +431,7 @@
     <string name="freezing_temperatures_warning">Vriesgevaar</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Inhoud</string>
+    <string name="contents">Inhoud</string>
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notities</string>
     <string name="delete_note_title">Notitie verwijderen\?</string>
@@ -458,8 +449,6 @@
     <string name="tool_cliff_height_description">Klif- of dalhoogte meten</string>
     <string name="tool_cliff_height_title">Klifhoogte</string>
     <string name="toast_destination_bearing_set">Peiling bestemming ingesteld</string>
-    <string name="object_height_guide">Objecthoogtes schatten</string>
-    <string name="guide_avalanche_risk">Inschatting lawinegevaar</string>
     <string name="depth_disclaimer">Gebruik op eigen risico.
 \n
 \nNiet gebruiken zonder waterdichte behuizing en blijf indien mogelijk binnen een veilige duikafstand.</string>
@@ -473,7 +462,6 @@
     <string name="category_hydration">Hydratie</string>
     <string name="category_food">Levensmiddelen</string>
     <string name="other">Anders</string>
-    <string name="pref_barometer_altitude_change_title">Drempelwaarde voor hoogteverandering</string>
     <string name="beacon_action_view_details">Details bekijken</string>
     <string name="tool_bubble_level_summary">Bepalen of oppervlakken vlak zijn</string>
     <string name="tool_bubble_level_title">Waterpas</string>
@@ -484,8 +472,6 @@
     <string name="advanced">Geavanceerd</string>
     <string name="tap_sun_moon_hint">Tik op zon of maan voor positiedetails</string>
 
-    <string name="pref_sea_level_require_dwell_title">Snelle hoogteveranderingen negeren</string>
-    <string name="pref_sea_level_require_dwell_summary">Alleen metingen tonen als de hoogte minstens een uur niet is veranderd. Verbetert de betrouwbaarheid van de voorspelling.</string>
     <string name="no_group">Geen groep</string>
     <string name="group">Groep</string>
     <string name="beacon_create_beacon">Baken</string>
@@ -522,8 +508,6 @@
     <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
     <string name="app_disclaimer_message_title">Disclaimer / Servicevoorwaarden</string>
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="pref_sea_level_use_rapid_summary">Snelle drukveranderingen gebruiken in zeeniveau-druk-conversies</string>
-    <string name="pref_sea_level_use_rapid_title">Snelle drukveranderingen meenemen</string>
     <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
     <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
     <string name="pref_altimeter_calibration_mode_title">Automatische kalibratie</string>
@@ -533,7 +517,6 @@
     <string name="request_permission">Toestemming vragen</string>
     <string name="compass_declination">Magnetische declinatie</string>
     <string name="theme_sunset_sunrise">Zonsopkomst/zonsondergang</string>
-    <string name="your_height">je lengte</string>
     <string name="no_data">Geen gegevens</string>
     <string name="all_beacons">Alle bakens</string>
     <string name="battery_capacity_format">%s mAh</string>
@@ -579,7 +562,6 @@
     <string name="distance_to">Naar</string>
     <string name="distance_from">Van</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Locatiegeschiedenis tonen</string>
     <string name="create_beacon">Baken maken</string>
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="beacon_set_bearing_btn">Peiling vastzetten (%s)</string>
@@ -653,8 +635,6 @@
     <string name="daylight">Daglicht</string>
     <string name="pref_auto_low_power_title">Automatische energiebesparing</string>
     <string name="pref_auto_low_power_summary">Wanneer je batterij bijna leeg is</string>
-    <string name="pref_low_resolution_maps_title">Lage resolutie gebruiken</string>
-    <string name="pref_low_resolution_maps_summary">Voor apparaten met geheugenbeperkingen</string>
     <string name="pref_flashlight_toggle_with_volume_title">Schakelen met volumeknoppen</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Terwijl Trail Sense open is</string>
     <string name="back_press_confirm">Druk nogmaals op terug om te verlaten</string>
@@ -692,7 +672,6 @@
     <string name="pref_barometer_altitude_outlier_title">Hoogte uitbijter verwijderen</string>
     <string name="pref_barometer_altitude_smoothing_title">Hoogtevereffening</string>
     <string name="pref_barometer_pressure_smoothing_title">Drukvereffening</string>
-    <string name="pref_experimental_barometer_calibration_title">Experimentele kalibratie gebruiken</string>
     <string name="pref_nmea_altitude_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
     <string name="pref_nmea_altitude_title">NMEA hoogte offsets</string>
     <string name="pref_barometer_info_summary">De druk kan verschillen van die van nabijgelegen stations</string>
@@ -767,8 +746,6 @@
     <string name="pedometer">Stappenteller</string>
     <string name="odometer">Kilometerteller</string>
     <string name="saltwater_switch">Is het zout water\?</string>
-    <string name="distance_away_not_set">afstand niet ingesteld</string>
-    <string name="distance_away">Afstand</string>
     <string name="value_average">%s gemiddelde</string>
     <string name="value_since_time">%s sinds %s</string>
     <string name="tool_speedometer_odometer_title">Snelheidsmeter / Kilometerteller</string>
@@ -820,7 +797,6 @@
 \n
 \nOSNG (OSGB36) (vb. TG 51409 13177)</string>
     <string name="action_inventory_clear_confirm">Alle verpakte bedragen wissen\?</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Reizende druk drempel veranderen</string>
     <string name="altitude_history">Hoogtegeschiedenis</string>
     <string name="climate_zone">%s klimaat</string>
     <string name="climate_tropical">Tropisch</string>

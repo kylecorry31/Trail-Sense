@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class LightSensorDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
+class LightSensorDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IMagnetometer>(
         context,
         lifecycleOwner,

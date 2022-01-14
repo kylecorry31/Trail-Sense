@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.ui.DestinationPanel
-import com.kylecorry.trail_sense.shared.beacons.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.Position
 
 class BeaconDestinationView(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {

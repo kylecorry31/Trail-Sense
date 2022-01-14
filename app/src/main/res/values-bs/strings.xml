@@ -142,8 +142,6 @@
     <string name="daylight">Dnevno svjetlo</string>
     <string name="pref_auto_low_power_title">Automatska ušteda energije</string>
     <string name="pref_auto_low_power_summary">Kad vam je baterija niska</string>
-    <string name="pref_low_resolution_maps_title">Koristite nisku rezoluciju</string>
-    <string name="pref_low_resolution_maps_summary">Za uređaje s ograničenjima memorije</string>
     <string name="pref_flashlight_toggle_with_volume_title">Prebacivanje sa zvučnim tipkama</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Dok je Trail Sense otvoren</string>
     <string name="back_press_confirm">Pritisnite natrag ponovno da izađete</string>
@@ -211,8 +209,6 @@
     <string name="battery_warning">Upozorenje o pražnjenju baterije</string>
     <string name="backtrack_high_priority_notification">Postavljanje međutočke svakih %s</string>
     <string name="updates">Ažuriranja</string>
-    <string name="pref_backtrack_path_color_title">Boja Izatražne staze</string>
-    <string name="pref_backtrack_path_style_title">Stil Izatražne staze</string>
     <string name="arrow">Strijelica</string>
     <string name="dotted">Tačkasta</string>
     <string name="solid">Solidna</string>
@@ -227,8 +223,6 @@
     <string name="importing_map">Uvozi se karta</string>
     <string name="hour_symbol">S</string>
     <string name="minute_symbol">m</string>
-    <string name="pref_backtrack_path_radar_summary">Na radarskom kompasu i kartama</string>
-    <string name="pref_backtrack_path_radar_title">Prikaži put Izatraga</string>
     <string name="map_auto_calibrated">Mapa je automatski kalibrirana, molimo provjerite njezinu preciznost</string>
     <string name="time_until_full">dok nije puno</string>
     <string name="time_until_empty">dok nije prazno</string>
@@ -258,8 +252,6 @@
     <string name="tool_speedometer_odometer_title">Brzinomjer / Odometar</string>
     <string name="odometer">Odometar</string>
     <string name="saltwater_switch">Je li slana voda\?</string>
-    <string name="distance_away_not_set">Dalja udaljenost nije postavljena</string>
-    <string name="distance_away">Dalja udaljenost</string>
     <string name="value_average">%s prosječno</string>
     <string name="value_since_time">%s od %s</string>
     <string name="speedometer">Brzinomjer</string>
@@ -450,7 +442,7 @@
     <string name="freezing_temperatures_warning">Smrzavajuće Temperature</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Sadržaj</string>
+    <string name="contents">Sadržaj</string>
     <string name="note_title_hint">Naslov</string>
     <string name="tool_notes_title">Napomene</string>
     <string name="delete_note_title">Izbrisati bilješku\?</string>
@@ -545,8 +537,6 @@
     <string name="tool_cliff_height_description">Izmjerite visinu litice ili pada</string>
     <string name="tool_cliff_height_title">Visina Litice</string>
     <string name="toast_destination_bearing_set">Odredišni ležaj postavljen</string>
-    <string name="object_height_guide">Procijenite visine predmeta</string>
-    <string name="guide_avalanche_risk">Procjena rizika od lavine</string>
     <string name="depth_disclaimer">Koristite pod vlastitim rizikom.
 \n
 \nNe koristite bez vodootpornog kućišta, i ako je moguće držite se na sigurnoj udaljenosti za ronjenje.</string>
@@ -560,8 +550,6 @@
     <string name="category_hydration">Hidratacija</string>
     <string name="category_food">Hrana</string>
     <string name="other">Ostalo</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Prag promjene tlaka na putu</string>
-    <string name="pref_barometer_altitude_change_title">Prag promjene visine na putu</string>
     <string name="beacon_action_view_details">Pokaži detalje</string>
     <string name="tool_bubble_level_summary">Utvrdite jesu li površine ravne</string>
     <string name="tool_bubble_level_title">Nivo mjehurića</string>
@@ -597,7 +585,6 @@
     <string name="update_90_minutes">1 sat 30 minuta</string>
     <string name="pref_center_sun_and_moon_title">Nek bude sunce/mjesec centriran</string>
     <string name="pref_barometer_pressure_smoothing_title">Izravnavanje pritiska</string>
-    <string name="pref_experimental_barometer_calibration_title">Koristite eksperimentalnu kalibraciju</string>
     <string name="pref_nmea_altitude_summary">Koristi NMEA pomake za pretvaranje visine</string>
     <string name="pref_nmea_altitude_title">NMEA pomake nadmorske visine</string>
     <string name="sun_moon_compass_when_up">Kad je gore</string>
@@ -737,9 +724,7 @@
     <string name="location_input_help_title">Podržani formati za lokacije</string>
     <string name="pref_backtrack_frequency_title">Interval Izatraga</string>
     <string name="pref_backtrack_enabled_summary">Svinje lokacijsku historiju</string>
-    <string name="waypoint_beacon_title_template">%s, %s Međutočka</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Pogledajte lokacijsku historiju</string>
     <string name="backtrack_notification_channel_description">Ažuriranja lokacija Izatraga</string>
     <string name="backtrack">Izatrag</string>
     <string name="pref_show_last_signal_beacon_summary">Stvara svjetionik za lokaciju posljednjeg signala ćelije</string>
@@ -760,14 +745,10 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrirajte prije navigacije</string>
     <string name="pref_display_multi_beacons_summary">Pokažite najbliže svjetionike na kompasu</string>
     <string name="pref_num_visible_beacons_title">Obližnji svjetionici</string>
-    <string name="pref_sea_level_require_dwell_title">Zanemarite brze promjene visine</string>
-    <string name="pref_sea_level_require_dwell_summary">Prikazujte očitanja samo kada se nadmorska visina nije promijenila za najmanje sat vremena. Poboljšava pouzdanost prognoze.</string>
-    <string name="pref_sea_level_use_rapid_summary">Koristite brze promjene pritiska u pretvorbama tlaka na razini mora</string>
     <string name="pref_adjust_for_temperature_summary">Koristite temperaturu u pretvorbama pritiska na razini mora</string>
     <string name="pref_altitude_override_sea_level_title">Koristeći poznati pritisak na razini mora</string>
     <string name="pref_altitude_override_sea_level_dialog_title">Unesite pritisak na razini mora</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Unesite trenutni pritisak na razini mora u hPa</string>
-    <string name="pref_sea_level_use_rapid_title">Uzmi brze promjene pritiska u obzir</string>
     <string name="pref_adjust_for_temperature_title">Uzmi temperaturu u obzir</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-kalibracija</string>
     <string name="never">Nikad</string>
@@ -811,15 +792,10 @@
     <string name="delete">Izbriši</string>
     <string name="subtract">Oduzmi</string>
     <string name="add">Sabiraj</string>
-    <string name="your_height">Vaša visina</string>
-    <string name="estimated_height">procijenjena visina</string>
     <string name="set_inclination_instructions">Dodirnite bilo gdje da postavite/poništite kut nagiba</string>
-    <string name="inclinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
-    <string name="avalanche_risk_high">Visok rizik od lavine</string>
-    <string name="avalanche_risk_med">Umjereni rizik od lavine</string>
-    <string name="avalanche_risk_low">Nizak rizik od lavine</string>
-    <string name="tool_inclinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
-    <string name="inclinometer_title">Inklinometar</string>
+    <string name="clinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
+    <string name="tool_clinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
+    <string name="clinometer_title">Inklinometar</string>
     <string name="offline_maps">Karte bez Interneta</string>
     <string name="moon_illumination">Mjesečevo osvjetljenje</string>
     <string name="moon_phase">Mjesečeva faza</string>

@@ -148,8 +148,6 @@
     <string name="pref_show_linear_compass_summary">Kun puhelin on pystysuorassa</string>
     <string name="pref_show_linear_compass_title">Näytä lineaarinen kompassi</string>
     <string name="pref_display_multi_beacons_title">Näytä lähellä olevat reittipisteet</string>
-    <string name="pref_sea_level_use_rapid_summary">Käytä nopeita paineenmuutoksia merenpinnan paineenmuunnoksissa</string>
-    <string name="pref_sea_level_use_rapid_title">Kerroin nopeissa paineen muutoksissa</string>
     <string name="pref_adjust_for_temperature_summary">Käytä lämpötilaa merenpinnan painemuunnoksissa</string>
     <string name="pref_adjust_for_temperature_title">Kerroin lämpötilaan</string>
     <string name="pref_use_sea_level_pressure_title">Merenpinnan paine</string>
@@ -220,14 +218,10 @@
     <string name="delete">Poista</string>
     <string name="subtract">Vähennä</string>
     <string name="add">Lisää</string>
-    <string name="estimated_height">arvioitu korkeus</string>
     <string name="set_inclination_instructions">Napauta mistä tahansa asettaaksesi / poistaaksesi kallistuskulman</string>
-    <string name="inclinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>
-    <string name="avalanche_risk_high">Korkea vyöryriski</string>
-    <string name="avalanche_risk_med">Kohtuullinen vyöryriski</string>
-    <string name="avalanche_risk_low">Matala vyöryriski</string>
-    <string name="tool_inclinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
-    <string name="inclinometer_title">Kaltevuusmittari</string>
+    <string name="clinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>
+    <string name="tool_clinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
+    <string name="clinometer_title">Kaltevuusmittari</string>
     <string name="offline_maps">Offline kartat</string>
     <string name="moon_illumination">Kuun valaistus</string>
     <string name="moon_phase">Kuunvaihe</string>

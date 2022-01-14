@@ -1,120 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/beacon_name"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textAppearance="@style/AppTheme.HeaderText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Beacon Name" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/beacon_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/AppTheme.HeaderText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Beacon Name" />
+
+        <ImageButton
+            android:id="@+id/beacon_details_menu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.86"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_menu_dots"
+            app:tint="?android:textColorSecondary" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/location_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBottom_toBottomOf="@+id/gps_icon"
-        app:layout_constraintStart_toEndOf="@+id/gps_icon"
-        app:layout_constraintTop_toTopOf="@+id/gps_icon"
-        tools:text="0.000 N, 0.000 W" />
-
-    <ImageView
-        android:id="@+id/altitude_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/gps_icon"
-        app:layout_constraintTop_toBottomOf="@+id/gps_icon"
-        app:srcCompat="@drawable/ic_altitude" />
-
-    <ImageView
-        android:id="@+id/gps_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/beacon_name"
-        app:layout_constraintTop_toBottomOf="@+id/beacon_name"
-        app:srcCompat="@drawable/satellite" />
-
-    <TextView
-        android:id="@+id/altitude_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBottom_toBottomOf="@+id/altitude_icon"
-        app:layout_constraintStart_toEndOf="@+id/altitude_icon"
-        app:layout_constraintTop_toTopOf="@+id/altitude_icon"
-        tools:text="40 m" />
+        tools:text="0.000 N, 0.000 W" />
 
-    <ImageView
-        android:id="@+id/comment_icon"
-        android:layout_width="wrap_content"
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/beacon_grid"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/altitude_icon"
-        app:layout_constraintTop_toBottomOf="@+id/altitude_icon"
-        app:srcCompat="@drawable/ic_note"
-        app:tint="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/comment_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/comment_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/comment_icon"
-        app:layout_constraintTop_toTopOf="@+id/comment_icon"
-        tools:text="Comment" />
+        app:columnCount="2"
+        app:useDefaultMargins="false">
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_altitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/altitude"
+            app:dataPointIcon="@drawable/ic_altitude"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/distance"
+            app:dataPointIcon="@drawable/ruler"
+            app:layout_columnWeight="1" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/comment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            tools:text="Comment" />
+    </ScrollView>
+
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/comment_text">
-
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/beacon_qr_btn"
-            android:layout_width="102dp"
-            android:layout_height="102dp"
-            android:layout_marginEnd="8dp"
-            app:tileIcon="@drawable/ic_qr_code"
-            app:tileText="@string/qr_code" />
-
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/beacon_map_btn"
-            android:layout_width="102dp"
-            android:layout_height="102dp"
-            android:layout_marginStart="8dp"
-            app:tileIcon="@drawable/maps"
-            app:tileText="@string/maps" />
-    </LinearLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/navigate_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_beacon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/navigate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/navigate"
+            app:icon="@drawable/ic_beacon" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/edit_btn"
+            android:layout_width="38dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            app:icon="@drawable/ic_edit"
+            app:iconSize="24dp" />
+
+    </LinearLayout>
+</LinearLayout>

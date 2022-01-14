@@ -19,8 +19,12 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sharing.Share
+import com.kylecorry.trail_sense.shared.sharing.ShareAction
+import com.kylecorry.trail_sense.tools.qr.infrastructure.LocationQREncoder
 import java.time.Duration
 import java.time.Instant
 
@@ -63,26 +67,49 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
             }
         coordinateList.addLineSeparator()
 
+
         binding.locationShare.setOnClickListener {
-            val locationSender = LocationSharesheet(requireContext())
-            gps?.location?.let {
-                locationSender.send(it)
-            }
-        }
 
-        binding.locationMap.setOnClickListener {
-            val locationSender = LocationGeoSender(requireContext())
-            gps?.location?.let {
-                locationSender.send(it)
+            Share.share(
+                this,
+                getString(R.string.location),
+                listOf(ShareAction.Copy, ShareAction.QR, ShareAction.Send, ShareAction.Maps)
+            ) {
+                when (it) {
+                    ShareAction.Copy -> {
+                        val locationSender = LocationCopy(requireContext())
+                        gps?.location?.let {
+                            locationSender.send(it)
+                        }
+                    }
+                    ShareAction.QR -> {
+                        gps?.location?.let {
+                            CustomUiUtils.showQR(
+                                this,
+                                getString(R.string.location),
+                                LocationQREncoder().encode(it)
+                            )
+                        }
+                    }
+                    ShareAction.Maps -> {
+                        val locationSender = LocationGeoSender(requireContext())
+                        gps?.location?.let {
+                            locationSender.send(it)
+                        }
+                    }
+                    ShareAction.Send -> {
+                        val locationSender = LocationSharesheet(requireContext())
+                        gps?.location?.let {
+                            locationSender.send(it)
+                        }
+                    }
+                    else -> {
+                        // Do Nothing
+                    }
+                }
             }
-        }
 
-        binding.location.setOnLongClickListener {
-            val locationSender = LocationCopy(requireContext())
-            gps?.location?.let {
-                locationSender.send(it)
-            }
-            true
+
         }
     }
 

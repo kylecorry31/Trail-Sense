@@ -121,7 +121,7 @@
     <string name="delete">Ezabatu</string>
     <string name="subtract">Atera</string>
     <string name="add">Gehitu</string>
-    <string name="inclinometer_title">Klinometroa</string>
+    <string name="clinometer_title">Klinometroa</string>
     <string name="tide_normal">Arrunta</string>
     <string name="sunset_alert_notification_text">Eguzkia %setan sartuko da</string>
     <string name="sunset_alert_notification_title">Eguzkia laster sartuko da</string>
@@ -193,7 +193,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches">Hazbeteak</string>
     <string name="unit_centimeters">Zentimetroak</string>
-    <string name="note_content_hint">Edukiak</string>
+    <string name="contents">Edukiak</string>
     <string name="note_title_hint">Izenburua</string>
     <string name="tool_notes_title">Oharrak</string>
     <string name="threshold">Atalasea</string>
@@ -212,7 +212,6 @@
     <string name="coordinate_format_decimal_degrees">Gradu dezimalak</string>
     <string name="edit_item_title">Elementua editatu</string>
     <string name="create_item_title">Elementua sortu</string>
-    <string name="estimated_height">ustezko altuera</string>
     <string name="offline_maps">Konexiorik gabeko mapak</string>
     <string name="moon_illumination">Ilargiaren argiztapena</string>
     <string name="moon_phase">Ilargialdia</string>
@@ -380,7 +379,6 @@
     <string name="theme_sunset_sunrise">Egunsentia/ilunabarra</string>
     <string name="experimental">Esperimentala</string>
     <string name="tides">Mareak</string>
-    <string name="your_height">Zure altuera</string>
     <string name="value_average">%s batezbesteko</string>
     <string name="unsaved_changes">Gorde gabeko aldaketak</string>
     <string name="turn_off">Itzali</string>

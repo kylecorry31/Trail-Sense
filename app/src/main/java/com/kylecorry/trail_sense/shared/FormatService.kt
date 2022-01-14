@@ -24,8 +24,9 @@ import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
-import com.kylecorry.trail_sense.shared.hiking.HikingDifficulty
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -46,7 +47,7 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatRelativeDate(date: LocalDate): String {
+    fun formatRelativeDate(date: LocalDate, abbreviateMonth: Boolean = false): String {
         val now = LocalDate.now()
 
         return when (date) {
@@ -63,7 +64,7 @@ class FormatService(private val context: Context) {
                 DateUtils.formatDateTime(
                     context,
                     date.atStartOfDay().toEpochMillis(),
-                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE
+                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_RELATIVE or (if (abbreviateMonth) DateUtils.FORMAT_ABBREV_MONTH else 0)
                 )
             }
         }
@@ -82,18 +83,30 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatDate(date: ZonedDateTime, includeWeekDay: Boolean = true): String {
+    fun formatDate(
+        date: ZonedDateTime,
+        includeWeekDay: Boolean = true,
+        abbreviateMonth: Boolean = false
+    ): String {
         return DateUtils.formatDateTime(
             context,
             date.toEpochSecond() * 1000,
-            DateUtils.FORMAT_SHOW_DATE or (if (includeWeekDay) DateUtils.FORMAT_SHOW_WEEKDAY else 0) or DateUtils.FORMAT_SHOW_YEAR
+            DateUtils.FORMAT_SHOW_DATE or (if (includeWeekDay) DateUtils.FORMAT_SHOW_WEEKDAY else 0) or DateUtils.FORMAT_SHOW_YEAR or (if (abbreviateMonth) DateUtils.FORMAT_ABBREV_MONTH else 0)
         )
     }
 
-    fun formatDateTime(dateTime: ZonedDateTime, relative: Boolean = false): String {
-        val date = if (relative) formatRelativeDate(dateTime.toLocalDate()) else formatDate(
+    fun formatDateTime(
+        dateTime: ZonedDateTime,
+        relative: Boolean = false,
+        abbreviateMonth: Boolean = false
+    ): String {
+        val date = if (relative) formatRelativeDate(
+            dateTime.toLocalDate(),
+            abbreviateMonth = abbreviateMonth
+        ) else formatDate(
             dateTime,
-            false
+            false,
+            abbreviateMonth
         )
         val time = formatTime(dateTime.toLocalTime(), false)
         return "$date $time"
@@ -214,8 +227,8 @@ class FormatService(private val context: Context) {
         return context.getString(R.string.dbm_format, dbm.toString())
     }
 
-    fun formatPercentage(percent: Float, decimalPlaces: Int = 0): String {
-        val formatted = DecimalFormatter.format(percent, decimalPlaces)
+    fun formatPercentage(percent: Float, decimalPlaces: Int = 0, strict: Boolean = true): String {
+        val formatted = DecimalFormatter.format(percent, decimalPlaces, strict)
         return context.getString(R.string.precise_percent_format, formatted)
     }
 
@@ -269,22 +282,34 @@ class FormatService(private val context: Context) {
         return context.resources.getQuantityString(R.plurals.number_days, days, days)
     }
 
-    fun formatDuration(duration: Duration, short: Boolean = false): String {
+    fun formatDuration(
+        duration: Duration,
+        short: Boolean = false,
+        includeSeconds: Boolean = false
+    ): String {
         val hours = duration.toHours()
         val minutes = duration.toMinutes() % 60
+        val seconds = duration.seconds % 60
 
-        return if (short) {
-            when (hours) {
-                0L -> context.getString(R.string.duration_minute_format, minutes)
-                else -> context.getString(R.string.duration_hour_format, hours)
-            }
-        } else {
-            when {
-                hours == 0L -> context.getString(R.string.duration_minute_format, minutes)
-                minutes == 0L -> context.getString(R.string.duration_hour_format, hours)
-                else -> context.getString(R.string.duration_hour_minute_format, hours, minutes)
-            }
+        val h = context.getString(R.string.duration_hour_format, hours)
+        val m = context.getString(R.string.duration_minute_format, minutes)
+        val s = context.getString(R.string.duration_second_format, seconds)
+
+        val strs = mutableListOf<String>()
+
+        if (hours > 0) {
+            strs.add(h)
         }
+
+        if (minutes > 0 && (!short || hours == 0L)) {
+            strs.add(m)
+        }
+
+        if (seconds > 0 && includeSeconds && (!short || (hours == 0L && minutes == 0L))) {
+            strs.add(s)
+        }
+
+        return strs.joinToString(" ")
     }
 
     fun formatAcceleration(acceleration: Float, decimalPlaces: Int = 0): String {
@@ -462,6 +487,20 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
+        if (short) {
+            return when (unit) {
+                TemperatureUnits.F -> context.getString(R.string.temp_f_short)
+                TemperatureUnits.C -> context.getString(R.string.temp_c_short)
+            }
+        } else {
+            return when (unit) {
+                TemperatureUnits.F -> context.getString(R.string.fahrenheit)
+                TemperatureUnits.C -> context.getString(R.string.celsius)
+            }
+        }
+    }
+
     fun getDistanceUnitName(unit: DistanceUnits, short: Boolean = false): String {
         if (short) {
             return when (unit) {
@@ -554,12 +593,19 @@ class FormatService(private val context: Context) {
             Precipitation.Lightning -> context.getString(R.string.lightning)
         }
     }
-    
+
     fun formatHikingDifficulty(difficulty: HikingDifficulty): String {
-        return when(difficulty){
+        return when (difficulty) {
             HikingDifficulty.Easiest -> context.getString(R.string.easy)
             HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> context.getString(R.string.moderate)
             else -> context.getString(R.string.hard)
+        }
+    }
+
+    fun formatMapProjection(projection: MapProjectionType): String {
+        return when (projection) {
+            MapProjectionType.Mercator -> context.getString(R.string.map_projection_mercator)
+            MapProjectionType.CylindricalEquidistant -> context.getString(R.string.map_projection_equidistant)
         }
     }
 

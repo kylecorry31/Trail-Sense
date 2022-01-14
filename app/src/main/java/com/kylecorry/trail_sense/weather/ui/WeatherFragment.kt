@@ -163,14 +163,14 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         if (!prefs.weather.shouldMonitorWeather) {
             val error = UserError(
-                USER_ERROR_WEATHER_MONITOR_OFF,
+                ErrorBannerReason.WeatherMonitorOff,
                 getString(R.string.weather_monitoring_disabled),
                 R.drawable.ic_weather,
                 action = getString(R.string.enable)
             ) {
                 prefs.weather.shouldMonitorWeather = true
                 WeatherUpdateScheduler.start(requireContext())
-                requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
+                requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
             }
             requireMainActivity().errorBanner.report(error)
         }
@@ -185,7 +185,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             logJob?.cancel()
         }
         isLogging = false
-        requireMainActivity().errorBanner.dismiss(USER_ERROR_WEATHER_MONITOR_OFF)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
     }
 
 

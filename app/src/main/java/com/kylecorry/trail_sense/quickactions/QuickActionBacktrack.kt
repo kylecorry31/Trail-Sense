@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import java.time.Duration
 
 class QuickActionBacktrack(btn: FloatingActionButton, fragment: Fragment) :

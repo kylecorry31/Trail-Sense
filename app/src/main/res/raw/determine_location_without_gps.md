@@ -18,7 +18,7 @@ If you have marked beacons prior to hiking, and you can see at least two of them
 
 ## Celestial navigation
 
-If you are in the Northern hemisphere, the altitude (or inclination angle) of the North Star (Polaris) is equal to your latitude. Unfortunately, your phone can only give you an approximate estimate of this (using the Inclinometer tool) as typically a device known as a sextant is used.
+If you are in the Northern hemisphere, the altitude (or inclination angle) of the North Star (Polaris) is equal to your latitude. Unfortunately, your phone can only give you an approximate estimate of this (using the Clinometer tool) as typically a device known as a sextant is used.
 
 Determining longitude is a bit more difficult. If your phone has it's time configured properly, you can use the clock tool to get the current time in UTC. You will need to know the exact time of solar noon at your location in UTC time, which can be determined by either when the sun is directly South or North (in the Northern or Southern hemisphere respectively) or when a shadow cast by a stick reaches a minimum length and starts to grow. Once the time of local noon is known in UTC, you can set your GPS override to 0, 0 and get the time of noon at that location using the astronomy tab. Your longitude is the UTC time difference between solar noon at 0, 0 and local noon (represented in hours, with a decimal place) multiplied by 15. In summary, the steps are:
 

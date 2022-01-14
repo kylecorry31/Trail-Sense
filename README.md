@@ -28,6 +28,8 @@
 
 ## Table of Contents
 
+- [2022](#2022-focus-areas)
+- [Goals](#goals)
 - [Features](#features)
 - [Privacy](#privacy)
 - [Contributing](#contributing)
@@ -35,6 +37,20 @@
 - [Support](#support)
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
+
+## 2022 Focus Areas
+- Tides
+- Maps
+- Paths
+- Clouds
+- Stability, usability, performance, testing
+
+## Goals
+- Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
+- Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
+- Features should make use of the sensors on a phone rather than relying on stored information such as guides
+- Features must be based on peer-reviewed science or be verified against real world data
+- [Use Cases (WIP)](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
 ## Features
 

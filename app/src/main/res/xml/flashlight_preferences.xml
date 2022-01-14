@@ -18,6 +18,18 @@
             android:title="@string/pref_flashlight_toggle_with_volume_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="@string/pref_flashlight_should_timeout"
+            android:title="@string/pref_flashlight_should_timeout_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+        <Preference
+            app:dependency="@string/pref_flashlight_should_timeout"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_flashlight_timeout"
+            app:singleLineTitle="false"
+            app:title="@string/pref_flashlight_timeout_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,0 +1,19 @@
+Clinometer
+- Tap and hold to estimate object height or distance
+- Use camera as clinometer
+- Show clinometer as a dial
+- Add slope percent (grade)
+- Add clinometer settings
+- Add clinometer user guide
+
+Cliff height
+- Tap and hold to measure
+
+Maps (experimental)
+- Reduce memory usage
+- Reduce map storage size
+- Support more projections
+
+Other
+- Add error settings to disable banners
+- Bug fixes

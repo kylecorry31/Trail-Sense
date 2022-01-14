@@ -20,8 +20,6 @@ import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
-import com.kylecorry.andromeda.sense.inclinometer.IInclinometer
-import com.kylecorry.andromeda.sense.inclinometer.Inclinometer
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
@@ -140,10 +138,6 @@ class SensorService(ctx: Context) {
 
     fun getBarometer(): IBarometer {
         return if (userPrefs.weather.hasBarometer) Barometer(context) else NullBarometer()
-    }
-
-    fun getInclinometer(): IInclinometer {
-        return Inclinometer(context)
     }
 
     @Suppress("DEPRECATION")

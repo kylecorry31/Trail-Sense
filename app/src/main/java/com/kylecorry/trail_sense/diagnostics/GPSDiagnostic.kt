@@ -3,15 +3,15 @@ package com.kylecorry.trail_sense.diagnostics
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
+class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IGPS>(
         context,
         lifecycleOwner,
@@ -41,11 +41,11 @@ class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
             issues.add(DiagnosticCode.GPSUnavailable)
         }
 
-        if (sensor.quality == Quality.Poor){
+        if (canRun && sensor!!.quality == Quality.Poor){
             issues.add(DiagnosticCode.GPSPoor)
         }
 
-        if (sensor is CustomGPS && sensor.isTimedOut){
+        if (canRun && sensor is CustomGPS && sensor.isTimedOut){
             issues.add(DiagnosticCode.GPSTimedOut)
         }
 

@@ -74,7 +74,6 @@
     <string name="copied_to_clipboard_toast">Copiado para a área de transferência</string>
     <string name="compass_declination">Declinação magnética</string>
     <string name="theme_sunset_sunrise">Nascer/pôr do sol</string>
-    <string name="your_height">A sua altura</string>
     <string name="turn_off">Desligar</string>
     <string name="app_disclaimer_message_title">Aviso legal / Termos de utilização do serviço</string>
     <string name="disclaimer_message_title">Aviso legal</string>
@@ -120,7 +119,7 @@
     <string name="freezing_temperatures_warning">Temperaturas de congelamento</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="note_content_hint">Conteúdos</string>
+    <string name="contents">Conteúdos</string>
     <string name="note_title_hint">Título</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="delete_note_title">Eliminar anotação\?</string>
@@ -205,8 +204,6 @@
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
     <string name="toast_destination_bearing_set">Direção do destino definida</string>
-    <string name="object_height_guide">Estimar altura de objetos</string>
-    <string name="guide_avalanche_risk">Estimativa de risco de avalanche</string>
     <string name="depth_disclaimer">Use por sua própria conta e risco.
 \n
 \nNão utilize sem uma caixa à prova de água e se possível permaneça dentro de uma distância de mergulho segura.</string>
@@ -220,8 +217,6 @@
     <string name="category_hydration">Hidratação</string>
     <string name="category_food">Comida</string>
     <string name="other">Outros</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão da viagem</string>
-    <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude da viagem</string>
     <string name="beacon_action_view_details">Ver detalhes</string>
     <string name="tool_bubble_level_summary">Indica se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
@@ -231,8 +226,6 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes da posição</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
-    <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras apenas quando a altitude não mudou pelo menos durante a última hora. Melhora a fiabilidade da previsão.</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Alfinete</string>
@@ -269,8 +262,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
     <string name="pref_display_multi_beacons_summary">Mostrar alfinetes mais próximos na bússola</string>
     <string name="pref_num_visible_beacons_title">Alfinetes por perto</string>
-    <string name="pref_sea_level_use_rapid_summary">Usar mudanças rápidas de pressão em conversões de pressão ao nível do mar</string>
-    <string name="pref_sea_level_use_rapid_title">Fator em rápidas mudanças de pressão</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
@@ -325,14 +316,10 @@
     <string name="delete">Eliminar</string>
     <string name="subtract">Subtrair</string>
     <string name="add">Adicionar</string>
-    <string name="estimated_height">altura estimada</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
-    <string name="inclinometer_rotate_device">Segure o seu telemóvel na vertical para medir a inclinação</string>
-    <string name="avalanche_risk_high">Risco de avalanche alto</string>
-    <string name="avalanche_risk_med">Risco de avalanche moderado</string>
-    <string name="avalanche_risk_low">Baixo risco de avalanche</string>
-    <string name="tool_inclinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
-    <string name="inclinometer_title">Inclinómetro</string>
+    <string name="clinometer_rotate_device">Segure o seu telemóvel na vertical para medir a inclinação</string>
+    <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
+    <string name="clinometer_title">Inclinómetro</string>
     <string name="offline_maps">Mapas off-line</string>
     <string name="moon_illumination">Iluminação da lua</string>
     <string name="moon_phase">Fase lunar</string>
@@ -575,9 +562,7 @@
     <string name="location_input_help_title">Formatos de localização suportados</string>
     <string name="pref_backtrack_frequency_title">Intervalo do voltar para trás</string>
     <string name="pref_backtrack_enabled_summary">Registar histórico de localização</string>
-    <string name="waypoint_beacon_title_template">%s, %s ponto do percurso</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="tool_backtrack_summary">Ver histórico de localização</string>
     <string name="create_beacon">Criar alfinete</string>
     <string name="backtrack_notification_channel_description">Atualização das localizações de voltar para trás</string>
     <string name="backtrack">Voltar para trás</string>
@@ -601,12 +586,7 @@
     </plurals>
     <string name="new_text">Novo</string>
     <string name="old">Antigo</string>
-    <string name="path">Percurso</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="grid_size">%s grelha</string>
-    <string name="no_previous_path">Nenhum percurso anterior</string>
-    <string name="merge_previous_path_title">Unir ao percurso anterior\?</string>
-    <string name="path_merge_previous">Fundir com o anterior</string>
     <string name="delete_path">Eliminar o percurso\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automático</string>
@@ -688,8 +668,6 @@
     <string name="daylight">Luz do dia</string>
     <string name="pref_auto_low_power_title">Poupança automática de bateria</string>
     <string name="pref_auto_low_power_summary">Quando a bateria estiver fraca</string>
-    <string name="pref_low_resolution_maps_title">Usar resolução baixa</string>
-    <string name="pref_low_resolution_maps_summary">Para aparelhos com pouca memória</string>
     <string name="pref_flashlight_toggle_with_volume_title">Alternar com botões de volume</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Enquanto o Trail Sense estiver aberto</string>
     <string name="back_press_confirm">Clique em voltar novamente para sair</string>
@@ -728,7 +706,6 @@
     <string name="pref_barometer_altitude_outlier_title">Remover valores discrepantes de altitude</string>
     <string name="pref_barometer_altitude_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
-    <string name="pref_experimental_barometer_calibration_title">Usar calibração experimental</string>
     <string name="pref_nmea_altitude_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_altitude_title">Compensação de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente de estações próximas</string>
@@ -760,8 +737,6 @@
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="backtrack_high_priority_notification">A adicionar um ponto de passagem a cada %s</string>
     <string name="updates">Atualizações</string>
-    <string name="pref_backtrack_path_color_title">Cor do percurso de voltar para trás</string>
-    <string name="pref_backtrack_path_style_title">Estilo do percurso de voltar para trás</string>
     <string name="arrow">Seta</string>
     <string name="dotted">Pontilhado</string>
     <string name="solid">Sólido</string>
@@ -776,8 +751,6 @@
     <string name="importing_map">A importar mapas</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">m</string>
-    <string name="pref_backtrack_path_radar_summary">Na bússola do radar e nos mapas</string>
-    <string name="pref_backtrack_path_radar_title">Mostrar percurso de voltar para atrás</string>
     <string name="map_auto_calibrated">Mapa calibrado automaticamente, verifique a sua precisão</string>
     <string name="time_until_full">até completar</string>
     <string name="time_until_empty">até esgotar</string>
@@ -811,8 +784,6 @@
     <string name="pedometer">Pedómetro</string>
     <string name="odometer">Conta-quilómetros</string>
     <string name="saltwater_switch">É água salgada\?</string>
-    <string name="distance_away_not_set">distância longe não definida</string>
-    <string name="distance_away">Distância longe</string>
     <string name="value_average">%s média</string>
     <string name="value_since_time">%s desde %s</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / conta-quilómetros</string>
@@ -976,16 +947,14 @@
     <string name="capture">Capturar</string>
     <string name="results">Resultados</string>
     <string name="or">ou</string>
-    <string name="notification_weather_update_title">Atualização do monitor de metereologia</string>
+    <string name="notification_weather_update_title">Atualização do monitor de meteorologia</string>
     <string name="notification_weather_update_content">A gravar a pressão</string>
     <string name="notification_backtrack_update_title">Atualização do voltar para trás</string>
     <string name="humidity">Humidade</string>
     <string name="precipitation_chance">Probabilidade de precipitação: %s</string>
     <string name="take_photo">Tirar fotografia</string>
     <string name="notification_backtrack_update_content">A gravar a sua localização</string>
-    <string name="pref_background_compat_mode_title">Modo de compatibilidade em segundo plano</string>
     <string name="choose_photo">Escolher fotografia</string>
-    <string name="pref_background_compat_mode_summary">Ative isto se os serviços em segundo plano não estiverem a funcionar corretamente</string>
     <string name="cloud_photo_mask_toast">Toque na fotografia para alternar a máscara</string>
     <string name="no_camera_access">Não foi possível aceder à câmara</string>
     <string name="paths">Percursos</string>
@@ -1005,4 +974,29 @@
         <item quantity="one">%d percurso importado</item>
         <item quantity="other">%d percursos importados</item>
     </plurals>
+    <string name="importing">A importar</string>
+    <string name="points">Pontos</string>
+    <string name="duration">Duração</string>
+    <string name="elevation">Elevação</string>
+    <string name="elevation_gain">Ganho de elevação</string>
+    <string name="elevation_loss">Perda de elevação</string>
+    <string name="easy">Fácil</string>
+    <string name="hard">Difícil</string>
+    <string name="waypoint">Ponto do percurso</string>
+    <string name="merging">Fusão</string>
+    <string name="merge">Fundir</string>
+    <string name="append_onto">Anexar a</string>
+    <string name="simplify">Simplificar</string>
+    <string name="simplifying">Simplificar</string>
+    <string name="simplification_quality">Qualidade de simplificação</string>
+    <string name="pref_auto_simplify_paths_title">Simplificar percursos ao importar</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d ponto do percurso eliminado</item>
+        <item quantity="other">%d pontos do percurso eliminados</item>
+    </plurals>
+    <string name="pref_default_path_color_title">Cor predefinida do percurso</string>
+    <string name="difficulty">Dificuldade</string>
+    <string name="dashed">Tracejado</string>
+    <string name="pref_default_path_style_title">Estilo predefinido do percurso</string>
+    <string name="navigation_guide_description">Utilizando alfinetes e percursos</string>
 </resources>

@@ -31,6 +31,10 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val power by lazy { PowerPreferences(context) }
     val packs by lazy { PackPreferences(context) }
     val depth by lazy { DepthPreferences(context) }
+    val clinometer by lazy { ClinometerPreferences(context) }
+    val errors by lazy { ErrorPreferences(context) }
+
+    var hapticsEnabled = false
 
     val distanceUnits: DistanceUnits
         get() {
@@ -93,6 +97,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
                 "dark" -> Theme.Dark
                 "black" -> Theme.Black
                 "sunrise_sunset" -> Theme.SunriseSunset
+                "night" -> Theme.Night
                 else -> Theme.System
             }
         }
@@ -266,7 +271,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     }
 
     enum class Theme {
-        Light, Dark, Black, System, SunriseSunset
+        Light, Dark, Black, System, SunriseSunset, Night
     }
 
     enum class AltimeterMode {

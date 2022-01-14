@@ -1,38 +1,48 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
+import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.tides.domain.TideEntity
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideRepo
+import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
+import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
-    private var referenceDate: LocalDate? = null
-    private var referenceTime: LocalTime? = null
-    private var editingId: Long? = null
-    private var editingTide: TideEntity? = null
+    private var editingId: Long = 0
+    private var editingTide: TideTable? = null
 
-    private val tideRepo by lazy { TideRepo.getInstance(requireContext()) }
+    private lateinit var tideTimesList: ListView<TideEntry>
+    private var tides = mutableListOf<TideEntry>()
+
+    private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val units by lazy { prefs.baseDistanceUnits }
+
+    private var backCallback: OnBackPressedCallback? = null
 
     private val intervalometer = Timer {
         binding.createTideBtn.isVisible = formIsValid()
@@ -47,22 +57,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editingId = arguments?.getLong("edit_tide_id")
-
-        if (editingId != null) {
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    editingTide = tideRepo.getTide(editingId!!)
-                }
-                withContext(Dispatchers.Main) {
-                    if (editingTide != null) {
-                        fillExistingTideValues(editingTide!!)
-                    } else {
-                        editingId = null
-                    }
-                }
-            }
-        }
+        editingId = arguments?.getLong("edit_tide_id") ?: 0L
     }
 
     override fun onResume() {
@@ -75,74 +70,179 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         super.onPause()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.datePicker.setOnClickListener {
-            Pickers.date(requireContext(), referenceDate ?: LocalDate.now()) {
-                if (it != null) {
-                    referenceDate = it
-                    binding.date.text = formatService.formatDate(
-                        ZonedDateTime.of(
-                            referenceDate,
-                            LocalTime.NOON,
-                            ZoneId.systemDefault()
-                        ), false
+
+        tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
+            val itemBinding = ListItemTideEntryBinding.bind(view)
+
+            itemBinding.tideType.text =
+                if (tide.isHigh) getString(R.string.high_tide_letter) else getString(
+                    R.string.low_tide_letter
+                )
+
+            itemBinding.tideType.setOnClickListener {
+                tide.isHigh = !tide.isHigh
+                itemBinding.tideType.text =
+                    if (tide.isHigh) getString(R.string.high_tide_letter) else getString(
+                        R.string.low_tide_letter
                     )
+            }
+
+            itemBinding.delete.setOnClickListener {
+                tides.remove(tide)
+                tideTimesList.setData(tides)
+                CustomUiUtils.snackbar(
+                    this,
+                    getString(R.string.tide_deleted),
+                    action = getString(R.string.undo)
+                ) {
+                    tides.add(tide)
+                    tideTimesList.setData(tides)
+                }
+            }
+
+            itemBinding.tideTime.text = getString(R.string.time_not_set)
+
+            tide.time?.let {
+                itemBinding.tideTime.text = formatService.formatDateTime(
+                    it,
+                    false,
+                    abbreviateMonth = true
+                )
+            }
+
+            itemBinding.tideTime.setOnClickListener {
+                CustomUiUtils.pickDatetime(
+                    requireContext(),
+                    prefs.use24HourTime,
+                    tide.time?.toLocalDateTime() ?: LocalDateTime.now()
+                ) {
+                    if (it != null) {
+                        tide.time = it.toZonedDateTime()
+                        itemBinding.tideTime.text = formatService.formatDateTime(
+                            it.toZonedDateTime(),
+                            false,
+                            abbreviateMonth = true
+                        )
+                    }
+                }
+            }
+
+            val initialHeight = tide.height
+            itemBinding.tideHeight.text = if (initialHeight == null) {
+                getString(R.string.dash)
+            } else {
+                formatService.formatDistance(initialHeight, 2)
+            }
+
+            itemBinding.tideHeight.setOnClickListener {
+                CustomUiUtils.pickDistance(
+                    requireContext(),
+                    formatService.sortDistanceUnits(
+                        listOf(
+                            DistanceUnits.Meters,
+                            DistanceUnits.Feet
+                        )
+                    ),
+                    tide.height,
+                    getString(R.string.height)
+                ) { distance, cancelled ->
+                    if (!cancelled) {
+                        tide.height = distance
+                        itemBinding.tideHeight.text = if (distance == null) {
+                            getString(R.string.dash)
+                        } else {
+                            formatService.formatDistance(distance, 2)
+                        }
+                    }
                 }
             }
         }
 
-        binding.timePicker.setOnClickListener {
-            Pickers.time(
-                requireContext(),
-                prefs.use24HourTime,
-                referenceTime ?: LocalTime.now()
-            ) {
-                if (it != null) {
-                    referenceTime = it
-                    binding.time.text = formatService.formatTime(referenceTime!!, false)
+        tideTimesList.addLineSeparator()
+
+        tides.clear()
+        if (editingId != 0L) {
+            runInBackground {
+                withContext(Dispatchers.IO) {
+                    editingTide = tideRepo.getTideTable(editingId)
+                }
+                withContext(Dispatchers.Main) {
+                    if (editingTide != null) {
+                        fillExistingTideValues(editingTide!!)
+                    } else {
+                        editingId = 0L
+                    }
                 }
             }
+        } else {
+            tides.add(TideEntry(true, null, null))
+            tideTimesList.setData(tides)
+        }
+
+        binding.addTideEntry.setOnClickListener {
+            tides.add(TideEntry(true, null, null))
+            tideTimesList.setData(tides)
+            tideTimesList.scrollToPosition(tides.lastIndex)
         }
 
         binding.createTideBtn.setOnClickListener {
             val tide = getTide()
-            if (tide != null){
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO){
-                        tideRepo.addTide(tide)
+            if (tide != null) {
+                runInBackground {
+                    withContext(Dispatchers.IO) {
+                        tideRepo.addTideTable(tide)
                     }
 
-                    withContext(Dispatchers.Main){
-                        findNavController().popBackStack()
+                    withContext(Dispatchers.Main) {
+                        backCallback?.remove()
+                        findNavController().navigateUp()
                     }
                 }
             }
         }
+
+        backCallback =
+            CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+
     }
 
 
-    private fun fillExistingTideValues(tide: TideEntity) {
+    private fun fillExistingTideValues(tide: TideTable) {
         binding.tideName.setText(tide.name)
-        binding.tideLocation.coordinate = tide.coordinate
-        binding.date.text = formatService.formatDate(tide.reference, false)
-        binding.time.text = formatService.formatTime(tide.reference.toLocalTime(), false)
-        referenceDate = tide.reference.toLocalDate()
-        referenceTime = tide.reference.toLocalTime()
+        binding.tideLocation.coordinate = tide.location
+        tides.addAll(tide.tides.map {
+            val h = it.height
+            TideEntry(
+                it.isHigh,
+                it.time,
+                if (h != null) Distance.meters(h).convertTo(units) else null
+            )
+        })
+        tideTimesList.setData(tides)
     }
 
     private fun formIsValid(): Boolean {
         return getTide() != null
     }
 
-    private fun getTide(): TideEntity? {
-        if (referenceTime == null || referenceDate == null) {
+    private fun getTide(): TideTable? {
+        val tides = tides.mapNotNull {
+            val time = it.time ?: return@mapNotNull null
+            Tide(
+                time,
+                it.isHigh,
+                it.height?.meters()?.distance
+            )
+        }
+
+        if (editingId != 0L && editingTide == null) {
             return null
         }
 
-        val reference = ZonedDateTime.of(referenceDate!!, referenceTime!!, ZoneId.systemDefault())
-
-        if (editingId != null && editingTide == null) {
+        if (tides.isEmpty()) {
             return null
         }
 
@@ -150,14 +250,24 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val name = if (rawName.isNullOrBlank()) null else rawName
         val location = binding.tideLocation.coordinate
 
-        return TideEntity(
-            reference.toInstant().toEpochMilli(),
+        return TideTable(
+            editingId,
+            tides,
             name,
-            location?.latitude,
-            location?.longitude
-        ).also {
-            it.id = editingId ?: 0
-        }
+            location
+        )
     }
+
+    private fun hasChanges(): Boolean {
+        val specification = TideTableIsDirtySpecification(editingTide)
+        return specification.isSatisfiedBy(getTide())
+    }
+
+
+    private data class TideEntry(
+        var isHigh: Boolean,
+        var time: ZonedDateTime?,
+        var height: Distance?
+    )
 
 }

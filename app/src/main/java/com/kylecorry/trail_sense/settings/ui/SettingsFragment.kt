@@ -19,6 +19,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_privacy_settings to R.id.action_settings_to_privacy_settings,
         R.string.pref_power_settings to R.id.action_settings_to_power_settings,
         R.string.pref_experimental_settings to R.id.action_settings_to_experimental_settings,
+        R.string.pref_error_settings to R.id.action_settings_to_error_settings,
         R.string.pref_sensor_settings to R.id.action_settings_to_sensor_settings,
 
         // Tools
@@ -28,6 +29,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_flashlight_settings to R.id.action_action_settings_to_flashlightSettingsFragment,
         R.string.pref_maps_header_key to R.id.action_settings_to_map_settings,
         R.string.pref_tide_settings to R.id.action_settings_to_tide_settings,
+        R.string.pref_clinometer_settings to R.id.action_settings_to_clinometer_settings,
 
         // About
         R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment,

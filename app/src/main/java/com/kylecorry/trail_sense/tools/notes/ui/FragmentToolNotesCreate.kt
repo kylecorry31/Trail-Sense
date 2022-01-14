@@ -19,17 +19,19 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
     private val notesRepo by lazy { NoteRepo.getInstance(requireContext()) }
 
     private var editingNote: Note? = null
+    private var noteId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val noteId = arguments?.getLong("edit_note_id") ?: 0L
-        if (noteId != 0L) {
-            loadEditingNote(noteId)
-        }
+        noteId = arguments?.getLong("edit_note_id") ?: 0L
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (noteId != 0L) {
+            loadEditingNote(noteId)
+        }
 
         binding.noteCreateBtn.setOnClickListener {
             val existingNote = editingNote
@@ -79,9 +81,11 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
             }
 
             withContext(Dispatchers.Main) {
-                editingNote?.let {
-                    binding.titleEdit.setText(it.title ?: "")
-                    binding.contentEdit.setText(it.contents ?: "")
+                if (isBound) {
+                    editingNote?.let {
+                        binding.titleEdit.setText(it.title ?: "")
+                        binding.contentEdit.setText(it.contents ?: "")
+                    }
                 }
             }
 

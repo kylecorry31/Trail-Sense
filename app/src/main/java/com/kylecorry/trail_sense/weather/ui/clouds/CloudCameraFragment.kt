@@ -8,13 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCameraInputBinding
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 
 class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
@@ -59,18 +59,9 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
             }
         }
 
-        binding.zoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
-                camera.setZoom(progress / 100f)
-            }
-
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
-
-        })
+        binding.zoom.setOnProgressChangeListener { progress, _ ->
+            camera.setZoom(progress / 100f)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

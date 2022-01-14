@@ -77,7 +77,7 @@
         app:title="@string/navigation_nearby_category">
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_display_multi_beacons"
             app:singleLineTitle="false"
@@ -86,7 +86,7 @@
 
         <EditTextPreference
             android:inputType="number"
-            app:defaultValue="5"
+            app:defaultValue="10"
             app:dependency="@string/pref_display_multi_beacons"
             app:iconSpaceReserved="false"
             app:key="@string/pref_num_visible_beacons"
@@ -104,7 +104,7 @@
 
         <SwitchPreferenceCompat
             android:dependency="@string/pref_display_multi_beacons"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_nearby_radar"
             app:singleLineTitle="false"
@@ -115,7 +115,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/backtrack">
+        app:title="@string/paths">
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
@@ -153,14 +153,6 @@
             app:summary="@string/pref_show_last_signal_beacon_summary"
             app:title="@string/pref_show_last_signal_beacon_title" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_backtrack_path_radar_summary"
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_backtrack_path_radar"
-            app:singleLineTitle="false"
-            app:title="@string/pref_backtrack_path_radar_title" />
-
         <ListPreference
             app:defaultValue="dotted"
             app:entries="@array/line_style_entries"
@@ -168,14 +160,21 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_path_style"
             app:singleLineTitle="false"
-            app:title="@string/pref_backtrack_path_style_title"
+            app:title="@string/pref_default_path_style_title"
             app:useSimpleSummaryProvider="true" />
 
         <Preference
             app:icon="@drawable/bubble"
             app:key="@string/pref_backtrack_path_color"
             app:singleLineTitle="false"
-            app:title="@string/pref_backtrack_path_color_title" />
+            app:title="@string/pref_default_path_color_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_auto_simplify_paths"
+            app:singleLineTitle="false"
+            app:title="@string/pref_auto_simplify_paths_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

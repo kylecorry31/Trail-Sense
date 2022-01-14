@@ -11,14 +11,14 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.paths.LineStyle
-import com.kylecorry.trail_sense.shared.paths.PathPointColoringStyle
-import com.kylecorry.trail_sense.shared.paths.PathStyle
-import com.kylecorry.trail_sense.tools.backtrack.ui.PathSortMethod
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
@@ -92,6 +92,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
                 "solid" -> LineStyle.Solid
                 "arrow" -> LineStyle.Arrow
+                "dashed" -> LineStyle.Dashed
                 else -> LineStyle.Dotted
             }
         }
@@ -118,12 +119,17 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 if (d > 0) d else 1
             )
         }
+    override val simplifyPathOnImport by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_auto_simplify_paths),
+        true
+    )
 
     var maxBeaconDistance: Float
         get() {
             val raw =
-                cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.75"
-            return Distance.kilometers(raw.toFloatCompat() ?: 0.75f).meters().distance
+                cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.5"
+            return Distance.kilometers(raw.toFloatCompat() ?: 0.5f).meters().distance
         }
         set(value) = cache.putString(
             context.getString(R.string.pref_max_beacon_distance),
@@ -196,10 +202,10 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         false
     )
 
-    val useLowResolutionMaps by BooleanPreference(
+    val autoReduceMaps by BooleanPreference(
         cache,
         context.getString(R.string.pref_low_resolution_maps),
-        false
+        true
     )
 
     enum class SpeedometerMode {

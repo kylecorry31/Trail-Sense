@@ -37,7 +37,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         CustomUiUtils.setButtonState(binding.sensorDetailsBtn, false)
         binding.sensorDetailsBtn.setOnClickListener {
-            findNavController().navigate(R.id.sensorDetailsFragment)
+            findNavController().navigate(R.id.action_diagnostics_to_sensor_details)
         }
         diagnosticListView =
             ListView(binding.diagnosticsList, R.layout.list_item_plain_icon) { itemView, code ->
@@ -90,7 +90,8 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             CameraDiagnostic(requireContext()),
             FlashlightDiagnostic(requireContext()),
             PedometerDiagnostic(requireContext()),
-            NotificationDiagnostic(requireContext())
+            NotificationDiagnostic(requireContext()),
+            WeatherMonitorDiagnostic(requireContext())
         )
         scheduleUpdates(INTERVAL_1_FPS)
     }
@@ -141,6 +142,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.FlashlightNotificationsBlocked -> getString(R.string.notifications_blocked)
             DiagnosticCode.PedometerNotificationsBlocked -> getString(R.string.notifications_blocked)
             DiagnosticCode.WeatherNotificationsBlocked -> getString(R.string.notifications_blocked)
+            DiagnosticCode.WeatherMonitorDisabled -> getString(R.string.weather_monitoring_disabled)
         }
     }
 
@@ -175,6 +177,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.PedometerNotificationsBlocked -> getString(R.string.pedometer)
             DiagnosticCode.WeatherNotificationsBlocked -> getString(R.string.weather)
             DiagnosticCode.LightSensorUnavailable -> getString(R.string.tool_light_meter_title)
+            DiagnosticCode.WeatherMonitorDisabled -> getString(R.string.weather)
         }
     }
 
@@ -186,7 +189,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         val speedometer = getString(R.string.speedometer)
         val odometer = getString(R.string.odometer)
         val waterBoil = getString(R.string.water_boil_timer_title)
-        val inclinometer = getString(R.string.inclinometer_title)
+        val clinometer = getString(R.string.clinometer_title)
         val level = getString(R.string.tool_bubble_level_title)
         val solar = getString(R.string.tool_solar_panel_title)
         val lightMeter = getString(R.string.tool_light_meter_title)
@@ -205,7 +208,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
         val accelAffectedTools = listOf(
             navigation,
-            inclinometer,
+            clinometer,
             level,
             solar
         )
@@ -245,6 +248,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.PedometerNotificationsBlocked -> listOf(odometer)
             DiagnosticCode.WeatherNotificationsBlocked -> listOf(weather)
             DiagnosticCode.LightSensorUnavailable -> listOf(lightMeter)
+            DiagnosticCode.WeatherMonitorDisabled -> listOf(weather)
         }
     }
 
@@ -313,6 +317,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 getString(R.string.weather)
             )
             DiagnosticCode.LightSensorUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.WeatherMonitorDisabled -> getString(R.string.weather_monitor_disabled_resolution)
         }
     }
 
@@ -347,6 +352,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.PedometerNotificationsBlocked -> notificationAction()
             DiagnosticCode.WeatherNotificationsBlocked -> notificationAction()
             DiagnosticCode.LightSensorUnavailable -> null
+            DiagnosticCode.WeatherMonitorDisabled -> navigateAction(R.id.weatherSettingsFragment)
         }
     }
 

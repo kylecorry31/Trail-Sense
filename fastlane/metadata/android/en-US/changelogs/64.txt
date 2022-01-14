@@ -1,0 +1,13 @@
+QR Codes
+- Add QR Code Scanner tool
+- Share a note as a QR code
+
+Flashlight
+- Improve UI
+- Add more strobe modes
+- Automatically turn off flashlight (available in settings)
+- Adjust screen flashlight brightness
+
+Other
+- Night theme
+- Bug fixes

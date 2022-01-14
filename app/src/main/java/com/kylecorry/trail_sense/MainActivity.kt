@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense
 import android.Manifest
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -10,6 +12,7 @@ import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -18,7 +21,7 @@ import com.google.android.material.color.DynamicColors
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Exceptions
-import com.kylecorry.andromeda.core.system.GeoUriParser
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -29,7 +32,6 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -37,6 +39,9 @@ import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
+import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
+import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
+import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
 import java.time.Duration
@@ -86,8 +91,7 @@ class MainActivity : AndromedaActivity() {
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
-            UserPreferences.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
-            UserPreferences.Theme.Black -> AppCompatDelegate.MODE_NIGHT_YES
+            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> AppCompatDelegate.MODE_NIGHT_YES
             UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
@@ -100,12 +104,17 @@ class MainActivity : AndromedaActivity() {
         val cache = Preferences(this)
 
         setContentView(R.layout.activity_main)
-        navController =
-            (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
+
+        val root = findViewById<ColorFilterConstraintLayout>(R.id.coordinator)
+        if (userPrefs.theme == UserPreferences.Theme.Night) {
+            root.setColorFilter(PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY))
+        }
+
+        navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setupWithNavController(navController)
 
-        if (userPrefs.theme == UserPreferences.Theme.Black) {
+        if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
             window.decorView.rootView.setBackgroundColor(Color.BLACK)
             bottomNavigation.setBackgroundColor(Color.BLACK)
         }
@@ -122,7 +131,7 @@ class MainActivity : AndromedaActivity() {
             return
         }
 
-        requestPermissions(permissions){
+        requestPermissions(permissions) {
             if (shouldRequestBackgroundLocation()) {
                 requestBackgroundLocation {
                     startApp()
@@ -165,10 +174,10 @@ class MainActivity : AndromedaActivity() {
     private fun handleIntentAction(intent: Intent) {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
-            val namedCoordinate = GeoUriParser.parse(intentData)
+            val geo = GeoUri.from(intentData)
             bottomNavigation.selectedItemId = R.id.action_navigation
-            if (namedCoordinate != null) {
-                val bundle = bundleOf("initial_location" to MyNamedCoordinate.from(namedCoordinate))
+            if (geo != null) {
+                val bundle = bundleOf("initial_location" to geo)
                 navController.navigate(
                     R.id.beacon_list,
                     bundle
@@ -242,7 +251,7 @@ class MainActivity : AndromedaActivity() {
             allowLinks = true
         ) { cancelled ->
             if (!cancelled) {
-                requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)){
+                requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                     action()
                 }
             } else {
@@ -311,19 +320,45 @@ class MainActivity : AndromedaActivity() {
 
 
     private fun getVolumeDownAction(): VolumeAction? {
+
+        val fragment = getFragment()
+        if (userPrefs.clinometer.lockWithVolumeButtons && fragment is ClinometerFragment) {
+            return ClinometerLockVolumeAction(fragment)
+        }
+
+
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(this)
+            return FlashlightToggleVolumeAction(
+                this,
+                if (fragment is FragmentToolFlashlight) fragment else null
+            )
         }
 
         return null
     }
 
     private fun getVolumeUpAction(): VolumeAction? {
+        val fragment = getFragment()
+        if (userPrefs.clinometer.lockWithVolumeButtons && fragment is ClinometerFragment) {
+            return ClinometerLockVolumeAction(fragment)
+        }
+
         if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(this)
+            return FlashlightToggleVolumeAction(
+                this,
+                if (fragment is FragmentToolFlashlight) fragment else null
+            )
         }
 
         return null
+    }
+
+    fun getFragment(): Fragment? {
+        return supportFragmentManager.fragments.firstOrNull()?.childFragmentManager?.fragments?.firstOrNull()
+    }
+
+    private fun findNavController(): NavController {
+        return (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
     }
 
 

@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 abstract class QuickActionButton(
@@ -14,25 +13,12 @@ abstract class QuickActionButton(
 ) {
     protected val context: Context by lazy { fragment.requireContext() }
 
-    private val observer = object : LifecycleObserver {
-        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        fun onCreateImpl() {
-            onCreate()
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        fun onResumeImpl() {
-            onResume()
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        fun onPauseImpl() {
-            onPause()
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        fun onDestroyImpl() {
-            onDestroy()
+    private val observer = LifecycleEventObserver { _, event ->
+        when(event){
+            Lifecycle.Event.ON_CREATE -> onCreate()
+            Lifecycle.Event.ON_RESUME -> onResume()
+            Lifecycle.Event.ON_PAUSE -> onPause()
+            Lifecycle.Event.ON_DESTROY -> onDestroy()
         }
     }
 

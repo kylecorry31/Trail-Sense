@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class AccelerometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) :
+class AccelerometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IAccelerometer>(
         context,
         lifecycleOwner,
@@ -20,7 +20,7 @@ class AccelerometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner) 
             return listOf(DiagnosticCode.AccelerometerUnavailable)
         }
 
-        if (sensor.quality == Quality.Poor) {
+        if (canRun && sensor!!.quality == Quality.Poor) {
             return listOf(DiagnosticCode.AccelerometerPoor)
         }
 

@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 
 @RequiresApi(Build.VERSION_CODES.N)
 class BacktrackTile: AndromedaTileService() {

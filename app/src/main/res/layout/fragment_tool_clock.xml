@@ -18,7 +18,6 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_update" />
 
     <TextView

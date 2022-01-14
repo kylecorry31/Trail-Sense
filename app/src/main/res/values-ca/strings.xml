@@ -18,8 +18,6 @@
     <string name="forecasts_category">Previsions</string>
     <string name="advanced">Avançat</string>
     <string name="tap_sun_moon_hint">Premeu sol o lluna per obtenir els detalls de posició</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorar els canvis ràpids d\'altitud</string>
-    <string name="pref_sea_level_require_dwell_summary">Només mostrar les lectures quan la altitud no canvii en una hora. Permet millorar la fiabilitat del pronòstic.</string>
     <string name="no_group">Sense grup</string>
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">Fita</string>
@@ -73,8 +71,6 @@
     <string name="pref_show_linear_compass_summary">Quan el dispositiu està vertical</string>
     <string name="pref_show_linear_compass_title">Mostrar brúixola linial</string>
     <string name="pref_display_multi_beacons_title">Mostrar fites properes</string>
-    <string name="pref_sea_level_use_rapid_summary">Utilitzar els canvis rápids de pressió en les conversions de pressió atmosfèrica</string>
-    <string name="pref_sea_level_use_rapid_title">Factor en canvis ràpids de pressió</string>
     <string name="pref_adjust_for_temperature_summary">Utilitzar la temperatura en les conversions de pressió atmosfèrica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
     <string name="pref_use_sea_level_pressure_title">Pressió a nivell del mar</string>
@@ -253,15 +249,10 @@
     <string name="delete">Eliminar</string>
     <string name="subtract">Restar</string>
     <string name="add">Afegir</string>
-    <string name="your_height">La teva alçada</string>
-    <string name="estimated_height">alçada estimada</string>
     <string name="set_inclination_instructions">Premeu en qualsevol lloc per establir / desactivar l\'angle d\'inclinació</string>
-    <string name="inclinometer_rotate_device">Sostingui el telèfon verticalment per mesurar la inclinació</string>
-    <string name="avalanche_risk_high">Risc d\'allau alt</string>
-    <string name="avalanche_risk_med">Risc d\'allau moderat</string>
-    <string name="avalanche_risk_low">Risc d\'allau baix</string>
-    <string name="tool_inclinometer_summary">Permet d\'estimar l\'alçada dels objectes i evaluar el risc d’allau</string>
-    <string name="inclinometer_title">Inclinòmetre</string>
+    <string name="clinometer_rotate_device">Sostingui el telèfon verticalment per mesurar la inclinació</string>
+    <string name="tool_clinometer_summary">Permet d\'estimar l\'alçada dels objectes i evaluar el risc d’allau</string>
+    <string name="clinometer_title">Inclinòmetre</string>
     <string name="offline_maps">Mapes Offline</string>
     <string name="moon_illumination">Iluminació de la lluna</string>
     <string name="moon_phase">Fase lunar</string>
@@ -312,8 +303,6 @@
     <string name="weather_not_changing">Estable</string>
     <string name="weather_storm_incoming">Tempesta inminent</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="guide_avalanche_risk">Estimació del risc d\'allaus</string>
-    <string name="object_height_guide">Estimar altures d\'objectes</string>
     <string name="unit_meters">Metres</string>
     <string name="unit_feet">Peus</string>
     <string name="unit_miles">Milles</string>
@@ -374,7 +363,7 @@
     <string name="clock_sync_notification">Sincronització del rellotge - %s</string>
     <string name="metal_detector_disclaimer">Només detecta metalls magnètics (ex. ferro)</string>
     <string name="notes_empty_text">Sense notes</string>
-    <string name="note_content_hint">Contingut</string>
+    <string name="contents">Contingut</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="freezing_temperatures_description">L\'aigua es congelarà si es deixa fora i la pluja pot convertir-se en neu</string>

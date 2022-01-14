@@ -28,19 +28,8 @@
             android:layout_marginStart="16dp"
             android:alpha="0.86"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/share_action_send"
+            android:contentDescription="@string/share_ellipsis"
             app:srcCompat="@drawable/ic_share"
-            app:tint="?android:textColorSecondary" />
-
-        <ImageButton
-            android:id="@+id/location_map"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:alpha="0.86"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/maps"
-            app:srcCompat="@drawable/maps"
             app:tint="?android:textColorSecondary" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

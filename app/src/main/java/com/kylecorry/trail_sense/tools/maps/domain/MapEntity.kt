@@ -18,7 +18,9 @@ data class MapEntity(
     @ColumnInfo(name = "percentX2") val percentX2: Float?,
     @ColumnInfo(name = "percentY2") val percentY2: Float?,
     @ColumnInfo(name = "warped") val warped: Boolean,
-    @ColumnInfo(name = "rotated") val rotated: Boolean
+    @ColumnInfo(name = "rotated") val rotated: Boolean,
+    @ColumnInfo(name = "projection") val projection: MapProjectionType = MapProjectionType.Mercator,
+    @ColumnInfo(name = "rotation") val rotation: Int = 0,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -45,7 +47,7 @@ data class MapEntity(
             )
         }
 
-        return Map(id, name, filename, points, warped, rotated)
+        return Map(id, name, filename, points, warped, rotated, rotation, projection)
     }
 
     companion object {
@@ -62,17 +64,20 @@ data class MapEntity(
                 if (map.calibrationPoints.size > 1) map.calibrationPoints[1].imageLocation.x else null,
                 if (map.calibrationPoints.size > 1) map.calibrationPoints[1].imageLocation.y else null,
                 map.warped,
-                map.rotated
+                map.rotated,
+                map.projection,
+                map.rotation
             ).also {
                 it.id = map.id
             }
         }
 
-        fun new(name: String, filename: String): MapEntity {
+        fun new(name: String, filename: String, projection: MapProjectionType): MapEntity {
             return MapEntity(
                 name, filename, null, null, null, null, null, null, null, null,
                 warped = false,
-                rotated = false
+                rotated = false,
+                projection = projection
             )
         }
     }

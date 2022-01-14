@@ -158,6 +158,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             apache2("2021", "doyaaaaaken", "")
         ),
         Library(
+            "subsampling-scale-image-view",
+            "https://github.com/davemorrissey/subsampling-scale-image-view",
+            apache2("2020", "davemorrissey", "")
+        ),
+        Library(
             "NASA WORLD WIND (ported by Berico-Technologies)",
             "https://github.com/Berico-Technologies/Geo-Coordinate-Conversion-Java",
             """NASA WORLD WIND

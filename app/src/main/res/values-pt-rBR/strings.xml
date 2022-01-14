@@ -209,17 +209,11 @@
     <string name="dash">-</string>
     <string name="increase">+</string>
     <string name="elevation_diff_format">%s%s</string>
-    <string name="inclinometer_title">Inclinômetro</string>
-    <string name="tool_inclinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
+    <string name="clinometer_title">Inclinômetro</string>
+    <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
-    <string name="avalanche_risk_low">Baixo risco de avalanche</string>
-    <string name="avalanche_risk_med">Risco de avalanche moderada</string>
-    <string name="avalanche_risk_high">Alto risco de avalanche</string>
-    <string name="inclinometer_rotate_device">Segure seu celular na vertical para medir a inclinação</string>
+    <string name="clinometer_rotate_device">Segure seu celular na vertical para medir a inclinação</string>
     <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
-    <string name="estimated_height">altura estimada</string>
-    <string name="pref_sea_level_pressure_change_thresh_title">Limiar de mudança de pressão de viagem</string>
-    <string name="pref_barometer_altitude_change_title">Limiar de mudança de altitude de viagem</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
@@ -229,8 +223,6 @@
     <string name="forecasts_category">Previsões</string>
     <string name="advanced">Avançado</string>
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes de posição</string>
-    <string name="pref_sea_level_require_dwell_title">Ignorar as mudanças rápidas de altitude</string>
-    <string name="pref_sea_level_require_dwell_summary">Mostrar as leituras somente quando a altitude não mudou por pelo menos uma hora. Melhora a confiabilidade da previsão.</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Ponto de orientação</string>
@@ -246,8 +238,6 @@
     <string name="update_30_minutes">30 minutos</string>
     <string name="pref_weather_update_frequency_title">Freqüência de atualização meteorológica</string>
     <string name="pref_max_beacon_distance_title">Raio de pontos de orientação mais próximos</string>
-    <string name="pref_sea_level_use_rapid_summary">Usar mudanças rápidas de pressão em conversões de pressão ao nível do mar</string>
-    <string name="pref_sea_level_use_rapid_title">Fator em rápidas mudanças de pressão</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
@@ -337,8 +327,6 @@
     <string name="tool_cliff_height_description">Medir a altura de um penhasco ou queda</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
     <string name="toast_destination_bearing_set">Orientação do destino definida</string>
-    <string name="object_height_guide">Estimar as alturas dos objetos</string>
-    <string name="guide_avalanche_risk">Estimativa de risco de avalanche</string>
     <string name="depth_disclaimer">Use por sua própria conta e risco.
 \n
 \nNão utilize sem uma caixa à prova d\'água e se possível, fique a uma distância segura de mergulho.</string>
@@ -394,7 +382,7 @@
     <string name="charging_fast">Carregamento rápido (%s)</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="note_title_hint">Título</string>
-    <string name="note_content_hint">Conteúdos</string>
+    <string name="contents">Conteúdos</string>
     <string name="delete_note_title">Excluir anotação\?</string>
     <string name="notes_empty_text">Sem anotações</string>
     <string name="unit_centimeters">Centímetros</string>
@@ -413,7 +401,6 @@
     <string name="max_temp_uncalibrated">Temperatura máxima do celular (não calibrado)</string>
     <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrado)</string>
     <string name="min_temp_uncalibrated">Temperatura mínima do celular (não calibrado)</string>
-    <string name="tool_backtrack_summary">Ver histórico de localização</string>
     <string name="create_beacon">Criar ponto de orientação</string>
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>
@@ -538,7 +525,6 @@
 \nOSNG (OSGB36) (ex. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
-    <string name="waypoint_beacon_title_template">%s, %s ponto de passagem</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="backtrack_notification_channel_description">Atualizações de localização do recuo</string>
     <string name="backtrack">Recuar</string>
@@ -625,12 +611,8 @@
     <string name="pref_tiles_enabled_summary">Pode impedir que o app que gerencia a economia da bateria suspenda o Trail Sense</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="pref_backtrack_history_days_title">Histórico do caminho de recuo</string>
-    <string name="pref_backtrack_path_color_title">Cor de caminho de recuo</string>
-    <string name="pref_backtrack_path_style_title">Modo de caminho de recuo</string>
-    <string name="pref_backtrack_path_radar_title">Mostrar o caminho de recuo</string>
     <string name="delete_tide_prompt">Excluir maré\?</string>
     <string name="theme_sunset_sunrise">Nascer do sol/pôr do sol</string>
-    <string name="your_height">Sua altura</string>
     <string name="no_data">Sem dados</string>
     <string name="turn_off">Desligar</string>
     <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
@@ -640,8 +622,6 @@
     <string name="daylight">Luz do dia</string>
     <string name="pref_auto_low_power_title">A economia de bateria automática</string>
     <string name="pref_auto_low_power_summary">Quando sua bateria está fraca</string>
-    <string name="pref_low_resolution_maps_title">Use baixa resolução</string>
-    <string name="pref_low_resolution_maps_summary">Para dispositivos com restrições de memória</string>
     <string name="pref_flashlight_toggle_with_volume_title">Alternar com botões de volume</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Enquanto o Trail Sense está aberto</string>
     <string name="back_press_confirm">Clique voltar novamente para sair</string>
@@ -679,7 +659,6 @@
     <string name="pref_barometer_altitude_outlier_title">Remoção de altitudes periféricas</string>
     <string name="pref_barometer_altitude_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
-    <string name="pref_experimental_barometer_calibration_title">Use a calibração experimental</string>
     <string name="pref_nmea_altitude_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_altitude_title">Compensação de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente da das estações próximas</string>
@@ -721,7 +700,6 @@
     <string name="importing_map">Importando mapas</string>
     <string name="hour_symbol">h</string>
     <string name="minute_symbol">m</string>
-    <string name="pref_backtrack_path_radar_summary">Na bússola do radar e nos mapas</string>
     <string name="map_auto_calibrated">Mapa auto-calibrado, favor verificar sua precisão</string>
     <string name="time_until_full">até completo</string>
     <string name="time_until_empty">até esgotado</string>
@@ -754,8 +732,6 @@
     <string name="pedometer">Pedômetro</string>
     <string name="odometer">Odômetro</string>
     <string name="saltwater_switch">É água salgada\?</string>
-    <string name="distance_away_not_set">certa distância não definida</string>
-    <string name="distance_away">A certa distância</string>
     <string name="value_average">%s média</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / Odômetro</string>
     <string name="pref_daily_weather_time_title">Tempo do dia</string>
@@ -890,12 +866,7 @@
     </plurals>
     <string name="new_text">Novo</string>
     <string name="old">Anterior</string>
-    <string name="path">Caminho</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="grid_size">%s grade</string>
-    <string name="no_previous_path">Nenhum caminho anterior</string>
-    <string name="merge_previous_path_title">Unir com o caminho anterior\?</string>
-    <string name="path_merge_previous">Adicionar o anterior</string>
     <string name="delete_path">Eliminar o caminho\?</string>
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automático</string>

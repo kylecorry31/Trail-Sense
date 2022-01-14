@@ -159,7 +159,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches">吋</string>
     <string name="unit_centimeters">公分</string>
-    <string name="note_content_hint">內容</string>
+    <string name="contents">內容</string>
     <string name="note_title_hint">標題</string>
     <string name="tool_notes_title">筆記</string>
     <string name="threshold">閾值</string>
@@ -208,13 +208,9 @@
     <string name="coordinate_format_degrees_minutes_seconds">角度 角分 角秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">角度 角分小數點</string>
     <string name="edit">編輯</string>
-    <string name="estimated_height">估計高度</string>
     <string name="set_inclination_instructions">輕觸螢幕任意處 固定/解除固定 傾斜角度</string>
-    <string name="inclinometer_rotate_device">垂直握持您的手機以測量傾斜</string>
-    <string name="avalanche_risk_high">高度雪崩風險</string>
-    <string name="avalanche_risk_med">中等雪崩風險</string>
-    <string name="avalanche_risk_low">低雪崩風險</string>
-    <string name="inclinometer_title">傾斜儀</string>
+    <string name="clinometer_rotate_device">垂直握持您的手機以測量傾斜</string>
+    <string name="clinometer_title">傾斜儀</string>
     <string name="lunar_noon">月球正午</string>
     <string name="solar_noon">太陽正午</string>
     <string name="tide_normal">正常</string>
@@ -297,7 +293,6 @@
     <string name="all_beacons">所有指標</string>
     <string name="pref_compass_filter_amt_title">電子羅盤平滑化</string>
     <string name="weather_improving_slow">好轉中</string>
-    <string name="your_height">您的身高</string>
     <string name="compass_auto_declination"></string>
     <string name="daylight">日光時間</string>
     <string name="pref_show_civil_times_summary">黎明與黃昏</string>

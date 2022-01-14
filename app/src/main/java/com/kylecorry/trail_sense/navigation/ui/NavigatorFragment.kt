@@ -14,8 +14,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.Throttle
@@ -28,6 +30,8 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -36,29 +40,28 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
-import com.kylecorry.trail_sense.navigation.domain.MyNamedCoordinate
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.beacons.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.trail_sense.shared.paths.Path
-import com.kylecorry.trail_sense.shared.paths.PathPoint
-import com.kylecorry.trail_sense.shared.paths.asMappable
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.backtrack.infrastructure.BacktrackScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -72,7 +75,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var shownAccuracyToast = false
     private var showSightingCompass = false
     private val compass by lazy { sensorService.getCompass() }
-    private val gps by lazy { sensorService.getGPS(frequency = Duration.ofSeconds(1)) }
+    private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
     private val sightingCompass by lazy {
         SightingCompassView(
             this,
@@ -102,7 +105,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
-    private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
     private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
@@ -120,6 +122,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var gpsTimeoutShown = false
 
     private var lastOrientation: DeviceOrientation.Orientation? = null
+
+    private val pathLoader by lazy { PathLoader(pathService) }
+
+    private val loadPathRunner = ControlledRunner<Unit>()
 
     private val astronomyIntervalometer = Timer {
         lifecycleScope.launch {
@@ -161,7 +167,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (!Sensors.hasCompass(requireContext())) {
             requireMainActivity().errorBanner.report(
                 UserError(
-                    USER_ERROR_NO_COMPASS,
+                    ErrorBannerReason.NoCompass,
                     getString(R.string.no_compass_message),
                     R.drawable.ic_compass_icon
                 )
@@ -185,10 +191,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             runInBackground {
                 withContext(Dispatchers.IO) {
                     currentBacktrackPathId = pathService.getBacktrackPathId()
-                    pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
-                        .mapValues { it.value.sortedByDescending { it.id } }
-                    // TODO: Only load the nearby paths
-                    updateCompassPaths()
+                    updateCompassPaths(true)
                 }
                 withContext(Dispatchers.Main) {
                     updateUI()
@@ -262,9 +265,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.beaconBtn.setOnLongClickListener {
             if (gps.hasValidReading) {
                 val bundle = bundleOf(
-                    "initial_location" to MyNamedCoordinate(
+                    "initial_location" to GeoUri(
                         gps.location,
-                        elevation = if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
+                        null,
+                        mapOf("ele" to (if (altimeter.hasValidReading) altimeter.altitude else gps.altitude).toString())
                     )
                 )
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment, bundle)
@@ -298,11 +302,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 if (Camera.isAvailable(requireContext())) {
                     enableSightingCompass()
                 } else {
-                    Alerts.toast(
-                        requireContext(),
-                        getString(R.string.camera_permission_denied),
-                        short = false
-                    )
+                    alertNoCameraPermission()
                     setSightingCompassStatus(false)
                 }
             }
@@ -483,9 +483,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onPause() {
         super.onPause()
+        loadPathRunner.cancel()
         sightingCompass.stop()
         astronomyIntervalometer.stop()
-        requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
         gpsErrorShown = false
     }
@@ -581,7 +582,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val banner = requireMainActivity().errorBanner
             banner.report(
                 UserError(
-                    USER_ERROR_COMPASS_POOR,
+                    ErrorBannerReason.CompassPoor,
                     getString(
                         R.string.compass_calibrate_toast, formatService.formatQuality(
                             compass.quality
@@ -595,7 +596,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 })
             shownAccuracyToast = true
         } else if (compass.quality == Quality.Good || compass.quality == Quality.Moderate) {
-            requireMainActivity().errorBanner.dismiss(USER_ERROR_COMPASS_POOR)
+            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         }
 
         // Speed
@@ -631,6 +632,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateCompassView() {
         val destBearing = getDestinationBearing()
+        val destination = destination
         val destColor = destination?.color ?: Resources.color(
             requireContext(),
             R.color.colorAccent
@@ -661,26 +663,50 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.showLocations(nearby)
             it.showReferences(references)
             it.showDirection(direction)
+            it.highlightLocation(destination)
         }
     }
 
-    private fun updateCompassPaths(){
-        if (!isBound){
-            return
-        }
-        val isTracking = BacktrackScheduler.isOn(requireContext())
-        val mappablePaths = mutableListOf<IMappablePath>()
-        val currentPathId = currentBacktrackPathId
-        for (points in pathPoints) {
-            val path = paths.firstOrNull { it.id == points.key } ?: continue
-            val pts = if (isTracking && currentPathId == path.id) {
-                listOf(gps.getPathPoint(currentPathId)) + points.value
-            } else {
-                points.value
+    private fun updateCompassPaths(reload: Boolean = false) {
+        runInBackground {
+            loadPathRunner.joinPreviousOrRun {
+                val mappablePaths = withContext(Dispatchers.IO) {
+                    val loadGeofence = Geofence(
+                        gps.location,
+                        Distance.meters(userPrefs.navigation.maxBeaconDistance + 10)
+                    )
+                    val load = CoordinateBounds.from(loadGeofence)
+
+                    val unloadGeofence =
+                        loadGeofence.copy(radius = Distance.meters(loadGeofence.radius.distance + 1000))
+                    val unload = CoordinateBounds.from(unloadGeofence)
+
+                    pathLoader.update(paths, load, unload, reload)
+
+                    val isTracking = BacktrackScheduler.isOn(requireContext())
+                    val mappablePaths = mutableListOf<IMappablePath>()
+                    val currentPathId = currentBacktrackPathId
+                    for (points in pathLoader.points) {
+                        val path = paths.firstOrNull { it.id == points.key } ?: continue
+                        val pts = if (isTracking && currentPathId == path.id) {
+                            listOf(gps.getPathPoint(currentPathId)) + points.value
+                        } else {
+                            points.value
+                        }
+                        mappablePaths.add(pts.asMappable(requireContext(), path))
+                    }
+                    mappablePaths
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (isBound) {
+                        binding.radarCompass.showPaths(mappablePaths)
+                    }
+                }
             }
-            mappablePaths.add(pts.asMappable(requireContext(), path))
         }
-        binding.radarCompass.showPaths(mappablePaths)
+
+
     }
 
     private fun getPosition(): Position {
@@ -728,7 +754,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (gps is CustomGPS && !(gps as CustomGPS).isTimedOut) {
             gpsTimeoutShown = false
-            requireMainActivity().errorBanner.dismiss(USER_ERROR_GPS_TIMEOUT)
+            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
         }
 
         nearbyBeacons = getNearbyBeacons()
@@ -740,9 +766,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
 
-        if (BacktrackScheduler.isOn(requireContext())){
-            updateCompassPaths()
-        }
+        updateCompassPaths()
 
         updateUI()
     }
@@ -812,19 +836,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val activity = requireMainActivity()
             val navController = findNavController()
             val error = UserError(
-                USER_ERROR_GPS_NOT_SET,
+                ErrorBannerReason.LocationNotSet,
                 getString(R.string.location_not_set),
                 R.drawable.satellite,
                 getString(R.string.set)
             ) {
-                activity.errorBanner.dismiss(USER_ERROR_GPS_NOT_SET)
+                activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
                 navController.navigate(R.id.calibrateGPSFragment)
             }
             activity.errorBanner.report(error)
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero && !gpsErrorShown) {
             val error = UserError(
-                USER_ERROR_NO_GPS,
+                ErrorBannerReason.NoGPS,
                 getString(R.string.location_disabled),
                 R.drawable.satellite
             )
@@ -832,7 +856,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             gpsErrorShown = true
         } else if (gps is CustomGPS && (gps as CustomGPS).isTimedOut && !gpsTimeoutShown) {
             val error = UserError(
-                USER_ERROR_GPS_TIMEOUT,
+                ErrorBannerReason.GPSTimeout,
                 getString(R.string.gps_signal_lost),
                 R.drawable.satellite
             )

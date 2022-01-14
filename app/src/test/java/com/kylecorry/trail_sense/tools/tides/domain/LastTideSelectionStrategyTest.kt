@@ -1,11 +1,15 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
+import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.time.Time.utc
 import com.kylecorry.trail_sense.settings.infrastructure.ITidePreferences
+import com.kylecorry.trail_sense.tools.tides.domain.selection.LastTideSelectionStrategy
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
+import java.time.Instant
 
 internal class LastTideSelectionStrategyTest {
 
@@ -15,12 +19,8 @@ internal class LastTideSelectionStrategyTest {
         whenever(prefs.lastTide).thenReturn(1L)
         val strategy = LastTideSelectionStrategy(prefs)
         val tides = listOf(
-            TideEntity(100, null, null, null).also {
-                it.id = 2
-            },
-            TideEntity(10, null, null, null).also {
-                it.id = 1
-            }
+            table(2, 100),
+            table(1, 10)
         )
 
         assertEquals(tides[1], strategy.getTide(tides))
@@ -33,12 +33,8 @@ internal class LastTideSelectionStrategyTest {
         whenever(prefs.lastTide).thenReturn(1L)
         val strategy = LastTideSelectionStrategy(prefs, true)
         val tides = listOf(
-            TideEntity(100, null, null, null).also {
-                it.id = 2
-            },
-            TideEntity(10, null, null, null).also {
-                it.id = 1
-            }
+            table(2, 100),
+            table(1, 10)
         )
 
         assertEquals(tides[1], strategy.getTide(tides))
@@ -51,12 +47,8 @@ internal class LastTideSelectionStrategyTest {
         whenever(prefs.lastTide).thenReturn(null)
         val strategy = LastTideSelectionStrategy(prefs)
         val tides = listOf(
-            TideEntity(100, null, null, null).also {
-                it.id = 2
-            },
-            TideEntity(10, null, null, null).also {
-                it.id = 1
-            }
+            table(2, 100),
+            table(1, 10)
         )
 
         assertNull(strategy.getTide(tides))
@@ -68,14 +60,14 @@ internal class LastTideSelectionStrategyTest {
         whenever(prefs.lastTide).thenReturn(3L)
         val strategy = LastTideSelectionStrategy(prefs)
         val tides = listOf(
-            TideEntity(100, null, null, null).also {
-                it.id = 2
-            },
-            TideEntity(10, null, null, null).also {
-                it.id = 1
-            }
+            table(2, 100),
+            table(1, 10)
         )
 
         assertNull(strategy.getTide(tides))
+    }
+
+    private fun table(id: Long, millis: Long): TideTable {
+        return TideTable(id, listOf(Tide.high(Instant.ofEpochMilli(millis).utc())), null, null)
     }
 }

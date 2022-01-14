@@ -6,22 +6,38 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import java.time.Instant
 
 class StrobeService : ForegroundService() {
 
     private var torch: ITorch? = null
     private val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
+    private var delay = 5L
+    private val cache by lazy { Preferences(this) }
     private var on = false
+
+    private val offTimer = Timer {
+        val end = stopAt
+        if (end != null && end <= Instant.now()){
+            stopSelf()
+        }
+    }
+
+    private var stopAt: Instant? = null
 
     private var runnable = Runnable {
         runNextState()
     }
+
+    private val prefs by lazy { Preferences(applicationContext) }
 
     private fun runNextState() {
         if (!isRunning) {
@@ -38,7 +54,7 @@ class StrobeService : ForegroundService() {
 
         on = !on
 
-        handler.postDelayed(runnable, STROBE_DELAY)
+        handler.postDelayed(runnable, delay)
     }
 
     override val foregroundNotificationId: Int
@@ -57,6 +73,7 @@ class StrobeService : ForegroundService() {
     }
 
     override fun onDestroy() {
+        offTimer.stop()
         isRunning = false
         handler.removeCallbacks(runnable)
         torch?.off()
@@ -67,14 +84,17 @@ class StrobeService : ForegroundService() {
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
         torch = Torch(this)
         isRunning = true
+        delay = prefs.getLong(STROBE_DURATION_KEY) ?: 1000
         handler.post(runnable)
+        stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
+        offTimer.interval(1000)
         return START_STICKY_COMPATIBILITY
     }
 
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 763925
-        private const val STROBE_DELAY = 5L
+        const val STROBE_DURATION_KEY = "pref_flashlight_strobe_duration"
 
         var isRunning = false
             private set

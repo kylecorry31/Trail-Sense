@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tileIcon="@drawable/ic_lightning"
+        app:tileIcon="@drawable/ic_torch_on"
         app:tilePadding="64dp"
         app:tileText="@string/lightning"
         app:tileTextSize="24dp" />

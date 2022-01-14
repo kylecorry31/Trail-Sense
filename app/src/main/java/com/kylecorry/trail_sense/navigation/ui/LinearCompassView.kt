@@ -9,6 +9,9 @@ package com.kylecorry.trail_sense.navigation.ui
 import android.content.Context
 import android.util.AttributeSet
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.canvas.ImageMode
+import com.kylecorry.andromeda.canvas.TextAlign
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
@@ -52,10 +55,24 @@ class LinearCompassView : BaseCompassView {
     }
 
     private fun drawLocations() {
-        _locations.forEach { drawLocation(it) }
+        val highlighted = _highlightedLocation
+        var containsHighlighted = false
+        _locations.forEach {
+            if (it.id == highlighted?.id) {
+                containsHighlighted = true
+            }
+            drawLocation(
+                it,
+                highlighted == null || it.id == highlighted.id
+            )
+        }
+
+        if (highlighted != null && !containsHighlighted) {
+            drawLocation(highlighted, true)
+        }
     }
 
-    private fun drawLocation(location: IMappableLocation) {
+    private fun drawLocation(location: IMappableLocation, highlight: Boolean) {
         val bearing = if (_useTrueNorth) {
             _location.bearingTo(location.coordinate)
         } else {
@@ -64,12 +81,18 @@ class LinearCompassView : BaseCompassView {
                 _declination
             )
         }
+        val opacity = if (highlight) {
+            1f
+        } else {
+            0.5f
+        }
         drawReference(
             MappableReferencePoint(
                 location.id,
                 R.drawable.ic_arrow_target,
                 bearing,
-                location.color
+                location.color,
+                opacity = opacity
             )
         )
     }
