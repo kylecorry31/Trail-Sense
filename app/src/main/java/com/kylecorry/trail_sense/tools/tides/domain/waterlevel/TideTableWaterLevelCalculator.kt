@@ -77,7 +77,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         }
 
         calculators.add(
-            Range(start.time, second.time) to RuleOfTwelfthsWaterLevelCalculator(
+            Range(start.time, second.time) to GapWaterLevelCalculator(
                 start,
                 second,
                 frequency.toRadians()
