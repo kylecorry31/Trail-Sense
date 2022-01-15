@@ -7,9 +7,10 @@
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/black</item>
+
+        <!--Containers-->
         <item name="colorPrimaryContainer">@color/orange_90</item>
         <item name="colorOnPrimaryContainer">@color/orange_10</item>
-
         <item name="colorSecondaryContainer">?attr/colorPrimaryContainer</item>
         <item name="colorTertiaryContainer">?attr/colorPrimaryContainer</item>
         <item name="colorOnSecondaryContainer">?attr/colorOnPrimaryContainer</item>
@@ -19,8 +20,10 @@
         <!--TODO: Pick a better surface color-->
         <item name="elevationOverlayEnabled">false</item>
         <item name="colorSurface">?android:colorBackgroundFloating</item>
+
+        <!--TODO: Override these for the time picker-->
         <item name="colorSurfaceVariant">@color/colorSecondary</item>
-        <item name="colorOnSurfaceVariant">@color/white</item>
+<!--        <item name="colorOnSurfaceVariant"></item>-->
 
         <item name="colorAccent">@color/orange_40</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
