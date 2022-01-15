@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
-    <androidx.camera.view.PreviewView
+    <com.kylecorry.trail_sense.shared.views.CameraView
         android:id="@+id/view_camera"
         android:layout_width="200dp"
         android:layout_height="248dp"
@@ -260,19 +260,5 @@
                 tools:text="1.8 mph" />
         </LinearLayout>
     </LinearLayout>
-
-    <SeekBar
-        android:id="@+id/zoom_ratio_seekbar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:max="100"
-        android:progress="50"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_camera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -77,7 +77,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
         CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
-        
+
         binding.cameraViewHolder.clipToOutline = true
 
         binding.clinometerLeftQuickAction.setOnClickListener {

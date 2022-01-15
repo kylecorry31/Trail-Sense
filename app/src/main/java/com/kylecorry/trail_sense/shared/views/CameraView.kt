@@ -23,9 +23,11 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private val preview: PreviewView
     private val torchBtn: ImageButton
     private val zoomSeek: SeekBar
+    private var zoomListener: ((Float) -> Unit)? = null
     private var imageListener: ((Bitmap) -> Unit)? = null
     private var captureListener: ((Bitmap) -> Unit)? = null
     private var isTorchOn = false
+    private var zoom: Float = 0f
 
     fun start(resolution: Size? = null, onImage: ((Bitmap) -> Unit)? = null) {
         val owner = ViewTreeLifecycleOwner.get(this) ?: return
@@ -44,8 +46,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun stop() {
         camera?.stop(this::onCameraUpdate)
         camera = null
-        setZoom(0f)
-        setTorch(false)
     }
 
     fun capture(onImage: (Bitmap) -> Unit) {
@@ -57,7 +57,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun setTorch(isOn: Boolean) {
         isTorchOn = isOn
         torchBtn.setImageResource(if (isOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
-        camera?.setTorch(isOn)
+        camera?.setTorch(isTorchOn)
     }
 
     fun setShowTorch(shouldShow: Boolean) {
@@ -66,7 +66,12 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     fun setZoom(zoom: Float) {
         zoomSeek.progress = (zoom * 100).toInt()
+        this.zoom = zoom
         camera?.setZoom(zoom)
+    }
+
+    fun setOnZoomChangeListener(listener: ((zoom: Float) -> Unit)?){
+        zoomListener = listener
     }
 
     fun setShowZoom(shouldShow: Boolean) {
@@ -79,6 +84,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
+        camera?.setZoom(zoom)
+        camera?.setTorch(isTorchOn)
         if (captureListener == null && imageListener == null) {
             camera?.image?.close()
             return true
@@ -112,6 +119,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         }
 
         zoomSeek.setOnProgressChangeListener { progress, _ ->
+            zoomListener?.invoke(progress / 100f)
             setZoom(progress / 100f)
         }
     }

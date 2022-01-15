@@ -78,10 +78,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
     private val sightingCompass by lazy {
         SightingCompassView(
-            this,
             binding.viewCamera,
-            binding.viewCameraLine,
-            binding.zoomRatioSeekbar
+            binding.viewCameraLine
         )
     }
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
