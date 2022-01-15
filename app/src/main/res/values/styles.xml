@@ -12,6 +12,11 @@
 
         <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
 
+        <!--Surface tint-->
+        <!--TODO: Pick a better surface color-->
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="colorSurface">?android:colorBackgroundFloating</item>
+
         <item name="colorAccent">@color/orange_40</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
@@ -46,7 +51,6 @@
     <style name="AppBottomSheetModalStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearance">@style/AppBottomSheetAppearance</item>
         <item name="android:padding">16dp</item>
-        <item name="backgroundTint">?android:colorBackgroundFloating</item>
     </style>
 
     <style name="AppBottomSheetAppearance" parent="ShapeAppearance.Material3.LargeComponent">

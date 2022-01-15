@@ -28,6 +28,8 @@
         android:layout_height="0dp"
         android:layout_margin="16dp"
         android:layout_weight="1"
+        style="@style/Widget.Material3.CardView.Outlined"
+        android:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
