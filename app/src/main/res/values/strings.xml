@@ -579,7 +579,7 @@
     <string name="compass_calibrate_toast">Compass accuracy %s, calibration is advised</string>
     <string name="how">How</string>
     <string name="clouds">Clouds</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
+    <string name="pref_require_satellites" translatable="false">pref_require_satellites</string>
     <string name="pref_require_satellites_title">Require satellite fix</string>
     <string name="pref_require_satellites_description">Requires at least 4 satellites, improves accuracy</string>
     <string name="cirrus">Cirrus</string>
@@ -631,7 +631,7 @@
     <string name="unavailable">Unavailable</string>
     <string name="quality_poor">Poor</string>
     <string name="quality_good">Good</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
+    <string name="pref_backtrack_save_cell" translatable="false">pref_backtrack_save_cell</string>
     <string name="time_ago">%s ago</string>
     <string name="network_5g">5G</string>
     <string name="network_4g">4G</string>
@@ -762,7 +762,7 @@
     <string name="pref_astronomy_quick_action_left" translatable="false">pref_astronomy_quick_action_left</string>
     <string name="pref_astronomy_quick_action_right" translatable="false">pref_astronomy_quick_action_right</string>
     <string name="actual_frequency_disclaimer">The actual frequency may vary as some devices have background limits in place.</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
+    <string name="pref_weather_show_detailed_icon" translatable="false">pref_weather_show_detailed_icon</string>
     <string name="pref_weather_show_detailed_icon_title">Show colored notification icon</string>
     <string name="pref_backtrack_path_color" translatable="false">pref_backtrack_path_color</string>
     <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
@@ -949,7 +949,7 @@
     <string name="pack_sort_weight_high_to_low">Weight (high to low)</string>
     <string name="pref_weight_units" translatable="false">pref_weight_units</string>
     <string name="weight_per_item">Weight per item</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
+    <string name="pref_depth_enabled" translatable="false">pref_depth_enabled</string>
     <string name="guide_packing_list">Create packing lists</string>
     <string name="humidity">Humidity</string>
     <string name="no_compass_message">Your device does not have a compass sensor</string>
@@ -1017,8 +1017,8 @@
     <string name="lunar_eclipse_end">Lunar eclipse (end)</string>
     <string name="lunar_eclipse">Lunar eclipse</string>
     <string name="astronomy_alerts">Astronomy alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
+    <string name="pref_send_lunar_eclipse_alerts" translatable="false">pref_send_lunar_eclipse_alerts</string>
+    <string name="pref_send_meteor_shower_alerts" translatable="false">pref_send_meteor_shower_alerts</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>
@@ -1147,9 +1147,9 @@
     <string name="pref_clinometer_lock_with_volume_buttons" translatable="false">pref_clinometer_lock_with_volume_buttons</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Lock with volume buttons</string>
     <string name="pref_clinometer_settings" translatable="false">pref_clinometer_settings</string>
-    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
-    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
-    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
+    <string name="pref_clinometer_baseline_distance" translatable="false">pref_clinometer_baseline_distance</string>
+    <string name="pref_clinometer_baseline_distance_units" translatable="false">pref_clinometer_baseline_distance_units</string>
+    <string name="pref_clinometer_baseline_distance_holder" translatable="false">pref_clinometer_baseline_distance_holder</string>
     <string name="pref_clinometer_baseline_distance_title">Baseline distance</string>
     <string name="height">Height</string>
     <string name="clinometer_measure_distance_title">Height of target</string>

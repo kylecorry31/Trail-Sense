@@ -1071,7 +1071,6 @@
     <string name="pref_flashlight_timeout_title">Вимкнути після</string>
     <string name="night">Ніч</string>
     <string name="tide_is_diurnal">Є добовим\?</string>
-    <string name="calculated">Обчислено</string>
     <string name="tide_table">Таблиця припливів</string>
     <string name="low_tide_letter">Н</string>
     <string name="view">Показ</string>

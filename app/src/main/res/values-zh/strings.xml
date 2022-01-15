@@ -1044,7 +1044,6 @@
     <string name="pref_flashlight_should_timeout_title">自动关闭</string>
     <string name="pref_flashlight_timeout_title">多少秒后关闭</string>
     <string name="duration_second_format">%d秒</string>
-    <string name="calculated">已计算</string>
     <string name="tide_table">潮汐表</string>
     <string name="high_tide_letter">涨潮</string>
     <string name="low_tide_letter">落潮</string>
