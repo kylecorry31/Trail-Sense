@@ -12,7 +12,7 @@ Before hiking in a coastal area, consult an official tide table for times. Once 
 For the best accuracy, add all tides for each day you care about. Trail Sense will indicate if a tide was entered vs estimated when viewed on the tide chart.
 
 ## How to create a tide without an official table?
-Trail Sense can be used to estimate when the next tide will be at a given location if you do not have access to a tide table. This estimate may be inaccurate by a couple of hours, so it is always preferable to consult an officially published tide table when possible. If you know the tide is currently high or low, you can create a tide table with a single entry and Trail Sense will estimate when the tidal cycle.
+Trail Sense can be used to estimate when the next tide will be at a given location if you do not have access to a tide table. This estimate may be inaccurate by a couple of hours, so it is always preferable to consult an officially published tide table when possible. If you know the tide is currently high or low, you can create a tide table with a single entry and Trail Sense will estimate when the tidal cycle. This should only be used for short term predictions, as it will get less accurate the further away from the reference tide. 
 
 ## Where to find official tide tables?
 You can typically find a tide table by searching the Internet for tides in your location. A list of sources may be provided here in the future.
