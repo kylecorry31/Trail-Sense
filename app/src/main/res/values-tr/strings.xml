@@ -20,7 +20,6 @@
     <string name="arrow">Ok şekli</string>
     <string name="dotted">Benekli</string>
     <string name="solid">Düz / dolu</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="pref_weather_show_detailed_icon_title">Renkli bildirim ikonu göster</string>
     <string name="actual_frequency_disclaimer">Bazı cihazlarda arkaplan sınırları olduğundan gerçek frekans değişim gösterebilir.</string>
     <string name="search">Ara</string>
@@ -257,7 +256,6 @@
 \n
 \n- Yaklaşan fırtınalar için önceden uyarı al</string>
     <string name="pref_show_noon_summary">Öğle ve gece ortası</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="delete_tide_prompt">Gelgiti sil\?</string>
     <string name="beacon_set_bearing_btn">Kerterizi belirle (%s)</string>
     <string name="bearing">Kerteriz</string>
@@ -610,7 +608,6 @@
     <string name="privacy_and_location">Gizlilik ve Konum</string>
     <string name="pref_require_satellites_description">En az 4 uydu gerektirir, doğruluğu arttırır</string>
     <string name="pref_require_satellites_title">Uydu düzeltmesi gerektir</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Bulutlar</string>
     <string name="how">Nasıl</string>
     <string name="compass_calibrate_toast">Pusula doğruluğu %s, kalibrasyon önerilir</string>
@@ -734,8 +731,6 @@
         <item quantity="one">%d ara nokta silinecek</item>
         <item quantity="other">%d ara nokta silinecek</item>
     </plurals>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Astronomi uyarıları</string>
     <string name="lunar_eclipse">Ay tutulması</string>
     <string name="lunar_eclipse_end">Ay tutulması (bitiş)</string>
@@ -801,7 +796,6 @@
     <string name="num_satellites">%d uydu</string>
     <string name="no_compass_message">Aygıtınızda pusula sensörü yok</string>
     <string name="guide_packing_list">Paketleme listeleri oluştur</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Öge başına ağırlık</string>
     <string name="pack_sort_weight_high_to_low">Ağırlık (yüksekten düşüğe)</string>
     <string name="pack_sort_weight_low_to_high">Ağırlık (düşükten yükseğe)</string>

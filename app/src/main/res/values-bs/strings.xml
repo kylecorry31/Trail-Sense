@@ -213,7 +213,6 @@
     <string name="dotted">Tačkasta</string>
     <string name="solid">Solidna</string>
     <string name="pref_weather_show_detailed_icon_title">Prikaži ikonu obavještenja u boji</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Prava frekvencija može zavisiti jer neki uređaji imaju postavljena ograničenja u pozadini.</string>
     <string name="search">Pretraži</string>
     <string name="pref_odometer_reset_daily_title">Resetujte svakodnevno</string>
@@ -323,7 +322,6 @@
     <string name="network_4g">4G</string>
     <string name="network_5g">5G</string>
     <string name="time_ago">prije %s</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="quality_good">Dobro</string>
     <string name="quality_poor">Jadno</string>
     <string name="unavailable">Nedostupno</string>
@@ -418,7 +416,6 @@
     <string name="cirrus">Cirrus</string>
     <string name="pref_require_satellites_description">Potrebna su najmanje 4 satelita, što poboljšava preciznost</string>
     <string name="pref_require_satellites_title">Zahtjev za satelitsku popravku</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Oblaci</string>
     <string name="how">Kako</string>
     <string name="compass_calibrate_toast">Preciznost kompasa %s, preporučuje se kalibracija</string>
@@ -815,7 +812,6 @@
     <string name="num_satellites">%d satelita</string>
     <string name="no_compass_message">Vas uređaj nema senzor za kompas</string>
     <string name="guide_packing_list">Napravi liste za pakovanje</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Težina po stavci</string>
     <string name="pack_sort_weight_high_to_low">Težina (visoka do niske)</string>
     <string name="pack_sort_weight_low_to_high">Težina (niska do visoke)</string>

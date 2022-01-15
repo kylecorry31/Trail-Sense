@@ -432,7 +432,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_require_satellites_description">Wymaga co najmniej 4 satelitów, poprawia dokładność</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="pref_low_power_mode_summary">Wyłącza niektóre funkcje w celu oszczędzania energii</string>
     <string name="dialog_leave">Opuść</string>
     <string name="unsaved_changes_message">Wprowadzone zmiany nie zostaną zapisane.</string>
@@ -545,7 +544,6 @@
     <string name="network_4g">4G</string>
     <string name="network_5g">5G</string>
     <string name="time_ago">%s temu</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">Odległość od telefonu do latarki</string>
@@ -639,7 +637,6 @@
     <string name="battery_warning">Ostrzeżenie o nadmiernym rozładowaniu baterii</string>
     <string name="updates">Aktualizacje</string>
     <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="search">Wyszukaj</string>
     <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
     <string name="guide_speedometer_desc">Jak określić przebytą odległość i czas przybycia</string>
@@ -774,7 +771,6 @@
     <string name="ounces_volume_format">%s oz</string>
     <string name="gallon_format">%s gal</string>
     <string name="quart_format">%s qt</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="pack_sort_weight_high_to_low">Waga (od najwyższej do najniższej)</string>
     <string name="pack_sort_weight_low_to_high">Waga (od najniższej do najwyższej)</string>
     <string name="sort">Sortuj</string>
@@ -848,8 +844,6 @@
     <string name="lightning_dangerously_close">Błyskawica niebezpiecznie blisko</string>
     <string name="partial">Częściowe (%s)</string>
     <string name="total">Całkowite</string>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Alerty astronomiczne</string>
     <string name="lunar_eclipse">Zaćmienie Księżyca</string>
     <string name="lunar_eclipse_end">Zaćmienie Księżyca (koniec)</string>

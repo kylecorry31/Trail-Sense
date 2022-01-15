@@ -626,8 +626,6 @@
     <string name="saltwater_switch">Salzwasser\?</string>
     <string name="experimental">Experimentell</string>
     <string name="pref_daily_weather_notification">pref_backtrack_save_cell</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="all_beacons">Alle Wegpunkte</string>
     <string name="import_gpx">GPX importieren</string>
     <string name="error_importing_map">Fehler beim Importieren der Karte</string>
@@ -648,7 +646,6 @@
         <item quantity="other">%d Wegpunkte importiert</item>
     </plurals>
     <string name="pref_weather_show_detailed_icon_title">Farbiges Benachrichtigungssymbol anzeigen</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Die tatsächliche Frequenz kann stark variieren, da einige Geräte Hintergrundbeschränkungen haben.</string>
     <string name="app_disclaimer_message_title">Haftungsausschluss / Nutzungsbedingungen</string>
     <string name="disclaimer_message_title">Haftungsausschluss</string>
@@ -808,7 +805,6 @@
     <string name="num_satellites">%d Satelliten</string>
     <string name="no_compass_message">Ihr Gerät hat keinen Kompass</string>
     <string name="guide_packing_list">Packlisten erstellen</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="current_format">%s mA</string>
     <string name="pref_filter_altitude_history_title">Weicher Höhenverlauf</string>
     <string name="beacon_qr_import_instructions">Einen QR-Code zum Importieren scannen</string>
@@ -859,8 +855,6 @@
     <string name="auto">Auto</string>
     <string name="lightning_dangerously_close">Gewitter gefährlich nah</string>
     <string name="autofill">Autofill</string>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Astronomie-Alarme</string>
     <string name="lunar_eclipse">Mondfinsternis</string>
     <string name="lunar_eclipse_end">Mondfinsternis (Ende)</string>
@@ -1008,10 +1002,7 @@
     <string name="avalanche_risk">Lawinenrisiko</string>
     <string name="distance_unset">Entfernung nicht gesetzt</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Mit Lautstärketasten sperren</string>
-    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
-    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
     <string name="pref_clinometer_baseline_distance_title">Distanz zur Grundlinie</string>
-    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="instructions">Anweisungen</string>
     <string name="clinometer_measure_distance_title">Höhe des Zieles</string>
     <string name="clinometer_measure_height_instructions">Um die Höhe eines Zieles zu messen, welches %s entfernt ist:

@@ -323,7 +323,6 @@
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrus">Cirrus</string>
     <string name="pref_require_satellites_description">Vereist minimaal 4 satellieten, verbetert de juistheid</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Wolken</string>
     <string name="how">Hoe</string>
     <string name="compass_calibrate_toast">Kompasjuistheid %s, ijking wordt geadviseerd</string>
@@ -352,7 +351,6 @@
     <string name="speedometer_average">Gemiddeld (van Terugweg)</string>
     <string name="pref_backtrack_save_cell_title">Mobiele signaal opnemen</string>
     <string name="pref_backtrack_save_cell_summary">Het mobiele signaal opnemen bij het routepunt. Het internet wordt niet gebruikt.</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="onboarding_privacy">- Trail Sense respecteert je privacy. Locatiegegevens verlaten nooit je apparaat
 \n
 \n- Trail Sense zal nooit internettoegang vereisen
@@ -704,7 +702,6 @@
     <string name="dotted">Gestippeld</string>
     <string name="solid">Vast</string>
     <string name="pref_weather_show_detailed_icon_title">Toon gekleurd meldingspictogram</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">De werkelijke frequentie kan variëren, omdat sommige apparaten achtergrondlimieten hebben.</string>
     <string name="search">Zoeken</string>
     <string name="pref_odometer_reset_daily_title">Dagelijks op nul zetten</string>
@@ -806,7 +803,6 @@
     <string name="num_satellites">%d satellieten</string>
     <string name="no_compass_message">Je apparaat heeft geen kompassensor</string>
     <string name="guide_packing_list">Paklijsten aanmaken</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Gewicht per voorwerp</string>
     <string name="pack_sort_weight_high_to_low">Gewicht (hoog naar laag)</string>
     <string name="pack_sort_weight_low_to_high">Gewicht (laag naar hoog)</string>

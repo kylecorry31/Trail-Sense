@@ -470,7 +470,6 @@
     <string name="cirrus">Cirrus</string>
     <string name="pref_require_satellites_description">Nécessite au moins 4 satellites, améliore la précision</string>
     <string name="pref_require_satellites_title">Nécessite une correction satellite</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Nuages</string>
     <string name="how">Comment</string>
     <string name="compass_calibrate_toast">Précision de la boussole %s, l\'étalonnage est conseillé</string>

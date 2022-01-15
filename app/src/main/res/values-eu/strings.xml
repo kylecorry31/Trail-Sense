@@ -280,9 +280,7 @@
     <string name="none">Bat ere ez</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="satellites">sateliteak</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="gps_stale">Zaharkituta</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="bearing">Norabidea</string>
     <string name="map_scale_verbal">Hitzez</string>
     <string name="update_60_minutes">Ordu 1</string>
@@ -341,7 +339,6 @@
     <string name="arrow">Gezia</string>
     <string name="updates">Eguneraketak</string>
     <string name="solid">Solidoa</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="search">Bilatu</string>
     <string name="hour_symbol">o</string>
     <string name="minute_symbol">m</string>

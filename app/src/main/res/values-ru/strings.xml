@@ -473,7 +473,6 @@
     <string name="cirrostratus">Перисто-слоистые</string>
     <string name="cirrus">Перистые</string>
     <string name="pref_require_satellites_title">Требуется исправление спутниковой связи</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="unavailable">Недоступен</string>
     <string name="gps_searching">Поиск</string>
     <string name="gps_stale">Устаревший</string>
@@ -551,7 +550,6 @@
     <string name="network_4g">4G</string>
     <string name="network_5g">5G</string>
     <string name="time_ago">%s назад</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="quality_good">Хорошее</string>
     <string name="quality_poor">Плохое</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -671,7 +669,6 @@
     <string name="dotted">Пунктирный</string>
     <string name="solid">Сплошной</string>
     <string name="pref_weather_show_detailed_icon_title">Показать цветной значок уведомления</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">Фактическая частота может отличаться, так как для некоторых устройств установлены фоновые ограничения.</string>
     <string name="time_until_full">до полного</string>
     <string name="theme_sunset_sunrise">Восход/закат</string>
@@ -744,7 +741,6 @@
     <string name="num_satellites">%d спутников</string>
     <string name="no_compass_message">В вашем устройстве отсутствует датчик компаса</string>
     <string name="guide_packing_list">Создание списков упаковки</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Вес на единицу</string>
     <string name="pack_sort_weight_high_to_low">Вес (по убыванию)</string>
     <string name="pack_sort_weight_low_to_high">Вес (по возрастанию)</string>
@@ -919,8 +915,6 @@
         <item quantity="many">%d путевых точки будут удалены</item>
         <item quantity="other">%d путевых точки будут удалены</item>
     </plurals>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Астрономические предупреждения</string>
     <string name="lunar_eclipse">Лунное затмение</string>
     <string name="lunar_eclipse_end">Лунное затмение (конец)</string>
@@ -1001,8 +995,6 @@
         <item quantity="many">%d путевых точек удалено</item>
         <item quantity="other">%d путевых точек удалено</item>
     </plurals>
-    <string name="pref_clinometer_baseline_distance">pref_clinometer_baseline_distance</string>
-    <string name="pref_clinometer_baseline_distance_units">pref_clinometer_baseline_distance_units</string>
     <string name="append_onto">Добавить в</string>
     <string name="saving">Хранение</string>
     <string name="hard">Трудно</string>
@@ -1013,7 +1005,6 @@
     <string name="waypoint">Путевая точка</string>
     <string name="pref_clinometer_baseline_distance_title">Базовое расстояние</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Блокировка кнопками громкости</string>
-    <string name="pref_clinometer_baseline_distance_holder">pref_clinometer_baseline_distance_holder</string>
     <string name="point_style">Стиль точки</string>
     <string name="most_recent">Самый последний</string>
     <string name="longest">Самый длинный</string>

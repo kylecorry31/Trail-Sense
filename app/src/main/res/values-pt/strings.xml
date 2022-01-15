@@ -441,7 +441,6 @@
     <string name="network_4g">4G</string>
     <string name="network_5g">5G</string>
     <string name="time_ago">%s atrás</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="quality_good">Boa</string>
     <string name="quality_poor">Baixa</string>
     <string name="unavailable">Indisponível</string>
@@ -525,7 +524,6 @@
     <string name="cirrus">Cirro</string>
     <string name="pref_require_satellites_description">Necessita de pelo menos 4 satélites, melhora a precisão</string>
     <string name="pref_require_satellites_title">Requer estabilização dos sinais dos satélites</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Nuvens</string>
     <string name="how">Como</string>
     <string name="compass_calibrate_toast">Precisão da bússola %s, recomenda-se a calibração</string>
@@ -741,7 +739,6 @@
     <string name="dotted">Pontilhado</string>
     <string name="solid">Sólido</string>
     <string name="pref_weather_show_detailed_icon_title">Mostrar ícone de notificação colorido</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="actual_frequency_disclaimer">A frequência atual pode variar, já que alguns aparelhos têm limitações em segundo plano.</string>
     <string name="search">Pesquisa</string>
     <string name="pref_odometer_reset_daily_title">Reinício diário</string>
@@ -836,7 +833,6 @@
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">O seu aparelho não possui um sensor de bússola</string>
     <string name="guide_packing_list">Criar lista de itens na mochila</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto para baixo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (baixo para alto)</string>
@@ -858,8 +854,6 @@
     <string name="packed_amount">Quantidade de itens na mochila</string>
     <string name="default_pack_name">Item padrão</string>
     <string name="time">Hora</string>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Alertas astronómicos</string>
     <string name="lunar_eclipse">Eclipse lunar</string>
     <string name="lunar_eclipse_start">Eclipse lunar (início)</string>

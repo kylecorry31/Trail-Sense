@@ -424,7 +424,6 @@
     <string name="backtrack_battery_warning">Pequeños intervalos (menos de 15 minutos) pueden causar un agotamiento excesivo de la batería</string>
     <string name="hour_symbol">h</string>
     <string name="map_auto_calibrated">Mapa autocalibrado, verifique su precisión</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="noon">Medio dia</string>
     <string name="pref_show_civil_times_summary">Amanecer y anochecer</string>
     <string name="color">Color</string>
@@ -537,7 +536,6 @@
     <string name="compass_calibrate_toast">Precisión de la brújula %s, se recomienda calibración</string>
     <string name="how">Como</string>
     <string name="clouds">Nubes</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="pref_require_satellites_title">Requiere corrección de satélite</string>
     <string name="cirrus">Cirro</string>
     <string name="cirrocumulus">Cirrocúmulo</string>
@@ -693,7 +691,6 @@
     <string name="metal_detector_disclaimer">Solo detecta metales magneticos ( ejemplo: Hierro)</string>
     <string name="unsaved_changes_message">Los cambios que hiciste no seran guardados.</string>
     <string name="dialog_leave">Salir</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="distance">Distancia</string>
     <string name="on">Activado</string>
     <string name="partial">Parcial (%s)</string>
@@ -724,7 +721,6 @@
     <string name="climate_temperate">Temperatura</string>
     <string name="autofill">Autorellenar</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
     <string name="climate_polar">Polar</string>
     <string name="climate_tropical">Tropical</string>
     <string name="no_resolution">Sin resolución</string>
@@ -783,7 +779,6 @@
     <string name="sensor_gyroscope">Giroscopio</string>
     <string name="pack_sort_weight_high_to_low">Peso (de mayor a menor)</string>
     <string name="weight_per_item">Peso por objeto</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="guide_packing_list">Crear lista de empacado</string>
     <string name="sun">Sol</string>
     <string name="pref_barometer_info_summary">La presión puede diferir de la de las estaciones cercanas</string>
@@ -906,7 +901,6 @@
     <string name="lunar_eclipse_start">Eclipse Lunar (iniciar)</string>
     <string name="lunar_eclipse_end">Eclipse Lunar (final)</string>
     <string name="astronomy_alerts">Alertas de astronomía</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d Punto de referencia sera eliminado</item>
         <item quantity="other">%d Puntos de referencia sera eliminado</item>

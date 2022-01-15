@@ -491,7 +491,6 @@
     <string name="cirrus">Cirro</string>
     <string name="pref_require_satellites_description">Requer pelo menos 4 satélites, melhora a precisão</string>
     <string name="pref_require_satellites_title">Requer estabilização de sinais de satélites</string>
-    <string name="pref_require_satellites">pref_require_satellites</string>
     <string name="clouds">Nuvens</string>
     <string name="how">Como</string>
     <string name="compass_calibrate_toast">Precisão da bússola %s, recomenda-se a calibração</string>
@@ -585,7 +584,6 @@
     <string name="network_2g">2G</string>
     <string name="network_4g">4G</string>
     <string name="time_ago">%s atrás</string>
-    <string name="pref_backtrack_save_cell">pref_backtrack_save_cell</string>
     <string name="quality_good">Boa</string>
     <string name="quality_poor">Baixa</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -615,7 +613,6 @@
     <string name="theme_sunset_sunrise">Nascer do sol/pôr do sol</string>
     <string name="no_data">Sem dados</string>
     <string name="turn_off">Desligar</string>
-    <string name="pref_weather_show_detailed_icon">pref_weather_show_detailed_icon</string>
     <string name="unit_yards">Jardas</string>
     <string name="yards_format">%s yd</string>
     <string name="find_next_occurrence">Encontrar próxima ocorrência</string>
@@ -793,7 +790,6 @@
     <string name="base_temperature">Temperatura de base</string>
     <string name="base_elevation">Elevação de base</string>
     <string name="guide_packing_list">Criar listas de conteúdo</string>
-    <string name="pref_depth_enabled">pref_depth_enabled</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (baixo a alto)</string>
@@ -909,8 +905,6 @@
 \n**Direção do auge**: %s
 \n
 \n**Proporção**: %s</string>
-    <string name="pref_send_meteor_shower_alerts">pref_send_meteor_shower_alerts</string>
-    <string name="pref_send_lunar_eclipse_alerts">pref_send_lunar_eclipse_alerts</string>
     <string name="astronomy_alerts">Alertas de astronomia</string>
     <string name="lunar_eclipse">Eclipse lunar</string>
     <string name="lunar_eclipse_end">Eclipse lunar (fim)</string>
