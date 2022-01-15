@@ -61,13 +61,14 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         chart = TideChart(binding.chart)
         tideList = ListView(binding.tideList, R.layout.list_item_tide) { itemView, tide ->
             val tideBinding = ListItemTideBinding.bind(itemView)
-            val isEstimated = this.table?.tides?.none { t -> t.time == tide.time } ?: true
+            val userProvidedTide = this.table?.tides?.firstOrNull { t -> t.time == tide.time }
+            val isEstimated = userProvidedTide == null
             val factory = if (isEstimated){
                 EstimatedTideListItemFactory(requireContext())
             } else {
                 DefaultTideListItemFactory(requireContext())
             }
-            val item = factory.create(tide)
+            val item = factory.create(userProvidedTide ?: tide)
             item.display(tideBinding)
         }
 
