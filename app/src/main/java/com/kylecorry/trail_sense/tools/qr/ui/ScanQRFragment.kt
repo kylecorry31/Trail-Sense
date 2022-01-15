@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Size
@@ -15,7 +16,6 @@ import com.kylecorry.andromeda.buzz.Buzz
 import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -35,10 +35,7 @@ import kotlinx.coroutines.withContext
 
 class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
-    private val cameraSizePixels = 200
-    private var camera: Camera? = null
-
-    private var torchOn = false
+    private val cameraSize = Size(200, 200)
 
     private var history = mutableListOf<String>()
     private lateinit var qrHistoryList: ListView<String>
@@ -100,27 +97,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
                     deleteResult(text)
                 }
             }
-
-        camera?.stop(this::onCameraUpdate)
-        camera = Camera(
-            requireContext(),
-            viewLifecycleOwner,
-            previewView = binding.qrScan,
-            analyze = true,
-            targetResolution = Size(cameraSizePixels, cameraSizePixels)
-        )
-
-        binding.qrCameraHolder.clipToOutline = true
-
-        binding.qrTorchState.setOnClickListener {
-            torchOn = !torchOn
-            binding.qrTorchState.setImageResource(if (torchOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
-            camera?.setTorch(torchOn)
-        }
-
-        binding.qrZoom.setOnProgressChangeListener { progress, _ ->
-            camera?.setZoom(progress / 100f)
-        }
+        binding.camera.clipToOutline = true
     }
 
 
@@ -200,7 +177,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         super.onCreate(savedInstanceState)
         requestPermissions(listOf(Manifest.permission.CAMERA)) {
             if (Camera.isAvailable(requireContext())) {
-                camera?.start(this::onCameraUpdate)
+                startCamera()
             } else {
                 alertNoCameraPermission()
             }
@@ -210,27 +187,31 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     override fun onResume() {
         super.onResume()
-        torchOn = false
-        binding.qrZoom.progress = 0
-        binding.qrTorchState.setImageResource(R.drawable.ic_torch_off)
         updateHistoryList()
         if (Camera.isAvailable(requireContext())) {
-            camera?.start(this::onCameraUpdate)
+            startCamera()
         }
     }
 
+    private fun startCamera() {
+        if (!isBound) return
+        binding.camera.start(cameraSize) {
+            onCameraUpdate(it)
+        }
+    }
+
+
     @SuppressLint("UnsafeOptInUsageError")
-    private fun onCameraUpdate(): Boolean {
+    private fun onCameraUpdate(bitmap: Bitmap): Boolean {
         if (!isBound) {
+            bitmap.recycle()
             return true
         }
         var message: String? = null
         tryOrNothing {
-            val bitmap = camera?.image?.image?.toBitmap() ?: return@tryOrNothing
             message = QR.decode(bitmap)
             bitmap.recycle()
         }
-        camera?.image?.close()
 
         if (message != null) {
             onQRScanned(message!!)
@@ -277,7 +258,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     override fun onPause() {
         super.onPause()
-        camera?.stop(this::onCameraUpdate)
+        binding.camera.stop()
         Buzz.off(requireContext())
     }
 

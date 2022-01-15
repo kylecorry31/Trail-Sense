@@ -6,53 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/qr_camera_holder"
+    <com.kylecorry.trail_sense.shared.views.CameraView
+        android:id="@+id/camera"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_rectangle"
-        android:elevation="4dp">
-
-        <androidx.camera.view.PreviewView
-            android:id="@+id/qr_scan"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/qr_torch_state"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="@id/qr_scan"
-            app:layout_constraintTop_toTopOf="@id/qr_scan"
-            app:srcCompat="@drawable/ic_torch_off"
-            app:tint="@color/white" />
-
-        <SeekBar
-            android:id="@+id/qr_zoom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="0"
-            app:layout_constraintBottom_toBottomOf="@id/qr_scan"
-            app:layout_constraintEnd_toEndOf="@id/qr_scan"
-            app:layout_constraintStart_toStartOf="@id/qr_scan" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:elevation="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/qr_history"
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:padding="8dp" />
 
 </LinearLayout>
