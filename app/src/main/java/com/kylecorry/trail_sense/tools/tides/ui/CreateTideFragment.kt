@@ -120,7 +120,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
             itemBinding.tideTime.setOnClickListener {
                 CustomUiUtils.pickDatetime(
-                    this,
+                    requireContext(),
                     prefs.use24HourTime,
                     tide.time?.toLocalDateTime() ?: LocalDateTime.now()
                 ) {

@@ -31,11 +31,14 @@ import com.kylecorry.trail_sense.astronomy.ui.fields.providers.*
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
 import com.kylecorry.trail_sense.quickactions.AstronomyQuickActionBinder
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.ErrorBannerReason
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.shared.views.UserError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -100,7 +103,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         chart = AstroChart(binding.sunMoonChart)
 
         binding.datePicker.setOnClickListener {
-            CustomUiUtils.pickDate(this, displayDate) {
+            Pickers.date(requireContext(), displayDate) {
                 if (it != null) {
                     displayDate = it
                     updateUI()

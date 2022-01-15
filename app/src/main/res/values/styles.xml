@@ -21,14 +21,10 @@
         <item name="elevationOverlayEnabled">false</item>
         <item name="colorSurface">?android:colorBackgroundFloating</item>
 
-        <!--TODO: Override these for the time picker-->
-        <item name="colorSurfaceVariant">@color/colorSecondary</item>
-<!--        <item name="colorOnSurfaceVariant"></item>-->
-
         <item name="colorAccent">@color/orange_40</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="materialButtonStyle">@style/ButtonTheme</item>
+        <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
     </style>
@@ -73,6 +69,13 @@
 
     <style name="ButtonTheme" parent="Widget.Material3.Button">
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
+    </style>
+
+    <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="iconTint">?attr/colorOnPrimary</item>
     </style>
 
     <style name="ButtonAppearance">

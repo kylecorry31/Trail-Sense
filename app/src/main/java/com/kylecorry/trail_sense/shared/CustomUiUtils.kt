@@ -16,14 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -35,8 +33,8 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
-import java.time.*
-import java.util.*
+import java.time.Duration
+import java.time.LocalDateTime
 
 object CustomUiUtils {
 
@@ -372,74 +370,15 @@ object CustomUiUtils {
         return sheet
     }
 
-    fun pickDate(
-        fragment: Fragment,
-        default: LocalDate = LocalDate.now(),
-        onDatePick: (value: LocalDate?) -> Unit
-    ) {
-        val datePickerDialog = MaterialDatePicker.Builder.datePicker()
-            .setSelection(default.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli())
-            .build()
-
-        datePickerDialog.addOnCancelListener {
-            onDatePick.invoke(null)
-        }
-        datePickerDialog.addOnDismissListener {
-            onDatePick.invoke(null)
-        }
-        datePickerDialog.addOnPositiveButtonClickListener {
-            val millis = datePickerDialog.selection
-            if (millis == null) {
-                onDatePick.invoke(null)
-                return@addOnPositiveButtonClickListener
-            }
-            val instant = Instant.ofEpochMilli(millis)
-            onDatePick.invoke(LocalDateTime.ofInstant(instant, ZoneId.of("UTC")).toLocalDate())
-        }
-
-        datePickerDialog.show(
-            fragment.requireActivity().supportFragmentManager,
-            fragment.javaClass.name
-        )
-    }
-
-    fun pickTime(
-        fragment: Fragment,
-        use24Hours: Boolean,
-        default: LocalTime = LocalTime.now(),
-        onTimePick: (value: LocalTime?) -> Unit
-    ) {
-        val timePicker = MaterialTimePicker.Builder()
-            .setHour(default.hour)
-            .setMinute(default.minute)
-            .setTimeFormat(if (use24Hours) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
-            .build()
-
-        timePicker.addOnCancelListener {
-            onTimePick.invoke(null)
-        }
-        timePicker.addOnDismissListener {
-            onTimePick.invoke(null)
-        }
-        timePicker.addOnPositiveButtonClickListener {
-           onTimePick.invoke(LocalTime.of(timePicker.hour, timePicker.minute))
-        }
-
-        timePicker.show(
-            fragment.requireActivity().supportFragmentManager,
-            fragment.javaClass.name
-        )
-    }
-
     fun pickDatetime(
-        fragment: Fragment,
+        context: Context,
         use24Hours: Boolean,
         default: LocalDateTime = LocalDateTime.now(),
         onDatetimePick: (value: LocalDateTime?) -> Unit
     ) {
-        pickDate(fragment, default.toLocalDate()) { date ->
+        Pickers.date(context, default.toLocalDate()) { date ->
             if (date != null) {
-                pickTime(fragment, use24Hours, default.toLocalTime()) { time ->
+                Pickers.time(context, use24Hours, default.toLocalTime()) { time ->
                     if (time != null) {
                         onDatetimePick(LocalDateTime.of(date, time))
                     } else {
