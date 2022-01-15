@@ -73,6 +73,10 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         zoomSeek.isVisible = shouldShow
     }
 
+    fun setScaleType(type: PreviewView.ScaleType){
+        preview.scaleType = type
+    }
+
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
         if (captureListener == null && imageListener == null) {

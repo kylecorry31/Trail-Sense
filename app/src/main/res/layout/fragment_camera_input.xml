@@ -6,25 +6,18 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/preview"
+    <com.kylecorry.trail_sense.shared.views.CameraView
+        android:id="@+id/camera"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="16dp"
-        android:keepScreenOn="true"
-        app:scaleType="fitCenter" />
-
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/zoom"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:keepScreenOn="true" />
 
     <Button
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/take_photo" />
 
     <TextView

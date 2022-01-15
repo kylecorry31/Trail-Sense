@@ -39,14 +39,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val cameraClinometer by lazy { CameraClinometer(requireContext()) }
-    private val camera by lazy {
-        Camera(
-            requireContext(),
-            viewLifecycleOwner,
-            previewView = binding.cameraView,
-            analyze = false
-        )
-    }
     private val sideClinometer by lazy { SideClinometer(requireContext()) }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -85,12 +77,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
         CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
-
+        
         binding.cameraViewHolder.clipToOutline = true
 
         binding.clinometerLeftQuickAction.setOnClickListener {
             if (useCamera) {
-                camera.stop(null)
+                binding.camera.stop()
                 binding.clinometerLeftQuickAction.setImageResource(R.drawable.ic_camera)
                 CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
                 useCamera = false
@@ -99,10 +91,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 requestPermissions(listOf(Manifest.permission.CAMERA)) {
                     if (Camera.isAvailable(requireContext())) {
                         useCamera = true
-                        camera.start {
-                            camera.setZoom(binding.cameraZoom.progress / 100f)
-                            true
-                        }
+                        binding.camera.start()
                         binding.clinometerLeftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
                         CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
                         clinometer = getClinometer()
@@ -110,10 +99,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                         alertNoCameraPermission()
                     }
                 }
-            }
-
-            binding.cameraZoom.setOnProgressChangeListener { progress, _ ->
-                camera.setZoom(progress / 100f)
             }
         }
 
@@ -305,7 +290,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     override fun onPause() {
         super.onPause()
         if (useCamera) {
-            camera.stop(null)
+            binding.camera.stop()
             useCamera = false
             clinometer = getClinometer()
         }
@@ -336,7 +321,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             binding.clinometerInstructions.isVisible = !useCamera
             binding.cameraClinometerInstructions.isVisible = useCamera
             binding.cameraViewHolder.isVisible = false
-            binding.cameraZoom.isVisible = false
             binding.clinometer.isInvisible = true
             return
         }
@@ -344,7 +328,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.clinometerInstructions.isVisible = false
         binding.cameraClinometerInstructions.isVisible = false
         binding.cameraViewHolder.isVisible = useCamera
-        binding.cameraZoom.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
         val angle = slopeAngle ?: clinometer.angle

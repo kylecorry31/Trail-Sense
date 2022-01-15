@@ -56,8 +56,8 @@
             android:layout_width="200dp"
             android:layout_height="match_parent">
 
-            <androidx.camera.view.PreviewView
-                android:id="@+id/camera_view"
+            <com.kylecorry.trail_sense.shared.views.CameraView
+                android:id="@+id/camera"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -74,19 +74,6 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <SeekBar
-        android:id="@+id/camera_zoom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:max="100"
-        android:progress="50"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/camera_view_holder"
-        app:layout_constraintStart_toStartOf="@+id/camera_view_holder"
-        app:layout_constraintTop_toBottomOf="@+id/camera_view_holder" />
-
 
     <ImageView
         android:id="@+id/lock"
