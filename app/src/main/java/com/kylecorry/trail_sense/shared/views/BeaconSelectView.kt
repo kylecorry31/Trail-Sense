@@ -8,20 +8,20 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconSelectBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
-import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import kotlinx.coroutines.*
 
 
@@ -90,7 +90,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         val itemBinding = ListItemPlainIconBinding.bind(itemView)
         itemBinding.icon.alpha = 0.86f
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(Resources.color(context, R.color.colorPrimary))
+            ColorStateList.valueOf(Resources.color(context, R.color.brand_orange))
         if (beacon is Beacon) {
             itemBinding.icon.setImageResource(R.drawable.ic_location)
             itemBinding.icon.imageTintList = ColorStateList.valueOf(beacon.color)

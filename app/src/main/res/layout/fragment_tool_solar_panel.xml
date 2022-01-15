@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow"
-        app:tint="@color/colorPrimary"
+        app:tint="@color/brand_orange"
         tools:visibility="visible" />
 
     <ImageView
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow"
-        app:tint="@color/colorPrimary"
+        app:tint="@color/brand_orange"
         tools:visibility="visible" />
 
     <ImageView
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow"
-        app:tint="@color/colorPrimary"
+        app:tint="@color/brand_orange"
         tools:visibility="visible" />
 
     <ImageView
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_arrow"
-        app:tint="@color/colorPrimary"
+        app:tint="@color/brand_orange"
         tools:visibility="visible" />
 
     <ProgressBar

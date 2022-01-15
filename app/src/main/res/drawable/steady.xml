@@ -23,7 +23,7 @@
       android:pathData="m7.2237,19.0107 l-3.473,2.2291c1.1577,0.7431 2.3154,1.486 3.473,2.2291v-1.178h4.7759,4.7766v1.178c1.1577,-0.7431 2.3154,-1.486 3.473,-2.2291l-3.473,-2.2291v1.178h-4.7766,-4.7759z"
       android:strokeLineJoin="miter"
       android:strokeWidth="0.52916664"
-      android:fillColor="@color/colorPrimary"
+      android:fillColor="@color/brand_orange"
       android:strokeColor="#00000000"
       android:strokeLineCap="round"/>
 </vector>

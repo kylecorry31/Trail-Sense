@@ -45,7 +45,7 @@
         app:layout_constraintBottom_toTopOf="@id/flashlight_dial"
         app:layout_constraintEnd_toEndOf="@id/flashlight_dial"
         app:layout_constraintStart_toStartOf="@id/flashlight_dial"
-        app:tint="@color/colorPrimary" />
+        app:tint="@color/brand_orange" />
 
     <com.kylecorry.trail_sense.shared.views.DialSelectView
         android:id="@+id/flashlight_dial"

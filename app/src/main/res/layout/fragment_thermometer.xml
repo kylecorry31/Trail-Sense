@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toStartOf="@+id/temperature"
         app:layout_constraintTop_toTopOf="@+id/temperature"
         app:srcCompat="@drawable/ic_alert"
-        app:tint="@color/colorPrimary"
+        app:tint="@color/brand_orange"
         tools:visibility="visible" />
 
     <ImageView

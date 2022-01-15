@@ -81,7 +81,7 @@ class MaskedProgressView : CanvasView {
         progressColor = try {
             a.getColorOrThrow(R.styleable.MaskedProgressView_android_progressTint)
         } catch (e: Exception){
-            Resources.color(context, R.color.colorPrimary)
+            Resources.color(context, R.color.brand_orange)
         }
 
         horizontal = a.getBoolean(R.styleable.MaskedProgressView_horizontal, true)

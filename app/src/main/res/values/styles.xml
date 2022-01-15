@@ -3,13 +3,16 @@
     <!--This is used for all Android versions-->
     <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">#90000000</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/brand_orange</item>
+        <item name="colorPrimaryContainer">@color/lightOrange</item>
+
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+
+        <item name="colorAccent">@color/brand_orange</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/AppFloatingActionButtonStyle</item>
-        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
     </style>
 
@@ -44,9 +47,10 @@
     <style name="AppBottomSheetModalStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearance">@style/AppBottomSheetAppearance</item>
         <item name="android:padding">16dp</item>
+        <item name="backgroundTint">?android:colorBackgroundFloating</item>
     </style>
 
-    <style name="AppBottomSheetAppearance">
+    <style name="AppBottomSheetAppearance" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeTopRight">16dp</item>
@@ -68,7 +72,7 @@
     </style>
 
     <style name="SnackBarButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/brand_orange</item>
     </style>
-    
+
 </resources>

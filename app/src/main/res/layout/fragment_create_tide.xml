@@ -76,7 +76,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/brand_orange"
                 app:srcCompat="@drawable/ic_add"
                 app:tint="@color/black" />
 

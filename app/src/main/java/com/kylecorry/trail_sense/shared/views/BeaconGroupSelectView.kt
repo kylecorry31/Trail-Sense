@@ -7,13 +7,13 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconGroupSelectBinding
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import kotlinx.coroutines.*
 
 class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
@@ -63,7 +63,7 @@ class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
         itemBinding.icon.alpha = 0.86f
         itemBinding.description.isVisible = false
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(Resources.color(context, R.color.colorPrimary))
+            ColorStateList.valueOf(Resources.color(context, R.color.brand_orange))
         itemBinding.icon.setImageResource(R.drawable.ic_beacon_group)
         itemBinding.title.text = beacon.name
         itemBinding.root.setOnClickListener {

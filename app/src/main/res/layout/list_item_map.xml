@@ -38,7 +38,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/brand_orange"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/name"
