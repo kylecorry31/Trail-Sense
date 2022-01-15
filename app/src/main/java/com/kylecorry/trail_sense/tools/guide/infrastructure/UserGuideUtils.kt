@@ -1,31 +1,23 @@
 package com.kylecorry.trail_sense.tools.guide.infrastructure
 
 import androidx.annotation.RawRes
-import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.markdown.MarkdownService
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.guide.ui.GuideBottomSheetFragment
 
 object UserGuideUtils {
 
-    fun showGuide(fragment: Fragment, @RawRes guideId: Int): AlertDialog? {
+    fun showGuide(fragment: Fragment, @RawRes guideId: Int): BottomSheetDialogFragment? {
         val guides = Guides.guides(fragment.requireContext())
         val guide =
             guides.flatMap { it.guides }.firstOrNull { it.contents == guideId } ?: return null
-
-        val content = UserGuideService(fragment.requireContext()).load(guide.contents)
-        val markdown = MarkdownService(fragment.requireContext())
-        val text = markdown.toMarkdown(content)
-        return Alerts.dialog(
-            fragment.requireContext(),
-            guide.name,
-            text,
-            allowLinks = true,
-            cancelText = null
-        )
+        val sheet = GuideBottomSheetFragment(guide)
+        sheet.show(fragment)
+        return sheet
     }
 
     fun openGuide(fragment: Fragment, @RawRes guideId: Int) {
