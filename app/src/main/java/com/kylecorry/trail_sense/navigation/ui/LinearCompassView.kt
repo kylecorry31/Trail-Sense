@@ -153,7 +153,7 @@ class LinearCompassView : BaseCompassView {
                 when {
                     i % 45 == 0 -> {
                         noFill()
-                        stroke(Resources.color(context, R.color.brand_orange))
+                        stroke(Resources.color(context, R.color.orange_40))
                         strokeWeight(8f)
                     }
                     else -> {

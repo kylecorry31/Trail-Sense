@@ -159,7 +159,7 @@
         android:text="@string/log"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart" />
+        app:layout_constraintStart_toStartOf="@+id/chart"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/log_loading"

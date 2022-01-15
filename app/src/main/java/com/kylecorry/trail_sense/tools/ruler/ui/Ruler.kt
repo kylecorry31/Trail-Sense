@@ -126,7 +126,7 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
             }
             tapBar = View(context)
             tapBar?.let {
-                it.setBackgroundColor(Resources.color(context, R.color.brand_orange))
+                it.setBackgroundColor(Resources.color(context, R.color.orange_40))
                 val layoutParams = ConstraintLayout.LayoutParams(1, 4)
                 it.layoutParams = layoutParams
                 it.layoutParams.width = view.width

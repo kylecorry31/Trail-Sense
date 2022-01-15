@@ -28,6 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/beacon_group_name"
         app:srcCompat="@drawable/ic_beacon_group"
-        app:tint="@color/brand_orange" />
+        app:tint="@color/orange_40" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

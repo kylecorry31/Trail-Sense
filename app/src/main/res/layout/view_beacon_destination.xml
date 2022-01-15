@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:textColor="@color/brand_orange"
+                android:textColor="@color/orange_40"
                 tools:text="SE" />
         </LinearLayout>
 

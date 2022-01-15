@@ -178,7 +178,7 @@ class ThermometerFragment : BoundFragment<FragmentThermometerBinding>() {
                 requireContext(),
                 R.color.colorAccent
             )
-            else -> Resources.color(requireContext(), R.color.brand_orange)
+            else -> Resources.color(requireContext(), R.color.orange_40)
         }
 
         binding.heatAlert.imageTintList = ColorStateList.valueOf(alertColor)

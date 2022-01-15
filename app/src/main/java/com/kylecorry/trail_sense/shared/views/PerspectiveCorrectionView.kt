@@ -65,7 +65,7 @@ class PerspectiveCorrectionView : CanvasView {
     }
 
     override fun setup() {
-        primaryColor = Resources.color(context, R.color.brand_orange)
+        primaryColor = Resources.color(context, R.color.orange_40)
     }
 
     override fun draw() {

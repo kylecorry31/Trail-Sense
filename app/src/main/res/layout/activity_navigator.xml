@@ -22,7 +22,7 @@
         android:id="@+id/view_camera_line"
         android:layout_width="1dp"
         android:layout_height="248dp"
-        android:background="@color/brand_orange"
+        android:background="@color/orange_40"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/linear_compass"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textAppearance="@style/AppTheme.HeaderText"
-            android:textColor="@color/brand_orange"
+            android:textColor="@color/orange_40"
             tools:text="SE" />
     </LinearLayout>
 

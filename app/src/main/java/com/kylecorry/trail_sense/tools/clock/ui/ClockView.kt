@@ -71,7 +71,7 @@ class ClockView : View {
         val handRadius =
             if (isHour) radius - handTruncation - hourHandTruncation else radius - handTruncation
         if (isHour) {
-            paint.color = Resources.color(context, R.color.brand_orange)
+            paint.color = Resources.color(context, R.color.orange_40)
         } else {
             paint.color = Color.WHITE
         }

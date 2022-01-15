@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.units.Coordinate
@@ -90,7 +89,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         val itemBinding = ListItemPlainIconBinding.bind(itemView)
         itemBinding.icon.alpha = 0.86f
         itemBinding.icon.imageTintList =
-            ColorStateList.valueOf(Resources.color(context, R.color.brand_orange))
+            ColorStateList.valueOf(Resources.color(context, R.color.orange_40))
         if (beacon is Beacon) {
             itemBinding.icon.setImageResource(R.drawable.ic_location)
             itemBinding.icon.imageTintList = ColorStateList.valueOf(beacon.color)

@@ -167,7 +167,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val scale = max(scale, 1f)
         stroke(Color.WHITE)
         strokeWeight(dp(1f) / scale)
-        fill(Resources.color(context, R.color.brand_orange))
+        fill(Resources.color(context, R.color.orange_40))
         push()
         rotate(azimuth, pixels.x, pixels.y)
         triangle(

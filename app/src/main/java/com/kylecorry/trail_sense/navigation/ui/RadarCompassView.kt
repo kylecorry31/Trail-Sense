@@ -331,7 +331,7 @@ class RadarCompassView : BaseCompassView {
         }
         distanceSize = sp(10f)
         cardinalSize = sp(10f)
-        primaryColor = Resources.color(context, R.color.brand_orange)
+        primaryColor = Resources.color(context, R.color.orange_40)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
         compass = loadImage(R.drawable.compass, compassSize, compassSize)
