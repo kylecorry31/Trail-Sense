@@ -2,9 +2,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_margin="8dp">
 
     <LinearLayout
@@ -52,6 +52,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/qr_web"
+                style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/open"
@@ -64,6 +65,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/qr_beacon"
+                style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/beacon"
@@ -77,6 +79,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/qr_location"
+                style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/maps"
@@ -89,6 +92,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/qr_save_note"
+                style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/note"
@@ -101,6 +105,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/qr_copy"
+                style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@android:string/copy"
@@ -113,6 +118,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/qr_delete"
+                style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"

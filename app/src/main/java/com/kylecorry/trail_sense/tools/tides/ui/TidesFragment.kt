@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
@@ -79,7 +78,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
         binding.tideListDatePicker.setOnClickListener {
-            Pickers.date(requireContext(), displayDate) {
+            CustomUiUtils.pickDate(this, displayDate) {
                 if (it != null) {
                     displayDate = it
                     onDisplayDateChanged()

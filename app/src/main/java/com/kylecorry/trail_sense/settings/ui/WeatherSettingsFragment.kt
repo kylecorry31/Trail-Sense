@@ -7,7 +7,6 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
@@ -112,8 +111,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefDailyWeatherTime?.summary =
             formatService.formatTime(prefs.weather.dailyForecastTime, false)
         prefDailyWeatherTime?.setOnPreferenceClickListener {
-            Pickers.time(
-                requireContext(),
+            CustomUiUtils.pickTime(
+                this,
                 prefs.use24HourTime,
                 prefs.weather.dailyForecastTime
             ) { time ->
