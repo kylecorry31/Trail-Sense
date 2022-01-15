@@ -11,4 +11,5 @@
     <dimen name="share_sheet_icon_margin">16dp</dimen>
     <dimen name="share_sheet_icon_padding">28dp</dimen>
     <dimen name="rounded_corner_size">8dp</dimen>
+    <dimen name="chart_height">150dp</dimen>
 </resources>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="circular_display_size">298dp</dimen>
+    <dimen name="chart_height">200dp</dimen>
 </resources>
