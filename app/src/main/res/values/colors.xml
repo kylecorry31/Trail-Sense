@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="orange_10">#351000</color>
     <color name="orange_40">#FF6D00</color>
+    <color name="orange_90">#FFA071</color>
     <color name="colorPrimaryLight">#FD750E</color>
     <color name="lightOrange">#FB994F</color>
     <color name="colorAccent">#a0caff</color>

@@ -7,8 +7,8 @@
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="colorPrimaryContainer">@color/orange_40</item>
-        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="colorPrimaryContainer">@color/orange_90</item>
+        <item name="colorOnPrimaryContainer">@color/orange_10</item>
 
         <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
 
@@ -17,6 +17,7 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
     </style>
 
     <!--Override this for other Android versions-->
@@ -69,6 +70,15 @@
 
     <style name="SnackBarButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
         <item name="android:textColor">@color/orange_40</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">?attr/colorPrimary</item>
+        <item name="colorOnContainer">?attr/colorOnPrimary</item>
     </style>
 
 </resources>

@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.units.Coordinate
