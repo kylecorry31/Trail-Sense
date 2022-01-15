@@ -104,6 +104,11 @@ object Guides {
                     R.raw.making_water_potable
                 ),
                 UserGuide(
+                    context.getString(R.string.tides),
+                    context.getString(R.string.experimental),
+                    R.raw.tides
+                ),
+                UserGuide(
                     context.getString(R.string.guide_recommended_apps),
                     context.getString(R.string.guide_recommended_apps_description),
                     R.raw.recommended_apps

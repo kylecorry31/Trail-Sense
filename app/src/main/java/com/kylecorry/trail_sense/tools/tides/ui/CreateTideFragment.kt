@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
@@ -73,6 +74,10 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tideGuideBtn.setOnClickListener {
+            UserGuideUtils.showGuide(this, R.raw.tides)
+        }
 
         tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
             val itemBinding = ListItemTideEntryBinding.bind(view)

@@ -14,9 +14,22 @@
         android:text="@string/tide_table"
         android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/tide_guide_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/tool_user_guide_title"
+        app:layout_constraintBottom_toBottomOf="@id/create_tide_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/create_tide_title"
+        app:srcCompat="@drawable/ic_help"
+        app:tint="?android:textColorPrimary" />
 
     <LinearLayout
         android:layout_width="0dp"
