@@ -11,7 +11,6 @@
         android:id="@+id/navigation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         tools:title="180 S"
         tools:subtitle="10.0, 180.0"
         app:layout_constraintTop_toTopOf="parent"
