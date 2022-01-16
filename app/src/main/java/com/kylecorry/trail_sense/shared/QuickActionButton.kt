@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -30,7 +31,9 @@ abstract class QuickActionButton(
         lifecycleOwner.lifecycle.removeObserver(observer)
     }
 
-    open fun onCreate() {}
+    open fun onCreate() {
+        button.isVisible = true
+    }
     open fun onResume() {}
     open fun onPause() {}
     open fun onDestroy() {}
