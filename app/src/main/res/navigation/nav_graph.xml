@@ -113,13 +113,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_action_experimental_tools_to_toolDepthFragment"
-            app:destination="@id/toolDepthFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_toolsFragment_to_speedometerFragment"
             app:destination="@id/fragmentToolSpeedometer"
             app:enterAnim="@anim/slide_in_right"
@@ -557,10 +550,6 @@
         android:id="@+id/toolConvertFragment"
         android:name="com.kylecorry.trail_sense.tools.convert.ui.FragmentToolConvert"
         android:label="ConvertFragment" />
-    <fragment
-        android:id="@+id/toolDepthFragment"
-        android:name="com.kylecorry.trail_sense.tools.depth.ui.ToolDepthFragment"
-        android:label="ToolDepthFragment" />
     <fragment
         android:id="@+id/toolCliffHeightFragment"
         android:name="com.kylecorry.trail_sense.tools.cliffheight.ui.ToolCliffHeightFragment"

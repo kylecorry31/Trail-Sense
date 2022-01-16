@@ -24,7 +24,7 @@ class ToolTitleView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         title = findViewById(R.id.title)
         subtitle = findViewById(R.id.subtitle)
         CustomUiUtils.setButtonState(leftQuickAction, false)
-        CustomUiUtils.setButtonState(rightQuickAction, true)
+        CustomUiUtils.setButtonState(rightQuickAction, false)
 
         // Update attributes
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.ToolTitleView, 0, 0)

@@ -30,7 +30,6 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val tides by lazy { TidePreferences(context) }
     val power by lazy { PowerPreferences(context) }
     val packs by lazy { PackPreferences(context) }
-    val depth by lazy { DepthPreferences(context) }
     val clinometer by lazy { ClinometerPreferences(context) }
     val errors by lazy { ErrorPreferences(context) }
 

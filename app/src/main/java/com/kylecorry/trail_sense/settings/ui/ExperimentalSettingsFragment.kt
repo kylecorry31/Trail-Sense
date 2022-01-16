@@ -17,8 +17,6 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_experimental_metal_direction)?.isVisible =
             Sensors.hasGyroscope(requireContext())
 
-        preference(R.string.pref_depth_enabled)?.isVisible = Sensors.hasBarometer(requireContext())
-
         onClick(switch(R.string.pref_experimental_maps)) {
             Package.setComponentEnabled(
                 requireContext(),
