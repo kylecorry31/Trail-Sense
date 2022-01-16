@@ -26,6 +26,12 @@ class WeatherPreferences(private val context: Context) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
 
+    val showTemperature by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_weather_show_temperature),
+        false
+    )
+
     val useAltitudeVariance: Boolean = true
 
     val altitudeOutlier: Float

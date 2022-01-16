@@ -150,6 +150,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         } else {
             binding.weatherHumidity.isVisible = false
         }
+
+        binding.weatherTemperature.isVisible = prefs.weather.showTemperature
     }
 
     override fun onResume() {

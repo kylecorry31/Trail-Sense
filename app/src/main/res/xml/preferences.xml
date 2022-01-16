@@ -61,7 +61,7 @@
             app:title="@string/maps" />
 
         <Preference
-            app:icon="@drawable/ic_weather"
+            app:icon="@drawable/cloud"
             app:key="@string/pref_weather_category"
             app:singleLineTitle="false"
             app:title="@string/weather" />

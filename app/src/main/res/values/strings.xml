@@ -1200,6 +1200,8 @@
     <string name="disclaimer_estimated_tide_title">Estimated tide</string>
     <string name="tool_temperature_estimation_title">Temperature estimation</string>
     <string name="tool_temperature_estimation_description">Predict the temperature at a different elevation</string>
+    <string name="pref_weather_show_temperature" translatable="false">pref_weather_show_temperature</string>
+    <string name="pref_weather_show_temperature_title">Show temperature</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

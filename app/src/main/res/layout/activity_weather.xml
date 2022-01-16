@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:dataPointDescription="@string/pressure"
-            app:dataPointIcon="@drawable/barometer"
+            app:dataPointIcon="@drawable/cloud"
             app:layout_columnWeight="1" />
 
         <com.kylecorry.trail_sense.shared.views.DataPointView
