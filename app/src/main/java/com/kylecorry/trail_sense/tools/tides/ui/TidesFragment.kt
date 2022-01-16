@@ -8,6 +8,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
@@ -19,6 +20,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
@@ -63,7 +65,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             val tideBinding = ListItemTideBinding.bind(itemView)
             val userProvidedTide = this.table?.tides?.firstOrNull { t -> t.time == tide.time }
             val isEstimated = userProvidedTide == null
-            val factory = if (isEstimated){
+            val factory = if (isEstimated) {
                 EstimatedTideListItemFactory(requireContext())
             } else {
                 DefaultTideListItemFactory(requireContext())
@@ -134,7 +136,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private fun onTideLoaded() {
         if (!isBound) return
         val tide = table ?: return
-        binding.tideLocation.text = tide.name
+        binding.tideTitle.subtitle.text = tide.name
             ?: if (tide.location != null) formatService.formatLocation(tide.location) else getString(
                 android.R.string.untitled
             )
@@ -165,7 +167,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         val current = current ?: return
         val daily = daily ?: return
 
-        binding.tideHeight.text =
+        binding.tideTitle.title.text =
             getTideTypeName(current.type) + if (current.waterLevel != null) {
                 val height = Distance.meters(current.waterLevel).convertTo(units)
                 " (${formatService.formatDistance(height, 2, true)})"
@@ -181,8 +183,14 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
         binding.position.x = point.x - binding.position.width / 2f
         binding.position.y = point.y - binding.position.height / 2f
-        binding.tideTendency.isVisible = true
-        binding.tideTendency.setImageResource(if (current.rising) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
+        binding.tideTitle.title.setCompoundDrawables(
+            Resources.dp(requireContext(), 24f).toInt(),
+            left = if (current.rising) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down
+        )
+        CustomUiUtils.setImageColor(
+            binding.tideTitle.title,
+            Resources.androidTextColorSecondary(requireContext())
+        )
     }
 
     override fun onResume() {

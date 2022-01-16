@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -20,6 +21,8 @@ class MagnetometerView : CanvasView {
     private var sensitivity = 1f
 
     private val formatService by lazy { FormatService(context) }
+
+    private var lineColor = Color.WHITE
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -39,17 +42,18 @@ class MagnetometerView : CanvasView {
         textMode(TextMode.Center)
         textSize(sp(18f))
         indicatorSize = dp(20f)
+        lineColor = Resources.androidTextColorPrimary(context)
     }
 
     override fun draw() {
         background(Color.TRANSPARENT)
-        stroke(Color.WHITE)
+        stroke(lineColor)
         strokeWeight(4f)
         noFill()
         circle(width / 2f, height / 2f, radius * 2)
         noStroke()
 
-        fill(Color.WHITE)
+        fill(lineColor)
         text(formatService.formatMagneticField(fieldStrength), width / 2f, height / 2f)
 
         if (fieldStrength < sensitivity) {

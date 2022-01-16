@@ -5,91 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/battery_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftQuickActionIcon="@drawable/ic_chart"
+        app:rightQuickActionIcon="@drawable/ic_settings"
+        tools:subtitle="@string/time_until_empty"
+        tools:title="23h" />
+
     <com.kylecorry.trail_sense.shared.views.MaskedProgressView
         android:id="@+id/battery_level_progress"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:drawable="@drawable/ic_battery"
         android:drawableTint="?android:colorBackgroundFloating"
         android:progress="0"
         app:horizontal="false"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battery_time_lbl" />
+        app:layout_constraintTop_toBottomOf="@+id/battery_title" />
 
     <TextView
         android:id="@+id/battery_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?android:textColorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="?android:textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/battery_level_progress"
         app:layout_constraintEnd_toEndOf="@id/battery_level_progress"
         app:layout_constraintStart_toStartOf="@id/battery_level_progress"
         app:layout_constraintTop_toTopOf="@id/battery_level_progress"
-        app:layout_constraintBottom_toBottomOf="@id/battery_level_progress"
         tools:text="10 %" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/battery_history_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        android:visibility="gone"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_chart"
-        tools:visibility="visible" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/battery_phone_battery_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings" />
-
-    <TextView
-        android:id="@+id/battery_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="5h 33m" />
-
-    <TextView
-        android:id="@+id/battery_time_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/battery_time"
-        app:layout_constraintStart_toStartOf="@+id/battery_time"
-        app:layout_constraintTop_toBottomOf="@+id/battery_time"
-        tools:text="@string/time_until_empty" />
 
     <TextView
         android:id="@+id/battery_current"
@@ -143,15 +101,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:textStyle="bold"
         android:textColor="?android:textColorPrimary"
         android:textIsSelectable="true"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/battery_percentage"
-        android:layout_marginTop="4dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/battery_level_progress"
         app:layout_constraintStart_toStartOf="@+id/battery_level_progress"
+        app:layout_constraintTop_toBottomOf="@id/battery_percentage"
         tools:text="1000 mAh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,12 +51,12 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
     }
 
     private fun updateLight() {
-        binding.lux.text = formatService.formatLux(lightSensor.illuminance)
+        binding.lightTitle.title.text = formatService.formatLux(lightSensor.illuminance)
         maxLux = max(lightSensor.illuminance, maxLux)
 
         val distance = binding.beamDistance.value
         if (distance == null) {
-            binding.intensity.text = ""
+            binding.lightTitle.subtitle.text = ""
             binding.beamDistanceText.text = ""
             binding.lightChart.setCandela(0f)
             return
@@ -65,7 +65,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
         val candela = lightService.luxToCandela(maxLux, distance)
         val beamDist = lightService.lightBeamDistance(candela).convertTo(distance.units)
 
-        binding.intensity.text = formatService.formatCandela(candela)
+        binding.lightTitle.subtitle.text = formatService.formatCandela(candela)
         binding.beamDistanceText.text =
             getString(R.string.beam_distance, formatService.formatDistance(beamDist))
         binding.lightChart.setCandela(candela)

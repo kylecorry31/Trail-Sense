@@ -5,28 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/dest_temperature"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/temperature_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="14" />
+        tools:title="14" />
 
     <ScrollView
         android:id="@+id/temperature_estimation_input"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dest_temperature">
+        app:layout_constraintTop_toBottomOf="@id/temperature_title">
 
         <LinearLayout
             android:layout_width="match_parent"

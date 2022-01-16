@@ -40,7 +40,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             return@Timer
         }
         val temp = getEstimation()
-        binding.destTemperature.text = if (temp == null) {
+        binding.temperatureTitle.title.text = if (temp == null) {
             getString(R.string.dash)
         } else {
             formatService.formatTemperature(temp.convertTo(temperatureUnits))
@@ -56,6 +56,8 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.temperatureTitle.subtitle.isVisible = false
 
         val distanceUnits = formatService.sortDistanceUnits(
             listOf(

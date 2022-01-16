@@ -19,6 +19,8 @@ import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -138,12 +140,15 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.thresholdAmount.text = formatService.formatMagneticField(threshold)
 
         val metalDetected = metalDetectionService.isMetal(magneticField, threshold)
-        binding.magneticField.text = formatService.formatMagneticField(magneticField)
-        binding.metalDetected.visibility = if (metalDetected) {
-            View.VISIBLE
-        } else {
-            View.INVISIBLE
-        }
+        binding.metalDetectorTitle.title.text = formatService.formatMagneticField(magneticField)
+        binding.metalDetectorTitle.title.setCompoundDrawables(
+            Resources.dp(requireContext(), 24f).toInt(),
+            right = if (metalDetected) R.drawable.metal else null
+        )
+        CustomUiUtils.setImageColor(
+            binding.metalDetectorTitle.title,
+            Resources.androidTextColorSecondary(requireContext())
+        )
 
         if (metalDetected && !isVibrating) {
             isVibrating = true

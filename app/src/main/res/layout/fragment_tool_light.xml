@@ -7,29 +7,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/lux"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/light_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTheme.HeaderText"
-        tools:text="10 lux" />
-
-    <TextView
-        android:id="@+id/intensity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        tools:text="13,500 cd" />
+        tools:subtitle="13,500 cd"
+        tools:title="10 lux" />
 
     <TextView
         android:id="@+id/beam_distance_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toTopOf="@+id/light_chart"

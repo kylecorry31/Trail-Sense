@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -28,6 +29,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
@@ -75,16 +77,16 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         toast(getString(R.string.set_inclination_instructions))
 
-        CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
-        CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, false)
+        CustomUiUtils.setButtonState(binding.clinometerTitle.leftQuickAction, false)
+        CustomUiUtils.setButtonState(binding.clinometerTitle.rightQuickAction, false)
 
         binding.cameraViewHolder.clipToOutline = true
 
-        binding.clinometerLeftQuickAction.setOnClickListener {
+        binding.clinometerTitle.leftQuickAction.setOnClickListener {
             if (useCamera) {
                 binding.camera.stop()
-                binding.clinometerLeftQuickAction.setImageResource(R.drawable.ic_camera)
-                CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
+                binding.clinometerTitle.leftQuickAction.setImageResource(R.drawable.ic_camera)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.leftQuickAction, false)
                 useCamera = false
                 clinometer = getClinometer()
             } else {
@@ -92,8 +94,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     if (Camera.isAvailable(requireContext())) {
                         useCamera = true
                         binding.camera.start()
-                        binding.clinometerLeftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
-                        CustomUiUtils.setButtonState(binding.clinometerLeftQuickAction, false)
+                        binding.clinometerTitle.leftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
+                        CustomUiUtils.setButtonState(binding.clinometerTitle.leftQuickAction, false)
                         clinometer = getClinometer()
                     } else {
                         alertNoCameraPermission()
@@ -102,7 +104,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
         }
 
-        binding.clinometerRightQuickAction.setOnClickListener {
+        binding.clinometerTitle.rightQuickAction.setOnClickListener {
             askForHeightOrDistance()
         }
 
@@ -199,7 +201,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             if (distance != null) {
                 distanceAway = distance
                 knownHeight = null
-                CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.rightQuickAction, true)
                 if (!prefs.clinometer.measureHeightInstructionsSent) {
                     dialog(
                         getString(R.string.instructions),
@@ -229,7 +231,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             if (distance != null) {
                 knownHeight = distance
                 distanceAway = null
-                CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, true)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.rightQuickAction, true)
                 if (!prefs.clinometer.measureDistanceInstructionsSent) {
                     dialog(
                         getString(R.string.instructions),
@@ -283,7 +285,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         super.onResume()
         if (distanceAway == null && knownHeight == null) {
             distanceAway = prefs.clinometer.baselineDistance
-            CustomUiUtils.setButtonState(binding.clinometerRightQuickAction, distanceAway != null)
+            CustomUiUtils.setButtonState(
+                binding.clinometerTitle.rightQuickAction,
+                distanceAway != null
+            )
         }
     }
 
@@ -315,7 +320,15 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         val locked = isLocked()
 
-        binding.lock.isVisible = locked
+        binding.clinometerTitle.title.setCompoundDrawables(
+            Resources.dp(requireContext(), 24f).toInt(),
+            right = if (locked) R.drawable.lock else null
+        )
+
+        CustomUiUtils.setImageColor(
+            binding.clinometerTitle.title,
+            Resources.androidTextColorPrimary(requireContext())
+        )
 
         if (!isOrientationValid() && !locked) {
             binding.clinometerInstructions.isVisible = !useCamera
@@ -342,10 +355,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.clinometer.angle = angle
         binding.cameraClinometer.inclination = incline
 
-        binding.inclination.text = formatter.formatDegrees(incline)
+        binding.clinometerTitle.title.text = formatter.formatDegrees(incline)
         binding.avalancheRisk.title = getAvalancheRiskString(avalancheRisk)
 
-        binding.inclinationDescription.text =
+        binding.clinometerTitle.subtitle.text =
             getString(R.string.slope_amount, formatter.formatPercentage(getSlopePercent(incline)))
 
         val distanceAway = distanceAway

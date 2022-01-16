@@ -1,47 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/clock_refresh"
-        android:layout_width="wrap_content"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/clock_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_update" />
-
-    <TextView
-        android:id="@+id/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        tools:text="10:00:00 AM"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="@+id/clock"
-        app:layout_constraintStart_toStartOf="@+id/clock"
-        app:layout_constraintTop_toBottomOf="@+id/clock"
-        tools:text="Monday, November 5, 2020" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:rightQuickActionIcon="@drawable/ic_update"
+        app:subtitle="Monday, November 5, 2020"
+        tools:title="10:00:00 AM" />
 
     <TextView
         android:id="@+id/utc_clock"
@@ -49,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="@+id/date"
-        app:layout_constraintStart_toStartOf="@+id/date"
-        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintEnd_toEndOf="@+id/clock_title"
+        app:layout_constraintStart_toStartOf="@+id/clock_title"
+        app:layout_constraintTop_toBottomOf="@+id/clock_title"
         tools:text="UTC: 10:00:00 AM" />
 
     <ImageView
@@ -59,12 +32,12 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        app:tint="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
         app:layout_constraintEnd_toEndOf="@+id/analog_clock"
         app:layout_constraintStart_toStartOf="@+id/analog_clock"
         app:layout_constraintTop_toTopOf="@+id/analog_clock"
-        app:srcCompat="@drawable/bubble" />
+        app:srcCompat="@drawable/bubble"
+        app:tint="@color/colorSecondary" />
 
     <com.kylecorry.trail_sense.tools.clock.ui.ClockView
         android:id="@+id/analog_clock"
@@ -72,23 +45,23 @@
         android:layout_height="250dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/clock"
-        app:layout_constraintStart_toStartOf="@+id/clock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/utc_clock" />
 
     <TextView
         android:id="@+id/updating_clock"
-        android:drawablePadding="8dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:drawablePadding="8dp"
         android:text="@string/clock_waiting_for_gps"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:drawableStartCompat="@drawable/satellite"
+        app:drawableTint="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:drawableStartCompat="@drawable/satellite"
-        app:drawableTint="?android:textColorSecondary" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/pip_button"
@@ -96,9 +69,9 @@
         android:layout_height="wrap_content"
         android:text="@string/pip_button"
         android:visibility="invisible"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/updating_clock"
         app:layout_constraintEnd_toEndOf="@+id/updating_clock"
-        app:layout_constraintStart_toStartOf="@+id/updating_clock" />
+        app:layout_constraintStart_toStartOf="@+id/updating_clock"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

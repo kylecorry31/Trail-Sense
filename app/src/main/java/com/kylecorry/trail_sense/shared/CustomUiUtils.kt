@@ -332,6 +332,12 @@ object CustomUiUtils {
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
+    fun setImageColor(textView: TextView, @ColorInt color: Int?){
+        textView.compoundDrawables.forEach {
+            it?.let { setImageColor(it, color) }
+        }
+    }
+
     fun snackbar(
         fragment: Fragment,
         text: String,

@@ -25,6 +25,8 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.cloudListTitle.subtitle.isVisible = false
+
         listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
             val itemBinding = ListItemCloudBinding.bind(itemView)
             CloudListItem(item, cloudRepo).display(itemBinding)
@@ -33,9 +35,9 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         listView.addLineSeparator()
         listView.setData(cloudRepo.getClouds().sortedByDescending { it.level })
 
-        CustomUiUtils.setButtonState(binding.cloudScanBtn, false)
-        binding.cloudScanBtn.isVisible = UserPreferences(requireContext()).weather.showCloudScanner
-        binding.cloudScanBtn.setOnClickListener {
+        CustomUiUtils.setButtonState(binding.cloudListTitle.rightQuickAction, false)
+        binding.cloudListTitle.rightQuickAction.isVisible = UserPreferences(requireContext()).weather.showCloudScanner
+        binding.cloudListTitle.rightQuickAction.setOnClickListener {
             tryOrNothing {
                 findNavController().navigate(R.id.action_cloud_to_cloud_scan)
             }

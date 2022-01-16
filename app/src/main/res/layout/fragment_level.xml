@@ -5,17 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/angles"
-        android:layout_width="wrap_content"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/level_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="X: 10\nY: 25" />
+        tools:title="X: 10\nY: 25" />
 
     <ImageView
         android:id="@+id/bubble_outline"

@@ -41,8 +41,8 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.pipButton.setOnClickListener {
             sendNextMinuteNotification()
         }
-        CustomUiUtils.setButtonState(binding.clockRefresh, false)
-        binding.clockRefresh.setOnClickListener {
+        CustomUiUtils.setButtonState(binding.clockTitle.rightQuickAction, false)
+        binding.clockTitle.rightQuickAction.setOnClickListener {
             gps.start(this::onGPSUpdate)
             binding.updatingClock.visibility = View.VISIBLE
             binding.pipButton.visibility = View.INVISIBLE
@@ -89,8 +89,8 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
             binding.utcClock.text =
                 getString(R.string.utc_format, formatService.formatTime(utcTime.toLocalTime()))
         }
-        binding.clock.text = formatService.formatTime(myTime.toLocalTime())
-        binding.date.text = formatService.formatDate(myTime)
+        binding.clockTitle.title.text = formatService.formatTime(myTime.toLocalTime())
+        binding.clockTitle.subtitle.text = formatService.formatDate(myTime)
         binding.analogClock.time = myTime.toLocalTime()
         binding.analogClock.use24Hours = prefs.use24HourTime
     }

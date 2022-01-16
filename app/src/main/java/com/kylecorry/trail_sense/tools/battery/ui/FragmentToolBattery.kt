@@ -19,7 +19,10 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.LowPowerMode
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
@@ -84,15 +87,15 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             updateServices()
         }
 
-        CustomUiUtils.setButtonState(binding.batteryPhoneBatterySettings, false)
-        CustomUiUtils.setButtonState(binding.batteryHistoryBtn, false)
+        CustomUiUtils.setButtonState(binding.batteryTitle.leftQuickAction, false)
+        CustomUiUtils.setButtonState(binding.batteryTitle.rightQuickAction, false)
 
-        binding.batteryPhoneBatterySettings.setOnClickListener {
+        binding.batteryTitle.rightQuickAction.setOnClickListener {
             val intentBatteryPhoneSettings = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
             startActivity(intentBatteryPhoneSettings)
         }
 
-        binding.batteryHistoryBtn.setOnClickListener {
+        binding.batteryTitle.leftQuickAction.setOnClickListener {
             val readingDuration =
                 Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
             val chartView = View.inflate(context, R.layout.view_chart_prompt, null)
@@ -121,7 +124,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                 else null
             )
 
-            binding.batteryHistoryBtn.isVisible = readings.size >= 2
+            binding.batteryTitle.leftQuickAction.isVisible = readings.size >= 2
 
             update()
         })
@@ -171,16 +174,16 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.batteryPercentage.text = formatService.formatPercentage(pct.toFloat())
         binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
         binding.batteryCapacity.isVisible = capacity != 0f
-        binding.batteryTime.isVisible = time != null
+        binding.batteryTitle.title.isVisible = time != null
 
         if (time != null) {
-            binding.batteryTime.text = formatService.formatDuration(time)
+            binding.batteryTitle.title.text = formatService.formatDuration(time)
         }
 
         if (time != null && !isCharging) {
-            binding.batteryTimeLbl.text = getString(R.string.time_until_empty)
+            binding.batteryTitle.subtitle.text = getString(R.string.time_until_empty)
         } else if (time != null && isCharging) {
-            binding.batteryTimeLbl.text = getString(R.string.time_until_full)
+            binding.batteryTitle.subtitle.text = getString(R.string.time_until_full)
         }
         binding.batteryHealth.isVisible = battery.health != BatteryHealth.Good
         binding.batteryHealth.text =

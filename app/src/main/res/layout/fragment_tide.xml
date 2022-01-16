@@ -5,31 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tide_height"
-        android:layout_width="wrap_content"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/tide_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/high_tide" />
-
-    <ImageView
-        android:id="@+id/tide_tendency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/pressure_tendency_indicator_alt"
-        android:src="@drawable/ic_arrow_up"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tide_height"
-        app:layout_constraintEnd_toStartOf="@+id/tide_height"
-        app:layout_constraintTop_toTopOf="@+id/tide_height"
-        app:tint="?android:textColorSecondary"
-        tools:srcCompat="@drawable/ic_arrow_down"
-        tools:visibility="visible" />
+        app:rightQuickActionIcon="@drawable/ic_tool_tides"
+        tools:subtitle="Test location"
+        tools:title="@string/high_tide" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -37,21 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="@id/tide_height"
-        app:layout_constraintEnd_toEndOf="@id/tide_height"
-        app:layout_constraintStart_toStartOf="@id/tide_height"
-        app:layout_constraintTop_toTopOf="@id/tide_height" />
-
-    <TextView
-        android:id="@+id/tide_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="@+id/tide_height"
-        app:layout_constraintStart_toStartOf="@+id/tide_height"
-        app:layout_constraintTop_toBottomOf="@+id/tide_height"
-        tools:text="Tidal range: Neap" />
+        app:layout_constraintBottom_toBottomOf="@id/tide_title"
+        app:layout_constraintEnd_toEndOf="@id/tide_title"
+        app:layout_constraintStart_toStartOf="@id/tide_title"
+        app:layout_constraintTop_toTopOf="@id/tide_title" />
 
 
     <com.github.mikephil.charting.charts.LineChart
@@ -96,7 +70,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tide_location">
+        app:layout_constraintTop_toBottomOf="@id/tide_title">
 
         <TextView
             android:id="@+id/tide_list_date_text"

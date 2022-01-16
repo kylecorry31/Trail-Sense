@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.WeatherService
@@ -12,10 +13,13 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightningBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.Instant
 
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
@@ -35,16 +39,25 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
                 Distance.meters(weatherService.getLightningStrikeDistance(lightning, Instant.now()))
                     .convertTo(units)
                     .toRelativeDistance()
-            binding.strikeDistance.text = formatService.formatDistance(
+            binding.lightningTitle.title.text = formatService.formatDistance(
                 d, Units.getDecimalPlaces(d.units),
                 false
             )
-            binding.strikeClose.isVisible = weatherService.isLightningStrikeDangerous(d)
+            binding.lightningTitle.subtitle.isVisible = weatherService.isLightningStrikeDangerous(d)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.lightningTitle.subtitle.setCompoundDrawables(
+            Resources.dp(requireContext(), 24f).toInt(),
+            left = R.drawable.ic_alert
+        )
+
+        CustomUiUtils.setImageColor(binding.lightningTitle.subtitle, AppColor.Red.color)
+
+        binding.lightningTitle.subtitle.isVisible = false
 
         binding.startBtn.setOnClickListener {
             val lightning = lightningTime
@@ -77,7 +90,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         units = prefs.baseDistanceUnits
         distance = null
         lightningTime = null
-        binding.strikeDistance.text = ""
+        binding.lightningTitle.title.text = ""
         binding.startBtn.setImageResource(R.drawable.ic_torch_on)
         binding.startBtn.setText(getString(R.string.lightning))
         binding.startBtn.setState(false)

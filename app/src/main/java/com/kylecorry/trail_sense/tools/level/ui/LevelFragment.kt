@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.tools.level.ui
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.sol.math.SolMath.toDegrees
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
@@ -19,6 +22,11 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
     // TODO: Eventually switch to the rotation sensors
     private val orientationSensor by lazy { GravityOrientationSensor(requireContext()) }
     private val throttle = Throttle(20)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.levelTitle.subtitle.isVisible = false
+    }
 
     override fun onResume() {
         super.onResume()
@@ -69,7 +77,7 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
             atan2(y, x).toDegrees() + 180
         )
 
-        binding.angles.text = getString(
+        binding.levelTitle.title.text = getString(
             R.string.bubble_level_angles,
             formatService.formatDegrees(abs(x)),
             formatService.formatDegrees(abs(y))
