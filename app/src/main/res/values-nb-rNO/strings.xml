@@ -897,4 +897,5 @@
     <string name="qr_text_too_long">Teksten er for lang, QR-kode ble avkortet</string>
     <string name="pref_flashlight_should_timeout_title">Slå av automatisk</string>
     <string name="pref_flashlight_timeout_title">Slå av etter</string>
+    <string name="bearing">Retning</string>
 </resources>
