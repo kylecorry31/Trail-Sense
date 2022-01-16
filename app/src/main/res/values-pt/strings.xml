@@ -204,10 +204,7 @@
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
     <string name="toast_destination_bearing_set">Direção do destino definida</string>
-    <string name="depth_disclaimer">Use por sua própria conta e risco.
-\n
-\nNão utilize sem uma caixa à prova de água e se possível permaneça dentro de uma distância de mergulho segura.</string>
-    <string name="tool_depth_title">Profundidade</string>
+
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -668,9 +665,6 @@
     <string name="pref_auto_low_power_summary">Quando a bateria estiver fraca</string>
     <string name="pref_flashlight_toggle_with_volume_title">Alternar com botões de volume</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Enquanto o Trail Sense estiver aberto</string>
-    <string name="back_press_confirm">Clique em voltar novamente para sair</string>
-    <string name="underwater_mode">Modo subaquático</string>
-    <string name="leave_underwater_mode">Subaquático: clique em voltar para sair</string>
     <string name="pref_tiles_enabled_summary">Pode impedir que as aplicações de poupança da bateria parem o Trail Sense</string>
     <string name="pref_tiles_enabled_title">Tiles do sistema</string>
     <string name="location_not_mocked">A usar localização real</string>

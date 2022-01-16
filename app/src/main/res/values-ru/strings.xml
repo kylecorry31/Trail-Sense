@@ -267,10 +267,7 @@
     <string name="forecasts_category">Прогнозы</string>
     <string name="guide_conserving_battery_title">Экономия батареи</string>
     <string name="guide_weather_prediction_title">Прогноз погоды</string>
-    <string name="depth_disclaimer">Используй на свой страх и риск.
-\n
-\nНе используйте без водонепроницаемого чехла и по возможности оставайтесь на безопасном расстоянии для дайвинга.</string>
-    <string name="tool_depth_title">Глубина</string>
+
     <string name="category_natural">Природное</string>
     <string name="category_safety">Безопасность</string>
     <string name="category_shelter">Укрытие</string>
@@ -811,9 +808,6 @@
     <string name="pref_auto_low_power_summary">Когда батарея разряжена</string>
     <string name="pref_flashlight_toggle_with_volume_title">Переключение с помощью кнопок громкости</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Пока Trail Sense открыт</string>
-    <string name="back_press_confirm">Нажмите назад ещё раз, чтобы выйти</string>
-    <string name="underwater_mode">Подводный режим</string>
-    <string name="leave_underwater_mode">Под водой: нажмите назад для выхода</string>
     <string name="pref_tiles_enabled_summary">Может помешать приложениям для экономии заряда батареи полностью остановить Trail Sense</string>
     <string name="pref_tiles_enabled_title">Системные плитки</string>
     <string name="location_not_mocked">Использование фактического местоположения</string>

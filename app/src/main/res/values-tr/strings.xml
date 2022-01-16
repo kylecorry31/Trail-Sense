@@ -296,10 +296,7 @@
     <string name="tool_cliff_height_disclaimer">Bu aracı yalnızca kullanımı güvenli olduğunda kullanın ve yaralanmayı önlemek için uçurumun altında ne olduğunu kontrol ettiğinizden emin olun. Talimatlar için kullanım kılavuzuna bakın.</string>
     <string name="tool_cliff_height_title">Kayalık Yüksekliği</string>
     <string name="tool_cliff_height_description">Kayalığın yüksekliğini belirleyin</string>
-    <string name="depth_disclaimer">Riski size ait olmak üzere kullanın.
-\n
-\nSu geçirmez kılıf olmadan kullanmayın ve mümkünse güvenli bir dalış mesafesinde kalın.</string>
-    <string name="tool_depth_title">Derinlik</string>
+
     <string name="category_natural">Doğal</string>
     <string name="category_safety">Güvenlik</string>
     <string name="category_shelter">Sığınak</string>
@@ -849,9 +846,6 @@
     <string name="pref_auto_low_power_summary">Piliniz azaldığında</string>
     <string name="pref_flashlight_toggle_with_volume_title">Ses düğmeleri ile aç/kapat</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Trail Sense açıkken</string>
-    <string name="back_press_confirm">Ayrılmak için tekrar geri düğmesine basın</string>
-    <string name="leave_underwater_mode">Su altı: çıkmak için geri düğmesine basın</string>
-    <string name="underwater_mode">Su altı modu</string>
     <string name="action_inventory_clear_confirm">Tüm paketlenen miktarlar silinsin mi\?</string>
     <string name="units_mmhg">mmHg</string>
     <string name="current_format">%s mA</string>

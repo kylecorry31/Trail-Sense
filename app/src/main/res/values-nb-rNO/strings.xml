@@ -229,7 +229,6 @@
     <string name="distance_to">Til</string>
     <string name="distance_from">Fra</string>
     <string name="inventory_empty_text">Ingen elementer</string>
-    <string name="tool_depth_title">Dybde</string>
     <string name="guide_conserving_battery_title">Batterisparing</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrer før navigering</string>
     <string name="pref_altitude_override_sea_level_title">Ved bruk av kjent havnivåtrykk</string>
@@ -741,8 +740,6 @@
     <string name="notifications_blocked">Merknader blokkert</string>
     <string name="battery_usage_restricted">Batteribruk begrenset</string>
     <string name="on">På</string>
-    <string name="back_press_confirm">Trykk «Tilbake» igjen for å forlate</string>
-    <string name="underwater_mode">Undervannsmodus</string>
     <string name="map_perspective_instructions">Omriss av kartet</string>
     <string name="preview">Forhåndsvis</string>
     <string name="delete_map">Slett kart\?</string>
@@ -762,9 +759,7 @@
     <string name="solar_panel_instructions">Plasser telefonen din på overflaten av solcellepanelet for å begynne.</string>
     <string name="tool_solar_panel_title">Solcellepaneljustering</string>
     <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal strømproduksjon</string>
-    <string name="depth_disclaimer">Bruk på egen risiko.
-\n
-\nBruk med vanntett omslag og hold deg på trygg dykkeavstand hvis mulig.</string>
+
     <string name="tide_normal">Normal</string>
     <string name="astro_dialog_rise_set">**Tid**: %s
 \n

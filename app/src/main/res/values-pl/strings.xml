@@ -173,7 +173,6 @@
     <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
     <string name="cliff_height_guide">Szacowanie wysokości klifu</string>
     <string name="tool_cliff_height_title">Wysokość klifu</string>
-    <string name="tool_depth_title">Głębokość</string>
     <string name="category_safety">Bezpieczeństwo</string>
     <string name="category_clothing">Odzież</string>
     <string name="category_hydration">Nawodnienie</string>
@@ -380,9 +379,7 @@
     <string name="clock_waiting_for_gps">Aktualizacja czasu z GPS…</string>
     <string name="tool_solar_panel_summary">Ustaw panele słoneczne, aby uzyskać optymalną produkcję energii</string>
     <string name="tool_cliff_height_description">Zmierz wysokość klifu lub urwiska</string>
-    <string name="depth_disclaimer">Używasz na własne ryzyko.
-\n
-\nNie używaj tego bez wodoodpornej obudowy i jeśli to możliwe, trzymaj się bezpiecznej głębokości podczas nurkowania.</string>
+
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="battery_temp">Telefon: %s</string>
@@ -713,8 +710,6 @@
     <string name="pref_experimental_metal_direction_title">Pokaż kierunek metalu</string>
     <string name="pref_backtrack_history_days_title">Historia śladu powrotnego</string>
     <string name="location_mocked">Korzystanie z udawanej lokalizacji</string>
-    <string name="underwater_mode">Tryb podwodny</string>
-    <string name="leave_underwater_mode">Pod wodą: naciśnij wstecz, aby wyjść</string>
     <string name="pref_tiles_enabled_summary">Może zapobiec całkowitemu zatrzymaniu programu Trail Sense przez aplikacje oszczędzające baterię</string>
     <string name="pref_cell_signal_refresh_cache_summary">Wymusza wczytywanie najnowszych danych o mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
@@ -744,7 +739,6 @@
     <string name="pref_auto_low_power_summary">Gdy poziom naładowania baterii jest niski</string>
     <string name="pref_flashlight_toggle_with_volume_title">Przełącz za pomocą przycisków głośności</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Podczas, gdy program Trail Sense jest otwarty</string>
-    <string name="back_press_confirm">Naciśnij jeszcze raz wstecz, aby wyjść</string>
     <string name="time">Czas</string>
     <string name="days_format">%s d</string>
     <string name="hours_format">%s h</string>

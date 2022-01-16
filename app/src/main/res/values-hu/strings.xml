@@ -113,10 +113,7 @@
     <string name="distance_to">Mibe</string>
     <string name="distance_from">Miből</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Navigálás előtt kalibrálás</string>
-    <string name="depth_disclaimer">Csak saját felelősségre!
-\n
-\nNe használja vízhatlan tok nélkül! Tartózkodjon biztonságos búvárkodási távolságon belül, ha lehetséges!</string>
-    <string name="tool_depth_title">Mélység</string>
+
     <string name="solar_panel_instructions">Helyezze a telefont a napelem felületére a kezdéshez!</string>
     <string name="tool_solar_panel_title">Napelem beállító</string>
     <string name="tool_solar_panel_summary">Napelemek beállítása a megfelelő energiatermeléshez</string>

@@ -281,10 +281,7 @@
     <string name="tool_cliff_height_disclaimer">Tool nur benutzen, wenn es sicher ist. Überprüfen, was sich unter der Klippe befindet, um Verletzungen zu vermeiden. Bedienungsanleitung lesen für Verwendungsanweisungen.</string>
     <string name="tool_cliff_height_description">Höhe einer Klippe oder Versenkung messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
-    <string name="depth_disclaimer">Verwendung auf eigenes Risiko.
-\n
-\nNicht ohne wasserdichtes Gehäuse verwenden und in einer sicheren Tauchtiefe bleiben.</string>
-    <string name="tool_depth_title">Tiefe</string>
+
     <string name="category_safety">Sicherheit</string>
     <string name="category_shelter">Unterstand</string>
     <string name="category_fire">Feuer</string>
@@ -724,9 +721,6 @@
     <string name="pref_privacy_screenshot_protection_title">Screenshots verhindern</string>
     <string name="pref_flashlight_toggle_with_volume_title">Mit Lautstärketasten steuern</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Während Trail Sense geöffnet ist</string>
-    <string name="back_press_confirm">Drücken Sie \"Zurück\" erneut zum Verlassen</string>
-    <string name="underwater_mode">Unter-Wasser-Modus</string>
-    <string name="leave_underwater_mode">Unter Wasser: drücken Sie \"Zurück\" zum Verlassen</string>
     <string name="unit_yards">Yards</string>
     <string name="yards_format">%s yd</string>
     <string name="find_next_occurrence">Nächstes Vorkommen finden</string>

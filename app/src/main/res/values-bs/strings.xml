@@ -144,10 +144,7 @@
     <string name="pref_auto_low_power_summary">Kad vam je baterija niska</string>
     <string name="pref_flashlight_toggle_with_volume_title">Prebacivanje sa zvučnim tipkama</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Dok je Trail Sense otvoren</string>
-    <string name="back_press_confirm">Pritisnite natrag ponovno da izađete</string>
     <string name="pref_low_power_mode_title">Režim za uštedu energije</string>
-    <string name="underwater_mode">Podvodni mod</string>
-    <string name="leave_underwater_mode">Pod vodom: pritisnite natrag za izlaz</string>
     <string name="pref_tiles_enabled_summary">Može spriječiti aplikacije za uštedu baterije da u potpunosti zaustave Trail Sense</string>
     <string name="pref_tiles_enabled_title">Sistemske pločice</string>
     <string name="location_not_mocked">Upotreba stvarne lokacije</string>
@@ -534,10 +531,7 @@
     <string name="tool_cliff_height_description">Izmjerite visinu litice ili pada</string>
     <string name="tool_cliff_height_title">Visina Litice</string>
     <string name="toast_destination_bearing_set">Odredišni ležaj postavljen</string>
-    <string name="depth_disclaimer">Koristite pod vlastitim rizikom.
-\n
-\nNe koristite bez vodootpornog kućišta, i ako je moguće držite se na sigurnoj udaljenosti za ronjenje.</string>
-    <string name="tool_depth_title">Dubina</string>
+
     <string name="category_natural">Prirodno</string>
     <string name="category_safety">Sigurnost</string>
     <string name="category_shelter">Sklonište</string>
