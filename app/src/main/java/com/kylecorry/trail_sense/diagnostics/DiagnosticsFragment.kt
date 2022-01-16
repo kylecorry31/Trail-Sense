@@ -35,8 +35,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CustomUiUtils.setButtonState(binding.sensorDetailsBtn, false)
-        binding.sensorDetailsBtn.setOnClickListener {
+        binding.diagnosticsTitle.rightQuickAction.setOnClickListener {
             findNavController().navigate(R.id.action_diagnostics_to_sensor_details)
         }
         diagnosticListView =

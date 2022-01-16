@@ -59,6 +59,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.metalDetectorTitle.subtitle.isVisible = false
         chart = MetalDetectorChart(
             binding.metalChart,
             Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary)
