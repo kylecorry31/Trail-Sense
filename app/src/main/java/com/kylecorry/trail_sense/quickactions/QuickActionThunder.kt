@@ -7,19 +7,19 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 
-class QuickActionClouds(btn: FloatingActionButton, fragment: Fragment) :
+class QuickActionThunder(btn: FloatingActionButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.cloudy)
+        button.setImageResource(R.drawable.ic_torch_on)
         CustomUiUtils.setButtonState(
             button,
             false
         )
         button.setOnClickListener {
             fragment.findNavController()
-                .navigate(R.id.action_weather_to_clouds)
+                .navigate(R.id.action_weather_to_thunder)
         }
     }
 

@@ -14,7 +14,8 @@ enum class QuickActionType(val id: Int) {
     Maps(7),
     Whistle(8),
     WhiteNoise(9),
-    LowPowerMode(10)
+    LowPowerMode(10),
+    Thunder(11)
 }
 
 object QuickActionUtils {
@@ -25,12 +26,13 @@ object QuickActionUtils {
             QuickActionType.Backtrack -> context.getString(R.string.backtrack)
             QuickActionType.Flashlight -> context.getString(R.string.flashlight_title)
             QuickActionType.Clouds -> context.getString(R.string.clouds)
-            QuickActionType.Temperature -> context.getString(R.string.temperature)
+            QuickActionType.Temperature -> context.getString(R.string.tool_temperature_estimation_title)
             QuickActionType.Ruler -> context.getString(R.string.tool_ruler_title)
             QuickActionType.Maps -> context.getString(R.string.offline_maps)
             QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)
             QuickActionType.WhiteNoise -> context.getString(R.string.tool_white_noise_title)
             QuickActionType.LowPowerMode -> context.getString(R.string.pref_low_power_mode_title)
+            QuickActionType.Thunder -> context.getString(R.string.tool_lightning_title)
         }
     }
 
@@ -58,7 +60,8 @@ object QuickActionUtils {
             QuickActionType.Whistle,
             QuickActionType.Clouds,
             QuickActionType.Temperature,
-            QuickActionType.LowPowerMode
+            QuickActionType.LowPowerMode,
+            QuickActionType.Thunder
         )
     }
 
