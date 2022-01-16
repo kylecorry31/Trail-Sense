@@ -42,7 +42,7 @@
 - Tides
 - Maps
 - Paths
-- Clouds
+- Weather (release cloud scanner)
 - Stability, usability, performance, testing
 
 ## Goals
