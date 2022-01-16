@@ -63,10 +63,10 @@ class FragmentToolSpeedometer : BoundFragment<FragmentToolSpeedometerBinding>() 
         }
 
         // Real time speed
-        binding.instantaneousSpeed.text = formatService.formatSpeed(instantSpeedometer.speed.speed)
+        binding.speedometerTitle.title.text = formatService.formatSpeed(instantSpeedometer.speed.speed)
 
         // Average
-        binding.averageSpeed.text = if (prefs.backtrackEnabled) {
+        binding.speedometerTitle.subtitle.text = if (prefs.backtrackEnabled) {
             getString(
                 R.string.value_average,
                 formatService.formatSpeed(averageSpeedometer.speed.speed)

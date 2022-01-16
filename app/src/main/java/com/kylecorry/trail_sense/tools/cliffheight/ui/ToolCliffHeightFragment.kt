@@ -49,18 +49,6 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
             }
             true
         }
-
-//        binding.startBtn.setOnClickListener {
-//            if (running) {
-//                timer.stop()
-//                running = false
-//            } else {
-//                startTime = Instant.now()
-//                timer.interval(16)
-//                running = true
-//            }
-//            binding.startBtn.setState(running)
-//        }
     }
 
     private fun updateState(action: PressState) {
@@ -125,7 +113,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
         val height = service.getCliffHeight(start, Instant.now(), location)
         val converted = height.convertTo(units)
         val formatted = formatService.formatDistance(converted, 2)
-        binding.height.text = formatted
+        binding.cliffHeightTitle.title.text = formatted
     }
 
     override fun generateBinding(

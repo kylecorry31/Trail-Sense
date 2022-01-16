@@ -5,30 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/instantaneous_speed"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/speedometer_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/AppTheme.HeaderText"
-        tools:text="5.0 mph" />
-
-    <TextView
-        android:id="@+id/average_speed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        tools:text="1.0 mph average" />
+        tools:title="5.0 mph"
+        tools:subtitle="1.0 mph average"/>
 
     <LinearLayout
         android:id="@+id/odometer_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
     <TextView

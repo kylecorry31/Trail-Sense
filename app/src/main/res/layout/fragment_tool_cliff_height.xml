@@ -5,16 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/height"
-        android:layout_width="wrap_content"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/cliff_height_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="10 m" />
+        tools:title="10 m" />
+
 
     <com.kylecorry.trail_sense.shared.views.TileButton
         android:id="@+id/start_btn"
