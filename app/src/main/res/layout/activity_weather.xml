@@ -1,162 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".weather.ui.WeatherFragment">
+    android:orientation="vertical">
 
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/log_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </com.github.mikephil.charting.charts.LineChart>
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/weather_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp" />
 
     <TextView
-        android:id="@+id/pressure"
+        android:id="@+id/daily_forecast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/AppTheme.HeaderText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1020 hPa" />
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        tools:text="@string/forecast_improving" />
 
-    <TextView
-        android:id="@+id/tendency_amount"
-        android:layout_width="wrap_content"
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/beacon_grid"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        android:textIsSelectable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pressure"
-        tools:text="0 hPa / 3h" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/weather_right_quick_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/thermometer" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/weather_left_quick_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cloudy" />
+        android:layout_marginEnd="16dp"
+        app:columnCount="2"
+        app:useDefaultMargins="false">
 
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/weather_pressure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/pressure"
+            app:dataPointIcon="@drawable/barometer"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/weather_pressure_tendency"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="Tendency"
+            app:dataPointIcon="@drawable/ic_arrow_up"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/weather_temperature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="Temperature"
+            app:dataPointIcon="@drawable/thermometer"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/weather_humidity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="Humidity"
+            app:dataPointIcon="@drawable/ic_category_water"
+            app:layout_columnWeight="1" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/pressure_history_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/chart"
-        app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart"
         tools:text="Last 48 hours" />
 
-    <TextView
-        android:id="@+id/pressure_marker"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chart_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/log_btn"
-        app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart"
-        app:layout_constraintTop_toTopOf="@id/log_btn"
-        tools:text="999 hPa, 3h ago"
-        tools:visibility="visible" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/pressure_history_duration"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tendency_amount">
-
-        <ImageView
-            android:id="@+id/weather_now_img"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/light_rain" />
+        android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/weather_now_lbl"
+            android:id="@+id/pressure_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/weather_now_img"
-            app:layout_constraintStart_toEndOf="@+id/weather_now_img"
-            app:layout_constraintTop_toTopOf="@+id/weather_now_img"
-            tools:text="@string/weather_worsening_slow" />
+            android:visibility="gone"
+            tools:text="999 hPa, 3h ago"
+            tools:visibility="visible" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/log_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:text="@string/log" />
 
-    <TextView
-        android:id="@+id/weather_later_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:text="@string/forecast_worsening" />
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/log_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+    </FrameLayout>
 
-    <Button
-        android:id="@+id/log_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:text="@string/log"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart"/>
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/log_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/log_btn"
-        app:layout_constraintEnd_toEndOf="@+id/log_btn"
-        app:layout_constraintStart_toStartOf="@+id/log_btn"
-        app:layout_constraintTop_toTopOf="@id/log_btn" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

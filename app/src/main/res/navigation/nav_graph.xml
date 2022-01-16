@@ -225,15 +225,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_action_experimental_tools_to_thermometerFragment"
-            app:destination="@id/thermometerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_tools_to_temperature_humidity"
-            app:destination="@id/temperatureHumidityFragment"
+            android:id="@+id/action_tools_to_temperature_estimation"
+            app:destination="@id/temperatureEstimationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -259,15 +252,8 @@
         android:label="activity_weather"
         tools:layout="@layout/activity_weather">
         <action
-            android:id="@+id/action_action_weather_to_thermometerFragment"
-            app:destination="@id/thermometerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_weather_to_temperature_humidity"
-            app:destination="@id/temperatureHumidityFragment"
+            android:id="@+id/action_weather_to_temperature_estimation"
+            app:destination="@id/temperatureEstimationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -454,30 +440,6 @@
         android:id="@+id/licenseFragment"
         android:name="com.kylecorry.trail_sense.licenses.LicenseFragment"
         android:label="LicenseFragment" />
-    <fragment
-        android:id="@+id/temperatureHumidityFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.TemperatureHumidityFragment"
-        android:label="TemperatureHumidityFragment">
-        <action
-            android:id="@+id/action_temperature_humidity_to_temperature_estimation"
-            app:destination="@id/temperatureEstimationFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/thermometerFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.ThermometerFragment"
-        android:label="ThermometerFragment">
-        <action
-            android:id="@+id/action_thermometer_to_temperature_estimation"
-            app:destination="@id/temperatureEstimationFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
     <fragment
         android:id="@+id/weatherSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.WeatherSettingsFragment"

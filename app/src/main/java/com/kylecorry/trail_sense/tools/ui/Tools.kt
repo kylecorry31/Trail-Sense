@@ -148,9 +148,10 @@ object Tools {
         val weather = ToolGroup(
             context.getString(R.string.weather), listOfNotNull(
                 Tool(
-                    context.getString(R.string.tool_thermometer_title),
+                    context.getString(R.string.tool_temperature_estimation_title),
                     R.drawable.thermometer,
-                    if (Sensors.hasHygrometer(context)) R.id.action_tools_to_temperature_humidity else R.id.action_action_experimental_tools_to_thermometerFragment
+                    R.id.action_tools_to_temperature_estimation,
+                    context.getString(R.string.tool_temperature_estimation_description)
                 ),
                 Tool(
                     context.getString(R.string.clouds),

@@ -122,6 +122,12 @@
     <string name="no_data">No data</string>
     <string name="dew_point">Dew point %s</string>
     <!--Weather Tab - Forecasts-->
+    <string name="weather_improving">Improving</string>
+    <string name="weather_worsening">Worsening</string>
+    <string name="weather_unchanging">Unchanging</string>
+    <string name="weather_storm">Storm</string>
+    <string name="very_soon">Very soon</string>
+    <string name="soon">Soon</string>
     <string name="weather_improving_fast">Improving very soon</string>
     <string name="weather_improving_slow">Improving soon</string>
     <string name="weather_worsening_slow">Worsening soon</string>
@@ -1192,6 +1198,8 @@
     <string name="tide_deleted">Tide deleted</string>
     <string name="disclaimer_estimated_tide">Estimated tides may be inaccurate. Please use an official tide table for the exact times.</string>
     <string name="disclaimer_estimated_tide_title">Estimated tide</string>
+    <string name="tool_temperature_estimation_title">Temperature estimation</string>
+    <string name="tool_temperature_estimation_description">Predict the temperature at a different elevation</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

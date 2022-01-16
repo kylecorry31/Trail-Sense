@@ -17,12 +17,12 @@ class WeatherQuickActionBinder(
     override fun bind() {
         getQuickActionButton(
             prefs.leftQuickAction,
-            binding.weatherLeftQuickAction
+            binding.weatherTitle.leftQuickAction
         ).bind(fragment)
 
         getQuickActionButton(
             prefs.rightQuickAction,
-            binding.weatherRightQuickAction
+            binding.weatherTitle.rightQuickAction
         ).bind(fragment)
     }
 
