@@ -5,36 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/astronomy_left_quick_action"
-        android:layout_width="wrap_content"
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/astronomy_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_tool_whistle" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/astronomy_right_quick_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/flashlight" />
+        />
 
     <ImageView
         android:id="@+id/chart_night"
@@ -70,28 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display_date" />
 
-    <TextView
-        android:id="@+id/remaining_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:textAppearance="@style/AppTheme.HeaderText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="5h 33m" />
-
-    <TextView
-        android:id="@+id/remaining_time_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="@+id/remaining_time"
-        app:layout_constraintStart_toStartOf="@+id/remaining_time"
-        app:layout_constraintTop_toBottomOf="@+id/remaining_time"
-        tools:text="@string/until_sunset_label" />
-
     <LinearLayout
         android:id="@+id/display_date"
         android:layout_width="wrap_content"
@@ -101,7 +58,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/remaining_time_lbl">
+        app:layout_constraintTop_toBottomOf="@id/astronomy_title">
 
         <TextView
             android:id="@+id/date"

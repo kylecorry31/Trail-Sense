@@ -17,12 +17,12 @@ class AstronomyQuickActionBinder(
     override fun bind() {
         getQuickActionButton(
             prefs.leftQuickAction,
-            binding.astronomyLeftQuickAction
+            binding.astronomyTitle.leftQuickAction
         ).bind(fragment)
 
         getQuickActionButton(
             prefs.rightQuickAction,
-            binding.astronomyRightQuickAction
+            binding.astronomyTitle.rightQuickAction
         ).bind(fragment)
     }
 

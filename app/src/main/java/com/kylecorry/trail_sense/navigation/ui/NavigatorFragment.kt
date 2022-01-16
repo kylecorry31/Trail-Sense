@@ -211,7 +211,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         speedometer.asLiveData().observe(viewLifecycleOwner,
             { updateUI() })
 
-        binding.location.setOnLongClickListener {
+        binding.navigationTitle.subtitle.setOnLongClickListener {
+            // TODO: Show custom share sheet instead
             Pickers.menu(it, R.menu.location_share_menu) { menuItem ->
                 val sender = when (menuItem) {
                     R.id.action_send -> LocationSharesheet(requireContext())
@@ -224,7 +225,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             true
         }
 
-        binding.location.setOnClickListener {
+        binding.navigationTitle.subtitle.setOnClickListener {
             val sheet = LocationBottomSheet()
             sheet.gps = gps
             sheet.show(this)
@@ -315,10 +316,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (sightingCompass.isRunning()) {
             // TODO: Extract this logic to the flashlight (if camera is in use)
             if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-                binding.navigationRightQuickAction.isClickable = false
+                binding.navigationTitle.rightQuickAction.isClickable = false
             }
             if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-                binding.navigationLeftQuickAction.isClickable = false
+                binding.navigationTitle.leftQuickAction.isClickable = false
             }
         }
     }
@@ -326,10 +327,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun disableSightingCompass() {
         sightingCompass.stop()
         if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-            binding.navigationRightQuickAction.isClickable = true
+            binding.navigationTitle.rightQuickAction.isClickable = true
         }
         if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-            binding.navigationLeftQuickAction.isClickable = true
+            binding.navigationTitle.leftQuickAction.isClickable = true
         }
     }
 
@@ -601,9 +602,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
-        binding.compassAzimuth.text =
-            formatService.formatDegrees(compass.bearing.value, replace360 = true)
-        binding.compassDirection.text = formatService.formatDirection(compass.bearing.direction)
+        binding.navigationTitle.title.text =
+            formatService.formatDegrees(compass.bearing.value, replace360 = true).padStart(4, ' ') + "   " + formatService.formatDirection(compass.bearing.direction).padStart(2, ' ')
 
         // Compass
         updateCompassView()
@@ -614,7 +614,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
 
         // Location
-        binding.location.text = formatService.formatLocation(gps.location)
+        binding.navigationTitle.subtitle.text = formatService.formatLocation(gps.location)
 
         updateNavigationButton()
 

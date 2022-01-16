@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"

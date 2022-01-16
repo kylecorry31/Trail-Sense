@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/navigation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        tools:title="180 S"
+        tools:subtitle="10.0, 180.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <com.kylecorry.trail_sense.shared.views.CameraView
         android:id="@+id/view_camera"
         android:layout_width="200dp"
@@ -29,33 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/linear_compass" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/compass_azimuth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/AppTheme.HeaderText"
-            tools:text="120°" />
-
-        <TextView
-            android:id="@+id/compass_direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textAppearance="@style/AppTheme.HeaderText"
-            android:textColor="@color/orange_40"
-            tools:text="SE" />
-    </LinearLayout>
 
     <com.kylecorry.trail_sense.navigation.ui.RoundCompassView
         android:id="@+id/round_compass"
@@ -64,7 +49,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation_title" />
 
     <com.kylecorry.trail_sense.navigation.ui.RadarCompassView
         android:id="@+id/radar_compass"
@@ -74,7 +59,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation_title" />
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"
@@ -97,37 +82,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/navigation_left_quick_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintStart_toEndOf="@+id/ruler"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ruler" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/navigation_right_quick_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="?android:textColorSecondary"
-        app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/flashlight" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sighting_compass_btn"
@@ -156,17 +110,6 @@
         android:src="@drawable/ic_beacon"
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="0.0, 0.0" />
 
     <LinearLayout
         android:id="@+id/accuracy_view"

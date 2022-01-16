@@ -476,23 +476,23 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         withContext(Dispatchers.Main) {
             if (nextSunrise != null && (nextSunset == null || nextSunrise?.isBefore(nextSunset) == true)) {
-                binding.remainingTime.text =
+                binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunrise))
-                binding.remainingTimeLbl.text = getString(
+                binding.astronomyTitle.subtitle.text = getString(
                     R.string.until_sun_time, getSunriseWording()
                 )
             } else if (nextSunset != null) {
-                binding.remainingTime.text =
+                binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunset))
-                binding.remainingTimeLbl.text = getString(
+                binding.astronomyTitle.subtitle.text = getString(
                     R.string.until_sun_time, getSunsetWording()
                 )
             } else if (astronomyService.isSunUp(gps.location)) {
-                binding.remainingTime.text = getString(R.string.sun_up_no_set)
-                binding.remainingTimeLbl.text = getString(R.string.sun_does_not_set)
+                binding.astronomyTitle.title.text = getString(R.string.sun_up_no_set)
+                binding.astronomyTitle.subtitle.text = getString(R.string.sun_does_not_set)
             } else {
-                binding.remainingTime.text = getString(R.string.sun_down_no_set)
-                binding.remainingTimeLbl.text = getString(R.string.sun_does_not_rise)
+                binding.astronomyTitle.title.text = getString(R.string.sun_down_no_set)
+                binding.astronomyTitle.subtitle.text = getString(R.string.sun_does_not_rise)
             }
         }
     }

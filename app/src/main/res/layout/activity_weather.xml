@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:dataPointDescription="Tendency"
+            app:dataPointDescription="@string/pressure_tendency"
             app:dataPointIcon="@drawable/ic_arrow_up"
             app:layout_columnWeight="1" />
 
