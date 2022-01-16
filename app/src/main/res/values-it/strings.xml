@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Navigazione</string>
     <string name="weather">Meteo</string>
     <string name="settings">Impostazioni</string>
@@ -300,7 +300,7 @@
     <string name="tool_cliff_height_title">Altezza precipizio</string>
     <string name="beacon_action_view_details">Vedere i dettagli</string>
     <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
-    <string name="error_occurred_message">Trail Sense</string>
+    <string name="error_occurred_message">Trail Sense ha incontrato un errore e verrà chiusa. Per favore invia una email allo sviluppatore affinché il problema venga risolto.</string>
     <string name="none">Nessuno</string>
     <string name="low">Bassa</string>
     <string name="moderate">Moderata</string>
@@ -445,9 +445,9 @@
     <string name="all_beacons">Tutti i Segnaposto</string>
     <string name="max_depth">Massimo: %s</string>
     <string name="theme_sunset_sunrise">Alba/tramonto</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">"Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte,  premi %s una volta finito.
+    <string name="calibrate_compass_on_navigate_dialog_content">Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte, premi %s una volta finito.
 \n
-\nQuesto avviso può essere disabilitato nelle impostazioni dell\'app."</string>
+\nQuesto avviso può essere disabilitato nelle impostazioni dell\'app.</string>
     <string name="toast_destination_bearing_set">Direzione della destinazione impostata</string>
 
     <string name="cliff_height_guide">Stima altezza precipizio</string>
@@ -498,4 +498,166 @@
     <string name="tool_solar_panel_summary">Posiziona pannelli solari per avere la potenza ottimale</string>
     <string name="water_boil_timer">Timer bollitura acqua</string>
     <string name="freezing_temperatures_description">L\'acqua si giaccerà se lasciata fuori e la pioggia potrebbe diventare neve</string>
+    <string name="flashlight_strobe">Lampeggio</string>
+    <string name="three">3</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="compass_declination">Declinazione magnetica</string>
+    <string name="two">2</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="stratus_desc">Nuvola bassa che copre il cielo. Gli oggetti non proiettano ombre e potrebbe esserci nebbia.</string>
+    <string name="cumulonimbus_desc">Nuvole basse molto sviluppate verticalmente. Sono tipicamente scure e a forma di incudine.</string>
+    <string name="onboarding_astronomy">- Sii a conoscenza di quando Sole e Luna sorgono e tramontano
+\n
+\n- Vieni avvisato quando il sole sta per tramontare
+\n
+\n- Indica il Sole e la Luna sulla bussola</string>
+    <string name="onboarding_tools">- Accedi a strumenti che ti assistono in ogni situazione nella natura
+\n
+\n- Invia segnali utilizzando la torcia o fischiando
+\n
+\n- Converti le coordinate di una mappa cartacea utilizzando il telefono
+\n
+\n- Misura angoli e determina l\'altezza degli oggetti
+\n
+\n- Sincronizza l\'orologio senza utilizzare una connessione a Internet
+\n
+\n- Scrivi delle note e tieni traccia di oggetti a portata di mano
+\n
+\n- Trova oggetti di ferro/acciaio caduti</string>
+    <string name="onboarding_privacy">- Trail Sense rispetta la tua privacy e i dati sulla posizione non lasciano mai il tuo dispositivo
+\n
+\n- Trail Sense non richiederà mai di accedere ad Internet
+\n
+\n- Guarda la [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (si apre nel browser del tuo telefono)
+\n
+\n- Alcune funzionalità di Trail Sense richiedono l\'accesso alla tua posizione
+\n
+\n- Consentire l\'accesso alla posizione abiliterà le seguenti funzionalità:
+\n
+\n\t- Navigazione verso i beacons
+\n
+\n\t- Accuratezza delle previsioni meteo migliorata (richiede di accedere alla posizione in background, non disponibile in tutti i dispositivi)
+\n
+\n\t- Backtrack (richiede la posizione in background)
+\n
+\n\t- Orari di Sole e Luna per la tua posizione
+\n
+\n- Se decidi di non consentire l\'accesso alla posizione, puoi inserire una posizione nel menù Impostazioni &gt; Calibrazione GPS in Trail Sense.
+\n
+\n- Dopo aver cliccato continua, ti verrà chiesto di consentire l\'accesso alla posizione e alla posizione in background. Negare tali autorizzazioni preverrà Trail Sens dall\'accedere alla tua posizione, quindi un inserimento manuale della posizione è raccomandato.</string>
+    <string name="left_quick_action">Azione rapida sinistra</string>
+    <string name="tide_calibration_instructions">Imposta l\'ora di un\'alta marea vicina a te, preferibilmente un giorno di Luna piena o Luna nuova. Questa può essere ottenuta online o tramite tabelle cartacee. Le maree mostrate in Trail Sense potrebbero essere sbagliate di anche due ore, cioè bastano come riferimento ma non ci si deve fare affidamento.</string>
+    <string name="sleep_timer">Timer sonno</string>
+    <string name="pedometer_disclaimer">L\'accuratezza e l\'impatto sulla batteria del pedometro dipendono dal produttore del dispositivo e dalla lunghezza di passo inserita. Provalo a casa per un po\' per verificare il consumo di batteria e l\'accuratezza prima di usarlo fuori.</string>
+    <string name="altocumulus_desc">Nuvole medie a fiocchi che somigliano a palline di cotone. Sono tipicamente bianche con chiazze più scure sotto. Possono essere spaziate o ravvicinate.</string>
+    <string name="dashed">Tratteggiato a linee</string>
+    <string name="backtrack_battery_warning">Intervalli corti (sotto i 15 minuti) potrebbero causare un eccessivo consumo di batteria</string>
+    <string name="arrow">Freccia</string>
+    <string name="dotted">Tratteggiato a punti</string>
+    <string name="camera_permission_denied">Accesso alla fotocamera negato, impossibile abilitare le funzioni con fotocamera. Puoi abilitarla nelle impostazioni.</string>
+    <string name="color">Colore</string>
+    <string name="precise_inches_format">%s in</string>
+    <string name="pedometer">Pedometro</string>
+    <string name="tide_location_label">Località maree (opzionale)</string>
+    <string name="no_tides">Nessuna marea</string>
+    <string name="guide_importing_maps_title">Importare le mappe</string>
+    <string name="previous">Precedente</string>
+    <string name="water_boil_timer_done_title">Bollitura acqua completata</string>
+    <string name="export">Esporta</string>
+    <string name="import_btn">Importa</string>
+    <string name="disclaimer_message_title">Limitazione di responsabilità</string>
+    <string name="app_disclaimer_message_title">Note legali / Termini di servizio</string>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d beacon importato</item>
+        <item quantity="other">%d beacons importati</item>
+    </plurals>
+    <string name="create_map">Crea una mapap</string>
+    <string name="updates">Aggiornamenti</string>
+    <string name="utc_format">%s UTC</string>
+    <string name="one">1</string>
+    <string name="cirrus_desc">Nuvole alte fibrose che sembrano ciuffi di capelli bianchi.</string>
+    <string name="create_tide">Crea Marea</string>
+    <string name="tomorrow_at">Domani alle %s</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Massimo %d meteore/ora</string>
+    <string name="meteor_shower">Sciami meteorici</string>
+    <string name="pref_meteor_showers_title">Sciami meteorici</string>
+    <string name="guide_signaling_for_help_title">Inviare segnali di aiuto</string>
+    <string name="guide_using_printed_maps">Utilizzare mappe cartacee</string>
+    <string name="source">Provenienza</string>
+    <string name="altostratus_desc">Nuvole medie che coprono il cielo. Il sole si vede a malapena come una chiazza luminosa.</string>
+    <string name="nimbostratus_desc">Nuvola media grigia scuro che copre il cielo. Potrebbe piovere.</string>
+    <string name="privacy_and_location">Privacy e Posizione</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d beacon esportato</item>
+        <item quantity="other">%d beacons esportati</item>
+    </plurals>
+    <string name="menu">Menu</string>
+    <string name="import_gpx">Importa GPX</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="current_format">%s mA</string>
+    <string name="pref_privacy_policy_title">Informativa sulla privacy</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="battery_power_wireless">Senza fili</string>
+    <string name="delete_waypoint_prompt">Cancellare segnaposto\?</string>
+    <string name="stratocumulus_desc">Nuvole basse che somigliano a uno strato di cotone con piccoli buchi. I colori spaziano dal bianco al grigio scuro.</string>
+    <string name="cumulus_desc">Nuvole basse che somigliano a palline di cotone. Sono sparpagliate e tipicamente bianche con chiazze più scure sotto.</string>
+    <string name="onboarding_weather">- Ottieni previsioni meteo localizzate utilizzando il barometro del telefono
+\n
+\n- Non richiede una connessione a Internet
+\n
+\n- Vieni avvisato di temporali imminenti</string>
+    <string name="onboarding_user_guide">Impara a usare le funzionalità di Trail Sense tramite il manuale utente. Disponibile in fondo alla scheda Strumenti.
+\n
+\nGuide aggiuntive saranno disponibili a breve.</string>
+    <string name="time_ago">%s fa</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="distance_from_flashlight">Distanza del telefono dalla torcia</string>
+    <string name="lux_format">%s lx</string>
+    <string name="candela_format">%s cd</string>
+    <string name="beam_distance">Profondità fascio %s</string>
+    <string name="pref_backtrack_save_cell_summary">Registra la potenza del segnale cellulare presso il segnaposto. Non utilizza Internet.</string>
+    <string name="pref_backtrack_save_cell_title">Registra segnale cellulare</string>
+    <string name="guide_light_meter_title">Determina l\'efficacia della torcia</string>
+    <string name="guide_light_meter_description">Come determinare la profondità del fascio delle torce</string>
+    <string name="service_update_frequency">Aggiornato ogni %s</string>
+    <string name="right_quick_action">Azione rapida destra</string>
+    <string name="experimental">Sperimentale</string>
+    <string name="tides">Maree</string>
+    <string name="pref_daily_weather_time_title">Orario meteo giornaliero</string>
+    <string name="value_since_time">%s dal %s</string>
+    <string name="saltwater_switch">È acqua salata\?</string>
+    <string name="odometer">Odometro</string>
+    <string name="rename">Rinomina</string>
+    <string name="no_maps">Nessuna mappa</string>
+    <string name="select_map_image">Selezione l\'immagine di una mappa</string>
+    <string name="create_map_description">Inserisci il nome della mappa</string>
+    <string name="next">Successivo</string>
+    <string name="guide_speedometer_title">Determina velocità e distanza</string>
+    <string name="guide_speedometer_desc">Come determinare la distanza percorsa e i tempi di arrivo</string>
+    <string name="map_auto_calibrated">Mappa calibrata automaticamente, per favore verificane l\'accuratezza</string>
+    <string name="minute_symbol">min</string>
+    <string name="hour_symbol">h</string>
+    <string name="importing_map">Importando la mappa</string>
+    <string name="error_importing_map">Errore importando la mappa</string>
+    <string name="pref_odometer_reset_daily_title">Resetta giornalmente</string>
+    <string name="search">Cerca</string>
+    <string name="pref_weather_show_detailed_icon_title">Mostra un\'icona di notifica colorata</string>
+    <string name="solid">Continuo</string>
+    <string name="pref_default_path_style_title">Stile predefinito del percorso</string>
+    <string name="pref_default_path_color_title">Colore predefinito del percorso</string>
+    <string name="backtrack_high_priority_notification">Posiziona un segnaposto ogni %s</string>
+    <string name="battery_warning">Avviso consumo batteria</string>
+    <string name="sunset_alert_location_update">Aggiornamento della posizione per l\'avviso di tramonto</string>
+    <string name="background_update">Aggiornamento in background</string>
+    <string name="calibrate_new_tide">Calibrare su una nuova marea\?</string>
+    <string name="water_boil_guide_title">Rendere l\'acqua sicura da bere</string>
+    <string name="last_signal_beacon_name">Ultimo segnale - %s (%s)</string>
+    <string name="noon">Mezzogiorno</string>
+    <string name="for_sunrise_and_set">Per alba e tramonto</string>
 </resources>
