@@ -23,8 +23,6 @@ class ToolTitleView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         rightQuickAction = findViewById(R.id.right_quick_action)
         title = findViewById(R.id.title)
         subtitle = findViewById(R.id.subtitle)
-        CustomUiUtils.setButtonState(leftQuickAction, false)
-        CustomUiUtils.setButtonState(rightQuickAction, false)
 
         // Update attributes
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.ToolTitleView, 0, 0)
@@ -43,6 +41,9 @@ class ToolTitleView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
             rightQuickAction.isVisible = true
             rightQuickAction.setImageResource(rightIcon)
         }
+
+        CustomUiUtils.setButtonState(leftQuickAction, false)
+        CustomUiUtils.setButtonState(rightQuickAction, false)
     }
 
 }
