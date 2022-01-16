@@ -438,6 +438,14 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatLongTermWeather(weather: Weather): String {
+        return when (weather) {
+            Weather.ImprovingFast, Weather.ImprovingSlow -> context.getString(R.string.forecast_improving)
+            Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> context.getString(R.string.forecast_worsening)
+            else -> ""
+        }
+    }
+
     fun sortDistanceUnits(
         units: List<DistanceUnits>,
         metric: Boolean = prefs.baseDistanceUnits == DistanceUnits.Meters

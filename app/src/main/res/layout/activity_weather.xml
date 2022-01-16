@@ -72,19 +72,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cloudy" />
 
-    <ImageView
-        android:id="@+id/barometer_trend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/pressure_tendency_indicator_alt"
-        android:src="@drawable/ic_arrow_up"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/pressure"
-        app:layout_constraintEnd_toStartOf="@+id/pressure"
-        app:layout_constraintTop_toTopOf="@+id/pressure"
-        tools:srcCompat="@drawable/ic_arrow_down"
-        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/pressure_history_duration"
