@@ -30,6 +30,13 @@
         <attr name="dataPointTint" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ToolTitleView">
+        <attr name="leftQuickActionIcon" format="reference" />
+        <attr name="rightQuickActionIcon" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="TileButton">
         <attr name="tileIcon" format="reference" />
         <attr name="tileText" format="string" />
@@ -43,11 +50,11 @@
     </declare-styleable>
 
     <declare-styleable name="FloatingActionButtonMenu">
-        <attr name="menu" format="reference"/>
+        <attr name="menu" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ColorButton">
-        <attr name="buttonColor" format="color"/>
+        <attr name="buttonColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="MaskedProgressView">
@@ -55,7 +62,7 @@
         <attr name="android:drawableTint" />
         <attr name="android:progress" />
         <attr name="android:progressTint" />
-        <attr name="horizontal" format="boolean"/>
+        <attr name="horizontal" format="boolean" />
     </declare-styleable>
 
 </resources>

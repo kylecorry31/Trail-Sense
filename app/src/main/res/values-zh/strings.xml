@@ -1040,5 +1040,11 @@
     <string name="low_tide_letter">落潮</string>
     <string name="tide_is_diurnal">是全日潮吗？</string>
     <string name="view">查看</string>
-    <string name="tide_deleted">检查到潮汐</string>
+    <string name="tide_deleted">已删除潮汐</string>
+    <string name="estimated">预估值</string>
+    <string name="disclaimer_estimated_tide">潮汐预估可能不准确。确切时间请使用官方潮汐表。</string>
+    <string name="disclaimer_estimated_tide_title">预估的潮汐</string>
+    <plurals name="tides_entered_count">
+        <item quantity="other">%d 个潮汐</item>
+    </plurals>
 </resources>

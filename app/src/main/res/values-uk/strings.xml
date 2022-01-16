@@ -1067,4 +1067,13 @@
     <string name="view">Показ</string>
     <string name="high_tide_letter">В</string>
     <string name="tide_deleted">Приплив видалено</string>
+    <string name="disclaimer_estimated_tide">Приблизний час припливів може бути неточним. Будь ласка, використовуйте офіційну таблицю припливів для точного часу.</string>
+    <string name="estimated">Приблизно</string>
+    <string name="disclaimer_estimated_tide_title">Приблизний приплив</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d приплив</item>
+        <item quantity="few">%d припливи</item>
+        <item quantity="many">%d припливів</item>
+        <item quantity="other">%d припливів</item>
+    </plurals>
 </resources>
