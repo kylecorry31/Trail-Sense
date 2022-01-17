@@ -581,8 +581,8 @@
     <string name="time_not_set">Время не установлено</string>
     <string name="tide_calibration_instructions">Установите время прилива рядом с вами, желательно на дату новолуния или полнолуния. Его можно получить в Интернете или распечатав таблицы приливов и отливов. Приливы, показанные в Trail Sense, могут отличаться до двух часов, что достаточно для справки, но на что нельзя полагаться.</string>
     <string name="half_tide">Полприлива</string>
-    <string name="low_tide">Низкий прилив</string>
-    <string name="high_tide">Высокий прилив</string>
+    <string name="low_tide">Низкий</string>
+    <string name="high_tide">Высокий</string>
     <string name="right_quick_action">Быстрое действие направо</string>
     <string name="left_quick_action">Быстрое действие налево</string>
     <string name="none">Ничего</string>
@@ -1063,4 +1063,15 @@
     <string name="tide_table">Таблица приливов</string>
     <string name="high_tide_letter">В</string>
     <string name="low_tide_letter">Н</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d прилив</item>
+        <item quantity="few">%d прилива</item>
+        <item quantity="many">%d приливов</item>
+        <item quantity="other">%d приливов</item>
+    </plurals>
+    <string name="view">Показать</string>
+    <string name="tide_deleted">Прилив удален</string>
+    <string name="estimated">Приблизительно</string>
+    <string name="disclaimer_estimated_tide">Приблизительное время приливов может быть неточным. Используйте официальную таблицу приливов для точного времени.</string>
+    <string name="disclaimer_estimated_tide_title">Приблизительный прилив</string>
 </resources>
