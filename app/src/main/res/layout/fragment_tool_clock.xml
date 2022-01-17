@@ -16,17 +16,6 @@
         app:subtitle="Monday, November 5, 2020"
         tools:title="10:00:00 AM" />
 
-    <TextView
-        android:id="@+id/utc_clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/AppTheme.SubHeaderText"
-        app:layout_constraintEnd_toEndOf="@+id/clock_title"
-        app:layout_constraintStart_toStartOf="@+id/clock_title"
-        app:layout_constraintTop_toBottomOf="@+id/clock_title"
-        tools:text="UTC: 10:00:00 AM" />
-
     <ImageView
         android:id="@+id/clock_background"
         android:layout_width="300dp"
@@ -47,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/utc_clock" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/updating_clock"

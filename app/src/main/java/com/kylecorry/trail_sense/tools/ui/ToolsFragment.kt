@@ -9,6 +9,7 @@ import androidx.annotation.IdRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -38,7 +39,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             if (tool.action != null && tool.icon != null) {
                 // Tool
                 toolBinding.root.setBackgroundResource(selectableBackground)
-                toolBinding.title.text = tool.name
+                toolBinding.title.text = tool.name.capitalizeWords()
                 toolBinding.title.setTextColor(textColor)
                 toolBinding.description.text = tool.description
                 toolBinding.icon.isVisible = true

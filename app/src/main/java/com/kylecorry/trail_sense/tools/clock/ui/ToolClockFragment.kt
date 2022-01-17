@@ -81,14 +81,6 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         val systemDiff = Duration.between(systemTime, Instant.now())
         val currentTime = gpsTime.plus(systemDiff)
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
-        if (ZoneId.systemDefault() == ZoneId.of("GMT")) {
-            binding.utcClock.visibility = View.INVISIBLE
-        } else {
-            binding.utcClock.visibility = View.VISIBLE
-            val utcTime = ZonedDateTime.ofInstant(currentTime, ZoneId.of("UTC"))
-            binding.utcClock.text =
-                getString(R.string.utc_format, formatService.formatTime(utcTime.toLocalTime()))
-        }
         binding.clockTitle.title.text = formatService.formatTime(myTime.toLocalTime())
         binding.clockTitle.subtitle.text = formatService.formatDate(myTime)
         binding.analogClock.time = myTime.toLocalTime()
