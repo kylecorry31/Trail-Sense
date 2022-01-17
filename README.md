@@ -28,7 +28,7 @@
 
 ## Table of Contents
 
-- [2022](#2022-focus-areas)
+- [2022](#2022-goals)
 - [Goals](#goals)
 - [Features](#features)
 - [Privacy](#privacy)
@@ -38,12 +38,12 @@
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
-## 2022 Focus Areas
-- Tides
-- Maps
-- Paths
-- Weather (release cloud scanner)
-- Stability, usability, performance, testing
+## 2022 Goals
+- Release tides, maps, and cloud scanner
+- Refine existing tools
+- Make TS more focused
+- Improve stability, usability, and performance
+- Increase test coverage
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
