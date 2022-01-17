@@ -154,7 +154,7 @@ object Tools {
                 ),
                 Tool(
                     context.getString(R.string.tool_lightning_title),
-                    R.drawable.ic_tool_lightning,
+                    R.drawable.ic_torch_on,
                     R.id.action_action_experimental_tools_to_fragmentToolLightning,
                     context.getString(R.string.tool_lightning_description)
                 )
