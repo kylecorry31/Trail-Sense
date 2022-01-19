@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.widget.ImageButton
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 abstract class QuickActionButton(
-    protected val button: FloatingActionButton,
+    protected val button: ImageButton,
     protected val fragment: Fragment
 ) {
     protected val context: Context by lazy { fragment.requireContext() }

@@ -13,6 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rightQuickActionIcon="@drawable/ic_sensors"
+        app:showSubtitle="false"
         app:title="@string/diagnostics"/>
 
     <androidx.recyclerview.widget.RecyclerView

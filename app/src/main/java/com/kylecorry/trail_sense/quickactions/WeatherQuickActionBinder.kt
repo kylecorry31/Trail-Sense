@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.quickactions
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.widget.ImageButton
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.QuickActionType
@@ -28,7 +28,7 @@ class WeatherQuickActionBinder(
 
     private fun getQuickActionButton(
         type: QuickActionType,
-        button: FloatingActionButton
+        button: ImageButton
     ): QuickActionButton {
         return when (type) {
             QuickActionType.Whistle -> QuickActionWhistle(button, fragment)

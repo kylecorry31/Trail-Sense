@@ -104,7 +104,7 @@ class OnboardingActivity : AppCompatActivity() {
             navigateToApp()
         } else {
             val pageContents = OnboardingPages.pages[pageToLoad]
-            binding.pageName.text = getString(pageContents.title)
+            binding.pageName.title.text = getString(pageContents.title)
             binding.pageImage.setImageResource(pageContents.image)
             binding.pageImage.imageTintList =
                 ColorStateList.valueOf(Resources.androidTextColorPrimary(this))

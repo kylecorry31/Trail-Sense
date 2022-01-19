@@ -13,15 +13,15 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
@@ -63,7 +63,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             onPathsChanged(paths)
         }
 
-        binding.menuButton.setOnClickListener {
+        binding.pathsTitle.rightQuickAction.setOnClickListener {
             val defaultSort = prefs.navigation.pathSort
             Pickers.menu(
                 it, listOf(

@@ -5,22 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
         android:id="@+id/map_list_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/offline_maps"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showSubtitle="false"
+        app:title="@string/offline_maps" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/map_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"

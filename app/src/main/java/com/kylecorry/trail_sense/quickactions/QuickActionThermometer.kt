@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.quickactions
 
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 
-class QuickActionThermometer(btn: FloatingActionButton, fragment: Fragment) :
+class QuickActionThermometer(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {

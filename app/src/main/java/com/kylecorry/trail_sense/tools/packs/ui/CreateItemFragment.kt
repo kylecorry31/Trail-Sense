@@ -42,7 +42,6 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.itemWeightInput.units = formatService.sortWeightUnits(WeightUnits.values().toList())
 
         binding.createBtn.setOnClickListener {
@@ -107,7 +106,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     if (!isBound){
                         return@let
                     }
-                    binding.createItemTitle.text = getString(R.string.edit_item_title)
+                    binding.createItemTitle.title.text = getString(R.string.edit_item_title)
                     binding.nameEdit.setText(it.name)
                     binding.countEdit.setText(DecimalFormatter.format(it.amount, 4, false))
                     binding.desiredAmountEdit.setText(

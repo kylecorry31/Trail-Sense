@@ -5,19 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
         android:id="@+id/beacon_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:layout_marginEnd="64dp"
-        android:text="@string/select_beacon"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:rightQuickActionIcon="@drawable/ic_import_export"
+        app:showSubtitle="false"
+        app:flattenQuickActions="true"
+        app:title="@string/select_beacon" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchbox"
@@ -54,18 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/beacon_recycler"
         tools:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/import_export_beacons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@android:color/transparent"
-        app:tint="?android:textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/beacon_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/beacon_title"
-        app:srcCompat="@drawable/ic_import_export" />
 
     <ImageView
         android:id="@+id/overlay_mask"

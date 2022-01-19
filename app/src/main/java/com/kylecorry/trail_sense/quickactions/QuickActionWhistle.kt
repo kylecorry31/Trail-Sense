@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.quickactions
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.sound.ISoundPlayer
@@ -10,7 +11,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 
-class QuickActionWhistle(btn: FloatingActionButton, fragment: Fragment) :
+class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     private lateinit var whistle: ISoundPlayer

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.quickactions
 
 import android.view.View
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 
-class QuickActionFlashlight(btn: FloatingActionButton, fragment: Fragment) :
+class QuickActionFlashlight(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     private var flashlightState = FlashlightState.Off

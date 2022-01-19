@@ -75,7 +75,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tideGuideBtn.setOnClickListener {
+        binding.createTideTitle.rightQuickAction.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.tides)
         }
 

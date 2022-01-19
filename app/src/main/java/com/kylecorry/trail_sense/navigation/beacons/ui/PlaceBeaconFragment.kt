@@ -90,7 +90,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             }
         }
 
-        binding.createBeaconTitle.text = getString(R.string.edit_beacon).capitalizeWords()
+        binding.createBeaconTitle.title.text = getString(R.string.edit_beacon).capitalizeWords()
         color = AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
         binding.beaconColor.imageTintList = ColorStateList.valueOf(beacon.color)
         binding.beaconName.setText(beacon.name)
@@ -154,7 +154,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         navController = findNavController()
 
-        binding.createBeaconTitle.text = getString(R.string.create_beacon).capitalizeWords()
+        binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
         binding.beaconColor.imageTintList = ColorStateList.valueOf(color.color)
 
         // TODO: Prevent interaction until groups loaded

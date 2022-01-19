@@ -19,11 +19,8 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.toRelativeDistance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,8 +48,8 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
             withContext(Dispatchers.Main) {
                 beacon?.apply {
-                    binding.beaconName.text = this.name
-                    binding.locationText.text = formatService.formatLocation(this.coordinate)
+                    binding.beaconTitle.title.text = this.name
+                    binding.beaconTitle.subtitle.text = formatService.formatLocation(this.coordinate)
 
                     if (this.elevation != null) {
                         val d = Distance.meters(this.elevation).convertTo(prefs.baseDistanceUnits)
@@ -82,7 +79,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                         )
                     }
 
-                    binding.beaconDetailsMenu.setOnClickListener {
+                    binding.beaconTitle.rightQuickAction.setOnClickListener {
                         Pickers.menu(
                             it,
                             listOf(getString(R.string.share_ellipsis), getString(R.string.delete))
@@ -121,6 +118,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.beaconTitle.rightQuickAction.flatten()
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }

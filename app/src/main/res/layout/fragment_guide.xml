@@ -6,21 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
         android:id="@+id/guide_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTheme.HeaderText"
-        tools:text="Guide Name" />
+        app:showSubtitle="false"
+        tools:title="Guide" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingBottom="16dp">

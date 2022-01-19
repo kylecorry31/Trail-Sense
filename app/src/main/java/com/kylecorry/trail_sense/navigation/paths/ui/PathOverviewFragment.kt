@@ -121,7 +121,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             viewPoints()
         }
 
-        binding.menuButton.setOnClickListener {
+        binding.pathTitle.rightQuickAction.setOnClickListener {
             showPathMenu()
         }
 
@@ -220,7 +220,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
 
         Pickers.menu(
-            binding.menuButton, listOf(
+            binding.pathTitle.rightQuickAction, listOf(
                 getString(R.string.rename),
                 if (path.temporary) getString(R.string.keep_forever) else null,
                 if (prefs.navigation.useRadarCompass || prefs.navigation.areMapsEnabled) {
@@ -304,7 +304,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         val end = path.metadata.duration?.end
 
 
-        binding.pathTimes.text = if (!path.name.isNullOrBlank()) {
+        binding.pathTitle.title.text = if (!path.name.isNullOrBlank()) {
             path.name
         } else if (start != null && end != null) {
             formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)

@@ -6,22 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
         android:id="@+id/create_beacon_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_top_margin"
-        android:text="@string/create_beacon"
-        android:textAppearance="@style/AppTheme.HeaderText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showSubtitle="false"
+        app:title="@string/create_beacon" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,23 +31,22 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/beacon_name_holder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
+                android:hint="@string/name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:hint="@string/name"
-                android:id="@+id/beacon_name_holder">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/beacon_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNone"
-                    android:inputType="text"/>
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,23 +66,23 @@
 
             <!--TODO: Replace this with a distance input-->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/beacon_elevation_holder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
+                android:hint="@string/beacon_elevation_hint_meters"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_location"
-                android:hint="@string/beacon_elevation_hint_meters"
-                android:id="@+id/beacon_elevation_holder">
+                app:layout_constraintTop_toBottomOf="@+id/beacon_location">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/beacon_elevation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNone"
-                    android:inputType="numberSigned|numberDecimal"/>
+                    android:inputType="numberSigned|numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,17 +93,17 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
+                android:hint="@string/beacon_comment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beacon_color_picker"
-                android:hint="@string/beacon_comment">
+                app:layout_constraintTop_toBottomOf="@+id/beacon_color_picker">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNone"
-                    android:inputType="textNoSuggestions|textMultiLine"/>
+                    android:inputType="textNoSuggestions|textMultiLine" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,7 +170,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/create_at_distance"
-                tools:visibility="visible"/>
+                tools:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/bearing_to_holder"

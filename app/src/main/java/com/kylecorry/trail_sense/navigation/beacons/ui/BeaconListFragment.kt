@@ -102,7 +102,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
         })
 
-        binding.importExportBeacons.setOnClickListener {
+        binding.beaconTitle.rightQuickAction.setOnClickListener {
             onExportBeacons()
         }
 
@@ -389,7 +389,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
         withContext(Dispatchers.Main) {
             context ?: return@withContext
-            binding.beaconTitle.text =
+            binding.beaconTitle.title.text =
                 displayedGroup?.name ?: getString(R.string.select_beacon)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)

@@ -74,7 +74,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
         arguments?.remove("map_intent_uri")
         if (mapIntentUri != null) {

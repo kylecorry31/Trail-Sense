@@ -57,8 +57,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.temperatureTitle.subtitle.isVisible = false
-
         val distanceUnits = formatService.sortDistanceUnits(
             listOf(
                 DistanceUnits.Feet,

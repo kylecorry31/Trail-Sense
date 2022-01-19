@@ -10,9 +10,9 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/next_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,23 +25,21 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 
-            <TextView
+            <com.kylecorry.trail_sense.shared.views.ToolTitleView
                 android:id="@+id/page_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textAlignment="center"
-                android:textAppearance="@style/AppTheme.HeaderText"
-                tools:text="Page Name" />
+                app:showSubtitle="false"
+                tools:title="Page Name" />
 
             <ImageView
                 android:id="@+id/page_image"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="fitCenter"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:scaleType="fitCenter"
                 tools:src="@drawable/compass" />
 
             <TextView
@@ -52,11 +50,11 @@
                 tools:text="Page contents" />
 
             <LinearLayout
-                android:padding="16dp"
+                android:id="@+id/page_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/page_settings" />
+                android:padding="16dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -67,8 +65,8 @@
         android:layout_height="56dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:text="@string/continue_button"
         android:backgroundTint="?attr/colorPrimary"
+        android:text="@string/continue_button"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

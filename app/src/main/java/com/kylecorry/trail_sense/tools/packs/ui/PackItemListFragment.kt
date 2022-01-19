@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.flatten
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.domain.PackService
@@ -75,7 +76,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun setupUI() {
-        binding.inventoryListTitle.text = pack?.name
+        binding.inventoryListTitle.title.text = pack?.name
         listView = ListView(binding.inventoryList, R.layout.list_item_pack_item) { itemView, item ->
             val itemBinding = ListItemPackItemBinding.bind(itemView)
             itemBinding.name.text = item.name
@@ -182,8 +183,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             )
         }
 
-        binding.inventoryMenuButton.setOnClickListener {
-            Pickers.menu(binding.inventoryMenuButton, R.menu.inventory_menu) {
+        binding.inventoryListTitle.rightQuickAction.setOnClickListener {
+            Pickers.menu(binding.inventoryListTitle.rightQuickAction, R.menu.inventory_menu) {
                 when (it) {
                     R.id.action_pack_sort -> {
                         changeSort()
@@ -238,7 +239,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                         itemRepo.addPack(pack.copy(name = it))
                     }
                     withContext(Dispatchers.Main) {
-                        binding.inventoryListTitle.text = it
+                        binding.inventoryListTitle.title.text = it
                     }
                 }
             }

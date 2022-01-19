@@ -3,16 +3,17 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.flatten
 
 class ToolTitleView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
-    val leftQuickAction: FloatingActionButton
-    val rightQuickAction: FloatingActionButton
+    val leftQuickAction: ImageButton
+    val rightQuickAction: ImageButton
     val title: TextView
     val subtitle: TextView
 
@@ -29,6 +30,8 @@ class ToolTitleView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         title.text = a.getString(R.styleable.ToolTitleView_title) ?: ""
         subtitle.text = a.getString(R.styleable.ToolTitleView_subtitle) ?: ""
 
+        subtitle.isVisible = a.getBoolean(R.styleable.ToolTitleView_showSubtitle, true)
+
         val leftIcon = a.getResourceId(R.styleable.ToolTitleView_leftQuickActionIcon, -1)
         val rightIcon = a.getResourceId(R.styleable.ToolTitleView_rightQuickActionIcon, -1)
 
@@ -44,6 +47,12 @@ class ToolTitleView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
 
         CustomUiUtils.setButtonState(leftQuickAction, false)
         CustomUiUtils.setButtonState(rightQuickAction, false)
+
+        val flattenQuickActions = a.getBoolean(R.styleable.ToolTitleView_flattenQuickActions, false)
+        if (flattenQuickActions){
+            rightQuickAction.flatten()
+            leftQuickAction.flatten()
+        }
     }
 
 }

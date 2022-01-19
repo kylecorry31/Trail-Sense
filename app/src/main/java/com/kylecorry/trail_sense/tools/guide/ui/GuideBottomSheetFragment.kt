@@ -16,7 +16,7 @@ class GuideBottomSheetFragment(private val guide: UserGuide) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val content = UserGuideService(requireContext()).load(guide.contents)
-        binding.guideName.text = guide.name
+        binding.guideName.title.text = guide.name
         val markdown = MarkdownService(requireContext())
         markdown.setMarkdown(binding.guideContents, content)
     }

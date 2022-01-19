@@ -32,7 +32,6 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         listView = ListView(binding.noteList, R.layout.list_item_note) { noteView, note ->
             val noteBinding = ListItemNoteBinding.bind(noteView)
             noteBinding.title.text = if (note.title?.trim().isNullOrEmpty()) {

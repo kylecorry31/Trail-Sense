@@ -305,8 +305,12 @@ class FormatService(private val context: Context) {
             strs.add(m)
         }
 
-        if (seconds > 0 && includeSeconds && (!short || (hours == 0L && minutes == 0L))) {
+        if (seconds >= 0 && includeSeconds && (!short || (hours == 0L && minutes == 0L))) {
             strs.add(s)
+        }
+
+        if (strs.isEmpty()){
+            strs.add(m)
         }
 
         return strs.joinToString(" ")

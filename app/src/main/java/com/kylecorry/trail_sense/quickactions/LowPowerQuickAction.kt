@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.quickactions
 
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
@@ -8,7 +9,7 @@ import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-class LowPowerQuickAction(button: FloatingActionButton, fragment: Fragment): QuickActionButton(button, fragment) {
+class LowPowerQuickAction(button: ImageButton, fragment: Fragment): QuickActionButton(button, fragment) {
 
     private val lowerPowerMode by lazy { LowPowerMode(context) }
     private val prefs by lazy { UserPreferences(context) }

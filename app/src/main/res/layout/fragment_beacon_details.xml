@@ -6,46 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/beacon_title"
+        app:rightQuickActionIcon="@drawable/ic_menu_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/beacon_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="@style/AppTheme.HeaderText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Beacon Name" />
-
-        <ImageButton
-            android:id="@+id/beacon_details_menu"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.86"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_menu_dots"
-            app:tint="?android:textColorSecondary" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/location_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        tools:text="0.000 N, 0.000 W" />
-
+        tools:title="Test Name"
+        tools:subtitle="0, 0"/>
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/beacon_grid"
@@ -53,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:columnCount="2"
         app:useDefaultMargins="false">

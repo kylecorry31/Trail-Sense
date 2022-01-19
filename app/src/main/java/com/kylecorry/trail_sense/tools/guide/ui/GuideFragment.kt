@@ -23,7 +23,7 @@ class GuideFragment : BoundFragment<FragmentGuideBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.guideName.text = name
+        binding.guideName.title.text = name
         val markdown = MarkdownService(requireContext())
         markdown.setMarkdown(binding.guideContents, content)
     }

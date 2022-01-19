@@ -25,8 +25,6 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.cloudListTitle.subtitle.isVisible = false
-
         listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
             val itemBinding = ListItemCloudBinding.bind(itemView)
             CloudListItem(item, cloudRepo).display(itemBinding)

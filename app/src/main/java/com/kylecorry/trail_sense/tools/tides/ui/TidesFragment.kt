@@ -76,8 +76,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
         binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
 
-        CustomUiUtils.setButtonState(binding.tideCalibration, false)
-        binding.tideCalibration.setOnClickListener {
+        binding.tideTitle.rightQuickAction.setOnClickListener {
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
         binding.tideListDatePicker.setOnClickListener {

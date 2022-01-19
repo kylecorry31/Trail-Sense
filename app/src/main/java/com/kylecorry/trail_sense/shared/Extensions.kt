@@ -1,5 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -83,3 +86,7 @@ fun GeoUri.Companion.from(beacon: Beacon): GeoUri {
     return GeoUri(beacon.coordinate, null, params)
 }
 
+fun ImageButton.flatten() {
+    backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
+    elevation = 0f
+}

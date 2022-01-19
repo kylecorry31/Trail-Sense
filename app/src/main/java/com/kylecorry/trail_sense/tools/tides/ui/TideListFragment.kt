@@ -43,7 +43,6 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         listView = ListView(binding.tideList, R.layout.list_item_plain_menu) { listItemView, tide ->
             val itemBinding = ListItemPlainMenuBinding.bind(listItemView)
             itemBinding.title.text = getTideTitle(tide)
@@ -118,7 +117,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     private fun getTideTitle(tide: TideTable): String {
         return tide.name
-            ?: if (tide.location != null) formatService.formatLocation(tide.location!!) else getString(
+            ?: if (tide.location != null) formatService.formatLocation(tide.location) else getString(
                 android.R.string.untitled
             )
     }
