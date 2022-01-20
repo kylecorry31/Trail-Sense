@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.domain.clouds
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.kylecorry.trail_sense.weather.domain.clouds.mask.IsSunSpecification
 import org.junit.Assert
 import org.junit.Test
 

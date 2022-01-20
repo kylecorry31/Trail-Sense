@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain.clouds
+package com.kylecorry.trail_sense.weather.domain.clouds.classification
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -12,23 +12,19 @@ import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.GLCMService
 import com.kylecorry.sol.math.statistics.StatisticsService
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.shared.specifications.FalseSpecification
+import com.kylecorry.trail_sense.shared.ClassificationResult
+import com.kylecorry.trail_sense.weather.domain.clouds.mask.ICloudPixelClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.mask.SkyPixelClassification
 
 /**
  * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
  */
-class AMTCloudClassifier(
-    private val skyDetectionSensitivity: Int,
-    private val obstacleRemovalSensitivity: Int
-) : ICloudClassifier {
+class AMTCloudClassifier(private val pixelClassifier: ICloudPixelClassifier) : ICloudClassifier {
 
     private val statistics = StatisticsService()
 
     @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
-    override suspend fun classify(
-        bitmap: Bitmap,
-        setPixel: (x: Int, y: Int, classification: SkyPixelClassification) -> Unit
-    ): List<ClassificationResult<CloudGenus>> {
+    override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus>> {
         var skyPixels = 0
         var cloudPixels = 0
 
@@ -38,26 +34,18 @@ class AMTCloudClassifier(
 
         val cloudBluePixels = mutableListOf<Float>()
 
-        val isSky = NRBRIsSkySpecification(skyDetectionSensitivity / 200f)
-
-        val isObstacle = SaturationIsObstacleSpecification(1 - obstacleRemovalSensitivity / 100f)
-            .or(BrightnessIsObstacleSpecification(0.75f * obstacleRemovalSensitivity.toFloat()))
-            .or(if (obstacleRemovalSensitivity > 0) IsSunSpecification() else FalseSpecification())
-
         val cloudBitmap = bitmap.copy(bitmap.config, true)
 
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
 
-                when {
-                    isSky.isSatisfiedBy(pixel) -> {
+                when (pixelClassifier.classify(pixel)) {
+                    SkyPixelClassification.Sky -> {
                         skyPixels++
-                        setPixel(w, h, SkyPixelClassification.Sky)
                         cloudBitmap.setPixel(w, h, Color.TRANSPARENT)
                     }
-                    isObstacle.isSatisfiedBy(pixel) -> {
-                        setPixel(w, h, SkyPixelClassification.Obstacle)
+                    SkyPixelClassification.Obstacle -> {
                         cloudBitmap.setPixel(w, h, Color.TRANSPARENT)
                     }
                     else -> {
@@ -66,7 +54,6 @@ class AMTCloudClassifier(
                         blueMean += Color.blue(pixel)
                         greenMean += Color.green(pixel)
                         cloudBluePixels.add(Color.blue(pixel).toFloat())
-                        setPixel(w, h, SkyPixelClassification.Cloud)
                     }
                 }
             }
@@ -104,40 +91,25 @@ class AMTCloudClassifier(
             return emptyList()
         }
 
-        val features = CloudImageFeatures(
+        val features = listOf(
             cover,
-            texture.contrast / 255f,
-            texture.energy * 100,
-            texture.entropy / 16f,
-            texture.homogeneity,
             (redMean / 255).toFloat(),
             (blueMean / 255).toFloat(),
             percentDifference(redMean, greenMean),
             percentDifference(redMean, blueMean),
             percentDifference(greenMean, blueMean),
+            texture.energy * 100,
+            texture.entropy / 16f,
+            texture.contrast / 255f,
+            texture.homogeneity,
             blueStdev / 255f,
-            blueSkewness
+            blueSkewness,
+            1f
         )
 
         val classifier = LogisticRegressionClassifier(weights)
 
-        val prediction = classifier.classify(
-            listOf(
-                features.cover,
-                features.redMean,
-                features.blueMean,
-                features.redGreenDiff,
-                features.redBlueDiff,
-                features.greenBlueDiff,
-                features.energy,
-                features.entropy,
-                features.contrast,
-                features.homogeneity,
-                features.blueStdev,
-                features.blueSkewness,
-                1f
-            )
-        )
+        val prediction = classifier.classify(features)
 
         val cloudMap = arrayOf(
             CloudGenus.Cirrus,
@@ -152,8 +124,11 @@ class AMTCloudClassifier(
             CloudGenus.Cumulonimbus
         )
 
-        val result = prediction.mapIndexed { index, confidence ->
-            ClassificationResult(cloudMap[index], confidence)
+        val result = cloudMap.zip(prediction) { genus, confidence ->
+            ClassificationResult(
+                genus,
+                confidence
+            )
         }.sortedByDescending { it.confidence }
 
         logFeatures(features)
@@ -164,23 +139,8 @@ class AMTCloudClassifier(
     /**
      * Logs an observation to the console in CSV training format
      */
-    private fun logFeatures(features: CloudImageFeatures) {
-        val values = listOf(
-            features.cover,
-            features.redMean,
-            features.blueMean,
-            features.redGreenDiff,
-            features.redBlueDiff,
-            features.greenBlueDiff,
-            features.energy,
-            features.entropy,
-            features.contrast,
-            features.homogeneity,
-            features.blueStdev,
-            features.blueSkewness
-        )
-
-        Log.d("CloudFeatures", values.joinToString(",") {
+    private fun logFeatures(features: List<Float>) {
+        Log.d("CloudFeatures", features.joinToString(",") {
             if (it.isNaN()) {
                 it
             } else {
@@ -192,21 +152,6 @@ class AMTCloudClassifier(
     private fun percentDifference(color1: Double, color2: Double): Float {
         return map((color1 - color2).toFloat(), -255f, 255f, 0f, 1f)
     }
-
-    private data class CloudImageFeatures(
-        val cover: Float,
-        val contrast: Float,
-        val energy: Float,
-        val entropy: Float,
-        val homogeneity: Float,
-        val redMean: Float,
-        val blueMean: Float,
-        val redGreenDiff: Float,
-        val redBlueDiff: Float,
-        val greenBlueDiff: Float,
-        val blueStdev: Float,
-        val blueSkewness: Float
-    )
 
     companion object {
         private val weights = arrayOf(

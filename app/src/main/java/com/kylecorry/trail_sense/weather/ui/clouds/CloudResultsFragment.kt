@@ -12,7 +12,7 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
-import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
+import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {

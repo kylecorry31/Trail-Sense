@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain.clouds
+package com.kylecorry.trail_sense.weather.domain.clouds.mask
 
 enum class SkyPixelClassification {
     Sky,

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.core.graphics.set
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -16,10 +15,11 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.weather.domain.clouds.AMTCloudClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.ClassificationResult
-import com.kylecorry.trail_sense.weather.domain.clouds.NRBRSkyThresholdCalculator
-import com.kylecorry.trail_sense.weather.domain.clouds.SkyPixelClassification
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.AMTCloudClassifier
+import com.kylecorry.trail_sense.shared.ClassificationResult
+import com.kylecorry.trail_sense.weather.domain.clouds.mask.CloudPixelClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.mask.NRBRSkyThresholdCalculator
+import com.kylecorry.trail_sense.weather.domain.clouds.mask.OverlayCloudMask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -129,18 +129,18 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         }
     }
 
-    private fun updateThreshold(image: Bitmap){
+    private fun updateThreshold(image: Bitmap) {
         if (!isBound) {
             return
         }
         val thresholdCalculator = NRBRSkyThresholdCalculator()
         runInBackground {
-            val threshold = withContext(Dispatchers.Default){
+            val threshold = withContext(Dispatchers.Default) {
                 thresholdCalculator.getThreshold(image)
             }
 
-            withContext(Dispatchers.Main){
-                if (isBound){
+            withContext(Dispatchers.Main) {
+                if (isBound) {
                     binding.thresholdSeek.progress = threshold
                 }
                 analyze(image)
@@ -154,25 +154,24 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         }
         runInBackground {
             runner.cancelPreviousThenRun {
-                val cloudColorOverlay = Color.WHITE
-                val excludedColorOverlay = AppColor.Red.color
-                val skyColorOverlay = AppColor.Blue.color
-                val analyzer = AMTCloudClassifier(
+                val cloudColor = Color.WHITE
+                val obstacleColor = AppColor.Red.color
+                val skyColor = AppColor.Blue.color
+
+                val pixelClassifier = CloudPixelClassifier.default(
                     binding.thresholdSeek.progress,
                     binding.thresholdObstacleSeek.progress
                 )
+                val mask = OverlayCloudMask(pixelClassifier, cloudColor, skyColor, obstacleColor)
+                val classifier = AMTCloudClassifier(pixelClassifier)
+
+                clouds = withContext(Dispatchers.IO) {
+                    mask.mask(image, clouds)
+                }
+
+                // TODO: The classification doesn't need to be done until the user goes to the next page
                 val result = withContext(Dispatchers.IO) {
-                    analyzer.classify(image) { x, y, classification ->
-                        when (classification) {
-                            SkyPixelClassification.Sky -> clouds?.set(x, y, skyColorOverlay)
-                            SkyPixelClassification.Cloud -> clouds?.set(x, y, cloudColorOverlay)
-                            SkyPixelClassification.Obstacle -> clouds?.set(
-                                x,
-                                y,
-                                excludedColorOverlay
-                            )
-                        }
-                    }
+                    classifier.classify(image)
                 }
 
                 if (isBound) {
