@@ -11,12 +11,11 @@ import android.widget.SeekBar
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.AMTCloudClassifier
-import com.kylecorry.trail_sense.shared.ClassificationResult
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.CloudPixelClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.NRBRSkyThresholdCalculator
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.OverlayCloudMask
@@ -29,7 +28,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
     private var clouds: Bitmap? = null
     private var showingBitmask = false
 
-    private var onCloudResults: (List<ClassificationResult<CloudGenus>>) -> Unit = {}
+    private var onClassifierChanged: (ICloudClassifier) -> Unit = {}
     private var onDone: () -> Unit = {}
 
     private val runner = ControlledRunner<Unit>()
@@ -61,7 +60,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 lastBitmap?.let {
-                    analyze(it)
+                    mask(it)
                 }
             }
         })
@@ -77,7 +76,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 lastBitmap?.let {
-                    analyze(it)
+                    mask(it)
                 }
             }
         })
@@ -103,8 +102,8 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         toast(getString(R.string.cloud_photo_mask_toast))
     }
 
-    fun setOnResultsListener(listener: (List<ClassificationResult<CloudGenus>>) -> Unit) {
-        onCloudResults = listener
+    fun setOnClassifierChangedListener(listener: (ICloudClassifier) -> Unit) {
+        onClassifierChanged = listener
     }
 
     fun setOnDoneListener(listener: () -> Unit) {
@@ -143,12 +142,12 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 if (isBound) {
                     binding.thresholdSeek.progress = threshold
                 }
-                analyze(image)
+                mask(image)
             }
         }
     }
 
-    private fun analyze(image: Bitmap) {
+    private fun mask(image: Bitmap) {
         if (!isBound) {
             return
         }
@@ -168,19 +167,14 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 clouds = withContext(Dispatchers.IO) {
                     mask.mask(image, clouds)
                 }
-
-                // TODO: The classification doesn't need to be done until the user goes to the next page
-                val result = withContext(Dispatchers.IO) {
-                    classifier.classify(image)
-                }
-
+                
                 if (isBound) {
                     withContext(Dispatchers.Main) {
                         binding.cloudImage.invalidate()
                     }
                 }
 
-                onCloudResults.invoke(result)
+                onClassifierChanged.invoke(classifier)
             }
         }
     }

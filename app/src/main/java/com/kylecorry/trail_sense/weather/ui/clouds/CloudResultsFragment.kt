@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.shared.ClassificationResult
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.NullCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
@@ -21,6 +26,8 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     private lateinit var listView: ListView<ClassificationResult<CloudGenus>>
 
     private var result: List<ClassificationResult<CloudGenus>> = emptyList()
+    private var image: Bitmap? = null
+    private var classifier: ICloudClassifier = NullCloudClassifier()
 
 
     override fun generateBinding(
@@ -44,12 +51,44 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         setResult(result)
     }
 
-    fun setResult(result: List<ClassificationResult<CloudGenus>>) {
+    override fun onResume() {
+        super.onResume()
+        analyze()
+    }
+
+    fun setImage(image: Bitmap) {
+        this.image = image
+    }
+
+    fun setClassifier(classifier: ICloudClassifier) {
+        this.classifier = classifier
+        setResult(emptyList())
+    }
+
+    private fun analyze() {
+        if (result.isEmpty()) {
+            binding.emptyText.isVisible = false
+            binding.loadingIndicator.isVisible = true
+        }
+        runInBackground {
+            val results = withContext(Dispatchers.Default) {
+                image?.let { classifier.classify(it) }
+            }
+
+            withContext(Dispatchers.Main) {
+                results?.let { setResult(results) }
+            }
+
+        }
+    }
+
+    private fun setResult(result: List<ClassificationResult<CloudGenus>>) {
         this.result = result
         if (!isBound) {
             return
         }
 
+        binding.loadingIndicator.isVisible = false
         binding.emptyText.isVisible = result.isEmpty()
         listView.setData(result)
         listView.scrollToPosition(0, false)

@@ -37,12 +37,13 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
             it.recycle()
             image?.let {
                 calibration.setImage(it)
+                results.setImage(it)
             }
             binding.viewpager.setCurrentItem(1, true)
         }
 
-        calibration.setOnResultsListener {
-            results.setResult(it)
+        calibration.setOnClassifierChangedListener {
+            results.setClassifier(it)
         }
 
         calibration.setOnDoneListener {
