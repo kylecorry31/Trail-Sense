@@ -15,10 +15,7 @@ class CloudPixelClassifier(
         }
     }
 
-
     companion object {
-
-        // TODO: Move this out of here
         fun default(
             skyDetectionSensitivity: Int,
             obstacleRemovalSensitivity: Int
