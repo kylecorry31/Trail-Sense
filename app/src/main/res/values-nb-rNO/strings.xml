@@ -759,7 +759,6 @@
     <string name="solar_panel_instructions">Plasser telefonen din på overflaten av solcellepanelet for å begynne.</string>
     <string name="tool_solar_panel_title">Solcellepaneljustering</string>
     <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal strømproduksjon</string>
-
     <string name="tide_normal">Normal</string>
     <string name="astro_dialog_rise_set">**Tid**: %s
 \n
@@ -893,4 +892,11 @@
     <string name="pref_flashlight_should_timeout_title">Slå av automatisk</string>
     <string name="pref_flashlight_timeout_title">Slå av etter</string>
     <string name="bearing">Retning</string>
+    <string name="very_soon">Veldig snart</string>
+    <string name="soon">Snart</string>
+    <string name="weather_improving">Forbedring</string>
+    <string name="weather_storm">Storm</string>
+    <string name="weather_worsening">Forverring</string>
+    <string name="weather_unchanging">Uendret</string>
+    <string name="unit_inches_abbreviation">om</string>
 </resources>
