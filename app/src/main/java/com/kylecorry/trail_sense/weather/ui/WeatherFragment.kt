@@ -22,6 +22,7 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
@@ -145,7 +146,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         barometer.asLiveData().observe(viewLifecycleOwner, { update() })
         thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
-        if (Sensors.hasHygrometer(requireContext())){
+
+        binding.weatherHumidity.setOnClickListener {
+            showHumidityChart()
+        }
+
+        binding.weatherTemperature.setOnClickListener {
+            showTemperatureChart()
+        }
+
+        if (Sensors.hasHygrometer(requireContext())) {
             hygrometer.asLiveData().observe(viewLifecycleOwner, { update() })
         } else {
             binding.weatherHumidity.isVisible = false
@@ -372,11 +382,11 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherPressure.title = formatted
     }
 
-    private fun displayTemperature(temperature: Temperature){
+    private fun displayTemperature(temperature: Temperature) {
         binding.weatherTemperature.title = formatService.formatTemperature(temperature)
     }
 
-    private fun displayHumidity(humidity: Float){
+    private fun displayHumidity(humidity: Float) {
         binding.weatherHumidity.title = formatService.formatPercentage(humidity)
     }
 
@@ -414,6 +424,60 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             Weather.ImprovingFast, Weather.WorseningFast, Weather.Storm -> getString(R.string.very_soon)
             Weather.ImprovingSlow, Weather.WorseningSlow -> getString(R.string.soon)
             else -> ""
+        }
+    }
+
+    private fun showHumidityChart() {
+        val readings =
+            readingHistory.filter {
+                Duration.between(
+                    it.time,
+                    Instant.now()
+                ) <= prefs.weather.pressureHistory
+            }.filter { it.humidity != null }.map { Reading(it.humidity!!, it.time) }
+        if (readings.size < 2) {
+            return
+        }
+        val readingDuration =
+            Duration.between(readings.first().time, readings.last().time)
+        CustomUiUtils.showLineChart(
+            this, getString(
+                R.string.humidity_history,
+                formatService.formatDuration(readingDuration, true)
+            )
+        ) {
+            val chart = HumidityChart(it)
+            chart.plot(readings)
+        }
+    }
+
+    private fun showTemperatureChart() {
+        val readings =
+            readingHistory
+                .filter {
+                    Duration.between(
+                        it.time,
+                        Instant.now()
+                    ) <= prefs.weather.pressureHistory
+                }.map {
+                    val temperature =
+                        Temperature.celsius(weatherService.calibrateTemperature(it.temperature))
+                            .convertTo(temperatureUnits)
+                    Reading(temperature.temperature, it.time)
+                }
+        if (readings.size < 2) {
+            return
+        }
+        val readingDuration =
+            Duration.between(readings.first().time, readings.last().time)
+        CustomUiUtils.showLineChart(
+            this, getString(
+                R.string.temperature_history,
+                formatService.formatDuration(readingDuration, true)
+            )
+        ) {
+            val chart = TemperatureChart(it)
+            chart.plot(readings)
         }
     }
 

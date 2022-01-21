@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
@@ -98,18 +97,16 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.batteryTitle.leftQuickAction.setOnClickListener {
             val readingDuration =
                 Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
-            val chartView = View.inflate(context, R.layout.view_chart_prompt, null)
-            val chart = BatteryChart(chartView.findViewById(R.id.chart))
-            chart.plot(readings, false)
-            Alerts.dialog(
-                requireContext(),
+            CustomUiUtils.showLineChart(
+                this,
                 getString(
                     R.string.battery_history,
                     formatService.formatDuration(readingDuration, false)
-                ),
-                contentView = chartView,
-                cancelText = null
-            )
+                )
+            ) {
+                val chart = BatteryChart(it)
+                chart.plot(readings, false)
+            }
         }
 
         batteryRepo.get().observe(viewLifecycleOwner, {

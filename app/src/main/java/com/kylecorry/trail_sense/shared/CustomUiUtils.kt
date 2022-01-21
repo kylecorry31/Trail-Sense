@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
@@ -332,7 +333,7 @@ object CustomUiUtils {
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
-    fun setImageColor(textView: TextView, @ColorInt color: Int?){
+    fun setImageColor(textView: TextView, @ColorInt color: Int?) {
         textView.compoundDrawables.forEach {
             it?.let { setImageColor(it, color) }
         }
@@ -436,6 +437,17 @@ object CustomUiUtils {
 
         setCompoundDrawables(leftDrawable, topDrawable, rightDrawable, bottomDrawable)
 
+    }
+
+    fun showLineChart(fragment: Fragment, title: String, populateFn: (LineChart) -> Unit) {
+        val chartView = View.inflate(fragment.requireContext(), R.layout.view_chart_prompt, null)
+        populateFn(chartView.findViewById(R.id.chart))
+        Alerts.dialog(
+            fragment.requireContext(),
+            title,
+            contentView = chartView,
+            cancelText = null
+        )
     }
 
 }
