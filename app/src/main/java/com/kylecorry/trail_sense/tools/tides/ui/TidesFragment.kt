@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
@@ -36,7 +35,6 @@ import java.time.*
 class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     private val formatService by lazy { FormatService(requireContext()) }
-    private var displayDate = LocalDate.now()
     private val tideService = TideService()
     private lateinit var tideList: ListView<Tide>
     private var table: TideTable? = null
@@ -74,24 +72,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             item.display(tideBinding)
         }
 
-        binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
 
         binding.tideTitle.rightQuickAction.setOnClickListener {
             findNavController().navigate(R.id.action_tides_to_tideList)
-        }
-        binding.tideListDatePicker.setOnClickListener {
-            Pickers.date(requireContext(), displayDate) {
-                if (it != null) {
-                    displayDate = it
-                    onDisplayDateChanged()
-                }
-            }
-        }
-
-        binding.tideListDatePicker.setOnLongClickListener {
-            displayDate = LocalDate.now()
-            onDisplayDateChanged()
-            true
         }
 
         binding.loading.isVisible = true
@@ -118,16 +101,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             }
         }
 
-        binding.nextDate.setOnClickListener {
-            displayDate = displayDate.plusDays(1)
+        binding.tideListDate.setOnDateChangeListener {
             onDisplayDateChanged()
         }
-
-        binding.prevDate.setOnClickListener {
-            displayDate = displayDate.minusDays(1)
-            onDisplayDateChanged()
-        }
-
 
         scheduleUpdates(20)
     }
@@ -150,7 +126,6 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         runInBackground {
             refreshDaily()
         }
-        binding.tideListDateText.text = formatService.formatRelativeDate(displayDate)
     }
 
     private fun updateDaily() {
@@ -163,6 +138,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     private fun updateCurrent() {
         if (!isBound) return
+        val displayDate = binding.tideListDate.date
         val current = current ?: return
         val daily = daily ?: return
 
@@ -195,7 +171,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     override fun onResume() {
         super.onResume()
         currentRefreshTimer.interval(Duration.ofMinutes(1))
-        displayDate = LocalDate.now()
+        binding.tideListDate.date = LocalDate.now()
         onDisplayDateChanged()
     }
 
@@ -217,7 +193,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     }
 
     private suspend fun refreshDaily() {
-        daily = getDailyTideData(displayDate)
+        daily = getDailyTideData(binding.tideListDate.date)
         withContext(Dispatchers.Main) {
             updateDaily()
         }

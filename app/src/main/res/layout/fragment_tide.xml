@@ -27,6 +27,16 @@
         app:layout_constraintStart_toStartOf="@id/tide_title"
         app:layout_constraintTop_toTopOf="@id/tide_title" />
 
+    <com.kylecorry.trail_sense.shared.views.DatePickerView
+        android:id="@+id/tide_list_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tide_title" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
@@ -38,55 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tide_list_date" />
 
-    <ImageButton
-        android:id="@+id/prev_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        android:rotation="180"
-        app:layout_constraintBottom_toTopOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_keyboard_arrow_right"
-        app:tint="?android:textColorSecondary" />
-
-    <ImageButton
-        android:id="@+id/next_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_keyboard_arrow_right"
-        app:tint="?android:textColorSecondary" />
-
-    <LinearLayout
-        android:id="@+id/tide_list_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tide_title">
-
-        <TextView
-            android:id="@+id/tide_list_date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Today" />
-
-        <ImageButton
-            android:id="@+id/tide_list_date_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_date"
-            app:tint="?android:textColorSecondary" />
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tide_list"

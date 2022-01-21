@@ -54,8 +54,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private lateinit var detailList: ListView<AstroField>
     private lateinit var chart: AstroChart
 
-    private lateinit var displayDate: LocalDate
-
     private lateinit var sunTimesMode: SunTimesMode
 
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -102,16 +100,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         chart = AstroChart(binding.sunMoonChart)
 
-        binding.datePicker.setOnClickListener {
-            Pickers.date(requireContext(), displayDate) {
-                if (it != null) {
-                    displayDate = it
-                    updateUI()
-                }
-            }
+        binding.displayDate.setOnDateChangeListener {
+            updateUI()
         }
 
-        binding.datePicker.setOnLongClickListener {
+        binding.displayDate.setOnCalendarLongPressListener {
             val options = listOf(
                 AstronomyEvent.FullMoon,
                 AstronomyEvent.NewMoon,
@@ -136,25 +129,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 if (it != null) {
                     val search = options[it]
                     lastAstronomyEventSearch = search
-                    displayDate = astronomyService.findNextEvent(
+                    val currentDate = binding.displayDate.date
+                    binding.displayDate.date = astronomyService.findNextEvent(
                         search,
                         gps.location,
-                        displayDate
-                    ) ?: displayDate
+                        currentDate
+                    ) ?: currentDate
                     updateUI()
                 }
             }
             true
-        }
-
-        binding.nextDate.setOnClickListener {
-            displayDate = displayDate.plusDays(1)
-            updateUI()
-        }
-
-        binding.prevDate.setOnClickListener {
-            displayDate = displayDate.minusDays(1)
-            updateUI()
         }
 
         gps = sensorService.getGPS()
@@ -265,7 +249,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onResume() {
         super.onResume()
-        displayDate = LocalDate.now()
+        binding.displayDate.date = LocalDate.now()
         requestLocationUpdate()
         intervalometer.interval(Duration.ofMinutes(1), Duration.ofMillis(200))
         updateUI()
@@ -311,7 +295,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         uiUpdateJob = runInBackground {
             withContext(Dispatchers.Main) {
                 detectAndShowGPSError()
-                binding.date.text = getDateString(displayDate)
             }
 
             updateSunUI()
@@ -341,6 +324,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         val startHour: Float
+
+        val displayDate = binding.displayDate.date
 
         withContext(Dispatchers.Default) {
             if (displayDate == LocalDate.now() && prefs.astronomy.centerSunAndMoon) {
@@ -426,6 +411,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         val fields = mutableListOf<AstroField>()
+
+        val displayDate = binding.displayDate.date
 
         withContext(Dispatchers.Default) {
 
