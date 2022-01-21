@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
@@ -322,13 +321,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherPressureTendency.title =
             getString(R.string.pressure_tendency_format_2, formatted)
 
-        binding.weatherPressureTendency.setImageResource(
-            when (tendency.characteristic) {
-                PressureCharacteristic.Falling, PressureCharacteristic.FallingFast -> R.drawable.ic_arrow_down
-                PressureCharacteristic.Rising, PressureCharacteristic.RisingFast -> R.drawable.ic_arrow_up
-                else -> R.drawable.steady // TODO: Just the arrow or a dash
-            }
-        )
+        val imageMapper = PressureCharacteristicImageMapper()
+        binding.weatherPressureTendency.setImageResource(imageMapper.getImageResource(tendency.characteristic))
     }
 
     private suspend fun updateForecast() {
