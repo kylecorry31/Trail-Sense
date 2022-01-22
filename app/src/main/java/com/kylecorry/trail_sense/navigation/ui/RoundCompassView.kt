@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
@@ -10,7 +9,7 @@ import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.R
@@ -20,7 +19,7 @@ import kotlin.math.min
 
 
 class RoundCompassView : BaseCompassView {
-    private var compass: Bitmap? = null
+    private lateinit var dial: CompassDial
 
     private var iconSize = 0
     private var compassSize = 0
@@ -77,8 +76,9 @@ class RoundCompassView : BaseCompassView {
     private fun drawCompass() {
         opacity(255)
         imageMode(ImageMode.Center)
-        image(compass!!, width / 2f, height / 2f)
+        dial.draw(drawer)
 
+        noStroke()
         fill(Color.WHITE)
         circle(width / 2f, height / 2f, dp(16f))
 
@@ -203,20 +203,20 @@ class RoundCompassView : BaseCompassView {
         )
     }
 
-    override fun finalize() {
-        super.finalize()
-        tryOrNothing {
-            compass?.recycle()
-        }
-    }
-
     override fun setup() {
         super.setup()
         iconSize = dp(24f).toInt()
         compassSize = min(height, width) - 2 * iconSize - 2 * dp(2f).toInt()
-        compass = loadImage(R.drawable.compass, compassSize, compassSize)
         cardinalSize = sp(18f)
         primaryColor = Resources.color(context, R.color.orange_40)
+        val secondaryColor = Resources.color(context, R.color.colorSecondary)
+        dial = CompassDial(
+            PixelCoordinate(width / 2f, height / 2f),
+            compassSize / 2f,
+            secondaryColor,
+            Color.WHITE,
+            primaryColor
+        )
     }
 
     override fun draw() {

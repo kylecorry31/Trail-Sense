@@ -12,9 +12,11 @@ object Dial {
         tickLength: Float,
         spacing: Int,
         start: Int = 0,
-        end: Int = 360
+        end: Int = 360,
+        path: Path = Path()
     ): Path {
-        return Path().apply {
+        return path.apply {
+            reset()
             for (angle in start..end step spacing) {
                 if (angle == end && start == end) {
                     continue

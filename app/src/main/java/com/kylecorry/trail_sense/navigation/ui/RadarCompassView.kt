@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
@@ -15,7 +14,6 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
@@ -36,7 +34,6 @@ import kotlin.math.min
 
 class RadarCompassView : BaseCompassView {
     private lateinit var center: PixelCoordinate
-    private var compass: Bitmap? = null
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -73,6 +70,8 @@ class RadarCompassView : BaseCompassView {
     private var south = ""
     private var east = ""
     private var west = ""
+
+    private lateinit var dial: CompassDial
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -122,13 +121,6 @@ class RadarCompassView : BaseCompassView {
 
     private fun getDistanceFromCenter(pixel: PixelCoordinate): Float {
         return pixel.distanceTo(center)
-    }
-
-    override fun finalize() {
-        super.finalize()
-        tryOrNothing {
-            compass?.recycle()
-        }
     }
 
     private fun drawLocations() {
@@ -222,12 +214,8 @@ class RadarCompassView : BaseCompassView {
 
     private fun drawCompass() {
         imageMode(ImageMode.Center)
-        opacity(255)
-        image(
-            compass!!,
-            width / 2f,
-            height / 2f,
-        )
+
+        dial.draw(drawer)
 
         drawPaths()
 
@@ -334,7 +322,6 @@ class RadarCompassView : BaseCompassView {
         primaryColor = Resources.color(context, R.color.orange_40)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
-        compass = loadImage(R.drawable.compass, compassSize, compassSize)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
         metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
@@ -345,6 +332,7 @@ class RadarCompassView : BaseCompassView {
         center = PixelCoordinate(width / 2f, height / 2f)
         locationStrokeWeight = dp(0.5f)
         updateCoordinateToPixelStrategy()
+        dial = CompassDial(center, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
     }
 
     override fun draw() {

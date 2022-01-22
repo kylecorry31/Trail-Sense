@@ -40,7 +40,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:scaleType="fitCenter"
-                tools:src="@drawable/compass" />
+                tools:src="@drawable/ic_category_navigation" />
 
             <TextView
                 android:id="@+id/page_contents"
