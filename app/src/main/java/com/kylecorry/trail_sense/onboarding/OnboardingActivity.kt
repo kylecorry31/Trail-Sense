@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.onboarding
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import com.kylecorry.andromeda.core.system.Resources
@@ -59,51 +60,31 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun load(page: Int) {
-        val pageToLoad = if (page == OnboardingPages.WEATHER && !Sensors.hasBarometer(this)) {
-            page + 1
-        } else {
-            page
-        }
-
         binding.pageSettings.removeAllViews()
 
-        if (page == OnboardingPages.NAVIGATION){
-            val backtrackSwitch = SwitchCompat(this)
-            backtrackSwitch.isChecked = prefs.backtrackEnabled
-            backtrackSwitch.text = getString(R.string.backtrack)
-            backtrackSwitch.setOnCheckedChangeListener { _, isChecked ->
-                prefs.backtrackEnabled = isChecked
+        if (page == OnboardingPages.EXPLORE) {
+            addSwitch(getString(R.string.backtrack), prefs.backtrackEnabled) {
+                prefs.backtrackEnabled = it
             }
-            binding.pageSettings.addView(backtrackSwitch)
+            if (Sensors.hasBarometer(this)) {
+                addSwitch(
+                    getString(R.string.pref_monitor_weather_title),
+                    prefs.weather.shouldMonitorWeather
+                ) {
+                    prefs.weather.shouldMonitorWeather = it
+                }
+            }
+            addSwitch(getString(R.string.sunset_alerts), prefs.astronomy.sendSunsetAlerts) {
+                prefs.astronomy.sendSunsetAlerts = it
+            }
         }
 
-        if (page == OnboardingPages.ASTRONOMY){
-            val sunsetAlertSwitch = SwitchCompat(this)
-            sunsetAlertSwitch.isChecked = prefs.astronomy.sendSunsetAlerts
-            sunsetAlertSwitch.text = getString(R.string.sunset_alerts)
-            sunsetAlertSwitch.setOnCheckedChangeListener { _, isChecked ->
-                prefs.astronomy.sendSunsetAlerts = isChecked
-            }
-            binding.pageSettings.addView(sunsetAlertSwitch)
-        }
+        pageIdx = page
 
-        if (page == OnboardingPages.WEATHER){
-            val weatherSwitch = SwitchCompat(this)
-            weatherSwitch.isChecked = prefs.weather.shouldMonitorWeather
-            weatherSwitch.text = getString(R.string.pref_monitor_weather_title)
-            weatherSwitch.setOnCheckedChangeListener { _, isChecked ->
-                prefs.weather.shouldMonitorWeather = isChecked
-            }
-            binding.pageSettings.addView(weatherSwitch)
-        }
-
-
-        pageIdx = pageToLoad
-
-        if (pageToLoad >= OnboardingPages.pages.size) {
+        if (page >= OnboardingPages.pages.size) {
             navigateToApp()
         } else {
-            val pageContents = OnboardingPages.pages[pageToLoad]
+            val pageContents = OnboardingPages.pages[page]
             binding.pageName.title.text = getString(pageContents.title)
             binding.pageImage.setImageResource(pageContents.image)
             binding.pageImage.imageTintList =
@@ -121,6 +102,22 @@ class OnboardingActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.popBackStackImmediate()
         }
+    }
+
+    private fun addSwitch(title: String, isChecked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+        val switch = SwitchCompat(this)
+        switch.isChecked = isChecked
+        switch.text = title
+        switch.setOnCheckedChangeListener { _, checked ->
+            onCheckedChange(checked)
+        }
+        switch.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            bottomMargin = Resources.dp(this@OnboardingActivity, 8f).toInt()
+        }
+        binding.pageSettings.addView(switch)
     }
 
 }

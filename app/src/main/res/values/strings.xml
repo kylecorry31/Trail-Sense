@@ -605,14 +605,6 @@
     <string name="cumulus_desc">Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.</string>
     <string name="cumulonimbus_desc">Low puffy clouds that are very tall. They typically have an anvil shape and are dark.</string>
     <string name="cirrus_desc">High wispy clouds that look like tufts of white hair.</string>
-    <!--This is in Markdown format-->
-    <string name="onboarding_navigation">- Place beacons and navigate back to them\n\n- Get your current location, altitude, and speed\n\n- Retrace your steps with Backtrack (runs in the background when enabled)</string>
-    <!--This is in Markdown format-->
-    <string name="onboarding_weather">- Get hyperlocal forecasts using your phone\'s barometer\n\n- Does not use an Internet connection\n\n- Be alerted of incoming storms</string>
-    <!--This is in Markdown format-->
-    <string name="onboarding_astronomy">- Know when the sun/moon will rise and set\n\n- Be alerted when the sun is going to set\n\n- Locate the sun and moon on the compass</string>
-    <!--This is in Markdown format-->
-    <string name="onboarding_tools">- Access tools to assist in any wilderness situation\n\n- Signal using the flashlight or whistle\n\n- Convert locations from a paper map to your phone\n\n- Measure angles and determine the heights of objects\n\n- Synchronize your clock without an Internet connection\n\n- Take notes and keep track of items on hand\n\n- Find dropped iron/steel objects</string>
     <string name="privacy_and_location">Privacy and Location</string>
     <!--This is in Markdown format-->
     <string name="onboarding_user_guide">Learn how to use Trail Sense\'s features with the user guide. Available at the bottom of the Tools tab.\n\nMore guides will be coming soon.</string>
@@ -1198,6 +1190,9 @@
     <string name="pref_weather_show_temperature" translatable="false">pref_weather_show_temperature</string>
     <string name="pref_weather_show_temperature_title">Show temperature</string>
     <string name="pressure_tendency">Tendency</string>
+    <string name="explore">Explore</string>
+    <!--This is in Markdown format-->
+    <string name="onboarding_explore">- Designed for hiking, backpacking, camping, and geocaching\n\n- Place beacons and navigate to them\n\n- Follow paths\n\n- Retrace your steps with backtrack\n\n- Plan what to pack\n\n- Be alerted before the sun sets\n\n- Predict the weather\n\n- Use your phone as a flashlight\n\n- And much more!</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

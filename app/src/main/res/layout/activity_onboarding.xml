@@ -35,10 +35,7 @@
             <ImageView
                 android:id="@+id/page_image"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_height="100dp"
                 android:scaleType="fitCenter"
                 tools:src="@drawable/ic_category_navigation" />
 
@@ -46,28 +43,28 @@
                 android:id="@+id/page_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
+                android:lineSpacingMultiplier="1.5"
                 tools:text="Page contents" />
 
             <LinearLayout
                 android:id="@+id/page_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp" />
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 
 
     <Button
         android:id="@+id/next_button"
-        android:layout_width="150dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:backgroundTint="?attr/colorPrimary"
         android:text="@string/continue_button"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
