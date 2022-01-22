@@ -8,7 +8,6 @@
     <string name="astronomy">Zakuthambo</string>
     <string name="sunrise_label">Kutuluka kwa dzuwa</string>
     <string name="sunset_label">Dzuwa</string>
-    <string name="until_sunset_label">mpaka kulowa dzuwa</string>
 
 
     <string name="pref_use_true_north_title">Kumpoto Kwenikweni</string>
@@ -71,7 +70,6 @@
     <string name="today">Lero</string>
     <string name="tomorrow">Mawa</string>
     <string name="yesterday">Dzulo</string>
-    <string name="pressure_tendency_indicator_alt">Chizindikiro cha kupanikizika</string>
 
     <string name="pressure_48_hours">Maola 48</string>
     <string name="pressure_24_hours">Maola 24</string>

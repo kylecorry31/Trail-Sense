@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Alba</string>
     <string name="sunset_label">Tramonto</string>
-    <string name="until_sunset_label">fino al tramonto</string>
     <string name="pref_use_true_north_title">Vero Nord</string>
     <string name="pref_use_sea_level_pressure_title">Pressione a livello del mare</string>
     <string name="general">Generale</string>
@@ -64,18 +63,12 @@
     <string name="today">Oggi</string>
     <string name="tomorrow">Domani</string>
     <string name="yesterday">Ieri</string>
-    <string name="pressure_tendency_indicator_alt">Indicatore di tendenza della pressione</string>
     <string name="pressure_48_hours">48 ore</string>
     <string name="pressure_24_hours">24 ore</string>
     <string name="pressure_12_hours">12 ore</string>
     <string name="pressure_4_hours">4 ore</string>
     <string name="pref_pressure_history_title">Storia della pressione</string>
     <string name="tool_category_angles">Angoli</string>
-    <string name="heat_alert_normal_title">Nessun allarme temperatura</string>
-    <string name="heat_alert_heat_caution_title">Attenzione surriscaldamento</string>
-    <string name="heat_alert_heat_warning_title">Allarme surriscaldamento</string>
-    <string name="heat_alert_heat_alert_title">Allerta surriscaldamento</string>
-    <string name="dew_point">Punto di rugiada %s</string>
     <string name="beacon_comment">Note (opzionale)</string>
     <string name="beacon_elevation_hint_meters">Altezza in metri (opzionale)</string>
     <string name="beacon_elevation_hint_feet">Altezza in piedi (opzionale)</string>
@@ -106,17 +99,10 @@
     <string name="pref_num_visible_beacons_title">Segnaposto vicini</string>
     <string name="never">Mai</string>
     <string name="tools">Strumenti</string>
-    <string name="heat_alert_frostbite_message">Rischio di ipotermia/congelamento. Assicurarsi di rimanere idratati, utilizzare vestiti caldi e limitare le zone con pelle scoperta, e controllare i segni di ipotermia o congelamento.</string>
-    <string name="heat_alert_heat_message">Rischio di colpo di calore. Assicurarsi di rimanere idratati, rimanere al chiuso o all\'ombra, limitare l\'attività, e controllare i sintomi di un colpo di calore.</string>
-    <string name="heat_alert_heat_danger_title">Pericolo di surriscaldamento</string>
-    <string name="heat_alert_frostbite_danger_title">Pericolo ipotermia</string>
-    <string name="heat_alert_frostbite_warning_title">Allarme ipotermia</string>
-    <string name="heat_alert_frostbite_caution_title">Avviso di ipotermia</string>
     <string name="sun_down_no_set">Il sole è tramontato</string>
     <string name="sun_up_no_set">Il sole è sorto</string>
     <string name="sun_does_not_rise">non sorge</string>
     <string name="sun_does_not_set">non tramonta</string>
-    <string name="temperature_disclaimer">La temperatura mostrata può essere più elevata a causa del riscaldamento del telefono.</string>
     <string name="pref_compass_sensor_title">Bussola</string>
     <string name="pref_ruler_calibration_title">Scala righello</string>
     <string name="sensors">Sensori</string>
@@ -139,13 +125,9 @@
     <string name="clinometer_title">Inclinometro</string>
     <string name="offline_maps">Mappe Offline</string>
     <string name="moon_illumination">Illuminazione lunare</string>
-    <string name="tide_neap">di quadratura</string>
-    <string name="tide_spring">sizigiale</string>
-    <string name="tide_normal">Normale</string>
     <string name="until_sun_time">Fino %s</string>
     <string name="sunset_alert_channel_title">Avviso di tramonto</string>
     <string name="sunset_alerts">Avvisi di tramonto</string>
-    <string name="tidal_range">Intervallo di marea</string>
     <string name="solar_noon">Mezzogiorno solare</string>
     <string name="lunar_noon">Mezzogiorno lunare</string>
     <string name="sunset_alert_notification_text">Il sole tramonterà alle %s</string>
@@ -175,7 +157,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Sconosciuto</string>
-    <string name="battery_temp">Telefono: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">In rapida scarica (%s)</string>
     <string name="discharging_slow">In lenta scarica (%s)</string>
@@ -194,7 +175,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -362,7 +342,6 @@
     <string name="tool_speedometer_odometer_title">Tachimetro / Contachilometri</string>
     <string name="speedometer">Tachimetro</string>
     <string name="speedometer_real_time">Tempo reale</string>
-    <string name="date_not_set">Data non impostata</string>
     <string name="time_not_set">Ora non impostata</string>
     <string name="battery_usage">%s utilizzo batteria</string>
     <string name="always_on">Sempre attivo</string>
@@ -443,7 +422,6 @@
     <string name="stratocumulus">Stratocumulo</string>
     <string name="cumulus">Cumulo</string>
     <string name="all_beacons">Tutti i Segnaposto</string>
-    <string name="max_depth">Massimo: %s</string>
     <string name="theme_sunset_sunrise">Alba/tramonto</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte, premi %s una volta finito.
 \n
@@ -454,7 +432,6 @@
     <string name="precise_centimeters_format">%s cm</string>
     <string name="clock_waiting_for_gps">Aggiornamento orario dal GPS…</string>
     <string name="contents">Contenuti</string>
-    <string name="freezing_temperatures_warning">Temperatura sotto zero</string>
     <string name="map_scale_ratio">Rapporto</string>
     <string name="location_input_help">Gradi decimali (es. 1.00, -2.00)
 \n
@@ -477,7 +454,6 @@
     <string name="max_temp_uncalibrated">Temperatura telefono massima (calibrata)</string>
     <string name="min_temp_calibrated">Temperatura ambiente minima (calibrata)</string>
     <string name="min_temp_uncalibrated">Temperatura telefono minima (calibrata)</string>
-    <string name="bearing">Direzione</string>
     <string name="create_at_distance">Crea ad una distanza</string>
     <string name="beacon_set_bearing_btn">Imposta direzione (%s)</string>
     <string name="unsaved_changes_message">Le modifiche apportate non saranno salvate.</string>
@@ -497,7 +473,6 @@
     <string name="action_inventory_clear_confirm">Eliminare tutte le quantità di inventario\?</string>
     <string name="tool_solar_panel_summary">Posiziona pannelli solari per avere la potenza ottimale</string>
     <string name="water_boil_timer">Timer bollitura acqua</string>
-    <string name="freezing_temperatures_description">L\'acqua si giaccerà se lasciata fuori e la pioggia potrebbe diventare neve</string>
     <string name="flashlight_strobe">Lampeggio</string>
     <string name="three">3</string>
     <string name="temp_f_short">°F</string>
@@ -507,24 +482,8 @@
     <string name="battery_power_usb">USB</string>
     <string name="stratus_desc">Nuvola bassa che copre il cielo. Gli oggetti non proiettano ombre e potrebbe esserci nebbia.</string>
     <string name="cumulonimbus_desc">Nuvole basse molto sviluppate verticalmente. Sono tipicamente scure e a forma di incudine.</string>
-    <string name="onboarding_astronomy">- Sii a conoscenza di quando Sole e Luna sorgono e tramontano
-\n
-\n- Vieni avvisato quando il sole sta per tramontare
-\n
-\n- Indica il Sole e la Luna sulla bussola</string>
-    <string name="onboarding_tools">- Accedi a strumenti che ti assistono in ogni situazione nella natura
-\n
-\n- Invia segnali utilizzando la torcia o fischiando
-\n
-\n- Converti le coordinate di una mappa cartacea utilizzando il telefono
-\n
-\n- Misura angoli e determina l\'altezza degli oggetti
-\n
-\n- Sincronizza l\'orologio senza utilizzare una connessione a Internet
-\n
-\n- Scrivi delle note e tieni traccia di oggetti a portata di mano
-\n
-\n- Trova oggetti di ferro/acciaio caduti</string>
+
+
     <string name="onboarding_privacy">- Trail Sense rispetta la tua privacy e i dati sulla posizione non lasciano mai il tuo dispositivo
 \n
 \n- Trail Sense non richiederà mai di accedere ad Internet
@@ -547,7 +506,6 @@
 \n
 \n- Dopo aver cliccato continua, ti verrà chiesto di consentire l\'accesso alla posizione e alla posizione in background. Negare tali autorizzazioni preverrà Trail Sens dall\'accedere alla tua posizione, quindi un inserimento manuale della posizione è raccomandato.</string>
     <string name="left_quick_action">Azione rapida sinistra</string>
-    <string name="tide_calibration_instructions">Imposta l\'ora di un\'alta marea vicina a te, preferibilmente un giorno di Luna piena o Luna nuova. Questa può essere ottenuta online o tramite tabelle cartacee. Le maree mostrate in Trail Sense potrebbero essere sbagliate di anche due ore, cioè bastano come riferimento ma non ci si deve fare affidamento.</string>
     <string name="sleep_timer">Timer sonno</string>
     <string name="pedometer_disclaimer">L\'accuratezza e l\'impatto sulla batteria del pedometro dipendono dal produttore del dispositivo e dalla lunghezza di passo inserita. Provalo a casa per un po\' per verificare il consumo di batteria e l\'accuratezza prima di usarlo fuori.</string>
     <string name="altocumulus_desc">Nuvole medie a fiocchi che somigliano a palline di cotone. Sono tipicamente bianche con chiazze più scure sotto. Possono essere spaziate o ravvicinate.</string>
@@ -559,7 +517,6 @@
     <string name="color">Colore</string>
     <string name="precise_inches_format">%s in</string>
     <string name="pedometer">Pedometro</string>
-    <string name="tide_location_label">Località maree (opzionale)</string>
     <string name="no_tides">Nessuna marea</string>
     <string name="guide_importing_maps_title">Importare le mappe</string>
     <string name="previous">Precedente</string>
@@ -574,10 +531,8 @@
     </plurals>
     <string name="create_map">Crea una mapap</string>
     <string name="updates">Aggiornamenti</string>
-    <string name="utc_format">%s UTC</string>
     <string name="one">1</string>
     <string name="cirrus_desc">Nuvole alte fibrose che sembrano ciuffi di capelli bianchi.</string>
-    <string name="create_tide">Crea Marea</string>
     <string name="tomorrow_at">Domani alle %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Massimo %d meteore/ora</string>
     <string name="meteor_shower">Sciami meteorici</string>
@@ -607,11 +562,7 @@
     <string name="delete_waypoint_prompt">Cancellare segnaposto\?</string>
     <string name="stratocumulus_desc">Nuvole basse che somigliano a uno strato di cotone con piccoli buchi. I colori spaziano dal bianco al grigio scuro.</string>
     <string name="cumulus_desc">Nuvole basse che somigliano a palline di cotone. Sono sparpagliate e tipicamente bianche con chiazze più scure sotto.</string>
-    <string name="onboarding_weather">- Ottieni previsioni meteo localizzate utilizzando il barometro del telefono
-\n
-\n- Non richiede una connessione a Internet
-\n
-\n- Vieni avvisato di temporali imminenti</string>
+
     <string name="onboarding_user_guide">Impara a usare le funzionalità di Trail Sense tramite il manuale utente. Disponibile in fondo alla scheda Strumenti.
 \n
 \nGuide aggiuntive saranno disponibili a breve.</string>
@@ -631,7 +582,6 @@
     <string name="tides">Maree</string>
     <string name="pref_daily_weather_time_title">Orario meteo giornaliero</string>
     <string name="value_since_time">%s dal %s</string>
-    <string name="saltwater_switch">È acqua salata\?</string>
     <string name="odometer">Odometro</string>
     <string name="rename">Rinomina</string>
     <string name="no_maps">Nessuna mappa</string>

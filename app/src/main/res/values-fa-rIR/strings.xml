@@ -9,7 +9,6 @@
     <string name="astronomy">ستاره شناسی</string>
     <string name="sunrise_label">طلوع خورشید</string>
     <string name="sunset_label">غروب خورشید</string>
-    <string name="until_sunset_label">تا غروب</string>
 
 
     <string name="pref_use_true_north_title">شمال جغرافیایی</string>
@@ -73,7 +72,6 @@
     <string name="today">امروز</string>
     <string name="tomorrow">فردا</string>
     <string name="yesterday">دیروز</string>
-    <string name="pressure_tendency_indicator_alt">شاخص گرایش فشار</string>
 
     <string name="pressure_48_hours">48 ساعته</string>
     <string name="pressure_24_hours">24 ساعته</string>

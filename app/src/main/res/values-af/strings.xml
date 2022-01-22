@@ -8,7 +8,6 @@
     <string name="astronomy">Sterrekunde</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
-    <string name="until_sunset_label">tot sononder</string>
 
 
     <string name="pref_use_true_north_title">Ware Noord</string>
@@ -71,7 +70,6 @@
     <string name="today">vandag</string>
     <string name="tomorrow">môre</string>
     <string name="yesterday">gister</string>
-    <string name="pressure_tendency_indicator_alt">Drukneiging aanwyser</string>
 
     <string name="pressure_48_hours">48 uur</string>
     <string name="pressure_24_hours">24 ure</string>

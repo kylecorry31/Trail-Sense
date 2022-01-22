@@ -38,8 +38,6 @@
     <string name="speedometer_odometer_accuracy_dialog">En iyi doğruluk için geri iz sürmeyi etkinleştirin ve kilometre sayacı kaynağını ayarlarda adımsayar olarak ayarlayın.</string>
     <string name="pedometer_disclaimer">Adımsayarın doğruluğu ve pil tüketimi cihazınızın üreticisine ve girilen adım mesafesine bağlıdır. Yolda kullanmadan önce evinizde hassasiyeti doğrulayın.</string>
     <string name="no_tides">Gelgit yok</string>
-    <string name="create_tide">Gelgit Oluştur</string>
-    <string name="tide_location_label">Gelgit konumu (isteğe bağlı)</string>
     <string name="pedometer">Adımsayar</string>
     <string name="odometer">Odometre/kilometre sayacı</string>
     <string name="value_average">ortalama %s</string>
@@ -50,9 +48,7 @@
     <string name="speedometer_real_time">Eş zamanlı</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="pref_daily_weather_time_title">Günlük hava durumu vakti</string>
-    <string name="date_not_set">Tarih belirlenmedi</string>
     <string name="time_not_set">Zaman belirlenmedi</string>
-    <string name="tide_calibration_instructions">Yakınınızdaki met (kabaran deniz) vaktini belirle (tercihen dolunay veya yeni ay gününde). Bu vakit internet üzerinden veya basılı gelgit tablosunda bulunabilir. Trail Sense üzerinde gözüken gelgitler iki saate kadar geri/ileri olabilir. Bu süre referans için yeterli olabilir ama dayanak olarak kullanmak mümkün olmayabilir.</string>
     <string name="half_tide">Orta deniz</string>
     <string name="low_tide">Cezir/Alçalan deniz</string>
     <string name="high_tide">Met/Kabaran deniz</string>
@@ -120,29 +116,9 @@
     <string name="onboarding_user_guide">Trail Sense\'in özelliklerini nasıl kullanacağını Araçlar sekmesinde yer alan kullanım kılavuzundan öğren.
 \n
 \nDaha fazla kılavuz yolda.</string>
-    <string name="onboarding_tools">- Vahşi hayatta/doğada yardım edebilecek araçlara eriş
-\n
-\n- El feneri veya ıslık özelliği ile sinyal ver
-\n
-\n- Basılı haritadaki konumları telefonuna taşı
-\n
-\n- Açıları ölç ve nesnelerin boyunu belirle
-\n
-\n- Saatini internet olmadan senkronize et
-\n
-\n- Not al ve elindeki ögelerin kaydını tut
-\n
-\n- Düşen demir veya çelik nesneleri bul</string>
-    <string name="onboarding_astronomy">- Güneş/ay ne zaman doğacak veya batacak öğren
-\n
-\n- Güneşin batmasından önce uyarı al
-\n
-\n- Pusulada güneşi ve ayın konumunu belirle</string>
-    <string name="onboarding_navigation">- İşaret yerleştir ve işaretlere tekrardan yön belirle.
-\n
-\n- Mevcut konumunu, irtifanı, ve hızını bul.
-\n
-\n- Geri iz sürme ile aynı yoldan geri git. (özellik arkaplanda çalışır)</string>
+
+
+
     <string name="cirrus_desc">Beyaz saç tutamlarına benzeyen yüksek ince bulutlar.</string>
     <string name="cumulonimbus_desc">Çok uzun olan alçak kabarık bulutlar. Genellikle bir örs şekline sahiptirler ve karanlıktırlar.</string>
     <string name="stratocumulus_desc">Küçük boşluklara sahip pamuk topları gibi görünen alçak bulutlar. Renk beyazdan koyu griye kadar değişir.</string>
@@ -192,8 +168,6 @@
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_centimeters">Santimetre</string>
-    <string name="freezing_temperatures_description">Dışarıda bırakılan su donar ve yağmur kara dönebilir</string>
-    <string name="freezing_temperatures_warning">Dondurucu Sıcaklıklar</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="contents">İçerikler</string>
@@ -245,20 +219,14 @@
     <string name="reset">Sıfırla</string>
     <string name="thunder">Gök gürültüsü</string>
     <string name="lightning">Yıldırım</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Saat</string>
     <string name="distance_to">Buraya kadar</string>
     <string name="distance_from">Buradan</string>
     <string name="lunar_noon">Gece ortası</string>
-    <string name="onboarding_weather">- Telefonunun barometresini kullanarak mevcut konumunun hava durumu tahminini al
-\n
-\n- İnternet kullanımı gerektirmez
-\n
-\n- Yaklaşan fırtınalar için önceden uyarı al</string>
+
     <string name="pref_show_noon_summary">Öğle ve gece ortası</string>
     <string name="delete_tide_prompt">Gelgiti sil\?</string>
     <string name="beacon_set_bearing_btn">Kerterizi belirle (%s)</string>
-    <string name="bearing">Kerteriz</string>
     <string name="toast_destination_bearing_set">Hedef kerterizi belirlendi</string>
     <string name="weather_monitor">Hava Durumu Monitörü</string>
     <string name="whistle_signal_come_here">Buraya gel</string>
@@ -291,7 +259,6 @@
     <string name="unit_meters">Metre</string>
     <string name="inventory_empty_text">Öge yok</string>
     <string name="tool_whistle_title">Islık</string>
-    <string name="max_depth">Maks.: %s</string>
     <string name="cliff_height_guide">Kayalık yüksekliğini tahmin et</string>
     <string name="tool_cliff_height_disclaimer">Bu aracı yalnızca kullanımı güvenli olduğunda kullanın ve yaralanmayı önlemek için uçurumun altında ne olduğunu kontrol ettiğinizden emin olun. Talimatlar için kullanım kılavuzuna bakın.</string>
     <string name="tool_cliff_height_title">Kayalık Yüksekliği</string>
@@ -349,7 +316,6 @@
     <string name="pref_forecast_sensitivity_title">Hava tahmini hassaslığı</string>
     <string name="pref_monitor_weather_title">Hava durumunu gözlemle</string>
     <string name="pref_monitor_weather_summary">arkaplanda</string>
-    <string name="pressure_tendency_indicator_alt">Basınç eğilimi göstergesi</string>
     <string name="pressure_4_hours">4 saat</string>
     <string name="pressure_12_hours">12 saat</string>
     <string name="pressure_24_hours">24 saat</string>
@@ -443,10 +409,6 @@
     <string name="moon_illumination">Ayın aydınlığı</string>
     <string name="moon_phase">Ayın evresi</string>
     <string name="solar_noon">Öğle</string>
-    <string name="tide_normal">Normal gel-git</string>
-    <string name="tide_spring">Yüksek gel-git</string>
-    <string name="tide_neap">Alçak gel-git</string>
-    <string name="tidal_range">Gel-git Aralığı</string>
     <string name="sunset_alert_channel_title">Gün batımı alarmı</string>
     <string name="sunset_alerts">Gün batımı alarmı</string>
     <string name="access_background_location_rationale">Trail Sense, arkaplanda konum bilgisini kullanır. İşbu bilgi hava durumu gözleminde deniz seviyesi basıncını ölçmek için ve daha isabetli gün doğumu bilgisi sunmak için kullanılır. [Gizlilik Politikasına Göz Atın](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
@@ -468,22 +430,10 @@
     <string name="yesterday">Dün</string>
     <string name="tomorrow">Yarın</string>
     <string name="today">Bugün</string>
-    <string name="until_sunset_label">gün batımına kadar</string>
     <string name="sun_down_no_set">Güneş battı</string>
     <string name="sun_up_no_set">Güneş doğdu</string>
     <string name="sun_does_not_rise">doğmuyor</string>
     <string name="sun_does_not_set">batmıyor</string>
-    <string name="temperature_disclaimer">Gösterilen derece telefonunuzun sıcaklığından dolayı gereğinden daha yüksek olabilir.</string>
-    <string name="heat_alert_frostbite_danger_title">Hipotermi tehlikesi</string>
-    <string name="heat_alert_frostbite_warning_title">Hipotermi uyarısı</string>
-    <string name="heat_alert_frostbite_caution_title">Hipotermi tedbiri</string>
-    <string name="heat_alert_normal_title">Isı derecesi uyarısı yok</string>
-    <string name="heat_alert_heat_caution_title">Sıcaklık tedbiri</string>
-    <string name="heat_alert_heat_alert_title">Sıcaklık alarmı</string>
-    <string name="heat_alert_heat_warning_title">Sıcaklık uyarısı</string>
-    <string name="heat_alert_frostbite_message">Hipotermi/soğuk vurması riski. Su içmeyi unutmayın, cildinizi soğuğa kapatacak ve sizi sıcak tutacak giysiler giyin, ve hipotermi ve/veya soğuk vurması semptomlarına dikkat edin.</string>
-    <string name="heat_alert_heat_message">Hipetermi/inme riski. Su içmeyi unutmayın, içeride veya gölgede kalın, egzersizi sınırlı tutun, ve hipetermi ve inme semptomlarına dikkat edin.</string>
-    <string name="heat_alert_heat_danger_title">Sıcaklık tehlikesi</string>
     <string name="forecast_worsening">İleride kötüleşebilir</string>
     <string name="forecast_improving">İleride iyileşebilir</string>
     <string name="weather_not_changing">Yakında değişmiyor</string>
@@ -492,7 +442,6 @@
     <string name="weather_worsening_slow">Yakında kötüleşiyor</string>
     <string name="weather_improving_slow">Yakında iyileşiyor</string>
     <string name="weather_improving_fast">Çok yakında iyileşiyor</string>
-    <string name="dew_point">Çiy noktası %s</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -550,7 +499,6 @@
     <string name="accuracy_distance_format">±%s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Bilinmiyor</string>
-    <string name="battery_temp">Telefon: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Şarj hızlı bitiyor (%s)</string>
     <string name="discharging_slow">Şarj yavaş bitiyor (%s)</string>
@@ -576,7 +524,6 @@
     <string name="direction_north">N</string>
     <string name="duration_minute_format">%ddk</string>
     <string name="duration_hour_format">%dsa</string>
-    <string name="duration_hour_minute_format">%dsa %ddk</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="precise_kilometers_format">%s km</string>
@@ -657,7 +604,6 @@
     <string name="pref_nearby_radar_title">Yakındaki radar pusulasını göster</string>
     <string name="source">Kaynak</string>
     <string name="pref_stride_length_title">Adım uzunluğu</string>
-    <string name="saltwater_switch">Tuzlu su mu\?</string>
     <string name="experimental">Deneysel</string>
     <string name="no_gps_signal">GPS Sinyali Yok</string>
     <string name="low">Düşük</string>

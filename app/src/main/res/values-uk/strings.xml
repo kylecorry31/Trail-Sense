@@ -47,14 +47,11 @@
     <string name="meteor_shower">Зорепад</string>
     <string name="menu">Меню</string>
     <string name="no_tides">Немає припливів</string>
-    <string name="create_tide">Створити прилив</string>
-    <string name="tide_location_label">Місцеперебування припливу (необов\'язково)</string>
     <string name="pref_nearby_radar_title">Показати компас радару поблизу</string>
     <string name="source">Джерело</string>
     <string name="pref_stride_length_title">Довжина кроку</string>
     <string name="pedometer">Крокомір</string>
     <string name="odometer">Відстанемір</string>
-    <string name="saltwater_switch">Вода є солоною\?</string>
     <string name="value_average">%s у середньому</string>
     <string name="value_since_time">%s з %s</string>
     <string name="tool_speedometer_odometer_title">Спідометр / Відстанемір</string>
@@ -64,9 +61,7 @@
     <string name="screen_flashlight">Екран</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_time_title">Щоденний час погоди</string>
-    <string name="date_not_set">Дату не встановлено</string>
     <string name="time_not_set">Час не встановлено</string>
-    <string name="tide_calibration_instructions">Установіть час припливу поруч з вами, бажано на дату нового місяця чи повного місяця. Його можна отримати в Інтернеті або роздрукувавши таблиці припливів і відливів. Припливи, показані в Trail Sense, можуть відрізнятися до двох годин, чого досить для довідки, але на що не можна покладатися.</string>
     <string name="half_tide">Половинний</string>
     <string name="low_tide">Низький</string>
     <string name="high_tide">Високий</string>
@@ -166,34 +161,10 @@
 \n
 \nСкоро з\'являться інші посібники.</string>
     <string name="privacy_and_location">Приватність і місцеперебування</string>
-    <string name="onboarding_tools">- Доступні засоби, які допоможуть за будь-якого становища в дикій природі
-\n
-\n- Подання сигналу ліхтариком або свистком
-\n
-\n- Переносьте місцеперебування з паперової карти на свій телефон
-\n
-\n- Виміряйте кути та визначайте висоту об\'єктів
-\n
-\n- Синхронізуйте годинник без підключення до Інтернету
-\n
-\n- Робіть примітки та відстежуйте речі під рукою
-\n
-\n- Знайдіть впалі речі з заліза/сталі</string>
-    <string name="onboarding_astronomy">- Знайте, коли сонце/місяць зійде та сяде
-\n
-\n- Будьте попереджені, коли сонце збирається сісти
-\n
-\n- Знайдіть сонце і місяць за компасом</string>
-    <string name="onboarding_weather">- Одержуйте обмежено-місцеві прогнози за допомогою барометра вашого телефону
-\n
-\n- Не використовує підключення до Інтернету
-\n
-\n- Будьте попереджені про наближувані шторми</string>
-    <string name="onboarding_navigation">- Додайте маячки та поверніться до них
-\n
-\n- Отримайте своє місцеперебування, висоту та швидкість
-\n
-\n- Повторюйте свої кроки за допомогою історії маршруту (працює у тлі, коли увімкнено)</string>
+
+
+
+
     <string name="cirrus_desc">Високі білі хмари, схожі на пучки білого волосся.</string>
     <string name="cumulonimbus_desc">Низькі пухкі хмари, дуже високі. Вони зазвичай мають форму ковадла і темні.</string>
     <string name="cumulus_desc">Низькі пухкі хмари, схожі на ватяні кульки. Вони розташовані на невеликій відстані один від одного і зазвичай білі з темнішими плямами знизу.</string>
@@ -226,7 +197,6 @@
     <string name="unsaved_changes_message">Внесені вами зміни не будуть збережені.</string>
     <string name="inventory_empty_text">Порожньо</string>
     <string name="tool_whistle_title">Свисток</string>
-    <string name="max_depth">Макс: %s</string>
     <string name="cliff_height_guide">Оцінка висоти скелі</string>
     <string name="tool_cliff_height_disclaimer">Використовуйте цей засіб тільки тоді, коли це безпечно, і обов\'язково перевіряйте, що знаходиться під скелею, щоб уникнути травм. Вказівки дивіться в посібнику користувача.</string>
     <string name="tool_cliff_height_description">Виміряйте висоту скелі чи обриву</string>
@@ -310,7 +280,6 @@
     <string name="pref_forecast_sensitivity_title">Чутливість прогнозу</string>
     <string name="pref_monitor_weather_title">Відстеження погоди</string>
     <string name="pref_monitor_weather_summary">У тлі</string>
-    <string name="pressure_tendency_indicator_alt">Покажчик тенденції тиску</string>
     <string name="pressure_4_hours">4 години</string>
     <string name="pressure_12_hours">12 годин</string>
     <string name="pressure_24_hours">24 години</string>
@@ -392,10 +361,6 @@
     <string name="moon_phase">Фаза Місяця</string>
     <string name="lunar_noon">Полуніч</string>
     <string name="solar_noon">Полудень</string>
-    <string name="tide_normal">Нормальний</string>
-    <string name="tide_spring">Сизигійний</string>
-    <string name="tide_neap">Квадратурний</string>
-    <string name="tidal_range">Дальність припливу</string>
     <string name="sunset_alert_channel_title">Сонце скоро зайде</string>
     <string name="sunset_alerts">Попередження про захід сонця</string>
     <string name="sunset_alert_notification_text">Сонце зайде о %s</string>
@@ -416,22 +381,10 @@
     <string name="yesterday">Учора</string>
     <string name="tomorrow">Завтра</string>
     <string name="today">Сьогодні</string>
-    <string name="until_sunset_label">до заходу сонця</string>
     <string name="sun_down_no_set">Сонце сіло</string>
     <string name="sun_up_no_set">Сонце зійшло</string>
     <string name="sun_does_not_rise">не сходить</string>
     <string name="sun_does_not_set">не сідає</string>
-    <string name="temperature_disclaimer">Показана температура може бути вищою через нагрівання вашого телефону.</string>
-    <string name="heat_alert_frostbite_danger_title">Високий ризик обмороження</string>
-    <string name="heat_alert_frostbite_warning_title">Ризик обмороження</string>
-    <string name="heat_alert_frostbite_caution_title">Можливість обмороження</string>
-    <string name="heat_alert_normal_title">Немає попереджень про температуру</string>
-    <string name="heat_alert_heat_caution_title">Можливість теплового удару</string>
-    <string name="heat_alert_heat_warning_title">Риск теплового удару</string>
-    <string name="heat_alert_heat_alert_title">Високий ризик теплового удару</string>
-    <string name="heat_alert_frostbite_message">Ризик переохолодження/обмороження. Обов\'язково пийте воду, одягайтеся тепло й запобігайте відкритим ділянкам шкіри, а також стежте за ознаками переохолодження або обмороження.</string>
-    <string name="heat_alert_heat_message">Тепловий удар/ризик інсульту. Обов\'язково пийте воду, залишайтеся в приміщенні або в тіні, обмежте фізичні навантаження і стежте за ознаками теплового удару чи інсульту.</string>
-    <string name="heat_alert_heat_danger_title">Теплова небезпека</string>
     <string name="forecast_worsening">Можливо, погіршиться пізніше</string>
     <string name="forecast_improving">Можливо, поліпшиться пізніше</string>
     <string name="weather_not_changing">Найближчим часом без змін</string>
@@ -468,7 +421,6 @@
     <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
     <string name="beacon_set_bearing_btn">Установити маячок (%s)</string>
     <string name="create_at_distance">Створити на відстані</string>
-    <string name="bearing">Маячок</string>
     <string name="min_temp_uncalibrated">Мін. температура телефону (без калібрування)</string>
     <string name="min_temp_calibrated">Мін. температура довкілля (після калібрування)</string>
     <string name="max_temp_uncalibrated">Макс. температура телефону (без калібрування)</string>
@@ -484,8 +436,6 @@
     <string name="unit_inches_abbreviation">дюйм</string>
     <string name="unit_centimeters_abbreviation">см</string>
     <string name="unit_centimeters">Сантиметри</string>
-    <string name="freezing_temperatures_description">Вода замерзне, якщо її залишити, а дощ може перетворитися на сніг</string>
-    <string name="freezing_temperatures_warning">Температури замерзання</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="note_title_hint">Заголовок</string>
@@ -536,7 +486,6 @@
     <string name="reset">Скинути</string>
     <string name="thunder">Грім</string>
     <string name="lightning">Блискавки</string>
-    <string name="utc_format">Всесвітній час %s</string>
     <string name="tool_clock_title">Годинник</string>
     <string name="flashlight_strobe">Стробоскоп</string>
     <string name="tool_boil_summary">Сповіщає, коли вода питна</string>
@@ -570,7 +519,6 @@
     <string name="weather_worsening_slow">Скоро погіршиться</string>
     <string name="weather_improving_slow">Скоро поліпшиться</string>
     <string name="weather_improving_fast">Дуже скоро поліпшиться</string>
-    <string name="dew_point">Точка роси %s</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -633,7 +581,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Невідомо</string>
-    <string name="battery_temp">Телефон: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Швидке розряджання (%s)</string>
     <string name="discharging_slow">Повільне розряджання (%s)</string>
@@ -653,7 +600,6 @@
     <string name="direction_west">Зх</string>
     <string name="direction_east">Сх</string>
     <string name="direction_south">Пд</string>
-    <string name="duration_hour_minute_format">%d год %d хв</string>
     <string name="duration_minute_format">%d хв.</string>
     <string name="duration_hour_format">%d год.</string>
     <string name="miles_per_hour_format">%.1f миль/год</string>
@@ -1037,7 +983,6 @@
     <string name="weather_monitor_disabled_resolution">Увімкніть відстеження погоди в налаштуваннях погоди</string>
     <string name="compass_accuracy">Точність компаса</string>
     <string name="compass_unavailable">Компас недоступний</string>
-    <string name="enter_text">Введіть текст</string>
     <string name="no_qr_code_found">QR-код не виявлено</string>
     <string name="saved_to_note">Збережено у примітках</string>
     <string name="temp_f_short">°F</string>
@@ -1055,7 +1000,6 @@
     <string name="pref_flashlight_should_timeout_title">Автовимкнення</string>
     <string name="pref_flashlight_timeout_title">Вимкнути після</string>
     <string name="night">Ніч</string>
-    <string name="tide_is_diurnal">Є добовим\?</string>
     <string name="tide_table">Таблиця припливів</string>
     <string name="low_tide_letter">Н</string>
     <string name="view">Показ</string>

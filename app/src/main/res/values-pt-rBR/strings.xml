@@ -12,7 +12,6 @@
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="duration_hour_format">%dh</string>
     <string name="duration_minute_format">%dm</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="direction_north">N</string>
     <string name="direction_south">S</string>
     <string name="direction_east">E</string>
@@ -79,7 +78,6 @@
     <string name="sun_does_not_rise">não nasce</string>
     <string name="sun_up_no_set">O sol nasceu</string>
     <string name="sun_down_no_set">O sol se pôs</string>
-    <string name="until_sunset_label">até o pôr do sol</string>
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
     <string name="yesterday">Ontem</string>
@@ -115,7 +113,6 @@
     <string name="sun_civil">Civil</string>
     <string name="sun_nautical">Náutico</string>
     <string name="sun_astronomical">Astronômico</string>
-    <string name="pressure_tendency_indicator_alt">Indicador de tendência de pressão</string>
     <string name="pressure_48_hours">48 horas</string>
     <string name="pressure_24_hours">24 horas</string>
     <string name="pressure_12_hours">12 horas</string>
@@ -155,10 +152,6 @@
     <string name="sunset_alert_notification_text">O sol se porá em %s</string>
     <string name="sunset_alerts">Alertas ao pôr do sol</string>
     <string name="sunset_alert_channel_title">Alerta ao pôr do sol</string>
-    <string name="tidal_range">Amplitude de maré</string>
-    <string name="tide_neap">Maré morta</string>
-    <string name="tide_spring">Mudança da maré</string>
-    <string name="tide_normal">Normal</string>
     <string name="solar_noon">Meio-dia solar</string>
     <string name="lunar_noon">Meio-dia lunar</string>
     <string name="moon_phase">Fase lunar</string>
@@ -247,18 +240,6 @@
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="offline_maps">Mapas off-line</string>
-    <string name="temperature_disclaimer">A temperatura mostrada pode ser mais alta devido ao calor do seu celular.</string>
-    <string name="heat_alert_frostbite_danger_title">Perigo de hipotermia</string>
-    <string name="heat_alert_frostbite_warning_title">Aviso de hipotermia</string>
-    <string name="heat_alert_frostbite_caution_title">Cuidado com a hipotermia</string>
-    <string name="heat_alert_normal_title">Sem aviso de temperatura</string>
-    <string name="heat_alert_heat_caution_title">Cuidado com o calor</string>
-    <string name="heat_alert_heat_warning_title">Aviso de calor</string>
-    <string name="heat_alert_heat_alert_title">Alerta de calor</string>
-    <string name="heat_alert_frostbite_message">Risco de hipotermia/congelamento. Certifique-se de que esteja hidratado, vista roupa quente e limite a exposição da pele, fique atento a sinais de hipotermia ou queimaduras por congelamento.</string>
-    <string name="heat_alert_heat_message">Risco de exaustão de calor/AVC. Certifique-se que esteja hidratado, fique dentro de casa ou na sombra, limite o exercício e observe os sinais de exaustão de calor ou derrame.</string>
-    <string name="heat_alert_heat_danger_title">Risco de calor intenso</string>
-    <string name="dew_point">Ponto de orvalho %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="maps">Mapas</string>
     <plurals name="beacon_group_summary">
@@ -292,7 +273,6 @@
     <string name="reset">Reiniciar</string>
     <string name="thunder">Trovão</string>
     <string name="lightning">Relâmpago</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Relógio</string>
     <string name="flashlight_strobe">Estroboscópico</string>
     <string name="pref_sensor_details_title">Detalhes do sensor</string>
@@ -321,7 +301,6 @@
     <string name="distance_to">A</string>
     <string name="inventory_empty_text">Nenhum item</string>
     <string name="tool_whistle_title">Apito</string>
-    <string name="max_depth">Máx: %s</string>
     <string name="cliff_height_guide">Estimar a altura do penhasco</string>
     <string name="tool_cliff_height_disclaimer">Use esta ferramenta somente quando for seguro para fazê-lo, e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o guia do usuário para mais instruções.</string>
     <string name="tool_cliff_height_description">Medir a altura de um penhasco ou queda</string>
@@ -384,8 +363,6 @@
     <string name="notes_empty_text">Sem anotações</string>
     <string name="unit_centimeters">Centímetros</string>
     <string name="unit_inches">Polegadas</string>
-    <string name="freezing_temperatures_warning">Temperaturas congelantes</string>
-    <string name="freezing_temperatures_description">A água congelará se deixada no exterior e a chuva pode se transformar em neve</string>
     <string name="tool_thermometer_title">Termômetro</string>
     <string name="guide_thermometer_calibration_title">Calibração de termômetro</string>
     <string name="location_input_help_title">Formatos de localização suportados</string>
@@ -401,7 +378,6 @@
     <string name="create_beacon">Criar ponto de orientação</string>
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="battery_temp">Celular: %s</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="map_distance">Mapa: %s</string>
@@ -441,34 +417,10 @@
 \n
 \nMais guias estarão disponíveis em breve.</string>
     <string name="privacy_and_location">Privacidade e localização</string>
-    <string name="onboarding_tools">- Acesse as ferramentas para ajudar em qualquer situação em meio selvagem
-\n
-\n- Sinalize usando a lanterna ou apito
-\n
-\n- Converta locais de um mapa de papel para seu telefone
-\n
-\n- Medir ângulos e determinar as alturas dos objetos
-\n
-\n- Sincronize seu relógio sem conexão à Internet
-\n
-\n- Fazer anotações e manter o controle dos itens em mãos
-\n
-\n- Encontrar objetos de ferro/aço soltos</string>
-    <string name="onboarding_astronomy">- Saber quando o sol/lua vai nascer e se pôr
-\n
-\n- Seja alertado quando o sol vai se pôr
-\n
-\n- Localizar o sol e a lua na bússola</string>
-    <string name="onboarding_weather">- Obtenha previsões hiperlocais usando o barômetro de seu telefone
-\n
-\n- Não utiliza a conexão de Internet
-\n
-\n- Ser alertado das tempestades que chegam</string>
-    <string name="onboarding_navigation">- Coloque pontos de orientação e navegue de volta para eles
-\n
-\n- Obtenha sua localização atual, altitude e velocidade
-\n
-\n- Reconstitua seus passos com o Recuo (quando ativado, funciona em segundo plano)</string>
+
+
+
+
     <string name="cirrus_desc">Nuvens altas e finas que parecem tufos de cabelo branco.</string>
     <string name="cirrocumulus_desc">Nuvens de alto nível que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
     <string name="stratocumulus_desc">Nuvens baixas que parecem uma folha de bolas de algodão com pequenas aberturas. A cor varia do branco ao cinza escuro.</string>
@@ -526,7 +478,6 @@
     <string name="backtrack">Recuar</string>
     <string name="beacon_set_bearing_btn">Definir rumo (%s)</string>
     <string name="create_at_distance">Criar à distância</string>
-    <string name="bearing">Rumo</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
@@ -589,7 +540,6 @@
     <string name="speedometer_average">Média (do Recuar)</string>
     <string name="speedometer_real_time">Tempo real</string>
     <string name="screen_flashlight">Tela</string>
-    <string name="date_not_set">Data não definida</string>
     <string name="low_tide">Baixa maré</string>
     <string name="high_tide">Alta maré</string>
     <string name="tides">Marés</string>
@@ -715,19 +665,15 @@
     <string name="meteor_shower">Chuva de meteoros</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Sem marés</string>
-    <string name="create_tide">Criar maré</string>
-    <string name="tide_location_label">Localização da maré (opcional)</string>
     <string name="pref_nearby_radar_title">Mostrar bússola de radar por perto</string>
     <string name="source">Fonte</string>
     <string name="pref_stride_length_title">Distância da passada</string>
     <string name="pedometer">Pedômetro</string>
     <string name="odometer">Odômetro</string>
-    <string name="saltwater_switch">É água salgada\?</string>
     <string name="value_average">%s média</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / Odômetro</string>
     <string name="pref_daily_weather_time_title">Tempo do dia</string>
     <string name="time_not_set">Tempo não definido</string>
-    <string name="tide_calibration_instructions">Defina a hora de maré alta perto de você, de preferência na data de uma lua nova ou cheia. Pode obter isso on-line ou via tabelas de marés impressas. As marés mostradas no Trail Sense podem estar fora da sincronia por até duas horas, que é o suficiente para referência, mas não o suficiente para depender disso.</string>
     <string name="half_tide">Meia maré</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d ponto de orientação exportado</item>

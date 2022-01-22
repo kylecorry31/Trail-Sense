@@ -8,7 +8,6 @@
     <string name="astronomy">Աստղագիտություն</string>
     <string name="sunrise_label">Արևածագ</string>
     <string name="sunset_label">Մայրամուտ</string>
-    <string name="until_sunset_label">մինչև մայրամուտ</string>
 
 
     <string name="pref_use_true_north_title">Իսկական Հյուսիս</string>
@@ -71,7 +70,6 @@
     <string name="today">Այսօր</string>
     <string name="tomorrow">Վաղը</string>
     <string name="yesterday">Երեկ</string>
-    <string name="pressure_tendency_indicator_alt">Pressնշման հակվածության ցուցանիշը</string>
 
     <string name="pressure_48_hours">48 ժամ</string>
     <string name="pressure_24_hours">24 ժամ</string>

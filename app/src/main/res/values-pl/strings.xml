@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód Słońca</string>
     <string name="sunset_label">Zachód Słońca</string>
-    <string name="until_sunset_label">do zachodu słońca</string>
     <string name="pref_use_true_north_title">Prawdziwa Północ</string>
     <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
     <string name="general">Ogólne</string>
@@ -68,7 +67,6 @@
     <string name="today">Dziś</string>
     <string name="tomorrow">Jutro</string>
     <string name="yesterday">Wczoraj</string>
-    <string name="pressure_tendency_indicator_alt">Wskaźnik tendencji do zmiany ciśnienia</string>
     <string name="pressure_48_hours">48 godzin</string>
     <string name="pressure_24_hours">24 godziny</string>
     <string name="pressure_12_hours">12 godzin</string>
@@ -77,7 +75,6 @@
     <string name="solar_noon">Górowanie Słońca</string>
     <string name="waning_crescent">Ubywający Sierp</string>
     <string name="new_moon">Nów</string>
-    <string name="heat_alert_frostbite_warning_title">Ostrzeżenie przed hipotermią</string>
     <string name="advanced">Zaawansowane</string>
     <string name="no_group">Brak grupy</string>
     <string name="group">Grupa</string>
@@ -112,11 +109,6 @@
     <string name="sun_down_no_set">Słońce zaszło</string>
     <string name="sun_does_not_rise">nie wschodzi</string>
     <string name="sun_does_not_set">nie zachodzi</string>
-    <string name="heat_alert_frostbite_danger_title">Zagrożenie hipotermią</string>
-    <string name="heat_alert_frostbite_caution_title">Ostrzeżenie dotyczące hipotermii</string>
-    <string name="heat_alert_normal_title">Brak ostrzeżenia o temperaturze</string>
-    <string name="heat_alert_heat_alert_title">Ostrzeżenie przed upałem</string>
-    <string name="dew_point">Punkt rosy %s</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alarmy burzowe</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
@@ -146,7 +138,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%dg %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dg</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
@@ -198,10 +189,8 @@
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
     <string name="clinometer_rotate_device">Trzymaj telefon pionowo, aby zmierzyć nachylenie</string>
     <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego i wysokości obiektów</string>
-    <string name="tide_normal">Normalny</string>
     <string name="sunset_alert_channel_title">Alert o zachodzie słońca</string>
     <string name="sun_up_no_set">Słońce wzeszło</string>
-    <string name="heat_alert_heat_warning_title">Ostrzeżenie przed wysoką temperaturą</string>
     <string name="eta">~ %s pozostało</string>
     <string name="dialog_grant">Aktualizuj ustawienia</string>
     <string name="tool_bubble_level_summary">Sprawdź, czy powierzchnie są płaskie</string>
@@ -221,9 +210,6 @@
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
     <string name="lunar_noon">Górowanie Księżyca</string>
-    <string name="tide_spring">Pływ syzygijny</string>
-    <string name="tide_neap">Pływ kwadraturowy</string>
-    <string name="tidal_range">Zakres pływów</string>
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
     <string name="clinometer_title">Inklinometr</string>
@@ -233,7 +219,6 @@
     <string name="sunset_alert_notification_text">Słońce zajdzie o %s</string>
     <string name="waxing_crescent">Wzrastający Sierp</string>
     <string name="first_quarter">Pierwsza kwadra</string>
-    <string name="max_depth">Maks.: %s</string>
     <string name="tool_whistle_title">Gwizdek</string>
     <string name="category_shelter">Schronienie</string>
     <string name="category_food">Jedzenie</string>
@@ -287,7 +272,6 @@
     <string name="pref_sunset_alert_time_title">Czas alertu przed zachodem słońca</string>
     <string name="category_natural">Naturalne</string>
     <string name="category_fire">Ogień</string>
-    <string name="heat_alert_heat_caution_title">Ostrzeżenie przed wysoką temperaturą</string>
     <string name="beacon_elevation_hint_feet">Wysokość w stopach (opcjonalnie)</string>
     <string name="water_purification_step_3">Uruchom minutnik</string>
     <string name="precise_inches_format">%s cali</string>
@@ -302,13 +286,8 @@
 \nTą informację można wyłączyć w ustawieniach aplikacji.</string>
     <string name="calibrate_compass_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8 lub we wszystkich kierunkach, po zakończeniu kliknij %s.</string>
     <string name="override_from_gps">Ustaw nadpisanie z GPS</string>
-    <string name="temperature_disclaimer">Wyświetlana temperatura może być wyższa ze względu na ciepło telefonu.</string>
-    <string name="heat_alert_heat_message">Ryzyko wyczerpania / udaru cieplnego. Pamiętaj, aby pozostać nawodnionym, pozostań w domu lub w cieniu, ogranicz ćwiczenia i uważaj na objawy wyczerpania lub udaru cieplnego.</string>
-    <string name="heat_alert_frostbite_message">Ryzyko hipotermii/odmrożenia. Pamiętaj, aby pozostać nawodnionym, ubierz się ciepło i ogranicz odsłoniętą skórę, i uważaj na objawy hipotermii lub odmrożeń.</string>
-    <string name="heat_alert_heat_danger_title">Zagrożenie termiczne</string>
     <string name="beacon_elevation_hint_meters">Wysokość w metrach (opcjonalnie)</string>
     <string name="tool_clock_title">Zegar</string>
-    <string name="utc_format">UTC %s</string>
     <string name="lightning">Błyskawica</string>
     <string name="thunder">Grzmot</string>
     <string name="three">3</string>
@@ -363,7 +342,6 @@
     <string name="max_temp_uncalibrated">Maksymalna temperatura telefonu (nieskalibrowana)</string>
     <string name="max_temp_calibrated">Maksymalna temperatura otoczenia (skalibrowana)</string>
     <string name="tool_white_noise_summary">Pomaga zasnąć</string>
-    <string name="freezing_temperatures_description">Woda zamarznie, jeśli zostanie pozostawiona, a deszcz może zamienić się w śnieg</string>
     <string name="clock_sync_instructions">Ustaw czas na %s, wtedy kiedy pojawi się powiadomienie</string>
     <string name="clock_sync_notification">Synchronizacja zegara - %s</string>
     <string name="notification_channel_clock_sync_description">Powiadomienie o synchronizacji zegara z czasem GPS</string>
@@ -382,7 +360,6 @@
 
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="battery_temp">Telefon: %s</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="clock_sync_time_settings">Przejść do ustawień czasu\?</string>
@@ -401,7 +378,6 @@
 \nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 lub we wszystkie kierunki oraz odejdź od metalu."</string>
     <string name="create_at_distance">Utwórz w odległości</string>
     <string name="beacon_set_bearing_btn">Ustaw namiar (%s)</string>
-    <string name="bearing">Namiar</string>
     <string name="toast_destination_bearing_set">Namiar ustawiony</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
@@ -451,29 +427,9 @@
     <string name="clouds">Chmury</string>
     <string name="import_btn">Import</string>
     <string name="export">Eksport</string>
-    <string name="onboarding_tools">- Dostęp do narzędzi pomocnych w każdej sytuacji w dziczy
-\n
-\n- Sygnalizowanie przy użyciu latarki lub gwizdka
-\n
-\n- Przenieś lokalizacje z mapy papierowej do telefonu
-\n
-\n- Mierz kąty i wyznaczaj wysokości obiektów
-\n
-\n- Synchronizuj swój zegarek bez połączenia z Internetem
-\n
-\n- Rób notatki i śledź stan przedmiotów na wyciągnięcie ręki
-\n
-\n- Znajdź upuszczone żelazne/stalowe przedmioty</string>
-    <string name="onboarding_weather">- Uzyskaj hiperlokalne prognozy za pomocą barometru w telefonie
-\n
-\n- Nie wymaga połączenia z Internetem
-\n
-\n- Bądź ostrzeżony o nadchodzących burzach</string>
-    <string name="onboarding_navigation">- Umieść punkty nawigacyjne i wróć do nich
-\n
-\n- Uzyskaj aktualną lokalizację, wysokość i prędkość
-\n
-\n- Prześledź swoje kroki za pomocą funkcji Backtrack (działa w tle, gdy jest włączona)</string>
+
+
+
     <string name="cirrostratus_desc">Chmura wysokiego piętra, zakrywająca niebo. Jest przezroczysta i zazwyczaj tworzy wokół słońca aureolę.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
     <string name="quality_good">Dobra</string>
@@ -505,11 +461,7 @@
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji programu Trail Sense, korzystając z podręcznika użytkownika. Dostępny jest na samym dole w zakładce Narzędzia.
 \n
 \nWkrótce pojawi się więcej przewodników.</string>
-    <string name="onboarding_astronomy">- Wiedz, kiedy słońce/księżyc wzejdzie i zajdzie
-\n
-\n- Dostawaj alerty o zachodzie słońca
-\n
-\n- Zlokalizuj słońce i księżyc na kompasie</string>
+
     <string name="cirrus_desc">Wysoka i pierzasta.</string>
     <string name="cumulonimbus_desc">Ciemnoszara, wysoka, o kowadełkowatym kształcie.</string>
     <string name="cumulus_desc">Wygląda jak puchate kulki z waty.</string>
@@ -525,7 +477,6 @@
     <string name="pref_altitude_override_sea_level_title">Korzystanie ze znanego ciśnienia na poziomie morza</string>
     <string name="altitude_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
-    <string name="freezing_temperatures_warning">Niskie temperatury</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="magnetometer">Magnetometr</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
@@ -569,7 +520,6 @@
     <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>
     <string name="guide_light_meter_title">Określ skuteczność latarki</string>
     <string name="none">Brak</string>
-    <string name="date_not_set">Data nieustawiona</string>
     <string name="time_not_set">Czas nieustawiony</string>
     <string name="tool_light_meter_title">Światłomierz</string>
     <string name="beam_distance">%s odległość wiązki</string>
@@ -578,7 +528,6 @@
     <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
     <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
     <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
-    <string name="tide_calibration_instructions">Ustaw czas przypływu w pobliżu, najlepiej w dniu nowiu lub pełni księżyca. Można znaleźć go w Internecie lub na drukowanych tabelach pływów. Pływy pokazane w programie Trail Sense mogą się różnić nawet o dwie godziny, co jest wystarczająco dobre dla odniesienia, ale nie można na nich polegać.</string>
     <string name="battery_power_ac">AC</string>
     <string name="low">Niskie</string>
     <string name="moderate">Umiarkowane</string>
@@ -593,15 +542,12 @@
     <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
     <string name="value_average">%s średnia</string>
     <string name="value_since_time">%s od %s</string>
-    <string name="saltwater_switch">Czy to słona woda\?</string>
     <string name="source">Źródło</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
     <string name="odometer">Drogomierz</string>
     <string name="delete_tide_prompt">Usunąć pływ\?</string>
     <string name="no_tides">Brak pływów</string>
-    <string name="create_tide">Utwórz pływ</string>
-    <string name="tide_location_label">Lokalizacja pływu (opcjonalnie)</string>
     <string name="tides">Pływy</string>
     <string name="menu">Menu</string>
     <string name="pref_meteor_showers_title">Deszcze meteorów</string>

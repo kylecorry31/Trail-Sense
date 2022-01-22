@@ -9,7 +9,6 @@
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
-    <string name="until_sunset_label">直到日落</string>
     <string name="pref_use_true_north_title">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压力</string>
     <string name="general">一般</string>
@@ -62,7 +61,6 @@
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
     <string name="yesterday">昨天</string>
-    <string name="pressure_tendency_indicator_alt">压力趋势指示器</string>
     <string name="pressure_48_hours">四十八小时</string>
     <string name="pressure_24_hours">二十四小时</string>
     <string name="pressure_12_hours">十二小时</string>
@@ -108,9 +106,6 @@
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
     <string name="solar_noon">太阳达到白天最高点</string>
-    <string name="tide_spring">涨潮</string>
-    <string name="tide_neap">小潮</string>
-    <string name="tidal_range">潮汐变化范围</string>
     <string name="sunset_alert_channel_title">日落警告</string>
     <string name="sunset_alerts">日落警告</string>
     <string name="sunset_alert_notification_text">太阳将于 %s 落下</string>
@@ -128,18 +123,6 @@
     <string name="sun_down_no_set">已日落</string>
     <string name="sun_does_not_rise">还未升起</string>
     <string name="sun_does_not_set">还未落下</string>
-    <string name="temperature_disclaimer">显示的温度可能因手机发热而偏高。</string>
-    <string name="heat_alert_frostbite_danger_title">体温过低危险</string>
-    <string name="heat_alert_frostbite_warning_title">体温过低警告</string>
-    <string name="heat_alert_frostbite_caution_title">体温过低警告</string>
-    <string name="heat_alert_normal_title">无温度警告</string>
-    <string name="heat_alert_heat_caution_title">高温注意</string>
-    <string name="heat_alert_heat_warning_title">高温警告</string>
-    <string name="heat_alert_heat_alert_title">高温警报</string>
-    <string name="heat_alert_heat_message">中暑虚脱/中风风险。请保持水分充足，呆在室内或阴凉处，限制活动，并注意中暑或中风的迹象。</string>
-    <string name="heat_alert_frostbite_message">存在低体温症/冻伤风险。请确保水分充足，穿着暖和并且限制暴露的皮肤，并注意低体温症或冻伤的迹象。</string>
-    <string name="heat_alert_heat_danger_title">酷热威胁</string>
-    <string name="dew_point">露点 %s</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">后台监测天气</string>
     <string name="notification_storm_alert_title">暴风雨警报</string>
@@ -180,7 +163,6 @@
     <string name="direction_east">东</string>
     <string name="direction_south">南</string>
     <string name="direction_north">北</string>
-    <string name="duration_hour_minute_format">%d 小时 %d 分钟</string>
     <string name="duration_minute_format">%d 分钟</string>
     <string name="duration_hour_format">%d 小时</string>
     <string name="dialog_deny">不，谢谢</string>
@@ -236,7 +218,6 @@
     <string name="reset">重置</string>
     <string name="thunder">雷</string>
     <string name="lightning">闪电</string>
-    <string name="utc_format">协调世界时 (UTC) %s</string>
     <string name="tool_clock_title">时钟</string>
     <string name="flashlight_strobe">频闪闪光灯</string>
     <string name="pref_sensor_details_title">传感器详情</string>
@@ -263,7 +244,6 @@
     <string name="distance_from">起点</string>
     <string name="inventory_empty_text">无物品</string>
     <string name="tool_whistle_title">哨子</string>
-    <string name="max_depth">最大值：%s</string>
     <string name="cliff_height_guide">预估悬崖高度</string>
     <string name="tool_cliff_height_disclaimer">只在安全的情况下才使用此工具，并确保检查悬崖下有什么，以避免受伤。请参见用户指南。</string>
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
@@ -340,7 +320,6 @@
     <string name="subtract">减去</string>
     <string name="add">添加</string>
     <string name="lunar_noon">月亮升到晚上的最高点</string>
-    <string name="tide_normal">正常</string>
     <string name="pressure_reading_time_ago">%s - %s 前</string>
     <string name="pressure_format">%s %s</string>
     <string name="accuracy_distance_format">± %s</string>
@@ -371,8 +350,6 @@
     <string name="map_distance">地图：%s</string>
     <string name="unit_inches">英寸</string>
     <string name="unit_centimeters">厘米</string>
-    <string name="freezing_temperatures_description">如果被放在外面，水会结冰，且雨可能会变成雪</string>
-    <string name="freezing_temperatures_warning">冻结温度</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="contents">内容</string>
@@ -383,8 +360,6 @@
     <string name="location_override_updated">位置覆盖已更新</string>
     <string name="update_gps_override">更新 GPS 覆盖</string>
     <string name="compass_declination">磁偏角</string>
-    <string name="battery_temp">手机电池：%s</string>
-    <string name="bearing">方位</string>
     <string name="backtrack">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
@@ -486,34 +461,10 @@
 \n
 \n更多指南将会很快到来。</string>
     <string name="privacy_and_location">隐私和位置</string>
-    <string name="onboarding_tools">- 访问工具，以协助任何野外情况
-\n
-\n- 使用手电筒或口哨发出信号
-\n
-\n- 将位置从纸质地图转换到你的手机
-\n
-\n- 测量角度和确定物体的高度
-\n
-\n- 在没有网络连接的情况下同步你的时钟
-\n
-\n- 做笔记并对手上的物品做记录
-\n
-\n- 找到掉落的铁/钢物品</string>
-    <string name="onboarding_astronomy">- 知道太阳/月亮何时升起和落下
-\n
-\n- 获得太阳何时落山的警报
-\n
-\n- 用罗盘定位太阳和月亮的位置</string>
-    <string name="onboarding_weather">- 使用手机的气压计获取超本地天气预报
-\n
-\n- 不使用互联网连接
-\n
-\n- 获得即将来临的暴风雨警报</string>
-    <string name="onboarding_navigation">- 放置信标，然后导航回去
-\n
-\n-获得你当下的位置，高度和速度
-\n
-\n- 用 Backtrack 追溯你的脚步 (启用时在后台运行)</string>
+
+
+
+
     <string name="import_btn">导入</string>
     <string name="export">导出</string>
     <string name="unavailable">不可用</string>
@@ -568,8 +519,6 @@
     <string name="right_quick_action">右导航栏快速操作</string>
     <string name="left_quick_action">左导航栏快速操作</string>
     <string name="none">无</string>
-    <string name="tide_calibration_instructions">设定在你附近的涨潮时间，最好是在新月或满月的日期。这可以从网上或通过印刷的潮汐表获得。Trail Sense 中显示的潮汐可能至多偏离两个小时，这足供参考之用，但不能依赖。</string>
-    <string name="date_not_set">未设置日期</string>
     <string name="time_not_set">未设置时间</string>
     <string name="half_tide">半潮</string>
     <string name="low_tide">落潮</string>
@@ -587,7 +536,6 @@
     <string name="value_average">%s 平均</string>
     <string name="value_since_time">%s自%s</string>
     <string name="tool_speedometer_odometer_title">速度计/里程表</string>
-    <string name="saltwater_switch">是咸水吗？</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="source">源</string>
     <string name="pref_stride_length_title">步幅</string>
@@ -595,8 +543,6 @@
     <string name="odometer">里程表</string>
     <string name="menu">菜单</string>
     <string name="no_tides">无潮汐</string>
-    <string name="create_tide">创建潮汐</string>
-    <string name="tide_location_label">潮汐位置 (可选)</string>
     <string name="tides">潮汐</string>
     <string name="delete_tide_prompt">删除潮汐？</string>
     <string name="meteor_shower">流星雨</string>
@@ -1010,7 +956,6 @@
     <string name="compass_unavailable">指南针不可用</string>
     <string name="gps_unavailable">GPS 不可用</string>
     <string name="gps_timeouts">GPS 超时</string>
-    <string name="enter_text">输入文字</string>
     <string name="no_qr_code_found">未检测到二维码</string>
     <string name="saved_to_note">已保存到笔记</string>
     <string name="qr_code_scanner">二维码扫描器</string>
@@ -1031,7 +976,6 @@
     <string name="tide_table">潮汐表</string>
     <string name="high_tide_letter">涨潮</string>
     <string name="low_tide_letter">落潮</string>
-    <string name="tide_is_diurnal">是全日潮吗？</string>
     <string name="view">查看</string>
     <string name="tide_deleted">已删除潮汐</string>
     <string name="estimated">预估值</string>

@@ -57,7 +57,6 @@
     <string name="pref_forecast_sensitivity_title">Sensibilitat de la previsió</string>
     <string name="pref_monitor_weather_title">Monitoratge del temps</string>
     <string name="pref_monitor_weather_summary">Activitat de fons</string>
-    <string name="pressure_tendency_indicator_alt">Indicador de tendència de la pressió</string>
     <string name="pressure_4_hours">4 hores</string>
     <string name="pressure_12_hours">12 hores</string>
     <string name="pressure_24_hours">24 hores</string>
@@ -79,7 +78,6 @@
     <string name="weather_worsening_slow">Empitjorarà aviat</string>
     <string name="weather_improving_slow">Millorarà aviat</string>
     <string name="weather_improving_fast">Millorarà aviat</string>
-    <string name="dew_point">Punt de rosada %s</string>
     <string name="no_data">Sense dades</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -139,7 +137,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Desconeguda</string>
-    <string name="battery_temp">Telèfon: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Descàrrega lenta (%s)</string>
     <string name="charging_slow">Càrrega lenta (%s)</string>
@@ -160,7 +157,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -258,10 +254,6 @@
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Migdia llunar</string>
     <string name="solar_noon">Migdia solar</string>
-    <string name="tide_normal">Normal</string>
-    <string name="tide_spring">Primavera</string>
-    <string name="tide_neap">Marea morta</string>
-    <string name="tidal_range">Rang de marees</string>
     <string name="sunset_alert_channel_title">Alerta de posta de sol</string>
     <string name="sunset_alerts">Alertes de posta de sol</string>
     <string name="sunset_alert_notification_text">El sol es pon a %s</string>
@@ -282,22 +274,10 @@
     <string name="yesterday">Ahir</string>
     <string name="tomorrow">Demà</string>
     <string name="today">Avui</string>
-    <string name="until_sunset_label">fins l\'ocàs</string>
     <string name="sun_down_no_set">El sol s\'ha pos</string>
     <string name="sun_up_no_set">El sol ha sortit</string>
     <string name="sun_does_not_rise">sense sortida del sol</string>
     <string name="sun_does_not_set">sense posta de sol</string>
-    <string name="temperature_disclaimer">La temperatura que es mostra pot ser més alta degut a la calor del seu dispositiu.</string>
-    <string name="heat_alert_frostbite_danger_title">Perill per hipotèrmia</string>
-    <string name="heat_alert_frostbite_warning_title">Avís d\'hipotèrmia</string>
-    <string name="heat_alert_frostbite_caution_title">Compte amb la hipotèrmia</string>
-    <string name="heat_alert_normal_title">Sense avís de temperatura</string>
-    <string name="heat_alert_heat_caution_title">Precaució: onada de calor</string>
-    <string name="heat_alert_heat_warning_title">Onada de calor</string>
-    <string name="heat_alert_heat_alert_title">Alerta de calor</string>
-    <string name="heat_alert_frostbite_message">Risc d\'hipotèrmia / congelació. Mantinguis hidratat, abriguis i limitar la pell exposada a l\'exterior, estigui atent als signes de hipotèrmia o congelació.</string>
-    <string name="heat_alert_heat_message">Risc relacionats amb la calor. Mantenir-se hidratat, mantingueu-vos a l\'ombra, limiteu l\'esforç físic, estigueu atents als signes indicadors d\'insolació, cops de calor, etc.</string>
-    <string name="heat_alert_heat_danger_title">Perill, onada de calor</string>
     <string name="forecast_improving">Possible millora més tard</string>
     <string name="forecast_worsening">Possible empitjorament més tard</string>
     <string name="weather_not_changing">Estable</string>
@@ -310,7 +290,6 @@
     <string name="pref_privacy_policy_title">Política de privadesa</string>
     <string name="tool_solar_panel_title">Alineador de panells solars</string>
     <string name="tool_clock_title">Rellotge</string>
-    <string name="utc_format">UTC %s</string>
     <string name="lightning">Llampec</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="tool_ruler_title">Regle</string>
@@ -348,7 +327,6 @@
     <string name="tool_cliff_height_title">Alçada penya-segat</string>
     <string name="tool_cliff_height_description">Mesureu l’alçada d’un penya-segat o una caiguda</string>
     <string name="tool_cliff_height_disclaimer">Utilitzeu només aquesta eina quan sigui segur fer-ho, i assegureu-vos de comprovar que hi ha sota el penya-segat per evitar lesions. Consulteu la guia d\'usuari per obtenir instruccions.</string>
-    <string name="max_depth">Màx.: %s</string>
     <string name="tool_whistle_title">Xiulet</string>
     <string name="inventory_empty_text">Cap element</string>
     <string name="distance_from">Des de</string>
@@ -366,7 +344,6 @@
     <string name="contents">Contingut</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
-    <string name="freezing_temperatures_description">L\'aigua es congelarà si es deixa fora i la pluja pot convertir-se en neu</string>
     <string name="distance_to">Fins a</string>
 
     <string name="cliff_height_guide">Estimació de l\'alçada del penya-segat</string>

@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Lever du soleil</string>
     <string name="sunset_label">Coucher du soleil</string>
-    <string name="until_sunset_label">jusqu\'au coucher du soleil</string>
     <string name="pref_use_true_north_title">Indiquer le vrai Nord</string>
     <string name="pref_use_sea_level_pressure_title">Pression au niveau de la mer</string>
     <string name="general">Général</string>
@@ -64,7 +63,6 @@
     <string name="today">Aujourd\'hui</string>
     <string name="tomorrow">Demain</string>
     <string name="yesterday">Hier</string>
-    <string name="pressure_tendency_indicator_alt">Indicateur de tendance de pression</string>
     <string name="pressure_48_hours">48 heures</string>
     <string name="pressure_24_hours">24 heures</string>
     <string name="pressure_12_hours">12 heures</string>
@@ -96,7 +94,6 @@
     <string name="altitude_from_pressure">Utiliser la donnée du baromètre pour l\'altitude</string>
     <string name="altitude">Altitude</string>
     <string name="pref_altimeter_calibration_title">Altimètre</string>
-    <string name="tidal_range">Amplitude de marée</string>
     <string name="sun_down_no_set">Le soleil est couché</string>
     <string name="sun_up_no_set">Le soleil est levé</string>
     <string name="sun_does_not_rise">pas de lever</string>
@@ -133,7 +130,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -168,21 +164,8 @@
     <string name="waning_crescent">Dernier croissant</string>
     <string name="new_moon">Nouvelle lune</string>
     <string name="until_sun_time">jusqu\'au %s</string>
-    <string name="heat_alert_frostbite_danger_title">Alerte : hypothermie</string>
-    <string name="heat_alert_frostbite_warning_title">Avertissement : hypothermie</string>
-    <string name="heat_alert_frostbite_caution_title">Attention : hypothermie</string>
-    <string name="heat_alert_normal_title">Pas d\'avertissement lié à la température</string>
-    <string name="heat_alert_heat_caution_title">Attention : forte chaleur</string>
-    <string name="heat_alert_heat_alert_title">Alerte : forte chaleur</string>
-    <string name="heat_alert_heat_warning_title">Avertissement : forte chaleur</string>
-    <string name="heat_alert_frostbite_message">RIsques d\'hypothermie et de gelures. 
-\n
-\nHydratez-vous, habillez vous chaudement en limitant la surface de peau exposée au froid et restez attentifs aux signes d\'hypothermie ou de gelures.</string>
-    <string name="heat_alert_heat_message">Risques liés à la chaleur. 
-\n
-\nPrenez soin de bien vous hydrater, restez à l\'intérieur ou à l\'ombre, limitez les efforts physiques, et soyez attentifs aux signes indicateurs d\'insolation, coups de chaleur, etc.</string>
-    <string name="heat_alert_heat_danger_title">Danger forte chaleur</string>
-    <string name="dew_point">Point de rosée %s</string>
+
+
     <string name="notification_monitoring_weather">Suivi des données météo en arrière plan</string>
     <string name="notification_storm_alert_title">Alerte tempête</string>
     <string name="notification_storm_alert_text">Une tempête est peut-être imminente</string>
@@ -209,7 +192,6 @@
     <string name="unknown">Inconnue</string>
     <string name="tools">Outils</string>
     <string name="moon_phase">Phase de la lune</string>
-    <string name="temperature_disclaimer">La température indiquée est à interpréter avec précaution car la valeur est influencée par la température de l\'appareil.</string>
     <string name="full_moon">Pleine lune</string>
     <string name="copied_to_clipboard_toast">Copié dans le presse-papier</string>
     <string name="lunar_noon">Midi lunaire</string>
@@ -230,9 +212,6 @@
 \nVous pouvez désactiver ce message dans les paramètres de l\'application.</string>
     <string name="calibrate_compass_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un « 8 » ou dans toutes les directions, de manière répétée, puis appuyez sur %s.</string>
     <string name="moon_illumination">Visibilité de la lune</string>
-    <string name="tide_normal">Amplitude de marée moyenne</string>
-    <string name="tide_spring">Vives-eaux</string>
-    <string name="tide_neap">Mortes-eaux</string>
     <string name="pref_adjust_for_temperature_title">Se baser sur la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
     <string name="offline_maps">Cartes hors-ligne</string>
@@ -280,7 +259,6 @@
     <string name="delete">Supprimer</string>
     <string name="subtract">Soustraire</string>
     <string name="add">Ajouter</string>
-    <string name="max_depth">Max : %s</string>
     <string name="edit_item_title">Éditer un objet</string>
     <string name="create_item_title">Créer un objet</string>
     <string name="tool_cliff_height_description">Mesure la hauteur d\'une falaise ou d\'une corniche</string>
@@ -291,7 +269,6 @@
 
     <string name="solar_panel_instructions">Placez votre téléphone sur la surface du panneau solaire pour commencer.</string>
     <string name="tool_triangulate_summary">Vous géolocalise sans GPS</string>
-    <string name="utc_format">%s UTC</string>
     <string name="inventory_empty_text">Aucun objet</string>
     <string name="discharging_fast">En décharge rapide (%s)</string>
     <string name="discharging_slow">En décharge lente (%s)</string>
@@ -341,8 +318,6 @@
     <string name="tool_whistle_title">Sifflet</string>
     <string name="tool_battery_title">Batterie</string>
     <string name="map_distance">Carte : %s</string>
-    <string name="freezing_temperatures_description">L\'eau gèlera si elle est laissée dehors et la pluie peut devenir de la neige</string>
-    <string name="freezing_temperatures_warning">Gel</string>
     <string name="battery_health">Santé : %s</string>
     <string name="battery_health_over_voltage">Survoltage</string>
     <string name="battery_health_overheat">Surchauffe</string>
@@ -380,7 +355,6 @@
     <string name="one">1</string>
     <string name="precise_inches_format">%s pouces</string>
     <string name="precise_centimeters_format">%s cm</string>
-    <string name="battery_temp">Téléphone : %s</string>
     <string name="low_power_mode_on_message">Le mode économie d\'énergie est activé, certaines fonctionnalités pourraient être désactivées.</string>
     <string name="pref_low_power_mode_title">Mode économie d\'énergie</string>
     <string name="guide_barometer_calibration_title">Étalonnage du baromètre</string>
@@ -402,7 +376,6 @@
     <string name="guide_location_no_gps_title">Déterminer sa position sans GPS</string>
     <string name="beacon_set_bearing_btn">Assigner l\'orientation (%s)</string>
     <string name="create_at_distance">Créer une distance</string>
-    <string name="bearing">Orientation</string>
     <string name="min_temp_uncalibrated">Température du téléphone minimale (non étalonnée)</string>
     <string name="min_temp_calibrated">Température ambiante minimale (étalonnée)</string>
     <string name="max_temp_uncalibrated">Température du téléphone maximale (non étalonnée)</string>

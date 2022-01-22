@@ -31,7 +31,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_second_format">%ds</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="direction_north">N</string>
     <string name="direction_south">S</string>
     <string name="direction_east">E</string>
@@ -52,7 +51,6 @@
     <string name="discharging_slow">Discharging slowly (%s)</string>
     <string name="discharging_fast">Discharging rapidly (%s)</string>
     <string name="dash">-</string>
-    <string name="battery_temp">Phone: %s</string>
     <!--Navigation Tab - Accuracy-->
     <string name="unknown">Unknown</string>
     <string name="accuracy_distance_unknown">\?</string>
@@ -120,7 +118,6 @@
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
     <string name="no_data">No data</string>
-    <string name="dew_point">Dew point %s</string>
     <!--Weather Tab - Forecasts-->
     <string name="weather_improving">Improving</string>
     <string name="weather_worsening">Worsening</string>
@@ -136,23 +133,11 @@
     <string name="weather_not_changing">Not changing soon</string>
     <string name="forecast_improving">Possibly improving later</string>
     <string name="forecast_worsening">Possibly worsening later</string>
-    <string name="heat_alert_heat_danger_title">Heat danger</string>
-    <string name="heat_alert_heat_message">Heat exhaustion/stroke risk. Be sure to stay hydrated, stay indoors or in shade, limit exercise, and watch for signs of heat exhaustion or stroke.</string>
-    <string name="heat_alert_frostbite_message">Hypothermia/frostbite risk. Be sure to stay hydrated, dress warm and limit exposed skin, and watch for signs of hypothermia or frostbite.</string>
-    <string name="heat_alert_heat_alert_title">Heat alert</string>
-    <string name="heat_alert_heat_warning_title">Heat warning</string>
-    <string name="heat_alert_heat_caution_title">Heat caution</string>
-    <string name="heat_alert_normal_title">No temperature warning</string>
-    <string name="heat_alert_frostbite_caution_title">Hypothermia caution</string>
-    <string name="heat_alert_frostbite_warning_title">Hypothermia warning</string>
-    <string name="heat_alert_frostbite_danger_title">Hypothermia danger</string>
-    <string name="temperature_disclaimer">The temperature shown may be higher due to your phone\'s heat.</string>
     <!--Astronomy Tab-->
     <string name="sun_does_not_set">does not set</string>
     <string name="sun_does_not_rise">does not rise</string>
     <string name="sun_up_no_set">Sun is up</string>
     <string name="sun_down_no_set">Sun is down</string>
-    <string name="until_sunset_label">until sunset</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="yesterday">Yesterday</string>
@@ -173,10 +158,6 @@
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
     <string name="sunset_alerts">Sunset alerts</string>
     <string name="sunset_alert_channel_title">Sunset alert</string>
-    <string name="tidal_range">Tidal Range</string>
-    <string name="tide_neap">Neap</string>
-    <string name="tide_spring">Spring</string>
-    <string name="tide_normal">Normal</string>
     <string name="solar_noon">Solar noon</string>
     <string name="lunar_noon">Lunar noon</string>
     <string name="moon_phase">Moon phase</string>
@@ -298,7 +279,6 @@
     <string name="pressure_24_hours">24 hours</string>
     <string name="pressure_12_hours">12 hours</string>
     <string name="pressure_4_hours">4 hours</string>
-    <string name="pressure_tendency_indicator_alt">Pressure tendency indicator</string>
     <string name="pref_monitor_weather_summary">In the background</string>
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
@@ -431,7 +411,6 @@
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
     <string name="cliff_height_guide">Estimate cliff height</string>
-    <string name="max_depth">Max: %s</string>
     <string name="tool_whistle_title">Whistle</string>
     <string name="action_inventory_clear_confirm">Clear all packed amounts?</string>
     <string name="inventory_empty_text">No items</string>
@@ -517,8 +496,6 @@
     <string name="note_title_hint">Title</string>
     <string name="contents">Contents</string>
     <string name="bubble_level_angles">X: %s\nY: %s</string>
-    <string name="freezing_temperatures_warning">Freezing Temperatures</string>
-    <string name="freezing_temperatures_description">Water will freeze if left out and rain may turn to snow</string>
     <string name="unit_centimeters">Centimeters</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">in</string>
@@ -542,7 +519,6 @@
     <string name="max_temp_uncalibrated">Max phone temperature (uncalibrated)</string>
     <string name="min_temp_calibrated">Min ambient temperature (calibrated)</string>
     <string name="min_temp_uncalibrated">Min phone temperature (uncalibrated)</string>
-    <string name="bearing">Bearing</string>
     <string name="create_at_distance">Create at distance</string>
     <string name="beacon_set_bearing_btn">Set bearing (%s)</string>
     <string name="guide_location_no_gps_title">Determine location without GPS</string>
@@ -685,11 +661,8 @@
     <string name="high_tide">High</string>
     <string name="low_tide">Low</string>
     <string name="half_tide">Half</string>
-    <string name="reference_high_tide" translatable="false">reference_high_tide</string>
     <string name="last_tide_id" translatable="false">last_tide_id</string>
-    <string name="tide_calibration_instructions">Set the time of a high tide near you, preferably on the date of a new or full moon. This can be obtained online or via printed tide tables. The tides shown in Trail Sense may be off by up to two hours, which is good enough for reference but not to rely on.</string>
     <string name="time_not_set">Time not set</string>
-    <string name="date_not_set">Date not set</string>
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
@@ -701,7 +674,6 @@
     <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
     <string name="value_since_time">%s since %s</string>
     <string name="value_average">%s average</string>
-    <string name="saltwater_switch">Is saltwater?</string>
     <string name="odometer">Odometer</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_stride_length_title">Stride length</string>
@@ -714,8 +686,6 @@
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
     <string name="pref_nearby_radar_title">Show nearby radar compass</string>
     <string name="pref_nearby_radius_holder" translatable="false">pref_nearby_radius_holder</string>
-    <string name="tide_location_label">Tide location (optional)</string>
-    <string name="create_tide">Create Tide</string>
     <string name="no_tides">No tides</string>
     <string name="menu">Menu</string>
     <string name="meteor_shower">Meteor shower</string>
@@ -1158,7 +1128,6 @@
     <string name="gps_unavailable">GPS unavailable</string>
     <string name="pref_error_settings" translatable="false">pref_error_settings</string>
     <string name="gps_timeouts">GPS timeouts</string>
-    <string name="enter_text">Enter text</string>
     <string name="qr_code_scanner">QR Code Scanner</string>
     <string name="no_qr_code_found">No QR code detected</string>
     <string name="saved_to_note">Saved to note</string>
@@ -1177,7 +1146,6 @@
     <string name="pref_flashlight_should_timeout_title">Automatically turn off</string>
     <string name="pref_flashlight_timeout_title">Turn off after</string>
     <string name="view">View</string>
-    <string name="tide_is_diurnal">Is diurnal?</string>
     <string name="estimated">Estimated</string>
     <string name="tide_table">Tide table</string>
     <string name="high_tide_letter">H</string>

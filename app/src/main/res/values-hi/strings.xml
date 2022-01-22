@@ -8,7 +8,6 @@
     <string name="astronomy">खगोल</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्य का अस्त होना</string>
-    <string name="until_sunset_label">सूर्यास्त तक</string>
 
 
     <string name="pref_use_true_north_title">ट्रू नॉर्थ</string>
@@ -71,7 +70,6 @@
     <string name="today">आज</string>
     <string name="tomorrow">आने वाला कल</string>
     <string name="yesterday">बिता कल</string>
-    <string name="pressure_tendency_indicator_alt">दबाव प्रवृत्ति संकेतक</string>
 
     <string name="pressure_48_hours">४८ घंटे</string>
     <string name="pressure_24_hours">२ घंटे</string>

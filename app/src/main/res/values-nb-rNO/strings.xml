@@ -52,10 +52,6 @@
     <string name="yesterday">I går</string>
     <string name="tomorrow">I morgen</string>
     <string name="today">I dag</string>
-    <string name="heat_alert_frostbite_danger_title">Nedkjølingsfare</string>
-    <string name="heat_alert_frostbite_caution_title">Nedkjølingsforsiktighet</string>
-    <string name="heat_alert_frostbite_warning_title">Nedkjølingsadvarsel</string>
-    <string name="heat_alert_normal_title">Ingen temperaturadvarsel</string>
     <plurals name="last_minutes">
         <item quantity="one">Siste %d minutt</item>
         <item quantity="other">Siste %d minutter</item>
@@ -125,20 +121,11 @@
     <string name="tool_clinometer_summary">Anslå snøskredfare og objekthøyder</string>
     <string name="clinometer_title">Klinometer</string>
     <string name="offline_maps">Frakoblede kart</string>
-    <string name="tidal_range">Tidevannsforskjell</string>
     <string name="sunset_alert_channel_title">Solnedgangsvarsel</string>
-    <string name="until_sunset_label">til solnedgang</string>
     <string name="sun_down_no_set">Sola er nede</string>
     <string name="sun_up_no_set">Sola er oppe</string>
     <string name="sun_does_not_rise">kommer ikke opp</string>
     <string name="sun_does_not_set">gå ikke ned</string>
-    <string name="temperature_disclaimer">Vist temperatur kan være høyere som følge av avgitt varme fra enheten din.</string>
-    <string name="heat_alert_heat_caution_title">Hetepåminnelse</string>
-    <string name="heat_alert_heat_alert_title">Hetealarm</string>
-    <string name="heat_alert_heat_warning_title">Heteadvarsel</string>
-    <string name="heat_alert_frostbite_message">Risiko for nedkjøling/frostskade. Sørg for å holde deg hydrert, kle deg varmt og begrens eksponert hud, og se etter tegn på nedkjøling eller frostskader.</string>
-    <string name="heat_alert_heat_message">Risiko for varmeutmattelse/heteslag. Sørg for å holde deg hydrert, hold deg innendørs eller i skyggen, begrens trening, og se etter tegn på varmeutmattelse eller heteslag.</string>
-    <string name="heat_alert_heat_danger_title">Hetefare</string>
     <string name="forecast_worsening">Muligens dårligere senere</string>
     <string name="forecast_improving">Muligens bedre senere</string>
     <string name="weather_not_changing">Endres ikke snart</string>
@@ -147,7 +134,6 @@
     <string name="weather_worsening_slow">Blir dårligere snart</string>
     <string name="weather_improving_fast">Blir bedre veldig snart</string>
     <string name="weather_improving_slow">Blir bedre snart</string>
-    <string name="dew_point">Duggpunkt %s</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
     <string name="units_inhg">inHg</string>
@@ -172,7 +158,6 @@
     <string name="tool_user_guide_summary">Veiledning for bruk av Trail Sense</string>
     <string name="tool_user_guide_title">Brukerveiledning</string>
     <string name="degree_format">%.0f°</string>
-    <string name="duration_hour_minute_format">%dt %dm</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Roter telefonen i et åttetallsmønster eller i alle retninger flere ganger, trykk %s når du er ferdig.
 \n
 \nDenne meldingen kan slås av i appinnstillingene.</string>
@@ -190,8 +175,6 @@
     <string name="add">Legg til</string>
     <string name="lunar_noon">Månens kulminasjon</string>
     <string name="solar_noon">Solens kulminasjon</string>
-    <string name="tide_spring">Spring</string>
-    <string name="tide_neap">Nipp</string>
     <string name="moon_illumination">Månen: opplyst del</string>
     <string name="tool_cliff_height_title">Høyden på en klippe</string>
     <string name="category_food">Mat</string>
@@ -254,11 +237,9 @@
     <string name="category_safety">Sikkerhet</string>
     <string name="other">Annet</string>
     <string name="category_clothing">Klær</string>
-    <string name="pressure_tendency_indicator_alt">Trykktendensindikator</string>
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
-    <string name="max_depth">Maks: %s</string>
     <string name="guide_recommended_apps">Anbefalte apper</string>
     <string name="guide_recommended_apps_description">Nyttige apper for overlevelsessituasjoner</string>
     <string name="unit_nautical_miles">Nautisk mil</string>
@@ -302,7 +283,6 @@
     <string name="reset">Nullstill</string>
     <string name="thunder">Torden</string>
     <string name="lightning">Lyn</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Klokke</string>
     <string name="strobe_warning_content">Blinkemodusfunksjonen gir blinkende lys som kan være farlig for noen brukere.</string>
     <string name="clock_waiting_for_gps">Oppdaterer tid fra GPS…</string>
@@ -341,7 +321,6 @@
     <string name="contents">Innhold</string>
     <string name="note_title_hint">Tittel</string>
     <string name="tool_notes_title">Notater</string>
-    <string name="battery_temp">Telefon: %s</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="map_fractional_separator">:</string>
     <string name="min_temp_uncalibrated">Min. telefontemperatur (ukalibrert)</string>
@@ -354,8 +333,6 @@
     <string name="tool_white_noise_title">Hvit støy</string>
     <string name="map_distance">Kart: %s</string>
     <string name="unit_inches">Tomme</string>
-    <string name="freezing_temperatures_description">Vann vil fryse ute og regn kan gå over til snø</string>
-    <string name="freezing_temperatures_warning">Kuldegrader</string>
     <string name="pref_backtrack_enabled_summary">Ta opp posisjonshistorikk</string>
     <string name="guide_location_no_gps_title">Bestem posisjon uten GPS</string>
     <string name="degree">%s°</string>
@@ -430,29 +407,9 @@
 \n- Mål Trail Sense-linjalverdien tilsvarerende en enhet på en fysisk linjal.
 \n- Rapporter den målte verdien her.</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="onboarding_tools">- Få tilgang til verktøy for å hjelpe deg i enhver situasjon i villmarken
-\n
-\n- Signaler med lommelykt eller fløyte
-\n
-\n- Konverter posisjoner fra et papirkart til telefonen
-\n
-\n- Mål vinkler og bestem høyden på objekter
-\n
-\n- Synkroniser klokken din uten internettforbindelse
-\n
-\n- Ta notater og hold oversikt over ting som er tilgjengelig
-\n
-\n- Finn mistede jern/stål-gjenstander</string>
-    <string name="onboarding_astronomy">- Vit når solen/månen går opp og ned
-\n
-\n- Bli varslet når solen skal gå ned
-\n
-\n- Lokaliser solen og månen på kompasset</string>
-    <string name="onboarding_weather">- Få veldig lokale værvarsler med telefonens barometer
-\n
-\n- Bruker ikke Internett-tilkobling
-\n
-\n- Bli varslet om stormer som nærmer seg</string>
+
+
+
     <string name="unavailable">Utilgjengelig</string>
     <string name="gps_searching">Søker</string>
     <string name="gps_stale">Foreldet</string>
@@ -494,7 +451,6 @@
     <string name="speedometer_real_time">Sanntid</string>
     <string name="screen_flashlight">Skjerm</string>
     <string name="pref_daily_weather_time_title">Daglig værtid</string>
-    <string name="date_not_set">Dato ikke stilt inn</string>
     <string name="time_not_set">Klokkeslett ikke stilt inn</string>
     <string name="low_tide">Lavvann</string>
     <string name="high_tide">Høyvann</string>
@@ -752,14 +708,11 @@
     <string name="on_map">På kart</string>
     <string name="no_maps">Ingen kart</string>
     <string name="rename">Gi nytt navn</string>
-    <string name="create_tide">Opprett tidevann</string>
-    <string name="saltwater_switch">Saltvann\?</string>
     <string name="set">Sett</string>
     <string name="delete_tide_prompt">Slett tidevann\?</string>
     <string name="solar_panel_instructions">Plasser telefonen din på overflaten av solcellepanelet for å begynne.</string>
     <string name="tool_solar_panel_title">Solcellepaneljustering</string>
     <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal strømproduksjon</string>
-    <string name="tide_normal">Normal</string>
     <string name="astro_dialog_rise_set">**Tid**: %s
 \n
 \n**Retning**: %s</string>
@@ -873,7 +826,6 @@
     <string name="measure">Mål</string>
     <string name="clinometer_measure_height_title">Avstand til målet</string>
     <string name="error_banners">Feilbannere</string>
-    <string name="enter_text">Skriv inn tekst</string>
     <string name="no_qr_code_found">Ingen QR-kode oppdaget</string>
     <string name="saved_to_note">Lagret til notat</string>
     <string name="pref_clinometer_baseline_distance_title">Grunnlinjedistanse</string>
@@ -891,7 +843,6 @@
     <string name="qr_text_too_long">Teksten er for lang, QR-kode ble avkortet</string>
     <string name="pref_flashlight_should_timeout_title">Slå av automatisk</string>
     <string name="pref_flashlight_timeout_title">Slå av etter</string>
-    <string name="bearing">Retning</string>
     <string name="very_soon">Veldig snart</string>
     <string name="soon">Snart</string>
     <string name="weather_improving">Forbedring</string>

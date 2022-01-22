@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Nascer do sol</string>
     <string name="sunset_label">Pôr do sol</string>
-    <string name="until_sunset_label">até ao pôr do sol</string>
     <string name="pref_use_true_north_title">Norte verdadeiro</string>
     <string name="pref_use_sea_level_pressure_title">Pressão ao nível do mar</string>
     <string name="general">Geral</string>
@@ -64,7 +63,6 @@
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
     <string name="yesterday">Ontem</string>
-    <string name="pressure_tendency_indicator_alt">Indicador de tendência da pressão</string>
     <string name="pressure_48_hours">48 horas</string>
     <string name="pressure_24_hours">24 horas</string>
     <string name="pressure_12_hours">12 horas</string>
@@ -99,7 +97,6 @@
     <string name="gps_cache">Cache do GPS</string>
     <string name="location_disabled">A localização está desativada</string>
     <string name="create_at_distance">Criar à distância</string>
-    <string name="bearing">Direção</string>
     <string name="min_temp_uncalibrated">Temperatura mínima do telemóvel (não calibrada)</string>
     <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrada)</string>
     <string name="max_temp_uncalibrated">Temperatura máxima do telemóvel (não calibrada)</string>
@@ -115,8 +112,6 @@
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_centimeters">Centímetros</string>
-    <string name="freezing_temperatures_description">A água irá congelar se for deixada no exterior e a chuva pode-se transformar em neve</string>
-    <string name="freezing_temperatures_warning">Temperaturas de congelamento</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="contents">Conteúdos</string>
@@ -168,7 +163,6 @@
     <string name="reset">Reiniciar</string>
     <string name="thunder">Trovão</string>
     <string name="lightning">Relâmpago</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Relógio</string>
     <string name="flashlight_strobe">Estroboscópico</string>
     <string name="pref_sensor_details_title">Detalhes do sensor</string>
@@ -198,7 +192,6 @@
     <string name="distance_from">De</string>
     <string name="inventory_empty_text">Nenhum item</string>
     <string name="tool_whistle_title">Apito</string>
-    <string name="max_depth">Máx: %s</string>
     <string name="cliff_height_guide">Estimar a altura de um penhasco</string>
     <string name="tool_cliff_height_disclaimer">Use esta ferramenta apenas quando for seguro fazê-lo e verifique o que está no fundo do penhasco para evitar, ao atirar uma pedra ou objeto, ferir alguém, animais ou danificar elementos. Consulte o guia do utilizador para mais instruções.</string>
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
@@ -322,9 +315,6 @@
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Meio-dia lunar</string>
     <string name="solar_noon">Meio-dia solar</string>
-    <string name="tide_normal">Normal</string>
-    <string name="tide_spring">Maré de águas vivas</string>
-    <string name="tide_neap">Maré morta</string>
     <string name="sunset_alert_channel_title">Alerta de pôr do sol</string>
     <string name="sunset_alerts">Alertas de pôr do sol</string>
     <string name="sunset_alert_notification_text">O sol irá pôr-se às %s</string>
@@ -342,18 +332,6 @@
     <string name="sun_up_no_set">O sol nasceu</string>
     <string name="sun_does_not_rise">não nasce</string>
     <string name="sun_does_not_set">não se põe</string>
-    <string name="temperature_disclaimer">A temperatura mostrada pode ser mais alta devido ao calor do seu telemóvel.</string>
-    <string name="heat_alert_frostbite_danger_title">Perigo de hipotermia</string>
-    <string name="heat_alert_frostbite_warning_title">Aviso de hipotermia</string>
-    <string name="heat_alert_frostbite_caution_title">Cuidado com a hipotermia</string>
-    <string name="heat_alert_normal_title">Sem aviso de temperatura</string>
-    <string name="heat_alert_heat_caution_title">Cuidado com o calor</string>
-    <string name="heat_alert_heat_warning_title">Aviso de calor</string>
-    <string name="heat_alert_heat_alert_title">Alerta de calor</string>
-    <string name="heat_alert_frostbite_message">Risco de hipotermia/congelamento. Certifique-se que está hidratado, use roupa quente e limite a pele exposta, fique atento a sinais de hipotermia ou queimaduras de frio.</string>
-    <string name="heat_alert_heat_message">Risco de exaustão por calor/acidente vascular cerebral. Certifique-se que está hidratado, fique dentro de casa ou na sombra, limite o exercício físico e esteja atento aos sinais de exaustão pelo calor ou AVC.</string>
-    <string name="heat_alert_heat_danger_title">Risco de calor intenso</string>
-    <string name="dew_point">Ponto de orvalho %s</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -392,7 +370,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Indeterminada</string>
-    <string name="battery_temp">Telemóvel: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Em descarregamento rápido (%s)</string>
     <string name="discharging_slow">Em descarregamento lento (%s)</string>
@@ -411,7 +388,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="set">Definir</string>
     <string name="location_not_set">Localização não definida</string>
@@ -471,34 +447,10 @@
 \n
 \nBrevemente estarão disponíveis mais guias do utilizador.</string>
     <string name="privacy_and_location">Privacidade e localização</string>
-    <string name="onboarding_tools">- Aceda às ferramentas para obter ajuda em qualquer situação num meio selvagem
-\n
-\n- Sinalize com a lanterna ou apito
-\n
-\n- Passe locais de um mapa de papel para o seu telefone
-\n
-\n- Meça ângulos e determine as alturas dos objetos
-\n
-\n- Sincronize o seu relógio sem uma ligação à Internet
-\n
-\n- Tome notas e mantenha o controlo dos itens à mão
-\n
-\n- Encontre objetos de ferro/aço caídos</string>
-    <string name="onboarding_astronomy">- Saiba quando o sol/lua vai nascer e se pôr
-\n
-\n- Seja alertado quando o sol se pôr
-\n
-\n- Localize o sol e a lua na bússola</string>
-    <string name="onboarding_weather">- Obtenha previsões hiperlocais (mais precisas) usando o barómetro do seu telefone
-\n
-\n- Não é necessário estar ligado à Internet
-\n
-\n- Seja alertado das tempestades que se aproximam</string>
-    <string name="onboarding_navigation">- Adicione alfinetes (locais marcados no mapa) e navegue por eles no percurso de regresso
-\n
-\n- Obtenha a sua localização, altitude e velocidade atuais
-\n
-\n- Reconstitua os seus passos com o voltar para trás (funciona em segundo plano se esta opção estiver ativada)</string>
+
+
+
+
     <string name="cirrus_desc">Nuvens altas e onduladas que parecem tufos de cabelo branco.</string>
     <string name="cumulonimbus_desc">Nuvens baixas e inchadas muito altas. Têm tipicamente uma forma de bigorna e são escuras.</string>
     <string name="cumulus_desc">Nuvens baixas e inchadas que parecem bolas de algodão. Estão espaçadas e são tipicamente brancas com manchas mais escuras por baixo.</string>
@@ -767,14 +719,11 @@
     <string name="meteor_shower">Chuva de meteoros</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Sem marés</string>
-    <string name="create_tide">Criar maré</string>
-    <string name="tide_location_label">Localização da maré (opcional)</string>
     <string name="pref_nearby_radar_title">Mostrar bússola de radar por perto</string>
     <string name="source">Fonte</string>
     <string name="pref_stride_length_title">Distância da passada</string>
     <string name="pedometer">Pedómetro</string>
     <string name="odometer">Conta-quilómetros</string>
-    <string name="saltwater_switch">É água salgada\?</string>
     <string name="value_average">%s média</string>
     <string name="value_since_time">%s desde %s</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / conta-quilómetros</string>
@@ -783,9 +732,7 @@
     <string name="speedometer_real_time">Tempo real</string>
     <string name="screen_flashlight">Ecrã</string>
     <string name="pref_daily_weather_time_title">Hora de meteorologia diária</string>
-    <string name="date_not_set">Data não definida</string>
     <string name="time_not_set">Relógio não definido</string>
-    <string name="tide_calibration_instructions">Defina a hora da maré alta perto de si, de preferência na data de uma lua nova ou cheia. Pode obter isto na Internet ou em tabelas de marés impressas. As marés mostradas no Trail Sense podem estar dessincronizadas até duas horas, que é o suficiente para referência, mas não o suficiente para confiar.</string>
     <string name="half_tide">Maré média</string>
     <string name="low_tide">Maré baixa</string>
     <string name="high_tide">Maré cheia</string>
@@ -805,7 +752,6 @@
     </plurals>
     <string name="delete_tide_prompt">Eliminar maré\?</string>
     <string name="action_inventory_clear_confirm">Eliminar todas as quantidades dos itens na mochila\?</string>
-    <string name="tidal_range">Amplitude de maré</string>
     <string name="no_data">Sem dados</string>
     <string name="all_beacons">Todos os alfinetes</string>
     <string name="current_format">%s mA</string>

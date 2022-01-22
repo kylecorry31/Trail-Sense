@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomija</string>
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
-    <string name="until_sunset_label">do zalaska sunca</string>
     <string name="pref_use_true_north_title">Pravi Sjever</string>
     <string name="pref_use_sea_level_pressure_title">Pritisak na razini mora</string>
     <string name="general">Opće</string>
@@ -66,7 +65,6 @@
     <string name="today">Danas</string>
     <string name="tomorrow">Sutra</string>
     <string name="yesterday">Jučer</string>
-    <string name="pressure_tendency_indicator_alt">Pokazatelj težnje pritiska</string>
     <string name="pressure_48_hours">48 sati</string>
     <string name="pressure_24_hours">24 sata</string>
     <string name="pressure_12_hours">12 sati</string>
@@ -247,7 +245,6 @@
     <string name="pedometer">Pedometar</string>
     <string name="tool_speedometer_odometer_title">Brzinomjer / Odometar</string>
     <string name="odometer">Odometar</string>
-    <string name="saltwater_switch">Je li slana voda\?</string>
     <string name="value_average">%s prosječno</string>
     <string name="value_since_time">%s od %s</string>
     <string name="speedometer">Brzinomjer</string>
@@ -255,16 +252,9 @@
     <string name="speedometer_real_time">Pravo Vrijeme</string>
     <string name="screen_flashlight">Zaslon</string>
     <string name="pref_daily_weather_time_title">Svakodnevno vrijeme</string>
-    <string name="date_not_set">Datum nije određen</string>
     <string name="time_not_set">Vrijeme nije određeno</string>
     <string name="calibrate_new_tide">Kalibrirati na novu plimu\?</string>
     <string name="no_tides">Nema plime ili oseke</string>
-    <string name="create_tide">Napravi Plimu/Oseku</string>
-    <string name="tide_location_label">Lokacija plime i oseke (opcionalno)</string>
-    <string name="tide_calibration_instructions">Postavite vrijeme plime blizu sebe, najvjerovatnije kad je mlad ili pun mjesec. To se može dobiti na mreži ili putem štampanih tabela Plime i Oseke. Plime i Oseke prikazane u Trail Sense-u mogu biti za dva sata neprecizne, što je dovoljno dobro za nagovještaj, ali ne sad da se i na njih mora oslanjati.</string>
-    <string name="tide_normal">Umjerena točka plime</string>
-    <string name="tide_spring">Najniža točka plime</string>
-    <string name="tide_neap">Najviša točka plime</string>
     <string name="half_tide">Zatišje</string>
     <string name="low_tide">Oseka</string>
     <string name="high_tide">Plima</string>
@@ -363,34 +353,10 @@
 \nUskoro će doći još vodiča.</string>
     <string name="privacy_and_location">Privatnost i Lokacija</string>
     <string name="metal_detector_disclaimer">Otkriva samo magnetne metale (npr. Željezo)</string>
-    <string name="onboarding_tools">- Pristupite alatima za pomoć u bilo kojoj divljini
-\n
-\n- Signalujte pomoću lampe ili zviždaljke
-\n
-\n- Pretvorite lokacije iz papirne karte u telefon
-\n
-\n- Izmjerite uglove i odredite visine predmeta
-\n
-\n- Sinkronizirajte sat bez internetske veze
-\n
-\n- Pravite bilješke i vodite evidenciju o stvarima pri ruci
-\n
-\n- Pronađite ispuštene predmete od željeza/čelika</string>
-    <string name="onboarding_astronomy">- Znajte kada će sunce/mjesec svanut i zaći
-\n
-\n- Budite upozoreni kada će sunce zaći
-\n
-\n- Pronađite sunce i mjesec na kompasu</string>
-    <string name="onboarding_weather">- Dobijte hiperlokalne prognoze pomoću barometra na telefonu
-\n
-\n- Ne koristi internetsku vezu
-\n
-\n- Budite upozoreni na nadolazeće oluje</string>
-    <string name="onboarding_navigation">- Postavite svetionike i vratite se do njih
-\n
-\n- Doznajte svoju trenutnu lokaciju, nadmorsku visinu i brzinu
-\n
-\n- Potražite svoje korake sa Izatragom (pokreće se u pozadini kada je omogućen)</string>
+
+
+
+
     <string name="cirrus_desc">Visoko i pernato.</string>
     <string name="cumulonimbus_desc">Tamno sivo, visoko i u obliku nakovnja.</string>
     <string name="cumulus_desc">Izgleda kao napuhane kuglice od pamuka.</string>
@@ -432,8 +398,6 @@
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_centimeters">Centimetri</string>
-    <string name="freezing_temperatures_description">Voda će se smrznuti ako je vani ostavljena, a kiša može preći u snijeg</string>
-    <string name="freezing_temperatures_warning">Smrzavajuće Temperature</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="contents">Sadržaj</string>
@@ -493,7 +457,6 @@
     <string name="reset">Resetovati</string>
     <string name="thunder">Gromovi</string>
     <string name="lightning">Munja</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Sat</string>
     <string name="flashlight_strobe">Stroboskop</string>
     <string name="pref_sensor_details_title">Detalji Senzora</string>
@@ -525,7 +488,6 @@
     <string name="inventory_empty_text">Nema predmeta</string>
     <string name="action_inventory_clear_confirm">Izbrišite sve upakovane količine\?</string>
     <string name="tool_whistle_title">Pištaljka</string>
-    <string name="max_depth">Maks: %s</string>
     <string name="cliff_height_guide">Procijenite visinu litice</string>
     <string name="tool_cliff_height_disclaimer">Koristite ovaj alat samo kada ga je sigurno koristiti, i obavezno provjerite što stoji pod litice kako ne biste ozljedili nekoga. Pogledajte upute za upotrebu.</string>
     <string name="tool_cliff_height_description">Izmjerite visinu litice ili pada</string>
@@ -599,18 +561,6 @@
     <string name="sun_up_no_set">Sunce je izašlo</string>
     <string name="sun_does_not_rise">ne diže se</string>
     <string name="sun_does_not_set">ne postavlja se</string>
-    <string name="temperature_disclaimer">Prikazana temperatura može biti viša zbog vrućine vašeg telefona.</string>
-    <string name="heat_alert_frostbite_danger_title">Opasnost hipotermije</string>
-    <string name="heat_alert_frostbite_warning_title">Upozorenje na hipotermiju</string>
-    <string name="heat_alert_frostbite_caution_title">Oprez za hipotermiju</string>
-    <string name="heat_alert_normal_title">Nema upozorenja o temperaturi</string>
-    <string name="heat_alert_heat_caution_title">Oprez za vrućinu</string>
-    <string name="heat_alert_heat_warning_title">Upozorenje na vrućinu</string>
-    <string name="heat_alert_heat_alert_title">Upozorenje za vrućinu</string>
-    <string name="heat_alert_frostbite_message">Ima rizik za hipotermiju ili ozeblinu. Budite sigurni da ostanete hidratizirani, oblačite se toplo i ograničite izloženu kožu, i pazite na znakove hipotermije ili ozeblina.</string>
-    <string name="heat_alert_heat_message">Ima rizik za toplotnu iscrpljenost ili toplotni udar. Obavezno ostanite hidratizirani, ostanite u zatvorenom ili u hladu, ograničite vježbu i pripazite na znakove iscrpljenosti ili udara.</string>
-    <string name="heat_alert_heat_danger_title">Opasnost za vrućinu</string>
-    <string name="dew_point">Tačka rose %s</string>
     <string name="no_data">Nema podataka</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -653,7 +603,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Nepoznato</string>
-    <string name="battery_temp">Telefon: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Brzo pražnjenje (%s)</string>
     <string name="discharging_slow">Polako pražnjenje (%s)</string>
@@ -673,7 +622,6 @@
     <string name="direction_east">I</string>
     <string name="direction_south">J</string>
     <string name="direction_north">S</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -725,7 +673,6 @@
     <string name="guide_location_no_gps_title">Odredite lokaciju bez GPS-a</string>
     <string name="beacon_set_bearing_btn">Postavi ležište (%s)</string>
     <string name="create_at_distance">Napravi sa daljine</string>
-    <string name="bearing">Ležište</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefona (nekalibrirana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura okoline (kalibrirana)</string>
     <string name="max_temp_uncalibrated">Maksimalna temperatura telefona (nekalibrirana)</string>
@@ -792,7 +739,6 @@
     <string name="moon_phase">Mjesečeva faza</string>
     <string name="lunar_noon">Lunarno podne</string>
     <string name="solar_noon">Solarno podne</string>
-    <string name="tidal_range">Plimni Raspon</string>
     <string name="sunset_alerts">Upozorenja na zalazke</string>
     <string name="pref_filter_altitude_history_title">Povijest glatke visine</string>
     <string name="beacon_qr_import_instructions">Skenirajte QR kodu da uvezete</string>

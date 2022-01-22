@@ -9,7 +9,6 @@
     <string name="astronomy">Астрономия</string>
     <string name="sunrise_label">Восход солнца</string>
     <string name="sunset_label">Закат</string>
-    <string name="until_sunset_label">до захода солнца</string>
     <string name="pref_use_true_north_title">Географический Север</string>
     <string name="pref_use_sea_level_pressure_title">Давление на уровне моря</string>
     <string name="general">Основные</string>
@@ -67,7 +66,6 @@
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
     <string name="yesterday">Вчера</string>
-    <string name="pressure_tendency_indicator_alt">Индикатор тенденции давления</string>
     <string name="pressure_48_hours">48 часов</string>
     <string name="pressure_24_hours">24 часа</string>
     <string name="pressure_12_hours">12 часа</string>
@@ -106,11 +104,9 @@
     <string name="clinometer_title">Инклинометр (креномер)</string>
     <string name="offline_maps">Офлайн-карты</string>
     <string name="moon_phase">Фазы Луны</string>
-    <string name="tide_spring">Сизигийный</string>
     <string name="full_moon">Полнолуние</string>
     <string name="third_quarter">Третья четверть</string>
     <string name="new_moon">Новолуние</string>
-    <string name="heat_alert_heat_danger_title">Тепловая опасность</string>
     <string name="notification_storm_alert_text">Приближается шторм</string>
     <string name="storm_alerts">Штормовые предупреждения</string>
     <string name="alerts">Предупреждения</string>
@@ -149,12 +145,10 @@
     <string name="pref_show_weather_notification_title">Показывать уведомление с информацией о погоде</string>
     <string name="fahrenheit">Градусы фаренгейта</string>
     <string name="celsius">Градусы цельсия</string>
-    <string name="dew_point">Точка росы %s</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="degree_format">%.0f°</string>
     <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме. Оно используется для калибровки давления на уровне моря при мониторинге погоды и для обеспечения более точных предупреждений о заходе солнца. [Просмотреть политику конфиденциальности] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_grant">Обновить настройки</string>
-    <string name="duration_hour_minute_format">%d ч %d м</string>
     <string name="duration_minute_format">%d m.</string>
     <string name="duration_hour_format">%d ч.</string>
     <string name="miles_per_hour_format">%.1f миль/ч</string>
@@ -203,9 +197,6 @@
     <string name="moon_illumination">Освещение</string>
     <string name="lunar_noon">Полночь</string>
     <string name="solar_noon">Полдень</string>
-    <string name="tide_normal">Нормальный</string>
-    <string name="tide_neap">Квадратурный</string>
-    <string name="tidal_range">Дальность прилива</string>
     <string name="sunset_alert_channel_title">Солнце скоро зайдет</string>
     <string name="sunset_alerts">Оповещения о заходе солнца</string>
     <string name="sunset_alert_notification_text">Солнце зайдет через %s</string>
@@ -220,16 +211,6 @@
     <string name="sun_up_no_set">Солнце взошло</string>
     <string name="sun_does_not_rise">не восходит</string>
     <string name="sun_does_not_set">не заходит</string>
-    <string name="temperature_disclaimer">Показанная температура может быть выше из-за нагрева вашего телефона.</string>
-    <string name="heat_alert_frostbite_danger_title">Высокий риск обморожения</string>
-    <string name="heat_alert_frostbite_warning_title">Риск обморожения</string>
-    <string name="heat_alert_frostbite_caution_title">Возможность обморожения</string>
-    <string name="heat_alert_normal_title">Нет предупреждений о температуре</string>
-    <string name="heat_alert_heat_caution_title">Возможность теплового удара</string>
-    <string name="heat_alert_heat_warning_title">Риск теплового удара</string>
-    <string name="heat_alert_heat_message">Тепловой удар/риск инсульта. Обязательно пейте воду, оставайтесь в помещении или в тени, ограничьте физические нагрузки и следите за признаками теплового удара или инсульта.</string>
-    <string name="heat_alert_heat_alert_title">Высокий риск теплового удара</string>
-    <string name="heat_alert_frostbite_message">Риск переохлаждения/обморожения. Обязательно пейте воду, одевайтесь тепло и ограничивайте открытые участки кожи, а также следите за признаками переохлаждения или обморожения.</string>
     <string name="notification_monitoring_weather">Сбор данных о погоде в фоне</string>
     <string name="notification_storm_alert_title">Штормовое предупреждение</string>
     <string name="beacon_elevation_hint_meters">Высота в метрах (не обязательно)</string>
@@ -289,7 +270,6 @@
     <string name="tool_cliff_height_description">Измерьте высоту скалы или обрыва</string>
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
     <string name="cliff_height_guide">Оценка высоты скалы</string>
-    <string name="max_depth">Макс: %s</string>
     <string name="precise_inches_format">%s in</string>
     <string name="thunder">Гром</string>
     <string name="toast_destination_bearing_set">Ориентация установлена</string>
@@ -307,7 +287,6 @@
     <string name="tool_lightning_description">Измерьте расстояние от удара молнии</string>
     <string name="reset">Сброс</string>
     <string name="lightning">Молнии</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Часы</string>
     <string name="flashlight_strobe">Стробоскоп</string>
     <string name="pref_sensor_details_title">Информация о датчиках</string>
@@ -387,8 +366,6 @@
     <string name="map_distance">Карта: %s</string>
     <string name="unit_inches">Дюймы</string>
     <string name="unit_centimeters">Сантиметры</string>
-    <string name="freezing_temperatures_description">Вода замерзнет, если её оставить, и дождь может стать снегом</string>
-    <string name="freezing_temperatures_warning">Температура замерзания</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="contents">Содержание</string>
@@ -397,7 +374,6 @@
     <string name="delete_note_title">Удалить заметку\?</string>
     <string name="notes_empty_text">Нет заметок</string>
     <string name="location_override_updated">Переопределение местоположения обновлено</string>
-    <string name="battery_temp">Телефон: %s</string>
     <string name="low_power_mode_on_message">Включен режим энергосбережения, некоторые функции могут быть отключены.</string>
     <string name="pref_low_power_mode_title">Режим энергосбережения</string>
     <string name="guide_barometer_calibration_title">Калибровка барометра</string>
@@ -433,7 +409,6 @@
     <string name="guide_location_no_gps_title">Определить местоположение без GPS</string>
     <string name="beacon_set_bearing_btn">Установить маячок (%s)</string>
     <string name="create_at_distance">Создать на расстоянии</string>
-    <string name="bearing">Маячок</string>
     <string name="update_gps_override">Обновить переопределение GPS</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
@@ -501,34 +476,10 @@
 \n
 \nСкоро появятся другие руководства.</string>
     <string name="privacy_and_location">Конфиденциальность и местоположение</string>
-    <string name="onboarding_tools">- Доступные инструменты, которые помогут в любой ситуации в дикой природе
-\n
-\n- Подать сигнал фонариком или свистком
-\n
-\n- Конвертируйте местоположения с бумажной карты на свой телефон
-\n
-\n- Измеряйте углы и определяйте высоту объектов
-\n
-\n- Синхронизируйте часы без подключения к Интернету
-\n
-\n- Делайте заметки и отслеживайте предметы под рукой
-\n
-\n- Найдите упавшие предметы из железа/стали</string>
-    <string name="onboarding_astronomy">- Знайте, когда солнце/луна встанет и зайдет
-\n
-\n- Будьте предупреждены, когда солнце собирается зайти
-\n
-\n- Найдите солнце и луну по компасу</string>
-    <string name="onboarding_weather">- Получайте гиперлокальные прогнозы с помощью барометра вашего телефона
-\n
-\n- Не использует подключение к Интернету
-\n
-\n- Будьте предупреждены о приближающихся штормах</string>
-    <string name="onboarding_navigation">- Разместите маячки и вернитесь к ним
-\n
-\n- Получите свое текущее местоположение, высоту и скорость
-\n
-\n- Повторяйте свои шаги с помощью истории маршрута (работает в фоновом режиме при включении)</string>
+
+
+
+
     <string name="cirrocumulus">Перисто-кучевые</string>
     <string name="pref_require_satellites_description">Требуется как минимум 4 спутника, повышает точность</string>
     <string name="unit_inches_abbreviation">д</string>
@@ -577,9 +528,7 @@
     <string name="guide_light_meter_title">Определить эффективность фонарика</string>
     <string name="gps_cache">GPS-Кэш</string>
     <string name="pref_daily_weather_time_title">Ежедневное время погоды</string>
-    <string name="date_not_set">Дата не установлена</string>
     <string name="time_not_set">Время не установлено</string>
-    <string name="tide_calibration_instructions">Установите время прилива рядом с вами, желательно на дату новолуния или полнолуния. Его можно получить в Интернете или распечатав таблицы приливов и отливов. Приливы, показанные в Trail Sense, могут отличаться до двух часов, что достаточно для справки, но на что нельзя полагаться.</string>
     <string name="half_tide">Полприлива</string>
     <string name="low_tide">Низкий</string>
     <string name="high_tide">Высокий</string>
@@ -608,14 +557,11 @@
     <string name="tomorrow_at">Завтра в %s</string>
     <string name="menu">Меню</string>
     <string name="no_tides">Нет приливов</string>
-    <string name="create_tide">Создать прилив</string>
-    <string name="tide_location_label">Местоположение прилива (необязательно)</string>
     <string name="pref_nearby_radar_title">Показать радарный компас вблизи</string>
     <string name="source">Источник</string>
     <string name="pref_stride_length_title">Длина шага</string>
     <string name="pedometer">Шагомер</string>
     <string name="odometer">Одометр</string>
-    <string name="saltwater_switch">Вода солёная\?</string>
     <string name="value_average">%s в среднем</string>
     <string name="value_since_time">%s с %s</string>
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
@@ -1041,7 +987,6 @@
 \n4. Отпустите, чтобы закрепить и увидеть высоту цели</string>
     <string name="error_banners">Баннеры ошибок</string>
     <string name="gps_unavailable">GPS недоступен</string>
-    <string name="enter_text">Введите текст</string>
     <string name="no_qr_code_found">QR-код не обнаружен</string>
     <string name="saved_to_note">Сохранено в заметку</string>
     <string name="qr_code_scanner">Сканер QR-кода</string>
@@ -1059,7 +1004,6 @@
     <string name="qr_text_too_long">Текст слишком длинный, QR-код был обрезан</string>
     <string name="pref_flashlight_should_timeout_title">Автовыключение</string>
     <string name="pref_flashlight_timeout_title">Выключить после</string>
-    <string name="tide_is_diurnal">Суточный\?</string>
     <string name="tide_table">Таблица приливов</string>
     <string name="high_tide_letter">В</string>
     <string name="low_tide_letter">Н</string>

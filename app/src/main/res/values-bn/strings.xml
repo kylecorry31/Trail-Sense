@@ -9,7 +9,6 @@
     <string name="astronomy">জ্যোতির্বিদ্যা</string>
     <string name="sunrise_label">সূর্যোদয়</string>
     <string name="sunset_label">সূর্যাস্ত</string>
-    <string name="until_sunset_label">সূর্যাস্ত পর্যন্ত</string>
     <string name="pref_use_true_north_title">প্রকৃত উত্তর</string>
     <string name="pref_use_sea_level_pressure_title">সমুদ্রপৃষ্ঠের চাপ</string>
     <string name="general">সাধারণ</string>
@@ -64,7 +63,6 @@
     <string name="today">আজ</string>
     <string name="tomorrow">আগামীকাল</string>
     <string name="yesterday">গতকাল</string>
-    <string name="pressure_tendency_indicator_alt">চাপ প্রবণতা সূচক</string>
     <string name="pressure_48_hours">48 ঘন্টা</string>
     <string name="pressure_24_hours">24 ঘন্টা</string>
     <string name="pressure_12_hours">12 ঘণ্টা</string>

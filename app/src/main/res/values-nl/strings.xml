@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Zonsopgang</string>
     <string name="sunset_label">Zonsondergang</string>
-    <string name="until_sunset_label">tot zonsondergang</string>
     <string name="pref_use_true_north_title">Het ware noorden</string>
     <string name="pref_use_sea_level_pressure_title">Druk op zeeniveau</string>
     <string name="general">Algemeen</string>
@@ -64,7 +63,6 @@
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gisteren</string>
-    <string name="pressure_tendency_indicator_alt">Drukverschuivingsindicator</string>
     <string name="pressure_48_hours">48 uur</string>
     <string name="pressure_24_hours">24 uur</string>
     <string name="pressure_12_hours">12 uur</string>
@@ -126,10 +124,6 @@
     <string name="moon_phase">Maanstand</string>
     <string name="lunar_noon">Maanmiddag</string>
     <string name="solar_noon">Zonnemiddag</string>
-    <string name="tide_normal">Normaal tij</string>
-    <string name="tide_spring">Springtij</string>
-    <string name="tide_neap">Doodtij</string>
-    <string name="tidal_range">Getijdenverschil</string>
     <string name="sunset_alert_channel_title">Melding voor zonsondergang</string>
     <string name="sunset_alerts">Zonsondergangalarm</string>
     <string name="sunset_alert_notification_text">De zon gaat onder om %s</string>
@@ -147,19 +141,7 @@
     <string name="sun_up_no_set">Zon is opgekomen</string>
     <string name="sun_does_not_rise">komt niet op</string>
     <string name="sun_does_not_set">gaat niet onder</string>
-    <string name="temperature_disclaimer">De getoonde temperatuur kan te hoog zijn omdat
-\nde warmte van je telefoon de meting beïnvloedt.</string>
-    <string name="heat_alert_frostbite_danger_title">Onderkoelingsgevaar</string>
-    <string name="heat_alert_frostbite_warning_title">Onderkoelingswaarschuwing</string>
-    <string name="heat_alert_frostbite_caution_title">Wees alert op onderkoeling</string>
-    <string name="heat_alert_normal_title">Geen temperatuurswaarschuwing</string>
-    <string name="heat_alert_heat_caution_title">Hittewaarschuwing</string>
-    <string name="heat_alert_heat_warning_title">Hittewaarschuwing</string>
-    <string name="heat_alert_heat_alert_title">Hittemelding</string>
-    <string name="heat_alert_frostbite_message">Risico op onderkoeling / bevriezing. Blijf gehydrateerd, kleed jezelf warm en bedekt, kijk uit voor tekenen van onderkoeling of bevriezing.</string>
-    <string name="heat_alert_heat_message">Risico op oververhitting. Blijf voldoende gehydrateerd, blijf binnen of in de schaduw, beperk je inspanning en wees alert op oververhittingsverschijnselen.</string>
-    <string name="heat_alert_heat_danger_title">Hittegevaar</string>
-    <string name="dew_point">Dauwpunt %s</string>
+
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -199,7 +181,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Onbekend</string>
-    <string name="battery_temp">Apparaat: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Snelle ontlading (%s)</string>
     <string name="discharging_slow">Langzame ontlading (%s)</string>
@@ -218,7 +199,6 @@
     <string name="direction_east">O</string>
     <string name="direction_south">Z</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%du %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%du</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -292,16 +272,8 @@
     </plurals>
     <string name="export">Exporteren</string>
     <string name="privacy_and_location">Privacy en locatie</string>
-    <string name="onboarding_astronomy">- Weet wanneer de zon/maan opkomt en ondergaat
-\n
-\n- Je wordt gewaarschuwd wanneer de zon ondergaat
-\n
-\n- Lokaliseer de zon en de maan op het kompas</string>
-    <string name="onboarding_weather">- Ontvang hyperlokale voorspellingen met behulp van de barometer van je telefoon
-\n
-\n- Gebruikt geen internetverbinding
-\n
-\n- Waarschuwt voor naderende stormen</string>
+
+
     <string name="cirrus_desc">Hoog en als veren.</string>
     <string name="cumulonimbus_desc">Donkergrijs, lang en aambeeldvormig.</string>
     <string name="cumulus_desc">Ziet eruit als gezwollen watjes.</string>
@@ -372,11 +344,7 @@
 \n- Als je geen locatietoegang verleent, dan kun je handmatig een locatie invoeren in het Instellingen &gt; gps-ijkmenu in Trail Sense.
 \n
 \n- Nadat je op doorgaan klikt, zul je gevraagd worden om locatietoegang en achtergrondlocatietoegang te verlenen. Als je dit weigert heeft Trail Sense geen toegang tot je locatie. In dat geval is dus een handmatige locatie-invoer aanbevolen.</string>
-    <string name="onboarding_navigation">- Bakens plaatsen en ernaar terug navigeren
-\n
-\n- Je huidige locatie, hoogte en snelheid verkrijgen
-\n
-\n- Dezelfde weg teruglopen met Terugweg (draait op de achtergrond indien ingeschakeld)</string>
+
     <string name="backtrack_disabled_low_power_toast">Terugweg is uitgeschakeld in energiebesparingsmodus</string>
     <string name="backtrack">Terugweg</string>
     <string name="backtrack_notification_channel_description">Locatie-updates voor Terugweg</string>
@@ -425,8 +393,6 @@
     <string name="map_distance">Kaart: %s</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
-    <string name="freezing_temperatures_description">Water zal bevriezen als het buiten staat en regen kan in sneeuw veranderen</string>
-    <string name="freezing_temperatures_warning">Vriesgevaar</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="contents">Inhoud</string>
@@ -441,7 +407,6 @@
     <string name="threshold">Drempelwaarde</string>
     <string name="inventory_empty_text">Geen voorwerpen</string>
     <string name="tool_whistle_title">Fluitje</string>
-    <string name="max_depth">Max.: %s</string>
     <string name="cliff_height_guide">Klifhoogte schatten</string>
     <string name="tool_cliff_height_disclaimer">Gebruik dit gereedschap alleen als het veilig is. Controleer wat zich onder de klif bevindt om letsel te voorkomen. Lees de handleiding voor instructies.</string>
     <string name="tool_cliff_height_description">Klif- of dalhoogte meten</string>
@@ -526,7 +491,6 @@
     <string name="reset">Op nul zetten</string>
     <string name="thunder">Donder</string>
     <string name="lightning">Bliksem</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Klok</string>
     <string name="flashlight_strobe">Stroboscoop</string>
     <string name="pref_sensor_details_title">Sensordetails</string>
@@ -561,7 +525,6 @@
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="beacon_set_bearing_btn">Peiling vastzetten (%s)</string>
     <string name="create_at_distance">Op afstand maken</string>
-    <string name="bearing">Peiling</string>
     <string name="min_temp_uncalibrated">Minimale telefoontemperatuur (niet geijkt)</string>
     <string name="min_temp_calibrated">Minimale omgevingstemperatuur (geijkt)</string>
     <string name="max_temp_uncalibrated">Maximale telefoontemperatuur (niet geijkt)</string>
@@ -729,14 +692,11 @@
     <string name="meteor_shower">Meteorenregen</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Geen getijden</string>
-    <string name="create_tide">Getijde Creëren</string>
-    <string name="tide_location_label">Getijdenlocatie (optioneel)</string>
     <string name="pref_nearby_radar_title">Toon nabijgelegen radarkompas</string>
     <string name="source">Bron</string>
     <string name="pref_stride_length_title">Paslengte</string>
     <string name="pedometer">Stappenteller</string>
     <string name="odometer">Kilometerteller</string>
-    <string name="saltwater_switch">Is het zout water\?</string>
     <string name="value_average">%s gemiddelde</string>
     <string name="value_since_time">%s sinds %s</string>
     <string name="tool_speedometer_odometer_title">Snelheidsmeter / Kilometerteller</string>
@@ -745,9 +705,7 @@
     <string name="pref_require_satellites_title">Satellietfix nodig</string>
     <string name="screen_flashlight">Afschermen</string>
     <string name="pref_daily_weather_time_title">Dagelijkse weertijd</string>
-    <string name="date_not_set">Datum niet ingesteld</string>
     <string name="time_not_set">Tijd niet ingesteld</string>
-    <string name="tide_calibration_instructions">Stel de tijd van een vloed bij jou in de buurt in, bij voorkeur op de datum van nieuwe of volle maan. Dit kan online worden verkregen of via gedrukte getijdentabellen. De getijden die in Trail Sense worden weergegeven, kunnen tot twee uur afwijken, wat goed genoeg is als referentie, maar niet om op te vertrouwen.</string>
     <string name="half_tide">Halftij</string>
     <string name="low_tide">Laagtij</string>
     <string name="high_tide">Vloed</string>
@@ -761,19 +719,7 @@
     <string name="onboarding_user_guide">Met de gebruikershandleiding leer je hoe je de functies van Trail Sense kunt gebruiken. Je kunt het vinden onderaan het Hulpmiddelen-tabblad.
 \n
 \nBinnenkort komen er meer gidsen aan.</string>
-    <string name="onboarding_tools">- Hulpmiddelen om te helpen in elke wildernissituatie
-\n
-\n- Seinen met de zaklamp of het fluitje
-\n
-\n- Locaties omzetten van een papieren kaart naar je telefoon
-\n
-\n- Hoeken meten en de hoogte van objecten bepalen
-\n
-\n- Je klok synchroniseren zonder internetverbinding
-\n
-\n- Aantekeningen maken en een inventaris bijhouden
-\n
-\n- Gevallen ijzeren/stalen voorwerpen vinden</string>
+
     <string name="location_input_help">Decimaal graden (vb. 1.00, -2.00)
 \n
 \nGraden decimale minuten (vb. 1°23.12\'N, 3°12.1\'W)

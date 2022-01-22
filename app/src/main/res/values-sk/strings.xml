@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dew_point">Rosný bod %s</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -30,7 +29,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Neznáma</string>
-    <string name="battery_temp">Telefón: %s</string>
     <string name="dash">-</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="precise_percent_format">%s%%</string>
@@ -46,7 +44,6 @@
     <string name="direction_east">V</string>
     <string name="direction_south">J</string>
     <string name="direction_north">S</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="precise_kilometers_format">%s km</string>

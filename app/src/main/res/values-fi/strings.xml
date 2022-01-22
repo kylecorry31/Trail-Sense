@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="heat_alert_frostbite_message">Hypotermia / paleltumisriski. Varmista, että pidät nestetasapainostasi huolen, pukeudu lämpimästi ja rajoita paljasta ihoa, ja varo hypotermian tai paleltumisen merkkejä.</string>
-    <string name="heat_alert_heat_message">Lämpö saattaa aiheuttaa uupumusta / nostaa aivohalvausriskiä. Varmista, että pidät nestetasapainostasi huolen, pysy sisätiloissa tai varjossa, rajoita liikuntaa ja tarkkaile lämmöstä johtuvan uupumisen tai aivohalvauksen merkkejä.</string>
-    <string name="heat_alert_heat_danger_title">Hellevaroitus</string>
     <string name="forecast_worsening">Saattaa pilvistyä myöhemmin</string>
     <string name="forecast_improving">Saattaa selkeytyä myöhemmin</string>
     <string name="weather_not_changing">Ei muutu pian</string>
@@ -11,7 +8,6 @@
     <string name="weather_worsening_slow">Pilvistyy piakkoin</string>
     <string name="weather_improving_slow">Selkenee piakkoin</string>
     <string name="weather_improving_fast">Selkenee pian</string>
-    <string name="dew_point">Kastepiste %s</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -67,7 +63,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Tuntematon</string>
-    <string name="battery_temp">Puhelin: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Purkautuu nopeasti (%s)</string>
     <string name="discharging_slow">Purkautuu hitaasti (%s)</string>
@@ -86,7 +81,6 @@
     <string name="direction_east">I</string>
     <string name="direction_south">E</string>
     <string name="direction_north">P</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -134,7 +128,6 @@
     <string name="pref_forecast_sensitivity_title">Ennusteen herkkyys</string>
     <string name="pref_monitor_weather_title">Tarkkaile säätä</string>
     <string name="pref_monitor_weather_summary">Taustalla</string>
-    <string name="pressure_tendency_indicator_alt">Paineherkkyyden ilmaisin</string>
     <string name="pressure_4_hours">4 tuntia</string>
     <string name="pressure_12_hours">12 tuntia</string>
     <string name="pressure_24_hours">24 tuntia</string>
@@ -227,10 +220,6 @@
     <string name="moon_phase">Kuunvaihe</string>
     <string name="lunar_noon">Kuun keskipäivä</string>
     <string name="solar_noon">Auringon keskipäivä</string>
-    <string name="tide_normal">Normaali</string>
-    <string name="tide_spring">Kevät</string>
-    <string name="tide_neap">Matalin nousuvesi</string>
-    <string name="tidal_range">Vuorovesialue</string>
     <string name="sunset_alert_channel_title">Auringonlaskuilmoitus</string>
     <string name="sunset_alerts">Auringonlaskuilmoitukset</string>
     <string name="sunset_alert_notification_text">Aurinko laskee %s</string>
@@ -251,17 +240,8 @@
     <string name="yesterday">Eilen</string>
     <string name="tomorrow">Huomenna</string>
     <string name="today">Tänään</string>
-    <string name="until_sunset_label">Auringonlaskuun</string>
     <string name="sun_down_no_set">Aurinko on laskeneut</string>
     <string name="sun_up_no_set">Aurinko on noussut</string>
     <string name="sun_does_not_rise">ei nouse</string>
     <string name="sun_does_not_set">ei laskeudu</string>
-    <string name="temperature_disclaimer">Näytetty lämpötila voi olla korkeampi puhelimesi lämmön vuoksi.</string>
-    <string name="heat_alert_frostbite_danger_title">Hypotermian vaara</string>
-    <string name="heat_alert_frostbite_warning_title">Hypotermiavaroitus</string>
-    <string name="heat_alert_frostbite_caution_title">Varoitus hypotermiasta</string>
-    <string name="heat_alert_normal_title">Ei lämpötilavaroitusta</string>
-    <string name="heat_alert_heat_caution_title">Varoitus lämmöstä</string>
-    <string name="heat_alert_heat_warning_title">Lämpövaroitus</string>
-    <string name="heat_alert_heat_alert_title">Lämpöhälytys</string>
 </resources>

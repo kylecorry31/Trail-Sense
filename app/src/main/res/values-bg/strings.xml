@@ -8,7 +8,6 @@
     <string name="astronomy">астрономия</string>
     <string name="sunrise_label">изгрев</string>
     <string name="sunset_label">залез</string>
-    <string name="until_sunset_label">до залез слънце</string>
 
 
     <string name="pref_use_true_north_title">Истински Север</string>
@@ -71,7 +70,6 @@
     <string name="today">днес</string>
     <string name="tomorrow">утре</string>
     <string name="yesterday">Вчера</string>
-    <string name="pressure_tendency_indicator_alt">Индикатор за тенденция на налягане</string>
 
     <string name="pressure_48_hours">48 часа</string>
     <string name="pressure_24_hours">24 часа</string>

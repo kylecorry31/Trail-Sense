@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tide_neap">Maree joasă</string>
-    <string name="tidal_range">Intervalul mareelor</string>
     <string name="sunset_alert_channel_title">Alerte la apus</string>
     <string name="sunset_alerts">Alerte la apus</string>
     <string name="sunset_alert_notification_text">Soarele va apune la %s</string>
@@ -22,22 +20,10 @@
     <string name="yesterday">Ieri</string>
     <string name="tomorrow">Mâine</string>
     <string name="today">Astăzi</string>
-    <string name="until_sunset_label">până la apusul soarelui</string>
     <string name="sun_down_no_set">Soarele este jos</string>
     <string name="sun_up_no_set">Soarele este sus</string>
     <string name="sun_does_not_rise">nu răsare</string>
     <string name="sun_does_not_set">nu apune</string>
-    <string name="temperature_disclaimer">Temperatura afișată poate fi mai mare din cauza căldurii telefonului.</string>
-    <string name="heat_alert_frostbite_danger_title">Pericol de hipotermie</string>
-    <string name="heat_alert_frostbite_warning_title">Avertizare de hipotermie</string>
-    <string name="heat_alert_frostbite_caution_title">Atenție la hipotermie</string>
-    <string name="heat_alert_normal_title">Fără avertizare de temperatură</string>
-    <string name="heat_alert_heat_caution_title">Atenție la căldură</string>
-    <string name="heat_alert_heat_warning_title">Avertizare de căldură</string>
-    <string name="heat_alert_heat_alert_title">Alertă de căldură</string>
-    <string name="heat_alert_frostbite_message">Risc de hipotermie/degerături. Asigurați-vă că rămâneți hidratat, îmbrăcați-vă cald, limitați expunerea pielii și urmăriți semne de hipotermie sau degerături.</string>
-    <string name="heat_alert_heat_message">Risc de epuizare/accident vascular cerebral. Asigurați-vă că rămâneți hidratat, rămâneți în interior sau la umbră, limitați exercițiile și urmăriți semne de epuizare termică sau accident vascular cerebral.</string>
-    <string name="heat_alert_heat_danger_title">Pericol de căldură</string>
     <string name="forecast_worsening">Posibil să se înrăutățească mai târziu</string>
     <string name="forecast_improving">Se poate îmbunătăți ulterior</string>
     <string name="weather_not_changing">Nu se schimbă în curând</string>
@@ -46,7 +32,6 @@
     <string name="weather_worsening_slow">Înrăutățire în curând</string>
     <string name="weather_improving_slow">Îmbunătățire în curând</string>
     <string name="weather_improving_fast">Se îmbunătățește foarte curând</string>
-    <string name="dew_point">Punct de rouă %s</string>
     <string name="no_data">Nu există date</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -109,7 +94,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Necunoscut</string>
-    <string name="battery_temp">Telefon: %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Descărcare rapidă (%s)</string>
     <string name="discharging_slow">Descărcare lentă (%s)</string>
@@ -130,7 +114,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%d h %d m</string>
     <string name="duration_minute_format">%d m</string>
     <string name="duration_hour_format">%d h</string>
     <string name="miles_per_hour_format">%.1f mph</string>

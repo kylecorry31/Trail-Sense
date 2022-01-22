@@ -9,7 +9,6 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
-    <string name="until_sunset_label">bis Sonnenuntergang</string>
     <string name="pref_use_true_north_title">Geographischer Norden</string>
     <string name="pref_use_sea_level_pressure_title">Luftdruck auf Meereshöhe</string>
     <string name="general">Allgemein</string>
@@ -64,7 +63,6 @@
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gestern</string>
-    <string name="pressure_tendency_indicator_alt">Drucktendenz-Indikator</string>
     <string name="pressure_48_hours">48 Stunden</string>
     <string name="pressure_24_hours">24 Stunden</string>
     <string name="pressure_12_hours">12 Stunden</string>
@@ -114,10 +112,6 @@
     <string name="notification_monitoring_weather">Wetter im Hintergrund überwachen</string>
     <string name="sunset_alert_notification_title">Die Sonne geht bald unter</string>
     <string name="sunset_alert_notification_text">Sonnenuntergang um %s</string>
-    <string name="tidal_range">Tidenhub</string>
-    <string name="tide_neap">Nippzeit</string>
-    <string name="tide_spring">Springzeit</string>
-    <string name="tide_normal">Mittzeit</string>
     <string name="tools">Werkzeuge</string>
     <string name="unknown">Unbekannt</string>
     <string name="edit_beacon">Wegpunkt bearbeiten</string>
@@ -140,18 +134,6 @@
     <string name="beacon_comment">Anmerkungen (optional)</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
-    <string name="dew_point">Taupunkt %s</string>
-    <string name="heat_alert_heat_danger_title">Hitzegefahr</string>
-    <string name="heat_alert_heat_message">Gefahr durch Hitzeerschöpfung/Hitzschlag. Trinken Sie genug, halten Sie sich nicht unnötig im Freien auf, bleiben Sie in Gebäuden oder im Schatten. Vermeiden Sie körperliche Anstrenungen und Sport. Achten Sie auf Zeichen von Erschöpfung oder Hitzschlag.</string>
-    <string name="heat_alert_frostbite_message">Gefahr durch Unterkühlung/Erfrierungen. Trinken Sie genug, ziehen Sie sich warm an und bedecken Sie möglichst die Haut. Achten Sie auf Zeichen von Unterkühlung und Erfrierungen.</string>
-    <string name="heat_alert_heat_alert_title">Alarm: Hitze</string>
-    <string name="heat_alert_heat_warning_title">Warnung: Hitze</string>
-    <string name="heat_alert_heat_caution_title">Vorsicht: Hitze</string>
-    <string name="heat_alert_frostbite_caution_title">Vorsicht: Unterkühlung</string>
-    <string name="heat_alert_frostbite_warning_title">Warnung: Unterkühlung</string>
-    <string name="heat_alert_frostbite_danger_title">Gefahr: Unterkühlung</string>
-    <string name="heat_alert_normal_title">Keine Temeraturwarnungen</string>
-    <string name="temperature_disclaimer">Die angezeigte Temperatur kann aufgrund der Wärmeentwicklung Ihres Telefons höher sein.</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">vor %s - %s</string>
     <string name="accuracy_info">"GPS: gehen Sie nach draußen mit einem freien Blick auf den Himmel.
@@ -182,7 +164,6 @@
     <string name="direction_east">O</string>
     <string name="direction_south">S</string>
     <string name="direction_north">N</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -276,7 +257,6 @@
     <string name="distance_from">Von</string>
     <string name="inventory_empty_text">Keine Einträge</string>
     <string name="tool_whistle_title">Trillerpfeife</string>
-    <string name="max_depth">Max.: %s</string>
     <string name="cliff_height_guide">Höhe einer Klippe abschätzen</string>
     <string name="tool_cliff_height_disclaimer">Tool nur benutzen, wenn es sicher ist. Überprüfen, was sich unter der Klippe befindet, um Verletzungen zu vermeiden. Bedienungsanleitung lesen für Verwendungsanweisungen.</string>
     <string name="tool_cliff_height_description">Höhe einer Klippe oder Versenkung messen</string>
@@ -296,7 +276,6 @@
     <string name="reset">Zurücksetzen</string>
     <string name="thunder">Donner</string>
     <string name="lightning">Blitz</string>
-    <string name="utc_format">UTC %s</string>
     <string name="tool_clock_title">Uhr</string>
     <string name="flashlight_strobe">Stroboskop</string>
     <string name="pref_sensor_details_title">Sensordetails</string>
@@ -378,8 +357,6 @@
     <string name="map_scale_title">Karten-Maßstab</string>
     <string name="tool_white_noise_summary">Hilft beim Einschlafen</string>
     <string name="tool_white_noise_title">Weißes Rauschen</string>
-    <string name="freezing_temperatures_description">Wasser kann im Freien gefrieren, und Regen geht möglicherweise in Schneefall über</string>
-    <string name="freezing_temperatures_warning">Frostgefahr</string>
     <string name="clock_sync_instructions">Bei Benachrichtigung Zeit auf %s setzen</string>
     <string name="charging_fast">Batterie lädt schnell (%s)</string>
     <string name="discharging_fast">Schnelle Entladung (%s)</string>
@@ -407,7 +384,6 @@
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="beacon_set_bearing_btn">Richtung festlegen (%s)</string>
-    <string name="bearing">Richtung</string>
     <string name="clock_sync_notification">Zeit-Synchronisation - %s</string>
     <string name="could_not_triangulate">Triangulation fehlgeschlagen</string>
     <string name="strobe_warning_title">Stroboskob / Blitzlicht</string>
@@ -420,7 +396,6 @@
     <string name="coordinate_format_utm">UTM</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="battery_temp">Gerät: %s</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="precise_nautical_miles_format">%s sm</string>
@@ -528,34 +503,10 @@
     <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie Sie die Funktionen von Trail Sense benutzt. Sie finden die Anleitung ganz unten im Tools-Tab.
 \n
 \nIn Zukunft wird es weitere Anleitungen geben.</string>
-    <string name="onboarding_tools">- Greifen Sie auf Werkzeuge zu, die Ihnen in der Wildnis helfen können
-\n
-\n- Geben Sie Signale mit der Taschenlampe oder der Trillerpfeife
-\n
-\n- Konvertieren Sie Orte von einer Papierkarte ein Handy
-\n
-\n- Messen Sie Winkel und bestimmen Sie die Höhe von Objekten
-\n
-\n- Synchronisieren Sie die Uhr ohne Internetverbindung
-\n
-\n- Machen Sie Notizen und behalten Sie den Überblick über die Dinge, die Sie dabei haben
-\n
-\n- Finden Sie heruntergefallene Dinge aus Eisen oder Stahl</string>
-    <string name="onboarding_astronomy">- Erhalten Sie Informationen zu Auf-/Untergangzeiten der Sonne und des Mondes
-\n
-\n- warnt Sie, wenn die Sonne in Kürze untergehen wird
-\n
-\n- finden Sie die Position der Sonne und des Mondes mithilfe des Kompasses</string>
-    <string name="onboarding_weather">- Erhalten Sie lokale Vorhersagen durch das Barometer des Smartphones
-\n
-\n- Nutzt keine Internetverbindung
-\n
-\n- Warnt vor kommenden Stürmen</string>
-    <string name="onboarding_navigation">- Platzieren Sie Beacons und navigieren Sie zu ihnen zurück
-\n
-\n- Finden Sie die aktuelle Position, Höhe und Geschwindigkeit heraus
-\n
-\n- Verfolgen Sie Ihren Weg zurück mit Rückweg (läuft im Hintergrund, wenn es aktiviert wurde)</string>
+
+
+
+
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
@@ -576,9 +527,7 @@
     <string name="tool_speedometer_odometer_title">Geschwindigkeitsanzeige / Kilometerzähler</string>
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
-    <string name="date_not_set">Datum nicht festgelegt</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
-    <string name="tide_calibration_instructions">Setzen Sie die Zeit während einer Flut, wenn möglich während eines Neu- oder Vollmonds. Das kann im Internet oder über gedruckte Gezeitentabellen herausgefunden werden. Die Gezeiten, die in Trail Sense gezeigt werden, können bis zu zwei Stunden von den realen Zeiten abweichen, was genug als Referenz ist, allerdings sollten Sie sich nicht alleine darauf verlassen.</string>
     <string name="half_tide">Gezeitenmitte</string>
     <string name="low_tide">Ebbe</string>
     <string name="high_tide">Flut</string>
@@ -595,8 +544,6 @@
     <string name="place_beacon_at">Wegpunkt auf %s platzieren\?</string>
     <string name="on_map">Auf der Karte</string>
     <string name="speedometer_odometer_accuracy_dialog">Um die beste Genauigkeit zu erreichen, aktivieren Sie Rückweg und setzen in den Einstellungen Sie den Schrittzähler als Quelle für den Kilometerzähler.</string>
-    <string name="create_tide">Gezeit erstellen</string>
-    <string name="tide_location_label">Ort (optional)</string>
     <string name="pref_nearby_radar_title">Kompass in Radarform anzeigen</string>
     <string name="source">Quelle</string>
     <string name="pref_stride_length_title">Schrittlänge</string>
@@ -620,7 +567,6 @@
     <string name="rename">Umbenennen</string>
     <string name="pedometer_disclaimer">Die Batterienutzung und Genauigkeit des Schrittzählers hängt vom Hersteller des Gerätes und der angegeben Schrittlänge ab. Probieren Sie es zu Hause aus, bevor Sie es beim Wandern benutzen, um die Batterienutzung und Genauigkeit zu prüfen.</string>
     <string name="guide_signaling_for_help_title">Signalisieren, dass Hilfe benötigt wird</string>
-    <string name="saltwater_switch">Salzwasser\?</string>
     <string name="experimental">Experimentell</string>
     <string name="pref_daily_weather_notification">pref_backtrack_save_cell</string>
     <string name="all_beacons">Alle Wegpunkte</string>
@@ -1021,7 +967,6 @@
     <string name="compass_unavailable">Kompass nicht verfügbar</string>
     <string name="gps_unavailable">GPS nicht verfügbar</string>
     <string name="gps_timeouts">GPS-Timeouts</string>
-    <string name="enter_text">Text eingeben</string>
     <string name="no_qr_code_found">Keinen QR-Code erkannt</string>
     <string name="saved_to_note">Als Notiz gespeichert</string>
     <string name="qr_code_scanner">QR-Code-Scanner</string>
@@ -1040,7 +985,6 @@
     <string name="pref_flashlight_should_timeout_title">Automatisch ausschalten</string>
     <string name="pref_flashlight_timeout_title">Danach ausschalten</string>
     <string name="view">Anzeige</string>
-    <string name="tide_is_diurnal">Täglich\?</string>
     <string name="tide_table">Gezeitentabelle</string>
     <string name="high_tide_letter">F</string>
     <string name="low_tide_letter">E</string>

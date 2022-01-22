@@ -37,7 +37,6 @@
     <string name="direction_east">E</string>
     <string name="direction_south">H</string>
     <string name="direction_north">I</string>
-    <string name="duration_hour_minute_format">%do %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%do</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -51,7 +50,6 @@
     <string name="settings">Ezarpenak</string>
     <string name="weather">Eguraldia</string>
     <string name="navigation">Nabigazioa</string>
-    <string name="heat_alert_heat_danger_title">Bero arriskua</string>
     <string name="forecast_worsening">Baliteke beranduago okerrera egitea</string>
     <string name="forecast_improving">Beliteke beranduago hobetzea</string>
     <string name="weather_not_changing">Ez da laster aldatuko</string>
@@ -60,7 +58,6 @@
     <string name="weather_worsening_slow">Laster okerrera egingo du</string>
     <string name="weather_improving_fast">Berehala hobetuko du</string>
     <string name="weather_improving_slow">Laster hobetuko du</string>
-    <string name="dew_point">Ihintz-puntua %s</string>
     <plurals name="last_minutes">
         <item quantity="one">Azken %d minutua</item>
         <item quantity="other">Azken %d minutuak</item>
@@ -122,7 +119,6 @@
     <string name="subtract">Atera</string>
     <string name="add">Gehitu</string>
     <string name="clinometer_title">Klinometroa</string>
-    <string name="tide_normal">Arrunta</string>
     <string name="sunset_alert_notification_text">Eguzkia %setan sartuko da</string>
     <string name="sunset_alert_notification_title">Eguzkia laster sartuko da</string>
     <string name="waxing_crescent">Ilgora</string>
@@ -139,19 +135,10 @@
     <string name="yesterday">Atzo</string>
     <string name="tomorrow">Bihar</string>
     <string name="today">Gaur</string>
-    <string name="until_sunset_label">ilunabarra arte</string>
     <string name="sun_down_no_set">Eguzkia sartu da</string>
     <string name="sun_up_no_set">Eguzkia atera da</string>
     <string name="sun_does_not_rise">ez da ateratzen</string>
     <string name="sun_does_not_set">ez da sartzen</string>
-    <string name="temperature_disclaimer">Adierazitako tenperatura altuagoa izan daiteke zure mugikorraren berotasunagatik.</string>
-    <string name="heat_alert_frostbite_danger_title">Hipotermia arriskua</string>
-    <string name="heat_alert_frostbite_warning_title">Hipotermia abisua</string>
-    <string name="heat_alert_frostbite_caution_title">Hipotermia arreta</string>
-    <string name="heat_alert_normal_title">Tenperatura abisurik ez</string>
-    <string name="heat_alert_heat_caution_title">Berotasun arreta</string>
-    <string name="heat_alert_heat_warning_title">Berotasun abisua</string>
-    <string name="heat_alert_heat_alert_title">Berotasun alerta</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
@@ -165,8 +152,6 @@
     <string name="group">Taldea</string>
     <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Sortu</string>
-    <string name="tide_spring">Bizia</string>
-    <string name="tide_neap">Hila</string>
     <string name="moon_set">Ilargia sartzea</string>
     <string name="moon_rise">Ilargia ateratzea</string>
     <string name="category_safety">Segurtasuna</string>
@@ -216,7 +201,6 @@
     <string name="moon_phase">Ilargialdia</string>
     <string name="lunar_noon">Gauerdia</string>
     <string name="solar_noon">Eguerdia</string>
-    <string name="tidal_range">Mareen tartea</string>
     <string name="sunset_alert_channel_title">Ilunabar alerta</string>
     <string name="sunset_alerts">Ilunabar alertak</string>
     <string name="low">Baxua</string>
@@ -280,7 +264,6 @@
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="satellites">sateliteak</string>
     <string name="gps_stale">Zaharkituta</string>
-    <string name="bearing">Norabidea</string>
     <string name="map_scale_verbal">Hitzez</string>
     <string name="update_60_minutes">Ordu 1</string>
     <string name="update_30_minutes">30 minutu</string>
@@ -292,7 +275,6 @@
     <string name="map_distance">Mapa: %s</string>
     <string name="delete_note_title">Oharra ezabatu\?</string>
     <string name="notes_empty_text">Oharrik ez</string>
-    <string name="battery_temp">Telefonoa: %s</string>
     <string name="tool_metal_detector_title">Metal-detektagailua</string>
     <string name="beacon_2">2 baliza</string>
     <string name="beacon_1">1 baliza</string>
@@ -300,14 +282,12 @@
     <string name="battery_health">Osasuna: %s</string>
     <string name="precise_inches_format">%s in</string>
     <string name="precise_centimeters_format">%s cm</string>
-    <string name="utc_format">UTC %s</string>
     <string name="pref_sensor_details_title">Sentsoreen xehetasunak</string>
     <string name="water_boil_timer_title">Ura irakin</string>
     <string name="pref_privacy_policy_title">Pribatutasun politika</string>
     <string name="guide_recommended_apps">Gomendatutako aplikazioak</string>
     <string name="unit_nautical_miles">Itsas miliak</string>
     <string name="inventory_empty_text">Elementurik ez</string>
-    <string name="max_depth">Gehi: %s</string>
     <string name="beacon_action_view_details">Xehetasunak ikusi</string>
     <string name="guide_weather_prediction_title">Eguraldiaren iragarpena</string>
     <string name="guide_conserving_battery_title">Bateria kontserbatu</string>
@@ -326,7 +306,6 @@
     <string name="screen_flashlight">Pantaila</string>
     <string name="backtrack">Kokapenen erregistroa</string>
     <string name="map_scale_title">Maparen eskala</string>
-    <string name="freezing_temperatures_warning">Izozte tenperaturak</string>
     <string name="battery_health_over_voltage">Gaintentsioa</string>
     <string name="strobe_warning_title">Aldizkako argiak</string>
     <string name="tool_cliff_height_title">Labarraren altuera</string>

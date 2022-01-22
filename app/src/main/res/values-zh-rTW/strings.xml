@@ -45,7 +45,6 @@
     <string name="add">新增</string>
     <string name="offline_maps">離線地圖</string>
     <string name="moon_phase">月相</string>
-    <string name="tidal_range">潮汐範圍</string>
     <string name="sunset_alert_channel_title">日落提醒</string>
     <string name="sunset_alerts">日落提醒</string>
     <string name="sunset_alert_notification_text">太陽將在 %s 落下</string>
@@ -66,7 +65,6 @@
     <string name="yesterday">昨日</string>
     <string name="tomorrow">明日</string>
     <string name="today">今日</string>
-    <string name="dew_point">露點溫度 %s</string>
     <plurals name="last_hours">
         <item quantity="other">持續 %d 小時</item>
     </plurals>
@@ -114,7 +112,6 @@
     <string name="direction_east">東</string>
     <string name="direction_south">南</string>
     <string name="direction_north">北</string>
-    <string name="duration_hour_minute_format">%d小時 %d分鐘</string>
     <string name="duration_minute_format">%d分鐘</string>
     <string name="duration_hour_format">%d小時</string>
     <string name="miles_per_hour_format">%.1f 英里每小時</string>
@@ -139,7 +136,6 @@
     <string name="pref_privacy_policy_title">隱私權政策</string>
     <string name="guide_recommended_apps">推薦的應用程式</string>
     <string name="inventory_empty_text">無項目</string>
-    <string name="max_depth">最大: %s</string>
     <string name="tool_cliff_height_title">懸崖高度</string>
     <string name="beacon_action_view_details">查看細節</string>
     <string name="tool_bubble_level_title">水平儀</string>
@@ -212,14 +208,11 @@
     <string name="clinometer_title">傾斜儀</string>
     <string name="lunar_noon">月球正午</string>
     <string name="solar_noon">太陽正午</string>
-    <string name="tide_normal">正常</string>
-    <string name="until_sunset_label">直到日落</string>
     <string name="navigation">導航</string>
     <string name="map_scale_title">地圖縮放</string>
     <string name="map_scale_ratio">比例</string>
     <string name="tool_white_noise_summary">幫助您入睡</string>
     <string name="tool_white_noise_title">白噪聲</string>
-    <string name="freezing_temperatures_warning">結冰溫度</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="delete_note_title">刪除筆記？</string>
@@ -262,9 +255,6 @@
     <string name="moon_illumination">月球亮部</string>
     <string name="sun_down_no_set">太陽落下</string>
     <string name="sun_up_no_set">太陽升起</string>
-    <string name="heat_alert_normal_title">無溫度警告</string>
-    <string name="heat_alert_heat_caution_title">熱警告</string>
-    <string name="heat_alert_heat_warning_title">熱警告</string>
     <string name="weather_storm_incoming">暴風雨即將來臨</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -284,7 +274,6 @@
 \n
 \n電子羅盤校正: 以8字旋轉裝置或是於各方向旋轉並且遠離金屬"</string>
     <string name="accuracy_info_title">提升感測器資料精確度的訣竅</string>
-    <string name="battery_temp">手機: %s</string>
     <string name="discharging_fast">快速放電中 (%s)</string>
     <string name="discharging_slow">慢速放電中 (%s)</string>
     <string name="precise_percent_format">%s%%</string>
@@ -315,7 +304,6 @@
     <string name="app_disclaimer_message_title">聲明/服務條款</string>
     <string name="guide_thermometer_calibration_title">溫度計校正</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
-    <string name="temperature_disclaimer">由於您手機產生的熱，此處顯示的溫度可能比實際更高。</string>
     <string name="battery_capacity_format">%s 毫安時</string>
     <string name="current_format">%s 毫安</string>
     <string name="turn_off">關閉</string>

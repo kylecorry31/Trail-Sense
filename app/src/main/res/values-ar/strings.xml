@@ -8,7 +8,6 @@
     <string name="astronomy">الفلك</string>
     <string name="sunrise_label">شروق الشمس</string>
     <string name="sunset_label">غروب الشمس</string>
-    <string name="until_sunset_label">حتى غروب الشمس</string>
 
 
     <string name="pref_use_true_north_title">الشمال الحقيقي</string>
@@ -79,7 +78,6 @@
     <string name="today">اليوم</string>
     <string name="tomorrow">غدا</string>
     <string name="yesterday">في الامس</string>
-    <string name="pressure_tendency_indicator_alt">مؤشر ميل الضغط</string>
 
     <string name="pressure_48_hours">48 ساعة</string>
     <string name="pressure_24_hours">24 ساعة</string>

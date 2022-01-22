@@ -8,13 +8,6 @@
     <string name="yesterday">Tegnap</string>
     <string name="tomorrow">Holnap</string>
     <string name="today">Ma</string>
-    <string name="temperature_disclaimer">A jezett hőmérséklet magasabb lehet a telefon melegedése miatt.</string>
-    <string name="heat_alert_frostbite_danger_title">Fagyveszély</string>
-    <string name="heat_alert_frostbite_warning_title">Fagyveszély figyelmeztetés</string>
-    <string name="heat_alert_normal_title">Nincs hőmérséklet riasztás</string>
-    <string name="heat_alert_heat_warning_title">Hőség figyelmeztetés</string>
-    <string name="heat_alert_heat_alert_title">Hőségriasztás</string>
-    <string name="heat_alert_heat_danger_title">Hőségveszély</string>
     <string name="forecast_worsening">Később romolhat</string>
     <string name="forecast_improving">Később javulhat</string>
     <string name="weather_not_changing">Egyelőre nem változik</string>
@@ -87,7 +80,6 @@
     <string name="direction_east">K</string>
     <string name="direction_south">D</string>
     <string name="direction_north">É</string>
-    <string name="duration_hour_minute_format">%dó %dp</string>
     <string name="duration_minute_format">%dp</string>
     <string name="duration_hour_format">%dó</string>
     <string name="miles_per_hour_format">%.1f mérföld/h</string>
@@ -100,7 +92,6 @@
     <string name="settings">Beállítások</string>
     <string name="weather">Időjárás</string>
     <string name="navigation">Navigáció</string>
-    <string name="max_depth">Max: %s</string>
     <string name="until_sun_time">múlva lesz %s</string>
     <string name="unit_nautical_miles">Tengeri mérföld</string>
     <string name="unit_miles">Mérföld</string>
@@ -133,5 +124,4 @@
     <string name="sunset_alerts">Napnyugta figyelmeztetések</string>
     <string name="sunset_alert_notification_text">A nap %s-kor fog lenyugodni</string>
     <string name="sunset_alert_notification_title">A nap hamarosan nyugszik</string>
-    <string name="until_sunset_label">napnyugtáig</string>
 </resources>

@@ -42,7 +42,6 @@
     <string name="moon_phase">Měsíční fáze</string>
     <string name="lunar_noon">Měsíční poledne</string>
     <string name="solar_noon">Sluneční poledne</string>
-    <string name="tidal_range">Rozsah přílivu a odlivu</string>
     <string name="sunset_alert_notification_text">Slunce zapadne v %s</string>
     <string name="sunset_alert_notification_title">Slunce brzo zapadne</string>
     <string name="third_quarter">Poslední čtvrt</string>
@@ -57,7 +56,6 @@
     <string name="yesterday">Včera</string>
     <string name="tomorrow">Zítra</string>
     <string name="today">Dnes</string>
-    <string name="until_sunset_label">do západu</string>
     <string name="sun_up_no_set">Slunce je vysoko</string>
     <string name="sun_does_not_rise">nesvítá</string>
     <string name="sun_does_not_set">nezapadá</string>
@@ -128,7 +126,6 @@
     <string name="direction_east">V</string>
     <string name="direction_south">J</string>
     <string name="direction_north">S</string>
-    <string name="duration_hour_minute_format">%dh %dm</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
@@ -154,8 +151,6 @@
     <string name="sunset_alerts">Upozornění na západ slunce</string>
     <string name="waxing_crescent">Dorůstající srpek</string>
     <string name="waning_crescent">Couvající srpek</string>
-    <string name="temperature_disclaimer">Zobrazovaná teplota může být vyšší kvůli teplu vytvářené telefonem.</string>
-    <string name="heat_alert_heat_message">Možné riziko vyčerpání z tepla nebo mrtvice. Udržujte se stále hydratovaní, zůstaňte uvnitř nebo ve stínu, omezte cvičení a sledujte známky vyčerpání z tepla nebo mrtvice.</string>
     <string name="access_background_location">Změnit nastavení polohy</string>
     <string name="tool_lightning_description">Změřit vzdálenost od místa úderu blesku</string>
     <string name="tool_lightning_title">Vzdálenost od místa úderu blesku</string>
@@ -188,20 +183,9 @@
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
     <string name="set_inclination_instructions">Klepnutím kamkoli nastavte/zrušte úhel sklonu</string>
-    <string name="tide_neap"/>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
     <string name="waning_gibbous">Měsíc Couvá</string>
     <string name="sun_down_no_set">Slunce zapadlo</string>
-    <string name="heat_alert_frostbite_danger_title">Nebezpečí podchlazení</string>
-    <string name="heat_alert_frostbite_warning_title">Varování před podchlazením</string>
-    <string name="heat_alert_frostbite_caution_title">Upozornění na podchlazení</string>
-    <string name="heat_alert_normal_title">Žádná varování o teplotě</string>
-    <string name="heat_alert_heat_caution_title">Pozor na horko</string>
-    <string name="heat_alert_heat_warning_title">Varování před horkem</string>
-    <string name="heat_alert_heat_alert_title">Tepelná výstraha</string>
-    <string name="heat_alert_frostbite_message">Riziko podchlazení/omrzlin. Ujistěte se, že zůstanete hydratovaní, oblečte se teple, omezte exponovanou pokožku a sledujte známky podchlazení nebo omrzlin.</string>
-    <string name="heat_alert_heat_danger_title">Nebezpečí horka</string>
-    <string name="dew_point">Rosný bod: %s</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -220,7 +204,6 @@
     <string name="alerts">Výstrahy</string>
     <string name="pressure_reading_time_ago">před %s - %s</string>
     <string name="turn_off">Vypnout</string>
-    <string name="battery_temp">Telefon: %s</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="all_beacons">Všechny majáky</string>
