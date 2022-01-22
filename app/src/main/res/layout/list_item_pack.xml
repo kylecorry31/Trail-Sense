@@ -13,7 +13,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pack_menu_item"
         app:layout_constraintStart_toEndOf="@+id/pack_img"

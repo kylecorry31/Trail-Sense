@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="?android:textColorPrimary"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         app:layout_constraintEnd_toStartOf="@+id/visible_btn"
         app:layout_constraintStart_toEndOf="@+id/beacon_image"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         app:layout_constraintStart_toStartOf="@+id/beacon_name"
         app:layout_constraintTop_toBottomOf="@+id/beacon_name"
         tools:text="2.5 km" />
