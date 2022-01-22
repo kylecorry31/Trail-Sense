@@ -101,6 +101,8 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
             }
         }
 
+    val useDynamicColors = false
+
     // Calibration
 
     override var useAutoDeclination: Boolean
