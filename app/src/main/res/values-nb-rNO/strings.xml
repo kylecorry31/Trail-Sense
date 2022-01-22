@@ -899,4 +899,31 @@
     <string name="weather_worsening">Forverring</string>
     <string name="weather_unchanging">Uendret</string>
     <string name="unit_inches_abbreviation">om</string>
+    <string name="backtrack_high_priority_notification">Plasserer et veipunkt hver %s</string>
+    <string name="battery_warning">Advarsel om batteribruk</string>
+    <string name="backtrack_battery_warning">Små intervaller (under 15 minutter) kan forårsake ekstra batteritrekk</string>
+    <string name="kwh_per_meter_squared_format">%s kWh/m²</string>
+    <string name="notification_weather_update_content">Registrerer trykket</string>
+    <string name="temporary">Midlertidig</string>
+    <string name="importing">Importering</string>
+    <string name="simplification_quality">Forenklingskvalitet</string>
+    <string name="sunset_alert_location_update">Oppdaterer posisjon for solnedgangsalarm</string>
+    <string name="saving">Lagrer …</string>
+    <string name="low_amount">Lav (%s)</string>
+    <string name="medium_amount">Middels (%s)</string>
+    <string name="high_amount">Høy (%s)</string>
+    <string name="or">eller</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Påvirkede verktøy
+\n%s
+\n
+\n### Løsning
+\n%s</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="merge">Flett</string>
+    <string name="merging">Fletting</string>
+    <string name="simplify">Forenkle</string>
+    <string name="simplifying">Forenkling</string>
+    <string name="append_onto">Legg til på</string>
 </resources>
