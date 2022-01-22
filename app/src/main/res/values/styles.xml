@@ -6,10 +6,10 @@
 
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/orange_10</item>
 
         <!--Containers-->
-        <item name="colorPrimaryContainer">@color/orange_90</item>
+        <item name="colorPrimaryContainer">@color/orange_40_transparent</item>
         <item name="colorOnPrimaryContainer">@color/orange_10</item>
         <item name="colorSecondaryContainer">?attr/colorPrimaryContainer</item>
         <item name="colorTertiaryContainer">?attr/colorPrimaryContainer</item>
