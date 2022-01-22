@@ -258,7 +258,6 @@
     <string name="forecasts_category">Prévisions</string>
     <string name="advanced">Avancé</string>
     <string name="tap_sun_moon_hint">Appuyer sur les astres pour obtenir des détails sur leurs positions</string>
-
     <string name="beacon_action_view_details">Voir les détails</string>
     <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
     <string name="tool_bubble_level_title">Niveau à bulle</string>
@@ -288,7 +287,6 @@
     <string name="tool_cliff_height_disclaimer">N\'utilisez cet outil que lorsque cela ne présente pas de danger, et vérifiez bien ce qu\'il y a au bas de la chute pour éviter toute blessure. Voir le guide pour plus d\'instructions.</string>
     <string name="tool_cliff_height_title">Hauteur de falaise</string>
     <string name="toast_destination_bearing_set">Orientation établie</string>
-
     <string name="solar_panel_instructions">Placez votre téléphone sur la surface du panneau solaire pour commencer.</string>
     <string name="tool_triangulate_summary">Vous géolocalise sans GPS</string>
     <string name="utc_format">%s UTC</string>
@@ -500,4 +498,12 @@
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="pref_low_power_mode_summary">Désactive certaines fonctionnalités pour économiser de l\'énergie</string>
     <string name="units_mmhg">mmHg</string>
+    <string name="weather_worsening">Détérioration</string>
+    <string name="weather_improving">Amélioration</string>
+    <string name="weather_unchanging">Inchangé</string>
+    <string name="weather_storm">Tempête</string>
+    <string name="very_soon">Très bientôt</string>
+    <string name="soon">Bientôt</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
 </resources>
