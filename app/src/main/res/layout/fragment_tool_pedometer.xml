@@ -10,6 +10,7 @@
         android:id="@+id/pedometer_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:rightQuickActionIcon="@drawable/ic_notification"
         tools:subtitle="since 10:00 AM"
         tools:title="5.0 mi" />
 

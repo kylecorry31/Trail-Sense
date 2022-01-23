@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
@@ -15,10 +16,12 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.pedometer.domain.PedometerService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
 import java.time.Instant
@@ -29,6 +32,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private val counter by lazy { StepCounter(Preferences(requireContext())) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val pedometerService = PedometerService()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -42,6 +46,37 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         binding.resetBtn.setOnClickListener {
             counter.reset()
         }
+
+        binding.pedometerTitle.rightQuickAction.setOnClickListener {
+            if (prefs.pedometer.alertDistance == null) {
+                val units = listOf(
+                    DistanceUnits.Meters,
+                    DistanceUnits.Kilometers,
+                    DistanceUnits.Feet,
+                    DistanceUnits.Miles
+                )
+                CustomUiUtils.pickDistance(
+                    requireContext(),
+                    formatService.sortDistanceUnits(units),
+                    title = getString(R.string.distance_alert),
+                ) { distance, _ ->
+                    if (distance != null) {
+                        prefs.pedometer.alertDistance = distance
+                    }
+                }
+            } else {
+                Alerts.dialog(
+                    requireContext(),
+                    getString(R.string.distance_alert),
+                    getString(R.string.remove_distance_alert)
+                ) {
+                    if (!it) {
+                        prefs.pedometer.alertDistance = null
+                    }
+                }
+            }
+        }
+
         scheduleUpdates(20)
     }
 
@@ -49,6 +84,11 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         super.onUpdate()
         val distance = getDistance(counter.steps)
         val lastReset = counter.startTime?.toZonedDateTime()
+
+        CustomUiUtils.setButtonState(
+            binding.pedometerTitle.rightQuickAction,
+            prefs.pedometer.alertDistance != null
+        )
 
         if (lastReset != null) {
             val dateString = if (lastReset.toLocalDate() == LocalDate.now()) {
@@ -78,17 +118,21 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
 
     private fun getDistance(steps: Long): Distance {
-        // TODO: Move this into a service class
-        val stride = prefs.pedometer.strideLength.meters().distance
+        val stride = prefs.pedometer.strideLength.meters()
         val units = prefs.baseDistanceUnits
-        return Distance.meters(steps * stride).convertTo(units).toRelativeDistance()
+        val distance = pedometerService.getDistance(steps, stride)
+        return distance.convertTo(units).toRelativeDistance()
     }
 
     private fun getSpeed(lastReset: Instant, distance: Distance): Speed? {
         val duration = Duration.between(lastReset, Instant.now())
         if (duration.isZero || duration.isNegative) return null
 
-        return Speed(distance.distance / duration.seconds, distance.units, TimeUnits.Seconds).convertTo(
+        return Speed(
+            distance.distance / duration.seconds,
+            distance.units,
+            TimeUnits.Seconds
+        ).convertTo(
             DistanceUnits.Meters, TimeUnits.Seconds
         )
     }

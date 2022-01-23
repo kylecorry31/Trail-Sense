@@ -3,18 +3,33 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.NavigationUtils
+import com.kylecorry.trail_sense.shared.*
 
 class DistanceAlertSender(private val context: Context) : IDistanceAlertSender {
 
+    private val prefs = UserPreferences(context)
+    private val formatter = FormatService.getInstance(context)
+
     override fun send() {
         val openIntent = NavigationUtils.pendingIntent(context, R.id.fragmentToolPedometer)
+
+        val distance =
+            prefs.pedometer.alertDistance?.convertTo(prefs.baseDistanceUnits)?.toRelativeDistance()
 
         val notification = Notify.alert(
             context,
             NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.distance_alert),
-            null,
+            distance?.let {
+                context.getString(
+                    R.string.distance_alert_distance_reached,
+                    formatter.formatDistance(
+                        it,
+                        Units.getDecimalPlaces(it.units),
+                        false
+                    )
+                )
+            },
             R.drawable.steps,
             intent = openIntent,
             autoCancel = true

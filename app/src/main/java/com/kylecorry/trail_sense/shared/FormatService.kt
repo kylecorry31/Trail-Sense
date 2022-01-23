@@ -621,4 +621,16 @@ class FormatService(private val context: Context) {
         }
     }
 
+    companion object {
+        private var instance: FormatService? = null
+
+        @Synchronized
+        fun getInstance(context: Context): FormatService {
+            if (instance == null) {
+                instance = FormatService(context.applicationContext)
+            }
+            return instance!!
+        }
+    }
+
 }
