@@ -1161,6 +1161,8 @@
     <string name="explore">Explore</string>
     <!--This is in Markdown format-->
     <string name="onboarding_explore">- Designed for hiking, backpacking, camping, and geocaching\n\n- Place beacons and navigate to them\n\n- Follow paths\n\n- Retrace your steps with backtrack\n\n- Plan what to pack\n\n- Be alerted before the sun sets\n\n- Predict the weather\n\n- Use your phone as a flashlight\n\n- And much more!</string>
+    <string name="average_speed">Average speed</string>
+    <string name="steps">Steps</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
