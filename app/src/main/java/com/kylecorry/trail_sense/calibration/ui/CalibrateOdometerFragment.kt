@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 
 
 class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
@@ -122,9 +122,9 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
                 )
                 cache.putBoolean("pedometer_battery_sent", true)
             }
-            PedometerService.start(requireContext())
+            StepCounterService.start(requireContext())
         } else {
-            PedometerService.stop(requireContext())
+            StepCounterService.stop(requireContext())
         }
 
         wasEnabled = userPrefs.usePedometer

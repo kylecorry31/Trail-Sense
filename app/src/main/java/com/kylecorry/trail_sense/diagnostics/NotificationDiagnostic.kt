@@ -8,7 +8,7 @@ import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.DailyWeatherAlertCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.StormAlertCommand
@@ -34,7 +34,7 @@ class NotificationDiagnostic(private val context: Context) : IDiagnostic {
             codes.add(DiagnosticCode.DailyForecastNotificationsBlocked)
         }
 
-        if (isChannelBlocked(context, PedometerService.CHANNEL_ID) && Sensors.hasSensor(
+        if (isChannelBlocked(context, StepCounterService.CHANNEL_ID) && Sensors.hasSensor(
                 context,
                 Sensor.TYPE_STEP_COUNTER
             )

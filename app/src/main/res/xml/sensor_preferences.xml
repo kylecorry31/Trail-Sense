@@ -38,7 +38,7 @@
 
         <Preference
             android:key="@string/pref_odometer_calibration"
-            android:title="@string/odometer"
+            android:title="@string/pedometer"
             app:icon="@drawable/steps"
             app:singleLineTitle="false" />
 

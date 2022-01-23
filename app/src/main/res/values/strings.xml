@@ -672,7 +672,7 @@
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
     <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
-    <string name="value_since_time">%s since %s</string>
+    <string name="since_time">since %s</string>
     <string name="value_average">%s average</string>
     <string name="odometer">Odometer</string>
     <string name="pedometer">Pedometer</string>

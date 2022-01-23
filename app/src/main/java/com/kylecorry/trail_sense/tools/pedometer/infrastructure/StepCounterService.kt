@@ -1,14 +1,14 @@
-package com.kylecorry.trail_sense.tools.speedometer.infrastructure
+package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.services.ForegroundService
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -16,13 +16,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.odometer.Odometer
 
-class PedometerService : ForegroundService() {
+class StepCounterService : ForegroundService() {
 
     private val pedometer by lazy { Pedometer(this) }
-    private val sensorService by lazy { SensorService(this) }
-    private val odometer by lazy { sensorService.getOdometer() }
+    private val odometer by lazy { Odometer(this) }
     private val formatService by lazy { FormatService(this) }
     private val prefs by lazy { UserPreferences(this) }
 
@@ -61,12 +60,12 @@ class PedometerService : ForegroundService() {
         val units = prefs.baseDistanceUnits
         val distance = odometer.distance.convertTo(units).toRelativeDistance()
 
-        val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolSpeedometer)
+        val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolPedometer)
 
         return Notify.persistent(
             this,
             CHANNEL_ID,
-            getString(R.string.odometer),
+            getString(R.string.pedometer),
             formatService.formatDistance(
                 distance,
                 Units.getDecimalPlaces(distance.units),
@@ -83,7 +82,7 @@ class PedometerService : ForegroundService() {
         const val NOTIFICATION_ID = 1279812
 
         fun intent(context: Context): Intent {
-            return Intent(context, PedometerService::class.java)
+            return Intent(context, StepCounterService::class.java)
         }
 
         fun stop(context: Context) {

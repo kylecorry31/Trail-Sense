@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import java.time.Duration
 
@@ -30,7 +30,7 @@ class BatteryService {
                     Duration.ZERO
                 ) {
                     prefs.usePedometer = false
-                    PedometerService.stop(context)
+                    StepCounterService.stop(context)
                 }
             )
         }

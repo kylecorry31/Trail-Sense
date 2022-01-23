@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
@@ -160,9 +160,9 @@ object NotificationChannels {
         // Odometer
         Notify.createChannel(
             context,
-            PedometerService.CHANNEL_ID,
-            context.getString(R.string.odometer),
-            context.getString(R.string.odometer),
+            StepCounterService.CHANNEL_ID,
+            context.getString(R.string.pedometer),
+            context.getString(R.string.pedometer),
             Notify.CHANNEL_IMPORTANCE_LOW,
             true
         )

@@ -1,16 +1,12 @@
-package com.kylecorry.trail_sense.shared.sensors.odometer
+package com.kylecorry.trail_sense.tools.pedometer.infrastructure.odometer
 
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.time.Time.toZonedDateTime
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.specifications.LocationChangedSpecification
-import com.kylecorry.trail_sense.shared.specifications.LocationIsAccurateSpecification
 import java.time.Instant
 import java.time.LocalDate
 
@@ -38,36 +34,6 @@ class Odometer(private val context: Context): AbstractSensor(), IOdometer {
 
     override fun stopImpl() {
         intervalometer.stop()
-    }
-
-    fun addLocation(location: ApproximateCoordinate){
-        if (LocationIsAccurateSpecification().not().isSatisfiedBy(location)){
-            // Location is too inaccurate to use
-            return
-        }
-
-        var distance: Float
-        synchronized(this) {
-            val loc = cache.getCoordinate(LAST_LOCATION)
-            val lastLocation = if (loc != null) Coordinate(loc.latitude, loc.longitude) else null
-            val lastAccuracy = cache.getFloat(LAST_ACCURACY) ?: 0f
-            if (lastLocation == null) {
-                cache.putCoordinate(LAST_LOCATION, location.coordinate)
-                cache.putFloat(LAST_ACCURACY, location.accuracy.meters().distance)
-                return
-            }
-
-            val moved = LocationChangedSpecification(ApproximateCoordinate.from(lastLocation, Distance.meters(lastAccuracy)), prefs.odometerDistanceThreshold)
-            if (moved.not().isSatisfiedBy(location)){
-                return
-            }
-
-            distance = lastLocation.distanceTo(location.coordinate)
-            cache.putCoordinate(LAST_LOCATION, location.coordinate)
-            cache.putFloat(LAST_ACCURACY, location.accuracy.meters().distance)
-        }
-
-        addDistance(Distance.meters(distance))
     }
 
     fun addDistance(distance: Distance){
@@ -100,7 +66,6 @@ class Odometer(private val context: Context): AbstractSensor(), IOdometer {
         private const val CACHE_KEY = "odometer_distance"
         private const val LAST_LOCATION = "last_odometer_location"
         private const val LAST_RESET = "last_odometer_reset"
-        private const val LAST_ACCURACY = "last_odometer_accuracy"
     }
 
 }

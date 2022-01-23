@@ -9,17 +9,17 @@ import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.time.Time.isInPast
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
-import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 import java.time.Instant
 
 
 class CustomGPS(private val context: Context, private val frequency: Duration = Duration.ofMillis(20)) : AbstractSensor(), IGPS {
-
-    private val odometer by lazy { SensorService(context).getOdometer() }
 
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
@@ -128,14 +128,6 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
     }
 
-    private fun updateOdometer(){
-        if (userPrefs.usePedometer){
-            return
-        }
-
-        odometer.addLocation(ApproximateCoordinate.from(location, Distance.meters(_horizontalAccuracy ?: 0f)))
-    }
-
     @SuppressLint("MissingPermission")
     override fun startImpl() {
         if (!GPS.isAvailable(context)) {
@@ -161,7 +153,6 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
             _isTimedOut = false
-            updateOdometer()
             notifyListeners()
             return true
         }
@@ -180,7 +171,6 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         updateFromBase()
 
         if (shouldNotify && location != Coordinate.zero){
-            updateOdometer()
             notifyListeners()
         }
 
@@ -197,7 +187,6 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
 
     private fun onTimeout(){
         _isTimedOut = true
-        updateOdometer()
         notifyListeners()
         timeout.once(TIMEOUT_DURATION)
     }

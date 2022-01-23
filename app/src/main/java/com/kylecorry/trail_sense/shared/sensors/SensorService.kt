@@ -32,12 +32,12 @@ import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
-import com.kylecorry.trail_sense.shared.sensors.odometer.Odometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.odometer.Odometer
 import java.time.Duration
 
 class SensorService(ctx: Context) {
@@ -114,10 +114,6 @@ class SensorService(ctx: Context) {
                 gps
             }
         }
-    }
-
-    fun getOdometer(): Odometer {
-        return Odometer(context)
     }
 
     fun getCompass(): ICompass {

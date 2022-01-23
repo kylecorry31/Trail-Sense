@@ -9,15 +9,15 @@ import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.speedometer.infrastructure.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.odometer.Odometer
 
 @RequiresApi(Build.VERSION_CODES.N)
 class PedometerTile : AndromedaTileService() {
 
     private val prefs by lazy { UserPreferences(this) }
     private val formatService by lazy { FormatService(this) }
-    private val odometer by lazy { SensorService(this).getOdometer() }
+    private val odometer by lazy { Odometer(this) }
 
     override fun isOn(): Boolean {
         return prefs.usePedometer && !isDisabled()
@@ -36,11 +36,11 @@ class PedometerTile : AndromedaTileService() {
 
     override fun start() {
         prefs.usePedometer = true
-        PedometerService.start(this)
+        StepCounterService.start(this)
     }
 
     override fun stop() {
         prefs.usePedometer = false
-        PedometerService.stop(this)
+        StepCounterService.stop(this)
     }
 }

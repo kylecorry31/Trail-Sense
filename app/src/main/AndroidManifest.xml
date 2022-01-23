@@ -106,7 +106,7 @@
             android:foregroundServiceType="location" />
 
         <service
-            android:name=".tools.speedometer.infrastructure.PedometerService"
+            android:name=".tools.pedometer.infrastructure.StepCounterService"
             android:enabled="true"
             android:exported="false" />
 

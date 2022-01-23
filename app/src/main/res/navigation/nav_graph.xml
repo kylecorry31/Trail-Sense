@@ -113,8 +113,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_toolsFragment_to_speedometerFragment"
-            app:destination="@id/fragmentToolSpeedometer"
+            android:id="@+id/action_tools_to_pedometer"
+            app:destination="@id/fragmentToolPedometer"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -691,8 +691,8 @@
         android:name="com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolScreenFlashlight"
         android:label="FragmentToolScreenFlashlight" />
     <fragment
-        android:id="@+id/fragmentToolSpeedometer"
-        android:name="com.kylecorry.trail_sense.tools.speedometer.ui.FragmentToolSpeedometer"
+        android:id="@+id/fragmentToolPedometer"
+        android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentToolPedometer"
         android:label="FragmentToolSpeedometer" />
     <fragment
         android:id="@+id/calibrateOdometerFragment"
