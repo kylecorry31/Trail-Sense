@@ -2,19 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/data_point"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/data_point">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/data_point_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:alpha="0.75"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?android:textColorPrimary"
-        android:alpha="0.75"
         tools:src="@drawable/steps" />
 
     <TextView
@@ -22,8 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         app:layout_constraintStart_toEndOf="@id/data_point_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginStart="0dp"
@@ -33,8 +32,7 @@
         android:id="@+id/data_point_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?android:textColorSecondary"
-        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         app:layout_constraintStart_toStartOf="@id/data_point_title"
         app:layout_constraintTop_toBottomOf="@id/data_point_title"
         tools:text="Steps" />

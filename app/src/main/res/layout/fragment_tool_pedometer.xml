@@ -13,16 +13,20 @@
         tools:subtitle="since 10:00 AM"
         tools:title="5.0 mi" />
 
-    <com.google.android.flexbox.FlexboxLayout
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/beacon_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:alignItems="center"
-        app:flexWrap="wrap"
-        app:justifyContent="space_evenly">
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:columnCount="2"
+        app:useDefaultMargins="false">
 
         <com.kylecorry.trail_sense.shared.views.DataPointView
             android:id="@+id/pedometer_steps"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:dataPointDescription="@string/steps"
@@ -31,14 +35,14 @@
 
         <com.kylecorry.trail_sense.shared.views.DataPointView
             android:id="@+id/pedometer_speed"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:dataPointDescription="@string/average_speed"
             app:dataPointIcon="@drawable/ic_speed"
             app:layout_columnWeight="1" />
 
-    </com.google.android.flexbox.FlexboxLayout>
+    </androidx.gridlayout.widget.GridLayout>
 
     <Button
         android:id="@+id/reset_btn"
