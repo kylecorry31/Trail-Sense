@@ -91,7 +91,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(6, 7) { context, prefs ->
                 val distance = prefs.getFloat("odometer_distance")
                 if (distance != null) {
-                    val stride = UserPreferences(context).strideLength.meters().distance
+                    val stride = UserPreferences(context).pedometer.strideLength.meters().distance
                     if (stride > 0f) {
                         val steps = (distance / stride).toLong()
                         prefs.putLong(StepCounter.STEPS_KEY, steps)
@@ -99,6 +99,11 @@ class PreferenceMigrator private constructor() {
                 }
                 prefs.remove("odometer_distance")
                 prefs.remove("last_odometer_location")
+
+                prefs.putBoolean(
+                    context.getString(R.string.pref_pedometer_enabled),
+                    prefs.getString("pref_odometer_source") == "pedometer"
+                )
             }
         )
 

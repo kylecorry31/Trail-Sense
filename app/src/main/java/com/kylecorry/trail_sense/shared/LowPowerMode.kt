@@ -42,7 +42,7 @@ class LowPowerMode(val context: Context) {
             BacktrackScheduler.start(context, false)
         }
 
-        if (prefs.usePedometer){
+        if (prefs.pedometer.isEnabled){
             StepCounterService.start(context)
         }
     }

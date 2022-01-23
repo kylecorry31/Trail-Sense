@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.calibration.ui
 
 import android.Manifest
-import android.hardware.Sensor
 import android.os.Build
 import android.os.Bundle
-import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
@@ -13,7 +12,6 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
@@ -25,7 +23,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
 
     private lateinit var strideLengthPref: Preference
     private lateinit var permissionPref: Preference
-    private lateinit var odometerSourceList: ListPreference
+    private var enabledPref: SwitchPreferenceCompat? = null
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private var wasEnabled = false
@@ -35,7 +33,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private val intervalometer = Timer {
         updateStrideLength()
         updatePermissionRequestPreference()
-        if (wasEnabled != userPrefs.usePedometer) {
+        if (wasEnabled != userPrefs.pedometer.isEnabled) {
             updatePedometerService()
         }
     }
@@ -47,14 +45,19 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun bindPreferences() {
+        enabledPref = switch(R.string.pref_pedometer_enabled)
         strideLengthPref = findPreference(getString(R.string.pref_stride_length_holder))!!
-        odometerSourceList = findPreference(getString(R.string.pref_odometer_source))!!
         permissionPref = findPreference(getString(R.string.pref_odometer_request_permission))!!
 
-        val hasPedometer = Sensors.hasSensor(requireContext(), Sensor.TYPE_STEP_COUNTER)
-        strideLengthPref.isVisible = hasPedometer
-        odometerSourceList.isVisible = hasPedometer
-        permissionPref.isVisible = hasPedometer
+        onClick(enabledPref) {
+            if (userPrefs.pedometer.isEnabled) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
+                        updatePedometerService()
+                    }
+                }
+            }
+        }
 
         permissionPref.setOnPreferenceClickListener {
             val intent = Intents.appSettings(requireContext())
@@ -64,27 +67,16 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        odometerSourceList.setOnPreferenceChangeListener { _, newValue ->
-            if (newValue == "pedometer") {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
-                        updatePedometerService()
-                    }
-                }
-            }
-            true
-        }
-
         strideLengthPref.setOnPreferenceClickListener {
             CustomUiUtils.pickDistance(
                 requireContext(),
                 listOf(userPrefs.baseDistanceUnits),
-                userPrefs.strideLength.convertTo(userPrefs.baseDistanceUnits),
+                userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits),
                 getString(R.string.pref_stride_length_title),
                 showFeetAndInches = true
             ) { distance, _ ->
                 if (distance != null) {
-                    userPrefs.strideLength = distance
+                    userPrefs.pedometer.strideLength = distance
                     updateStrideLength()
                 }
             }
@@ -94,7 +86,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
-        wasEnabled = userPrefs.usePedometer
+        wasEnabled = userPrefs.pedometer.isEnabled
         intervalometer.interval(20)
     }
 
@@ -106,13 +98,13 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private fun updatePermissionRequestPreference() {
         val hasActivityRecognition = Permissions.canRecognizeActivity(requireContext())
         permissionPref.isVisible =
-            (userPrefs.usePedometer && !hasActivityRecognition) || (!userPrefs.usePedometer && !Permissions.isBackgroundLocationEnabled(
+            (userPrefs.pedometer.isEnabled && !hasActivityRecognition) || (!userPrefs.pedometer.isEnabled && !Permissions.isBackgroundLocationEnabled(
                 requireContext()
             ))
     }
 
     private fun updatePedometerService() {
-        if (userPrefs.usePedometer) {
+        if (userPrefs.pedometer.isEnabled) {
             if (cache.getBoolean("pedometer_battery_sent") != true) {
                 Alerts.dialog(
                     requireContext(),
@@ -127,13 +119,13 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
             StepCounterService.stop(requireContext())
         }
 
-        wasEnabled = userPrefs.usePedometer
+        wasEnabled = userPrefs.pedometer.isEnabled
     }
 
     private fun updateStrideLength() {
-        strideLengthPref.isEnabled = userPrefs.usePedometer
+        strideLengthPref.isEnabled = userPrefs.pedometer.isEnabled
         strideLengthPref.summary = formatService.formatDistance(
-            userPrefs.strideLength.convertTo(userPrefs.baseDistanceUnits),
+            userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits),
             2
         )
     }

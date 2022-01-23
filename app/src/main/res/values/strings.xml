@@ -679,7 +679,6 @@
     <string name="pref_stride_length_title">Stride length</string>
     <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
-    <string name="pref_odometer_source" translatable="false">pref_odometer_source</string>
     <string name="source">Source</string>
     <string name="pref_odometer_calibration" translatable="false">pref_odometer_calibration</string>
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
@@ -1163,6 +1162,7 @@
     <string name="onboarding_explore">- Designed for hiking, backpacking, camping, and geocaching\n\n- Place beacons and navigate to them\n\n- Follow paths\n\n- Retrace your steps with backtrack\n\n- Plan what to pack\n\n- Be alerted before the sun sets\n\n- Predict the weather\n\n- Use your phone as a flashlight\n\n- And much more!</string>
     <string name="average_speed">Average speed</string>
     <string name="steps">Steps</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

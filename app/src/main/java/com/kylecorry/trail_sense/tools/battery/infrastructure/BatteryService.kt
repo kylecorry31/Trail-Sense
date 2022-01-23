@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.battery.IBattery
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
@@ -23,13 +23,13 @@ class BatteryService {
         val services = mutableListOf<RunningService>()
 
         // Odometer
-        if (prefs.usePedometer && !prefs.isLowPowerModeOn) {
+        if (prefs.pedometer.isEnabled && !prefs.isLowPowerModeOn) {
             services.add(
                 RunningService(
                     context.getString(R.string.pedometer),
                     Duration.ZERO
                 ) {
-                    prefs.usePedometer = false
+                    prefs.pedometer.isEnabled = false
                     StepCounterService.stop(context)
                 }
             )

@@ -79,7 +79,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private fun getDistance(steps: Long): Distance {
         // TODO: Move this into a service class
-        val stride = prefs.strideLength.meters().distance
+        val stride = prefs.pedometer.strideLength.meters().distance
         val units = prefs.baseDistanceUnits
         return Distance.meters(steps * stride).convertTo(units).toRelativeDistance()
     }

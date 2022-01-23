@@ -4,9 +4,9 @@ import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tiles.TileManager
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
@@ -28,7 +28,7 @@ object TrailSenseServiceUtils {
 
     private fun startPedometer(context: Context) {
         val prefs = UserPreferences(context)
-        if (prefs.usePedometer) {
+        if (prefs.pedometer.isEnabled) {
             StepCounterService.start(context)
         } else {
             StepCounterService.stop(context)

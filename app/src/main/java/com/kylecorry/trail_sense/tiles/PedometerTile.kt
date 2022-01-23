@@ -22,7 +22,7 @@ class PedometerTile : AndromedaTileService() {
     private val counter by lazy { StepCounter(Preferences(this)) }
 
     override fun isOn(): Boolean {
-        return prefs.usePedometer && !isDisabled()
+        return prefs.pedometer.isEnabled && !isDisabled()
     }
 
     override fun isDisabled(): Boolean {
@@ -35,18 +35,18 @@ class PedometerTile : AndromedaTileService() {
     }
 
     override fun start() {
-        prefs.usePedometer = true
+        prefs.pedometer.isEnabled = true
         StepCounterService.start(this)
     }
 
     override fun stop() {
-        prefs.usePedometer = false
+        prefs.pedometer.isEnabled = false
         StepCounterService.stop(this)
     }
 
     private fun getDistance(): Distance {
         // TODO: Move this into a service class
-        val stride = prefs.strideLength.meters().distance
+        val stride = prefs.pedometer.strideLength.meters().distance
         val units = prefs.baseDistanceUnits
         return Distance.meters(counter.steps * stride).convertTo(units).toRelativeDistance()
     }

@@ -32,6 +32,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val packs by lazy { PackPreferences(context) }
     val clinometer by lazy { ClinometerPreferences(context) }
     val errors by lazy { ErrorPreferences(context) }
+    val pedometer by lazy { PedometerPreferences(context) }
 
     var hapticsEnabled = false
 
@@ -224,34 +225,6 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
     val lowPowerModeDisablesBacktrack: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode_backtrack)) ?: true
-
-    var usePedometer: Boolean
-        get() {
-            val raw = cache.getString(getString(R.string.pref_odometer_source))
-            return raw == "pedometer"
-        }
-        set(value) {
-            val str = if (value) {
-                "pedometer"
-            } else {
-                "gps"
-            }
-            cache.putString(getString(R.string.pref_odometer_source), str)
-        }
-
-    val resetOdometerDaily: Boolean
-        get() {
-            return cache.getBoolean(getString(R.string.pref_odometer_reset_daily)) ?: false
-        }
-
-    var strideLength: Distance
-        get() {
-            val raw = cache.getFloat(getString(R.string.pref_stride_length)) ?: 0.7f
-            return Distance.meters(raw)
-        }
-        set(value) {
-            cache.putFloat(getString(R.string.pref_stride_length), value.meters().distance)
-        }
 
     val mapSite: MapSite by StringEnumPreference(
         cache, context.getString(R.string.pref_map_url_source), mapOf(
