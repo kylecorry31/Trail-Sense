@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlertSender
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
@@ -165,6 +166,15 @@ object NotificationChannels {
             context.getString(R.string.pedometer),
             Notify.CHANNEL_IMPORTANCE_LOW,
             true
+        )
+
+        Notify.createChannel(
+            context,
+            DistanceAlertSender.NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.distance_alert),
+            context.getString(R.string.distance_alert),
+            Notify.CHANNEL_IMPORTANCE_HIGH,
+            false
         )
     }
 

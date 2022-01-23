@@ -26,4 +26,17 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
         set(value) {
             cache.putFloat(getString(R.string.pref_stride_length), value.meters().distance)
         }
+
+    override var alertDistance: Distance?
+        get() {
+            val raw = cache.getFloat(getString(R.string.pref_distance_alert)) ?: return null
+            return Distance.meters(raw)
+        }
+        set(value) {
+            if (value == null) {
+                cache.remove(getString(R.string.pref_distance_alert))
+                return
+            }
+            cache.putFloat(getString(R.string.pref_distance_alert), value.meters().distance)
+        }
 }

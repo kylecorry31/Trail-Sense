@@ -1163,6 +1163,8 @@
     <string name="average_speed">Average speed</string>
     <string name="steps">Steps</string>
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Distance alert</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

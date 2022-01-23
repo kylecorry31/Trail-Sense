@@ -18,7 +18,6 @@ import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
-import com.kylecorry.trail_sense.tools.pedometer.domain.DailyStepResetCommand
 
 class StepCounterService : ForegroundService() {
 
@@ -26,7 +25,9 @@ class StepCounterService : ForegroundService() {
     private val counter by lazy { StepCounter(Preferences(this)) }
     private val formatService by lazy { FormatService(this) }
     private val prefs by lazy { UserPreferences(this) }
-    private val dailyResetCommand: Command by lazy { DailyStepResetCommand(prefs.pedometer, counter) }
+    private val commandFactory by lazy { PedometerCommandFactory(this) }
+    private val dailyResetCommand: Command by lazy { commandFactory.getDailyStepReset() }
+    private val distanceAlertCommand: Command by lazy { commandFactory.getDistanceAlert() }
 
     private var lastSteps = -1
 
@@ -50,6 +51,8 @@ class StepCounterService : ForegroundService() {
         counter.addSteps(newSteps.toLong())
         lastSteps = pedometer.steps
         Notify.send(this, NOTIFICATION_ID, getNotification())
+
+        distanceAlertCommand.execute()
         return true
     }
 
