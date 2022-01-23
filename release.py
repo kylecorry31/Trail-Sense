@@ -2,10 +2,10 @@ import re
 import os
 
 # TODO: Build APK
-apk = input('Is the APK up to date? ').lower().startswith('y')
-
-if not apk:
-    raise Exception("APK is not up to date")
+# apk = input('Is the APK up to date? ').lower().startswith('y')
+# 
+# if not apk:
+#     raise Exception("APK is not up to date")
 
 gradle = open('app/build.gradle.kts', 'r')
 contents = gradle.read()
@@ -21,4 +21,4 @@ if not os.path.exists(changelog):
 
 print("Creating draft release for version " + version_name + " (" + version_code + ")")
 
-os.system("gh release create " + version_name + " app/build/outputs/apk/debug/app-debug.apk -F " + changelog + " -d -t " + version_name)
+os.system("gh release create " + version_name + " -F " + changelog + " -d -t " + version_name)
