@@ -18,6 +18,12 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
         false
     )
 
+    override val showNotification by BooleanPreference(
+        cache,
+        getString(R.string.pref_show_pedometer_notification),
+        true
+    )
+
     override var strideLength: Distance
         get() {
             val raw = cache.getFloat(getString(R.string.pref_stride_length)) ?: 0.7f

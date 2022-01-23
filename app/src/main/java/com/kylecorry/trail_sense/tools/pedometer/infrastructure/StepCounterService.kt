@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
-import com.kylecorry.andromeda.services.ForegroundService
+import com.kylecorry.andromeda.services.AndromedaService
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
 
-class StepCounterService : ForegroundService() {
+class StepCounterService : AndromedaService() {
 
     private val pedometer by lazy { Pedometer(this) }
     private val counter by lazy { StepCounter(Preferences(this)) }
@@ -31,13 +31,10 @@ class StepCounterService : ForegroundService() {
 
     private var lastSteps = -1
 
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        isRunning = true
         pedometer.start(this::onPedometer)
         return START_STICKY_COMPATIBILITY
-    }
-
-    override fun getForegroundNotification(): Notification {
-        return getNotification()
     }
 
     private fun onPedometer(): Boolean {
@@ -50,19 +47,21 @@ class StepCounterService : ForegroundService() {
         val newSteps = pedometer.steps - lastSteps
         counter.addSteps(newSteps.toLong())
         lastSteps = pedometer.steps
-        Notify.send(this, NOTIFICATION_ID, getNotification())
+        if (prefs.pedometer.showNotification) {
+            Notify.send(this, NOTIFICATION_ID, getNotification())
+        }
 
         distanceAlertCommand.execute()
         return true
     }
 
     override fun onDestroy() {
+        isRunning = false
         pedometer.stop(this::onPedometer)
-        stopService(true)
+        Notify.cancel(this, NOTIFICATION_ID)
+        stopSelf()
         super.onDestroy()
     }
-
-    override val foregroundNotificationId: Int = NOTIFICATION_ID
 
     private fun getNotification(): Notification {
         val steps = counter.steps
@@ -91,6 +90,9 @@ class StepCounterService : ForegroundService() {
         const val CHANNEL_ID = "pedometer"
         const val NOTIFICATION_ID = 1279812
 
+        var isRunning = false
+            private set
+
         fun intent(context: Context): Intent {
             return Intent(context, StepCounterService::class.java)
         }
@@ -100,7 +102,7 @@ class StepCounterService : ForegroundService() {
         }
 
         fun start(context: Context) {
-            if (UserPreferences(context).isLowPowerModeOn){
+            if (UserPreferences(context).isLowPowerModeOn) {
                 return
             }
 
@@ -108,11 +110,11 @@ class StepCounterService : ForegroundService() {
                 return
             }
 
-            if (Notify.isActive(context, NOTIFICATION_ID)) {
+            if (isRunning) {
                 return
             }
 
-            Intents.startService(context, intent(context), true)
+            Intents.startService(context, intent(context), false)
         }
 
     }

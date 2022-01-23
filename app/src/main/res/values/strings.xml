@@ -1167,6 +1167,8 @@
     <string name="distance_alert">Distance alert</string>
     <string name="remove_distance_alert">Remove distance alert (%s)?</string>
     <string name="distance_alert_distance_reached">You have reached %s</string>
+    <string name="pref_show_pedometer_notification">pref_show_pedometer_notification</string>
+    <string name="pedometer_notification">Pedometer notification</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
