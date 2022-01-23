@@ -37,7 +37,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.odometer.Odometer
 import java.time.Duration
 
 class SensorService(ctx: Context) {

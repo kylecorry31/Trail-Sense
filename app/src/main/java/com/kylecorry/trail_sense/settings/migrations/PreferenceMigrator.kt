@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.settings.migrations
 import android.content.Context
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 
 class PreferenceMigrator private constructor() {
 
@@ -29,7 +31,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 6
+        private const val version = 7
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -85,6 +87,18 @@ class PreferenceMigrator private constructor() {
                 prefs.remove("pref_barometer_altitude_change")
                 prefs.remove("pref_sea_level_pressure_change_thresh")
                 prefs.remove("pref_sea_level_use_rapid")
+            },
+            PreferenceMigration(6, 7) { context, prefs ->
+                val distance = prefs.getFloat("odometer_distance")
+                if (distance != null) {
+                    val stride = UserPreferences(context).strideLength.meters().distance
+                    if (stride > 0f) {
+                        val steps = (distance / stride).toLong()
+                        prefs.putLong(StepCounter.STEPS_KEY, steps)
+                    }
+                }
+                prefs.remove("odometer_distance")
+                prefs.remove("last_odometer_location")
             }
         )
 

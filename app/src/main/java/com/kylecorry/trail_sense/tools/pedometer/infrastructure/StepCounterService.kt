@@ -6,6 +6,7 @@ import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.sol.units.Distance
@@ -16,14 +17,15 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.odometer.Odometer
+import com.kylecorry.trail_sense.shared.commands.Command
 
 class StepCounterService : ForegroundService() {
 
     private val pedometer by lazy { Pedometer(this) }
-    private val odometer by lazy { Odometer(this) }
+    private val counter by lazy { StepCounter(Preferences(this)) }
     private val formatService by lazy { FormatService(this) }
     private val prefs by lazy { UserPreferences(this) }
+    private val dailyResetCommand: Command by lazy { DailyStepResetCommand(prefs, counter) }
 
     private var lastSteps = -1
 
@@ -41,8 +43,10 @@ class StepCounterService : ForegroundService() {
             lastSteps = pedometer.steps
         }
 
+        dailyResetCommand.execute()
+
         val newSteps = pedometer.steps - lastSteps
-        odometer.addDistance(Distance.meters(prefs.strideLength.meters().distance * newSteps))
+        counter.addSteps(newSteps.toLong())
         lastSteps = pedometer.steps
         Notify.send(this, NOTIFICATION_ID, getNotification())
         return true
@@ -57,8 +61,10 @@ class StepCounterService : ForegroundService() {
     override val foregroundNotificationId: Int = NOTIFICATION_ID
 
     private fun getNotification(): Notification {
+        val steps = counter.steps
+        val stride = prefs.strideLength.meters().distance
         val units = prefs.baseDistanceUnits
-        val distance = odometer.distance.convertTo(units).toRelativeDistance()
+        val distance = Distance.meters(steps * stride).convertTo(units).toRelativeDistance()
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolPedometer)
 
