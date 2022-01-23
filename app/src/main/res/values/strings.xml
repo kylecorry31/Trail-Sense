@@ -1165,7 +1165,7 @@
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Distance alert</string>
-    <string name="remove_distance_alert">Remove distance alert?</string>
+    <string name="remove_distance_alert">Remove distance alert (%s)?</string>
     <string name="distance_alert_distance_reached">You have reached %s</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>

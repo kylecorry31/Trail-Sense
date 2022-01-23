@@ -48,7 +48,8 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         }
 
         binding.pedometerTitle.rightQuickAction.setOnClickListener {
-            if (prefs.pedometer.alertDistance == null) {
+            val alertDistance = prefs.pedometer.alertDistance
+            if (alertDistance == null) {
                 val units = listOf(
                     DistanceUnits.Meters,
                     DistanceUnits.Kilometers,
@@ -65,10 +66,18 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                     }
                 }
             } else {
+                val distance =
+                    alertDistance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
                 Alerts.dialog(
                     requireContext(),
                     getString(R.string.distance_alert),
-                    getString(R.string.remove_distance_alert)
+                    getString(
+                        R.string.remove_distance_alert, formatService.formatDistance(
+                            distance,
+                            Units.getDecimalPlaces(distance.units),
+                            false
+                        )
+                    )
                 ) {
                     if (!it) {
                         prefs.pedometer.alertDistance = null
