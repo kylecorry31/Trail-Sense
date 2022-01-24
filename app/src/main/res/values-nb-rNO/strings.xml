@@ -849,5 +849,60 @@
     <string name="weather_storm">Storm</string>
     <string name="weather_worsening">Forverring</string>
     <string name="weather_unchanging">Uendret</string>
-    <string name="unit_inches_abbreviation">om</string>
+    <string name="unit_inches_abbreviation">in</string>
+    <string name="backtrack_high_priority_notification">Plasserer et veipunkt hver %s</string>
+    <string name="battery_warning">Advarsel om batteribruk</string>
+    <string name="backtrack_battery_warning">Små intervaller (under 15 minutter) kan forårsake ekstra batteritrekk</string>
+    <string name="kwh_per_meter_squared_format">%s kWh/m²</string>
+    <string name="notification_weather_update_content">Registrerer trykket</string>
+    <string name="temporary">Midlertidig</string>
+    <string name="importing">Importering</string>
+    <string name="simplification_quality">Forenklingskvalitet</string>
+    <string name="sunset_alert_location_update">Oppdaterer posisjon for solnedgangsalarm</string>
+    <string name="saving">Lagrer …</string>
+    <string name="low_amount">Lav (%s)</string>
+    <string name="medium_amount">Middels (%s)</string>
+    <string name="high_amount">Høy (%s)</string>
+    <string name="or">eller</string>
+    <string name="diagnostic_message_template">%s
+\n
+\n### Påvirkede verktøy
+\n%s
+\n
+\n### Løsning
+\n%s</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="merge">Flett</string>
+    <string name="merging">Fletting</string>
+    <string name="simplify">Forenkle</string>
+    <string name="simplifying">Forenkling</string>
+    <string name="append_onto">Legg til på</string>
+    <string name="up_to_amount">Opp til %s</string>
+    <string name="most_recent">Nyeste</string>
+    <string name="longest">Lengste</string>
+    <string name="shortest">Korteste</string>
+    <string name="closest">Nærmeste</string>
+    <string name="duration">Varighet</string>
+    <string name="pref_auto_simplify_paths_title">Forenkle stier ved import</string>
+    <string name="change_map_projection">Endre projeksjon</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="qr_code_scanner">QR-kode-skanner</string>
+    <string name="tool_temperature_estimation_title">Temperaturberegning</string>
+    <string name="tool_temperature_estimation_description">Forutsi temperaturen ved en annen høyde</string>
+    <string name="pref_weather_show_temperature_title">Vis temperatur</string>
+    <string name="pressure_tendency">Tendens</string>
+    <string name="tide_table">Tidevannstabell</string>
+    <string name="easy">Lett</string>
+    <string name="map_projection_equidistant">Ekvidistant</string>
+    <string name="reduce_map_resolution">Reduser kartoppløsning</string>
+    <string name="hard">Hard</string>
+    <string name="sort_by">Sorter etter: %s</string>
+    <string name="beam_distance">%s stråledistanse</string>
+    <string name="guide_light_meter_description">Hvordan bestemme stråledistansen til lommelykter</string>
+    <string name="difficulty">Vanskelighet</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d tidevann</item>
+        <item quantity="other">%d tidevann</item>
+    </plurals>
+    <string name="disclaimer_estimated_tide_title">Beregnet tidevann</string>
 </resources>
