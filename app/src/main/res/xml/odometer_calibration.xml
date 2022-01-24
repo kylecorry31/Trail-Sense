@@ -19,13 +19,6 @@
             app:key="@string/pref_stride_length_holder"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:title="@string/pedometer_notification"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_show_pedometer_notification"
-            app:singleLineTitle="false" />
-
         <Preference
             android:title="@string/request_permission"
             app:iconSpaceReserved="false"
