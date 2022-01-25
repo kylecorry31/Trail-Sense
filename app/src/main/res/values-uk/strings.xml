@@ -161,10 +161,6 @@
 \n
 \nСкоро з\'являться інші посібники.</string>
     <string name="privacy_and_location">Приватність і місцеперебування</string>
-
-
-
-
     <string name="cirrus_desc">Високі білі хмари, схожі на пучки білого волосся.</string>
     <string name="cumulonimbus_desc">Низькі пухкі хмари, дуже високі. Вони зазвичай мають форму ковадла і темні.</string>
     <string name="cumulus_desc">Низькі пухкі хмари, схожі на ватяні кульки. Вони розташовані на невеликій відстані один від одного і зазвичай білі з темнішими плямами знизу.</string>
@@ -212,7 +208,6 @@
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
     <string name="altitude_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
-
     <string name="category_natural">Природне</string>
     <string name="category_safety">Безпека</string>
     <string name="category_shelter">Укриття</string>
@@ -1014,4 +1009,42 @@
         <item quantity="many">%d припливів</item>
         <item quantity="other">%d припливів</item>
     </plurals>
+    <string name="average_speed">Середня швидкість</string>
+    <string name="steps">Кроки</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Попередження про відстань</string>
+    <string name="remove_distance_alert">Видалити попередження про відстань (%s)\?</string>
+    <string name="distance_alert_distance_reached">Ви подолали %s</string>
+    <string name="onboarding_explore">- Призначено для прогулянок, походів, кемпінгу та геокешування
+\n
+\n- Розмістіть маячки та пересувайтеся ними
+\n
+\n- Ідіть за шляхами
+\n
+\n- Вертайтеся завдяки історії маршруту
+\n
+\n- Плануйте, що з собою брати
+\n
+\n- Будьте напоготові до заходу сонця
+\n
+\n- Передбачайте погоду
+\n
+\n- Використовуйте свій телефон як ліхтарик
+\n
+\n- І багато іншого!</string>
+    <string name="weather_improving">Покращення</string>
+    <string name="weather_storm">Буря</string>
+    <string name="pressure_tendency">Тенденція</string>
+    <string name="weather_worsening">Погіршення</string>
+    <string name="weather_unchanging">Без змін</string>
+    <string name="soon">Скоро</string>
+    <string name="very_soon">Дуже скоро</string>
+    <string name="since_time">з %s</string>
+    <string name="humidity_history">Історія вологості – остан. %s</string>
+    <string name="temperature_history">Історія температури - остан. %s</string>
+    <string name="tool_temperature_estimation_title">Оцінка температури</string>
+    <string name="tool_temperature_estimation_description">Спрогнозувати температуру на іншій висоті</string>
+    <string name="pref_weather_show_temperature_title">Показати температуру</string>
+    <string name="explore">Вивчити</string>
 </resources>
