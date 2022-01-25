@@ -28,6 +28,7 @@
         <attr name="dataPointText" format="string" />
         <attr name="dataPointDescription" format="string" />
         <attr name="dataPointTint" format="color" />
+        <attr name="android:gravity" />
     </declare-styleable>
 
     <declare-styleable name="ToolTitleView">

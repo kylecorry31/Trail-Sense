@@ -162,6 +162,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.speed.setShowDescription(false)
+        binding.altitude.setShowDescription(false)
+
         if (!Sensors.hasCompass(requireContext())) {
             requireMainActivity().errorBanner.report(
                 UserError(
@@ -231,7 +234,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             sheet.show(this)
         }
 
-        binding.altitudeHolder.setOnClickListener {
+        binding.altitude.setOnClickListener {
             val sheet = AltitudeBottomSheet()
             sheet.currentAltitude = Reading(altimeter.altitude, Instant.now())
             sheet.show(this)
@@ -599,17 +602,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Speed
-        binding.speed.text = formatService.formatSpeed(speedometer.speed.speed)
+        binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
         binding.navigationTitle.title.text =
-            formatService.formatDegrees(compass.bearing.value, replace360 = true).padStart(4, ' ') + "   " + formatService.formatDirection(compass.bearing.direction).padStart(2, ' ')
+            formatService.formatDegrees(compass.bearing.value, replace360 = true)
+                .padStart(4, ' ') + "   " + formatService.formatDirection(compass.bearing.direction)
+                .padStart(2, ' ')
 
         // Compass
         updateCompassView()
 
         // Altitude
-        binding.altitude.text = formatService.formatDistance(
+        binding.altitude.title = formatService.formatDistance(
             Distance.meters(altimeter.altitude).convertTo(userPrefs.baseDistanceUnits)
         )
 

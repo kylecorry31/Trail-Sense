@@ -11,12 +11,42 @@
         android:id="@+id/navigation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:title="180 S"
-        tools:subtitle="10.0, 180.0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:subtitle="10.0, 180.0"
+        tools:title="180 S" />
+
+    <LinearLayout
+        android:id="@+id/navigation_grid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigation_title">
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/altitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_altitude" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/speed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_speed" />
+
+    </LinearLayout>
 
     <com.kylecorry.trail_sense.shared.views.CameraView
         android:id="@+id/view_camera"
@@ -45,20 +75,20 @@
         android:id="@+id/round_compass"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigation_title" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation_grid" />
 
     <com.kylecorry.trail_sense.navigation.ui.RadarCompassView
         android:id="@+id/radar_compass"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigation_title" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation_grid" />
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"
@@ -145,62 +175,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/round_compass">
-
-        <LinearLayout
-            android:id="@+id/altitude_holder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_altitude" />
-
-            <TextView
-                android:id="@+id/altitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="180 ft" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_speed" />
-
-            <TextView
-                android:id="@+id/speed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="1.8 mph" />
-        </LinearLayout>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
