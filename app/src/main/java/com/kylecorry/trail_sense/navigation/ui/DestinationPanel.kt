@@ -5,17 +5,17 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.shared.colors.AppColor
 
 class DestinationPanel(private val view: View) {
 
@@ -32,7 +32,6 @@ class DestinationPanel(private val view: View) {
     private val navigationService = NavigationService()
     private val formatService = FormatService(view.context)
     private val prefs = UserPreferences(view.context)
-    private val nonLinearDistances = prefs.navigation.factorInNonLinearDistance
     private val context = view.context
     private var beacon: Beacon? = null
 
@@ -119,13 +118,13 @@ class DestinationPanel(private val view: View) {
             )
             val changeColor = when {
                 elevationChange >= 0 -> {
-                    R.color.positive
+                    AppColor.Green.color
                 }
                 else -> {
-                    R.color.negative
+                    AppColor.Red.color
                 }
             }
-            beaconElevationDiff.setTextColor(Resources.color(context, changeColor))
+            beaconElevationDiff.setTextColor(changeColor)
         } else {
             beaconElevationView.visibility = View.GONE
         }
