@@ -407,9 +407,6 @@
 \n- Mål Trail Sense-linjalverdien tilsvarerende en enhet på en fysisk linjal.
 \n- Rapporter den målte verdien her.</string>
     <string name="precise_temp_f_format">%s °F</string>
-
-
-
     <string name="unavailable">Utilgjengelig</string>
     <string name="gps_searching">Søker</string>
     <string name="gps_stale">Foreldet</string>
@@ -905,4 +902,11 @@
         <item quantity="other">%d tidevann</item>
     </plurals>
     <string name="disclaimer_estimated_tide_title">Beregnet tidevann</string>
+    <string name="steps">Skritt</string>
+    <string name="distance_alert_distance_reached">Du har nådd %s</string>
+    <string name="temperature_history">Temperaturhistorikk - siste %s</string>
+    <string name="since_time">siden %s</string>
+    <string name="humidity_history">Luftfuktighetshistorikk - siste %s</string>
+    <string name="distance_alert">Distansevarsel</string>
+    <string name="remove_distance_alert">Fjerne distansevarsel (%s)\?</string>
 </resources>
