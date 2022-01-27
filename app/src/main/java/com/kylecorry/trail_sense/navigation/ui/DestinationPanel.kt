@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.ViewBeaconDestinationBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -15,20 +14,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 
 class DestinationPanel(private val view: View) {
 
-    private val beaconName = view.findViewById<TextView>(R.id.beacon_name)
-    private val beaconComments = view.findViewById<ImageButton>(R.id.beacon_comment_btn)
-    private val beaconDistance = view.findViewById<TextView>(R.id.beacon_distance)
-    private val beaconDirection = view.findViewById<TextView>(R.id.beacon_direction)
-    private val beaconDirectionCardinal =
-        view.findViewById<TextView>(R.id.beacon_direction_cardinal)
-    private val beaconElevationView = view.findViewById<LinearLayout>(R.id.beacon_elevation_view)
-    private val beaconElevation = view.findViewById<TextView>(R.id.beacon_elevation)
-    private val beaconElevationDiff = view.findViewById<TextView>(R.id.beacon_elevation_diff)
-    private val beaconEta = view.findViewById<TextView>(R.id.beacon_eta)
+    private val binding = ViewBeaconDestinationBinding.bind(view)
     private val navigationService = NavigationService()
     private val formatService = FormatService(view.context)
     private val prefs = UserPreferences(view.context)
@@ -36,7 +25,7 @@ class DestinationPanel(private val view: View) {
     private var beacon: Beacon? = null
 
     init {
-        beaconComments.setOnClickListener {
+        binding.root.setOnClickListener {
             if (!beacon?.comment.isNullOrEmpty()) {
                 Alerts.dialog(context, beacon?.name ?: "", beacon?.comment, cancelText = null)
             }
@@ -52,17 +41,11 @@ class DestinationPanel(private val view: View) {
     ) {
         val vector = navigationService.navigate(position, destination, declination, usingTrueNorth)
 
-        view.visibility = View.VISIBLE
+        binding.root.isVisible = true
 
         beacon = destination
 
-        if (!beacon?.comment.isNullOrEmpty()) {
-            beaconComments.visibility = View.VISIBLE
-        } else {
-            beaconComments.visibility = View.GONE
-        }
-
-        beaconName.text = destination.name
+        binding.beaconName.text = destination.name
         updateDestinationDirection(vector.direction)
         updateDestinationElevation(destination.elevation, vector.altitudeChange)
         updateDestinationEta(position, destination)
@@ -74,26 +57,29 @@ class DestinationPanel(private val view: View) {
     }
 
     private fun updateDestinationDirection(azimuth: Bearing) {
-        beaconDirection.text = formatService.formatDegrees(azimuth.value)
-        beaconDirectionCardinal.text = formatService.formatDirection(azimuth.direction)
+        binding.beaconDirection.title = formatService.formatDegrees(azimuth.value, replace360 = true)
+        binding.beaconDirection.description = formatService.formatDirection(azimuth.direction)
     }
 
     private fun updateDestinationEta(position: Position, beacon: Beacon) {
         val d = Distance.meters(position.location.distanceTo(beacon.coordinate))
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        beaconDistance.text =
+        binding.beaconDistance.title =
             formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
         val eta = navigationService.eta(position, beacon)
-        beaconEta.text = context.getString(R.string.eta, formatService.formatDuration(eta, false))
+        binding.beaconDistance.description =
+            context.getString(R.string.eta, formatService.formatDuration(eta, false))
     }
 
     private fun updateDestinationElevation(destinationElevation: Float?, elevationChange: Float?) {
-        if (elevationChange != null && destinationElevation != null) {
-            beaconElevationView.visibility = View.VISIBLE
-
+        val hasElevation = elevationChange != null && destinationElevation != null
+        binding.beaconElevation.isVisible = hasElevation
+        if (hasElevation) {
+            val elevationChange = elevationChange!!
+            val destinationElevation = destinationElevation!!
             val destElevationDist =
                 Distance.meters(destinationElevation).convertTo(prefs.baseDistanceUnits)
-            beaconElevation.text = formatService.formatDistance(
+            binding.beaconElevation.title = formatService.formatDistance(
                 destElevationDist,
                 Units.getDecimalPlaces(destElevationDist.units),
                 false
@@ -108,7 +94,7 @@ class DestinationPanel(private val view: View) {
             val elevationChangeDist =
                 Distance.meters(elevationChange).convertTo(prefs.baseDistanceUnits)
 
-            beaconElevationDiff.text = context.getString(
+            binding.beaconElevation.description = context.getString(
                 R.string.elevation_diff_format,
                 direction,
                 formatService.formatDistance(
@@ -116,18 +102,6 @@ class DestinationPanel(private val view: View) {
                     false
                 )
             )
-            val changeColor = when {
-                elevationChange >= 0 -> {
-                    AppColor.Green.color
-                }
-                else -> {
-                    AppColor.Red.color
-                }
-            }
-            beaconElevationDiff.setTextColor(changeColor)
-        } else {
-            beaconElevationView.visibility = View.GONE
         }
     }
-
 }

@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
@@ -31,6 +32,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     fun start(resolution: Size? = null, onImage: ((Bitmap) -> Unit)? = null) {
         val owner = ViewTreeLifecycleOwner.get(this) ?: return
+        if (owner.lifecycle.currentState == Lifecycle.State.DESTROYED){
+            return
+        }
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
         camera = Camera(

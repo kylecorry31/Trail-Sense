@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/navigation_sheet"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:colorBackgroundFloating"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="?attr/colorSurface"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:alpha="0.1"
+        android:background="?attr/colorOnSurface" />
 
     <TextView
         android:id="@+id/beacon_name"
@@ -16,105 +22,43 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         tools:text="Beacon Name" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_distance"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ruler" />
 
-            <TextView
-                android:id="@+id/beacon_distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                tools:text="1000m" />
-
-            <TextView
-                android:id="@+id/beacon_eta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/eta"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_direction"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_compass_icon" />
 
-            <TextView
-                android:id="@+id/beacon_direction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                tools:text="234°" />
-
-            <TextView
-                android:id="@+id/beacon_direction_cardinal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@color/orange_40"
-                tools:text="SE" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/beacon_elevation_view"
-            android:layout_width="wrap_content"
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_elevation"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:alpha="0.5"
-                    android:src="@drawable/ic_altitude"
-                    app:tint="?android:textColorSecondary" />
-
-                <TextView
-                    android:id="@+id/beacon_elevation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="1000m" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/beacon_elevation_diff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@color/positive"
-                tools:text="+100m" />
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/beacon_comment_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:alpha="0.5"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_note"
-            app:tint="?android:textColorSecondary" />
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_altitude" />
     </LinearLayout>
 </LinearLayout>
