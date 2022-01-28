@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.domain.PedometerService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
@@ -45,6 +46,16 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.resetBtn.setOnClickListener {
             counter.reset()
+        }
+
+        binding.pedometerPlayBar.setOnPlayButtonClickListener {
+            val wasEnabled = prefs.pedometer.isEnabled
+            prefs.pedometer.isEnabled = !wasEnabled
+            if (wasEnabled) {
+                StepCounterService.stop(requireContext())
+            } else {
+                StepCounterService.start(requireContext())
+            }
         }
 
         binding.pedometerTitle.rightQuickAction.setOnClickListener {
@@ -86,7 +97,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             }
         }
 
-        scheduleUpdates(20)
+        scheduleUpdates(INTERVAL_30_FPS)
     }
 
     override fun onUpdate() {
@@ -124,6 +135,14 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             Units.getDecimalPlaces(distance.units),
             false
         )
+
+        val enabled = prefs.pedometer.isEnabled
+        binding.pedometerPlayBar.setState(enabled)
+        binding.pedometerPlayBar.subtitle = if (enabled) {
+            getString(R.string.on)
+        } else {
+            getString(R.string.off)
+        }
     }
 
     private fun getDistance(steps: Long): Distance {

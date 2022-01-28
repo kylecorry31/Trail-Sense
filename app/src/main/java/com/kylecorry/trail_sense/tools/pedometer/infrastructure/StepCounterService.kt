@@ -99,6 +99,10 @@ class StepCounterService : ForegroundService() {
             context.stopService(intent(context))
         }
 
+        fun isOn(context: Context): Boolean {
+            return Notify.isActive(context, NOTIFICATION_ID)
+        }
+
         fun start(context: Context) {
             if (UserPreferences(context).isLowPowerModeOn){
                 return
@@ -108,7 +112,7 @@ class StepCounterService : ForegroundService() {
                 return
             }
 
-            if (Notify.isActive(context, NOTIFICATION_ID)) {
+            if (isOn(context)) {
                 return
             }
 

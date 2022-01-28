@@ -52,4 +52,17 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="@string/reset" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.kylecorry.trail_sense.shared.views.PlayBarView
+        android:id="@+id/pedometer_play_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:playBarIcon="@drawable/steps"
+        app:playBarTitle="@string/pedometer" />
+
 </LinearLayout>
