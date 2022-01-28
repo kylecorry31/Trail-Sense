@@ -106,11 +106,11 @@ If an issue has a milestone and you would like to work on it, please leave a com
 
 - **Trail Sense sends too many notifications**
   - All notifications from Trail Sense can be disabled/re-enabled under their respective settings
-  - Android requires background processes which access your location to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications. (https://www.howtogeek.com/715614/what-are-android-notification-channels/)
+  - Android requires background processes which access your location or use a sensor to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications. (https://www.howtogeek.com/715614/what-are-android-notification-channels/)
   - The processes which you may see notifications from frequently are Weather, Sunset Alert, Backtrack, and Pedometer. All of these processes can be disabled in Trail Sense settings.
   - Weather: Under "Weather" settings in Trail Sense, turn off "Monitor weather" or disable "Show weather notification" and hide the "Updates" notification channel (Android's settings)
   - Backtrack: Under "Navigation" settings in Trail Sense, turn off "Backtrack" or hide the "Updates" notification channel (Android's settings)
-  - Pedometer: Under "Odometer" settings in Trail Sense, change the source to "GPS"
+  - Pedometer: Under "Odometer" settings in Trail Sense, change the source to "GPS" or disable the "Pedometer" notification channel (Android's settings)
   - Sunset Alert: Under "Astronomy" settings in Trail Sense, disable Sunset Alerts
 - **Will there be an iOS version?**
   - No - unfortunately I don't have a Mac or iPhone, and wouldn't be able to develop and test an iOS version (at least, there won't be an iOS version from me)
