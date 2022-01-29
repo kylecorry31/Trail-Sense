@@ -235,7 +235,7 @@
     <string name="flashlight_strobe">Hızla yanıp sön / strobe</string>
     <string name="pref_sensor_details_title">Sensör detayları</string>
     <string name="tool_boil_summary">Su içilebilir olduğunda belirt</string>
-    <string name="boil_start">Başla</string>
+    <string name="start">Başla</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">İçilebilir olmasına %d saniye</item>
         <item quantity="other">İçilebilir olmasına %d saniye</item>
@@ -461,7 +461,7 @@
     <string name="pressure_reading_time_ago">%s - %s önce</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 sa</string>
-    <string name="stop_monitoring">Dur</string>
+    <string name="stop">Dur</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
     <string name="units_inhg_short">in</string>

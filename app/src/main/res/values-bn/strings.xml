@@ -27,7 +27,7 @@
     <string name="continue_button">চালিয়ে</string>
     <string name="moon_rise">চন্দ্রোদয়</string>
     <string name="moon_set">Moonset</string>
-    <string name="stop_monitoring">থামাও</string>
+    <string name="stop">থামাও</string>
     <string name="pref_compass_filter_amt_title">কম্পাস স্মুথিং</string>
     <string name="pref_compass_filter_amt_summary">উচ্চ মানগুলি শব্দ কমিয়ে দিতে পারে</string>
     <string name="pref_theme_title">বিষয়</string>

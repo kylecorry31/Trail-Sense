@@ -73,7 +73,7 @@
     <string name="storm_alerts">暴風雨警報</string>
     <string name="alerts">警告</string>
     <string name="pressure_format">%s %s</string>
-    <string name="stop_monitoring">停止</string>
+    <string name="stop">停止</string>
     <string name="units_psi">磅每平方吋(PSI)</string>
     <string name="units_mbar">毫巴(mbar)</string>
     <string name="units_inhg_short">英寸</string>
@@ -228,7 +228,7 @@
     <string name="water_purification_step_3">開始計時器</string>
     <string name="tool_lightning_title">閃電雷聲測距</string>
     <string name="pref_sensor_details_title">感應器細節</string>
-    <string name="boil_start">開始</string>
+    <string name="start">開始</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
     <string name="error_occurred_message">Trail Sense 遇到一個錯誤且將會關閉。請發送電子郵件給開發者以解決此問題。</string>

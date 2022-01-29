@@ -27,7 +27,7 @@
     <string name="continue_button">KONTYNUUJ</string>
     <string name="moon_rise">Wschód Księżyca</string>
     <string name="moon_set">Zachód Księżyca</string>
-    <string name="stop_monitoring">Stop</string>
+    <string name="stop">Stop</string>
     <string name="pref_compass_filter_amt_title">Wygładzanie kompasu</string>
     <string name="pref_compass_filter_amt_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
     <string name="pref_theme_title">Motyw</string>
@@ -237,7 +237,7 @@
     <string name="water_boil_timer_title">Przegotowywanie wody</string>
     <string name="water_boil_timer_channel_description">Woda wrze</string>
     <string name="water_boil_timer">Minutnik przegotowywania wody</string>
-    <string name="boil_start">Rozpocznij</string>
+    <string name="start">Rozpocznij</string>
     <string name="guide_recommended_apps">Polecane aplikacje</string>
     <string name="distance_to">Na</string>
     <string name="distance_from">Z</string>

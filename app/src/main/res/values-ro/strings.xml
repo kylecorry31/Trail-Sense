@@ -54,7 +54,7 @@
     <string name="pressure_reading_time_ago">%s - %s în urmă</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="stop_monitoring">Oprire</string>
+    <string name="stop">Oprire</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
     <string name="units_inhg_short">in</string>

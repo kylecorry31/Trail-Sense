@@ -27,7 +27,7 @@
     <string name="continue_button">CONTINUER</string>
     <string name="moon_rise">Lever de la lune</string>
     <string name="moon_set">Coucher de la lune</string>
-    <string name="stop_monitoring">Arrêter</string>
+    <string name="stop">Arrêter</string>
     <string name="pref_compass_filter_amt_title">Lissage de la boussole</string>
     <string name="pref_compass_filter_amt_summary">Une valeur élevée peur permettre de réduire l\'impact de parasites</string>
     <string name="pref_theme_title">Thème</string>
@@ -273,7 +273,7 @@
     <string name="charging_slow">En charge lente (%s)</string>
     <string name="charging_fast">En charge rapide (%s)</string>
     <string name="pref_sensor_details_title">Capteurs</string>
-    <string name="boil_start">Démarrer</string>
+    <string name="start">Démarrer</string>
     <string name="unit_miles">Miles</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>

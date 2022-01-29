@@ -28,7 +28,7 @@
     <string name="continue_button">Pitilizani</string>
     <string name="moon_rise">Kutuluka kwa mwezi</string>
     <string name="moon_set">Moonset</string>
-    <string name="stop_monitoring">Imani</string>
+    <string name="stop">Imani</string>
     <string name="pref_compass_filter_amt_title">Compass yosalala</string>
     <string name="pref_compass_filter_amt_summary">Mitengo yapamwamba imatha kuchepetsa phokoso</string>
     <string name="pref_theme_title">Mutu</string>

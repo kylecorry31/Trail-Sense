@@ -27,7 +27,7 @@
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">Alba lunare</string>
     <string name="moon_set">Tramonto lunare</string>
-    <string name="stop_monitoring">Ferma</string>
+    <string name="stop">Ferma</string>
     <string name="pref_compass_filter_amt_title">Lisciatura della bussola</string>
     <string name="pref_compass_filter_amt_summary">Valori elevati possono ridurre il rumore</string>
     <string name="pref_theme_title">Tema</string>
@@ -379,7 +379,7 @@
     <string name="tool_ruler_title">Righello</string>
     <string name="reset">Reset</string>
     <string name="pref_sensor_details_title">Dettagli sensori</string>
-    <string name="boil_start">Inizio</string>
+    <string name="start">Inizio</string>
     <string name="water_boil_timer_done_content">L’acqua ora è potabile</string>
     <string name="water_boil_timer_channel_description">L’acqua sta bollendo</string>
     <string name="solar_panel_instructions">Prima di iniziare posiziona il telefono sulla superficie del pannello solare.</string>

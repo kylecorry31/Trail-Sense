@@ -86,7 +86,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
             binding.boilButton.text = getString(android.R.string.cancel)
             binding.timeChips.isVisible = false
         } else {
-            binding.boilButton.text = getString(R.string.boil_start)
+            binding.boilButton.text = getString(R.string.start)
             binding.timeChips.isVisible = true
         }
 

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
@@ -81,6 +82,10 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
                 }
             }
             true
+        }
+
+        onClick(preference(R.string.pref_estimate_stride_length_holder)) {
+            findNavController().navigate(R.id.action_calibrate_pedometer_to_estimate_stride_length)
         }
     }
 

@@ -65,7 +65,7 @@
     <string name="notification_storm_alert_text">En storm kan nærme seg</string>
     <string name="storm_alerts">Stormvarsler</string>
     <string name="alerts">Varsler</string>
-    <string name="stop_monitoring">Stopp</string>
+    <string name="stop">Stopp</string>
     <string name="beacon_invalid_name">Ugyldig navn</string>
     <string name="name">Navn</string>
     <string name="maps">Kart</string>
@@ -265,7 +265,7 @@
     <string name="water_purification_step_1">Filtrer vannet</string>
     <string name="flashlight_strobe">Blinkemodus</string>
     <string name="tool_boil_summary">Gi beskjed når vannet er drikkelig</string>
-    <string name="boil_start">Start</string>
+    <string name="start">Start</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d sekund til drikkelig</item>
         <item quantity="other">%d sekunder til drikkelig</item>

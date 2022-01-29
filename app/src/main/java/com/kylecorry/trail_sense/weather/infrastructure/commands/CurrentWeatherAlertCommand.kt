@@ -49,7 +49,7 @@ class CurrentWeatherAlertCommand(
             PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val stopAction = Notify.action(
-            context.getString(R.string.stop_monitoring),
+            context.getString(R.string.stop),
             stopPendingIntent,
             R.drawable.ic_cancel
         )

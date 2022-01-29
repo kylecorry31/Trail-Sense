@@ -20,6 +20,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:title="@string/estimate_stride_length"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_estimate_stride_length_holder"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:title="@string/request_permission"
             app:iconSpaceReserved="false"
             app:key="@string/pref_odometer_request_permission"

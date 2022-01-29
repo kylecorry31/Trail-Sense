@@ -9,7 +9,8 @@ import kotlinx.coroutines.delay
 class GPSStrideLengthCalculator(private val gps: IGPS, private val pedometer: IPedometer) :
     IStrideLengthCalculator {
 
-    private var state = State.Stopped
+    var state = State.Stopped
+        private set
 
     override suspend fun calculate(): Distance? {
         if (state != State.Stopped) return null
@@ -28,6 +29,8 @@ class GPSStrideLengthCalculator(private val gps: IGPS, private val pedometer: IP
             val steps = pedometer.steps - startSteps
             val distance = gps.location.distanceTo(startLocation)
 
+            state = State.Stopped
+
             if (steps == 0 || distance == 0f) {
                 return null
             }
@@ -35,6 +38,7 @@ class GPSStrideLengthCalculator(private val gps: IGPS, private val pedometer: IP
             return Distance.meters(distance / steps)
         }
 
+        state = State.Stopped
         return null
     }
 
@@ -68,7 +72,7 @@ class GPSStrideLengthCalculator(private val gps: IGPS, private val pedometer: IP
     }
 
 
-    private enum class State {
+    enum class State {
         Stopped,
         Starting,
         Started,

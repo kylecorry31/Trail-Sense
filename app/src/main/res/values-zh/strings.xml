@@ -27,7 +27,7 @@
     <string name="continue_button">继续</string>
     <string name="moon_rise">月出</string>
     <string name="moon_set">月落</string>
-    <string name="stop_monitoring">停止</string>
+    <string name="stop">停止</string>
     <string name="pref_compass_filter_amt_title">指南针平滑</string>
     <string name="pref_compass_filter_amt_summary">高值可以减少噪音</string>
     <string name="pref_theme_title">主题</string>
@@ -222,7 +222,7 @@
     <string name="flashlight_strobe">频闪闪光灯</string>
     <string name="pref_sensor_details_title">传感器详情</string>
     <string name="tool_boil_summary">判断水何时可以饮用</string>
-    <string name="boil_start">开始</string>
+    <string name="start">开始</string>
     <plurals name="water_boil_timer_content">
         <item quantity="other">距离可饮用还剩 %d 秒</item>
     </plurals>

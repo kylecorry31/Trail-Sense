@@ -33,7 +33,7 @@
     <string name="pressure_reading_time_ago">%s - %s óta</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3ó</string>
-    <string name="stop_monitoring">Stop</string>
+    <string name="stop">Stop</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
     <string name="units_inhg_short">in</string>

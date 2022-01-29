@@ -25,7 +25,7 @@
     <string name="edit_beacon">Chỉnh đèn hiệu</string>
     <string name="delete_beacon">Xóa đèn hiệu</string>
     <string name="no_beacons">Không có đèn hiệu</string>
-    <string name="stop_monitoring">Dừng lại</string>
+    <string name="stop">Dừng lại</string>
     <string name="alerts">Cảnh báo</string>
     <string name="storm_alerts">Cảnh báo bão</string>
     <string name="notification_storm_alert_text">Có thể sắp có bão</string>

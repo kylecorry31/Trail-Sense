@@ -30,7 +30,7 @@
     <string name="continue_button">ادامه</string>
     <string name="moon_rise">طلوع ماه</string>
     <string name="moon_set">غروب ماه</string>
-    <string name="stop_monitoring">متوقف کردن</string>
+    <string name="stop">متوقف کردن</string>
     <string name="pref_compass_filter_amt_title">تنظیم قطب نما</string>
     <string name="pref_compass_filter_amt_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
     <string name="pref_theme_title">تم</string>

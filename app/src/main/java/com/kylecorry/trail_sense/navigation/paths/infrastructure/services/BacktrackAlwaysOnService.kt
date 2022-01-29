@@ -32,7 +32,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
         val openAction = NavigationUtils.pendingIntent(this, R.id.fragmentBacktrack)
 
         val stopAction = Notify.action(
-            getString(R.string.stop_monitoring),
+            getString(R.string.stop),
             StopBacktrackReceiver.pendingIntent(this),
             R.drawable.ic_cancel
         )

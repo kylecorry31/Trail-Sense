@@ -28,7 +28,7 @@
     <string name="continue_button">AANHOU</string>
     <string name="moon_rise">maansopkoms</string>
     <string name="moon_set">Maansondergang</string>
-    <string name="stop_monitoring">stop</string>
+    <string name="stop">stop</string>
     <string name="pref_compass_filter_amt_title">Kompas gladmaak</string>
     <string name="pref_compass_filter_amt_summary">Hoë waardes kan geraas verminder</string>
     <string name="pref_theme_title">tema</string>

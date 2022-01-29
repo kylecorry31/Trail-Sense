@@ -71,7 +71,7 @@
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="stop_monitoring">Zastavit</string>
+    <string name="stop">Zastavit</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
     <string name="units_inhg_short">in</string>

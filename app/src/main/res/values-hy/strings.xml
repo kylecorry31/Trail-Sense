@@ -28,7 +28,7 @@
     <string name="continue_button">ՇԱՐՈՒՆԱԿԵԼ</string>
     <string name="moon_rise">Լուսաբաց</string>
     <string name="moon_set">Moonset</string>
-    <string name="stop_monitoring">Դադարեցրեք</string>
+    <string name="stop">Դադարեցրեք</string>
     <string name="pref_compass_filter_amt_title">Կոմպասի հարթեցում</string>
     <string name="pref_compass_filter_amt_summary">Բարձր արժեքները կարող են նվազեցնել աղմուկը</string>
     <string name="pref_theme_title">Թեման</string>

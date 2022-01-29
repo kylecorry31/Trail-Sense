@@ -28,7 +28,7 @@
     <string name="continue_button">ПРОДЪЛЖИ</string>
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Залез на Луната</string>
-    <string name="stop_monitoring">Спри се</string>
+    <string name="stop">Спри се</string>
     <string name="pref_compass_filter_amt_title">Изглаждане на компас</string>
     <string name="pref_compass_filter_amt_summary">Високите стойности могат да намалят шума</string>
     <string name="pref_theme_title">тема</string>

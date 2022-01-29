@@ -489,7 +489,7 @@
     <string name="tool_clock_title">Годинник</string>
     <string name="flashlight_strobe">Стробоскоп</string>
     <string name="tool_boil_summary">Сповіщає, коли вода питна</string>
-    <string name="boil_start">Почати</string>
+    <string name="start">Почати</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d секунда до пиття</item>
         <item quantity="few">%d секунди до пиття</item>
@@ -542,7 +542,7 @@
     <string name="pressure_reading_time_ago">%s - %s тому</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3 год</string>
-    <string name="stop_monitoring">Зупин</string>
+    <string name="stop">Зупин</string>
     <string name="units_psi">фт-сила/дюйм²</string>
     <string name="units_mbar">мбар</string>
     <string name="units_inhg_short">дюйм</string>

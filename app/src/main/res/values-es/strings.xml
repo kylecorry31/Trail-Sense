@@ -28,7 +28,7 @@
     <string name="continue_button">SEGUIR</string>
     <string name="moon_rise">Salida de la luna</string>
     <string name="moon_set">Puesta de la luna</string>
-    <string name="stop_monitoring">Detener</string>
+    <string name="stop">Detener</string>
     <string name="pref_compass_filter_amt_title">Alisado de brújula</string>
     <string name="pref_compass_filter_amt_summary">Los valores altos pueden reducir el ruido.</string>
     <string name="pref_theme_title">Tema</string>
@@ -295,7 +295,7 @@
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="pref_altitude_override_title">Anulación de altitud</string>
-    <string name="boil_start">Iniciar</string>
+    <string name="start">Iniciar</string>
     <string name="tool_boil_summary">Dime cuando el agua sea potable</string>
     <string name="pref_sensor_details_title">Detalles del sensor</string>
     <string name="clock_waiting_for_gps">Actualizando el tiempo del GPS…</string>

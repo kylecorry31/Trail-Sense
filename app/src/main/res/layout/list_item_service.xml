@@ -43,7 +43,7 @@
         android:background="@android:color/transparent"
         app:tint="?android:textColorSecondary"
         app:srcCompat="@drawable/ic_cancel"
-        android:text="@string/stop_monitoring"
+        android:text="@string/stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

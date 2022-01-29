@@ -27,7 +27,7 @@
     <string name="continue_button">次へ</string>
     <string name="moon_rise">月の出</string>
     <string name="moon_set">月の入り</string>
-    <string name="stop_monitoring">停止</string>
+    <string name="stop">停止</string>
     <string name="pref_compass_filter_amt_title">コンパス平滑化</string>
     <string name="pref_compass_filter_amt_summary">高い値はノイズを減らす可能性があります</string>
     <string name="pref_theme_title">テーマ</string>

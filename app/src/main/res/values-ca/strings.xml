@@ -98,7 +98,7 @@
     <string name="pressure_reading_time_ago">fa %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="stop_monitoring">Aturar</string>
+    <string name="stop">Aturar</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
     <string name="units_inhg_short">in</string>
@@ -300,7 +300,7 @@
     <string name="tool_metal_detector_title">Detector de metalls</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="notification_channel_clock_sync_description">Una notificació per sincronitzar el rellotge amb l\'hora GPS</string>
-    <string name="boil_start">Comença</string>
+    <string name="start">Comença</string>
     <string name="flashlight_strobe">Estroboscòpic</string>
     <string name="reset">Restableix</string>
     <string name="water_purification_step_3">Inicieu el temporitzador</string>

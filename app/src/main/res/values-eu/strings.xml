@@ -75,7 +75,7 @@
     <string name="pressure_reading_time_ago">Orain dela %s - %s</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3o</string>
-    <string name="stop_monitoring">Gelditu</string>
+    <string name="stop">Gelditu</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
     <string name="units_inhg_short">in</string>
@@ -165,7 +165,7 @@
     <string name="thunder">Trumoia</string>
     <string name="lightning">Tximista</string>
     <string name="tool_clock_title">Erlojua</string>
-    <string name="boil_start">Hasi</string>
+    <string name="start">Hasi</string>
     <string name="unit_miles">Miliak</string>
     <string name="unit_feet">Oinak</string>
     <string name="unit_kilometers">Kilometroak</string>

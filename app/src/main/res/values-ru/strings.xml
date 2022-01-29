@@ -27,7 +27,7 @@
     <string name="continue_button">ДАЛЕЕ</string>
     <string name="moon_rise">Восход луны</string>
     <string name="moon_set">Луна</string>
-    <string name="stop_monitoring">Стоп</string>
+    <string name="stop">Стоп</string>
     <string name="pref_compass_filter_amt_title">Фильтрование компаса</string>
     <string name="pref_compass_filter_amt_summary">Высокие значения могут увеличить плавность</string>
     <string name="pref_theme_title">Тема</string>
@@ -291,7 +291,7 @@
     <string name="flashlight_strobe">Стробоскоп</string>
     <string name="pref_sensor_details_title">Информация о датчиках</string>
     <string name="tool_boil_summary">Узнайте, когда вода пригодна для питья</string>
-    <string name="boil_start">Начать</string>
+    <string name="start">Начать</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d секунда до питья</item>
         <item quantity="few">%d секунды до питья</item>

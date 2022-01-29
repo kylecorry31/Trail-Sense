@@ -93,7 +93,7 @@
     <string name="units_inhg_short">in</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-    <string name="stop_monitoring">Berhenti</string>
+    <string name="stop">Berhenti</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_reading_time_ago">%s - %s yang lalu</string>
     <string name="alerts">Peringatan</string>

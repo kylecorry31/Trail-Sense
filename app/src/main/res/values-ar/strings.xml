@@ -28,7 +28,7 @@
     <string name="continue_button">استمر</string>
     <string name="moon_rise">طلوع القمر</string>
     <string name="moon_set">القمر</string>
-    <string name="stop_monitoring">قف</string>
+    <string name="stop">قف</string>
     <string name="pref_compass_filter_amt_title">تنعيم البوصلة</string>
     <string name="pref_compass_filter_amt_summary">قد تؤدي القيم العالية إلى تقليل الضوضاء</string>
     <string name="pref_theme_title">موضوع</string>

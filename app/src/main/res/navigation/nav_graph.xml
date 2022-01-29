@@ -697,7 +697,15 @@
     <fragment
         android:id="@+id/calibrateOdometerFragment"
         android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateOdometerFragment"
-        android:label="CalibrateOdometerFragment" />
+        android:label="CalibrateOdometerFragment">
+        <action
+            android:id="@+id/action_calibrate_pedometer_to_estimate_stride_length"
+            app:destination="@id/fragmentStrideLengthEstimation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/createTideFragment"
         android:name="com.kylecorry.trail_sense.tools.tides.ui.CreateTideFragment"
@@ -899,5 +907,9 @@
         android:id="@+id/scanQrFragment"
         android:name="com.kylecorry.trail_sense.tools.qr.ui.ScanQRFragment"
         android:label="ScanQRFragment" />
+    <fragment
+        android:id="@+id/fragmentStrideLengthEstimation"
+        android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentStrideLengthEstimation"
+        android:label="FragmentStrideLengthEstimation" />
 
 </navigation>

@@ -95,7 +95,7 @@
     <string name="units_inhg_short">in</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-    <string name="stop_monitoring">Stop</string>
+    <string name="stop">Stop</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_reading_time_ago">%s - %s ago</string>
@@ -439,7 +439,7 @@
         <item quantity="one">%d second until potable</item>
         <item quantity="other">%d seconds until potable</item>
     </plurals>
-    <string name="boil_start">Start</string>
+    <string name="start">Start</string>
     <string name="tool_boil_summary">Tell when water is potable</string>
     <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
     <string name="pref_sensor_details_title">Sensor details</string>
@@ -1168,6 +1168,12 @@
     <string name="remove_distance_alert">Remove distance alert (%s)?</string>
     <string name="distance_alert_distance_reached">You have reached %s</string>
     <string name="off">Off</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="estimate_stride_length">Estimate stride length</string>
+    <string name="pref_estimate_stride_length_holder" translatable="false">pref_estimate_stride_length_holder</string>
+    <string name="stride_length_stand_still">Stand still</string>
+    <string name="stride_length_walk">Walk in a straight line, press stop when you are done</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
