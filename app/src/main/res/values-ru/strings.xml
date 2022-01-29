@@ -1051,4 +1051,5 @@
     <string name="distance_alert">Предупреждение о расстоянии</string>
     <string name="remove_distance_alert">Удалить предупреждение о расстоянии (%s)\?</string>
     <string name="distance_alert_distance_reached">Вы достигли %s</string>
+    <string name="off">Выкл</string>
 </resources>
