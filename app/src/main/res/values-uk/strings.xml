@@ -1047,4 +1047,5 @@
     <string name="tool_temperature_estimation_description">Спрогнозувати температуру на іншій висоті</string>
     <string name="pref_weather_show_temperature_title">Показати температуру</string>
     <string name="explore">Вивчити</string>
+    <string name="off">Вимк</string>
 </resources>
