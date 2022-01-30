@@ -357,7 +357,6 @@
     <string name="clock_waiting_for_gps">Aktualizacja czasu z GPS…</string>
     <string name="tool_solar_panel_summary">Ustaw panele słoneczne, aby uzyskać optymalną produkcję energii</string>
     <string name="tool_cliff_height_description">Zmierz wysokość klifu lub urwiska</string>
-
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_percent_format">%s%%</string>
@@ -427,9 +426,6 @@
     <string name="clouds">Chmury</string>
     <string name="import_btn">Import</string>
     <string name="export">Eksport</string>
-
-
-
     <string name="cirrostratus_desc">Chmura wysokiego piętra, zakrywająca niebo. Jest przezroczysta i zazwyczaj tworzy wokół słońca aureolę.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
     <string name="quality_good">Dobra</string>
@@ -461,8 +457,7 @@
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji programu Trail Sense, korzystając z podręcznika użytkownika. Dostępny jest na samym dole w zakładce Narzędzia.
 \n
 \nWkrótce pojawi się więcej przewodników.</string>
-
-    <string name="cirrus_desc">Wysoka i pierzasta.</string>
+    <string name="cirrus_desc">Wysokie, delikatne chmury, które wyglądają jak kępki białych włosów.</string>
     <string name="cumulonimbus_desc">Ciemnoszara, wysoka, o kowadełkowatym kształcie.</string>
     <string name="cumulus_desc">Wygląda jak puchate kulki z waty.</string>
     <string name="stratus_desc">Zasłania niebo, obiekty nie rzucają cieni.</string>
@@ -923,4 +918,81 @@
     <string name="closest">Najbliższe</string>
     <string name="reduce_map_resolution">Zmniejszenie rozdzielczości mapy</string>
     <string name="keep_forever">Zachowaj na zawsze</string>
+    <string name="weather_improving">Poprawa</string>
+    <string name="weather_worsening">Pogorszenie</string>
+    <string name="weather_unchanging">Bez zmian</string>
+    <string name="weather_storm">Sztorm</string>
+    <string name="very_soon">Wkrótce</string>
+    <string name="soon">Wkrótce</string>
+    <string name="dashed">Przerywana</string>
+    <string name="log">Dziennik</string>
+    <string name="sky_detection_sensitivity">Czułość wykrywania nieba</string>
+    <string name="distance_unset">Odległość nieustawiona</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Blokada za pomocą przycisków głośności</string>
+    <string name="errors">Błędy</string>
+    <string name="compass_accuracy">Dokładność kompasu</string>
+    <string name="compass_unavailable">Kompas niedostępny</string>
+    <string name="qr_code_scanner">Skaner kodów QR</string>
+    <string name="pref_clinometer_baseline_distance_title">Odległość podstawowa</string>
+    <string name="undo">Cofnij</string>
+    <string name="share_ellipsis">Udostępnij…</string>
+    <string name="night">Noc</string>
+    <string name="result_deleted">Wynik usunięty</string>
+    <string name="tool_temperature_estimation_title">Szacowanie temperatury</string>
+    <string name="tool_temperature_estimation_description">Przewidywanie temperatury na innej wysokości</string>
+    <string name="off">Wyłączone</string>
+    <string name="no_qr_code_found">Nie wykryto kodu QR</string>
+    <string name="saved_to_note">Zapisano do notatki</string>
+    <string name="since_time">od %s</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="humidity_history">Historia wilgotności - ostatnio %s</string>
+    <string name="temperature_history">Historia temperatury - ostatnio %s</string>
+    <string name="pref_auto_simplify_paths_title">Upraszczanie ścieżek podczas importowania</string>
+    <string name="beacon_created">Utworzono punkt nawigacyjny</string>
+    <string name="pref_flashlight_should_timeout_title">Automatyczne wyłączanie</string>
+    <string name="average_speed">Średnia prędkość</string>
+    <string name="remove_distance_alert">Usunąć alert odległości (%s)\?</string>
+    <plurals name="paths_imported">
+        <item quantity="one">Zaimportowano %d ścieżkę</item>
+        <item quantity="few">Zaimportowano %d ścieżki</item>
+        <item quantity="many">Zaimportowano %d ścieżek</item>
+        <item quantity="other">Zaimportowano %d ścieżek</item>
+    </plurals>
+    <string name="view">Podgląd</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="point_style">Styl punktu</string>
+    <string name="saving">Oszczędzanie</string>
+    <string name="gps_unavailable">GPS niedostępny</string>
+    <string name="gps_timeouts">Limity czasu GPS</string>
+    <string name="obstacle_removal_sensitivity">Czułość usuwania przeszkód</string>
+    <string name="pref_experimental_cloud_scanner_title">Skaner chmur</string>
+    <string name="map_projection_equidistant">W równej odległości</string>
+    <string name="instructions">Instrukcje</string>
+    <string name="height">Wysokość</string>
+    <string name="tide_deleted">Pływ został usunięty</string>
+    <string name="clinometer_measure_height_title">Odległość do celu</string>
+    <string name="clinometer_measure_distance_title">Wysokość celu</string>
+    <string name="measure">Pomiar</string>
+    <string name="weather_monitor_disabled_resolution">Włącz monitorowanie pogody z ustawień pogody</string>
+    <string name="error_banners">Banery błędów</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="simplification_quality">Jakość uproszczenia</string>
+    <string name="note">Notatka</string>
+    <string name="open">Otwórz</string>
+    <string name="capture">Przechwytywanie</string>
+    <string name="notification_weather_update_title">Aktualizacja monitorowania pogody</string>
+    <string name="cloud_photo_mask_toast">Stuknij zdjęcie, aby przełączyć maskę</string>
+    <string name="beacon">Punkt nawigacyjny</string>
+    <string name="steps">Kroki</string>
+    <string name="qr_text_too_long">Tekst jest zbyt długi, kod QR został skrócony</string>
+    <string name="pref_flashlight_timeout_title">Wyłącz po</string>
+    <string name="tide_table">Tabela pływów</string>
+    <string name="pref_weather_show_temperature_title">Pokaż temperaturę</string>
+    <string name="pressure_tendency">Tendencja</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Alert odległości</string>
+    <string name="distance_alert_distance_reached">Osiągnąłeś(aś) %s</string>
+    <string name="estimated">Szacowany</string>
+    <string name="disclaimer_estimated_tide_title">Szacowany przypływ</string>
 </resources>
