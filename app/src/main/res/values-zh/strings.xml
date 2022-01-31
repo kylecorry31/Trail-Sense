@@ -1019,4 +1019,9 @@
 \n-以及更多其它功能！</string>
     <string name="explore">探索</string>
     <string name="off">关闭</string>
+    <string name="save">保存</string>
+    <string name="saved">已保存</string>
+    <string name="estimate_stride_length">估计步幅</string>
+    <string name="stride_length_stand_still">静止不动</string>
+    <string name="stride_length_walk">走直线，走完按“停止”键</string>
 </resources>
