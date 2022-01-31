@@ -461,10 +461,6 @@
 \n
 \n更多指南将会很快到来。</string>
     <string name="privacy_and_location">隐私和位置</string>
-
-
-
-
     <string name="import_btn">导入</string>
     <string name="export">导出</string>
     <string name="unavailable">不可用</string>
@@ -994,4 +990,33 @@
     <string name="pressure_tendency">趋势</string>
     <string name="weather_improving">好转</string>
     <string name="weather_worsening">恶化</string>
+    <string name="since_time">自 %s</string>
+    <string name="humidity_history">湿度历史 — 上 %s</string>
+    <string name="temperature_history">温度历史 — 上 %s</string>
+    <string name="average_speed">平均速度</string>
+    <string name="steps">步伐</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">距离警报</string>
+    <string name="remove_distance_alert">删除距离警报（%s）？</string>
+    <string name="distance_alert_distance_reached">你已抵达 %s</string>
+    <string name="onboarding_explore">- 为徒步旅行、背包旅行、露营和地理寻宝而设计
+\n
+\n- 放置信标并导航至它们
+\n
+\n- 跟随路径
+\n
+\n- 记录走过的路，并沿迹返回
+\n
+\n- 计划要打包的物品
+\n
+\n- 太阳落山前收到警报
+\n
+\n- 预测天气
+\n
+\n- 将手机用作手电筒
+\n
+\n-以及更多其它功能！</string>
+    <string name="explore">探索</string>
+    <string name="off">关闭</string>
 </resources>

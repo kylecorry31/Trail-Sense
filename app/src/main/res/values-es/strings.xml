@@ -328,11 +328,9 @@
     <string name="tool_lightning_title">Distancia del rayo</string>
     <string name="tool_battery_title">Bateria</string>
     <string name="nimbostratus">Nimboestrato</string>
-
     <string name="thunder">Tormenta</string>
     <string name="pedometer">Pedometro</string>
     <string name="weather_better_than_yesterday">Mejor que ayer</string>
-
     <string name="import_btn">Importar</string>
     <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de ubicación nunca salen de tu dispositivo
 \n
@@ -502,8 +500,6 @@
     <string name="altostratus_desc">Una nube de nivel medio que cubre el cielo. El sol apenas puede verse como una mancha brillante.</string>
     <string name="nimbostratus_desc">Una nube de nivel medio que es de color gris oscuro y cubre el cielo. Puede que esté lloviendo.</string>
     <string name="stratocumulus_desc">Nubes bajas que parecen una sábana de bolas de algodón con pequeños huecos. El color va del blanco al gris oscuro.</string>
-
-
     <string name="onboarding_user_guide">Aprenda a utilizar las funciones de Trail Sense con la guía del usuario. Disponible en la parte inferior de la pestaña Herramientas
 \n
 \nMas guias estaran disponibles pronto.</string>
@@ -1007,4 +1003,5 @@
     <string name="estimated">Estimado</string>
     <string name="disclaimer_estimated_tide">Mareas estimadas podrían no ser precisas. Por favor use una tabla de mareas oficial para saber los tiempos exactos.</string>
     <string name="disclaimer_estimated_tide_title">Marea estimada</string>
+    <string name="since_time">desde %s</string>
 </resources>
