@@ -11,7 +11,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.pedometer.domain.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 
@@ -21,7 +21,7 @@ class PedometerTile : AndromedaTileService() {
     private val prefs by lazy { UserPreferences(this) }
     private val formatService by lazy { FormatService(this) }
     private val counter by lazy { StepCounter(Preferences(this)) }
-    private val pedometerService = PedometerService()
+    private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
 
     override fun isOn(): Boolean {
         return prefs.pedometer.isEnabled && !isDisabled()
@@ -47,9 +47,8 @@ class PedometerTile : AndromedaTileService() {
     }
 
     private fun getDistance(): Distance {
-        val stride = prefs.pedometer.strideLength.meters()
         val units = prefs.baseDistanceUnits
-        val distance = pedometerService.getDistance(counter.steps, stride)
+        val distance = paceCalculator.distance(counter.steps)
         return distance.convertTo(units).toRelativeDistance()
     }
 

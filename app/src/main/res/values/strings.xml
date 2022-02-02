@@ -1174,6 +1174,7 @@
     <string name="pref_estimate_stride_length_holder" translatable="false">pref_estimate_stride_length_holder</string>
     <string name="stride_length_stand_still">Stand still</string>
     <string name="stride_length_walk">Walk in a straight line, press stop when you are done</string>
+    <string name="current_speed">Current speed</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

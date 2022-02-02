@@ -6,20 +6,19 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.tools.pedometer.domain.DailyStepResetCommand
 import com.kylecorry.trail_sense.tools.pedometer.domain.DistanceAlertCommand
-import com.kylecorry.trail_sense.tools.pedometer.domain.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 
 class PedometerCommandFactory(private val context: Context) {
 
     private val prefs = UserPreferences(context)
     private val counter = StepCounter(Preferences(context))
-    private val pedometerService = PedometerService()
-
+    private val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
 
     fun getDistanceAlert(): Command {
         return DistanceAlertCommand(
             prefs.pedometer,
             counter,
-            pedometerService,
+            paceCalculator,
             DistanceAlertSender(context)
         )
     }

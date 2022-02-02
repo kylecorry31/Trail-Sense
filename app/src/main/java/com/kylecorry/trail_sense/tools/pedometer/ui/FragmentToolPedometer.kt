@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.sol.units.Speed
-import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -21,19 +21,25 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.pedometer.domain.PedometerService
+import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.PedometerSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import java.time.Duration
-import java.time.Instant
 import java.time.LocalDate
 
 class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private val counter by lazy { StepCounter(Preferences(requireContext())) }
+    private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
+    private val averageSpeedometer by lazy {
+        AveragePaceSpeedometer(counter, paceCalculator)
+    }
+    private val instantSpeedometer by lazy {
+        PedometerSpeedometer(Pedometer(requireContext()), paceCalculator)
+    }
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val pedometerService = PedometerService()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -97,6 +103,15 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             }
         }
 
+        averageSpeedometer.asLiveData().observe(viewLifecycleOwner) {
+            onUpdate()
+        }
+
+        instantSpeedometer.asLiveData().observe(viewLifecycleOwner) {
+            onUpdate()
+        }
+
+        // TODO: Make step counter a sensor
         scheduleUpdates(INTERVAL_30_FPS)
     }
 
@@ -117,13 +132,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 formatService.formatRelativeDate(lastReset.toLocalDate())
             }
             binding.pedometerTitle.subtitle.text = getString(R.string.since_time, dateString)
-
-            val speed = getSpeed(lastReset.toInstant(), distance)
-            binding.pedometerSpeed.title = if (speed != null) {
-                formatService.formatSpeed(speed.speed)
-            } else {
-                getString(R.string.dash)
-            }
         }
 
         binding.pedometerSteps.title = DecimalFormatter.format(counter.steps, 0)
@@ -143,26 +151,32 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         } else {
             getString(R.string.off)
         }
+
+        updateAverageSpeed()
+        updateCurrentSpeed()
+    }
+
+    private fun updateAverageSpeed() {
+        val speed = averageSpeedometer.speed
+        binding.pedometerAverageSpeed.title = if (averageSpeedometer.hasValidReading) {
+            formatService.formatSpeed(speed.speed)
+        } else {
+            getString(R.string.dash)
+        }
+    }
+
+    private fun updateCurrentSpeed() {
+        val speed = instantSpeedometer.speed
+        binding.pedometerSpeed.title = if (averageSpeedometer.hasValidReading) {
+            formatService.formatSpeed(speed.speed)
+        } else {
+            getString(R.string.dash)
+        }
     }
 
     private fun getDistance(steps: Long): Distance {
-        val stride = prefs.pedometer.strideLength.meters()
-        val units = prefs.baseDistanceUnits
-        val distance = pedometerService.getDistance(steps, stride)
-        return distance.convertTo(units).toRelativeDistance()
-    }
-
-    private fun getSpeed(lastReset: Instant, distance: Distance): Speed? {
-        val duration = Duration.between(lastReset, Instant.now())
-        if (duration.isZero || duration.isNegative) return null
-
-        return Speed(
-            distance.distance / duration.seconds,
-            distance.units,
-            TimeUnits.Seconds
-        ).convertTo(
-            DistanceUnits.Meters, TimeUnits.Seconds
-        )
+        val distance = paceCalculator.distance(steps)
+        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
     }
 
 }

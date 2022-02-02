@@ -8,12 +8,12 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IStepCounter
 class DistanceAlertCommand(
     private val prefs: IPedometerPreferences,
     private val counter: IStepCounter,
-    private val pedometerService: IPedometerService,
+    private val paceCalculator: IPaceCalculator,
     private val alertSender: IDistanceAlertSender
 ) : Command {
     override fun execute() {
         val alertDistance = prefs.alertDistance ?: return
-        val distance = pedometerService.getDistance(counter.steps, prefs.strideLength)
+        val distance = paceCalculator.distance(counter.steps)
         if (distance.meters().distance >= alertDistance.meters().distance) {
             alertSender.send()
             prefs.alertDistance = null

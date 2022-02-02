@@ -39,6 +39,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            app:dataPointDescription="@string/current_speed"
+            app:dataPointIcon="@drawable/ic_speed"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/pedometer_average_speed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             app:dataPointDescription="@string/average_speed"
             app:dataPointIcon="@drawable/ic_speed"
             app:layout_columnWeight="1" />

@@ -12,6 +12,9 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -90,3 +93,5 @@ fun ImageButton.flatten() {
     backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
     elevation = 0f
 }
+
+val ZERO_SPEED = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
