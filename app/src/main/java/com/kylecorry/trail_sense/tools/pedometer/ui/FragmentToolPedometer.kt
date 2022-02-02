@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.PedometerSpeedometer
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import java.time.LocalDate
@@ -36,7 +36,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         AveragePaceSpeedometer(counter, paceCalculator)
     }
     private val instantSpeedometer by lazy {
-        PedometerSpeedometer(Pedometer(requireContext()), paceCalculator)
+        CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
     }
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }

@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.pedometer.domain.IPaceCalculator
 import java.time.Duration
 import java.time.Instant
 
-class PedometerSpeedometer(
+class CurrentPaceSpeedometer(
     private val pedometer: IPedometer,
     private val paceCalculator: IPaceCalculator
 ) : AbstractSensor(), ISpeedometer {
