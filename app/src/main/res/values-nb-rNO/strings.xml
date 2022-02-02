@@ -909,4 +909,10 @@
     <string name="humidity_history">Luftfuktighetshistorikk - siste %s</string>
     <string name="distance_alert">Distansevarsel</string>
     <string name="remove_distance_alert">Fjerne distansevarsel (%s)\?</string>
+    <string name="off">Av</string>
+    <string name="saved">Lagret</string>
+    <string name="stride_length_stand_still">Stå stille</string>
+    <string name="stride_length_walk">Gå i en rett linje, trykk stopp når du er ferdig</string>
+    <string name="save">Lagre</string>
+    <string name="estimate_stride_length">Beregn skrittlengde</string>
 </resources>
