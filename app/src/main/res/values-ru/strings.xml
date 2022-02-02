@@ -248,7 +248,6 @@
     <string name="forecasts_category">Прогнозы</string>
     <string name="guide_conserving_battery_title">Экономия батареи</string>
     <string name="guide_weather_prediction_title">Прогноз погоды</string>
-
     <string name="category_natural">Природное</string>
     <string name="category_safety">Безопасность</string>
     <string name="category_shelter">Укрытие</string>
@@ -476,10 +475,6 @@
 \n
 \nСкоро появятся другие руководства.</string>
     <string name="privacy_and_location">Конфиденциальность и местоположение</string>
-
-
-
-
     <string name="cirrocumulus">Перисто-кучевые</string>
     <string name="pref_require_satellites_description">Требуется как минимум 4 спутника, повышает точность</string>
     <string name="unit_inches_abbreviation">д</string>
@@ -1018,4 +1013,43 @@
     <string name="estimated">Приблизительно</string>
     <string name="disclaimer_estimated_tide">Приблизительное время приливов может быть неточным. Используйте официальную таблицу приливов для точного времени.</string>
     <string name="disclaimer_estimated_tide_title">Приблизительный прилив</string>
+    <string name="weather_improving">Улучшается</string>
+    <string name="weather_worsening">Ухудшается</string>
+    <string name="pressure_tendency">Тенденция</string>
+    <string name="pref_weather_show_temperature_title">Показать температуру</string>
+    <string name="weather_unchanging">Без изменений</string>
+    <string name="very_soon">Очень скоро</string>
+    <string name="temperature_history">История температуры - последняя %s</string>
+    <string name="since_time">с %s</string>
+    <string name="tool_temperature_estimation_title">Оценка температуры</string>
+    <string name="humidity_history">История влажности - последняя %s</string>
+    <string name="tool_temperature_estimation_description">Предсказать температуру на другой высоте</string>
+    <string name="onboarding_explore">- Предназначен для походов, путешествий, кемпинга и геокешинга
+\n
+\n- Размещайте маячки и ориентируйтесь по ним
+\n
+\n- Следуйте за путями
+\n
+\n- Возвращайтесь по своим шагам с помощью функции истории маршрута
+\n
+\n- Планируйте, что взять с собой
+\n
+\n- Будьте готовы к закату солнца
+\n
+\n- Предсказывайте погоду
+\n
+\n- Используйте свой телефон в качестве фонарика
+\n
+\n- И многое другое!</string>
+    <string name="weather_storm">Буря</string>
+    <string name="soon">Скоро</string>
+    <string name="explore">Изучить</string>
+    <string name="average_speed">Средняя скорость</string>
+    <string name="steps">Шаги</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Предупреждение о расстоянии</string>
+    <string name="remove_distance_alert">Удалить предупреждение о расстоянии (%s)\?</string>
+    <string name="distance_alert_distance_reached">Вы достигли %s</string>
+    <string name="off">Выкл</string>
 </resources>
