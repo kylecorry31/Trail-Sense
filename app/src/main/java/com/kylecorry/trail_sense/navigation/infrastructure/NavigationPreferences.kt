@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -180,15 +181,17 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 ?: QuickActionType.Flashlight
         }
 
-    val speedometerMode: SpeedometerMode
-        get() {
-            val raw = cache.getString(context.getString(R.string.pref_navigation_speedometer_type))
-                ?: "instant"
-            return when (raw) {
-                "average" -> SpeedometerMode.Average
-                else -> SpeedometerMode.Instantaneous
-            }
-        }
+    var speedometerMode by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_navigation_speedometer_type),
+        mapOf(
+            "average" to SpeedometerMode.Backtrack,
+            "instant_pedometer" to SpeedometerMode.CurrentPace,
+            "average_pedometer" to SpeedometerMode.AveragePace,
+            "instant" to SpeedometerMode.GPS
+        ),
+        SpeedometerMode.GPS
+    )
 
     val smoothAltitudeHistory by BooleanPreference(
         cache,
@@ -209,8 +212,10 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     )
 
     enum class SpeedometerMode {
-        Average,
-        Instantaneous
+        Backtrack,
+        GPS,
+        CurrentPace,
+        AveragePace
     }
 
 }

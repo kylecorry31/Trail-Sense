@@ -106,13 +106,17 @@
     </string-array>
 
     <string-array name="speedometer_entries">
-        <item>@string/speedometer_real_time</item>
-        <item>@string/speedometer_average</item>
+        <item>@string/current_speed_gps</item>
+        <item>@string/average_speed_backtrack</item>
+        <item>@string/current_speed_pedometer</item>
+        <item>@string/average_speed_pedometer</item>
     </string-array>
 
     <string-array name="speedometer_values">
         <item>instant</item>
         <item>average</item>
+        <item>instant_pedometer</item>
+        <item>average_pedometer</item>
     </string-array>
 
     <string-array name="coordinate_format_entries">

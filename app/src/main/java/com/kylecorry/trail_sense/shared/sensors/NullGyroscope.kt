@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.orientation.IGyroscope
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
 
-class NullGyroscope : AbstractSensor(), IGyroscope {
+class NullGyroscope : NullSensor(), IGyroscope {
 
     private val empty = FloatArray(3)
 
@@ -17,14 +16,4 @@ class NullGyroscope : AbstractSensor(), IGyroscope {
         get() = Quaternion.zero.toFloatArray()
     override val angularRate: Euler
         get() = Euler(0f, 0f, 0f)
-
-    override val hasValidReading: Boolean
-        get() = true
-
-    override fun startImpl() {
-        notifyListeners()
-    }
-
-    override fun stopImpl() {
-    }
 }

@@ -1,12 +1,16 @@
 package com.kylecorry.trail_sense.settings.ui
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -169,7 +173,23 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
+        onChange(list(R.string.pref_navigation_speedometer_type)){
+            if (it == "instant_pedometer"){
+                onCurrentPaceSpeedometerSelected()
+            }
+        }
+
         updateNearbyRadius()
+    }
+
+    private fun onCurrentPaceSpeedometerSelected(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
+                if (!Permissions.canRecognizeActivity(requireContext())){
+                    toast(getString(R.string.activity_recognition_permission_denied))
+                }
+            }
+        }
     }
 
     private fun updateNearbyRadius() {
@@ -178,5 +198,12 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                 .toRelativeDistance(),
             2
         )
+    }
+
+    private fun onChange(pref: Preference?, action: (value: Any) -> Unit) {
+        pref?.setOnPreferenceChangeListener { _, value ->
+            action(value)
+            true
+        }
     }
 }

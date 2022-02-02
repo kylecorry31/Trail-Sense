@@ -667,8 +667,6 @@
     <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
     <string name="screen_flashlight">Screen</string>
-    <string name="speedometer_real_time">Real Time</string>
-    <string name="speedometer_average">Average (from Backtrack)</string>
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
     <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
@@ -747,6 +745,7 @@
     <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="color">Color</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
+    <string name="activity_recognition_permission_denied">Physical activity permission denied, unable to turn on pedometer features. You can enable it in settings.</string>
     <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
     <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
     <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
@@ -1175,6 +1174,10 @@
     <string name="stride_length_stand_still">Stand still</string>
     <string name="stride_length_walk">Walk in a straight line, press stop when you are done</string>
     <string name="current_speed">Current speed</string>
+    <string name="current_speed_pedometer">Current speed (Pedometer)</string>
+    <string name="current_speed_gps">Current speed (GPS)</string>
+    <string name="average_speed_pedometer">Average speed (Pedometer)</string>
+    <string name="average_speed_backtrack">Average speed (Backtrack)</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

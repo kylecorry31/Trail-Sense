@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
@@ -24,6 +25,8 @@ import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.*
+import com.kylecorry.andromeda.sense.pedometer.IPedometer
+import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
 import com.kylecorry.andromeda.sense.temperature.Thermometer
 import com.kylecorry.andromeda.signal.CellSignalSensor
@@ -37,6 +40,10 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
+import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
 
 class SensorService(ctx: Context) {
@@ -67,13 +74,26 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getSpeedometer(realTime: Boolean? = null): ISpeedometer {
-        val useRealTime = realTime
-            ?: (userPrefs.navigation.speedometerMode == NavigationPreferences.SpeedometerMode.Instantaneous)
-        return if (useRealTime) {
-            getGPS(false)
+    private fun getPedometer(): IPedometer {
+        return if (Permissions.canRecognizeActivity(context)) {
+            Pedometer(context)
         } else {
-            BacktrackSpeedometer(context)
+            NullPedometer()
+        }
+    }
+
+    fun getSpeedometer(): ISpeedometer {
+        return when (userPrefs.navigation.speedometerMode) {
+            NavigationPreferences.SpeedometerMode.Backtrack -> BacktrackSpeedometer(context)
+            NavigationPreferences.SpeedometerMode.GPS -> getGPS(false)
+            NavigationPreferences.SpeedometerMode.CurrentPace -> CurrentPaceSpeedometer(
+                getPedometer(), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
+            )
+            NavigationPreferences.SpeedometerMode.AveragePace -> AveragePaceSpeedometer(
+                StepCounter(
+                    Preferences(context)
+                ), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
+            )
         }
     }
 
@@ -107,7 +127,10 @@ class SensorService(ctx: Context) {
 
             val gps = getGPS(background)
 
-            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && Sensors.hasBarometer(context)) {
+            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && Sensors.hasBarometer(
+                    context
+                )
+            ) {
                 FusedAltimeter(gps, Barometer(context))
             } else {
                 gps
@@ -176,7 +199,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getGyroscope(): IGyroscope {
-        if (!Sensors.hasGyroscope(context)){
+        if (!Sensors.hasGyroscope(context)) {
             return NullGyroscope()
         }
         return Gyroscope(context)
@@ -187,7 +210,8 @@ class SensorService(ctx: Context) {
         useMag: Boolean = true,
         useAcc: Boolean = true
     ): IOrientationSensor {
-        return MadgwickAHRS(context,
+        return MadgwickAHRS(
+            context,
             accelerometer = if (useAcc) LowPassAccelerometer(context) else NullAccelerometer(),
             gyro = if (useGyro && Sensors.hasGyroscope(context)) Gyroscope(context) else NullGyroscope(),
             magnetometer = if (useMag) LowPassMagnetometer(context) else NullMagnetometer()

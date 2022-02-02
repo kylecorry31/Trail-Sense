@@ -1,24 +1,12 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.sol.math.Vector3
-import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
+import com.kylecorry.sol.math.Vector3
 
-class NullMagnetometer : AbstractSensor(), IMagnetometer {
-
+class NullMagnetometer : NullSensor(), IMagnetometer {
     private val empty = Vector3.zero.toFloatArray()
-
     override val magneticField: Vector3
         get() = Vector3.zero
-    override val hasValidReading: Boolean
-        get() = true
     override val rawMagneticField: FloatArray
         get() = empty
-
-    override fun startImpl() {
-        notifyListeners()
-    }
-
-    override fun stopImpl() {
-    }
 }
