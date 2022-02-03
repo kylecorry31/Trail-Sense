@@ -10,9 +10,9 @@
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
     <string name="pref_use_true_north_title">真北</string>
-    <string name="pref_use_sea_level_pressure_title">海平面压力</string>
+    <string name="pref_use_sea_level_pressure_title">海平面压强</string>
     <string name="general">一般</string>
-    <string name="pressure">压力</string>
+    <string name="pressure">压强</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
     <string name="weather_improving_fast">很快好转</string>
@@ -45,7 +45,7 @@
         <item quantity="other">持续 %d 分钟</item>
     </plurals>
     <string name="feet_miles">英尺/英里</string>
-    <string name="units_hpa">压力</string>
+    <string name="units_hpa">压强</string>
     <string name="units_inhg">汞</string>
     <string name="units_mbar">毫巴</string>
     <string name="units_psi">PSI</string>
@@ -65,7 +65,7 @@
     <string name="pressure_24_hours">二十四小时</string>
     <string name="pressure_12_hours">十二小时</string>
     <string name="pressure_4_hours">四个小时</string>
-    <string name="pref_pressure_history_title">压力历史</string>
+    <string name="pref_pressure_history_title">压强历史</string>
     <string name="never">从不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 气压表</string>
     <string name="pref_altitude_override_sea_level_title">使用已知的海平面气压</string>
@@ -167,7 +167,7 @@
     <string name="duration_hour_format">%d 小时</string>
     <string name="dialog_deny">不，谢谢</string>
     <string name="dialog_grant">更新设置</string>
-    <string name="access_background_location_rationale">Trail Sense在后台使用位置数据。它用于在天气监测中校正海平面压力，并提供更准确的日落警报。[查看隐私政策] （https://kylecorry.com/Trail-Sense/privacy_policy.html）</string>
+    <string name="access_background_location_rationale">Trail Sense在后台使用位置数据。它用于在天气监测中校正海平面压强，并提供更准确的日落警报。[查看隐私政策] （https://kylecorry.com/Trail-Sense/privacy_policy.html）</string>
     <string name="access_background_location">更新位置设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
@@ -302,7 +302,7 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">导航前矫正</string>
     <string name="pref_display_multi_beacons_summary">在指南针上显示最近的信标</string>
     <string name="pref_num_visible_beacons_title">附近的信标</string>
-    <string name="pref_adjust_for_temperature_summary">使用海平面压力转换中的温度</string>
+    <string name="pref_adjust_for_temperature_summary">使用海平面压强转换中的温度</string>
     <string name="pref_adjust_for_temperature_title">将温度考虑在内</string>
     <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
     <string name="pref_altitude_override_title">海拔覆盖</string>
@@ -615,14 +615,14 @@
     <string name="weather_monitor">天气监控器</string>
     <string name="dusk_type">日落 (%s)</string>
     <string name="dawn_type">日出 (%s)</string>
-    <string name="pref_barometer_info_summary">压力可能与附近气象站的压力不同</string>
+    <string name="pref_barometer_info_summary">压强可能与附近气象站的压强不同</string>
     <string name="battery_history">电池历史 - 过去 %s</string>
     <string name="no_data">无数据</string>
     <string name="pref_nmea_altitude_title">NMEA高度偏移</string>
     <string name="delete_map">删除地图？</string>
     <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
     <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
-    <string name="pref_barometer_pressure_smoothing_title">压力平滑</string>
+    <string name="pref_barometer_pressure_smoothing_title">压强平滑</string>
     <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
     <string name="beacon_moved_to">已移动到 %s</string>
     <string name="move">移动</string>
