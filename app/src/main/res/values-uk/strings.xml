@@ -1048,4 +1048,9 @@
     <string name="pref_weather_show_temperature_title">Показати температуру</string>
     <string name="explore">Вивчити</string>
     <string name="off">Вимк</string>
+    <string name="estimate_stride_length">Приблизна довжина кроку</string>
+    <string name="stride_length_stand_still">Стійте на місці</string>
+    <string name="saved">Збережено</string>
+    <string name="save">Зберегти</string>
+    <string name="stride_length_walk">Ідіть по прямій, натисніть «Зупинити», коли закінчите</string>
 </resources>
