@@ -14,14 +14,12 @@ import com.kylecorry.trail_sense.databinding.FragmentStrideLengthEstimationBindi
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length.GPSStrideLengthCalculator
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length.EndPointStrideLengthEstimator
 
 class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimationBinding>() {
 
     private val estimator by lazy {
-        GPSStrideLengthCalculator(
+        EndPointStrideLengthEstimator(
             SensorService(requireContext()).getGPS(),
             Pedometer(requireContext())
         )
@@ -33,33 +31,29 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
 
     private val units by lazy { prefs.baseDistanceUnits }
 
-    private var strideLength: Distance? = null
+    private var isRunning = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.strideLengthBtn.setOnClickListener {
-            val state = estimator.state
-            val stride = strideLength
             when {
-                stride != null -> {
-                    prefs.pedometer.strideLength = stride
+                !isRunning && estimator.hasValidReading -> {
+                    prefs.pedometer.strideLength = estimator.strideLength ?: Distance.meters(0f)
                     toast(getString(R.string.saved))
                 }
-                state == GPSStrideLengthCalculator.State.Stopped -> {
-                    runInBackground {
-                        withContext(Dispatchers.Default) {
-                            strideLength = estimator.calculate()
-                        }
-                    }
+                !isRunning -> {
+                    isRunning = true
+                    estimator.start(this::onStrideLengthChanged)
                 }
-                else -> {
-                    estimator.stop()
+                isRunning -> {
+                    isRunning = false
+                    estimator.stop(this::onStrideLengthChanged)
                 }
             }
         }
 
         binding.resetStrideBtn.setOnClickListener {
-            strideLength = null
+            estimator.reset()
         }
 
         scheduleUpdates(INTERVAL_30_FPS)
@@ -72,11 +66,16 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
         return FragmentStrideLengthEstimationBinding.inflate(layoutInflater, container, false)
     }
 
+    private fun onStrideLengthChanged(): Boolean {
+
+        return true
+    }
+
     override fun onUpdate() {
         super.onUpdate()
 
-        strideLength.let {
-            binding.resetStrideBtn.isVisible = it != null
+        estimator.strideLength.let {
+            binding.resetStrideBtn.isVisible = !isRunning && it != null
             binding.strideLengthTitle.title.text = if (it != null) {
                 formatter.formatDistance(it.convertTo(units), 2, false)
             } else {
@@ -84,25 +83,28 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
             }
         }
 
-        val state = estimator.state
-
         binding.strideLengthBtn.text = when {
-            strideLength != null -> getString(R.string.save)
-            state == GPSStrideLengthCalculator.State.Stopped -> getString(R.string.start)
+            !isRunning && estimator.hasValidReading -> getString(R.string.save)
+            !isRunning -> getString(R.string.start)
             else -> getString(R.string.stop)
         }
 
-        binding.strideLengthDescription.text = when (state) {
-            GPSStrideLengthCalculator.State.Stopped -> ""
-            GPSStrideLengthCalculator.State.Starting -> getString(R.string.stride_length_stand_still)
-            GPSStrideLengthCalculator.State.Started -> getString(R.string.stride_length_walk)
-            GPSStrideLengthCalculator.State.Stopping -> getString(R.string.stride_length_stand_still)
+        binding.strideLengthDescription.text = when {
+            isRunning && !estimator.hasValidReading -> getString(R.string.stride_length_stand_still)
+            isRunning -> getString(R.string.stride_length_walk)
+            else -> ""
         }
-
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        estimator.stop(true)
+    override fun onPause() {
+        super.onPause()
+        estimator.stop(this::onStrideLengthChanged)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isRunning) {
+            estimator.start(this::onStrideLengthChanged)
+        }
     }
 }
