@@ -1178,6 +1178,7 @@
     <string name="current_speed_gps">Current speed (GPS)</string>
     <string name="average_speed_pedometer">Average speed (Pedometer)</string>
     <string name="average_speed_backtrack">Average speed (Backtrack)</string>
+    <string name="reset_distance_title">Reset distance?</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
