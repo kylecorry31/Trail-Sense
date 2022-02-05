@@ -1062,4 +1062,5 @@
     <string name="current_speed_gps">Текущая скорость (GPS)</string>
     <string name="stride_length_walk">Идите по прямой линии, нажмите \"стоп\", когда закончите</string>
     <string name="current_speed_pedometer">Текущая скорость (шагомер)</string>
+    <string name="average_speed_backtrack">Средняя скорость (история маршрута)</string>
 </resources>
