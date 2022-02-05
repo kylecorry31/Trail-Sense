@@ -74,7 +74,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    private fun getPedometer(): IPedometer {
+    fun getPedometer(): IPedometer {
         return if (Permissions.canRecognizeActivity(context)) {
             Pedometer(context)
         } else {

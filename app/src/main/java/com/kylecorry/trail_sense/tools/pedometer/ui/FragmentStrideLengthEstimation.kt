@@ -7,22 +7,17 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentStrideLengthEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length.EndPointStrideLengthEstimator
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length.StrideLengthEstimatorFactory
 
 class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimationBinding>() {
 
     private val estimator by lazy {
-        EndPointStrideLengthEstimator(
-            SensorService(requireContext()).getGPS(),
-            Pedometer(requireContext())
-        )
+        StrideLengthEstimatorFactory(requireContext()).getEstimator()
     }
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
@@ -67,7 +62,6 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
     }
 
     private fun onStrideLengthChanged(): Boolean {
-
         return true
     }
 
