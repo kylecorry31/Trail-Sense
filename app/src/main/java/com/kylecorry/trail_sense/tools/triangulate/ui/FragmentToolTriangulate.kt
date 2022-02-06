@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.geology.GeologyService
@@ -71,26 +72,23 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.triangulate1.setOnCoordinateChangeListener { update() }
         binding.triangulate2.setOnCoordinateChangeListener { update() }
 
+        compass.asLiveData().observe(viewLifecycleOwner){
+            compassUpdate()
+        }
+
     }
 
 
     override fun onResume() {
         super.onResume()
-        compass.start(this::compassUpdate)
         if (prefs.useAutoLocation) {
             binding.gpsOverrideBtn.visibility = View.INVISIBLE
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        compass.stop(this::compassUpdate)
-    }
-
-    private fun compassUpdate(): Boolean {
+    private fun compassUpdate() {
         binding.bearingTo1Btn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(compass.bearing.value, replace360 = true))
         binding.bearingTo2Btn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(compass.bearing.value, replace360 = true))
-        return true
     }
 
     private fun update() {

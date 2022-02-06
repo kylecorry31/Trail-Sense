@@ -367,7 +367,7 @@
     <string name="create_beacon">创建信标</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
-    <string name="beacon_set_bearing_btn">设定方位（%s）</string>
+    <string name="beacon_set_bearing_btn">设定方位 (%s)</string>
     <string name="create_at_distance">在远处创建</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
