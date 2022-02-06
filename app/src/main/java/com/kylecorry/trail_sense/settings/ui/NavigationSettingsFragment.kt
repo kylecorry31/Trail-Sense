@@ -1,16 +1,12 @@
 package com.kylecorry.trail_sense.settings.ui
 
-import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -21,6 +17,8 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
+import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import java.time.Duration
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
@@ -183,11 +181,12 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun onCurrentPaceSpeedometerSelected(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
-                if (!Permissions.canRecognizeActivity(requireContext())){
-                    toast(getString(R.string.activity_recognition_permission_denied))
-                }
+        requestActivityRecognition(
+            requireContext(),
+            this::requestPermissions
+        ){ hasPermission ->
+            if (!hasPermission){
+                alertNoActivityRecognitionPermission()
             }
         }
     }

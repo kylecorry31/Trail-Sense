@@ -12,6 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentStrideLengthEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
+import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length.StrideLengthEstimatorFactory
 
 class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimationBinding>() {
@@ -37,8 +39,7 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
                     toast(getString(R.string.saved))
                 }
                 !isRunning -> {
-                    isRunning = true
-                    estimator.start(this::onStrideLengthChanged)
+                    start()
                 }
                 isRunning -> {
                     isRunning = false
@@ -99,6 +100,18 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
         super.onResume()
         if (isRunning) {
             estimator.start(this::onStrideLengthChanged)
+        }
+    }
+
+    private fun start(){
+        requestActivityRecognition { hasPermission ->
+            if (hasPermission){
+                isRunning = true
+                estimator.start(this::onStrideLengthChanged)
+            } else {
+                isRunning = false
+                alertNoActivityRecognitionPermission()
+            }
         }
     }
 }

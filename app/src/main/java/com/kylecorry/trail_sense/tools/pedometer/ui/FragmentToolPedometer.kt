@@ -1,18 +1,14 @@
 package com.kylecorry.trail_sense.tools.pedometer.ui
 
-import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -25,6 +21,8 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
+import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
@@ -188,17 +186,13 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
 
     private fun startStepCounter() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
-                if (Permissions.canRecognizeActivity(requireContext())) {
-                    StepCounterService.start(requireContext())
-                } else {
-                    prefs.pedometer.isEnabled = false
-                    toast(getString(R.string.activity_recognition_permission_denied))
-                }
+        requestActivityRecognition { hasPermission ->
+            if (hasPermission) {
+                StepCounterService.start(requireContext())
+            } else {
+                prefs.pedometer.isEnabled = false
+                alertNoActivityRecognitionPermission()
             }
-        } else {
-            StepCounterService.start(requireContext())
         }
     }
 

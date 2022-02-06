@@ -32,8 +32,12 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import kotlinx.coroutines.Dispatchers

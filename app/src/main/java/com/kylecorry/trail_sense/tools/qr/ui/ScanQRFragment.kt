@@ -26,7 +26,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder

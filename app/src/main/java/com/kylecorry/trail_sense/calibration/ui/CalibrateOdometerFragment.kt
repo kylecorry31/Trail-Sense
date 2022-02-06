@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.calibration.ui
 
-import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -17,6 +15,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
+import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 
 
@@ -52,9 +52,13 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
 
         onClick(enabledPref) {
             if (userPrefs.pedometer.isEnabled) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
-                        updatePedometerService()
+                requestActivityRecognition(
+                    requireContext(),
+                    this::requestPermissions
+                ) { hasPermission ->
+                    updatePedometerService()
+                    if (!hasPermission) {
+                        alertNoActivityRecognitionPermission()
                     }
                 }
             }

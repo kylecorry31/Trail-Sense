@@ -6,7 +6,6 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
@@ -53,14 +52,6 @@ fun <T : Identifiable> Array<T>.withId(id: Long): T? {
 
 fun <T : Identifiable> Collection<T>.withId(id: Long): T? {
     return firstOrNull { it.id == id }
-}
-
-fun Fragment.alertNoCameraPermission() {
-    Alerts.toast(
-        requireContext(),
-        getString(R.string.camera_permission_denied),
-        short = false
-    )
 }
 
 fun SeekBar.setOnProgressChangeListener(listener: (progress: Int, fromUser: Boolean) -> Unit) {

@@ -28,9 +28,13 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.PressState
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
