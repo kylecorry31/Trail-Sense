@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.sensors.asLiveData
@@ -58,6 +56,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -299,10 +298,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         showSightingCompass = isOn
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
         if (isOn) {
-            requestPermissions(
-                listOf(Manifest.permission.CAMERA)
-            ) {
-                if (Camera.isAvailable(requireContext())) {
+            requestCamera { hasPermission ->
+                if (hasPermission){
                     enableSightingCompass()
                 } else {
                     alertNoCameraPermission()

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
-import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -13,6 +12,7 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCameraInputBinding
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 
 class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
@@ -55,7 +55,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestPermissions(listOf(Manifest.permission.CAMERA)){}
+        requestCamera {  }
     }
 
     override fun onResume() {

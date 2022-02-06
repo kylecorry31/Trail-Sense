@@ -52,10 +52,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
 
         onClick(enabledPref) {
             if (userPrefs.pedometer.isEnabled) {
-                requestActivityRecognition(
-                    requireContext(),
-                    this::requestPermissions
-                ) { hasPermission ->
+                requestActivityRecognition { hasPermission ->
                     updatePedometerService()
                     if (!hasPermission) {
                         alertNoActivityRecognitionPermission()
@@ -132,7 +129,6 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun updateStrideLength() {
-        strideLengthPref.isEnabled = userPrefs.pedometer.isEnabled
         strideLengthPref.summary = formatService.formatDistance(
             userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits),
             2

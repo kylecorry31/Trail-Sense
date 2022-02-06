@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/odometer">
+        app:title="@string/pedometer">
 
         <SwitchPreferenceCompat
             android:defaultValue="false"
@@ -29,6 +29,7 @@
             android:title="@string/request_permission"
             app:iconSpaceReserved="false"
             app:key="@string/pref_odometer_request_permission"
+            app:isPreferenceVisible="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat

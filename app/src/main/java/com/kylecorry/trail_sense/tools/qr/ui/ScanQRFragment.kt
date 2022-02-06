@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.qr.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
@@ -28,6 +27,7 @@ import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
@@ -176,8 +176,8 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestPermissions(listOf(Manifest.permission.CAMERA)) {
-            if (Camera.isAvailable(requireContext())) {
+        requestCamera { hasPermission ->
+            if (hasPermission){
                 startCamera()
             } else {
                 alertNoCameraPermission()

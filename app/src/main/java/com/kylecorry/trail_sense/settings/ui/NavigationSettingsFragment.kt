@@ -181,10 +181,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun onCurrentPaceSpeedometerSelected(){
-        requestActivityRecognition(
-            requireContext(),
-            this::requestPermissions
-        ){ hasPermission ->
+        requestActivityRecognition { hasPermission ->
             if (!hasPermission){
                 alertNoActivityRecognitionPermission()
             }
@@ -197,12 +194,5 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                 .toRelativeDistance(),
             2
         )
-    }
-
-    private fun onChange(pref: Preference?, action: (value: Any) -> Unit) {
-        pref?.setOnPreferenceChangeListener { _, value ->
-            action(value)
-            true
-        }
     }
 }

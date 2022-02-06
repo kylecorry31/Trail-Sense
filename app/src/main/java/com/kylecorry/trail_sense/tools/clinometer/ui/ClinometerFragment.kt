@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.clinometer.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
@@ -35,6 +33,7 @@ import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
@@ -94,8 +93,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 useCamera = false
                 clinometer = getClinometer()
             } else {
-                requestPermissions(listOf(Manifest.permission.CAMERA)) {
-                    if (Camera.isAvailable(requireContext())) {
+                requestCamera { hasPermission ->
+                    if (hasPermission){
                         useCamera = true
                         binding.camera.start()
                         binding.clinometerTitle.leftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)

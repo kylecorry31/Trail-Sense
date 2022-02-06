@@ -85,7 +85,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.7.0")
 
     // Andromeda
-    val andromedaVersion = "2.7.0"
+    val andromedaVersion = "2.7.1"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")

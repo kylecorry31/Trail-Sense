@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Timer
@@ -38,6 +36,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import kotlinx.coroutines.Dispatchers
@@ -114,10 +113,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         binding.createMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_import_qr_beacon -> {
-                    requestPermissions(
-                        listOf(Manifest.permission.CAMERA)
-                    ) {
-                        if (Camera.isAvailable(requireContext())) {
+                    requestCamera { hasPermission ->
+                        if (hasPermission){
                             importBeaconFromQR()
                         } else {
                             alertNoCameraPermission()
