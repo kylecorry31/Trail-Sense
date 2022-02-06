@@ -46,11 +46,6 @@ object Guides {
                     context.getString(R.string.guide_location_no_gps_title),
                     null,
                     R.raw.determine_location_without_gps
-                ),
-                UserGuide(
-                    context.getString(R.string.guide_speedometer_title),
-                    context.getString(R.string.guide_speedometer_desc),
-                    R.raw.speed_distance
                 )
             )
         )
@@ -87,6 +82,11 @@ object Guides {
                     context.getString(R.string.clinometer_title),
                     context.getString(R.string.tool_clinometer_summary),
                     R.raw.clinometer
+                ),
+                UserGuide(
+                    context.getString(R.string.pedometer),
+                    null,
+                    R.raw.pedometer
                 ),
                 UserGuide(
                     context.getString(R.string.cliff_height_guide),
