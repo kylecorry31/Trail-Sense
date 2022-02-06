@@ -2,9 +2,12 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -86,3 +89,14 @@ fun ImageButton.flatten() {
 }
 
 val ZERO_SPEED = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+
+fun MenuItem.onNavDestinationReselected(navController: NavController) {
+    val builder = NavOptions.Builder().setLaunchSingleTop(false)
+        .setRestoreState(true)
+        .setPopUpTo(itemId, true)
+    builder.setEnterAnim(R.animator.nav_default_enter_anim)
+        .setExitAnim(R.animator.nav_default_exit_anim)
+        .setPopEnterAnim(R.animator.nav_default_pop_enter_anim)
+        .setPopExitAnim(R.animator.nav_default_pop_exit_anim)
+    navController.navigate(itemId, null, builder.build())
+}

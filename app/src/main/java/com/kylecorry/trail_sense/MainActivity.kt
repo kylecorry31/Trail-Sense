@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,6 +38,7 @@ import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.onNavDestinationReselected
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
@@ -113,6 +115,9 @@ class MainActivity : AndromedaActivity() {
         navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setupWithNavController(navController)
+        bottomNavigation.setOnItemReselectedListener {
+            it.onNavDestinationReselected(findNavController())
+        }
 
         if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
             window.decorView.rootView.setBackgroundColor(Color.BLACK)
