@@ -1053,4 +1053,10 @@
     <string name="saved">Збережено</string>
     <string name="save">Зберегти</string>
     <string name="stride_length_walk">Ідіть по прямій, натисніть «Зупинити», коли закінчите</string>
+    <string name="activity_recognition_permission_denied">У дозволі на фізичну активність відмовлено, не вдається ввімкнути функції крокоміра. Ви можете увімкнути його в налаштуваннях.</string>
+    <string name="current_speed">Поточна швидкість</string>
+    <string name="current_speed_pedometer">Поточна швидкість (крокомір)</string>
+    <string name="current_speed_gps">Поточна швидкість (GPS)</string>
+    <string name="average_speed_pedometer">Середня швидкість (крокомір)</string>
+    <string name="average_speed_backtrack">Середня швидкість (історія маршруту)</string>
 </resources>

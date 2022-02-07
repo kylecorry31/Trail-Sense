@@ -261,7 +261,6 @@
     <string name="tool_cliff_height_disclaimer">Tool nur benutzen, wenn es sicher ist. Überprüfen, was sich unter der Klippe befindet, um Verletzungen zu vermeiden. Bedienungsanleitung lesen für Verwendungsanweisungen.</string>
     <string name="tool_cliff_height_description">Höhe einer Klippe oder Versenkung messen</string>
     <string name="tool_cliff_height_title">Höhe einer Klippe</string>
-
     <string name="category_safety">Sicherheit</string>
     <string name="category_shelter">Unterstand</string>
     <string name="category_fire">Feuer</string>
@@ -503,10 +502,6 @@
     <string name="onboarding_user_guide">Lerne mithilfe der Bedienungsanleitung, wie Sie die Funktionen von Trail Sense benutzt. Sie finden die Anleitung ganz unten im Tools-Tab.
 \n
 \nIn Zukunft wird es weitere Anleitungen geben.</string>
-
-
-
-
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
@@ -989,4 +984,61 @@
     <string name="high_tide_letter">F</string>
     <string name="low_tide_letter">E</string>
     <string name="tide_deleted">Gezeit gelöscht</string>
+    <string name="weather_improving">Wird besser</string>
+    <string name="weather_storm">Sturm</string>
+    <string name="activity_recognition_permission_denied">Körperliche-Aktivitäts-Berechtigung verweigert, kann Schrittzähler-Features nicht aktivieren. Sie können es in den Einstellungen aktivieren.</string>
+    <string name="estimated">Geschätzt</string>
+    <string name="disclaimer_estimated_tide">Geschätzte Gezeiten können ungenau sein. Bitte verwenden Sie eine offizielle Gezeitentabelle für die genauen Zeiten.</string>
+    <string name="onboarding_explore">- Entwickelt für Wandern, Backpacken, Campen und Geocaching
+\n
+\n- Wegpunkte platzieren und zu ihnen navigieren
+\n
+\n- Pfaden folgen
+\n
+\n- Schritte mit Rückweg zurückgehen
+\n
+\n- Planen, was einzupacken ist
+\n
+\n- Vor dem Sonnenuntergang gewarnt werden
+\n
+\n- Wetter vorhersagen
+\n
+\n- als Taschenlampe verwenden
+\n
+\n- und noch vieles mehr!</string>
+    <string name="steps">Schritte</string>
+    <string name="soon">Bald</string>
+    <string name="off">Aus</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d Gezeit</item>
+        <item quantity="other">%d Gezeiten</item>
+    </plurals>
+    <string name="since_time">seit %s</string>
+    <string name="humidity_history">Luftfeuchtigkeitsverlauf - letzte %s</string>
+    <string name="temperature_history">Temperaturverlauf - letzte %s</string>
+    <string name="disclaimer_estimated_tide_title">Geschätzte Gezeit</string>
+    <string name="tool_temperature_estimation_title">Temperaturschätzung</string>
+    <string name="tool_temperature_estimation_description">Temperatur in einer anderen Höhenlage schätzen</string>
+    <string name="pref_weather_show_temperature_title">Temperatur anzeigen</string>
+    <string name="pressure_tendency">Tendenz</string>
+    <string name="explore">Erkunden</string>
+    <string name="average_speed">Durchschnittsgeschwindigkeit</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="remove_distance_alert">Distanzwarnung (%s) entfernen\?</string>
+    <string name="distance_alert_distance_reached">Sie haben %s erreicht</string>
+    <string name="save">Speichern</string>
+    <string name="saved">Gespeichert</string>
+    <string name="estimate_stride_length">Geschätzte Schrittlänge</string>
+    <string name="stride_length_stand_still">Still stehen</string>
+    <string name="stride_length_walk">Auf einer geraden Linie laufen, Stopp drücken, wenn Sie fertig sind</string>
+    <string name="current_speed">Aktuelle Geschwindigkeit</string>
+    <string name="current_speed_pedometer">Aktuelle Geschwindigkeit (Schrittzähler)</string>
+    <string name="current_speed_gps">Aktuelle Geschwindigkeit (GPS)</string>
+    <string name="average_speed_pedometer">Durchschnittsgeschwindigkeit (Schrittzähler)</string>
+    <string name="average_speed_backtrack">Durchschnittsgeschwindigkeit (Rückweg)</string>
+    <string name="weather_worsening">Wird schlechter</string>
+    <string name="weather_unchanging">Unverändert</string>
+    <string name="very_soon">Sehr bald</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Distanzwarnung</string>
 </resources>
