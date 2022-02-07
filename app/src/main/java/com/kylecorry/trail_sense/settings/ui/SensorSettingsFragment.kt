@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.settings.ui
 
+import android.hardware.Sensor
 import android.os.Bundle
 import android.text.InputType
 import com.kylecorry.andromeda.core.system.Resources
@@ -31,6 +32,7 @@ class SensorSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         preference(R.string.pref_barometer_calibration)?.isVisible = Sensors.hasBarometer(requireContext())
+        preference(R.string.pref_odometer_calibration)?.isVisible = Sensors.hasSensor(requireContext(), Sensor.TYPE_STEP_COUNTER)
 
         editText(R.string.pref_ruler_calibration)
             ?.setOnBindEditTextListener { editText ->

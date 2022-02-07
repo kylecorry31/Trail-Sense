@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.guide.infrastructure
 
 import android.content.Context
+import android.hardware.Sensor
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
@@ -72,7 +73,7 @@ object Guides {
         )
 
         val tools = UserGuideCategory(
-            context.getString(R.string.tools), listOf(
+            context.getString(R.string.tools), listOfNotNull(
                 UserGuide(
                     context.getString(R.string.guide_packing_list),
                     null,
@@ -83,11 +84,12 @@ object Guides {
                     context.getString(R.string.tool_clinometer_summary),
                     R.raw.clinometer
                 ),
-                UserGuide(
-                    context.getString(R.string.pedometer),
-                    null,
-                    R.raw.pedometer
-                ),
+                if (Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER))
+                    UserGuide(
+                        context.getString(R.string.pedometer),
+                        null,
+                        R.raw.pedometer
+                    ) else null,
                 UserGuide(
                     context.getString(R.string.cliff_height_guide),
                     null,

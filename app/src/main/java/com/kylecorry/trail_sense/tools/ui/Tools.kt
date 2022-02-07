@@ -20,6 +20,7 @@ object Tools {
     fun getTools(context: Context): List<ToolGroup> {
         val prefs = UserPreferences(context)
         val hasLightMeter = Sensors.hasSensor(context, Sensor.TYPE_LIGHT)
+        val hasPedometer = Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER)
         val signaling = ToolGroup(
             context.getString(R.string.tool_category_signaling), listOf(
                 Tool(
@@ -41,11 +42,11 @@ object Tools {
                     R.drawable.ruler,
                     R.id.action_action_experimental_tools_to_rulerFragment
                 ),
-                Tool(
+                if (hasPedometer) Tool(
                     context.getString(R.string.pedometer),
                     R.drawable.steps,
                     R.id.action_tools_to_pedometer
-                ),
+                ) else null,
                 Tool(
                     context.getString(R.string.tool_cliff_height_title),
                     R.drawable.ic_tool_cliff_height,
