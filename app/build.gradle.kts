@@ -14,7 +14,7 @@ android {
         minSdk = 23
         targetSdk = 30
         versionCode = 68
-        versionName = "3.6.0"
+        versionName = "3.5.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -73,7 +73,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.4.1")
     implementation("androidx.room:room-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-service:2.4.0")
-    val cameraxVersion = "1.0.1"
+    val cameraxVersion = "1.1.0-beta01"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:1.1.0-beta01")
@@ -85,7 +85,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.7.0")
 
     // Andromeda
-    val andromedaVersion = "2.7.1"
+    val andromedaVersion = "2.7.2"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
