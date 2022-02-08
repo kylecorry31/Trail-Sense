@@ -1009,7 +1009,7 @@
         <item quantity="many">%d припливів</item>
         <item quantity="other">%d припливів</item>
     </plurals>
-    <string name="average_speed">Середня швидкість</string>
+    <string name="average_speed">Сер. швидкість</string>
     <string name="steps">Кроки</string>
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
@@ -1057,6 +1057,7 @@
     <string name="current_speed">Поточна швидкість</string>
     <string name="current_speed_pedometer">Поточна швидкість (крокомір)</string>
     <string name="current_speed_gps">Поточна швидкість (GPS)</string>
-    <string name="average_speed_pedometer">Середня швидкість (крокомір)</string>
-    <string name="average_speed_backtrack">Середня швидкість (історія маршруту)</string>
+    <string name="average_speed_pedometer">Сер. швидкість (крокомір)</string>
+    <string name="average_speed_backtrack">Сер. швидкість (історія маршруту)</string>
+    <string name="reset_distance_title">Скинути відстань\?</string>
 </resources>
