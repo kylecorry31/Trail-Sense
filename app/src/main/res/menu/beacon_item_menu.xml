@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_view_beacon"
-        android:title="@string/beacon_action_view_details" />
+        android:id="@+id/action_navigate_beacon"
+        android:title="@string/navigate" />
     <item
         android:id="@+id/action_send"
         android:title="@string/share_ellipsis" />

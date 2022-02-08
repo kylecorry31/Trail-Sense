@@ -125,14 +125,18 @@ class BeaconListItem(
         }
 
         view.setOnClickListener {
-            onNavigate()
+            onView()
         }
 
+        view.setOnLongClickListener {
+            onNavigate()
+            true
+        }
 
         val menuListener = PopupMenu.OnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_view_beacon -> {
-                    onView()
+                R.id.action_navigate_beacon -> {
+                    onNavigate()
                 }
                 R.id.action_send -> {
                     BeaconSender(fragment).send(beacon)
