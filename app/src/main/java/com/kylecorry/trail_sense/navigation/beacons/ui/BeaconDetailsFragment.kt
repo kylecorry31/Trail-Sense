@@ -64,15 +64,17 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                     }
 
                     binding.navigateBtn.setOnClickListener {
-                        val bundle = bundleOf("destination" to (beacon?.id ?: 0L))
+                        val bundle = bundleOf("destination" to id)
                         findNavController().navigate(
                             R.id.action_beaconDetailsFragment_to_action_navigation,
                             bundle
                         )
                     }
 
+                    binding.editBtn.isVisible = !temporary
+
                     binding.editBtn.setOnClickListener {
-                        val bundle = bundleOf("edit_beacon" to (beacon?.id ?: 0L))
+                        val bundle = bundleOf("edit_beacon" to id)
                         findNavController().navigate(
                             R.id.action_beacon_details_to_beacon_edit,
                             bundle

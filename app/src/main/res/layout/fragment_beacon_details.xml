@@ -72,7 +72,6 @@
             android:id="@+id/navigate_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:text="@string/navigate"
             app:icon="@drawable/ic_beacon" />
 
@@ -80,6 +79,7 @@
             android:id="@+id/edit_btn"
             android:layout_width="38dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             app:icon="@drawable/ic_edit"

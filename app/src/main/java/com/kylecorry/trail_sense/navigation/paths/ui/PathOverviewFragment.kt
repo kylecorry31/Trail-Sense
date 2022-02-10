@@ -23,12 +23,18 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconNavigator
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.IBeaconNavigator
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.beacon.IPathPointBeaconConverter
+import com.kylecorry.trail_sense.navigation.paths.domain.beacon.TemporaryPathPointBeaconConverter
 import com.kylecorry.trail_sense.navigation.paths.domain.factories.*
+import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.SelectedPointDecorator
@@ -69,6 +75,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
+
+    private val converter: IPathPointBeaconConverter by lazy {
+        TemporaryPathPointBeaconConverter(
+            getString(R.string.waypoint)
+        )
+    }
+
+    private val beaconNavigator: IBeaconNavigator by lazy {
+        BeaconNavigator(BeaconService(requireContext()), findNavController())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +137,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             viewPoints()
         }
 
+        binding.navigateBtn.setOnClickListener {
+            navigateToNearestPathPoint()
+        }
+
         binding.pathTitle.rightQuickAction.setOnClickListener {
             showPathMenu()
         }
@@ -129,16 +149,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             viewWaypoint(it)
         }
 
-        pathService.getLivePath(pathId).observe(viewLifecycleOwner, {
+        pathService.getLivePath(pathId).observe(viewLifecycleOwner) {
             path = it
 
             updateElevationPlot()
             updatePointStyleLegend()
             updatePathMap()
             onPathChanged()
-        })
+        }
 
-        pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner, {
+        pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner) {
             waypoints = it.sortedByDescending { p -> p.id }
             val selected = selectedPointId
             if (selected != null && waypoints.find { it.id == selected } == null) {
@@ -152,16 +172,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             updatePathMap()
             updatePointStyleLegend()
             onPathChanged()
-        })
+        }
 
-        gps.asLiveData().observe(viewLifecycleOwner, {
+        gps.asLiveData().observe(viewLifecycleOwner) {
             compass.declination = getDeclination()
             onPathChanged()
-        })
+        }
 
-        compass.asLiveData().observe(viewLifecycleOwner, {
+        compass.asLiveData().observe(viewLifecycleOwner) {
             onPathChanged()
-        })
+        }
 
         binding.pathLineStyle.setOnClickListener {
             val path = path ?: return@setOnClickListener
@@ -238,6 +258,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 PathAction.Keep -> keepPath(path)
                 PathAction.ToggleVisibility -> togglePathVisibility(path)
                 PathAction.Simplify -> simplifyPath(path)
+                else -> {
+                    // Do nothing
+                }
             }
             true
         }
@@ -451,12 +474,27 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun navigateToWaypoint(point: PathPoint) {
         val path = path ?: return
         val command = NavigateToPointCommand(
-            requireContext(),
             lifecycleScope,
-            findNavController()
+            converter,
+            beaconNavigator
         )
         tryOrNothing {
             command.execute(path, point)
+        }
+    }
+
+    private fun navigateToNearestPathPoint() {
+        val path = path ?: return
+        val points = waypoints
+        val command = NavigateToPathCommand(
+            NearestPathPointNavigator(),
+            gps,
+            converter,
+            beaconNavigator
+        )
+
+        runInBackground {
+            command.execute(path, points)
         }
     }
 
