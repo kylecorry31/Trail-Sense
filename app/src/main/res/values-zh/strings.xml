@@ -1030,4 +1030,5 @@
     <string name="activity_recognition_permission_denied">身体活动权限被拒绝，无法打开计步器功能。你可以在设置中启用它。</string>
     <string name="current_speed_pedometer">当前速度（计步器）</string>
     <string name="current_speed">当前速度</string>
+    <string name="reset_distance_title">重设距离？</string>
 </resources>

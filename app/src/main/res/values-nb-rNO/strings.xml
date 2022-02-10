@@ -915,11 +915,12 @@
     <string name="stride_length_walk">Gå i en rett linje, trykk stopp når du er ferdig</string>
     <string name="save">Lagre</string>
     <string name="estimate_stride_length">Beregn skrittlengde</string>
-    <string name="current_speed_pedometer">Gjeldende hastighet (Pedometer)</string>
+    <string name="current_speed_pedometer">Gjeldende hastighet (Skritteller)</string>
     <string name="current_speed_gps">Gjeldende hastighet (GPS)</string>
     <string name="average_speed_backtrack">Gjennomsnittshastighet (Tilbakesporing)</string>
     <string name="average_speed">Gjennomsnittshastighet</string>
-    <string name="average_speed_pedometer">Gjennomsnittshastighet (Pedometer)</string>
+    <string name="average_speed_pedometer">Gjennomsnittshastighet (Skritteller)</string>
     <string name="current_speed">Gjeldende hastighet</string>
-    <string name="activity_recognition_permission_denied">Fysisk aktivitetstillatelse avslått, kan ikke slå på pedometerfunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
+    <string name="activity_recognition_permission_denied">Fysisk aktivitetstillatelse avslått, kan ikke slå på skrittellerfunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
+    <string name="reset_distance_title">Nullstille distanse\?</string>
 </resources>
