@@ -16,7 +16,7 @@ class BeaconNavigator(
     override suspend fun navigateTo(beacon: Beacon) {
         val id = if (beacon.id == 0L) {
             withContext(Dispatchers.IO) {
-                beaconService.addBeacon(beacon)
+                beaconService.add(beacon)
             }
         } else {
             beacon.id

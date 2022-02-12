@@ -6,10 +6,9 @@ import android.widget.PopupMenu
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ class BeaconGroupListItem(
     var onDeleted: () -> Unit = {}
     var onEdit: () -> Unit = {}
 
-    private val repo by lazy { BeaconRepo.getInstance(view.context) }
+    private val service by lazy { BeaconService(view.context) }
 
     init {
         val binding = ListItemBeaconBinding.bind(view)
@@ -35,7 +34,7 @@ class BeaconGroupListItem(
         binding.beaconImage.imageTintList = ColorStateList.valueOf(AppColor.Orange.color)
         scope.launch {
             val count = withContext(Dispatchers.IO) {
-                repo.getBeaconsInGroup(group.id).size
+                service.getBeaconCount(group.id)
             }
 
             withContext(Dispatchers.Main) {
@@ -67,7 +66,7 @@ class BeaconGroupListItem(
                         if (!cancelled) {
                             scope.launch {
                                 withContext(Dispatchers.IO){
-                                    repo.deleteBeaconGroup(BeaconGroupEntity.from(group))
+                                    service.delete(group)
                                 }
 
                                 withContext(Dispatchers.Main){

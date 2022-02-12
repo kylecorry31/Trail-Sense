@@ -12,8 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -44,7 +43,7 @@ class BeaconListItem(
     private val navigationService = NavigationService()
     private val formatService by lazy { FormatService(view.context) }
     private val prefs by lazy { UserPreferences(view.context) }
-    private val repo by lazy { BeaconRepo.getInstance(view.context) }
+    private val service by lazy { BeaconService(view.context) }
 
     init {
         val binding = ListItemBeaconBinding.bind(view)
@@ -110,7 +109,7 @@ class BeaconListItem(
                 val newBeacon = beacon.copy(visible = !beaconVisibility)
 
                 withContext(Dispatchers.IO) {
-                    repo.addBeacon(BeaconEntity.from(newBeacon))
+                    service.add(newBeacon)
                 }
 
                 withContext(Dispatchers.Main) {
@@ -150,7 +149,7 @@ class BeaconListItem(
                         val newGroupId = if (it.id == -1L) null else it.id
                         scope.launch {
                             withContext(Dispatchers.IO) {
-                                repo.addBeacon(BeaconEntity.from(beacon.copy(beaconGroupId = newGroupId)))
+                                service.add(beacon.copy(beaconGroupId = newGroupId))
                             }
 
                             withContext(Dispatchers.Main) {
@@ -175,7 +174,7 @@ class BeaconListItem(
                         if (!cancelled) {
                             scope.launch {
                                 withContext(Dispatchers.IO) {
-                                    repo.deleteBeacon(BeaconEntity.from(beacon))
+                                    service.delete(beacon)
                                 }
 
                                 withContext(Dispatchers.Main) {

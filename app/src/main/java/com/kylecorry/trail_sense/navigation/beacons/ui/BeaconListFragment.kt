@@ -26,10 +26,13 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.distance.BeaconDistanceCalculatorFactory
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxConverter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestBeaconSort
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -56,6 +59,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private var displayedGroup: BeaconGroup? = null
+    private val beaconService by lazy { BeaconService(requireContext()) }
+    private val distanceFactory by lazy { BeaconDistanceCalculatorFactory(beaconService) }
 
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
@@ -114,7 +119,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             when (it.itemId) {
                 R.id.action_import_qr_beacon -> {
                     requestCamera { hasPermission ->
-                        if (hasPermission){
+                        if (hasPermission) {
                             importBeaconFromQR()
                         } else {
                             alertNoCameraPermission()
@@ -339,59 +344,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             return
         }
 
-        val beacons = withContext(Dispatchers.IO) {
-            val search = binding.searchbox.query
-            if (!search.isNullOrBlank()) {
-                val all = if (displayedGroup != null) {
-                    beaconRepo.searchBeaconsInGroup(
-                        binding.searchbox.query.toString(),
-                        displayedGroup?.id
-                    )
-                } else {
-                    beaconRepo.searchBeacons(binding.searchbox.query.toString())
-                }
-                all.sortedBy {
-                    it.coordinate.distanceTo(gps.location)
-                }.map { it.toBeacon() }
-            } else if (displayedGroup == null) {
-                val ungrouped = beaconRepo.getBeaconsInGroup(null).sortedBy {
-                    it.coordinate.distanceTo(gps.location)
-                }.map { it.toBeacon() }
-
-                val groups = beaconRepo.getGroupsSync().sortedBy {
-                    it.name
-                }.map { it.toBeaconGroup() }
-
-                val signal =
-                    if (prefs.navigation.showLastSignalBeacon && prefs.backtrackSaveCellHistory) {
-                        beaconRepo.getTemporaryBeacon(BeaconOwner.CellSignal)?.toBeacon()
-                    } else {
-                        null
-                    }
-
-                val all = (ungrouped + groups + listOfNotNull(signal)).map {
-                    if (it is Beacon) {
-                        Pair(it, it.coordinate.distanceTo(gps.location))
-                    } else {
-                        val groupBeacons = beaconRepo.getBeaconsInGroup(it.id).map { b ->
-                            b.coordinate.distanceTo(gps.location)
-                        }.minOrNull()
-                        Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
-                    }
-                }
-
-                all.sortedBy { it.second }.map { it.first }
-            } else {
-                beaconRepo.getBeaconsInGroup(displayedGroup?.id).sortedBy {
-                    it.coordinate.distanceTo(gps.location)
-                }.map { it.toBeacon() }
-            }
-        }
+        val beacons = getBeacons()
 
         withContext(Dispatchers.Main) {
             context ?: return@withContext
             binding.beaconTitle.title.text =
-                displayedGroup?.name ?: getString(R.string.select_beacon)
+                displayedGroup?.name ?: getString(R.string.beacons)
             updateBeaconEmptyText(beacons.isNotEmpty())
             beaconList.setData(beacons)
             if (resetScroll) {
@@ -509,5 +467,43 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     ): FragmentBeaconListBinding {
         return FragmentBeaconListBinding.inflate(layoutInflater, container, false)
     }
+
+
+    private suspend fun getBeacons(): List<IBeacon> = withContext(Dispatchers.IO) {
+        val sort = NearestBeaconSort(distanceFactory, gps::location)
+        val search = binding.searchbox.query?.toString()
+        val group = displayedGroup?.id
+        val beacons = if (search.isNullOrBlank()) {
+            getBeaconsByGroup(group)
+        } else {
+            getBeaconsBySearch(search, group)
+        }
+        sort.sort(beacons)
+    }
+
+    private suspend fun getBeaconsBySearch(search: String, groupFilter: Long?) = withContext(Dispatchers.IO){
+        if (groupFilter != null) {
+            beaconRepo.searchBeaconsInGroup(
+                search,
+                groupFilter
+            )
+        } else {
+            beaconRepo.searchBeacons(search)
+        }.map { it.toBeacon() }
+    }
+
+    private suspend fun getBeaconsByGroup(group: Long?) = withContext(Dispatchers.IO){
+        val signal = if (group == null) getLastSignalBeacon() else null
+        (beaconService.getBeacons(displayedGroup?.id) + signal).mapNotNull { it }
+    }
+
+    private suspend fun getLastSignalBeacon(): Beacon? {
+        return if (prefs.navigation.showLastSignalBeacon && prefs.backtrackSaveCellHistory) {
+            beaconService.getTemporaryBeacon(BeaconOwner.CellSignal)
+        } else {
+            null
+        }
+    }
+
 }
 

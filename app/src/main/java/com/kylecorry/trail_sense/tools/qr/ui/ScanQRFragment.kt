@@ -140,7 +140,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private fun createBeacon(text: String) {
         val beacon = beaconQREncoder.decode(text) ?: return
         runInBackground {
-            val id = BeaconService(requireContext()).addBeacon(beacon)
+            val id = BeaconService(requireContext()).add(beacon)
             CustomUiUtils.snackbar(
                 this@ScanQRFragment,
                 getString(R.string.beacon_created),
