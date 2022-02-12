@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +52,7 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
             }
         }
 
-        CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+        promptIfUnsavedChanges(this::hasChanges)
     }
 
     private fun hasChanges(): Boolean {

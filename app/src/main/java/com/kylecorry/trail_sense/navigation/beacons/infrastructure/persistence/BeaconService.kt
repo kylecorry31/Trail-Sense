@@ -18,10 +18,31 @@ class BeaconService(context: Context) : IBeaconService {
         return repo.addBeacon(BeaconEntity.from(beacon))
     }
 
-    override suspend fun getBeacons(groupId: Long?, includeGroups: Boolean): List<IBeacon> {
+    override suspend fun getBeacons(
+        groupId: Long?,
+        includeGroups: Boolean,
+        includeChildren: Boolean,
+        includeParent: Boolean
+    ): List<IBeacon> {
+        // TODO: Include children
         val beacons = getBeaconsWithParent(groupId)
         val groups = if (includeGroups) getGroupsWithParent(groupId) else emptyList()
-        return beacons + groups
+
+        val parent = if (includeParent && groupId != null){
+            getGroup(groupId)
+        } else {
+            null
+        }
+
+        return (beacons + groups + parent).filterNotNull()
+    }
+
+    override suspend fun getGroup(groupId: Long): BeaconGroup? {
+        return repo.getGroup(groupId)?.toBeaconGroup()
+    }
+
+    override suspend fun getBeacon(beaconId: Long): Beacon? {
+        return repo.getBeacon(beaconId)?.toBeacon()
     }
 
     private suspend fun getBeaconsWithParent(groupId: Long?): List<Beacon> {
@@ -43,6 +64,21 @@ class BeaconService(context: Context) : IBeaconService {
     override suspend fun getBeaconCount(groupId: Long?): Int {
         // TODO: Don't actually fetch the beacons for this
         return getBeaconsWithParent(groupId).count()
+    }
+
+    override suspend fun search(
+        nameFilter: String,
+        groupFilter: Long?,
+        applyGroupFilterIfNull: Boolean
+    ): List<IBeacon> {
+        return if (groupFilter != null || applyGroupFilterIfNull) {
+            repo.searchBeaconsInGroup(
+                nameFilter,
+                groupFilter
+            )
+        } else {
+            repo.searchBeacons(nameFilter)
+        }.map { it.toBeacon() }
     }
 
     override suspend fun delete(group: BeaconGroup) {

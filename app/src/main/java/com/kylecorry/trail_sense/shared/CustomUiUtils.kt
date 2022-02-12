@@ -8,13 +8,10 @@ import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LifecycleOwner
 import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -90,37 +87,6 @@ object CustomUiUtils {
             Quality.Moderate -> AppColor.Yellow.color
             Quality.Good -> AppColor.Green.color
         }
-    }
-
-    fun promptIfUnsavedChanges(
-        activity: FragmentActivity,
-        owner: LifecycleOwner,
-        hasChanges: () -> Boolean
-    ): OnBackPressedCallback {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (hasChanges()) {
-                    Alerts.dialog(
-                        activity,
-                        activity.getString(R.string.unsaved_changes),
-                        activity.getString(R.string.unsaved_changes_message),
-                        okText = activity.getString(R.string.dialog_leave)
-                    ) { cancelled ->
-                        if (!cancelled) {
-                            remove()
-                            activity.onBackPressed()
-                        }
-                    }
-                } else {
-                    remove()
-                    activity.onBackPressed()
-                }
-            }
-        }
-
-        activity.onBackPressedDispatcher.addCallback(owner, callback)
-
-        return callback
     }
 
     fun pickDistance(

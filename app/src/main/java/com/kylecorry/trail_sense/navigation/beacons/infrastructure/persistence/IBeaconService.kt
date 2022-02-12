@@ -10,9 +10,22 @@ interface IBeaconService {
     suspend fun add(beacon: Beacon): Long
 
     // Get
-    suspend fun getBeacons(groupId: Long?, includeGroups: Boolean = true): List<IBeacon>
+    suspend fun getBeacons(
+        groupId: Long?,
+        includeGroups: Boolean = true,
+        includeChildren: Boolean = false,
+        includeParent: Boolean = false
+    ): List<IBeacon>
+
+    suspend fun getGroup(groupId: Long): BeaconGroup?
+    suspend fun getBeacon(beaconId: Long): Beacon?
     suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon?
     suspend fun getBeaconCount(groupId: Long?): Int
+    suspend fun search(
+        nameFilter: String,
+        groupFilter: Long?,
+        applyGroupFilterIfNull: Boolean = false
+    ): List<IBeacon>
 
     // Delete
     suspend fun delete(group: BeaconGroup)

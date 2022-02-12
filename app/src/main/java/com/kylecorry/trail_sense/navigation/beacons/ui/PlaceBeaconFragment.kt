@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -254,8 +255,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             updateDoneButtonState()
         }
 
-        backCallback =
-            CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+        backCallback = promptIfUnsavedChanges(this::hasChanges)
 
         binding.placeBeaconBtn.setOnClickListener {
             val name = binding.beaconName.text.toString()

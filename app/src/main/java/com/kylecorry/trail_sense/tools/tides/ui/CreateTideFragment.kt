@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
@@ -209,8 +210,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             }
         }
 
-        backCallback =
-            CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+        backCallback = promptIfUnsavedChanges(this::hasChanges)
 
     }
 

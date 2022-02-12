@@ -13,8 +13,8 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
@@ -88,7 +88,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             binding.categorySelectSpinner.setSelection(0)
         }
 
-        CustomUiUtils.promptIfUnsavedChanges(requireActivity(), this, this::hasChanges)
+        promptIfUnsavedChanges(this::hasChanges)
 
         if (itemId != 0L) {
             loadEditingItem(itemId)
