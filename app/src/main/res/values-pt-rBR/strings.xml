@@ -206,7 +206,7 @@
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
     <string name="clinometer_rotate_device">Segure seu celular na vertical para medir a inclinação</string>
-    <string name="set_inclination_instructions">Toque em qualquer lugar para definir/anular o ângulo de inclinação</string>
+    <string name="set_inclination_instructions">Toque ou segure em qualquer lugar para bloquear/desbloquear</string>
     <string name="beacon_action_view_details">Ver os detalhes</string>
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
@@ -306,7 +306,6 @@
     <string name="tool_cliff_height_description">Medir a altura de um penhasco ou queda</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
     <string name="toast_destination_bearing_set">Orientação do destino definida</string>
-
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -417,10 +416,6 @@
 \n
 \nMais guias estarão disponíveis em breve.</string>
     <string name="privacy_and_location">Privacidade e localização</string>
-
-
-
-
     <string name="cirrus_desc">Nuvens altas e finas que parecem tufos de cabelo branco.</string>
     <string name="cirrocumulus_desc">Nuvens de alto nível que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
     <string name="stratocumulus_desc">Nuvens baixas que parecem uma folha de bolas de algodão com pequenas aberturas. A cor varia do branco ao cinza escuro.</string>
@@ -920,4 +915,10 @@
     <string name="notification_backtrack_update_content">Registrando sua localização</string>
     <string name="paths">Caminhos</string>
     <string name="keep_forever">Mantenha para sempre</string>
+    <string name="very_soon">Muito em breve</string>
+    <string name="soon">Em breve</string>
+    <string name="weather_unchanging">Imutável</string>
+    <string name="weather_storm">Tempestade</string>
+    <string name="weather_improving">Melhorando</string>
+    <string name="weather_worsening">Piora</string>
 </resources>
