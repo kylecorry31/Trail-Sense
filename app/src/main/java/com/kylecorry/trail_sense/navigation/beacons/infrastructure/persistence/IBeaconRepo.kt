@@ -18,6 +18,7 @@ interface IBeaconRepo {
     suspend fun deleteBeaconGroup(group: BeaconGroupEntity)
     fun getGroups(): LiveData<List<BeaconGroupEntity>>
     suspend fun getGroupsSync(): List<BeaconGroupEntity>
+    suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity>
     suspend fun getGroup(id: Long): BeaconGroupEntity?
 
 }

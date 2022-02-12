@@ -11,6 +11,9 @@ interface BeaconGroupDao {
     @Query("SELECT * FROM beacon_groups")
     suspend fun getAllSuspend(): List<BeaconGroupEntity>
 
+    @Query("SELECT * FROM beacon_groups WHERE parent IS :parent")
+    suspend fun getAllWithParent(parent: Long?): List<BeaconGroupEntity>
+
     @Query("SELECT * FROM beacon_groups WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): BeaconGroupEntity?
 

@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 
 class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
@@ -16,14 +16,16 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     override suspend fun searchBeacons(text: String): List<BeaconEntity> = beaconDao.search(text)
 
-    override suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity> = beaconDao.searchInGroup(text, groupId)
+    override suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity> =
+        beaconDao.searchInGroup(text, groupId)
 
     override suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity> =
         beaconDao.getAllInGroup(groupId)
 
     override suspend fun getBeacon(id: Long): BeaconEntity? = beaconDao.get(id)
 
-    override suspend fun getTemporaryBeacon(owner: BeaconOwner): BeaconEntity? = beaconDao.getTemporaryBeacon(owner.id)
+    override suspend fun getTemporaryBeacon(owner: BeaconOwner): BeaconEntity? =
+        beaconDao.getTemporaryBeacon(owner.id)
 
     override suspend fun deleteBeacon(beacon: BeaconEntity) = beaconDao.delete(beacon)
 
@@ -53,6 +55,8 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
     override fun getGroups(): LiveData<List<BeaconGroupEntity>> = beaconGroupDao.getAll()
 
     override suspend fun getGroupsSync(): List<BeaconGroupEntity> = beaconGroupDao.getAllSuspend()
+    override suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity> =
+        beaconGroupDao.getAllWithParent(parent)
 
     override suspend fun getGroup(id: Long): BeaconGroupEntity? = beaconGroupDao.get(id)
 

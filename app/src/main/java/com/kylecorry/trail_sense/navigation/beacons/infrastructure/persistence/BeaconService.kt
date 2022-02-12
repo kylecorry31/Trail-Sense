@@ -22,19 +22,43 @@ class BeaconService(context: Context) : IBeaconService {
         groupId: Long?,
         includeGroups: Boolean,
         includeChildren: Boolean,
-        includeParent: Boolean
+        includeRoot: Boolean
     ): List<IBeacon> {
-        // TODO: Include children
+        val all = mutableListOf<IBeacon>()
         val beacons = getBeaconsWithParent(groupId)
-        val groups = if (includeGroups) getGroupsWithParent(groupId) else emptyList()
+        val groups =
+            if (includeGroups || includeChildren) getGroupsWithParent(groupId) else emptyList()
 
-        val parent = if (includeParent && groupId != null){
+        val root = if (includeRoot && groupId != null) {
             getGroup(groupId)
         } else {
             null
         }
 
-        return (beacons + groups + parent).filterNotNull()
+        all.addAll(beacons)
+
+        if (root != null) {
+            all.add(root)
+        }
+
+        if (includeGroups) {
+            all.addAll(groups)
+        }
+
+        if (includeChildren) {
+            for (group in groups) {
+                all.addAll(
+                    getBeacons(
+                        group.id,
+                        includeGroups,
+                        includeChildren = true,
+                        includeRoot = false
+                    )
+                )
+            }
+        }
+
+        return all
     }
 
     override suspend fun getGroup(groupId: Long): BeaconGroup? {
@@ -50,11 +74,7 @@ class BeaconService(context: Context) : IBeaconService {
     }
 
     private suspend fun getGroupsWithParent(groupId: Long?): List<BeaconGroup> {
-        return if (groupId == null) {
-            repo.getGroupsSync().map { it.toBeaconGroup() }
-        } else {
-            emptyList()
-        }
+        return repo.getGroupsWithParent(groupId).map { it.toBeaconGroup() }
     }
 
     override suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon? {
@@ -63,7 +83,7 @@ class BeaconService(context: Context) : IBeaconService {
 
     override suspend fun getBeaconCount(groupId: Long?): Int {
         // TODO: Don't actually fetch the beacons for this
-        return getBeaconsWithParent(groupId).count()
+        return getBeacons(groupId, includeGroups = false, includeChildren = true).count()
     }
 
     override suspend fun search(

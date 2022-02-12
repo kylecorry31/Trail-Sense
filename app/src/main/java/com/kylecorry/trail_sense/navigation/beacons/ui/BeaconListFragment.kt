@@ -33,10 +33,13 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestBeaconSort
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -179,8 +182,13 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     setCreateMenuVisibility(false)
                 }
                 displayedGroup != null -> {
-                    displayedGroup = null
                     runInBackground {
+                        val parent = displayedGroup?.parentId
+                        displayedGroup = if (parent != null){
+                            onIO { beaconService.getGroup(parent) }
+                        } else {
+                            null
+                        }
                         updateBeaconList(true)
                     }
                 }
@@ -418,7 +426,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             displayedGroup?.id,
             includeGroups = true,
             includeChildren = true,
-            includeParent = true
+            includeRoot = true
         )
 
         val groups = all.filterIsInstance<BeaconGroup>()
@@ -459,7 +467,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private suspend fun getBeaconsByGroup(group: Long?) = onIO {
         val signal = if (group == null) getLastSignalBeacon() else null
-        (beaconService.getBeacons(displayedGroup?.id) + signal).filterNotNull()
+        (beaconService.getBeacons(displayedGroup?.id, includeGroups = true) + signal).filterNotNull()
     }
 
     private suspend fun getLastSignalBeacon(): Beacon? {
