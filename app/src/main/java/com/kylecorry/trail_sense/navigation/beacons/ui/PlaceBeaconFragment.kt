@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
@@ -23,14 +22,16 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +41,7 @@ import kotlinx.coroutines.withContext
 class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+    private val beaconService by lazy { BeaconService(requireContext()) }
     private lateinit var navController: NavController
 
     private val altimeter by lazy { sensorService.getAltimeter() }
@@ -52,17 +54,16 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private lateinit var backCallback: OnBackPressedCallback
 
-    private lateinit var groups: List<BeaconGroup>
     private var color = AppColor.Orange
 
     private var editingBeacon: Beacon? = null
     private var editingBeaconId: Long? = null
-    private var initialGroupId: Long? = null
-    private var initialGroupIndex = 0
     private var initialLocation: GeoUri? = null
     private val geoService = GeologyService()
 
     private var bearingTo: Bearing? = null
+
+    private var parent: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +77,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             beaconId
         }
 
-        initialGroupId = if (groupId == 0L) {
+        parent = if (groupId == 0L) {
             null
         } else {
             groupId
@@ -84,12 +85,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun setEditingBeaconValues(beacon: Beacon) {
-        if (beacon.parent != null) {
-            val idx = groups.indexOfFirst { it.id == editingBeacon?.parent }
-            if (idx != -1) {
-                binding.beaconGroupSpinner.setSelection(idx)
-            }
-        }
+        parent = beacon.parent
+        updateBeaconGroupName()
 
         binding.createBeaconTitle.title.text = getString(R.string.edit_beacon).capitalizeWords()
         color = AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
@@ -110,28 +107,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         updateDoneButtonState()
     }
 
-    private fun onGroupsLoaded() {
-        val adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.beacon_group_spinner_item,
-            R.id.beacon_group_name,
-            groups.map { it.name })
-        binding.beaconGroupSpinner.prompt = getString(R.string.group)
-        binding.beaconGroupSpinner.adapter = adapter
-        val idx = if (initialGroupId != null) {
-            val i = groups.indexOfFirst { it.id == initialGroupId }
-            if (i == -1) {
-                0
-            } else {
-                i
-            }
-        } else {
-            0
-        }
-        initialGroupIndex = idx
-        binding.beaconGroupSpinner.setSelection(idx)
-
-        // Load the editing beacon
+    private fun loadExistingBeacon() {
         // TODO: Prevent interaction until loaded
         editingBeaconId?.let {
             lifecycleScope.launch {
@@ -158,29 +134,19 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
         binding.beaconColor.imageTintList = ColorStateList.valueOf(color.color)
 
-        // TODO: Prevent interaction until groups loaded
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                groups =
-                    listOf(
-                        BeaconGroup(
-                            0,
-                            getString(R.string.no_group)
-                        )
-                    ) + beaconRepo.getGroupsSync().map { it.toBeaconGroup() }
-                        .sortedBy { it.name }
-            }
-
-            withContext(Dispatchers.Main) {
-                onGroupsLoaded()
-            }
-        }
+        // TODO: Prevent interaction until loaded
+        updateBeaconGroupName()
+        loadExistingBeacon()
 
         // Fill in the initial location information
         if (initialLocation != null) {
             binding.beaconName.setText(initialLocation!!.queryParameters.getOrDefault("label", ""))
             binding.beaconLocation.coordinate = initialLocation!!.coordinate
-            val altitude = initialLocation!!.altitude ?: initialLocation!!.queryParameters.getOrDefault("ele", "").toFloatOrNull()
+            val altitude =
+                initialLocation!!.altitude ?: initialLocation!!.queryParameters.getOrDefault(
+                    "ele",
+                    ""
+                ).toFloatOrNull()
             binding.beaconElevation.setText(
                 if (altitude != null) {
                     val dist = Distance.meters(altitude)
@@ -249,6 +215,15 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             updateDoneButtonState()
         }
 
+        binding.beaconGroupPicker.setOnClickListener {
+            CustomUiUtils.pickBeaconGroup(requireContext(), null) { cancelled, groupId ->
+                if (!cancelled) {
+                    parent = groupId
+                    updateBeaconGroupName()
+                }
+            }
+        }
+
         binding.bearingToBtn.setOnClickListener {
             bearingTo = compass.bearing
             binding.bearingTo.text = formatService.formatDegrees(bearingTo?.value ?: 0f)
@@ -285,14 +260,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             }
 
             if (name.isNotBlank() && coordinate != null) {
-                val groupId = when (binding.beaconGroupSpinner.selectedItemPosition) {
-                    in 1 until groups.size -> {
-                        groups[binding.beaconGroupSpinner.selectedItemPosition].id
-                    }
-                    else -> {
-                        null
-                    }
-                }
                 val beacon = if (editingBeacon == null) {
                     Beacon(
                         0,
@@ -300,7 +267,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                         coordinate,
                         true,
                         comment,
-                        groupId,
+                        parent,
                         elevation,
                         color = color.color
                     )
@@ -311,7 +278,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                         coordinate,
                         editingBeacon!!.visible,
                         comment,
-                        groupId,
+                        parent,
                         elevation,
                         color = color.color
                     )
@@ -435,18 +402,9 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             binding.beaconLocation.coordinate
         }
 
-        val groupId = when (binding.beaconGroupSpinner.selectedItemPosition) {
-            in 1 until groups.size -> {
-                groups[binding.beaconGroupSpinner.selectedItemPosition].id
-            }
-            else -> {
-                null
-            }
-        }
-
         return !nothingEntered() && (name != editingBeacon?.name || coordinate != editingBeacon?.coordinate ||
                 comment != editingBeacon?.comment || elevation != editingBeacon?.elevation ||
-                groupId != editingBeacon?.parent)
+                parent != editingBeacon?.parent)
     }
 
     private fun nothingEntered(): Boolean {
@@ -459,10 +417,26 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         val comment = binding.comment.text.toString()
         val elevation = binding.beaconElevation.text.toString()
         val location = binding.beaconLocation.coordinate
-        val group = binding.beaconGroupSpinner.selectedItemPosition
 
-        return name.isBlank() && !createAtDistance && comment.isBlank() && elevation.isBlank() && location == null && group == initialGroupIndex
+        return name.isBlank() && !createAtDistance && comment.isBlank() && elevation.isBlank() && location == null && parent == null
 
+    }
+
+    private fun updateBeaconGroupName() {
+        val parent = parent
+        runInBackground {
+            val name = onIO {
+                if (parent == null) {
+                    getString(R.string.no_group)
+                } else {
+                    beaconService.getGroup(parent)?.name ?: ""
+                }
+            }
+
+            onMain {
+                binding.beaconGroup.text = name
+            }
+        }
     }
 
     override fun generateBinding(

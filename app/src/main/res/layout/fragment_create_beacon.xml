@@ -107,16 +107,35 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/beacon_group_spinner"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/beacon_group_picker"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:spinnerMode="dialog"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bearing_to_holder" />
+                app:layout_constraintTop_toBottomOf="@id/bearing_to_holder">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    app:srcCompat="@drawable/ic_beacon_group"
+                    app:tint="@color/orange" />
+
+                <TextView
+                    android:id="@+id/beacon_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_group"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/beacon_color_picker"
@@ -131,7 +150,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/beacon_group_spinner">
+                app:layout_constraintTop_toBottomOf="@id/beacon_group_picker">
 
                 <ImageView
                     android:id="@+id/beacon_color"
