@@ -1063,4 +1063,7 @@
     <string name="stride_length_walk">Идите по прямой линии, нажмите \"стоп\", когда закончите</string>
     <string name="current_speed_pedometer">Текущая скорость (шагомер)</string>
     <string name="average_speed_backtrack">Средняя скорость (история маршрута)</string>
+    <string name="reset_distance_title">Сбросить расстояние\?</string>
+    <string name="navigating_to_nearest_path_point">Навигация к ближайшей точке маршрута</string>
+    <string name="beacons">Маячки</string>
 </resources>
