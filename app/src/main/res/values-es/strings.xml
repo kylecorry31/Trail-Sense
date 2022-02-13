@@ -726,7 +726,7 @@
     <string name="coordinates_tab">Coordenadas</string>
     <string name="no_groups">Sin grupos</string>
     <string name="move">Moverse</string>
-    <string name="beacon_moved_to">Movido a %s</string>
+    <string name="moved_to">Movido a %s</string>
     <string name="preview">Vista Previa</string>
     <string name="map_perspective_instructions">Delinear el mapa</string>
     <string name="map_rotate_instructions">Girar hasta que el norte apunte hacia arriba</string>

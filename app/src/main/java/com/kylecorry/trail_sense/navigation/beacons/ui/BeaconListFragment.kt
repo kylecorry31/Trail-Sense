@@ -282,6 +282,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     updateBeaconList()
                 }
             }
+            listItem.onMoved = {
+                runInBackground {
+                    updateBeaconList()
+                }
+            }
             listItem.onEdit = {
                 Pickers.text(
                     requireContext(),

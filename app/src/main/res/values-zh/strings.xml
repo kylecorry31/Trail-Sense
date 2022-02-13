@@ -624,7 +624,7 @@
     <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
     <string name="pref_barometer_pressure_smoothing_title">压强平滑</string>
     <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
-    <string name="beacon_moved_to">已移动到 %s</string>
+    <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
     <string name="no_groups">无群组</string>
     <string name="coordinates_tab">坐标</string>

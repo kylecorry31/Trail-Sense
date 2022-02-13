@@ -8,7 +8,7 @@
         android:title="@string/share_ellipsis" />
     <item
         android:id="@+id/action_move"
-        android:title="@string/move" />
+        android:title="@string/move_to" />
     <item
         android:id="@+id/action_delete_beacon"
         android:title="@string/delete" />

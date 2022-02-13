@@ -585,7 +585,7 @@
     <string name="map_rotate_instructions">Girar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Contornar o mapa</string>
     <string name="preview">Pré-visualização</string>
-    <string name="beacon_moved_to">Movido para %s</string>
+    <string name="moved_to">Movido para %s</string>
     <string name="move">Mover</string>
     <string name="no_groups">Sem grupos</string>
     <string name="coordinates_tab">Coordenadas</string>

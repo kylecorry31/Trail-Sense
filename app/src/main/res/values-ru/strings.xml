@@ -649,7 +649,7 @@
     <string name="pref_flashlight_toggle_with_system_title">Переключение с системой</string>
     <string name="map_rotate_instructions">Поворачивайте, пока север не будет направлен вверх</string>
     <string name="preview">Предпросмотр</string>
-    <string name="beacon_moved_to">Перемещено в %s</string>
+    <string name="moved_to">Перемещено в %s</string>
     <string name="move">Переместить</string>
     <string name="no_groups">Нет групп</string>
     <string name="coordinates_tab">Координаты</string>

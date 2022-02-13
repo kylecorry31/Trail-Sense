@@ -630,7 +630,7 @@
     <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
     <string name="battery_history">Pil geçmişi - son %s</string>
     <string name="no_data">Veri yok</string>
-    <string name="beacon_moved_to">%s\'a taşındı</string>
+    <string name="moved_to">%s\'a taşındı</string>
     <string name="move">Taşı</string>
     <string name="no_groups">Grup yok</string>
     <string name="coordinates_tab">Koordinatlar</string>

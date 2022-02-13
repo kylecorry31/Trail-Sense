@@ -4,6 +4,9 @@
         android:id="@+id/action_delete_beacon_group"
         android:title="@string/delete_beacon_group" />
     <item
+        android:id="@+id/action_move_beacon_group"
+        android:title="@string/move_to" />
+    <item
         android:id="@+id/action_edit_beacon_group"
         android:title="@string/edit_beacon_group" />
 </menu>

@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.MoveBeaconGroupCommand
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,7 @@ class BeaconGroupListItem(
     var onOpen: () -> Unit = {}
     var onDeleted: () -> Unit = {}
     var onEdit: () -> Unit = {}
+    var onMoved: () -> Unit = {}
 
     private val service by lazy { BeaconService(view.context) }
 
@@ -57,6 +59,10 @@ class BeaconGroupListItem(
                 R.id.action_edit_beacon_group -> {
                     onEdit()
                 }
+                R.id.action_move_beacon_group -> {
+                    val command = MoveBeaconGroupCommand(view.context, scope, service, onMoved)
+                    command.execute(group)
+                }
                 R.id.action_delete_beacon_group -> {
                     Alerts.dialog(
                         view.context,
@@ -65,11 +71,11 @@ class BeaconGroupListItem(
                     ) { cancelled ->
                         if (!cancelled) {
                             scope.launch {
-                                withContext(Dispatchers.IO){
+                                withContext(Dispatchers.IO) {
                                     service.delete(group)
                                 }
 
-                                withContext(Dispatchers.Main){
+                                withContext(Dispatchers.Main) {
                                     onDeleted()
                                 }
                             }

@@ -629,7 +629,7 @@
     <string name="pref_barometer_altitude_smoothing_title">Höhenglättung</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
     <string name="battery_capacity_format">%s mAh</string>
-    <string name="beacon_moved_to">Nach %s verschoben</string>
+    <string name="moved_to">Nach %s verschoben</string>
     <string name="move">Verschieben</string>
     <string name="no_groups">Keine Gruppen</string>
     <string name="coordinates_tab">Koordinaten</string>

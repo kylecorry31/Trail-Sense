@@ -635,7 +635,7 @@
     <string name="pref_flashlight_toggle_with_system_title">Alternar com o sistema</string>
     <string name="map_rotate_instructions">Rodar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Endireitar o mapa</string>
-    <string name="beacon_moved_to">Movido para %s</string>
+    <string name="moved_to">Movido para %s</string>
     <string name="move">Mover</string>
     <string name="no_groups">Sem grupos</string>
     <string name="coordinates_tab">Coordenadas</string>

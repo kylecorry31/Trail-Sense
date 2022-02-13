@@ -617,7 +617,7 @@
     <string name="map_rotate_instructions">Draai totdat het noorden omhoog wijst</string>
     <string name="map_perspective_instructions">Maak een overzicht van de kaart</string>
     <string name="preview">Voorbeeld</string>
-    <string name="beacon_moved_to">Verplaatst naar %s</string>
+    <string name="moved_to">Verplaatst naar %s</string>
     <string name="move">Verplaatsen</string>
     <string name="no_groups">Geen groepen</string>
     <string name="coordinates_tab">Coördinaten</string>

@@ -578,7 +578,7 @@
     <string name="backtrack_disabled_low_power_toast">Tilbakesporing er slått av i strømsparingsmodus</string>
     <string name="pref_backtrack_frequency_title">Tilbakesporingsintervall</string>
     <string name="backtrack_notification_channel_description">Posisjonsoppdateringer for tilbakesporing</string>
-    <string name="beacon_moved_to">Flyttet til %s</string>
+    <string name="moved_to">Flyttet til %s</string>
     <string name="beacon_export_error">Kunne ikke eksportere navigeringsmarkører</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d navigeringsmarkør eksportert</item>

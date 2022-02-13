@@ -169,7 +169,7 @@
     <string name="map_perspective_instructions">Zacrtajte kartu</string>
     <string name="preview">Pregled</string>
     <string name="move">Premjesti</string>
-    <string name="beacon_moved_to">Premješteno u %s</string>
+    <string name="moved_to">Premješteno u %s</string>
     <string name="no_groups">Nema grupa</string>
     <string name="coordinates_tab">Koordinati</string>
     <string name="distance">Razdaljina</string>

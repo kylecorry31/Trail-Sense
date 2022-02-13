@@ -161,7 +161,7 @@ class BeaconListItem(
                             withContext(Dispatchers.Main) {
                                 Alerts.toast(
                                     view.context,
-                                    view.context.getString(R.string.beacon_moved_to, groupName)
+                                    view.context.getString(R.string.moved_to, groupName)
                                 )
                                 onMoved()
                             }

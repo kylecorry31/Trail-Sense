@@ -788,7 +788,8 @@
     <string name="coordinates_tab">Coordinates</string>
     <string name="no_groups">No groups</string>
     <string name="move">Move</string>
-    <string name="beacon_moved_to">Moved to %s</string>
+    <string name="move_to">Move to</string>
+    <string name="moved_to">Moved to %s</string>
     <string name="preview">Preview</string>
     <string name="map_perspective_instructions">Outline the map</string>
     <string name="map_rotate_instructions">Rotate until North points up</string>
