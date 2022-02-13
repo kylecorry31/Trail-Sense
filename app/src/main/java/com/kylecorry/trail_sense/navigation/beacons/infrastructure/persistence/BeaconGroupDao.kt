@@ -20,9 +20,6 @@ interface BeaconGroupDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(beaconGroup: BeaconGroupEntity): Long
 
-    @Query("DELETE FROM beacon_groups WHERE parent IS :groupId")
-    suspend fun deleteInGroup(groupId: Long?)
-
     @Delete
     suspend fun delete(beaconGroup: BeaconGroupEntity)
 

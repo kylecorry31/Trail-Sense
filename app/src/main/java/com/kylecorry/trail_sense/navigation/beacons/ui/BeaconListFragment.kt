@@ -24,11 +24,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.distance.BeaconDistanceCalculatorFactory
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxConverter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
@@ -61,6 +61,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private var displayedGroup: BeaconGroup? = null
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val distanceFactory by lazy { BeaconDistanceCalculatorFactory(beaconService) }
+    private val beaconSort by lazy { NearestBeaconSort(distanceFactory, gps::location) }
+    private val beaconLoader by lazy { BeaconLoader(beaconSort, beaconService, prefs) }
 
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
@@ -430,35 +432,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
 
     private suspend fun getBeacons(): List<IBeacon> = onIO {
-        val sort = NearestBeaconSort(distanceFactory, gps::location)
-        val search = binding.searchbox.query?.toString()
-        val group = displayedGroup?.id
-        val beacons = if (search.isNullOrBlank()) {
-            getBeaconsByGroup(group)
-        } else {
-            getBeaconsBySearch(search, group)
-        }
-        sort.sort(beacons)
-    }
-
-    private suspend fun getBeaconsBySearch(search: String, groupFilter: Long?) = onIO {
-        beaconService.search(search, groupFilter, applyGroupFilterIfNull = false)
-    }
-
-    private suspend fun getBeaconsByGroup(group: Long?) = onIO {
-        val signal = if (group == null) getLastSignalBeacon() else null
-        (beaconService.getBeacons(
-            displayedGroup?.id,
-            includeGroups = true
-        ) + signal).filterNotNull()
-    }
-
-    private suspend fun getLastSignalBeacon(): Beacon? {
-        return if (prefs.navigation.showLastSignalBeacon && prefs.backtrackSaveCellHistory) {
-            beaconService.getTemporaryBeacon(BeaconOwner.CellSignal)
-        } else {
-            null
-        }
+        beaconLoader.load(binding.searchbox.query?.toString(), displayedGroup?.id)
     }
 
     private fun createBeacon(
