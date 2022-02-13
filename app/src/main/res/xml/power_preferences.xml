@@ -26,6 +26,13 @@
 
         <!--TODO: Allow user to decide what low power mode controls-->
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_start_on_boot"
+            app:singleLineTitle="false"
+            app:title="@string/pref_start_on_boot_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

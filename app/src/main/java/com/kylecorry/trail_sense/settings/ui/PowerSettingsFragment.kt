@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.receivers.StartOnBootController
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tiles.TileManager
@@ -26,9 +27,18 @@ class PowerSettingsFragment : AndromedaPreferenceFragment() {
             }
         }
 
+        onClick(switch(R.string.pref_start_on_boot)) {
+            val controller = StartOnBootController(requireContext())
+            if (prefs.power.startOnBoot) {
+                controller.enable()
+            } else {
+                controller.disable()
+            }
+        }
 
-        switch(R.string.pref_tiles_enabled)?.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-        onClick(switch(R.string.pref_tiles_enabled)){
+        switch(R.string.pref_tiles_enabled)?.isVisible =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+        onClick(switch(R.string.pref_tiles_enabled)) {
             TileManager().setTilesEnabled(requireContext(), prefs.power.areTilesEnabled)
         }
 

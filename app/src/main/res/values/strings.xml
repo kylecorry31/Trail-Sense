@@ -1182,6 +1182,8 @@
     <string name="reset_distance_title">Reset distance?</string>
     <string name="navigating_to_nearest_path_point">Navigating to nearest path point</string>
     <string name="beacons">Beacons</string>
+    <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
+    <string name="pref_start_on_boot_title">Start on boot</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

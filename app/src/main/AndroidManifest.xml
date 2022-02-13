@@ -26,6 +26,7 @@
         tools:node="remove" />
 
     <application
+        android:name=".TrailSenseApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -33,8 +34,7 @@
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".TrailSenseApplication">
+        android:theme="@style/AppTheme">
         <activity
             android:name="com.kylecorry.trail_sense.MainActivity"
             android:exported="true"
@@ -182,7 +182,7 @@
         <receiver
             android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
         <receiver
             android:name="com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true"
@@ -218,6 +218,12 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <!--Trail Sense handles rescheduling, this isn't needed-->
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            tools:remove="true" />
+
     </application>
 
 </manifest>
