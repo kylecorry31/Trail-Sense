@@ -8,54 +8,59 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.databinding.ViewBeaconGroupSelectBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import kotlinx.coroutines.*
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.AlphabeticalBeaconSort
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
-    LinearLayout(context, attrs) {
+class BeaconGroupSelectView(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
-    var location = Coordinate.zero
-        set(value) {
-            field = value
-            updateBeaconList()
-        }
-    private val beaconRepo by lazy { BeaconRepo.getInstance(this.context) }
-    private lateinit var beaconList: ListView<BeaconGroup>
-    private var allGroups: List<BeaconGroup> = listOf()
-    private lateinit var binding: ViewBeaconGroupSelectBinding
+    private var beaconList: ListView<BeaconGroup>
+    private var binding: ViewBeaconGroupSelectBinding
 
+    // TODO: Cancel the job on destroy
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
     var group: BeaconGroup? = null
 
-    private var changeListener: ((group: BeaconGroup?) -> Unit)? = null
-
+    private val beaconService by lazy { BeaconService(this.context) }
 
     init {
-        context?.let {
-            val view = inflate(it, R.layout.view_beacon_group_select, this)
-            binding = ViewBeaconGroupSelectBinding.bind(view)
-            beaconList =
-                ListView(
-                    binding.beaconRecycler,
-                    R.layout.list_item_plain_icon,
-                    this::updateBeaconGroupListItem
-                )
-            beaconList.addLineSeparator()
-            scope.launch {
-                loadGroups()
-            }
+        val view = inflate(context, R.layout.view_beacon_group_select, this)
+        binding = ViewBeaconGroupSelectBinding.bind(view)
+        beaconList =
+            ListView(
+                binding.beaconRecycler,
+                R.layout.list_item_plain_icon,
+                this::updateBeaconGroupListItem
+            )
+        beaconList.addLineSeparator()
+        binding.beaconGroupTitle.leftQuickAction.setOnClickListener {
+            loadGroup(group?.parentId)
         }
+        updateBeaconList()
     }
 
-    fun setOnBeaconGroupChangeListener(listener: ((group: BeaconGroup?) -> Unit)?) {
-        changeListener = listener
+    private fun loadGroup(groupId: Long?){
+        scope.launch {
+            group = onIO {
+                if (groupId != null) {
+                    beaconService.getGroup(groupId)
+                } else {
+                    null
+                }
+            }
+            updateBeaconList()
+        }
     }
 
     private fun updateBeaconGroupListItem(itemView: View, beacon: BeaconGroup) {
@@ -68,32 +73,28 @@ class BeaconGroupSelectView(context: Context?, attrs: AttributeSet?) :
         itemBinding.title.text = beacon.name
         itemBinding.root.setOnClickListener {
             group = beacon
-            changeListener?.invoke(group)
-        }
-    }
-
-    private suspend fun loadGroups() {
-        withContext(Dispatchers.IO) {
-            allGroups =
-                beaconRepo.getGroupsSync().map { it.toBeaconGroup() }.sortedBy { it.name }
-
-        }
-        withContext(Dispatchers.Main) {
             updateBeaconList()
         }
     }
 
     private fun updateBeaconList() {
-        context ?: return
-        binding.beaconEmptyText.isVisible = allGroups.isEmpty()
-        beaconList.setData(
-            allGroups + listOf(
-                BeaconGroup(
-                    -1,
-                    context.getString(R.string.no_group)
-                )
-            )
-        )
+        scope.launch {
+            val groups = getGroups()
+            onMain {
+                binding.beaconGroupTitle.title.text =
+                    group?.name ?: context.getString(R.string.no_group)
+                binding.beaconGroupTitle.leftQuickAction.isVisible = group != null
+                beaconList.setData(groups)
+                binding.beaconEmptyText.isVisible = groups.isEmpty()
+            }
+        }
+    }
+
+    private suspend fun getGroups(): List<BeaconGroup> = onIO {
+        val sort = AlphabeticalBeaconSort()
+        val group = group?.id
+        val groups = beaconService.getGroups(group)
+        sort.sort(groups).map { it as BeaconGroup }
     }
 
 }

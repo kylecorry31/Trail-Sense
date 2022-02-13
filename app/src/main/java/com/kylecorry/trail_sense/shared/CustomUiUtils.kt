@@ -26,7 +26,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
@@ -206,17 +205,19 @@ object CustomUiUtils {
     fun pickBeaconGroup(
         context: Context,
         title: String?,
-        onBeaconGroupPick: (group: BeaconGroup?) -> Unit
+        okText: String? = null,
+        onBeaconGroupPick: (cancelled: Boolean, groupId: Long?) -> Unit
     ) {
+        // TODO: Allow initial group selection
         val view = View.inflate(context, R.layout.view_beacon_group_select_prompt, null)
         val beaconSelect = view.findViewById<BeaconGroupSelectView>(R.id.prompt_beacon_groups)
-        val alert =
-            Alerts.dialog(context, title ?: "", contentView = view, okText = null) {
-                onBeaconGroupPick.invoke(beaconSelect.group)
-            }
-        beaconSelect?.setOnBeaconGroupChangeListener {
-            onBeaconGroupPick.invoke(it)
-            alert.dismiss()
+        Alerts.dialog(
+            context,
+            title ?: "",
+            contentView = view,
+            okText = okText ?: context.getString(android.R.string.ok)
+        ) { cancelled ->
+            onBeaconGroupPick.invoke(cancelled, beaconSelect.group?.id)
         }
     }
 

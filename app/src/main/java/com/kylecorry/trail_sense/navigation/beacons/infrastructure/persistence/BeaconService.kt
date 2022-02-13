@@ -31,7 +31,7 @@ class BeaconService(context: Context) : IBeaconService {
         val all = mutableListOf<IBeacon>()
         val beacons = getBeaconsWithParent(groupId)
         val groups =
-            if (includeGroups || includeChildren) getGroupsWithParent(groupId) else emptyList()
+            if (includeGroups || includeChildren) getGroups(groupId) else emptyList()
 
         val root = if (includeRoot && groupId != null) {
             getGroup(groupId)
@@ -77,8 +77,8 @@ class BeaconService(context: Context) : IBeaconService {
         return repo.getBeaconsInGroup(groupId).map { it.toBeacon() }
     }
 
-    private suspend fun getGroupsWithParent(groupId: Long?): List<BeaconGroup> {
-        return repo.getGroupsWithParent(groupId).map { it.toBeaconGroup() }
+    override suspend fun getGroups(parent: Long?): List<BeaconGroup> {
+        return repo.getGroupsWithParent(parent).map { it.toBeaconGroup() }
     }
 
     override suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon? {

@@ -19,6 +19,7 @@ interface IBeaconService {
     ): List<IBeacon>
 
     suspend fun getGroup(groupId: Long): BeaconGroup?
+    suspend fun getGroups(parent: Long?): List<BeaconGroup>
     suspend fun getBeacon(beaconId: Long): Beacon?
     suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon?
     suspend fun getBeaconCount(groupId: Long?): Int

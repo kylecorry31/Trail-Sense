@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -143,19 +144,24 @@ class BeaconListItem(
                 R.id.action_move -> {
                     CustomUiUtils.pickBeaconGroup(
                         view.context,
+                        null,
                         view.context.getString(R.string.move)
-                    ) {
-                        it ?: return@pickBeaconGroup
-                        val newGroupId = if (it.id == -1L) null else it.id
+                    ) { cancelled, groupId ->
+                        if (cancelled) return@pickBeaconGroup
                         scope.launch {
-                            withContext(Dispatchers.IO) {
-                                service.add(beacon.copy(parent = newGroupId))
+                            val groupName = onIO {
+                                service.add(beacon.copy(parent = groupId))
+                                if (groupId == null) {
+                                    view.context.getString(R.string.no_group)
+                                } else {
+                                    service.getGroup(groupId)?.name ?: ""
+                                }
                             }
 
                             withContext(Dispatchers.Main) {
                                 Alerts.toast(
                                     view.context,
-                                    view.context.getString(R.string.beacon_moved_to, it.name)
+                                    view.context.getString(R.string.beacon_moved_to, groupName)
                                 )
                                 onMoved()
                             }
