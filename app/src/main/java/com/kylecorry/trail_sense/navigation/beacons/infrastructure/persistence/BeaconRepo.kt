@@ -49,6 +49,7 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     override suspend fun deleteBeaconGroup(group: BeaconGroupEntity) {
         beaconDao.deleteInGroup(group.id)
+        beaconGroupDao.deleteInGroup(group.id)
         beaconGroupDao.delete(group)
     }
 

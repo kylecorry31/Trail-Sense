@@ -18,6 +18,10 @@ class BeaconService(context: Context) : IBeaconService {
         return repo.addBeacon(BeaconEntity.from(beacon))
     }
 
+    override suspend fun add(group: BeaconGroup): Long {
+        return repo.addBeaconGroup(BeaconGroupEntity.from(group))
+    }
+
     override suspend fun getBeacons(
         groupId: Long?,
         includeGroups: Boolean,

@@ -32,7 +32,7 @@ interface BeaconDao {
     @Delete
     suspend fun delete(beacon: BeaconEntity)
 
-    @Query("DELETE FROM beacons WHERE beacon_group_id = :groupId")
+    @Query("DELETE FROM beacons WHERE beacon_group_id is :groupId")
     suspend fun deleteInGroup(groupId: Long?)
 
     @Update

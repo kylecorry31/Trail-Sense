@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 interface IBeaconService {
     // Add
     suspend fun add(beacon: Beacon): Long
+    suspend fun add(group: BeaconGroup): Long
 
     // Get
     suspend fun getBeacons(
