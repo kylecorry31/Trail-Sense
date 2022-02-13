@@ -55,7 +55,7 @@ data class BeaconEntity(
                 beacon.coordinate.longitude,
                 beacon.visible,
                 beacon.comment,
-                beacon.beaconGroupId,
+                beacon.parent,
                 beacon.elevation,
                 beacon.temporary,
                 beacon.owner,

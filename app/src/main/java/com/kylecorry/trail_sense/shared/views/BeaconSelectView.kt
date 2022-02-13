@@ -109,7 +109,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         } else if (beacon is BeaconGroup) {
             itemBinding.icon.setImageResource(R.drawable.ic_beacon_group)
             itemBinding.title.text = beacon.name
-            val count = allBeacons.count { it.beaconGroupId == beacon.id }
+            val count = allBeacons.count { it.parent == beacon.id }
             itemBinding.description.text = context.resources.getQuantityString(
                 R.plurals.beacon_group_summary,
                 count,
@@ -143,7 +143,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
                     Pair(it, it.coordinate.distanceTo(location))
                 }
             } else {
-                (allBeacons.filter { it.name.contains(search, true) && it.beaconGroupId == displayedGroup?.id }).map {
+                (allBeacons.filter { it.name.contains(search, true) && it.parent == displayedGroup?.id }).map {
                     Pair(it, it.coordinate.distanceTo(location))
                 }
             }
@@ -151,13 +151,13 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
         } else {
 
             beacons = if (displayedGroup == null) {
-                val ungrouped = allBeacons.filter { it.beaconGroupId == null }
+                val ungrouped = allBeacons.filter { it.parent == null }
                 val all = (ungrouped + allGroups).map {
                     if (it is Beacon) {
                         Pair(it, it.coordinate.distanceTo(location))
                     } else {
                         val groupBeacons =
-                            allBeacons.filter { beacon -> beacon.beaconGroupId == it.id }.map { b ->
+                            allBeacons.filter { beacon -> beacon.parent == it.id }.map { b ->
                                 b.coordinate.distanceTo(location)
                             }.minOrNull()
                         Pair(it, groupBeacons ?: Float.POSITIVE_INFINITY)
@@ -165,7 +165,7 @@ class BeaconSelectView(context: Context?, attrs: AttributeSet?) : LinearLayout(c
                 }
                 all.sortedBy { it.second }.map { it.first }
             } else {
-                allBeacons.filter { beacon -> beacon.beaconGroupId == displayedGroup?.id }
+                allBeacons.filter { beacon -> beacon.parent == displayedGroup?.id }
                     .sortedBy {
                         it.coordinate.distanceTo(location)
                     }

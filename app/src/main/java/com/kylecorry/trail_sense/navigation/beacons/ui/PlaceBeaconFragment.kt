@@ -84,8 +84,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun setEditingBeaconValues(beacon: Beacon) {
-        if (beacon.beaconGroupId != null) {
-            val idx = groups.indexOfFirst { it.id == editingBeacon?.beaconGroupId }
+        if (beacon.parent != null) {
+            val idx = groups.indexOfFirst { it.id == editingBeacon?.parent }
             if (idx != -1) {
                 binding.beaconGroupSpinner.setSelection(idx)
             }
@@ -446,7 +446,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         return !nothingEntered() && (name != editingBeacon?.name || coordinate != editingBeacon?.coordinate ||
                 comment != editingBeacon?.comment || elevation != editingBeacon?.elevation ||
-                groupId != editingBeacon?.beaconGroupId)
+                groupId != editingBeacon?.parent)
     }
 
     private fun nothingEntered(): Boolean {

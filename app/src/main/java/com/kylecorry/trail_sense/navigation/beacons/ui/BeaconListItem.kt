@@ -149,7 +149,7 @@ class BeaconListItem(
                         val newGroupId = if (it.id == -1L) null else it.id
                         scope.launch {
                             withContext(Dispatchers.IO) {
-                                service.add(beacon.copy(beaconGroupId = newGroupId))
+                                service.add(beacon.copy(parent = newGroupId))
                             }
 
                             withContext(Dispatchers.Main) {

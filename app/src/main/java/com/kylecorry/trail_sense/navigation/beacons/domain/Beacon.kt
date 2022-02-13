@@ -11,7 +11,7 @@ data class Beacon(
     override val coordinate: Coordinate,
     val visible: Boolean = true,
     val comment: String? = null,
-    val beaconGroupId: Long? = null,
+    val parent: Long? = null,
     val elevation: Float? = null,
     val temporary: Boolean = false,
     val owner: BeaconOwner = BeaconOwner.User,
