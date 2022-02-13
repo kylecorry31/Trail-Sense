@@ -2,16 +2,18 @@ package com.kylecorry.trail_sense.navigation.beacons.ui
 
 import android.content.res.ColorStateList
 import android.view.View
-import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.alerts.Alerts
+import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.DeleteBeaconCommand
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.MoveBeaconCommand
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
@@ -21,16 +23,13 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class BeaconListItem(
     private val view: View,
     private val fragment: Fragment,
-    private val scope: CoroutineScope,
     private val beacon: Beacon,
     myLocation: Coordinate
 ) {
@@ -106,14 +105,14 @@ class BeaconListItem(
         }
 
         binding.visibleBtn.setOnClickListener {
-            scope.launch {
+            fragment.lifecycleScope.launch {
                 val newBeacon = beacon.copy(visible = !beaconVisibility)
 
-                withContext(Dispatchers.IO) {
+                onIO {
                     service.add(newBeacon)
                 }
 
-                withContext(Dispatchers.Main) {
+                onMain {
                     beaconVisibility = newBeacon.visible
                     if (beaconVisibility) {
                         binding.visibleBtn.setImageResource(R.drawable.ic_visible)
@@ -133,76 +132,42 @@ class BeaconListItem(
             true
         }
 
-        val menuListener = PopupMenu.OnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.action_navigate_beacon -> {
-                    onNavigate()
-                }
-                R.id.action_send -> {
-                    BeaconSender(fragment).send(beacon)
-                }
-                R.id.action_move -> {
-                    CustomUiUtils.pickBeaconGroup(
-                        view.context,
-                        null,
-                        view.context.getString(R.string.move)
-                    ) { cancelled, groupId ->
-                        if (cancelled) return@pickBeaconGroup
-                        scope.launch {
-                            val groupName = onIO {
-                                service.add(beacon.copy(parent = groupId))
-                                if (groupId == null) {
-                                    view.context.getString(R.string.no_group)
-                                } else {
-                                    service.getGroup(groupId)?.name ?: ""
-                                }
-                            }
-
-                            withContext(Dispatchers.Main) {
-                                Alerts.toast(
-                                    view.context,
-                                    view.context.getString(R.string.moved_to, groupName)
-                                )
-                                onMoved()
-                            }
-                        }
-                    }
-                }
-                R.id.action_edit_beacon -> {
-                    onEdit()
-                }
-                R.id.action_delete_beacon -> {
-                    Alerts.dialog(
-                        view.context,
-                        view.context.getString(R.string.delete_beacon),
-                        beacon.name
-                    ) { cancelled ->
-                        if (!cancelled) {
-                            scope.launch {
-                                withContext(Dispatchers.IO) {
-                                    service.delete(beacon)
-                                }
-
-                                withContext(Dispatchers.Main) {
-                                    onDeleted()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            true
-        }
-
         binding.beaconMenuBtn.setOnClickListener {
-            val popup = PopupMenu(it.context, it)
-            val inflater = popup.menuInflater
-            inflater.inflate(
-                if (beacon.temporary) R.menu.temporary_beacon_item_menu else R.menu.beacon_item_menu,
-                popup.menu
-            )
-            popup.setOnMenuItemClickListener(menuListener)
-            popup.show()
+            Pickers.menu(
+                it,
+                if (beacon.temporary) R.menu.temporary_beacon_item_menu else R.menu.beacon_item_menu
+            ) {
+                when (it) {
+                    R.id.action_navigate_beacon -> {
+                        onNavigate()
+                    }
+                    R.id.action_send -> {
+                        BeaconSender(fragment).send(beacon)
+                    }
+                    R.id.action_move -> {
+                        val command = MoveBeaconCommand(
+                            view.context,
+                            fragment.lifecycleScope,
+                            service,
+                            onMoved
+                        )
+                        command.execute(beacon)
+                    }
+                    R.id.action_edit_beacon -> {
+                        onEdit()
+                    }
+                    R.id.action_delete_beacon -> {
+                        val command = DeleteBeaconCommand(
+                            view.context,
+                            fragment.lifecycleScope,
+                            service,
+                            onDeleted
+                        )
+                        command.execute(beacon)
+                    }
+                }
+                true
+            }
         }
     }
 

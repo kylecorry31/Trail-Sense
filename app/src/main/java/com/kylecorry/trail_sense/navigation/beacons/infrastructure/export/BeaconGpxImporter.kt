@@ -34,7 +34,7 @@ class BeaconGpxImporter(private val context: Context) {
                 it.coordinate,
                 comment = it.comment,
                 elevation = it.elevation,
-                parent = if (it.group != null) groupIdMap[it.group] else parent,
+                parentId = if (it.group != null) groupIdMap[it.group] else parent,
                 color = AppColor.Orange.color
             )
         }

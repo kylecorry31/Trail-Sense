@@ -20,7 +20,7 @@ class BeaconGpxConverter {
                 it.elevation,
                 it.comment,
                 null,
-                if (it.parent == null) null else groupNames[it.parent]
+                if (it.parentId == null) null else groupNames[it.parentId]
             )
         }
 

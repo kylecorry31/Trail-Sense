@@ -85,7 +85,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun setEditingBeaconValues(beacon: Beacon) {
-        parent = beacon.parent
+        parent = beacon.parentId
         updateBeaconGroupName()
 
         binding.createBeaconTitle.title.text = getString(R.string.edit_beacon).capitalizeWords()
@@ -404,7 +404,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         return !nothingEntered() && (name != editingBeacon?.name || coordinate != editingBeacon?.coordinate ||
                 comment != editingBeacon?.comment || elevation != editingBeacon?.elevation ||
-                parent != editingBeacon?.parent)
+                parent != editingBeacon?.parentId)
     }
 
     private fun nothingEntered(): Boolean {
