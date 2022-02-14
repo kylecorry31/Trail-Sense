@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.navigation.beacons.ui
 
 import android.content.res.ColorStateList
 import android.view.View
-import android.widget.PopupMenu
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.MoveBeaconGroupCommand
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.RenameBeaconGroupCommand
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +24,7 @@ class BeaconGroupListItem(
 
     var onOpen: () -> Unit = {}
     var onDeleted: () -> Unit = {}
-    var onEdit: () -> Unit = {}
+    var onRenamed: () -> Unit = {}
     var onMoved: () -> Unit = {}
 
     private val service by lazy { BeaconService(view.context) }
@@ -54,45 +55,43 @@ class BeaconGroupListItem(
             onOpen()
         }
 
-        val menuListener = PopupMenu.OnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.action_edit_beacon_group -> {
-                    onEdit()
-                }
-                R.id.action_move_beacon_group -> {
-                    val command = MoveBeaconGroupCommand(view.context, scope, service, onMoved)
-                    command.execute(group)
-                }
-                R.id.action_delete_beacon_group -> {
-                    Alerts.dialog(
-                        view.context,
-                        view.context.getString(R.string.delete_beacon_group),
-                        view.context.getString(R.string.delete_beacon_group_message, group.name),
-                    ) { cancelled ->
-                        if (!cancelled) {
-                            scope.launch {
-                                withContext(Dispatchers.IO) {
-                                    service.delete(group)
+        binding.beaconMenuBtn.setOnClickListener {
+            Pickers.menu(it, R.menu.beacon_group_item_menu) {
+                when (it) {
+                    R.id.action_edit_beacon_group -> {
+                        val command = RenameBeaconGroupCommand(view.context, scope, service, onRenamed)
+                        command.execute(group)
+                    }
+                    R.id.action_move_beacon_group -> {
+                        val command = MoveBeaconGroupCommand(view.context, scope, service, onMoved)
+                        command.execute(group)
+                    }
+                    R.id.action_delete_beacon_group -> {
+                        Alerts.dialog(
+                            view.context,
+                            view.context.getString(R.string.delete_beacon_group),
+                            view.context.getString(
+                                R.string.delete_beacon_group_message,
+                                group.name
+                            ),
+                        ) { cancelled ->
+                            if (!cancelled) {
+                                scope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        service.delete(group)
+                                    }
+
+                                    withContext(Dispatchers.Main) {
+                                        onDeleted()
+                                    }
                                 }
 
-                                withContext(Dispatchers.Main) {
-                                    onDeleted()
-                                }
                             }
-
                         }
                     }
                 }
+                true
             }
-            true
-        }
-
-        binding.beaconMenuBtn.setOnClickListener {
-            val popup = PopupMenu(it.context, it)
-            val inflater = popup.menuInflater
-            inflater.inflate(R.menu.beacon_group_item_menu, popup.menu)
-            popup.setOnMenuItemClickListener(menuListener)
-            popup.show()
         }
 
     }
