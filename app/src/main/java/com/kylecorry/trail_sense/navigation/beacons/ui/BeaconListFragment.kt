@@ -69,6 +69,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private val delayedUpdate = Timer {
+        if (isBound) {
+            binding.loading.isVisible = false
+        }
         runInBackground {
             updateBeaconList()
         }
@@ -85,13 +88,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val beaconRecyclerView = binding.beaconRecycler
         beaconList =
-            ListView(beaconRecyclerView, R.layout.list_item_beacon, this::updateBeaconListItem)
+            ListView(binding.beaconRecycler, R.layout.list_item_beacon, this::updateBeaconListItem)
         beaconList.addLineSeparator()
         navController = findNavController()
-
-        delayedUpdate.once(100)
 
         binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -222,6 +222,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     override fun onResume() {
         super.onResume()
+        clearBeaconList()
+        binding.loading.isVisible = true
         if (gps.hasValidReading) {
             onLocationUpdate()
         } else {
@@ -236,7 +238,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun onLocationUpdate(): Boolean {
-        delayedUpdate.once(100)
+        delayedUpdate.once(LOAD_DELAY)
         return false
     }
 
@@ -455,6 +457,16 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             R.id.action_beaconListFragment_to_placeBeaconFragment,
             bundle
         )
+    }
+
+    private fun clearBeaconList(){
+        if (isBound){
+            beaconList.setData(emptyList())
+        }
+    }
+
+    companion object {
+        private const val LOAD_DELAY = 400L
     }
 
 }
