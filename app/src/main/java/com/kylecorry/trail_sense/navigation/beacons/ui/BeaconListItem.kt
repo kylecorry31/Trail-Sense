@@ -2,12 +2,14 @@ package com.kylecorry.trail_sense.navigation.beacons.ui
 
 import android.content.res.ColorStateList
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -21,7 +23,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
@@ -31,7 +32,9 @@ class BeaconListItem(
     private val view: View,
     private val fragment: Fragment,
     private val beacon: Beacon,
-    myLocation: Coordinate
+    myLocation: Coordinate,
+    units: DistanceUnits,
+    showVisibilityToggle: Boolean
 ) {
 
     var onNavigate: () -> Unit = {}
@@ -42,7 +45,6 @@ class BeaconListItem(
 
     private val navigationService = NavigationService()
     private val formatService by lazy { FormatService(view.context) }
-    private val prefs by lazy { UserPreferences(view.context) }
     private val service by lazy { BeaconService(view.context) }
 
     init {
@@ -90,14 +92,10 @@ class BeaconListItem(
         }
         var beaconVisibility = beacon.visible
         val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
-        val d = Distance.meters(distance).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        val d = Distance.meters(distance).convertTo(units).toRelativeDistance()
         binding.beaconSummary.text =
             formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
-        if (!(prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled) || beacon.temporary) {
-            binding.visibleBtn.visibility = View.GONE
-        } else {
-            binding.visibleBtn.visibility = View.VISIBLE
-        }
+        binding.visibleBtn.isVisible = showVisibilityToggle && !beacon.temporary
         if (beaconVisibility) {
             binding.visibleBtn.setImageResource(R.drawable.ic_visible)
         } else {

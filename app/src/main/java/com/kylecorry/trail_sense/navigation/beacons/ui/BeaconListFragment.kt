@@ -64,6 +64,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val beaconSort by lazy { NearestBeaconSort(distanceFactory, gps::location) }
     private val beaconLoader by lazy { BeaconLoader(beaconSort, beaconService, prefs) }
 
+    private val units by lazy { prefs.baseDistanceUnits }
+    private val showVisibilityToggle by lazy { prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled }
+
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
     }
@@ -248,7 +251,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun updateBeaconListItem(itemView: View, beacon: IBeacon) {
         if (beacon is Beacon) {
-            val listItem = BeaconListItem(itemView, this, beacon, gps.location)
+            val listItem = BeaconListItem(itemView, this, beacon, gps.location, units, showVisibilityToggle)
             listItem.onView = {
                 val bundle = bundleOf("beacon_id" to beacon.id)
                 navController.navigate(
