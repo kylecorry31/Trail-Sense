@@ -1033,4 +1033,6 @@
     <string name="reset_distance_title">重设距离？</string>
     <string name="beacons">信标</string>
     <string name="navigating_to_nearest_path_point">导航至最近的路径点</string>
+    <string name="pref_start_on_boot_title">开机启动</string>
+    <string name="move_to">移动至</string>
 </resources>
