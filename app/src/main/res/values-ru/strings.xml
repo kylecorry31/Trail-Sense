@@ -1066,4 +1066,6 @@
     <string name="reset_distance_title">Сбросить расстояние\?</string>
     <string name="navigating_to_nearest_path_point">Навигация к ближайшей точке маршрута</string>
     <string name="beacons">Маячки</string>
+    <string name="move_to">Перейти к</string>
+    <string name="pref_start_on_boot_title">Запуск при включении</string>
 </resources>
