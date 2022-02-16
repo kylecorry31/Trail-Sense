@@ -17,6 +17,10 @@ enum class AppColor(override val id: Long, @ColorInt override val color: Int): I
     DarkBlue(9, Color.parseColor("#304ffe"))
 }
 
+fun Array<AppColor>.fromColor(@ColorInt color: Int): AppColor? {
+    return firstOrNull { it.color == color }
+}
+
 interface IAppColor: Identifiable {
     val color: Int
 }

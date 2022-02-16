@@ -65,6 +65,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val units by lazy { prefs.baseDistanceUnits }
     private val showVisibilityToggle by lazy { prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled }
 
+    private var initialLocation: GeoUri? = null
+
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
     }
@@ -81,18 +83,26 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (requireArguments().containsKey("initial_location")) {
-            val loc: GeoUri? = requireArguments().getParcelable("initial_location")
-            loc?.let { createBeacon(initialLocation = it) }
+            initialLocation = requireArguments().getParcelable("initial_location")
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = findNavController()
+
+        initialLocation?.let {
+            initialLocation = null
+            createBeacon(initialLocation = it)
+        }
+
+
         beaconList =
             ListView(binding.beaconRecycler, R.layout.list_item_beacon, this::updateBeaconListItem)
         beaconList.addLineSeparator()
-        navController = findNavController()
+
+
 
         binding.searchbox.setOnQueryTextListener { _, _ ->
             refresh(true)

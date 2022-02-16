@@ -6,26 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isInvisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.geology.GeologyService
-import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -34,13 +27,9 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
-    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private lateinit var navController: NavController
 
@@ -54,16 +43,12 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private lateinit var backCallback: OnBackPressedCallback
 
-    private var color = AppColor.Orange
-
     private var editingBeacon: Beacon? = null
     private var editingBeaconId: Long? = null
     private var initialLocation: GeoUri? = null
     private val geoService = GeologyService()
 
-    private var bearingTo: Bearing? = null
-
-    private var parent: Long? = null
+    private val form by lazy { CreateBeaconForm(prefs.baseDistanceUnits, formatService) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,45 +62,32 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             beaconId
         }
 
-        parent = if (groupId == 0L) {
-            null
-        } else {
-            groupId
-        }
+        form.updateData(
+            form.data.copy(
+                groupId = if (groupId == 0L) {
+                    null
+                } else {
+                    groupId
+                }
+            )
+        )
     }
 
     private fun setEditingBeaconValues(beacon: Beacon) {
-        parent = beacon.parentId
-        updateBeaconGroupName()
-
-        binding.createBeaconTitle.title.text = getString(R.string.edit_beacon).capitalizeWords()
-        color = AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
-        binding.beaconColor.imageTintList = ColorStateList.valueOf(beacon.color)
-        binding.beaconName.setText(beacon.name)
-        binding.beaconLocation.coordinate = beacon.coordinate
-        binding.beaconElevation.setText(
-            if (beacon.elevation != null) {
-                val dist = Distance.meters(beacon.elevation)
-                val userUnits =
-                    dist.convertTo(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Meters else DistanceUnits.Feet)
-                userUnits.distance.toString()
-            } else {
-                ""
-            }
-        )
-        binding.comment.setText(beacon.comment ?: "")
-        updateDoneButtonState()
+        val data = CreateBeaconData.from(beacon)
+        form.updateData(data)
+        fill(data)
     }
 
     private fun loadExistingBeacon() {
         // TODO: Prevent interaction until loaded
         editingBeaconId?.let {
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    editingBeacon = beaconRepo.getBeacon(it)?.toBeacon()
+            runInBackground {
+                onIO {
+                    editingBeacon = beaconService.getBeacon(it)
                 }
 
-                withContext(Dispatchers.Main) {
+                onMain {
                     editingBeacon?.let { beacon ->
                         setEditingBeaconValues(beacon)
                     }
@@ -126,13 +98,14 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val prefs = UserPreferences(requireContext())
         units = prefs.distanceUnits
+
+        form.bind(binding, compass)
 
         navController = findNavController()
 
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
-        binding.beaconColor.imageTintList = ColorStateList.valueOf(color.color)
+        binding.beaconColor.imageTintList = ColorStateList.valueOf(AppColor.Orange.color)
 
         // TODO: Prevent interaction until loaded
         updateBeaconGroupName()
@@ -172,129 +145,35 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             altimeter.start(this::setElevationFromAltimeter)
         }
 
-        binding.beaconLocation.setOnCoordinateChangeListener {
-            updateDoneButtonState()
-        }
-
-        binding.beaconElevation.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && !hasValidElevation()) {
-                binding.beaconElevation.error = getString(R.string.beacon_invalid_elevation)
-            } else if (!hasFocus) {
-                binding.beaconElevation.error = null
-            }
-        }
-
-        binding.beaconName.addTextChangedListener {
-            updateDoneButtonState()
-        }
-
-        binding.beaconElevation.addTextChangedListener {
+        form.setOnDataChangeListener {
             updateDoneButtonState()
         }
 
         binding.beaconColorPicker.setOnClickListener {
             CustomUiUtils.pickColor(
                 requireContext(),
-                color,
+                form.data.color,
                 getString(R.string.color)
             ) {
                 if (it != null) {
-                    color = it
+                    form.onColorChanged(it)
                     binding.beaconColor.imageTintList = ColorStateList.valueOf(it.color)
                 }
             }
         }
 
-        binding.createAtDistance.setOnCheckedChangeListener { _, isChecked ->
-            binding.distanceAway.visibility = if (isChecked) View.VISIBLE else View.GONE
-            binding.bearingToHolder.visibility = if (isChecked) View.VISIBLE else View.GONE
-            updateDoneButtonState()
-        }
-
-        binding.distanceAway.setOnValueChangeListener {
-            updateDoneButtonState()
-        }
-
         binding.beaconGroupPicker.setOnClickListener {
             CustomUiUtils.pickBeaconGroup(requireContext(), null) { cancelled, groupId ->
                 if (!cancelled) {
-                    parent = groupId
+                    form.onGroupChanged(groupId)
                     updateBeaconGroupName()
                 }
             }
         }
-
-        binding.bearingToBtn.setOnClickListener {
-            bearingTo = compass.bearing
-            binding.bearingTo.text = formatService.formatDegrees(bearingTo?.value ?: 0f)
-            updateDoneButtonState()
-        }
-
+        
         backCallback = promptIfUnsavedChanges(this::hasChanges)
 
-        binding.placeBeaconBtn.setOnClickListener {
-            val name = binding.beaconName.text.toString()
-            val createAtDistance = binding.createAtDistance.isChecked
-            val distanceTo =
-                binding.distanceAway.value?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
-                    ?: 0.0
-            val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
-            val comment = binding.comment.text.toString()
-            val rawElevation = binding.beaconElevation.text.toString().toFloatOrNull()
-            val elevation = if (rawElevation == null) {
-                null
-            } else {
-                LocationMath.convertToMeters(rawElevation, units)
-            }
-
-            val coordinate = if (createAtDistance) {
-                val coord = binding.beaconLocation.coordinate
-                val declination = if (coord != null) {
-                    geoService.getGeomagneticDeclination(coord, elevation)
-                } else {
-                    0f
-                }
-                coord?.plus(distanceTo, bearingTo.withDeclination(declination))
-            } else {
-                binding.beaconLocation.coordinate
-            }
-
-            if (name.isNotBlank() && coordinate != null) {
-                val beacon = if (editingBeacon == null) {
-                    Beacon(
-                        0,
-                        name,
-                        coordinate,
-                        true,
-                        comment,
-                        parent,
-                        elevation,
-                        color = color.color
-                    )
-                } else {
-                    Beacon(
-                        editingBeacon!!.id,
-                        name,
-                        coordinate,
-                        editingBeacon!!.visible,
-                        comment,
-                        parent,
-                        elevation,
-                        color = color.color
-                    )
-                }
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO) {
-                        beaconRepo.addBeacon(BeaconEntity.from(beacon))
-                    }
-
-                    withContext(Dispatchers.Main) {
-                        backCallback.remove()
-                        navController.navigateUp()
-                    }
-                }
-            }
-        }
+        binding.createBeaconTitle.rightQuickAction.setOnClickListener { onSubmit() }
 
         if (units == UserPreferences.DistanceUnits.Feet) {
             binding.beaconElevationHolder.hint = getString(R.string.beacon_elevation_hint_feet)
@@ -338,92 +217,46 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private fun setElevationFromAltimeter(): Boolean {
         binding.beaconElevation.isEnabled = true
-        if (units == UserPreferences.DistanceUnits.Meters) {
-            binding.beaconElevation.setText(altimeter.altitude.roundPlaces(1).toString())
-        } else {
-            binding.beaconElevation.setText(
-                LocationMath.convertToBaseUnit(altimeter.altitude, units).roundPlaces(1).toString()
-            )
-        }
+        val elevation =
+            Distance.meters(altimeter.altitude).convertTo(prefs.baseDistanceUnits).distance
+        binding.beaconElevation.setText(DecimalFormatter.format(elevation, 2))
         return false
     }
 
     private fun updateDoneButtonState() {
-        binding.placeBeaconBtn.visibility =
-            if (hasValidName() && binding.beaconLocation.coordinate != null && hasValidElevation() && hasValidDistanceTo()) View.VISIBLE else View.GONE
+        binding.createBeaconTitle.rightQuickAction.isInvisible = !isComplete()
     }
 
-    private fun hasValidDistanceTo(): Boolean {
-        if (!binding.createAtDistance.isChecked) {
+    private fun isComplete(): Boolean {
+        val data = form.data
+        return !data.name.isNullOrBlank() &&
+                data.coordinate != null &&
+                hasValidDistanceTo(data)
+    }
+
+    private fun hasValidDistanceTo(data: CreateBeaconData): Boolean {
+        if (!data.createAtDistance) {
             return true
         }
 
-        if (binding.distanceAway.value == null) {
+        if (data.distanceTo == null) {
             return false
         }
 
-        return bearingTo != null
-    }
-
-
-    private fun hasValidElevation(): Boolean {
-        return binding.beaconElevation.text.isNullOrBlank() || binding.beaconElevation.text.toString()
-            .toFloatOrNull() != null
+        return data.bearingTo != null
     }
 
     private fun hasValidName(): Boolean {
-        return binding.beaconName.text.toString().isNotBlank()
+        return !form.data.name.isNullOrBlank()
     }
 
     private fun hasChanges(): Boolean {
-        val name = binding.beaconName.text.toString()
-        val createAtDistance = binding.createAtDistance.isChecked
-        val distanceTo =
-            binding.distanceAway.value?.convertTo(DistanceUnits.Meters)?.distance?.toDouble()
-                ?: 0.0
-        val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
-        val comment = binding.comment.text.toString()
-        val rawElevation = binding.beaconElevation.text.toString().toFloatOrNull()
-        val elevation = if (rawElevation == null) {
-            null
-        } else {
-            LocationMath.convertToMeters(rawElevation, units)
-        }
-
-        val coordinate = if (createAtDistance) {
-            val coord = binding.beaconLocation.coordinate
-            val declination = if (coord != null) {
-                geoService.getGeomagneticDeclination(coord, elevation)
-            } else {
-                0f
-            }
-            coord?.plus(distanceTo, bearingTo.withDeclination(declination))
-        } else {
-            binding.beaconLocation.coordinate
-        }
-
-        return !nothingEntered() && (name != editingBeacon?.name || coordinate != editingBeacon?.coordinate ||
-                comment != editingBeacon?.comment || elevation != editingBeacon?.elevation ||
-                parent != editingBeacon?.parentId)
-    }
-
-    private fun nothingEntered(): Boolean {
-        if (editingBeacon != null) {
-            return false
-        }
-
-        val name = binding.beaconName.text.toString()
-        val createAtDistance = binding.createAtDistance.isChecked
-        val comment = binding.comment.text.toString()
-        val elevation = binding.beaconElevation.text.toString()
-        val location = binding.beaconLocation.coordinate
-
-        return name.isBlank() && !createAtDistance && comment.isBlank() && elevation.isBlank() && location == null && parent == null
-
+        val original = editingBeacon?.let { CreateBeaconData.from(it) } ?: CreateBeaconData.empty
+        return original != form.data
     }
 
     private fun updateBeaconGroupName() {
-        val parent = parent
+        val parent = form.data.groupId
         runInBackground {
             val name = onIO {
                 if (parent == null) {
@@ -446,4 +279,73 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         return FragmentCreateBeaconBinding.inflate(layoutInflater, container, false)
     }
 
+    private fun fill(data: CreateBeaconData) {
+        binding.beaconName.setText(data.name)
+        binding.beaconLocation.coordinate = data.coordinate
+        binding.beaconElevation.setText(
+            data.elevation?.let {
+                DecimalFormatter.format(it.convertTo(prefs.baseDistanceUnits).distance, 2)
+            })
+        binding.createAtDistance.isChecked = data.createAtDistance
+        binding.distanceAway.value = data.distanceTo
+        binding.bearingTo.text = data.bearingTo?.let { formatService.formatDegrees(it.value) } ?: ""
+        binding.beaconColor.imageTintList = ColorStateList.valueOf(data.color.color)
+        binding.comment.setText(data.notes)
+        updateBeaconGroupName()
+    }
+
+    private fun getRealCoordinate(data: CreateBeaconData): Coordinate? {
+        if (data.coordinate == null) return null
+        return if (data.createAtDistance) {
+            val distanceTo = data.distanceTo?.meters()?.distance?.toDouble() ?: 0.0
+            val bearingTo = data.bearingTo ?: Bearing.from(CompassDirection.North)
+            val declination = geoService.getGeomagneticDeclination(
+                data.coordinate,
+                data.elevation?.meters()?.distance
+            )
+            data.coordinate.plus(distanceTo, bearingTo.withDeclination(declination))
+        } else {
+            data.coordinate
+        }
+    }
+
+    private fun onSubmit() {
+        val data = form.data
+
+        if (!isComplete()) return
+
+        val beacon = if (editingBeacon == null) {
+            Beacon(
+                0,
+                data.name!!,
+                getRealCoordinate(data)!!,
+                true,
+                data.notes,
+                data.groupId,
+                data.elevation?.meters()?.distance,
+                color = data.color.color
+            )
+        } else {
+            Beacon(
+                editingBeacon!!.id,
+                data.name!!,
+                getRealCoordinate(data)!!,
+                editingBeacon!!.visible,
+                data.notes,
+                data.groupId,
+                data.elevation?.meters()?.distance,
+                color = data.color.color
+            )
+        }
+        runInBackground {
+            onIO {
+                beaconService.add(beacon)
+            }
+
+            onMain {
+                backCallback.remove()
+                navController.navigateUp()
+            }
+        }
+    }
 }
