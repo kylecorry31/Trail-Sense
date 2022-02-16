@@ -95,7 +95,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             return true
         }
         try {
-            val bitmap = camera?.image?.image?.toBitmap()
+            val rotation = camera?.image?.imageInfo?.rotationDegrees?.toFloat() ?: 0f
+            val bitmap = camera?.image?.image?.toBitmap(rotation)
             bitmap?.let {
                 captureListener?.invoke(it)
                 imageListener?.invoke(it)

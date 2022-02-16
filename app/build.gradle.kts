@@ -72,7 +72,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.room:room-runtime:2.4.1")
     implementation("androidx.room:room-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-service:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-service:2.4.1")
     val cameraxVersion = "1.1.0-beta01"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
@@ -85,7 +85,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.7.0")
 
     // Andromeda
-    val andromedaVersion = "2.7.2"
+    val andromedaVersion = "2.8.0-beta02"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
