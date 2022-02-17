@@ -78,12 +78,12 @@ class CreateBeaconForm(
         }
     }
 
-    private fun getName(binding: FragmentCreateBeaconBinding): String? {
-        return binding.beaconName.text?.toString()
+    private fun getName(binding: FragmentCreateBeaconBinding): String {
+        return binding.beaconName.text?.toString() ?: ""
     }
 
-    private fun getNotes(binding: FragmentCreateBeaconBinding): String? {
-        return binding.comment.text?.toString()
+    private fun getNotes(binding: FragmentCreateBeaconBinding): String {
+        return binding.comment.text?.toString() ?: ""
     }
 
 }

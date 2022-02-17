@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.specifications.Specification
 
 class IsBeaconFormDataComplete : Specification<CreateBeaconData>() {
     override fun isSatisfiedBy(value: CreateBeaconData): Boolean {
-        return !value.name.isNullOrBlank() &&
+        return value.name.isNotBlank() &&
                 value.coordinate != null &&
                 hasValidDistanceTo(value)
     }

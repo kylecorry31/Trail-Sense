@@ -13,17 +13,17 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.fromColor
 
 data class CreateBeaconData(
-    val id: Long,
-    val name: String?,
-    val coordinate: Coordinate?,
-    val elevation: Distance?,
-    val createAtDistance: Boolean,
-    val distanceTo: Distance?,
-    val bearingTo: Bearing?,
-    val groupId: Long?,
-    val color: AppColor,
-    val notes: String?,
-    val isVisible: Boolean
+    val id: Long = 0,
+    val name: String = "",
+    val coordinate: Coordinate? = null,
+    val elevation: Distance? = null,
+    val createAtDistance: Boolean = false,
+    val distanceTo: Distance? = null,
+    val bearingTo: Bearing? = null,
+    val groupId: Long? = null,
+    val color: AppColor = AppColor.Orange,
+    val notes: String = "",
+    val isVisible: Boolean = true
 ) {
 
     fun toBeacon(
@@ -46,7 +46,7 @@ data class CreateBeaconData(
 
         return Beacon(
             id,
-            name!!,
+            name,
             coordinate,
             isVisible,
             notes,
@@ -57,23 +57,10 @@ data class CreateBeaconData(
     }
 
     companion object {
-        val empty =
-            CreateBeaconData(
-                0,
-                null,
-                null,
-                null,
-                false,
-                null,
-                null,
-                null,
-                AppColor.Orange,
-                null,
-                true
-            )
+        val empty = CreateBeaconData()
 
         fun from(uri: GeoUri): CreateBeaconData {
-            val name = uri.queryParameters.getOrDefault("label", null)
+            val name = uri.queryParameters.getOrDefault("label", "")
             val coordinate = uri.coordinate
             val elevation = uri.altitude ?: uri.queryParameters.getOrDefault(
                 "ele",
@@ -81,17 +68,9 @@ data class CreateBeaconData(
             ).toFloatOrNull()
             val elevationDistance = elevation?.let { Distance.meters(elevation) }
             return CreateBeaconData(
-                0,
-                name,
-                coordinate,
-                elevationDistance,
-                false,
-                null,
-                null,
-                null,
-                AppColor.Orange,
-                null,
-                true
+                name = name,
+                coordinate = coordinate,
+                elevation = elevationDistance
             )
         }
 
@@ -106,7 +85,7 @@ data class CreateBeaconData(
                 null,
                 beacon.parentId,
                 AppColor.values().fromColor(beacon.color) ?: AppColor.Orange,
-                beacon.comment,
+                beacon.comment ?: "",
                 beacon.visible
             )
         }
