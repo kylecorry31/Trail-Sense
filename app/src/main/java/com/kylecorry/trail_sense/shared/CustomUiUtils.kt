@@ -204,7 +204,7 @@ object CustomUiUtils {
 
     fun pickBeaconGroup(
         context: Context,
-        title: String?,
+        title: String? = null,
         okText: String? = null,
         onBeaconGroupPick: (cancelled: Boolean, groupId: Long?) -> Unit
     ) {
