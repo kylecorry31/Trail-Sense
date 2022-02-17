@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +38,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensorService.getCompass() }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val units by lazy { prefs.baseDistanceUnits }
 
@@ -51,7 +50,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private val isComplete = IsBeaconFormDataComplete()
     private var hasChanges = DoesBeaconFormDataHaveChanges(CreateBeaconData.empty)
 
-    private val form by lazy { CreateBeaconForm(units, formatService) }
+    private val form by lazy { CreateBeaconForm(units, formatter) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +101,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bind(binding, compass)
-
+        CustomUiUtils.setButtonState(binding.createBeaconTitle.rightQuickAction, true)
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
         // TODO: Prevent interaction until loaded
@@ -160,6 +159,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         binding.createBeaconTitle.rightQuickAction.setOnClickListener { onSubmit() }
 
+        // TODO: Replace this with a distance picker
         binding.beaconElevationHolder.hint = if (units == DistanceUnits.Feet) {
             getString(R.string.beacon_elevation_hint_feet)
         } else {
@@ -167,8 +167,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         binding.bearingToBtn.text =
-            getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(0f))
-        binding.distanceAway.units = formatService.sortDistanceUnits(
+            getString(R.string.beacon_set_bearing_btn, formatter.formatDegrees(0f))
+        binding.distanceAway.units = formatter.sortDistanceUnits(
             listOf(
                 DistanceUnits.Meters,
                 DistanceUnits.Kilometers,
@@ -191,7 +191,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private fun onCompassUpdate() {
         binding.bearingToBtn.text = getString(
             R.string.beacon_set_bearing_btn,
-            formatService.formatDegrees(compass.bearing.value)
+            formatter.formatDegrees(compass.bearing.value)
         )
     }
 
@@ -214,7 +214,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun updateColor() {
-        binding.beaconColor.imageTintList = ColorStateList.valueOf(form.data.color.color)
+        CustomUiUtils.setImageColor(binding.beaconColorPicker, form.data.color.color)
     }
 
     private fun updateBeaconGroupName() {
@@ -229,7 +229,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             }
 
             onMain {
-                binding.beaconGroup.text = name
+                binding.beaconGroupPicker.text = name
             }
         }
     }
@@ -249,9 +249,9 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             data.elevation?.let {
                 DecimalFormatter.format(it.convertTo(units).distance, 2)
             })
-        binding.beaconColor.imageTintList = ColorStateList.valueOf(data.color.color)
         binding.comment.setText(data.notes)
         updateBeaconGroupName()
+        updateColor()
     }
 
     private fun onSubmit() {
