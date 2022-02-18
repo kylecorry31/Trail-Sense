@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.clipboard.Clipboard
-import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.geology.GeologyService
@@ -15,111 +14,112 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
-    private val sensorService by lazy { SensorService(requireContext()) }
-    private val compass by lazy { sensorService.getCompass() }
     private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var direction1: Bearing? = null
+    private var trueNorth1: Boolean = false
+    private var trueNorth2: Boolean = false
     private var direction2: Bearing? = null
     private var location: Coordinate? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bearingTo1Btn.setOnClickListener {
-            direction1 = compass.bearing
-            binding.bearingTo1.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
-            update()
-        }
-        binding.bearingTo2Btn.setOnClickListener {
-            direction2 = compass.bearing
-            binding.bearingTo2.text = formatService.formatDegrees(compass.bearing.value, replace360 = true)
+        binding.bearing1.setOnBearingChangeListener { bearing, isTrueNorth ->
+            direction1 = bearing
+            trueNorth1 = isTrueNorth
             update()
         }
 
-        binding.copyLocation.setOnClickListener {
+        binding.bearing2.setOnBearingChangeListener { bearing, isTrueNorth ->
+            direction2 = bearing
+            trueNorth2 = isTrueNorth
+            update()
+        }
+
+
+        binding.triangulateTitle.rightQuickAction.setOnClickListener {
             location?.let {
-                Clipboard.copy(
-                    requireContext(),
-                    formatService.formatLocation(it),
-                    getString(R.string.copied_to_clipboard_toast)
-                )
+                val share = LocationCopy(requireContext())
+                share.send(it)
             }
         }
 
-        binding.placeBeaconBtn.setOnClickListener {
+        binding.createBeacon.setOnClickListener {
             location?.let {
                 AppUtils.placeBeacon(requireContext(), GeoUri(it))
             }
         }
 
-        binding.gpsOverrideBtn.setOnClickListener {
+        binding.updateGpsOverride.setOnClickListener {
             location?.let { coord ->
                 prefs.locationOverride = coord
                 Alerts.toast(requireContext(), getString(R.string.location_override_updated))
             }
         }
 
-        binding.triangulate1.setOnCoordinateChangeListener { update() }
-        binding.triangulate2.setOnCoordinateChangeListener { update() }
-
-        compass.asLiveData().observe(viewLifecycleOwner){
-            compassUpdate()
+        if (prefs.useAutoLocation) {
+            binding.updateGpsOverride.isVisible = false
         }
-
     }
 
 
     override fun onResume() {
         super.onResume()
-        if (prefs.useAutoLocation) {
-            binding.gpsOverrideBtn.visibility = View.INVISIBLE
-        }
+        binding.bearing1.start()
+        binding.bearing2.start()
     }
 
-    private fun compassUpdate() {
-        binding.bearingTo1Btn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(compass.bearing.value, replace360 = true))
-        binding.bearingTo2Btn.text = getString(R.string.beacon_set_bearing_btn, formatService.formatDegrees(compass.bearing.value, replace360 = true))
+    override fun onPause() {
+        super.onPause()
+        binding.bearing1.stop()
+        binding.bearing2.stop()
     }
 
     private fun update() {
-        if (!isBound){
+        if (!isBound) {
             return
         }
-        val c1 = binding.triangulate1.coordinate ?: return
-        val c2 = binding.triangulate2.coordinate ?: return
-        val d1 = direction1 ?: return
-        val d2 = direction2 ?: return
+
+        val location1 = binding.location1.coordinate
+        val location2 = binding.location2.coordinate
+        val direction1 = direction1
+        val direction2 = direction2
+
+        if (location1 == null || location2 == null || direction1 == null || direction2 == null) {
+            setLocation(null)
+            return
+        }
 
         // All information is available to triangulate
-        val declination = geoService.getGeomagneticDeclination(c1)
-        val bearing1 = d1.withDeclination(declination)
-        val bearing2 = d2.withDeclination(declination)
+        val declination1 = if (trueNorth1) 0f else geoService.getGeomagneticDeclination(location1)
+        val declination2 = if (trueNorth2) 0f else geoService.getGeomagneticDeclination(location2)
+        val bearing1 = direction1.withDeclination(declination1)
+        val bearing2 = direction2.withDeclination(declination2)
 
-        val location = geoService.triangulate(c1, bearing1, c2, bearing2)
+        val location = geoService.triangulate(location1, bearing1, location2, bearing2)
+        setLocation(location)
+    }
+
+    private fun setLocation(location: Coordinate?) {
         this.location = location
-
         if (location == null || location.latitude.isNaN() || location.longitude.isNaN()) {
-            binding.location.text = getString(R.string.could_not_triangulate)
-            binding.copyLocation.visibility = View.INVISIBLE
-            binding.gpsOverrideBtn.isVisible = false
-            binding.placeBeaconBtn.isVisible = false
+            binding.triangulateTitle.title.text = getString(R.string.could_not_triangulate)
+            binding.triangulateTitle.rightQuickAction.isInvisible = true
+            binding.actions.isVisible = false
         } else {
-            binding.location.text = formatService.formatLocation(location)
-            binding.copyLocation.visibility = View.VISIBLE
-            binding.placeBeaconBtn.isVisible = true
-            if (!prefs.useAutoLocation) {
-                binding.gpsOverrideBtn.isVisible = true
-            }
+            binding.triangulateTitle.title.text = formatService.formatLocation(location)
+            binding.triangulateTitle.rightQuickAction.isInvisible = false
+            binding.actions.isVisible = true
         }
     }
 
@@ -129,6 +129,4 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     ): FragmentToolTriangulateBinding {
         return FragmentToolTriangulateBinding.inflate(layoutInflater, container, false)
     }
-
-
 }
