@@ -16,20 +16,20 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatService(context) }
 
-    override fun send(location: Coordinate) {
+    override fun send(location: Coordinate, format: CoordinateFormat?) {
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, getShareString(location))
+            putExtra(Intent.EXTRA_TEXT, getShareString(location, format ?: prefs.navigation.coordinateFormat))
             type = "text/plain"
         }
         Intents.openChooser(context, intent, context.getString(R.string.share_action_send))
     }
 
-    private fun getShareString(coordinate: Coordinate): String {
+    private fun getShareString(coordinate: Coordinate, format: CoordinateFormat): String {
         val location = formatService.formatLocation(coordinate, CoordinateFormat.DecimalDegrees)
         val mapUrl = mapService.getUrl(coordinate, prefs.mapSite)
 
-        if (prefs.navigation.coordinateFormat == CoordinateFormat.DecimalDegrees){
+        if (format == CoordinateFormat.DecimalDegrees){
             return "${location}\n\n${
                 context.getString(
                     R.string.maps
@@ -37,8 +37,8 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
             }: $mapUrl"
         }
 
-        val coordinateUser = formatService.formatLocation(coordinate)
-        return "${location}\n\n${formatService.formatCoordinateType(prefs.navigation.coordinateFormat)}: ${coordinateUser}\n\n${
+        val coordinateUser = formatService.formatLocation(coordinate, format)
+        return "${location}\n\n${formatService.formatCoordinateType(format)}: ${coordinateUser}\n\n${
             context.getString(
                 R.string.maps
             )
