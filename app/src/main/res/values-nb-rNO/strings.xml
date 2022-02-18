@@ -923,4 +923,12 @@
     <string name="current_speed">Gjeldende hastighet</string>
     <string name="activity_recognition_permission_denied">Fysisk aktivitetstillatelse avslått, kan ikke slå på skrittellerfunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
     <string name="reset_distance_title">Nullstille distanse\?</string>
+    <string name="disclaimer_estimated_tide">Beregnet tidevann kan være unøyaktig. Bruk en offisiell tidevannstabell for de nøyaktige tidene.</string>
+    <string name="move_to">Flytt til</string>
+    <string name="calibrate_new_tide">Kalibrere til et nytt tidevann\?</string>
+    <string name="pref_show_nearest_tide_title">Vis nærmeste tidevann</string>
+    <string name="tide_deleted">Tidevann slettet</string>
+    <string name="navigating_to_nearest_path_point">Navigerer til nærmeste stipunkt</string>
+    <string name="beacons">Navigeringsmarkører</string>
+    <string name="pref_start_on_boot_title">Start ved enhetsoppstart</string>
 </resources>
