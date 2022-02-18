@@ -316,7 +316,7 @@
     <string name="pref_use_legacy_compass_title">Використовувати старий інтерфейс доступу до компаса</string>
     <string name="pref_compass_filter_amt_summary">Високі значення можуть збільшити плавність</string>
     <string name="pref_compass_filter_amt_title">Згладжування компаса</string>
-    <string name="pref_use_true_north_title">Справжня Північ</string>
+    <string name="true_north">Справжня Північ</string>
     <string name="pref_compass_sensor_title">Компас</string>
     <string name="pref_ruler_calibration_title">Шкала лінійки</string>
     <string name="sensors">Датники</string>

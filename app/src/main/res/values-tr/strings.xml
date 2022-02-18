@@ -361,7 +361,7 @@
     <string name="pref_use_legacy_compass_title">Eski pusula sensörünü kullan</string>
     <string name="pref_compass_filter_amt_summary">Yüksek değerler paraziti azaltabilir</string>
     <string name="pref_compass_filter_amt_title">Pusula düzenleme</string>
-    <string name="pref_use_true_north_title">Gerçek Kuzey</string>
+    <string name="true_north">Gerçek Kuzey</string>
     <string name="pref_compass_sensor_title">Pusula</string>
     <string name="pref_ruler_calibration_summary">Kalibrasyon yöntemi:
 \n-Bu değeri 1\'e ayarlayın.

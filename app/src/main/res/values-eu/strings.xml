@@ -190,7 +190,7 @@
     <string name="tool_battery_title">Bateria</string>
     <string name="tool_ruler_title">Erregela</string>
     <string name="reset">Berrezarri</string>
-    <string name="pref_use_true_north_title">Benetako iparra</string>
+    <string name="true_north">Benetako iparra</string>
     <string name="pref_ruler_calibration_title">Erregelaren eskala</string>
     <string name="pref_coordinate_format_title">Koordenatuen formatua</string>
     <string name="coordinate_format_decimal_degrees">Gradu dezimalak</string>

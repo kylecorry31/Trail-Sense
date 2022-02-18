@@ -20,6 +20,7 @@ data class CreateBeaconData(
     val createAtDistance: Boolean = false,
     val distanceTo: Distance? = null,
     val bearingTo: Bearing? = null,
+    val bearingIsTrueNorth: Boolean = false,
     val groupId: Long? = null,
     val color: AppColor = AppColor.Orange,
     val notes: String = "",
@@ -35,11 +36,11 @@ data class CreateBeaconData(
         val coordinate = if (createAtDistance) {
             val distanceTo = distanceTo?.meters()?.distance?.toDouble() ?: 0.0
             val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
-            val declination = geology.getGeomagneticDeclination(
+            val declination = if (!bearingIsTrueNorth) geology.getGeomagneticDeclination(
                 coordinate!!,
                 elevation?.meters()?.distance
-            )
-            coordinate.plus(distanceTo, bearingTo.withDeclination(declination))
+            ) else 0f
+            coordinate!!.plus(distanceTo, bearingTo.withDeclination(declination))
         } else {
             coordinate!!
         }
@@ -83,6 +84,7 @@ data class CreateBeaconData(
                 false,
                 null,
                 null,
+                false,
                 beacon.parentId,
                 AppColor.values().fromColor(beacon.color) ?: AppColor.Orange,
                 beacon.comment ?: "",

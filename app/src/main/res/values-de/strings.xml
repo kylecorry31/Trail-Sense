@@ -9,7 +9,7 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
-    <string name="pref_use_true_north_title">Geographischer Norden</string>
+    <string name="true_north">Geographischer Norden</string>
     <string name="pref_use_sea_level_pressure_title">Luftdruck auf Meereshöhe</string>
     <string name="general">Allgemein</string>
     <string name="pressure">Luftdruck</string>

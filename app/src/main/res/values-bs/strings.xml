@@ -9,7 +9,7 @@
     <string name="astronomy">Astronomija</string>
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
-    <string name="pref_use_true_north_title">Pravi Sjever</string>
+    <string name="true_north">Pravi Sjever</string>
     <string name="pref_use_sea_level_pressure_title">Pritisak na razini mora</string>
     <string name="general">Opće</string>
     <string name="pressure">Pritisak</string>

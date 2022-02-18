@@ -9,7 +9,7 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Alba</string>
     <string name="sunset_label">Tramonto</string>
-    <string name="pref_use_true_north_title">Vero Nord</string>
+    <string name="true_north">Vero Nord</string>
     <string name="pref_use_sea_level_pressure_title">Pressione a livello del mare</string>
     <string name="general">Generale</string>
     <string name="pressure">Pressione</string>

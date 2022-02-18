@@ -9,7 +9,7 @@
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
-    <string name="pref_use_true_north_title">真北</string>
+    <string name="true_north">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压强</string>
     <string name="general">一般</string>
     <string name="pressure">压强</string>

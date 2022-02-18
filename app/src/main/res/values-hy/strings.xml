@@ -10,7 +10,7 @@
     <string name="sunset_label">Մայրամուտ</string>
 
 
-    <string name="pref_use_true_north_title">Իսկական Հյուսիս</string>
+    <string name="true_north">Իսկական Հյուսիս</string>
     <string name="pref_use_sea_level_pressure_title">Ծովի մակարդակի ճնշում</string>
     <string name="general">Գեներալ</string>
     <string name="pressure">Նշում</string>

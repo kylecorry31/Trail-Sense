@@ -44,7 +44,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_true_north"
             app:singleLineTitle="false"
-            app:title="@string/pref_use_true_north_title" />
+            app:title="@string/true_north" />
 
         <Preference
             android:icon="@drawable/ic_compass_icon"

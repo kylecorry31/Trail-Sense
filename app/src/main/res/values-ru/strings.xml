@@ -9,7 +9,7 @@
     <string name="astronomy">Астрономия</string>
     <string name="sunrise_label">Восход солнца</string>
     <string name="sunset_label">Закат</string>
-    <string name="pref_use_true_north_title">Географический Север</string>
+    <string name="true_north">Географический Север</string>
     <string name="pref_use_sea_level_pressure_title">Давление на уровне моря</string>
     <string name="general">Основные</string>
     <string name="pressure">Давление</string>

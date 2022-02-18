@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                app:hint="@string/elevation"/>
+                app:hint="@string/elevation" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/create_at_distance"
@@ -79,32 +79,13 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-            <LinearLayout
-                android:id="@+id/bearing_to_holder"
+            <com.kylecorry.trail_sense.shared.views.BearingInputView
+                android:id="@+id/bearing_to"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:orientation="horizontal"
                 android:visibility="gone"
-                tools:visibility="visible">
-
-                <Button
-                    android:id="@+id/bearing_to_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    tools:text="@string/beacon_set_bearing_btn" />
-
-                <TextView
-                    android:id="@+id/bearing_to"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    tools:text="350" />
-            </LinearLayout>
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/beacon_group_picker"

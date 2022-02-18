@@ -209,7 +209,7 @@
 \n- Report the measured value here."</string>
     <!--Settings - Sensors - Compass-->
     <string name="pref_compass_sensor_title">Compass</string>
-    <string name="pref_use_true_north_title">True North</string>
+    <string name="true_north">True North</string>
     <string name="pref_compass_filter_amt_title">Compass smoothing</string>
     <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
     <!--    A legacy compass sensor - Google recommends not using it, but it may work better on some devices.-->
@@ -1184,6 +1184,7 @@
     <string name="beacons">Beacons</string>
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
+    <string name="bearing">Bearing</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

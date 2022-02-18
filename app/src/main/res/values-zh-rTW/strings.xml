@@ -21,7 +21,7 @@
     <string name="calibrate_compass_dialog_title">校準羅盤</string>
     <string name="calibrate">校準</string>
     <string name="pref_use_legacy_compass_summary">可能修正羅盤問題</string>
-    <string name="pref_use_true_north_title">實際北方</string>
+    <string name="true_north">實際北方</string>
     <string name="pref_compass_sensor_title">羅盤</string>
     <string name="pref_ruler_calibration_title">尺大小縮放</string>
     <string name="temperature">溫度</string>

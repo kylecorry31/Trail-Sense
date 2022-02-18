@@ -10,7 +10,7 @@
     <string name="pref_use_legacy_compass_summary">Může opravit problémy s kompasem</string>
     <string name="pref_compass_filter_amt_summary">Vysoké hodnoty mohou omezit šum</string>
     <string name="pref_compass_filter_amt_title">Urovnávání kompas</string>
-    <string name="pref_use_true_north_title">Pravý sever</string>
+    <string name="true_north">Pravý sever</string>
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="sensors">Senzory</string>
     <string name="temperature">Teplota</string>

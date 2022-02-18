@@ -10,7 +10,7 @@
     <string name="sunset_label">غروب الشمس</string>
 
 
-    <string name="pref_use_true_north_title">الشمال الحقيقي</string>
+    <string name="true_north">الشمال الحقيقي</string>
     <string name="pref_use_sea_level_pressure_title">ضغط مستوى البحر</string>
     <string name="general">جنرال لواء</string>
     <string name="pressure">الضغط</string>

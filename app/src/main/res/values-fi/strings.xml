@@ -179,7 +179,7 @@
     <string name="pref_use_legacy_compass_title">Käytä vanhaa kompassia</string>
     <string name="pref_compass_filter_amt_summary">Korkeat arvot voivat vähentää kohinaa</string>
     <string name="pref_compass_filter_amt_title">Kompassin tasoitus</string>
-    <string name="pref_use_true_north_title">Todellinen pohjoinen</string>
+    <string name="true_north">Todellinen pohjoinen</string>
     <string name="pref_compass_sensor_title">Kompassi</string>
     <string name="pref_ruler_calibration_summary">Kalibrointiprotokolla:
 \n- Aseta arvoksi 1.

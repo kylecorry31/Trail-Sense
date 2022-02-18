@@ -9,7 +9,7 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Nascer do sol</string>
     <string name="sunset_label">Pôr do sol</string>
-    <string name="pref_use_true_north_title">Norte verdadeiro</string>
+    <string name="true_north">Norte verdadeiro</string>
     <string name="pref_use_sea_level_pressure_title">Pressão ao nível do mar</string>
     <string name="general">Geral</string>
     <string name="pressure">Pressão</string>

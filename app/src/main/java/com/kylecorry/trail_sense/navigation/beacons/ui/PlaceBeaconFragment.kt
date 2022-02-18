@@ -8,7 +8,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.Distance
@@ -36,7 +35,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private val altimeter by lazy { sensorService.getAltimeter() }
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val compass by lazy { sensorService.getCompass() }
     private val formatter by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val units by lazy { prefs.baseDistanceUnits }
@@ -49,7 +47,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private val isComplete = IsBeaconFormDataComplete()
     private var hasChanges = DoesBeaconFormDataHaveChanges(CreateBeaconData.empty)
 
-    private val form by lazy { CreateBeaconForm(formatter) }
+    private val form = CreateBeaconForm()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +97,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        form.bind(binding, compass)
+        form.bind(binding)
         CustomUiUtils.setButtonState(binding.createBeaconTitle.rightQuickAction, true)
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
@@ -159,8 +157,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         binding.createBeaconTitle.rightQuickAction.setOnClickListener { onSubmit() }
 
-        binding.bearingToBtn.text =
-            getString(R.string.beacon_set_bearing_btn, formatter.formatDegrees(0f))
         binding.distanceAway.units = formatter.sortDistanceUnits(
             listOf(
                 DistanceUnits.Meters,
@@ -170,22 +166,19 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                 DistanceUnits.NauticalMiles
             )
         )
+    }
 
-        compass.asLiveData().observe(viewLifecycleOwner) { onCompassUpdate() }
+    override fun onResume() {
+        super.onResume()
+        binding.bearingTo.start()
     }
 
     override fun onPause() {
         altimeter.stop(this::setElevationFromAltimeter)
         binding.beaconElevation.isEnabled = true
         binding.beaconLocation.pause()
+        binding.bearingTo.stop()
         super.onPause()
-    }
-
-    private fun onCompassUpdate() {
-        binding.bearingToBtn.text = getString(
-            R.string.beacon_set_bearing_btn,
-            formatter.formatDegrees(compass.bearing.value)
-        )
     }
 
     private fun setElevationFromAltimeter(): Boolean {

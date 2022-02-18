@@ -9,7 +9,7 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Zonsopgang</string>
     <string name="sunset_label">Zonsondergang</string>
-    <string name="pref_use_true_north_title">Het ware noorden</string>
+    <string name="true_north">Het ware noorden</string>
     <string name="pref_use_sea_level_pressure_title">Druk op zeeniveau</string>
     <string name="general">Algemeen</string>
     <string name="pressure">Druk</string>

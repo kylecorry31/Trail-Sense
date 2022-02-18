@@ -9,7 +9,7 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód Słońca</string>
     <string name="sunset_label">Zachód Słońca</string>
-    <string name="pref_use_true_north_title">Prawdziwa Północ</string>
+    <string name="true_north">Prawdziwa Północ</string>
     <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
     <string name="general">Ogólne</string>
     <string name="pressure">Ciśnienie</string>

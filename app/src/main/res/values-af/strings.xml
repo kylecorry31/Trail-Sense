@@ -10,7 +10,7 @@
     <string name="sunset_label">Sunset</string>
 
 
-    <string name="pref_use_true_north_title">Ware Noord</string>
+    <string name="true_north">Ware Noord</string>
     <string name="pref_use_sea_level_pressure_title">Seevlak druk</string>
     <string name="general">algemene</string>
     <string name="pressure">druk</string>

@@ -10,7 +10,7 @@
     <string name="sunset_label">залез</string>
 
 
-    <string name="pref_use_true_north_title">Истински Север</string>
+    <string name="true_north">Истински Север</string>
     <string name="pref_use_sea_level_pressure_title">Налягане на морското ниво</string>
     <string name="general">Общ</string>
     <string name="pressure">налягане</string>

@@ -10,7 +10,7 @@
     <string name="sunset_label">सूर्यास्त</string>
 
 
-    <string name="pref_use_true_north_title">साँचो उत्तर</string>
+    <string name="true_north">साँचो उत्तर</string>
     <string name="pref_use_sea_level_pressure_title">समुद्री सतह दबाव</string>
     <string name="general">सामान्य</string>
     <string name="pressure">दवाव</string>

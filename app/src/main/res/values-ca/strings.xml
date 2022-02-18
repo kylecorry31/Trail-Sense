@@ -211,7 +211,7 @@
     <string name="pref_compass_filter_amt_summary">Valors alts poden reduir el soroll</string>
     <string name="pref_compass_sensor_title">Brúixola</string>
     <string name="pref_compass_filter_amt_title">Suavització de la brúixola</string>
-    <string name="pref_use_true_north_title">Nord veritable</string>
+    <string name="true_north">Nord veritable</string>
     <string name="pref_ruler_calibration_summary">Procès de calibració:
 \n- Establiu aquest valor a 1.
 \n- Mesuri el valor del regle virtual corresponent a una unitat del regle físic.

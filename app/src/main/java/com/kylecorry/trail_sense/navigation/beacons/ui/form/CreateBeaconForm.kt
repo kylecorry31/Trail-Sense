@@ -2,12 +2,10 @@ package com.kylecorry.trail_sense.navigation.beacons.ui.form
 
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
-class CreateBeaconForm(private val formatter: FormatService) {
+class CreateBeaconForm {
 
     private var listener: (data: CreateBeaconData) -> Unit = {}
 
@@ -26,17 +24,17 @@ class CreateBeaconForm(private val formatter: FormatService) {
         updateData(data.copy(color = color))
     }
 
-    fun bind(binding: FragmentCreateBeaconBinding, compass: ICompass) {
+    fun bind(binding: FragmentCreateBeaconBinding) {
         binding.beaconName.addTextChangedListener { updateData(data.copy(name = getName(binding))) }
         binding.beaconElevation.setOnValueChangeListener {
             updateData(data.copy(elevation = it))
         }
         binding.beaconLocation.setOnCoordinateChangeListener { updateData(data.copy(coordinate = it)) }
         binding.distanceAway.isVisible = binding.createAtDistance.isChecked
-        binding.bearingToHolder.isVisible = binding.createAtDistance.isChecked
+        binding.bearingTo.isVisible = binding.createAtDistance.isChecked
         binding.createAtDistance.setOnCheckedChangeListener { _, isChecked ->
             binding.distanceAway.isVisible = isChecked
-            binding.bearingToHolder.isVisible = isChecked
+            binding.bearingTo.isVisible = isChecked
             updateData(
                 data.copy(
                     createAtDistance = isChecked
@@ -44,9 +42,8 @@ class CreateBeaconForm(private val formatter: FormatService) {
             )
         }
         binding.distanceAway.setOnValueChangeListener { updateData(data.copy(distanceTo = it)) }
-        binding.bearingToBtn.setOnClickListener {
-            binding.bearingTo.text = formatter.formatDegrees(compass.bearing.value)
-            updateData(data.copy(bearingTo = compass.bearing))
+        binding.bearingTo.setOnBearingChangeListener { bearing, isTrueNorth ->
+            updateData(data.copy(bearingTo = bearing, bearingIsTrueNorth = isTrueNorth))
         }
         binding.comment.addTextChangedListener { updateData(data.copy(notes = getNotes(binding))) }
     }

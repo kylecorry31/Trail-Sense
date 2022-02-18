@@ -10,7 +10,7 @@
     <string name="sunset_label">सूर्य का अस्त होना</string>
 
 
-    <string name="pref_use_true_north_title">ट्रू नॉर्थ</string>
+    <string name="true_north">ट्रू नॉर्थ</string>
     <string name="pref_use_sea_level_pressure_title">समुद्र तल का दबाव</string>
     <string name="general">सामान्य</string>
     <string name="pressure">दबाव</string>

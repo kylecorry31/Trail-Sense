@@ -11,7 +11,7 @@
     <string name="sunset_label">غروب خورشید</string>
 
 
-    <string name="pref_use_true_north_title">شمال جغرافیایی</string>
+    <string name="true_north">شمال جغرافیایی</string>
     <string name="pref_use_sea_level_pressure_title">فشار سطح دریا</string>
     <string name="general">عمومی</string>
     <string name="pressure">فشار</string>

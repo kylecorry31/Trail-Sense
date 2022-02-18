@@ -163,7 +163,7 @@
 \nDenne meldingen kan slås av i appinnstillingene.</string>
     <string name="calibrate_compass_dialog_content">Roter telefonen i et åttetallsmønster eller i alle retninger flere ganger, trykk %s når du er ferdig.</string>
     <string name="calibrate_compass_dialog_title">Kalibrer kompasset</string>
-    <string name="pref_use_true_north_title">Sann nord</string>
+    <string name="true_north">Sann nord</string>
     <string name="pref_ruler_calibration_title">Linjalskala</string>
     <string name="coordinate_format_degrees_minutes_seconds">Grader, minutter og sekunder</string>
     <string name="coordinate_format_degrees_decimal_minutes">Grader og desimalminutter</string>

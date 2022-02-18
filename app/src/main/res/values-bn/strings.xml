@@ -9,7 +9,7 @@
     <string name="astronomy">জ্যোতির্বিদ্যা</string>
     <string name="sunrise_label">সূর্যোদয়</string>
     <string name="sunset_label">সূর্যাস্ত</string>
-    <string name="pref_use_true_north_title">প্রকৃত উত্তর</string>
+    <string name="true_north">প্রকৃত উত্তর</string>
     <string name="pref_use_sea_level_pressure_title">সমুদ্রপৃষ্ঠের চাপ</string>
     <string name="general">সাধারণ</string>
     <string name="pressure">চাপ</string>

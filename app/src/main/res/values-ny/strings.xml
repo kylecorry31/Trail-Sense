@@ -10,7 +10,7 @@
     <string name="sunset_label">Dzuwa</string>
 
 
-    <string name="pref_use_true_north_title">Kumpoto Kwenikweni</string>
+    <string name="true_north">Kumpoto Kwenikweni</string>
     <string name="pref_use_sea_level_pressure_title">Kupsinjika kwa nyanja</string>
     <string name="general">Zambiri</string>
     <string name="pressure">Kukakamizidwa</string>
