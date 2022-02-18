@@ -57,24 +57,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp" />
 
-
-            <!--TODO: Replace this with a distance input-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/beacon_elevation_holder"
+            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+                android:id="@+id/beacon_elevation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:hint="@string/beacon_elevation_hint_meters">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/beacon_elevation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNone"
-                    android:inputType="numberSigned|numberDecimal" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+                app:hint="@string/elevation"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/create_at_distance"
@@ -86,7 +74,7 @@
             <com.kylecorry.trail_sense.shared.views.DistanceInputView
                 android:id="@+id/distance_away"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:visibility="gone"
                 tools:visibility="visible" />
@@ -94,7 +82,7 @@
             <LinearLayout
                 android:id="@+id/bearing_to_holder"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 android:visibility="gone"

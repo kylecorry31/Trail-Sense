@@ -47,7 +47,7 @@
             tools:text="1m ago" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-    
+
     <TextView
         android:id="@+id/datum"
         android:layout_width="wrap_content"

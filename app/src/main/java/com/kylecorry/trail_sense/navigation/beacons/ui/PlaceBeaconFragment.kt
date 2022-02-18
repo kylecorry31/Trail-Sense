@@ -8,7 +8,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -50,7 +49,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private val isComplete = IsBeaconFormDataComplete()
     private var hasChanges = DoesBeaconFormDataHaveChanges(CreateBeaconData.empty)
 
-    private val form by lazy { CreateBeaconForm(units, formatter) }
+    private val form by lazy { CreateBeaconForm(formatter) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +107,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         updateColor()
         updateBeaconGroupName()
         loadExistingBeacon()
+        updateElevationUnits()
 
         // Fill in the initial location information
         initialLocation?.let {
@@ -159,13 +159,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         binding.createBeaconTitle.rightQuickAction.setOnClickListener { onSubmit() }
 
-        // TODO: Replace this with a distance picker
-        binding.beaconElevationHolder.hint = if (units == DistanceUnits.Feet) {
-            getString(R.string.beacon_elevation_hint_feet)
-        } else {
-            getString(R.string.beacon_elevation_hint_meters)
-        }
-
         binding.bearingToBtn.text =
             getString(R.string.beacon_set_bearing_btn, formatter.formatDegrees(0f))
         binding.distanceAway.units = formatter.sortDistanceUnits(
@@ -198,8 +191,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private fun setElevationFromAltimeter(): Boolean {
         binding.beaconElevation.isEnabled = true
         val elevation =
-            Distance.meters(altimeter.altitude).convertTo(units).distance
-        binding.beaconElevation.setText(DecimalFormatter.format(elevation, 2))
+            Distance.meters(altimeter.altitude).convertTo(units)
+        binding.beaconElevation.value = elevation
         return false
     }
 
@@ -245,13 +238,16 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         form.updateData(data)
         binding.beaconName.setText(data.name)
         binding.beaconLocation.coordinate = data.coordinate
-        binding.beaconElevation.setText(
-            data.elevation?.let {
-                DecimalFormatter.format(it.convertTo(units).distance, 2)
-            })
+        binding.beaconElevation.value = data.elevation?.convertTo(units)
+        updateElevationUnits()
         binding.comment.setText(data.notes)
         updateBeaconGroupName()
         updateColor()
+    }
+
+    private fun updateElevationUnits() {
+        binding.beaconElevation.units =
+            formatter.sortDistanceUnits(listOf(DistanceUnits.Meters, DistanceUnits.Feet))
     }
 
     private fun onSubmit() {
