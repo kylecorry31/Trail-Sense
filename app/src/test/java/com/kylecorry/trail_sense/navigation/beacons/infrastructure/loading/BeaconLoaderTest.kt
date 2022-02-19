@@ -119,7 +119,7 @@ internal class BeaconLoaderTest {
 
         whenever(service.search("Test", 1))
             .thenReturn(expected)
-        
+
         val beacons = loader.load("Test", 1)
 
         assertEquals(expected, beacons)
