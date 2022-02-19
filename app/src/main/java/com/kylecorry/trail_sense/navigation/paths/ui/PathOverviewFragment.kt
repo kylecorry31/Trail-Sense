@@ -84,7 +84,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private val beaconNavigator: IBeaconNavigator by lazy {
-        BeaconNavigator(BeaconService(requireContext()), findNavController())
+        BeaconNavigator(
+            BeaconService(requireContext()),
+            NavControllerAppNavigation(findNavController())
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
