@@ -17,13 +17,14 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
-    IPathPreferences {
+    IPathPreferences, IBeaconPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -60,7 +61,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             value
         )
 
-    val showLastSignalBeacon: Boolean
+    override val showLastSignalBeacon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_last_signal_beacon)) ?: true
 
     override val useLinearCompass: Boolean

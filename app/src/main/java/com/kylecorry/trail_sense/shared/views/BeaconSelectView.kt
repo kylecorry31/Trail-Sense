@@ -49,7 +49,7 @@ class BeaconSelectView(context: Context, attrs: AttributeSet?) : LinearLayout(co
     private val beaconService by lazy { BeaconService(context) }
     private val distanceFactory by lazy { BeaconDistanceCalculatorFactory(beaconService) }
     private val beaconSort by lazy { NearestBeaconSort(distanceFactory, this::location) }
-    private val beaconLoader by lazy { BeaconLoader(beaconSort, beaconService, prefs) }
+    private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.IO + job)
@@ -155,7 +155,8 @@ class BeaconSelectView(context: Context, attrs: AttributeSet?) : LinearLayout(co
     }
 
     private suspend fun getBeacons(): List<IBeacon> = onIO {
-        beaconLoader.load(binding.searchboxBeaconPicker.query?.toString(), displayedGroup?.id)
+        val beacons = beaconLoader.load(binding.searchboxBeaconPicker.query?.toString(), displayedGroup?.id)
+        beaconSort.sort(beacons)
     }
 
     private fun onSearch() {
