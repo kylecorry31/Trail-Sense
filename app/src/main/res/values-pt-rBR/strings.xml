@@ -34,18 +34,12 @@
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s de distância</string>
     <!--Navigation Tab - Beacon List-->
-    <string name="select_beacon">Selecione o ponto de orientação</string>
-    <string name="delete_beacon">Excluir o ponto de orientação</string>
-    <string name="edit_beacon">Editar o ponto de orientação</string>
     <string name="no_beacons">Nenhum ponto de orientação</string>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Enviar</string>
     <!--Navigation Tab - Create beacon-->
     <string name="name">Nome</string>
     <string name="beacon_invalid_name">Nome inválido</string>
-    <string name="beacon_invalid_elevation">Elevação inválida</string>
-    <string name="beacon_elevation_hint_feet">Elevação em pés (opcional)</string>
-    <string name="beacon_elevation_hint_meters">Elevação em metros (opcional)</string>
     <string name="beacon_comment">Anotações (opcional)</string>
     <!--Weather Tab-->
     <string name="units_hpa">hPa</string>
@@ -530,10 +524,7 @@
     <string name="quality_good">Boa</string>
     <string name="quality_poor">Baixa</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="value_since_time">%s desde %s</string>
     <string name="speedometer">Velocímetro</string>
-    <string name="speedometer_average">Média (do Recuar)</string>
-    <string name="speedometer_real_time">Tempo real</string>
     <string name="screen_flashlight">Tela</string>
     <string name="low_tide">Baixa maré</string>
     <string name="high_tide">Alta maré</string>
@@ -547,7 +538,6 @@
     <string name="pref_show_last_signal_beacon_summary">Cria um ponto de orientação para a localização do último sinal de celular</string>
     <string name="pref_show_last_signal_beacon_title">Último sinal do ponto de orientação</string>
     <string name="place_beacon_at">Colocar um ponto de orientação em %s\?</string>
-    <string name="all_beacons">Todos os pontos de orientação</string>
     <string name="pref_tiles_enabled_summary">Pode impedir que o app que gerencia a economia da bateria suspenda o Trail Sense</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="pref_backtrack_history_days_title">Histórico do caminho de recuo</string>

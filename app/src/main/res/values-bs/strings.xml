@@ -4,8 +4,6 @@
     <string name="weather">Vrijeme</string>
     <string name="settings">Podešavanja</string>
     <string name="name">Ime</string>
-    <string name="select_beacon">Odaberite Svjetionik</string>
-    <string name="delete_beacon">Izbriši svjetionik</string>
     <string name="astronomy">Astronomija</string>
     <string name="sunrise_label">Izlazak sunca</string>
     <string name="sunset_label">Zalazak sunca</string>
@@ -246,10 +244,7 @@
     <string name="tool_speedometer_odometer_title">Brzinomjer / Odometar</string>
     <string name="odometer">Odometar</string>
     <string name="value_average">%s prosječno</string>
-    <string name="value_since_time">%s od %s</string>
     <string name="speedometer">Brzinomjer</string>
-    <string name="speedometer_average">Prosječno (od Izatraga)</string>
-    <string name="speedometer_real_time">Pravo Vrijeme</string>
     <string name="screen_flashlight">Zaslon</string>
     <string name="pref_daily_weather_time_title">Svakodnevno vrijeme</string>
     <string name="time_not_set">Vrijeme nije određeno</string>
@@ -575,9 +570,6 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">Bilješke (Opcionalno)</string>
-    <string name="beacon_elevation_hint_meters">Kota u metrima (Opcionalno)</string>
-    <string name="beacon_elevation_hint_feet">Kota u stopama (Opcionalno)</string>
-    <string name="beacon_invalid_elevation">Neispravna kota</string>
     <string name="beacon_invalid_name">Nevažeće ime</string>
     <string name="maps">Karte</string>
     <string name="share_action_send">Pošalji</string>
@@ -586,8 +578,6 @@
         <item quantity="few">%d svjetionika</item>
         <item quantity="other">%d svjetionika</item>
     </plurals>
-    <string name="edit_beacon">Uredi svjetionik</string>
-    <string name="all_beacons">Svi svjetionici</string>
     <string name="eta">~ %s udaljeno</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Ugasi</string>

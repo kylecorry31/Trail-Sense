@@ -16,7 +16,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Poznámky (Voliteľné)</string>
-    <string name="beacon_invalid_elevation">Neplatná nadmorská výška</string>
     <string name="beacon_invalid_name">Neplatný názov</string>
     <string name="name">Názov</string>
     <string name="maps">Mapy</string>

@@ -4,8 +4,6 @@
     <string name="weather">Погода</string>
     <string name="settings">Настройки</string>
     <string name="name">Имя</string>
-    <string name="select_beacon">Выберите маячок</string>
-    <string name="delete_beacon">Удалить маячок</string>
     <string name="astronomy">Астрономия</string>
     <string name="sunrise_label">Восход солнца</string>
     <string name="sunset_label">Закат</string>
@@ -182,7 +180,6 @@
     <string name="override_from_gps">Направлять компас на географический север используя текущее местоположение GPS</string>
     <string name="compass_declination_override">Задать смещение компаса</string>
     <string name="compass_auto_declination">Автоматически направлять компас на географический север</string>
-    <string name="edit_beacon">Редактировать маячок</string>
     <string name="pref_ruler_calibration_summary">Порядок калибровки:
 \n- Установите значение 1.
 \n- Измерьте значение одной единицы виртуальной линейки.
@@ -213,9 +210,6 @@
     <string name="sun_does_not_set">не заходит</string>
     <string name="notification_monitoring_weather">Сбор данных о погоде в фоне</string>
     <string name="notification_storm_alert_title">Штормовое предупреждение</string>
-    <string name="beacon_elevation_hint_meters">Высота в метрах (не обязательно)</string>
-    <string name="beacon_elevation_hint_feet">Высота в футах (не обязательно)</string>
-    <string name="beacon_invalid_elevation">Неверная высота</string>
     <string name="eta">~ %s до маячка</string>
     <string name="accuracy_info">"GPS: Выйдите на открытое пространство с беспрепятственным видом на небо.
 \n    %s на текущем месте
@@ -537,8 +531,6 @@
     <string name="weather_better_than_today">Лучше, чем сегодня</string>
     <string name="tomorrows_forecast">Прогноз на завтра</string>
     <string name="speedometer">Спидометр</string>
-    <string name="speedometer_average">Средняя (от истории маршрута)</string>
-    <string name="speedometer_real_time">В реальном времени</string>
     <string name="screen_flashlight">Экран</string>
     <string name="turn_off">Выключить</string>
     <string name="tides">Приливы</string>
@@ -558,7 +550,6 @@
     <string name="pedometer">Шагомер</string>
     <string name="odometer">Одометр</string>
     <string name="value_average">%s в среднем</string>
-    <string name="value_since_time">%s с %s</string>
     <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="import_gpx">Импорт GPX</string>
@@ -581,7 +572,6 @@
     <string name="no_maps">Нет карт</string>
     <string name="rename">Переименовать</string>
     <string name="experimental">Экспериментально</string>
-    <string name="all_beacons">Все маячки</string>
     <string name="search">Поиск</string>
     <string name="pref_odometer_reset_daily_title">Сбрасывать ежедневно</string>
     <string name="sleep_timer">Таймер сна</string>

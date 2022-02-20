@@ -4,8 +4,6 @@
     <string name="weather">Meteo</string>
     <string name="settings">Impostazioni</string>
     <string name="name">Nome</string>
-    <string name="select_beacon">Selezione Segnaposto</string>
-    <string name="delete_beacon">Cancellazione Segnaposto</string>
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Alba</string>
     <string name="sunset_label">Tramonto</string>
@@ -70,9 +68,6 @@
     <string name="pref_pressure_history_title">Storia della pressione</string>
     <string name="tool_category_angles">Angoli</string>
     <string name="beacon_comment">Note (opzionale)</string>
-    <string name="beacon_elevation_hint_meters">Altezza in metri (opzionale)</string>
-    <string name="beacon_elevation_hint_feet">Altezza in piedi (opzionale)</string>
-    <string name="beacon_invalid_elevation">Altezza non valida</string>
     <string name="maps">Mappe</string>
     <string name="beacon_invalid_name">Nome non valido</string>
     <string name="share_action_send">Invia</string>
@@ -80,7 +75,6 @@
         <item quantity="one">%d segnaposto</item>
         <item quantity="other">%d segnaposti</item>
     </plurals>
-    <string name="edit_beacon">Modifica Segnaposto</string>
     <string name="turn_off">Spegni</string>
     <string name="tap_to_turn_off">Premi per spegnere</string>
     <string name="flashlight_title">Torcia</string>
@@ -341,7 +335,6 @@
     <string name="value_average">%s media</string>
     <string name="tool_speedometer_odometer_title">Tachimetro / Contachilometri</string>
     <string name="speedometer">Tachimetro</string>
-    <string name="speedometer_real_time">Tempo reale</string>
     <string name="time_not_set">Ora non impostata</string>
     <string name="battery_usage">%s utilizzo batteria</string>
     <string name="always_on">Sempre attivo</string>
@@ -421,7 +414,6 @@
     <string name="stratus">Strato</string>
     <string name="stratocumulus">Stratocumulo</string>
     <string name="cumulus">Cumulo</string>
-    <string name="all_beacons">Tutti i Segnaposto</string>
     <string name="theme_sunset_sunrise">Alba/tramonto</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte, premi %s una volta finito.
 \n
@@ -581,7 +573,6 @@
     <string name="experimental">Sperimentale</string>
     <string name="tides">Maree</string>
     <string name="pref_daily_weather_time_title">Orario meteo giornaliero</string>
-    <string name="value_since_time">%s dal %s</string>
     <string name="odometer">Odometro</string>
     <string name="rename">Rinomina</string>
     <string name="no_maps">Nessuna mappa</string>

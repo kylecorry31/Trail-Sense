@@ -4,8 +4,6 @@
     <string name="weather">Weer</string>
     <string name="settings">Instellingen</string>
     <string name="name">Naam</string>
-    <string name="select_beacon">Baken selecteren</string>
-    <string name="delete_beacon">Baken verwijderen</string>
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Zonsopgang</string>
     <string name="sunset_label">Zonsondergang</string>
@@ -155,9 +153,6 @@
     <string name="pressure_tendency_format_2">%s / 3u</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">Notities (Optioneel)</string>
-    <string name="beacon_elevation_hint_meters">Hoogte in meter (Optioneel)</string>
-    <string name="beacon_elevation_hint_feet">Hoogte in voet (Optioneel)</string>
-    <string name="beacon_invalid_elevation">Hoogte ongeldig</string>
     <string name="beacon_invalid_name">Naam ongeldig</string>
     <string name="maps">Kaarten</string>
     <string name="share_action_send">Versturen</string>
@@ -165,7 +160,6 @@
         <item quantity="one">%d baken</item>
         <item quantity="other">%d bakens</item>
     </plurals>
-    <string name="edit_beacon">Baken aanpassen</string>
     <string name="eta">~ %s verwijderd</string>
     <string name="sos">SOS (noodsignaal)</string>
     <string name="turn_off">Uitschakelen</string>
@@ -320,7 +314,6 @@
     <string name="backtrack_battery_warning">Kleine intervallen (minder dan 15 minuten) kunnen de batterij snel doen leeglopen</string>
     <string name="backtrack_high_priority_notification">Er wordt elke %s een routepunt geplaatst</string>
     <string name="speedometer_odometer_accuracy_dialog">Om de hoogste juistheid te bereiken moet je Terugweg aanzetten, en in de instellingen te kilometertellerbron op \'stappenteller\' zetten.</string>
-    <string name="speedometer_average">Gemiddeld (van Terugweg)</string>
     <string name="pref_backtrack_save_cell_title">Mobiele signaal opnemen</string>
     <string name="pref_backtrack_save_cell_summary">Het mobiele signaal opnemen bij het routepunt. Het internet wordt niet gebruikt.</string>
     <string name="onboarding_privacy">- Trail Sense respecteert je privacy. Locatiegegevens verlaten nooit je apparaat
@@ -478,7 +471,6 @@
     <string name="compass_declination">Magnetische declinatie</string>
     <string name="theme_sunset_sunrise">Zonsopkomst/zonsondergang</string>
     <string name="no_data">Geen gegevens</string>
-    <string name="all_beacons">Alle bakens</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="tools">Hulpmiddelen</string>
     <string name="one">1</string>
@@ -698,10 +690,8 @@
     <string name="pedometer">Stappenteller</string>
     <string name="odometer">Kilometerteller</string>
     <string name="value_average">%s gemiddelde</string>
-    <string name="value_since_time">%s sinds %s</string>
     <string name="tool_speedometer_odometer_title">Snelheidsmeter / Kilometerteller</string>
     <string name="speedometer">Snelheidsmeter</string>
-    <string name="speedometer_real_time">Echte tijd</string>
     <string name="pref_require_satellites_title">Satellietfix nodig</string>
     <string name="screen_flashlight">Afschermen</string>
     <string name="pref_daily_weather_time_title">Dagelijkse weertijd</string>

@@ -93,7 +93,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                                 1 -> {
                                     Alerts.dialog(
                                         requireContext(),
-                                        getString(R.string.delete_beacon),
+                                        getString(R.string.delete),
                                         name
                                     ) { cancelled ->
                                         if (!cancelled) {

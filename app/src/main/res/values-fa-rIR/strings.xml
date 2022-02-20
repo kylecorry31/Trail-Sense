@@ -4,8 +4,6 @@
     <string name="weather">آب و هوا</string>
     <string name="settings">تنظیمات</string>
     <string name="name">عنوان</string>
-    <string name="select_beacon">انتخاب مکان</string>
-    <string name="delete_beacon">حذف مکان</string>
     <string name="astronomy">ستاره شناسی</string>
     <string name="sunrise_label">طلوع خورشید</string>
     <string name="sunset_label">غروب خورشید</string>

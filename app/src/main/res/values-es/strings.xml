@@ -4,8 +4,6 @@
     <string name="weather">Clima</string>
     <string name="settings">Ajustes</string>
     <string name="name">Nombre</string>
-    <string name="select_beacon">Seleccione baliza</string>
-    <string name="delete_beacon">Eliminar baliza</string>
     <string name="astronomy">Astronomía</string>
     <string name="sunrise_label">amanecer</string>
     <string name="sunset_label">anochecer</string>
@@ -92,13 +90,9 @@
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="beacon_comment">Notas (opcional)</string>
-    <string name="beacon_elevation_hint_meters">Medidores de elevación (opcional)</string>
-    <string name="beacon_elevation_hint_feet">Pies de elevación (opcional)</string>
-    <string name="beacon_invalid_elevation">Elevación inválida</string>
     <string name="beacon_invalid_name">Nombre inválido</string>
     <string name="maps">Mapas</string>
     <string name="share_action_send">Enviar</string>
-    <string name="edit_beacon">Editar baliza</string>
     <string name="flashlight_title">Linterna</string>
     <string name="unknown">Desconocida</string>
     <string name="compass_azimuth">Azimut</string>
@@ -132,7 +126,6 @@
         <item quantity="one">%d baliza</item>
         <item quantity="other">%d balizas</item>
     </plurals>
-    <string name="all_beacons">Todas las balizas</string>
     <string name="eta">~%s de distancia</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>
@@ -440,7 +433,6 @@
     <string name="low">Bajo</string>
     <string name="speedometer">Velocímetro</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / cuentakilómetros</string>
-    <string name="value_since_time">%s desde %s</string>
     <string name="value_average">%s promedio</string>
     <string name="odometer">Odometro</string>
     <string name="source">Recurso</string>
@@ -551,8 +543,6 @@
     <string name="half_tide">Media</string>
     <string name="pref_daily_weather_time_title">Tiempo meteorológico diario</string>
     <string name="screen_flashlight">Pantalla</string>
-    <string name="speedometer_real_time">Tiempo real</string>
-    <string name="speedometer_average">Promedio (de Backtrack)</string>
     <string name="pref_stride_length_title">Longitud de zancada</string>
     <string name="pref_nearby_radar_title">Mostrar brújula de radar cercana</string>
     <string name="meteor_shower">Lluvia de meteoritos</string>
@@ -963,11 +953,9 @@
     </plurals>
     <string name="errors">Errores</string>
     <string name="error_banners">Anuncios de error</string>
-    <string name="enter_text">Introduzca texto</string>
     <string name="no_qr_code_found">No se ha detectado un código QR</string>
     <string name="saved_to_note">Guardar en nota</string>
     <string name="view">Vista</string>
-    <string name="tide_is_diurnal">¿Es diurna\?</string>
     <string name="low_tide_letter">B</string>
     <string name="tide_deleted">Marea borrada</string>
     <string name="duration_second_format">%ds</string>

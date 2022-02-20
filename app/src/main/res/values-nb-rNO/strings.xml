@@ -139,9 +139,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
-    <string name="beacon_elevation_hint_meters">Høyde i meter (valgfritt)</string>
-    <string name="beacon_elevation_hint_feet">Høyde i fot (valgfritt)</string>
-    <string name="beacon_invalid_elevation">Ugyldig høyde</string>
     <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: Gå ut med fri sikt mot himmelen.
@@ -443,9 +440,7 @@
     <string name="pref_stride_length_title">Skrittlengde</string>
     <string name="pedometer">Skritteller</string>
     <string name="odometer">Trippteller</string>
-    <string name="value_since_time">%s siden %s</string>
     <string name="tool_speedometer_odometer_title">Speedometer / Trippteller</string>
-    <string name="speedometer_real_time">Sanntid</string>
     <string name="screen_flashlight">Skjerm</string>
     <string name="pref_daily_weather_time_title">Daglig værtid</string>
     <string name="time_not_set">Klokkeslett ikke stilt inn</string>
@@ -574,7 +569,6 @@
     <string name="sort">Sorter</string>
     <string name="packing_lists">Pakkelister</string>
     <string name="pref_backtrack_history_days_title">Tilbakesporingshistorikk</string>
-    <string name="speedometer_average">Gjennomsnitt (fra Tilbakesporing)</string>
     <string name="backtrack_disabled_low_power_toast">Tilbakesporing er slått av i strømsparingsmodus</string>
     <string name="pref_backtrack_frequency_title">Tilbakesporingsintervall</string>
     <string name="backtrack_notification_channel_description">Posisjonsoppdateringer for tilbakesporing</string>
@@ -602,10 +596,6 @@
         <item quantity="other">%d navigeringsmarkører</item>
     </plurals>
     <string name="no_beacons">Ingen navigeringsmarkører</string>
-    <string name="edit_beacon">Rediger navigeringsmarkør</string>
-    <string name="delete_beacon">Slett navigeringsmarkør</string>
-    <string name="all_beacons">Alle navigeringsmarkører</string>
-    <string name="select_beacon">Velg navigeringsmarkør</string>
     <string name="backtrack">Tilbakesporing</string>
     <string name="beacon_create_beacon">Navigeringsmarkør</string>
     <string name="qr_code">QR-kode</string>

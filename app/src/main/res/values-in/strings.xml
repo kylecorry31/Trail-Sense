@@ -83,9 +83,6 @@
     <string name="share_action_send">Kirim</string>
     <string name="name">Nama</string>
     <string name="beacon_invalid_name">Nama tidak valid</string>
-    <string name="beacon_invalid_elevation">Elevasi tidak valid</string>
-    <string name="beacon_elevation_hint_feet">Kaki elevasi (Opsional)</string>
-    <string name="beacon_elevation_hint_meters">Meter elevasi (Opsional)</string>
     <string name="beacon_comment">Catatan (Opsional)</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -151,7 +148,6 @@
     <string name="pref_theme_title">Tema</string>
     <string name="theme_light">Terang</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="select_beacon">Pilih Beacon</string>
     <string name="weather_improving_slow">Segera membaik</string>
     <string name="add">Tambah</string>
     <string name="subtract">Bagi</string>
@@ -159,9 +155,6 @@
     <string name="theme_dark">Gelap</string>
     <string name="charging_fast">Pengisian cepat (%s)</string>
     <string name="charging_slow">Pengisian lambat (%s)</string>
-    <string name="all_beacons">Semua beacons</string>
-    <string name="delete_beacon">Hapus beacon</string>
-    <string name="edit_beacon">Ubah beacon</string>
     <string name="no_beacons">Tidak ada beacon</string>
     <plurals name="beacon_group_summary">
         <item quantity="other">%d beacon</item>

@@ -8,9 +8,6 @@
         <item quantity="other">%d baliza</item>
     </plurals>
     <string name="no_beacons">Balizarik ez</string>
-    <string name="edit_beacon">Baliza editatu</string>
-    <string name="delete_beacon">Baliza ezabatu</string>
-    <string name="select_beacon">Baliza hautatu</string>
     <string name="eta">~ %s urruti</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
@@ -82,9 +79,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Oharrak (hautazkoa)</string>
-    <string name="beacon_elevation_hint_meters">Altitudea metroetan (hautazkoa)</string>
-    <string name="beacon_elevation_hint_feet">Altitudea oinetan (hautazkoa)</string>
-    <string name="beacon_invalid_elevation">Altitude ez balioduna</string>
     <string name="beacon_invalid_name">Izen ez balioduna</string>
     <string name="compass_declination">Deklinazioa</string>
     <string name="continue_button">JARRAITU</string>

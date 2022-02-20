@@ -65,10 +65,6 @@
     <!--Navigation Tab - Destination Panel-->
     <string name="eta">~ %s away</string>
     <!--Navigation Tab - Beacon List-->
-    <string name="select_beacon">Select Beacon</string>
-    <string name="all_beacons">All beacons</string>
-    <string name="delete_beacon">Delete beacon</string>
-    <string name="edit_beacon">Edit beacon</string>
     <string name="no_beacons">No beacons</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d beacon</item>
@@ -80,9 +76,6 @@
     <!--Navigation Tab - Create beacon-->
     <string name="name">Name</string>
     <string name="beacon_invalid_name">Invalid name</string>
-    <string name="beacon_invalid_elevation">Invalid elevation</string>
-    <string name="beacon_elevation_hint_feet">Elevation feet (Optional)</string>
-    <string name="beacon_elevation_hint_meters">Elevation meters (Optional)</string>
     <string name="beacon_comment">Notes (Optional)</string>
     <!--Weather Tab-->
     <string name="units_hpa">hPa</string>

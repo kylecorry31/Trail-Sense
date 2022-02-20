@@ -4,8 +4,6 @@
     <string name="weather">Wetter</string>
     <string name="settings">Einstellungen</string>
     <string name="name">Name</string>
-    <string name="select_beacon">Wegpunkt auswählen</string>
-    <string name="delete_beacon">Wegpunkt löschen</string>
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
@@ -114,7 +112,6 @@
     <string name="sunset_alert_notification_text">Sonnenuntergang um %s</string>
     <string name="tools">Werkzeuge</string>
     <string name="unknown">Unbekannt</string>
-    <string name="edit_beacon">Wegpunkt bearbeiten</string>
     <string name="share_action_send">Senden</string>
     <string name="maps">Karten</string>
     <string name="beacon_invalid_name">Ungültiger Name</string>
@@ -128,9 +125,6 @@
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>
     <string name="sos">SOS</string>
     <string name="eta">~ %s entfernt</string>
-    <string name="beacon_invalid_elevation">Ungültige Höhenangabe</string>
-    <string name="beacon_elevation_hint_feet">Höhe in Fuß (optional)</string>
-    <string name="beacon_elevation_hint_meters">Höhe in Metern (optional)</string>
     <string name="beacon_comment">Anmerkungen (optional)</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
@@ -543,9 +537,6 @@
     <string name="source">Quelle</string>
     <string name="pref_stride_length_title">Schrittlänge</string>
     <string name="value_average">%s Durchschnitt</string>
-    <string name="value_since_time">%s seit %s</string>
-    <string name="speedometer_average">Durchschnitt (von Rückweg)</string>
-    <string name="speedometer_real_time">Echtzeit</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
     <string name="none">Keine</string>
     <string name="backtrack_notification_channel_description">Standortaktualisierungen für Rückweg</string>
@@ -564,7 +555,6 @@
     <string name="guide_signaling_for_help_title">Signalisieren, dass Hilfe benötigt wird</string>
     <string name="experimental">Experimentell</string>
     <string name="pref_daily_weather_notification">pref_backtrack_save_cell</string>
-    <string name="all_beacons">Alle Wegpunkte</string>
     <string name="import_gpx">GPX importieren</string>
     <string name="error_importing_map">Fehler beim Importieren der Karte</string>
     <string name="importing_map">Karte importieren</string>

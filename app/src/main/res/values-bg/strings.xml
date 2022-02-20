@@ -3,8 +3,6 @@
     <string name="weather">Метеорологично време</string>
     <string name="settings">Настройки</string>
     <string name="name">име</string>
-    <string name="select_beacon">Изберете маяк</string>
-    <string name="delete_beacon">Изтриване на маяк</string>
     <string name="astronomy">астрономия</string>
     <string name="sunrise_label">изгрев</string>
     <string name="sunset_label">залез</string>

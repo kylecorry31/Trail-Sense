@@ -3,8 +3,6 @@
     <string name="weather">मौसम</string>
     <string name="settings">समायोजन</string>
     <string name="name">नाम</string>
-    <string name="select_beacon">बीकन का चयन करें</string>
-    <string name="delete_beacon">बीकन को हटा दें</string>
     <string name="astronomy">खगोल</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्य का अस्त होना</string>

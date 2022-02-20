@@ -3,8 +3,6 @@
     <string name="weather">طقس</string>
     <string name="settings">الإعدادات</string>
     <string name="name">اسم</string>
-    <string name="select_beacon">حدد منارة</string>
-    <string name="delete_beacon">تحذف المرشد</string>
     <string name="astronomy">الفلك</string>
     <string name="sunrise_label">شروق الشمس</string>
     <string name="sunset_label">غروب الشمس</string>

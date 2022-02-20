@@ -40,8 +40,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Jegyzetek (nem kötelező)</string>
-    <string name="beacon_elevation_hint_meters">Magasság méterben (nem kötelező)</string>
-    <string name="beacon_invalid_elevation">Érvénytelen magasság</string>
     <string name="beacon_invalid_name">Érvénytelen név</string>
     <string name="name">Név</string>
     <string name="maps">Térképek</string>
@@ -51,9 +49,6 @@
         <item quantity="other">%d jelölő</item>
     </plurals>
     <string name="no_beacons">Nincsenek jelölők</string>
-    <string name="edit_beacon">Jelölő szerkesztése</string>
-    <string name="delete_beacon">Jelölő törlése</string>
-    <string name="select_beacon">Válasszon jelölőt</string>
     <string name="eta">~ %s távolságra</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Érintse meg a kikapcsoláshoz</string>

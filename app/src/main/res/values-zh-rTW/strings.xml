@@ -88,16 +88,12 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">未知</string>
     <string name="dash">-</string>
-    <string name="beacon_invalid_elevation">無效海拔高度</string>
     <string name="beacon_invalid_name">無效名稱</string>
     <string name="name">名稱</string>
     <plurals name="beacon_group_summary">
         <item quantity="other">%d 地標</item>
     </plurals>
     <string name="no_beacons">無地標</string>
-    <string name="edit_beacon">編輯地標</string>
-    <string name="delete_beacon">刪除地標</string>
-    <string name="select_beacon">選取地標</string>
     <string name="flashlight_title">手電筒</string>
     <string name="charging_slow">慢速充電中 (%s)</string>
     <string name="charging_fast">快速充電中 (%s)</string>
@@ -278,7 +274,6 @@
     <string name="discharging_slow">慢速放電中 (%s)</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="all_beacons">所有指標</string>
     <string name="pref_compass_filter_amt_title">電子羅盤平滑化</string>
     <string name="weather_improving_slow">好轉中</string>
     <string name="compass_auto_declination"></string>

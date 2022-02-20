@@ -69,7 +69,7 @@ class BeaconGroupListItem(
                     R.id.action_delete_beacon_group -> {
                         Alerts.dialog(
                             view.context,
-                            view.context.getString(R.string.delete_beacon_group),
+                            view.context.getString(R.string.delete),
                             view.context.getString(
                                 R.string.delete_beacon_group_message,
                                 group.name

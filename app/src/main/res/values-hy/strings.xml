@@ -3,8 +3,6 @@
     <string name="weather">Եղանակ</string>
     <string name="settings">Կարգավորումներ</string>
     <string name="name">Անուն</string>
-    <string name="select_beacon">Ընտրեք փարոս</string>
-    <string name="delete_beacon">Deleteնջել փարոսը</string>
     <string name="astronomy">Աստղագիտություն</string>
     <string name="sunrise_label">Արևածագ</string>
     <string name="sunset_label">Մայրամուտ</string>

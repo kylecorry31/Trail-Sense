@@ -20,7 +20,7 @@ class DeleteBeaconCommand(
     fun execute(beacon: Beacon) {
         Alerts.dialog(
             context,
-            context.getString(R.string.delete_beacon),
+            context.getString(R.string.delete),
             beacon.name
         ) { cancelled ->
             if (!cancelled) {

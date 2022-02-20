@@ -4,8 +4,6 @@
     <string name="weather">天气</string>
     <string name="settings">设定值</string>
     <string name="name">名称</string>
-    <string name="select_beacon">选择信标</string>
-    <string name="delete_beacon">删除信标</string>
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
@@ -130,18 +128,14 @@
     <string name="storm_alerts">暴风雨警报</string>
     <string name="alerts">警报</string>
     <string name="units_inhg_short">英寸汞柱</string>
-    <string name="beacon_elevation_hint_feet">海拔英尺数（可选）</string>
     <string name="accuracy_distance_unknown">\?</string>
-    <string name="beacon_elevation_hint_meters">海拔米数（可选）</string>
     <string name="beacon_comment">备注（可选）</string>
-    <string name="beacon_invalid_elevation">无效的海拔</string>
     <string name="beacon_invalid_name">无效的名称</string>
     <string name="maps">地图</string>
     <string name="share_action_send">发送</string>
     <plurals name="beacon_group_summary">
         <item quantity="other">%d 个信标</item>
     </plurals>
-    <string name="edit_beacon">编辑信标</string>
     <string name="eta">还有 ~%s 远</string>
     <string name="sos">紧急求救信号</string>
     <string name="tap_to_turn_off">轻触以关闭</string>
@@ -527,10 +521,7 @@
     <string name="screen_flashlight">屏幕</string>
     <string name="turn_off">关闭</string>
     <string name="speedometer">速度计</string>
-    <string name="speedometer_average">平均 (来自 Backtrack)</string>
-    <string name="speedometer_real_time">实时</string>
     <string name="value_average">%s 平均</string>
-    <string name="value_since_time">%s自%s</string>
     <string name="tool_speedometer_odometer_title">速度计/里程表</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="source">源</string>
@@ -562,7 +553,6 @@
     <string name="no_maps">无地图</string>
     <string name="rename">重命名</string>
     <string name="experimental">实验性</string>
-    <string name="all_beacons">所有的信标</string>
     <string name="import_gpx">导入 GPX</string>
     <string name="error_importing_map">导入地图时出错</string>
     <string name="importing_map">导入地图中</string>

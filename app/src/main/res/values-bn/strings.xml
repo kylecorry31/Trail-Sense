@@ -4,8 +4,6 @@
     <string name="weather">আবহাওয়া</string>
     <string name="settings">সেটিংস</string>
     <string name="name">নাম</string>
-    <string name="select_beacon">বীকন নির্বাচন করুন</string>
-    <string name="delete_beacon">বীকন মুছুন</string>
     <string name="astronomy">জ্যোতির্বিদ্যা</string>
     <string name="sunrise_label">সূর্যোদয়</string>
     <string name="sunset_label">সূর্যাস্ত</string>

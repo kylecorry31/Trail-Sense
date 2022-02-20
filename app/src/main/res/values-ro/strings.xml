@@ -62,9 +62,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Note (opțional)</string>
-    <string name="beacon_elevation_hint_meters">Metri de elevație (opțional)</string>
-    <string name="beacon_elevation_hint_feet">Picioare de elevație (opțional)</string>
-    <string name="beacon_invalid_elevation">Elevație nevalidă</string>
     <string name="beacon_invalid_name">Nume nevalid</string>
     <string name="name">Nume</string>
     <string name="maps">Hărți</string>
@@ -74,11 +71,7 @@
         <item quantity="few">%d balize</item>
         <item quantity="other">%d balize</item>
     </plurals>
-    <string name="delete_beacon">Ștergeți baliza</string>
     <string name="no_beacons">Fără balize</string>
-    <string name="edit_beacon">Editare baliză</string>
-    <string name="all_beacons">Toate balizele</string>
-    <string name="select_beacon">Selectați Beacon</string>
     <string name="eta">~ %s departe</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Opreşte</string>

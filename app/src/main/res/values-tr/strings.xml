@@ -41,11 +41,8 @@
     <string name="pedometer">Adımsayar</string>
     <string name="odometer">Odometre/kilometre sayacı</string>
     <string name="value_average">ortalama %s</string>
-    <string name="value_since_time">%s\'den beri %s</string>
     <string name="tool_speedometer_odometer_title">Hız ölçer / Kilometre sayacı</string>
     <string name="speedometer">Hızölçer</string>
-    <string name="speedometer_average">Ortalama (Geri iz sürmeden)</string>
-    <string name="speedometer_real_time">Eş zamanlı</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="pref_daily_weather_time_title">Günlük hava durumu vakti</string>
     <string name="time_not_set">Zaman belirlenmedi</string>
@@ -463,9 +460,6 @@
     <string name="units_inhg">inç cıva</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notlar (İsteğe bağlı)</string>
-    <string name="beacon_elevation_hint_meters">Yükseklik metresi (İsteğe bağlı)</string>
-    <string name="beacon_elevation_hint_feet">Yükseklik feet\'i (İsteğe bağlı)</string>
-    <string name="beacon_invalid_elevation">Geçersiz yükseklik</string>
     <string name="beacon_invalid_name">Geçersiz isim</string>
     <string name="name">İsim</string>
     <string name="maps">Haritalar</string>
@@ -475,10 +469,6 @@
         <item quantity="other">%d işaret</item>
     </plurals>
     <string name="no_beacons">İşaret yok</string>
-    <string name="edit_beacon">İşareti düzenle</string>
-    <string name="delete_beacon">İşareti sil</string>
-    <string name="all_beacons">Bütün işaretler</string>
-    <string name="select_beacon">İşaret Seç</string>
     <string name="eta">~ %s uzaklıkta</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Kapat</string>

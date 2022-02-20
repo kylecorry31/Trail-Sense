@@ -105,9 +105,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notes (Opcional)</string>
-    <string name="beacon_elevation_hint_meters">Elevació en metres (Opcional)</string>
-    <string name="beacon_elevation_hint_feet">Elevació en peus (Opcional)</string>
-    <string name="beacon_invalid_elevation">Elevació invàlida</string>
     <string name="beacon_invalid_name">Nom invàlid</string>
     <string name="name">Nom</string>
     <string name="maps">Mapes</string>
@@ -117,11 +114,7 @@
         <item quantity="other">%d fites</item>
     </plurals>
     <string name="no_beacons">Cap fita</string>
-    <string name="edit_beacon">Editar fita</string>
     <string name="access_background_location_rationale">Trail Sense utilitza la ubicació en segon plà. S\'utilitza per calibrar el nivell de pressió a nivell de mas en la monitorització metereològica i per proporcionar alertes més acurades sobre postes de sol. [Veure la política de privacitat](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="delete_beacon">Eliminar una balisa</string>
-    <string name="all_beacons">Totes les balises</string>
-    <string name="select_beacon">Seleccioneu una balisa</string>
     <string name="eta">~ %s de distància</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>

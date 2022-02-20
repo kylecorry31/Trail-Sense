@@ -78,9 +78,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Poznámky (Volitelné)</string>
-    <string name="beacon_elevation_hint_meters">Nadmořská výška v metrech (Volitelné)</string>
-    <string name="beacon_elevation_hint_feet">Nadmořská výška ve stopách (Volitelné)</string>
-    <string name="beacon_invalid_elevation">Neplatná nadmořská výška</string>
     <string name="beacon_invalid_name">Neplatné jméno</string>
     <string name="name">Název</string>
     <string name="maps">Mapy</string>
@@ -98,9 +95,6 @@
         <item quantity="other">%d majáků</item>
     </plurals>
     <string name="no_beacons">Žádné majáky</string>
-    <string name="edit_beacon">Upravit maják</string>
-    <string name="delete_beacon">Smazat maják</string>
-    <string name="select_beacon">Vybrat maják</string>
     <string name="eta">~ %s daleko</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Svítilna</string>
@@ -206,7 +200,6 @@
     <string name="turn_off">Vypnout</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="all_beacons">Všechny majáky</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="current_format">%s mA</string>
 </resources>

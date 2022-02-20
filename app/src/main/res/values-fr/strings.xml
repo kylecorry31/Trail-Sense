@@ -4,8 +4,6 @@
     <string name="weather">Météo</string>
     <string name="settings">Réglages</string>
     <string name="name">Nom</string>
-    <string name="select_beacon">Sélectionner un repère</string>
-    <string name="delete_beacon">Supprimer repère</string>
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Lever du soleil</string>
     <string name="sunset_label">Coucher du soleil</string>
@@ -172,12 +170,8 @@
     <string name="storm_alerts">Alertes relatives aux tempêtes</string>
     <string name="alerts">Alertes</string>
     <string name="beacon_comment">Notes (optionnel)</string>
-    <string name="beacon_elevation_hint_meters">Altitude, en mètres (optionnel)</string>
-    <string name="beacon_elevation_hint_feet">Altitude, en pieds (optionnel)</string>
-    <string name="beacon_invalid_elevation">Altitude invalide</string>
     <string name="beacon_invalid_name">Nom invalide</string>
     <string name="share_action_send">Envoyer</string>
-    <string name="edit_beacon">Modifier le repère</string>
     <string name="eta">À environ ~ %s</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
@@ -455,7 +449,6 @@
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="theme_sunset_sunrise">Lever du soleil/Coucher du soleil</string>
     <string name="no_data">Aucune donnée</string>
-    <string name="all_beacons">Tous les repères</string>
     <string name="turn_off">Éteindre</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="app_disclaimer_message_title">Avis de non-responsabilité / Conditions d\'utilisation</string>

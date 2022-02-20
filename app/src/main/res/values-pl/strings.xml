@@ -4,8 +4,6 @@
     <string name="weather">Pogoda</string>
     <string name="settings">Ustawienia</string>
     <string name="name">Nazwa</string>
-    <string name="select_beacon">Wybierz punkt nawigacyjny</string>
-    <string name="delete_beacon">Usuń punkt nawigacyjny</string>
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód Słońca</string>
     <string name="sunset_label">Zachód Słońca</string>
@@ -117,7 +115,6 @@
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3g</string>
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
-    <string name="beacon_invalid_elevation">Nieprawidłowa wysokość</string>
     <string name="maps">Mapy</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Naciśnij, aby wyłączyć</string>
@@ -159,7 +156,6 @@
         <item quantity="many">%d punktów nawigacyjnych</item>
         <item quantity="other">%d punktów nawigacyjnych</item>
     </plurals>
-    <string name="edit_beacon">Edytuj punkt nawigacyjny</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
     <string name="cliff_height_guide">Szacowanie wysokości klifu</string>
@@ -272,7 +268,6 @@
     <string name="pref_sunset_alert_time_title">Czas alertu przed zachodem słońca</string>
     <string name="category_natural">Naturalne</string>
     <string name="category_fire">Ogień</string>
-    <string name="beacon_elevation_hint_feet">Wysokość w stopach (opcjonalnie)</string>
     <string name="water_purification_step_3">Uruchom minutnik</string>
     <string name="precise_inches_format">%s cali</string>
     <string name="inventory_empty_text">Brak przedmiotów</string>
@@ -286,7 +281,6 @@
 \nTą informację można wyłączyć w ustawieniach aplikacji.</string>
     <string name="calibrate_compass_dialog_content">Obróć telefon kilkakrotnie według wzoru cyfry 8 lub we wszystkich kierunkach, po zakończeniu kliknij %s.</string>
     <string name="override_from_gps">Ustaw nadpisanie z GPS</string>
-    <string name="beacon_elevation_hint_meters">Wysokość w metrach (opcjonalnie)</string>
     <string name="tool_clock_title">Zegar</string>
     <string name="lightning">Błyskawica</string>
     <string name="thunder">Grzmot</string>
@@ -528,15 +522,12 @@
     <string name="moderate">Umiarkowane</string>
     <string name="high">Wysokie</string>
     <string name="speedometer">Prędkościomierz</string>
-    <string name="speedometer_average">Średnia (z funkcji śladu powrotnego)</string>
-    <string name="speedometer_real_time">Czas rzeczywisty</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="half_tide">Połowa przypływu</string>
     <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
     <string name="turn_off">Wyłącz</string>
     <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
     <string name="value_average">%s średnia</string>
-    <string name="value_since_time">%s od %s</string>
     <string name="source">Źródło</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
@@ -592,7 +583,6 @@
         <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
     </plurals>
     <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
-    <string name="all_beacons">Wszystkie punkty</string>
     <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania z usługi</string>
     <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %s (%s)</string>

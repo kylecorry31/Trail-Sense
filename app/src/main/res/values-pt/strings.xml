@@ -4,8 +4,6 @@
     <string name="weather">Clima</string>
     <string name="settings">Configurações</string>
     <string name="name">Nome</string>
-    <string name="select_beacon">Selecionar alfinete</string>
-    <string name="delete_beacon">Eliminar alfinete</string>
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Nascer do sol</string>
     <string name="sunset_label">Pôr do sol</string>
@@ -344,9 +342,6 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">polegadas</string>
     <string name="beacon_comment">Notas (opcional)</string>
-    <string name="beacon_elevation_hint_meters">Elevação em metros (opcional)</string>
-    <string name="beacon_elevation_hint_feet">Elevação em pés (opcional)</string>
-    <string name="beacon_invalid_elevation">Elevação inválida</string>
     <string name="beacon_invalid_name">Nome inválido</string>
     <string name="maps">Mapas</string>
     <string name="share_action_send">Enviar</string>
@@ -354,7 +349,6 @@
         <item quantity="one">%d alfinete</item>
         <item quantity="other">%d alfinetes</item>
     </plurals>
-    <string name="edit_beacon">Editar alfinete</string>
     <string name="eta">~ %s de distância</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Toque para desligar</string>
@@ -720,11 +714,8 @@
     <string name="pedometer">Pedómetro</string>
     <string name="odometer">Conta-quilómetros</string>
     <string name="value_average">%s média</string>
-    <string name="value_since_time">%s desde %s</string>
     <string name="tool_speedometer_odometer_title">Velocímetro / conta-quilómetros</string>
     <string name="speedometer">Velocímetro</string>
-    <string name="speedometer_average">Média (do voltar para trás)</string>
-    <string name="speedometer_real_time">Tempo real</string>
     <string name="screen_flashlight">Ecrã</string>
     <string name="pref_daily_weather_time_title">Hora de meteorologia diária</string>
     <string name="time_not_set">Relógio não definido</string>
@@ -748,7 +739,6 @@
     <string name="delete_tide_prompt">Eliminar maré\?</string>
     <string name="action_inventory_clear_confirm">Eliminar todas as quantidades dos itens na mochila\?</string>
     <string name="no_data">Sem dados</string>
-    <string name="all_beacons">Todos os alfinetes</string>
     <string name="current_format">%s mA</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="camera">Câmara</string>

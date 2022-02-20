@@ -22,8 +22,6 @@
     <string name="direction_north_west">Tây Bắc</string>
     <string name="direction_south_west">Tây Nam</string>
     <string name="increase">+</string>
-    <string name="edit_beacon">Chỉnh đèn hiệu</string>
-    <string name="delete_beacon">Xóa đèn hiệu</string>
     <string name="no_beacons">Không có đèn hiệu</string>
     <string name="stop">Dừng lại</string>
     <string name="alerts">Cảnh báo</string>
@@ -45,7 +43,5 @@
     <string name="tap_to_turn_off">Bấm để tắt</string>
     <string name="turn_off">Tắt</string>
     <string name="sos">SOS</string>
-    <string name="select_beacon">Chọn Beacon</string>
-    <string name="all_beacons">Tất cả đèn hiệu</string>
     <string name="share_action_send">Gửi đi</string>
 </resources>

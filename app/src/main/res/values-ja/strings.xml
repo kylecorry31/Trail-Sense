@@ -4,8 +4,6 @@
     <string name="weather">天気</string>
     <string name="settings">設定</string>
     <string name="name">名前</string>
-    <string name="select_beacon">ビーコンを選択</string>
-    <string name="delete_beacon">ビーコンを削除</string>
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日の出</string>
     <string name="sunset_label">日の入り</string>
@@ -160,12 +158,8 @@
     <string name="pressure_format">%s %s</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">ノート (オプション)</string>
-    <string name="beacon_elevation_hint_meters">メートルで表わした標高 (オプション)</string>
-    <string name="beacon_elevation_hint_feet">フィートで表わした標高 (オプション)</string>
-    <string name="beacon_invalid_elevation">不正な高度</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="share_action_send">送信</string>
-    <string name="edit_beacon">ビーコンを編集</string>
     <string name="eta">~ %s 離れています</string>
     <string name="accuracy_info">"GPS: 屋外の視界の開けた場所に移動してください.
 \n    現在地との誤差%s
