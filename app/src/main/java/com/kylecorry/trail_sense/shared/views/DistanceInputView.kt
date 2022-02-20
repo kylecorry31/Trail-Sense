@@ -13,6 +13,8 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
 
     private val formatService by lazy { FormatService(context) }
 
+    var defaultHint: String = context.getString(R.string.distance)
+
     var showFeetAndInches: Boolean = false
         set(value) {
             field = value
@@ -21,12 +23,12 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
                 hint = context.getString(R.string.unit_feet)
                 secondaryHint = context.getString(R.string.unit_inches)
             } else {
-                hint = context.getString(R.string.distance)
+                hint = defaultHint
             }
         }
 
     init {
-        hint = context.getString(R.string.distance)
+        hint = defaultHint
         setOnValueChangeListener(null)
     }
 
@@ -38,7 +40,7 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
                 hint = context.getString(R.string.unit_feet)
                 secondaryHint = context.getString(R.string.unit_inches)
             } else if (wasShowing && !showSecondaryAmount) {
-                hint = context.getString(R.string.distance)
+                hint = defaultHint
             } else {
                 listener?.invoke(it)
             }

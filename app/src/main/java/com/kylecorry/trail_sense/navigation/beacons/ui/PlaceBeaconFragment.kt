@@ -98,6 +98,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bind(binding)
+        binding.beaconElevation.defaultHint = getString(R.string.elevation)
+        binding.beaconElevation.hint = getString(R.string.elevation)
         CustomUiUtils.setButtonState(binding.createBeaconTitle.rightQuickAction, true)
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
