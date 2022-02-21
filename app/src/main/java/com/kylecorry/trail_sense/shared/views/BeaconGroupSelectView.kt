@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
@@ -30,7 +31,15 @@ class BeaconGroupSelectView(context: Context, attrs: AttributeSet?) : LinearLayo
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
+    private val runner = ControlledRunner<Unit>()
+
     var group: BeaconGroup? = null
+
+    var groupFilter: List<Long?> = emptyList()
+        set(value) {
+            field = value
+            updateBeaconList()
+        }
 
     private val beaconService by lazy { BeaconService(this.context) }
 
@@ -50,7 +59,7 @@ class BeaconGroupSelectView(context: Context, attrs: AttributeSet?) : LinearLayo
         updateBeaconList()
     }
 
-    private fun loadGroup(groupId: Long?){
+    fun loadGroup(groupId: Long?) {
         scope.launch {
             group = onIO {
                 if (groupId != null) {
@@ -79,13 +88,15 @@ class BeaconGroupSelectView(context: Context, attrs: AttributeSet?) : LinearLayo
 
     private fun updateBeaconList() {
         scope.launch {
-            val groups = getGroups()
-            onMain {
-                binding.beaconGroupTitle.title.text =
-                    group?.name ?: context.getString(R.string.no_group)
-                binding.beaconGroupTitle.leftQuickAction.isVisible = group != null
-                beaconList.setData(groups)
-                binding.beaconEmptyText.isVisible = groups.isEmpty()
+            runner.cancelPreviousThenRun {
+                val groups = getGroups()
+                onMain {
+                    binding.beaconGroupTitle.title.text =
+                        group?.name ?: context.getString(R.string.no_group)
+                    binding.beaconGroupTitle.leftQuickAction.isVisible = group != null
+                    beaconList.setData(groups)
+                    binding.beaconEmptyText.isVisible = groups.isEmpty()
+                }
             }
         }
     }
@@ -93,7 +104,9 @@ class BeaconGroupSelectView(context: Context, attrs: AttributeSet?) : LinearLayo
     private suspend fun getGroups(): List<BeaconGroup> = onIO {
         val sort = AlphabeticalBeaconSort()
         val group = group?.id
+        // TODO: Instead of hiding the groups, just disable them so you can't click / appear grayed out
         val groups = beaconService.getGroups(group)
+            .filterNot { groupFilter.contains(it.id) || groupFilter.contains(it.parentId) }
         sort.sort(groups).map { it as BeaconGroup }
     }
 

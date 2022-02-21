@@ -206,11 +206,18 @@ object CustomUiUtils {
         context: Context,
         title: String? = null,
         okText: String? = null,
+        groupsToExclude: List<Long?> = emptyList(),
+        initialGroup: Long? = null,
         onBeaconGroupPick: (cancelled: Boolean, groupId: Long?) -> Unit
     ) {
-        // TODO: Allow initial group selection
         val view = View.inflate(context, R.layout.view_beacon_group_select_prompt, null)
         val beaconSelect = view.findViewById<BeaconGroupSelectView>(R.id.prompt_beacon_groups)
+        if (groupsToExclude.isNotEmpty()) {
+            beaconSelect.groupFilter = groupsToExclude
+        }
+        initialGroup?.let {
+            beaconSelect.loadGroup(initialGroup)
+        }
         Alerts.dialog(
             context,
             title ?: "",

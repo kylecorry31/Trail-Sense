@@ -22,7 +22,9 @@ class MoveBeaconGroupCommand(
         CustomUiUtils.pickBeaconGroup(
             context,
             null,
-            context.getString(R.string.move)
+            context.getString(R.string.move),
+            initialGroup = group.parentId,
+            groupsToExclude = listOf(group.id)
         ) { cancelled, groupId ->
             if (cancelled) return@pickBeaconGroup
             scope.launch {

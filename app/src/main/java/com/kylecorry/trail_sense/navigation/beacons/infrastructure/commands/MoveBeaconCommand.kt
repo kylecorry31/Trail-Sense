@@ -22,7 +22,8 @@ class MoveBeaconCommand(
         CustomUiUtils.pickBeaconGroup(
             context,
             null,
-            context.getString(R.string.move)
+            context.getString(R.string.move),
+            initialGroup = beacon.parentId
         ) { cancelled, groupId ->
             if (cancelled) return@pickBeaconGroup
             scope.launch {

@@ -147,7 +147,10 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         binding.beaconGroupPicker.setOnClickListener {
-            CustomUiUtils.pickBeaconGroup(requireContext()) { cancelled, groupId ->
+            CustomUiUtils.pickBeaconGroup(
+                requireContext(),
+                initialGroup = form.data.groupId
+            ) { cancelled, groupId ->
                 if (!cancelled) {
                     form.onGroupChanged(groupId)
                     updateBeaconGroupName()

@@ -95,6 +95,7 @@ class BeaconService(context: Context) : IBeaconService {
         groupFilter: Long?,
         applyGroupFilterIfNull: Boolean
     ): List<IBeacon> {
+        // TODO: Search sub groups
         return if (groupFilter != null || applyGroupFilterIfNull) {
             repo.searchBeaconsInGroup(
                 nameFilter,
