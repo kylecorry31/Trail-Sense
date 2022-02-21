@@ -905,12 +905,12 @@
     <string name="stride_length_walk">Gå i en rett linje, trykk stopp når du er ferdig</string>
     <string name="save">Lagre</string>
     <string name="estimate_stride_length">Beregn skrittlengde</string>
-    <string name="current_speed_pedometer">Gjeldende hastighet (Skritteller)</string>
-    <string name="current_speed_gps">Gjeldende hastighet (GPS)</string>
-    <string name="average_speed_backtrack">Gjennomsnittshastighet (Tilbakesporing)</string>
-    <string name="average_speed">Gjennomsnittshastighet</string>
-    <string name="average_speed_pedometer">Gjennomsnittshastighet (Skritteller)</string>
-    <string name="current_speed">Gjeldende hastighet</string>
+    <string name="current_speed_pedometer">Gjeldende fart (Skritteller)</string>
+    <string name="current_speed_gps">Gjeldende fart (GPS)</string>
+    <string name="average_speed_backtrack">Gjennomsnittsfart (Tilbakesporing)</string>
+    <string name="average_speed">Gjennomsnittsfart</string>
+    <string name="average_speed_pedometer">Gjennomsnittsfart (Skritteller)</string>
+    <string name="current_speed">Gjeldende fart</string>
     <string name="activity_recognition_permission_denied">Fysisk aktivitetstillatelse avslått, kan ikke slå på skrittellerfunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
     <string name="reset_distance_title">Nullstille distanse\?</string>
     <string name="disclaimer_estimated_tide">Beregnet tidevann kan være unøyaktig. Bruk en offisiell tidevannstabell for de nøyaktige tidene.</string>
@@ -921,4 +921,6 @@
     <string name="navigating_to_nearest_path_point">Navigerer til nærmeste stipunkt</string>
     <string name="beacons">Navigeringsmarkører</string>
     <string name="pref_start_on_boot_title">Start ved enhetsoppstart</string>
+    <string name="water_boil_guide_title">Gjør vann trygt å drikke</string>
+    <string name="navigation_guide_description">Bruke navigeringsmarkører og stier</string>
 </resources>

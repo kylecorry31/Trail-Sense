@@ -985,4 +985,16 @@
     <string name="distance_alert_distance_reached">Osiągnąłeś(aś) %s</string>
     <string name="estimated">Szacowany</string>
     <string name="disclaimer_estimated_tide_title">Szacowany przypływ</string>
+    <string name="reset_distance_title">Zresetować odległość\?</string>
+    <string name="save">Zapisz</string>
+    <string name="saved">Zapisano</string>
+    <string name="stride_length_stand_still">Stój prosto</string>
+    <string name="stride_length_walk">Idź w linii prostej, naciśnij stop, gdy skończysz</string>
+    <string name="current_speed">Obecna prędkość</string>
+    <string name="current_speed_pedometer">Obecna prędkość (krokomierz)</string>
+    <string name="current_speed_gps">Obecna prędkość (GPS)</string>
+    <string name="average_speed_pedometer">Średnia prędkość (krokomierz)</string>
+    <string name="average_speed_backtrack">Średnia prędkość (z funkcji trasy wstecznej)</string>
+    <string name="navigating_to_nearest_path_point">Nawigacja do najbliższego punktu trasy</string>
+    <string name="pref_start_on_boot_title">Uruchom przy starcie</string>
 </resources>

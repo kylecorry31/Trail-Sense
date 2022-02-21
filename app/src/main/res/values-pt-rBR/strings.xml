@@ -353,7 +353,7 @@
     <string name="note_title_hint">Título</string>
     <string name="contents">Conteúdos</string>
     <string name="delete_note_title">Excluir anotação\?</string>
-    <string name="notes_empty_text">Sem anotações</string>
+    <string name="notes_empty_text">Nenhuma anotação</string>
     <string name="unit_centimeters">Centímetros</string>
     <string name="unit_inches">Polegadas</string>
     <string name="tool_thermometer_title">Termômetro</string>
@@ -445,7 +445,7 @@
     <string name="battery_power_wireless">Wireless</string>
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
-    <string name="delete_waypoint_prompt">Excluir o ponto de passagem\?</string>
+    <string name="delete_waypoint_prompt">Excluir o ponto do caminho\?</string>
     <string name="pref_gps_override_title">Localização simulada</string>
     <string name="location_input_help">Graus decimais (ex. 1.00, -2.00)
 \n
@@ -500,7 +500,7 @@
     <string name="set">Definir</string>
     <string name="location_not_set">Localização não definida</string>
     <string name="pref_backtrack_save_cell_title">Registrar sinal do celular</string>
-    <string name="pref_backtrack_save_cell_summary">Registra o sinal do celular no ponto de passagem. Sem usar Internet.</string>
+    <string name="pref_backtrack_save_cell_summary">Registra o sinal do celular no ponto do caminho. Sem usar Internet.</string>
     <string name="tool_light_meter_title">Medidor de luz</string>
     <string name="beam_distance">%s de distância do sinal</string>
     <string name="candela_format">%s cd</string>
@@ -526,8 +526,8 @@
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="speedometer">Velocímetro</string>
     <string name="screen_flashlight">Tela</string>
-    <string name="low_tide">Baixa maré</string>
-    <string name="high_tide">Alta maré</string>
+    <string name="low_tide">Baixa</string>
+    <string name="high_tide">Alta</string>
     <string name="tides">Marés</string>
     <string name="experimental">Experimental</string>
     <string name="weather_same_as_today">O mesmo que hoje</string>
@@ -611,7 +611,7 @@
     <string name="background_update">Atualização em segundo plano</string>
     <string name="sunset_alert_location_update">Atualização do local para alerta de pôr-do-sol</string>
     <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) pode causar um consumo excessivo da bateria</string>
-    <string name="backtrack_high_priority_notification">Colocando um ponto de passagem a cada %s</string>
+    <string name="backtrack_high_priority_notification">Colocando um ponto de caminho a cada %s</string>
     <string name="updates">Atualizações</string>
     <string name="arrow">Seta</string>
     <string name="dotted">Pontilhada</string>
@@ -659,7 +659,7 @@
     <string name="tool_speedometer_odometer_title">Velocímetro / Odômetro</string>
     <string name="pref_daily_weather_time_title">Tempo do dia</string>
     <string name="time_not_set">Tempo não definido</string>
-    <string name="half_tide">Meia maré</string>
+    <string name="half_tide">Média</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d ponto de orientação exportado</item>
         <item quantity="other">%d pontos de orientação exportados</item>
@@ -782,8 +782,8 @@
     <string name="altitude_history_length">Histórico de altitude</string>
     <string name="last_duration">Último %s</string>
     <plurals name="waypoints_to_be_deleted">
-        <item quantity="one">%d ponto de passagem será excluído</item>
-        <item quantity="other">%d pontos de passagem serão excluídos</item>
+        <item quantity="one">%d ponto de caminho será excluído</item>
+        <item quantity="other">%d pontos de caminho serão excluídos</item>
     </plurals>
     <string name="new_text">Novo</string>
     <string name="old">Anterior</string>
@@ -901,7 +901,7 @@
     <string name="choose_photo">Escolher foto</string>
     <string name="notification_weather_update_title">Atualização do monitor meteorológico</string>
     <string name="notification_weather_update_content">Registrando a pressão</string>
-    <string name="notification_backtrack_update_title">Atualização de voltar para trás</string>
+    <string name="notification_backtrack_update_title">Atualização de recuo</string>
     <string name="notification_backtrack_update_content">Registrando sua localização</string>
     <string name="paths">Caminhos</string>
     <string name="keep_forever">Mantenha para sempre</string>
@@ -911,4 +911,141 @@
     <string name="weather_storm">Tempestade</string>
     <string name="weather_improving">Melhorando</string>
     <string name="weather_worsening">Piora</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d ponto do caminho excluído</item>
+        <item quantity="other">%d pontos do caminho excluídos</item>
+    </plurals>
+    <string name="reset_distance_title">Resetar a distância\?</string>
+    <string name="importing">Importando</string>
+    <string name="points">Pontos</string>
+    <string name="duration">Duração</string>
+    <string name="elevation">Elevação</string>
+    <string name="elevation_loss">Perda de elevação</string>
+    <string name="easy">Fácil</string>
+    <string name="difficulty">Dificuldade</string>
+    <string name="waypoint">Ponto do caminho</string>
+    <string name="merging">Agregando</string>
+    <string name="pref_clinometer_baseline_distance_title">Distância de referência</string>
+    <string name="height">Altura</string>
+    <string name="pressure_tendency">Tendência</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d maré</item>
+        <item quantity="other">%d marés</item>
+    </plurals>
+    <string name="temp_f_short">°F</string>
+    <string name="activity_recognition_permission_denied">A permissão de atividade física recusada, não é possível usar a funcionalidade do pedômetro. Você pode ativá-lo em configurações.</string>
+    <string name="temp_c_short">°C</string>
+    <string name="pref_default_path_style_title">Estilo padrão do caminho</string>
+    <string name="saving">Salvando</string>
+    <string name="reduce_map_resolution">Reduzir a resolução do mapa</string>
+    <string name="clinometer_measure_distance_instructions">Para medir a distância até um destino que é %s alto:
+\n
+\n1. Alinhe o clinômetro com a base do destino
+\n2. Faça clique longo na tela
+\n3. Realinhe o clinômetro com o topo do destino
+\n4. Solte para fixar e veja a distância do destino</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Fixar com botões de volume</string>
+    <string name="clinometer_measure_height_instructions">Para medir a altura de um destino que está a %s de distância:
+\n
+\n1. Alinhe o clinômetro com a base do destino
+\n2. Faça clique longo na tela
+\n3. Realinhe o clinômetro com o topo do destino
+\n4. Solte para fixar e veja a altura do destino</string>
+    <string name="clinometer_measure_distance_title">Altura do destino</string>
+    <string name="clinometer_measure_height_title">Distância ao destino</string>
+    <string name="weather_monitor_disabled_resolution">Ativar o monitoramento do tempo em configurações meteorológicas</string>
+    <string name="tool_temperature_estimation_description">Estimar a temperatura em uma elevação diferente</string>
+    <string name="onboarding_explore">- Criado para caminhadas, mochilão, acampamento e geocaching
+\n
+\n- Coloque pontos de orientação e navegue de volta para eles
+\n
+\n- Siga os caminhos
+\n
+\n- Volte ao caminho anterior com o recurso de recuar
+\n
+\n- Planeje o que levar
+\n
+\n- Seja alertado antes do pôr-do-sol
+\n
+\n- Prever o tempo
+\n
+\n- Use telefone como uma lanterna
+\n
+\n- E muito mais!</string>
+    <string name="off">Desligado</string>
+    <string name="no_qr_code_found">Nenhum código QR encontrado</string>
+    <string name="saved_to_note">Salvo em anotações</string>
+    <string name="dashed">Traçado</string>
+    <string name="tide_table">Tabela de marés</string>
+    <string name="high_tide_letter">A</string>
+    <string name="view">Visualização</string>
+    <string name="low_tide_letter">B</string>
+    <string name="hard">Difícil</string>
+    <string name="simplifying">Simplificando</string>
+    <string name="simplification_quality">Qualidade de simplificação</string>
+    <string name="elevation_gain">Ganho de elevação</string>
+    <string name="gps_unavailable">GPS indisponível</string>
+    <string name="gps_timeouts">Intervalos no GPS</string>
+    <string name="qr_code_scanner">Leitor de código QR</string>
+    <string name="move_to">Mover para</string>
+    <string name="merge">Agregar</string>
+    <string name="append_onto">Anexar ao</string>
+    <string name="simplify">Simplificar</string>
+    <string name="pref_auto_simplify_paths_title">Simplificar os caminhos ao importar</string>
+    <string name="navigation_guide_description">Usando pontos de orientação e caminhos</string>
+    <string name="change_map_projection">Mudar projeção</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="map_projection_equidistant">Equidistante</string>
+    <string name="slope_amount">%s inclinação</string>
+    <string name="avalanche_risk">Risco de avalanche</string>
+    <string name="distance_unset">Distância não definida</string>
+    <string name="instructions">Instruções</string>
+    <string name="measure">Medida</string>
+    <string name="error_banners">Avisos de erro</string>
+    <string name="errors">Erros</string>
+    <string name="compass_accuracy">Precisão da bússola</string>
+    <string name="compass_unavailable">Bússola indisponível</string>
+    <string name="open">Abrir</string>
+    <string name="note">Anotação</string>
+    <string name="beacon">Ponto de orientação</string>
+    <string name="beacon_created">Ponto de orientação criado</string>
+    <string name="result_deleted">Resultado excluído</string>
+    <string name="undo">Desfazer</string>
+    <string name="share_ellipsis">Compartilhar…</string>
+    <string name="night">Noite</string>
+    <string name="qr_text_too_long">Texto muito longo, o código QR foi truncado</string>
+    <string name="pref_flashlight_should_timeout_title">Desligar automaticamente</string>
+    <string name="pref_flashlight_timeout_title">Desligar após</string>
+    <string name="tide_deleted">A maré foi excluída</string>
+    <string name="tool_temperature_estimation_title">Previsão de temperatura</string>
+    <string name="pref_weather_show_temperature_title">Mostrar temperatura</string>
+    <string name="explore">Explorar</string>
+    <string name="average_speed">Velocidade média</string>
+    <string name="steps">Passos</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Aviso sobre distância</string>
+    <string name="remove_distance_alert">Remover aviso sobre distância (%s)\?</string>
+    <string name="distance_alert_distance_reached">Você chegou a %s</string>
+    <string name="save">Salvar</string>
+    <string name="saved">Salvo</string>
+    <string name="stride_length_walk">Caminhe em linha reta, clique stop quando tiver terminado</string>
+    <string name="current_speed">Velocidade atual</string>
+    <string name="current_speed_pedometer">Velocidade atual (Pedômetro)</string>
+    <string name="current_speed_gps">Velocidade atual (GPS)</string>
+    <string name="average_speed_pedometer">Velocidade média (Pedômetro)</string>
+    <string name="average_speed_backtrack">Velocidade média (Recuo)</string>
+    <string name="navigating_to_nearest_path_point">Navegando até o ponto mais próximo do caminho</string>
+    <string name="beacons">Pontos de orientação</string>
+    <string name="pref_start_on_boot_title">Executar ao iniciar</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="since_time">desde %s</string>
+    <string name="pref_default_path_color_title">Cor padrão do caminho</string>
+    <string name="humidity_history">Histórico de umidade - último %s</string>
+    <string name="temperature_history">Histórico de temperatura - último %s</string>
+    <string name="estimate_stride_length">Estimar o comprimento de passos</string>
+    <string name="stride_length_stand_still">Fique parado</string>
+    <string name="disclaimer_estimated_tide">As marés previstas podem ser imprecisas. Por favor, use uma tabela oficial de marés para os horários exatos.</string>
+    <string name="disclaimer_estimated_tide_title">Maré prevista</string>
+    <string name="estimated">Previsto</string>
 </resources>
