@@ -1036,4 +1036,5 @@
     <string name="pref_start_on_boot_title">Beim Booten starten</string>
     <string name="navigating_to_nearest_path_point">Navigiere zum nächsten Pfadpunkt</string>
     <string name="beacons">Wegpunkte</string>
+    <string name="bearing">Peilung</string>
 </resources>
