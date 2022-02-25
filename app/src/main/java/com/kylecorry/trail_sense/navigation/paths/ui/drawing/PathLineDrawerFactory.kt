@@ -10,6 +10,9 @@ class PathLineDrawerFactory {
             LineStyle.Dotted -> DottedPathLineDrawerStrategy()
             LineStyle.Arrow -> ArrowPathLineDrawerStrategy()
             LineStyle.Dashed -> DashedPathLineDrawerStrategy()
+            LineStyle.Square -> SquarePathLineDrawerStrategy()
+            LineStyle.Diamond -> DiamondPathLineDrawerStrategy()
+            LineStyle.Cross -> CrossPathLineDrawerStrategy()
         }
     }
 

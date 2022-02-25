@@ -26,6 +26,9 @@ class ChangePathLineStyleCommand(
                 context.getString(R.string.dotted),
                 context.getString(R.string.arrow),
                 context.getString(R.string.dashed),
+                context.getString(R.string.square),
+                context.getString(R.string.diamond),
+                context.getString(R.string.cross)
             ),
             defaultSelectedIndex = path.style.line.ordinal
         ) {

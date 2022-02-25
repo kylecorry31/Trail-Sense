@@ -95,6 +95,9 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 "solid" -> LineStyle.Solid
                 "arrow" -> LineStyle.Arrow
                 "dashed" -> LineStyle.Dashed
+                "square" -> LineStyle.Square
+                "diamond" -> LineStyle.Diamond
+                "cross" -> LineStyle.Cross
                 else -> LineStyle.Dotted
             }
         }

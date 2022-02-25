@@ -322,6 +322,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             getString(R.string.dotted),
             getString(R.string.arrow),
             getString(R.string.dashed),
+            getString(R.string.square),
+            getString(R.string.diamond),
+            getString(R.string.cross)
         )[path.style.line.ordinal]
 
         val distance =

@@ -196,6 +196,9 @@
         <item>@string/dotted</item>
         <item>@string/arrow</item>
         <item>@string/dashed</item>
+        <item>@string/square</item>
+        <item>@string/diamond</item>
+        <item>@string/cross</item>
     </string-array>
 
     <string-array name="line_style_values">
@@ -203,6 +206,9 @@
         <item>dotted</item>
         <item>arrow</item>
         <item>dashed</item>
+        <item>square</item>
+        <item>diamond</item>
+        <item>cross</item>
     </string-array>
 
     <string-array name="whistle_signals_entries">

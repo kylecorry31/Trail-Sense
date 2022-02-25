@@ -31,6 +31,9 @@ class PathListItem(
                 LineStyle.Dotted -> R.drawable.path_dotted
                 LineStyle.Arrow -> R.drawable.path_arrow
                 LineStyle.Dashed -> R.drawable.path_dashed
+                LineStyle.Square -> R.drawable.path_square
+                LineStyle.Diamond -> R.drawable.path_diamond
+                LineStyle.Cross -> R.drawable.path_cross
             }
         )
 
