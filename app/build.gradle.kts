@@ -56,7 +56,7 @@ android {
 }
 
 dependencies {
-    kapt("androidx.room:room-compiler:2.4.1")
+    kapt("androidx.room:room-compiler:2.4.2")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.core:core-ktx:1.7.0")
@@ -70,19 +70,19 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.room:room-runtime:2.4.1")
-    implementation("androidx.room:room-ktx:2.4.1")
+    implementation("androidx.room:room-runtime:2.4.2")
+    implementation("androidx.room:room-ktx:2.4.2")
     implementation("androidx.lifecycle:lifecycle-service:2.4.1")
     val cameraxVersion = "1.1.0-beta01"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
-    implementation("androidx.camera:camera-view:1.1.0-beta01")
+    implementation("androidx.camera:camera-view:1.1.0-beta02")
     implementation("com.google.android.material:material:1.5.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:5.7.0")
+    implementation("com.github.kylecorry31:sol:5.8.0-beta01")
 
     // Andromeda
     val andromedaVersion = "2.8.0-beta03"
