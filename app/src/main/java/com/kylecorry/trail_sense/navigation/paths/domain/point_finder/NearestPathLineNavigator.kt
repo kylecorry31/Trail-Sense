@@ -7,16 +7,10 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 
 class NearestPathLineNavigator(private val geology: IGeologyService = GeologyService()) :
     IPathPointNavigator {
-
-
     override suspend fun getNextPoint(path: List<PathPoint>, location: Coordinate): PathPoint? {
-        val lines = path.zipWithNext()
-        val nearest = lines
-            .map { geology.getNearestPoint(location, it.first.coordinate, it.second.coordinate) }
-            .minByOrNull {
-                it.distanceTo(location)
-            } ?: return null
-
+        val line = NearestPathLineCalculator(geology).calculate(location, path) ?: return null
+        val nearest =
+            geology.getNearestPoint(location, line.first.coordinate, line.second.coordinate)
         return PathPoint(0, path.first().pathId, nearest)
     }
 }
