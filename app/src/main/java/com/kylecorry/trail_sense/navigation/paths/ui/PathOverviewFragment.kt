@@ -35,6 +35,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.beacon.IPathPointBeaconConverter
 import com.kylecorry.trail_sense.navigation.paths.domain.beacon.TemporaryPathPointBeaconConverter
 import com.kylecorry.trail_sense.navigation.paths.domain.factories.*
+import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPathLineNavigator
 import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
@@ -494,7 +495,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         val path = path ?: return
         val points = waypoints
         val command = NavigateToPathCommand(
-            NearestPathPointNavigator(),
+            if (prefs.navigation.onlyNavigateToPoints) NearestPathPointNavigator() else NearestPathLineNavigator(),
             gps,
             converter,
             beaconNavigator

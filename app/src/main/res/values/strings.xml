@@ -1181,6 +1181,8 @@
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
     <string name="bearing">Bearing</string>
+    <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
+    <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

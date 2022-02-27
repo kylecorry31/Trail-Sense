@@ -175,6 +175,13 @@
             app:key="@string/pref_auto_simplify_paths"
             app:singleLineTitle="false"
             app:title="@string/pref_auto_simplify_paths_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_only_navigate_path_points"
+            app:singleLineTitle="false"
+            app:title="@string/pref_only_navigate_path_points_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -130,6 +130,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         true
     )
 
+    override val onlyNavigateToPoints by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_only_navigate_path_points),
+        true
+    )
+
     var maxBeaconDistance: Float
         get() {
             val raw =
