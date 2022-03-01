@@ -526,7 +526,7 @@
     <string name="astronomy">Astronomi</string>
     <string name="settings">Ayarlar</string>
     <string name="weather">Hava durumu</string>
-    <string name="navigation">Navigasyon</string>
+    <string name="navigation">Gezinme</string>
     <string name="dusk_type">Gün batımı (%s)</string>
     <string name="dawn_type">Gün doğumu (%s)</string>
     <string name="network_3g">3G</string>
@@ -982,4 +982,59 @@
         <item quantity="one">%d gelgit</item>
         <item quantity="other">%d gelgit</item>
     </plurals>
+    <string name="distance_unset">Mesafe ayarlanmadı</string>
+    <string name="clinometer_measure_distance_instructions">%s uzunluğundaki bir hedefe olan mesafeyi ölçmek için:
+\n
+\n1. Eğim ölçeri hedefin tabanına hizalayın
+\n2. Ekrana dokunun ve basılı tutun
+\n3. Eğim ölçeri hedefin üstüne yeniden hizalayın
+\n4. Kilidi serbest bırakın ve hedefe olan mesafeyi görün</string>
+    <string name="off">Kapalı</string>
+    <string name="log">Kayıt</string>
+    <string name="pint_format">%s pint</string>
+    <string name="activity_recognition_permission_denied">Fiziksel etkinlik izni reddedildi, adımsayar özellikleri açılamıyor. Ayarlardan etkinleştirebilirsiniz.</string>
+    <string name="cup_format">%s su b.</string>
+    <string name="us_pints">Amerikan Pint</string>
+    <string name="imperial_pints">İngiliz Pint</string>
+    <string name="imperial_quarts">İngiliz Quart</string>
+    <string name="imperial_ounces_volume">İngiliz Ons</string>
+    <string name="sighting_compass">El pusulası</string>
+    <string name="navigation_guide_description">İşaretleri ve yolları kullanma</string>
+    <string name="clinometer_measure_height_instructions">%s uzaklıktaki bir hedefin yüksekliğini ölçmek için:
+\n
+\n1. Eğim ölçeri hedefin tabanına hizalayın
+\n2. Ekrana dokunun ve basılı tutun
+\n3. Eğim ölçeri hedefin üstüne yeniden hizalayın
+\n4. Kilidi serbest bırakın ve hedefin yüksekliğini görün</string>
+    <string name="saved">Kaydedildi</string>
+    <string name="estimate_stride_length">Tahmini adım uzunluğu</string>
+    <string name="average_speed_backtrack">Ortalama hız (Geri iz sürme)</string>
+    <string name="bearing">Kerteriz</string>
+    <string name="quart_format">%s quart</string>
+    <string name="gallon_format">%s galon</string>
+    <string name="pref_clinometer_baseline_distance_title">Taban çizgisi mesafesi</string>
+    <string name="move_to">Şuraya taşı</string>
+    <string name="us_cups">Amerikan Su Bardağı</string>
+    <string name="us_quarts">Amerikan Quart</string>
+    <string name="us_gallons">Amerikan Galon</string>
+    <string name="imperial_cups">İngiliz Su Bardağı</string>
+    <string name="us_ounces_volume">Amerikan Ons</string>
+    <string name="pounds">Libre</string>
+    <string name="stride_length_stand_still">Hareketsiz durun</string>
+    <string name="stride_length_walk">Düz bir çizgide yürüyün, işiniz bittiğinde dur düğmesine basın</string>
+    <string name="current_speed_pedometer">Geçerli hız (Adımsayar)</string>
+    <string name="average_speed_pedometer">Ortalama hız (Adımsayar)</string>
+    <string name="current_speed">Geçerli hız</string>
+    <string name="current_speed_gps">Geçerli hız (GPS)</string>
+    <string name="reset_distance_title">Mesafe sıfırlansın mı\?</string>
+    <string name="pref_start_on_boot_title">Önyüklemede başlat</string>
+    <string name="navigating_to_nearest_path_point">En yakın yol noktasına git</string>
+    <string name="beacons">İşaretler</string>
+    <string name="imperial_gallons">İngiliz Galon</string>
+    <string name="saving">Kaydet</string>
+    <string name="change_map_projection">İz düşümünü değiştir</string>
+    <string name="map_projection_mercator">Merkator</string>
+    <string name="map_projection_equidistant">Eşit uzaklıkta</string>
+    <string name="save">Kaydet</string>
+    <string name="pressure_logged">Basınç kaydedildi</string>
 </resources>
