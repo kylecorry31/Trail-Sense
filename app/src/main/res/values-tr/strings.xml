@@ -1037,4 +1037,8 @@
     <string name="map_projection_equidistant">Eşit uzaklıkta</string>
     <string name="save">Kaydet</string>
     <string name="pressure_logged">Basınç kaydedildi</string>
+    <string name="square">Kare</string>
+    <string name="diamond">Elmas</string>
+    <string name="cross">Haç</string>
+    <string name="pref_only_navigate_path_points_title">Yalnızca kayıtlı noktalara git</string>
 </resources>

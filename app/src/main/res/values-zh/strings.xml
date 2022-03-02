@@ -1026,4 +1026,8 @@
     <string name="pref_start_on_boot_title">开机启动</string>
     <string name="move_to">移动至</string>
     <string name="bearing">定向</string>
+    <string name="cross">十字形</string>
+    <string name="pref_only_navigate_path_points_title">仅导航到记录点</string>
+    <string name="square">方形</string>
+    <string name="diamond">菱形</string>
 </resources>
