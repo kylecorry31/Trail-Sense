@@ -10,9 +10,10 @@ import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.andromeda.core.system.Resources
-import java.time.LocalDateTime
+import com.kylecorry.sol.math.filters.LowPassFilter
+import com.kylecorry.sol.units.Reading
+import java.time.Duration
 
 
 class AstroChart(private val chart: LineChart) {
@@ -62,18 +63,22 @@ class AstroChart(private val chart: LineChart) {
 
     fun getPoint(datasetIdx: Int, entryIdx: Int): Pair<Float, Float> {
         val entry = chart.lineData.getDataSetByIndex(datasetIdx).getEntryForIndex(entryIdx)
-        val point =  chart.getPixelForValues(entry.x, entry.y, AxisDependency.LEFT)
+        val point = chart.getPixelForValues(entry.x, entry.y, AxisDependency.LEFT)
         return Pair(point.x.toFloat() + chart.x, point.y.toFloat() + chart.y)
     }
 
-    fun plot(datasets: List<AstroChartDataset>, startHour: Float = 0f){
-        val filters = datasets.map { LowPassFilter(0.8f, it.data.first().second) }
+    fun plot(datasets: List<AstroChartDataset>) {
+        val filters = datasets.map { LowPassFilter(0.8f, it.data.first().value) }
         val colors = datasets.map { it.color }.toMutableList()
-        val granularity = 10
-        val values = datasets.mapIndexed { idx, d -> d.data.mapIndexed { i, a ->
-            val time = startHour + i * granularity / 60f
-            Pair(time as Number, filters[idx].filter(a.second))
-        } }.toMutableList()
+        val values = datasets.mapIndexed { idx, d ->
+            val first = d.data.firstOrNull()?.time
+            d.data.mapIndexed { i, a ->
+                Pair(
+                    Duration.between(first, a.time).seconds / (60f * 60f),
+                    filters[idx].filter(a.value)
+                )
+            }
+        }.toMutableList()
 
         val minValue = -100f
         val maxValue = 100f
@@ -82,7 +87,7 @@ class AstroChart(private val chart: LineChart) {
         chart.axisLeft.axisMaximum = maxValue
 
         val sets = values.mapIndexed { index, data ->
-            val entries = data.map { Entry(it.first.toFloat(), it.second) }
+            val entries = data.map { Entry(it.first, it.second) }
             val set1 = LineDataSet(entries, index.toString())
             set1.setDrawIcons(true)
             set1.color = colors[index]
@@ -97,7 +102,7 @@ class AstroChart(private val chart: LineChart) {
             set1.circleRadius = 1f
             set1.setDrawFilled(false)
 
-            if (index == 0){
+            if (index == 0) {
                 set1.valueFormatter = TimeLabelFormatter(chart.context)
             }
 
@@ -111,5 +116,5 @@ class AstroChart(private val chart: LineChart) {
         chart.invalidate()
     }
 
-    data class AstroChartDataset(val data: List<Pair<LocalDateTime, Float>>, val color: Int)
+    data class AstroChartDataset(val data: List<Reading<Float>>, val color: Int)
 }
