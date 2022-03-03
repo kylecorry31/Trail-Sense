@@ -375,6 +375,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
 
+    // TODO: Extract this to simple chart
     private fun plotCelestialBodyImage(
         image: ImageView,
         altitudes: List<Reading<Float>>,
@@ -387,8 +388,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
         val currentIdx = altitudes.indexOf(current)
         val point = chart.getPoint(datasetId, currentIdx)
-        image.x = point.first - image.width / 2f
-        image.y = point.second - image.height / 2f
+        image.x = point.x - image.width / 2f
+        image.y = point.y - image.height / 2f
 
         if (image.height != 0) {
             image.visibility = View.VISIBLE

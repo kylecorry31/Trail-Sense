@@ -1,119 +1,75 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
-import android.graphics.Color
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis.AxisDependency
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.math.filters.LowPassFilter
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
-import java.time.Duration
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.hoursUntil
+import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import java.time.Instant
+import java.time.LocalTime
 
 
 class AstroChart(private val chart: LineChart) {
 
-    val x: Float
-        get() = chart.x
-
-    val y: Float
-        get() = chart.y
-
-    val width: Int
-        get() = chart.width
-
-    val height: Int
-        get() = chart.height
+    private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
+    private val formatter = FormatService(chart.context)
+    private var startTime = Instant.now()
 
     init {
-        chart.description.isEnabled = false
-        chart.setTouchEnabled(false)
-        chart.isDragEnabled = false
-        chart.setScaleEnabled(false)
-        chart.setDrawGridBackground(false)
-        chart.setDrawBorders(false)
+        simpleChart.configureYAxis(
+            labelCount = 0,
+            drawGridLines = false,
+            minimum = -100f,
+            maximum = 100f,
+        )
 
-        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        chart.xAxis.valueFormatter = TimeLabelFormatter(chart.context)
-        chart.axisRight.setDrawLabels(false)
-        chart.axisLeft.setDrawLabels(false)
-        chart.axisLeft.setDrawZeroLine(false)
-
-        val primaryColor = Resources.androidTextColorPrimary(chart.context)
-        val r = primaryColor.red
-        val g = primaryColor.green
-        val b = primaryColor.blue
-
-        chart.xAxis.setDrawGridLines(false)
-        chart.axisLeft.setDrawGridLines(false)
-        chart.xAxis.textColor = Color.argb(150, r, g, b)
-        chart.axisLeft.gridColor = Color.argb(50, r, g, b)
-        chart.axisLeft.textColor = Color.argb(150, r, g, b)
-        chart.axisRight.setDrawGridLines(false)
-        chart.xAxis.setDrawAxisLine(false)
-        chart.axisLeft.setDrawAxisLine(false)
-        chart.axisRight.setDrawAxisLine(false)
-        chart.setNoDataText("")
+        // TODO: Extract hour formatter
+        simpleChart.configureXAxis(
+            labelCount = 7,
+            drawGridLines = false,
+            labelFormatter = {
+                val duration = Time.hours(it.toDouble())
+                val time = startTime.plus(duration)
+                val local = time.toZonedDateTime().toLocalTime()
+                val hour = if (local.minute >= 30) {
+                    local.hour + 1
+                } else {
+                    local.hour
+                }
+                formatter.formatTime(
+                    LocalTime.of(hour % 24, 0),
+                    includeSeconds = false,
+                    includeMinutes = false
+                )
+            }
+        )
     }
 
-    fun getPoint(datasetIdx: Int, entryIdx: Int): Pair<Float, Float> {
-        val entry = chart.lineData.getDataSetByIndex(datasetIdx).getEntryForIndex(entryIdx)
-        val point = chart.getPixelForValues(entry.x, entry.y, AxisDependency.LEFT)
-        return Pair(point.x.toFloat() + chart.x, point.y.toFloat() + chart.y)
+    fun getPoint(datasetIdx: Int, entryIdx: Int): PixelCoordinate {
+        val point = try {
+            simpleChart.getPoint(datasetIdx, entryIdx)
+        } catch (e: Exception) {
+            SimpleLineChart.Point(datasetIdx, entryIdx, 0f, 0f)
+        }
+
+        return PixelCoordinate(point.x + chart.x, point.y + chart.y)
     }
 
     fun plot(datasets: List<AstroChartDataset>) {
-        val filters = datasets.map { LowPassFilter(0.8f, it.data.first().value) }
-        val colors = datasets.map { it.color }.toMutableList()
-        val values = datasets.mapIndexed { idx, d ->
-            val first = d.data.firstOrNull()?.time
-            d.data.mapIndexed { i, a ->
-                Pair(
-                    Duration.between(first, a.time).seconds / (60f * 60f),
-                    filters[idx].filter(a.value)
-                )
+        val first = datasets.firstOrNull()?.data?.firstOrNull()?.time
+        startTime = first
+        val sets = datasets.map { set ->
+            val values = set.data.map {
+                first!!.hoursUntil(it.time) to it.value
             }
-        }.toMutableList()
-
-        val minValue = -100f
-        val maxValue = 100f
-
-        chart.axisLeft.axisMinimum = minValue
-        chart.axisLeft.axisMaximum = maxValue
-
-        val sets = values.mapIndexed { index, data ->
-            val entries = data.map { Entry(it.first, it.second) }
-            val set1 = LineDataSet(entries, index.toString())
-            set1.setDrawIcons(true)
-            set1.color = colors[index]
-            set1.lineWidth = 2f
-            set1.setDrawValues(false)
-            set1.fillColor = colors[index]
-            set1.setCircleColor(colors[index])
-            set1.setDrawCircleHole(false)
-            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
-            set1.cubicIntensity = 0.005f
-            set1.setDrawCircles(false)
-            set1.circleRadius = 1f
-            set1.setDrawFilled(false)
-
-            if (index == 0) {
-                set1.valueFormatter = TimeLabelFormatter(chart.context)
-            }
-
-            set1
+            SimpleLineChart.Dataset(values, set.color)
         }
 
-        val lineData = LineData(sets)
-        chart.data = lineData
-        chart.legend.isEnabled = false
-        chart.notifyDataSetChanged()
-        chart.invalidate()
+        simpleChart.plot(sets)
     }
 
     data class AstroChartDataset(val data: List<Reading<Float>>, val color: Int)

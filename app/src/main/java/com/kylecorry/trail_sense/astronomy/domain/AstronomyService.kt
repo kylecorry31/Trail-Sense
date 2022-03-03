@@ -65,17 +65,17 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonAltitudes(location: Coordinate, date: LocalDate): List<Reading<Float>> {
-        val start = date.atStartOfDay().toZonedDateTime()
-        val totalTime = 24 * 60
-        val granularityMinutes = 10
+        var time = date.atStartOfDay().toZonedDateTime()
+        val granularityMinutes = 10L
         val altitudes = mutableListOf<Reading<Float>>()
-        for (i in 0..totalTime step granularityMinutes) {
+        while (time.toLocalDate() == date) {
             altitudes.add(
                 Reading(
-                    getMoonAltitude(location, start.plusMinutes(i.toLong())),
-                    start.plusMinutes(i.toLong()).toInstant(),
+                    getMoonAltitude(location, time),
+                    time.toInstant(),
                 )
             )
+            time = time.plusMinutes(granularityMinutes)
         }
         return altitudes
     }
@@ -127,18 +127,20 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSunAltitudes(location: Coordinate, date: LocalDate): List<Reading<Float>> {
-        val start = date.atStartOfDay().toZonedDateTime()
-        val totalTime = 24 * 60L
+        var time = date.atStartOfDay().toZonedDateTime()
         val granularityMinutes = 10L
         val altitudes = mutableListOf<Reading<Float>>()
-        for (i in 0..totalTime step granularityMinutes) {
+
+        while (time.toLocalDate() == date) {
             altitudes.add(
                 Reading(
-                    getSunAltitude(location, start.plusMinutes(i)),
-                    start.plusMinutes(i).toInstant()
+                    getSunAltitude(location, time),
+                    time.toInstant()
                 )
             )
+            time = time.plusMinutes(granularityMinutes)
         }
+
         return altitudes
     }
 

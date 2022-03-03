@@ -151,6 +151,37 @@ class SimpleLineChart(
         chart.xAxis.setDrawGridLines(drawGridLines)
     }
 
+    fun plot(data: List<Dataset>) {
+        val sets = mutableListOf<LineDataSet>()
+        data.forEachIndexed { index, it ->
+            val values = it.data.map { Entry(it.first, it.second) }
+
+            val set = LineDataSet(values, "Set ${index + 1}")
+            set.color = it.color
+            set.fillAlpha = 180
+            set.lineWidth = 3f
+            set.setDrawValues(false)
+            set.fillColor = it.color
+            set.setCircleColor(it.color)
+            set.setDrawCircleHole(false)
+            set.setDrawCircles(it.circles)
+            set.circleRadius = 1.5f
+            set.setDrawFilled(it.filled)
+
+            if (it.cubic) {
+                set.mode = LineDataSet.Mode.CUBIC_BEZIER
+                set.cubicIntensity = 0.005f
+            }
+
+            sets.add(set)
+        }
+        val lineData = LineData(sets.toList())
+        chart.data = lineData
+        chart.legend.isEnabled = false
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
     fun plot(
         data: List<Pair<Float, Float>>,
         @ColorInt color: Int,
@@ -158,30 +189,7 @@ class SimpleLineChart(
         circles: Boolean = false,
         cubic: Boolean = true
     ) {
-        val values = data.map { Entry(it.first, it.second) }
-
-        val set1 = LineDataSet(values, "Set 1")
-        set1.color = color
-        set1.fillAlpha = 180
-        set1.lineWidth = 3f
-        set1.setDrawValues(false)
-        set1.fillColor = color
-        set1.setCircleColor(color)
-        set1.setDrawCircleHole(false)
-        set1.setDrawCircles(circles)
-        set1.circleRadius = 1.5f
-        set1.setDrawFilled(filled)
-
-        if (cubic) {
-            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
-            set1.cubicIntensity = 0.005f
-        }
-
-        val lineData = LineData(set1)
-        chart.data = lineData
-        chart.legend.isEnabled = false
-        chart.notifyDataSetChanged()
-        chart.invalidate()
+        plot(listOf(Dataset(data, color, filled, circles, cubic)))
     }
 
     fun plotIndexed(data: List<Float>, @ColorInt color: Int, filled: Boolean = false) {
@@ -216,10 +224,18 @@ class SimpleLineChart(
 
     fun getPoint(datasetIdx: Int, entryIdx: Int): Point {
         val entry = chart.lineData.getDataSetByIndex(datasetIdx).getEntryForIndex(entryIdx)
-        val point =  chart.getPixelForValues(entry.x, entry.y, YAxis.AxisDependency.LEFT)
+        val point = chart.getPixelForValues(entry.x, entry.y, YAxis.AxisDependency.LEFT)
         return Point(datasetIdx, entryIdx, point.x.toFloat(), point.y.toFloat())
     }
 
     data class Point(val datasetIndex: Int, val pointIndex: Int, val x: Float, val y: Float)
+
+    data class Dataset(
+        val data: List<Pair<Float, Float>>,
+        @ColorInt val color: Int,
+        val filled: Boolean = false,
+        val circles: Boolean = false,
+        val cubic: Boolean = true
+    )
 
 }

@@ -10,8 +10,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.hoursUntil
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
 
@@ -59,7 +59,7 @@ class TideChart(private val chart: LineChart) {
         val first = data.firstOrNull()?.time
         startTime = first
         val values = data.map {
-            Duration.between(first, it.time).seconds / (60f * 60f) to
+            first!!.hoursUntil(it.time) to
                     norm(it.value, range.start - 0.5f, range.end + 0.5f)
         }
         simpleChart.plot(values, color, filled = true)
