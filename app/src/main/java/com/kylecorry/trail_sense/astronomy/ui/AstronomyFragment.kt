@@ -87,7 +87,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private val astroChartDataProvider by lazy {
-        if (prefs.astronomy.centerSunAndMoon){
+        if (prefs.astronomy.centerSunAndMoon) {
             CenteredAstroChartDataProvider()
         } else {
             DailyAstroChartDataProvider()
@@ -341,7 +341,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val displayDate = binding.displayDate.date
 
         data = onDefault {
-            astroChartDataProvider.get(gps.location, ZonedDateTime.now())
+            val time =
+                if (displayDate == LocalDate.now()) ZonedDateTime.now() else displayDate.atStartOfDay()
+                    .toZonedDateTime()
+            astroChartDataProvider.get(gps.location, time)
         }
 
         minChartTime = data.sun.first().time.toZonedDateTime()

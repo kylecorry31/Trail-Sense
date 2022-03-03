@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.astronomy.infrastructure.commands
 import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -60,8 +59,8 @@ class LunarEclipseAlertCommand(private val context: Context) : LocationCommand {
         val formatService = FormatService(context)
 
         val timeSpan = formatService.formatTimeSpan(
-            eclipse.start.toZonedDateTime(),
-            eclipse.end.toZonedDateTime(),
+            eclipse.start,
+            eclipse.end,
             true
         )
 

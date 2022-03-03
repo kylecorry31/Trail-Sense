@@ -225,9 +225,9 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             EclipseType.PartialLunar
         ) ?: return null
 
-        val start = nextEclipse.start.toZonedDateTime().toLocalDateTime()
-        val end = nextEclipse.end.toZonedDateTime().toLocalDateTime()
-        val peak = nextEclipse.maximum.toZonedDateTime().toLocalDateTime()
+        val start = nextEclipse.start.toZonedDateTime()
+        val end = nextEclipse.end.toZonedDateTime()
+        val peak = nextEclipse.maximum.toZonedDateTime()
 
         if (start.toLocalDate() != date && end.toLocalDate() != date) {
             return null

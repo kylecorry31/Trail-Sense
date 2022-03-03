@@ -21,28 +21,28 @@ class SunMoonTimesProvider(private val showNoon: Boolean) :
             SunMoonFieldType.Moonset to moonTimes.set,
             SunMoonFieldType.LunarNoon to if (showNoon) moonTimes.transit else null,
         ).filterNot { it.second == null || it.second?.toLocalDate() != date }.sortedBy { it.second }
-            .map { it.first to it.second!!.toLocalTime() }
+            .map { it.first to it.second!! }
 
         return times.map {
             when (it.first) {
                 SunMoonFieldType.Sunrise -> SunriseAstroField(
-                    it.second,
+                    it.second.toLocalTime(),
                     SunTimesMode.Actual
                 )
                 SunMoonFieldType.Sunset -> SunsetAstroField(
-                    it.second,
+                    it.second.toLocalTime(),
                     SunTimesMode.Actual
                 )
                 SunMoonFieldType.SolarNoon -> {
-                    val altitude = astronomyService.getSunAltitude(location, it.second.atDate(date))
-                    SolarNoonAstroField(it.second, altitude)
+                    val altitude = astronomyService.getSunAltitude(location, it.second)
+                    SolarNoonAstroField(it.second.toLocalTime(), altitude)
                 }
-                SunMoonFieldType.Moonrise -> MoonriseAstroField(it.second)
-                SunMoonFieldType.Moonset -> MoonsetAstroField(it.second)
+                SunMoonFieldType.Moonrise -> MoonriseAstroField(it.second.toLocalTime())
+                SunMoonFieldType.Moonset -> MoonsetAstroField(it.second.toLocalTime())
                 SunMoonFieldType.LunarNoon -> {
                     val altitude =
-                        astronomyService.getMoonAltitude(location, it.second.atDate(date))
-                    LunarNoonAstroField(it.second, altitude)
+                        astronomyService.getMoonAltitude(location, it.second)
+                    LunarNoonAstroField(it.second.toLocalTime(), altitude)
                 }
             }
         }

@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.markdown.MarkdownService
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.LunarEclipse
 import com.kylecorry.trail_sense.shared.FormatService
@@ -41,9 +40,9 @@ class LunarEclipseField(val eclipse: LunarEclipse, val showStart: Boolean, val a
         val markdownService = MarkdownService(context)
         val text = context.getString(
             R.string.astro_dialog_lunar_eclipse,
-            formatService.formatDateTime(eclipse.start.toZonedDateTime(), true),
-            formatService.formatDateTime(eclipse.peak.toZonedDateTime(), true),
-            formatService.formatDateTime(eclipse.end.toZonedDateTime(), true),
+            formatService.formatDateTime(eclipse.start, true),
+            formatService.formatDateTime(eclipse.peak, true),
+            formatService.formatDateTime(eclipse.end, true),
             formatService.formatDuration(eclipse.duration, short = false),
             if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
                 R.string.partial,
