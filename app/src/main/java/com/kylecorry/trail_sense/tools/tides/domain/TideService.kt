@@ -8,10 +8,12 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.extensions.getReadings
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class TideService {
@@ -32,21 +34,13 @@ class TideService {
     }
 
     fun getWaterLevels(table: TideTable, date: LocalDate): List<Reading<Float>> {
-        val granularityMinutes = 10L
-        var time = date.atStartOfDay().toZonedDateTime()
-
-        val levels = mutableListOf<Reading<Float>>()
-        while (time.toLocalDate() == date) {
-            levels.add(
-                Reading(
-                    getWaterLevel(table, time),
-                    time.toInstant()
-                )
-            )
-            time = time.plusMinutes(granularityMinutes)
+        return getReadings(
+            date,
+            ZoneId.systemDefault(),
+            Duration.ofMinutes(10)
+        ) {
+            getWaterLevel(table, it)
         }
-
-        return levels
     }
 
     fun getRange(table: TideTable): Range<Float> {
@@ -58,7 +52,8 @@ class TideService {
         for (i in 0 until sortedTides.lastIndex) {
             if (sortedTides[i].time <= time && sortedTides[i + 1].time >= time) {
                 val period = Duration.between(sortedTides[i].time, sortedTides[i + 1].time)
-                val constituent = if (table.isSemidiurnal) TideConstituent.M2 else TideConstituent.K1
+                val constituent =
+                    if (table.isSemidiurnal) TideConstituent.M2 else TideConstituent.K1
                 val maxPeriod = Time.hours(180 / constituent.speed.toDouble() + 3.0)
                 return !(sortedTides[i].isHigh == sortedTides[i + 1].isHigh || period > maxPeriod)
             }

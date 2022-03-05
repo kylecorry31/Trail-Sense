@@ -13,7 +13,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.extensions.roundNearestMinute
+import com.kylecorry.trail_sense.shared.extensions.getReadings
 import java.time.*
 
 /**
@@ -50,34 +50,25 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         time: ZonedDateTime
     ): List<Reading<Float>> {
-        val startTime = time.roundNearestMinute(10).minusHours(12)
-        val granularityMinutes = 10L
-        val altitudes = mutableListOf<Reading<Float>>()
-        for (i in 0..Duration.ofDays(1).toMinutes() step granularityMinutes) {
-            altitudes.add(
-                Reading(
-                    getMoonAltitude(location, startTime.plusMinutes(i)),
-                    startTime.plusMinutes(i).toInstant()
-                )
-            )
+        val startTime = time.minusHours(12)
+        val endTime = time.plusHours(12)
+        return getReadings(
+            startTime,
+            endTime,
+            altitudeGranularity
+        ) {
+            getMoonAltitude(location, it)
         }
-        return altitudes
     }
 
     fun getMoonAltitudes(location: Coordinate, date: LocalDate): List<Reading<Float>> {
-        var time = date.atStartOfDay().toZonedDateTime()
-        val granularityMinutes = 10L
-        val altitudes = mutableListOf<Reading<Float>>()
-        while (time.toLocalDate() == date) {
-            altitudes.add(
-                Reading(
-                    getMoonAltitude(location, time),
-                    time.toInstant(),
-                )
-            )
-            time = time.plusMinutes(granularityMinutes)
+        return getReadings(
+            date,
+            ZoneId.systemDefault(),
+            altitudeGranularity
+        ) {
+            getMoonAltitude(location, it)
         }
-        return altitudes
     }
 
     fun getMoonAltitude(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Float {
@@ -127,39 +118,28 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSunAltitudes(location: Coordinate, date: LocalDate): List<Reading<Float>> {
-        var time = date.atStartOfDay().toZonedDateTime()
-        val granularityMinutes = 10L
-        val altitudes = mutableListOf<Reading<Float>>()
-
-        while (time.toLocalDate() == date) {
-            altitudes.add(
-                Reading(
-                    getSunAltitude(location, time),
-                    time.toInstant()
-                )
-            )
-            time = time.plusMinutes(granularityMinutes)
+        return getReadings(
+            date,
+            ZoneId.systemDefault(),
+            altitudeGranularity
+        ) {
+            getSunAltitude(location, it)
         }
-
-        return altitudes
     }
 
     fun getCenteredSunAltitudes(
         location: Coordinate,
         time: ZonedDateTime
     ): List<Reading<Float>> {
-        val startTime = time.roundNearestMinute(10).minusHours(12)
-        val granularityMinutes = 10L
-        val altitudes = mutableListOf<Reading<Float>>()
-        for (i in 0..Duration.ofDays(1).toMinutes() step granularityMinutes) {
-            altitudes.add(
-                Reading(
-                    getSunAltitude(location, startTime.plusMinutes(i)),
-                    startTime.plusMinutes(i).toInstant()
-                )
-            )
+        val startTime = time.minusHours(12)
+        val endTime = time.plusHours(12)
+        return getReadings(
+            startTime,
+            endTime,
+            altitudeGranularity
+        ) {
+            getSunAltitude(location, it)
         }
-        return altitudes
     }
 
     fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
@@ -289,5 +269,9 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             date = date.plusDays(1)
         }
         return null
+    }
+
+    companion object {
+        private val altitudeGranularity = Duration.ofMinutes(10)
     }
 }
