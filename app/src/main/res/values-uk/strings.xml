@@ -1055,4 +1055,8 @@
     <string name="pref_start_on_boot_title">Запуск під час увімкнення</string>
     <string name="move_to">Перейти до</string>
     <string name="bearing">Підшипник</string>
+    <string name="square">Квадрат</string>
+    <string name="diamond">Діамант</string>
+    <string name="pref_only_navigate_path_points_title">Перехід лише до записаних точок</string>
+    <string name="cross">Хрест</string>
 </resources>
