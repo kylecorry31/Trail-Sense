@@ -18,7 +18,7 @@ class ActivityUriPicker(private val activity: AndromedaActivity) :
 
     override suspend fun create(filename: String, type: String): Uri? {
         return suspendCoroutine { cont ->
-            activity.createFile(filename, type) {
+            activity.createFile(filename, listOf(type), activity.getString(R.string.pick_file)) {
                 cont.resume(it)
             }
         }
