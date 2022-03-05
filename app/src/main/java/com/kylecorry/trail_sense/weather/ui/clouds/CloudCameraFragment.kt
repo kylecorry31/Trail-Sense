@@ -9,14 +9,19 @@ import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCameraInputBinding
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 
 class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
     private var onImage: ((Bitmap) -> Unit) = { it.recycle() }
+    private val uriPicker = FragmentUriPicker(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,22 +36,21 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         }
 
         binding.upload.setOnClickListener {
-            pickFile(
-                listOf("image/*"),
-                getString(R.string.choose_photo)
-            ) {
-                it?.also { uri ->
-                    runInBackground {
+            runInBackground {
+                val uri = uriPicker.open(listOf("image/*"))
+                uri?.let {
+                    onIO {
                         val stream = try {
-                            @Suppress("BlockingMethodInNonBlockingContext")
-                            requireContext().contentResolver.openInputStream(uri)
+                            ExternalFiles.stream(requireContext(), uri)
                         } catch (e: Exception) {
                             null
-                        } ?: return@runInBackground
+                        } ?: return@onIO
                         val bp = BitmapFactory.decodeStream(stream)
                         @Suppress("BlockingMethodInNonBlockingContext")
                         stream.close()
-                        onImage.invoke(bp)
+                        onMain {
+                            onImage.invoke(bp)
+                        }
                     }
                 }
             }
@@ -55,7 +59,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestCamera {  }
+        requestCamera { }
     }
 
     override fun onResume() {
@@ -64,7 +68,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
             try {
                 binding.camera.start()
                 showCamera()
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
                 hideCamera()
             }
@@ -73,13 +77,13 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         }
     }
 
-    private fun showCamera(){
+    private fun showCamera() {
         binding.orText.text = getString(R.string.or).uppercase()
         binding.camera.isVisible = true
         binding.ok.isVisible = true
     }
 
-    private fun hideCamera(){
+    private fun hideCamera() {
         binding.orText.text = getString(R.string.no_camera_access)
         binding.camera.isVisible = false
         binding.ok.isVisible = false

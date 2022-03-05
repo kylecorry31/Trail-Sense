@@ -30,6 +30,7 @@ import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSaver
+import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -64,6 +65,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private var fileSizes = mutableMapOf<Long, Long>()
 
     private var mapName = ""
+
+    private val uriPicker = FragmentUriPicker(this)
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -167,19 +170,19 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapList.addLineSeparator()
 
-        mapRepo.getMaps().observe(viewLifecycleOwner, {
+        mapRepo.getMaps().observe(viewLifecycleOwner) {
             maps = it
             // TODO: Show loading indicator
             maps.forEach {
                 val file = LocalFiles.getFile(requireContext(), it.filename, false)
 
                 val size = BitmapUtils.getBitmapSize(file.path)
-                val width = if (it.rotation == 90 || it.rotation == 270){
+                val width = if (it.rotation == 90 || it.rotation == 270) {
                     size.second
                 } else {
                     size.first
                 }
-                val height = if (it.rotation == 90 || it.rotation == 270){
+                val height = if (it.rotation == 90 || it.rotation == 270) {
                     size.first
                 } else {
                     size.second
@@ -210,17 +213,13 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
 
             mapList.setData(maps)
-        })
+        }
     }
 
     private fun createMap() {
-        pickFile(
-            listOf("image/*", "application/pdf"),
-            getString(R.string.select_map_image)
-        ) {
-            it?.also { returnUri ->
-                mapFromUri(returnUri)
-            }
+        runInBackground {
+            val uri = uriPicker.open(listOf("image/*", "application/pdf"))
+            uri?.let { mapFromUri(it) }
         }
     }
 
