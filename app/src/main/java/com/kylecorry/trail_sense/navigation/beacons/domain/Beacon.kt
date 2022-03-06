@@ -11,9 +11,11 @@ data class Beacon(
     override val coordinate: Coordinate,
     val visible: Boolean = true,
     val comment: String? = null,
-    val parentId: Long? = null,
+    override val parentId: Long? = null,
     val elevation: Float? = null,
     val temporary: Boolean = false,
     val owner: BeaconOwner = BeaconOwner.User,
     @ColorInt override val color: Int = Color.BLACK
-) : IBeacon, IMappableLocation
+) : IBeacon, IMappableLocation {
+    override val isGroup = false
+}
