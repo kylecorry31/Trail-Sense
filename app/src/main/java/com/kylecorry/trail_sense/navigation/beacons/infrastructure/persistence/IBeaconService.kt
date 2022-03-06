@@ -14,11 +14,11 @@ interface IBeaconService {
     suspend fun getBeacons(
         groupId: Long?,
         includeGroups: Boolean = true,
-        includeChildren: Boolean = false,
-        includeParent: Boolean = false
+        maxDepth: Int? = 1,
+        includeRoot: Boolean = false
     ): List<IBeacon>
 
-    suspend fun getGroup(groupId: Long): BeaconGroup?
+    suspend fun getGroup(groupId: Long?): BeaconGroup?
     suspend fun getGroups(parent: Long?): List<BeaconGroup>
     suspend fun getBeacon(beaconId: Long): Beacon?
     suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon?

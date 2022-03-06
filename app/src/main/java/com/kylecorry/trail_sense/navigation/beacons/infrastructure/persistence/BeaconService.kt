@@ -5,6 +5,8 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.grouping.GroupLoader
 
 class BeaconService(context: Context) : IBeaconService {
 
@@ -22,50 +24,39 @@ class BeaconService(context: Context) : IBeaconService {
         return repo.addBeaconGroup(BeaconGroupEntity.from(group))
     }
 
+
     override suspend fun getBeacons(
         groupId: Long?,
         includeGroups: Boolean,
-        includeChildren: Boolean,
+        maxDepth: Int?,
         includeRoot: Boolean
     ): List<IBeacon> {
-        val all = mutableListOf<IBeacon>()
-        val beacons = getBeaconsWithParent(groupId)
-        val groups =
-            if (includeGroups || includeChildren) getGroups(groupId) else emptyList()
-
-        val root = if (includeRoot && groupId != null) {
-            getGroup(groupId)
+        val rootFn = if (includeRoot) {
+            this::getGroup
         } else {
-            null
+            { null }
         }
 
-        all.addAll(beacons)
-
-        if (root != null) {
-            all.add(root)
-        }
-
-        if (includeGroups) {
-            all.addAll(groups)
-        }
-
-        if (includeChildren) {
-            for (group in groups) {
-                all.addAll(
-                    getBeacons(
-                        group.id,
-                        includeGroups,
-                        includeChildren = true,
-                        includeRoot = false
-                    )
-                )
+        val loader =
+            GroupLoader(rootFn, this::getChildren, maxDepth)
+        return onIO {
+            val beacons = loader.load(groupId)
+            if (includeGroups) {
+                beacons
+            } else {
+                beacons.filterNot { it.isGroup }
             }
         }
-
-        return all
     }
 
-    override suspend fun getGroup(groupId: Long): BeaconGroup? {
+    private suspend fun getChildren(groupId: Long?): List<IBeacon> {
+        val beacons = getBeaconsWithParent(groupId)
+        val groups = getGroups(groupId)
+        return beacons + groups
+    }
+
+    override suspend fun getGroup(groupId: Long?): BeaconGroup? {
+        groupId ?: return null
         return repo.getGroup(groupId)?.toBeaconGroup()
     }
 
@@ -87,7 +78,7 @@ class BeaconService(context: Context) : IBeaconService {
 
     override suspend fun getBeaconCount(groupId: Long?): Int {
         // TODO: Don't actually fetch the beacons for this
-        return getBeacons(groupId, includeGroups = false, includeChildren = true).count()
+        return getBeacons(groupId, includeGroups = false, maxDepth = null).count()
     }
 
     override suspend fun search(

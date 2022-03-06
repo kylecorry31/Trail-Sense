@@ -364,7 +364,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         val all = beaconService.getBeacons(
             displayedGroup?.id,
             includeGroups = true,
-            includeChildren = true,
+            maxDepth = null,
             includeRoot = true
         )
 
