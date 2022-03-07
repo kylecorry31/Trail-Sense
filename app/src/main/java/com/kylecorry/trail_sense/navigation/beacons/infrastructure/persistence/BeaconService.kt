@@ -37,10 +37,9 @@ class BeaconService(context: Context) : IBeaconService {
             { null }
         }
 
-        val loader =
-            GroupLoader(rootFn, this::getChildren, maxDepth)
+        val loader = GroupLoader(rootFn, this::getChildren)
         return onIO {
-            val beacons = loader.load(groupId)
+            val beacons = loader.load(groupId, maxDepth)
             if (includeGroups) {
                 beacons
             } else {
