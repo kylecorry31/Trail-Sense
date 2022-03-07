@@ -19,7 +19,6 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
@@ -335,13 +334,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         val end = path.metadata.duration?.end
 
 
-        binding.pathTitle.title.text = if (!path.name.isNullOrBlank()) {
-            path.name
-        } else if (start != null && end != null) {
-            formatService.formatTimeSpan(start.toZonedDateTime(), end.toZonedDateTime(), true)
-        } else {
-            getString(android.R.string.untitled)
-        }
+        binding.pathTitle.title.text = PathNameFactory(requireContext()).getName(path)
 
         val duration = if (start != null && end != null && Duration.between(
                 start,
