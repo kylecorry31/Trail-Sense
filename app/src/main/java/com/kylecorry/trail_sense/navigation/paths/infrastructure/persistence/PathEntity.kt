@@ -31,6 +31,8 @@ data class PathEntity(
     @ColumnInfo(name = "east") val east: Double,
     @ColumnInfo(name = "south") val south: Double,
     @ColumnInfo(name = "west") val west: Double,
+    // Parent
+    @ColumnInfo(name = "parentId") val parentId: Long?
 ) : Identifiable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -52,7 +54,8 @@ data class PathEntity(
                 if (startTime != null && endTime != null) Range(Instant.ofEpochMilli(startTime), Instant.ofEpochMilli(endTime)) else null,
                 CoordinateBounds(north, east, south, west)
             ),
-            temporary
+            temporary,
+            parentId = parentId
         )
     }
 
@@ -72,7 +75,8 @@ data class PathEntity(
                 path.metadata.bounds.north,
                 path.metadata.bounds.east,
                 path.metadata.bounds.south,
-                path.metadata.bounds.west
+                path.metadata.bounds.west,
+                path.parentId
             ).also {
                 it.id = path.id
             }

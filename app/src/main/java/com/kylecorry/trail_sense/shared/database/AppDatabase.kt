@@ -11,10 +11,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.*
 import com.kylecorry.trail_sense.navigation.paths.domain.WaypointEntity
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathDao
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathDatabaseMigrationWorker
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathEntity
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.WaypointDao
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.*
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
@@ -30,8 +27,8 @@ import java.io.File
  * The Room database for this app
  */
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class],
-    version = 23,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, TideEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class],
+    version = 24,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -49,6 +46,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun batteryDao(): BatteryDao
     abstract fun cloudDao(): CloudReadingDao
     abstract fun pathDao(): PathDao
+    abstract fun pathGroupDao(): PathGroupDao
 
     companion object {
 
@@ -241,9 +239,16 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
-            val MIGRATION_22_23 = object: Migration(22, 23) {
+            val MIGRATION_22_23 = object : Migration(22, 23) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     database.execSQL("ALTER TABLE `beacon_groups` ADD COLUMN `parent` INTEGER DEFAULT NULL")
+                }
+            }
+
+            val MIGRATION_23_24 = object : Migration(23, 24) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `path_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `parent` INTEGER DEFAULT NULL)")
+                    database.execSQL("ALTER TABLE `paths` ADD COLUMN `parentId` INTEGER DEFAULT NULL")
                 }
             }
 
@@ -270,7 +275,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_19_20,
                     MIGRATION_20_21,
                     MIGRATION_21_22,
-                    MIGRATION_22_23
+                    MIGRATION_22_23,
+                    MIGRATION_23_24
                 )
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

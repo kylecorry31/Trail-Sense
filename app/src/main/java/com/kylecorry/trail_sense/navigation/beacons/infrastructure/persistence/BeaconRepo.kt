@@ -61,9 +61,6 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
         beaconGroupDao.delete(group)
     }
 
-    override fun getGroups(): LiveData<List<BeaconGroupEntity>> = beaconGroupDao.getAll()
-
-    override suspend fun getGroupsSync(): List<BeaconGroupEntity> = beaconGroupDao.getAllSuspend()
     override suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity> =
         beaconGroupDao.getAllWithParent(parent)
 

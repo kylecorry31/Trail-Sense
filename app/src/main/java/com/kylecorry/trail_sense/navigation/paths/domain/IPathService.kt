@@ -27,6 +27,12 @@ interface IPathService : ICleanable {
     suspend fun deleteWaypoint(point: PathPoint)
     suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long)
 
+    // TODO: Add group
+    // TODO: Delete group
+    // TODO: Get all in group
+    // TODO: Get group
+    // TODO: Get groups
+    // TODO: Get group count
 
     fun getRecentAltitudes(since: Instant): LiveData<List<Reading<Float>>>
 }
