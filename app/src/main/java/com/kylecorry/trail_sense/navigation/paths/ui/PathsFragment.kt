@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -38,8 +38,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
     }
-
-    private var wasEnabled = false
 
     private var paths = emptyList<Path>()
     private var sort = PathSortMethod.MostRecent
@@ -79,41 +77,33 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             }
         }
 
-        wasEnabled = prefs.backtrackEnabled
-        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
-            binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
-        } else {
-            binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-        }
+        binding.backtrackPlayBar.setState(isBacktrackRunning)
 
-        binding.startBtn.setOnClickListener {
+        binding.backtrackPlayBar.setOnPlayButtonClickListener {
             if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack) {
-                Alerts.toast(
-                    requireContext(),
-                    getString(R.string.backtrack_disabled_low_power_toast)
-                )
+                toast(getString(R.string.backtrack_disabled_low_power_toast))
             } else {
-                prefs.backtrackEnabled = !wasEnabled
-                if (!wasEnabled) {
-                    binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
+                val isOn = isBacktrackRunning
+                prefs.backtrackEnabled = !isOn
+                if (!isOn) {
                     BacktrackScheduler.start(requireContext(), true)
                 } else {
-                    binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
                     BacktrackScheduler.stop(requireContext())
                 }
-                wasEnabled = !wasEnabled
             }
+            onUpdate()
         }
 
         scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onUpdate() {
-        wasEnabled = BacktrackScheduler.isOn(requireContext())
-        if (wasEnabled && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)) {
-            binding.startBtn.setImageResource(R.drawable.ic_baseline_stop_24)
+        val backtrackEnabled = isBacktrackRunning
+        binding.backtrackPlayBar.setState(backtrackEnabled)
+        binding.backtrackPlayBar.subtitle = if (backtrackEnabled) {
+            getString(R.string.on)
         } else {
-            binding.startBtn.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+            getString(R.string.off)
         }
     }
 
@@ -123,6 +113,9 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     ): FragmentPathsBinding {
         return FragmentPathsBinding.inflate(layoutInflater, container, false)
     }
+
+    private val isBacktrackRunning: Boolean
+        get() = BacktrackScheduler.isOn(requireContext())
 
     private fun onPathsChanged(paths: List<Path>) {
         this.paths = sortPaths(paths)

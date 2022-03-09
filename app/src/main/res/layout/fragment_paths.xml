@@ -9,12 +9,12 @@
         android:id="@+id/paths_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:flattenQuickActions="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rightQuickActionIcon="@drawable/ic_menu_dots"
         app:showSubtitle="false"
-        app:flattenQuickActions="true"
         app:title="@string/paths" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -27,18 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/paths_title" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/start_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_play_arrow_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/waypoints_empty_text"
@@ -53,5 +41,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/waypoints_list"
         tools:visibility="visible" />
+
+    <com.kylecorry.trail_sense.shared.views.PlayBarView
+        android:id="@+id/backtrack_play_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:playBarIcon="@drawable/ic_tool_backtrack"
+        app:playBarTitle="@string/backtrack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
