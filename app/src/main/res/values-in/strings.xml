@@ -225,4 +225,14 @@
     <string name="moon_illumination">Iluminasi bulan</string>
     <string name="offline_maps">Peta Offline</string>
     <string name="contents">Konten</string>
+    <string name="climate_tropical">Tropis</string>
+    <string name="qr_code">Kode QR</string>
+    <string name="beacon_qr_import_instructions">Pindai kode QR untuk impor</string>
+    <string name="closest">Terdekat</string>
+    <string name="importing">Mengimpor</string>
+    <string name="difficulty">Kesulitan</string>
+    <string name="duration">Durasi</string>
+    <string name="easy">Mudah</string>
+    <string name="hard">Susah</string>
+    <string name="shortest">Terpendek</string>
 </resources>
