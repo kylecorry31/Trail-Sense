@@ -9,6 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.signal.CellNetworkQuality
+import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.DistanceUnits
@@ -86,3 +88,8 @@ fun ImageButton.flatten() {
 }
 
 val ZERO_SPEED = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+
+fun ICellSignalSensor.networkQuality(): CellNetworkQuality? {
+    val signal = signals.maxByOrNull { it.strength }
+    return signal?.let { CellNetworkQuality(it.network, it.quality) }
+}
