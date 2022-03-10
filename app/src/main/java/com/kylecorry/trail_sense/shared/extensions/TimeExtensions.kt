@@ -1,23 +1,11 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.units.Reading
-import java.time.*
-
-fun ZonedDateTime.roundNearestMinute(minutes: Long): ZonedDateTime {
-    val minute = this.minute
-    val newMinute = (minute / minutes) * minutes
-
-    val diff = newMinute - minute
-    return this.plusMinutes(diff)
-}
-
-fun Instant.hoursUntil(other: Instant): Float {
-    return Duration.between(this, other).seconds / (60f * 60f)
-}
-
-fun LocalDate.atEndOfDay(): LocalDateTime {
-    return atTime(LocalTime.MAX)
-}
+import java.time.Duration
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 fun <T> getReadings(
     date: LocalDate,

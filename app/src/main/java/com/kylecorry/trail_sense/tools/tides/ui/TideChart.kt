@@ -5,12 +5,12 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.hoursUntil
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.extensions.hoursUntil
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import java.time.Instant
 import java.time.LocalTime
