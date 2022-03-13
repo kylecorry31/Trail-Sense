@@ -57,7 +57,7 @@ class MainActivity : AndromedaActivity() {
     private lateinit var userPrefs: UserPreferences
     private val cache by lazy { Preferences(this) }
 
-    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION)
+    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
     init {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {

@@ -12,7 +12,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 72
         versionName = "3.8.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

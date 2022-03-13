@@ -14,7 +14,23 @@ object NavigationUtils {
             .setGraph(R.navigation.nav_graph)
             .setDestination(action)
             .setArguments(args)
-            .createPendingIntent()
+            .createTaskStackBuilder()
+            .getPendingIntent(
+                getRequestCode(action, args),
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )!!
+    }
+
+    private fun getRequestCode(destId: Int, args: Bundle?): Int {
+        // Taken from NavDeepLinkBuilder - can be removed once version 2.4.X is used
+        var requestCode = 0
+        if (args != null) {
+            for (key in args.keySet()) {
+                val value = args.get(key)
+                requestCode = 31 * requestCode + (value?.hashCode() ?: 0)
+            }
+        }
+        return 31 * requestCode + destId
     }
 
 }
