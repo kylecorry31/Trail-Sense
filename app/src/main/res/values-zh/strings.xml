@@ -732,7 +732,7 @@
     <string name="last_duration">持续时长 %s</string>
     <string name="gps_signal_lost">GPS 信号丢失</string>
     <string name="altitude_history_length">海拔历史长度</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### 受影响工具
 \n%s

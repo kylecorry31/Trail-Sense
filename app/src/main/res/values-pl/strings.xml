@@ -816,7 +816,7 @@
     <string name="astro_dialog_moon_phase">**Faza**: %s
 \n
 \n**Oświetlenie**: %s</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Narzędzia, których dotyczy problem
 \n%s

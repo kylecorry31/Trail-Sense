@@ -51,6 +51,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
                     val message = getString(
                         R.string.diagnostic_message_template,
+                        getSeverityName(code.severity),
                         getCodeDescription(code),
                         affectedTools,
                         getResolution(code)
@@ -107,6 +108,13 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         return when (status) {
             Severity.Error -> AppColor.Red.color
             Severity.Warning -> AppColor.Yellow.color
+        }
+    }
+
+    private fun getSeverityName(status: Severity): String {
+        return when(status){
+            Severity.Error -> getString(R.string.error)
+            Severity.Warning -> getString(R.string.warning)
         }
     }
 
@@ -186,7 +194,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         val backtrack = getString(R.string.backtrack)
         val astronomy = getString(R.string.astronomy)
         val speedometer = getString(R.string.speedometer)
-        val odometer = getString(R.string.odometer)
+        val pedometer = getString(R.string.pedometer)
         val waterBoil = getString(R.string.water_boil_timer_title)
         val clinometer = getString(R.string.clinometer_title)
         val level = getString(R.string.tool_bubble_level_title)
@@ -201,7 +209,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             backtrack,
             astronomy,
             speedometer,
-            odometer,
+            pedometer,
             solar
         )
 
@@ -216,25 +224,25 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.AltitudeOverridden -> listOf(weather, waterBoil)
             DiagnosticCode.LocationOverridden -> locationAffectedTools
             DiagnosticCode.LocationUnset -> locationAffectedTools
-            DiagnosticCode.PowerSavingMode -> listOf(backtrack, odometer)
+            DiagnosticCode.PowerSavingMode -> listOf(backtrack, pedometer)
             DiagnosticCode.BatteryHealthPoor -> listOf()
-            DiagnosticCode.BatteryUsageRestricted -> listOf(backtrack, astronomy, odometer)
+            DiagnosticCode.BatteryUsageRestricted -> listOf(backtrack, astronomy, pedometer, weather)
             DiagnosticCode.CameraUnavailable -> listOf(navigation, sightingCompass)
             DiagnosticCode.BarometerUnavailable -> listOf(weather)
             DiagnosticCode.MagnetometerUnavailable -> listOf(navigation, metalDetector, solar)
             DiagnosticCode.AccelerometerUnavailable -> accelAffectedTools
             DiagnosticCode.GPSUnavailable -> locationAffectedTools
             DiagnosticCode.FlashlightUnavailable -> listOf(flashlight)
-            DiagnosticCode.PedometerUnavailable -> listOf(odometer)
+            DiagnosticCode.PedometerUnavailable -> listOf(pedometer)
             DiagnosticCode.CameraNoPermission -> listOf(navigation, sightingCompass)
             DiagnosticCode.LocationNoPermission -> locationAffectedTools
             DiagnosticCode.BackgroundLocationNoPermission -> listOf(
                 backtrack,
                 astronomy,
                 speedometer,
-                odometer
+                pedometer
             )
-            DiagnosticCode.PedometerNoPermission -> listOf(odometer)
+            DiagnosticCode.PedometerNoPermission -> listOf(pedometer)
             DiagnosticCode.BarometerPoor -> listOf(weather)
             DiagnosticCode.MagnetometerPoor -> listOf(navigation, metalDetector, solar)
             DiagnosticCode.AccelerometerPoor -> accelAffectedTools
@@ -244,7 +252,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             DiagnosticCode.StormAlertsBlocked -> listOf(weather)
             DiagnosticCode.DailyForecastNotificationsBlocked -> listOf(weather)
             DiagnosticCode.FlashlightNotificationsBlocked -> listOf(flashlight)
-            DiagnosticCode.PedometerNotificationsBlocked -> listOf(odometer)
+            DiagnosticCode.PedometerNotificationsBlocked -> listOf(pedometer)
             DiagnosticCode.WeatherNotificationsBlocked -> listOf(weather)
             DiagnosticCode.LightSensorUnavailable -> listOf(lightMeter)
             DiagnosticCode.WeatherMonitorDisabled -> listOf(weather)

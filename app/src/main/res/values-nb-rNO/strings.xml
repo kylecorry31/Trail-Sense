@@ -851,7 +851,7 @@
     <string name="medium_amount">Middels (%s)</string>
     <string name="high_amount">Høy (%s)</string>
     <string name="or">eller</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Påvirkede verktøy
 \n%s

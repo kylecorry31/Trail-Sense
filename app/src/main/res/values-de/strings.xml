@@ -754,7 +754,7 @@
     <string name="no_permission">Berechtigung nicht erlaubt</string>
     <string name="camera">Kamera</string>
     <string name="quarter_moon">Viertelmond</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Betroffene Tools
 \n%s

@@ -749,7 +749,7 @@
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
     <string name="autofill">Preenchimento automático</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Ferramentas afetadas
 \n%s

@@ -748,7 +748,7 @@
     <string name="gps_signal_lost">Сигнал GPS втрачено</string>
     <string name="altitude_history_length">Довжина історії висот</string>
     <string name="last_duration">Остання %s</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Залучені засоби
 \n%s

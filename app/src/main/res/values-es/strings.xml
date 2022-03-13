@@ -805,7 +805,7 @@
     <string name="power_saving_mode_resolution">Desactivar el modo de ahorro de energía</string>
     <string name="battery_restricted_resolution">Establecer Trail Sense como no optimizado</string>
     <string name="gps_unavailable_resolution">Habilite la ubicación o cambie su fuente de ubicación a Solo dispositivo o Alta precisión</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Herramientas afectadas
 \n%s

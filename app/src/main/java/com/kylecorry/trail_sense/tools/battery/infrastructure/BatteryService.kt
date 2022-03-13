@@ -18,7 +18,10 @@ class BatteryService {
 
     private val powerService = PowerService()
 
-    fun getRunningServices(context: Context): List<RunningService> {
+    fun getRunningServices(
+        context: Context,
+        foregroundOnly: Boolean = false
+    ): List<RunningService> {
         val prefs = UserPreferences(context)
         val services = mutableListOf<RunningService>()
 
@@ -62,7 +65,7 @@ class BatteryService {
         }
 
         // Sunset alerts
-        if (prefs.astronomy.sendSunsetAlerts) {
+        if (!foregroundOnly && prefs.astronomy.sendSunsetAlerts) {
             services.add(
                 RunningService(
                     context.getString(R.string.sunset_alerts),
@@ -73,7 +76,7 @@ class BatteryService {
             )
         }
 
-        if (FlashlightHandler.getInstance(context).getState() != FlashlightState.Off) {
+        if (!foregroundOnly && FlashlightHandler.getInstance(context).getState() != FlashlightState.Off) {
             services.add(
                 RunningService(
                     context.getString(R.string.flashlight_title),

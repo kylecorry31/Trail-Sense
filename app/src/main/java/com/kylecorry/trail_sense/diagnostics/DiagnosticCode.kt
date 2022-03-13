@@ -11,7 +11,7 @@ enum class DiagnosticCode(override val id: Long, val severity: Severity): Identi
     // Power
     PowerSavingMode(4, Severity.Warning),
     BatteryHealthPoor(5, Severity.Error),
-    BatteryUsageRestricted(6, Severity.Warning),
+    BatteryUsageRestricted(6, Severity.Error),
 
     // Unavailable
     CameraUnavailable(7, Severity.Warning),

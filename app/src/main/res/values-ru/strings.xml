@@ -754,7 +754,7 @@
     <string name="last_duration">Последняя %s</string>
     <string name="overridden">Переопределено</string>
     <string name="autofill">Автозаполнение</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Затронутые инструменты
 \n%s

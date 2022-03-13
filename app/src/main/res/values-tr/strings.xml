@@ -682,7 +682,7 @@
     <string name="auto">Otomatik</string>
     <string name="lightning_dangerously_close">Yıldırım tehlikeli bir şekilde yakın</string>
     <string name="autofill">Otomatik doldur</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Etkilenen araçlar
 \n%s

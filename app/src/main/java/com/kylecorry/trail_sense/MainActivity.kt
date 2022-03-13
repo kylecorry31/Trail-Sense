@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
@@ -57,7 +58,10 @@ class MainActivity : AndromedaActivity() {
     private lateinit var userPrefs: UserPreferences
     private val cache by lazy { Preferences(this) }
 
-    private val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+    private val permissions = mutableListOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
 
     init {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
@@ -160,6 +164,13 @@ class MainActivity : AndromedaActivity() {
         if (userPrefs.isLowPowerModeOn) {
             Alerts.toast(this, getString(R.string.low_power_mode_on_message))
         }
+
+        // TODO: Only show this once here - show it every time a background service is enabled
+        RemoveBatteryRestrictionsCommand(
+            this,
+            onlyOnAndroid12 = true,
+            onlyIfServicesActive = true
+        ).execute()
 
         TrailSenseServiceUtils.restartServices(this)
 

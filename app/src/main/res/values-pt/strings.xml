@@ -528,7 +528,7 @@
     <string name="auto">Automático</string>
     <string name="lightning_dangerously_close">Perigo: o relâmpago está muito perto</string>
     <string name="autofill">Preenchimento automático</string>
-    <string name="diagnostic_message_template">%s
+    <string name="diagnostic_message_template">%s: %s
 \n
 \n### Ferramentas afetadas
 \n%s
