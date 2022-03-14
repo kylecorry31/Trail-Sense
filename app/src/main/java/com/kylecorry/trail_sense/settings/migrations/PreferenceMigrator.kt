@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.migrations
 
 import android.content.Context
+import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -31,7 +32,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 7
+        private const val version = 8
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -104,6 +105,18 @@ class PreferenceMigrator private constructor() {
                     context.getString(R.string.pref_pedometer_enabled),
                     prefs.getString("pref_odometer_source") == "pedometer"
                 )
+            },
+            PreferenceMigration(7, 8) { context, _ ->
+                val prefs = UserPreferences(context).navigation
+                val currentScale = prefs.rulerScale
+                if (currentScale == 1f || currentScale == 0f){
+                    return@PreferenceMigration
+                }
+
+                val dpi = Screen.dpi(context)
+                val ydpi = Screen.ydpi(context)
+                val adjustedDpi = dpi / currentScale
+                prefs.rulerScale = ydpi / adjustedDpi
             }
         )
 

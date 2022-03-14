@@ -68,7 +68,7 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
 
     @SuppressLint("ClickableViewAccessibility")
     private fun update() {
-        val dpi = Screen.dpi(context)
+        val dpi = Screen.ydpi(context)
         val scale = userPrefs.navigation.rulerScale
         val height =
             scale * view.height / dpi.toDouble() * if (units == DistanceUnits.Centimeters) 2.54 else 1.0
@@ -160,7 +160,7 @@ class Ruler(private val view: ConstraintLayout, private var units: DistanceUnits
     companion object {
         fun measure(context: Context, pixels: Float): Distance {
             val prefs = UserPreferences(context)
-            val dpi = Screen.dpi(context)
+            val dpi = Screen.ydpi(context)
             val scale = prefs.navigation.rulerScale
             return Distance(scale * pixels / dpi, DistanceUnits.Inches).meters()
         }

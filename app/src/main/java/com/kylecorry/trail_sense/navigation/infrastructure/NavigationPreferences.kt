@@ -147,10 +147,13 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             Distance.meters(value).convertTo(DistanceUnits.Kilometers).distance.toString()
         )
 
-    val rulerScale: Float
+    var rulerScale: Float
         get() {
             val raw = cache.getString(context.getString(R.string.pref_ruler_calibration)) ?: "1"
             return raw.toFloatCompat() ?: 1f
+        }
+        set(value) {
+            cache.putString(context.getString(R.string.pref_ruler_calibration), value.toString())
         }
 
     val coordinateFormat: CoordinateFormat
