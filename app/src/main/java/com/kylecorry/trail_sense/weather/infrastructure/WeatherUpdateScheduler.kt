@@ -3,13 +3,15 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.shared.UserPreferences
 
 object WeatherUpdateScheduler {
-    fun start(context: Context) {
-        val prefs = UserPreferences(context)
 
-        if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather) {
+    private fun isOn(context: Context): Boolean {
+        return WeatherMonitorIsEnabled().isSatisfiedBy(context)
+    }
+
+    fun start(context: Context) {
+        if (isOn(context)) {
             return
         }
         val scheduler = getScheduler(context)

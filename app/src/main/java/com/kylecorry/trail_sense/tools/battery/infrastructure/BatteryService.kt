@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.battery.IBattery
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import java.time.Duration
 
@@ -18,10 +20,7 @@ class BatteryService {
 
     private val powerService = PowerService()
 
-    fun getRunningServices(
-        context: Context,
-        foregroundOnly: Boolean = false
-    ): List<RunningService> {
+    fun getRunningServices(context: Context): List<RunningService> {
         val prefs = UserPreferences(context)
         val services = mutableListOf<RunningService>()
 
@@ -39,8 +38,7 @@ class BatteryService {
         }
 
         // Backtrack
-
-        if (prefs.backtrackEnabled && !prefs.isLowPowerModeOn) {
+        if (BacktrackIsEnabled().isSatisfiedBy(context)) {
             services.add(
                 RunningService(
                     context.getString(R.string.backtrack),
@@ -51,8 +49,9 @@ class BatteryService {
                 }
             )
         }
+
         // Weather
-        if (prefs.weather.shouldMonitorWeather && !prefs.isLowPowerModeOn) {
+        if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
             services.add(
                 RunningService(
                     context.getString(R.string.weather),
@@ -65,7 +64,7 @@ class BatteryService {
         }
 
         // Sunset alerts
-        if (!foregroundOnly && prefs.astronomy.sendSunsetAlerts) {
+        if (prefs.astronomy.sendSunsetAlerts) {
             services.add(
                 RunningService(
                     context.getString(R.string.sunset_alerts),
@@ -76,7 +75,7 @@ class BatteryService {
             )
         }
 
-        if (!foregroundOnly && FlashlightHandler.getInstance(context).getState() != FlashlightState.Off) {
+        if (FlashlightHandler.getInstance(context).getState() != FlashlightState.Off) {
             services.add(
                 RunningService(
                     context.getString(R.string.flashlight_title),

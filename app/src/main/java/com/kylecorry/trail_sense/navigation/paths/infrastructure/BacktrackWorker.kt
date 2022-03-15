@@ -66,7 +66,7 @@ class BacktrackWorker(context: Context, params: WorkerParameters) :
     }
 
     private fun requiresForeground(): Boolean {
-        return BacktrackRequiresForegroundSpecification().isSatisfiedBy(applicationContext)
+        return BacktrackRequiresForeground().isSatisfiedBy(applicationContext)
     }
 
     companion object {

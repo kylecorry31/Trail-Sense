@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 
-class BacktrackRequiresForegroundSpecification : Specification<Context>() {
+class BacktrackRequiresForeground : Specification<Context>() {
     override fun isSatisfiedBy(value: Context): Boolean {
         val prefs = UserPreferences(value)
 

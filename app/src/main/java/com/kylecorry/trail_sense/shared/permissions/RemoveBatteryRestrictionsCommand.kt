@@ -8,16 +8,16 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackRequiresForeground
 import com.kylecorry.trail_sense.shared.commands.Command
-import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 
 class RemoveBatteryRestrictionsCommand(
     private val context: Context,
     private val onlyOnAndroid12: Boolean,
     private val onlyIfServicesActive: Boolean
 ) : Command {
-
-    private val batteryService = BatteryService()
 
     override fun execute() {
         if (onlyOnAndroid12 && Android.sdk < Build.VERSION_CODES.S) {
@@ -29,8 +29,10 @@ class RemoveBatteryRestrictionsCommand(
         }
 
         if (onlyIfServicesActive) {
-            val services = batteryService.getRunningServices(context, foregroundOnly = true)
-            if (services.isEmpty()) {
+            val backtrack = BacktrackIsEnabled().and(BacktrackRequiresForeground())
+            val weather = WeatherMonitorIsEnabled()
+            val foregroundRequired = backtrack.or(weather)
+            if (foregroundRequired.not().isSatisfiedBy(context)){
                 return
             }
         }
@@ -38,9 +40,8 @@ class RemoveBatteryRestrictionsCommand(
         // TODO: Extract the diagnostic messages and use that
         val backtrack = context.getString(R.string.backtrack)
         val weather = context.getString(R.string.weather)
-        val pedometer = context.getString(R.string.pedometer)
         val affectedTools =
-            listOf(backtrack, pedometer, weather).joinToString("\n") { "- $it" }
+            listOf(backtrack, weather).joinToString("\n") { "- $it" }
 
         val message = context.getString(
             R.string.diagnostic_message_template,
