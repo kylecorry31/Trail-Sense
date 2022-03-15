@@ -1,44 +1,39 @@
 package com.kylecorry.trail_sense.astronomy.infrastructure
 
-import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.CoroutineForegroundService
+import com.kylecorry.andromeda.services.CoroutineService
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class SunsetAlarmService : CoroutineForegroundService() {
+class SunsetAlarmService : CoroutineService() {
 
     private val gps by lazy { SensorService(this).getGPS(true) }
     private val userPrefs by lazy { UserPreferences(this) }
     private val astronomyService = AstronomyService()
-
-    override val foregroundNotificationId: Int
-        get() = 730854820
 
     override suspend fun doWork() {
         acquireWakelock(TAG, Duration.ofSeconds(30))
         Log.i(TAG, "Started")
 
         try {
-            withContext(Dispatchers.IO) {
+            onIO {
                 withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
                     if (!gps.hasValidReading) {
                         gps.read()
@@ -53,7 +48,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
 
         if (gps.location == Coordinate.zero) {
             setAlarm(now.plusDays(1))
-            stopService(true)
+            stopSelf()
             return
         }
 
@@ -72,7 +67,7 @@ class SunsetAlarmService : CoroutineForegroundService() {
                 SunTimesMode.Actual
             ).set?.toLocalDateTime()
 
-        withContext(Dispatchers.Main) {
+        onMain {
             if (todaySunset != null) {
                 when {
                     withinAlertWindow(todaySunset, alertMinutes) -> {
@@ -100,13 +95,13 @@ class SunsetAlarmService : CoroutineForegroundService() {
                 setAlarm(tomorrowSunset?.minusMinutes(nextAlertMinutes) ?: now.plusDays(1))
             }
 
-            stopService(true)
+            stopSelf()
         }
 
     }
 
     override fun onDestroy() {
-        stopService(true)
+        stopSelf()
         super.onDestroy()
     }
 
@@ -158,18 +153,6 @@ class SunsetAlarmService : CoroutineForegroundService() {
         scheduler.cancel()
         scheduler.once(time.toZonedDateTime().toInstant())
         Log.i(TAG, "Scheduled next run at $time")
-    }
-
-
-    override fun getForegroundNotification(): Notification {
-        return Notify.background(
-            this,
-            NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
-            getString(R.string.background_update),
-            getString(R.string.sunset_alert_location_update),
-            R.drawable.ic_update,
-            group = NotificationChannels.GROUP_UPDATES
-        )
     }
 
     companion object {
