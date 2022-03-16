@@ -235,4 +235,55 @@
     <string name="easy">Mudah</string>
     <string name="hard">Susah</string>
     <string name="shortest">Terpendek</string>
+    <string name="request_permission">Permintaan izin</string>
+    <string name="pref_altimeter_calibration_title">Altimeter</string>
+    <string name="altitude_from_pressure">Setel penggantian dari barometer</string>
+    <string name="pref_use_sea_level_pressure_title">Tekanan permukaan laut</string>
+    <string name="pref_adjust_for_temperature_summary">Gunakan suhu dalam konversi tekanan permukaan laut</string>
+    <string name="solar_noon">Matahari tengah hari</string>
+    <string name="pref_compass_sensor_title">Kompas</string>
+    <string name="pref_compass_filter_amt_title">Kompas putaran halus</string>
+    <string name="pref_compass_filter_amt_summary">Nilai tinggi dapat mengurangi kebisingan</string>
+    <string name="pref_use_legacy_compass_summary">Dapat memperbaiki masalah kompas</string>
+    <string name="compass_declination_override">Penimpaan deklinasi</string>
+    <string name="compass_azimuth">Azimut</string>
+    <string name="compass_declination">Deklinasi magnet</string>
+    <string name="declination_override_updated_toast">Penimpaan deklinasi diperbarui</string>
+    <string name="compass_reported_accuracy">Akurasi yang dilaporkan: %s</string>
+    <string name="compass_accuracy_improved">Akurasi kompas ditingkatkan menjadi %s</string>
+    <string name="pref_altitude_override_title">Ketinggian menimpa</string>
+    <string name="pref_adjust_for_temperature_title">Faktor suhu</string>
+    <string name="pref_display_multi_beacons_title">Tampilkan suar terdekat</string>
+    <string name="set_inclination_instructions">Ketuk atau tahan di mana saja untuk mengunci/membuka kunci</string>
+    <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Putar telepon Anda dalam pola angka 8 atau ke segala arah beberapa kali, klik %s setelah selesai.
+\n
+\nPeringatan ini dapat dinonaktifkan di pengaturan aplikasi.</string>
+    <string name="gps">GPS</string>
+    <string name="waning_gibbous">Gibbous memudar</string>
+    <string name="lunar_noon">Bulan tengah hari</string>
+    <string name="pref_ruler_calibration_summary">Protokol kalibrasi:
+\n- Tetapkan nilai ini ke 1.
+\n- Ukur nilai penggaris Trail Sense yang sesuai dengan satu unit penggaris fisik.
+\n- Laporkan nilai terukur di sini.</string>
+    <string name="true_north">Utara sejati</string>
+    <string name="location">Lokasi</string>
+    <string name="override_from_gps">Setel penggantian dari GPS</string>
+    <string name="calibrate">Kalibrasi</string>
+    <string name="calibrate_compass_dialog_title">Kalibrasi kompas</string>
+    <string name="calibrate_compass_dialog_content">Putar telepon anda dalam pola angka 8 atau ke segala arah beberapa kali, klik %s setelah selesai.</string>
+    <string name="pref_auto_location_title">Sesuaikan lokasi secara otomatis</string>
+    <string name="altitude">Ketinggian</string>
+    <string name="altitude_override_updated_toast">Penggantian ketinggian diperbarui</string>
+    <string name="pref_altitude_override_sea_level_dialog_msg">Masukkan tekanan saat ini di permukaan laut dalam hPa</string>
+    <string name="never">Tidak pernah</string>
+    <string name="pref_altimeter_calibration_mode_title">Kalibrasi otomatis</string>
+    <string name="clinometer_rotate_device">Posisikan ponsel anda secara vertikal</string>
+    <string name="tool_clinometer_summary">Perkiraan risiko longsoran dan ketinggian objek</string>
+    <string name="pref_altitude_override_sea_level_dialog_title">Masukkan tekanan permukaan laut</string>
+    <string name="pref_altitude_override_sea_level_title">Menggunakan tekanan permukaan laut yang diketahui</string>
+    <string name="discharging_fast">Pemakaian cepat (%s)</string>
+    <string name="pref_use_legacy_compass_title">Gunakan kompas lama</string>
+    <string name="compass_auto_declination">Penyesuaian otomatis deklinasi</string>
+    <string name="pref_auto_declination_summary">Berdasarkan lokasi terkini</string>
 </resources>
