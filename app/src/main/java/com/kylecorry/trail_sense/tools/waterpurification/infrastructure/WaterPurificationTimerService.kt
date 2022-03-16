@@ -104,7 +104,8 @@ class WaterPurificationTimerService : ForegroundService() {
             R.drawable.ic_tool_boil,
             group = NotificationChannels.GROUP_WATER,
             actions = listOf(cancelAction),
-            intent = openIntent
+            intent = openIntent,
+            showForegroundImmediate = true
         )
     }
 

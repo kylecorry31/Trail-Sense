@@ -43,7 +43,8 @@ class FlashlightService: ForegroundService() {
             getString(R.string.tap_to_turn_off),
             R.drawable.flashlight,
             intent = FlashlightOffReceiver.pendingIntent(this),
-            group = NotificationChannels.GROUP_FLASHLIGHT
+            group = NotificationChannels.GROUP_FLASHLIGHT,
+            showForegroundImmediate = true
         )
     }
 

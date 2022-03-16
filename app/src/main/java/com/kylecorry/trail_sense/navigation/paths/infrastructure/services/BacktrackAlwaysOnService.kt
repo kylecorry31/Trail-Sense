@@ -7,11 +7,11 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.receivers.StopBacktrackReceiver
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.receivers.StopBacktrackReceiver
 import java.time.Duration
 
 class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
@@ -47,7 +47,8 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
             ),
             R.drawable.ic_tool_backtrack,
             intent = openAction,
-            actions = listOf(stopAction)
+            actions = listOf(stopAction),
+            showForegroundImmediate = true
         )
     }
 

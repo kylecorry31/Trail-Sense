@@ -83,7 +83,8 @@ class StepCounterService : ForegroundService() {
             ),
             R.drawable.steps,
             intent = openIntent,
-            group = NotificationChannels.GROUP_PEDOMETER
+            group = NotificationChannels.GROUP_PEDOMETER,
+            showForegroundImmediate = true
         )
     }
 
