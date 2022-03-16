@@ -1037,4 +1037,8 @@
     <string name="navigating_to_nearest_path_point">Navigiere zum nächsten Pfadpunkt</string>
     <string name="beacons">Wegpunkte</string>
     <string name="bearing">Peilung</string>
+    <string name="square">Quadrat</string>
+    <string name="cross">Kreuz</string>
+    <string name="diamond">Diamant</string>
+    <string name="pref_only_navigate_path_points_title">Nur zu aufgenommenen Punkten navigieren</string>
 </resources>
