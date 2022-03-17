@@ -1186,6 +1186,7 @@
     <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>
+    <string name="battery_usage_restricted_toast">Battery usage restrictions, some features may be disabled.</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

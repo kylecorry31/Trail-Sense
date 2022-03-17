@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.shared.permissions
 
 import android.content.Context
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.diagnostics.DiagnosticAlertService
 import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
 import com.kylecorry.trail_sense.shared.commands.Command
@@ -26,6 +28,7 @@ class AllowForegroundWorkersCommand(private val context: Context) : Command {
         }
 
         if (preferences.getBoolean(SHOWN_KEY) == true){
+            Alerts.toast(context, context.getString(R.string.battery_usage_restricted_toast))
             return
         }
 
