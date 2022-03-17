@@ -32,12 +32,14 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.diagnostics.DiagnosticAlertService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ExceptionUtils
+import com.kylecorry.trail_sense.shared.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
+import com.kylecorry.trail_sense.shared.permissions.RequestBatteryExemptionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
@@ -166,10 +168,9 @@ class MainActivity : AndromedaActivity() {
         }
 
         // TODO: Only show this once here - show it every time a background service is enabled
-        RemoveBatteryRestrictionsCommand(
+        RequestBatteryExemptionCommand(
             this,
-            onlyOnAndroid12 = true,
-            onlyIfServicesActive = true
+            DiagnosticAlertService(this, NavControllerAppNavigation(navController))
         ).execute()
 
         TrailSenseServiceUtils.restartServices(this)
