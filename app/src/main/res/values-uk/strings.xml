@@ -1059,4 +1059,6 @@
     <string name="diamond">Діамант</string>
     <string name="pref_only_navigate_path_points_title">Перехід лише до записаних точок</string>
     <string name="cross">Хрест</string>
+    <string name="error">Помилка</string>
+    <string name="warning">Увага</string>
 </resources>
