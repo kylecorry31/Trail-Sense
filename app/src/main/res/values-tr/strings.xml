@@ -1041,4 +1041,6 @@
     <string name="diamond">Elmas</string>
     <string name="cross">Haç</string>
     <string name="pref_only_navigate_path_points_title">Yalnızca kayıtlı noktalara git</string>
+    <string name="warning">Uyarı</string>
+    <string name="error">Hata</string>
 </resources>
