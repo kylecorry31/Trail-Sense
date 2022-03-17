@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 class WeatherMonitorIsAvailable : Specification<Context>() {
     override fun isSatisfiedBy(value: Context): Boolean {
         val prefs = UserPreferences(value)
-        return prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather && Sensors.hasBarometer(
+        return !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather) && Sensors.hasBarometer(
             value
         )
     }
