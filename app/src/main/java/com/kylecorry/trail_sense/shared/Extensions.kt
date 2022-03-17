@@ -16,7 +16,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint

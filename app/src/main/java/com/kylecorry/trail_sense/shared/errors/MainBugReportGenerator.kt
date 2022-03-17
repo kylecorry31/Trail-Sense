@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.errors
 
-import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.main.MainActivity
 
 class MainBugReportGenerator(
     private val activity: MainActivity,

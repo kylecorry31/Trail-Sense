@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.errors.MainBugReportGenerator
 
 object ExceptionUtils {

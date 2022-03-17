@@ -22,7 +22,7 @@ import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroPositions
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent

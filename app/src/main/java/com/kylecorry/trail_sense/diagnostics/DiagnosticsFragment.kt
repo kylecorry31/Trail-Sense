@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.NavControllerAppNavigation
+import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {

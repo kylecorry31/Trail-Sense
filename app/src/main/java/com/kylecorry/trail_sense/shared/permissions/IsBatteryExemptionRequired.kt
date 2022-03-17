@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackRequir
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 
 class IsBatteryExemptionRequired : Specification<Context>() {
+
     override fun isSatisfiedBy(value: Context): Boolean {
         if (Android.sdk < Build.VERSION_CODES.S){
             return false

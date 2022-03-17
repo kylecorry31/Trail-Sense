@@ -44,6 +44,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 

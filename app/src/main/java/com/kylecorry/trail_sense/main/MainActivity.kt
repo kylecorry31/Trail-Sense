@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense
+package com.kylecorry.trail_sense.main
 
 import android.Manifest
 import android.content.Intent
@@ -31,17 +31,18 @@ import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.ColorFilterConstraintLayout
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.diagnostics.DiagnosticAlertService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
-import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.ExceptionUtils
-import com.kylecorry.trail_sense.shared.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.RequestBatteryExemptionCommand
+import com.kylecorry.trail_sense.shared.commands.ComposedCommand
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
+import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
 import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
@@ -154,26 +155,12 @@ class MainActivity : AndromedaActivity() {
             navController.navigate(R.id.action_navigation)
         }
 
-        CustomUiUtils.disclaimer(
-            this,
-            getString(R.string.app_disclaimer_message_title),
-            getString(R.string.disclaimer_message_content),
-            getString(R.string.pref_main_disclaimer_shown_key),
-            considerShownIfCancelled = true,
-            shownValue = false
-        )
-
-        if (userPrefs.isLowPowerModeOn) {
-            Alerts.toast(this, getString(R.string.low_power_mode_on_message))
-        }
-
-        // TODO: Only show this once here - show it every time a background service is enabled
-        RequestBatteryExemptionCommand(
-            this,
-            DiagnosticAlertService(this, NavControllerAppNavigation(navController))
+        ComposedCommand(
+            ShowDisclaimerCommand(this),
+            PowerSavingModeAlertCommand(this),
+            AllowForegroundWorkersCommand(this),
+            RestartServicesCommand(this),
         ).execute()
-
-        TrailSenseServiceUtils.restartServices(this)
 
         if (!Sensors.hasBarometer(this)) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)

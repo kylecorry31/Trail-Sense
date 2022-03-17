@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.trail_sense.MainActivity
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
