@@ -1032,4 +1032,5 @@
     <string name="diamond">菱形</string>
     <string name="error">错误</string>
     <string name="warning">警告</string>
+    <string name="battery_usage_restricted_toast">电池使用受限，某些功能可能被禁用。</string>
 </resources>
