@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.shared
 
 import android.app.Activity
 import android.content.Context
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 
 class LowPowerMode(val context: Context) {
@@ -34,11 +36,11 @@ class LowPowerMode(val context: Context) {
         }
 
         // Only need to be restarted if the activity doesn't get recreated
-        if (prefs.weather.shouldMonitorWeather) {
+        if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
             WeatherUpdateScheduler.start(context)
         }
 
-        if (prefs.backtrackEnabled) {
+        if (BacktrackIsEnabled().isSatisfiedBy(context)) {
             BacktrackScheduler.start(context, false)
         }
 
