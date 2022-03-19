@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import java.time.Duration
@@ -68,6 +69,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         prefBacktrack?.setOnPreferenceClickListener {
             if (prefs.backtrackEnabled) {
                 BacktrackScheduler.start(requireContext(), true)
+                AllowForegroundWorkersCommand(requireContext()).execute()
             } else {
                 BacktrackScheduler.stop(requireContext())
             }

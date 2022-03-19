@@ -15,12 +15,14 @@ import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsAvailable
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
@@ -80,13 +82,14 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         binding.backtrackPlayBar.setState(isBacktrackRunning)
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
-            if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack) {
+            if (!BacktrackIsAvailable().isSatisfiedBy(requireContext())) {
                 toast(getString(R.string.backtrack_disabled_low_power_toast))
             } else {
                 val isOn = isBacktrackRunning
                 prefs.backtrackEnabled = !isOn
                 if (!isOn) {
                     BacktrackScheduler.start(requireContext(), true)
+                    AllowForegroundWorkersCommand(requireContext()).execute()
                 } else {
                     BacktrackScheduler.stop(requireContext())
                 }

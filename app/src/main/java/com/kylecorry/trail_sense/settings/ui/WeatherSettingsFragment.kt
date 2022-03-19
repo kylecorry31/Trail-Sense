@@ -13,10 +13,8 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
+import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -72,6 +70,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
+                AllowForegroundWorkersCommand(requireContext()).execute()
             } else {
                 WeatherUpdateScheduler.stop(requireContext())
             }
@@ -154,8 +153,10 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun restartWeatherMonitor() {
-        WeatherUpdateScheduler.stop(requireContext())
-        WeatherUpdateScheduler.start(requireContext())
+        if (WeatherMonitorIsEnabled().isSatisfiedBy(requireContext())) {
+            WeatherUpdateScheduler.stop(requireContext())
+            WeatherUpdateScheduler.start(requireContext())
+        }
     }
 
     private fun getForecastSensitivities(units: PressureUnits): Array<CharSequence> {
