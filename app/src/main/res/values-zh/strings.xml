@@ -1030,4 +1030,6 @@
     <string name="pref_only_navigate_path_points_title">仅导航到记录点</string>
     <string name="square">方形</string>
     <string name="diamond">菱形</string>
+    <string name="error">错误</string>
+    <string name="warning">警告</string>
 </resources>
