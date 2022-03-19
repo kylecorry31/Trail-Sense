@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.AreForegroundWorkersAllowed
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -23,7 +24,15 @@ import java.time.LocalDateTime
 class BacktrackWorker(context: Context, params: WorkerParameters) :
     CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
-        if (requiresForeground()) {
+
+        val foreground = requiresForeground()
+
+        if (foreground && !AreForegroundWorkersAllowed().isSatisfiedBy(applicationContext)){
+                // TODO: Possibly return failure
+                return Result.success()
+        }
+
+        if (foreground) {
             setForeground(
                 ForegroundInfo(
                     73922,

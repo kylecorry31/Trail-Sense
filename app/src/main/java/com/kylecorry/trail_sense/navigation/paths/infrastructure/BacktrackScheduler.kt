@@ -18,7 +18,7 @@ object BacktrackScheduler {
             }
         }
 
-        if (prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack) {
+        if (!BacktrackIsAvailable().isSatisfiedBy(context)) {
             return
         }
 

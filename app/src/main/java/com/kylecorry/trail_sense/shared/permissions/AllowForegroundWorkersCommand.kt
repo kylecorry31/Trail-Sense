@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.permissions
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.diagnostics.DiagnosticAlertService
@@ -16,7 +15,7 @@ class AllowForegroundWorkersCommand(private val context: Context) : Command {
     private val alerter = DiagnosticAlertService(context, NullAppNavigation())
 
     override fun execute() {
-        if (Permissions.isIgnoringBatteryOptimizations(context)) {
+        if (AreForegroundWorkersAllowed().isSatisfiedBy(context)) {
             preferences.putBoolean(SHOWN_KEY, false)
             return
         }

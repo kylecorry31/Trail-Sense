@@ -69,7 +69,7 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
                 0,
                 0,
                 gps.location,
-                if (shouldReadAltimeter()) altimeter.altitude else gps.altitude,
+                if (shouldReadAltimeter() && altimeter.altitude != 0f) altimeter.altitude else gps.altitude,
                 Instant.now(),
                 cellSignalSensor.networkQuality()
             )

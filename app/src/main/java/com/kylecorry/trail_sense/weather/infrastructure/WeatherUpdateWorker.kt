@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.AreForegroundWorkersAllowed
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import java.time.Duration
 import java.time.LocalDateTime
@@ -22,6 +23,12 @@ import java.time.LocalDateTime
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
     CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
+
+        if (!AreForegroundWorkersAllowed().isSatisfiedBy(applicationContext)){
+            // TODO: Possibly return failure
+            return Result.success()
+        }
+
         val prefs = UserPreferences(applicationContext)
 
         setForeground(
