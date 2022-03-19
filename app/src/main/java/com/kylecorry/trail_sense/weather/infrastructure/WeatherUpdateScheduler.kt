@@ -6,12 +6,8 @@ import com.kylecorry.andromeda.notify.Notify
 
 object WeatherUpdateScheduler {
 
-    private fun isOn(context: Context): Boolean {
-        return WeatherMonitorIsEnabled().isSatisfiedBy(context)
-    }
-
     fun start(context: Context) {
-        if (isOn(context)) {
+        if (!WeatherMonitorIsAvailable().isSatisfiedBy(context)) {
             return
         }
         val scheduler = getScheduler(context)
