@@ -1058,4 +1058,12 @@
     <string name="beacons">Маячки</string>
     <string name="move_to">Перейти к</string>
     <string name="pref_start_on_boot_title">Запуск при включении</string>
+    <string name="error">Ошибка</string>
+    <string name="warning">Предупреждение</string>
+    <string name="square">Квадрат</string>
+    <string name="diamond">Бриллиант</string>
+    <string name="cross">Крест</string>
+    <string name="pref_only_navigate_path_points_title">Переход только к записанным точкам</string>
+    <string name="bearing">Подшипник</string>
+    <string name="battery_usage_restricted_toast">Использование аккумулятора ограничено, некоторые функции могут быть отключены.</string>
 </resources>

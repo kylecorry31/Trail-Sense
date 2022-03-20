@@ -1043,4 +1043,5 @@
     <string name="pref_only_navigate_path_points_title">Yalnızca kayıtlı noktalara git</string>
     <string name="warning">Uyarı</string>
     <string name="error">Hata</string>
+    <string name="battery_usage_restricted_toast">Pil kullanım kısıtlamaları, bazı özellikler devre dışı bırakılabilir.</string>
 </resources>
