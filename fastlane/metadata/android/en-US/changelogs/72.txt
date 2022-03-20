@@ -1,0 +1,3 @@
+Android 12
+- Request battery exemption for backtrack and weather
+- If you were previously using backtrack or weather monitor on Android 12, you may need to remove Trail Sense from battery restrictions
