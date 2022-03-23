@@ -54,10 +54,10 @@
     <string name="theme_black">Noir</string>
     <string name="theme_system">Système</string>
     <string name="gps">GPS</string>
-    <string name="sun_actual">Heure réelle</string>
-    <string name="sun_civil">Heure civile</string>
-    <string name="sun_nautical">Heure nautique</string>
-    <string name="sun_astronomical">Heure astronomique</string>
+    <string name="sun_actual">Réelle</string>
+    <string name="sun_civil">Civile</string>
+    <string name="sun_nautical">Nautique</string>
+    <string name="sun_astronomical">Astronomique</string>
     <string name="today">Aujourd\'hui</string>
     <string name="tomorrow">Demain</string>
     <string name="yesterday">Hier</string>
@@ -145,7 +145,7 @@
     <string name="pref_coordinate_format_title">Unité des coordonnées géographiques</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrés (notation sexagésimale)</string>
     <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>
-    <string name="set_inclination_instructions">Appuyez sur un point de l\'écran pour verrouiller / déverrouiller une inclinaison donnée</string>
+    <string name="set_inclination_instructions">Touchez ou maintenez pour verrouiller / déverrouiller</string>
     <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
     <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
     <string name="clinometer_title">Inclinomètre</string>
@@ -162,8 +162,6 @@
     <string name="waning_crescent">Dernier croissant</string>
     <string name="new_moon">Nouvelle lune</string>
     <string name="until_sun_time">jusqu\'au %s</string>
-
-
     <string name="notification_monitoring_weather">Suivi des données météo en arrière plan</string>
     <string name="notification_storm_alert_title">Alerte tempête</string>
     <string name="notification_storm_alert_text">Une tempête est peut-être imminente</string>
@@ -358,7 +356,15 @@
     <string name="guide_thermometer_calibration_title">Étalonnage du thermomètre</string>
     <string name="delete_waypoint_prompt">Supprimer le point de passage \?</string>
     <string name="coordinate_input_invalid_location">Position invalide</string>
-    <string name="location_input_help">Degrés (ex. 1.00, -2.00) Degrés et minutes (ex. 1°23.12\'N, 3°12.1\'W) Degrés, minutes et secondes (ex. 1°23\'12.1\"N, 3°12\"1.2\'W) UTM (ex. 03T 12345E 67890N) MGRS (ex. 27PXM 09601 05579)</string>
+    <string name="location_input_help">Degrés (ex. 1.00, -2.00)
+\n
+\nDegrés et minutes (ex. 1°23.12\'N, 3°12.1\'W)
+\n
+\nDegrés, minutes et secondes (ex. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (ex. 03T 12345E 67890N)
+\n
+\nMGRS (ex. 27PXM 09601 05579)</string>
     <string name="location_input_help_title">Formats de localisation supportés</string>
     <string name="pref_backtrack_frequency_title">Fréquence d\'enregistrement</string>
     <string name="pref_backtrack_enabled_summary">Enregistrer l\'historique des positions</string>
@@ -428,7 +434,7 @@
         <item quantity="other">%d repères importés</item>
     </plurals>
     <string name="export">Exporter</string>
-    <string name="altocumulus_desc">On dirait des boules de coton.</string>
+    <string name="altocumulus_desc">Nuage cotonneux de moyenne altitude. Généralement blanc ponctué de tâches sombres et pouvant être espacés ou sous la forme d’un voile.</string>
     <string name="cirrus">Cirrus</string>
     <string name="pref_require_satellites_description">Nécessite au moins 4 satellites, améliore la précision</string>
     <string name="pref_require_satellites_title">Nécessite une correction satellite</string>
@@ -472,4 +478,14 @@
     <string name="soon">Bientôt</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
+    <string name="action_inventory_clear_confirm">Effacer toutes les quantités \?</string>
+    <string name="cirrocumulus_desc">Nuages de haute altitude formant un tissu ondulé composé de petits points apparaissant en deux dimensions.</string>
+    <string name="altostratus_desc">Nuage de moyenne altitude couvrant le ciel. Le Soleil se devine comme un point lumineux.</string>
+    <string name="nimbostratus_desc">Un nuage d’altitude moyenne gris foncé et couvrant le ciel. Il peut pleuvoir.</string>
+    <string name="backtrack_disabled_low_power_toast">Le retour en arrière est désactivé en mode d\'économie d\'énergie</string>
+    <string name="current_format">%s mA</string>
+    <string name="duration_second_format">%d s</string>
+    <string name="delete_tide_prompt">Supprimer la marée \?</string>
+    <string name="cirrostratus_desc">Un nuage haut qui couvre le ciel. Il est transparent et forme généralement un halo autour du Soleil.</string>
+    <string name="tap_to_turn_off">Toucher pour éteindre</string>
 </resources>

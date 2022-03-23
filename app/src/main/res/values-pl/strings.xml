@@ -998,4 +998,7 @@
     <string name="navigating_to_nearest_path_point">Nawigacja do najbliższego punktu trasy</string>
     <string name="pref_start_on_boot_title">Uruchom przy starcie</string>
     <string name="activity_recognition_permission_denied">Odmówiono uprawnienia dostępu do aktywności fizycznej, nie można włączyć funkcji krokomierza. Możesz włączyć to w ustawieniach.</string>
+    <string name="error">Błąd</string>
+    <string name="warning">Ostrzeżenie</string>
+    <string name="battery_usage_restricted_toast">Ograniczenia wynikające z użycia baterii, niektóre funkcje mogą być wyłączone.</string>
 </resources>
