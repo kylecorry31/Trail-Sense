@@ -9,7 +9,9 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
+import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
 
 class DiagnosticAlertService(private val context: Context, private val navigation: IAppNavigation) :
     IDiagnosticAlertService {
@@ -210,7 +212,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.LocationUnset -> navigateAction(R.id.calibrateGPSFragment)
             DiagnosticCode.PowerSavingMode -> navigateAction(R.id.powerSettingsFragment)
             DiagnosticCode.BatteryHealthPoor -> null
-            DiagnosticCode.BatteryUsageRestricted -> intentAction(Intents.batteryOptimizationSettings())
+            DiagnosticCode.BatteryUsageRestricted -> commandAction(RemoveBatteryRestrictionsCommand(context))
             DiagnosticCode.CameraUnavailable -> null
             DiagnosticCode.BarometerUnavailable -> null
             DiagnosticCode.MagnetometerUnavailable -> null
@@ -259,6 +261,12 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
     private fun intentAction(to: Intent, title: String = getString(R.string.settings)): Action {
         return Action(title) {
             context.startActivity(to)
+        }
+    }
+
+    private fun commandAction(command: Command, title: String = getString(R.string.settings)): Action {
+        return Action(title) {
+            command.execute()
         }
     }
 

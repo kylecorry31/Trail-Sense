@@ -13,6 +13,7 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
@@ -69,6 +70,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
+                RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
             } else {
                 WeatherUpdateScheduler.stop(requireContext())
             }

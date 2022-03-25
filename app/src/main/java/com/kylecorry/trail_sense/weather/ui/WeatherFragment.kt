@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
@@ -192,6 +193,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             ) {
                 prefs.weather.shouldMonitorWeather = true
                 WeatherUpdateScheduler.start(requireContext())
+                RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
                 requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
             }
             requireMainActivity().errorBanner.report(error)

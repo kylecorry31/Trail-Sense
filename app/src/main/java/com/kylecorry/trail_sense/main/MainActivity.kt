@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
+import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
@@ -157,6 +158,7 @@ class MainActivity : AndromedaActivity() {
         ComposedCommand(
             ShowDisclaimerCommand(this),
             PowerSavingModeAlertCommand(this),
+            RequestRemoveBatteryRestrictionCommand(this),
             RestartServicesCommand(this),
         ).execute()
 

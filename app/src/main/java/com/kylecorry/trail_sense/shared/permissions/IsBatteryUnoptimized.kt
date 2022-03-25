@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.core.system.Android
 import com.kylecorry.andromeda.permissions.Permissions
 
-class AreForegroundWorkersAllowed : Specification<Context>() {
+class IsBatteryUnoptimized : Specification<Context>() {
     override fun isSatisfiedBy(value: Context): Boolean {
         return Android.sdk < Build.VERSION_CODES.S || Permissions.isIgnoringBatteryOptimizations(
             value
