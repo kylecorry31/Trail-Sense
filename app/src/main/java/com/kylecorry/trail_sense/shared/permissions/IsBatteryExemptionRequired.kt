@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.system.Android
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackRequiresForeground
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorRequiresForeground
 
 class IsBatteryExemptionRequired : Specification<Context>() {
 
@@ -15,7 +16,7 @@ class IsBatteryExemptionRequired : Specification<Context>() {
             return false
         }
         val backtrack = BacktrackIsEnabled().and(BacktrackRequiresForeground())
-        val weather = WeatherMonitorIsEnabled()
+        val weather = WeatherMonitorIsEnabled().and(WeatherMonitorRequiresForeground())
         val foregroundRequired = backtrack.or(weather)
         return foregroundRequired.isSatisfiedBy(value)
     }
