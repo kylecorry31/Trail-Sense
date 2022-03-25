@@ -73,6 +73,10 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
             Intents.startService(context, intent(context), foreground = true)
         }
 
+        fun stop(context: Context) {
+            context.stopService(intent(context))
+        }
+
     }
 
 }

@@ -133,6 +133,35 @@ class CurrentWeatherAlertCommand(
 
     companion object {
         const val WEATHER_CHANNEL_ID = "Weather"
+
+        fun getDefaultNotification(context: Context): Notification {
+            val stopIntent = Intent(context, WeatherStopMonitoringReceiver::class.java)
+            val openIntent = NavigationUtils.pendingIntent(context, R.id.action_weather)
+
+            val stopPendingIntent: PendingIntent =
+                PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
+
+            val stopAction = Notify.action(
+                context.getString(R.string.stop),
+                stopPendingIntent,
+                R.drawable.ic_cancel
+            )
+
+            val title = context.getString(R.string.weather)
+
+            return Notify.persistent(
+                context,
+                WEATHER_CHANNEL_ID,
+                title,
+                title,
+                R.drawable.ic_weather,
+                group = NotificationChannels.GROUP_WEATHER,
+                intent = openIntent,
+                actions = listOf(stopAction),
+                showForegroundImmediate = true
+            )
+        }
+
     }
 
 }

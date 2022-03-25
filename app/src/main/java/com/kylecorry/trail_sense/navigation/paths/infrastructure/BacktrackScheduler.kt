@@ -33,7 +33,7 @@ object BacktrackScheduler {
     fun stop(context: Context) {
         val scheduler = getScheduler(context)
         scheduler.cancel()
-        context.stopService(BacktrackAlwaysOnService.intent(context))
+        BacktrackAlwaysOnService.stop(context)
     }
 
     fun isOn(context: Context): Boolean {
