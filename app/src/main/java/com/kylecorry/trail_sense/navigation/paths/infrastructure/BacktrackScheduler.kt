@@ -22,10 +22,12 @@ object BacktrackScheduler {
             return
         }
 
+        val scheduler = getScheduler(context)
         if (prefs.backtrackRecordFrequency >= Duration.ofMinutes(15)) {
-            val scheduler = getScheduler(context)
+            BacktrackAlwaysOnService.stop(context)
             scheduler.once()
         } else {
+            scheduler.cancel()
             BacktrackAlwaysOnService.start(context)
         }
     }

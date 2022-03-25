@@ -3,7 +3,8 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.shared.permissions.AreForegroundWorkersAllowed
+import com.kylecorry.trail_sense.shared.UserPreferences
+import java.time.Duration
 
 object WeatherUpdateScheduler {
 
@@ -13,12 +14,12 @@ object WeatherUpdateScheduler {
         }
 
         val scheduler = getScheduler(context)
+        val prefs = UserPreferences(context)
 
-        if (AreForegroundWorkersAllowed().isSatisfiedBy(context)) {
+        if (prefs.weather.weatherUpdateFrequency >= Duration.ofMinutes(15)) {
             WeatherMonitorAlwaysOnService.stop(context)
             scheduler.once()
         } else {
-            // Default to always on if it can't run in the background
             WeatherMonitorAlwaysOnService.start(context)
             scheduler.cancel()
         }
