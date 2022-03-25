@@ -19,7 +19,7 @@ class BackgroundWorkerService : ForegroundService() {
             NotificationChannels.CHANNEL_BACKGROUND_LAUNCHER,
             getString(R.string.running_in_background),
             null,
-            R.drawable.ic_update,
+            R.drawable.ic_logo_outline,
             NotificationChannels.GROUP_UPDATES,
             showForegroundImmediate = true
         )
