@@ -39,6 +39,7 @@ object BacktrackScheduler {
         val scheduler = getScheduler(context)
         scheduler.cancel()
         BacktrackAlwaysOnService.stop(context)
+        AllowForegroundWorkersCommand(context).execute()
     }
 
     fun isOn(context: Context): Boolean {

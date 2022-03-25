@@ -33,6 +33,7 @@ object WeatherUpdateScheduler {
         Notify.cancel(context, WEATHER_NOTIFICATION_ID)
         val scheduler = getScheduler(context)
         scheduler.cancel()
+        AllowForegroundWorkersCommand(context).execute()
     }
 
     private fun getScheduler(context: Context): IOneTimeTaskScheduler {
