@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.main.LaunchFromBackgroundService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.IsBatteryExemptionRequired
 import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
@@ -14,6 +16,12 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 object TrailSenseServiceUtils {
 
     fun restartServices(context: Context) {
+        if (IsBatteryExemptionRequired().isSatisfiedBy(context)) {
+            LaunchFromBackgroundService.start(context)
+        } else {
+            LaunchFromBackgroundService.stop(context)
+        }
+
         startWeatherMonitoring(context)
         startSunsetAlarm(context)
         startAstronomyAlerts(context)

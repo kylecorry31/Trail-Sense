@@ -31,6 +31,7 @@ object NotificationChannels {
 
     const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
     const val CHANNEL_ASTRONOMY_ALERTS = "astronomy_alerts"
+    const val CHANNEL_BACKGROUND_LAUNCHER = "background_launcher"
 
     fun createChannels(context: Context) {
         // Flashlight
@@ -175,6 +176,17 @@ object NotificationChannels {
             context.getString(R.string.distance_alert),
             Notify.CHANNEL_IMPORTANCE_HIGH,
             false
+        )
+
+        // Background
+        Notify.createChannel(
+            context,
+            CHANNEL_BACKGROUND_LAUNCHER,
+            context.getString(R.string.running_in_background),
+            context.getString(R.string.running_in_background),
+            Notify.CHANNEL_IMPORTANCE_LOW,
+            true,
+            showBadge = false
         )
     }
 
