@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
@@ -89,7 +88,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 prefs.backtrackEnabled = !isOn
                 if (!isOn) {
                     BacktrackScheduler.start(requireContext(), true)
-                    AllowForegroundWorkersCommand(requireContext()).execute()
                 } else {
                     BacktrackScheduler.stop(requireContext())
                 }

@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 
-class LaunchFromBackgroundService : ForegroundService() {
+class BackgroundWorkerService : ForegroundService() {
     override val foregroundNotificationId: Int
         get() = 723824
 
@@ -36,7 +36,7 @@ class LaunchFromBackgroundService : ForegroundService() {
 
     companion object {
         fun intent(context: Context): Intent {
-            return Intent(context, LaunchFromBackgroundService::class.java)
+            return Intent(context, BackgroundWorkerService::class.java)
         }
 
         fun start(context: Context) {

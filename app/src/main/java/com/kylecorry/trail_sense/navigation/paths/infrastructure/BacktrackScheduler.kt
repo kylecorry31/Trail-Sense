@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand2
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
 
@@ -23,7 +23,7 @@ object BacktrackScheduler {
             return
         }
 
-        AllowForegroundWorkersCommand2(context).execute()
+        AllowForegroundWorkersCommand(context).execute()
 
         val scheduler = getScheduler(context)
         if (prefs.backtrackRecordFrequency >= Duration.ofMinutes(15)) {

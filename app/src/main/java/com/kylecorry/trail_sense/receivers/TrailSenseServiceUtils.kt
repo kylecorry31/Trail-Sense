@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand2
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 object TrailSenseServiceUtils {
 
     fun restartServices(context: Context) {
-        AllowForegroundWorkersCommand2(context).execute()
+        AllowForegroundWorkersCommand(context).execute()
         startWeatherMonitoring(context)
         startSunsetAlarm(context)
         startAstronomyAlerts(context)

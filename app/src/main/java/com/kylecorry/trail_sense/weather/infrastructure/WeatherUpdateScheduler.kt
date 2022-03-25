@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand2
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import java.time.Duration
 
 object WeatherUpdateScheduler {
@@ -14,7 +14,7 @@ object WeatherUpdateScheduler {
             return
         }
 
-        AllowForegroundWorkersCommand2(context).execute()
+        AllowForegroundWorkersCommand(context).execute()
 
         val scheduler = getScheduler(context)
         val prefs = UserPreferences(context)

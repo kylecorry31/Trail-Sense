@@ -118,7 +118,7 @@
             android:foregroundServiceType="location" />
 
         <service
-            android:name=".main.LaunchFromBackgroundService"
+            android:name=".main.BackgroundWorkerService"
             android:enabled="true"
             android:exported="false" />
 
