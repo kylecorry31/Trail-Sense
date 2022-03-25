@@ -1061,4 +1061,5 @@
     <string name="cross">Хрест</string>
     <string name="error">Помилка</string>
     <string name="warning">Увага</string>
+    <string name="battery_usage_restricted_toast">Використання акумулятора обмежене, деякі функції можуть бути вимкнені.</string>
 </resources>
