@@ -23,10 +23,10 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
     private val prefs = UserPreferences(context)
 
     private val sensorService = SensorService(context)
-    private val gps = sensorService.getGPS(true)
-    private val altimeter = sensorService.getAltimeter(true)
+    private val gps = sensorService.getGPS()
+    private val altimeter = sensorService.getAltimeter()
     private val cellSignalSensor =
-        if (prefs.backtrackSaveCellHistory) sensorService.getCellSignal(true) else NullCellSignalSensor()
+        if (prefs.backtrackSaveCellHistory) sensorService.getCellSignal() else NullCellSignalSensor()
 
     private val pathService = PathService.getInstance(context)
 
