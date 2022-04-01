@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.alerts.IAlerter
 
 class DistanceAlerter(private val context: Context) : IAlerter {
 

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.permissions
 import android.content.Context
 import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trail_sense.shared.IAlerter
+import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag

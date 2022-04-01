@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
 import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
-import com.kylecorry.trail_sense.shared.IAlerter
+import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IStepCounter
 

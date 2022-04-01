@@ -3,10 +3,9 @@ package com.kylecorry.trail_sense.shared.permissions
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.IAlerter
+import com.kylecorry.trail_sense.shared.alerts.IAlerter
 
-class RemoveBatteryRestrictionsAlerter(private val context: Context) :
-    IAlerter {
+class RemoveBatteryRestrictionsAlerter(private val context: Context) : IAlerter {
 
     override fun alert() {
         Alerts.dialog(
