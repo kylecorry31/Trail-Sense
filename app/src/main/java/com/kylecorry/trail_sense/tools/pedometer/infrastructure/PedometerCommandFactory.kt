@@ -19,7 +19,7 @@ class PedometerCommandFactory(private val context: Context) {
             prefs.pedometer,
             counter,
             paceCalculator,
-            DistanceAlertSender(context)
+            DistanceAlerter(context)
         )
     }
 

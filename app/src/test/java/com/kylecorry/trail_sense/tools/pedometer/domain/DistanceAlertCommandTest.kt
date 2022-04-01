@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.pedometer.domain
 
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IDistanceAlertSender
+import com.kylecorry.trail_sense.shared.IAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IStepCounter
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -17,17 +17,17 @@ internal class DistanceAlertCommandTest {
     private lateinit var prefs: IPedometerPreferences
     private lateinit var counter: IStepCounter
     private lateinit var calculator: IPaceCalculator
-    private lateinit var sender: IDistanceAlertSender
+    private lateinit var alerter: IAlerter
 
     @BeforeEach
     fun setup(){
         prefs = mock()
         counter = mock()
         calculator = mock()
-        sender = mock()
+        alerter = mock()
 
         whenever(counter.steps).thenReturn(100)
-        command = DistanceAlertCommand(prefs, counter, calculator, sender)
+        command = DistanceAlertCommand(prefs, counter, calculator, alerter)
     }
 
     @Test
@@ -40,7 +40,7 @@ internal class DistanceAlertCommandTest {
         command.execute()
 
         // Assert
-        verify(sender, never()).send()
+        verify(alerter, never()).alert()
         verify(prefs, never()).alertDistance = null
     }
 
@@ -54,7 +54,7 @@ internal class DistanceAlertCommandTest {
         command.execute()
 
         // Assert
-        verify(sender, never()).send()
+        verify(alerter, never()).alert()
         verify(prefs, never()).alertDistance = null
     }
 
@@ -68,7 +68,7 @@ internal class DistanceAlertCommandTest {
         command.execute()
 
         // Assert
-        verify(sender).send()
+        verify(alerter).alert()
         verify(prefs).alertDistance = null
     }
 
@@ -82,7 +82,7 @@ internal class DistanceAlertCommandTest {
         command.execute()
 
         // Assert
-        verify(sender).send()
+        verify(alerter).alert()
         verify(prefs).alertDistance = null
     }
 }

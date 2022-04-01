@@ -1,42 +1,32 @@
 package com.kylecorry.trail_sense.shared.permissions
 
 import android.content.Context
-import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.IAlerter
 import com.kylecorry.trail_sense.shared.commands.Command
+import com.kylecorry.trail_sense.shared.preferences.Flag
+import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
 
-class RequestRemoveBatteryRestrictionCommand(private val context: Context) : Command {
-
-    private val preferences = Preferences(context)
+class RequestRemoveBatteryRestrictionCommand(
+    private val context: Context,
+    private val flag: Flag = PreferencesFlag(Preferences(context), SHOWN_KEY),
+    private val alerter: IAlerter = RemoveBatteryRestrictionsAlerter(context),
+    private val isRequired: Specification<Context> = IsBatteryExemptionRequired()
+) : Command {
 
     override fun execute() {
-        if (IsBatteryUnoptimized().isSatisfiedBy(context)) {
-            preferences.putBoolean(SHOWN_KEY, false)
+        if (!isRequired.isSatisfiedBy(context)) {
+            flag.set(false)
             return
         }
 
-        val isRequired = IsBatteryExemptionRequired().isSatisfiedBy(context)
-        if (!isRequired) {
-            preferences.putBoolean(SHOWN_KEY, false)
+        if (flag.get()) {
             return
         }
 
-        if (preferences.getBoolean(SHOWN_KEY) == true) {
-            return
-        }
-
-        preferences.putBoolean(SHOWN_KEY, true)
-
-        Alerts.dialog(
-            context,
-            context.getString(R.string.remove_battery_restrictions),
-            context.getString(R.string.battery_usage_restricted_benefit)
-        ) { cancelled ->
-            if (!cancelled) {
-                RemoveBatteryRestrictionsCommand(context).execute()
-            }
-        }
+        flag.set(true)
+        alerter.alert()
     }
 
     companion object {

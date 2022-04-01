@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorRequiresFo
 class IsBatteryExemptionRequired : Specification<Context>() {
 
     override fun isSatisfiedBy(value: Context): Boolean {
-        if (Android.sdk < Build.VERSION_CODES.S){
+        if (Android.sdk < Build.VERSION_CODES.S || IsBatteryUnoptimized().isSatisfiedBy(value)){
             return false
         }
         val backtrack = BacktrackIsEnabled().and(BacktrackRequiresForeground())

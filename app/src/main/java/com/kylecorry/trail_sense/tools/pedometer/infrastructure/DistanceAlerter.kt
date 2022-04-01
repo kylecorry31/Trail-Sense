@@ -5,12 +5,12 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 
-class DistanceAlertSender(private val context: Context) : IDistanceAlertSender {
+class DistanceAlerter(private val context: Context) : IAlerter {
 
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
 
-    override fun send() {
+    override fun alert() {
         val openIntent = NavigationUtils.pendingIntent(context, R.id.fragmentToolPedometer)
 
         val distance =
