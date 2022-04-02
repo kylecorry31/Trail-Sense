@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.main
 
 import android.Manifest
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -360,5 +362,19 @@ class MainActivity : AndromedaActivity() {
         return (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
     }
 
+    companion object {
+        fun intent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+
+        fun pendingIntent(context: Context): PendingIntent {
+            return PendingIntent.getActivity(
+                context,
+                27383254,
+                intent(context),
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        }
+    }
 
 }

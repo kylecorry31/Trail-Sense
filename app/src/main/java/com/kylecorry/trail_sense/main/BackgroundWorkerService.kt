@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
+import com.kylecorry.trail_sense.receivers.StopAllReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 
 class BackgroundWorkerService : ForegroundService() {
@@ -46,9 +47,17 @@ class BackgroundWorkerService : ForegroundService() {
             NotificationChannels.CHANNEL_BACKGROUND_LAUNCHER,
             getString(R.string.running_in_background),
             contents,
-            R.drawable.ic_logo_outline,
+            R.drawable.ic_logo_monochrome,
             NotificationChannels.GROUP_UPDATES,
-            showForegroundImmediate = true
+            showForegroundImmediate = true,
+            intent = MainActivity.pendingIntent(context),
+            actions = listOf(
+                Notify.action(
+                    getString(R.string.stop),
+                    StopAllReceiver.pendingIntent(context),
+                    R.drawable.ic_cancel
+                )
+            )
         )
     }
 
