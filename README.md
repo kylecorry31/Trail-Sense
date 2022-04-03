@@ -103,7 +103,10 @@ Issues marked with the help-wanted label are open for community contribution at 
 If an issue has a milestone and you would like to work on it, please leave a comment before working on it or creating a pull request. If you do not have the feature completed within 4 days of when I plan to release, I will implement it.
 
 # FAQ
-
+- **Trail Sense shows a Running in background notification**
+  - Android 12 requires that apps show a persistent notification when background services are running which access device sensors. 
+  - You can disable the "Running in background" notification channel to hide this notification. (https://www.howtogeek.com/715614/what-are-android-notification-channels/)
+  - Alternatively, if you make Trail Sense exempt from battery restrictions, the notification will be removed the next time you open Trail Sense. [How to make TS exempt](https://dontkillmyapp.com/)
 - **Trail Sense sends too many notifications**
   - All notifications from Trail Sense can be disabled/re-enabled under their respective settings
   - Android requires background processes which access your location or use a sensor to send a notification (ex. Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the "Updates" notification channel to hide these notifications. (https://www.howtogeek.com/715614/what-are-android-notification-channels/)
