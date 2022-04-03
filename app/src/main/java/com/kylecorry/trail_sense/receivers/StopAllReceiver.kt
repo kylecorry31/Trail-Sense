@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBacktrackCommand
+import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.StopWeatherMonitorCommand
 
 class StopAllReceiver: BroadcastReceiver() {
@@ -12,6 +13,7 @@ class StopAllReceiver: BroadcastReceiver() {
         context ?: return
         StopWeatherMonitorCommand(context).execute()
         StopBacktrackCommand(context).execute()
+        AllowForegroundWorkersCommand(context).execute()
     }
 
     companion object {
