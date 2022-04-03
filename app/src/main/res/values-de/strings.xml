@@ -1043,5 +1043,4 @@
     <string name="pref_only_navigate_path_points_title">Nur zu aufgenommenen Punkten navigieren</string>
     <string name="error">Fehler</string>
     <string name="warning">Warnung</string>
-    <string name="battery_usage_restricted_toast">Batterienutzungsbeschränkung, einige Features könnten deaktiviert sein.</string>
 </resources>

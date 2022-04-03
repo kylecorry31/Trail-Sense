@@ -24,7 +24,6 @@
         android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"
         tools:ignore="HighSamplingRate" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <!--    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>-->
 
     <!--Force remove this permission from androidx-->
     <uses-permission

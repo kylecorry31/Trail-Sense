@@ -131,13 +131,13 @@
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="fahrenheit">degré Fahrenheit °F</string>
     <string name="celsius">degré Celsius °C</string>
     <string name="pref_compass_sensor_title">Boussole</string>
-    <string name="pref_ruler_calibration_summary">Protocole d\'étalonnage :
-\n- réglez cette valeur sur 1 ;
-\n- mesurez la valeur de la règle intégrée à Trail Sense qui correspond à une unité d\'une règle graduée physique ;
+    <string name="pref_ruler_calibration_summary">Protocole d\'étalonnage :
+\n- réglez cette valeur sur 1 ;
+\n- mesurez la valeur de la règle intégrée à Trail Sense qui correspond à une unité d\'une règle graduée physique ;
 \n- reportez la valeur mesurée ici.</string>
     <string name="pref_ruler_calibration_title">Échelle de la règle graduée</string>
     <string name="sensors">Capteurs</string>
@@ -145,7 +145,7 @@
     <string name="pref_coordinate_format_title">Unité des coordonnées géographiques</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrés (notation sexagésimale)</string>
     <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>
-    <string name="set_inclination_instructions">Touchez ou maintenez pour verrouiller / déverrouiller</string>
+    <string name="set_inclination_instructions">Touchez ou maintenez pour verrouiller / déverrouiller</string>
     <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
     <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
     <string name="clinometer_title">Inclinomètre</string>
@@ -202,7 +202,7 @@
     <string name="calibrate_compass_on_navigate_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétée, puis appuyez sur %s quand vous avez terminé.
 \n
 \nVous pouvez désactiver ce message dans les paramètres de l\'application.</string>
-    <string name="calibrate_compass_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un « 8 » ou dans toutes les directions, de manière répétée, puis appuyez sur %s.</string>
+    <string name="calibrate_compass_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un « 8 » ou dans toutes les directions, de manière répétée, puis appuyez sur %s.</string>
     <string name="moon_illumination">Visibilité de la lune</string>
     <string name="pref_adjust_for_temperature_title">Se baser sur la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
@@ -307,8 +307,8 @@
     <string name="distance_from">Depuis</string>
     <string name="tool_whistle_title">Sifflet</string>
     <string name="tool_battery_title">Batterie</string>
-    <string name="map_distance">Carte : %s</string>
-    <string name="battery_health">Santé : %s</string>
+    <string name="map_distance">Carte : %s</string>
+    <string name="battery_health">Santé : %s</string>
     <string name="battery_health_over_voltage">Survoltage</string>
     <string name="battery_health_overheat">Surchauffe</string>
     <string name="battery_health_dead">Morte</string>
@@ -316,17 +316,17 @@
     <string name="water_boil_timer_done_title">L\'eau ne bout plus</string>
     <string name="unit_inches">Pouces</string>
     <string name="unit_centimeters">Centimètres</string>
-    <string name="bubble_level_angles">X : %s
-\nY : %s</string>
+    <string name="bubble_level_angles">X : %s
+\nY : %s</string>
     <string name="contents">Contenu</string>
     <string name="note_title_hint">Titre</string>
     <string name="tool_notes_title">Notes</string>
-    <string name="delete_note_title">Supprimer la note \?</string>
+    <string name="delete_note_title">Supprimer la note \?</string>
     <string name="notes_empty_text">Aucune note</string>
     <string name="metal_detector_disclaimer">Ne détecte que les métaux magnétiques (ex. le fer)</string>
     <string name="tool_metal_detector_title">Détecteur de métaux</string>
     <string name="threshold">Seuil</string>
-    <string name="clock_sync_time_settings">Ouvrir les paramètres de l\'horloge \?</string>
+    <string name="clock_sync_time_settings">Ouvrir les paramètres de l\'horloge \?</string>
     <string name="clock_sync_instructions">Règle l\'horloge du téléphone à %s quand la notification apparaît</string>
     <string name="clock_sync_notification">Synchronisation de l\'horloge - %s</string>
     <string name="notification_channel_clock_sync_description">Une notification pour synchroniser votre horloge sur le temps GPS</string>
@@ -343,8 +343,8 @@
     <string name="three">3</string>
     <string name="two">2</string>
     <string name="one">1</string>
-    <string name="precise_inches_format">%s pouces</string>
-    <string name="precise_centimeters_format">%s cm</string>
+    <string name="precise_inches_format">%s pouces</string>
+    <string name="precise_centimeters_format">%s cm</string>
     <string name="low_power_mode_on_message">Le mode économie d\'énergie est activé, certaines fonctionnalités pourraient être désactivées.</string>
     <string name="pref_low_power_mode_title">Mode économie d\'énergie</string>
     <string name="guide_barometer_calibration_title">Étalonnage du baromètre</string>
@@ -391,7 +391,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="moved_to">Déplacé vers %s</string>
-    <string name="delete_map">Supprimer la carte \?</string>
+    <string name="delete_map">Supprimer la carte \?</string>
     <string name="no_groups">Aucun groupe</string>
     <string name="coordinates_tab">Coordonnées</string>
     <string name="distance">Distance</string>
@@ -478,14 +478,14 @@
     <string name="soon">Bientôt</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
-    <string name="action_inventory_clear_confirm">Effacer toutes les quantités \?</string>
+    <string name="action_inventory_clear_confirm">Effacer toutes les quantités \?</string>
     <string name="cirrocumulus_desc">Nuages de haute altitude formant un tissu ondulé composé de petits points apparaissant en deux dimensions.</string>
     <string name="altostratus_desc">Nuage de moyenne altitude couvrant le ciel. Le Soleil se devine comme un point lumineux.</string>
     <string name="nimbostratus_desc">Un nuage d’altitude moyenne gris foncé et couvrant le ciel. Il peut pleuvoir.</string>
     <string name="backtrack_disabled_low_power_toast">Le retour en arrière est désactivé en mode d\'économie d\'énergie</string>
-    <string name="current_format">%s mA</string>
-    <string name="duration_second_format">%d s</string>
-    <string name="delete_tide_prompt">Supprimer la marée \?</string>
+    <string name="current_format">%s mA</string>
+    <string name="duration_second_format">%d s</string>
+    <string name="delete_tide_prompt">Supprimer la marée \?</string>
     <string name="cirrostratus_desc">Un nuage haut qui couvre le ciel. Il est transparent et forme généralement un halo autour du Soleil.</string>
     <string name="tap_to_turn_off">Toucher pour éteindre</string>
     <string name="always_on">Toujours activé</string>
@@ -500,10 +500,10 @@
     <string name="square">Carré</string>
     <string name="diamond">Diamant</string>
     <string name="cross">Croix</string>
-    <string name="backtrack_battery_warning">Des intervalles courts (inférieurs à 15 minutes) peut causer une consommation excessive de la batterie</string>
+    <string name="backtrack_battery_warning">Des intervalles courts (inférieurs à 15 minutes) peut causer une consommation excessive de la batterie</string>
     <string name="sunset_alert_location_update">Mise à jour de la position pour l’alerte de coucher de Soleil</string>
     <string name="background_update">Mise à jour en arrière plan</string>
-    <string name="calibrate_new_tide">Calibrer à une nouvelle marée \?</string>
+    <string name="calibrate_new_tide">Calibrer à une nouvelle marée \?</string>
     <string name="water_boil_guide_title">Rend l’eau potable</string>
     <string name="camera_permission_denied">Accès à la caméra refusé, peut être activé dans les paramètres.</string>
     <string name="activity_recognition_permission_denied">Accès aux activités physiques refusé, peut être activé dans les paramètres.</string>
@@ -513,7 +513,7 @@
     <string name="pref_show_civil_times_title">Heure civile</string>
     <string name="pref_show_astronomical_times_title">Heure astronomique</string>
     <string name="pref_show_civil_times_summary">Aube et crépuscule</string>
-    <string name="whistle_signal_where_are_you">Où êtes vous \?</string>
+    <string name="whistle_signal_where_are_you">Où êtes vous \?</string>
     <string name="whistle_signal_acknowledged">Reçu</string>
     <string name="whistle_signal_come_here">Par ici</string>
     <string name="weather_monitor">Moniteur météo</string>
@@ -527,9 +527,9 @@
     <string name="pref_cell_signal_refresh_cache_title">Actualiser le cache du signal</string>
     <string name="pref_cell_signal_refresh_cache_summary">Force le chargement de la qualité du réseau</string>
     <string name="pack_sort_weight_high_to_low">Masse (décroissant)</string>
-    <string name="astro_dialog_moon_phase">**Phase** : %s
+    <string name="astro_dialog_moon_phase">**Phase** : %s
 \n
-\n**Illumination** : %s</string>
+\n**Illumination** : %s</string>
     <string name="pref_backtrack_history_days_title">Historique Backtrack</string>
     <string name="daylight">Lumière du jour</string>
     <string name="altitude_history_length">Longueur de l’historique d’altitude</string>
@@ -538,7 +538,7 @@
     <string name="pref_nmea_altitude_summary">Utilise la compensation NMEA pour la conversion d’altitude</string>
     <string name="pref_nmea_altitude_title">Compensation d’altitude NMEA</string>
     <string name="sensor_gyroscope">Gyroscope</string>
-    <string name="gallon_format">%s gal</string>
+    <string name="gallon_format">%s gal</string>
     <string name="pounds">Livres</string>
     <string name="activity_recognition">Détection d’activité</string>
     <string name="guide_light_meter_title">Détermine l’efficacité d’une source lumineuse</string>
@@ -559,7 +559,7 @@
     <string name="since_time">depuis %s</string>
     <string name="value_average">%s moyen</string>
     <string name="tomorrow_at">Demain à %s</string>
-    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
     <string name="guide_using_printed_maps">En utilisant une carte papier</string>
     <string name="pedometer_disclaimer">La précision et la consommation de batterie du podomètre dépend du fabricant de l’appareil ainsi que de la longueur d’enjambée défini. À essayer chez soi avant d’aller sur le terrain.</string>
     <string name="speedometer_odometer_accuracy_dialog">Pour une meilleur précision, activer le Backtrack et définir le podomètre comme source de l’odomètre dans les réglages.</string>
@@ -590,7 +590,7 @@
     <string name="temperature_history">Historique de température – dernière %s</string>
     <string name="pref_barometer_info_summary">La pression peut différer des stations alentours</string>
     <string name="import_map">Importer une carte</string>
-    <string name="roll_pitch_yaw">Roulis : %s, Tangage : %s, Lacet : %s</string>
+    <string name="roll_pitch_yaw">Roulis : %s, Tangage : %s, Lacet : %s</string>
     <string name="pref_experimental_metal_direction_title">Afficher la direction du métal</string>
     <string name="location_not_mocked">Utilise la position réelle</string>
     <string name="pref_tiles_enabled_title">Tuiles système</string>
@@ -601,35 +601,35 @@
     <string name="destination_elevation">Altitude de la destination</string>
     <string name="pref_auto_low_power_title">Économie de batterie automatique</string>
     <string name="find_next_occurrence">Résultat suivant</string>
-    <string name="yards_format">%s yd</string>
+    <string name="yards_format">%s yd</string>
     <string name="clear_cache">Vider le cache</string>
     <string name="us_ounces_volume">Onces US</string>
     <string name="days">Jours</string>
-    <string name="milliseconds_format">%s ms</string>
+    <string name="milliseconds_format">%s ms</string>
     <string name="imperial_gallons">Gallons Impériaux</string>
     <string name="us_gallons">Gallons US</string>
     <string name="volume">Volume</string>
     <string name="ounces_weight">Onces</string>
     <string name="grams">Grammes</string>
     <string name="sort">Trier</string>
-    <string name="seconds_format">%s s</string>
+    <string name="seconds_format">%s s</string>
     <string name="pack_sort_percent_high_to_low">Pourcentage empaqueté (décroissant)</string>
-    <string name="minutes_format">%s min</string>
-    <string name="hours_format">%s h</string>
+    <string name="minutes_format">%s min</string>
+    <string name="hours_format">%s h</string>
     <string name="pack_sort_percent_low_to_high">Pourcentage empaqueté (croissant)</string>
     <string name="pack_sort_weight_low_to_high">Masse (croissant)</string>
     <string name="humidity">Humidité</string>
-    <string name="num_satellites">%s satellites</string>
+    <string name="num_satellites">%d satellites</string>
     <string name="beacon_qr_import_instructions">Scanner un QR Code pour importer</string>
     <string name="climate_polar">Polaire</string>
     <string name="altitude_history">Historique d’altitude</string>
-    <string name="qr_code">QR Code</string>
+    <string name="qr_code">QR Code</string>
     <string name="pref_filter_altitude_history_title">Lisser l’historique d’altitude</string>
     <string name="altitude_override_resolution">Activer le calibrage automatique dans les paramètres.</string>
     <string name="battery_usage_restricted">Utilisation de la batterie bridée</string>
     <string name="power_saving_mode_resolution">Désactiver l’économiseur de batterie</string>
     <string name="battery_restricted_resolution">Définir Trail Sense comme Non Optimisé</string>
-    <string name="delete_path">Effacer chemin \?</string>
+    <string name="delete_path">Effacer chemin \?</string>
     <string name="old">Ancien</string>
     <string name="export_path_error">Erreur d’exportation du chemin</string>
     <string name="pick_file">Choisir un fichier</string>
@@ -638,26 +638,26 @@
     <string name="low_amount">Faible (%s)</string>
     <string name="partial">Partielle (%s)</string>
     <string name="lunar_eclipse_start">Éclipse lunaire (début)</string>
-    <string name="astro_dialog_noon">**Temps** : %s
+    <string name="astro_dialog_noon">**Temps** : %s
 \n
-\n**Altitude** : %s</string>
+\n**Altitude** : %s</string>
     <string name="season_fall">Automne</string>
-    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
-    <string name="astro_dialog_day_length">**Jour** : %s
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="astro_dialog_day_length">**Jour** : %s
 \n
-\n**Nuit** : %s
+\n**Nuit** : %s
 \n
-\n**Saison** : %s</string>
+\n**Saison** : %s</string>
     <string name="season_summer">Été</string>
     <string name="up_to_amount">Jusqu’à %s</string>
-    <string name="place_beacon_at">Placer un marqueur en %s \?</string>
-    <string name="astro_dialog_meteor_shower">**Sommet** : %s
+    <string name="place_beacon_at">Placer un marqueur en %s \?</string>
+    <string name="astro_dialog_meteor_shower">**Sommet** : %s
 \n
-\n**Altitude du sommet** : %s
+\n**Altitude du sommet** : %s
 \n
-\n** Direction du sommet** : %s
+\n** Direction du sommet** : %s
 \n
-\n**Niveau** : %s</string>
+\n**Niveau** : %s</string>
     <string name="units">Unités</string>
     <string name="map_perspective_instructions">Entourer la carte</string>
     <string name="half_tide">Demie</string>
@@ -674,7 +674,7 @@
     <string name="documents">Documents</string>
     <string name="climate_temperate">Tempéré</string>
     <string name="climate_tropical">Tropical</string>
-    <string name="diagnostic_message_template">%s : %s
+    <string name="diagnostic_message_template">%s : %s
 \n
 \n### Outils affictées
 \n%s
@@ -685,28 +685,28 @@
     <string name="auto">Automatique</string>
     <string name="lightning_dangerously_close">Orage dangereux à proximité</string>
     <plurals name="number_days">
-        <item quantity="one">% jour</item>
-        <item quantity="other">% jours</item>
+        <item quantity="one">%d jour</item>
+        <item quantity="other">%d jours</item>
     </plurals>
     <string name="pref_privacy_screenshot_protection_title">Bloquer les captures d’écran</string>
     <string name="privacy">Vie privée</string>
     <string name="location_mocked">Simule une position</string>
     <string name="pref_map_url_source_title">Carte de partage de position</string>
-    <string name="pint_format">%s pint</string>
-    <string name="liter_format">%s L</string>
-    <string name="milliliter_format">%s mL</string>
-    <string name="cup_format">% cup</string>
-    <string name="quart_format">%s qt</string>
-    <string name="ounces_volume_format">%s oz</string>
+    <string name="pint_format">%s pint</string>
+    <string name="liter_format">%s L</string>
+    <string name="milliliter_format">%s mL</string>
+    <string name="cup_format">%s cup</string>
+    <string name="quart_format">%s qt</string>
+    <string name="ounces_volume_format">%s oz</string>
     <string name="liters">Litres</string>
     <string name="imperial_quarts">Quarts Impériaux</string>
     <string name="imperial_ounces_volume">Onces Impériales</string>
     <string name="time">Heure</string>
-    <string name="days_format">%s d</string>
+    <string name="days_format">%s d</string>
     <string name="packing_lists">Liste de bagage</string>
     <string name="default_pack_name">Paquet par défaut</string>
     <string name="percent_packed">%s empaqueté</string>
-    <string name="wgs84">WGS 84</string>
+    <string name="wgs84">WGS 84</string>
     <string name="guide_packing_list">Créer une liste</string>
     <string name="quarter_moon">Quartier de Lune</string>
     <string name="no_permission">Permission non accordée</string>
@@ -716,9 +716,9 @@
     <string name="grant_permission">Donner la permission %s</string>
     <string name="get_gps_signal">Trouver un endroit avec une vue dégagée sur le ciel</string>
     <string name="lunar_eclipse">Éclipse lunaire</string>
-    <string name="astro_dialog_rise_set">**Temps** : %s
+    <string name="astro_dialog_rise_set">**Temps** : %s
 \n
-\n**Direction** : %s</string>
+\n**Direction** : %s</string>
     <string name="season_winter">Hiver</string>
     <string name="overridden">Écrasé</string>
     <string name="on">Activé</string>
@@ -735,7 +735,7 @@
     <string name="guide_speedometer_desc">Comment déterminer la distance parcourue et l’heure d’arrivée</string>
     <string name="pref_odometer_reset_daily_title">Mise à zéro quotidienne</string>
     <string name="backtrack_high_priority_notification">Ajouter un point de passage tous les %s</string>
-    <string name="tool_speedometer_odometer_title">Tachymètre / Odomètre</string>
+    <string name="tool_speedometer_odometer_title">Tachymètre / Odomètre</string>
     <string name="pedometer">Podomètre</string>
     <string name="meteor_shower">Pluie de météores</string>
     <string name="odometer">Odomètre</string>
@@ -748,13 +748,13 @@
     <string name="weight">Masse</string>
     <string name="pref_navigation_lock_screen_presence_title">Afficher sur l’écran de verrouillage lors de la navigation</string>
     <string name="base_elevation">Altitude de base</string>
-    <string name="ounces_weight_format">%s oz</string>
+    <string name="ounces_weight_format">%s oz</string>
     <string name="no_packing_lists">Pas de listes</string>
     <string name="unit_yards">Yards</string>
     <string name="milliliters">Millilitres</string>
     <string name="base_temperature">Température de base</string>
-    <string name="pounds_format">%s lb</string>
-    <string name="kilograms_format">%s kg</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="kilograms_format">%s kg</string>
     <string name="minutes">Minutes</string>
     <string name="hours">Heures</string>
     <string name="us_pints">Pintes US</string>
@@ -767,8 +767,8 @@
     <string name="dash_separated_pair">%s – %s</string>
     <string name="units_mmhg_short">mm</string>
     <string name="imperial_cups">Tasse Impériale</string>
-    <string name="grams_format">%s g</string>
-    <string name="delete_pack">Supprimer le barda \?</string>
+    <string name="grams_format">%s g</string>
+    <string name="delete_pack">Supprimer le barda \?</string>
     <string name="seconds">Secondes</string>
     <string name="packed_amount">Quantité empaqueté</string>
     <string name="new_packing_list">Nouvelle liste</string>
@@ -783,17 +783,17 @@
     <string name="unblock_notification_channel">Débloquer les notifications %s pour Trail Sense</string>
     <string name="path_exported">Chemins exportés</string>
     <string name="lunar_eclipse_end">Éclipse lunaire (fin)</string>
-    <string name="astro_dialog_lunar_eclipse">**Début** : %s
+    <string name="astro_dialog_lunar_eclipse">**Début** : %s
 \n
-\n**Pic** : %s
+\n**Pic** : %s
 \n
-\n**Fin** : %s
+\n**Fin** : %s
 \n
-\n**Durée** : %s
+\n**Durée** : %s
 \n
-\n**Magnitude** : %s
+\n**Magnitude** : %s
 \n
-\n**Altitude** : %s</string>
+\n**Altitude** : %s</string>
     <string name="season_spring">Printemps</string>
     <string name="total">Totale</string>
     <string name="supermoon">Super Lune</string>

@@ -1186,7 +1186,6 @@
     <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>
-    <string name="battery_usage_restricted_toast">Battery usage restrictions, some features may be disabled.</string>
     <string name="running_in_background">Running in background</string>
     <string name="battery_usage_restricted_benefit">Removing battery restrictions for Trail Sense may improve accuracy.</string>
     <string name="remove_battery_restrictions">Remove battery restrictions?</string>

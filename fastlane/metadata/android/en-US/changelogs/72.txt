@@ -1,3 +1,6 @@
-Android 12
+Ruler
+- Improve ruler accuracy on wider range of devices
+
+Changes for Android 12 support
 - Show what is running in the background (needed to keep backtrack and weather monitor running)
 - Request battery exemption for backtrack and weather to improve accuracy
