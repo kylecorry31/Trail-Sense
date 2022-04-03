@@ -4,6 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
@@ -14,34 +15,39 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 
 class BackgroundWorkerService : ForegroundService() {
     override val foregroundNotificationId: Int
-        get() = 723824
+        get() = NOTIFICATION_ID
 
     override fun getForegroundNotification(): Notification {
         return createNotification(applicationContext)
     }
 
+    private val timer = Timer {
+        val contents = getRunningServices().joinToString(" • ").ifEmpty { null }
+        if (contents != null) {
+            Notify.send(
+                applicationContext,
+                foregroundNotificationId,
+                createNotification(this, contents)
+            )
+        } else {
+            stopSelf()
+        }
+    }
+
     override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
-        Notify.send(
-            applicationContext,
-            foregroundNotificationId,
-            createNotification(applicationContext, true)
-        )
+        timer.once(1000)
         return START_STICKY
     }
 
     override fun onDestroy() {
+        timer.stop()
         stopService(true)
+        Notify.cancel(this, NOTIFICATION_ID)
         super.onDestroy()
     }
 
     // Create notification
-    private fun createNotification(context: Context, includeServices: Boolean = false): Notification {
-        val contents = if (includeServices){
-            getRunningServices().joinToString(" • ").ifEmpty { null }
-        } else {
-            null
-        }
-
+    private fun createNotification(context: Context, contents: String? = null): Notification {
         return Notify.background(
             context,
             NotificationChannels.CHANNEL_BACKGROUND_LAUNCHER,
@@ -71,6 +77,8 @@ class BackgroundWorkerService : ForegroundService() {
     }
 
     companion object {
+        private const val NOTIFICATION_ID = 723824
+
         fun intent(context: Context): Intent {
             return Intent(context, BackgroundWorkerService::class.java)
         }
@@ -81,6 +89,7 @@ class BackgroundWorkerService : ForegroundService() {
 
         fun stop(context: Context) {
             context.stopService(intent(context))
+            Notify.cancel(context, NOTIFICATION_ID)
         }
 
     }
