@@ -1061,4 +1061,7 @@
     <string name="cross">Хрест</string>
     <string name="error">Помилка</string>
     <string name="warning">Увага</string>
+    <string name="remove_battery_restrictions">Зняти обмеження на акумулятор\?</string>
+    <string name="running_in_background">Запуск у тлі</string>
+    <string name="battery_usage_restricted_benefit">Зняття обмежень акумулятора для Trail Sense може підвищити точність.</string>
 </resources>
