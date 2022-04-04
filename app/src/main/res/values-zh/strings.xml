@@ -1032,4 +1032,7 @@
     <string name="diamond">菱形</string>
     <string name="error">错误</string>
     <string name="warning">警告</string>
+    <string name="battery_usage_restricted_benefit">去除对 Trail Sense 的电池限制可能会改善精度。</string>
+    <string name="remove_battery_restrictions">去除电池限制？</string>
+    <string name="running_in_background">在后台运行</string>
 </resources>
