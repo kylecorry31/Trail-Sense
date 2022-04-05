@@ -193,17 +193,23 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     val distance = gps.location.distanceTo(bounds.center)
 
                     if (onMap || distance < 5000) {
-                        val bitmap = BitmapUtils.decodeBitmapScaled(
-                            file.path,
-                            Resources.dp(requireContext(), 64f).toInt(),
-                            Resources.dp(requireContext(), 64f).toInt()
-                        )
-                        bitmaps[it.id] = bitmap
+                        // This can fail if the map's path changes while loading
+                        tryOrNothing {
+                            val bitmap = BitmapUtils.decodeBitmapScaled(
+                                file.path,
+                                Resources.dp(requireContext(), 64f).toInt(),
+                                Resources.dp(requireContext(), 64f).toInt()
+                            )
+                            bitmaps[it.id] = bitmap
+                        }
                     }
 
                     boundMap[it.id] = bounds
                 }
-                fileSizes[it.id] = file.length()
+
+                tryOrNothing {
+                    fileSizes[it.id] = file.length()
+                }
             }
 
             maps = maps.sortedBy {
