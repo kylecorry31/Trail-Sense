@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
@@ -21,7 +22,7 @@ abstract class BaseMapReduce(
     private val saver = ImageSaver()
     private val mapRepo = MapRepo.getInstance(context)
 
-    override suspend fun reduce(map: Map) {
+    override suspend fun reduce(map: Map) = onIO {
         val file = LocalFiles.getFile(context, map.filename, false)
         val bmp = if (maxSize != null) {
             BitmapUtils.decodeBitmapScaled(file.path, maxSize.width.toInt(), maxSize.height.toInt())

@@ -6,21 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.andromeda.pdf.GeospatialPDFParser
-import com.kylecorry.andromeda.pdf.PDFRenderer
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -29,24 +26,20 @@ import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.io.FileSaver
+import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
-import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.util.*
 
 class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
@@ -67,6 +60,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private var mapName = ""
 
     private val uriPicker = FragmentUriPicker(this)
+    private val mapImportingIndicator by lazy { AlertLoadingIndicator(requireContext(), getString(R.string.importing_map)) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -89,7 +83,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             ) {
                 if (it != null) {
                     mapName = it
-                    mapFromUri(mapIntentUri)
+                    createMap(CreateMapFromUriCommand(requireContext(), mapRepo, mapIntentUri, mapImportingIndicator))
                 }
             }
         }
@@ -119,7 +113,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             ) {
                 if (it != null) {
                     mapName = it
-                    createMap()
+                    createMap(CreateMapFromFileCommand(requireContext(), uriPicker, mapRepo, mapImportingIndicator))
                 }
             }
         }
@@ -222,154 +216,42 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
     }
 
-    private fun createMap() {
+    private fun createMap(command: ICreateMapCommand) {
         runInBackground {
-            val uri = uriPicker.open(listOf("image/*", "application/pdf"))
-            uri?.let { mapFromUri(it) }
-        }
-    }
+            binding.addBtn.isEnabled = false
 
-    private fun mapFromUri(uri: Uri) {
-        binding.addBtn.isEnabled = false
-        lifecycleScope.launch {
-            val loading = withContext(Dispatchers.Main){
-                Alerts.loading(requireContext(), getString(R.string.importing_map))
+            val map = command.execute()?.copy(name = mapName)
+
+            if (map == null) {
+                toast(getString(R.string.error_importing_map))
+                binding.addBtn.isEnabled = true
+                return@runInBackground
             }
 
-            withContext(Dispatchers.IO) {
-                val type = requireContext().contentResolver.getType(uri)
-                var calibration1: MapCalibrationPoint? = null
-                var calibration2: MapCalibrationPoint? = null
-                var projection = MapProjectionType.CylindricalEquidistant
-
-                val extension = if (type == "application/pdf"){
-                    "webp"
-                } else {
-                    MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
-                }
-
-                val filename = "maps/" + UUID.randomUUID().toString() + "." + extension
-
-                @Suppress("BlockingMethodInNonBlockingContext")
-                if (type == "application/pdf") {
-                    val parser = GeospatialPDFParser()
-                    val metadata = requireContext().contentResolver.openInputStream(uri)?.use {
-                        parser.parse(it)
-                    }
-
-                    val scale = Screen.dpi(requireContext()) / 72
-                    val bp = PDFRenderer().toBitmap(requireContext(), uri, scale = scale)
-                    if (bp == null) {
-                        withContext(Dispatchers.Main) {
-                            Alerts.toast(
-                                requireContext(),
-                                getString(R.string.error_importing_map)
-                            )
-                            loading.dismiss()
-                            binding.addBtn.isEnabled = true
-                        }
-                        return@withContext
-                    }
-
-                    if (metadata != null && metadata.points.size >= 4){
-                        val points = listOf(metadata.points[1], metadata.points[3]).map {
-                            MapCalibrationPoint(it.second, PercentCoordinate(scale * it.first.x / bp.width, scale * it.first.y / bp.height))
-                        }
-                        calibration1 = points[0]
-                        calibration2 = points[1]
-                    }
-
-                    val projectionName = metadata?.projection?.projection
-
-                    if (projectionName != null && projectionName.contains("mercator", true)){
-                        projection = MapProjectionType.Mercator
-                    }
-
-                    try {
-                        copyToLocalStorage(bp, filename)
-                    } catch (e: IOException) {
-                        withContext(Dispatchers.Main) {
-                            Alerts.toast(
-                                requireContext(),
-                                getString(R.string.error_importing_map)
-                            )
-                            loading.dismiss()
-                            binding.addBtn.isEnabled = true
-                        }
-                        return@withContext
-                    }
-                } else {
-                    val stream = try {
-                        @Suppress("BlockingMethodInNonBlockingContext")
-                        requireContext().contentResolver.openInputStream(uri)
-                    } catch (e: Exception) {
-                        null
-                    }
-                    if (stream == null) {
-                        withContext(Dispatchers.Main) {
-                            Alerts.toast(
-                                requireContext(),
-                                getString(R.string.error_importing_map)
-                            )
-                            loading.dismiss()
-                            binding.addBtn.isEnabled = true
-                        }
-                        return@withContext
-                    }
-                    copyToLocalStorage(stream, filename)
-                }
-
-                val calibrationPoints = listOfNotNull(calibration1, calibration2)
-                val map = Map(
-                    0,
-                    mapName,
-                    filename,
-                    calibrationPoints,
-                    warped = calibrationPoints.isNotEmpty(),
-                    rotated = calibrationPoints.isNotEmpty(),
-                    projection = projection
-                )
-                val id = mapRepo.addMap(map)
-
-                if (prefs.navigation.autoReduceMaps){
-                    val reducer = HighQualityMapReducer(requireContext())
-                    reducer.reduce(map.copy(id = id))
-                }
-
-                withContext(Dispatchers.Main) {
-                    if (calibration1 != null) {
-                        Alerts.toast(
-                            requireContext(),
-                            getString(R.string.map_auto_calibrated)
-                        )
-                    }
-                    loading.dismiss()
-                    binding.addBtn.isEnabled = true
-                    findNavController().navigate(
-                        R.id.action_mapList_to_maps,
-                        bundleOf("mapId" to id)
-                    )
+            if (mapName.isNotBlank()) {
+                onIO {
+                    mapRepo.addMap(map)
                 }
             }
 
-        }
-    }
-
-
-    private fun copyToLocalStorage(bitmap: Bitmap, filename: String) {
-        try {
-            @Suppress("BlockingMethodInNonBlockingContext")
-            FileOutputStream(LocalFiles.getFile(requireContext(), filename)).use { out ->
-                ImageSaver().save(bitmap, out)
+            if (prefs.navigation.autoReduceMaps) {
+                mapImportingIndicator.show()
+                val reducer = HighQualityMapReducer(requireContext())
+                reducer.reduce(map)
+                mapImportingIndicator.hide()
             }
-        } finally {
-            bitmap.recycle()
-        }
-    }
 
-    private fun copyToLocalStorage(stream: InputStream, filename: String) {
-        val saver = FileSaver()
-        saver.save(stream, LocalFiles.getFile(requireContext(), filename))
+            if (map.calibrationPoints.isNotEmpty()) {
+                toast(getString(R.string.map_auto_calibrated))
+            }
+
+            binding.addBtn.isEnabled = true
+            findNavController().navigate(
+                R.id.action_mapList_to_maps,
+                bundleOf("mapId" to map.id)
+            )
+
+        }
     }
 
 
