@@ -923,4 +923,12 @@
     <string name="pref_start_on_boot_title">Start ved enhetsoppstart</string>
     <string name="water_boil_guide_title">Gjør vann trygt å drikke</string>
     <string name="navigation_guide_description">Bruke navigeringsmarkører og stier</string>
+    <string name="error">Feil</string>
+    <string name="warning">Advarsel</string>
+    <string name="square">Kvadrat</string>
+    <string name="diamond">Diamant</string>
+    <string name="pref_only_navigate_path_points_title">Bare naviger til registrerte punkter</string>
+    <string name="remove_battery_restrictions">Fjerne batterirestriksjoner\?</string>
+    <string name="battery_usage_restricted_benefit">Fjerning av batterirestriksjoner for Trail Sense kan forbedre nøyaktigheten.</string>
+    <string name="running_in_background">Kjører i bakgrunn</string>
 </resources>
