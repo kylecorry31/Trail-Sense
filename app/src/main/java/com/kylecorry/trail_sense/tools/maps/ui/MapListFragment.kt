@@ -144,7 +144,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
             tryOrNothing {
                 thumbnailManager.setImage(lifecycleScope, mapItemBinding.mapImg) {
-                    loadMapThumbnail(map)
+                    try {
+                        loadMapThumbnail(map)
+                    } catch (e: Exception){
+                        null
+                    }
                 }
             }
             mapItemBinding.fileSize.text = formatService.formatFileSize(fileSizes[map.id] ?: 0)

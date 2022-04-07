@@ -17,7 +17,7 @@ class ImageThumbnailManager {
     fun setImage(
         scope: CoroutineScope,
         view: ImageView,
-        load: suspend CoroutineScope.() -> Bitmap
+        load: suspend CoroutineScope.() -> Bitmap?
     ) {
         synchronized(this) {
             views[view.hashCode()] = view
@@ -25,7 +25,8 @@ class ImageThumbnailManager {
             jobs[view.hashCode()] = scope.launch {
                 onIO {
                     val previous = bitmaps[view.hashCode()]
-                    bitmaps[view.hashCode()] = load()
+                    val loaded = load() ?: return@onIO
+                    bitmaps[view.hashCode()] = loaded
                     onMain {
                         view.setImageBitmap(bitmaps[view.hashCode()])
                     }
