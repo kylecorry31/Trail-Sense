@@ -224,7 +224,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private fun loadMapThumbnail(map: Map): Bitmap {
         val file = LocalFiles.getFile(requireContext(), map.filename, false)
-        val size = Resources.dp(requireContext(), 64f).toInt()
+        val size = Resources.dp(requireContext(), 48f).toInt()
         return BitmapUtils.decodeBitmapScaled(file.path, size, size)
     }
 
