@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -38,6 +39,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromU
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -54,8 +56,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private var maps: List<Map> = listOf()
 
     private var boundMap = mutableMapOf<Long, CoordinateBounds>()
-    private var bitmaps = mutableMapOf<Long, Bitmap>()
+    private var bitmaps = mutableMapOf<Int, Bitmap>()
     private var fileSizes = mutableMapOf<Long, Long>()
+    private val imageLoaderJobs = mutableMapOf<Int, Job>()
 
     private var mapName = ""
 
@@ -121,10 +124,25 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
-            if (bitmaps.containsKey(map.id)) {
-                mapItemBinding.mapImg.setImageBitmap(bitmaps[map.id])
-            } else {
-                mapItemBinding.mapImg.setImageResource(R.drawable.maps)
+            tryOrNothing {
+                imageLoaderJobs[itemView.hashCode()]?.cancel()
+                val previous = bitmaps[itemView.hashCode()]
+                val job = runInBackground {
+                    onIO {
+                        val file = LocalFiles.getFile(requireContext(), map.filename, false)
+                        val bitmap = BitmapUtils.decodeBitmapScaled(
+                            file.path,
+                            Resources.dp(requireContext(), 64f).toInt(),
+                            Resources.dp(requireContext(), 64f).toInt()
+                        )
+                        bitmaps[itemView.hashCode()] = bitmap
+                        onMain {
+                            mapItemBinding.mapImg.setImageBitmap(bitmap)
+                        }
+                        previous?.recycle()
+                    }
+                }
+                imageLoaderJobs[itemView.hashCode()] = job
             }
             mapItemBinding.fileSize.text = formatService.formatFileSize(fileSizes[map.id] ?: 0)
             mapItemBinding.name.text = map.name
@@ -186,17 +204,18 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     val onMap = bounds.contains(gps.location)
                     val distance = gps.location.distanceTo(bounds.center)
 
-                    if (onMap || distance < 5000) {
-                        // This can fail if the map's path changes while loading
-                        tryOrNothing {
-                            val bitmap = BitmapUtils.decodeBitmapScaled(
-                                file.path,
-                                Resources.dp(requireContext(), 64f).toInt(),
-                                Resources.dp(requireContext(), 64f).toInt()
-                            )
-                            bitmaps[it.id] = bitmap
-                        }
-                    }
+//                    if (onMap || distance < 5000) {
+//                        // TODO: Run this in the background
+//                        // This can fail if the map's path changes while loading
+//                        tryOrNothing {
+//                            val bitmap = BitmapUtils.decodeBitmapScaled(
+//                                file.path,
+//                                Resources.dp(requireContext(), 64f).toInt(),
+//                                Resources.dp(requireContext(), 64f).toInt()
+//                            )
+//                            bitmaps[it.id] = bitmap
+//                        }
+//                    }
 
                     boundMap[it.id] = bounds
                 }
@@ -214,6 +233,16 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
             mapList.setData(maps)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanUpThumbnails()
+    }
+
+    private fun cleanUpThumbnails(){
+        bitmaps.forEach { it.value.recycle()}
+        bitmaps.clear()
     }
 
     private fun createMap(command: ICreateMapCommand) {
