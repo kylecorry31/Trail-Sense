@@ -191,7 +191,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapRepo.getMaps().observe(viewLifecycleOwner) {
             maps = it
-            // TODO: Show loading indicator
+            thumbnailManager.clear()
             maps.forEach {
                 val file = LocalFiles.getFile(requireContext(), it.filename, false)
 
