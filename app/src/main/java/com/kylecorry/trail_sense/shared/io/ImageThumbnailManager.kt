@@ -22,6 +22,7 @@ class ImageThumbnailManager {
         synchronized(this) {
             views[view.hashCode()] = view
             jobs[view.hashCode()]?.cancel()
+            view.setImageDrawable(null)
             jobs[view.hashCode()] = scope.launch {
                 onIO {
                     val previous = bitmaps[view.hashCode()]
