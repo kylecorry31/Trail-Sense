@@ -4,9 +4,9 @@ import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
 import com.kylecorry.andromeda.files.ExternalFiles
+import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.io.FileSaver
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 import java.io.InputStream
