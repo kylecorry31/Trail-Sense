@@ -143,7 +143,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
             tryOrNothing {
-                thumbnailManager.setImage(lifecycleScope, mapItemBinding.mapImg) {
+                thumbnailManager.setThumbnail(lifecycleScope, mapItemBinding.mapImg) {
                     try {
                         loadMapThumbnail(map)
                     } catch (e: Exception){

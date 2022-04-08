@@ -14,7 +14,13 @@ class ImageThumbnailManager {
     private val views = mutableMapOf<Int, ImageView>()
     private val runners = mutableMapOf<Int, ControlledRunner<Unit>>()
 
-    fun setImage(
+    /**
+     * Set the thumbnail for an image view
+     * @param scope the coroutine scope
+     * @param view the view to set the image for
+     * @param load a suspend function to load a bitmap
+     */
+    fun setThumbnail(
         scope: CoroutineScope,
         view: ImageView,
         load: suspend CoroutineScope.() -> Bitmap?
@@ -48,6 +54,9 @@ class ImageThumbnailManager {
         }
     }
 
+    /**
+     * Clear all thumbnails from the UI and memory
+     */
     fun clear() {
         synchronized(this) {
             runners.forEach { it.value.cancel() }
