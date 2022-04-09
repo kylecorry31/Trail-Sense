@@ -3,11 +3,9 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
-import com.kylecorry.andromeda.pdf.PDFRenderer
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
@@ -30,10 +28,8 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         val metadata = ExternalFiles.stream(context, uri)?.use {
             parser.parse(it)
         }
-        val scale = Screen.dpi(context) / 72
-        val bp = PDFRenderer().toBitmap(context, uri, scale = scale) ?: return@onIO null
-
-
+        val maxSize = 2048
+        val (bp, scale) = PDFRenderer().toBitmap(context, uri, maxSize = maxSize) ?: return@onIO null
 
         if (metadata != null && metadata.points.size >= 4) {
             val points = listOf(metadata.points[1], metadata.points[3]).map {
@@ -74,7 +70,9 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         try {
             @Suppress("BlockingMethodInNonBlockingContext")
             FileOutputStream(LocalFiles.getFile(context, filename)).use { out ->
+                // TODO: Figure out why WEBP doesn't work here for the newly generated maps
                 ImageSaver().save(bitmap, out)
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, out)
             }
         } finally {
             bitmap.recycle()

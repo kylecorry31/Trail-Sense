@@ -36,13 +36,19 @@ class ImageThumbnailManager {
                     onIO {
                         removeBitmap(view.hashCode())
                         val loaded = load() ?: return@onIO
-                        bitmaps[view.hashCode()] = loaded
+                        setBitmap(view.hashCode(), loaded)
                         onMain {
                             view.setImageBitmap(bitmaps[view.hashCode()])
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun setBitmap(id: Int, bitmap: Bitmap){
+        synchronized(this){
+            bitmaps[id] = bitmap
         }
     }
 
