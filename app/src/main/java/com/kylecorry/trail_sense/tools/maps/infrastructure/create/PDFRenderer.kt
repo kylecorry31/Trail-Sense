@@ -9,6 +9,7 @@ import android.net.Uri
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.core.system.Screen
 
+// TODO: Move this to andromeda
 class PDFRenderer {
     fun toBitmap(
         context: Context,

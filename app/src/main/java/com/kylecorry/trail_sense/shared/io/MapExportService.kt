@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.pdf.*
+import com.kylecorry.sol.science.geology.ReferenceEllipsoid
 import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 
 class MapExportService(
     private val context: Context,
@@ -25,6 +27,26 @@ class MapExportService(
             val height = bitmap.height
             val bounds = data.boundary(width.toFloat(), height.toFloat()) ?: return false
 
+            val projections = mapOf(
+                MapProjectionType.Mercator to "Mercator",
+                MapProjectionType.CylindricalEquidistant to "Equidistant_Cylindrical"
+            )
+
+            val pcjcs = ProjectedCoordinateSystem(
+                GeographicCoordinateSystem(
+                    Datum(
+                        "WGS 84",
+                        Spheroid(
+                            "WGS 84",
+                            ReferenceEllipsoid.wgs84.semiMajorAxis.toFloat(),
+                            ReferenceEllipsoid.wgs84.inverseFlattening.toFloat()
+                        )
+                    ),
+                    0.0
+                ),
+                projections[data.projection] ?: ""
+            )
+
             val pdf = listOf(
                 catalog("1 0", "2 0"),
                 pages("2 0", listOf("3 0")),
@@ -33,8 +55,10 @@ class MapExportService(
                 viewport("5 0", "6 0", bbox(0, 0, width, height)),
                 geo(
                     "6 0",
-                    listOf(bounds.southWest, bounds.northWest, bounds.northEast, bounds.southEast)
-                )
+                    listOf(bounds.southWest, bounds.northWest, bounds.northEast, bounds.southEast),
+                    gcsId = "7 0"
+                ),
+                gcs("7 0", pcjcs)
             )
             bitmap.recycle()
             val uri = uriPicker.create(filename, "application/pdf") ?: return false
@@ -47,14 +71,6 @@ class MapExportService(
         } finally {
             bitmap?.recycle()
         }
-    }
-
-    // TODO: Extract this to Andromeda
-    private fun getFreeMemory(): Long {
-        val runtime = Runtime.getRuntime()
-        val usedMemInMB = (runtime.totalMemory() - runtime.freeMemory()) / 1048576L
-        val maxHeapSizeInMB = runtime.maxMemory() / 1048576L
-        return (maxHeapSizeInMB - usedMemInMB) * 1024 * 1024
     }
 
 }
