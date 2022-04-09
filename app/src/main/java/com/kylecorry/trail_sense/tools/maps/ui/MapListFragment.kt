@@ -28,12 +28,15 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.io.ImageThumbnailManager
+import com.kylecorry.trail_sense.shared.io.MapExportService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.ExportMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
@@ -65,6 +68,15 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             requireContext(),
             getString(R.string.importing_map)
         )
+    }
+    private val mapExportingIndicator by lazy {
+        AlertLoadingIndicator(
+            requireContext(),
+            getString(R.string.exporting_map)
+        )
+    }
+    private val mapExporter by lazy {
+        MapExportService(requireContext(), uriPicker, ExternalUriService(requireContext()))
     }
 
     private val thumbnailManager = ImageThumbnailManager()
@@ -146,7 +158,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 thumbnailManager.setThumbnail(lifecycleScope, mapItemBinding.mapImg) {
                     try {
                         loadMapThumbnail(map)
-                    } catch (e: Exception){
+                    } catch (e: Exception) {
                         null
                     }
                 }
@@ -166,6 +178,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             mapItemBinding.menuBtn.setOnClickListener {
                 Pickers.menu(it, R.menu.map_list_item_menu) {
                     when (it) {
+                        R.id.action_map_export -> {
+                            runInBackground {
+                                mapExportingIndicator.show()
+                                ExportMapCommand(mapExporter).execute(map)
+                                mapExportingIndicator.hide()
+                                toast(getString(R.string.map_exported))
+                            }
+                        }
                         R.id.action_map_delete -> {
                             Alerts.dialog(
                                 requireContext(),
@@ -230,6 +250,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         val file = LocalFiles.getFile(requireContext(), map.filename, false)
         val size = Resources.dp(requireContext(), 48f).toInt()
         return BitmapUtils.decodeBitmapScaled(file.path, size, size)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapList.setData(maps)
     }
 
     override fun onPause() {

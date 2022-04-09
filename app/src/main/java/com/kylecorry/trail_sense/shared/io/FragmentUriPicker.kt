@@ -18,7 +18,7 @@ class FragmentUriPicker(private val fragment: AndromedaFragment) :
 
     override suspend fun create(filename: String, type: String): Uri? {
         return suspendCoroutine { cont ->
-            fragment.createFile(filename, listOf(type), fragment.getString(R.string.pick_file)) {
+            fragment.createFile(filename, type, fragment.getString(R.string.pick_file)) {
                 cont.resume(it)
             }
         }

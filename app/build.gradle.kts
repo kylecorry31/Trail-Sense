@@ -80,12 +80,13 @@ dependencies {
     implementation("com.google.android.material:material:1.5.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
+    implementation("com.github.slugify:slugify:2.4")
 
     // Sol
     implementation("com.github.kylecorry31:sol:5.8.0")
 
     // Andromeda
-    val andromedaVersion = "3.0.0-beta06"
+    val andromedaVersion = "3.0.0-beta07"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")

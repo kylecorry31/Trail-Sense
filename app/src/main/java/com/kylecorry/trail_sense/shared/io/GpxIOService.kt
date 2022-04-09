@@ -13,7 +13,7 @@ class GpxIOService(private val uriPicker: UriPicker, private val uriService: Uri
 
     override suspend fun import(): GPXData? {
         val uri = uriPicker.open(listOf("*/*")) ?: return null
-        val stream = uriService.stream(uri) ?: return null
+        val stream = uriService.inputStream(uri) ?: return null
         return GPXParser.parse(stream)
     }
 

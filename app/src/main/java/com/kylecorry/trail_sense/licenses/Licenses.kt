@@ -158,6 +158,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             apache2("2021", "doyaaaaaken", "")
         ),
         Library(
+            "slugify",
+            "https://github.com/slugify/slugify",
+            apache2("2021", "slugify", "")
+        ),
+        Library(
             "subsampling-scale-image-view",
             "https://github.com/davemorrissey/subsampling-scale-image-view",
             apache2("2020", "davemorrissey", "")
