@@ -44,6 +44,7 @@ android {
     }
     packagingOptions {
         resources.merges += "META-INF/LICENSE.md"
+        resources.merges += "META-INF/DEPENDENCIES"
         resources.merges += "META-INF/LICENSE-notice.md"
     }
     kotlinOptions {
@@ -81,6 +82,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
     implementation("com.github.slugify:slugify:2.4")
+    implementation("com.tom-roush:pdfbox-android:2.0.18.0")
 
     // Sol
     implementation("com.github.kylecorry31:sol:5.8.0")
