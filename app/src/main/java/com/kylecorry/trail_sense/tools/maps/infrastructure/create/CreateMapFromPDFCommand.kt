@@ -70,9 +70,7 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         try {
             @Suppress("BlockingMethodInNonBlockingContext")
             FileOutputStream(LocalFiles.getFile(context, filename)).use { out ->
-                // TODO: Figure out why WEBP doesn't work here for the newly generated maps
                 ImageSaver().save(bitmap, out)
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, out)
             }
         } finally {
             bitmap.recycle()

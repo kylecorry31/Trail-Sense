@@ -6,9 +6,9 @@ import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.files.LocalFiles
-import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
-import com.kylecorry.trail_sense.tools.maps.infrastructure.rotate
 
 class RotationCorrectionView : CanvasView {
 

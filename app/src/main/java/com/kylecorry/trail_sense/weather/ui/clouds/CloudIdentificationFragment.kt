@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTabsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.views.CustomViewPagerAdapter
-import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 
 class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
 

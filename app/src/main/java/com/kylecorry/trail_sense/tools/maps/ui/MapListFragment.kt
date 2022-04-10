@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.files.LocalFiles
@@ -249,7 +250,15 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private fun loadMapThumbnail(map: Map): Bitmap {
         val file = LocalFiles.getFile(requireContext(), map.filename, false)
         val size = Resources.dp(requireContext(), 48f).toInt()
-        return BitmapUtils.decodeBitmapScaled(file.path, size, size)
+        val bitmap = BitmapUtils.decodeBitmapScaled(file.path, size, size)
+
+        if (map.rotation != 0){
+            val rotated = bitmap.rotate(map.rotation.toFloat())
+            bitmap.recycle()
+            return rotated
+        }
+
+        return bitmap
     }
 
     override fun onResume() {

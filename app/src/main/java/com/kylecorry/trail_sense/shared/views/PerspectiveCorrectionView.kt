@@ -9,6 +9,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
-import com.kylecorry.trail_sense.tools.maps.infrastructure.resize
 import kotlin.math.min
 
 

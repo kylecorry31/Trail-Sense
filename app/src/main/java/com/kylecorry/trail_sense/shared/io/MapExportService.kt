@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.io
 import android.content.Context
 import android.graphics.Bitmap
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.pdf.*
 import com.kylecorry.sol.science.geology.ReferenceEllipsoid
@@ -23,6 +24,13 @@ class MapExportService(
             val maxImageSize = 2048
 
             bitmap = BitmapUtils.decodeBitmapScaled(file.path, maxImageSize, maxImageSize)
+
+            if (data.rotation != 0){
+                val rotated = bitmap.rotate(data.rotation.toFloat())
+                bitmap.recycle()
+                bitmap = rotated
+            }
+
             val width = bitmap.width
             val height = bitmap.height
             val bounds = data.boundary(width.toFloat(), height.toFloat()) ?: return false
