@@ -7,7 +7,7 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
-    <ImageView
+    <com.kylecorry.trail_sense.shared.views.AsyncImageView
         android:id="@+id/map_img"
         android:layout_width="48dp"
         android:layout_height="48dp"

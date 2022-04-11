@@ -31,7 +31,6 @@ import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.trail_sense.shared.io.ImageThumbnailManager
 import com.kylecorry.trail_sense.shared.io.MapExportService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -79,8 +78,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapExporter by lazy {
         MapExportService(requireContext(), uriPicker, ExternalUriService(requireContext()))
     }
-
-    private val thumbnailManager = ImageThumbnailManager()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -156,12 +153,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
             tryOrNothing {
-                thumbnailManager.setThumbnail(lifecycleScope, mapItemBinding.mapImg) {
-                    try {
-                        loadMapThumbnail(map)
-                    } catch (e: Exception) {
-                        null
-                    }
+                mapItemBinding.mapImg.setImageBitmap(viewLifecycleOwner) {
+                    loadMapThumbnail(map)
                 }
             }
             mapItemBinding.fileSize.text = formatService.formatFileSize(fileSizes[map.id] ?: 0)
@@ -212,7 +205,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapRepo.getMaps().observe(viewLifecycleOwner) {
             maps = it
-            thumbnailManager.clear()
             maps.forEach {
                 val file = LocalFiles.getFile(requireContext(), it.filename, false)
 
@@ -264,11 +256,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     override fun onResume() {
         super.onResume()
         mapList.setData(maps)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        thumbnailManager.clear()
     }
 
     private fun createMap(command: ICreateMapCommand) {
