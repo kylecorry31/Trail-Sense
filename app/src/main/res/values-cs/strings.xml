@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="pref_altimeter_calibration_mode_title">Automatická kalibrace</string>
     <string name="never">Nikdy</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometr</string>
@@ -78,7 +78,7 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Poznámky (Volitelné)</string>
-    <string name="beacon_invalid_name">Neplatné jméno</string>
+    <string name="beacon_invalid_name">Neplatný název</string>
     <string name="name">Název</string>
     <string name="maps">Mapy</string>
     <string name="discharging_fast">Rychle vybíjeno (%s)</string>
@@ -176,7 +176,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
-    <string name="set_inclination_instructions">Klepnutím kamkoli nastavte/zrušte úhel sklonu</string>
+    <string name="set_inclination_instructions">Klepnutím nebo podržením kdekoliv uzamknete/odemknete</string>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
     <string name="waning_gibbous">Měsíc Couvá</string>
     <string name="sun_down_no_set">Slunce zapadlo</string>
@@ -273,7 +273,7 @@
     <string name="cliff_height_guide">Odhadněte výšku útesu</string>
     <string name="inventory_empty_text">Žádně věci</string>
     <string name="distance_from">Od</string>
-    <string name="unit_meters">Měřiče</string>
+    <string name="unit_meters">Metry</string>
     <string name="unit_kilometers">Kilometry</string>
     <string name="unit_miles">Míle</string>
     <string name="unit_feet">Stopy</string>
@@ -312,4 +312,263 @@
     <string name="guide_recommended_apps_description">Užitečné aplikace pro přežití</string>
     <string name="duration_second_format">%ds</string>
     <string name="tap_to_turn_off">Klepnutím vypnete</string>
+    <string name="thunder">Hrom</string>
+    <string name="pref_backtrack_enabled_summary">Nahrávat historii polohy</string>
+    <string name="reset">Obnovit</string>
+    <string name="clock_sync_instructions">Nastavte čas na %s když dorazí oznámení</string>
+    <string name="clock_sync_time_settings">Otevřít nastavení času\?</string>
+    <string name="battery_power_wireless">Bezdrátové</string>
+    <string name="dialog_leave">Odejít</string>
+    <string name="cumulus">Kupa</string>
+    <string name="cumulonimbus">Dešťová kupa</string>
+    <string name="stratus_desc">Nízká oblačnost, která zakrývá oblohu. Objekty nevrhají stíny a může být mlha.</string>
+    <string name="cumulus_desc">Nízká nadýchaná oblačnost, které vypadají jako vata. Jsou rozmístěny v určitých rozestupech a obvykle jsou bílé s tmavšími skvrnami pod nimi.</string>
+    <string name="cirrus_desc">Vysoká oblačnost, která vypadá jako chomáče bílých vlasů.</string>
+    <string name="onboarding_user_guide">V uživatelské příručce se dozvíte, jak používat funkce Trail Sense. Je k dispozici v dolní části karty Nástroje.
+\n
+\nDalší průvodci budou brzy přibývat.</string>
+    <string name="import_btn">Importovat</string>
+    <string name="pref_backtrack_save_cell_summary">Zaznamenává telefonní signál v navigačním bodě. Nepoužívá internet.</string>
+    <string name="pref_backtrack_save_cell_title">Nahrát telefonní signál</string>
+    <string name="pref_stride_length_title">Délka kroku</string>
+    <string name="gps_user">Uživatel</string>
+    <string name="gps_stale">Zastaralá data</string>
+    <string name="contents">Obsah</string>
+    <string name="export">Exportovat</string>
+    <string name="help">Nápověda</string>
+    <string name="category_medical">Léky</string>
+    <string name="water_boil_timer_title">Voda se vaří</string>
+    <string name="water_boil_timer_done_title">Voda se dovařila</string>
+    <string name="water_boil_timer_done_content">Vaše voda je teď pitná</string>
+    <string name="tool_boil_summary">Zjistěte, kdy je voda pitná</string>
+    <string name="strobe_warning_title">Blikající světla</string>
+    <string name="strobe_warning_content">Funkce stroboskopu obsahuje blikající světla, která mohou být pro některé uživatele nebezpečná.</string>
+    <string name="map_scale_verbal">Slovní</string>
+    <string name="delete_waypoint_prompt">Smazat navigační bod\?</string>
+    <string name="delete_tide_prompt">Smazat příliv a odliv\?</string>
+    <string name="guide_thermometer_calibration_title">Kalibrace teploměru</string>
+    <string name="tool_thermometer_title">Teploměr</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="open_beacon_in_maps">Zobrazit na mapě</string>
+    <string name="compass_calibrate_toast">Přesnost kompasu %s, doporučuje se kalibrace</string>
+    <string name="pref_require_satellites_title">Vyžadovat fixaci satelitů</string>
+    <string name="gps_searching">Vyhledávání</string>
+    <string name="unavailable">Nedostupný</string>
+    <string name="weather_worse_than_today">Horší než dnes</string>
+    <string name="weather_same_as_today">Stejné jako dnes</string>
+    <string name="always_on">Vždy zapnuto</string>
+    <string name="service_update_frequency">Aktualizace každých %s</string>
+    <string name="battery_usage">%s využití baterie</string>
+    <string name="high">Vysoko</string>
+    <string name="moderate">Mírný</string>
+    <string name="low">Nízký</string>
+    <string name="no_gps_signal">Žádný signál GPS</string>
+    <string name="none">Žádný</string>
+    <string name="left_quick_action">Rychlá akce vlevo</string>
+    <string name="right_quick_action">Rychlá akce vpravo</string>
+    <string name="experimental">Experimentální</string>
+    <string name="tides">Přílivy a odlivy</string>
+    <string name="menu">Menu</string>
+    <string name="tomorrow_at">Zítra v %s</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Maximálně %d meteorů / h</string>
+    <string name="meteor_shower">Meteorický déšť</string>
+    <string name="pref_meteor_showers_title">Meteorické deště</string>
+    <string name="guide_signaling_for_help_title">Signalizace o pomoc</string>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d maják importován</item>
+        <item quantity="few">%d majáky importovány</item>
+        <item quantity="other">%d majáků importováno</item>
+    </plurals>
+    <string name="notes_empty_text">Žádné poznámky</string>
+    <string name="map_scale_title">Měřítko mapy</string>
+    <string name="start">Start</string>
+    <string name="create_at_distance">Vytvořit v dálce</string>
+    <string name="backtrack">Zpětná navigace</string>
+    <string name="pref_gps_override_title">Přepsání polohy</string>
+    <string name="beacon_set_bearing_btn">Nastavit azimut (%s)</string>
+    <string name="guide_location_no_gps_title">Určete polohu bez GPS</string>
+    <string name="quality_good">Dobrá</string>
+    <string name="time_ago">Před %s</string>
+    <string name="satellites">satelity</string>
+    <string name="location_disabled">Poloha je zakázána</string>
+    <string name="todays_forecast">Dnešní předpověď</string>
+    <string name="network_4g">4G</string>
+    <string name="backtrack_notification_channel_description">Aktualizace polohy zpětné navigace</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="coordinate_input_invalid_location">Neplatná poloha</string>
+    <string name="pref_backtrack_frequency_title">Interval zpětné navigace</string>
+    <string name="location_input_help_title">Podporované formáty polohy</string>
+    <string name="location_input_help">Desetinné stupně (např. 1,00, -2,00)
+\n
+\nStupně desetinných minut (např. 1°23,12′N, 3°12,1′ W)
+\n
+\nMinuty stupňů sekund (např. 1°23\'12.1\"N, 3°12\"1.2\'W)
+\n
+\nUTM (ex. 03T 12345E 67890N)
+\n
+\nMGRS (ex. 27PXM 09601 05579)
+\n
+\nUSNG (ex. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (ex. TG 51409 13177)</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="pref_low_power_mode_title">Úsporný režim</string>
+    <string name="charging_wireless">Nabíjení (%s)</string>
+    <string name="guide_barometer_calibration_title">Kalibrace barometru</string>
+    <string name="unsaved_changes">Neuložené změny</string>
+    <string name="unsaved_changes_message">Provedené změny nebudou uloženy.</string>
+    <string name="backtrack_disabled_low_power_toast">Zpětná navigace je v úsporném režimu deaktivována</string>
+    <string name="pref_low_power_mode_summary">Deaktivuje některé funkce za účelem úspory energie</string>
+    <string name="low_power_mode_on_message">Úsporný režim je zapnutý, některé funkce mohou být deaktivovány.</string>
+    <string name="pref_require_satellites_description">Vyžaduje alespoň 4 satelity, zlepšuje přesnost</string>
+    <string name="cirrostratus">Řasová sloha</string>
+    <string name="altocumulus">Vyvýšená kupa</string>
+    <string name="altostratus">Vyvýšená sloha</string>
+    <string name="nimbostratus">Dešťová sloha</string>
+    <string name="stratocumulus">Slohová kupa</string>
+    <string name="stratus">Sloha</string>
+    <string name="pip_notification_scheduled">Oznámení naplánované na %s</string>
+    <string name="altostratus_desc">Střední oblačnost, která pokrývá oblohu. Slunce je sotva vidět jako jasná skvrna.</string>
+    <string name="altocumulus_desc">Střední oblačnost, která vypadá jako vata. Obvykle je bílá s tmavšími skvrnami pod sebou a může být rozmístěná nebo připomínat plát.</string>
+    <string name="notification_channel_clock_sync">Synchronizace hodin</string>
+    <string name="flashlight_strobe">Stroboskop</string>
+    <string name="tool_clock_title">Hodiny</string>
+    <string name="pip_button">Aktualizovat systémový čas</string>
+    <string name="lightning">Blesk</string>
+    <string name="three">3</string>
+    <string name="water_purification_step_2">Přiveďte vodu k varu</string>
+    <string name="water_purification_step_3">Spusťte časovač</string>
+    <string name="pref_sensor_details_title">Podrobnosti o senzorech</string>
+    <string name="two">2</string>
+    <string name="action_inventory_clear_confirm">Odstranit všechna množství zabalených předmětů\?</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d sekunda do pitné vody</item>
+        <item quantity="few">%d sekundy do pitné vody</item>
+        <item quantity="other">%d sekund do pitné vody</item>
+    </plurals>
+    <string name="water_purification_step_1">Vyfiltrujte vodu</string>
+    <string name="clock_waiting_for_gps">Aktualizace času z GPS…</string>
+    <string name="one">1</string>
+    <string name="tool_battery_title">Baterie</string>
+    <string name="battery_health_cold">Chladno</string>
+    <string name="beacon_1">Maják 1</string>
+    <string name="beacon_2">Maják 2</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="could_not_triangulate">Nepodařilo se triangulovat</string>
+    <string name="tool_category_signaling">Signalizace</string>
+    <string name="tool_triangulate_summary">Určete svou polohu bez GPS</string>
+    <string name="notification_channel_clock_sync_description">Oznámení k synchronizace hodin s časem GPS</string>
+    <string name="clock_sync_notification">Synchronizace hodin – %s</string>
+    <string name="threshold">Prahová hodnota</string>
+    <string name="tool_metal_detector_title">Detektor kovů</string>
+    <string name="cirrocumulus_desc">Vysoká oblačnost, která tvoří zvlněný list. List se skládá z malých teček, které vypadají téměř dvourozměrně.</string>
+    <string name="stratocumulus_desc">Nízká oblačnost, která vypadá jako plát vaty s malými mezerami. Barva se pohybuje od bílé po tmavě šedou.</string>
+    <string name="privacy_and_location">Soukromí a poloha</string>
+    <string name="cirrostratus_desc">Vysoká oblačnost, která pokrývá oblohu. Je průhledná a obvykle způsobuje, že se kolem Slunce tvoří halo.</string>
+    <string name="pref_daily_weather_notification_title">Denní upozornění na počasí</string>
+    <string name="low_tide">Odliv</string>
+    <string name="nimbostratus_desc">Střední oblačnost, která je tmavě šedá a zakrývá oblohu. Může pršet.</string>
+    <string name="metal_detector_disclaimer">Detekuje pouze magnetické kovy (např. železo)</string>
+    <string name="update_gps_override">Aktualizujte přepsání GPS</string>
+    <string name="location_override_updated">Přepsání polohy aktualizováno</string>
+    <string name="delete_note_title">Smazat poznámku\?</string>
+    <string name="unit_inches">Palce</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="tool_white_noise_summary">Pomáhá vám usnout</string>
+    <string name="map_scale_ratio">Poměr</string>
+    <string name="min_temp_uncalibrated">Minimální teplota telefonu (nekalibrovaná)</string>
+    <string name="note_title_hint">Název</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="unit_centimeters">Centimetry</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="unit_inches_abbreviation">in</string>
+    <string name="map_distance">Mapa: %s</string>
+    <string name="tool_white_noise_title">Bílý šum</string>
+    <string name="max_temp_calibrated">Maximální okolní teplota (kalibrovaná)</string>
+    <string name="max_temp_uncalibrated">Maximální teplota telefonu (nekalibrovaná)</string>
+    <string name="min_temp_calibrated">Minimální okolní teplota (kalibrovaná)</string>
+    <string name="cumulonimbus_desc">Nízká nadýchaná oblačnost, která je velice vysoká. Obvykle mají kovadlinovitý tvar a jsou tmavé.</string>
+    <string name="cirrus">Řasa</string>
+    <string name="cirrocumulus">Řasokupa</string>
+    <string name="onboarding_privacy">- Trail Sense respektuje vaše soukromí a údaje o poloze nikdy neopustí vaše zařízení.
+\n
+\n- Trail Sense nikdy nebude vyžadovat povolení k použití internetu
+\n
+\n- Zobrazit [Zásady ochrany osobních údajů](https://kylecorry.com/Trail-Sense/privacy_policy.html) (otevře se v prohlížeči telefonu)
+\n
+\n- Některé funkce aplikace Trail Sense vyžadují přístup k vaší poloze
+\n
+\n- Udělením oprávnění k určování polohy povolíte následující funkce:
+\n
+\n\t- Navigace k majákům
+\n
+\n\t- Vylepšená přesnost předpovědi (vyžaduje polohu na pozadí, není k dispozici na všech zařízeních).
+\n
+\n\t- Zpětnou navigaci (vyžaduje polohu na pozadí)
+\n
+\n\t- Časy Slunce a Měsíce pro vaši aktuální polohu
+\n
+\n- Pokud se rozhodnete neudělit povolení k určování polohy, můžete polohu zadat ručně v nabídce Settings &gt; GPS calibration (Nastavení &gt; Kalibrace GPS) v aplikaci Trail Sense.
+\n
+\n- Po klepnutí na tlačítko pokračovat budete vyzváni k udělení oprávnění k poloze a poloze na pozadí. Odmítnutí těchto oprávnění zabrání aplikaci Trail Sense v přístupu k vaší poloze, proto se doporučuje ruční zadání polohy.</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d maják exportován</item>
+        <item quantity="few">%d majáky exportovány</item>
+        <item quantity="other">%d majáků exportováno</item>
+    </plurals>
+    <string name="dbm_format">%s dBm</string>
+    <string name="quality_poor">Špatná</string>
+    <string name="network_5g">5G</string>
+    <string name="network_2g">2G</string>
+    <string name="network_3g">3G</string>
+    <string name="network_no_signal">Žádný signál</string>
+    <string name="barometer">Barometr</string>
+    <string name="cell_signal">Mobilní signál</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="beacon_export_error">Nepodařilo se exportovat majáky</string>
+    <string name="distance_from_flashlight">Vzdálenost telefonu od svítilny</string>
+    <string name="beam_distance">%s vzdálenost paprsku</string>
+    <string name="guide_light_meter_title">Určete účinnost svítilny</string>
+    <string name="tomorrows_forecast">Předpověď na zítřek</string>
+    <string name="weather_better_than_today">Lepší než dnes</string>
+    <string name="lux_format">%s lx</string>
+    <string name="candela_format">%s cd</string>
+    <string name="tool_light_meter_title">Měřič světla</string>
+    <string name="high_tide">Příliv</string>
+    <string name="location_not_set">Poloha není nastavena</string>
+    <string name="set">Nastavit</string>
+    <string name="gps_cache">GPS cache</string>
+    <string name="weather_better_than_yesterday">Lepší než včera</string>
+    <string name="guide_light_meter_description">Jak určit délku paprsku svítilen</string>
+    <string name="weather_worse_than_yesterday">Horší než včera</string>
+    <string name="weather_same_as_yesterday">Stejné jako včera</string>
+    <string name="time_not_set">Čas není nastaven</string>
+    <string name="half_tide">Poloviční</string>
+    <string name="pref_daily_weather_time_title">Čas denního počasí</string>
+    <string name="screen_flashlight">Obrazovka</string>
+    <string name="how">Jak</string>
+    <string name="clouds">Mraky</string>
+    <string name="no_tides">Žádné přílivy ani odlivy</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="precise_inches_format">%s palců</string>
+    <string name="battery_health_dead">Mrtvá</string>
+    <string name="battery_health_overheat">Přehřívající se</string>
+    <string name="battery_health_over_voltage">Přepětí</string>
+    <string name="battery_health">Zdraví: %s</string>
+    <string name="power">Energie</string>
+    <string name="tool_category_angles">Úhly</string>
+    <string name="tool_triangulate_title">Triangulovat polohu</string>
+    <string name="create_beacon">Vytvořit maják</string>
+    <string name="hygrometer">Vlhkoměr</string>
+    <string name="gravity">Gravitace</string>
+    <string name="magnetometer">Magnetometr</string>
+    <string name="speedometer">Tachometr</string>
+    <string name="tool_speedometer_odometer_title">Tachometr / počítadlo kilometrů</string>
+    <string name="since_time">od %s</string>
+    <string name="value_average">%s průměrná hodnota</string>
+    <string name="odometer">Počítadlo kilometrů</string>
+    <string name="pedometer">Krokoměr</string>
+    <string name="source">Zdroj</string>
+    <string name="tool_notes_title">Poznámky</string>
 </resources>
