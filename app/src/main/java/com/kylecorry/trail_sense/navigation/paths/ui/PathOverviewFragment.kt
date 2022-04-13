@@ -7,9 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.isVisible
@@ -33,6 +40,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.IBeaconNaviga
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingService
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
@@ -56,6 +64,9 @@ import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.shared.views.ColorCircle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Duration
 
 
@@ -89,6 +100,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var isFullscreen = false
 
     private var pathColor by mutableStateOf(AppColor.Blue.color)
+    private var lineStyle by mutableStateOf(LineStyle.Solid)
 
     private val converter: IPathPointBeaconConverter by lazy {
         TemporaryPathPointBeaconConverter(
@@ -199,19 +211,64 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         compass.asLiveData().observe(viewLifecycleOwner) {
             onPathChanged()
         }
-
-        binding.pathLineStyle.setOnClickListener {
-            val path = path ?: return@setOnClickListener
-            val command = ChangePathLineStyleCommand(requireContext(), lifecycleScope)
-            command.execute(path)
-        }
+//
+//        binding.pathLineStyle.setOnClickListener {
+//            val path = path ?: return@setOnClickListener
+//            val command = ChangePathLineStyleCommand(requireContext(), lifecycleScope)
+//            command.execute(path)
+//        }
 
         binding.pathColor.setContent {
-            ColorCircle(color = Color(pathColor), modifier = Modifier.clickable {
-                val path = path ?: return@clickable
-                val command = ChangePathColorCommand(requireContext(), lifecycleScope)
-                command.execute(path)
-            })
+            MaterialTheme {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    ColorCircle(color = Color(pathColor), modifier = Modifier.clickable {
+                        val path = path ?: return@clickable
+                        val command = ChangePathColorCommand(requireContext(), lifecycleScope)
+                        command.execute(path)
+                    })
+
+                    var expanded by remember { mutableStateOf(false) }
+
+                    val icon = if (expanded)
+                        Icons.Filled.KeyboardArrowUp
+                    else
+                        Icons.Filled.KeyboardArrowDown
+
+                    Column {
+                        OutlinedTextField(
+                            value = lineStyle.name,
+                            readOnly = true,
+                            onValueChange = { },
+                            modifier = Modifier
+                                .wrapContentWidth(),
+                            label = { Text(lineStyle.name) },
+                            trailingIcon = {
+                                Icon(icon, "", Modifier.clickable { expanded = !expanded })
+                            }
+                        )
+
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            LineStyle.values().forEach { style ->
+                                DropdownMenuItem(onClick = {
+                                    lineStyle = style
+                                    updateLinestyle(style)
+                                    expanded = false
+                                }) {
+                                    Text(text = style.toString())
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -227,6 +284,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             waypoints.reversed(),
             path?.style?.color ?: prefs.navigation.defaultPathColor.color
         )
+    }
+
+    private fun updateLinestyle(style: LineStyle) {
+        val path = path ?: return
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                pathService.addPath(path.copy(style = path.style.copy(line = style)))
+            }
+        }
     }
 
     private fun updateHikingStats() {
@@ -333,15 +399,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             return
         }
 
-        binding.pathLineStyle.text = listOf(
-            getString(R.string.solid),
-            getString(R.string.dotted),
-            getString(R.string.arrow),
-            getString(R.string.dashed),
-            getString(R.string.square),
-            getString(R.string.diamond),
-            getString(R.string.cross)
-        )[path.style.line.ordinal]
+//        binding.pathLineStyle.text = listOf(
+//            getString(R.string.solid),
+//            getString(R.string.dotted),
+//            getString(R.string.arrow),
+//            getString(R.string.dashed),
+//            getString(R.string.square),
+//            getString(R.string.diamond),
+//            getString(R.string.cross)
+//        )[path.style.line.ordinal]
 
         val distance =
             path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
@@ -387,6 +453,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             )
 
         pathColor = path.style.color
+        lineStyle = path.style.line
 //        CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
 
         binding.pathImage.location = gps.location
