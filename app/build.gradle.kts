@@ -91,10 +91,11 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.foundation:foundation:$composeVersion")
     implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
+    implementation("androidx.compose.material3:material3:1.0.0-alpha09")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("com.google.android.material:compose-theme-adapter:$composeVersion")
+    implementation("com.google.android.material:compose-theme-adapter-3:1.0.6")
 
     // Sol
     implementation("com.github.kylecorry31:sol:5.8.0")

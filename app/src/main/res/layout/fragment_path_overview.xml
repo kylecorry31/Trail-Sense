@@ -20,43 +20,11 @@
             app:showSubtitle="false"
             tools:text="Start - End" />
 
-        <com.google.android.flexbox.FlexboxLayout
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/path_settings"
+            app:layout_flexGrow="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            app:alignItems="center"
-            app:justifyContent="space_between">
-
-            <androidx.compose.ui.platform.ComposeView
-                android:id="@+id/path_color"
-                app:layout_flexGrow="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-<!--            <TextView-->
-<!--                android:id="@+id/path_line_style"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:drawablePadding="16dp"-->
-<!--                app:drawableEndCompat="@drawable/ic_drop_down"-->
-<!--                app:drawableTint="?android:textColorSecondary"-->
-<!--                tools:text="Dotted" />-->
-
-            <TextView
-                android:id="@+id/path_point_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="16dp"
-                app:drawableEndCompat="@drawable/ic_drop_down"
-                app:drawableTint="?android:textColorSecondary"
-                tools:text="Cell Signal" />
-        </com.google.android.flexbox.FlexboxLayout>
+            android:layout_height="wrap_content"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/path_map_holder"

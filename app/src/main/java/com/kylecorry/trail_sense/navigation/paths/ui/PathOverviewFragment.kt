@@ -8,17 +8,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -63,7 +60,8 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
-import com.kylecorry.trail_sense.shared.views.ColorCircle
+import com.kylecorry.trail_sense.shared.views.compose.ColorCircle
+import com.kylecorry.trail_sense.shared.views.compose.DropdownPicker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -101,6 +99,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private var pathColor by mutableStateOf(AppColor.Blue.color)
     private var lineStyle by mutableStateOf(LineStyle.Solid)
+    private var pointStyle by mutableStateOf(PathPointColoringStyle.None)
 
     private val converter: IPathPointBeaconConverter by lazy {
         TemporaryPathPointBeaconConverter(
@@ -211,71 +210,51 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         compass.asLiveData().observe(viewLifecycleOwner) {
             onPathChanged()
         }
-//
-//        binding.pathLineStyle.setOnClickListener {
-//            val path = path ?: return@setOnClickListener
-//            val command = ChangePathLineStyleCommand(requireContext(), lifecycleScope)
-//            command.execute(path)
-//        }
 
-        binding.pathColor.setContent {
+        binding.pathSettings.setContent {
             MaterialTheme {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp, 0.dp, 16.dp, 16.dp)
                 ) {
                     ColorCircle(color = Color(pathColor), modifier = Modifier.clickable {
                         val path = path ?: return@clickable
                         val command = ChangePathColorCommand(requireContext(), lifecycleScope)
                         command.execute(path)
                     })
+                    
+                    Spacer(modifier = Modifier.width(16.dp))
 
-                    var expanded by remember { mutableStateOf(false) }
+                    val lineStyleValues = LineStyle.values()
+                    DropdownPicker(
+                        label = getString(R.string.line_style),
+                        value = lineStyle.name,
+                        values = lineStyleValues.map { it.name },
+                        onValueSelected = { value ->
+                            val style = lineStyleValues.first { it.name == value }
+                            updateLineStyle(style)
+                        },
+                        modifier = Modifier.widthIn(50.dp, 150.dp)
+                    )
 
-                    val icon = if (expanded)
-                        Icons.Filled.KeyboardArrowUp
-                    else
-                        Icons.Filled.KeyboardArrowDown
+                    Spacer(modifier = Modifier.width(16.dp))
 
-                    Column {
-                        OutlinedTextField(
-                            value = lineStyle.name,
-                            readOnly = true,
-                            onValueChange = { },
-                            modifier = Modifier
-                                .wrapContentWidth(),
-                            label = { Text(lineStyle.name) },
-                            trailingIcon = {
-                                Icon(icon, "", Modifier.clickable { expanded = !expanded })
-                            }
-                        )
-
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            LineStyle.values().forEach { style ->
-                                DropdownMenuItem(onClick = {
-                                    lineStyle = style
-                                    updateLinestyle(style)
-                                    expanded = false
-                                }) {
-                                    Text(text = style.toString())
-                                }
-                            }
-                        }
-                    }
+                    val pointStyleValues = PathPointColoringStyle.values()
+                    DropdownPicker(
+                        label = getString(R.string.point_style),
+                        value = pointStyle.name,
+                        values = pointStyleValues.map { it.name },
+                        onValueSelected = { value ->
+                            val style = pointStyleValues.first { it.name == value }
+                            updatePointStyle(style)
+                        },
+                        modifier = Modifier.widthIn(50.dp, 150.dp)
+                    )
                 }
             }
-        }
-
-
-        binding.pathPointStyle.setOnClickListener {
-            val path = path ?: return@setOnClickListener
-            val command = ChangePointStyleCommand(requireContext(), lifecycleScope)
-            command.execute(path)
         }
     }
 
@@ -286,7 +265,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
 
-    private fun updateLinestyle(style: LineStyle) {
+    private fun updatePointStyle(style: PathPointColoringStyle) {
+        val path = path ?: return
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                pathService.addPath(path.copy(style = path.style.copy(point = style)))
+            }
+        }
+    }
+
+    private fun updateLineStyle(style: LineStyle) {
         val path = path ?: return
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -399,16 +387,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             return
         }
 
-//        binding.pathLineStyle.text = listOf(
-//            getString(R.string.solid),
-//            getString(R.string.dotted),
-//            getString(R.string.arrow),
-//            getString(R.string.dashed),
-//            getString(R.string.square),
-//            getString(R.string.diamond),
-//            getString(R.string.cross)
-//        )[path.style.line.ordinal]
-
         val distance =
             path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
 
@@ -452,9 +430,17 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 false
             )
 
-        pathColor = path.style.color
-        lineStyle = path.style.line
-//        CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
+        if (pathColor != path.style.color) {
+            pathColor = path.style.color
+        }
+
+        if (lineStyle != path.style.line) {
+            lineStyle = path.style.line
+        }
+
+        if (pointStyle != path.style.point){
+            pointStyle = path.style.point
+        }
 
         binding.pathImage.location = gps.location
         binding.pathImage.azimuth = compass.bearing.value
@@ -486,13 +472,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         val path = path ?: return
 
         val factory = getPointFactory()
-
-        binding.pathPointStyle.text = listOf(
-            getString(R.string.none),
-            getString(R.string.cell_signal),
-            getString(R.string.elevation),
-            getString(R.string.time)
-        )[path.style.point.ordinal]
 
         binding.pathLegend.colorScale = factory.createColorScale(waypoints)
         binding.pathLegend.labels = factory.createLabelMap(waypoints)
