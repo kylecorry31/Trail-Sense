@@ -19,6 +19,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     buildTypes {
         getByName("release") {
@@ -49,7 +50,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
-
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.1"
+    }
     lint {
         abortOnError = false
     }
@@ -81,6 +84,17 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
     implementation("com.github.slugify:slugify:2.4")
+
+    // Compose
+    val composeVersion = "1.1.1"
+    implementation("androidx.compose.runtime:runtime:$composeVersion")
+    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.compose.foundation:foundation:$composeVersion")
+    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("com.google.android.material:compose-theme-adapter:$composeVersion")
 
     // Sol
     implementation("com.github.kylecorry31:sol:5.8.0")

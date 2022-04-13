@@ -1,12 +1,17 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.compose.foundation.clickable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -41,11 +46,16 @@ import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPo
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.SelectedPointDecorator
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.toRelativeDistance
+import com.kylecorry.trail_sense.shared.views.ColorCircle
 import java.time.Duration
 
 
@@ -77,6 +87,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
+
+    private var pathColor by mutableStateOf(AppColor.Blue.color)
 
     private val converter: IPathPointBeaconConverter by lazy {
         TemporaryPathPointBeaconConverter(
@@ -194,11 +206,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             command.execute(path)
         }
 
-        binding.pathColor.setOnClickListener {
-            val path = path ?: return@setOnClickListener
-            val command = ChangePathColorCommand(requireContext(), lifecycleScope)
-            command.execute(path)
+        binding.pathColor.setContent {
+            ColorCircle(color = Color(pathColor), modifier = Modifier.clickable {
+                val path = path ?: return@clickable
+                val command = ChangePathColorCommand(requireContext(), lifecycleScope)
+                command.execute(path)
+            })
         }
+
 
         binding.pathPointStyle.setOnClickListener {
             val path = path ?: return@setOnClickListener
@@ -371,7 +386,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 false
             )
 
-        CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
+        pathColor = path.style.color
+//        CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
 
         binding.pathImage.location = gps.location
         binding.pathImage.azimuth = compass.bearing.value
@@ -387,7 +403,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         } else {
             SelectedPointDecorator(
                 selected,
-                DefaultPointColoringStrategy(Color.WHITE),
+                DefaultPointColoringStrategy(android.graphics.Color.WHITE),
                 NoDrawPointColoringStrategy()
             )
         }
