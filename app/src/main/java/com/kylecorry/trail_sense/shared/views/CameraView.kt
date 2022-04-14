@@ -11,6 +11,7 @@ import android.widget.SeekBar
 import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
@@ -30,8 +31,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var isTorchOn = false
     private var zoom: Float = 0f
 
-    fun start(resolution: Size? = null, onImage: ((Bitmap) -> Unit)? = null) {
-        val owner = ViewTreeLifecycleOwner.get(this) ?: return
+    fun start(resolution: Size? = null, lifecycleOwner: LifecycleOwner? = null, onImage: ((Bitmap) -> Unit)? = null) {
+        val owner = lifecycleOwner ?: ViewTreeLifecycleOwner.get(this) ?: return
         if (owner.lifecycle.currentState == Lifecycle.State.DESTROYED){
             return
         }

@@ -2,9 +2,11 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.util.Size
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -18,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
@@ -25,8 +28,10 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.DialogPhotoCaptureBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
@@ -349,6 +354,39 @@ object CustomUiUtils {
         val sheet = ScanQRBottomSheet(title, onScan)
         sheet.show(fragment)
         return sheet
+    }
+
+    fun takePhoto(
+        fragment: AndromedaFragment,
+        size: Size? = null,
+        onCapture: (bitmap: Bitmap?) -> Unit
+    ) {
+        fragment.requestCamera {
+            if (!it) {
+                onCapture(null)
+                return@requestCamera
+            }
+
+            val view = DialogPhotoCaptureBinding.inflate(fragment.layoutInflater)
+            val camera = view.camera
+
+            val dialog = Alerts.dialog(fragment.requireContext(), "", contentView = view.root, okText = fragment.getString(
+                R.string.camera_capture
+            )) {
+                if (it) {
+                    camera.stop()
+                    onCapture(null)
+                } else {
+                    camera.capture {
+                        camera.stop()
+                        onCapture(it)
+                    }
+                }
+            }
+
+            dialog.show()
+            camera.start(size, fragment.viewLifecycleOwner)
+        }
     }
 
     fun pickDatetime(
