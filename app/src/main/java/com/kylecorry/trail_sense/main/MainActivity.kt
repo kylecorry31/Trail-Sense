@@ -114,8 +114,8 @@ class MainActivity : AndromedaActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val root = findViewById<ColorFilterConstraintLayout>(R.id.coordinator)
         if (userPrefs.theme == UserPreferences.Theme.Night) {
+            val root = findViewById<ColorFilterConstraintLayout>(R.id.color_filter)
             root.setColorFilter(PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY))
         }
 

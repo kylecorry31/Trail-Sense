@@ -28,8 +28,8 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.DialogPhotoCaptureBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.views.*
@@ -367,25 +367,11 @@ object CustomUiUtils {
                 return@requestCamera
             }
 
-            val view = DialogPhotoCaptureBinding.inflate(fragment.layoutInflater)
-            val camera = view.camera
-
-            val dialog = Alerts.dialog(fragment.requireContext(), "", contentView = view.root, okText = fragment.getString(
-                R.string.camera_capture
-            )) {
-                if (it) {
-                    camera.stop()
-                    onCapture(null)
-                } else {
-                    camera.capture {
-                        camera.stop()
-                        onCapture(it)
-                    }
-                }
+            val sheet = PhotoImportBottomSheetFragment(size) {
+                onCapture(it)
             }
 
-            dialog.show()
-            camera.start(size, fragment.viewLifecycleOwner)
+           sheet.show(fragment)
         }
     }
 

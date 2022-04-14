@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.kylecorry.trail_sense.ColorFilterConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.shared.views.ErrorBannerView
-        android:id="@+id/error_banner"
+    <com.kylecorry.trail_sense.ColorFilterConstraintLayout
+        android:id="@+id/color_filter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        android:layout_height="match_parent">
 
-    </com.kylecorry.trail_sense.shared.views.ErrorBannerView>
+        <com.kylecorry.trail_sense.shared.views.ErrorBannerView
+            android:id="@+id/error_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_holder"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/error_banner"
-        app:navGraph="@navigation/nav_graph" />
+        </com.kylecorry.trail_sense.shared.views.ErrorBannerView>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_holder"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error_banner"
+            app:navGraph="@navigation/nav_graph" />
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:colorBackgroundFloating"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="?attr/colorOnSurface"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:colorBackgroundFloating"
+            app:itemIconTint="@drawable/selector"
+            app:itemTextColor="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
 
-</com.kylecorry.trail_sense.ColorFilterConstraintLayout>
+    </com.kylecorry.trail_sense.ColorFilterConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
