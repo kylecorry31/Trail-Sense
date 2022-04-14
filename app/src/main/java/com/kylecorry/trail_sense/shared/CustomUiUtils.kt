@@ -37,6 +37,8 @@ import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
 import java.time.LocalDateTime
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 object CustomUiUtils {
 
@@ -356,6 +358,13 @@ object CustomUiUtils {
         return sheet
     }
 
+    suspend fun takePhoto(fragment: AndromedaFragment, size: Size? = null): Bitmap? =
+        suspendCoroutine { cont ->
+            takePhoto(fragment, size) {
+                cont.resume(it)
+            }
+        }
+
     fun takePhoto(
         fragment: AndromedaFragment,
         size: Size? = null,
@@ -371,7 +380,7 @@ object CustomUiUtils {
                 onCapture(it)
             }
 
-           sheet.show(fragment)
+            sheet.show(fragment)
         }
     }
 

@@ -44,16 +44,27 @@ class PhotoImportBottomSheetFragment(
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.setOnShowListener {
             val sheetDialog = it as BottomSheetDialog
-            val root = sheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)!!
+            val root =
+                sheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)!!
             val behavior = BottomSheetBehavior.from(root)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            root.layoutParams = CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT, getWindowHeight())
+            root.layoutParams = CoordinatorLayout.LayoutParams(
+                CoordinatorLayout.LayoutParams.MATCH_PARENT,
+                getWindowHeight()
+            )
         }
         return dialog
     }
 
+    // TODO: Move to Andromeda
     private fun getWindowHeight(): Int {
-        // Calculate window height for fullscreen use
+//        val window = requireContext().getSystemService<WindowManager>()!!
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            window.currentWindowMetrics.bounds.height()
+//        } else {
+//            @Suppress("DEPRECATION")
+//            window.defaultDisplay.height
+//        }
         val displayMetrics = DisplayMetrics()
         (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels

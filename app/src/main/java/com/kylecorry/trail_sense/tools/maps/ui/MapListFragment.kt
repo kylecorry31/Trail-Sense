@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.ExportMapCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromCameraCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
@@ -128,6 +129,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
 
         binding.addBtn.setOnClickListener {
+            // TODO: Use a FAB menu
             Pickers.text(
                 requireContext(),
                 getString(R.string.create_map),
@@ -137,14 +139,31 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             ) {
                 if (it != null) {
                     mapName = it
-                    createMap(
-                        CreateMapFromFileCommand(
-                            requireContext(),
-                            uriPicker,
-                            mapRepo,
-                            mapImportingIndicator
-                        )
-                    )
+
+                    Pickers.item(
+                        requireContext(),
+                        "Create map from",
+                        listOf(getString(R.string.file), getString(R.string.camera)),
+                        defaultSelectedIndex = 0
+                    ) {
+                        if (it != null) {
+                            createMap(
+                                when (it) {
+                                    0 -> CreateMapFromFileCommand(
+                                        requireContext(),
+                                        uriPicker,
+                                        mapRepo,
+                                        mapImportingIndicator
+                                    )
+                                    else -> CreateMapFromCameraCommand(
+                                        this,
+                                        mapRepo,
+                                        mapImportingIndicator
+                                    )
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -244,7 +263,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         val size = Resources.dp(requireContext(), 48f).toInt()
         val bitmap = BitmapUtils.decodeBitmapScaled(file.path, size, size)
 
-        if (map.rotation != 0){
+        if (map.rotation != 0) {
             val rotated = bitmap.rotate(map.rotation.toFloat())
             bitmap.recycle()
             return rotated
