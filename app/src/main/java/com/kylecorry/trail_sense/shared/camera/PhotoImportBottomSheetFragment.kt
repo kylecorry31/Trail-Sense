@@ -1,16 +1,16 @@
 package com.kylecorry.trail_sense.shared.camera
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Bitmap
+import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Size
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.getSystemService
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
@@ -58,16 +58,42 @@ class PhotoImportBottomSheetFragment(
 
     // TODO: Move to Andromeda
     private fun getWindowHeight(): Int {
-//        val window = requireContext().getSystemService<WindowManager>()!!
-//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            window.currentWindowMetrics.bounds.height()
-//        } else {
-//            @Suppress("DEPRECATION")
-//            window.defaultDisplay.height
-//        }
-        val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
+        return getWindowSize().height
+    }
+
+    private fun getWindowSize(): Size {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            getWindowSizeSDK30()
+        } else {
+            getWindowSizeLegacy()
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun getWindowSizeLegacy(): Size {
+        val window = requireContext().getSystemService<WindowManager>()!!
+        val point = Point()
+        window.defaultDisplay.getSize(point)
+        return Size(point.x, point.y)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun getWindowSizeSDK30(): Size {
+        val window = requireContext().getSystemService<WindowManager>()!!
+        val metrics = window.currentWindowMetrics
+        val windowInsets = metrics.windowInsets
+        val insets = windowInsets.getInsetsIgnoringVisibility(
+            WindowInsets.Type.navigationBars()
+                    or WindowInsets.Type.displayCutout()
+        )
+
+        val insetsWidth = insets.right + insets.left
+        val insetsHeight = insets.top + insets.bottom
+        val bounds = metrics.bounds
+        return Size(
+            bounds.width() - insetsWidth,
+            bounds.height() - insetsHeight
+        )
     }
 
     override fun onDestroyView() {
