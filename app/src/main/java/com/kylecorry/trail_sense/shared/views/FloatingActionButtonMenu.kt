@@ -7,10 +7,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLayout(
     context,
@@ -37,20 +37,15 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
     init {
         inflate(context, R.layout.view_floating_action_button_menu, this)
         val fabMenu = findViewById<LinearLayout>(R.id.fab_menu)
-        val a = context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.FloatingActionButtonMenu,
-            0,
-            0
-        )
-        val menuId = a.getResourceId(R.styleable.FloatingActionButtonMenu_menu, -1)
-        a.recycle()
+
+        var menuId = -1
+        parse(attrs, R.styleable.FloatingActionButtonMenu){
+            menuId = getResourceId(R.styleable.FloatingActionButtonMenu_menu, -1)
+        }
+
         if (menuId != -1) {
-            val p = PopupMenu(context, null)
-            p.menuInflater.inflate(menuId, p.menu)
-            val menu = p.menu
-            for (i in 0 until menu.size()) {
-                val menuItem = menu.getItem(i)
+            val items = CustomUiUtils.getMenuItems(context, menuId)
+            for (menuItem in items) {
                 val text = menuItem.title
                 val icon = menuItem.icon
 

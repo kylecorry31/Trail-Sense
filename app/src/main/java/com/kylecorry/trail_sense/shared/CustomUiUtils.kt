@@ -8,10 +8,13 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.util.Size
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.annotation.MenuRes
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.LineChart
@@ -41,6 +44,17 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object CustomUiUtils {
+
+    fun getMenuItems(context: Context, @MenuRes id: Int): List<MenuItem> {
+        val items = mutableListOf<MenuItem>()
+        val p = PopupMenu(context, null)
+        p.menuInflater.inflate(id, p.menu)
+        val menu = p.menu
+        for (i in 0 until menu.size()) {
+            items.add(menu[i])
+        }
+        return items
+    }
 
     fun setButtonState(button: ImageButton, state: Boolean) {
         setButtonState(
