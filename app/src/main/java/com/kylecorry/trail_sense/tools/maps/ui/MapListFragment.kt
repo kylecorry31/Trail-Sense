@@ -128,46 +128,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
         }
 
-        binding.addBtn.setOnClickListener {
-            // TODO: Use a FAB menu
-            Pickers.text(
-                requireContext(),
-                getString(R.string.create_map),
-                getString(R.string.create_map_description),
-                null,
-                hint = getString(R.string.name)
-            ) {
-                if (it != null) {
-                    mapName = it
-
-                    Pickers.item(
-                        requireContext(),
-                        "Create map from",
-                        listOf(getString(R.string.file), getString(R.string.camera)),
-                        defaultSelectedIndex = 0
-                    ) {
-                        if (it != null) {
-                            createMap(
-                                when (it) {
-                                    0 -> CreateMapFromFileCommand(
-                                        requireContext(),
-                                        uriPicker,
-                                        mapRepo,
-                                        mapImportingIndicator
-                                    )
-                                    else -> CreateMapFromCameraCommand(
-                                        this,
-                                        mapRepo,
-                                        mapImportingIndicator
-                                    )
-                                }
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
@@ -255,6 +215,49 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
 
             mapList.setData(maps)
+        }
+
+        setupMapCreateMenu()
+    }
+
+    private fun setupMapCreateMenu() {
+        binding.addMenu.setOverlay(binding.overlayMask)
+        binding.addMenu.fab = binding.addBtn
+        binding.addMenu.hideOnMenuOptionSelected = true
+        binding.addMenu.setOnMenuItemClickListener { menuItem ->
+            Pickers.text(
+                requireContext(),
+                getString(R.string.create_map),
+                getString(R.string.create_map_description),
+                null,
+                hint = getString(R.string.name)
+            ) {
+                if (it != null) {
+                    mapName = it
+                    when (menuItem.itemId) {
+                        R.id.action_import_map_file -> {
+                            createMap(
+                                CreateMapFromFileCommand(
+                                    requireContext(),
+                                    uriPicker,
+                                    mapRepo,
+                                    mapImportingIndicator
+                                )
+                            )
+                        }
+                        R.id.action_import_map_camera -> {
+                            createMap(
+                                CreateMapFromCameraCommand(
+                                    this,
+                                    mapRepo,
+                                    mapImportingIndicator
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            true
         }
     }
 
