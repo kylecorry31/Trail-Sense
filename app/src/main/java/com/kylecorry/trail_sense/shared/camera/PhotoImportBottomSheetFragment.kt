@@ -10,6 +10,7 @@ import android.util.Size
 import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.camera.core.ImageCapture
+import androidx.camera.view.PreviewView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
@@ -33,6 +34,7 @@ class PhotoImportBottomSheetFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.clipToOutline = true
         binding.camera.start(
             resolution,
