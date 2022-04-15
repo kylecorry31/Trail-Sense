@@ -1,20 +1,22 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.camera.Camera
-import com.kylecorry.andromeda.files.ExternalFiles
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCameraInputBinding
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
+import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 
@@ -40,14 +42,10 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
                 val uri = uriPicker.open(listOf("image/*"))
                 uri?.let {
                     onIO {
-                        val stream = try {
-                            ExternalFiles.stream(requireContext(), uri)
-                        } catch (e: Exception) {
-                            null
-                        } ?: return@onIO
-                        val bp = BitmapFactory.decodeStream(stream)
-                        @Suppress("BlockingMethodInNonBlockingContext")
-                        stream.close()
+                        // TODO: Let the user know the file couldn't be opened
+                        val temp = Files.copyToTemp(requireContext(), uri) ?: return@onIO
+                        val bp = BitmapUtils.decodeBitmapScaled(temp.path, 500, 500)
+                        DeleteTempFilesCommand(requireContext()).execute()
                         onMain {
                             onImage.invoke(bp)
                         }
@@ -66,7 +64,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         super.onResume()
         if (Camera.isAvailable(requireContext())) {
             try {
-                binding.camera.start()
+                binding.camera.start(Size(500, 500))
                 showCamera()
             } catch (e: Exception) {
                 e.printStackTrace()

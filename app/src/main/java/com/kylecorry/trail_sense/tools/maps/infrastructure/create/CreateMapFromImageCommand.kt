@@ -2,34 +2,20 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 
 import android.content.Context
 import android.net.Uri
-import android.webkit.MimeTypeMap
-import com.kylecorry.andromeda.files.ExternalFiles
-import com.kylecorry.andromeda.files.FileSaver
-import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
-import java.io.InputStream
-import java.util.*
 
 class CreateMapFromImageCommand(private val context: Context, private val repo: IMapRepo) {
     suspend fun execute(uri: Uri): Map? = onIO {
         val defaultName = context.getString(android.R.string.untitled)
-        val type = context.contentResolver.getType(uri)
-        val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
-        val filename = "maps/" + UUID.randomUUID().toString() + "." + extension
-        val stream = ExternalFiles.stream(context, uri) ?: return@onIO null
-
-        try {
-            copyToLocalStorage(stream, filename)
-        } catch (e: Exception) {
-            return@onIO null
-        }
+        val file = Files.copy(context, uri, "maps") ?: return@onIO null
 
         val map = Map(
             0,
             defaultName,
-            filename,
+            Files.getLocalPath(file),
             emptyList(),
             warped = false,
             rotated = false
@@ -39,8 +25,4 @@ class CreateMapFromImageCommand(private val context: Context, private val repo: 
         map.copy(id = id)
     }
 
-    private fun copyToLocalStorage(stream: InputStream, filename: String) {
-        val saver = FileSaver()
-        saver.save(stream, LocalFiles.getFile(context, filename))
-    }
 }
