@@ -14,9 +14,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
+import java.io.OutputStream
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -30,10 +32,17 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var captureListener: ((Bitmap) -> Unit)? = null
     private var isTorchOn = false
     private var zoom: Float = 0f
+    private var isCapturing = false
 
-    fun start(resolution: Size? = null, lifecycleOwner: LifecycleOwner? = null, onImage: ((Bitmap) -> Unit)? = null) {
+    fun start(
+        resolution: Size? = null,
+        lifecycleOwner: LifecycleOwner? = null,
+        captureSettings: ImageCaptureSettings? = null,
+        analyze: Boolean = true,
+        onImage: ((Bitmap) -> Unit)? = null
+    ) {
         val owner = lifecycleOwner ?: ViewTreeLifecycleOwner.get(this) ?: return
-        if (owner.lifecycle.currentState == Lifecycle.State.DESTROYED){
+        if (owner.lifecycle.currentState == Lifecycle.State.DESTROYED) {
             return
         }
         camera?.stop(this::onCameraUpdate)
@@ -42,8 +51,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             context,
             owner,
             previewView = preview,
-            analyze = true,
-            targetResolution = resolution
+            analyze = analyze,
+            targetResolution = resolution,
+            captureSettings = captureSettings
         )
         camera?.start(this::onCameraUpdate)
     }
@@ -53,10 +63,24 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         camera = null
     }
 
-    fun capture(onImage: (Bitmap) -> Unit) {
+    fun quickCapture(onImage: (Bitmap) -> Unit) {
         synchronized(this) {
             captureListener = onImage
         }
+    }
+
+    suspend fun capture(stream: OutputStream): Boolean {
+        synchronized(this) {
+            if (isCapturing) {
+                return true
+            }
+            isCapturing = true
+        }
+        val success = camera?.takePhoto(stream) ?: false
+        synchronized(this) {
+            isCapturing = false
+        }
+        return success
     }
 
     fun setTorch(isOn: Boolean) {
@@ -75,7 +99,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         camera?.setZoom(zoom)
     }
 
-    fun setOnZoomChangeListener(listener: ((zoom: Float) -> Unit)?){
+    fun setOnZoomChangeListener(listener: ((zoom: Float) -> Unit)?) {
         zoomListener = listener
     }
 
@@ -83,7 +107,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         zoomSeek.isVisible = shouldShow
     }
 
-    fun setScaleType(type: PreviewView.ScaleType){
+    fun setScaleType(type: PreviewView.ScaleType) {
         preview.scaleType = type
     }
 

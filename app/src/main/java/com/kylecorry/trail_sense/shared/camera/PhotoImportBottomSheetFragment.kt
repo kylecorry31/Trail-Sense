@@ -2,30 +2,46 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.app.Dialog
 import android.content.DialogInterface
-import android.graphics.Bitmap
 import android.graphics.Point
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Size
 import android.view.*
 import androidx.annotation.RequiresApi
+import androidx.camera.core.ImageCapture
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
+import androidx.core.view.isInvisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.kylecorry.andromeda.camera.ImageCaptureSettings
+import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.Files
+import kotlinx.coroutines.launch
+import java.util.*
 
 
 class PhotoImportBottomSheetFragment(
     private val resolution: Size? = null,
-    private val onCapture: (bitmap: Bitmap?) -> Unit
+    private val onCapture: (uri: Uri?) -> Unit
 ) : BoundBottomSheetDialogFragment<FragmentPhotoImportSheetBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.camera.clipToOutline = true
-        binding.camera.start(resolution)
+        binding.camera.start(
+            resolution,
+            lifecycleOwner = this,
+            analyze = false,
+            captureSettings = ImageCaptureSettings(captureMode = ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+        )
 
         binding.toolTitle.rightQuickAction.setOnClickListener {
             onCapture(null)
@@ -33,9 +49,24 @@ class PhotoImportBottomSheetFragment(
         }
 
         binding.captureButton.setOnClickListener {
-            binding.camera.capture {
-                onCapture(it)
-                dismiss()
+            binding.captureButton.isInvisible = true
+            lifecycleScope.launch {
+                val filename = "${Files.TEMP_DIR}/${UUID.randomUUID()}.jpg"
+                val file = LocalFiles.getFile(requireContext(), filename, true)
+                val success = onIO {
+                    file.outputStream().use {
+                        binding.camera.capture(it)
+                    }
+                }
+                onMain {
+                    if (!success) {
+                        file.delete()
+                        onCapture(null)
+                    } else {
+                        onCapture(file.toUri())
+                    }
+                    dismiss()
+                }
             }
         }
     }
@@ -62,7 +93,7 @@ class PhotoImportBottomSheetFragment(
     }
 
     private fun getWindowSize(): Size {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             getWindowSizeSDK30()
         } else {
             getWindowSizeLegacy()

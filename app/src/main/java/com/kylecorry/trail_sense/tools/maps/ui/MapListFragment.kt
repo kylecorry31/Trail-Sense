@@ -264,7 +264,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private fun loadMapThumbnail(map: Map): Bitmap {
         val file = LocalFiles.getFile(requireContext(), map.filename, false)
         val size = Resources.dp(requireContext(), 48f).toInt()
-        val bitmap = BitmapUtils.decodeBitmapScaled(file.path, size, size)
+        val bitmap = try {
+            BitmapUtils.decodeBitmapScaled(file.path, size, size)
+        } catch (e: Exception){
+            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        }
 
         if (map.rotation != 0) {
             val rotated = bitmap.rotate(map.rotation.toFloat())

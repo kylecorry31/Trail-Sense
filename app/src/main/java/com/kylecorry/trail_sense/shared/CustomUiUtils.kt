@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.Size
 import android.view.Gravity
 import android.view.MenuItem
@@ -372,7 +372,7 @@ object CustomUiUtils {
         return sheet
     }
 
-    suspend fun takePhoto(fragment: AndromedaFragment, size: Size? = null): Bitmap? =
+    suspend fun takePhoto(fragment: AndromedaFragment, size: Size? = null): Uri? =
         suspendCoroutine { cont ->
             takePhoto(fragment, size) {
                 cont.resume(it)
@@ -382,7 +382,7 @@ object CustomUiUtils {
     fun takePhoto(
         fragment: AndromedaFragment,
         size: Size? = null,
-        onCapture: (bitmap: Bitmap?) -> Unit
+        onCapture: (uri: Uri?) -> Unit
     ) {
         fragment.requestCamera {
             if (!it) {

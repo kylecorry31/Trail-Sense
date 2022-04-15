@@ -30,7 +30,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
 
         binding.ok.setOnClickListener {
-            binding.camera.capture {
+            binding.camera.quickCapture {
                 onImage(it)
             }
         }
