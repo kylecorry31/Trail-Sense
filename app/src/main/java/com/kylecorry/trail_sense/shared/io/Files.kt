@@ -11,7 +11,7 @@ import java.io.File
 import java.util.*
 
 object Files {
-    const val TEMP_DIR = "tmp"
+    private const val TEMP_DIR = "tmp"
 
     suspend fun copy(context: Context, from: Uri, to: String): File? = onIO {
         val type = context.contentResolver.getType(from)
@@ -32,6 +32,13 @@ object Files {
 
     suspend fun copyToTemp(context: Context, from: Uri): File? {
         return copy(context, from, TEMP_DIR)
+    }
+
+    suspend fun deleteTempFiles(context: Context) = onIO {
+        val dir = LocalFiles.getDirectory(context, TEMP_DIR, false)
+        if (dir.exists()) {
+            dir.deleteRecursively()
+        }
     }
 
     suspend fun createTempFile(context: Context, extension: String): File = onIO {
