@@ -34,6 +34,11 @@ object Files {
         return copy(context, from, TEMP_DIR)
     }
 
+    suspend fun createTempFile(context: Context, extension: String): File = onIO {
+        val filename = "${TEMP_DIR}/${UUID.randomUUID()}.$extension"
+        LocalFiles.getFile(context, filename, true)
+    }
+
     fun getLocalPath(file: File): String {
         return file.path.substringAfter("files/")
     }
