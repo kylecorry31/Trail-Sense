@@ -1048,4 +1048,6 @@
     <string name="remove_battery_restrictions">Pil kısıtlamaları kaldırılsın mı\?</string>
     <string name="exporting_map">Harita dışa aktarılıyor</string>
     <string name="map_exported">Harita dışa aktarıldı</string>
+    <string name="file">Dosya</string>
+    <string name="camera_capture">Yakala</string>
 </resources>
