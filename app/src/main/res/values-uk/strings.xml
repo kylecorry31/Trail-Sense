@@ -1066,4 +1066,6 @@
     <string name="battery_usage_restricted_benefit">Зняття обмежень акумулятора для Trail Sense може підвищити точність.</string>
     <string name="exporting_map">Експортування мапи</string>
     <string name="map_exported">Мапу експортовано</string>
+    <string name="file">Файл</string>
+    <string name="camera_capture">Знімкувати</string>
 </resources>
