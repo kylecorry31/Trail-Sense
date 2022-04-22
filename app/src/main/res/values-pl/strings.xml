@@ -1000,4 +1000,7 @@
     <string name="activity_recognition_permission_denied">Odmówiono uprawnienia dostępu do aktywności fizycznej, nie można włączyć funkcji krokomierza. Możesz włączyć to w ustawieniach.</string>
     <string name="error">Błąd</string>
     <string name="warning">Ostrzeżenie</string>
+    <string name="file">Plik</string>
+    <string name="exporting_map">Eksportowanie mapy</string>
+    <string name="map_exported">Mapa została wyeksportowana</string>
 </resources>

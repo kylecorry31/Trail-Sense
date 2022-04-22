@@ -160,13 +160,13 @@
     <string name="dialog_deny">No, gracias</string>
     <string name="dialog_grant">Actualizar ajustes</string>
     <string name="access_background_location_rationale">"Trail Sense utiliza datos de ubicación en segundo plano.  Se utiliza para la calibración de la presión a nivel del mar en el monitoreo del clima y para proporcionar alertas de puesta de sol más precisas.  [Ver política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html)"</string>
-    <string name="access_background_location">Actualizar la configuración de ubicación</string>
+    <string name="access_background_location">Actualizar ajustes de ubicación</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="dash">-</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="direction_south_east">SE</string>
-    <string name="precise_nautical_miles_format">%s Millas nauticas</string>
-    <string name="app_disclaimer_message_title">Cláusula de protección / Terminos de servicios</string>
+    <string name="precise_nautical_miles_format">%s nm</string>
+    <string name="app_disclaimer_message_title">Descargo de responsabilidad / Términos de servicio</string>
     <string name="disclaimer_message_title">Aviso legal</string>
     <string name="copied_to_clipboard_toast">Copiado en el portapapeles</string>
     <string name="precise_percent_format">%s%%</string>
@@ -322,7 +322,7 @@
     <string name="tool_battery_title">Bateria</string>
     <string name="nimbostratus">Nimboestrato</string>
     <string name="thunder">Tormenta</string>
-    <string name="pedometer">Pedometro</string>
+    <string name="pedometer">Podómetro</string>
     <string name="weather_better_than_yesterday">Mejor que ayer</string>
     <string name="import_btn">Importar</string>
     <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de ubicación nunca salen de tu dispositivo
@@ -501,8 +501,8 @@
         <item quantity="other">%d balizas importadas</item>
     </plurals>
     <string name="gps_user">Usuario</string>
-    <string name="gps_stale">Barado</string>
-    <string name="quality_poor">Linmitado</string>
+    <string name="gps_stale">Obsoleto</string>
+    <string name="quality_poor">Limitado</string>
     <string name="time_ago">Hace %s</string>
     <string name="network_5g">5G</string>
     <string name="network_4g">4G</string>
@@ -901,7 +901,7 @@
     <string name="simplify">Simplificar</string>
     <string name="simplifying">Simplificando</string>
     <string name="simplification_quality">Calidad de simplificación</string>
-    <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
+    <string name="pref_auto_simplify_paths_title">Simplificar rutas al importar</string>
     <string name="navigation_guide_description">Usando balizas y caminos</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">Punto de referencia eliminados %d</item>
@@ -992,4 +992,60 @@
     <string name="disclaimer_estimated_tide">Mareas estimadas podrían no ser precisas. Por favor use una tabla de mareas oficial para saber los tiempos exactos.</string>
     <string name="disclaimer_estimated_tide_title">Marea estimada</string>
     <string name="since_time">desde %s</string>
+    <string name="temperature_history">Historial de temperatura - últimas %s</string>
+    <string name="explore">Explorar</string>
+    <string name="file">Archivo</string>
+    <string name="onboarding_explore">- Diseñado para senderismo, backpacking, camping, y geocaching
+\n
+\n- Coloca balizas y navega hacia ellas
+\n
+\n- Sigue rutas
+\n
+\n- Vuelve sobre tus pasos con backtrack
+\n
+\n- Planea qué llevar
+\n
+\n- Recibe alertas antes de que se ponga el sol
+\n
+\n- Predice el tiempo
+\n
+\n- Utiliza tu teléfono como una linterna
+\n
+\n- ¡Y mucho más!</string>
+    <string name="camera_capture">Captura</string>
+    <string name="error">Error</string>
+    <string name="warning">Advertencia</string>
+    <string name="square">Cuadro</string>
+    <string name="diamond">Diamante</string>
+    <string name="cross">Cruz</string>
+    <string name="humidity_history">Historial de humedad - últimas %s</string>
+    <string name="steps">Pasos</string>
+    <string name="estimate_stride_length">Estimar longitud de zancada</string>
+    <string name="stride_length_stand_still">Mantente quieto</string>
+    <string name="stride_length_walk">Camina en una línea recta, pulsa parar cuando hayas acabado</string>
+    <string name="current_speed">Velocidad actual</string>
+    <string name="current_speed_pedometer">Velocidad actual (podómetro)</string>
+    <string name="reset_distance_title">¿Reestablecer distancia\?</string>
+    <string name="pref_only_navigate_path_points_title">Navegar solo a puntos registrados</string>
+    <string name="off">Apagado</string>
+    <string name="activity_recognition_permission_denied">Permisión de actividad física denegada, imposible activar las características de podómetro. Puedes activarlo en los ajustes.</string>
+    <string name="beacons">Balizas</string>
+    <string name="pref_start_on_boot_title">Iniciar en el arranque</string>
+    <string name="bearing">Rumbo</string>
+    <string name="exporting_map">Exportando mapa</string>
+    <string name="map_exported">Mapa exportado</string>
+    <string name="save">Guardar</string>
+    <string name="move_to">Mover a</string>
+    <string name="distance_alert">Distancia de alerta</string>
+    <string name="remove_distance_alert">¿Eliminar la distancia de alerta (%s)\?</string>
+    <string name="distance_alert_distance_reached">Has llegado a %s</string>
+    <string name="saved">Guardado</string>
+    <string name="current_speed_gps">Velocidad actual (GPS)</string>
+    <string name="average_speed_pedometer">Velocidad media (Podómetro)</string>
+    <string name="average_speed_backtrack">Velocidad media (Backtrack)</string>
+    <string name="navigating_to_nearest_path_point">Navegando al punto más cercano de la ruta</string>
+    <string name="average_speed">Velocidad media</string>
+    <string name="running_in_background">Ejecutando en segundo plano</string>
+    <string name="remove_battery_restrictions">¿Eliminar limitaciones de batería\?</string>
+    <string name="battery_usage_restricted_benefit">Eliminar limitaciones de batería mejora la precisión de Trail Sense.</string>
 </resources>
