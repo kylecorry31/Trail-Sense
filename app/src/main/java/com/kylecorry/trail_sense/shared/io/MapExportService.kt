@@ -17,24 +17,44 @@ class MapExportService(
 ) :
     ExportService<Map> {
     override suspend fun export(data: Map, filename: String): Boolean {
+        val pdf = getPDFData(data)
+        val uri = uriPicker.create(filename, "application/pdf") ?: return false
+        uriService.outputStream(uri)?.use {
+            PdfConvert.toPDF(pdf, it)
+        }
+        return true
+    }
+
+    private fun getPDFData(map: Map): List<PDFObject> {
         var bitmap: Bitmap? = null
         try {
-            val file = LocalFiles.getFile(context, data.filename, create = false)
+            val file = LocalFiles.getFile(context, map.filename, create = false)
 
             val maxImageSize = 2048
 
             bitmap = BitmapUtils.decodeBitmapScaled(file.path, maxImageSize, maxImageSize)
 
-            if (data.rotation != 0){
-                val rotated = bitmap.rotate(data.rotation.toFloat())
+            if (map.rotation != 0) {
+                val rotated = bitmap.rotate(map.rotation.toFloat())
                 bitmap.recycle()
                 bitmap = rotated
             }
 
             val width = bitmap.width
             val height = bitmap.height
-            val bounds = data.boundary(width.toFloat(), height.toFloat()) ?: return false
+            val bounds = map.boundary(width.toFloat(), height.toFloat())
 
+            if (bounds == null) {
+                // No calibration, just generate a PDF containing the image
+                return listOf(
+                    catalog("1 0", "2 0"),
+                    pages("2 0", listOf("3 0")),
+                    page("3 0", "2 0", width, height, listOf("4 0")),
+                    image("4 0", bitmap, destWidth = width, destHeight = height)
+                )
+            }
+
+            // Generate a Geospatial PDF
             val projections = mapOf(
                 MapProjectionType.Mercator to "Mercator",
                 MapProjectionType.CylindricalEquidistant to "Equidistant_Cylindrical"
@@ -52,10 +72,10 @@ class MapExportService(
                     ),
                     0.0
                 ),
-                projections[data.projection] ?: ""
+                projections[map.projection] ?: ""
             )
 
-            val pdf = listOf(
+            return listOf(
                 catalog("1 0", "2 0"),
                 pages("2 0", listOf("3 0")),
                 page("3 0", "2 0", width, height, listOf("4 0"), listOf("5 0")),
@@ -68,12 +88,6 @@ class MapExportService(
                 ),
                 gcs("7 0", pcjcs)
             )
-            bitmap.recycle()
-            val uri = uriPicker.create(filename, "application/pdf") ?: return false
-            uriService.outputStream(uri)?.use {
-                PdfConvert.toPDF(pdf, it)
-            }
-            return true
         } catch (e: Exception) {
             throw e
         } finally {
