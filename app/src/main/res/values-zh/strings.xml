@@ -1037,4 +1037,6 @@
     <string name="running_in_background">在后台运行</string>
     <string name="exporting_map">导出地图</string>
     <string name="map_exported">已导出地图</string>
+    <string name="camera_capture">拍摄</string>
+    <string name="file">文件</string>
 </resources>
