@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 class CreateMapFromImageCommand(private val context: Context, private val repo: IMapRepo) {
     suspend fun execute(uri: Uri): Map? = onIO {
         val defaultName = context.getString(android.R.string.untitled)
-        val file = Files.copy(context, uri, "maps") ?: return@onIO null
+        val file = Files.copyToDirectory(context, uri, "maps") ?: return@onIO null
 
         val map = Map(
             0,

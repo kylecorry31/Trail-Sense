@@ -13,7 +13,7 @@ import java.util.*
 object Files {
     private const val TEMP_DIR = "tmp"
 
-    suspend fun copy(context: Context, from: Uri, to: String): File? = onIO {
+    suspend fun copyToDirectory(context: Context, from: Uri, to: String): File? = onIO {
         val type = context.contentResolver.getType(from)
         val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
         val filename = "$to/${UUID.randomUUID()}.$extension"
@@ -31,7 +31,7 @@ object Files {
     }
 
     suspend fun copyToTemp(context: Context, from: Uri): File? {
-        return copy(context, from, TEMP_DIR)
+        return copyToDirectory(context, from, TEMP_DIR)
     }
 
     suspend fun deleteTempFiles(context: Context) = onIO {

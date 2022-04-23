@@ -6,6 +6,7 @@ import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.IPeriodicTaskScheduler
 import com.kylecorry.andromeda.jobs.PeriodicTaskSchedulerFactory
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,6 +23,8 @@ class RepoCleanupWorker(private val context: Context, params: WorkerParameters) 
         for (repo in cleanables) {
             repo.clean()
         }
+
+        DeleteTempFilesCommand(context).execute()
 
         Result.success()
     }

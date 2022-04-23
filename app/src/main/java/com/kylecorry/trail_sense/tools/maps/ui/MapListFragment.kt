@@ -70,15 +70,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             getString(R.string.importing_map)
         )
     }
-    private val mapExportingIndicator by lazy {
-        AlertLoadingIndicator(
-            requireContext(),
-            getString(R.string.exporting_map)
-        )
-    }
-    private val mapExporter by lazy {
-        MapExportService(requireContext(), uriPicker, ExternalUriService(requireContext()))
-    }
+    private val exportService by lazy { FragmentMapExportService(this) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -152,12 +144,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 Pickers.menu(it, R.menu.map_list_item_menu) {
                     when (it) {
                         R.id.action_map_export -> {
-                            runInBackground {
-                                mapExportingIndicator.show()
-                                ExportMapCommand(mapExporter).execute(map)
-                                mapExportingIndicator.hide()
-                                toast(getString(R.string.map_exported))
-                            }
+                            exportService.export(map)
                         }
                         R.id.action_map_delete -> {
                             Alerts.dialog(

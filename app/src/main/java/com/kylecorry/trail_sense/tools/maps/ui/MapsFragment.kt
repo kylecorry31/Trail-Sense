@@ -35,6 +35,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private var map: Map? = null
     private var currentFragment: Fragment? = null
 
+    private val exportService by lazy { FragmentMapExportService(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
@@ -72,6 +74,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     getString(R.string.tool_user_guide_title),
                     getString(R.string.rename),
                     if (isMapView) getString(R.string.change_map_projection) else null,
+                    if (isMapView) getString(R.string.export) else null,
                     getString(R.string.delete)
                 )
             ) {
@@ -123,7 +126,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                                             mapService.setProjection(m, newProjection)
                                             map = map?.copy(projection = newProjection)
                                         }
-                                        withContext(Dispatchers.Main){
+                                        withContext(Dispatchers.Main) {
                                             val fragment = currentFragment
                                             if (fragment != null && fragment is ViewMapFragment) {
                                                 fragment.reloadMap()
@@ -134,7 +137,12 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             }
                         }
                     }
-                    4 -> { // Delete
+                    4 -> { // Export
+                        map?.let {
+                            exportService.export(it)
+                        }
+                    }
+                    5 -> { // Delete
                         Alerts.dialog(
                             requireContext(),
                             getString(R.string.delete_map),
