@@ -28,8 +28,12 @@ class FragmentMapExportService(private val fragment: AndromedaFragment) {
 
     fun export(map: Map) {
         fragment.lifecycleScope.launch {
-            command.execute(map)
-            fragment.toast(fragment.getString(R.string.map_exported))
+            val success = command.execute(map)
+            if (success) {
+                fragment.toast(fragment.getString(R.string.map_exported))
+            } else {
+                fragment.toast(fragment.getString(R.string.map_export_error))
+            }
         }
     }
 

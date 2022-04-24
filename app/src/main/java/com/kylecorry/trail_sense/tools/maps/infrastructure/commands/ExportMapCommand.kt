@@ -7,17 +7,21 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.ExportService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 
-class ExportMapCommand(private val exporter: ExportService<Map>, private val loading: ILoadingIndicator) {
+class ExportMapCommand(
+    private val exporter: ExportService<Map>,
+    private val loading: ILoadingIndicator
+) {
 
-    suspend fun execute(map: Map) = onIO {
+    suspend fun execute(map: Map): Boolean = onIO {
         val slugify = Slugify()
         onMain {
             loading.show()
         }
-        exporter.export(map, "${slugify.slugify(map.name)}.pdf")
+        val success = exporter.export(map, "${slugify.slugify(map.name)}.pdf")
         onMain {
             loading.hide()
         }
+        success
     }
 
 }
