@@ -200,7 +200,7 @@ class OfflineMapView : SubsamplingScaleImageView {
     }
 
     private fun drawPaths() {
-        val scale = layerScale
+        val scale = layerScale / 1.5f
         if (!pathsRendered) {
             for (path in renderedPaths) {
                 pathPool.release(path.value.path)
