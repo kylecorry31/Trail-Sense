@@ -280,6 +280,10 @@ class OfflineMapView : SubsamplingScaleImageView {
         invalidate()
     }
 
+    fun zoomBy(multiple: Float){
+        setScaleAndCenter((scale * multiple).coerceIn(minScale, maxScale), center)
+    }
+
     private fun drawLocation(location: IMappableLocation, highlighted: Boolean) {
         val scale = layerScale
         val coord = getPixelCoordinate(location.coordinate)
