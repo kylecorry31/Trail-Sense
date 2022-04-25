@@ -73,10 +73,10 @@ dependencies {
     implementation("androidx.room:room-runtime:2.4.2")
     implementation("androidx.room:room-ktx:2.4.2")
     implementation("androidx.lifecycle:lifecycle-service:2.4.1")
-    val cameraxVersion = "1.1.0-beta01"
+    val cameraxVersion = "1.1.0-beta03"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
-    implementation("androidx.camera:camera-view:1.1.0-beta02")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
     implementation("com.google.android.material:material:1.5.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
@@ -86,7 +86,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.8.0")
 
     // Andromeda
-    val andromedaVersion = "3.0.0-beta11"
+    val andromedaVersion = "3.0.0"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")

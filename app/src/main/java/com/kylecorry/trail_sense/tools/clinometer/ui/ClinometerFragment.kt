@@ -10,6 +10,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.buzz.DialHapticFeedback
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
@@ -31,7 +32,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.haptics.DialHapticFeedback
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
