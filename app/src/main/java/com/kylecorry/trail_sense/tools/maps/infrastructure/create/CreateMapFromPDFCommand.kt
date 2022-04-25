@@ -57,8 +57,8 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
             defaultName,
             filename,
             calibrationPoints,
-            warped = true,
-            rotated = true,
+            warped = calibrationPoints.isNotEmpty(),
+            rotated = calibrationPoints.isNotEmpty(),
             projection = projection
         )
 
