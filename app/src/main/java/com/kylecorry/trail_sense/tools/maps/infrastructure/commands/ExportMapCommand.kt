@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.commands
 
-import com.github.slugify.Slugify
+import com.kylecorry.trail_sense.shared.Slugify.slugify
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -13,11 +13,10 @@ class ExportMapCommand(
 ) {
 
     suspend fun execute(map: Map): Boolean = onIO {
-        val slugify = Slugify()
         onMain {
             loading.show()
         }
-        val success = exporter.export(map, "${slugify.slugify(map.name)}.pdf")
+        val success = exporter.export(map, "${map.name.slugify()}.pdf")
         onMain {
             loading.hide()
         }
