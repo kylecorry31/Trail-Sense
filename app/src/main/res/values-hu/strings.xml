@@ -112,9 +112,7 @@
     <string name="tool_bubble_level_title">Vízmérték</string>
     <string name="no_group">Nincs csoport</string>
     <string name="group">Csoport</string>
-    <string name="edit_beacon_group">Csoport szerkesztése</string>
     <string name="delete_beacon_group_message">%s és az összes hozzá tartozó jelölő törölve lesz</string>
-    <string name="delete_beacon_group">Csoport törlése</string>
     <string name="sunset_alert_channel_title">Napnyugta figyelmeztetés</string>
     <string name="sunset_alerts">Napnyugta figyelmeztetések</string>
     <string name="sunset_alert_notification_text">A nap %s-kor fog lenyugodni</string>

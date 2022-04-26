@@ -3,14 +3,12 @@
     <color name="orange_10">#351000</color>
     <color name="orange_40">#FF6D00</color>
     <color name="orange_40_transparent">#80FF6D00</color>
-    <color name="orange_95">#FFA97E</color>
     <color name="colorPrimaryLight">#FD750E</color>
     <color name="colorAccent">#a0caff</color>
     <color name="colorSecondary">#222222</color>
     <color name="white">#FFFFFF</color>
     <color name="offWhite">#cccccc</color>
     <color name="positive">#0F9A05</color>
-    <color name="negative">#FF001E</color>
 
     <color name="sun">#ffdd55</color>
 

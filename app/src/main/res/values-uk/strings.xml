@@ -3,8 +3,6 @@
     <string name="color">Колір</string>
     <string name="water_boil_guide_title">Убезпечте воду для її споживання</string>
     <string name="calibrate_new_tide">Відкалібрувати новий приплив\?</string>
-    <string name="background_update">Оновлення у тлі</string>
-    <string name="sunset_alert_location_update">Оновлення місцеперебування для попередження про захід сонця</string>
     <string name="backtrack_battery_warning">Невеликі інтервали (менш як 15 хвилин) можуть призвести до надмірного розряджання батареї</string>
     <string name="battery_warning">Попередження про розряджання акумулятора</string>
     <string name="backtrack_high_priority_notification">Розміщення шляхової точки кожні %s</string>
@@ -25,19 +23,15 @@
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
     <string name="time_until_full">до повного</string>
     <string name="time_until_empty">до спустошення</string>
-    <string name="guide_speedometer_desc">Як визначити пройдену відстань і час прибуття</string>
-    <string name="guide_speedometer_title">Визначте швидкість і відстань</string>
     <string name="next">Далі</string>
     <string name="previous">Назад</string>
     <string name="guide_importing_maps_title">Імпортування мап</string>
     <string name="create_map_description">Уведіть назву мапи</string>
     <string name="create_map">Створити мапу</string>
     <string name="place_beacon_at">Установити маячок на %s\?</string>
-    <string name="select_map_image">Обрати зображення мапи</string>
     <string name="on_map">На мапі</string>
     <string name="no_maps">Немає мап</string>
     <string name="rename">Переназвати</string>
-    <string name="speedometer_odometer_accuracy_dialog">Для щонайбільшої точності увімкніть історію маршруту й установіть у налаштуваннях в якості джерела відстанеміра (одометра) крокомір.</string>
     <string name="pedometer_disclaimer">Точність крокоміра та його зарядоспоживання залежать від виробника вашого пристрою і введеної довжини кроку. Спробуйте походити трохи вдома, щоб перевірити розряджання батареї та точність перед використанням в поході.</string>
     <string name="guide_using_printed_maps">Використання друкованих (паперових) мап</string>
     <string name="guide_signaling_for_help_title">Сигналізація про допомогу</string>
@@ -48,12 +42,9 @@
     <string name="menu">Меню</string>
     <string name="no_tides">Немає припливів</string>
     <string name="pref_nearby_radar_title">Показати компас радару поблизу</string>
-    <string name="source">Джерело</string>
     <string name="pref_stride_length_title">Довжина кроку</string>
     <string name="pedometer">Крокомір</string>
     <string name="odometer">Відстанемір</string>
-    <string name="value_average">%s у середньому</string>
-    <string name="tool_speedometer_odometer_title">Спідометр / Відстанемір</string>
     <string name="speedometer">Спідометр</string>
     <string name="screen_flashlight">Екран</string>
     <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
@@ -214,7 +205,6 @@
     <string name="category_clothing">Одяг</string>
     <string name="category_food">Їжа</string>
     <string name="other">Інше</string>
-    <string name="beacon_action_view_details">Докладніше</string>
     <string name="tool_bubble_level_summary">Визначте, чи є поверхні плоскими</string>
     <string name="tool_bubble_level_title">Рівномір</string>
     <string name="guide_weather_prediction_title">Прогноз погоди</string>
@@ -227,9 +217,7 @@
     <string name="group">Група</string>
     <string name="beacon_create_beacon">Маячок</string>
     <string name="beacon_create">Створити</string>
-    <string name="edit_beacon_group">Редагувати групу</string>
     <string name="delete_beacon_group_message">%s і все його маячки будуть видалені.</string>
-    <string name="delete_beacon_group">Видалити групу</string>
     <string name="tool_user_guide_summary">Посібник із використання Trail Sense</string>
     <string name="tool_user_guide_title">Посібник користувача</string>
     <string name="error_occurred_message">Trail Sense зупинився з помилкою і буде закритий. Зв\'яжіться з розробником для зворотного зв\'язку.</string>
@@ -411,7 +399,6 @@
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack">Історія маршруту</string>
     <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
-    <string name="beacon_set_bearing_btn">Установити маячок (%s)</string>
     <string name="create_at_distance">Створити на відстані</string>
     <string name="min_temp_uncalibrated">Мін. температура телефону (без калібрування)</string>
     <string name="min_temp_calibrated">Мін. температура довкілля (після калібрування)</string>

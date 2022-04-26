@@ -76,8 +76,6 @@
     <string name="advanced">Zaawansowane</string>
     <string name="no_group">Brak grupy</string>
     <string name="group">Grupa</string>
-    <string name="edit_beacon_group">Edytuj grupę</string>
-    <string name="delete_beacon_group">Usuń grupę</string>
     <string name="error_occurred">Wystąpił błąd</string>
     <string name="pref_email_title">Adres e-mail twórcy aplikacji</string>
     <string name="pref_github_title">GitHub</string>
@@ -219,7 +217,6 @@
     <string name="category_shelter">Schronienie</string>
     <string name="category_food">Jedzenie</string>
     <string name="other">Pozostałe</string>
-    <string name="beacon_action_view_details">Pokaż szczegóły</string>
     <string name="tool_user_guide_title">Podręcznik użytkownika</string>
     <string name="pref_open_source_licenses_title">Licencje</string>
     <string name="pref_weather_update_frequency_title">Częstotliwość aktualizacji pogody</string>
@@ -370,7 +367,6 @@
 \n
 \nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 lub we wszystkie kierunki oraz odejdź od metalu."</string>
     <string name="create_at_distance">Utwórz w odległości</string>
-    <string name="beacon_set_bearing_btn">Ustaw namiar (%s)</string>
     <string name="toast_destination_bearing_set">Namiar ustawiony</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
@@ -526,9 +522,6 @@
     <string name="half_tide">Połowa przypływu</string>
     <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
     <string name="turn_off">Wyłącz</string>
-    <string name="tool_speedometer_odometer_title">Prędkościomierz / Drogomierz</string>
-    <string name="value_average">%s średnia</string>
-    <string name="source">Źródło</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
     <string name="odometer">Drogomierz</string>
@@ -546,12 +539,10 @@
     <string name="guide_importing_maps_title">Importowanie mapy</string>
     <string name="create_map_description">Podaj nazwę mapy</string>
     <string name="create_map">Utwórz mapę</string>
-    <string name="select_map_image">Wybierz obraz mapy</string>
     <string name="on_map">Na mapie</string>
     <string name="no_maps">Brak map</string>
     <string name="rename">Zmień nazwę</string>
     <string name="experimental">Eksperymentalne</string>
-    <string name="guide_speedometer_title">Określ prędkość i odległość</string>
     <string name="guide_signaling_for_help_title">Wzywanie pomocy</string>
     <string name="import_gpx">Importuj plik GPX</string>
     <string name="error_importing_map">Błąd podczas importowania mapy</string>
@@ -560,15 +551,12 @@
     <string name="minute_symbol">m</string>
     <string name="pref_odometer_reset_daily_title">Resetuj codziennie</string>
     <string name="calibrate_new_tide">Skalibrować do nowego przypływu\?</string>
-    <string name="background_update">Aktualizacja w tle</string>
-    <string name="sunset_alert_location_update">Aktualizowanie lokalizacji alertu o zachodzie słońca</string>
     <string name="backtrack_battery_warning">Małe odstępy czasu (poniżej 15 minut) mogą powodować nadmierne rozładowanie baterii</string>
     <string name="battery_warning">Ostrzeżenie o nadmiernym rozładowaniu baterii</string>
     <string name="updates">Aktualizacje</string>
     <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>
     <string name="search">Wyszukaj</string>
     <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
-    <string name="guide_speedometer_desc">Jak określić przebytą odległość i czas przybycia</string>
     <string name="place_beacon_at">Czy umieścić punkt nawigacyjny na %s\?</string>
     <plurals name="beacons_exported">
         <item quantity="one">Wyeksportowano %d punkt nawigacyjny</item>
@@ -656,7 +644,6 @@
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt dla ostatniej lokalizacji z sygnałem komórkowym</string>
     <string name="backtrack_high_priority_notification">Umieszczanie punktu trasy co %s</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
-    <string name="speedometer_odometer_accuracy_dialog">Aby uzyskać najlepszą dokładność, włącz funkcję śladu powrotnego i ustaw źródło licznika kilometrów na krokomierz w ustawieniach.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
     <string name="cirrocumulus_desc">Tworzy falistą taflę, chmury wyglądają niemal dwuwymiarowo.</string>
     <string name="backtrack_disabled_low_power_toast">Funkcja śladu powrotnego jest wyłączona w trybie oszczędzania energii</string>

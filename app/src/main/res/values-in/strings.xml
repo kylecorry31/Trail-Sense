@@ -303,7 +303,6 @@
     <string name="no_group">Tidak ada grup</string>
     <string name="advanced">Canggih</string>
     <string name="tap_sun_moon_hint">Ketuk matahari atau bulan untuk rincian posisi</string>
-    <string name="edit_beacon_group">Sunting grup</string>
     <string name="forecasts_category">Prakiraan</string>
     <string name="pref_pressure_history_title">Riwayat tekanan</string>
     <string name="pressure_12_hours">12 jam</string>
@@ -338,13 +337,11 @@
     <string name="continue_button">MELANJUTKAN</string>
     <string name="error_occurred_message">Trail Sense mengalami kesalahan dan akan ditutup. Silakan kirim email ke pengembang untuk memperbaiki masalah ini.</string>
     <string name="delete_beacon_group_message">%s dan semua suarnya akan dihapus.</string>
-    <string name="beacon_action_view_details">Tampilkan rincian</string>
     <string name="pref_max_beacon_distance_title">Radius suar terdekat</string>
     <string name="pref_display_multi_beacons_summary">Tampilkan suar terdekat di kompas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrasi sebelum menavigasi</string>
     <string name="pref_monitor_weather_title">Pantau cuaca</string>
     <string name="update_120_minutes">2 jam</string>
-    <string name="delete_beacon_group">Hapus grup</string>
     <string name="beacon_create">Buat</string>
     <string name="guide_conserving_battery_title">Menghemat baterai</string>
     <string name="pressure_24_hours">24 jam</string>

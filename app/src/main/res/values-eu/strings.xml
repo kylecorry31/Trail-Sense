@@ -282,12 +282,9 @@
     <string name="guide_recommended_apps">Gomendatutako aplikazioak</string>
     <string name="unit_nautical_miles">Itsas miliak</string>
     <string name="inventory_empty_text">Elementurik ez</string>
-    <string name="beacon_action_view_details">Xehetasunak ikusi</string>
     <string name="guide_weather_prediction_title">Eguraldiaren iragarpena</string>
     <string name="guide_conserving_battery_title">Bateria kontserbatu</string>
     <string name="no_group">Talderik ez</string>
-    <string name="edit_beacon_group">Taldea editatu</string>
-    <string name="delete_beacon_group">Taldea ezabatu</string>
     <string name="tool_user_guide_title">Erabiltzailearen gida</string>
     <string name="pref_email_title">Garatzaileari e-mail bat bidali</string>
     <string name="sun_moon_compass_when_up">Altxatuta dagoenean</string>
@@ -318,7 +315,6 @@
     <string name="previous">Aurrekoa</string>
     <string name="rename">Berrizendatu</string>
     <string name="menu">Menua</string>
-    <string name="source">Iturburua</string>
     <string name="pedometer">Podometroa</string>
     <string name="odometer">Odometroa</string>
     <string name="disclaimer_message_title">Lege-oharra</string>
@@ -348,7 +344,6 @@
     <string name="theme_sunset_sunrise">Egunsentia/ilunabarra</string>
     <string name="experimental">Esperimentala</string>
     <string name="tides">Mareak</string>
-    <string name="value_average">%s batezbesteko</string>
     <string name="unsaved_changes">Gorde gabeko aldaketak</string>
     <string name="turn_off">Itzali</string>
     <string name="tomorrows_forecast">Biharko iragarpena</string>

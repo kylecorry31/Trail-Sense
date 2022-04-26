@@ -11,8 +11,6 @@
     <string name="pref_show_last_signal_beacon_title">Son sinyal işareti</string>
     <string name="water_boil_guide_title">Suyu içilebilir hale getir</string>
     <string name="calibrate_new_tide">Yeni gelgit için kalibre etmek istediğinizden emin misiniz\?</string>
-    <string name="background_update">Arkaplan güncellemesi</string>
-    <string name="sunset_alert_location_update">Gün batımı uyarısı için konum güncelleniyor</string>
     <string name="backtrack_battery_warning">Kısa aralıklar (15 dakikanın altında) aşırı pil tüketimine neden olabilir</string>
     <string name="battery_warning">Pil tüketimi uyarısı</string>
     <string name="backtrack_high_priority_notification">Her %s\'de ara nokta konuluyor</string>
@@ -32,16 +30,11 @@
     <string name="minute_symbol">d</string>
     <string name="time_until_full">dolmasına kalan süre</string>
     <string name="time_until_empty">bitmesine kalan süre</string>
-    <string name="guide_speedometer_desc">Gidilen mesafe ve varış süreleri nasıl belirlenir</string>
-    <string name="guide_speedometer_title">Hızı ve mesafeyi belirle</string>
     <string name="place_beacon_at">%s\'de işaret yerleştirmek istediğinizden emin misiniz\?</string>
-    <string name="speedometer_odometer_accuracy_dialog">En iyi doğruluk için geri iz sürmeyi etkinleştirin ve kilometre sayacı kaynağını ayarlarda adımsayar olarak ayarlayın.</string>
     <string name="pedometer_disclaimer">Adımsayarın doğruluğu ve pil tüketimi cihazınızın üreticisine ve girilen adım mesafesine bağlıdır. Yolda kullanmadan önce evinizde hassasiyeti doğrulayın.</string>
     <string name="no_tides">Gelgit yok</string>
     <string name="pedometer">Adımsayar</string>
     <string name="odometer">Odometre/kilometre sayacı</string>
-    <string name="value_average">ortalama %s</string>
-    <string name="tool_speedometer_odometer_title">Hız ölçer / Kilometre sayacı</string>
     <string name="speedometer">Hızölçer</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="pref_daily_weather_time_title">Günlük hava durumu vakti</string>
@@ -219,7 +212,6 @@
     <string name="lunar_noon">Gece ortası</string>
     <string name="pref_show_noon_summary">Öğle ve gece ortası</string>
     <string name="delete_tide_prompt">Gelgiti sil\?</string>
-    <string name="beacon_set_bearing_btn">Kerterizi belirle (%s)</string>
     <string name="toast_destination_bearing_set">Hedef kerterizi belirlendi</string>
     <string name="weather_monitor">Hava Durumu Monitörü</string>
     <string name="whistle_signal_come_here">Buraya gel</string>
@@ -274,8 +266,6 @@
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">İşaret</string>
     <string name="beacon_create">Oluştur</string>
-    <string name="edit_beacon_group">Grubu düzenle</string>
-    <string name="delete_beacon_group">Grubu sil</string>
     <string name="tool_user_guide_summary">Trail Sense için kullanım kılavuzu</string>
     <string name="tool_user_guide_title">Kullanım Kılavuzu</string>
     <string name="error_occurred_message">Trail Sense bir hatayla karşılaştı ve kapanacak. Bu sorunun düzeltilmesi için geliştiriciye lütfen e-posta gönderin.</string>
@@ -496,7 +486,6 @@
     <string name="elevation_diff_format">%s%s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SW</string>
-    <string name="beacon_action_view_details">Detayları gör</string>
     <string name="tool_bubble_level_summary">yüzeylerin düz olup olmadığını belirle</string>
     <string name="tool_bubble_level_title">Su Terazisi</string>
     <string name="guide_weather_prediction_title">Hava durumu tahmini</string>
@@ -575,7 +564,6 @@
     <string name="guide_importing_maps_title">Haritaları içe aktarma</string>
     <string name="create_map_description">Haritanın adını girin</string>
     <string name="create_map">Harita oluştur</string>
-    <string name="select_map_image">Harita görüntüsü seç</string>
     <string name="on_map">Harita üzerinde</string>
     <string name="no_maps">Harita yok</string>
     <string name="rename">Yeniden adlandır</string>
@@ -587,7 +575,6 @@
     <string name="meteor_shower">Gök taşı yağmuru</string>
     <string name="menu">Menü</string>
     <string name="pref_nearby_radar_title">Yakındaki radar pusulasını göster</string>
-    <string name="source">Kaynak</string>
     <string name="pref_stride_length_title">Adım uzunluğu</string>
     <string name="experimental">Deneysel</string>
     <string name="no_gps_signal">GPS Sinyali Yok</string>

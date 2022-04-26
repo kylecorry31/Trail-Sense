@@ -217,9 +217,7 @@
     <string name="group">Groupe</string>
     <string name="beacon_create_beacon">Repère</string>
     <string name="beacon_create">Créer</string>
-    <string name="edit_beacon_group">Éditer le groupe</string>
     <string name="delete_beacon_group_message">%s et l\'ensemble des repères associés seront supprimés.</string>
-    <string name="delete_beacon_group">Supprimer le groupe</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d repère</item>
         <item quantity="other">%d repères</item>
@@ -229,7 +227,6 @@
     <string name="forecasts_category">Prévisions</string>
     <string name="advanced">Avancé</string>
     <string name="tap_sun_moon_hint">Appuyer sur les astres pour obtenir des détails sur leurs positions</string>
-    <string name="beacon_action_view_details">Voir les détails</string>
     <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
     <string name="tool_bubble_level_title">Niveau à bulle</string>
     <string name="guide_weather_prediction_title">Prévisions météorologiques</string>
@@ -372,7 +369,6 @@
     <string name="create_beacon">Ajouter un repère</string>
     <string name="backtrack">Historique de l\'itinéraire</string>
     <string name="guide_location_no_gps_title">Déterminer sa position sans GPS</string>
-    <string name="beacon_set_bearing_btn">Assigner l\'orientation (%s)</string>
     <string name="create_at_distance">Créer une distance</string>
     <string name="min_temp_uncalibrated">Température du téléphone minimale (non étalonnée)</string>
     <string name="min_temp_calibrated">Température ambiante minimale (étalonnée)</string>
@@ -491,7 +487,6 @@
     <string name="always_on">Toujours activé</string>
     <string name="guide_light_meter_description">Comment déterminer la portée d’une source lumineuse</string>
     <string name="pref_stride_length_title">Longueur d’enjambée</string>
-    <string name="source">Source</string>
     <string name="pref_meteor_showers_title">Pluies de météores</string>
     <string name="time_until_empty">jusqu’à vide</string>
     <string name="time_until_full">jusqu’à rempli</string>
@@ -501,8 +496,6 @@
     <string name="diamond">Diamant</string>
     <string name="cross">Croix</string>
     <string name="backtrack_battery_warning">Des intervalles courts (inférieurs à 15 minutes) peut causer une consommation excessive de la batterie</string>
-    <string name="sunset_alert_location_update">Mise à jour de la position pour l’alerte de coucher de Soleil</string>
-    <string name="background_update">Mise à jour en arrière plan</string>
     <string name="calibrate_new_tide">Calibrer à une nouvelle marée \?</string>
     <string name="water_boil_guide_title">Rend l’eau potable</string>
     <string name="camera_permission_denied">Accès à la caméra refusé, peut être activé dans les paramètres.</string>
@@ -557,21 +550,17 @@
     <string name="guide_signaling_for_help_title">Demander de l’aide</string>
     <string name="speedometer">Tachymètre</string>
     <string name="since_time">depuis %s</string>
-    <string name="value_average">%s moyen</string>
     <string name="tomorrow_at">Demain à %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
     <string name="guide_using_printed_maps">En utilisant une carte papier</string>
     <string name="pedometer_disclaimer">La précision et la consommation de batterie du podomètre dépend du fabricant de l’appareil ainsi que de la longueur d’enjambée défini. À essayer chez soi avant d’aller sur le terrain.</string>
-    <string name="speedometer_odometer_accuracy_dialog">Pour une meilleur précision, activer le Backtrack et définir le podomètre comme source de l’odomètre dans les réglages.</string>
     <string name="no_maps">Pas de cartes</string>
     <string name="on_map">Sur la carte</string>
-    <string name="select_map_image">Sélectionner une carte</string>
     <string name="create_map">Créer une carte</string>
     <string name="create_map_description">Entrer le nom de la carte</string>
     <string name="guide_importing_maps_title">Importer des cartes</string>
     <string name="previous">Précédent</string>
     <string name="next">Suivant</string>
-    <string name="guide_speedometer_title">Détermine vitesse et distance</string>
     <string name="hour_symbol">h</string>
     <string name="importing_map">Importation de carte</string>
     <string name="error_importing_map">Erreur d’importation de carte</string>
@@ -732,10 +721,8 @@
     <string name="us_quarts">Quarts US</string>
     <string name="imperial_pints">Pintes Impériales</string>
     <string name="diagnostics">Diagnostique</string>
-    <string name="guide_speedometer_desc">Comment déterminer la distance parcourue et l’heure d’arrivée</string>
     <string name="pref_odometer_reset_daily_title">Mise à zéro quotidienne</string>
     <string name="backtrack_high_priority_notification">Ajouter un point de passage tous les %s</string>
-    <string name="tool_speedometer_odometer_title">Tachymètre / Odomètre</string>
     <string name="pedometer">Podomètre</string>
     <string name="meteor_shower">Pluie de météores</string>
     <string name="odometer">Odomètre</string>

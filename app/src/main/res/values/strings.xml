@@ -372,9 +372,7 @@
     <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
     <string name="tool_user_guide_title">User Guide</string>
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
-    <string name="delete_beacon_group">Delete group</string>
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
-    <string name="edit_beacon_group">Edit group</string>
     <string name="beacon_create">Create</string>
     <string name="beacon_create_beacon">Beacon</string>
     <string name="group">Group</string>
@@ -389,7 +387,6 @@
     <string name="guide_weather_prediction_title">Weather prediction</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
-    <string name="beacon_action_view_details">View details</string>
     <string name="other">Other</string>
     <string name="category_food">Food</string>
     <string name="category_hydration">Hydration</string>
@@ -513,7 +510,6 @@
     <string name="min_temp_calibrated">Min ambient temperature (calibrated)</string>
     <string name="min_temp_uncalibrated">Min phone temperature (uncalibrated)</string>
     <string name="create_at_distance">Create at distance</string>
-    <string name="beacon_set_bearing_btn">Set bearing (%s)</string>
     <string name="guide_location_no_gps_title">Determine location without GPS</string>
     <string name="backtrack">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
@@ -662,15 +658,12 @@
     <string name="screen_flashlight">Screen</string>
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
-    <string name="tool_speedometer_odometer_title">Speedometer / Odometer</string>
     <string name="since_time">since %s</string>
-    <string name="value_average">%s average</string>
     <string name="odometer">Odometer</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_stride_length_title">Stride length</string>
     <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
-    <string name="source">Source</string>
     <string name="pref_odometer_calibration" translatable="false">pref_odometer_calibration</string>
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
@@ -686,19 +679,15 @@
     <string name="guide_signaling_for_help_title">Signaling for help</string>
     <string name="guide_using_printed_maps">Using printed maps</string>
     <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
-    <string name="speedometer_odometer_accuracy_dialog">For the best accuracy, enable Backtrack and set the odometer source to pedometer in settings.</string>
     <string name="rename">Rename</string>
     <string name="no_maps">No maps</string>
     <string name="on_map">On map</string>
-    <string name="select_map_image">Select map image</string>
     <string name="place_beacon_at">Place a beacon at %s?</string>
     <string name="create_map">Create map</string>
     <string name="create_map_description">Enter the name of the map</string>
     <string name="guide_importing_maps_title">Importing maps</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
-    <string name="guide_speedometer_title">Determine speed and distance</string>
-    <string name="guide_speedometer_desc">How to determine distance travelled and arrival times</string>
     <string name="time_until_empty">until empty</string>
     <string name="time_until_full">until full</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
@@ -735,8 +724,6 @@
     <string name="backtrack_high_priority_notification">Placing a waypoint every %s</string>
     <string name="battery_warning">Battery drain warning</string>
     <string name="backtrack_battery_warning">Small intervals (under 15 minutes) may cause excess battery drain</string>
-    <string name="sunset_alert_location_update">Updating location for sunset alert</string>
-    <string name="background_update">Background update</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
     <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="color">Color</string>

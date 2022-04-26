@@ -101,8 +101,6 @@
     <string name="no_group">Ingen gruppe</string>
     <string name="group">Gruppe</string>
     <string name="beacon_create">Opprett</string>
-    <string name="edit_beacon_group">Rediger gruppe</string>
-    <string name="delete_beacon_group">Slett gruppe</string>
     <string name="error_occurred">En feil inntraff</string>
     <string name="sun_actual">Faktisk</string>
     <string name="pref_show_sun_moon_compass_title">Vis solen/månen på kompasset</string>
@@ -151,7 +149,6 @@
     <string name="kilometers_per_hour_format">%.1f km/t</string>
     <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Posisjonsdata brukes til kalibrering av havnivåtrykk i værovervåking og for å gi mer nøyaktige solnedgangsvarsler. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
-    <string name="beacon_action_view_details">Vis detaljer</string>
     <string name="tool_user_guide_summary">Veiledning for bruk av Trail Sense</string>
     <string name="tool_user_guide_title">Brukerveiledning</string>
     <string name="degree_format">%.0f°</string>
@@ -436,11 +433,9 @@
     <string name="tool_light_meter_title">Lysmåler</string>
     <string name="distance_from_flashlight">Avstand fra telefon til lommelykt</string>
     <string name="menu">Meny</string>
-    <string name="source">Kilde</string>
     <string name="pref_stride_length_title">Skrittlengde</string>
     <string name="pedometer">Skritteller</string>
     <string name="odometer">Trippteller</string>
-    <string name="tool_speedometer_odometer_title">Speedometer / Trippteller</string>
     <string name="screen_flashlight">Skjerm</string>
     <string name="pref_daily_weather_time_title">Daglig værtid</string>
     <string name="time_not_set">Klokkeslett ikke stilt inn</string>
@@ -459,8 +454,6 @@
     <string name="battery_usage">%s batteribruk</string>
     <string name="no_gps_signal">Ikke noe GPS-signal</string>
     <string name="tides">Tidevann</string>
-    <string name="guide_speedometer_desc">Hvordan bestemme tilbakelagt distanse og ankomsttider</string>
-    <string name="guide_speedometer_title">Bestem hastighet og distanse</string>
     <string name="pedometer_disclaimer">Nøyaktigheten og batteribruken til skrittelleren er avhengig av produsenten av enheten og den angitte skrittlengden. Prøv det ut litt hjemme for å kontrollere batteritømming og nøyaktighet før du bruker det på stien.</string>
     <string name="guide_using_printed_maps">Bruke trykte kart</string>
     <string name="guide_signaling_for_help_title">Signalering for hjelp</string>
@@ -623,13 +616,11 @@
     <string name="lux_format">%s lx</string>
     <string name="delete_waypoint_prompt">Slette rutepunkt\?</string>
     <string name="waypoint_time_format">%s, %s</string>
-    <string name="beacon_set_bearing_btn">Sett retning (%s)</string>
     <string name="create_at_distance">Opprett på avstand</string>
     <string name="current_format">%s mA</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="app_disclaimer_message_title">Ansvarsfraskrivelse / Bruksbetingelser</string>
     <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
-    <string name="value_average">%s gjennomsnitt</string>
     <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
     <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
@@ -691,7 +682,6 @@
     <string name="next">Neste</string>
     <string name="previous">Forrige</string>
     <string name="guide_importing_maps_title">Import av kart</string>
-    <string name="select_map_image">Velg kartbilde</string>
     <string name="on_map">På kart</string>
     <string name="no_maps">Ingen kart</string>
     <string name="rename">Gi nytt navn</string>
@@ -845,7 +835,6 @@
     <string name="temporary">Midlertidig</string>
     <string name="importing">Importering</string>
     <string name="simplification_quality">Forenklingskvalitet</string>
-    <string name="sunset_alert_location_update">Oppdaterer posisjon for solnedgangsalarm</string>
     <string name="saving">Lagrer …</string>
     <string name="low_amount">Lav (%s)</string>
     <string name="medium_amount">Middels (%s)</string>

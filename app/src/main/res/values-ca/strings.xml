@@ -9,7 +9,6 @@
     <string name="category_hydration">Hidratació</string>
     <string name="category_food">Menjar</string>
     <string name="other">Altres</string>
-    <string name="beacon_action_view_details">Veure els detalls</string>
     <string name="tool_bubble_level_summary">Determina si una superfície es plana</string>
     <string name="tool_bubble_level_title">Nivel de bombolla</string>
     <string name="guide_weather_prediction_title">Previsions meteorològiques</string>
@@ -22,9 +21,7 @@
     <string name="group">Grup</string>
     <string name="beacon_create_beacon">Fita</string>
     <string name="beacon_create">Crear</string>
-    <string name="edit_beacon_group">Editar el group</string>
     <string name="delete_beacon_group_message">%s i totes les fites seran eliminades.</string>
-    <string name="delete_beacon_group">Eliminar el grup</string>
     <string name="tool_user_guide_summary">Una guia sobre com utilitzar Trail Sense</string>
     <string name="tool_user_guide_title">Guia d\'usuari</string>
     <string name="error_occurred_message">Trail Sense s\'ha trobat un error i es tancarà. Si us plau, escrigui un correu al desenvolupar amb els detalls perquè ho pugui solucionar.</string>

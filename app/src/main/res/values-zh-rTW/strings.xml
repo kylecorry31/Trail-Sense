@@ -133,13 +133,10 @@
     <string name="guide_recommended_apps">推薦的應用程式</string>
     <string name="inventory_empty_text">無項目</string>
     <string name="tool_cliff_height_title">懸崖高度</string>
-    <string name="beacon_action_view_details">查看細節</string>
     <string name="tool_bubble_level_title">水平儀</string>
     <string name="guide_weather_prediction_title">天氣預測</string>
     <string name="guide_conserving_battery_title">節省電量</string>
     <string name="no_group">無群組</string>
-    <string name="edit_beacon_group">編輯群組</string>
-    <string name="delete_beacon_group">刪除群組</string>
     <string name="tool_user_guide_title">使用說明</string>
     <string name="pref_email_title">寄送電子郵件給開發者</string>
     <string name="update_60_minutes">1 小時</string>

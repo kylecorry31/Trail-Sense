@@ -252,7 +252,6 @@
     <string name="category_hydration">水和作用</string>
     <string name="category_food">食物</string>
     <string name="other">其他</string>
-    <string name="beacon_action_view_details">查看详情</string>
     <string name="tool_bubble_level_summary">确定表面是否平坦</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="tool_bubble_level_title">气泡水平仪</string>
@@ -266,9 +265,7 @@
     <string name="group">群组</string>
     <string name="beacon_create_beacon">信标</string>
     <string name="beacon_create">创建</string>
-    <string name="edit_beacon_group">编辑群组</string>
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
-    <string name="delete_beacon_group">删除群组</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
     <string name="tool_user_guide_title">用户指南</string>
     <string name="error_occurred_message">Trail Sense 遇到了一个错误将关闭。请给开发者发邮件修复这个问题。</string>
@@ -361,7 +358,6 @@
     <string name="create_beacon">创建信标</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
-    <string name="beacon_set_bearing_btn">设定方位 (%s)</string>
     <string name="create_at_distance">在远处创建</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -521,10 +517,7 @@
     <string name="screen_flashlight">屏幕</string>
     <string name="turn_off">关闭</string>
     <string name="speedometer">速度计</string>
-    <string name="value_average">%s 平均</string>
-    <string name="tool_speedometer_odometer_title">速度计/里程表</string>
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
-    <string name="source">源</string>
     <string name="pref_stride_length_title">步幅</string>
     <string name="pedometer">计步器</string>
     <string name="odometer">里程表</string>
@@ -537,18 +530,14 @@
     <string name="pref_meteor_showers_title">流星雨</string>
     <string name="meteors_per_hour">最多 %d 颗流星/时</string>
     <string name="tomorrow_at">在明天 %s</string>
-    <string name="speedometer_odometer_accuracy_dialog">要达到最佳精度，启用 Backtrack 并在“设置”中将里程表源设置为计步器。</string>
     <string name="pedometer_disclaimer">计步器的准确性和电池使用量取决于你设备的制造商和输入的步幅。在实际使用前，请先在家里试一下，验证电池消耗和准确性。</string>
     <string name="guide_using_printed_maps">使用印刷地图</string>
-    <string name="guide_speedometer_desc">如何确定行进距离和到达时间</string>
-    <string name="guide_speedometer_title">确定速度和距离</string>
     <string name="next">下一张</string>
     <string name="previous">上一张</string>
     <string name="guide_importing_maps_title">正在导入地图</string>
     <string name="create_map_description">输入地图名称</string>
     <string name="create_map">创建地图</string>
     <string name="place_beacon_at">将一个信标放置于%s？</string>
-    <string name="select_map_image">选择地图图像</string>
     <string name="on_map">在地图上</string>
     <string name="no_maps">无地图</string>
     <string name="rename">重命名</string>
@@ -573,8 +562,6 @@
     <string name="actual_frequency_disclaimer">实际频率可能会因某些设备的后台限制而变化。</string>
     <string name="app_disclaimer_message_title">免责声明/服务条款</string>
     <string name="disclaimer_message_title">免责声明</string>
-    <string name="background_update">后台升级</string>
-    <string name="sunset_alert_location_update">更新日落警报的位置</string>
     <string name="backtrack_battery_warning">间隔时间过短(15分钟以下)可能导致电池过度消耗</string>
     <string name="battery_warning">电池耗竭警告</string>
     <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>

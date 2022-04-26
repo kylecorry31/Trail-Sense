@@ -208,7 +208,6 @@
     <string name="category_hydration">Hidratación</string>
     <string name="category_food">Comida</string>
     <string name="other">Otro</string>
-    <string name="beacon_action_view_details">Ver detalles</string>
     <string name="tool_bubble_level_summary">Determine si una superficie es plana</string>
     <string name="tool_bubble_level_title">Nivel de burbuja</string>
     <string name="guide_weather_prediction_title">Predicción de clima</string>
@@ -221,9 +220,7 @@
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Crear</string>
-    <string name="edit_beacon_group">Editar grupo</string>
     <string name="delete_beacon_group_message">%s y todas sus balizas se eliminarán.</string>
-    <string name="delete_beacon_group">Eliminar grupo</string>
     <string name="tool_user_guide_summary">Una guía sobre cómo usar Trail Sense</string>
     <string name="tool_user_guide_title">Guía de Usuario</string>
     <string name="error_occurred_message">Trail Sense se encontró con un error y se cerrará. Por favor, escriba un email al desarrollador para que este problema se pueda solucionar.</string>
@@ -425,17 +422,13 @@
     <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrada)</string>
     <string name="min_temp_uncalibrated">Temperatura mínima del teléfono (sin calibrar)</string>
     <string name="create_at_distance">Crear a distancia</string>
-    <string name="beacon_set_bearing_btn">Establecer rumbo (%s)</string>
     <string name="guide_location_no_gps_title">Determinar ubicacion sin GPS</string>
     <string name="backtrack">Retractarse</string>
     <string name="backtrack_notification_channel_description">Retractar actualizaciones de ubicacion</string>
     <string name="create_beacon">Crear Faro</string>
     <string name="low">Bajo</string>
     <string name="speedometer">Velocímetro</string>
-    <string name="tool_speedometer_odometer_title">Velocímetro / cuentakilómetros</string>
-    <string name="value_average">%s promedio</string>
     <string name="odometer">Odometro</string>
-    <string name="source">Recurso</string>
     <string name="pref_meteor_showers_title">Lluvia de meteoritos</string>
     <string name="guide_signaling_for_help_title">Enviando señales pidiendo ayuda</string>
     <string name="guide_using_printed_maps">Usando mapas impresos</string>
@@ -548,17 +541,13 @@
     <string name="meteor_shower">Lluvia de meteoritos</string>
     <string name="tomorrow_at">Mañana a %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Numero maximo de meteoritos por hora %d</string>
-    <string name="speedometer_odometer_accuracy_dialog">Para obtener la mejor precisión, habilite Retroceso y configure la fuente del odómetro en podómetro en la configuración.</string>
     <string name="no_maps">Sin mapas</string>
     <string name="on_map">En el mapa</string>
-    <string name="select_map_image">Selecciona una imagen del mapa</string>
     <string name="place_beacon_at">¿Colocar una baliza en %s\?</string>
     <string name="create_map_description">Ingresar el nombre en el mapa</string>
     <string name="guide_importing_maps_title">Importando mapas</string>
     <string name="previous">Previo</string>
     <string name="next">Siguiente</string>
-    <string name="guide_speedometer_title">Determinar velocidad y distancia</string>
-    <string name="guide_speedometer_desc">Como determinar distancia viajada y tiempos de llegada</string>
     <string name="time_until_full">Hasta que este lleno</string>
     <string name="minute_symbol">m</string>
     <string name="importing_map">Importando mapa</string>
@@ -578,8 +567,6 @@
     <string name="updates">Actualizaciones</string>
     <string name="backtrack_high_priority_notification">Colocando un punto de referencia cada %s</string>
     <string name="battery_warning">Advertencia de descarga de batería</string>
-    <string name="sunset_alert_location_update">Actualizando la ubicación para la alerta de puesta de sol</string>
-    <string name="background_update">Actualización en segundo plano</string>
     <string name="calibrate_new_tide">¿Calibrar a una nueva marea\?</string>
     <string name="water_boil_guide_title">Hacer que el agua sea segura para beber</string>
     <string name="last_signal_beacon_name">Última señal -%s (%s)</string>

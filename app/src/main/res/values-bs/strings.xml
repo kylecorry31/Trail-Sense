@@ -196,8 +196,6 @@
     <string name="camera_permission_denied">Dozvola za kameru je odbijena, nije moguće uključiti funkcije kamere. Možete ih omogućiti u postavkama.</string>
     <string name="color">Boja</string>
     <string name="water_boil_guide_title">Pretvori vodu da bude sigurna za piće</string>
-    <string name="background_update">Ažuriranje u pozadini</string>
-    <string name="sunset_alert_location_update">Ažuriranje lokacije za upozorenje o zalasku sunca</string>
     <string name="backtrack_battery_warning">Mali intervali (ispod 15 minuta) mogu prouzrokovati prekomjerno pražnjenje baterije</string>
     <string name="battery_warning">Upozorenje o pražnjenju baterije</string>
     <string name="backtrack_high_priority_notification">Postavljanje međutočke svakih %s</string>
@@ -218,17 +216,13 @@
     <string name="map_auto_calibrated">Mapa je automatski kalibrirana, molimo provjerite njezinu preciznost</string>
     <string name="time_until_full">dok nije puno</string>
     <string name="time_until_empty">dok nije prazno</string>
-    <string name="guide_speedometer_desc">Kako odrediti prijeđenu udaljenost i vrijeme dolaska</string>
-    <string name="guide_speedometer_title">Odredite brzinu i udaljenost</string>
     <string name="next">Sljedeće</string>
     <string name="previous">Prethodno</string>
     <string name="guide_importing_maps_title">Uvoženje kartih</string>
     <string name="place_beacon_at">Postavite svjetionik na %s\?</string>
-    <string name="select_map_image">Odaberite sliku karte</string>
     <string name="on_map">Na karti</string>
     <string name="no_maps">Nema kartih</string>
     <string name="rename">Preimenuj</string>
-    <string name="speedometer_odometer_accuracy_dialog">Za najbolju preciznost omogućite Izatrag i postavite izvor odometra na pedometar u postavkama.</string>
     <string name="pedometer_disclaimer">Preciznost i potrošnja baterije pedometra ovisi o proizvođaču uređaja i unesenoj dužini koraka. Isprobajte malo kod kuće kako biste potvrdili trošenje i tačnost baterije prije upotrebe na stazi.</string>
     <string name="guide_using_printed_maps">Kako koristiti štampane karte</string>
     <string name="guide_signaling_for_help_title">Signaliranje za pomoć</string>
@@ -238,12 +232,9 @@
     <string name="tomorrow_at">Sutra u %s</string>
     <string name="menu">Meni</string>
     <string name="pref_nearby_radar_title">Pokaži radarski kompas u blizini</string>
-    <string name="source">Izvor</string>
     <string name="pref_stride_length_title">Dužina koraka</string>
     <string name="pedometer">Pedometar</string>
-    <string name="tool_speedometer_odometer_title">Brzinomjer / Odometar</string>
     <string name="odometer">Odometar</string>
-    <string name="value_average">%s prosječno</string>
     <string name="speedometer">Brzinomjer</string>
     <string name="screen_flashlight">Zaslon</string>
     <string name="pref_daily_weather_time_title">Svakodnevno vrijeme</string>
@@ -498,7 +489,6 @@
     <string name="category_hydration">Hidratacija</string>
     <string name="category_food">Hrana</string>
     <string name="other">Ostalo</string>
-    <string name="beacon_action_view_details">Pokaži detalje</string>
     <string name="tool_bubble_level_summary">Utvrdite jesu li površine ravne</string>
     <string name="tool_bubble_level_title">Nivo mjehurića</string>
     <string name="guide_weather_prediction_title">Vremenska prognoza</string>
@@ -512,9 +502,7 @@
     <string name="group">Grupa</string>
     <string name="beacon_create_beacon">Svjetionik</string>
     <string name="beacon_create">Napravi</string>
-    <string name="edit_beacon_group">Uredi grupu</string>
     <string name="delete_beacon_group_message">%s i svi njegovi svjetionici će biti izbrisani.</string>
-    <string name="delete_beacon_group">Izbriši grupu</string>
     <string name="tool_user_guide_summary">Vodič kako koristiti Trail Sense</string>
     <string name="tool_user_guide_title">Korisnički Vodič</string>
     <string name="error_occurred_message">Trail Sense je naišao na grešku i zatvorit će se. Pošaljite programeru da ispravi ovaj problem.</string>
@@ -661,7 +649,6 @@
     <string name="create_map">Napravi kartu</string>
     <string name="create_beacon">Napravi svjetionik</string>
     <string name="guide_location_no_gps_title">Odredite lokaciju bez GPS-a</string>
-    <string name="beacon_set_bearing_btn">Postavi ležište (%s)</string>
     <string name="create_at_distance">Napravi sa daljine</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefona (nekalibrirana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura okoline (kalibrirana)</string>

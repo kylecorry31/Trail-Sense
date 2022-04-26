@@ -181,16 +181,6 @@
         <item>override</item>
     </string-array>
 
-    <string-array name="odometer_source_entries">
-        <item>@string/gps</item>
-        <item>@string/pedometer</item>
-    </string-array>
-
-    <string-array name="odometer_source_values">
-        <item>gps</item>
-        <item>pedometer</item>
-    </string-array>
-
     <string-array name="line_style_entries">
         <item>@string/solid</item>
         <item>@string/dotted</item>

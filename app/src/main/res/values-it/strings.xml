@@ -272,7 +272,6 @@
     <string name="tool_whistle_title">Fischio</string>
     <string name="tool_cliff_height_description">Misurare l’altezza di un precipizio o di una caduta</string>
     <string name="tool_cliff_height_title">Altezza precipizio</string>
-    <string name="beacon_action_view_details">Vedere i dettagli</string>
     <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
     <string name="error_occurred_message">Trail Sense ha incontrato un errore e verrà chiusa. Per favore invia una email allo sviluppatore affinché il problema venga risolto.</string>
     <string name="none">Nessuno</string>
@@ -307,9 +306,7 @@
     <string name="group">Gruppo</string>
     <string name="beacon_create_beacon">Segnaposto</string>
     <string name="beacon_create">Crea</string>
-    <string name="edit_beacon_group">Modifica gruppo</string>
     <string name="delete_beacon_group_message">%s e tutti I suoi Segnaposto verranno cancellati.</string>
-    <string name="delete_beacon_group">Cancella gruppo</string>
     <string name="tool_user_guide_title">Guida utente</string>
     <string name="error_occurred">Si è verificato un errore</string>
     <string name="pref_email_title">Contatta lo sviluppatore</string>
@@ -332,8 +329,6 @@
     <string name="notes_empty_text">Nessuna nota</string>
     <string name="water_purification_step_3">Far partire il timer</string>
     <string name="water_purification_step_2">Portare l’acqua ad ebollizione</string>
-    <string name="value_average">%s media</string>
-    <string name="tool_speedometer_odometer_title">Tachimetro / Contachilometri</string>
     <string name="speedometer">Tachimetro</string>
     <string name="time_not_set">Ora non impostata</string>
     <string name="battery_usage">%s utilizzo batteria</string>
@@ -447,7 +442,6 @@
     <string name="min_temp_calibrated">Temperatura ambiente minima (calibrata)</string>
     <string name="min_temp_uncalibrated">Temperatura telefono minima (calibrata)</string>
     <string name="create_at_distance">Crea ad una distanza</string>
-    <string name="beacon_set_bearing_btn">Imposta direzione (%s)</string>
     <string name="unsaved_changes_message">Le modifiche apportate non saranno salvate.</string>
     <string name="dialog_leave">Esci</string>
     <string name="cumulonimbus">Cumulonembo</string>
@@ -531,7 +525,6 @@
     <string name="pref_meteor_showers_title">Sciami meteorici</string>
     <string name="guide_signaling_for_help_title">Inviare segnali di aiuto</string>
     <string name="guide_using_printed_maps">Utilizzare mappe cartacee</string>
-    <string name="source">Provenienza</string>
     <string name="altostratus_desc">Nuvole medie che coprono il cielo. Il sole si vede a malapena come una chiazza luminosa.</string>
     <string name="nimbostratus_desc">Nuvola media grigia scuro che copre il cielo. Potrebbe piovere.</string>
     <string name="privacy_and_location">Privacy e Posizione</string>
@@ -576,11 +569,8 @@
     <string name="odometer">Odometro</string>
     <string name="rename">Rinomina</string>
     <string name="no_maps">Nessuna mappa</string>
-    <string name="select_map_image">Selezione l\'immagine di una mappa</string>
     <string name="create_map_description">Inserisci il nome della mappa</string>
     <string name="next">Successivo</string>
-    <string name="guide_speedometer_title">Determina velocità e distanza</string>
-    <string name="guide_speedometer_desc">Come determinare la distanza percorsa e i tempi di arrivo</string>
     <string name="map_auto_calibrated">Mappa calibrata automaticamente, per favore verificane l\'accuratezza</string>
     <string name="minute_symbol">min</string>
     <string name="hour_symbol">h</string>
@@ -594,8 +584,6 @@
     <string name="pref_default_path_color_title">Colore predefinito del percorso</string>
     <string name="backtrack_high_priority_notification">Posiziona un segnaposto ogni %s</string>
     <string name="battery_warning">Avviso consumo batteria</string>
-    <string name="sunset_alert_location_update">Aggiornamento della posizione per l\'avviso di tramonto</string>
-    <string name="background_update">Aggiornamento in background</string>
     <string name="calibrate_new_tide">Calibrare su una nuova marea\?</string>
     <string name="water_boil_guide_title">Rendere l\'acqua sicura da bere</string>
     <string name="last_signal_beacon_name">Ultimo segnale - %s (%s)</string>

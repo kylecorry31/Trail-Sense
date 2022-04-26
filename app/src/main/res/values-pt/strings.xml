@@ -204,7 +204,6 @@
     <string name="category_hydration">Hidratação</string>
     <string name="category_food">Comida</string>
     <string name="other">Outros</string>
-    <string name="beacon_action_view_details">Ver detalhes</string>
     <string name="tool_bubble_level_summary">Indica se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
     <string name="guide_weather_prediction_title">Previsão meteorológica</string>
@@ -217,9 +216,7 @@
     <string name="group">Grupo</string>
     <string name="beacon_create_beacon">Alfinete</string>
     <string name="beacon_create">Criar</string>
-    <string name="edit_beacon_group">Editar grupo</string>
     <string name="delete_beacon_group_message">%s e todos os alfinetes pertencentes serão eliminados.</string>
-    <string name="delete_beacon_group">Eliminar grupo</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
     <string name="tool_user_guide_title">Guia de utilizador</string>
     <string name="error_occurred_message">Surgiu um erro no Trail Sense por isso será fechado. Por favor envie um e-mail ao programador para corrigir este problema.</string>
@@ -503,7 +500,6 @@
     <string name="backtrack_notification_channel_description">Atualização das localizações de voltar para trás</string>
     <string name="backtrack">Voltar para trás</string>
     <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
-    <string name="beacon_set_bearing_btn">Definir direção (%s)</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
@@ -664,8 +660,6 @@
     <string name="color">Cor</string>
     <string name="water_boil_guide_title">Tornar a água segura para beber</string>
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
-    <string name="background_update">Atualização em segundo plano</string>
-    <string name="sunset_alert_location_update">Atualização do local para alerta de pôr do sol</string>
     <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) podem causar um consumo excessivo da bateria</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="backtrack_high_priority_notification">A adicionar um ponto de passagem a cada %s</string>
@@ -686,19 +680,15 @@
     <string name="map_auto_calibrated">Mapa calibrado automaticamente, verifique a sua precisão</string>
     <string name="time_until_full">até completar</string>
     <string name="time_until_empty">até esgotar</string>
-    <string name="guide_speedometer_desc">Como determinar a distância percorrida e horas de chegada</string>
-    <string name="guide_speedometer_title">Determinar a velocidade e a distância</string>
     <string name="next">Seguinte</string>
     <string name="previous">Anterior</string>
     <string name="guide_importing_maps_title">Importar mapas</string>
     <string name="create_map_description">Introduza o nome do mapa</string>
     <string name="create_map">Criar mapa</string>
     <string name="place_beacon_at">Posicionar um alfinete em %s\?</string>
-    <string name="select_map_image">Selecione a imagem do mapa</string>
     <string name="on_map">No mapa</string>
     <string name="no_maps">Sem mapas</string>
     <string name="rename">Alterar nome</string>
-    <string name="speedometer_odometer_accuracy_dialog">Para a melhor precisão, ative o voltar para trás e altere a fonte do conta-quilómetros para pedómetro nas configurações.</string>
     <string name="pedometer_disclaimer">A precisão e o consumo da bateria do pedómetro depende do fabricante do seu aparelho e a distância dos passos configurada nas preferências. Faça primeiro uma experiência em casa para verificar o consumo e a precisão antes de usar num percurso.</string>
     <string name="guide_using_printed_maps">Usando mapas impressos</string>
     <string name="guide_signaling_for_help_title">Sinalização para pedir ajuda</string>
@@ -709,12 +699,9 @@
     <string name="menu">Menu</string>
     <string name="no_tides">Sem marés</string>
     <string name="pref_nearby_radar_title">Mostrar bússola de radar por perto</string>
-    <string name="source">Fonte</string>
     <string name="pref_stride_length_title">Distância da passada</string>
     <string name="pedometer">Pedómetro</string>
     <string name="odometer">Conta-quilómetros</string>
-    <string name="value_average">%s média</string>
-    <string name="tool_speedometer_odometer_title">Velocímetro / conta-quilómetros</string>
     <string name="speedometer">Velocímetro</string>
     <string name="screen_flashlight">Ecrã</string>
     <string name="pref_daily_weather_time_title">Hora de meteorologia diária</string>

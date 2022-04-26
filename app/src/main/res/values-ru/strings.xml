@@ -218,7 +218,6 @@
 \n
 \nКомпас: Вращайте устройство по траектории восьмерки или во всех направлениях и постарайтесь находиться подальше от крупных металлоконструкций."</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
-    <string name="beacon_action_view_details">Подробнее</string>
     <string name="tool_bubble_level_summary">Определите, являются ли поверхности плоскими</string>
     <string name="tool_bubble_level_title">Уровень пузыря</string>
     <string name="navigation_nearby_category">Поблизости</string>
@@ -231,9 +230,7 @@
     </plurals>
     <string name="tool_user_guide_title">Руководство пользователя</string>
     <string name="tool_user_guide_summary">Руководство по использованию Trail Sense</string>
-    <string name="delete_beacon_group">Удалить группу</string>
     <string name="delete_beacon_group_message">%s и все его маячки будут удалены.</string>
-    <string name="edit_beacon_group">Редактировать группу</string>
     <string name="beacon_create">Создать</string>
     <string name="beacon_create_beacon">Маячок</string>
     <string name="group">Группа</string>
@@ -400,7 +397,6 @@
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack">История маршрута</string>
     <string name="guide_location_no_gps_title">Определить местоположение без GPS</string>
-    <string name="beacon_set_bearing_btn">Установить маячок (%s)</string>
     <string name="create_at_distance">Создать на расстоянии</string>
     <string name="update_gps_override">Обновить переопределение GPS</string>
     <string name="coordinate_format_mgrs">MGRS</string>
@@ -536,7 +532,6 @@
     <string name="tides">Приливы</string>
     <string name="pref_meteor_showers_title">Звездопад</string>
     <string name="meteor_shower">Звездопад</string>
-    <string name="speedometer_odometer_accuracy_dialog">Для максимальной точности включите историю маршрута и установите в настройках в качестве источника одометра шагомер.</string>
     <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
     <string name="guide_using_printed_maps">Использование печатных карт</string>
     <string name="guide_signaling_for_help_title">Сигнал о помощи</string>
@@ -545,12 +540,9 @@
     <string name="menu">Меню</string>
     <string name="no_tides">Нет приливов</string>
     <string name="pref_nearby_radar_title">Показать радарный компас вблизи</string>
-    <string name="source">Источник</string>
     <string name="pref_stride_length_title">Длина шага</string>
     <string name="pedometer">Шагомер</string>
     <string name="odometer">Одометр</string>
-    <string name="value_average">%s в среднем</string>
-    <string name="tool_speedometer_odometer_title">Спидометр / Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="import_gpx">Импорт GPX</string>
     <string name="error_importing_map">Ошибка при импорте карты</string>
@@ -559,15 +551,12 @@
     <string name="minute_symbol">м</string>
     <string name="map_auto_calibrated">Карта откалибрована автоматически, проверьте её точность</string>
     <string name="time_until_empty">до опустения</string>
-    <string name="guide_speedometer_desc">Как определить пройденное расстояние и время прибытия</string>
-    <string name="guide_speedometer_title">Определите скорость и расстояние</string>
     <string name="next">Далее</string>
     <string name="previous">Назад</string>
     <string name="guide_importing_maps_title">Импорт карт</string>
     <string name="create_map_description">Введите название карты</string>
     <string name="create_map">Создать карту</string>
     <string name="place_beacon_at">Установить маячок на %s\?</string>
-    <string name="select_map_image">Выбрать изображение карты</string>
     <string name="on_map">На карте</string>
     <string name="no_maps">Нет карт</string>
     <string name="rename">Переименовать</string>
@@ -588,8 +577,6 @@
         <item quantity="other">%d маячков импортировано</item>
     </plurals>
     <string name="calibrate_new_tide">Откалибровать новый прилив\?</string>
-    <string name="background_update">Фоновое обновление</string>
-    <string name="sunset_alert_location_update">Обновление местоположения для оповещения о закате</string>
     <string name="backtrack_battery_warning">Небольшие интервалы (менее 15 минут) могут привести к чрезмерному разряду батареи</string>
     <string name="battery_warning">Предупреждение о разряде батареи</string>
     <string name="backtrack_high_priority_notification">Размещение путевой точки каждые %s</string>
