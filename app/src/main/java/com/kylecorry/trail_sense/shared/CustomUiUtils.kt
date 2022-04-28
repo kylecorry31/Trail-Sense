@@ -176,6 +176,7 @@ object CustomUiUtils {
         default: Duration? = null,
         title: String,
         message: String? = null,
+        showSeconds: Boolean = false,
         onDurationPick: (duration: Duration?) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_duration_entry_prompt, null)
@@ -185,6 +186,8 @@ object CustomUiUtils {
 
         durationMessage.isVisible = !message.isNullOrBlank()
         durationMessage.text = message
+
+        durationInput.showSeconds = showSeconds
 
         durationInput?.setOnDurationChangeListener {
             duration = it

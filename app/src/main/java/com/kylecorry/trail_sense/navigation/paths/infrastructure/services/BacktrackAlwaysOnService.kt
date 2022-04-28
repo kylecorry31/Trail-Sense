@@ -43,7 +43,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
             getString(R.string.backtrack),
             getString(
                 R.string.backtrack_high_priority_notification,
-                formatService.formatDuration(prefs.backtrackRecordFrequency)
+                formatService.formatDuration(prefs.backtrackRecordFrequency, includeSeconds = true)
             ),
             R.drawable.ic_tool_backtrack,
             intent = openAction,

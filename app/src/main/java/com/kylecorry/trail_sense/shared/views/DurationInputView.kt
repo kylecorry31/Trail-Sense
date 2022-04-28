@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.NumberPicker
+import android.widget.TextView
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import java.time.Duration
 
@@ -15,17 +17,30 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
 
     private lateinit var hours: NumberPicker
     private lateinit var minutes: NumberPicker
+    private lateinit var seconds: NumberPicker
+    private lateinit var secondsLabel: TextView
+
+    var showSeconds: Boolean = true
+        set(value) {
+            seconds.isVisible = showSeconds
+            secondsLabel.isVisible = showSeconds
+            field = value
+        }
 
     init {
         context?.let {
             inflate(it, R.layout.view_duration_input, this)
             hours = findViewById(R.id.hours)
             minutes = findViewById(R.id.minutes)
+            seconds = findViewById(R.id.seconds)
+            secondsLabel = findViewById(R.id.seconds_label)
 
             hours.minValue = 0
             hours.maxValue = 23
             minutes.minValue = 0
             minutes.maxValue = 59
+            seconds.minValue = 0
+            seconds.maxValue = 59
 
             hours.setOnValueChangedListener { _, _, _ ->
                 onChange()
@@ -34,13 +49,18 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             minutes.setOnValueChangedListener { _, _, _ ->
                 onChange()
             }
+
+            seconds.setOnValueChangedListener { _, _, _ ->
+                onChange()
+            }
         }
     }
 
     private fun onChange() {
         val h = hours.value
         val m = minutes.value
-        duration = Duration.ofHours(h.toLong()).plusMinutes(m.toLong())
+        val s = seconds.value
+        duration = Duration.ofHours(h.toLong()).plusMinutes(m.toLong()).plusSeconds(s.toLong())
         changeListener?.invoke(duration)
     }
 
@@ -48,21 +68,22 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         changeListener = listener
     }
 
-    fun updateDuration(duration: Duration?){
+    fun updateDuration(duration: Duration?) {
         val nonNull = duration?.abs() ?: Duration.ZERO
-        val clamped = if (nonNull > MAX_DURATION){
+        val clamped = if (nonNull > MAX_DURATION) {
             MAX_DURATION
         } else {
             nonNull
         }
         hours.value = clamped.toHours().toInt()
         minutes.value = clamped.toMinutes().toInt() % 60
+        seconds.value = clamped.seconds.toInt() % 60
         this.duration = clamped
     }
 
 
     companion object {
-        private val MAX_DURATION = Duration.ofHours(23).plusMinutes(59)
+        private val MAX_DURATION = Duration.ofHours(23).plusMinutes(59).plusSeconds(59)
     }
 
 }

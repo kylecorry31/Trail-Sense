@@ -8,6 +8,8 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.extensions.getDuration
+import com.kylecorry.trail_sense.shared.extensions.putDuration
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -54,15 +56,11 @@ class WeatherPreferences(private val context: Context) {
 
     var weatherUpdateFrequency: Duration
         get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_weather_update_frequency)) ?: "15"
-            return Duration.ofMinutes(raw.toLongOrNull() ?: 15)
+            return cache.getDuration(context.getString(R.string.pref_weather_update_frequency))
+                ?: Duration.ofMinutes(15)
         }
         set(value) {
-            cache.putString(
-                context.getString(R.string.pref_weather_update_frequency),
-                value.toMinutes().toString()
-            )
+            cache.putDuration(context.getString(R.string.pref_weather_update_frequency), value)
         }
 
     val shouldShowDailyWeatherNotification: Boolean

@@ -12,6 +12,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
+import com.kylecorry.trail_sense.shared.extensions.getDuration
+import com.kylecorry.trail_sense.shared.extensions.putDuration
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
@@ -206,14 +208,11 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
     var backtrackRecordFrequency: Duration
         get() {
-            val raw = cache.getString(getString(R.string.pref_backtrack_frequency)) ?: "30"
-            return Duration.ofMinutes(raw.toLongOrNull() ?: 30L)
+            return cache.getDuration(getString(R.string.pref_backtrack_frequency))
+                ?: Duration.ofMinutes(30)
         }
         set(value) {
-            cache.putString(
-                getString(R.string.pref_backtrack_frequency),
-                value.toMinutes().toString()
-            )
+            cache.putDuration(getString(R.string.pref_backtrack_frequency), value)
         }
 
     var isLowPowerModeOn: Boolean

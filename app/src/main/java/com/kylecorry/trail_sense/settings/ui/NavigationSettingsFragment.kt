@@ -78,7 +78,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
         val prefBacktrackInterval = preference(R.string.pref_backtrack_interval)
         prefBacktrackInterval?.summary =
-            formatService.formatDuration(prefs.backtrackRecordFrequency)
+            formatService.formatDuration(prefs.backtrackRecordFrequency, includeSeconds = true)
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
             val title = it.title.toString()
@@ -86,11 +86,13 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                 requireContext(),
                 prefs.backtrackRecordFrequency,
                 title,
-                getString(R.string.actual_frequency_disclaimer)
+                getString(R.string.actual_frequency_disclaimer),
+                showSeconds = true
             ) {
                 if (it != null && !it.isZero) {
                     prefs.backtrackRecordFrequency = it
-                    prefBacktrackInterval.summary = formatService.formatDuration(it)
+                    prefBacktrackInterval.summary =
+                        formatService.formatDuration(it, includeSeconds = true)
                     restartBacktrack()
 
                     if (it < Duration.ofMinutes(15)) {
@@ -173,8 +175,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        onChange(list(R.string.pref_navigation_speedometer_type)){
-            if (it == "instant_pedometer"){
+        onChange(list(R.string.pref_navigation_speedometer_type)) {
+            if (it == "instant_pedometer") {
                 onCurrentPaceSpeedometerSelected()
             }
         }
@@ -182,9 +184,9 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         updateNearbyRadius()
     }
 
-    private fun onCurrentPaceSpeedometerSelected(){
+    private fun onCurrentPaceSpeedometerSelected() {
         requestActivityRecognition { hasPermission ->
-            if (!hasPermission){
+            if (!hasPermission) {
                 alertNoActivityRecognitionPermission()
             }
         }

@@ -364,7 +364,7 @@
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
-    <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency</string>
+    <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency_seconds</string>
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>
     <string name="pref_sea_level_pressure_override" translatable="false">pref_sea_level_pressure_override</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
@@ -517,7 +517,7 @@
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
-    <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency</string>
+    <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency_seconds</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
     <string name="location_input_help_title">Supported location formats</string>
     <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)\n\nDegrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)\n\nDegrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\"1.2\'W)\n\nUTM (ex. 03T 12345E 67890N)\n\nMGRS (ex. 27PXM 09601 05579)\n\nUSNG (ex. 14S NJ 39521 41744)\n\nOSNG (OSGB36) (ex. TG 51409 13177)</string>

@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
+import java.time.Duration
 
 class PreferenceMigrator private constructor() {
 
@@ -32,7 +33,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 8
+        private const val version = 9
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -109,7 +110,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(7, 8) { context, _ ->
                 val prefs = UserPreferences(context).navigation
                 val currentScale = prefs.rulerScale
-                if (currentScale == 1f || currentScale == 0f){
+                if (currentScale == 1f || currentScale == 0f) {
                     return@PreferenceMigration
                 }
 
@@ -117,6 +118,15 @@ class PreferenceMigrator private constructor() {
                 val ydpi = Screen.ydpi(context)
                 val adjustedDpi = dpi / currentScale
                 prefs.rulerScale = ydpi / adjustedDpi
+            },
+            PreferenceMigration(8, 9) { context, prefs ->
+                val userPrefs = UserPreferences(context)
+                prefs.getString("pref_backtrack_frequency")?.toLongOrNull()?.let {
+                    userPrefs.backtrackRecordFrequency = Duration.ofMinutes(it)
+                }
+                prefs.getString("pref_weather_update_frequency")?.toLongOrNull()?.let {
+                    userPrefs.weather.weatherUpdateFrequency = Duration.ofMinutes(it)
+                }
             }
         )
 

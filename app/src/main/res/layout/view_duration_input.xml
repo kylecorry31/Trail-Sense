@@ -29,4 +29,17 @@
         android:padding="16dp"
         android:text="@string/minute_symbol"/>
 
+    <NumberPicker
+        android:id="@+id/seconds"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seconds_label"
+        android:padding="16dp"
+        android:text="s"/>
+
 </LinearLayout>
