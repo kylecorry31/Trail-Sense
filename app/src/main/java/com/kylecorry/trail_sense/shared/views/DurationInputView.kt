@@ -22,8 +22,8 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
 
     var showSeconds: Boolean = true
         set(value) {
-            seconds.isVisible = showSeconds
-            secondsLabel.isVisible = showSeconds
+            seconds.isVisible = value
+            secondsLabel.isVisible = value
             field = value
         }
 

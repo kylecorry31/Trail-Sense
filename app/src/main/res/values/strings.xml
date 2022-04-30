@@ -1181,6 +1181,7 @@
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
     <string name="map_export_error">Unable to export map to the chosen file</string>
+    <string name="second_symbol">s</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
