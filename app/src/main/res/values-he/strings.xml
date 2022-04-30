@@ -10,7 +10,7 @@
     <string name="direction_south">ד</string>
     <string name="direction_north">צ</string>
     <string name="dialog_deny">לא תודה</string>
-    <string name="dialog_grant">הגדרות עדכון</string>
+    <string name="dialog_grant">עדכן הגדרות</string>
     <string name="access_background_location">עדכן הגדרות מיקום</string>
     <string name="copied_to_clipboard_toast">הועתק ללוח</string>
     <string name="tools">כלים</string>
@@ -18,4 +18,28 @@
     <string name="settings">הגדרות</string>
     <string name="weather">מזג האוויר</string>
     <string name="navigation">ניווט</string>
+    <string name="disclaimer_message_title">כתב ויתור</string>
+    <string name="precise_kilometers_format">%s ק\"מ</string>
+    <string name="current_format">%s mA</string>
+    <string name="access_background_location_rationale">Trail Sense משתמש בנתוני מיקום ברקע. הוא משמש לכיול לחץ בגובה פני הים בניטור מזג האוויר ולספק התראות שקיעה מדויקות יותר. [הצג מדיניות פרטיות] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="app_disclaimer_message_title">כתב ויתור / תנאי שירות</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="precise_miles_format">%s מייל</string>
+    <string name="precise_nautical_miles_format">%s ננומטר</string>
+    <string name="charging_slow">טעינה איטית (%s)</string>
+    <string name="discharging_slow">פריקה איטית (%s)</string>
+    <string name="discharging_fast">פריקה מהירה (%s)</string>
+    <string name="precise_feet_format">%s רגל</string>
+    <string name="precise_meters_format">%s מ</string>
+    <string name="degree">%s°</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="kilometers_per_hour_format">%.1f קמ\"ש</string>
+    <string name="miles_per_hour_format">%.1f מייל לשעה</string>
+    <string name="duration_hour_format">%dש</string>
+    <string name="duration_minute_format">%dמ</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="charging_fast">טעינה מהירה (%s)</string>
+    <string name="duration_second_format">%dשנ</string>
+    <string name="dash">-</string>
 </resources>
