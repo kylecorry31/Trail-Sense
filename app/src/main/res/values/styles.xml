@@ -96,17 +96,4 @@
         <item name="colorOnContainer">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="AppTheme.DurationButton">
-        <item name="layout_constraintWidth_default">percent</item>
-        <item name="layout_constraintWidth_percent">0.2</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="layout_constraintDimensionRatio">H,1:1</item>
-        <item name="backgroundTint">?attr/colorSurface</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="iconTint">?attr/colorOnSurface</item>
-        <item name="android:background">@drawable/bubble</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
 </resources>
