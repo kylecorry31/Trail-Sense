@@ -115,7 +115,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             val metal = metalDetectionService.removeGeomagneticField(
                 lowPassMagnetometer.magneticField,
                 calibratedField,
-                orientation
+                null // TODO: Once a better orientation is calculated, use that
             )
             val direction = metalDetectionService.getMetalDirection(
                 metal,
