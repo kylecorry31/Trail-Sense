@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="?attr/colorSurface"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="00h 00m 00s" />
+
+
+    <Button
+        android:id="@+id/duration_1"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration" />
+
+    <Button
+        android:id="@+id/duration_2"
+        style="@style/AppTheme.DurationButton"
+        android:text="2"
+        app:layout_constraintEnd_toStartOf="@id/duration_3"
+        app:layout_constraintStart_toEndOf="@id/duration_1"
+        app:layout_constraintTop_toTopOf="@id/duration_1" />
+
+    <Button
+        android:id="@+id/duration_3"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginEnd="16dp"
+        android:text="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/duration_1" />
+
+    <Button
+        android:id="@+id/duration_4"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration_1" />
+
+    <Button
+        android:id="@+id/duration_5"
+        style="@style/AppTheme.DurationButton"
+        android:text="5"
+        app:layout_constraintEnd_toStartOf="@id/duration_6"
+        app:layout_constraintStart_toEndOf="@id/duration_4"
+        app:layout_constraintTop_toTopOf="@id/duration_4" />
+
+    <Button
+        android:id="@+id/duration_6"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginEnd="16dp"
+        android:text="6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/duration_4" />
+
+    <Button
+        android:id="@+id/duration_7"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration_4" />
+
+    <Button
+        android:id="@+id/duration_8"
+        style="@style/AppTheme.DurationButton"
+        android:text="8"
+        app:layout_constraintEnd_toStartOf="@id/duration_9"
+        app:layout_constraintStart_toEndOf="@id/duration_7"
+        app:layout_constraintTop_toTopOf="@id/duration_7" />
+
+    <Button
+        android:id="@+id/duration_9"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginEnd="16dp"
+        android:text="9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/duration_7" />
+
+    <Button
+        android:id="@+id/duration_00"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration_7" />
+
+    <ImageButton
+        android:id="@+id/duration_delete"
+        style="@style/AppTheme.DurationButton"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/duration_00"
+        app:tint="?attr/colorOnSurface" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
