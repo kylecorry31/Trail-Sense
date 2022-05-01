@@ -1038,4 +1038,5 @@
     <string name="file">Dosya</string>
     <string name="camera_capture">Yakala</string>
     <string name="map_export_error">Harita seçilen dosyaya aktarılamıyor</string>
+    <string name="second_symbol">sn</string>
 </resources>
