@@ -44,6 +44,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.pathsList.emptyView = binding.waypointsEmptyText
+
         sort = prefs.navigation.pathSort
 
         pathService.getLivePaths().observe(viewLifecycleOwner) { paths ->
@@ -141,11 +143,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 handleAction(it, action)
             }
         })
-        if (paths.isEmpty()) {
-            binding.waypointsEmptyText.visibility = View.VISIBLE
-        } else {
-            binding.waypointsEmptyText.visibility = View.INVISIBLE
-        }
     }
 
     private fun onSortChanged() {
