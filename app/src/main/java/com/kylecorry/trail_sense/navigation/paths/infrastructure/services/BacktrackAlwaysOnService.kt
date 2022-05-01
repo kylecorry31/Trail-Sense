@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.services
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.core.coroutines.SingleRunner
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineIntervalService
@@ -28,7 +29,7 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     override val period: Duration
         get() = prefs.backtrackRecordFrequency
 
-    private var inProgress = false
+    private val runner = SingleRunner()
 
     override fun getForegroundNotification(): Notification {
         val openAction = NavigationUtils.pendingIntent(this, R.id.fragmentBacktrack)
@@ -55,15 +56,13 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     }
 
     override suspend fun doWork() {
-        if (!inProgress) {
-            return
-        }
-        inProgress = false
-        backtrackCommand.execute()
-        inProgress = true
+        runner.single({
+            backtrackCommand.execute()
+        })
     }
 
     override fun onDestroy() {
+        runner.cancel()
         stopService(true)
         super.onDestroy()
     }
