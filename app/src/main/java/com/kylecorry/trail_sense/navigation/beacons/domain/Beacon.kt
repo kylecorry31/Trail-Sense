@@ -18,4 +18,5 @@ data class Beacon(
     @ColorInt override val color: Int = Color.BLACK
 ) : IBeacon, IMappableLocation {
     override val isGroup = false
+    override val count: Int? = null
 }

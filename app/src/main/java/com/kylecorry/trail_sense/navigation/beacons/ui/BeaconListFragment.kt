@@ -249,7 +249,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         }
     }
 
-    private suspend fun toListItems(beacons: List<IBeacon>): List<ListItem> {
+    private fun toListItems(beacons: List<IBeacon>): List<ListItem> {
         val items = mutableListOf<ListItem>()
         for (beacon in beacons) {
             if (beacon is Beacon) {
@@ -262,7 +262,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
 
             if (beacon is BeaconGroup) {
-                items.add(beacon.toListItem(requireContext(), beaconService) {
+                items.add(beacon.toListItem(requireContext()) {
                     handleBeaconGroupAction(
                         beacon,
                         it

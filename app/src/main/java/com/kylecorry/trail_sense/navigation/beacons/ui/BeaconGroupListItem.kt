@@ -3,9 +3,7 @@ package com.kylecorry.trail_sense.navigation.beacons.ui
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.lists.ListItem
 import com.kylecorry.trail_sense.shared.lists.ListMenuItem
 import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
@@ -17,17 +15,10 @@ enum class BeaconGroupAction {
     Move
 }
 
-suspend fun BeaconGroup.toListItem(
+fun BeaconGroup.toListItem(
     context: Context,
-    service: BeaconService,
     action: (BeaconGroupAction) -> Unit
 ): ListItem {
-
-
-    val count = onIO {
-        service.getBeaconCount(id)
-    }
-
     return ListItem(
         title = name,
         icon = ResourceListIcon(R.drawable.ic_beacon_group, AppColor.Orange.color),

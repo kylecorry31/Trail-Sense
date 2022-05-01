@@ -9,4 +9,5 @@ data class Path(
     override val parentId: Long? = null
 ) : IPath {
     override val isGroup = false
+    override val count: Int? = null
 }

@@ -56,7 +56,7 @@ class BeaconService(context: Context) : IBeaconService {
 
     override suspend fun getGroup(groupId: Long?): BeaconGroup? {
         groupId ?: return null
-        return repo.getGroup(groupId)?.toBeaconGroup()
+        return repo.getGroup(groupId)?.toBeaconGroup()?.copy(count = getBeaconCount(groupId))
     }
 
     override suspend fun getBeacon(beaconId: Long): Beacon? {
@@ -68,14 +68,14 @@ class BeaconService(context: Context) : IBeaconService {
     }
 
     override suspend fun getGroups(parent: Long?): List<BeaconGroup> {
-        return repo.getGroupsWithParent(parent).map { it.toBeaconGroup() }
+        return repo.getGroupsWithParent(parent).map { it.toBeaconGroup().copy(count = getBeaconCount(it.id)) }
     }
 
     override suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon? {
         return repo.getTemporaryBeacon(owner)?.toBeacon()
     }
 
-    override suspend fun getBeaconCount(groupId: Long?): Int {
+    private suspend fun getBeaconCount(groupId: Long?): Int {
         // TODO: Don't actually fetch the beacons for this
         return getBeacons(groupId, includeGroups = false, maxDepth = null).count()
     }
