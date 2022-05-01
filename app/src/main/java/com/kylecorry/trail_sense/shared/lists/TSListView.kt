@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.lists
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.andromeda.list.ListView
@@ -48,7 +47,7 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
 
     fun setItems(items: List<ListItem>) {
         list.setData(items)
-        emptyView?.isInvisible = items.isNotEmpty()
+        emptyView?.isVisible = items.isEmpty()
     }
 
     init {
