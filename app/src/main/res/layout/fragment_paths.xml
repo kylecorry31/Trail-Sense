@@ -17,8 +17,8 @@
         app:showSubtitle="false"
         app:title="@string/paths" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/waypoints_list"
+    <com.kylecorry.trail_sense.shared.lists.TSListView
+        android:id="@+id/paths_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -36,10 +36,10 @@
         android:text="@string/no_paths"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/waypoints_list"
+        app:layout_constraintBottom_toBottomOf="@+id/paths_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/waypoints_list"
+        app:layout_constraintTop_toTopOf="@+id/paths_list"
         tools:visibility="visible" />
 
     <com.kylecorry.trail_sense.shared.views.PlayBarView

@@ -1,91 +1,69 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.lists.ListItem
+import com.kylecorry.trail_sense.shared.lists.ListMenuItem
+import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
 
-class PathListItem(
-    private val context: Context,
-    private val formatService: FormatService,
-    private val prefs: UserPreferences,
-    private val action: (path: Path, action: PathAction) -> Unit
-) {
-
-    fun display(
-        itemBinding: ListItemPlainIconMenuBinding,
-        item: Path
-    ) {
-        itemBinding.icon.setImageResource(
-            if (!item.style.visible) {
-                R.drawable.ic_not_visible
-            } else when (item.style.line) {
-                LineStyle.Solid -> R.drawable.path_solid
-                LineStyle.Dotted -> R.drawable.path_dotted
-                LineStyle.Arrow -> R.drawable.path_arrow
-                LineStyle.Dashed -> R.drawable.path_dashed
-                LineStyle.Square -> R.drawable.path_square
-                LineStyle.Diamond -> R.drawable.path_diamond
-                LineStyle.Cross -> R.drawable.path_cross
-            }
-        )
-
-        CustomUiUtils.setImageColor(
-            itemBinding.icon,
-            item.style.color
-        )
-
-        val distance =
-            item.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        val nameFactory = PathNameFactory(context)
-        itemBinding.title.text = nameFactory.getName(item)
-        itemBinding.description.text = formatService.formatDistance(
-            distance,
-            Units.getDecimalPlaces(distance.units),
-            false
-        ) + if (item.temporary) {
-            " - " + context.getString(R.string.temporary)
-        } else ""
-        itemBinding.root.setOnClickListener {
-            action(item, PathAction.Show)
-        }
-        itemBinding.menuBtn.setOnClickListener {
-            val actions = listOf(
-                PathAction.Rename,
-                PathAction.Keep,
-                PathAction.ToggleVisibility,
-                PathAction.Export,
-                PathAction.Merge,
-                PathAction.Delete,
-                PathAction.Simplify
-            )
-
-            Pickers.menu(
-                it, listOf(
-                    context.getString(R.string.rename),
-                    if (item.temporary) context.getString(R.string.keep_forever) else null,
-                    if (prefs.navigation.useRadarCompass || prefs.navigation.areMapsEnabled) {
-                        if (item.style.visible) context.getString(R.string.hide) else context.getString(
-                            R.string.show
-                        )
-                    } else null,
-                    context.getString(R.string.export),
-                    context.getString(R.string.merge),
-                    context.getString(R.string.delete),
-                    context.getString(R.string.simplify)
-                )
-            ) {
-                action(item, actions[it])
-                true
-            }
-        }
+fun Path.toListItem(
+    context: Context,
+    action: (action: PathAction) -> Unit
+): ListItem {
+    val prefs = UserPreferences(context)
+    val formatService = FormatService.getInstance(context)
+    val nameFactory = PathNameFactory(context)
+    val distance =
+        metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+    val icon = if (!style.visible) {
+        R.drawable.ic_not_visible
+    } else when (style.line) {
+        LineStyle.Solid -> R.drawable.path_solid
+        LineStyle.Dotted -> R.drawable.path_dotted
+        LineStyle.Arrow -> R.drawable.path_arrow
+        LineStyle.Dashed -> R.drawable.path_dashed
+        LineStyle.Square -> R.drawable.path_square
+        LineStyle.Diamond -> R.drawable.path_diamond
+        LineStyle.Cross -> R.drawable.path_cross
     }
 
+    val menu = listOfNotNull(
+        ListMenuItem(context.getString(R.string.rename)) { action(PathAction.Rename) },
+        if (temporary) ListMenuItem(context.getString(R.string.keep_forever)) {
+            action(PathAction.Keep)
+        } else null,
+        ListMenuItem(if (style.visible) context.getString(R.string.hide) else context.getString(R.string.show)) {
+            action(PathAction.ToggleVisibility)
+        },
+        ListMenuItem(context.getString(R.string.export)) { action(PathAction.Export) },
+        ListMenuItem(context.getString(R.string.merge)) { action(PathAction.Merge) },
+        ListMenuItem(context.getString(R.string.delete)) { action(PathAction.Delete) },
+        ListMenuItem(context.getString(R.string.simplify)) { action(PathAction.Simplify) }
+    )
+
+    val subtitle = formatService.formatDistance(
+        distance,
+        Units.getDecimalPlaces(distance.units),
+        false
+    ) + if (temporary) {
+        " - " + context.getString(R.string.temporary)
+    } else ""
+
+    return ListItem(
+        nameFactory.getName(this),
+        icon = ResourceListIcon(
+            icon,
+            style.color
+        ),
+        subtitle = subtitle,
+        menu = menu
+    ) {
+        action(PathAction.Show)
+    }
 }

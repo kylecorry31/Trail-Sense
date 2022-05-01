@@ -8,18 +8,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
-import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsAvailable
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
@@ -27,7 +24,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val pathService by lazy {
         PathService.getInstance(requireContext())
@@ -44,20 +40,11 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private var paths = emptyList<Path>()
     private var sort = PathSortMethod.MostRecent
 
-    private lateinit var listView: ListView<Path>
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         sort = prefs.navigation.pathSort
-
-        listView =
-            ListView(binding.waypointsList, R.layout.list_item_plain_icon_menu) { itemView, item ->
-                drawPathListItem(ListItemPlainIconMenuBinding.bind(itemView), item)
-            }
-
-        listView.addLineSeparator()
 
         pathService.getLivePaths().observe(viewLifecycleOwner) { paths ->
             onPathsChanged(paths)
@@ -119,13 +106,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun onPathsChanged(paths: List<Path>) {
         this.paths = sortPaths(paths)
-        listView.setData(this.paths)
-
-        if (paths.isEmpty()) {
-            binding.waypointsEmptyText.visibility = View.VISIBLE
-        } else {
-            binding.waypointsEmptyText.visibility = View.INVISIBLE
-        }
+        updateList()
     }
 
     private fun changeSort() {
@@ -154,30 +135,35 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
     }
 
-    private fun onSortChanged() {
-        paths = sortPaths(paths)
-        listView.setData(paths)
+    private fun updateList() {
+        binding.pathsList.setItems(paths.map {
+            it.toListItem(requireContext()) { action ->
+                handleAction(it, action)
+            }
+        })
+        if (paths.isEmpty()) {
+            binding.waypointsEmptyText.visibility = View.VISIBLE
+        } else {
+            binding.waypointsEmptyText.visibility = View.INVISIBLE
+        }
     }
 
-    private fun drawPathListItem(itemBinding: ListItemPlainIconMenuBinding, item: Path) {
-        val itemStrategy =
-            PathListItem(
-                requireContext(),
-                formatService,
-                prefs
-            ) { path, action ->
-                when (action) {
-                    PathAction.Export -> exportPath(path)
-                    PathAction.Delete -> deletePath(path)
-                    PathAction.Merge -> merge(path)
-                    PathAction.Show -> showPath(path)
-                    PathAction.Rename -> renamePath(path)
-                    PathAction.Keep -> keepPath(path)
-                    PathAction.ToggleVisibility -> togglePathVisibility(path)
-                    PathAction.Simplify -> simplifyPath(path)
-                }
-            }
-        itemStrategy.display(itemBinding, item)
+    private fun onSortChanged() {
+        paths = sortPaths(paths)
+        updateList()
+    }
+
+    private fun handleAction(path: Path, action: PathAction) {
+        when (action) {
+            PathAction.Export -> exportPath(path)
+            PathAction.Delete -> deletePath(path)
+            PathAction.Merge -> merge(path)
+            PathAction.Show -> showPath(path)
+            PathAction.Rename -> renamePath(path)
+            PathAction.Keep -> keepPath(path)
+            PathAction.ToggleVisibility -> togglePathVisibility(path)
+            PathAction.Simplify -> simplifyPath(path)
+        }
     }
 
     private fun simplifyPath(path: Path) {
