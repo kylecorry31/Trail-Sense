@@ -379,7 +379,7 @@
     </fragment>
     <fragment
         android:id="@+id/beacon_list"
-        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.BeaconListFragment"
+        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.list.BeaconListFragment"
         android:label="BeaconListFragment">
 
         <argument

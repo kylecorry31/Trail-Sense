@@ -61,8 +61,13 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
     var emptyView: View? = null
 
     fun setItems(items: List<ListItem>) {
+        // TODO: Be smart about how the list gets updated
         list.setData(items)
         emptyView?.isVisible = items.isEmpty()
+    }
+
+    fun <T> setItems(items: List<T>, mapper: ListItemMapper<T>){
+        setItems(items.map { mapper.map(it) })
     }
 
     fun scrollToPosition(position: Int, smooth: Boolean = true){

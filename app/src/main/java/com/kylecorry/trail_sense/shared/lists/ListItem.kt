@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.shared.lists
 
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import com.kylecorry.trail_sense.shared.database.Identifiable
 
 data class ListItem(
+    override val id: Long,
     val title: String,
     val subtitle: String? = null,
     val icon: ListIcon? = null,
@@ -13,7 +15,7 @@ data class ListItem(
     val menu: List<ListMenuItem> = emptyList(),
     val longClickAction: () -> Unit = {},
     val action: () -> Unit = {}
-)
+): Identifiable
 
 data class ListMenuItem(val text: String, val action: () -> Unit)
 

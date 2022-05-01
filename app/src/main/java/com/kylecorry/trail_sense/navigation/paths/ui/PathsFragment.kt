@@ -40,6 +40,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private var paths = emptyList<Path>()
     private var sort = PathSortMethod.MostRecent
 
+    private val listMapper by lazy { PathListItemMapper(requireContext(), this::handleAction) }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -138,11 +140,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private fun updateList() {
-        binding.pathsList.setItems(paths.map {
-            it.toListItem(requireContext()) { action ->
-                handleAction(it, action)
-            }
-        })
+        binding.pathsList.setItems(paths, listMapper)
     }
 
     private fun onSortChanged() {

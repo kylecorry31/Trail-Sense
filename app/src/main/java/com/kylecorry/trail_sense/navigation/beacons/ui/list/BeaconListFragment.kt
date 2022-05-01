@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation.beacons.ui
+package com.kylecorry.trail_sense.navigation.beacons.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,7 +40,6 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.lists.ListItem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -62,8 +61,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val beaconSort by lazy { NearestBeaconSort(distanceFactory, gps::location) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
 
-    private val units by lazy { prefs.baseDistanceUnits }
-    private val showVisibilityToggle by lazy { prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled }
+    private val listMapper by lazy { IBeaconListItemMapper(requireContext(), gps, this::handleBeaconAction, this::handleBeaconGroupAction) }
 
     private var initialLocation: GeoUri? = null
 
@@ -242,35 +240,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             if (!isBound) return@onMain
             binding.beaconTitle.title.text =
                 displayedGroup?.name ?: getString(R.string.beacons)
-            binding.beaconRecycler.setItems(toListItems(beacons))
+            binding.beaconRecycler.setItems(beacons, listMapper)
             if (resetScroll) {
                 binding.beaconRecycler.scrollToPosition(0, false)
             }
         }
-    }
-
-    private fun toListItems(beacons: List<IBeacon>): List<ListItem> {
-        val items = mutableListOf<ListItem>()
-        for (beacon in beacons) {
-            if (beacon is Beacon) {
-                items.add(beacon.toListItem(
-                    requireContext(),
-                    units,
-                    gps.location,
-                    showVisibilityToggle
-                ) { handleBeaconAction(beacon, it) })
-            }
-
-            if (beacon is BeaconGroup) {
-                items.add(beacon.toListItem(requireContext()) {
-                    handleBeaconGroupAction(
-                        beacon,
-                        it
-                    )
-                })
-            }
-        }
-        return items
     }
 
     private fun importBeaconFromQR() {
