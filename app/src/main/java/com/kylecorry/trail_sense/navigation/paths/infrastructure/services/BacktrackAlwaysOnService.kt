@@ -28,6 +28,8 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     override val period: Duration
         get() = prefs.backtrackRecordFrequency
 
+    private var inProgress = false
+
     override fun getForegroundNotification(): Notification {
         val openAction = NavigationUtils.pendingIntent(this, R.id.fragmentBacktrack)
 
@@ -53,7 +55,12 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
     }
 
     override suspend fun doWork() {
+        if (!inProgress) {
+            return
+        }
+        inProgress = false
         backtrackCommand.execute()
+        inProgress = true
     }
 
     override fun onDestroy() {
