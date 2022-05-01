@@ -40,6 +40,19 @@
         tools:srcCompat="@drawable/ic_location" />
 
     <ImageButton
+        android:id="@+id/trailing_icon_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:alpha="0.86"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/menu_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:textColorSecondary" />
+
+    <ImageButton
         android:id="@+id/menu_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"

@@ -145,16 +145,6 @@ class SolarPanelService(
             fn = fn
         )
 
-        println(
-            getSolarRadiationForRemainderOfDay(
-                start,
-                end,
-                location,
-                best.second.toFloat(),
-                Bearing(best.first.toFloat())
-            )
-        )
-
         return Pair(best.second.toFloat(), Bearing(best.first.toFloat()))
     }
 }

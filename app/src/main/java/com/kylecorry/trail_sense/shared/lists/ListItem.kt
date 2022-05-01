@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.lists
 
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
 
 data class ListItem(
     val title: String,
@@ -10,7 +9,9 @@ data class ListItem(
     val icon: ListIcon? = null,
     val trailingText: String? = null,
     val trailingIcon: ListIcon? = null,
+    val trailingIconAction: () -> Unit = {},
     val menu: List<ListMenuItem> = emptyList(),
+    val longClickAction: () -> Unit = {},
     val action: () -> Unit = {}
 )
 

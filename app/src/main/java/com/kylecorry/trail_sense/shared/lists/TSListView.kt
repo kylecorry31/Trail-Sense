@@ -28,6 +28,17 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                     binding.icon.isVisible = false
                 }
             }
+            when (listItem.trailingIcon) {
+                is ResourceListIcon -> {
+                    binding.trailingIconBtn.isVisible = true
+                    binding.trailingIconBtn.setImageResource(listItem.trailingIcon.id)
+                    CustomUiUtils.setImageColor(binding.trailingIconBtn, listItem.trailingIcon.tint)
+                    binding.trailingIconBtn.setOnClickListener { listItem.trailingIconAction() }
+                }
+                else -> {
+                    binding.trailingIconBtn.isVisible = false
+                }
+            }
             if (listItem.menu.isNotEmpty()) {
                 binding.menuBtn.isVisible = true
                 binding.menuBtn.setOnClickListener {
@@ -41,6 +52,10 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
             }
 
             binding.root.setOnClickListener { listItem.action() }
+            binding.root.setOnLongClickListener {
+                listItem.longClickAction()
+                true
+            }
         }
 
     var emptyView: View? = null
@@ -48,6 +63,10 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
     fun setItems(items: List<ListItem>) {
         list.setData(items)
         emptyView?.isVisible = items.isEmpty()
+    }
+
+    fun scrollToPosition(position: Int, smooth: Boolean = true){
+        list.scrollToPosition(position, smooth)
     }
 
     init {

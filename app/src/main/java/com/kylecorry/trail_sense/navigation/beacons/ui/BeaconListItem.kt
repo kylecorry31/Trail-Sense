@@ -1,172 +1,133 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui
 
-import android.content.res.ColorStateList
-import android.view.View
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import android.content.Context
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.ListItemBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.DeleteBeaconCommand
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.MoveBeaconCommand
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.lists.ListIcon
+import com.kylecorry.trail_sense.shared.lists.ListItem
+import com.kylecorry.trail_sense.shared.lists.ListMenuItem
+import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
-import kotlinx.coroutines.launch
 
-class BeaconListItem(
-    private val view: View,
-    private val fragment: Fragment,
-    private val beacon: Beacon,
-    myLocation: Coordinate,
+enum class BeaconAction {
+    View,
+    Edit,
+    Navigate,
+    Delete,
+    Move,
+    ToggleVisibility,
+    Share
+}
+
+fun Beacon.toListItem(
+    context: Context,
     units: DistanceUnits,
-    showVisibilityToggle: Boolean
-) {
+    myLocation: Coordinate,
+    showVisibilityToggle: Boolean,
+    action: (BeaconAction) -> Unit
+): ListItem {
 
-    var onNavigate: () -> Unit = {}
-    var onDeleted: () -> Unit = {}
-    var onMoved: () -> Unit = {}
-    var onEdit: () -> Unit = {}
-    var onView: () -> Unit = {}
+    val hasTrailingIcon = showVisibilityToggle && !temporary
 
-    private val navigationService = NavigationService()
-    private val formatService by lazy { FormatService(view.context) }
-    private val service by lazy { BeaconService(view.context) }
-
-    init {
-        val binding = ListItemBeaconBinding.bind(view)
-
-        binding.beaconName.text = beacon.name
-        if (beacon.owner == BeaconOwner.User) {
-            binding.beaconImage.setImageResource(R.drawable.ic_location)
-            binding.beaconImage.imageTintList = ColorStateList.valueOf(beacon.color)
-        } else if (beacon.owner == BeaconOwner.CellSignal) {
-            when {
-                beacon.name.contains(formatService.formatQuality(Quality.Poor)) -> {
-                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Poor))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
-                        CustomUiUtils.getQualityColor(
-                            Quality.Poor
-                        )
-                    )
-                }
-                beacon.name.contains(formatService.formatQuality(Quality.Moderate)) -> {
-                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Moderate))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
-                        CustomUiUtils.getQualityColor(
-                            Quality.Moderate
-                        )
-                    )
-                }
-                beacon.name.contains(formatService.formatQuality(Quality.Good)) -> {
-                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Good))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
-                        CustomUiUtils.getQualityColor(
-                            Quality.Good
-                        )
-                    )
-                }
-                else -> {
-                    binding.beaconImage.setImageResource(CellSignalUtils.getCellQualityImage(Quality.Unknown))
-                    binding.beaconImage.imageTintList = ColorStateList.valueOf(
-                        CustomUiUtils.getQualityColor(
-                            Quality.Unknown
-                        )
-                    )
-                }
-            }
-        }
-        var beaconVisibility = beacon.visible
-        val distance = navigationService.navigate(beacon.coordinate, myLocation, 0f).distance
-        val d = Distance.meters(distance).convertTo(units).toRelativeDistance()
-        binding.beaconSummary.text =
-            formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
-        binding.visibleBtn.isVisible = showVisibilityToggle && !beacon.temporary
-        if (beaconVisibility) {
-            binding.visibleBtn.setImageResource(R.drawable.ic_visible)
+    return ListItem(
+        title = name,
+        icon = getListIcon(context),
+        subtitle = getSubtitle(context, units, myLocation),
+        trailingIcon = if (hasTrailingIcon) {
+            ResourceListIcon(
+                if (visible) {
+                    R.drawable.ic_visible
+                } else {
+                    R.drawable.ic_not_visible
+                },
+                Resources.androidTextColorSecondary(context)
+            )
         } else {
-            binding.visibleBtn.setImageResource(R.drawable.ic_not_visible)
-        }
-
-        binding.visibleBtn.setOnClickListener {
-            fragment.lifecycleScope.launch {
-                val newBeacon = beacon.copy(visible = !beaconVisibility)
-
-                onIO {
-                    service.add(newBeacon)
-                }
-
-                onMain {
-                    beaconVisibility = newBeacon.visible
-                    if (beaconVisibility) {
-                        binding.visibleBtn.setImageResource(R.drawable.ic_visible)
-                    } else {
-                        binding.visibleBtn.setImageResource(R.drawable.ic_not_visible)
-                    }
-                }
-            }
-        }
-
-        view.setOnClickListener {
-            onView()
-        }
-
-        view.setOnLongClickListener {
-            onNavigate()
-            true
-        }
-
-        binding.beaconMenuBtn.setOnClickListener {
-            Pickers.menu(
-                it,
-                if (beacon.temporary) R.menu.temporary_beacon_item_menu else R.menu.beacon_item_menu
-            ) {
-                when (it) {
-                    R.id.action_navigate_beacon -> {
-                        onNavigate()
-                    }
-                    R.id.action_send -> {
-                        BeaconSender(fragment).send(beacon)
-                    }
-                    R.id.action_move -> {
-                        val command = MoveBeaconCommand(
-                            view.context,
-                            fragment.lifecycleScope,
-                            service,
-                            onMoved
-                        )
-                        command.execute(beacon)
-                    }
-                    R.id.action_edit_beacon -> {
-                        onEdit()
-                    }
-                    R.id.action_delete_beacon -> {
-                        val command = DeleteBeaconCommand(
-                            view.context,
-                            fragment.lifecycleScope,
-                            service,
-                            onDeleted
-                        )
-                        command.execute(beacon)
-                    }
-                }
-                true
-            }
-        }
+            null
+        },
+        trailingIconAction = {
+            action(BeaconAction.ToggleVisibility)
+        },
+        longClickAction = { action(BeaconAction.Navigate) },
+        menu = getMenu(context, action)
+    ) {
+        action(BeaconAction.View)
     }
 
+}
+
+private fun Beacon.getMenu(context: Context, action: (BeaconAction) -> Unit): List<ListMenuItem> {
+    return if (temporary) {
+        listOf(
+            ListMenuItem(context.getString(R.string.navigate)) { action(BeaconAction.Navigate) },
+            ListMenuItem(context.getString(R.string.share_ellipsis)) { action(BeaconAction.Share) },
+        )
+    } else {
+        listOf(
+            ListMenuItem(context.getString(R.string.navigate)) { action(BeaconAction.Navigate) },
+            ListMenuItem(context.getString(R.string.share_ellipsis)) { action(BeaconAction.Share) },
+            ListMenuItem(context.getString(R.string.edit)) { action(BeaconAction.Edit) },
+            ListMenuItem(context.getString(R.string.move_to)) { action(BeaconAction.Move) },
+            ListMenuItem(context.getString(R.string.delete)) { action(BeaconAction.Delete) },
+        )
+    }
+}
+
+private fun Beacon.getSubtitle(
+    context: Context,
+    units: DistanceUnits,
+    myLocation: Coordinate
+): String {
+    val formatService = FormatService.getInstance(context)
+    val navigationService = NavigationService()
+    val distance = navigationService.navigate(coordinate, myLocation, 0f).distance
+    val d = Distance.meters(distance).convertTo(units).toRelativeDistance()
+    return formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
+}
+
+private fun Beacon.getListIcon(context: Context): ListIcon {
+    if (owner == BeaconOwner.User) {
+        return ResourceListIcon(R.drawable.ic_location, color)
+    }
+
+    val formatService = FormatService.getInstance(context)
+
+    // Cell signal is the only other shown beacon owner
+    return when {
+        name.contains(formatService.formatQuality(Quality.Poor)) -> {
+            ResourceListIcon(
+                CellSignalUtils.getCellQualityImage(Quality.Poor),
+                CustomUiUtils.getQualityColor(Quality.Poor)
+            )
+        }
+        name.contains(formatService.formatQuality(Quality.Moderate)) -> {
+            ResourceListIcon(
+                CellSignalUtils.getCellQualityImage(Quality.Moderate),
+                CustomUiUtils.getQualityColor(Quality.Moderate)
+            )
+        }
+        name.contains(formatService.formatQuality(Quality.Good)) -> {
+            ResourceListIcon(
+                CellSignalUtils.getCellQualityImage(Quality.Good),
+                CustomUiUtils.getQualityColor(Quality.Good)
+            )
+        }
+        else -> {
+            ResourceListIcon(
+                CellSignalUtils.getCellQualityImage(Quality.Unknown),
+                CustomUiUtils.getQualityColor(Quality.Unknown)
+            )
+        }
+    }
 }
