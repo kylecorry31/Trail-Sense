@@ -40,9 +40,10 @@ class DataPointView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         setImageResource(if (icon == -1) null else icon)
         title = a.getString(R.styleable.DataPointView_dataPointText) ?: ""
         description = a.getString(R.styleable.DataPointView_dataPointDescription) ?: ""
-        binding.root.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).also {
-            it.gravity = a.getInt(R.styleable.DataPointView_android_gravity, Gravity.START)
-        }
+        binding.root.layoutParams =
+            LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).also {
+                it.gravity = a.getInt(R.styleable.DataPointView_android_gravity, Gravity.START)
+            }
         a.recycle()
     }
 
@@ -60,6 +61,14 @@ class DataPointView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
 
     fun setShowDescription(showDescription: Boolean) {
         binding.dataPointDesc.isVisible = showDescription
+    }
+
+    fun setOnDescriptionClickListener(listener: (() -> Unit)?) {
+        if (listener != null) {
+            binding.dataPointDesc.setOnClickListener { listener() }
+        } else {
+            binding.dataPointDesc.setOnClickListener(null)
+        }
     }
 
 }

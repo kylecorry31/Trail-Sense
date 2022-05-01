@@ -150,14 +150,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             false
         )
 
-        val enabled = prefs.pedometer.isEnabled
-        binding.pedometerPlayBar.setState(enabled)
-        binding.pedometerPlayBar.subtitle = if (enabled) {
-            getString(R.string.on)
-        } else {
-            getString(R.string.off)
-        }
-
+        binding.pedometerPlayBar.setState(prefs.pedometer.isEnabled)
         updateAverageSpeed()
         updateCurrentSpeed()
     }

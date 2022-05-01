@@ -79,7 +79,10 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             }
         }
 
-        binding.backtrackPlayBar.setState(isBacktrackRunning)
+        binding.backtrackPlayBar.setState(isBacktrackRunning, prefs.backtrackRecordFrequency)
+        binding.backtrackPlayBar.setOnSubtitleClickListener {
+            ChangeBacktrackFrequencyCommand(requireContext()) { onUpdate() }.execute()
+        }
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
             if (!BacktrackIsAvailable().isSatisfiedBy(requireContext())) {
@@ -101,13 +104,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     override fun onUpdate() {
-        val backtrackEnabled = isBacktrackRunning
-        binding.backtrackPlayBar.setState(backtrackEnabled)
-        binding.backtrackPlayBar.subtitle = if (backtrackEnabled) {
-            getString(R.string.on)
-        } else {
-            getString(R.string.off)
-        }
+        binding.backtrackPlayBar.setState(isBacktrackRunning, prefs.backtrackRecordFrequency)
     }
 
     override fun generateBinding(

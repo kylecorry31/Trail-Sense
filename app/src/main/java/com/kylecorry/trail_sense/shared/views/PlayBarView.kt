@@ -7,6 +7,8 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewPlayBarBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import java.time.Duration
 
 class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -21,8 +23,13 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     var subtitle: String
         get() = binding.playBarTitle.description
         set(value) {
+            useDefaultSubtitle = false
             binding.playBarTitle.description = value
         }
+
+    private val formatter = FormatService.getInstance(context)
+
+    private var useDefaultSubtitle: Boolean = true
 
     init {
         inflate(context, R.layout.view_play_bar, this)
@@ -31,7 +38,10 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         val icon = a.getResourceId(R.styleable.PlayBarView_playBarIcon, -1)
         setImageResource(if (icon == -1) null else icon)
         title = a.getString(R.styleable.PlayBarView_playBarTitle) ?: ""
-        subtitle = a.getString(R.styleable.PlayBarView_playBarSubtitle) ?: ""
+        val subtitleText = a.getString(R.styleable.PlayBarView_playBarSubtitle) ?: ""
+        if (subtitleText.isNotEmpty()) {
+            subtitle = subtitleText
+        }
         a.recycle()
         setState(false)
     }
@@ -44,12 +54,29 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         binding.playBarTitle.setShowDescription(showSubtitle)
     }
 
-    fun setState(isOn: Boolean) {
+    fun setState(isOn: Boolean, frequency: Duration? = null) {
         binding.playBtn.setImageResource(if (isOn) R.drawable.ic_baseline_stop_24 else R.drawable.ic_baseline_play_arrow_24)
+        if (useDefaultSubtitle) {
+            binding.playBarTitle.description = if (isOn) {
+                context.getString(R.string.on)
+            } else {
+                context.getString(R.string.off)
+            } + (frequency?.let {
+                " ${context.getString(R.string.dash)} ${formatter.formatDuration(
+                    frequency,
+                    short = true,
+                    includeSeconds = true
+                )}"
+            } ?: "")
+        }
         CustomUiUtils.setButtonState(binding.playBtn, true)
     }
 
-    fun setOnPlayButtonClickListener(action: () -> Unit){
+    fun setOnSubtitleClickListener(action: (() -> Unit)?) {
+        binding.playBarTitle.setOnDescriptionClickListener(action)
+    }
+
+    fun setOnPlayButtonClickListener(action: () -> Unit) {
         binding.playBtn.setOnClickListener { action() }
     }
 

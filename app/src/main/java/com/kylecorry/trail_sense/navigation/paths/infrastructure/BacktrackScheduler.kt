@@ -10,6 +10,15 @@ import kotlinx.coroutines.runBlocking
 import java.time.Duration
 
 object BacktrackScheduler {
+
+    fun restart(context: Context) {
+        val prefs = UserPreferences(context)
+        if (prefs.backtrackEnabled) {
+            stop(context)
+            start(context, false)
+        }
+    }
+
     fun start(context: Context, startNewPath: Boolean) {
         val prefs = UserPreferences(context)
 

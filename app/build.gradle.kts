@@ -57,7 +57,7 @@ android {
 
 dependencies {
     kapt("androidx.room:room-compiler:2.4.2")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")

@@ -5,13 +5,13 @@ import android.text.InputType
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -38,14 +38,6 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         prefLeftQuickAction = list(R.string.pref_navigation_quick_action_left)
         prefRightQuickAction = list(R.string.pref_navigation_quick_action_right)
     }
-
-    private fun restartBacktrack() {
-        if (prefs.backtrackEnabled) {
-            BacktrackScheduler.stop(requireContext())
-            BacktrackScheduler.start(requireContext(), false)
-        }
-    }
-
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.navigation_preferences, rootKey)
@@ -81,31 +73,10 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             formatService.formatDuration(prefs.backtrackRecordFrequency, includeSeconds = true)
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
-            val title = it.title.toString()
-            CustomUiUtils.pickDuration(
-                requireContext(),
-                prefs.backtrackRecordFrequency,
-                title,
-                getString(R.string.actual_frequency_disclaimer),
-                showSeconds = true
-            ) {
-                if (it != null && !it.isZero) {
-                    prefs.backtrackRecordFrequency = it
-                    prefBacktrackInterval.summary =
-                        formatService.formatDuration(it, includeSeconds = true)
-                    restartBacktrack()
-
-                    if (it < Duration.ofMinutes(15)) {
-                        Alerts.dialog(
-                            requireContext(),
-                            getString(R.string.battery_warning),
-                            getString(R.string.backtrack_battery_warning),
-                            cancelText = null
-                        )
-                    }
-
-                }
-            }
+            ChangeBacktrackFrequencyCommand(requireContext()) {
+                prefBacktrackInterval.summary =
+                    formatService.formatDuration(it, includeSeconds = true)
+            }.execute()
             true
         }
 
