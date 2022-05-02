@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -31,6 +32,13 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                     binding.icon.isVisible = true
                     binding.icon.setImageResource(listItem.icon.id)
                     CustomUiUtils.setImageColor(binding.icon, listItem.icon.tint)
+                }
+                is AsyncBitmapListIcon -> {
+                    binding.icon.isVisible = true
+                    findViewTreeLifecycleOwner()?.let {
+                        CustomUiUtils.setImageColor(binding.icon, null)
+                        binding.icon.setImageBitmap(it, listItem.icon.provider)
+                    }
                 }
                 else -> {
                     binding.icon.isVisible = false
