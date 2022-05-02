@@ -53,7 +53,7 @@ class BeaconListItemMapper(
             id,
             title = name,
             icon = getListIcon(context),
-            subtitle = getSubtitle(context, units, myLocation),
+            description = getDescription(context, units, myLocation),
             trailingIcon = if (hasTrailingIcon) {
                 ResourceListIcon(
                     if (visible) {
@@ -97,7 +97,7 @@ class BeaconListItemMapper(
         }
     }
 
-    private fun Beacon.getSubtitle(
+    private fun Beacon.getDescription(
         context: Context,
         units: DistanceUnits,
         myLocation: Coordinate

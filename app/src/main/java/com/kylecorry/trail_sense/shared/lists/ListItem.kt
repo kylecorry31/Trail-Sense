@@ -8,6 +8,7 @@ data class ListItem(
     override val id: Long,
     val title: String,
     val subtitle: String? = null,
+    val description: String? = null,
     val icon: ListIcon? = null,
     val trailingText: String? = null,
     val trailingIcon: ListIcon? = null,

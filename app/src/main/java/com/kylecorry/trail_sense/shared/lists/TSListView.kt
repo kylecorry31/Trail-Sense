@@ -16,8 +16,16 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
         ListView(this, R.layout.list_item_plain_icon_menu) { view: View, listItem: ListItem ->
             val binding = ListItemPlainIconMenuBinding.bind(view)
             binding.title.text = listItem.title
-            binding.description.text = listItem.subtitle
-            binding.description.isVisible = listItem.subtitle != null
+            binding.centeredTitle.text = listItem.title
+            binding.subtitle.text = listItem.subtitle
+            binding.subtitle.isVisible = listItem.subtitle != null
+            binding.description.text = listItem.description
+            binding.description.isVisible = listItem.description != null
+            binding.title.isVisible = listItem.description != null || listItem.subtitle != null
+            binding.centeredTitle.isVisible =
+                listItem.description == null && listItem.subtitle == null
+            binding.trailingText.isVisible = listItem.trailingText != null
+            binding.trailingText.text = listItem.trailingText
             when (listItem.icon) {
                 is ResourceListIcon -> {
                     binding.icon.isVisible = true
@@ -66,11 +74,11 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
         emptyView?.isVisible = items.isEmpty()
     }
 
-    fun <T> setItems(items: List<T>, mapper: ListItemMapper<T>){
+    fun <T> setItems(items: List<T>, mapper: ListItemMapper<T>) {
         setItems(items.map { mapper.map(it) })
     }
 
-    fun scrollToPosition(position: Int, smooth: Boolean = true){
+    fun scrollToPosition(position: Int, smooth: Boolean = true) {
         list.scrollToPosition(position, smooth)
     }
 

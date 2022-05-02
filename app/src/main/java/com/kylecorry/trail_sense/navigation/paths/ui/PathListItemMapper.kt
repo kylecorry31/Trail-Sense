@@ -60,13 +60,11 @@ class PathListItemMapper(
             ListMenuItem(context.getString(R.string.simplify)) { action(PathAction.Simplify) }
         )
 
-        val subtitle = formatService.formatDistance(
+        val description = formatService.formatDistance(
             distance,
             Units.getDecimalPlaces(distance.units),
             false
-        ) + if (temporary) {
-            " - " + context.getString(R.string.temporary)
-        } else ""
+        )
 
         return ListItem(
             id,
@@ -75,7 +73,8 @@ class PathListItemMapper(
                 icon,
                 style.color
             ),
-            subtitle = subtitle,
+            description = description,
+            subtitle = if (temporary) context.getString(R.string.temporary) else null,
             menu = menu
         ) {
             action(PathAction.Show)
