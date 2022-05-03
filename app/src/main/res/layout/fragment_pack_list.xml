@@ -15,13 +15,12 @@
         app:showSubtitle="false"
         app:title="@string/packing_lists" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.kylecorry.trail_sense.shared.lists.TSListView
         android:id="@+id/pack_list"
+        style="@style/AppTheme.ListViewWithFab"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:paddingBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:contentDescription="@string/add"
         android:focusable="true"
@@ -47,9 +46,9 @@
         android:text="@string/no_packing_lists"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/pack_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pack_list"
-        app:layout_constraintBottom_toBottomOf="@id/pack_list"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

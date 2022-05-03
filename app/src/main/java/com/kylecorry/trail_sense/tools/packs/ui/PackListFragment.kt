@@ -12,13 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
-import com.kylecorry.trail_sense.databinding.ListItemPackBinding
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackAction
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackListItemMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,7 +27,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
 
     private val packRepo by lazy { PackRepo.getInstance(requireContext()) }
     private lateinit var packs: LiveData<List<Pack>>
-    private lateinit var listView: ListView<Pack>
+    private val listMapper by lazy { PackListItemMapper(requireContext(), this::handlePackAction) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,37 +41,22 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
         return FragmentPackListBinding.inflate(layoutInflater, container, false)
     }
 
+    private fun handlePackAction(pack: Pack, action: PackAction) {
+        when (action) {
+            PackAction.Rename -> renamePack(pack)
+            PackAction.Copy -> copyPack(pack)
+            PackAction.Delete -> deletePack(pack)
+            PackAction.Open -> openPack(pack.id)
+        }
+    }
+
     private fun loadPacks() {
         packs = packRepo.getPacks()
-        listView = ListView(binding.packList, R.layout.list_item_pack) { itemView, pack ->
-            val packBinding = ListItemPackBinding.bind(itemView)
-            packBinding.name.text = pack.name
-            packBinding.packMenuItem.setOnClickListener {
-                Pickers.menu(it, R.menu.pack_item_menu) { id ->
-                    when (id) {
-                        R.id.action_pack_rename -> {
-                            renamePack(pack)
-                        }
-                        R.id.action_pack_copy -> {
-                            copyPack(pack)
-                        }
-                        R.id.action_pack_delete -> {
-                            deletePack(pack)
-                        }
-                    }
-                    true
-                }
-            }
-            packBinding.root.setOnClickListener {
-                openPack(pack.id)
-            }
-        }
-
-        listView.addLineSeparator()
+        binding.packList.emptyView = binding.emptyText
 
         packs.observe(viewLifecycleOwner) {
             binding.emptyText.isVisible = it.isEmpty()
-            listView.setData(it.sortedWith(compareBy { -it.id }))
+            binding.packList.setItems(it.sortedWith(compareBy { -it.id }), listMapper)
         }
 
         binding.addBtn.setOnClickListener { createPack() }

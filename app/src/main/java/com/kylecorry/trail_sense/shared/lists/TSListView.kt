@@ -59,7 +59,6 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 binding.tag.isVisible = false
             }
 
-            binding.title.isVisible = listItem.description != null || listItem.subtitle != null
             binding.trailingText.isVisible = listItem.trailingText != null
             binding.trailingText.text = listItem.trailingText
             when (listItem.icon) {
