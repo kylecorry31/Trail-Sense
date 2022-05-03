@@ -926,4 +926,10 @@
     <string name="temp_f_short">°F</string>
     <string name="soon">Em breve</string>
     <string name="saving">A guardar</string>
+    <string name="move_to">Mover para</string>
+    <string name="square">Quadrado</string>
+    <string name="cross">Cruz</string>
+    <string name="diamond">Diamante</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Bloquear com os botões de volume</string>
+    <string name="height">Altura</string>
 </resources>
