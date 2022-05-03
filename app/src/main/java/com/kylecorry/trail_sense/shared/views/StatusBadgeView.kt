@@ -13,11 +13,11 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 
-class StatusBadgeView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
+class StatusBadgeView(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
-    private lateinit var background: LinearLayout
-    private lateinit var statusText: TextView
-    private lateinit var statusImage: ImageView
+    private var background: LinearLayout
+    var statusText: TextView
+    var statusImage: ImageView
 
     @ColorInt
     private var backgroundTint: Int = Color.WHITE
@@ -26,7 +26,7 @@ class StatusBadgeView(context: Context?, attrs: AttributeSet?) : LinearLayout(co
     private var foregroundTint: Int = Color.BLACK
 
     init {
-        context?.let {
+        context.let {
             inflate(it, R.layout.view_status_badge, this)
             background = findViewById(R.id.status_view)
             statusText = findViewById(R.id.status_text)

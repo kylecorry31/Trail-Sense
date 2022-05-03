@@ -11,6 +11,7 @@ data class ListItem(
     val subtitle: String? = null,
     val description: String? = null,
     val icon: ListIcon? = null,
+    val tag: ListItemTag? = null,
     val trailingText: String? = null,
     val trailingIcon: ListIcon? = null,
     val trailingIconAction: () -> Unit = {},
@@ -20,6 +21,8 @@ data class ListItem(
 ) : Identifiable
 
 data class ListMenuItem(val text: String, val action: () -> Unit)
+
+data class ListItemTag(val text: String, val icon: ListIcon?, @ColorInt val color: Int)
 
 interface ListIcon
 

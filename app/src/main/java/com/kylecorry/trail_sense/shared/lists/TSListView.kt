@@ -1,8 +1,7 @@
 package com.kylecorry.trail_sense.shared.lists
 
 import android.content.Context
-import android.graphics.Typeface
-import android.text.style.StyleSpan
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.text.bold
@@ -15,10 +14,9 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.colors.ColorUtils
 
 class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
-
-    private val bold = StyleSpan(Typeface.BOLD)
 
     private val list =
         ListView(this, R.layout.list_item_plain_icon_menu) { view: View, listItem: ListItem ->
@@ -38,6 +36,27 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 binding.description.isVisible = true
             } else {
                 binding.description.isVisible = false
+            }
+
+            if (listItem.tag != null) {
+                binding.tag.isVisible = true
+                val foregroundColor =
+                    ColorUtils.mostContrastingColor(Color.WHITE, Color.BLACK, listItem.tag.color)
+                when (listItem.tag.icon) {
+                    is ResourceListIcon -> {
+                        binding.tag.statusImage.isVisible = true
+                        binding.tag.statusImage.setImageResource(listItem.tag.icon.id)
+                        CustomUiUtils.setImageColor(binding.tag.statusImage, foregroundColor)
+                    }
+                    else -> {
+                        binding.tag.statusImage.isVisible = false
+                    }
+                }
+                binding.tag.setStatusText(listItem.tag.text)
+                binding.tag.statusText.setTextColor(foregroundColor)
+                binding.tag.setBackgroundTint(listItem.tag.color)
+            } else {
+                binding.tag.isVisible = false
             }
 
             binding.title.isVisible = listItem.description != null || listItem.subtitle != null

@@ -4,7 +4,7 @@
     android:id="@+id/status_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_rectangle"
+    android:background="@drawable/rounded_rectangle_small"
     android:backgroundTint="@color/green"
     android:gravity="center_horizontal"
     android:orientation="horizontal"
