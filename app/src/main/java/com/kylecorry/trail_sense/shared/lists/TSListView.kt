@@ -23,6 +23,14 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
             val binding = ListItemPlainIconMenuBinding.bind(view)
             binding.title.text = listItem.title
 
+            if (listItem.checkbox != null){
+                binding.checkbox.isChecked = listItem.checkbox.checked
+                binding.checkbox.setOnClickListener { listItem.checkbox.onClick() }
+                binding.checkbox.isVisible = true
+            } else {
+                binding.checkbox.isVisible = false
+            }
+
             if (listItem.subtitle != null || listItem.description != null) {
                 binding.description.text = buildSpannedString {
                     listItem.subtitle?.let {

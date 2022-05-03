@@ -11,6 +11,7 @@ data class ListItem(
     val subtitle: String? = null,
     val description: String? = null,
     val icon: ListIcon? = null,
+    val checkbox: ListItemCheckbox? = null,
     val tag: ListItemTag? = null,
     val trailingText: String? = null,
     val trailingIcon: ListIcon? = null,
@@ -23,6 +24,8 @@ data class ListItem(
 data class ListMenuItem(val text: String, val action: () -> Unit)
 
 data class ListItemTag(val text: String, val icon: ListIcon?, @ColorInt val color: Int)
+
+data class ListItemCheckbox(val checked: Boolean, val onClick: () -> Unit)
 
 interface ListIcon
 

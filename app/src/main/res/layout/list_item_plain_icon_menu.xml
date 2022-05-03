@@ -10,6 +10,14 @@
     app:flexDirection="row"
     app:flow_horizontalGap="16dp">
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <com.kylecorry.trail_sense.shared.views.AsyncImageView
         android:id="@+id/icon"
         android:layout_width="24dp"
