@@ -1027,4 +1027,5 @@
     <string name="camera_capture">拍摄</string>
     <string name="file">文件</string>
     <string name="map_export_error">无法将地图导出到所选文件</string>
+    <string name="second_symbol">秒</string>
 </resources>

@@ -160,10 +160,10 @@
     <string name="pref_auto_location_title">Automatické nastavení polohy</string>
     <string name="compass_accuracy_improved">Přesnost kompasu se zlepšila na %s</string>
     <string name="compass_reported_accuracy">Uváděná přesnost: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo všemi směry a po dokončení klepněte na tlačítko %s.
+    <string name="calibrate_compass_on_navigate_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo do všech směrů a po dokončení klikněte na tlačítko %s.
 \n
 \nToto upozornění lze vypnout v nastavení aplikace.</string>
-    <string name="calibrate_compass_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo všemi směry a po dokončení klepněte na tlačítko %s.</string>
+    <string name="calibrate_compass_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo do všech směrů a po dokončení klepněte na tlačítko %s.</string>
     <string name="pref_auto_declination_summary">Na základě vaší aktuální polohy</string>
     <string name="declination_override_updated_toast">Přepsání deklinace aktualizováno</string>
     <string name="compass_azimuth">Azimut</string>
@@ -332,7 +332,7 @@
     <string name="gps_stale">Zastaralá data</string>
     <string name="contents">Obsah</string>
     <string name="export">Exportovat</string>
-    <string name="help">Nápověda</string>
+    <string name="help">Pomoc</string>
     <string name="category_medical">Léky</string>
     <string name="water_boil_timer_title">Voda se vaří</string>
     <string name="water_boil_timer_done_title">Voda se dovařila</string>
@@ -446,7 +446,7 @@
     <string name="clock_waiting_for_gps">Aktualizace času z GPS…</string>
     <string name="one">1</string>
     <string name="tool_battery_title">Baterie</string>
-    <string name="battery_health_cold">Chladno</string>
+    <string name="battery_health_cold">Chladná</string>
     <string name="beacon_1">Maják 1</string>
     <string name="beacon_2">Maják 2</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -548,7 +548,7 @@
     <string name="no_tides">Žádné přílivy ani odlivy</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="precise_inches_format">%s palců</string>
-    <string name="battery_health_dead">Mrtvá</string>
+    <string name="battery_health_dead">Vybitá</string>
     <string name="battery_health_overheat">Přehřívající se</string>
     <string name="battery_health_over_voltage">Přepětí</string>
     <string name="battery_health">Zdraví: %s</string>
@@ -606,4 +606,45 @@
     <string name="actual_frequency_disclaimer">Skutečná frekvence se může lišit, protože některá zařízení mají nastavené limity na pozadí.</string>
     <string name="rename">Přejmenovat</string>
     <string name="pref_nearby_radar_title">Zobrazit radarový kompas v okolí</string>
+    <string name="last_signal_beacon_name">Poslední signál - %s (%s)</string>
+    <string name="pref_show_last_signal_beacon_title">Maják posledního signálu</string>
+    <string name="pref_show_last_signal_beacon_summary">Vytvoří maják pro poslední lokaci signálu</string>
+    <string name="noon">Poledne</string>
+    <string name="pref_show_astronomical_times_title">Astronomické časy</string>
+    <string name="pref_show_civil_times_title">Civilní časy</string>
+    <string name="whistle_signal_where_are_you">Kde jste\?</string>
+    <string name="whistle_signal_acknowledged">Potvrzený</string>
+    <string name="dawn_type">Svítání (%s)</string>
+    <string name="preview">Náhled</string>
+    <string name="activity_recognition_permission_denied">Povolení k fyzické aktivitě zamítnuto, nelze zapnout funkce krokoměru. Můžete je povolit v nastavení.</string>
+    <string name="pref_show_civil_times_summary">Svítání a soumrak</string>
+    <string name="whistle_signal_come_here">Pojďte sem</string>
+    <string name="dusk_type">Soumrak (%s)</string>
+    <string name="pref_barometer_info_summary">Tlak se může lišit od tlaku okolních stanic</string>
+    <string name="pref_nmea_altitude_title">Kompenzace nadmořské výšky NMEA</string>
+    <string name="pref_nmea_altitude_summary">Používá kompenzace NMEA pro převod nadmořské výšky</string>
+    <string name="pref_barometer_pressure_smoothing_title">Vyhlazení tlaku</string>
+    <string name="pref_barometer_altitude_smoothing_title">Vyhlazení nadmořské výšky</string>
+    <string name="pref_barometer_altitude_outlier_title">Odstranění odlehlých výškových hodnot</string>
+    <string name="delete_map">Smazat mapu\?</string>
+    <string name="convert">Převést</string>
+    <string name="distance">Vzdálenost</string>
+    <string name="move">Přesunout</string>
+    <string name="move_to">Přesunout do</string>
+    <string name="moved_to">Přesunuto do %s</string>
+    <string name="map_rotate_instructions">Otáčejte, dokud sever neukazuje nahoru</string>
+    <string name="pref_flashlight_toggle_with_system_title">Přepínat se systémem</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Zobrazí upozornění, když je svítilna zapnutá mimo aplikaci Trail Sense</string>
+    <string name="humidity_history">Historie vlhkosti - poslední %s</string>
+    <string name="temperature_history">Historie teploty - poslední %s</string>
+    <string name="no_groups">Žádné skupiny</string>
+    <string name="weather_monitor">Monitor počasí</string>
+    <string name="coordinates_tab">Souřadnice</string>
+    <string name="pref_navigation_lock_screen_presence_title">Zobrazit na uzamčené obrazovce při navigaci</string>
+    <string name="for_sunrise_and_set">Pro východ a západ slunce</string>
+    <string name="pref_show_nautical_times_title">Námořní časy</string>
+    <string name="pref_show_noon_summary">Sluneční a měsíční poledne</string>
+    <string name="battery_history">Historie baterie - poslední %s</string>
+    <string name="fields">Pole</string>
+    <string name="map_perspective_instructions">Načrtněte mapu</string>
 </resources>
