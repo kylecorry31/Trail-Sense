@@ -1,0 +1,92 @@
+package com.kylecorry.trail_sense.tools.packs.ui.mappers
+
+import android.content.Context
+import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.lists.*
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
+
+enum class PackItemAction {
+    Check,
+    Add,
+    Subtract,
+    Edit,
+    Delete
+}
+
+
+class PackItemListItemMapper(
+    private val context: Context,
+    private val actionHandler: (PackItem, PackItemAction) -> Unit
+) : ListItemMapper<PackItem> {
+
+    private val categoryTextMapper = ItemCategoryStringMapper(context)
+    private val imgMapper = ItemCategoryIconMapper()
+    private val colorMapper = ItemCategoryColorMapper()
+    private val formatService = FormatService(context)
+
+    override fun map(value: PackItem): ListItem {
+        val currentAmount = formatAmount(value.amount)
+        val description = if (value.desiredAmount != 0.0) {
+            "$currentAmount / ${formatAmount(value.desiredAmount)}"
+        } else {
+            currentAmount
+        }
+        val tag = ListItemTag(
+            categoryTextMapper.getString(value.category),
+            ResourceListIcon(imgMapper.getIcon(value.category)),
+            colorMapper.map(value.category).color
+        )
+
+        val subtitle = value.weight?.let { formatService.formatWeight(value.packedWeight!!) }
+
+        val menu = listOf(
+            ListMenuItem(context.getString(R.string.add)) {
+                actionHandler(
+                    value,
+                    PackItemAction.Add
+                )
+            },
+            ListMenuItem(context.getString(R.string.subtract)) {
+                actionHandler(
+                    value,
+                    PackItemAction.Subtract
+                )
+            },
+            ListMenuItem(context.getString(R.string.edit)) {
+                actionHandler(
+                    value,
+                    PackItemAction.Edit
+                )
+            },
+            ListMenuItem(context.getString(R.string.delete)) {
+                actionHandler(
+                    value,
+                    PackItemAction.Delete
+                )
+            },
+        )
+
+        return ListItem(
+            value.id,
+            value.name,
+            description = description,
+            subtitle = subtitle,
+            tag = tag,
+            checkbox = ListItemCheckbox(value.isFullyPacked) {
+                actionHandler(
+                    value,
+                    PackItemAction.Check
+                )
+            },
+            menu = menu
+        ) {
+            actionHandler(value, PackItemAction.Edit)
+        }
+    }
+
+    private fun formatAmount(amount: Double): String {
+        return DecimalFormatter.format(amount, 4, false)
+    }
+}

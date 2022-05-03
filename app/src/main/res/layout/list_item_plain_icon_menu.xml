@@ -12,8 +12,8 @@
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/checkbox"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:visibility="gone"
         tools:visibility="visible" />
@@ -73,9 +73,10 @@
         android:id="@+id/trailing_icon_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
         android:alpha="0.86"
         android:background="@android:color/transparent"
-        android:padding="24dp"
+        android:padding="12dp"
         android:visibility="gone"
         app:tint="?android:textColorSecondary"
         tools:srcCompat="@drawable/ic_visible"
@@ -85,10 +86,11 @@
         android:id="@+id/menu_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
         android:alpha="0.86"
         android:background="@android:color/transparent"
         android:contentDescription="@string/menu"
-        android:padding="24dp"
+        android:padding="12dp"
         app:srcCompat="@drawable/ic_menu_dots"
         app:tint="?android:textColorSecondary" />
 

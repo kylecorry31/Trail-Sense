@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -55,7 +54,6 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
         binding.packList.emptyView = binding.emptyText
 
         packs.observe(viewLifecycleOwner) {
-            binding.emptyText.isVisible = it.isEmpty()
             binding.packList.setItems(it.sortedWith(compareBy { -it.id }), listMapper)
         }
 

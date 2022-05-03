@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.packs.ui
 
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +11,11 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
-import com.kylecorry.trail_sense.databinding.ListItemPackItemBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.flatten
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.domain.PackService
@@ -28,9 +23,8 @@ import com.kylecorry.trail_sense.tools.packs.domain.sort.CategoryPackItemSort
 import com.kylecorry.trail_sense.tools.packs.domain.sort.PackedPercentPackItemSort
 import com.kylecorry.trail_sense.tools.packs.domain.sort.WeightPackItemSort
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
-import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryColorMapper
-import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryIconMapper
-import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemAction
+import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemListItemMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
@@ -45,7 +39,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private var items: List<PackItem> = listOf()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private lateinit var listView: ListView<PackItem>
+    private val listMapper by lazy { PackItemListItemMapper(requireContext(), this::handleAction) }
 
     private var pack: Pack? = null
     private var packId: Long = 0L
@@ -77,92 +71,9 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private fun setupUI() {
         binding.inventoryListTitle.title.text = pack?.name
-        listView = ListView(binding.inventoryList, R.layout.list_item_pack_item) { itemView, item ->
-            val itemBinding = ListItemPackItemBinding.bind(itemView)
-            itemBinding.name.text = item.name
-
-            val currentAmount = formatAmount(item.amount)
-            itemBinding.count.text = if (item.desiredAmount != 0.0) {
-                "$currentAmount / ${formatAmount(item.desiredAmount)}"
-            } else {
-                currentAmount
-            }
-
-            val categoryTextMapper = ItemCategoryStringMapper(requireContext())
-            val imgMapper = ItemCategoryIconMapper()
-            val colorMapper = ItemCategoryColorMapper()
-
-
-            itemBinding.itemCategory.text = categoryTextMapper.getString(item.category)
-            itemBinding.itemCategoryImg.setImageResource(imgMapper.getIcon(item.category))
-            val categoryColor = colorMapper.map(item.category).color
-            itemBinding.itemCategory.setTextColor(categoryColor)
-            itemBinding.itemCategoryImg.colorFilter =
-                PorterDuffColorFilter(categoryColor, PorterDuff.Mode.SRC_IN)
-
-            if (item.weight != null) {
-                itemBinding.weight.isVisible = true
-                itemBinding.weightImg.isVisible = true
-                itemBinding.weight.text = formatService.formatWeight(item.packedWeight!!)
-            } else {
-                itemBinding.weight.isVisible = false
-                itemBinding.weightImg.isVisible = false
-            }
-
-            itemBinding.itemCheckbox.isChecked = item.isFullyPacked
-
-            itemBinding.itemCheckbox.setOnClickListener {
-                onItemCheckboxClicked(item)
-            }
-
-            itemBinding.itemMenuBtn.setOnClickListener {
-                Pickers.menu(itemBinding.itemMenuBtn, R.menu.inventory_item_menu) {
-                    when (it) {
-                        R.id.action_item_add -> {
-                            Pickers.number(
-                                requireContext(),
-                                getString(R.string.add),
-                                null,
-                                null,
-                                allowNegative = false,
-                                hint = getString(R.string.dialog_item_amount)
-                            ) {
-                                if (it != null) {
-                                    addAmount(item, it.toDouble())
-                                }
-                            }
-                        }
-                        R.id.action_item_subtract -> {
-                            Pickers.number(
-                                requireContext(),
-                                getString(R.string.subtract),
-                                null,
-                                null,
-                                allowNegative = false,
-                                hint = getString(R.string.dialog_item_amount)
-                            ) {
-                                if (it != null) {
-                                    addAmount(item, -it.toDouble())
-                                }
-                            }
-                        }
-                        R.id.action_item_edit -> {
-                            editItem(item)
-                        }
-                        R.id.action_item_delete -> {
-                            deleteItem(item)
-                        }
-                    }
-                    true
-                }
-            }
-        }
-
-        listView.addLineSeparator()
-
+        binding.inventoryList.emptyView = binding.inventoryEmptyText
         itemsLiveData.observe(viewLifecycleOwner) { items ->
             this.items = items
-            binding.inventoryEmptyText.isVisible = items.isEmpty()
             val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
             val packedPercent = floor(packService.getPercentPacked(items))
             binding.itemWeightOverview.isVisible = totalWeight != null
@@ -173,7 +84,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             }
             binding.totalPercentPacked.text =
                 getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
-            listView.setData(sorts[prefs.packs.packSort]?.sort(items) ?: items)
+            binding.inventoryList.setItems(sorts[prefs.packs.packSort]?.sort(items) ?: items, listMapper)
         }
 
         binding.addBtn.setOnClickListener {
@@ -221,7 +132,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun onSortChange(newSort: String) {
-        listView.setData(sorts[newSort]?.sort(items) ?: items)
+        binding.inventoryList.setItems(sorts[newSort]?.sort(items) ?: items, listMapper)
         prefs.packs.packSort = newSort
     }
 
@@ -290,6 +201,46 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         findNavController().navigate(R.id.action_action_inventory_to_createItemFragment, bundle)
     }
 
+    private fun handleAction(item: PackItem, action: PackItemAction) {
+        when (action) {
+            PackItemAction.Check -> onItemCheckboxClicked(item)
+            PackItemAction.Add -> add(item)
+            PackItemAction.Subtract -> subtract(item)
+            PackItemAction.Edit -> editItem(item)
+            PackItemAction.Delete -> deleteItem(item)
+        }
+    }
+
+    private fun add(item: PackItem) {
+        Pickers.number(
+            requireContext(),
+            getString(R.string.add),
+            null,
+            null,
+            allowNegative = false,
+            hint = getString(R.string.dialog_item_amount)
+        ) {
+            if (it != null) {
+                addAmount(item, it.toDouble())
+            }
+        }
+    }
+
+    private fun subtract(item: PackItem) {
+        Pickers.number(
+            requireContext(),
+            getString(R.string.subtract),
+            null,
+            null,
+            allowNegative = false,
+            hint = getString(R.string.dialog_item_amount)
+        ) {
+            if (it != null) {
+                addAmount(item, -it.toDouble())
+            }
+        }
+    }
+
     private fun addAmount(item: PackItem, amount: Double) {
         runInBackground {
             withContext(Dispatchers.IO) {
@@ -317,8 +268,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             getString(R.string.sort),
             options.map { getSortTitle(it) },
             options.indexOf(prefs.packs.packSort)
-        ){
-            if (it != null){
+        ) {
+            if (it != null) {
                 onSortChange(options[it])
             }
         }

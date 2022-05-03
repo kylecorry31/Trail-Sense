@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.colors
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
@@ -64,7 +65,7 @@ object ColorUtils {
         val r1 = f1 - b
         val r2 = f2 - b
 
-        return if (r1 > r2) foreground1 else foreground2
+        return if (r1.absoluteValue > r2.absoluteValue) foreground1 else foreground2
     }
 
 }
