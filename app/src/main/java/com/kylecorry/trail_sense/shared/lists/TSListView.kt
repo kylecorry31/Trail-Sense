@@ -1,8 +1,12 @@
 package com.kylecorry.trail_sense.shared.lists
 
 import android.content.Context
+import android.graphics.Typeface
+import android.text.style.StyleSpan
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
 import androidx.core.view.isVisible
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -13,18 +17,30 @@ import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
+
+    private val bold = StyleSpan(Typeface.BOLD)
+
     private val list =
         ListView(this, R.layout.list_item_plain_icon_menu) { view: View, listItem: ListItem ->
             val binding = ListItemPlainIconMenuBinding.bind(view)
             binding.title.text = listItem.title
-            binding.centeredTitle.text = listItem.title
-            binding.subtitle.text = listItem.subtitle
-            binding.subtitle.isVisible = listItem.subtitle != null
-            binding.description.text = listItem.description
-            binding.description.isVisible = listItem.description != null
+
+            if (listItem.subtitle != null || listItem.description != null) {
+                binding.description.text = buildSpannedString {
+                    listItem.subtitle?.let {
+                        bold { append(it) }
+                        append("    ")
+                    }
+                    listItem.description?.let {
+                        append(it)
+                    }
+                }
+                binding.description.isVisible = true
+            } else {
+                binding.description.isVisible = false
+            }
+
             binding.title.isVisible = listItem.description != null || listItem.subtitle != null
-            binding.centeredTitle.isVisible =
-                listItem.description == null && listItem.subtitle == null
             binding.trailingText.isVisible = listItem.trailingText != null
             binding.trailingText.text = listItem.trailingText
             when (listItem.icon) {
