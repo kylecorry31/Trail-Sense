@@ -12,7 +12,8 @@ data class ListItem(
     val description: String? = null,
     val icon: ListIcon? = null,
     val checkbox: ListItemCheckbox? = null,
-    val tag: ListItemTag? = null,
+    val tags: List<ListItemTag> = emptyList(),
+    val data: List<ListItemData> = emptyList(),
     val trailingText: String? = null,
     val trailingIcon: ListIcon? = null,
     val trailingIconAction: () -> Unit = {},
@@ -24,6 +25,8 @@ data class ListItem(
 data class ListMenuItem(val text: String, val action: () -> Unit)
 
 data class ListItemTag(val text: String, val icon: ListIcon?, @ColorInt val color: Int)
+
+data class ListItemData(val text: String, val icon: ListIcon?)
 
 data class ListItemCheckbox(val checked: Boolean, val onClick: () -> Unit)
 

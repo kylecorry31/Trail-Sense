@@ -9,11 +9,13 @@ import androidx.core.text.buildSpannedString
 import androidx.core.view.isVisible
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconMenuBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 
 class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
@@ -23,7 +25,7 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
             val binding = ListItemPlainIconMenuBinding.bind(view)
             binding.title.text = listItem.title
 
-            if (listItem.checkbox != null){
+            if (listItem.checkbox != null) {
                 binding.checkbox.isChecked = listItem.checkbox.checked
                 binding.checkbox.setOnClickListener { listItem.checkbox.onClick() }
                 binding.checkbox.isVisible = true
@@ -46,23 +48,25 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 binding.description.isVisible = false
             }
 
-            if (listItem.tag != null) {
+            if (listItem.tags.isNotEmpty()) {
+                // TODO: Allow multiple
+                val tag = listItem.tags.first()
                 binding.tag.isVisible = true
                 val foregroundColor =
-                    ColorUtils.mostContrastingColor(Color.WHITE, Color.BLACK, listItem.tag.color)
-                when (listItem.tag.icon) {
+                    ColorUtils.mostContrastingColor(Color.WHITE, Color.BLACK, tag.color)
+                when (tag.icon) {
                     is ResourceListIcon -> {
                         binding.tag.statusImage.isVisible = true
-                        binding.tag.statusImage.setImageResource(listItem.tag.icon.id)
+                        binding.tag.statusImage.setImageResource(tag.icon.id)
                         CustomUiUtils.setImageColor(binding.tag.statusImage, foregroundColor)
                     }
                     else -> {
                         binding.tag.statusImage.isVisible = false
                     }
                 }
-                binding.tag.setStatusText(listItem.tag.text)
+                binding.tag.setStatusText(tag.text)
                 binding.tag.statusText.setTextColor(foregroundColor)
-                binding.tag.setBackgroundTint(listItem.tag.color)
+                binding.tag.setBackgroundTint(tag.color)
             } else {
                 binding.tag.isVisible = false
             }
@@ -114,6 +118,38 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 listItem.longClickAction()
                 true
             }
+
+            val dataViews = listOf(
+                binding.data1,
+                binding.data2,
+                binding.data3
+            )
+
+            for (i in dataViews.indices) {
+                // TODO: Allow more than 3 data points
+                if (listItem.data.size > i) {
+                    dataViews[i].isVisible = true
+                    val data = listItem.data[i]
+                    dataViews[i].text = data.text
+                    when (data.icon) {
+                        is ResourceListIcon -> {
+                            dataViews[i].setCompoundDrawables(
+                                Resources.dp(context, 12f).toInt(),
+                                left = data.icon.id
+                            )
+                            CustomUiUtils.setImageColor(dataViews[i], data.icon.tint)
+                        }
+                        else -> {
+                            dataViews[i].setCompoundDrawables(null, null, null, null)
+                        }
+                    }
+                } else {
+                    dataViews[i].isVisible = false
+                }
+            }
+
+            binding.data.isVisible = listItem.data.isNotEmpty()
+
         }
 
     var emptyView: View? = null

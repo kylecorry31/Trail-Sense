@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.packs.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.lists.*
@@ -28,7 +29,7 @@ class PackItemListItemMapper(
 
     override fun map(value: PackItem): ListItem {
         val currentAmount = formatAmount(value.amount)
-        val description = if (value.desiredAmount != 0.0) {
+        val count = if (value.desiredAmount != 0.0) {
             "$currentAmount / ${formatAmount(value.desiredAmount)}"
         } else {
             currentAmount
@@ -39,7 +40,7 @@ class PackItemListItemMapper(
             colorMapper.map(value.category).color
         )
 
-        val subtitle = value.weight?.let { formatService.formatWeight(value.packedWeight!!) }
+        val weight = value.weight?.let { formatService.formatWeight(value.packedWeight!!) }
 
         val menu = listOf(
             ListMenuItem(context.getString(R.string.add)) {
@@ -71,9 +72,19 @@ class PackItemListItemMapper(
         return ListItem(
             value.id,
             value.name,
-            description = description,
-            subtitle = subtitle,
-            tag = tag,
+            data = listOfNotNull(
+                ListItemData(count, null),
+                weight?.let {
+                    ListItemData(
+                        it,
+                        ResourceListIcon(
+                            R.drawable.ic_weight,
+                            Resources.androidTextColorSecondary(context)
+                        )
+                    )
+                },
+            ),
+            tags = listOf(tag),
             checkbox = ListItemCheckbox(value.isFullyPacked) {
                 actionHandler(
                     value,
