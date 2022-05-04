@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.text.bold
-import androidx.core.text.buildSpannedString
 import androidx.core.view.isVisible
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -33,20 +31,8 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 binding.checkbox.isVisible = false
             }
 
-            if (listItem.subtitle != null || listItem.description != null) {
-                binding.description.text = buildSpannedString {
-                    listItem.subtitle?.let {
-                        bold { append(it) }
-                        append("    ")
-                    }
-                    listItem.description?.let {
-                        append(it)
-                    }
-                }
-                binding.description.isVisible = true
-            } else {
-                binding.description.isVisible = false
-            }
+            binding.description.text = listItem.subtitle
+            binding.description.isVisible = listItem.subtitle != null
 
             if (listItem.tags.isNotEmpty()) {
                 // TODO: Allow multiple

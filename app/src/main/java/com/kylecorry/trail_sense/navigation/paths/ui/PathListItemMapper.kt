@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
@@ -60,7 +62,7 @@ class PathListItemMapper(
             ListMenuItem(context.getString(R.string.simplify)) { action(PathAction.Simplify) }
         )
 
-        val description = formatService.formatDistance(
+        val distanceString = formatService.formatDistance(
             distance,
             Units.getDecimalPlaces(distance.units),
             false
@@ -73,8 +75,13 @@ class PathListItemMapper(
                 icon,
                 style.color
             ),
-            description = description,
-            subtitle = if (temporary) context.getString(R.string.temporary) else null,
+            subtitle = buildSpannedString {
+                if (temporary) {
+                    bold { append(context.getString(R.string.temporary)) }
+                    append("    ")
+                }
+                append(distanceString)
+            },
             menu = menu
         ) {
             action(PathAction.Show)

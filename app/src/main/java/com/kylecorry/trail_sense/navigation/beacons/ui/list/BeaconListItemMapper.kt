@@ -53,7 +53,7 @@ class BeaconListItemMapper(
             id,
             title = name,
             icon = getListIcon(context),
-            description = getDescription(context, units, myLocation),
+            subtitle = getDescription(context, units, myLocation),
             trailingIcon = if (hasTrailingIcon) {
                 ResourceListIcon(
                     if (visible) {

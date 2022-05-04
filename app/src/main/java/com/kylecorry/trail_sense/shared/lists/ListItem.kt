@@ -7,14 +7,13 @@ import com.kylecorry.trail_sense.shared.database.Identifiable
 
 data class ListItem(
     override val id: Long,
-    val title: String,
-    val subtitle: String? = null,
-    val description: String? = null,
+    val title: CharSequence,
+    val subtitle: CharSequence? = null,
     val icon: ListIcon? = null,
     val checkbox: ListItemCheckbox? = null,
     val tags: List<ListItemTag> = emptyList(),
     val data: List<ListItemData> = emptyList(),
-    val trailingText: String? = null,
+    val trailingText: CharSequence? = null,
     val trailingIcon: ListIcon? = null,
     val trailingIconAction: () -> Unit = {},
     val menu: List<ListMenuItem> = emptyList(),
@@ -26,7 +25,7 @@ data class ListMenuItem(val text: String, val action: () -> Unit)
 
 data class ListItemTag(val text: String, val icon: ListIcon?, @ColorInt val color: Int)
 
-data class ListItemData(val text: String, val icon: ListIcon?)
+data class ListItemData(val text: CharSequence, val icon: ListIcon?)
 
 data class ListItemCheckbox(val checked: Boolean, val onClick: () -> Unit)
 
