@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:textColor="?android:textColorSecondary"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             tools:text="2.5 km" />
 

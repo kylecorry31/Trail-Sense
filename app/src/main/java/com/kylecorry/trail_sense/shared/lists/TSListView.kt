@@ -31,6 +31,12 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 binding.checkbox.isVisible = false
             }
 
+            if (listItem.singleLineSubtitle){
+                binding.description.maxLines = 1
+            } else {
+                binding.description.maxLines = Integer.MAX_VALUE
+            }
+
             binding.description.text = listItem.subtitle
             binding.description.isVisible = listItem.subtitle != null
 

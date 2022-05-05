@@ -9,6 +9,7 @@ data class ListItem(
     override val id: Long,
     val title: CharSequence,
     val subtitle: CharSequence? = null,
+    val singleLineSubtitle: Boolean = false,
     val icon: ListIcon? = null,
     val checkbox: ListItemCheckbox? = null,
     val tags: List<ListItemTag> = emptyList(),
