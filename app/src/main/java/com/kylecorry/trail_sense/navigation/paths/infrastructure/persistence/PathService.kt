@@ -117,6 +117,10 @@ class PathService(
         return pathRepo.add(path)
     }
 
+    override suspend fun addGroup(group: PathGroup): Long {
+        return pathRepo.addGroup(group)
+    }
+
     override suspend fun deletePath(path: Path) {
         backtrackLock.withLock {
             val backtrackId = cache.getLong(BACKTRACK_PATH_KEY)
@@ -127,6 +131,24 @@ class PathService(
 
         waypointRepo.deleteInPath(path.id)
         pathRepo.delete(path)
+    }
+
+    override suspend fun deleteGroup(group: PathGroup) {
+        // Delete paths
+        val children = getPaths(group.id, includeGroups = true, maxDepth = 1, includeRoot = false)
+        val paths = children.filterIsInstance<Path>()
+        paths.forEach {
+            deletePath(it)
+        }
+
+        // Delete groups
+        val groups = children.filterIsInstance<PathGroup>()
+        for (subGroup in groups) {
+            deleteGroup(subGroup)
+        }
+
+        // Delete self
+        pathRepo.deleteGroup(group)
     }
 
     override suspend fun mergePaths(startPathId: Long, endPathId: Long): Long {

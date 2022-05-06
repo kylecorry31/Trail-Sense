@@ -186,8 +186,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun handleGroupAction(group: PathGroup, action: PathGroupAction) {
         when (action) {
-            PathGroupAction.Delete -> TODO()
-            PathGroupAction.Rename -> TODO()
+            PathGroupAction.Delete -> deleteGroup(group)
+            PathGroupAction.Rename -> renameGroup(group)
             PathGroupAction.Open -> manager.open(group)
         }
     }
@@ -242,6 +242,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         command.execute(path)
     }
 
+
     private fun importPaths() {
         val command = ImportPathsCommand(
             requireContext(),
@@ -266,6 +267,23 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private fun merge(path: Path) {
         val command = MergePathCommand(requireContext(), lifecycleScope, paths, pathService)
         command.execute(path)
+    }
+
+    // Groups
+    private fun deleteGroup(group: PathGroup) {
+        val command = DeletePathGroupGroupCommand(requireContext(), pathService)
+        runInBackground {
+            command.execute(group)
+            manager.refresh()
+        }
+    }
+
+    private fun renameGroup(group: PathGroup) {
+        val command = RenamePathGroupGroupCommand(requireContext(), pathService)
+        runInBackground {
+            command.execute(group)
+            manager.refresh()
+        }
     }
 
 }
