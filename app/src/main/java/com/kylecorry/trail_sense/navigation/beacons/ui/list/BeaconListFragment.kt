@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -100,15 +101,25 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         binding.beaconRecycler.emptyView = binding.beaconEmptyText
         loadingIndicator = ViewLoadingIndicator(binding.loading)
         manager = GroupListManager(
-            this,
-            binding.beaconRecycler,
-            binding.searchbox,
-            binding.beaconTitle.title,
+            lifecycleScope,
             loadingIndicator,
-            getString(R.string.beacons),
-            beaconLoader,
-            listMapper
+            beaconLoader
         ) { beaconSort.sort(it) }
+
+        binding.searchbox.setOnQueryTextListener { _, _ ->
+            manager.search(binding.searchbox.query)
+            true
+        }
+
+        manager.onChange = { root, items, rootChanged ->
+            if (isBound) {
+                binding.beaconRecycler.setItems(items, listMapper)
+                if (rootChanged) {
+                    binding.beaconRecycler.scrollToPosition(0, false)
+                }
+                binding.beaconTitle.title.text = root?.name ?: getString(R.string.beacons)
+            }
+        }
 
         initialLocation?.let {
             initialLocation = null
@@ -341,8 +352,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         )
     }
 
-    private fun refresh(resetScroll: Boolean = false) {
-        manager.refresh(resetScroll)
+    private fun refresh() {
+        manager.refresh()
     }
 
     private fun viewBeacon(id: Long) {

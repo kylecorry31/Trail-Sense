@@ -1,65 +1,46 @@
 package com.kylecorry.trail_sense.shared.lists
 
-import android.widget.TextView
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
+import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.grouping.ISearchableGroupLoader
-import com.kylecorry.trail_sense.shared.grouping.NamedGroupable
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class GroupListManager<T : NamedGroupable>(
-    private val owner: LifecycleOwner,
-    private val list: TSListView,
-    private val search: SearchView,
-    private val title: TextView,
+class GroupListManager<T : Groupable>(
+    private val scope: CoroutineScope,
     private val loadingIndicator: ILoadingIndicator,
-    private val defaultTitle: String,
     private val loader: ISearchableGroupLoader<T>,
-    private val mapper: ListItemMapper<T>,
-    refreshOnLoad: Boolean = false,
-    private val sort: suspend (List<T>) -> List<T> = { it }
+    private val sort: suspend (List<T>) -> List<T> = { it },
 ) {
-
-    init {
-        title.text = defaultTitle
-        if (refreshOnLoad) {
-            refresh()
-        }
-        search.setOnQueryTextListener { _, _ ->
-            refresh(true)
-            true
-        }
-    }
 
     val root: T?
         get() = backStack.lastOrNull()
 
+    var onChange: (root: T?, items: List<T>, rootChanged: Boolean) -> Unit = { _, _, _ -> }
+
     private val backStack = mutableListOf<T>()
+    private var query: String? = null
 
     fun refresh(resetScroll: Boolean = false) {
-        owner.lifecycleScope.launch {
+        scope.launch {
             loadingIndicator.show()
-            title.text = root?.name ?: defaultTitle
-
             val items = onIO {
-                sort(loader.load(search.query?.toString(), root?.id))
+                sort(loader.load(query, root?.id))
             }
-            list.setItems(items, mapper)
-            if (resetScroll) {
-                list.scrollToPosition(0, false)
-            }
+            onChange(root, items, resetScroll)
             loadingIndicator.hide()
         }
     }
 
+    fun search(query: CharSequence?) {
+        this.query = query?.toString()
+        refresh(true)
+    }
+
     fun clear() {
         backStack.clear()
-        title.text = defaultTitle
-        list.setItems(emptyList())
+        onChange(null, emptyList(), true)
     }
 
     fun open(group: T?) {
