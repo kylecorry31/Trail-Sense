@@ -18,7 +18,8 @@ import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Duration
 import java.time.Instant
 
-class BacktrackCommand(private val context: Context) : CoroutineCommand {
+class BacktrackCommand(private val context: Context, private val pathId: Long = 0) :
+    CoroutineCommand {
 
     private val prefs = UserPreferences(context)
 
@@ -26,7 +27,7 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
     private val gps = sensorService.getGPS()
     private val altimeter = sensorService.getAltimeter()
     private val cellSignalSensor =
-        if (prefs.backtrackSaveCellHistory) sensorService.getCellSignal() else NullCellSignalSensor()
+        if (prefs.backtrackSaveCellHistory && pathId == 0L) sensorService.getCellSignal() else NullCellSignalSensor()
 
     private val pathService = PathService.getInstance(context)
 
@@ -67,14 +68,18 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
         return onIO {
             val waypoint = PathPoint(
                 0,
-                0,
+                pathId,
                 gps.location,
                 if (shouldReadAltimeter() && altimeter.altitude != 0f) altimeter.altitude else gps.altitude,
                 Instant.now(),
                 cellSignalSensor.networkQuality()
             )
 
-            pathService.addBacktrackPoint(waypoint)
+            if (pathId == 0L) {
+                pathService.addBacktrackPoint(waypoint)
+            } else {
+                pathService.addWaypoint(waypoint)
+            }
             waypoint
         }
     }
