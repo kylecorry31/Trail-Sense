@@ -6,11 +6,12 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.IBeaconService
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.grouping.ISearchableGroupLoader
 
 class BeaconLoader(
     private val beaconService: IBeaconService,
     private val prefs: IBeaconPreferences
-) : IBeaconLoader {
+) : ISearchableGroupLoader<IBeacon> {
 
     override suspend fun load(search: String?, group: Long?): List<IBeacon> = onIO {
         if (search.isNullOrBlank()) {

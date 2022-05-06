@@ -34,12 +34,14 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestB
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
+import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -55,13 +57,20 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
-    private var displayedGroup: BeaconGroup? = null
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val distanceFactory by lazy { BeaconDistanceCalculatorFactory(beaconService) }
     private val beaconSort by lazy { NearestBeaconSort(distanceFactory, gps::location) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
+    private lateinit var loadingIndicator: ILoadingIndicator
 
-    private val listMapper by lazy { IBeaconListItemMapper(requireContext(), gps, this::handleBeaconAction, this::handleBeaconGroupAction) }
+    private val listMapper by lazy {
+        IBeaconListItemMapper(
+            requireContext(),
+            gps,
+            this::handleBeaconAction,
+            this::handleBeaconGroupAction
+        )
+    }
 
     private var initialLocation: GeoUri? = null
 
@@ -70,13 +79,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private val delayedUpdate = Timer {
-        if (isBound) {
-            binding.loading.isVisible = false
-        }
-        runInBackground {
-            updateBeaconList()
-        }
+        loadingIndicator.hide()
+        refresh()
     }
+
+    private lateinit var manager: GroupListManager<IBeacon>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,18 +97,22 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
         navController = findNavController()
 
+        binding.beaconRecycler.emptyView = binding.beaconEmptyText
+        loadingIndicator = ViewLoadingIndicator(binding.loading)
+        manager = GroupListManager(
+            this,
+            binding.beaconRecycler,
+            binding.searchbox,
+            binding.beaconTitle.title,
+            loadingIndicator,
+            getString(R.string.beacons),
+            beaconLoader,
+            listMapper
+        ) { beaconSort.sort(it) }
+
         initialLocation?.let {
             initialLocation = null
             createBeacon(initialLocation = it)
-        }
-
-
-        binding.beaconRecycler.emptyView = binding.beaconEmptyText
-
-
-        binding.searchbox.setOnQueryTextListener { _, _ ->
-            refresh(true)
-            true
         }
 
         binding.beaconTitle.rightQuickAction.setOnClickListener {
@@ -130,12 +141,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                         CreateBeaconGroupCommand(requireContext(), lifecycleScope, beaconService) {
                             refresh()
                         }
-                    command.execute(displayedGroup?.id)
+                    command.execute(manager.root?.id)
                     setCreateMenuVisibility(false)
                 }
                 R.id.action_create_beacon -> {
                     setCreateMenuVisibility(false)
-                    createBeacon(group = displayedGroup?.id)
+                    createBeacon(group = manager.root?.id)
                 }
             }
             true
@@ -157,20 +168,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 isCreateMenuOpen() -> {
                     setCreateMenuVisibility(false)
                 }
-                displayedGroup != null -> {
-                    runInBackground {
-                        val parent = displayedGroup?.parentId
-                        displayedGroup = if (parent != null) {
-                            onIO { beaconService.getGroup(parent) }
-                        } else {
-                            null
-                        }
-                        updateBeaconList(true)
-                    }
-                }
                 else -> {
-                    remove()
-                    navController.navigateUp()
+                    if (!manager.up()) {
+                        remove()
+                        navController.navigateUp()
+                    }
                 }
             }
         }
@@ -209,8 +211,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     override fun onResume() {
         super.onResume()
-        clearBeaconList()
-        binding.loading.isVisible = true
+        manager.clear()
+        loadingIndicator.show()
         if (gps.hasValidReading) {
             onLocationUpdate()
         } else {
@@ -219,6 +221,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     override fun onPause() {
+        loadingIndicator.hide()
         gps.stop(this::onLocationUpdate)
         delayedUpdate.stop()
         super.onPause()
@@ -229,30 +232,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         return false
     }
 
-    private suspend fun updateBeaconList(resetScroll: Boolean = false) {
-        if (!isBound) {
-            return
-        }
-
-        val beacons = getBeacons()
-
-        onMain {
-            if (!isBound) return@onMain
-            binding.beaconTitle.title.text =
-                displayedGroup?.name ?: getString(R.string.beacons)
-            binding.beaconRecycler.setItems(beacons, listMapper)
-            if (resetScroll) {
-                binding.beaconRecycler.scrollToPosition(0, false)
-            }
-        }
-    }
-
     private fun importBeaconFromQR() {
         val encoder = BeaconQREncoder()
         CustomUiUtils.scanQR(this, getString(R.string.beacon_qr_import_instructions)) {
             if (it != null) {
                 val beacon = encoder.decode(it) ?: return@scanQR true
-                createBeacon(group = displayedGroup?.id, initialLocation = GeoUri.from(beacon))
+                createBeacon(group = manager.root?.id, initialLocation = GeoUri.from(beacon))
             }
             false
         }
@@ -298,7 +283,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                         runInBackground {
                             val gpxToImport = GPXData(waypoints.filterIndices(it), emptyList())
                             val count = onIO {
-                                importer.import(gpxToImport, displayedGroup?.id)
+                                importer.import(gpxToImport, manager.root?.id)
                             }
                             onMain {
                                 Alerts.toast(
@@ -309,7 +294,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                                         count
                                     )
                                 )
-                                updateBeaconList()
+                                refresh()
                             }
                         }
                     }
@@ -320,7 +305,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private suspend fun getExportGPX(): GPXData = onIO {
         val all = beaconService.getBeacons(
-            displayedGroup?.id,
+            manager.root?.id,
             includeGroups = true,
             maxDepth = null,
             includeRoot = true
@@ -337,12 +322,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         container: ViewGroup?
     ): FragmentBeaconListBinding {
         return FragmentBeaconListBinding.inflate(layoutInflater, container, false)
-    }
-
-
-    private suspend fun getBeacons(): List<IBeacon> = onIO {
-        val beacons = beaconLoader.load(binding.searchbox.query?.toString(), displayedGroup?.id)
-        beaconSort.sort(beacons)
     }
 
     private fun createBeacon(
@@ -362,16 +341,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         )
     }
 
-    private fun clearBeaconList() {
-        if (isBound) {
-            binding.beaconRecycler.setItems(emptyList())
-        }
-    }
-
     private fun refresh(resetScroll: Boolean = false) {
-        runInBackground {
-            updateBeaconList(resetScroll)
-        }
+        manager.refresh(resetScroll)
     }
 
     private fun viewBeacon(id: Long) {
@@ -463,8 +434,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun handleBeaconGroupAction(group: BeaconGroup, action: BeaconGroupAction) {
         when (action) {
             BeaconGroupAction.Open -> {
-                displayedGroup = group
-                refresh()
+                manager.open(group)
             }
             BeaconGroupAction.Edit -> rename(group)
             BeaconGroupAction.Delete -> delete(group)

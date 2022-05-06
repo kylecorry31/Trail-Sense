@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.navigation.beacons.domain
 
-import com.kylecorry.trail_sense.shared.grouping.Groupable
+import com.kylecorry.trail_sense.shared.grouping.NamedGroupable
 
-interface IBeacon: Groupable {
-    val name: String
-}
+interface IBeacon: NamedGroupable
