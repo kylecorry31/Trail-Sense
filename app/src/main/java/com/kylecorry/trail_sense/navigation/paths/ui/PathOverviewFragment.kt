@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPat
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.SelectedPointDecorator
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
@@ -138,8 +139,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             viewWaypoint(it)
         }
 
-        binding.pathViewPointsBtn.setOnClickListener {
-            viewPoints()
+        binding.addPointBtn.setOnClickListener {
+            runInBackground {
+                binding.addPointBtn.isEnabled = false
+                BacktrackCommand(requireContext(), pathId).execute()
+                toast(getString(R.string.point_added))
+                binding.addPointBtn.isEnabled = true
+            }
         }
 
         binding.navigateBtn.setOnClickListener {
@@ -241,7 +247,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             PathAction.Keep,
             PathAction.ToggleVisibility,
             PathAction.Export,
-            PathAction.Simplify
+            PathAction.Simplify,
+            PathAction.ViewPoints
         )
 
         Pickers.menu(
@@ -254,7 +261,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     )
                 } else null,
                 getString(R.string.export),
-                getString(R.string.simplify)
+                getString(R.string.simplify),
+                getString(R.string.points)
             )
         ) {
             when (actions[it]) {
@@ -263,6 +271,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 PathAction.Keep -> keepPath(path)
                 PathAction.ToggleVisibility -> togglePathVisibility(path)
                 PathAction.Simplify -> simplifyPath(path)
+                PathAction.ViewPoints -> viewPoints()
                 else -> {
                     // Do nothing
                 }

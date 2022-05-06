@@ -73,7 +73,7 @@
 
     <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
-        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="backgroundTint">@color/button_selector</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="iconTint">?attr/colorOnPrimary</item>
     </style>

@@ -207,13 +207,11 @@
                 app:icon="@drawable/ic_beacon" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/path_view_points_btn"
-                android:layout_width="38dp"
+                android:id="@+id/add_point_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="6dp"
-                android:paddingEnd="6dp"
-                app:icon="@drawable/ic_beacon_group"
-                app:iconSize="24dp" />
+                android:text="@string/point"
+                app:icon="@drawable/ic_add" />
 
         </LinearLayout>
 
