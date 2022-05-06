@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/action_note_qr"
-        android:title="@string/qr_code" />
-    <item
-        android:id="@+id/action_note_delete"
-        android:title="@string/delete" />
-</menu>
