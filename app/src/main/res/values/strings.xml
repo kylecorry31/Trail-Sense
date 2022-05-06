@@ -70,6 +70,10 @@
         <item quantity="one">%d beacon</item>
         <item quantity="other">%d beacons</item>
     </plurals>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d path</item>
+        <item quantity="other">%d paths</item>
+    </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="maps">Maps</string>

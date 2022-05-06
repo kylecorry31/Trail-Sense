@@ -91,12 +91,16 @@ class PathService(
 
     private suspend fun getGroup(groupId: Long?): PathGroup? {
         groupId ?: return null
-        // TODO: Add path count
-        return pathRepo.getGroup(groupId) // ?.copy(count = getBeaconCount(groupId))
+        return pathRepo.getGroup(groupId)?.copy(count = getPathCount(groupId))
+    }
+
+    private suspend fun getPathCount(groupId: Long?): Int {
+        // TODO: Don't actually fetch the paths for this
+        return getPaths(groupId, includeGroups = false, maxDepth = null).count()
     }
 
     private suspend fun getGroups(parent: Long?): List<PathGroup> {
-        return pathRepo.getGroupsWithParent(parent) //.map { it.copy(count = getBeaconCount(it.id)) }
+        return pathRepo.getGroupsWithParent(parent).map { it.copy(count = getPathCount(it.id)) }
     }
 
     private suspend fun getChildren(groupId: Long?): List<IPath> {

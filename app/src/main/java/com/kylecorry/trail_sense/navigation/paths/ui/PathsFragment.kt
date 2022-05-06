@@ -47,7 +47,13 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private var paths = emptyList<Path>()
     private var sort = PathSortMethod.MostRecent
 
-    private val listMapper by lazy { PathListItemMapper(requireContext(), this::handleAction) }
+    private val listMapper by lazy {
+        IPathListItemMapper(
+            requireContext(),
+            this::handleAction,
+            this::handleGroupAction
+        )
+    }
 
     private val pathLoader by lazy { PathGroupLoader(pathService) }
     private lateinit var manager: GroupListManager<IPath>
@@ -69,8 +75,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
         manager.onChange = { root, items, rootChanged ->
             if (isBound) {
-                // TODO: Support groups
-                binding.pathsList.setItems(items.map { it as Path }, listMapper)
+                binding.pathsList.setItems(items, listMapper)
                 if (rootChanged) {
                     binding.pathsList.scrollToPosition(0, false)
                 }
@@ -179,6 +184,14 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         manager.refresh(true)
     }
 
+    private fun handleGroupAction(group: PathGroup, action: PathGroupAction) {
+        when (action) {
+            PathGroupAction.Delete -> TODO()
+            PathGroupAction.Rename -> TODO()
+            PathGroupAction.Open -> manager.open(group)
+        }
+    }
+
     private fun handleAction(path: Path, action: PathAction) {
         when (action) {
             PathAction.Export -> exportPath(path)
@@ -198,7 +211,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         command.execute(path)
     }
 
-    private fun sortPaths(paths: List<IPath>): List<IPath> {
+    private suspend fun sortPaths(paths: List<IPath>): List<IPath> {
         val strategy = when (sort) {
             PathSortMethod.MostRecent -> MostRecentPathSortStrategy()
             PathSortMethod.Longest -> LongestPathSortStrategy()
@@ -206,8 +219,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             PathSortMethod.Closest -> ClosestPathSortStrategy(gps.location)
             PathSortMethod.Name -> NamePathSortStrategy()
         }
-        // TODO: Handle path groups
-        return strategy.sort(paths.map { it as Path })
+        return strategy.sort(paths)
     }
 
     private fun togglePathVisibility(path: Path) {

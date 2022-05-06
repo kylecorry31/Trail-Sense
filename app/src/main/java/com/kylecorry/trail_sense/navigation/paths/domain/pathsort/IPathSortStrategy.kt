@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.domain.pathsort
 
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 
 interface IPathSortStrategy {
-    fun sort(paths: List<Path>): List<Path>
+    suspend fun sort(paths: List<IPath>): List<IPath>
 }
