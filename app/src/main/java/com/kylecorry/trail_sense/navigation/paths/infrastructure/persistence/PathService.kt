@@ -11,6 +11,8 @@ import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.navigation.paths.domain.*
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.grouping.GroupLoader
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex
@@ -62,6 +64,45 @@ class PathService(
 
     override suspend fun getPath(id: Long): Path? {
         return pathRepo.get(id)
+    }
+
+    override suspend fun getPaths(
+        groupId: Long?,
+        includeGroups: Boolean,
+        maxDepth: Int?,
+        includeRoot: Boolean
+    ): List<IPath> {
+        val rootFn = if (includeRoot) {
+            this::getGroup
+        } else {
+            { null }
+        }
+
+        val loader = GroupLoader(rootFn, this::getChildren)
+        return onIO {
+            val paths = loader.load(groupId, maxDepth)
+            if (includeGroups) {
+                paths
+            } else {
+                paths.filterNot { it.isGroup }
+            }
+        }
+    }
+
+    private suspend fun getGroup(groupId: Long?): PathGroup? {
+        groupId ?: return null
+        // TODO: Add path count
+        return pathRepo.getGroup(groupId) // ?.copy(count = getBeaconCount(groupId))
+    }
+
+    private suspend fun getGroups(parent: Long?): List<PathGroup> {
+        return pathRepo.getGroupsWithParent(parent) //.map { it.copy(count = getBeaconCount(it.id)) }
+    }
+
+    private suspend fun getChildren(groupId: Long?): List<IPath> {
+        val paths = pathRepo.getPathsWithParent(groupId)
+        val groups = getGroups(groupId)
+        return paths + groups
     }
 
     override fun getLivePath(id: Long): LiveData<Path?> {
@@ -140,7 +181,7 @@ class PathService(
     }
 
     override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {
-        if (paths?.isEmpty() == true){
+        if (paths?.isEmpty() == true) {
             return mapOf()
         }
 

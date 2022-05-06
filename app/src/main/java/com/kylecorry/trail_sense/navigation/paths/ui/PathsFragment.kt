@@ -11,14 +11,21 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
+import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
 import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsAvailable
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
+import com.kylecorry.trail_sense.shared.alerts.NullLoadingIndicator
+import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
@@ -42,17 +49,50 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private val listMapper by lazy { PathListItemMapper(requireContext(), this::handleAction) }
 
+    private val pathLoader by lazy { PathGroupLoader(pathService) }
+    private lateinit var manager: GroupListManager<IPath>
+    private lateinit var loadingIndicator: ILoadingIndicator
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadingIndicator = NullLoadingIndicator()
+
         binding.pathsList.emptyView = binding.waypointsEmptyText
+        manager = GroupListManager(
+            lifecycleScope,
+            loadingIndicator,
+            pathLoader,
+            this::sortPaths
+        )
+
+        manager.onChange = { root, items, rootChanged ->
+            if (isBound) {
+                // TODO: Support groups
+                binding.pathsList.setItems(items.map { it as Path }, listMapper)
+                if (rootChanged) {
+                    binding.pathsList.scrollToPosition(0, false)
+                }
+                binding.pathsTitle.title.text =
+                    (root as PathGroup?)?.name ?: getString(R.string.paths)
+            }
+        }
 
         sort = prefs.navigation.pathSort
 
-        pathService.getLivePaths().observe(viewLifecycleOwner) { paths ->
-            onPathsChanged(paths)
+        // TODO: See if it is possible to get notified of changes without loading all paths
+        pathService.getLivePaths().observe(viewLifecycleOwner) {
+            manager.refresh()
         }
+
+        onBackPressed {
+            if (!manager.up()) {
+                remove()
+                findNavController().navigateUp()
+            }
+        }
+
 
         binding.pathsTitle.rightQuickAction.setOnClickListener {
             val defaultSort = prefs.navigation.pathSort
@@ -108,10 +148,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private val isBacktrackRunning: Boolean
         get() = BacktrackScheduler.isOn(requireContext())
 
-    private fun onPathsChanged(paths: List<Path>) {
-        this.paths = sortPaths(paths)
-        updateList()
-    }
 
     private fun changeSort() {
         val sortOptions = PathSortMethod.values()
@@ -139,13 +175,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
     }
 
-    private fun updateList() {
-        binding.pathsList.setItems(paths, listMapper)
-    }
-
     private fun onSortChanged() {
-        paths = sortPaths(paths)
-        updateList()
+        manager.refresh(true)
     }
 
     private fun handleAction(path: Path, action: PathAction) {
@@ -158,6 +189,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             PathAction.Keep -> keepPath(path)
             PathAction.ToggleVisibility -> togglePathVisibility(path)
             PathAction.Simplify -> simplifyPath(path)
+            else -> {}
         }
     }
 
@@ -166,7 +198,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         command.execute(path)
     }
 
-    private fun sortPaths(paths: List<Path>): List<Path> {
+    private fun sortPaths(paths: List<IPath>): List<IPath> {
         val strategy = when (sort) {
             PathSortMethod.MostRecent -> MostRecentPathSortStrategy()
             PathSortMethod.Longest -> LongestPathSortStrategy()
@@ -174,7 +206,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             PathSortMethod.Closest -> ClosestPathSortStrategy(gps.location)
             PathSortMethod.Name -> NamePathSortStrategy()
         }
-        return strategy.sort(paths)
+        // TODO: Handle path groups
+        return strategy.sort(paths.map { it as Path })
     }
 
     private fun togglePathVisibility(path: Path) {
