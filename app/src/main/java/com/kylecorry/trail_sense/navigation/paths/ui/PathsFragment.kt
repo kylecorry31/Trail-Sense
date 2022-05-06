@@ -104,12 +104,14 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             Pickers.menu(
                 it, listOf(
                     getString(R.string.sort_by, getSortString(defaultSort)),
-                    getString(R.string.import_gpx)
+                    getString(R.string.import_gpx),
+                    getString(R.string.group)
                 )
             ) { selected ->
                 when (selected) {
                     0 -> changeSort()
                     1 -> importPaths()
+                    2 -> createGroup()
                 }
                 true
             }
@@ -282,6 +284,14 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         val command = RenamePathGroupGroupCommand(requireContext(), pathService)
         runInBackground {
             command.execute(group)
+            manager.refresh()
+        }
+    }
+
+    private fun createGroup() {
+        val command = CreatePathGroupGroupCommand(requireContext(), pathService)
+        runInBackground {
+            command.execute(manager.root?.id)
             manager.refresh()
         }
     }
