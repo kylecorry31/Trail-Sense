@@ -36,7 +36,7 @@
     <string name="kilometers_per_hour_format">%.1f קמ\"ש</string>
     <string name="miles_per_hour_format">%.1f מייל לשעה</string>
     <string name="duration_hour_format">%dש</string>
-    <string name="duration_minute_format">%dמ</string>
+    <string name="duration_minute_format">%d דק</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="charging_fast">טעינה מהירה (%s)</string>
@@ -84,7 +84,7 @@
     <string name="hours">שעות</string>
     <string name="quarter_moon">רבע ירח</string>
     <string name="days">ימים</string>
-    <string name="minutes_format">%s ד</string>
+    <string name="minutes_format">%s דק</string>
     <string name="hours_format">%s שע</string>
     <string name="no_packing_lists">אין רשימות אריזה</string>
     <string name="wgs84">WGS 84</string>
@@ -520,12 +520,12 @@
     <string name="update_60_minutes">שעה אחת</string>
     <string name="tool_user_guide_title">מדריך למשתמש</string>
     <string name="error_occurred_message">Trail Sense נתקל בשגיאה וייסגר. נא לשלוח דוא\"ל למפתח כדי לפתור בעיה זו.</string>
-    <string name="update_90_minutes">שעה ו-30 דקות</string>
+    <string name="update_90_minutes">שעה וחצי</string>
     <string name="update_120_minutes">שעתיים</string>
     <string name="unit_nautical_miles">מיילים ימיים</string>
     <string name="guide_recommended_apps">יישומים מומלצים</string>
     <string name="three">3</string>
-    <string name="water_purification_step_2">מביא מים לרתיחה מתגלגלת</string>
+    <string name="water_purification_step_2">הרתחת מים עד לבעבוע</string>
     <string name="water_purification_step_3">הפעל את שעון העצר</string>
     <string name="clock_waiting_for_gps">מעדכן זמן מ-GPS…</string>
     <string name="update_180_minutes">3 שעות</string>
@@ -595,7 +595,7 @@
     <string name="continue_button">המשך</string>
     <string name="import_btn">ייבוא</string>
     <string name="network_no_signal">אין אות</string>
-    <string name="tool_bubble_level_title">רמת בועה</string>
+    <string name="tool_bubble_level_title">רמת בועה - פלס</string>
     <string name="cliff_height_guide">אומדן גובה צוק</string>
     <string name="tool_whistle_title">משרוקית</string>
     <string name="action_inventory_clear_confirm">לנקות את כל הסכומים הארוזים\?</string>
@@ -626,7 +626,7 @@
     <string name="location_input_help_title">תבניות מיקום נתמכות</string>
     <string name="distance_from">מ</string>
     <string name="water_boil_timer_done_title">המים רתחו</string>
-    <string name="backtrack">חזר על עקבותיו</string>
+    <string name="backtrack">מסלול חזרה</string>
     <string name="backtrack_notification_channel_description">עדכוני מיקום חזרה על עקבות</string>
     <string name="charging_wireless">טעינה (%s)</string>
     <string name="unsaved_changes">שינויים שלא נשמרו</string>
@@ -685,7 +685,7 @@
         <item quantity="many">%d משואות איתות מיובאות</item>
         <item quantity="other">%d משואות איתות מיובאות</item>
     </plurals>
-    <string name="gps_stale">מעופש</string>
+    <string name="gps_stale">ישן</string>
     <string name="network_4g">4G</string>
     <string name="barometer">ברומטר</string>
     <string name="cell_signal">אות סלולרי</string>
@@ -845,9 +845,9 @@
     <string name="pref_flashlight_toggle_with_volume_title">החלף עם לחצני עוצמת הקול</string>
     <string name="yards_format">%s yd</string>
     <string name="battery_history">היסטוריית סוללה - אחרונה %s</string>
-    <string name="convert">להמיר</string>
+    <string name="convert">המרה</string>
     <string name="map_perspective_instructions">חלוקה לרמות של המפה</string>
-    <string name="us_pints">US Pints (חצי ליטר)</string>
+    <string name="us_pints">פיינט אמריקאי (חצי ליטר)</string>
     <string name="seconds">שניות</string>
     <string name="ounces_weight">אונקיות</string>
     <string name="delete_pack">למחוק חבילה\?</string>
@@ -879,7 +879,7 @@
     <string name="daylight">אור</string>
     <string name="destination_elevation">גובה היעד</string>
     <string name="clear_cache">נקה מטמון</string>
-    <string name="liter_format">%s l</string>
+    <string name="liter_format">%s ל</string>
     <string name="quart_format">%s qt</string>
     <string name="gallon_format">%s גלון</string>
     <string name="pref_map_url_source_title">מפת מיקום משותף</string>
@@ -902,7 +902,7 @@
     <string name="pounds_format">%s פאונד</string>
     <string name="kilograms_format">%s ק\"ג</string>
     <string name="ounces_weight_format">%s אונק</string>
-    <string name="imperial_pints">פיינט - 1/8 גלון בריטית</string>
+    <string name="imperial_pints">פיינט בריטי - 1/8 גלון</string>
     <string name="imperial_ounces_volume">אונקיות בריטיות</string>
     <string name="volume">נפח</string>
     <string name="grams">גרמים</string>
@@ -1024,7 +1024,7 @@
     <string name="pref_sunset_alert_time_title">זמן התראת שקיעה</string>
     <string name="pref_app_version_title">גירסה</string>
     <string name="lux_format">%s lx</string>
-    <string name="candela_format">%s תקליטור</string>
+    <string name="candela_format">%s cd</string>
     <string name="beam_distance">%s מרחק אלומה</string>
     <string name="tool_light_meter_title">מד אור</string>
     <string name="pref_backtrack_save_cell_summary">מתעד אות סלולרי בנקודת הציון. אינו משתמש באינטרנט.</string>
@@ -1060,4 +1060,5 @@
     <string name="measure">מדידה</string>
     <string name="paths">נתיבים</string>
     <string name="keep_forever">שמור לנצח</string>
+    <string name="second_symbol">שנ</string>
 </resources>
