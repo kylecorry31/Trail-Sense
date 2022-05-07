@@ -60,7 +60,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private lateinit var manager: GroupListManager<IPath>
     private lateinit var loadingIndicator: ILoadingIndicator
 
-    private var lastBackstack = emptyList<IPath>()
+    private var lastRoot: IPath? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,9 +70,9 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         binding.pathsList.emptyView = binding.waypointsEmptyText
         manager = GroupListManager(
             lifecycleScope,
-            loadingIndicator,
             pathLoader,
-            lastBackstack,
+            loadingIndicator,
+            lastRoot,
             this::sortPaths
         )
 
@@ -144,7 +144,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     override fun onPause() {
         super.onPause()
         tryOrNothing {
-            lastBackstack = manager.backstack
+            lastRoot = manager.root
         }
     }
 
@@ -211,7 +211,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         when (action) {
             PathGroupAction.Delete -> deleteGroup(group)
             PathGroupAction.Rename -> renameGroup(group)
-            PathGroupAction.Open -> manager.open(group)
+            PathGroupAction.Open -> manager.open(group.id)
             PathGroupAction.Move -> movePath(group)
         }
     }

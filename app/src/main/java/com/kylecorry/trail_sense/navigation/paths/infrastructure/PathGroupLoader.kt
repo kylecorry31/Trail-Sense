@@ -23,4 +23,8 @@ class PathGroupLoader(private val pathService: IPathService) : ISearchableGroupL
     private suspend fun getPathsByGroup(group: Long?) = onIO {
         pathService.getPaths(group, includeGroups = true)
     }
+
+    override suspend fun getGroup(id: Long): IPath? {
+        return pathService.getGroup(id)
+    }
 }

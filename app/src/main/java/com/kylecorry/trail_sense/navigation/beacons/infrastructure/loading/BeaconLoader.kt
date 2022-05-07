@@ -40,4 +40,8 @@ class BeaconLoader(
             null
         }
     }
+
+    override suspend fun getGroup(id: Long): IBeacon? {
+        return beaconService.getGroup(id)
+    }
 }

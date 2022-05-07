@@ -86,7 +86,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private lateinit var manager: GroupListManager<IBeacon>
-    private var lastBackstack = emptyList<IBeacon>()
+    private var lastRoot: IBeacon? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,10 +104,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         loadingIndicator = ViewLoadingIndicator(binding.loading)
         manager = GroupListManager(
             lifecycleScope,
-            loadingIndicator,
             beaconLoader,
-            lastBackstack
-        ) { beaconSort.sort(it) }
+            loadingIndicator,
+            lastRoot,
+            { beaconSort.sort(it) }
+        )
 
         binding.searchbox.setOnQueryTextListener { _, _ ->
             manager.search(binding.searchbox.query)
@@ -239,7 +240,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         gps.stop(this::onLocationUpdate)
         delayedUpdate.stop()
         tryOrNothing {
-            lastBackstack = manager.backstack
+            lastRoot = manager.root
         }
         super.onPause()
     }
@@ -451,7 +452,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun handleBeaconGroupAction(group: BeaconGroup, action: BeaconGroupAction) {
         when (action) {
             BeaconGroupAction.Open -> {
-                manager.open(group)
+                manager.open(group.id)
             }
             BeaconGroupAction.Edit -> rename(group)
             BeaconGroupAction.Delete -> delete(group)

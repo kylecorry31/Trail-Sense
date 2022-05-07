@@ -10,33 +10,31 @@ import kotlinx.coroutines.launch
 
 class GroupListManager<T : Groupable>(
     private val scope: CoroutineScope,
-    private val loadingIndicator: ILoadingIndicator,
     private val loader: ISearchableGroupLoader<T>,
-    initialBackstack: List<T> = emptyList(),
-    private val sort: suspend (List<T>) -> List<T> = { it }
+    private val loadingIndicator: ILoadingIndicator? = null,
+    initialRoot: T? = null,
+    private val sort: suspend (List<T>) -> List<T> = { it },
+    private val filter: (List<T>) -> List<T> = { it }
 ) {
 
     val root: T?
-        get() = _backStack.lastOrNull()
-
-    val backstack: List<T>
-        get() = _backStack.toList()
+        get() = _root
 
     var onChange: (root: T?, items: List<T>, rootChanged: Boolean) -> Unit = { _, _, _ -> }
 
-    private val _backStack = initialBackstack.toMutableList()
+    private var _root: T? = initialRoot
     private var query: String? = null
     private val runner = ControlledRunner<Unit>()
 
     fun refresh(resetScroll: Boolean = false) {
         scope.launch {
             runner.cancelPreviousThenRun {
-                loadingIndicator.show()
+                loadingIndicator?.show()
                 val items = onIO {
-                    sort(loader.load(query, root?.id))
+                    sort(filter(loader.load(query, root?.id)))
                 }
                 onChange(root, items, resetScroll)
-                loadingIndicator.hide()
+                loadingIndicator?.hide()
             }
         }
     }
@@ -48,26 +46,38 @@ class GroupListManager<T : Groupable>(
 
     fun clear(resetRoot: Boolean = true) {
         if (resetRoot) {
-            _backStack.clear()
+            _root = null
         }
         onChange(root, emptyList(), true)
     }
 
-    fun open(group: T?) {
-        if (group == null) {
-            _backStack.clear()
-        } else {
-            _backStack.add(group)
+    private fun loadGroup(id: Long) {
+        scope.launch {
+            _root = onIO { loader.getGroup(id) }
+            refresh(true)
         }
-        refresh(true)
+    }
+
+    fun open(groupId: Long?) {
+        if (groupId == null) {
+            _root = null
+            refresh(true)
+        } else {
+            loadGroup(groupId)
+        }
     }
 
     fun up(): Boolean {
-        if (_backStack.isEmpty()) {
+        if (_root == null) {
             return false
         }
-        _backStack.removeLast()
-        refresh(true)
+        val parent = _root?.parentId
+        if (parent == null) {
+            _root = null
+            refresh(true)
+        } else {
+            loadGroup(parent)
+        }
         return true
     }
 
