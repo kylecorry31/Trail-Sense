@@ -59,7 +59,8 @@ class PathListItemMapper(
             ListMenuItem(context.getString(R.string.export)) { action(PathAction.Export) },
             ListMenuItem(context.getString(R.string.merge)) { action(PathAction.Merge) },
             ListMenuItem(context.getString(R.string.delete)) { action(PathAction.Delete) },
-            ListMenuItem(context.getString(R.string.simplify)) { action(PathAction.Simplify) }
+            ListMenuItem(context.getString(R.string.simplify)) { action(PathAction.Simplify) },
+            ListMenuItem(context.getString(R.string.move_to)) { action(PathAction.Move) }
         )
 
         val distanceString = formatService.formatDistance(

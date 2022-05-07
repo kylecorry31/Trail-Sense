@@ -191,6 +191,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             PathGroupAction.Delete -> deleteGroup(group)
             PathGroupAction.Rename -> renameGroup(group)
             PathGroupAction.Open -> manager.open(group)
+            PathGroupAction.Move -> movePath(group)
         }
     }
 
@@ -204,6 +205,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             PathAction.Keep -> keepPath(path)
             PathAction.ToggleVisibility -> togglePathVisibility(path)
             PathAction.Simplify -> simplifyPath(path)
+            PathAction.Move -> movePath(path)
             else -> {}
         }
     }
@@ -293,6 +295,17 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         runInBackground {
             command.execute(manager.root?.id)
             manager.refresh()
+        }
+    }
+
+    private fun movePath(path: IPath) {
+        val command = MoveIPathCommand(requireContext(), pathService)
+        runInBackground {
+            val newGroup = command.execute(path)
+            if (newGroup?.id != path.parentId) {
+                toast(getString(R.string.moved_to, newGroup?.name ?: getString(R.string.no_group)))
+                manager.refresh()
+            }
         }
     }
 

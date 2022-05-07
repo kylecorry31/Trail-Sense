@@ -9,5 +9,6 @@ enum class PathAction {
     Keep,
     ToggleVisibility,
     Simplify,
+    Move,
     ViewPoints
 }

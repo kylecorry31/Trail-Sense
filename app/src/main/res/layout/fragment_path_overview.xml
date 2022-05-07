@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             app:flattenQuickActions="true"
             app:rightQuickActionIcon="@drawable/ic_menu_dots"
-            app:showSubtitle="false"
             tools:text="Start - End" />
 
         <com.google.android.flexbox.FlexboxLayout

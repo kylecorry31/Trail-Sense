@@ -44,6 +44,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -156,13 +157,17 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             showPathMenu()
         }
 
+        binding.pathTitle.subtitle.setOnClickListener {
+            movePath()
+        }
+
         chart.setOnPointClickListener {
             viewWaypoint(it)
         }
 
         pathService.getLivePath(pathId).observe(viewLifecycleOwner) {
             path = it
-
+            updateParent()
             updateElevationPlot()
             updatePointStyleLegend()
             updatePathMap()
@@ -213,6 +218,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
+    private fun updateParent() {
+        val path = path ?: return
+        runInBackground {
+            val parent = onIO { pathService.getGroup(path.parentId) }
+            if (isBound) {
+                binding.pathTitle.subtitle.text = parent?.name ?: getString(R.string.no_group)
+            }
+        }
+    }
+
     private fun updateElevationPlot() {
         chart.plot(
             waypoints.reversed(),
@@ -226,6 +241,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             calculatedDuration =
                 hikingService.getHikingDuration(reversed, paceFactor)
             difficulty = hikingService.getHikingDifficulty(reversed)
+        }
+    }
+
+    private fun movePath() {
+        val path = path ?: return
+        val command = MoveIPathCommand(requireContext(), pathService)
+        runInBackground {
+            command.execute(path)
         }
     }
 

@@ -28,6 +28,12 @@ class PathGroupListItemMapper(
                     value,
                     PathGroupAction.Delete
                 )
+            },
+            ListMenuItem(context.getString(R.string.move_to)) {
+                actionHandler(
+                    value,
+                    PathGroupAction.Move
+                )
             }
         )
 

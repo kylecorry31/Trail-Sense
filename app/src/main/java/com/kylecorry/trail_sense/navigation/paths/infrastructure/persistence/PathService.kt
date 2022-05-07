@@ -89,9 +89,9 @@ class PathService(
         }
     }
 
-    private suspend fun getGroup(groupId: Long?): PathGroup? {
-        groupId ?: return null
-        return pathRepo.getGroup(groupId)?.copy(count = getPathCount(groupId))
+    override suspend fun getGroup(id: Long?): PathGroup? {
+        id ?: return null
+        return pathRepo.getGroup(id)?.copy(count = getPathCount(id))
     }
 
     private suspend fun getPathCount(groupId: Long?): Int {
@@ -99,7 +99,7 @@ class PathService(
         return getPaths(groupId, includeGroups = false, maxDepth = null).count()
     }
 
-    private suspend fun getGroups(parent: Long?): List<PathGroup> {
+    override suspend fun getGroups(parent: Long?): List<PathGroup> {
         return pathRepo.getGroupsWithParent(parent).map { it.copy(count = getPathCount(it.id)) }
     }
 

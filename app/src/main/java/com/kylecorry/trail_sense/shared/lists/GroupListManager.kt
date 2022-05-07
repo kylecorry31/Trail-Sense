@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.lists
 
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.grouping.Groupable
@@ -21,15 +22,18 @@ class GroupListManager<T : Groupable>(
 
     private val backStack = mutableListOf<T>()
     private var query: String? = null
+    private val runner = ControlledRunner<Unit>()
 
     fun refresh(resetScroll: Boolean = false) {
         scope.launch {
-            loadingIndicator.show()
-            val items = onIO {
-                sort(loader.load(query, root?.id))
+            runner.cancelPreviousThenRun {
+                loadingIndicator.show()
+                val items = onIO {
+                    sort(loader.load(query, root?.id))
+                }
+                onChange(root, items, resetScroll)
+                loadingIndicator.hide()
             }
-            onChange(root, items, resetScroll)
-            loadingIndicator.hide()
         }
     }
 

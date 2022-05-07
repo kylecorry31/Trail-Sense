@@ -13,6 +13,8 @@ interface IPathService : ICleanable {
 
     fun getLivePaths(): LiveData<List<Path>>
     suspend fun getPath(id: Long): Path?
+    suspend fun getGroup(id: Long?): PathGroup?
+    suspend fun getGroups(parent: Long?): List<PathGroup>
     suspend fun getPaths(
         groupId: Long?,
         includeGroups: Boolean = true,

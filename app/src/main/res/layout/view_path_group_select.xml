@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/path_group_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flattenQuickActions="true"
+        app:leftQuickActionIcon="@drawable/ic_prev"
+        app:showSubtitle="false" />
+
+    <com.kylecorry.trail_sense.shared.lists.TSListView
+        android:id="@+id/path_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/path_empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/no_groups"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>
