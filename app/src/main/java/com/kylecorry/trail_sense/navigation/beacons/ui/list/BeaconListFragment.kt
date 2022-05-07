@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.Pickers
@@ -85,6 +86,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private lateinit var manager: GroupListManager<IBeacon>
+    private var lastBackstack = emptyList<IBeacon>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +105,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         manager = GroupListManager(
             lifecycleScope,
             loadingIndicator,
-            beaconLoader
+            beaconLoader,
+            lastBackstack
         ) { beaconSort.sort(it) }
 
         binding.searchbox.setOnQueryTextListener { _, _ ->
@@ -222,7 +225,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     override fun onResume() {
         super.onResume()
-        manager.clear()
+        manager.clear(false)
         loadingIndicator.show()
         if (gps.hasValidReading) {
             onLocationUpdate()
@@ -235,6 +238,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         loadingIndicator.hide()
         gps.stop(this::onLocationUpdate)
         delayedUpdate.stop()
+        tryOrNothing {
+            lastBackstack = manager.backstack
+        }
         super.onPause()
     }
 

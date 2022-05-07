@@ -12,15 +12,19 @@ class GroupListManager<T : Groupable>(
     private val scope: CoroutineScope,
     private val loadingIndicator: ILoadingIndicator,
     private val loader: ISearchableGroupLoader<T>,
-    private val sort: suspend (List<T>) -> List<T> = { it },
+    initialBackstack: List<T> = emptyList(),
+    private val sort: suspend (List<T>) -> List<T> = { it }
 ) {
 
     val root: T?
-        get() = backStack.lastOrNull()
+        get() = _backStack.lastOrNull()
+
+    val backstack: List<T>
+        get() = _backStack.toList()
 
     var onChange: (root: T?, items: List<T>, rootChanged: Boolean) -> Unit = { _, _, _ -> }
 
-    private val backStack = mutableListOf<T>()
+    private val _backStack = initialBackstack.toMutableList()
     private var query: String? = null
     private val runner = ControlledRunner<Unit>()
 
@@ -42,25 +46,27 @@ class GroupListManager<T : Groupable>(
         refresh(true)
     }
 
-    fun clear() {
-        backStack.clear()
-        onChange(null, emptyList(), true)
+    fun clear(resetRoot: Boolean = true) {
+        if (resetRoot) {
+            _backStack.clear()
+        }
+        onChange(root, emptyList(), true)
     }
 
     fun open(group: T?) {
         if (group == null) {
-            backStack.clear()
+            _backStack.clear()
         } else {
-            backStack.add(group)
+            _backStack.add(group)
         }
         refresh(true)
     }
 
     fun up(): Boolean {
-        if (backStack.isEmpty()) {
+        if (_backStack.isEmpty()) {
             return false
         }
-        backStack.removeLast()
+        _backStack.removeLast()
         refresh(true)
         return true
     }

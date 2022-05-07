@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
@@ -59,6 +60,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private lateinit var manager: GroupListManager<IPath>
     private lateinit var loadingIndicator: ILoadingIndicator
 
+    private var lastBackstack = emptyList<IPath>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,6 +72,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             lifecycleScope,
             loadingIndicator,
             pathLoader,
+            lastBackstack,
             this::sortPaths
         )
 
@@ -136,6 +139,13 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
         setupCreateMenu()
         scheduleUpdates(INTERVAL_1_FPS)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        tryOrNothing {
+            lastBackstack = manager.backstack
+        }
     }
 
     override fun onUpdate() {
