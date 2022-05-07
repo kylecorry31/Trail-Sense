@@ -217,10 +217,10 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private suspend fun sortPaths(paths: List<IPath>): List<IPath> {
         val strategy = when (sort) {
-            PathSortMethod.MostRecent -> MostRecentPathSortStrategy()
-            PathSortMethod.Longest -> LongestPathSortStrategy()
-            PathSortMethod.Shortest -> ShortestPathSortStrategy()
-            PathSortMethod.Closest -> ClosestPathSortStrategy(gps.location)
+            PathSortMethod.MostRecent -> MostRecentPathSortStrategy(pathService)
+            PathSortMethod.Longest -> LongestPathSortStrategy(pathService)
+            PathSortMethod.Shortest -> ShortestPathSortStrategy(pathService)
+            PathSortMethod.Closest -> ClosestPathSortStrategy(gps.location, pathService)
             PathSortMethod.Name -> NamePathSortStrategy()
         }
         return strategy.sort(paths)
