@@ -25,7 +25,7 @@ class ImportPathsCommand(
     private val prefs: IPathPreferences = UserPreferences(context).navigation
 ) {
 
-    fun execute() {
+    fun execute(parentId: Long?) {
         lifecycleScope.launch {
             val gpx = gpxService.import() ?: return@launch
             val style = prefs.defaultPathStyle
@@ -61,7 +61,7 @@ class ImportPathsCommand(
                                 val shouldSimplify = prefs.simplifyPathOnImport
                                 for (path in paths.filterIndices(it)) {
                                     val pathToCreate =
-                                        Path(0, path.first, style, PathMetadata.empty)
+                                        Path(0, path.first, style, PathMetadata.empty, parentId = parentId)
                                     val pathId = pathService.addPath(pathToCreate)
                                     pathService.addWaypointsToPath(path.second, pathId)
                                     if (shouldSimplify) {

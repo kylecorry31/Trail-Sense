@@ -11,6 +11,10 @@ class ViewPathCommand(
 ) : IPathCommand {
 
     override fun execute(path: Path) {
-        navController.navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to path.id))
+        execute(path.id)
+    }
+
+    fun execute(id: Long) {
+        navController.navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to id))
     }
 }

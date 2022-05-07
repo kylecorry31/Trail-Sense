@@ -103,15 +103,11 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             val defaultSort = prefs.navigation.pathSort
             Pickers.menu(
                 it, listOf(
-                    getString(R.string.sort_by, getSortString(defaultSort)),
-                    getString(R.string.import_gpx),
-                    getString(R.string.group)
+                    getString(R.string.sort_by, getSortString(defaultSort))
                 )
             ) { selected ->
                 when (selected) {
                     0 -> changeSort()
-                    1 -> importPaths()
-                    2 -> createGroup()
                 }
                 true
             }
@@ -138,11 +134,26 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             onUpdate()
         }
 
+        setupCreateMenu()
         scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onUpdate() {
         binding.backtrackPlayBar.setState(isBacktrackRunning, prefs.backtrackRecordFrequency)
+    }
+
+    private fun setupCreateMenu() {
+        binding.addMenu.setOverlay(binding.overlayMask)
+        binding.addMenu.fab = binding.addBtn
+        binding.addMenu.hideOnMenuOptionSelected = true
+        binding.addMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_import_path_gpx -> importPaths()
+                R.id.action_create_path_group -> createGroup()
+                R.id.action_create_path -> createPath()
+            }
+            true
+        }
     }
 
     override fun generateBinding(
@@ -246,6 +257,10 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         command.execute(path)
     }
 
+    private fun showPath(id: Long) {
+        val command = ViewPathCommand(findNavController())
+        command.execute(id)
+    }
 
     private fun importPaths() {
         val command = ImportPathsCommand(
@@ -255,7 +270,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             pathService,
             prefs.navigation
         )
-        command.execute()
+        command.execute(manager.root?.id)
     }
 
     private fun exportPath(path: Path) {
@@ -271,6 +286,15 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private fun merge(path: Path) {
         val command = MergePathCommand(requireContext(), lifecycleScope, paths, pathService)
         command.execute(path)
+    }
+
+    private fun createPath() {
+        val command = CreatePathCommand(requireContext(), pathService, prefs.navigation)
+        runInBackground {
+            command.execute(manager.root?.id)?.let {
+                showPath(it)
+            }
+        }
     }
 
     // Groups
@@ -291,7 +315,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private fun createGroup() {
-        val command = CreatePathGroupGroupCommand(requireContext(), pathService)
+        val command = CreatePathGroupCommand(requireContext(), pathService)
         runInBackground {
             command.execute(manager.root?.id)
             manager.refresh()

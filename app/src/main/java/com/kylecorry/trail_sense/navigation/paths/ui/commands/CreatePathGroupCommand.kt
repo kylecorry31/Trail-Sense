@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 
 
-class CreatePathGroupGroupCommand(
+class CreatePathGroupCommand(
     private val context: Context,
     private val pathService: IPathService = PathService.getInstance(context)
 ) {
