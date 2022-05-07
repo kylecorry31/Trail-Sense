@@ -58,20 +58,16 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private val pathLoader by lazy { PathGroupLoader(pathService) }
     private lateinit var manager: GroupListManager<IPath>
-    private lateinit var loadingIndicator: ILoadingIndicator
 
     private var lastRoot: IPath? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadingIndicator = NullLoadingIndicator()
-
         binding.pathsList.emptyView = binding.waypointsEmptyText
         manager = GroupListManager(
             lifecycleScope,
             pathLoader,
-            loadingIndicator,
             lastRoot,
             this::sortPaths
         )

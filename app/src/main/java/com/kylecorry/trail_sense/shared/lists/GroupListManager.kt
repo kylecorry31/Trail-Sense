@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.lists
 
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
-import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.grouping.ISearchableGroupLoader
@@ -11,10 +10,8 @@ import kotlinx.coroutines.launch
 class GroupListManager<T : Groupable>(
     private val scope: CoroutineScope,
     private val loader: ISearchableGroupLoader<T>,
-    private val loadingIndicator: ILoadingIndicator? = null,
     initialRoot: T? = null,
-    private val sort: suspend (List<T>) -> List<T> = { it },
-    private val filter: (List<T>) -> List<T> = { it }
+    private val augment: suspend (List<T>) -> List<T> = { it }
 ) {
 
     val root: T?
@@ -29,12 +26,10 @@ class GroupListManager<T : Groupable>(
     fun refresh(resetScroll: Boolean = false) {
         scope.launch {
             runner.cancelPreviousThenRun {
-                loadingIndicator?.show()
                 val items = onIO {
-                    sort(filter(loader.load(query, root?.id)))
+                    augment(loader.load(query, root?.id))
                 }
                 onChange(root, items, resetScroll)
-                loadingIndicator?.hide()
             }
         }
     }

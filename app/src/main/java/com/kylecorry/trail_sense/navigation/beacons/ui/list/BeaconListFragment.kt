@@ -105,10 +105,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         manager = GroupListManager(
             lifecycleScope,
             beaconLoader,
-            loadingIndicator,
-            lastRoot,
-            { beaconSort.sort(it) }
-        )
+            lastRoot
+        ) { beaconSort.sort(it) }
 
         binding.searchbox.setOnQueryTextListener { _, _ ->
             manager.search(binding.searchbox.query)

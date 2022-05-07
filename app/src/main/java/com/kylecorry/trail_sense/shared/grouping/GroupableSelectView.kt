@@ -17,14 +17,14 @@ class GroupableSelectView<T : Groupable>(
     private val mapper: ListItemMapper<T>,
     private val titleProvider: (T?) -> String,
     emptyText: String,
-    initialGroup: T? = null,
+    initialGroup: Long? = null,
     searchEnabled: Boolean = true
 ) : ConstraintLayout(context, attrs) {
 
     private val binding: ViewGroupableSelectorBinding
 
     val onItemClick: (item: T) -> Unit = {}
-    var root: T? = initialGroup
+    var root: T? = null
         private set
 
     init {
@@ -65,6 +65,6 @@ class GroupableSelectView<T : Groupable>(
             manager.up()
         }
 
-        manager.open(initialGroup?.id)
+        manager.open(initialGroup)
     }
 }
