@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.lists.ListItem
 import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 import com.kylecorry.trail_sense.shared.lists.ListMenuItem
@@ -14,8 +14,6 @@ class PathGroupListItemMapper(
     private val actionHandler: (PathGroup, PathGroupAction) -> Unit
 ) : ListItemMapper<PathGroup> {
     override fun map(value: PathGroup): ListItem {
-        val icon = R.drawable.ic_tool_backtrack
-
         val menu = listOfNotNull(
             ListMenuItem(context.getString(R.string.rename)) {
                 actionHandler(
@@ -43,8 +41,8 @@ class PathGroupListItemMapper(
             -value.id,
             value.name,
             icon = ResourceListIcon(
-                icon,
-                Resources.androidTextColorSecondary(context)
+                R.drawable.ic_path_group,
+                AppColor.Gray.color
             ),
             subtitle = context.resources.getQuantityString(
                 R.plurals.path_group_summary,
