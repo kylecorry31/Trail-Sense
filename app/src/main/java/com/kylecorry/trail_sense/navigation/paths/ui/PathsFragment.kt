@@ -22,8 +22,6 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
-import com.kylecorry.trail_sense.shared.alerts.NullLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -45,7 +43,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         IOFactory().createGpxService(this)
     }
 
-    private var paths = emptyList<Path>()
     private var sort = PathSortMethod.MostRecent
 
     private val listMapper by lazy {
@@ -290,7 +287,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private fun merge(path: Path) {
-        val command = MergePathCommand(requireContext(), lifecycleScope, paths, pathService)
+        val command = MergePathCommand(requireContext(), lifecycleScope, pathService)
         command.execute(path)
     }
 

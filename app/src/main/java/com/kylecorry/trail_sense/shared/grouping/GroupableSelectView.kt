@@ -23,7 +23,7 @@ class GroupableSelectView<T : Groupable>(
 
     private val binding: ViewGroupableSelectorBinding
 
-    val onItemClick: (item: T) -> Unit = {}
+    var onItemClick: (item: T) -> Unit = {}
     var root: T? = null
         private set
 
@@ -43,9 +43,10 @@ class GroupableSelectView<T : Groupable>(
         binding.emptyText.text = emptyText
         manager.onChange = { root, items, rootChanged ->
             this.root = root
-            binding.groupTitle.leftQuickAction.isVisible = root?.parentId != null
+            binding.groupTitle.leftQuickAction.isVisible = root != null
             binding.groupTitle.title.text = titleProvider(root)
             val mapped = items.map {
+                // TODO: Don't override anything, just intercept the click action to open folders (let the caller decide what to do on click)
                 mapper.map(it).copy(menu = emptyList(), trailingIcon = null, action = {
                     if (it.isGroup) {
                         manager.open(it.id)

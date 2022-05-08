@@ -36,6 +36,10 @@ import com.kylecorry.trail_sense.navigation.paths.ui.PathGroupSelectView
 import com.kylecorry.trail_sense.shared.alerts.CoroutineAlerts
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.grouping.Groupable
+import com.kylecorry.trail_sense.shared.grouping.GroupableSelectView
+import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.views.*
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
@@ -225,6 +229,71 @@ object CustomUiUtils {
         beaconSelect?.setOnBeaconChangeListener {
             onBeaconPick.invoke(it)
             alert.dismiss()
+        }
+    }
+
+    fun <T : Groupable> pickGroupableItem(
+        context: Context,
+        title: String?,
+        manager: GroupListManager<T>,
+        mapper: ListItemMapper<T>,
+        titleProvider: (T?) -> String,
+        emptyText: String,
+        initialGroup: Long? = null,
+        searchEnabled: Boolean = true,
+        onPick: (item: T?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_alert_dialog, null) as FrameLayout
+        val selector = GroupableSelectView(
+            context,
+            null,
+            manager,
+            mapper,
+            titleProvider,
+            emptyText,
+            initialGroup,
+            searchEnabled
+        )
+        view.addView(selector)
+        var selected: T? = null
+        val alert =
+            Alerts.dialog(context, title ?: "", contentView = view, okText = null) {
+                onPick.invoke(selected)
+            }
+        selector.onItemClick = {
+            if (!it.isGroup) {
+                selected = it
+                onPick.invoke(it)
+                alert.dismiss()
+            }
+        }
+    }
+
+    fun <T : Groupable> pickGroup(
+        context: Context,
+        title: String?,
+        manager: GroupListManager<T>,
+        mapper: ListItemMapper<T>,
+        titleProvider: (T?) -> String,
+        emptyText: String,
+        initialGroup: Long? = null,
+        searchEnabled: Boolean = true,
+        onPick: (item: T?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_alert_dialog, null) as FrameLayout
+        val selector = GroupableSelectView(
+            context,
+            null,
+            manager,
+            mapper,
+            titleProvider,
+            emptyText,
+            initialGroup,
+            searchEnabled
+        )
+        view.addView(selector)
+        Alerts.dialog(context, title ?: "", contentView = view) {
+            onPick.invoke(selector.root)
         }
     }
 
