@@ -1028,4 +1028,11 @@
     <string name="file">文件</string>
     <string name="map_export_error">无法将地图导出到所选文件</string>
     <string name="second_symbol">秒</string>
+    <string name="path">路径</string>
+    <string name="point">点</string>
+    <string name="point_added">已添加点至路径</string>
+    <string name="delete_path_group_message">%s 及其所有路径将被删除。</string>
+    <plurals name="path_group_summary">
+        <item quantity="other">%d 条路径</item>
+    </plurals>
 </resources>
