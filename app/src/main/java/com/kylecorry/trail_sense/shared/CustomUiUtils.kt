@@ -32,8 +32,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.paths.ui.PathGroupSelectView
-import com.kylecorry.trail_sense.shared.alerts.CoroutineAlerts
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.grouping.Groupable
@@ -272,13 +270,14 @@ object CustomUiUtils {
     fun <T : Groupable> pickGroup(
         context: Context,
         title: String?,
+        okText: String = context.getString(android.R.string.ok),
         manager: GroupListManager<T>,
         mapper: ListItemMapper<T>,
         titleProvider: (T?) -> String,
         emptyText: String,
         initialGroup: Long? = null,
         searchEnabled: Boolean = true,
-        onPick: (item: T?) -> Unit
+        onPick: (cancelled: Boolean, item: T?) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_alert_dialog, null) as FrameLayout
         val selector = GroupableSelectView(
@@ -292,8 +291,8 @@ object CustomUiUtils {
             searchEnabled
         )
         view.addView(selector)
-        Alerts.dialog(context, title ?: "", contentView = view) {
-            onPick.invoke(selector.root)
+        Alerts.dialog(context, title ?: "", contentView = view, okText = okText) {
+            onPick.invoke(it, selector.root)
         }
     }
 
@@ -320,37 +319,6 @@ object CustomUiUtils {
             okText = okText ?: context.getString(android.R.string.ok)
         ) { cancelled ->
             onBeaconGroupPick.invoke(cancelled, beaconSelect.group?.id)
-        }
-    }
-
-    // TODO: Make this into a generic group picker
-    suspend fun pickPathGroup(
-        context: Context,
-        title: String? = null,
-        okText: String? = null,
-        groupsToExclude: List<Long?> = emptyList(),
-        initialGroup: Long? = null
-    ): Long? {
-        val view = View.inflate(context, R.layout.view_path_group_select_prompt, null)
-        val pathSelect = view.findViewById<PathGroupSelectView>(R.id.prompt_path_groups)
-        if (groupsToExclude.isNotEmpty()) {
-            pathSelect.groupFilter = groupsToExclude
-        }
-        initialGroup?.let {
-            pathSelect.loadGroup(initialGroup)
-        }
-
-        val cancelled = CoroutineAlerts.dialog(
-            context,
-            title ?: "",
-            contentView = view,
-            okText = okText ?: context.getString(android.R.string.ok)
-        )
-
-        return if (cancelled) {
-            -1L
-        } else {
-            pathSelect.group?.id
         }
     }
 

@@ -18,6 +18,45 @@ import kotlin.coroutines.suspendCoroutine
 
 object PathPickers {
 
+    suspend fun pickGroup(
+        context: Context,
+        title: String? = null,
+        okText: String = context.getString(android.R.string.ok),
+        initialGroup: Long? = null,
+        scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
+        sort: IPathSortStrategy = NamePathSortStrategy(),
+        filter: (List<IPath>) -> List<IPath> = { it }
+    ): Pair<Boolean, PathGroup?> = suspendCoroutine { cont ->
+        val loader = PathGroupLoader(PathService.getInstance(context))
+        val manager = GroupListManager(
+            scope,
+            loader,
+            null,
+            augment = { sort.sort(filter(it.filter { it.isGroup })) }
+        )
+        val mapper = IPathListItemMapper(context, { _, _ -> }, { _, _ -> })
+        val titleProvider = { path: IPath? ->
+            if (path is PathGroup) {
+                path.name
+            } else {
+                context.getString(R.string.paths)
+            }
+        }
+        CustomUiUtils.pickGroup(
+            context,
+            title,
+            okText,
+            manager,
+            mapper,
+            titleProvider,
+            context.getString(R.string.no_groups),
+            initialGroup,
+            searchEnabled = false
+        ) { cancelled, item ->
+            cont.resume(cancelled to item as PathGroup?)
+        }
+    }
+
     suspend fun pickPath(
         context: Context,
         title: String? = null,

@@ -6,8 +6,8 @@ import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathPickers
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.onIO
 
 class MoveIPathCommand(
@@ -16,15 +16,18 @@ class MoveIPathCommand(
 ) {
 
     suspend fun execute(path: IPath): PathGroup? {
-        val newGroup = CustomUiUtils.pickPathGroup(
+
+        val result = PathPickers.pickGroup(
             context,
             null,
             context.getString(R.string.move),
             initialGroup = path.parentId,
-            groupsToExclude = listOfNotNull(if (path is PathGroup) path.id else null)
+            filter = { it.filter { path !is PathGroup || path.id != it.id } }
         )
 
-        if (newGroup == -1L || newGroup == path.parentId) {
+        val newGroup = result.second?.id
+
+        if (result.first || newGroup == path.parentId) {
             return onIO {
                 pathService.getGroup(path.parentId)
             }
@@ -37,7 +40,7 @@ class MoveIPathCommand(
                 pathService.addPath((path as Path).copy(parentId = newGroup))
             }
 
-            pathService.getGroup(newGroup)
+            result.second
         }
     }
 
