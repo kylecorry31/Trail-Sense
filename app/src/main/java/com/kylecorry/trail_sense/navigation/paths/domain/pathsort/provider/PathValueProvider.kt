@@ -3,23 +3,18 @@ package com.kylecorry.trail_sense.navigation.paths.domain.pathsort.provider
 import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.shared.grouping.GroupMapper
 
 class PathValueProvider<T>(
-    private val pathService: IPathService,
-    private val mapper: suspend (path: Path) -> T,
+    pathService: IPathService,
+    map: suspend (path: Path) -> T,
     private val aggregator: (values: List<T>) -> T
 ) {
 
+    private val mapper = GroupMapper(pathService.loader()) { map(it as Path) }
+
     suspend fun get(path: IPath): T {
-        if (path is Path) {
-            return mapper(path)
-        }
-
-        val paths =
-            pathService.getPaths(path.id, includeGroups = false, maxDepth = null).map { it as Path }
-
-        val values = paths.map { mapper(it) }
-        return aggregator(values)
+        return aggregator(mapper.get(path))
     }
 
 }

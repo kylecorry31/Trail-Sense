@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.domain
 import androidx.lifecycle.LiveData
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.ICleanable
+import com.kylecorry.trail_sense.shared.grouping.GroupLoader
 import java.time.Instant
 
 interface IPathService : ICleanable {
@@ -11,6 +12,7 @@ interface IPathService : ICleanable {
     suspend fun endBacktrackPath()
     suspend fun getBacktrackPathId(): Long?
 
+    fun loader(): GroupLoader<IPath>
     fun getLivePaths(): LiveData<List<Path>>
     suspend fun getPath(id: Long): Path?
     suspend fun getGroup(id: Long?): PathGroup?

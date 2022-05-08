@@ -69,6 +69,10 @@ class PathService(
         }
     }
 
+    override fun loader(): GroupLoader<IPath> {
+        return loader
+    }
+
     override fun getLivePaths(): LiveData<List<Path>> {
         return pathRepo.getAllLive()
     }
