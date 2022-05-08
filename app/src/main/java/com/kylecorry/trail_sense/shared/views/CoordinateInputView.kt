@@ -14,12 +14,19 @@ import com.kylecorry.andromeda.core.units.CoordinateExtensions.parse
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.distance.BeaconDistanceCalculatorFactory
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestBeaconSort
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.Duration
 
-class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
+    LinearLayout(context, attrs) {
 
     private val formatService by lazy { FormatService(getContext()) }
     private val sensorService by lazy { SensorService(getContext()) }
@@ -78,10 +85,18 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) : Line
             }
 
             beaconBtn.setOnClickListener {
-                CustomUiUtils.pickBeacon(context, null, gps.location){
-                    if (it != null){
-                        coordinate = it.coordinate
-                    }
+                CoroutineScope(Dispatchers.Main).launch {
+                    val beacon = BeaconPickers.pickBeacon(
+                        context,
+                        sort = NearestBeaconSort(
+                            BeaconDistanceCalculatorFactory(
+                                BeaconService(
+                                    context
+                                )
+                            ), gps::location
+                        )
+                    ) ?: return@launch
+                    coordinate = beacon.coordinate
                 }
             }
 

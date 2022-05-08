@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -15,6 +16,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.ui.form.CreateBeaconData
 import com.kylecorry.trail_sense.navigation.beacons.ui.form.CreateBeaconForm
@@ -27,6 +29,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import kotlinx.coroutines.launch
 
 class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
@@ -147,14 +150,16 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         binding.beaconGroupPicker.setOnClickListener {
-            CustomUiUtils.pickBeaconGroup(
-                requireContext(),
-                initialGroup = form.data.groupId
-            ) { cancelled, groupId ->
-                if (!cancelled) {
-                    form.onGroupChanged(groupId)
-                    updateBeaconGroupName()
+            lifecycleScope.launch {
+                val result = BeaconPickers.pickGroup(
+                    requireContext(),
+                    initialGroup = form.data.groupId
+                )
+                if (result.first) {
+                    return@launch
                 }
+                form.onGroupChanged(result.second?.id)
+                updateBeaconGroupName()
             }
         }
 

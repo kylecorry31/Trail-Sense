@@ -27,11 +27,9 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.grouping.Groupable
@@ -39,7 +37,9 @@ import com.kylecorry.trail_sense.shared.grouping.GroupableSelectView
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.shared.views.*
+import com.kylecorry.trail_sense.shared.views.ColorPickerView
+import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
@@ -211,25 +211,6 @@ object CustomUiUtils {
         }
     }
 
-    fun pickBeacon(
-        context: Context,
-        title: String?,
-        location: Coordinate,
-        onBeaconPick: (beacon: Beacon?) -> Unit
-    ) {
-        val view = View.inflate(context, R.layout.view_beacon_select_prompt, null)
-        val beaconSelect = view.findViewById<BeaconSelectView>(R.id.prompt_beacons)
-        beaconSelect.location = location
-        val alert =
-            Alerts.dialog(context, title ?: "", contentView = view, okText = null) {
-                onBeaconPick.invoke(beaconSelect.beacon)
-            }
-        beaconSelect?.setOnBeaconChangeListener {
-            onBeaconPick.invoke(it)
-            alert.dismiss()
-        }
-    }
-
     fun <T : Groupable> pickGroupableItem(
         context: Context,
         title: String?,
@@ -293,32 +274,6 @@ object CustomUiUtils {
         view.addView(selector)
         Alerts.dialog(context, title ?: "", contentView = view, okText = okText) {
             onPick.invoke(it, selector.root)
-        }
-    }
-
-    fun pickBeaconGroup(
-        context: Context,
-        title: String? = null,
-        okText: String? = null,
-        groupsToExclude: List<Long?> = emptyList(),
-        initialGroup: Long? = null,
-        onBeaconGroupPick: (cancelled: Boolean, groupId: Long?) -> Unit
-    ) {
-        val view = View.inflate(context, R.layout.view_beacon_group_select_prompt, null)
-        val beaconSelect = view.findViewById<BeaconGroupSelectView>(R.id.prompt_beacon_groups)
-        if (groupsToExclude.isNotEmpty()) {
-            beaconSelect.groupFilter = groupsToExclude
-        }
-        initialGroup?.let {
-            beaconSelect.loadGroup(initialGroup)
-        }
-        Alerts.dialog(
-            context,
-            title ?: "",
-            contentView = view,
-            okText = okText ?: context.getString(android.R.string.ok)
-        ) { cancelled ->
-            onBeaconGroupPick.invoke(cancelled, beaconSelect.group?.id)
         }
     }
 

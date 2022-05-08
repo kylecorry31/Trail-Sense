@@ -25,14 +25,14 @@ object PathPickers {
         initialGroup: Long? = null,
         scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
         sort: IPathSortStrategy = NamePathSortStrategy(),
-        filter: (List<IPath>) -> List<IPath> = { it }
+        filter: (List<PathGroup>) -> List<PathGroup> = { it }
     ): Pair<Boolean, PathGroup?> = suspendCoroutine { cont ->
         val loader = PathGroupLoader(PathService.getInstance(context))
         val manager = GroupListManager(
             scope,
             loader,
             null,
-            augment = { sort.sort(filter(it.filter { it.isGroup })) }
+            augment = { sort.sort(filter(it.filterIsInstance<PathGroup>())) }
         )
         val mapper = IPathListItemMapper(context, { _, _ -> }, { _, _ -> })
         val titleProvider = { path: IPath? ->
