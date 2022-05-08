@@ -10,8 +10,8 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.AlphabeticalBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.IBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.ui.list.IBeaconListItemMapper
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.grouping.GroupablePickers
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.CoroutineScope
@@ -44,7 +44,7 @@ object BeaconPickers {
         val titleProvider = { beacon: IBeacon? ->
             beacon?.name ?: context.getString(R.string.beacons)
         }
-        CustomUiUtils.pickGroupableItem(
+        GroupablePickers.item(
             context,
             title,
             manager,
@@ -82,7 +82,7 @@ object BeaconPickers {
         val titleProvider = { beacon: IBeacon? ->
             beacon?.name ?: context.getString(R.string.beacons)
         }
-        CustomUiUtils.pickGroup(
+        GroupablePickers.group(
             context,
             title,
             okText,
