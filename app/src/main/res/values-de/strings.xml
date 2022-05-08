@@ -1033,4 +1033,10 @@
     <string name="battery_usage_restricted_benefit">Batterieoptimierung für Trail Sense auszuschalten kann die Genauigkeit verbessern.</string>
     <string name="running_in_background">Im Hintergrund laufend</string>
     <string name="remove_battery_restrictions">Batterieoptimierung ausschalten\?</string>
+    <string name="exporting_map">Exportiere Karte</string>
+    <string name="map_exported">Karte exportiert</string>
+    <string name="camera_capture">Aufnahme</string>
+    <string name="file">Datei</string>
+    <string name="second_symbol">s</string>
+    <string name="map_export_error">Exportieren der Karte zur gewählten Datei nicht möglich</string>
 </resources>
