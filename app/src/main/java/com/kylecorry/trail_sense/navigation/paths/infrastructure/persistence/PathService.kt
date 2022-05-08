@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.grouping.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.GroupLoader
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
@@ -30,6 +31,16 @@ class PathService(
 ) : IPathService {
 
     private val backtrackLock = Mutex()
+    private val loader = GroupLoader(this::getGroup, this::getChildren)
+    private val deleter = object : GroupDeleter<IPath>(loader) {
+        override suspend fun deleteItems(items: List<IPath>) {
+            items.forEach { deletePath(it as Path) }
+        }
+
+        override suspend fun deleteGroup(group: IPath) {
+            pathRepo.deleteGroup(group as PathGroup)
+        }
+    }
 
     override suspend fun addBacktrackPoint(point: PathPoint) {
         backtrackLock.withLock {
@@ -72,15 +83,17 @@ class PathService(
         maxDepth: Int?,
         includeRoot: Boolean
     ): List<IPath> {
-        val rootFn = if (includeRoot) {
-            this::getGroup
-        } else {
-            { null }
-        }
-
-        val loader = GroupLoader(rootFn, this::getChildren)
         return onIO {
-            val paths = loader.load(groupId, maxDepth)
+
+            val root = listOfNotNull(
+                if (includeRoot) {
+                    loader.getGroup(groupId)
+                } else {
+                    null
+                }
+            )
+
+            val paths = root + loader.getChildren(groupId, maxDepth)
             if (includeGroups) {
                 paths
             } else {
@@ -99,7 +112,7 @@ class PathService(
         return getPaths(groupId, includeGroups = false, maxDepth = null).count()
     }
 
-    override suspend fun getGroups(parent: Long?): List<PathGroup> {
+    private suspend fun getGroups(parent: Long?): List<PathGroup> {
         return pathRepo.getGroupsWithParent(parent).map { it.copy(count = getPathCount(it.id)) }
     }
 
@@ -134,21 +147,7 @@ class PathService(
     }
 
     override suspend fun deleteGroup(group: PathGroup) {
-        // Delete paths
-        val children = getPaths(group.id, includeGroups = true, maxDepth = 1, includeRoot = false)
-        val paths = children.filterIsInstance<Path>()
-        paths.forEach {
-            deletePath(it)
-        }
-
-        // Delete groups
-        val groups = children.filterIsInstance<PathGroup>()
-        for (subGroup in groups) {
-            deleteGroup(subGroup)
-        }
-
-        // Delete self
-        pathRepo.deleteGroup(group)
+        deleter.delete(group)
     }
 
     override suspend fun mergePaths(startPathId: Long, endPathId: Long): Long {

@@ -1,13 +1,16 @@
 package com.kylecorry.trail_sense.shared.grouping
 
 class GroupLoader<T : Groupable>(
-    private val rootLoader: suspend (id: Long?) -> T?,
+    private val groupLoader: suspend (id: Long?) -> T?,
     private val childLoader: suspend (id: Long?) -> List<T>
 ) : IGroupLoader<T> {
-    override suspend fun load(id: Long?, maxDepth: Int?): List<T> {
-        val root = listOfNotNull(rootLoader.invoke(id))
-        val children = loadChildren(id, maxDepth)
-        return root + children
+
+    override suspend fun getChildren(parentId: Long?, maxDepth: Int?): List<T> {
+        return loadChildren(parentId, maxDepth)
+    }
+
+    override suspend fun getGroup(id: Long?): T? {
+        return groupLoader.invoke(id)
     }
 
     private suspend fun loadChildren(id: Long?, maxDepth: Int?): List<T> {

@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.shared.grouping.GroupLoader
 class BeaconService(context: Context) : IBeaconService {
 
     private val repo = BeaconRepo.getInstance(context)
+    private val loader = GroupLoader(this::getGroup, this::getChildren)
+
 
     override suspend fun add(beacon: Beacon): Long {
         if (beacon.id == 0L && beacon.temporary) {
@@ -31,15 +33,16 @@ class BeaconService(context: Context) : IBeaconService {
         maxDepth: Int?,
         includeRoot: Boolean
     ): List<IBeacon> {
-        val rootFn = if (includeRoot) {
-            this::getGroup
-        } else {
-            { null }
-        }
-
-        val loader = GroupLoader(rootFn, this::getChildren)
         return onIO {
-            val beacons = loader.load(groupId, maxDepth)
+            val root = listOfNotNull(
+                if (includeRoot) {
+                    loader.getGroup(groupId)
+                } else {
+                    null
+                }
+            )
+
+            val beacons = root + loader.getChildren(groupId, maxDepth)
             if (includeGroups) {
                 beacons
             } else {
