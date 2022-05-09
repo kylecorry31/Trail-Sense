@@ -1,4 +1,6 @@
-package com.kylecorry.trail_sense.shared.grouping
+package com.kylecorry.trail_sense.shared.grouping.persistence
+
+import com.kylecorry.trail_sense.shared.grouping.Groupable
 
 class GroupLoader<T : Groupable>(
     private val groupLoader: suspend (id: Long?) -> T?,

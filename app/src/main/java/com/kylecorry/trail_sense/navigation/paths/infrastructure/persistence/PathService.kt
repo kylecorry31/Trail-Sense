@@ -12,8 +12,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.grouping.GroupDeleter
-import com.kylecorry.trail_sense.shared.grouping.GroupLoader
+import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
+import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
 import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex

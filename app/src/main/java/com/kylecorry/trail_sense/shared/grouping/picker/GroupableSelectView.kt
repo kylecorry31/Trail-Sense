@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.grouping
+package com.kylecorry.trail_sense.shared.grouping.picker
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewGroupableSelectorBinding
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
+import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 

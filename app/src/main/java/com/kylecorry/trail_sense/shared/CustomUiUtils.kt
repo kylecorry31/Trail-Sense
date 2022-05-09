@@ -32,10 +32,6 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.grouping.Groupable
-import com.kylecorry.trail_sense.shared.grouping.GroupableSelectView
-import com.kylecorry.trail_sense.shared.lists.GroupListManager
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.grouping
 
+import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest

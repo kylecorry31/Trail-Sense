@@ -1,10 +1,11 @@
-package com.kylecorry.trail_sense.shared.grouping
+package com.kylecorry.trail_sense.shared.grouping.picker
 
 import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 

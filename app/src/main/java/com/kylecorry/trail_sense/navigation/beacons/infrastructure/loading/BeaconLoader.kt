@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.IBeaconService
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.grouping.ISearchableGroupLoader
+import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
 
 class BeaconLoader(
     private val beaconService: IBeaconService,

@@ -1,16 +1,19 @@
 package com.kylecorry.trail_sense.navigation.paths.domain.pathsort
 
+import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
-import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.provider.PathValueProvider
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.mappers.PathIdMapper
+import com.kylecorry.trail_sense.shared.grouping.sort.GroupSort
 
 class MostRecentPathSortStrategy(
-    private val pathService: IPathService
-) : AggregationPathSortStrategy<Long>(ascending = false) {
-    override fun getProvider(): PathValueProvider<Long> {
-        return PathValueProvider(
-            pathService,
-            { it.id }) {
-            it.maxOrNull() ?: 0
-        }
+    pathService: IPathService
+) : IPathSortStrategy {
+    private val sort = GroupSort(
+        PathIdMapper(pathService.loader()),
+        ascending = false
+    )
+
+    override suspend fun sort(paths: List<IPath>): List<IPath> {
+        return sort.sort(paths)
     }
 }

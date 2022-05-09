@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.Alphabet
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.IBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.ui.list.IBeaconListItemMapper
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.grouping.GroupablePickers
+import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.CoroutineScope

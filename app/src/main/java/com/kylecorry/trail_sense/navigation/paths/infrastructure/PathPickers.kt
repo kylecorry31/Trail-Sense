@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.IPathSortStrat
 import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.NamePathSortStrategy
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.IPathListItemMapper
-import com.kylecorry.trail_sense.shared.grouping.GroupablePickers
+import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

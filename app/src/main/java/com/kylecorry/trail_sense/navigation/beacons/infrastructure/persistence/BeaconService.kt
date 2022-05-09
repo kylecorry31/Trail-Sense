@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.grouping.GroupLoader
+import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 
 class BeaconService(context: Context) : IBeaconService {
 
