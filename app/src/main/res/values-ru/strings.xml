@@ -1058,4 +1058,17 @@
     <string name="remove_battery_restrictions">Снять ограничения на использование батареи\?</string>
     <string name="battery_usage_restricted_benefit">Снятие ограничений на использование батареи для Trail Sense может повысить точность.</string>
     <string name="file">Файл</string>
+    <string name="second_symbol">с</string>
+    <string name="delete_path_group_message">%s и все его пути будут удалены.</string>
+    <string name="point">Точка</string>
+    <string name="point_added">Точка добавлена к пути</string>
+    <string name="camera_capture">Захватить</string>
+    <string name="map_export_error">Не удалось экспортировать карту в выбранный файл</string>
+    <string name="path">Путь</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d путь</item>
+        <item quantity="few">%d путя</item>
+        <item quantity="many">%d путей</item>
+        <item quantity="other">%d путей</item>
+    </plurals>
 </resources>
