@@ -33,7 +33,7 @@ class GroupLoaderTest {
         val loader = GroupLoader(groups::get, children::getValue)
 
         // Act
-        val actual = loader.load(root, depth)
+        val actual = loader.getChildren(root, depth)
 
         // Assert
         assertEquals(expected, actual)
@@ -67,22 +67,22 @@ class GroupLoaderTest {
                 Arguments.of(
                     1L,
                     null,
-                    listOf(group(1), item(2))
+                    listOf(item(2))
                 ),
                 Arguments.of(
                     1L,
                     0,
-                    listOf(group(1))
+                    emptyList<Groupable>()
                 ),
                 Arguments.of(
                     1L,
                     1,
-                    listOf(group(1), item(2))
+                    listOf(item(2))
                 ),
                 Arguments.of(
                     1L,
                     3,
-                    listOf(group(1), item(2))
+                    listOf(item(2))
                 ),
             )
         }
