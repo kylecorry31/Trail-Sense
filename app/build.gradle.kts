@@ -53,6 +53,7 @@ android {
     lint {
         abortOnError = false
     }
+    namespace = "com.kylecorry.trail_sense"
 }
 
 dependencies {
