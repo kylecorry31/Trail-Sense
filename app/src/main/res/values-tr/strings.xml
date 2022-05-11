@@ -1039,4 +1039,12 @@
     <string name="camera_capture">Yakala</string>
     <string name="map_export_error">Harita seçilen dosyaya aktarılamıyor</string>
     <string name="second_symbol">sn</string>
+    <string name="point">Nokta</string>
+    <string name="delete_path_group_message">%s ve tüm yolları silinecek.</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d yol</item>
+        <item quantity="other">%d yol</item>
+    </plurals>
+    <string name="path">Yol</string>
+    <string name="point_added">Yola nokta eklendi</string>
 </resources>
