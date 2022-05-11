@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
+import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 
 class BeaconService(context: Context) : IBeaconService {
@@ -14,6 +15,7 @@ class BeaconService(context: Context) : IBeaconService {
     private val repo = BeaconRepo.getInstance(context)
     private val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
+    private val filter = GroupFilter(loader)
 
 
     override suspend fun add(beacon: Beacon): Long {
@@ -72,28 +74,19 @@ class BeaconService(context: Context) : IBeaconService {
         return repo.getBeaconsInGroup(groupId).map { it.toBeacon() }
     }
 
-    override suspend fun getGroups(parent: Long?): List<BeaconGroup> {
-        return repo.getGroupsWithParent(parent).map { it.toBeaconGroup().copy(count = counter.count(it.id)) }
+    private suspend fun getGroups(parent: Long?): List<BeaconGroup> {
+        return repo.getGroupsWithParent(parent)
+            .map { it.toBeaconGroup().copy(count = counter.count(it.id)) }
     }
 
     override suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon? {
         return repo.getTemporaryBeacon(owner)?.toBeacon()
     }
 
-    override suspend fun search(
-        nameFilter: String,
-        groupFilter: Long?,
-        applyGroupFilterIfNull: Boolean
-    ): List<IBeacon> {
-        // TODO: Search sub groups
-        return if (groupFilter != null || applyGroupFilterIfNull) {
-            repo.searchBeaconsInGroup(
-                nameFilter,
-                groupFilter
-            )
-        } else {
-            repo.searchBeacons(nameFilter)
-        }.map { it.toBeacon() }
+    override suspend fun search(nameFilter: String, groupFilter: Long?): List<IBeacon> {
+        return filter.filter(groupFilter) {
+            it.name.contains(nameFilter, ignoreCase = true)
+        }
     }
 
     override suspend fun delete(group: BeaconGroup) {

@@ -22,7 +22,7 @@ class BeaconLoader(
     }
 
     private suspend fun getBeaconsBySearch(search: String, groupFilter: Long?) = onIO {
-        beaconService.search(search, groupFilter, applyGroupFilterIfNull = false)
+        beaconService.search(search, groupFilter)
     }
 
     private suspend fun getBeaconsByGroup(group: Long?) = onIO {
