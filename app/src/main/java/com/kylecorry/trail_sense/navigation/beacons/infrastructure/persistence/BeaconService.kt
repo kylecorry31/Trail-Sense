@@ -6,12 +6,14 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 
 class BeaconService(context: Context) : IBeaconService {
 
     private val repo = BeaconRepo.getInstance(context)
     private val loader = GroupLoader(this::getGroup, this::getChildren)
+    private val counter = GroupCounter(loader)
 
 
     override suspend fun add(beacon: Beacon): Long {
@@ -59,7 +61,7 @@ class BeaconService(context: Context) : IBeaconService {
 
     override suspend fun getGroup(groupId: Long?): BeaconGroup? {
         groupId ?: return null
-        return repo.getGroup(groupId)?.toBeaconGroup()?.copy(count = getBeaconCount(groupId))
+        return repo.getGroup(groupId)?.toBeaconGroup()?.copy(count = counter.count(groupId))
     }
 
     override suspend fun getBeacon(beaconId: Long): Beacon? {
@@ -71,16 +73,11 @@ class BeaconService(context: Context) : IBeaconService {
     }
 
     override suspend fun getGroups(parent: Long?): List<BeaconGroup> {
-        return repo.getGroupsWithParent(parent).map { it.toBeaconGroup().copy(count = getBeaconCount(it.id)) }
+        return repo.getGroupsWithParent(parent).map { it.toBeaconGroup().copy(count = counter.count(it.id)) }
     }
 
     override suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon? {
         return repo.getTemporaryBeacon(owner)?.toBeacon()
-    }
-
-    private suspend fun getBeaconCount(groupId: Long?): Int {
-        // TODO: Don't actually fetch the beacons for this
-        return getBeacons(groupId, includeGroups = false, maxDepth = null).count()
     }
 
     override suspend fun search(

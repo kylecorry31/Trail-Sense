@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.navigation.paths.domain.*
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
@@ -32,6 +33,7 @@ class PathService(
 
     private val backtrackLock = Mutex()
     private val loader = GroupLoader(this::getGroup, this::getChildren)
+    private val counter = GroupCounter(loader)
     private val deleter = object : GroupDeleter<IPath>(loader) {
         override suspend fun deleteItems(items: List<IPath>) {
             items.forEach { deletePath(it as Path) }
@@ -108,16 +110,11 @@ class PathService(
 
     override suspend fun getGroup(id: Long?): PathGroup? {
         id ?: return null
-        return pathRepo.getGroup(id)?.copy(count = getPathCount(id))
-    }
-
-    private suspend fun getPathCount(groupId: Long?): Int {
-        // TODO: Don't actually fetch the paths for this
-        return getPaths(groupId, includeGroups = false, maxDepth = null).count()
+        return pathRepo.getGroup(id)?.copy(count = counter.count(id))
     }
 
     private suspend fun getGroups(parent: Long?): List<PathGroup> {
-        return pathRepo.getGroupsWithParent(parent).map { it.copy(count = getPathCount(it.id)) }
+        return pathRepo.getGroupsWithParent(parent).map { it.copy(count = counter.count(it.id)) }
     }
 
     private suspend fun getChildren(groupId: Long?): List<IPath> {
