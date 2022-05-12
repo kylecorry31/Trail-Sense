@@ -1056,4 +1056,15 @@
     <string name="file">Файл</string>
     <string name="camera_capture">Знімкувати</string>
     <string name="map_export_error">Не вдалося експортувати мапу до обраного файлу</string>
+    <string name="second_symbol">с</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d шлях</item>
+        <item quantity="few">%d шляхи</item>
+        <item quantity="many">%d шляхів</item>
+        <item quantity="other">%d шляхів</item>
+    </plurals>
+    <string name="point_added">Точку додано до шляху</string>
+    <string name="delete_path_group_message">%s і всі його шляхи буде видалено.</string>
+    <string name="path">Шлях</string>
+    <string name="point">Точка</string>
 </resources>
