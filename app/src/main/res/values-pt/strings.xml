@@ -932,4 +932,10 @@
     <string name="diamond">Diamante</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Bloquear com os botões de volume</string>
     <string name="height">Altura</string>
+    <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d percurso</item>
+        <item quantity="other">%d percursos</item>
+    </plurals>
+    <string name="path">Percurso</string>
 </resources>
