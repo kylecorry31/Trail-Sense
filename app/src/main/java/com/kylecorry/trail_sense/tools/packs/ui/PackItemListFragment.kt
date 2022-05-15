@@ -275,10 +275,6 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
     }
 
-    private fun formatAmount(amount: Double): String {
-        return DecimalFormatter.format(amount, 4, false)
-    }
-
     private val sorts = mapOf(
         "category" to CategoryPackItemSort(),
         "percent_asc" to PackedPercentPackItemSort(true),

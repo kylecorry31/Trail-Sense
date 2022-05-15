@@ -74,8 +74,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             cancelText = null
         )
 
-        compass.asLiveData().observe(viewLifecycleOwner, {})
-        orientation.asLiveData().observe(viewLifecycleOwner, {})
+        compass.asLiveData().observe(viewLifecycleOwner) {}
+        orientation.asLiveData().observe(viewLifecycleOwner) {}
 
         scheduleUpdates(INTERVAL_30_FPS)
         throttleUpdates(16)

@@ -201,9 +201,6 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    val lawOfCoolingReadings: Int
-        get() = 180
-
     var dailyWeatherLastSent: LocalDate
         get() {
             val raw = (cache.getString("daily_weather_last_sent_date") ?: LocalDate.MIN.toString())

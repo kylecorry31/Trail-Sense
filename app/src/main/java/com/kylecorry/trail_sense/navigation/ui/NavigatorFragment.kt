@@ -203,16 +203,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         navController = findNavController()
 
-        compass.asLiveData().observe(viewLifecycleOwner,
-            { updateUI() })
-        orientation.asLiveData().observe(viewLifecycleOwner,
-            { onOrientationUpdate() })
-        altimeter.asLiveData().observe(viewLifecycleOwner,
-            { updateUI() })
-        gps.asLiveData().observe(viewLifecycleOwner,
-            { onLocationUpdate() })
-        speedometer.asLiveData().observe(viewLifecycleOwner,
-            { updateUI() })
+        compass.asLiveData().observe(viewLifecycleOwner
+        ) { updateUI() }
+        orientation.asLiveData().observe(viewLifecycleOwner
+        ) { onOrientationUpdate() }
+        altimeter.asLiveData().observe(viewLifecycleOwner
+        ) { updateUI() }
+        gps.asLiveData().observe(viewLifecycleOwner
+        ) { onLocationUpdate() }
+        speedometer.asLiveData().observe(viewLifecycleOwner
+        ) { updateUI() }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
             // TODO: Show custom share sheet instead

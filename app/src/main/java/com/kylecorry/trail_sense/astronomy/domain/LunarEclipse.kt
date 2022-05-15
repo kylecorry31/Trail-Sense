@@ -10,5 +10,5 @@ data class LunarEclipse(
     val magnitude: Float
 ){
     val isTotal: Boolean = magnitude >= 1f
-    val duration = Duration.between(start, end)
+    val duration: Duration = Duration.between(start, end)
 }

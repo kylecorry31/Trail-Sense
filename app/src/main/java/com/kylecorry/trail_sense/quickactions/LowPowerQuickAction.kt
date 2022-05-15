@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.quickactions
 
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.LowPowerMode

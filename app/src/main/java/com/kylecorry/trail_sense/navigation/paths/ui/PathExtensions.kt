@@ -28,7 +28,7 @@ private fun getPointFactory(
     pointColoringStyle: PathPointColoringStyle
 ): IPointDisplayFactory {
     return when (pointColoringStyle) {
-        PathPointColoringStyle.None -> NonePointDisplayFactory(context)
+        PathPointColoringStyle.None -> NonePointDisplayFactory()
         PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(context)
         PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(context)
         PathPointColoringStyle.Time -> TimePointDisplayFactory(context)

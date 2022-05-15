@@ -82,21 +82,21 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gps.asLiveData().observe(viewLifecycleOwner, {
+        gps.asLiveData().observe(viewLifecycleOwner) {
             binding.map.setMyLocation(gps.location)
             displayPaths()
             updateDestination()
-        })
-        altimeter.asLiveData().observe(viewLifecycleOwner, { updateDestination() })
-        compass.asLiveData().observe(viewLifecycleOwner, {
+        }
+        altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
+        compass.asLiveData().observe(viewLifecycleOwner) {
             compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
             binding.map.setAzimuth(compass.bearing.value)
             updateDestination()
-        })
+        }
         beaconRepo.getBeacons()
             .observe(
-                viewLifecycleOwner,
-                { binding.map.showLocations(it.map { it.toBeacon() }.filter { it.visible }) })
+                viewLifecycleOwner
+            ) { binding.map.showLocations(it.map { it.toBeacon() }.filter { it.visible }) }
 
         pathService.getLivePaths().observe(viewLifecycleOwner) {
             paths = it.filter { path -> path.style.visible }

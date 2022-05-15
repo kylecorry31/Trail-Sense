@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
 
-class NonePointDisplayFactory(private val context: Context) : IPointDisplayFactory {
+class NonePointDisplayFactory : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {
         return DefaultPointColoringStrategy(Color.TRANSPARENT)
     }

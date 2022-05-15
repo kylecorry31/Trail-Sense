@@ -120,9 +120,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             true
         }
 
-        sideClinometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
-        cameraClinometer.asLiveData().observe(viewLifecycleOwner, { updateUI() })
-        deviceOrientation.asLiveData().observe(viewLifecycleOwner, { updateUI() })
+        sideClinometer.asLiveData().observe(viewLifecycleOwner) { updateUI() }
+        cameraClinometer.asLiveData().observe(viewLifecycleOwner) { updateUI() }
+        deviceOrientation.asLiveData().observe(viewLifecycleOwner) { updateUI() }
 
     }
 

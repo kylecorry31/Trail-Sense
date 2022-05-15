@@ -31,7 +31,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lightSensor.asLiveData().observe(viewLifecycleOwner, { updateLight() })
+        lightSensor.asLiveData().observe(viewLifecycleOwner) { updateLight() }
 
         binding.resetBtn.setOnClickListener {
             maxLux = 0f

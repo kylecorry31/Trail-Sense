@@ -65,15 +65,4 @@ class WeatherService(private val prefs: WeatherPreferences) {
         return calibrationStrategy.calibrate(readings)
     }
 
-    fun getHeatIndex(tempCelsius: Float, relativeHumidity: Float): Float {
-        return newWeatherService.getHeatIndex(tempCelsius, relativeHumidity)
-    }
-
-    fun getHeatAlert(heatIndex: Float): HeatAlert {
-        return newWeatherService.getHeatAlert(heatIndex)
-    }
-
-    fun getDewPoint(tempCelsius: Float, relativeHumidity: Float): Float {
-        return newWeatherService.getDewPoint(tempCelsius, relativeHumidity)
-    }
 }

@@ -172,12 +172,9 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     var pathSort: PathSortMethod by IntEnumPreference(
         cache,
         context.getString(R.string.pref_path_sort),
-        PathSortMethod.values().map { it.id.toInt() to it }.toMap(),
+        PathSortMethod.values().associateBy { it.id.toInt() },
         PathSortMethod.MostRecent
     )
-
-    val factorInNonLinearDistance: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_non_linear_distances)) ?: true
 
     val leftQuickAction: QuickActionType
         get() {

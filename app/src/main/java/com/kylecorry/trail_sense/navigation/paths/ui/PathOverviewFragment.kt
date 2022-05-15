@@ -551,7 +551,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
             PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
             PathPointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
-            else -> NonePointDisplayFactory(requireContext())
+            else -> NonePointDisplayFactory()
         }
     }
 }

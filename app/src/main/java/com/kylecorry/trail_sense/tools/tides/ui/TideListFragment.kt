@@ -139,12 +139,4 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
         }
     }
 
-    private fun getTideTypeName(tideType: TideType?): String {
-        return when (tideType) {
-            TideType.High -> getString(R.string.high_tide)
-            TideType.Low -> getString(R.string.low_tide)
-            null -> getString(R.string.half_tide)
-        }
-    }
-
 }

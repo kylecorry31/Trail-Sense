@@ -16,7 +16,6 @@ import com.kylecorry.andromeda.core.units.CoordinateExtensions.toUTM
 import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
-import com.kylecorry.sol.science.geology.Region
 import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.shared.Season
@@ -421,16 +420,6 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatRegion(region: Region): String {
-        val regionStr = when (region) {
-            Region.Polar -> context.getString(R.string.climate_polar)
-            Region.Temperate -> context.getString(R.string.climate_temperate)
-            Region.Tropical -> context.getString(R.string.climate_tropical)
-        }
-
-        return context.getString(R.string.climate_zone, regionStr)
-    }
-
     fun formatShortTermWeather(weather: Weather): String {
         return when (weather) {
             Weather.ImprovingFast -> context.getString(R.string.weather_improving_fast)
@@ -439,14 +428,6 @@ class FormatService(private val context: Context) {
             Weather.WorseningFast -> context.getString(R.string.weather_worsening_fast)
             Weather.Storm -> context.getString(R.string.weather_storm_incoming)
             else -> context.getString(R.string.weather_not_changing)
-        }
-    }
-
-    fun formatLongTermWeather(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast, Weather.ImprovingSlow -> context.getString(R.string.forecast_improving)
-            Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> context.getString(R.string.forecast_worsening)
-            else -> ""
         }
     }
 
@@ -500,13 +481,13 @@ class FormatService(private val context: Context) {
     }
 
     fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
-        if (short) {
-            return when (unit) {
+        return if (short) {
+            when (unit) {
                 TemperatureUnits.F -> context.getString(R.string.temp_f_short)
                 TemperatureUnits.C -> context.getString(R.string.temp_c_short)
             }
         } else {
-            return when (unit) {
+            when (unit) {
                 TemperatureUnits.F -> context.getString(R.string.fahrenheit)
                 TemperatureUnits.C -> context.getString(R.string.celsius)
             }

@@ -124,7 +124,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }
-        gps.asLiveData().observe(viewLifecycleOwner, {
+        gps.asLiveData().observe(viewLifecycleOwner) {
             val beacon = beacon
             if (isBound && beacon != null) {
                 val distance = Distance.meters(beacon.coordinate.distanceTo(gps.location))
@@ -136,7 +136,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                         false
                     )
             }
-        })
+        }
     }
 
     override fun generateBinding(

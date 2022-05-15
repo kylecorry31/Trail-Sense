@@ -109,7 +109,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             }
         }
 
-        batteryRepo.get().observe(viewLifecycleOwner, {
+        batteryRepo.get().observe(viewLifecycleOwner) {
             readings = it.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
                 if (battery.hasValidReading)
                     BatteryReading(
@@ -124,9 +124,9 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             binding.batteryTitle.leftQuickAction.isVisible = readings.size >= 2
 
             update()
-        })
+        }
 
-        battery.asLiveData().observe(viewLifecycleOwner, {})
+        battery.asLiveData().observe(viewLifecycleOwner) {}
     }
 
     override fun onResume() {

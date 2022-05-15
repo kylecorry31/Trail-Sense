@@ -110,7 +110,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        thermometer.asLiveData().observe(viewLifecycleOwner, {
+        thermometer.asLiveData().observe(viewLifecycleOwner) {
             temperatureTxt?.summary =
                 formatService.formatTemperature(
                     Temperature(
@@ -118,7 +118,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
                         TemperatureUnits.C
                     ).convertTo(prefs.temperatureUnits)
                 )
-        })
+        }
     }
 
 }

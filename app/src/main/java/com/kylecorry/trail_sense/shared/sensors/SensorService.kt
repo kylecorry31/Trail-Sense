@@ -205,17 +205,4 @@ class SensorService(ctx: Context) {
         return Gyroscope(context)
     }
 
-    fun getOrientationSensor(
-        useGyro: Boolean = true,
-        useMag: Boolean = true,
-        useAcc: Boolean = true
-    ): IOrientationSensor {
-        return MadgwickAHRS(
-            context,
-            accelerometer = if (useAcc) LowPassAccelerometer(context) else NullAccelerometer(),
-            gyro = if (useGyro && Sensors.hasGyroscope(context)) Gyroscope(context) else NullGyroscope(),
-            magnetometer = if (useMag) LowPassMagnetometer(context) else NullMagnetometer()
-        )
-    }
-
 }

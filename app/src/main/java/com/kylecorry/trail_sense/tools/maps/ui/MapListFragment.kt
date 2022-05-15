@@ -29,14 +29,11 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.trail_sense.shared.io.MapExportService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.ExportMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromCameraCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand

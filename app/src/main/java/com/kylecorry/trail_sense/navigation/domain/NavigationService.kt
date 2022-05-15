@@ -47,20 +47,6 @@ class NavigationService {
         return Duration.ofSeconds(time.toLong())
     }
 
-    fun pathDuration(path: List<PathPoint>, speed: Float = 0f): Duration {
-        val realSpeed = if (speed < 3) clamp(speed, 0.89408f, 1.78816f) else speed
-        var distance = 0f
-        for (i in 1..path.lastIndex) {
-            distance += scarfsDistance(
-                path[i - 1].coordinate,
-                path[i].coordinate,
-                path[i - 1].elevation,
-                path[i].elevation
-            )
-        }
-        return Duration.ofSeconds((distance / realSpeed).toLong())
-    }
-
     private fun scarfsDistance(
         from: Coordinate,
         to: Coordinate,

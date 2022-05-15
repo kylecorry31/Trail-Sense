@@ -16,14 +16,6 @@ object LocationMath {
         return unitPerSecond * 60 * 60
     }
 
-    fun convertToBaseUnit(meters: Float, units: UserPreferences.DistanceUnits): Float {
-        return if (units == UserPreferences.DistanceUnits.Feet) {
-            Distance(meters, DistanceUnits.Meters).convertTo(DistanceUnits.Feet).distance
-        } else {
-            meters
-        }
-    }
-
     fun convertToBaseSpeed(metersPerSecond: Float, units: UserPreferences.DistanceUnits): Float {
         return if (units == UserPreferences.DistanceUnits.Feet) {
             convertUnitPerSecondsToUnitPerHours(
@@ -42,11 +34,4 @@ object LocationMath {
         }
     }
 
-    fun convertToMeters(distance: Float, units: UserPreferences.DistanceUnits): Float {
-        return if (units == UserPreferences.DistanceUnits.Meters) {
-            distance
-        } else {
-            Distance(distance, DistanceUnits.Feet).meters().distance
-        }
-    }
 }

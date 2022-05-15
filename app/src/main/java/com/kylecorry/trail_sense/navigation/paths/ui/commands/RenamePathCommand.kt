@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,7 +28,7 @@ class RenamePathCommand(
             if (it != null) {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        pathService.addPath(path.copy(name = if (it.isBlank()) null else it))
+                        pathService.addPath(path.copy(name = it.ifBlank { null }))
                     }
                 }
 

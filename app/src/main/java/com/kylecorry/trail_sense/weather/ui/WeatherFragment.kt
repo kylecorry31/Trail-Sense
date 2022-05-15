@@ -144,8 +144,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             }
         }
 
-        barometer.asLiveData().observe(viewLifecycleOwner, { update() })
-        thermometer.asLiveData().observe(viewLifecycleOwner, { update() })
+        barometer.asLiveData().observe(viewLifecycleOwner) { update() }
+        thermometer.asLiveData().observe(viewLifecycleOwner) { update() }
 
         binding.weatherHumidity.setOnClickListener {
             showHumidityChart()
@@ -156,7 +156,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         if (Sensors.hasHygrometer(requireContext())) {
-            hygrometer.asLiveData().observe(viewLifecycleOwner, { update() })
+            hygrometer.asLiveData().observe(viewLifecycleOwner) { update() }
         } else {
             binding.weatherHumidity.isVisible = false
         }
