@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.navigation.paths.domain.pathsort.mappers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 
 class PathDistanceMapper(
-    override val loader: GroupLoader<IPath>,
+    override val loader: IGroupLoader<IPath>,
     private val locationProvider: () -> Coordinate
 ) : GroupMapper<IPath, Float, Float>() {
 

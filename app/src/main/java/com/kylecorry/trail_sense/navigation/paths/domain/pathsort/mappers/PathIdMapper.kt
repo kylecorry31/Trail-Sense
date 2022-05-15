@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.navigation.paths.domain.pathsort.mappers
 
 import com.kylecorry.trail_sense.navigation.paths.domain.IPath
-import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 
-class PathIdMapper(override val loader: GroupLoader<IPath>) : GroupMapper<IPath, Long, Long>() {
+class PathIdMapper(override val loader: IGroupLoader<IPath>) : GroupMapper<IPath, Long, Long>() {
 
     override suspend fun getValue(item: IPath): Long {
         return item.id

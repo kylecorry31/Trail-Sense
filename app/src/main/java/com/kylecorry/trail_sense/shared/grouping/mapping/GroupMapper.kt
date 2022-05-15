@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.shared.grouping.mapping
 
-import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.Groupable
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 
 abstract class GroupMapper<T : Groupable, Value, Aggregation> : ISuspendMapper<T, Aggregation> {
 
-    protected abstract val loader: GroupLoader<T>
+    protected abstract val loader: IGroupLoader<T>
     protected abstract suspend fun getValue(item: T): Value
     protected abstract suspend fun aggregate(values: List<Value>): Aggregation
 
