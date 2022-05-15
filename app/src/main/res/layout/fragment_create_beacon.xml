@@ -99,7 +99,7 @@
                 android:text="@string/no_group"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:drawableStartCompat="@drawable/ic_beacon_group"
-                app:drawableTint="@color/orange" />
+                app:drawableTint="@color/gray" />
 
             <TextView
                 android:id="@+id/beacon_color_picker"
