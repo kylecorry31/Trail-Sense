@@ -2,14 +2,14 @@
 <resources>
     <string name="navigation">导航</string>
     <string name="weather">天气</string>
-    <string name="settings">设定值</string>
+    <string name="settings">设置</string>
     <string name="name">名称</string>
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
     <string name="true_north">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压强</string>
-    <string name="general">一般</string>
+    <string name="general">常规</string>
     <string name="pressure">压强</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
@@ -161,12 +161,12 @@
     <string name="duration_hour_format">%d 小时</string>
     <string name="dialog_deny">不，谢谢</string>
     <string name="dialog_grant">更新设置</string>
-    <string name="access_background_location_rationale">Trail Sense在后台使用位置数据。它用于在天气监测中校正海平面压强，并提供更准确的日落警报。[查看隐私政策] （https://kylecorry.com/Trail-Sense/privacy_policy.html）</string>
-    <string name="access_background_location">更新位置设置</string>
+    <string name="access_background_location_rationale">Trail Sense 将在后台使用位置信息。这被用来改善天气监测和日落警报的准确性。[查看隐私权条款](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location">更新定位设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
     <string name="pref_altimeter_calibration_mode_title">自动校准</string>
-    <string name="kilometers_per_hour_format">%.1f 千米/时</string>
+    <string name="kilometers_per_hour_format">%.1f 公里 / 小时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
     <string name="pref_max_beacon_distance_title">附近的信标半径</string>
     <string name="water_boil_timer_done_title">水已开</string>
@@ -322,8 +322,8 @@
     <string name="battery_capacity_format">%s 毫安时</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="increase">+</string>
-    <string name="miles_per_hour_format">%.1f 英里/时</string>
-    <string name="precise_kilometers_format">%s 千米</string>
+    <string name="miles_per_hour_format">%.1f 英里/小时</string>
+    <string name="precise_kilometers_format">%s 公里</string>
     <string name="precise_meters_format">%s 米</string>
     <string name="precise_nautical_miles_format">%s 海里</string>
     <string name="precise_miles_format">%s 英里</string>
