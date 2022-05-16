@@ -158,11 +158,12 @@ class PathService(
         val backtrackId = getBacktrackPathId()
         val wasBacktrack = start.id == backtrackId || end.id == backtrackId
         val style = start.style
-        val name = start.name
+        val name = start.name ?: end.name
+        val parentId = start.parentId
         val startPoints = getWaypoints(startPathId)
         val endPoints = getWaypoints(endPathId)
 
-        val newPathId = addPath(getEmptyPath(false).copy(name = name, style = style))
+        val newPathId = addPath(getEmptyPath(false).copy(name = name, style = style, parentId = parentId))
 
         val allPoints = (startPoints + endPoints).map {
             it.copy(id = 0)
