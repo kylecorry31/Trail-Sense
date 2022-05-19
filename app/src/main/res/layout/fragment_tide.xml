@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightQuickActionIcon="@drawable/ic_tool_tides"
+        app:rightQuickActionIcon="@drawable/ic_tide_high"
         tools:subtitle="Test location"
         tools:title="@string/high_tide" />
 
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/tide_list_date" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.kylecorry.trail_sense.shared.lists.TSListView
         android:id="@+id/tide_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
