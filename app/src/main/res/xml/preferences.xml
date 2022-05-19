@@ -88,7 +88,7 @@
             app:title="@string/clinometer_title" />
 
         <Preference
-            app:icon="@drawable/ic_tide_high"
+            app:icon="@drawable/ic_tide_table"
             app:iconSpaceReserved="false"
             app:key="@string/pref_tide_settings"
             app:singleLineTitle="false"

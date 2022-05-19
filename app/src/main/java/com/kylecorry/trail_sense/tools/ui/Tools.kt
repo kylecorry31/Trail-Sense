@@ -110,7 +110,7 @@ object Tools {
                 ),
                 if (prefs.tides.areTidesEnabled) Tool(
                     context.getString(R.string.tides),
-                    R.drawable.ic_tide_high,
+                    R.drawable.ic_tide_table,
                     R.id.action_toolsFragment_to_tidesFragment,
                     context.getString(R.string.experimental)
                 ) else null

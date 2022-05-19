@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightQuickActionIcon="@drawable/ic_tide_high"
+        app:rightQuickActionIcon="@drawable/ic_tide_table"
         tools:subtitle="Test location"
         tools:title="@string/high_tide" />
 
