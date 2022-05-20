@@ -16,11 +16,11 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class TideService {
+class TideService : ITideService {
 
     private val ocean = OceanographyService()
 
-    fun getTides(table: TideTable, date: LocalDate): List<Tide> {
+    override fun getTides(table: TideTable, date: LocalDate): List<Tide> {
         val start = date.atStartOfDay().toZonedDateTime()
         val end = date.plusDays(1).atStartOfDay().toZonedDateTime()
         val waterLevelCalculator = TideTableWaterLevelCalculator(table)
@@ -28,12 +28,12 @@ class TideService {
         return ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
     }
 
-    fun getWaterLevel(table: TideTable, time: ZonedDateTime): Float {
+    override fun getWaterLevel(table: TideTable, time: ZonedDateTime): Float {
         val strategy = TideTableWaterLevelCalculator(table)
         return strategy.calculate(time)
     }
 
-    fun getWaterLevels(table: TideTable, date: LocalDate): List<Reading<Float>> {
+    override fun getWaterLevels(table: TideTable, date: LocalDate): List<Reading<Float>> {
         return getReadings(
             date,
             ZoneId.systemDefault(),
@@ -43,11 +43,11 @@ class TideService {
         }
     }
 
-    fun getRange(table: TideTable): Range<Float> {
+    override fun getRange(table: TideTable): Range<Float> {
         return TideTableRangeCalculator().getRange(table)
     }
 
-    fun isWithinTideTable(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): Boolean {
+    override fun isWithinTideTable(table: TideTable, time: ZonedDateTime): Boolean {
         val sortedTides = table.tides.sortedBy { it.time }
         for (i in 0 until sortedTides.lastIndex) {
             if (sortedTides[i].time <= time && sortedTides[i + 1].time >= time) {
@@ -61,7 +61,7 @@ class TideService {
         return false
     }
 
-    fun getCurrentTide(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): TideType? {
+    override fun getCurrentTide(table: TideTable, time: ZonedDateTime): TideType? {
         val next = getNextTide(table, time)
         val timeToNextTide = Duration.between(time, next.time)
         val closeToNextTide = timeToNextTide < Duration.ofHours(2)
@@ -77,7 +77,7 @@ class TideService {
         }
     }
 
-    fun isRising(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): Boolean {
+    override fun isRising(table: TideTable, time: ZonedDateTime): Boolean {
         return getNextTide(table, time).isHigh
     }
 
