@@ -7,7 +7,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.lists.ListItem
 import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
@@ -21,8 +20,7 @@ class TideListItemMapper(private val context: Context) : ListItemMapper<Tide> {
         return ListItem(
             id = value.time.toInstant().toEpochMilli(),
             icon = ResourceListIcon(
-                if (value.isHigh) R.drawable.ic_tide_high else R.drawable.ic_tide_low,
-                AppColor.Blue.color
+                if (value.isHigh) R.drawable.ic_tide_high else R.drawable.ic_tide_low
             ),
             title = if (value.isHigh) context.getString(R.string.high_tide) else context.getString(R.string.low_tide),
             subtitle = if (value.height == null) {
