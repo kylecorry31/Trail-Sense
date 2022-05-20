@@ -1039,4 +1039,12 @@
     <string name="file">Datei</string>
     <string name="second_symbol">s</string>
     <string name="map_export_error">Exportieren der Karte zur gewählten Datei nicht möglich</string>
+    <string name="point">Punkt</string>
+    <string name="point_added">Punkt zum Pfad hinzugefügt</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d Pfad</item>
+        <item quantity="other">%d Pfade</item>
+    </plurals>
+    <string name="delete_path_group_message">%s und alle zugehörigen Pfade werden gelöscht.</string>
+    <string name="path">Pfad</string>
 </resources>
