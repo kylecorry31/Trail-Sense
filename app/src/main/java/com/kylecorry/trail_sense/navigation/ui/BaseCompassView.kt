@@ -16,7 +16,6 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
     protected var _destination: IMappableBearing? = null
     protected var _locations: List<IMappableLocation> = emptyList()
     protected var _highlightedLocation: IMappableLocation? = null
-    protected var _paths: List<IMappablePath> = emptyList()
     protected var _references: List<IMappableReferencePoint> = emptyList()
     protected var _location = Coordinate.zero
     protected var _useTrueNorth = false
@@ -53,11 +52,6 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
 
     override fun showLocations(locations: List<IMappableLocation>) {
         _locations = locations
-        invalidate()
-    }
-
-    override fun showPaths(paths: List<IMappablePath>) {
-        _paths = paths
         invalidate()
     }
 

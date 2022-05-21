@@ -54,7 +54,15 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
-    private lateinit var coordinateToPixelStrategy: ICoordinateToPixelStrategy
+    override val coordinateToPixelStrategy: ICoordinateToPixelStrategy
+        get() {
+            return RadarCompassCoordinateToPixelStrategy(
+                Circle(Vector2(center.x, center.y), compassSize / 2f),
+                Geofence(_location, maxDistanceMeters),
+                _useTrueNorth,
+                _declination
+            )
+        }
 
     private val layers = mutableListOf<ILayer>()
 
@@ -253,16 +261,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         west = context.getString(R.string.direction_west)
         center = PixelCoordinate(width / 2f, height / 2f)
         locationStrokeWeight = dp(0.5f)
-        updateCoordinateToPixelStrategy()
         dial = CompassDial(center, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
-//        beaconLayer.setOutlineColor(secondaryColor)
     }
 
     override fun draw() {
         if (!isVisible) {
             return
         }
-        updateCoordinateToPixelStrategy()
         clear()
         push()
         rotate(-_azimuth)
@@ -287,15 +292,6 @@ class RadarCompassView : BaseCompassView, IMapView {
             super.onScaleEnd(detector)
             // TODO: Signal for the beacons to be rescanned
         }
-    }
-
-    private fun updateCoordinateToPixelStrategy() {
-        coordinateToPixelStrategy = RadarCompassCoordinateToPixelStrategy(
-            Circle(Vector2(center.x, center.y), compassSize / 2f),
-            Geofence(_location, maxDistanceMeters),
-            _useTrueNorth,
-            _declination
-        )
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
