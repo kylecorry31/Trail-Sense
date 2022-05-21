@@ -138,7 +138,7 @@ class RadarCompassView : BaseCompassView {
         beaconLayer.setBeacons(_locations.map { Beacon(it.id, "", it.coordinate, color = it.color) })
     }
 
-    private fun drawLocations() {
+    private fun drawLayers() {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
@@ -302,7 +302,7 @@ class RadarCompassView : BaseCompassView {
         push()
         rotate(-_azimuth)
         drawCompass()
-        drawLocations()
+        drawLayers()
         drawReferencePoints()
         drawDestination()
         pop()
