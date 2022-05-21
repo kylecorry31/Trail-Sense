@@ -1,18 +1,26 @@
 package com.kylecorry.trail_sense.navigation.ui.layers
 
+import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 
-class BeaconLayer(@ColorInt private val backgroundColor: Int) : ILayer {
+class BeaconLayer : ILayer {
 
     private val _beacons = mutableListOf<Beacon>()
+
+    @ColorInt
+    private var backgroundColor = Color.TRANSPARENT
 
     fun setBeacons(beacons: List<Beacon>) {
         _beacons.clear()
         _beacons.addAll(beacons)
         invalidate()
+    }
+
+    fun setBackgroundColor(@ColorInt color: Int) {
+        backgroundColor = color
     }
 
     override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
