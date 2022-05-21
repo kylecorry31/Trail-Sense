@@ -19,7 +19,7 @@ class BeaconLayer : ILayer {
         invalidate()
     }
 
-    fun setBackgroundColor(@ColorInt color: Int) {
+    fun setOutlineColor(@ColorInt color: Int) {
         backgroundColor = color
     }
 

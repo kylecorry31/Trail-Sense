@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
@@ -17,7 +18,6 @@ class PathLayer : ILayer {
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private val _paths =
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
-    private var _renderer: IRenderedPathFactory? = null
 
     fun setPaths(paths: List<IMappablePath>) {
         _paths.clear()
@@ -25,18 +25,12 @@ class PathLayer : ILayer {
         invalidate()
     }
 
-    fun setPathRenderer(renderer: IRenderedPathFactory) {
-        _renderer = renderer
-        invalidate()
-    }
-
     override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
-        val renderer = _renderer ?: return
         if (!pathsRendered) {
             for (path in renderedPaths) {
                 pathPool.release(path.value.path)
             }
-            renderedPaths = generatePaths(_paths, renderer)
+            renderedPaths = generatePaths(_paths, PathRenderer(mapper))
             pathsRendered = true
         }
 
@@ -57,7 +51,10 @@ class PathLayer : ILayer {
         drawer.noPathEffect()
     }
 
-    private fun generatePaths(paths: List<IMappablePath>, renderer: IRenderedPathFactory): Map<Long, RenderedPath> {
+    private fun generatePaths(
+        paths: List<IMappablePath>,
+        renderer: IRenderedPathFactory
+    ): Map<Long, RenderedPath> {
         val map = mutableMapOf<Long, RenderedPath>()
         for (path in paths) {
             val pathObj = pathPool.get()

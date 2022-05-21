@@ -18,12 +18,13 @@ import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
 import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -54,12 +55,13 @@ class RadarCompassView : BaseCompassView {
     private var cardinalSize = 0f
     private var locationStrokeWeight = 0f
 
-    private var metersPerPixel = 1f
-
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
     private lateinit var coordinateToPixelStrategy: ICoordinateToPixelStrategy
+
+    // TODO: Pass in the layers
     private val pathLayer = PathLayer()
+    private val beaconLayer = BeaconLayer()
 
     private var singleTapAction: (() -> Unit)? = null
 
@@ -115,43 +117,14 @@ class RadarCompassView : BaseCompassView {
         )
     }
 
-    private fun getDistanceFromCenter(pixel: PixelCoordinate): Float {
-        return pixel.distanceTo(center)
-    }
-
     private fun drawLocations() {
-        val highlighted = _highlightedLocation
-        var containsHighlighted = false
-        _locations.forEach {
-            if (it.id == highlighted?.id) {
-                containsHighlighted = true
-            }
-            drawLocation(
-                it,
-                highlighted == null || it.id == highlighted.id
-            )
-        }
-
-        if (highlighted != null && !containsHighlighted) {
-            drawLocation(highlighted, true)
-        }
-    }
-
-    private fun drawLocation(location: IMappableLocation, highlight: Boolean) {
-        val pixel = coordinateToPixel(location.coordinate)
-        if (getDistanceFromCenter(pixel) > compassSize / 2) {
-            return
-        }
-        noTint()
-        stroke(secondaryColor)
-        strokeWeight(locationStrokeWeight)
-        fill(location.color)
-        if (highlight) {
-            opacity(255)
-        } else {
-            opacity(127)
-        }
-        circle(pixel.x, pixel.y, radarSize.toFloat())
+        // TODO: Pass in beacons instead of locations
+        // TODO: Handle beacon highlighting
+        beaconLayer.setBeacons(_locations.map { Beacon(it.id, "", it.coordinate, color = it.color) })
+        push()
+        clip(compassPath)
+        beaconLayer.draw(this, coordinateToPixelStrategy, 1f)
+        pop()
     }
 
     private fun drawReferencePoints() {
@@ -274,10 +247,6 @@ class RadarCompassView : BaseCompassView {
         imageMode(ImageMode.Corner)
     }
 
-    private fun coordinateToPixel(coordinate: Coordinate): PixelCoordinate {
-        return coordinateToPixelStrategy.getPixels(coordinate)
-    }
-
     override fun setup() {
         super.setup()
         iconSize = dp(24f).toInt()
@@ -294,7 +263,6 @@ class RadarCompassView : BaseCompassView {
         textColor = Resources.androidTextColorSecondary(context)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
-        metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
         north = context.getString(R.string.direction_north)
         south = context.getString(R.string.direction_south)
         east = context.getString(R.string.direction_east)
@@ -303,11 +271,11 @@ class RadarCompassView : BaseCompassView {
         locationStrokeWeight = dp(0.5f)
         updateCoordinateToPixelStrategy()
         dial = CompassDial(center, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
-        pathLayer.setPathRenderer(getPathRenderer())
+        beaconLayer.setOutlineColor(secondaryColor)
     }
 
     private fun getPathRenderer(): IRenderedPathFactory {
-        return RenderedPathFactory(metersPerPixel, _location, _declination, _useTrueNorth)
+        return PathRenderer(coordinateToPixelStrategy)
     }
 
     override fun draw() {
@@ -331,8 +299,9 @@ class RadarCompassView : BaseCompassView {
             prefs.navigation.maxBeaconDistance *= detector.scaleFactor
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
-            metersPerPixel = maxDistanceMeters.distance / (compassSize / 2f)
-            pathLayer.setPathRenderer(getPathRenderer())
+            // TODO: Invalidate all paths
+            pathLayer.invalidate()
+            beaconLayer.invalidate()
             return true
         }
 
