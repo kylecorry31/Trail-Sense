@@ -18,6 +18,8 @@ import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
 import com.kylecorry.sol.science.geology.Geofence
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -25,6 +27,7 @@ import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixel
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -62,6 +65,8 @@ class RadarCompassView : BaseCompassView {
     // TODO: Pass in the layers
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
+    private val myLocationLayer = MyLocationLayer()
+    private val layers = mutableListOf(pathLayer, myLocationLayer, beaconLayer)
 
     private var singleTapAction: (() -> Unit)? = null
 
@@ -117,13 +122,27 @@ class RadarCompassView : BaseCompassView {
         )
     }
 
-    private fun drawLocations() {
+    override fun setLocation(location: Coordinate) {
+        super.setLocation(location)
+        myLocationLayer.setLocation(location)
+    }
+
+    override fun setAzimuth(azimuth: Bearing) {
+        super.setAzimuth(azimuth)
+        myLocationLayer.setAzimuth(azimuth)
+    }
+
+    override fun showLocations(locations: List<IMappableLocation>) {
+        super.showLocations(locations)
         // TODO: Pass in beacons instead of locations
-        // TODO: Handle beacon highlighting
         beaconLayer.setBeacons(_locations.map { Beacon(it.id, "", it.coordinate, color = it.color) })
+    }
+
+    private fun drawLocations() {
+        // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
-        beaconLayer.draw(this, coordinateToPixelStrategy, 1f)
+        layers.forEach { it.draw(this, coordinateToPixelStrategy, 1f) }
         pop()
     }
 
@@ -157,10 +176,10 @@ class RadarCompassView : BaseCompassView {
 
         dial.draw(drawer)
 
-        push()
-        clip(compassPath)
-        pathLayer.draw(drawer, coordinateToPixelStrategy, 1f)
-        pop()
+//        push()
+//        clip(compassPath)
+//        pathLayer.draw(drawer, coordinateToPixelStrategy, 1f)
+//        pop()
 
         noFill()
         stroke(Color.WHITE)
@@ -174,10 +193,6 @@ class RadarCompassView : BaseCompassView {
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
-
-        opacity(255)
-
-        image(getBitmap(R.drawable.ic_beacon, directionSize), width / 2f, height / 2f)
 
         // Distance Text
         val distance = maxDistanceBaseUnits.toRelativeDistance()
@@ -299,9 +314,7 @@ class RadarCompassView : BaseCompassView {
             prefs.navigation.maxBeaconDistance *= detector.scaleFactor
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
-            // TODO: Invalidate all paths
-            pathLayer.invalidate()
-            beaconLayer.invalidate()
+            layers.forEach { it.invalidate() }
             return true
         }
 

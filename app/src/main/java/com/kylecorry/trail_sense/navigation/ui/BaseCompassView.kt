@@ -4,17 +4,14 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
-import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 abstract class BaseCompassView : CanvasView, INearbyCompassView {
 
-    private val icons = mutableMapOf<Int, Bitmap>()
+    private val bitmapLoader by lazy { BitmapLoader(context) }
     protected var _azimuth = 0f
     protected var _destination: IMappableBearing? = null
     protected var _locations: List<IMappableLocation> = emptyList()
@@ -80,24 +77,11 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
     }
 
     protected open fun finalize() {
-        tryOrNothing {
-            for (icon in icons) {
-                icon.value.recycle()
-            }
-            icons.clear()
-        }
+        bitmapLoader.clear()
     }
 
     protected fun getBitmap(@DrawableRes id: Int, size: Int): Bitmap {
-        val bitmap = if (icons.containsKey(id)) {
-            icons[id]
-        } else {
-            val drawable = Resources.drawable(context, id)
-            val bm = drawable?.toBitmap(size, size)
-            icons[id] = bm!!
-            icons[id]
-        }
-        return bitmap!!
+        return bitmapLoader.load(id, size)
     }
 
     override fun setup() {
