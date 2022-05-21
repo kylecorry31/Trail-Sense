@@ -54,10 +54,12 @@ import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -65,6 +67,9 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.tides.domain.TideService
+import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand
+import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -137,6 +142,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
+    private val tideLayer = TideLayer()
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -170,7 +176,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
-        binding.radarCompass.setLayers(listOf(pathLayer, myLocationLayer, beaconLayer))
+        binding.radarCompass.setLayers(listOf(pathLayer, myLocationLayer, tideLayer, beaconLayer))
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
@@ -213,15 +219,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         navController = findNavController()
 
-        compass.asLiveData().observe(viewLifecycleOwner
+        compass.asLiveData().observe(
+            viewLifecycleOwner
         ) { updateUI() }
-        orientation.asLiveData().observe(viewLifecycleOwner
+        orientation.asLiveData().observe(
+            viewLifecycleOwner
         ) { onOrientationUpdate() }
-        altimeter.asLiveData().observe(viewLifecycleOwner
+        altimeter.asLiveData().observe(
+            viewLifecycleOwner
         ) { updateUI() }
-        gps.asLiveData().observe(viewLifecycleOwner
+        gps.asLiveData().observe(
+            viewLifecycleOwner
         ) { onLocationUpdate() }
-        speedometer.asLiveData().observe(viewLifecycleOwner
+        speedometer.asLiveData().observe(
+            viewLifecycleOwner
         ) { updateUI() }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
@@ -309,7 +320,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
         if (isOn) {
             requestCamera { hasPermission ->
-                if (hasPermission){
+                if (hasPermission) {
                     enableSightingCompass()
                 } else {
                     alertNoCameraPermission()
@@ -415,12 +426,24 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
-        withContext(Dispatchers.Default) {
+        updateTides()
+
+        onDefault {
             isMoonUp = astronomyService.isMoonUp(gps.location)
             isSunUp = astronomyService.isSunUp(gps.location)
             sunBearing = getSunBearing()
             moonBearing = getMoonBearing()
         }
+    }
+
+    private suspend fun updateTides() {
+        // TODO: Limit to nearby tides
+        val tables = LoadAllTideTablesCommand(requireContext()).execute()
+        val currentTideCommand = CurrentTideCommand(TideService())
+        val tides = tables.filter { it.location != null }.map {
+            it to currentTideCommand.execute(it)
+        }
+        tideLayer.setTides(tides)
     }
 
     private fun getReferencePoints(): List<IMappableReferencePoint> {
@@ -671,6 +694,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         myLocationLayer.setAzimuth(compass.bearing)
         beaconLayer.setBeacons(nearby)
         beaconLayer.highlight(destination)
+        tideLayer.setAzimuth(compass.bearing)
 
         compasses.forEach {
             it.setAzimuth(compass.bearing)
@@ -786,6 +810,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         updateUI()
     }
+
 
     private fun updateNavigationButton() {
         if (destination != null) {

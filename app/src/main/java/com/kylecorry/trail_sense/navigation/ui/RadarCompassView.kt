@@ -153,11 +153,6 @@ class RadarCompassView : BaseCompassView, IMapView {
 
         dial.draw(drawer)
 
-//        push()
-//        clip(compassPath)
-//        pathLayer.draw(drawer, coordinateToPixelStrategy, 1f)
-//        pop()
-
         noFill()
         stroke(Color.WHITE)
         opacity(30)
