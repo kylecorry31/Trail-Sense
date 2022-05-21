@@ -12,8 +12,8 @@ class RenderedPathFactory(
     private val origin: Coordinate?,
     private val declination: Float,
     private val useTrueNorth: Boolean
-) {
-    fun render(points: List<Coordinate>, path: Path = Path()): RenderedPath {
+) : IRenderedPathFactory {
+    override fun render(points: List<Coordinate>, path: Path): RenderedPath {
         val origin = origin ?: CoordinateBounds.from(points).center
         for (i in 1 until points.size) {
             if (i == 1) {
