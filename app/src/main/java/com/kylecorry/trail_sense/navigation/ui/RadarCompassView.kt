@@ -18,24 +18,18 @@ import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
 import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
-import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import kotlin.math.min
 
-class RadarCompassView : BaseCompassView {
+class RadarCompassView : BaseCompassView, IMapView {
     private lateinit var center: PixelCoordinate
 
     @ColorInt
@@ -62,11 +56,7 @@ class RadarCompassView : BaseCompassView {
     private lateinit var maxDistanceMeters: Distance
     private lateinit var coordinateToPixelStrategy: ICoordinateToPixelStrategy
 
-    // TODO: Pass in the layers
-    private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer()
-    private val myLocationLayer = MyLocationLayer()
-    private val layers = mutableListOf(pathLayer, myLocationLayer, beaconLayer)
+    private val layers = mutableListOf<ILayer>()
 
     private var singleTapAction: (() -> Unit)? = null
 
@@ -87,11 +77,6 @@ class RadarCompassView : BaseCompassView {
 
     fun setOnSingleTapListener(action: (() -> Unit)?) {
         singleTapAction = action
-    }
-
-    override fun showPaths(paths: List<IMappablePath>) {
-        pathLayer.setPaths(paths)
-        invalidate()
     }
 
     private fun drawDestination() {
@@ -120,22 +105,6 @@ class RadarCompassView : BaseCompassView {
                 destination.color
             )
         )
-    }
-
-    override fun setLocation(location: Coordinate) {
-        super.setLocation(location)
-        myLocationLayer.setLocation(location)
-    }
-
-    override fun setAzimuth(azimuth: Bearing) {
-        super.setAzimuth(azimuth)
-        myLocationLayer.setAzimuth(azimuth)
-    }
-
-    override fun showLocations(locations: List<IMappableLocation>) {
-        super.showLocations(locations)
-        // TODO: Pass in beacons instead of locations
-        beaconLayer.setBeacons(_locations.map { Beacon(it.id, "", it.coordinate, color = it.color) })
     }
 
     private fun drawLayers() {
@@ -286,11 +255,7 @@ class RadarCompassView : BaseCompassView {
         locationStrokeWeight = dp(0.5f)
         updateCoordinateToPixelStrategy()
         dial = CompassDial(center, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
-        beaconLayer.setOutlineColor(secondaryColor)
-    }
-
-    private fun getPathRenderer(): IRenderedPathFactory {
-        return PathRenderer(coordinateToPixelStrategy)
+//        beaconLayer.setOutlineColor(secondaryColor)
     }
 
     override fun draw() {
@@ -348,5 +313,18 @@ class RadarCompassView : BaseCompassView {
         mGestureDetector.onTouchEvent(event)
         invalidate()
         return true
+    }
+
+    override fun addLayer(layer: ILayer) {
+        layers.add(layer)
+    }
+
+    override fun removeLayer(layer: ILayer) {
+        layers.remove(layer)
+    }
+
+    override fun setLayers(layers: List<ILayer>) {
+        this.layers.clear()
+        this.layers.addAll(layers)
     }
 }

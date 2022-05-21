@@ -51,6 +51,9 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackSchedu
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -131,6 +134,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
+    private val pathLayer = PathLayer()
+    private val beaconLayer = BeaconLayer()
+    private val myLocationLayer = MyLocationLayer()
+
     override fun onDestroyView() {
         super.onDestroyView()
         activity?.let {
@@ -161,6 +168,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
+        binding.radarCompass.setLayers(listOf(pathLayer, myLocationLayer, beaconLayer))
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
@@ -657,6 +667,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.linearCompass
         )
 
+        myLocationLayer.setLocation(gps.location)
+        myLocationLayer.setAzimuth(compass.bearing)
+        beaconLayer.setBeacons(nearby)
+        beaconLayer.highlight(destination)
+
         compasses.forEach {
             it.setAzimuth(compass.bearing)
             it.setDeclination(declination)
@@ -701,7 +716,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
                 withContext(Dispatchers.Main) {
                     if (isBound) {
-                        binding.radarCompass.showPaths(mappablePaths)
+                        pathLayer.setPaths(mappablePaths)
                     }
                 }
             }

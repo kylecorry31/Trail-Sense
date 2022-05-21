@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 class BeaconLayer : ILayer {
 
     private val _beacons = mutableListOf<Beacon>()
+    private var _highlighted: Beacon? = null
 
     @ColorInt
     private var backgroundColor = Color.TRANSPARENT
@@ -21,6 +22,12 @@ class BeaconLayer : ILayer {
 
     fun setOutlineColor(@ColorInt color: Int) {
         backgroundColor = color
+        invalidate()
+    }
+
+    fun highlight(beacon: Beacon?){
+        _highlighted = beacon
+        invalidate()
     }
 
     override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
@@ -30,11 +37,11 @@ class BeaconLayer : ILayer {
             drawer.stroke(backgroundColor)
             drawer.strokeWeight(drawer.dp(0.5f) * scale)
             drawer.fill(beacon.color)
-//            if (highlight) {
-//                opacity(255)
-//            } else {
-//                opacity(127)
-//            }
+            if (_highlighted == null || _highlighted?.id == beacon.id) {
+                drawer.opacity(255)
+            } else {
+                drawer.opacity(127)
+            }
             drawer.circle(pixel.x, pixel.y, drawer.dp(10f) * scale)
         }
     }
