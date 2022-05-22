@@ -42,10 +42,6 @@ class PreferenceMigrator private constructor() {
                         context.getString(R.string.pref_experimental_maps),
                         isExperimental
                     )
-                    prefs.putBoolean(
-                        context.getString(R.string.pref_experimental_tide_clock),
-                        isExperimental
-                    )
                     prefs.remove("pref_enable_experimental")
                     prefs.remove("pref_use_camera_features")
                 }

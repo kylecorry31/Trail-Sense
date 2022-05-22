@@ -11,14 +11,6 @@
             app:defaultValue="false"
             app:disableDependentsState="true"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_experimental_tide_clock"
-            app:singleLineTitle="false"
-            app:title="@string/tides" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_experimental_cloud_scanner"
             app:singleLineTitle="false"
             app:title="@string/pref_experimental_cloud_scanner_title" />

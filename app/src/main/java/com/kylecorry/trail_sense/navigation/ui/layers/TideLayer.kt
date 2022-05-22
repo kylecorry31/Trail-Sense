@@ -36,6 +36,7 @@ class TideLayer : ILayer {
         _tides.forEach { tide ->
             tide.first.location ?: return@forEach
             val center = mapper.getPixels(tide.first.location!!)
+            // TODO: Don't draw if outside canvas
             val img = getImage(drawer, tide.second.type, scale)
             drawer.push()
             drawer.rotate(_azimuth.value, center.x, center.y)

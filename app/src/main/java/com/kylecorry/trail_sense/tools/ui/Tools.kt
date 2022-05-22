@@ -108,12 +108,11 @@ object Tools {
                     R.id.action_action_experimental_tools_to_waterPurificationFragment,
                     context.getString(R.string.tool_boil_summary)
                 ),
-                if (prefs.tides.areTidesEnabled) Tool(
+                Tool(
                     context.getString(R.string.tides),
                     R.drawable.ic_tide_table,
-                    R.id.action_toolsFragment_to_tidesFragment,
-                    context.getString(R.string.experimental)
-                ) else null
+                    R.id.action_toolsFragment_to_tidesFragment
+                )
             )
         )
 

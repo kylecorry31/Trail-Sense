@@ -92,7 +92,6 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_tide_settings"
             app:singleLineTitle="false"
-            app:summary="@string/experimental"
             app:title="@string/tides" />
 
     </PreferenceCategory>

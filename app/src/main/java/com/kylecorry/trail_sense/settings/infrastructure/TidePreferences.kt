@@ -6,12 +6,6 @@ import com.kylecorry.trail_sense.R
 
 class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferences {
 
-    override var areTidesEnabled by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_experimental_tide_clock),
-        false
-    )
-
     override val showNearestTide by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_nearest_tide),

@@ -808,7 +808,6 @@
     <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
     <string name="pref_power_settings" translatable="false">pref_power_settings</string>
     <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
-    <string name="pref_experimental_tide_clock" translatable="false">pref_experimental_tide_clock</string>
     <string name="pref_experimental_maps" translatable="false">pref_experimental_maps</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
     <string name="pref_experimental_metal_direction_title">Show metal direction</string>
