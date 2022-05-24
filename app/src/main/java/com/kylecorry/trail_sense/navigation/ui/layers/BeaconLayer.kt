@@ -4,7 +4,6 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 
 class BeaconLayer : ILayer {
 
@@ -30,9 +29,10 @@ class BeaconLayer : ILayer {
         invalidate()
     }
 
-    override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
+    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        val scale = 1f // TODO: Determine this based on map.scale
         _beacons.forEach { beacon ->
-            val pixel = mapper.getPixels(beacon.coordinate)
+            val pixel = map.toPixel(beacon.coordinate)
             drawer.noTint()
             drawer.stroke(backgroundColor)
             drawer.strokeWeight(drawer.dp(0.5f) * scale)

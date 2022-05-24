@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFacto
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 
 class PathLayer : ILayer {
 
@@ -25,12 +24,13 @@ class PathLayer : ILayer {
         invalidate()
     }
 
-    override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
+    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        val scale = 1f // TODO: Determine this based on map.scale
         if (!pathsRendered) {
             for (path in renderedPaths) {
                 pathPool.release(path.value.path)
             }
-            renderedPaths = generatePaths(_paths, PathRenderer(mapper))
+            renderedPaths = generatePaths(_paths, PathRenderer(map::toPixel))
             pathsRendered = true
         }
 
@@ -38,7 +38,7 @@ class PathLayer : ILayer {
         for (path in _paths) {
             val rendered = renderedPaths[path.id] ?: continue
             val pathDrawer = factory.create(path.style)
-            val centerPixel = mapper.getPixels(rendered.origin)
+            val centerPixel = map.toPixel(rendered.origin)
             drawer.push()
             drawer.translate(centerPixel.x, centerPixel.y)
             pathDrawer.draw(drawer, path.color, strokeScale = scale) {

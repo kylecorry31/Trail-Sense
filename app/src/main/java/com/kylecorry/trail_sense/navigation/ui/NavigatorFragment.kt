@@ -690,11 +690,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.linearCompass
         )
 
-        myLocationLayer.setLocation(gps.location)
-        myLocationLayer.setAzimuth(compass.bearing)
         beaconLayer.setBeacons(nearby)
         beaconLayer.highlight(destination)
-        tideLayer.setAzimuth(compass.bearing)
 
         compasses.forEach {
             it.setAzimuth(compass.bearing)

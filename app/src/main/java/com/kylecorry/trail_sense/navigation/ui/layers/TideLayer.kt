@@ -5,9 +5,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.sol.science.oceanography.TideType
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.ui.CurrentTideData
 import kotlin.reflect.KMutableProperty0
@@ -18,7 +16,6 @@ class TideLayer : ILayer {
     private var _highTideImg: Bitmap? = null
     private var _lowTideImg: Bitmap? = null
     private var _halfTideImg: Bitmap? = null
-    private var _azimuth = Bearing(0f)
 
     fun setTides(tides: List<Pair<TideTable, CurrentTideData>>) {
         _tides.clear()
@@ -26,20 +23,16 @@ class TideLayer : ILayer {
         invalidate()
     }
 
-    fun setAzimuth(azimuth: Bearing){
-        _azimuth = azimuth
-        invalidate()
-    }
-
-    override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
+    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        val scale = 1f // TODO: Determine this based on map.scale
         drawer.imageMode(ImageMode.Center)
         _tides.forEach { tide ->
             tide.first.location ?: return@forEach
-            val center = mapper.getPixels(tide.first.location!!)
+            val center = map.toPixel(tide.first.location!!)
             // TODO: Don't draw if outside canvas
             val img = getImage(drawer, tide.second.type, scale)
             drawer.push()
-            drawer.rotate(_azimuth.value, center.x, center.y)
+            drawer.rotate(map.rotation.value, center.x, center.y)
             drawer.image(img, center.x, center.y)
             drawer.pop()
         }

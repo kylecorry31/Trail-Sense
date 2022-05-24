@@ -6,12 +6,11 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 
 class MyLocationLayer : ILayer {
 
-    private var _location = Coordinate.zero
-    private var _azimuth = Bearing(0f)
+    private var _location: Coordinate? = null
+    private var _azimuth: Bearing? = null
     private var _image: Bitmap? = null
 
     fun setLocation(location: Coordinate) {
@@ -24,13 +23,14 @@ class MyLocationLayer : ILayer {
         invalidate()
     }
 
-    override fun draw(drawer: ICanvasDrawer, mapper: ICoordinateToPixelStrategy, scale: Float) {
-        val point = mapper.getPixels(_location)
+    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        val scale = 1f // TODO: Determine this based on map.scale
+        val point = map.toPixel(_location ?: map.center)
         // TODO: Handle tint
         drawer.opacity(255)
         drawer.imageMode(ImageMode.Center)
         drawer.push()
-        drawer.rotate(_azimuth.value, point.x, point.y)
+        drawer.rotate(_azimuth?.value ?: map.rotation.value, point.x, point.y)
         val image =
             _image ?: drawer.loadImage(R.drawable.ic_beacon, (drawer.dp(16f) * scale).toInt(), (drawer.dp(16f) * scale).toInt())
         _image = image

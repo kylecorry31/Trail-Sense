@@ -18,6 +18,8 @@ import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
 import com.kylecorry.sol.science.geology.Geofence
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.RadarCompassCoordinateToPixelStrategy
@@ -30,7 +32,7 @@ import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
-    private lateinit var center: PixelCoordinate
+    private lateinit var centerPixel: PixelCoordinate
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -54,10 +56,10 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
-    override val coordinateToPixelStrategy: ICoordinateToPixelStrategy
+    private val coordinateToPixelStrategy: ICoordinateToPixelStrategy
         get() {
             return RadarCompassCoordinateToPixelStrategy(
-                Circle(Vector2(center.x, center.y), compassSize / 2f),
+                Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f),
                 Geofence(_location, maxDistanceMeters),
                 _useTrueNorth,
                 _declination
@@ -119,7 +121,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
-        layers.forEach { it.draw(this, coordinateToPixelStrategy, 1f) }
+        layers.forEach { it.draw(this, this) }
         pop()
     }
 
@@ -254,9 +256,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         south = context.getString(R.string.direction_south)
         east = context.getString(R.string.direction_east)
         west = context.getString(R.string.direction_west)
-        center = PixelCoordinate(width / 2f, height / 2f)
+        centerPixel = PixelCoordinate(width / 2f, height / 2f)
         locationStrokeWeight = dp(0.5f)
-        dial = CompassDial(center, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
+        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
     }
 
     override fun draw() {
@@ -318,4 +320,27 @@ class RadarCompassView : BaseCompassView, IMapView {
         this.layers.clear()
         this.layers.addAll(layers)
     }
+
+    // TODO: Don't calculate coordinate to pixel strategy on the fly
+    override fun toPixel(coordinate: Coordinate): PixelCoordinate {
+        return coordinateToPixelStrategy.getPixels(coordinate)
+    }
+
+    // TODO: Save meters per pixel
+    override var scale: Float
+        get() = TODO("Not yet implemented")
+        set(value) {}
+
+    override var center: Coordinate
+        get() = _location
+        set(value) {
+            setLocation(value)
+        }
+
+    // TODO: Save azimuth as bearing instead of float
+    override var rotation: Bearing
+        get() = Bearing(_azimuth)
+        set(value) {
+            setAzimuth(value)
+        }
 }
