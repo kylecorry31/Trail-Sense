@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.navigation.ui.layers
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMarker
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.ui.CurrentTideData
 import kotlin.reflect.KMutableProperty0
 
-class TideLayer : ILayer {
+class TideLayer : BaseLayer() {
 
     private val _tides = mutableListOf<Pair<TideTable, CurrentTideData>>()
     private var _highTideImg: Bitmap? = null
@@ -24,39 +24,30 @@ class TideLayer : ILayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        val scale = 1f // TODO: Determine this based on map.scale
-        drawer.imageMode(ImageMode.Center)
+        clearMarkers()
         _tides.forEach { tide ->
             tide.first.location ?: return@forEach
-            val center = map.toPixel(tide.first.location!!)
-            // TODO: Don't draw if outside canvas
-            val img = getImage(drawer, tide.second.type, scale)
-            drawer.push()
-            drawer.rotate(map.rotation.value, center.x, center.y)
-            drawer.image(img, center.x, center.y)
-            drawer.pop()
+            val img = getImage(drawer, tide.second.type)
+            addMarker(BitmapMarker(tide.first.location!!, img))
         }
-        drawer.imageMode(ImageMode.Corner)
+        super.draw(drawer, map)
     }
 
-    private fun getImage(drawer: ICanvasDrawer, type: TideType?, scale: Float): Bitmap {
+    private fun getImage(drawer: ICanvasDrawer, type: TideType?): Bitmap {
         return when (type) {
             TideType.High -> _highTideImg ?: loadImage(
                 R.drawable.ic_tide_high,
                 drawer,
-                scale,
                 this::_highTideImg
             )
             TideType.Low -> _lowTideImg ?: loadImage(
                 R.drawable.ic_tide_low,
                 drawer,
-                scale,
                 this::_lowTideImg
             )
             null -> _halfTideImg ?: loadImage(
                 R.drawable.ic_tide_half,
                 drawer,
-                scale,
                 this::_halfTideImg
             )
         }
@@ -65,17 +56,12 @@ class TideLayer : ILayer {
     private fun loadImage(
         @DrawableRes id: Int,
         drawer: ICanvasDrawer,
-        scale: Float,
         setter: KMutableProperty0<Bitmap?>
     ): Bitmap {
-        val size = (drawer.dp(10f) * scale).toInt()
+        val size = drawer.dp(10f).toInt()
         val img = drawer.loadImage(id, size, size)
         setter.set(img)
         return img
-    }
-
-    override fun invalidate() {
-        // Do nothing
     }
 
     protected fun finalize() {

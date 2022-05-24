@@ -690,6 +690,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.linearCompass
         )
 
+        myLocationLayer.setLocation(gps.location)
         beaconLayer.setBeacons(nearby)
         beaconLayer.highlight(destination)
 
