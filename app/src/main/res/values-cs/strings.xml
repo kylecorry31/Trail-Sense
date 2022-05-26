@@ -647,4 +647,14 @@
     <string name="battery_history">Historie baterie - poslední %s</string>
     <string name="fields">Pole</string>
     <string name="map_perspective_instructions">Načrtněte mapu</string>
+    <string name="clinometer_measure_distance_title">Výška cíle</string>
+    <string name="clinometer_measure_height_title">Vzdálenost od cíle</string>
+    <string name="height">Výška</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d cesta</item>
+        <item quantity="few">%d cesty</item>
+        <item quantity="other">%d cest</item>
+    </plurals>
+    <string name="delete_path_group_message">%s a všechny jeho cesty budou smazány.</string>
+    <string name="pref_cell_signal_refresh_cache_title">Aktualizovat mezipaměť signálu</string>
 </resources>
