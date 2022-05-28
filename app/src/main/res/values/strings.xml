@@ -1189,6 +1189,7 @@
     <string name="second_symbol">s</string>
     <string name="point">Point</string>
     <string name="point_added">Point added to path</string>
+    <string name="tide_diurnal">Diurnal</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

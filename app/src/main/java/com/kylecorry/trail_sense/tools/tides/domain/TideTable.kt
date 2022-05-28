@@ -8,10 +8,7 @@ data class TideTable(
     override val id: Long,
     val tides: List<Tide>,
     val name: String? = null,
-    val location: Coordinate? = null
-) : Identifiable {
-
-    val isSemidiurnal
-        get() = true
-
-}
+    val location: Coordinate? = null,
+    val isSemidiurnal: Boolean = true,
+    val isVisible: Boolean = true
+) : Identifiable

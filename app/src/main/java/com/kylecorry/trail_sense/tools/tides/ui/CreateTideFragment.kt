@@ -218,6 +218,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private fun fillExistingTideValues(tide: TideTable) {
         binding.tideName.setText(tide.name)
         binding.tideLocation.coordinate = tide.location
+        binding.tideDiurnal.isChecked = !tide.isSemidiurnal
         tides.addAll(tide.tides.map {
             val h = it.height
             TideEntry(
@@ -255,11 +256,15 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val name = if (rawName.isNullOrBlank()) null else rawName
         val location = binding.tideLocation.coordinate
 
+        val isDiurnal = binding.tideDiurnal.isChecked
+
         return TideTable(
             editingId,
             tides,
             name,
-            location
+            location,
+            isSemidiurnal = !isDiurnal,
+            isVisible = editingTide?.isVisible ?: true
         )
     }
 

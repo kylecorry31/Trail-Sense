@@ -13,7 +13,9 @@ data class TideTableEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") override val id: Long,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "latitude") val latitude: Double?,
-    @ColumnInfo(name = "longitude") val longitude: Double?
+    @ColumnInfo(name = "longitude") val longitude: Double?,
+    @ColumnInfo(name = "isSemidiurnal") val isSemidiurnal: Boolean,
+    @ColumnInfo(name = "isVisible") val isVisible: Boolean
 ) : Identifiable {
 
     fun toTable(tides: List<Tide>): TideTable {
@@ -22,7 +24,7 @@ data class TideTableEntity(
         } else {
             null
         }
-        return TideTable(id, tides, name, coordinate)
+        return TideTable(id, tides, name, coordinate, isSemidiurnal, isVisible)
     }
 
     companion object {
@@ -31,7 +33,9 @@ data class TideTableEntity(
                 table.id,
                 table.name,
                 table.location?.latitude,
-                table.location?.longitude
+                table.location?.longitude,
+                table.isSemidiurnal,
+                table.isVisible
             )
         }
     }
