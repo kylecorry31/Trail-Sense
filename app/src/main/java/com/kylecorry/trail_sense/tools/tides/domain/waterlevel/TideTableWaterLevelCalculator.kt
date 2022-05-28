@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.RuleOfTwelfthsWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.TideClockWaterLevelCalculator
@@ -47,7 +46,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
     private fun hasGap(first: Tide, second: Tide): Boolean {
         val period = Duration.between(first.time, second.time)
-        val frequency = getMainConstituent().speed
+        val frequency = table.principalFrequency
         val maxPeriod = hours(180 / frequency.toDouble() + 3.0)
         return first.isHigh == second.isHigh || period > maxPeriod
     }
@@ -58,7 +57,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     ): Pair<Range<ZonedDateTime>, IWaterLevelCalculator> {
         val calculators = mutableListOf<Pair<Range<ZonedDateTime>, IWaterLevelCalculator>>()
 
-        val frequency = getMainConstituent().speed
+        val frequency = table.principalFrequency
 
         val start = if (first.isHigh == second.isHigh) {
             val nextTime = first.time.plus(hours(180 / frequency.toDouble()))
@@ -96,7 +95,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         val z0 = tide.height!! - amplitude
         return TideClockWaterLevelCalculator(
             tide,
-            getMainConstituent().speed,
+            table.principalFrequency,
             getAmplitude(),
             z0
         )
@@ -120,14 +119,6 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
     private fun getAmplitude(): Float {
         return (range.end - range.start) / 2
-    }
-
-    private fun getMainConstituent(): TideConstituent {
-        return if (table.isSemidiurnal) {
-            TideConstituent.M2
-        } else {
-            TideConstituent.K1
-        }
     }
 
     companion object {

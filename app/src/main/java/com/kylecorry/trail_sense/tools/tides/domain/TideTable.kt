@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
@@ -11,4 +12,15 @@ data class TideTable(
     val location: Coordinate? = null,
     val isSemidiurnal: Boolean = true,
     val isVisible: Boolean = true
-) : Identifiable
+) : Identifiable {
+
+    val principalFrequency: Float
+        get() {
+            return if (isSemidiurnal){
+                TideConstituent.M2.speed
+            } else {
+                TideConstituent.K1.speed
+            }
+        }
+
+}
