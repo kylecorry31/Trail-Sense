@@ -1190,6 +1190,7 @@
     <string name="point">Point</string>
     <string name="point_added">Point added to path</string>
     <string name="tide_diurnal">Diurnal</string>
+    <string name="tide_diurnal_description">High tide once a day - most tides are not diurnal</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

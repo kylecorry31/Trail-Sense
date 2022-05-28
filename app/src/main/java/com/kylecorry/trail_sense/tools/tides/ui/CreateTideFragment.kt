@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import androidx.core.text.scale
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
@@ -78,6 +82,16 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         binding.createTideTitle.rightQuickAction.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.tides)
+        }
+
+        binding.tideDiurnal.text = buildSpannedString {
+            append(getString(R.string.tide_diurnal))
+            append("\n")
+            scale(0.75f){
+                color(Resources.androidTextColorSecondary(requireContext())) {
+                    append(getString(R.string.tide_diurnal_description))
+                }
+            }
         }
 
         tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
