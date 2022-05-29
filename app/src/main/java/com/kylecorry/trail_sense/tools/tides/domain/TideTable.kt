@@ -19,7 +19,7 @@ data class TideTable(
             return if (isSemidiurnal){
                 TideConstituent.M2.speed
             } else {
-                TideConstituent.K1.speed
+                TideConstituent.M2.speed / 2
             }
         }
 
