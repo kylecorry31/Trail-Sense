@@ -440,7 +440,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // TODO: Limit to nearby tides
         val tables = LoadAllTideTablesCommand(requireContext()).execute()
         val currentTideCommand = CurrentTideCommand(TideService())
-        val tides = tables.filter { it.location != null }.map {
+        val tides = tables.filter { it.location != null && it.isVisible }.map {
             it to currentTideCommand.execute(it)
         }
         tideLayer.setTides(tides)
