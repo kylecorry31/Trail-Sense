@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.optimization.SimpleExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
