@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -17,12 +18,15 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -30,7 +34,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-class OfflineMapView : SubsamplingScaleImageView {
+class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     var onMapLongClick: ((coordinate: Coordinate) -> Unit)? = null
     var onLocationClick: ((location: IMappableLocation) -> Unit)? = null
@@ -42,7 +46,67 @@ class OfflineMapView : SubsamplingScaleImageView {
     private var map: Map? = null
     private val mapPath = Path()
     private var projection: IMapProjection? = null
-    private var azimuth = 0f
+
+    private val layers = mutableListOf<ILayer>()
+
+    override fun addLayer(layer: ILayer) {
+        layers.add(layer)
+    }
+
+    override fun removeLayer(layer: ILayer) {
+        layers.remove(layer)
+    }
+
+    override fun setLayers(layers: List<ILayer>) {
+        this.layers.clear()
+        this.layers.addAll(layers)
+    }
+
+    override fun toPixel(coordinate: Coordinate): PixelCoordinate {
+        return getPixelCoordinate(coordinate, nullIfOffMap = false) ?: PixelCoordinate(0f, 0f)
+    }
+
+    fun toCoordinate(pixel: PixelCoordinate): Coordinate {
+        val source = viewToSourceCoord(pixel.x, pixel.y) ?: return Coordinate.zero
+        return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
+    }
+
+    private fun toPixel(point: PointF): PixelCoordinate {
+        return PixelCoordinate(point.x, point.y)
+    }
+
+    private fun toPoint(pixel: PixelCoordinate): PointF {
+        return PointF(pixel.x, pixel.y)
+    }
+
+    override var metersPerPixel: Float
+        get() = TODO("Not yet implemented")
+        set(value) {}
+
+    override var centerLocation: Coordinate
+        get() = toCoordinate(center?.let { toPixel(it) } ?: PixelCoordinate(
+            width / 2f,
+            height / 2f
+        ))
+        set(value) {
+            setScaleAndCenter(scale, toPoint(toPixel(value)))
+        }
+    override var mapRotation: Float
+        get() = rotation
+        set(value) {
+            rotation = mapRotation
+            invalidate()
+        }
+
+    var azimuth: Bearing = Bearing(0f)
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override val layerScale: Float
+        get() = min(1f, max(scale, 0.9f))
+
     private var locations = emptyList<IMappableLocation>()
     private var paths = emptyList<IMappablePath>()
     private var pathPool = ObjectPool { Path() }
@@ -53,9 +117,6 @@ class OfflineMapView : SubsamplingScaleImageView {
     private var showCalibrationPoints = false
 
     private var lastImage: String? = null
-
-    private val layerScale: Float
-        get() = min(1f, max(scale, 0.9f))
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -100,6 +161,7 @@ class OfflineMapView : SubsamplingScaleImageView {
         drawCalibrationPoints()
 
         if (map?.calibrationPoints?.size == 2) {
+            layers.forEach { it.draw(drawer, this) }
             drawPaths()
             drawLocations()
             drawMyLocation()
@@ -161,18 +223,13 @@ class OfflineMapView : SubsamplingScaleImageView {
         drawer.strokeWeight(drawer.dp(1f) / scale)
         drawer.fill(AppColor.Orange.color)
         drawer.push()
-        drawer.rotate(azimuth, pixels.x, pixels.y)
+        drawer.rotate(azimuth.value, pixels.x, pixels.y)
         drawer.triangle(
             pixels.x, pixels.y - drawer.dp(6f) / scale,
             pixels.x - drawer.dp(5f) / scale, pixels.y + drawer.dp(6f) / scale,
             pixels.x + drawer.dp(5f) / scale, pixels.y + drawer.dp(6f) / scale
         )
         drawer.pop()
-    }
-
-    fun setAzimuth(azimuth: Float) {
-        this.azimuth = azimuth
-        invalidate()
     }
 
     fun showLocations(locations: List<IMappableLocation>) {
@@ -280,7 +337,7 @@ class OfflineMapView : SubsamplingScaleImageView {
         invalidate()
     }
 
-    fun zoomBy(multiple: Float){
+    fun zoomBy(multiple: Float) {
         setScaleAndCenter((scale * multiple).coerceIn(minScale, maxScale), center)
     }
 
@@ -362,7 +419,7 @@ class OfflineMapView : SubsamplingScaleImageView {
 
     private val realWidth: Int
         get() {
-            return if (orientation == 90 || orientation == 270){
+            return if (orientation == 90 || orientation == 270) {
                 sHeight
             } else {
                 sWidth
@@ -371,7 +428,7 @@ class OfflineMapView : SubsamplingScaleImageView {
 
     private val realHeight: Int
         get() {
-            return if (orientation == 90 || orientation == 270){
+            return if (orientation == 90 || orientation == 270) {
                 sWidth
             } else {
                 sHeight

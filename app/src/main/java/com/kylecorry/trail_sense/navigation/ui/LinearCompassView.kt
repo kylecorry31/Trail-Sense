@@ -104,8 +104,8 @@ class LinearCompassView : BaseCompassView {
     }
 
     private fun drawReference(reference: IMappableReferencePoint) {
-        val minDegrees = (_azimuth - range / 2).roundToInt()
-        val maxDegrees = (_azimuth + range / 2).roundToInt()
+        val minDegrees = (azimuth.value - range / 2).roundToInt()
+        val maxDegrees = (azimuth.value + range / 2).roundToInt()
         val tint = reference.tint
         if (tint != null) {
             tint(tint)
@@ -113,7 +113,7 @@ class LinearCompassView : BaseCompassView {
             noTint()
         }
         val delta = deltaAngle(
-            _azimuth.roundToInt().toFloat(),
+            azimuth.value.roundToInt().toFloat(),
             reference.bearing.value.roundToInt().toFloat()
         )
         val centerPixel = when {
@@ -145,8 +145,8 @@ class LinearCompassView : BaseCompassView {
 
     private fun drawCompass() {
         val pixDeg = width / range
-        val minDegrees = (_azimuth - range / 2).roundToInt()
-        val maxDegrees = (_azimuth + range / 2).roundToInt()
+        val minDegrees = (azimuth.value - range / 2).roundToInt()
+        val maxDegrees = (azimuth.value + range / 2).roundToInt()
         var i = -180
         while (i < 540) {
             if (i in minDegrees..maxDegrees) {
@@ -208,7 +208,7 @@ class LinearCompassView : BaseCompassView {
         val d = _destination
         d ?: return
         val delta = deltaAngle(
-            _azimuth.roundToInt().toFloat(),
+            azimuth.value.roundToInt().toFloat(),
             d.bearing.value.roundToInt().toFloat()
         )
 

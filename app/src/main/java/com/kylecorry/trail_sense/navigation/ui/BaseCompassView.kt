@@ -12,7 +12,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 abstract class BaseCompassView : CanvasView, INearbyCompassView {
 
     private val bitmapLoader by lazy { BitmapLoader(context) }
-    protected var _azimuth = 0f
     protected var _destination: IMappableBearing? = null
     protected var _locations: List<IMappableLocation> = emptyList()
     protected var _highlightedLocation: IMappableLocation? = null
@@ -35,10 +34,11 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
         setupAfterVisible = true
     }
 
-    override fun setAzimuth(azimuth: Bearing) {
-        this._azimuth = azimuth.value
-        invalidate()
-    }
+    override var azimuth: Bearing = Bearing(0f)
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     override fun setLocation(location: Coordinate) {
         _location = location

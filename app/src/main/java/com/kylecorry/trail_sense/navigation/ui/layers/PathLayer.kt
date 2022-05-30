@@ -25,7 +25,7 @@ class PathLayer : ILayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        val scale = 1f // TODO: Determine this based on map.scale
+        val scale = map.layerScale
         if (!pathsRendered) {
             for (path in renderedPaths) {
                 pathPool.release(path.value.path)

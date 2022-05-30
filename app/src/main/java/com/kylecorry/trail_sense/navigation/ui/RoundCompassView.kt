@@ -54,8 +54,8 @@ class RoundCompassView : BaseCompassView {
             iconSize.toFloat() + dp2,
             compassSize.toFloat(),
             compassSize.toFloat(),
-            _azimuth - 90,
-            _azimuth - 90 + deltaAngle(_azimuth, d.bearing.value),
+            azimuth.value - 90,
+            azimuth.value - 90 + deltaAngle(azimuth.value, d.bearing.value),
             ArcMode.Pie
         )
         opacity(255)
@@ -226,7 +226,7 @@ class RoundCompassView : BaseCompassView {
         clear()
         drawAzimuth()
         push()
-        rotate(-_azimuth)
+        rotate(-azimuth.value)
         drawCompass()
         drawReferences()
         drawLocations()

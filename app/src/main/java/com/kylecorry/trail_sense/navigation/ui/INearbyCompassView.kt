@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
 interface INearbyCompassView {
-    fun setAzimuth(azimuth: Bearing)
+    var azimuth: Bearing
     fun setLocation(location: Coordinate)
     fun setDeclination(declination: Float)
     fun showLocations(locations: List<IMappableLocation>) // Remove these

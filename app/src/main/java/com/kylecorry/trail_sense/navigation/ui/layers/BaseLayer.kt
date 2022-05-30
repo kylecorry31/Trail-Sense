@@ -21,9 +21,8 @@ open class BaseLayer : ILayer {
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         markers.forEach {
-            val scale = 1f // TODO: Determine this
             val anchor = map.toPixel(it.location)
-            it.draw(drawer, anchor, scale, map.rotation.value)
+            it.draw(drawer, anchor, map.layerScale, map.mapRotation)
         }
     }
 

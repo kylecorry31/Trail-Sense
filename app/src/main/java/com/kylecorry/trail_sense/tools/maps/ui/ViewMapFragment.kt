@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.GeologyService
@@ -27,6 +28,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.getPathPoint
@@ -35,9 +37,13 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.tides.domain.TideService
+import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
+import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Duration
 
 class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
@@ -55,6 +61,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
 
+    private val tideLayer = TideLayer()
+
     private var mapId = 0L
     private var map: Map? = null
     private var destination: Beacon? = null
@@ -67,6 +75,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var isCalibrating = false
 
     private val throttle = Throttle(20)
+
+    private val tideTimer = Timer {
+        updateTides()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,15 +94,22 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // TODO: Add beacons, my location and paths
+        binding.map.addLayer(tideLayer)
+
         gps.asLiveData().observe(viewLifecycleOwner) {
             binding.map.setMyLocation(gps.location)
             displayPaths()
             updateDestination()
+            if (!tideTimer.isRunning()){
+                tideTimer.interval(Duration.ofMinutes(1))
+            }
         }
         altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
         compass.asLiveData().observe(viewLifecycleOwner) {
             compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
-            binding.map.setAzimuth(compass.bearing.value)
+            binding.map.azimuth = compass.bearing
             updateDestination()
         }
         beaconRepo.getBeacons()
@@ -330,6 +349,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.map.showMap(map!!)
     }
 
+    override fun onPause() {
+        super.onPause()
+        tideTimer.stop()
+    }
+
     fun calibrateMap() {
         map ?: return
         isCalibrating = true
@@ -369,6 +393,16 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         calibrationPoint2 = second?.location
         calibrationPoint1Percent = first?.imageLocation
         calibrationPoint2Percent = second?.imageLocation
+    }
+
+    private fun updateTides() = runInBackground {
+        // TODO: Limit to nearby tides
+        val tables = LoadAllTideTablesCommand(requireContext()).execute()
+        val currentTideCommand = CurrentTideTypeCommand(TideService())
+        val tides = tables.filter { it.location != null && it.isVisible }.map {
+            it to currentTideCommand.execute(it)
+        }
+        tideLayer.setTides(tides)
     }
 
 }

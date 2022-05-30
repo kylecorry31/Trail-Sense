@@ -68,7 +68,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
-import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
@@ -696,7 +695,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         beaconLayer.highlight(destination)
 
         compasses.forEach {
-            it.setAzimuth(compass.bearing)
+            it.azimuth = compass.bearing
             it.setDeclination(declination)
             it.setLocation(gps.location)
             it.showLocations(nearby)

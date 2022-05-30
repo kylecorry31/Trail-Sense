@@ -101,8 +101,8 @@ class RadarCompassView : BaseCompassView, IMapView {
             iconSize.toFloat() + dp2,
             compassSize.toFloat(),
             compassSize.toFloat(),
-            _azimuth - 90,
-            _azimuth - 90 + deltaAngle(_azimuth, destination.bearing.value),
+            azimuth.value - 90,
+            azimuth.value - 90 + deltaAngle(azimuth.value, destination.bearing.value),
             ArcMode.Pie
         )
         opacity(255)
@@ -160,7 +160,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         opacity(30)
         strokeWeight(3f)
         push()
-        rotate(_azimuth)
+        rotate(azimuth.value)
         if (_destination == null) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
@@ -267,7 +267,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
         clear()
         push()
-        rotate(-_azimuth)
+        rotate(-azimuth.value)
         drawCompass()
         drawLayers()
         drawReferencePoints()
@@ -327,20 +327,20 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     // TODO: Save meters per pixel
-    override var scale: Float
+    override var metersPerPixel: Float
         get() = TODO("Not yet implemented")
         set(value) {}
 
-    override var center: Coordinate
+    override val layerScale: Float = 1f
+
+    override var centerLocation: Coordinate
         get() = _location
         set(value) {
             setLocation(value)
         }
-
-    // TODO: Save azimuth as bearing instead of float
-    override var rotation: Bearing
-        get() = Bearing(_azimuth)
+    override var mapRotation: Float
+        get() = azimuth.value
         set(value) {
-            setAzimuth(value)
+            azimuth = Bearing(value)
         }
 }
