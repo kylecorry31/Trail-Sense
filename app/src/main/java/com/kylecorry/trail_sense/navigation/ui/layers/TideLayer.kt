@@ -7,17 +7,16 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMarker
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
-import com.kylecorry.trail_sense.tools.tides.ui.CurrentTideData
 import kotlin.reflect.KMutableProperty0
 
 class TideLayer : BaseLayer() {
 
-    private val _tides = mutableListOf<Pair<TideTable, CurrentTideData>>()
+    private val _tides = mutableListOf<Pair<TideTable, TideType?>>()
     private var _highTideImg: Bitmap? = null
     private var _lowTideImg: Bitmap? = null
     private var _halfTideImg: Bitmap? = null
 
-    fun setTides(tides: List<Pair<TideTable, CurrentTideData>>) {
+    fun setTides(tides: List<Pair<TideTable, TideType?>>) {
         _tides.clear()
         _tides.addAll(tides)
         invalidate()
@@ -27,7 +26,7 @@ class TideLayer : BaseLayer() {
         clearMarkers()
         _tides.forEach { tide ->
             tide.first.location ?: return@forEach
-            val img = getImage(drawer, tide.second.type)
+            val img = getImage(drawer, tide.second)
             addMarker(BitmapMarker(tide.first.location!!, img))
         }
         super.draw(drawer, map)

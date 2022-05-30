@@ -5,33 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
-import com.kylecorry.trail_sense.databinding.ListItemPlainMenuBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
+import com.kylecorry.trail_sense.tools.tides.domain.commands.ToggleTideTableVisibilityCommand
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.kylecorry.trail_sense.tools.tides.ui.mappers.TideTableAction
+import com.kylecorry.trail_sense.tools.tides.ui.mappers.TideTableListItemMapper
 
 class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
-    private lateinit var listView: ListView<TideTable>
     private val formatService by lazy { FormatService(requireContext()) }
     private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
+    private val mapper by lazy { TideTableListItemMapper(requireContext(), this::onTideTableAction) }
+    private val tideTypeCommand by lazy { CurrentTideTypeCommand(TideService()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -43,36 +43,8 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listView = ListView(binding.tideList, R.layout.list_item_plain_menu) { listItemView, tide ->
-            val itemBinding = ListItemPlainMenuBinding.bind(listItemView)
-            itemBinding.title.text = getTideTitle(tide)
-            itemBinding.description.text = resources.getQuantityString(
-                R.plurals.tides_entered_count,
-                tide.tides.size,
-                tide.tides.size
-            )
-            itemBinding.root.setOnClickListener {
-                tryOrNothing {
-                    selectTide(tide)
-                }
-            }
 
-            itemBinding.menuBtn.setOnClickListener {
-                Pickers.menu(it, R.menu.tide_menu) { action ->
-                    when (action) {
-                        R.id.action_tide_delete -> {
-                            deleteTide(tide)
-                        }
-                        R.id.action_tide_edit -> {
-                            editTide(tide)
-                        }
-                    }
-                    true
-                }
-            }
-        }
-
-        listView.addLineSeparator()
+        binding.tideList.emptyView = binding.tidesEmptyText
 
         refreshTides()
 
@@ -89,13 +61,29 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
         ) { cancelled ->
             if (!cancelled) {
                 runInBackground {
-                    withContext(Dispatchers.IO) {
+                    onIO {
                         tideRepo.deleteTideTable(tide)
                     }
 
                     refreshTides()
                 }
             }
+        }
+    }
+
+    private fun onTideTableAction(tide: TideTable, action: TideTableAction){
+        when(action){
+            TideTableAction.Select -> selectTide(tide)
+            TideTableAction.Edit -> editTide(tide)
+            TideTableAction.Delete -> deleteTide(tide)
+            TideTableAction.ToggleVisibility -> toggleVisibility(tide)
+        }
+    }
+
+    private fun toggleVisibility(tide: TideTable){
+        runInBackground {
+            ToggleTideTableVisibilityCommand(requireContext()).execute(tide)
+            refreshTides()
         }
     }
 
@@ -124,16 +112,20 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     private fun refreshTides() {
         runInBackground {
-            val tides = withContext(Dispatchers.IO) {
-                tideRepo.getTideTables()
+            val tides = onIO {
+                tideRepo.getTideTables().map {
+                    it to tideTypeCommand.execute(it)
+                }
             }
 
-            withContext(Dispatchers.Main) {
+            onMain {
                 if (isBound) {
-                    listView.setData(tides.sortedBy { tide ->
-                        tide.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
-                    })
-                    binding.tidesEmptyText.isVisible = tides.isEmpty()
+                    // TODO: Extract sort strategy
+                    val sorted = tides.sortedBy { tide ->
+                        tide.first.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
+                    }
+
+                    binding.tideList.setItems(sorted, mapper)
                 }
             }
         }

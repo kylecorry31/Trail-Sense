@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.tides.ui
+package com.kylecorry.trail_sense.tools.tides.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts

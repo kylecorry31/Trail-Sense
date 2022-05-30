@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.DailyTideCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadTideTableCommand
+import com.kylecorry.trail_sense.tools.tides.ui.mappers.TideListItemMapper
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate

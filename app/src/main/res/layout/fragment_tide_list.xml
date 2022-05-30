@@ -15,12 +15,11 @@
         app:showSubtitle="false"
         app:title="@string/tides" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.kylecorry.trail_sense.shared.lists.TSListView
         android:id="@+id/tide_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="96dp"
+        style="@style/AppTheme.ListViewWithFab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
