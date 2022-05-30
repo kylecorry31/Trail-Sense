@@ -691,7 +691,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
 
         myLocationLayer.setLocation(gps.location)
-        beaconLayer.setBeacons(nearby)
+        beaconLayer.setBeacons((nearby + listOfNotNull(destination)).distinctBy { it.id })
         beaconLayer.highlight(destination)
 
         compasses.forEach {
