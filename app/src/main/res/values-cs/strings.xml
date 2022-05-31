@@ -22,7 +22,7 @@
     <string name="theme_dark">Tmavý</string>
     <string name="theme_light">Světlý</string>
     <string name="pref_theme_title">Motiv</string>
-    <string name="pref_use_24_hour_title">Používej 24hodinový formát</string>
+    <string name="pref_use_24_hour_title">Používat 24hodinový formát</string>
     <string name="pressure">Tlak</string>
     <string name="feet_miles">Stopy / míle</string>
     <string name="general">Obecné</string>
@@ -588,8 +588,8 @@
     <string name="guide_importing_maps_title">Importování map</string>
     <string name="previous">Předchozí</string>
     <string name="next">Další</string>
-    <string name="time_until_empty">až do vyprázdnění</string>
-    <string name="time_until_full">až do naplnění</string>
+    <string name="time_until_empty">do prázdné baterie</string>
+    <string name="time_until_full">do plné baterie</string>
     <string name="map_auto_calibrated">Mapa je automaticky kalibrována, ověřte prosím její přesnost</string>
     <string name="minute_symbol">min</string>
     <string name="hour_symbol">h</string>
@@ -657,4 +657,242 @@
     </plurals>
     <string name="delete_path_group_message">%s a všechny jeho cesty budou smazány.</string>
     <string name="pref_cell_signal_refresh_cache_title">Aktualizovat mezipaměť signálu</string>
+    <string name="location_mocked">Pomocí falešné polohy</string>
+    <string name="pref_experimental_metal_direction_title">Zobrazit směr magnetického pole kovu</string>
+    <string name="location_not_mocked">Pomocí skutečné polohy</string>
+    <string name="days">Dny</string>
+    <string name="pref_auto_low_power_summary">Když je baterie téměř vybitá</string>
+    <string name="pref_auto_low_power_title">Automatická úspora energie</string>
+    <string name="gallon_format">%s gal</string>
+    <string name="milliliters">Mililitry</string>
+    <string name="imperial_cups">Imperiální poháry</string>
+    <string name="imperial_quarts">Imperiální kvarty</string>
+    <string name="imperial_pints">Imperiální pinty</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="minutes">Minuty</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="clear_amounts">Odstranit množství</string>
+    <string name="desired_amount">Požadované množství</string>
+    <string name="seconds_format">%s s</string>
+    <string name="minutes_format">%s m</string>
+    <string name="hours_format">%s h</string>
+    <string name="packed_amount">Zabalený počet</string>
+    <string name="no_packing_lists">Žádné seznamy věcí na cesty</string>
+    <string name="pack_sort_percent_high_to_low">Procento zabalených (od nejvyšší po nejnižší)</string>
+    <string name="pack_sort_weight_low_to_high">Hmotnost (od nejnižší po nejvyšší)</string>
+    <string name="climate_polar">Polární</string>
+    <string name="climate_temperate">Mírný</string>
+    <string name="climate_tropical">Tropický</string>
+    <string name="guide_packing_list">Vytvořit seznam věcí na cesty</string>
+    <string name="altitude_history">Historie nadmořské výšky</string>
+    <string name="overridden">Přepsáno</string>
+    <string name="on">Zapnuto</string>
+    <string name="sighting_compass">Zaměřovací kompas</string>
+    <string name="no_resolution">Žádné rozlišení</string>
+    <string name="get_gps_signal">Vyjděte ven s ničím nerušeným výhledem na oblohu.</string>
+    <string name="unblock_notification_channel">Odblokovat oznámení %s pro Trail Sense</string>
+    <string name="location_override_resolution">Povolte automatickou úpravu polohy v nastavení.</string>
+    <string name="astro_dialog_day_length">**Den**: %s
+\n
+\n**Noc**: %s
+\n
+\n**Roční období**: %s</string>
+    <string name="auto">Auto</string>
+    <string name="autofill">Automatické vyplňování</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="lightning_dangerously_close">Blesk byl nebezpečně blízko</string>
+    <string name="low_amount">Nízká (%s)</string>
+    <string name="beacon">Maják</string>
+    <string name="low_tide_letter">O</string>
+    <string name="distance_alert_distance_reached">Dosáhli jste %s</string>
+    <string name="current_speed">Aktuální rychlost</string>
+    <string name="camera_capture">Zachytit</string>
+    <string name="roll_pitch_yaw">Náklon: %s, Stoupání: %s, Vybočení: %s</string>
+    <string name="pref_backtrack_history_days_title">Historie zpětné navigace</string>
+    <string name="pref_privacy_screenshot_protection_title">Zabránit vytváření snímků obrazovky</string>
+    <string name="hours">Hodiny</string>
+    <string name="delete_pack">Odstranit balíček\?</string>
+    <string name="grant_permission">Udělte oprávnění %s</string>
+    <string name="background_location_permission">Poloha (povolit vždy)</string>
+    <string name="activity_recognition">Rozpoznávání aktivit</string>
+    <string name="altitude_override_resolution">Povolte automatickou kalibraci v nastavení.</string>
+    <string name="astro_dialog_meteor_shower">**Špička**: %s
+\n
+\n**Nadmořská výška špičky**: %s
+\n
+\n**Směr špičky**: %s
+\n
+\n**Rychlost**: %s</string>
+    <string name="closest">Nejbližší</string>
+    <string name="duration">Doba trvání</string>
+    <string name="change_map_projection">Změnit projekci</string>
+    <string name="avalanche_risk">Riziko laviny</string>
+    <string name="high_tide_letter">P</string>
+    <string name="current_speed_gps">Aktuální rychlost (GPS)</string>
+    <string name="average_speed_pedometer">Průměrná rychlost (krokoměr)</string>
+    <string name="bearing">Kurs</string>
+    <string name="pref_tiles_enabled_title">Systémové dlaždice</string>
+    <string name="pint_format">%s pt</string>
+    <string name="us_ounces_volume">Americké unce</string>
+    <string name="us_gallons">Americké galony</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="sensor_gyroscope">Gyroskop</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="yards_format">%s yd</string>
+    <string name="cup_format">%s c</string>
+    <string name="liters">Litry</string>
+    <string name="clear_cache">Vymazat mezipaměť</string>
+    <string name="time">Čas</string>
+    <string name="pack_sort_percent_low_to_high">Procento zabalené (od nejnižší po nejvyšší)</string>
+    <string name="sort">Seřadit</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="delete_path">Smazat cestu\?</string>
+    <string name="grams">Gramy</string>
+    <string name="average_speed">Průměrná rychlost</string>
+    <string name="average_speed_backtrack">Průměrná rychlost (zpáteční navigace)</string>
+    <string name="beacon_created">Maják vytvořen</string>
+    <string name="camera">Fotoaparát</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="destination_elevation">Nadmořská výška cíle</string>
+    <string name="distance_alert">Upozornění na vzdálenost</string>
+    <string name="clinometer_measure_height_instructions">Pro změření výšky objektu vzdáleného %s:
+\n
+\n1. Zarovnejte sklonoměr k základně objektu
+\n2. Klepněte a podržte na obrazovce
+\n3. Přesměrujte sklonoměr k vrcholu objektu
+\n4. Uvolněním prstu uzamknete hodnotu a zjistíte výšku</string>
+    <string name="current_speed_pedometer">Aktuální rychlost (krokoměr)</string>
+    <string name="days_format">%s d</string>
+    <string name="default_pack_name">Výchozí balíček</string>
+    <string name="diagnostic_message_template">%s: %s
+\n
+\n### Ovlivněné nástroje
+\n%s
+\n
+\n### Řešení
+\n%s</string>
+    <string name="disclaimer_estimated_tide">Odhadované přílivy a odlivy mohou být nepřesné. Přesné časy najdete v oficiální tabulce přílivů a odlivů.</string>
+    <plurals name="number_days">
+        <item quantity="one">%d den</item>
+        <item quantity="few">%d dny</item>
+        <item quantity="other">%d dní</item>
+    </plurals>
+    <string name="pref_tiles_enabled_summary">Může zabránit aplikacím spořiče baterie v úplném zastavení Trail Sense</string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="kilograms">Kilogramy</string>
+    <string name="ounces_weight">Unce</string>
+    <string name="find_next_occurrence">Najít další výskyt</string>
+    <string name="us_pints">Americké pinty</string>
+    <string name="us_cups">Americké poháry</string>
+    <string name="weight_per_item">Hmotnost jednoho kusu</string>
+    <string name="us_quarts">Americké kvarty</string>
+    <string name="weight">Hmotnost</string>
+    <string name="seconds">Sekundy</string>
+    <string name="pack_sort_weight_high_to_low">Hmotnost (od nejvyšší po nejnižší)</string>
+    <string name="new_packing_list">Nový seznam věcí na cesty</string>
+    <string name="notifications_blocked">Oznámení jsou blokována</string>
+    <string name="old">Zastaralé</string>
+    <string name="location_override_not_set_resolution">Nastavte přepsání polohy v nastavení</string>
+    <string name="high_amount">Vysoká (%s)</string>
+    <string name="gps_unavailable_resolution">Povolte polohu nebo změňte zdroj polohy pouze na zařízení nebo vysokou přesnost</string>
+    <string name="medium_amount">Střední (%s)</string>
+    <string name="daylight">Denní světlo</string>
+    <string name="no_permission">Povolení nebylo uděleno</string>
+    <string name="no_issues">Nebyly zjištěny žádné problémy</string>
+    <string name="no_compass_message">Vaše zařízení nemá podporu kompasu</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="battery_restricted_resolution">Nastavte Trail Sense jako Neoptimalizováné</string>
+    <string name="power_saving_mode_resolution">Vypněte úsporný režim</string>
+    <string name="navigate">Navigovat</string>
+    <string name="no_paths">Žádné cesty</string>
+    <string name="path_exported">Cesta exportována</string>
+    <string name="export_path_error">Nepodařilo se exportovat cestu</string>
+    <string name="new_text">Nové</string>
+    <string name="pick_file">Vybrat soubor</string>
+    <string name="units">Jednotky</string>
+    <string name="privacy">Soukromí</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Když je Trail Sense otevřený</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Přepínání pomocí tlačítek hlasitosti</string>
+    <string name="unit_yards">Yardy</string>
+    <string name="base_elevation">Výchozí nadmořská výška</string>
+    <string name="base_temperature">Výchozí teplota</string>
+    <string name="liter_format">%s l</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="quart_format">%s qt</string>
+    <string name="num_satellites">Počet satelitů: %d</string>
+    <string name="humidity">Vlhkost</string>
+    <string name="qr_code">QR kód</string>
+    <string name="beacon_qr_import_instructions">Naskenujte QR kód pro import</string>
+    <string name="altitude_history_length">Délka historie nadmořské výšky</string>
+    <string name="battery_usage_restricted">Omezené používání baterie</string>
+    <string name="diagnostics">Diagnostika</string>
+    <string name="gps_signal_lost">GPS signál byl ztracen</string>
+    <string name="quarter_moon">Čtvrt měsíce</string>
+    <string name="partial">Částečné (%s)</string>
+    <string name="lunar_eclipse_start">Zatmění Měsíce (začátek)</string>
+    <string name="lunar_eclipses">Zatmění Měsíce</string>
+    <string name="total">Celkové</string>
+    <string name="duration_of_charge">Doba nabíjení</string>
+    <string name="capture">Zachytit</string>
+    <string name="difficulty">Obtížnost</string>
+    <string name="clinometer_measure_distance_instructions">Pro změření vzdálenost od objektu vysokého %s:
+\n
+\n1. Zarovnejte sklonoměr k základně objektu
+\n2. Klepněte a podržte na obrazovce
+\n3. Přesměrujte sklonoměr k vrcholu objektu
+\n4. Uvolněním prstu uzamknete hodnotu a zjistíte vzdálenost</string>
+    <string name="compass_accuracy">Přesnost kompasu</string>
+    <string name="compass_unavailable">Kompas není k dispozici</string>
+    <string name="disclaimer_estimated_tide_title">Odhadovaný příliv/odliv</string>
+    <string name="choose_photo">Vybrat fotku</string>
+    <string name="distance_unset">Vzdálenost není nastavena</string>
+    <string name="pref_cell_signal_refresh_cache_summary">Vynutí načítání nejnovější síly signálu</string>
+    <string name="import_map">Importovat mapu</string>
+    <string name="pref_map_url_source_title">Mapa sdílení polohy</string>
+    <string name="electronics">Elektronika</string>
+    <string name="hygiene">Hygiena</string>
+    <string name="grams_format">%s g</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="documents">Dokumenty</string>
+    <string name="volume">Objem</string>
+    <string name="pounds">Libry</string>
+    <string name="imperial_ounces_volume">Imperiální unce</string>
+    <string name="imperial_gallons">Imperiální galony</string>
+    <string name="climate_zone">%s pás</string>
+    <string name="percent_packed">%s zabaleno</string>
+    <string name="packing_lists">Seznamy věcí na cesty</string>
+    <string name="pref_filter_altitude_history_title">Vyhlazená historie nadmořské výšky</string>
+    <string name="last_duration">Poslední %s</string>
+    <string name="lunar_eclipse_end">Zatmění Měsíce (konec)</string>
+    <string name="lunar_eclipse">Zatmění Měsíce</string>
+    <string name="astro_dialog_lunar_eclipse">**Začátek**: %s
+\n
+\n**Špička**: %s
+\n
+\n**Konec**: %s
+\n
+\n**Trvání**: %s
+\n
+\n**Velikost**: %s
+\n
+\n**Nadmořská výška**: %s</string>
+    <string name="astro_dialog_moon_phase">**Fáze**: %s
+\n
+\n**Osvětlení**: %s</string>
+    <string name="astro_dialog_noon">**Čas**: %s
+\n
+\n**Nadmořská výška**: %s</string>
+    <string name="astro_dialog_rise_set">**Čas**: %s
+\n
+\n**Směr**: %s</string>
+    <string name="astronomy_alerts">Astronomická upozornění</string>
+    <string name="cloud_photo_mask_toast">Klepnutím na fotografii přepnete masku</string>
+    <string name="beacons">Majáky</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d cesta importována</item>
+        <item quantity="few">%d cesty importovány</item>
+        <item quantity="other">%d cest importováno</item>
+    </plurals>
+    <string name="battery_usage_restricted_benefit">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.</string>
 </resources>
