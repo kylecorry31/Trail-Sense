@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalDate
@@ -45,7 +45,7 @@ class MeteorShowerField(
 
         Alerts.dialog(
             context,
-            shower.shower.name,
+            shower.shower.name.map { if (it.isUpperCase()) " $it" else it }.joinToString("").trim(),
             markdownService.toMarkdown(text),
             cancelText = null
         )
