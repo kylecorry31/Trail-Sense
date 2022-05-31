@@ -1047,4 +1047,6 @@
     </plurals>
     <string name="path">Yol</string>
     <string name="point_added">Yola nokta eklendi</string>
+    <string name="tide_diurnal">Günlük</string>
+    <string name="tide_diurnal_description">Günde bir kez yüksek gelgit - çoğu gelgit günlük değildir</string>
 </resources>
