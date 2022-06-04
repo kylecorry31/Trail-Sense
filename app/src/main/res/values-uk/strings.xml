@@ -1067,4 +1067,6 @@
     <string name="delete_path_group_message">%s і всі його шляхи буде видалено.</string>
     <string name="path">Шлях</string>
     <string name="point">Точка</string>
+    <string name="tide_diurnal">Добовий</string>
+    <string name="tide_diurnal_description">Приплив один раз на добу - більшість припливів не є добовими</string>
 </resources>

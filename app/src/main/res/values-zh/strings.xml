@@ -1035,4 +1035,6 @@
     <plurals name="path_group_summary">
         <item quantity="other">%d 条路径</item>
     </plurals>
+    <string name="tide_diurnal">全日潮</string>
+    <string name="tide_diurnal_description">涨潮一天一次 - 大多数潮汐不是全日的</string>
 </resources>
