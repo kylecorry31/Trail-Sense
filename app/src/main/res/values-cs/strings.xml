@@ -895,4 +895,19 @@
         <item quantity="other">%d cest importováno</item>
     </plurals>
     <string name="battery_usage_restricted_benefit">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.</string>
+    <string name="season_spring">Jaro</string>
+    <string name="season_summer">Léto</string>
+    <string name="season_fall">Podzim</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d navigační bod bude smazán</item>
+        <item quantity="few">%d navigační body budou smazány</item>
+        <item quantity="other">%d navigačních bodů bude smazáno</item>
+    </plurals>
+    <string name="weather_exported">Údaje o počasí exportovány</string>
+    <string name="pref_export_weather_csv_title">Exportovat údaje o počasí</string>
+    <string name="season_winter">Zima</string>
+    <string name="supermoon">Superměsíc</string>
+    <string name="up_to_amount">Až %s</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="tilt">Náklon</string>
 </resources>
