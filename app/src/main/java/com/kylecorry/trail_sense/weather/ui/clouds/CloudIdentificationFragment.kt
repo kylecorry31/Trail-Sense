@@ -24,7 +24,9 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
             requireContext(),
             getString(R.string.experimental),
             "Cloud identification is experimental and is using a very simple (and error prone) method of identifying clouds.\n\nI'm currently looking for feedback on the calibration, crashes, and ease of use only. There are already plans to improve the result accuracy in a future release.",
-            getString(R.string.disclaimer_experimental_clouds_key)
+            getString(R.string.disclaimer_experimental_clouds_key),
+            considerShownIfCancelled = true,
+            cancelText = null
         )
 
         val camera = CloudCameraFragment()

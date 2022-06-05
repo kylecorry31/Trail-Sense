@@ -1191,6 +1191,9 @@
     <string name="point_added">Point added to path</string>
     <string name="tide_diurnal">Diurnal</string>
     <string name="tide_diurnal_description">High tide once a day - most tides are not diurnal</string>
+    <string name="pref_tide_disclaimer_seen" translatable="false">pref_tide_disclaimer_seen</string>
+    <string name="tide_instructions">Use an official tide table to enter reference tides for the length of your trip.</string>
+    <string name="tide_user_guide_recommendation">Official tide table websites can be found in the user guide.</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

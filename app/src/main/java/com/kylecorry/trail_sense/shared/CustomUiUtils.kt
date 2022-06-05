@@ -210,20 +210,20 @@ object CustomUiUtils {
     fun disclaimer(
         context: Context,
         title: String,
-        message: String,
+        message: CharSequence,
         shownKey: String,
         okText: String = context.getString(android.R.string.ok),
-        cancelText: String = context.getString(android.R.string.cancel),
+        cancelText: String? = context.getString(android.R.string.cancel),
         considerShownIfCancelled: Boolean = true,
         shownValue: Boolean = true,
-        onClose: (cancelled: Boolean) -> Unit = {}
+        onClose: (cancelled: Boolean, agreed: Boolean) -> Unit = { _, _ -> }
     ) {
         val prefs = Preferences(context)
         if (prefs.getBoolean(shownKey) != shownValue) {
-            if (considerShownIfCancelled) {
+            if (considerShownIfCancelled && cancelText == null) {
                 Alerts.dialog(context, title, message, okText = okText, cancelText = null) {
                     prefs.putBoolean(shownKey, shownValue)
-                    onClose(false)
+                    onClose(it, true)
                 }
             } else {
                 Alerts.dialog(
@@ -233,14 +233,15 @@ object CustomUiUtils {
                     okText = okText,
                     cancelText = cancelText
                 ) { cancelled ->
-                    if (!cancelled) {
+                    val agreed = !cancelled || considerShownIfCancelled
+                    if (agreed) {
                         prefs.putBoolean(shownKey, shownValue)
                     }
-                    onClose(cancelled)
+                    onClose(cancelled, agreed)
                 }
             }
         } else {
-            onClose(false)
+            onClose(false, true)
         }
     }
 

@@ -180,7 +180,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         super.onResume()
         currentRefreshTimer.interval(Duration.ofMinutes(1))
         binding.tideListDate.date = LocalDate.now()
-        loadTideTable()
+        ShowTideDisclaimerCommand(this) {
+            loadTideTable()
+        }.execute()
     }
 
     override fun onPause() {

@@ -93,7 +93,9 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
             requireContext(),
             getString(R.string.disclaimer_message_title),
             getString(R.string.tool_cliff_height_disclaimer),
-            "cache_dialog_tool_cliff_height"
+            "cache_dialog_tool_cliff_height",
+            considerShownIfCancelled = true,
+            cancelText = null
         )
     }
 

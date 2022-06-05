@@ -86,10 +86,10 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                     getString(R.string.strobe_warning_content),
                     getString(R.string.pref_fine_with_strobe),
                     considerShownIfCancelled = false,
-                ) { cancelled ->
+                ) { _, agreed ->
                     val frequency = if (it == 10) 200 else it
                     cache.putLong(StrobeService.STROBE_DURATION_KEY, 1000L / frequency)
-                    selectedState = if (!cancelled) {
+                    selectedState = if (agreed) {
                         FlashlightState.Strobe
                     } else {
                         FlashlightState.On

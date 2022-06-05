@@ -1,9 +1,9 @@
-The Tide tool is currently experimental. It must be enabled via the experimental settings before using. Please note that the accuracy of this tool is still under development. You may encounter bugs. Do not rely on this tool's estimates and only trust the official tide tables.
+Do not rely on this tool's estimates and only trust official tide tables.
 
 ## How to add a tide table?
 Before hiking in a coastal area, consult an official tide table for times. Once you have the times and water heights, you can enter them into Trail Sense's Tide tool. Follow these steps to import a tide table:
 1. Open the Tide tool from the Tools tab
-2. Click the quick action button in the top right to open the tide list
+2. Click the tides button in the top right to open the tide list
 3. Click the add button in the bottom right to create a new tide table
 4. Add each tide to the table that you care about, clicking the H or L to change between high and low tide
 5. Optionally add a name and location for the tide

@@ -13,6 +13,7 @@ class ShowDisclaimerCommand(private val context: Context): Command {
             context.getString(R.string.disclaimer_message_content),
             context.getString(R.string.pref_main_disclaimer_shown_key),
             considerShownIfCancelled = true,
+            cancelText = null,
             shownValue = false
         )
     }
