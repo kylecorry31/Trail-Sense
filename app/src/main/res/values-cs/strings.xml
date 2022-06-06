@@ -910,4 +910,18 @@
     <string name="up_to_amount">Až %s</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="tilt">Náklon</string>
+    <string name="precipitation_snow_grains">Sněhová zrna</string>
+    <string name="take_photo">Vyfoťte</string>
+    <string name="or">Nebo</string>
+    <string name="precipitation_small_hail">Malé krupobití</string>
+    <string name="precipitation_chance">Šance na srážky: %s</string>
+    <string name="precipitation_ice_pellets">Ledové kroupy</string>
+    <string name="precipitation_hail">Krupobití</string>
+    <string name="pref_experimental_cloud_scanner_title">Detektor mraků</string>
+    <string name="precipitation_rain">Déšť</string>
+    <string name="precipitation_drizzle">Mrholení</string>
+    <string name="precipitation_snow">Sníh</string>
+    <string name="precipitation_none">Žádné srážky</string>
+    <string name="precipitation_snow_pellets">Sněhové kroupy</string>
+    <string name="results">Výsledek</string>
 </resources>
