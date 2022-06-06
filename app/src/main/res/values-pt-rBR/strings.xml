@@ -1045,4 +1045,22 @@
     <string name="pref_only_navigate_path_points_title">Navegar somente até pontos registrados</string>
     <string name="bearing">Rumo</string>
     <string name="remove_battery_restrictions">Remover as restrições da bateria\?</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d caminho</item>
+        <item quantity="other">%d caminhos</item>
+    </plurals>
+    <string name="path">Caminho</string>
+    <string name="exporting_map">Exportando mapa</string>
+    <string name="map_exported">Mapa exportado</string>
+    <string name="camera_capture">Capturar</string>
+    <string name="file">Arquivo</string>
+    <string name="tide_diurnal">Diurno</string>
+    <string name="tide_diurnal_description">Maré alta uma vez por dia - a maioria de marés não são diurnas</string>
+    <string name="second_symbol">s</string>
+    <string name="point">Ponto</string>
+    <string name="point_added">Ponto adicionado ao caminho</string>
+    <string name="tide_user_guide_recommendation">Os sites oficiais com tabela de marés podem ser encontrados em manual de instruções.</string>
+    <string name="delete_path_group_message">%s e todos os seus caminhos serão excluídos.</string>
+    <string name="map_export_error">Não foi possível exportar o mapa ao arquivo escolhido</string>
+    <string name="tide_instructions">Use uma tabela oficial de marés para anotar marés de referência para o período da sua viagem.</string>
 </resources>
