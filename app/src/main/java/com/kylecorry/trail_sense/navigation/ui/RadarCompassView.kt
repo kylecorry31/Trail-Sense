@@ -278,7 +278,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            prefs.navigation.maxBeaconDistance *= detector.scaleFactor
+            prefs.navigation.maxBeaconDistance /= detector.scaleFactor
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
             layers.forEach { it.invalidate() }
