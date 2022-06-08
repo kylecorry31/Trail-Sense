@@ -1049,4 +1049,6 @@
     <string name="point_added">Yola nokta eklendi</string>
     <string name="tide_diurnal">Günlük</string>
     <string name="tide_diurnal_description">Günde bir kez yüksek gelgit - çoğu gelgit günlük değildir</string>
+    <string name="tide_instructions">Yolculuğunuzun uzunluğu için referans gelgitleri girmek üzere resmi bir gelgit tablosu kullanın.</string>
+    <string name="tide_user_guide_recommendation">Resmi gelgit tablosu web siteleri kullanım kılavuzunda bulunabilir.</string>
 </resources>
