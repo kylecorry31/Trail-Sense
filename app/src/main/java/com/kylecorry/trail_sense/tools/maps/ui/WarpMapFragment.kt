@@ -77,17 +77,11 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        removeExclusionRects()
-    }
-
 
     private fun onMapLoad(map: Map) {
         this.map = map
         binding.perspective.setImage(map.filename)
         binding.nextButton.isInvisible = false
-        setExclusionRects()
     }
 
     fun setOnCompleteListener(listener: () -> Unit) {
@@ -129,26 +123,5 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
             loading.dismiss()
             onDone.invoke()
         }
-    }
-
-    private fun setExclusionRects() {
-        if (Build.VERSION.SDK_INT < 29) return
-        val exclusionRects = mutableListOf<Rect>()
-        val rect = Rect(
-            binding.perspective.left,
-            binding.perspective.top,
-            binding.perspective.right,
-            binding.perspective.bottom
-        )
-        exclusionRects.add(rect)
-
-        requireActivity().findViewById<View>(android.R.id.content).systemGestureExclusionRects =
-            exclusionRects
-    }
-
-    private fun removeExclusionRects() {
-        if (Build.VERSION.SDK_INT < 29) return
-        requireActivity().findViewById<View>(android.R.id.content).systemGestureExclusionRects =
-            mutableListOf()
     }
 }

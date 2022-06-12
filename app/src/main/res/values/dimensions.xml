@@ -12,4 +12,5 @@
     <dimen name="rounded_corner_size">8dp</dimen>
     <dimen name="rounded_corner_size_small">4dp</dimen>
     <dimen name="chart_height">150dp</dimen>
+    <dimen name="gesture_zone">32dp</dimen>
 </resources>

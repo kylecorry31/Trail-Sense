@@ -19,6 +19,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/gesture_zone"
+        android:layout_marginStart="@dimen/gesture_zone"
         app:layout_constraintBottom_toTopOf="@id/instructions_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
