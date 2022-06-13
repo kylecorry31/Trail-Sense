@@ -144,8 +144,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             runInBackground {
                 binding.addPointBtn.isEnabled = false
                 BacktrackCommand(requireContext(), pathId).execute()
-                toast(getString(R.string.point_added))
-                binding.addPointBtn.isEnabled = true
+                if (isBound) {
+                    toast(getString(R.string.point_added))
+                    binding.addPointBtn.isEnabled = true
+                }
             }
         }
 
