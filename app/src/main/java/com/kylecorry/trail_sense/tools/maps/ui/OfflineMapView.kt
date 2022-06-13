@@ -13,6 +13,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
@@ -201,7 +202,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     private fun drawCalibrationPoints() {
         if (!showCalibrationPoints) return
         val calibrationPoints = map?.calibrationPoints ?: emptyList()
-        for (point in calibrationPoints) {
+        for (i in calibrationPoints.indices) {
+            val point = calibrationPoints[i]
             val sourceCoord = point.imageLocation.toPixels(
                 realWidth.toFloat(),
                 realHeight.toFloat()
@@ -211,6 +213,12 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             drawer.strokeWeight(drawer.dp(1f) / layerScale)
             drawer.fill(Color.BLACK)
             drawer.circle(coord.x, coord.y, drawer.dp(8f) / layerScale)
+
+            drawer.textMode(TextMode.Center)
+            drawer.fill(Color.WHITE)
+            drawer.noStroke()
+            drawer.textSize(drawer.dp(5f) / layerScale)
+            drawer.text((i + 1).toString(), coord.x, coord.y)
         }
     }
 
