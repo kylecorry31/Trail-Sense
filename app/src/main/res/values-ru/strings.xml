@@ -1071,4 +1071,8 @@
         <item quantity="many">%d путей</item>
         <item quantity="other">%d путей</item>
     </plurals>
+    <string name="tide_instructions">Используйте официальную таблицу приливов, чтобы ввести эталонные значения приливов для всего вашего путешествия.</string>
+    <string name="tide_diurnal">Суточный</string>
+    <string name="tide_diurnal_description">Прилив один раз в день - большинство приливов не являются суточными</string>
+    <string name="tide_user_guide_recommendation">Официальные сайты таблиц приливов можно найти в руководстве пользователя.</string>
 </resources>
