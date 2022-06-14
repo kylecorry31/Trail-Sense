@@ -10,11 +10,11 @@
         android:id="@+id/create_tide_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:flattenQuickActions="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightQuickActionIcon="@drawable/ic_help"
+        app:rightQuickActionIcon="@drawable/ic_check"
+        app:leftQuickActionIcon="@drawable/ic_help"
         app:showSubtitle="false"
         app:title="@string/tide_table" />
 
@@ -101,24 +101,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tide_times"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="96dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_tide_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_check"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.flatten
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
@@ -51,7 +52,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private var backCallback: OnBackPressedCallback? = null
 
     private val intervalometer = Timer {
-        binding.createTideBtn.isVisible = formIsValid()
+        binding.createTideTitle.rightQuickAction.isVisible = formIsValid()
     }
 
     override fun generateBinding(
@@ -80,9 +81,12 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.createTideTitle.rightQuickAction.setOnClickListener {
+        binding.createTideTitle.leftQuickAction.flatten()
+        binding.createTideTitle.leftQuickAction.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.tides)
         }
+
+        CustomUiUtils.setButtonState(binding.createTideTitle.rightQuickAction, true)
 
         binding.tideDiurnal.text = buildSpannedString {
             append(getString(R.string.tide_diurnal))
@@ -208,7 +212,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             tideTimesList.scrollToPosition(tides.lastIndex)
         }
 
-        binding.createTideBtn.setOnClickListener {
+        binding.createTideTitle.rightQuickAction.setOnClickListener {
             val tide = getTide()
             if (tide != null) {
                 runInBackground {
