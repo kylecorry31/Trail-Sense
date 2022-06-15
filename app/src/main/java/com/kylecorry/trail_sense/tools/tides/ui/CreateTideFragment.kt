@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
-import androidx.core.text.color
-import androidx.core.text.scale
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
@@ -88,15 +86,23 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         CustomUiUtils.setButtonState(binding.createTideTitle.rightQuickAction, true)
 
-        binding.tideDiurnal.text = buildSpannedString {
-            append(getString(R.string.tide_diurnal))
-            append("\n")
-            scale(0.75f){
-                color(Resources.androidTextColorSecondary(requireContext())) {
-                    append(getString(R.string.tide_diurnal_description))
-                }
+        binding.tideFrequencyDiurnal.text = buildSpannedString {
+            bold {
+                append("1")
             }
+            append("    ")
+            append(getString(R.string.tide_diurnal))
         }
+
+        binding.tideFrequencySemidiurnal.text = buildSpannedString {
+            bold {
+                append("2")
+            }
+            append("    ")
+            append(getString(R.string.tide_semidiurnal))
+        }
+
+        binding.tideFrequency.check(R.id.tide_frequency_semidiurnal)
 
         tideTimesList = ListView(binding.tideTimes, R.layout.list_item_tide_entry) { view, tide ->
             val itemBinding = ListItemTideEntryBinding.bind(view)
@@ -236,7 +242,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private fun fillExistingTideValues(tide: TideTable) {
         binding.tideName.setText(tide.name)
         binding.tideLocation.coordinate = tide.location
-        binding.tideDiurnal.isChecked = !tide.isSemidiurnal
+        binding.tideFrequency.check(if (tide.isSemidiurnal) R.id.tide_frequency_semidiurnal else R.id.tide_frequency_diurnal)
         tides.addAll(tide.tides.map {
             val h = it.height
             TideEntry(
@@ -274,14 +280,14 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val name = if (rawName.isNullOrBlank()) null else rawName
         val location = binding.tideLocation.coordinate
 
-        val isDiurnal = binding.tideDiurnal.isChecked
+        val isSemidiurnal = binding.tideFrequency.checkedButtonId == R.id.tide_frequency_semidiurnal
 
         return TideTable(
             editingId,
             tides,
             name,
             location,
-            isSemidiurnal = !isDiurnal,
+            isSemidiurnal = isSemidiurnal,
             isVisible = editingTide?.isVisible ?: true
         )
     }

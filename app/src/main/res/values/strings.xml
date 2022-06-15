@@ -1194,6 +1194,9 @@
     <string name="pref_tide_disclaimer_seen" translatable="false">pref_tide_disclaimer_seen</string>
     <string name="tide_instructions">Use an official tide table to enter reference tides for the length of your trip.</string>
     <string name="tide_user_guide_recommendation">Official tide table websites can be found in the user guide.</string>
+    <string name="tide_semidiurnal">Semidiurnal</string>
+    <string name="frequency">Frequency</string>
+    <string name="tide_frequency_description">The number of high tides per day. Most tides are semidiurnal.</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

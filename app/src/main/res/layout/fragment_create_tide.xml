@@ -13,8 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightQuickActionIcon="@drawable/ic_check"
         app:leftQuickActionIcon="@drawable/ic_help"
+        app:rightQuickActionIcon="@drawable/ic_check"
         app:showSubtitle="false"
         app:title="@string/tide_table" />
 
@@ -44,12 +44,45 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/tide_diurnal"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            tools:text="@string/tide_diurnal" />
+            android:text="@string/frequency"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/tide_frequency_description"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/tide_frequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/tide_frequency_diurnal"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="1 Diurnal" />
+
+            <Button
+                android:id="@+id/tide_frequency_semidiurnal"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="2 Semidiurnal" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.kylecorry.trail_sense.shared.views.CoordinateInputView
             android:id="@+id/tide_location"
