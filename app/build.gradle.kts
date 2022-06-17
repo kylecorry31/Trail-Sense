@@ -59,10 +59,10 @@ android {
 dependencies {
     kapt("androidx.room:room-compiler:2.4.2")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.core:core-ktx:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -74,11 +74,11 @@ dependencies {
     implementation("androidx.room:room-runtime:2.4.2")
     implementation("androidx.room:room-ktx:2.4.2")
     implementation("androidx.lifecycle:lifecycle-service:2.4.1")
-    val cameraxVersion = "1.1.0-beta01"
+    val cameraxVersion = "1.1.0-rc02"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
-    implementation("androidx.camera:camera-view:1.1.0-beta02")
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
+    implementation("com.google.android.material:material:1.6.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
 
@@ -86,7 +86,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.8.1")
 
     // Andromeda
-    val andromedaVersion = "3.0.2"
+    val andromedaVersion = "4.0.0-beta01"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
