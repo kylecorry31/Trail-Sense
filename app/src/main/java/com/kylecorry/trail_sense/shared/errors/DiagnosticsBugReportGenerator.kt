@@ -16,7 +16,8 @@ class DiagnosticsBugReportGenerator(private val context: Context) : IBugReportGe
             CameraDiagnostic(context),
             FlashlightDiagnostic(context),
             PedometerDiagnostic(context),
-            NotificationDiagnostic(context)
+            NotificationDiagnostic(context),
+            AlarmDiagnostic(context)
         )
 
         val codes = diagnostics.flatMap { it.scan() }.toSet().sortedBy { it.ordinal }

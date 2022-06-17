@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.diagnostics
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
@@ -75,6 +76,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
         val metalDetector = getString(R.string.tool_metal_detector_title)
         val sightingCompass = getString(R.string.sighting_compass)
         val flashlight = getString(R.string.flashlight_title)
+        val clock = context.getString(R.string.tool_clock_title)
 
         val locationAffectedTools = listOf(
             navigation,
@@ -133,6 +135,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.WeatherNotificationsBlocked -> listOf(weather)
             DiagnosticCode.LightSensorUnavailable -> listOf(lightMeter)
             DiagnosticCode.WeatherMonitorDisabled -> listOf(weather)
+            DiagnosticCode.ExactAlarmNoPermission -> listOf(astronomy, clock)
         }
     }
 
@@ -202,6 +205,10 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             )
             DiagnosticCode.LightSensorUnavailable -> getString(R.string.no_resolution)
             DiagnosticCode.WeatherMonitorDisabled -> getString(R.string.weather_monitor_disabled_resolution)
+            DiagnosticCode.ExactAlarmNoPermission -> context.getString(
+                R.string.grant_permission,
+                getString(R.string.permission_alarms_and_reminders)
+            )
         }
     }
 
@@ -237,6 +244,15 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.WeatherNotificationsBlocked -> notificationAction()
             DiagnosticCode.LightSensorUnavailable -> null
             DiagnosticCode.WeatherMonitorDisabled -> navigateAction(R.id.weatherSettingsFragment)
+            DiagnosticCode.ExactAlarmNoPermission -> alarmAndReminderAction()
+        }
+    }
+
+    private fun alarmAndReminderAction(): Action? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            intentAction(Intents.alarmAndReminderSettings(context))
+        } else {
+            null
         }
     }
 

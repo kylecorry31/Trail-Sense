@@ -13,8 +13,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
@@ -64,7 +64,8 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             FlashlightDiagnostic(requireContext()),
             PedometerDiagnostic(requireContext()),
             NotificationDiagnostic(requireContext()),
-            WeatherMonitorDiagnostic(requireContext())
+            WeatherMonitorDiagnostic(requireContext()),
+            AlarmDiagnostic(requireContext())
         )
         scheduleUpdates(INTERVAL_1_FPS)
     }

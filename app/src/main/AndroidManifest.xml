@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kylecorry.trail_sense"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kylecorry.trail_sense">
 
     <queries>
         <intent>
@@ -189,10 +189,19 @@
             android:exported="false" />
         <receiver
             android:name=".tools.battery.infrastructure.BatteryLevelReceiver"
+            android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_LOW" />
                 <action android:name="android.intent.action.BATTERY_OKAY" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receivers.ExactAlarmPermissionChangedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
         <receiver

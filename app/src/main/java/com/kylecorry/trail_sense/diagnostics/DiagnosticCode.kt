@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.diagnostics
 
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
+// Max ID = 31
 enum class DiagnosticCode(override val id: Long, val severity: Severity): Identifiable {
     // Overrides
     AltitudeOverridden(1, Severity.Warning),
@@ -28,6 +29,7 @@ enum class DiagnosticCode(override val id: Long, val severity: Severity): Identi
     LocationNoPermission(16, Severity.Warning),
     BackgroundLocationNoPermission(17, Severity.Warning),
     PedometerNoPermission(18, Severity.Warning),
+    ExactAlarmNoPermission(31, Severity.Warning),
 
     // Sensor quality
     BarometerPoor(19, Severity.Warning),
