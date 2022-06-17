@@ -115,11 +115,13 @@ object CustomUiUtils {
         default: Distance? = null,
         title: String,
         showFeetAndInches: Boolean = false,
+        hint: String = context.getString(R.string.distance),
         onDistancePick: (distance: Distance?, cancelled: Boolean) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
         var distance: Distance? = default
         val distanceInput = view.findViewById<DistanceInputView>(R.id.prompt_distance)
+        distanceInput?.defaultHint = hint
         distanceInput?.setOnValueChangeListener {
             distance = it
         }

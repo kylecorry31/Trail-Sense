@@ -229,6 +229,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             getUnits(),
             knownHeight,
             getString(R.string.clinometer_measure_distance_title),
+            hint = getString(R.string.height),
             showFeetAndInches = true
         ) { distance, _ ->
             if (distance != null) {
