@@ -396,8 +396,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun updateTides() = runInBackground {
+        val context = context ?: return@runInBackground
         // TODO: Limit to nearby tides
-        val tables = LoadAllTideTablesCommand(requireContext()).execute()
+        val tables = LoadAllTideTablesCommand(context).execute()
         val currentTideCommand = CurrentTideTypeCommand(TideService())
         val tides = tables.filter { it.location != null && it.isVisible }.map {
             it to currentTideCommand.execute(it)
