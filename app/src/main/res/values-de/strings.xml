@@ -1047,4 +1047,8 @@
     </plurals>
     <string name="delete_path_group_message">%s und alle zugehörigen Pfade werden gelöscht.</string>
     <string name="path">Pfad</string>
+    <string name="tide_diurnal">täglich</string>
+    <string name="tide_diurnal_description">Flut einmal pro Tag - die meisten Gezeiten sind nicht täglich</string>
+    <string name="tide_user_guide_recommendation">Offizielle Webseiten mit Gezeitentabellen können im Handbuch gefunden werden.</string>
+    <string name="tide_instructions">Nutzen Sie eine offizielle Gezeitentabelle, um Referenzwerte für die Dauer Ihrer Reise einzugeben.</string>
 </resources>
