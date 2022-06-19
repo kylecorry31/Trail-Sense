@@ -88,7 +88,7 @@ internal class TideServiceTest {
         val service = TideService()
         val actual = mutableListOf<Tide>()
         for (date in dates) {
-            actual.addAll(service.getTides(table, date))
+            actual.addAll(service.getTides(table, date, references.firstOrNull()?.time?.zone ?: ZoneId.systemDefault()))
         }
         check(actual, expected.map { toMeters(it) }, expected.map { false })
     }
