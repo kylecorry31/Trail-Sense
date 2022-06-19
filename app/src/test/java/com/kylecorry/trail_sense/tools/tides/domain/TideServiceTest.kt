@@ -90,7 +90,7 @@ internal class TideServiceTest {
         for (date in dates) {
             actual.addAll(service.getTides(table, date))
         }
-        check(actual, expected.map { toMeters(it) }, expected.map { false })
+        check(actual.map { it.copy(time = it.time.withZoneSameInstant(expected.first().time.zone)) }, expected.map { toMeters(it) }, expected.map { false })
     }
 
     companion object {
