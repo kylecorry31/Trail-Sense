@@ -6,26 +6,26 @@ import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.getReadings
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
-import java.time.Duration
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 
 class TideService : ITideService {
 
     private val ocean = OceanographyService()
 
-    override fun getTides(table: TideTable, date: LocalDate): List<Tide> {
-        val start = date.atStartOfDay().toZonedDateTime()
-        val end = date.plusDays(1).atStartOfDay().toZonedDateTime()
+    override fun getTides(table: TideTable, date: LocalDate, zone: ZoneId): List<Tide> {
+        val start = date.atStartOfDay().toZonedDateTime(zone)
+        val end = date.plusDays(1).atStartOfDay().toZonedDateTime(zone)
         val waterLevelCalculator = TideTableWaterLevelCalculator(table)
         val extremaFinder = SimpleExtremaFinder(1.0)
         return ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
+    }
+
+    private fun LocalDateTime.toZonedDateTime(zone: ZoneId): ZonedDateTime {
+        return ZonedDateTime.of(this, zone)
     }
 
     override fun getWaterLevel(table: TideTable, time: ZonedDateTime): Float {
