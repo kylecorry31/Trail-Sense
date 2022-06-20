@@ -1039,4 +1039,8 @@
     <string name="tide_diurnal_description">涨潮一天一次 - 大多数潮汐不是全日的</string>
     <string name="tide_instructions">使用官方潮汐表输入你旅行期间的参考潮汐。</string>
     <string name="tide_user_guide_recommendation">可在用户指南中找到官方潮汐表网站。</string>
+    <string name="tide_semidiurnal">半日潮</string>
+    <string name="frequency">频率</string>
+    <string name="tide_frequency_description">每天涨潮的次数。 多数潮汐是半日潮。</string>
+    <string name="permission_alarms_and_reminders">闹铃和提醒</string>
 </resources>
