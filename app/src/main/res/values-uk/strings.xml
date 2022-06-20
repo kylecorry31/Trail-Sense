@@ -1069,4 +1069,10 @@
     <string name="point">Точка</string>
     <string name="tide_diurnal">Добовий</string>
     <string name="tide_diurnal_description">Приплив один раз на добу - більшість припливів не є добовими</string>
+    <string name="tide_instructions">Використовуйте офіційну таблицю припливів і відпливів, щоб ввести контрольні припливи для тривалості вашої подорожі.</string>
+    <string name="tide_semidiurnal">Напівдобовий</string>
+    <string name="frequency">Частота</string>
+    <string name="tide_frequency_description">Кількість припливів за добу. Більшість припливів є напівдобовими.</string>
+    <string name="permission_alarms_and_reminders">Сповіщувачі та нагадування</string>
+    <string name="tide_user_guide_recommendation">Офіційні вебсайти таблиці припливів можна знайти в посібнику користувача.</string>
 </resources>
