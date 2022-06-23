@@ -27,6 +27,6 @@ The distance to an object can be measured if the height of that object is known.
 
 ## Determining avalanche risk
 
-Most avalanches occur on slopes between 30° (57%) and 45° (100%). You can use the Clinometer tool in Trail Sense to measure the angle. Just align it to the top of the slope and tap the screen to lock it in. You can then read the avalanche risk. Alternatively, you could use the color bands on the clinometer dial; the red band indicates high avalance risk.
+Most avalanches occur on slopes between 30° (57%) and 45° (100%). You can use the Clinometer tool in Trail Sense to measure the angle. Just align it to the top of the slope and tap the screen to lock it in. You can then read the avalanche risk. Alternatively, you could use the color bands on the clinometer dial; the red band indicates high avalanche risk.
 
 Trail Sense uses a general rule of thumb to determine if a slope has avalanche potential, which is limited by your phone's sensors. If you think a slope is unsafe, then try to find an alternate route to avoid it or take precautions.    

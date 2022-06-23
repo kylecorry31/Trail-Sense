@@ -206,7 +206,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
 
     private fun hasValidName(): Boolean {
-        return !form.data.name.isNullOrBlank()
+        return form.data.name.isNotBlank()
     }
 
     private fun updateColor() {

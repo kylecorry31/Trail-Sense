@@ -19,7 +19,7 @@ You can typically find a tide table by searching the Internet for tides in your 
 
 ### Worldwide
 - [tides4fishing](https://tides4fishing.com/)
-- [tide-forcast.com](https://www.tide-forecast.com/)
+- [tide-forecast.com](https://www.tide-forecast.com/)
 - [SHOM](https://maree.shom.fr/)
 
 ### Germany
