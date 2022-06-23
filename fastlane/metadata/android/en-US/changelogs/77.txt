@@ -1,0 +1,11 @@
+Tides
+- Enter tide tables (use an official source to get these)
+- Estimate future tides
+- Show tides on nearby radar compass
+- Added user guide
+
+Maps (experimental)
+- Add labels to calibration points
+
+Misc
+- Bug fixes
