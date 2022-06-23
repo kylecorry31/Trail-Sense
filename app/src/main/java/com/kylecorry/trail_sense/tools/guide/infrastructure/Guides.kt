@@ -107,7 +107,7 @@ object Guides {
                 ),
                 UserGuide(
                     context.getString(R.string.tides),
-                    context.getString(R.string.experimental),
+                    null,
                     R.raw.tides
                 ),
                 UserGuide(
