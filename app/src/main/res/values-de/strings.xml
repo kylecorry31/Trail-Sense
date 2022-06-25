@@ -1051,4 +1051,8 @@
     <string name="tide_diurnal_description">Flut einmal pro Tag - die meisten Gezeiten sind nicht täglich</string>
     <string name="tide_user_guide_recommendation">Offizielle Webseiten mit Gezeitentabellen können im Handbuch gefunden werden.</string>
     <string name="tide_instructions">Nutzen Sie eine offizielle Gezeitentabelle, um Referenzwerte für die Dauer Ihrer Reise einzugeben.</string>
+    <string name="permission_alarms_and_reminders">Alarme und Erinnerungen</string>
+    <string name="tide_semidiurnal">Halbtäglich</string>
+    <string name="frequency">Frequenz</string>
+    <string name="tide_frequency_description">Die Anzahl an Gezeiten pro Tag. Die meisten Gezeiten sind halbtäglich.</string>
 </resources>
