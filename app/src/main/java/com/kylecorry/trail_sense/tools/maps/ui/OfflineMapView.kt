@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.ObjectPool
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.Vector2
@@ -90,7 +91,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             height / 2f
         ))
         set(value) {
-            setScaleAndCenter(scale, toPoint(toPixel(value)))
+            setScaleAndCenter(scale, viewToSourceCoord(toPoint(toPixel(value))))
         }
     override var mapRotation: Float
         get() = rotation
@@ -119,10 +120,29 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     private var lastImage: String? = null
 
+    // TODO: Set this from the UI
+    var rotateWithUser = false
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     override fun onDraw(canvas: Canvas?) {
+        val loc = myLocation
+
+        if (isSetup && canvas != null){
+            drawer.canvas = canvas
+        }
+
+        if (isSetup && loc != null && rotateWithUser) {
+            // TODO: Prevent panning
+            // TODO: Zoom buttons not working
+            val center = toPixel(loc)
+            drawer.push()
+            // TODO: Test this with non-zero orientation images
+            drawer.rotate(-azimuth.value + appliedOrientation, center.x, center.y)
+            centerLocation = loc
+        }
+
         super.onDraw(canvas)
         if (!isReady || canvas == null) {
             return
@@ -134,8 +154,12 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             isSetup = true
         }
 
-        drawer.canvas = canvas
         draw()
+
+        // TODO: Use a flag instead
+        tryOrNothing {
+            drawer.pop()
+        }
     }
 
     fun setup() {
