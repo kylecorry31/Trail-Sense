@@ -71,8 +71,8 @@
     <string name="compass_declination">Declinação magnética</string>
     <string name="theme_sunset_sunrise">Nascer/pôr do sol</string>
     <string name="turn_off">Desligar</string>
-    <string name="app_disclaimer_message_title">Aviso legal / Termos de utilização do serviço</string>
-    <string name="disclaimer_message_title">Aviso legal</string>
+    <string name="app_disclaimer_message_title">Aviso / Termos de utilização do serviço</string>
+    <string name="disclaimer_message_title">Aviso</string>
     <string name="battery_power_wireless">Sem fios</string>
     <string name="right_quick_action">Ação rápida da direita</string>
     <string name="left_quick_action">Ação rápida da esquerda</string>
@@ -218,7 +218,7 @@
     <string name="beacon_create">Criar</string>
     <string name="delete_beacon_group_message">%s e todos os alfinetes pertencentes serão eliminados.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
-    <string name="tool_user_guide_title">Guia de utilizador</string>
+    <string name="tool_user_guide_title">Guia do utilizador</string>
     <string name="error_occurred_message">Surgiu um erro no Trail Sense por isso será fechado. Por favor envie um e-mail ao programador para corrigir este problema.</string>
     <string name="error_occurred">Ocorreu um erro</string>
     <string name="pref_email_title">Enviar email ao programador</string>
@@ -1000,4 +1000,59 @@
     <string name="clinometer_measure_height_title">Distância ao destino</string>
     <string name="pref_clinometer_baseline_distance_title">Distância de linha de base</string>
     <string name="clinometer_measure_distance_title">Altura do destino</string>
+    <string name="error_banners">Avisos de erro</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="off">Desligado</string>
+    <string name="weather_monitor_disabled_resolution">Ativar o monitorização da previsão metrológica em configurações meteorológicas</string>
+    <string name="beacon_created">Alfinete criado</string>
+    <string name="tide_semidiurnal">Semi-diurna</string>
+    <string name="permission_alarms_and_reminders">Alarmes e lembretes</string>
+    <string name="frequency">Frequência</string>
+    <string name="clinometer_measure_distance_instructions">Para medir a distância até um destino com a altura %s:
+\n
+\n1. Alinhe o inclinómetro com a base do destino
+\n2. Toque e mantenha premido no ecrã
+\n3. Realinhe o inclinómetro com o topo do destino
+\n4. Largue o dedo para bloquear e veja a distância até ao destino</string>
+    <string name="clinometer_measure_height_instructions">Para medir a altura de um destino que está a %s de distância:
+\n
+\n1. Alinhe o inclinómetro com a base do destino
+\n2. Toque e mantenha premido no ecrã
+\n3. Realinhe o inclinómetro com o topo do destino
+\n4. Largue o dedo para bloquear e veja a altura do destino</string>
+    <string name="view">Visualização</string>
+    <string name="tide_diurnal">Diurno</string>
+    <string name="tide_diurnal_description">Maré alta uma vez por dia - a maioria das marés não são diurnas</string>
+    <string name="distance_alert">Aviso sobre distância</string>
+    <string name="remove_distance_alert">Remover aviso de distância (%s)\?</string>
+    <string name="estimate_stride_length">Estimar comprimento do passo</string>
+    <string name="average_speed_backtrack">Velocidade média (voltar para trás)</string>
+    <string name="gps_timeouts">Tempo excedido de GPS</string>
+    <string name="saved_to_note">Guardado numa nota</string>
+    <string name="note">Nota</string>
+    <string name="beacon">Alfinete</string>
+    <string name="pref_flashlight_timeout_title">Desligar após</string>
+    <string name="onboarding_explore">- Criado para caminhadas, com a mochila às costas, acampamento e geocaching
+\n
+\n- Adicione pontos de orientação e percorra-os
+\n
+\n- Siga caminhos
+\n
+\n- Faça o caminho de regresso com \"voltar para trás\"
+\n
+\n- Planeie o que deve levar na mochila
+\n
+\n- Seja alertado antes do pôr-do-sol
+\n
+\n- Preveja as condições climatéricas
+\n
+\n- Use o telemóvel como lanterna com várias funcionalidades
+\n
+\n- E muito mais!</string>
+    <string name="running_in_background">Execução em segundo plano</string>
+    <string name="battery_usage_restricted_benefit">Ao remover as restrições da bateria no Trail Sense melhora-se a precisão.</string>
+    <string name="tide_instructions">Use uma tabela oficial de marés para introduzir marés de referência para o período da sua viagem.</string>
+    <string name="tide_user_guide_recommendation">Os sites oficiais com tabelas de marés podem ser encontrados no Guia do utilizador.</string>
+    <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
 </resources>
