@@ -996,4 +996,8 @@
     <string name="remove_battery_restrictions">Remover as restrições da bateria\?</string>
     <string name="exporting_map">A exportar o mapa</string>
     <string name="point">Ponto</string>
+    <string name="measure">Medida</string>
+    <string name="clinometer_measure_height_title">Distância ao destino</string>
+    <string name="pref_clinometer_baseline_distance_title">Distância de linha de base</string>
+    <string name="clinometer_measure_distance_title">Altura do destino</string>
 </resources>
