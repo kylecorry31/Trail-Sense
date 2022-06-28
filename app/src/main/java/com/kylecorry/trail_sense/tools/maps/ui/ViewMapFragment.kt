@@ -208,6 +208,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
         }
 
+        binding.lockBtn.setOnClickListener {
+            binding.map.rotateWithUser = !binding.map.rotateWithUser
+        }
+
         binding.cancelNavigationBtn.setOnClickListener {
             cancelNavigation()
         }

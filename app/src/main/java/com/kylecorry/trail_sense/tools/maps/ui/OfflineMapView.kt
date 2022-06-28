@@ -91,12 +91,11 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             height / 2f
         ))
         set(value) {
-            setScaleAndCenter(scale, viewToSourceCoord(toPoint(toPixel(value))))
+            requestCenter(viewToSourceCoord(toPoint(toPixel(value))))
         }
-    override var mapRotation: Float
-        get() = rotation
+    override var mapRotation: Float = 0f
         set(value) {
-            rotation = mapRotation
+            field = value
             invalidate()
         }
 
@@ -120,8 +119,11 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     private var lastImage: String? = null
 
-    // TODO: Set this from the UI
     var rotateWithUser = false
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -129,18 +131,23 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     override fun onDraw(canvas: Canvas?) {
         val loc = myLocation
 
-        if (isSetup && canvas != null){
+        if (isSetup && canvas != null) {
             drawer.canvas = canvas
         }
 
         if (isSetup && loc != null && rotateWithUser) {
-            // TODO: Prevent panning
-            // TODO: Zoom buttons not working
             val center = toPixel(loc)
             drawer.push()
+            // TODO: Fix tap
+            // TODO: Allow double tap to zoom?
+            // TODO: Fix jitter
             // TODO: Test this with non-zero orientation images
-            drawer.rotate(-azimuth.value + appliedOrientation, center.x, center.y)
+            mapRotation = -azimuth.value
+            drawer.rotate(mapRotation, center.x, center.y)
+            isPanEnabled = false
             centerLocation = loc
+        } else {
+            isPanEnabled = true
         }
 
         super.onDraw(canvas)
@@ -370,7 +377,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     fun zoomBy(multiple: Float) {
-        setScaleAndCenter((scale * multiple).coerceIn(minScale, maxScale), center)
+        requestScale((scale * multiple).coerceIn(minScale, maxScale))
     }
 
     private fun drawLocation(location: IMappableLocation, highlighted: Boolean) {

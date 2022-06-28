@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.camera:camera-view:$cameraxVersion")
     implementation("com.google.android.material:material:1.6.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.10.0")
+    implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.11.1")
 
     // Sol
     implementation("com.github.kylecorry31:sol:5.8.1")
