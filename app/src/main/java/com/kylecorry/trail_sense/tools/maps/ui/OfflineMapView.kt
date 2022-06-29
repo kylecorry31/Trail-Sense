@@ -82,8 +82,15 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     override var metersPerPixel: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = map?.distancePerPixel(realWidth * scale, realHeight * scale)?.meters()?.distance ?: 1f
+        set(value) {
+            requestScale(getScale(value))
+        }
+
+    private fun getScale(metersPerPixel: Float): Float {
+        val fullScale = map?.distancePerPixel(realWidth.toFloat(), realHeight.toFloat())?.meters()?.distance ?: 1f
+        return fullScale / metersPerPixel
+    }
 
     override var centerLocation: Coordinate
         get() = toCoordinate(center?.let { toPixel(it) } ?: PixelCoordinate(
@@ -125,6 +132,12 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             invalidate()
         }
 
+    var followUserLocation = false
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
@@ -133,17 +146,26 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
+            drawer.push()
         }
 
-        if (isSetup && loc != null && rotateWithUser) {
-            val center = toPixel(loc)
-            drawer.push()
+        mapRotation = if (rotateWithUser) {
             // TODO: Fix tap
-            // TODO: Allow double tap to zoom?
-            // TODO: Fix jitter
             // TODO: Test this with non-zero orientation images
-            mapRotation = -azimuth.value
+            -azimuth.value
+        } else {
+            // TODO: Allow rotation
+            0f
+        }
+
+        if (isSetup && loc != null && mapRotation != 0f){
+            val center = toPixel(loc)
             drawer.rotate(mapRotation, center.x, center.y)
+        }
+
+        // TODO: If user drags too far from location, don't follow their location or rotate with them
+        // TODO: Allow double tap to zoom?
+        if (isSetup && loc != null && followUserLocation){
             isPanEnabled = false
             centerLocation = loc
         } else {
@@ -193,6 +215,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         drawCalibrationPoints()
 
         if (map?.calibrationPoints?.size == 2) {
+            maxScale = getScale(0.1f)
             layers.forEach { it.draw(drawer, this) }
             drawPaths()
             drawLocations()
@@ -283,8 +306,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     private fun generatePaths(paths: List<IMappablePath>): kotlin.collections.Map<Long, RenderedPath> {
-        val metersPerPixel =
-            map?.distancePerPixel(realWidth * scale, realHeight * scale)?.meters()?.distance ?: 1f
         val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
         val map = mutableMapOf<Long, RenderedPath>()
         for (path in paths) {

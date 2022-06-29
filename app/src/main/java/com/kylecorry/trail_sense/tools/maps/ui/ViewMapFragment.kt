@@ -208,8 +208,20 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
         }
 
+        // TODO: Don't show if not calibrated or location not on map
         binding.lockBtn.setOnClickListener {
-            binding.map.rotateWithUser = !binding.map.rotateWithUser
+            // TODO: Update button icon
+            val rotate = binding.map.rotateWithUser
+            val lock = binding.map.followUserLocation
+            if (!lock && !rotate){
+                binding.map.metersPerPixel = 0.5f
+                binding.map.followUserLocation = true
+            } else if (lock && !rotate){
+                binding.map.rotateWithUser = true
+            } else {
+                binding.map.followUserLocation = false
+                binding.map.rotateWithUser = false
+            }
         }
 
         binding.cancelNavigationBtn.setOnClickListener {
