@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.getPathPoint
@@ -74,6 +75,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var calibrationIndex = 0
     private var isCalibrating = false
 
+    private var locationLocked = false
+    private var compassLocked = false
+
     private val throttle = Throttle(20)
 
     private val tideTimer = Timer {
@@ -105,11 +109,17 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             if (!tideTimer.isRunning()){
                 tideTimer.interval(Duration.ofMinutes(1))
             }
+            if (locationLocked){
+                binding.map.centerLocation = gps.location
+            }
         }
         altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
         compass.asLiveData().observe(viewLifecycleOwner) {
             compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
             binding.map.azimuth = compass.bearing
+            if (compassLocked){
+                binding.map.mapRotation = -compass.rawBearing
+            }
             updateDestination()
         }
         beaconRepo.getBeacons()
@@ -209,18 +219,33 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         // TODO: Don't show if not calibrated or location not on map
+        locationLocked = false
+        compassLocked = false
+        binding.map.mapRotation = 0f
+        CustomUiUtils.setButtonState(binding.lockBtn, false)
         binding.lockBtn.setOnClickListener {
-            // TODO: Update button icon
-            val rotate = binding.map.rotateWithUser
-            val lock = binding.map.followUserLocation
-            if (!lock && !rotate){
+            // TODO: If user drags too far from location, don't follow their location or rotate with them
+            if (!locationLocked && !compassLocked){
+                binding.map.isPanEnabled = false
                 binding.map.metersPerPixel = 0.5f
-                binding.map.followUserLocation = true
-            } else if (lock && !rotate){
-                binding.map.rotateWithUser = true
+                binding.map.centerLocation = gps.location
+                // TODO: Make this the GPS icon (locked)
+                binding.lockBtn.setImageResource(R.drawable.satellite)
+                CustomUiUtils.setButtonState(binding.lockBtn, true)
+                locationLocked = true
+            } else if (locationLocked && !compassLocked){
+                compassLocked = true
+                binding.map.mapRotation = -compass.rawBearing
+                binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
+                CustomUiUtils.setButtonState(binding.lockBtn, true)
             } else {
-                binding.map.followUserLocation = false
-                binding.map.rotateWithUser = false
+                binding.map.isPanEnabled = true
+                locationLocked = false
+                compassLocked = false
+                binding.map.mapRotation = 0f
+                // TODO: Make this the GPS icon (unlocked)
+                binding.lockBtn.setImageResource(R.drawable.satellite)
+                CustomUiUtils.setButtonState(binding.lockBtn, false)
             }
         }
 
@@ -320,11 +345,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun hideZoomBtns() {
         binding.zoomInBtn.hide()
         binding.zoomOutBtn.hide()
+        binding.lockBtn.hide()
     }
 
     private fun showZoomBtns() {
         binding.zoomInBtn.show()
         binding.zoomOutBtn.show()
+        binding.lockBtn.show()
     }
 
     private fun cancelNavigation() {

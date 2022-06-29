@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@+id/cancel_navigation_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_goneMarginBottom="16dp"
-        app:srcCompat="@drawable/ic_compass_icon" />
+        app:srcCompat="@drawable/satellite" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cancel_navigation_btn"

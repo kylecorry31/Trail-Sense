@@ -126,18 +126,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     private var lastImage: String? = null
 
-    var rotateWithUser = false
-        set(value) {
-            field = value
-            invalidate()
-        }
-
-    var followUserLocation = false
-        set(value) {
-            field = value
-            invalidate()
-        }
-
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
@@ -146,29 +134,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
-        }
-
-        mapRotation = if (rotateWithUser) {
-            // TODO: Fix tap
-            // TODO: Test this with non-zero orientation images
-            -azimuth.value
-        } else {
-            // TODO: Allow rotation
-            0f
-        }
-
-        if (isSetup && mapRotation != 0f){
             drawer.rotate(mapRotation)
-        }
-
-        // TODO: If user drags too far from location, don't follow their location or rotate with them
-        // TODO: Allow double tap to zoom?
-        val loc = myLocation
-        if (isSetup && loc != null && followUserLocation){
-            isPanEnabled = false
-            centerLocation = loc
-        } else {
-            isPanEnabled = true
         }
 
         super.onDraw(canvas)
