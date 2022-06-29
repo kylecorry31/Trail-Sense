@@ -142,7 +142,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     override fun onDraw(canvas: Canvas?) {
-        val loc = myLocation
 
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
@@ -158,13 +157,13 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             0f
         }
 
-        if (isSetup && loc != null && mapRotation != 0f){
-            val center = toPixel(loc)
-            drawer.rotate(mapRotation, center.x, center.y)
+        if (isSetup && mapRotation != 0f){
+            drawer.rotate(mapRotation)
         }
 
         // TODO: If user drags too far from location, don't follow their location or rotate with them
         // TODO: Allow double tap to zoom?
+        val loc = myLocation
         if (isSetup && loc != null && followUserLocation){
             isPanEnabled = false
             centerLocation = loc
