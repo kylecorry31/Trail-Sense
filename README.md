@@ -5,6 +5,8 @@
 ![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
 ![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)
 
+As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
+
 <table>
     <tr>
         <th>F-Droid</th>
