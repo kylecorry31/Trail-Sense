@@ -333,7 +333,7 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     override val layerScale: Float = 1f
 
-    override var centerLocation: Coordinate
+    override var mapCenter: Coordinate
         get() = _location
         set(value) {
             setLocation(value)

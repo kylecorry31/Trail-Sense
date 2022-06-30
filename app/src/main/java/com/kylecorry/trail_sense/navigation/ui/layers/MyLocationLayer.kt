@@ -28,7 +28,7 @@ class MyLocationLayer : BaseLayer() {
         val image = _image ?: drawer.loadImage(R.drawable.ic_beacon, size, size)
         _image = image
         clearMarkers()
-        addMarker(BitmapMarker(_location ?: map.centerLocation, image, 16f, (_azimuth?.value ?: 0f) + map.mapRotation))
+        addMarker(BitmapMarker(_location ?: map.mapCenter, image, 16f, (_azimuth?.value ?: 0f) + map.mapRotation))
         super.draw(drawer, map)
     }
 

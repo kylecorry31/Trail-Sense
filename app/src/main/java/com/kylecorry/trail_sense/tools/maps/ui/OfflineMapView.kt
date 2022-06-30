@@ -61,7 +61,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        val source = viewToSourceCoord(pixel.x, pixel.y) ?: return Coordinate.zero
+        val source = toSource(pixel.x, pixel.y, true) ?: return Coordinate.zero
         return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
     }
 
@@ -87,13 +87,14 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         return fullScale / metersPerPixel
     }
 
-    override var centerLocation: Coordinate
+    override var mapCenter: Coordinate
         get() = toCoordinate(center?.let { toPixel(it) } ?: PixelCoordinate(
             width / 2f,
             height / 2f
         ))
         set(value) {
-            requestCenter(viewToSourceCoord(toPoint(toPixel(value))))
+            val pixel = toPixel(value)
+            requestCenter(toSource(pixel.x, pixel.y))
         }
     override var mapRotation: Float = 0f
         set(value) {
@@ -275,18 +276,29 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     private fun toView(sourceX: Float, sourceY: Float, withRotation: Boolean = false): PointF? {
-        lookupMatrix.reset()
         val view = sourceToViewCoord(sourceX, sourceY)
         if (!withRotation) {
             return view
         }
         val point = floatArrayOf(view?.x ?: 0f, view?.y ?: 0f)
-        lookupMatrix.postRotate(mapRotation, width / 2f, height / 2f)
-        lookupMatrix.invert(lookupMatrix)
+        lookupMatrix.reset()
+        lookupMatrix.postRotate(-mapRotation, width / 2f, height / 2f)
         lookupMatrix.mapPoints(point)
         view?.x = point[0]
         view?.y = point[1]
         return view
+    }
+
+    private fun toSource(viewX: Float, viewY: Float, withRotation: Boolean = false): PointF? {
+        if (!withRotation) {
+            return viewToSourceCoord(viewX, viewY)
+        }
+        val point = floatArrayOf(viewX, viewY)
+        lookupMatrix.reset()
+        lookupMatrix.postRotate(-mapRotation, width / 2f, height / 2f)
+        lookupMatrix.invert(lookupMatrix)
+        lookupMatrix.mapPoints(point)
+        return viewToSourceCoord(point[0], point[1])
     }
 
 
@@ -314,7 +326,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 //                }
 //            }
 
-            viewToSourceCoord(pixel.x, pixel.y)?.let {
+            toSource(pixel.x, pixel.y, true)?.let {
                 val percentX = it.x / realWidth
                 val percentY = it.y / realHeight
                 val percent = PercentCoordinate(percentX, percentY)

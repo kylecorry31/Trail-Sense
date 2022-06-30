@@ -121,7 +121,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 tideTimer.interval(Duration.ofMinutes(1))
             }
             if (locationLocked) {
-                binding.map.centerLocation = gps.location
+                binding.map.mapCenter = gps.location
             }
         }
         altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
@@ -242,7 +242,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             if (!locationLocked && !compassLocked) {
                 binding.map.isPanEnabled = false
                 binding.map.metersPerPixel = 0.5f
-                binding.map.centerLocation = gps.location
+                binding.map.mapCenter = gps.location
                 // TODO: Make this the GPS icon (locked)
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)

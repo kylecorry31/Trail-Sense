@@ -24,7 +24,7 @@ interface IMapView {
     /**
      * The center of the map
      */
-    var centerLocation: Coordinate
+    var mapCenter: Coordinate
 
     /**
      * The rotation of the map around the center (i.e. the direction the "top" of the map is pointing)
