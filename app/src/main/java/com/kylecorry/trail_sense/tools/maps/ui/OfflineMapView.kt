@@ -1,10 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Path
-import android.graphics.PointF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -14,7 +11,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
@@ -22,14 +18,9 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
-import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
@@ -48,6 +39,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     private var map: Map? = null
     private val mapPath = Path()
     private var projection: IMapProjection? = null
+    private val lookupMatrix = Matrix()
 
     private val layers = mutableListOf<ILayer>()
 
@@ -116,12 +108,9 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         get() = min(1f, max(scale, 0.9f))
 
     private var locations = emptyList<IMappableLocation>()
-    private var paths = emptyList<IMappablePath>()
-    private var pathPool = ObjectPool { Path() }
-    private var renderedPaths = mapOf<Long, RenderedPath>()
     private var pathsRendered = false
     private var lastScale = 1f
-    private var highlightedLocation: IMappableLocation? = null
+    private var lastRotation = 0f
     private var showCalibrationPoints = false
 
     private var lastImage: String? = null
@@ -134,10 +123,14 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
-            drawer.rotate(mapRotation)
+            drawer.rotate(-mapRotation)
         }
 
         super.onDraw(canvas)
+        // TODO: Use a flag instead
+        tryOrNothing {
+            drawer.pop()
+        }
         if (!isReady || canvas == null) {
             return
         }
@@ -150,10 +143,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
         draw()
 
-        // TODO: Use a flag instead
-        tryOrNothing {
-            drawer.pop()
-        }
+
     }
 
     fun setup() {
@@ -167,14 +157,23 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         // TODO: This only needs to be changed when the scale or translate changes
         mapPath.apply {
             rewind()
-            val topLeft = sourceToViewCoord(0f, 0f)!!
-            val bottomRight = sourceToViewCoord(realWidth.toFloat(), realHeight.toFloat())!!
-            addRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y, Path.Direction.CW)
+            val topLeft = toView(0f, 0f)!!
+            val bottomRight = toView(realWidth.toFloat(), realHeight.toFloat())!!
+            addRect(
+                min(topLeft.x, bottomRight.x),
+                max(topLeft.y, bottomRight.y),
+                max(topLeft.x, bottomRight.x),
+                min(topLeft.y, bottomRight.y),
+                Path.Direction.CW)
         }
 
-        if (scale != lastScale) {
+        drawer.push()
+        drawer.clip(mapPath)
+        if (scale != lastScale || mapRotation != lastRotation) {
             pathsRendered = false
             lastScale = scale
+            lastRotation = mapRotation // TODO: Don't invalidate everytime the rotation changes
+            layers.forEach { it.invalidate() }
         }
 
         drawCalibrationPoints()
@@ -182,10 +181,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         if (map?.calibrationPoints?.size == 2) {
             maxScale = getScale(0.1f)
             layers.forEach { it.draw(drawer, this) }
-            drawPaths()
-            drawLocations()
-            drawMyLocation()
         }
+        drawer.pop()
     }
 
     fun showMap(map: Map) {
@@ -227,7 +224,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
                 realWidth.toFloat(),
                 realHeight.toFloat()
             )
-            val coord = sourceToViewCoord(sourceCoord.x, sourceCoord.y) ?: continue
+            val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
             drawer.stroke(Color.WHITE)
             drawer.strokeWeight(drawer.dp(1f) / layerScale)
             drawer.fill(Color.BLACK)
@@ -239,113 +236,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             drawer.textSize(drawer.dp(5f) / layerScale)
             drawer.text((i + 1).toString(), coord.x, coord.y)
         }
-    }
-
-    private fun drawMyLocation() {
-        val scale = layerScale
-        val location = myLocation ?: return
-        val pixels = getPixelCoordinate(location) ?: return
-
-        drawer.stroke(Color.WHITE)
-        drawer.strokeWeight(drawer.dp(1f) / scale)
-        drawer.fill(AppColor.Orange.color)
-        drawer.push()
-        drawer.rotate(azimuth.value, pixels.x, pixels.y)
-        drawer.triangle(
-            pixels.x, pixels.y - drawer.dp(6f) / scale,
-            pixels.x - drawer.dp(5f) / scale, pixels.y + drawer.dp(6f) / scale,
-            pixels.x + drawer.dp(5f) / scale, pixels.y + drawer.dp(6f) / scale
-        )
-        drawer.pop()
-    }
-
-    fun showLocations(locations: List<IMappableLocation>) {
-        this.locations = locations
-        invalidate()
-    }
-
-    fun showPaths(paths: List<IMappablePath>) {
-        this.paths = paths
-        pathsRendered = false
-        invalidate()
-    }
-
-    private fun generatePaths(paths: List<IMappablePath>): kotlin.collections.Map<Long, RenderedPath> {
-        val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
-        val map = mutableMapOf<Long, RenderedPath>()
-        for (path in paths) {
-            val pathObj = pathPool.get()
-            pathObj.reset()
-            map[path.id] = factory.render(path.points.map { it.coordinate }, pathObj)
-        }
-        return map
-    }
-
-    private fun drawPaths() {
-        val scale = layerScale / 1.5f
-        if (!pathsRendered) {
-            for (path in renderedPaths) {
-                pathPool.release(path.value.path)
-            }
-            renderedPaths = generatePaths(paths)
-            pathsRendered = true
-        }
-
-        val factory = PathLineDrawerFactory()
-        drawer.push()
-        drawer.clip(mapPath)
-        for (path in paths) {
-            val rendered = renderedPaths[path.id] ?: continue
-            val lineDrawer = factory.create(path.style)
-            val centerPixel = getPixelCoordinate(rendered.origin, false) ?: continue
-            drawer.push()
-            drawer.translate(centerPixel.x, centerPixel.y)
-            lineDrawer.draw(drawer, path.color, strokeScale = scale) {
-                path(rendered.path)
-            }
-            drawer.pop()
-        }
-        drawer.pop()
-        drawer.noStroke()
-        drawer.fill(Color.WHITE)
-        drawer.noPathEffect()
-    }
-
-    fun highlightLocation(location: IMappableLocation?) {
-        this.highlightedLocation = location
-        invalidate()
-    }
-
-    private fun drawLocations() {
-        val highlighted = highlightedLocation
-
-        val gpsLocation = myLocation
-        if (highlighted != null && gpsLocation != null) {
-            val start = getPixelCoordinate(gpsLocation, false)
-            val end = getPixelCoordinate(highlighted.coordinate, false)
-
-            if (start != null && end != null) {
-                drawer.noFill()
-                drawer.stroke(highlighted.color)
-                drawer.strokeWeight(drawer.dp(4f) / layerScale)
-                drawer.opacity(127)
-                drawer.line(start.x, start.y, end.x, end.y)
-            }
-        }
-
-        var containsHighlighted = false
-        for (location in locations) {
-            if (location.id == highlighted?.id) {
-                containsHighlighted = true
-            }
-            drawLocation(location, location.id == highlighted?.id || highlighted == null)
-        }
-
-        if (highlighted != null && !containsHighlighted) {
-            drawLocation(highlighted, true)
-        }
-
-        drawer.opacity(255)
     }
 
     fun recenter() {
@@ -366,24 +256,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         requestScale((scale * multiple).coerceIn(minScale, maxScale))
     }
 
-    private fun drawLocation(location: IMappableLocation, highlighted: Boolean) {
-        val scale = layerScale
-        val coord = getPixelCoordinate(location.coordinate)
-        if (coord != null) {
-            drawer.stroke(Color.WHITE)
-            drawer.strokeWeight(drawer.dp(1f) / scale)
-            drawer.fill(location.color)
-            drawer.opacity(
-                if (highlighted) {
-                    255
-                } else {
-                    127
-                }
-            )
-            drawer.circle(coord.x, coord.y, drawer.dp(8f) / scale)
-        }
-    }
-
 
     private fun getPixelCoordinate(
         coordinate: Coordinate,
@@ -400,37 +272,46 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             return null
         }
 
-        val view = sourceToViewCoord(pixels.x, pixels.y)!!
+        val view = toView(pixels.x, pixels.y)
+        return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
+    }
 
-        return PixelCoordinate(view.x, view.y)
+    private fun toView(sourceX: Float, sourceY: Float): PointF? {
+        lookupMatrix.reset()
+        val view = sourceToViewCoord(sourceX, sourceY)
+        val point = floatArrayOf(view?.x ?: 0f, view?.y ?: 0f)
+        lookupMatrix.postRotate(mapRotation, width / 2f, height / 2f)
+        lookupMatrix.invert(lookupMatrix)
+        lookupMatrix.mapPoints(point)
+        view?.x = point[0]
+        view?.y = point[1]
+        return view
     }
 
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
-            val source = viewToSourceCoord(e.x, e.y) ?: return
-
-            val coordinate = projection?.toCoordinate(Vector2(source.x, source.y))
-
-            if (coordinate != null) {
-                onMapLongClick?.invoke(coordinate)
-            }
+            val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
+            onMapLongClick?.invoke(coordinate)
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
 
-            val clickRadius = drawer.dp(16f)
+//            val clickRadius = drawer.dp(16f)
 
             val pixel = PixelCoordinate(e.x, e.y)
 
-            for (location in locations) {
-                val locationPixel = getPixelCoordinate(location.coordinate)
-                if (locationPixel != null && locationPixel.distanceTo(pixel) < clickRadius) {
-                    onLocationClick?.invoke(location)
-                    break
-                }
-            }
+            // TODO: Move tap functionality to beacon layer
+            // onLayerClicked(x, y) -> Boolean (if handled), layer has a setClickListener
+            // If handled, don't propagate to nextlayer
+//            for (location in locations) {
+//                val locationPixel = getPixelCoordinate(location.coordinate)
+//                if (locationPixel != null && locationPixel.distanceTo(pixel) < clickRadius) {
+//                    onLocationClick?.invoke(location)
+//                    break
+//                }
+//            }
 
             viewToSourceCoord(pixel.x, pixel.y)?.let {
                 val percentX = it.x / realWidth

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,9 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
@@ -63,6 +67,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private val tideLayer = TideLayer()
+    private val beaconLayer = BeaconLayer()
+    private val pathLayer = PathLayer()
+    private val myLocationLayer = MyLocationLayer()
 
     private var mapId = 0L
     private var map: Map? = null
@@ -100,16 +107,19 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO: Add beacons, my location and paths
-        binding.map.addLayer(tideLayer)
+        binding.map.setLayers(listOf(pathLayer, myLocationLayer, tideLayer, beaconLayer))
+        beaconLayer.setOutlineColor(Color.WHITE)
+        // TODO: Set tint on my location
 
         gps.asLiveData().observe(viewLifecycleOwner) {
+            myLocationLayer.setLocation(gps.location)
             binding.map.setMyLocation(gps.location)
             displayPaths()
             updateDestination()
-            if (!tideTimer.isRunning()){
+            if (!tideTimer.isRunning()) {
                 tideTimer.interval(Duration.ofMinutes(1))
             }
-            if (locationLocked){
+            if (locationLocked) {
                 binding.map.centerLocation = gps.location
             }
         }
@@ -117,15 +127,16 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         compass.asLiveData().observe(viewLifecycleOwner) {
             compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
             binding.map.azimuth = compass.bearing
-            if (compassLocked){
-                binding.map.mapRotation = -compass.rawBearing
+            myLocationLayer.setAzimuth(compass.bearing)
+            if (compassLocked) {
+                binding.map.mapRotation = compass.rawBearing
             }
             updateDestination()
         }
         beaconRepo.getBeacons()
             .observe(
                 viewLifecycleOwner
-            ) { binding.map.showLocations(it.map { it.toBeacon() }.filter { it.visible }) }
+            ) { beaconLayer.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) }
 
         pathService.getLivePaths().observe(viewLifecycleOwner) {
             paths = it.filter { path -> path.style.visible }
@@ -225,7 +236,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         CustomUiUtils.setButtonState(binding.lockBtn, false)
         binding.lockBtn.setOnClickListener {
             // TODO: If user drags too far from location, don't follow their location or rotate with them
-            if (!locationLocked && !compassLocked){
+            if (!locationLocked && !compassLocked) {
                 binding.map.isPanEnabled = false
                 binding.map.metersPerPixel = 0.5f
                 binding.map.centerLocation = gps.location
@@ -233,7 +244,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)
                 locationLocked = true
-            } else if (locationLocked && !compassLocked){
+            } else if (locationLocked && !compassLocked) {
                 compassLocked = true
                 binding.map.mapRotation = -compass.rawBearing
                 binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
@@ -281,7 +292,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.map.setMyLocation(gps.location)
     }
 
-    fun reloadMap(){
+    fun reloadMap() {
         runInBackground {
             withContext(Dispatchers.IO) {
                 map = mapRepo.getMap(mapId)
@@ -308,7 +319,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             mappablePaths.add(pts.asMappable(requireContext(), path))
         }
 
-        binding.map.showPaths(mappablePaths)
+        pathLayer.setPaths(mappablePaths)
     }
 
     private fun updateDestination() {
@@ -326,18 +337,18 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun navigateTo(beacon: Beacon) {
-        if (isCalibrating){
+        if (isCalibrating) {
             return
         }
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
-        binding.map.highlightLocation(beacon)
+//        binding.map.highlightLocation(beacon)
         binding.cancelNavigationBtn.show()
         updateDestination()
     }
 
     private fun hideNavigation() {
-        binding.map.highlightLocation(null)
+//        binding.map.highlightLocation(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
     }
