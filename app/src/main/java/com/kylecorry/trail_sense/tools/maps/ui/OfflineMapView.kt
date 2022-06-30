@@ -74,13 +74,16 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     override var metersPerPixel: Float
-        get() = map?.distancePerPixel(realWidth * scale, realHeight * scale)?.meters()?.distance ?: 1f
+        get() = map?.distancePerPixel(realWidth * scale, realHeight * scale)?.meters()?.distance
+            ?: 1f
         set(value) {
             requestScale(getScale(value))
         }
 
     private fun getScale(metersPerPixel: Float): Float {
-        val fullScale = map?.distancePerPixel(realWidth.toFloat(), realHeight.toFloat())?.meters()?.distance ?: 1f
+        val fullScale =
+            map?.distancePerPixel(realWidth.toFloat(), realHeight.toFloat())?.meters()?.distance
+                ?: 1f
         return fullScale / metersPerPixel
     }
 
@@ -107,10 +110,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     override val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
 
-    private var locations = emptyList<IMappableLocation>()
-    private var pathsRendered = false
     private var lastScale = 1f
-    private var lastRotation = 0f
     private var showCalibrationPoints = false
 
     private var lastImage: String? = null
@@ -127,10 +127,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         }
 
         super.onDraw(canvas)
-        // TODO: Use a flag instead
-        tryOrNothing {
-            drawer.pop()
-        }
         if (!isReady || canvas == null) {
             return
         }
@@ -142,7 +138,10 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         }
 
         draw()
-
+        // TODO: Use a flag instead
+        tryOrNothing {
+            drawer.pop()
+        }
 
     }
 
@@ -160,29 +159,28 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             val topLeft = toView(0f, 0f)!!
             val bottomRight = toView(realWidth.toFloat(), realHeight.toFloat())!!
             addRect(
-                min(topLeft.x, bottomRight.x),
-                max(topLeft.y, bottomRight.y),
-                max(topLeft.x, bottomRight.x),
-                min(topLeft.y, bottomRight.y),
-                Path.Direction.CW)
+                topLeft.x,
+                topLeft.y,
+                bottomRight.x,
+                bottomRight.y,
+                Path.Direction.CW
+            )
         }
 
         drawer.push()
         drawer.clip(mapPath)
-        if (scale != lastScale || mapRotation != lastRotation) {
-            pathsRendered = false
+        if (scale != lastScale) {
             lastScale = scale
-            lastRotation = mapRotation // TODO: Don't invalidate everytime the rotation changes
             layers.forEach { it.invalidate() }
         }
-
-        drawCalibrationPoints()
 
         if (map?.calibrationPoints?.size == 2) {
             maxScale = getScale(0.1f)
             layers.forEach { it.draw(drawer, this) }
         }
         drawer.pop()
+
+        drawCalibrationPoints()
     }
 
     fun showMap(map: Map) {
@@ -276,9 +274,12 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }
 
-    private fun toView(sourceX: Float, sourceY: Float): PointF? {
+    private fun toView(sourceX: Float, sourceY: Float, withRotation: Boolean = false): PointF? {
         lookupMatrix.reset()
         val view = sourceToViewCoord(sourceX, sourceY)
+        if (!withRotation) {
+            return view
+        }
         val point = floatArrayOf(view?.x ?: 0f, view?.y ?: 0f)
         lookupMatrix.postRotate(mapRotation, width / 2f, height / 2f)
         lookupMatrix.invert(lookupMatrix)

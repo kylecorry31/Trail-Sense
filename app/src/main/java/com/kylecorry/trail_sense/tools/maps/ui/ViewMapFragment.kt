@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
@@ -126,10 +127,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
         compass.asLiveData().observe(viewLifecycleOwner) {
             compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
-            binding.map.azimuth = compass.bearing
-            myLocationLayer.setAzimuth(compass.bearing)
+            val bearing = compass.bearing
+            binding.map.azimuth = bearing
+            myLocationLayer.setAzimuth(bearing)
             if (compassLocked) {
-                binding.map.mapRotation = compass.rawBearing
+                myLocationLayer.setAzimuth(Bearing(0f)) // TODO: Not sure why this is needed - it shouldn't be
+                binding.map.mapRotation = bearing.value
             }
             updateDestination()
         }
