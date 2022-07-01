@@ -1,13 +1,14 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
-import android.graphics.*
-import android.graphics.Shader.TileMode
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
 import com.kylecorry.andromeda.core.system.Resources
@@ -122,22 +123,18 @@ class PerspectiveCorrectionView : CanvasView {
             Corner.BottomLeft -> bottomLeft
             Corner.BottomRight -> bottomRight
         }
-        val shader = BitmapShader(image, TileMode.CLAMP, TileMode.CLAMP)
-        val matrix = Matrix()
-        val shaderPaint = Paint()
-        shaderPaint.shader = shader
 
         val magnifierSize = min(image.width, image.height) / 4f
         val magnifier = ImageMagnifier(Size(image.width.toFloat(), image.height.toFloat()), Size(magnifierSize, magnifierSize))
         val pos = magnifier.getMagnifierPosition(center)
         val magCenter = PixelCoordinate(pos.x + magnifierSize / 2f, pos.y + magnifierSize / 2f)
 
-        matrix.reset()
-        matrix.postScale(1f, 1f)
-        matrix.postTranslate(-center.x + magCenter.x, -center.y + magCenter.y)
-        shader.setLocalMatrix(matrix)
+        val magnifierImage = magnifier.magnify(image, center)
 
-        canvas.drawRect(pos.x, pos.y, pos.x + magnifierSize, pos.y + magnifierSize, shaderPaint)
+        drawer.imageMode(ImageMode.Center)
+        drawer.image(magnifierImage, magCenter.x, magCenter.y)
+        magnifierImage.recycle()
+        drawer.imageMode(ImageMode.Corner)
         stroke(primaryColor)
         noFill()
         strokeWeight(dp(2f))
