@@ -8,6 +8,16 @@ import kotlin.math.min
 
 object ColorUtils {
 
+    @ColorInt
+    fun Int.withAlpha(alpha: Int): Int {
+        return Color.argb(
+            alpha,
+            Color.red(this),
+            Color.green(this),
+            Color.blue(this)
+        )
+    }
+
     /**
      * Gets the normalized Red to Blue ratio [-1, 1]
      */

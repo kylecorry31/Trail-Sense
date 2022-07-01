@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -359,12 +360,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
-        val colorWithAlpha = Color.argb(
-            127,
-            Color.red(beacon.color),
-            Color.green(beacon.color),
-            Color.blue(beacon.color)
-        )
+        val colorWithAlpha = beacon.color.withAlpha(127)
         navigationLayer.setColor(colorWithAlpha)
         navigationLayer.setEnd(beacon.coordinate)
         beaconLayer.highlight(beacon)
