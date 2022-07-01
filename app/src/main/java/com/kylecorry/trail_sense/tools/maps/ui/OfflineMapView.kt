@@ -18,9 +18,13 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.paths.ui.DistanceScale
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
@@ -40,6 +44,12 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     private val mapPath = Path()
     private var projection: IMapProjection? = null
     private val lookupMatrix = Matrix()
+
+    private val prefs by lazy { UserPreferences(context) }
+    private val units by lazy { prefs.baseDistanceUnits }
+    private val formatService by lazy { FormatService(context) }
+    private val scaleBar = Path()
+    private val distanceScale = DistanceScale()
 
     private val layers = mutableListOf<ILayer>()
 
@@ -143,6 +153,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         tryOrNothing {
             drawer.pop()
         }
+
+        drawScale()
 
     }
 
@@ -360,6 +372,36 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val consumed = gestureDetector.onTouchEvent(event)
         return consumed || super.onTouchEvent(event)
+    }
+
+    // TODO: Extract this to either a base mapview class, layer, or helper class
+    private fun drawScale() {
+        drawer.noFill()
+        drawer.stroke(Color.WHITE)
+        drawer.strokeWeight(4f)
+
+        val scaleSize = distanceScale.getScaleDistance(units, width / 2f, metersPerPixel)
+
+        scaleBar.reset()
+        distanceScale.getScaleBar(scaleSize, metersPerPixel, scaleBar)
+        val start = width - drawer.dp(16f) - drawer.pathWidth(scaleBar)
+        val y = height - drawer.dp(16f)
+        drawer.push()
+        drawer.translate(start, y)
+        drawer.path(scaleBar)
+        drawer.pop()
+
+        drawer.textMode(TextMode.Corner)
+        drawer.textSize(drawer.sp(12f))
+        drawer.noStroke()
+        drawer.fill(Color.WHITE)
+        val scaleText =
+            formatService.formatDistance(scaleSize, Units.getDecimalPlaces(scaleSize.units), false)
+        drawer.text(
+            scaleText,
+            start - drawer.textWidth(scaleText) - drawer.dp(4f),
+            y + drawer.textHeight(scaleText) / 2
+        )
     }
 
 }
