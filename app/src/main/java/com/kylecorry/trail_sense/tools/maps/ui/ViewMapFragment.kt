@@ -30,10 +30,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
@@ -71,6 +68,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val beaconLayer = BeaconLayer()
     private val pathLayer = PathLayer()
     private val myLocationLayer = MyLocationLayer()
+    private val navigationLayer = NavigationLayer()
 
     private var mapId = 0L
     private var map: Map? = null
@@ -87,6 +85,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var compassLocked = false
 
     private val throttle = Throttle(20)
+
+    private var beacons: List<Beacon> = emptyList()
 
     private val tideTimer = Timer {
         updateTides()
@@ -108,13 +108,22 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO: Add beacons, my location and paths
-        binding.map.setLayers(listOf(pathLayer, myLocationLayer, tideLayer, beaconLayer))
+        binding.map.setLayers(
+            listOf(
+                navigationLayer,
+                pathLayer,
+                myLocationLayer,
+                tideLayer,
+                beaconLayer
+            )
+        )
         beaconLayer.setOutlineColor(Color.WHITE)
         // TODO: Set tint on my location
 
         gps.asLiveData().observe(viewLifecycleOwner) {
             myLocationLayer.setLocation(gps.location)
             binding.map.setMyLocation(gps.location)
+            navigationLayer.setStart(gps.location)
             displayPaths()
             updateDestination()
             if (!tideTimer.isRunning()) {
@@ -136,10 +145,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
             updateDestination()
         }
-        beaconRepo.getBeacons()
-            .observe(
-                viewLifecycleOwner
-            ) { beaconLayer.setBeacons(it.map { it.toBeacon() }.filter { it.visible }) }
+        beaconRepo.getBeacons().observe(viewLifecycleOwner) {
+            beacons = it.map { it.toBeacon() }.filter { it.visible }
+            updateBeacons()
+        }
 
         pathService.getLivePaths().observe(viewLifecycleOwner) {
             paths = it.filter { path -> path.style.visible }
@@ -308,6 +317,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
     }
 
+    private fun updateBeacons() {
+        val all = (beacons + listOfNotNull(destination)).distinctBy { it.id }
+        beaconLayer.setBeacons(all)
+    }
+
     private fun displayPaths() {
         val isTracking = BacktrackScheduler.isOn(requireContext())
         val mappablePaths = mutableListOf<IMappablePath>()
@@ -345,15 +359,27 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
-//        binding.map.highlightLocation(beacon)
+        val colorWithAlpha = Color.argb(
+            127,
+            Color.red(beacon.color),
+            Color.green(beacon.color),
+            Color.blue(beacon.color)
+        )
+        navigationLayer.setColor(colorWithAlpha)
+        navigationLayer.setEnd(beacon.coordinate)
+        beaconLayer.highlight(beacon)
         binding.cancelNavigationBtn.show()
+        updateBeacons()
         updateDestination()
     }
 
     private fun hideNavigation() {
-//        binding.map.highlightLocation(null)
+        navigationLayer.setEnd(null)
+        beaconLayer.highlight(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
+        destination = null
+        updateBeacons()
     }
 
     private fun hideZoomBtns() {
