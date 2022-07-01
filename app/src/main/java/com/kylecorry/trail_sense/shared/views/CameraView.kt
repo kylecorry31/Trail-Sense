@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import java.io.OutputStream
@@ -31,7 +32,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var imageListener: ((Bitmap) -> Unit)? = null
     private var captureListener: ((Bitmap) -> Unit)? = null
     private var isTorchOn = false
-    private var zoom: Float = 0f
+    private var zoom: Float = -1f
     private var isCapturing = false
 
     fun start(
@@ -96,7 +97,18 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun setZoom(zoom: Float) {
         zoomSeek.progress = (zoom * 100).toInt()
         this.zoom = zoom
-        camera?.setZoom(zoom)
+        val state = camera?.zoom
+        val min = state?.ratioRange?.start ?: 1f
+        val max = state?.ratioRange?.end ?: 2f
+        camera?.setZoomRatio(SolMath.map(zoom, 0f, 1f, min, max))
+    }
+
+    fun setZoomRatio(ratio: Float){
+        val state = camera?.zoom
+        val min = state?.ratioRange?.start ?: 1f
+        val max = state?.ratioRange?.end ?: 2f
+        val pct = SolMath.norm(ratio, min, max)
+        setZoom(pct)
     }
 
     fun setOnZoomChangeListener(listener: ((zoom: Float) -> Unit)?) {
@@ -113,7 +125,10 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
-        camera?.setZoom(zoom)
+        if (zoom == -1f){
+            setZoomRatio(1f)
+        }
+        setZoom(zoom)
         camera?.setTorch(isTorchOn)
         if (captureListener == null && imageListener == null) {
             camera?.image?.close()
