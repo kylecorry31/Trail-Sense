@@ -1075,4 +1075,8 @@
     <string name="tide_diurnal">Суточный</string>
     <string name="tide_diurnal_description">Прилив один раз в день - большинство приливов не являются суточными</string>
     <string name="tide_user_guide_recommendation">Официальные сайты таблиц приливов можно найти в руководстве пользователя.</string>
+    <string name="tide_semidiurnal">Полусуточный</string>
+    <string name="frequency">Частота</string>
+    <string name="tide_frequency_description">Количество приливов в день. Большинство приливов полусуточные.</string>
+    <string name="permission_alarms_and_reminders">Будильники и напоминания</string>
 </resources>
