@@ -131,10 +131,10 @@ class PerspectiveCorrectionView : CanvasView {
 
         val magnifierImage = magnifier.magnify(image, center)
 
-        drawer.imageMode(ImageMode.Center)
-        drawer.image(magnifierImage, magCenter.x, magCenter.y)
+        imageMode(ImageMode.Center)
+        image(magnifierImage, magCenter.x, magCenter.y)
         magnifierImage.recycle()
-        drawer.imageMode(ImageMode.Corner)
+        imageMode(ImageMode.Corner)
         stroke(primaryColor)
         noFill()
         strokeWeight(dp(2f))
