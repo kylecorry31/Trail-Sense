@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Matrix
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
@@ -38,6 +39,12 @@ class PerspectiveCorrectionView : CanvasView {
     private var bottomLeft = PixelCoordinate(0f, 0f)
     private var bottomRight = PixelCoordinate(0f, 0f)
     private var movingCorner: Corner? = null
+    private var sourceMatrix = Matrix()
+    var mapRotation: Float = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     var hasChanges = false
 
@@ -103,6 +110,7 @@ class PerspectiveCorrectionView : CanvasView {
         imageY = (height - bitmap.height * scale) / (2f)
 
         push()
+        rotate(mapRotation)
         translate(imageX, imageY)
         scale(scale)
         if (isPreview){
@@ -220,8 +228,18 @@ class PerspectiveCorrectionView : CanvasView {
         invalidate()
     }
 
+    private fun toSource(pixel: PixelCoordinate): PixelCoordinate {
+        sourceMatrix.reset()
+        sourceMatrix.postRotate(mapRotation, width / 2f, height / 2f)
+        sourceMatrix.invert(sourceMatrix)
+        val point = floatArrayOf(pixel.x, pixel.y)
+        sourceMatrix.mapPoints(point)
+        val rotated = PixelCoordinate(point[0], point[1])
+        return PixelCoordinate(rotated.x / scale - imageX / scale, rotated.y / scale - imageY / scale)
+    }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val position = PixelCoordinate(event.x / scale - imageX / scale, event.y / scale - imageY / scale)
+        val position = toSource(PixelCoordinate(event.x, event.y))
 
         when (event.action){
             MotionEvent.ACTION_DOWN -> {

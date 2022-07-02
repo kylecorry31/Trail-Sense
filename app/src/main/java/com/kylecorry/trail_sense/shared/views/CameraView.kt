@@ -14,16 +14,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
-import java.io.OutputStream
+import java.io.File
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
-    var camera: Camera? = null
+    var camera: ICamera? = null
 
     private val preview: PreviewView
     private val torchBtn: ImageButton
@@ -70,14 +71,14 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         }
     }
 
-    suspend fun capture(stream: OutputStream): Boolean {
+    suspend fun capture(file: File): Boolean {
         synchronized(this) {
             if (isCapturing) {
                 return true
             }
             isCapturing = true
         }
-        val success = camera?.takePhoto(stream) ?: false
+        val success = camera?.takePhoto(file) ?: false
         synchronized(this) {
             isCapturing = false
         }

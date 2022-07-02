@@ -68,6 +68,7 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
 
     private fun onMapLoad(map: Map) {
         this.map = map
+        binding.rotateView.angle = map.rotation.toFloat()
         binding.rotateView.setImage(map.filename)
         binding.nextButton.isInvisible = false
     }

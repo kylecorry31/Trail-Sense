@@ -53,9 +53,7 @@ class PhotoImportBottomSheetFragment(
             lifecycleScope.launch {
                 val file = Files.createTempFile(requireContext(), "jpg")
                 val success = onIO {
-                    file.outputStream().use {
-                        binding.camera.capture(it)
-                    }
+                    binding.camera.capture(file)
                 }
                 onMain {
                     if (!success) {

@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.graphics.BitmapFactory
-import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -80,6 +78,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
     private fun onMapLoad(map: Map) {
         this.map = map
+        binding.perspective.mapRotation = map.rotation.toFloat()
         binding.perspective.setImage(map.filename)
         binding.nextButton.isInvisible = false
     }
