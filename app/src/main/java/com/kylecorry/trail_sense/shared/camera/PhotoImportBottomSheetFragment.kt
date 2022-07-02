@@ -39,7 +39,7 @@ class PhotoImportBottomSheetFragment(
         binding.camera.start(
             resolution,
             lifecycleOwner = this,
-            analyze = false,
+            readFrames = false,
             captureSettings = ImageCaptureSettings(captureMode = ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
         )
 

@@ -39,7 +39,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         resolution: Size? = null,
         lifecycleOwner: LifecycleOwner? = null,
         captureSettings: ImageCaptureSettings? = null,
-        analyze: Boolean = true,
+        readFrames: Boolean = true,
         onImage: ((Bitmap) -> Unit)? = null
     ) {
         val owner = lifecycleOwner ?: ViewTreeLifecycleOwner.get(this) ?: return
@@ -52,7 +52,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             context,
             owner,
             previewView = preview,
-            analyze = analyze,
+            analyze = readFrames,
             targetResolution = resolution,
             captureSettings = captureSettings
         )
