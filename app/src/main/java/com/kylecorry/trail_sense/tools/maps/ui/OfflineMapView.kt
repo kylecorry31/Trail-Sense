@@ -11,6 +11,8 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.canvas.TextStyle
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
@@ -18,6 +20,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.ui.DistanceScale
 import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
@@ -25,6 +28,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
@@ -77,10 +81,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     private fun toPixel(point: PointF): PixelCoordinate {
         return PixelCoordinate(point.x, point.y)
-    }
-
-    private fun toPoint(pixel: PixelCoordinate): PointF {
-        return PointF(pixel.x, pixel.y)
     }
 
     override var metersPerPixel: Float
@@ -155,7 +155,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         }
 
         drawScale()
-
+        drawCompass()
     }
 
     fun setup() {
@@ -372,6 +372,36 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val consumed = gestureDetector.onTouchEvent(event)
         return consumed || super.onTouchEvent(event)
+    }
+
+    // TODO: Extract this (same way as scale)
+    private fun drawCompass(){
+        val compassSize = drawer.dp(36f)
+        val arrowSize = drawer.dp(4f)
+        val textSize = drawer.sp(8f)
+        val text = context.getString(R.string.direction_north)
+        val location = PixelCoordinate(width - drawer.dp(16f) - compassSize / 2f, drawer.dp(16f) + compassSize / 2f)
+        drawer.push()
+        drawer.rotate(-mapRotation, location.x, location.y)
+        drawer.noTint()
+        drawer.noStroke()
+        drawer.fill(Resources.color(context, R.color.colorSecondary))
+        drawer.circle(location.x, location.y, drawer.dp(24f))
+
+        drawer.fill(Color.WHITE)
+        drawer.textMode(TextMode.Center)
+        drawer.textSize(textSize)
+        drawer.textStyle(TextStyle.Bold)
+        val textWidth = drawer.textWidth(text) // Not sure why this is needed to align the text
+        drawer.text(text, location.x - textWidth / 8f, location.y)
+
+        val arrowBtm = location.y - drawer.textHeight(text) / 2f - drawer.dp(2f)
+
+        drawer.fill(AppColor.Orange.color)
+        drawer.triangle(location.x - arrowSize / 2f, arrowBtm, location.x + arrowSize / 2f, arrowBtm, location.x, arrowBtm - arrowSize)
+
+        drawer.textStyle(TextStyle.Normal)
+        drawer.pop()
     }
 
     // TODO: Extract this to either a base mapview class, layer, or helper class
