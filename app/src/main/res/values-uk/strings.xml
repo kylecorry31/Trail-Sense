@@ -59,7 +59,7 @@
     <string name="left_quick_action">Швидка дія зліва</string>
     <string name="none">Нічого</string>
     <string name="no_gps_signal">Немає сигналу GPS</string>
-    <string name="low">Низьке</string>
+    <string name="low">Низько</string>
     <string name="moderate">Помірне</string>
     <string name="high">Високе</string>
     <string name="battery_usage">%s зарядоспоживання</string>
