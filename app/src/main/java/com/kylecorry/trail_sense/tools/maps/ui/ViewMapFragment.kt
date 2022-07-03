@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -108,7 +109,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Add beacons, my location and paths
         binding.map.setLayers(
             listOf(
                 navigationLayer,
@@ -119,7 +119,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             )
         )
         beaconLayer.setOutlineColor(Color.WHITE)
-        // TODO: Set tint on my location
+        myLocationLayer.setColor(AppColor.Orange.color)
 
         gps.asLiveData().observe(viewLifecycleOwner) {
             myLocationLayer.setLocation(gps.location)

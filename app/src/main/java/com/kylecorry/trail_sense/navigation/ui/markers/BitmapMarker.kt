@@ -10,7 +10,8 @@ class BitmapMarker(
     override val location: Coordinate,
     private val bitmap: Bitmap,
     private val size: Float = 10f,
-    private val rotation: Float? = null
+    private val rotation: Float? = null,
+    private val tint: Int? = null
 ) : Marker {
     override fun draw(
         drawer: ICanvasDrawer,
@@ -29,9 +30,15 @@ class BitmapMarker(
         }
         drawer.imageMode(ImageMode.Center)
         drawer.push()
+        if (tint != null){
+            drawer.tint(tint)
+        } else {
+            drawer.noTint()
+        }
         drawer.rotate(this.rotation ?: rotation, anchor.x, anchor.y)
         drawer.image(bitmap, anchor.x, anchor.y, finalWidth, finalHeight)
         drawer.pop()
         drawer.imageMode(ImageMode.Corner)
+        drawer.noTint()
     }
 }
