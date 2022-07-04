@@ -438,7 +438,7 @@
     <string name="odometer">Trippteller</string>
     <string name="screen_flashlight">Skjerm</string>
     <string name="pref_daily_weather_time_title">Daglig værtid</string>
-    <string name="time_not_set">Klokkeslett ikke stilt inn</string>
+    <string name="time_not_set">Tid ikke stilt inn</string>
     <string name="low_tide">Lavvann</string>
     <string name="high_tide">Høyvann</string>
     <string name="right_quick_action">Høyre hurtighandling</string>
@@ -920,4 +920,21 @@
     <string name="remove_battery_restrictions">Fjerne batterirestriksjoner\?</string>
     <string name="battery_usage_restricted_benefit">Fjerning av batterirestriksjoner for Trail Sense kan forbedre nøyaktigheten.</string>
     <string name="running_in_background">Kjører i bakgrunn</string>
+    <string name="estimated">Beregnet</string>
+    <string name="view">Vis</string>
+    <string name="high_tide_letter">H</string>
+    <string name="low_tide_letter">L</string>
+    <string name="second_symbol">s</string>
+    <string name="tide_diurnal">Daglig</string>
+    <string name="tide_diurnal_description">Høyvann en gang om dagen - de fleste tidevann er ikke daglige</string>
+    <string name="tide_instructions">Bruk en offisiell tidevannstabell for å angi referansetidevann for lengden på turen din.</string>
+    <string name="permission_alarms_and_reminders">Alarmer og påminnelser</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d sti</item>
+        <item quantity="other">%d stier</item>
+    </plurals>
+    <string name="tide_user_guide_recommendation">Offisielle nettsteder med tidevannstabeller finner du i brukerveiledningen.</string>
+    <string name="tide_semidiurnal">Halvdaglig</string>
+    <string name="frequency">Frekvens</string>
+    <string name="tide_frequency_description">Antallet høyvann per dag. De fleste tidevann er halvdaglige.</string>
 </resources>
