@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -39,6 +40,8 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromF
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
+import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
+import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -140,6 +143,40 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             mapItemBinding.menuBtn.setOnClickListener {
                 Pickers.menu(it, R.menu.map_list_item_menu) {
                     when (it) {
+                        R.id.action_map_resize -> {
+                            // TODO: Extract this to a command
+                            // TODO: Let the user know this is permanent
+                            // TODO: Don't say "Importing map"
+                            Pickers.item(
+                                requireContext(),
+                                getString(R.string.change_resolution),
+                                listOf(
+                                    getString(R.string.low),
+                                    getString(R.string.moderate),
+                                    getString(R.string.high)
+                                )
+                            ) {
+                                if (it != null) {
+                                    runInBackground {
+                                        mapImportingIndicator.show()
+                                        onIO {
+                                            val reducer = when (it) {
+                                                0 -> LowQualityMapReducer(requireContext())
+                                                1 -> MediumQualityMapReducer(requireContext())
+                                                else -> HighQualityMapReducer(requireContext())
+                                            }
+                                            reducer.reduce(map)
+                                        }
+                                        onMain {
+                                            if (isBound) {
+                                                mapImportingIndicator.hide()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
                         R.id.action_map_export -> {
                             exportService.export(map)
                         }
@@ -250,7 +287,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         val size = Resources.dp(requireContext(), 48f).toInt()
         val bitmap = try {
             BitmapUtils.decodeBitmapScaled(file.path, size, size)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         }
 

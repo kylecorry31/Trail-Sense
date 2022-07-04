@@ -1198,6 +1198,7 @@
     <string name="frequency">Frequency</string>
     <string name="tide_frequency_description">The number of high tides per day. Most tides are semidiurnal.</string>
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>
+    <string name="change_resolution">Change resolution</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
