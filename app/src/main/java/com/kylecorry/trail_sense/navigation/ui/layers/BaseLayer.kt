@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.navigation.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.navigation.ui.markers.Marker
+import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
 open class BaseLayer : ILayer {
 
@@ -28,5 +30,24 @@ open class BaseLayer : ILayer {
 
     override fun invalidate() {
 
+    }
+
+    override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
+        val clickSizeMultiplier = 2f
+        val clicked = markers.map {
+            val anchor = map.toPixel(it.location)
+            val radius = drawer.dp(it.size * map.layerScale * clickSizeMultiplier) / 2f
+            it to PixelCircle(anchor, radius)
+        }
+            .filter { it.second.contains(pixel) }
+            .sortedBy { it.second.center.distanceTo(pixel) }
+
+        for (marker in clicked) {
+            if (marker.first.onClick()) {
+                return true
+            }
+        }
+
+        return false
     }
 }

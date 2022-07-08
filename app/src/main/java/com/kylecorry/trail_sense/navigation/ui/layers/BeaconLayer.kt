@@ -5,7 +5,8 @@ import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.markers.CircleMarker
 
-class BeaconLayer : BaseLayer() {
+class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { false }) :
+    BaseLayer() {
 
     private val _beacons = mutableListOf<Beacon>()
     private var _highlighted: Beacon? = null
@@ -37,7 +38,9 @@ class BeaconLayer : BaseLayer() {
             } else {
                 127
             }
-            addMarker(CircleMarker(it.coordinate, it.color, backgroundColor, opacity))
+            addMarker(CircleMarker(it.coordinate, it.color, backgroundColor, opacity) {
+                onBeaconClick(it)
+            })
         }
     }
 }

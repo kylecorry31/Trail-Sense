@@ -10,8 +10,9 @@ class CircleMarker(
     @ColorInt private val color: Int,
     @ColorInt private val strokeColor: Int? = null,
     private val opacity: Int = 255,
-    private val size: Float = 10f,
-    private val strokeWeight: Float = 0.5f
+    override val size: Float = 10f,
+    private val strokeWeight: Float = 0.5f,
+    private val onClickFn: () -> Boolean = { false }
 ) : Marker {
     override fun draw(
         drawer: ICanvasDrawer,
@@ -30,5 +31,9 @@ class CircleMarker(
         drawer.fill(color)
         drawer.opacity(opacity)
         drawer.circle(anchor.x, anchor.y, size * scale)
+    }
+
+    override fun onClick(): Boolean {
+        return onClickFn()
     }
 }

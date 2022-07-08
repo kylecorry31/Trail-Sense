@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
@@ -66,5 +67,9 @@ class PathLayer : ILayer {
 
     override fun invalidate() {
         pathsRendered = false
+    }
+
+    override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
+        return false
     }
 }

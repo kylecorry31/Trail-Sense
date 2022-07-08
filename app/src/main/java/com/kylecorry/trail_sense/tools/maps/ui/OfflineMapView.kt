@@ -22,7 +22,6 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.ui.DistanceScale
-import com.kylecorry.trail_sense.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.FormatService
@@ -38,7 +37,6 @@ import kotlin.math.min
 class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     var onMapLongClick: ((coordinate: Coordinate) -> Unit)? = null
-    var onLocationClick: ((location: IMappableLocation) -> Unit)? = null
     var onMapClick: ((percent: PercentCoordinate) -> Unit)? = null
 
     private lateinit var drawer: ICanvasDrawer
@@ -267,7 +265,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         requestScale((scale * multiple).coerceIn(minScale, maxScale))
     }
 
-
     private fun getPixelCoordinate(
         coordinate: Coordinate,
         nullIfOffMap: Boolean = true
@@ -322,23 +319,24 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            val pixel = toSource(e.x, e.y, true)
+            val viewNoRotation = pixel?.let { toView(pixel.x, pixel.y, false) }
 
-//            val clickRadius = drawer.dp(16f)
+            // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)
+            if (viewNoRotation != null) {
+                for (layer in layers.reversed()) {
+                    if (layer.onClick(
+                            drawer,
+                            this@OfflineMapView,
+                            PixelCoordinate(viewNoRotation.x, viewNoRotation.y)
+                        )
+                    ) {
+                        break
+                    }
+                }
+            }
 
-            val pixel = PixelCoordinate(e.x, e.y)
-
-            // TODO: Move tap functionality to beacon layer
-            // onLayerClicked(x, y) -> Boolean (if handled), layer has a setClickListener
-            // If handled, don't propagate to nextlayer
-//            for (location in locations) {
-//                val locationPixel = getPixelCoordinate(location.coordinate)
-//                if (locationPixel != null && locationPixel.distanceTo(pixel) < clickRadius) {
-//                    onLocationClick?.invoke(location)
-//                    break
-//                }
-//            }
-
-            toSource(pixel.x, pixel.y, true)?.let {
+            pixel?.let {
                 val percentX = it.x / realWidth
                 val percentY = it.y / realHeight
                 val percent = PercentCoordinate(percentX, percentY)
@@ -375,12 +373,15 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     // TODO: Extract this (same way as scale)
-    private fun drawCompass(){
+    private fun drawCompass() {
         val compassSize = drawer.dp(36f)
         val arrowSize = drawer.dp(4f)
         val textSize = drawer.sp(8f)
         val text = context.getString(R.string.direction_north)
-        val location = PixelCoordinate(width - drawer.dp(16f) - compassSize / 2f, drawer.dp(16f) + compassSize / 2f)
+        val location = PixelCoordinate(
+            width - drawer.dp(16f) - compassSize / 2f,
+            drawer.dp(16f) + compassSize / 2f
+        )
         drawer.push()
         drawer.rotate(-mapRotation, location.x, location.y)
         drawer.noTint()
@@ -398,7 +399,14 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         val arrowBtm = location.y - drawer.textHeight(text) / 2f - drawer.dp(2f)
 
         drawer.fill(AppColor.Orange.color)
-        drawer.triangle(location.x - arrowSize / 2f, arrowBtm, location.x + arrowSize / 2f, arrowBtm, location.x, arrowBtm - arrowSize)
+        drawer.triangle(
+            location.x - arrowSize / 2f,
+            arrowBtm,
+            location.x + arrowSize / 2f,
+            arrowBtm,
+            location.x,
+            arrowBtm - arrowSize
+        )
 
         drawer.textStyle(TextStyle.Normal)
         drawer.pop()

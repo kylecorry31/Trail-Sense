@@ -67,7 +67,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private val tideLayer = TideLayer()
-    private val beaconLayer = BeaconLayer()
+    private val beaconLayer = BeaconLayer { navigateTo(it) }
     private val pathLayer = PathLayer()
     private val myLocationLayer = MyLocationLayer()
     private val navigationLayer = NavigationLayer()
@@ -236,12 +236,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
         }
 
-        binding.map.onLocationClick = {
-            if (it is Beacon) {
-                navigateTo(it)
-            }
-        }
-
         // TODO: Don't show if not calibrated or location not on map
         locationLocked = false
         compassLocked = false
@@ -354,9 +348,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         )
     }
 
-    private fun navigateTo(beacon: Beacon) {
+    private fun navigateTo(beacon: Beacon): Boolean {
         if (isCalibrating) {
-            return
+            return false
         }
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
@@ -367,6 +361,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.cancelNavigationBtn.show()
         updateBeacons()
         updateDestination()
+        return true
     }
 
     private fun hideNavigation() {

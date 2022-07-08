@@ -9,9 +9,10 @@ import com.kylecorry.sol.units.Coordinate
 class BitmapMarker(
     override val location: Coordinate,
     private val bitmap: Bitmap,
-    private val size: Float = 10f,
+    override val size: Float = 10f,
     private val rotation: Float? = null,
-    private val tint: Int? = null
+    private val tint: Int? = null,
+    private val onClickFn: () -> Boolean = { false }
 ) : Marker {
     override fun draw(
         drawer: ICanvasDrawer,
@@ -40,5 +41,9 @@ class BitmapMarker(
         drawer.pop()
         drawer.imageMode(ImageMode.Corner)
         drawer.noTint()
+    }
+
+    override fun onClick(): Boolean {
+        return onClickFn()
     }
 }

@@ -6,6 +6,7 @@ import com.kylecorry.sol.units.Coordinate
 
 interface Marker {
     val location: Coordinate
-
+    val size: Float
     fun draw(drawer: ICanvasDrawer, anchor: PixelCoordinate, scale: Float, rotation: Float)
+    fun onClick(): Boolean
 }
