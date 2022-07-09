@@ -326,6 +326,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         return coordinateToPixelStrategy.getPixels(coordinate)
     }
 
+    override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
+        TODO("Not yet implemented")
+    }
+
     // TODO: Save meters per pixel
     override var metersPerPixel: Float
         get() = TODO("Not yet implemented")

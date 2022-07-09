@@ -9,6 +9,7 @@ interface IMapView {
     fun setLayers(layers: List<ILayer>)
 
     fun toPixel(coordinate: Coordinate): PixelCoordinate
+    fun toCoordinate(pixel: PixelCoordinate): Coordinate
 
     /**
      * The scale in meters per pixel
