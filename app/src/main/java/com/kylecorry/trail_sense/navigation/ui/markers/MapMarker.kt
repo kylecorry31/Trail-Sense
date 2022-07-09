@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 
-interface Marker {
+interface MapMarker {
     val location: Coordinate
     val size: Float
     fun draw(drawer: ICanvasDrawer, anchor: PixelCoordinate, scale: Float, rotation: Float)

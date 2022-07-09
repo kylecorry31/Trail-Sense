@@ -6,14 +6,14 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 
-class BitmapMarker(
+class BitmapMapMarker(
     override val location: Coordinate,
     private val bitmap: Bitmap,
     override val size: Float = 10f,
     private val rotation: Float? = null,
     private val tint: Int? = null,
     private val onClickFn: () -> Boolean = { false }
-) : Marker {
+) : MapMarker {
     override fun draw(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,

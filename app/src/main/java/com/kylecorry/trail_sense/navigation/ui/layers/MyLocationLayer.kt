@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMarker
+import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
 
 class MyLocationLayer : BaseLayer() {
 
@@ -39,9 +39,9 @@ class MyLocationLayer : BaseLayer() {
         clearMarkers()
         // TODO: Convert the drawable to a path
         // Outline
-        addMarker(BitmapMarker(_location ?: map.mapCenter, image, 16f, (_azimuth?.value ?: 0f) + map.mapRotation, Color.WHITE))
+        addMarker(BitmapMapMarker(_location ?: map.mapCenter, image, 16f, (_azimuth?.value ?: 0f) + map.mapRotation, Color.WHITE))
         // Fill
-        addMarker(BitmapMarker(_location ?: map.mapCenter, image, 12f, (_azimuth?.value ?: 0f) + map.mapRotation, _color))
+        addMarker(BitmapMapMarker(_location ?: map.mapCenter, image, 12f, (_azimuth?.value ?: 0f) + map.mapRotation, _color))
         super.draw(drawer, map)
     }
 

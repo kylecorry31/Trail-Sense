@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 
-class CircleMarker(
+class CircleMapMarker(
     override val location: Coordinate,
     @ColorInt private val color: Int,
     @ColorInt private val strokeColor: Int? = null,
@@ -13,7 +13,7 @@ class CircleMarker(
     override val size: Float = 10f,
     private val strokeWeight: Float = 0.5f,
     private val onClickFn: () -> Boolean = { false }
-) : Marker {
+) : MapMarker {
     override fun draw(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,

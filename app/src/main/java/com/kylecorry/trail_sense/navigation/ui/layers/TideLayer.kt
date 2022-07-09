@@ -5,7 +5,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMarker
+import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import kotlin.reflect.KMutableProperty0
 
@@ -27,7 +27,7 @@ class TideLayer : BaseLayer() {
         _tides.forEach { tide ->
             tide.first.location ?: return@forEach
             val img = getImage(drawer, tide.second)
-            addMarker(BitmapMarker(tide.first.location!!, img))
+            addMarker(BitmapMapMarker(tide.first.location!!, img))
         }
         super.draw(drawer, map)
     }

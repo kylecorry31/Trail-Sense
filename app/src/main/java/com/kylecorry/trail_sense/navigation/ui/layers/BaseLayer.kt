@@ -2,18 +2,18 @@ package com.kylecorry.trail_sense.navigation.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.navigation.ui.markers.Marker
+import com.kylecorry.trail_sense.navigation.ui.markers.MapMarker
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
 open class BaseLayer : ILayer {
 
-    private val markers = mutableListOf<Marker>()
+    private val markers = mutableListOf<MapMarker>()
 
-    fun addMarker(marker: Marker) {
+    fun addMarker(marker: MapMarker) {
         markers.add(marker)
     }
 
-    fun removeMarker(marker: Marker) {
+    fun removeMarker(marker: MapMarker) {
         markers.remove(marker)
     }
 
