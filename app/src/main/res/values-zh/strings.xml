@@ -27,7 +27,7 @@
     <string name="moon_set">月落</string>
     <string name="stop">停止</string>
     <string name="pref_compass_filter_amt_title">指南针平滑</string>
-    <string name="pref_compass_filter_amt_summary">高值可以减少噪音</string>
+    <string name="pref_compass_filter_amt_summary">高值可以减少干扰</string>
     <string name="pref_theme_title">主题</string>
     <string name="pref_use_legacy_compass_title">使用旧式指南针</string>
     <string name="pref_use_legacy_compass_summary">可能解决指南针问题</string>
@@ -814,7 +814,7 @@
 \n**速率**: %s</string>
     <string name="duration_of_charge">充电时间</string>
     <string name="tilt">倾斜度</string>
-    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="kwh_per_meter_squared_format">%s 千瓦时 / 平方米</string>
     <string name="up_to_amount">最多 %s</string>
     <string name="pref_export_weather_csv_title">导出气温读数</string>
     <string name="weather_exported">已导出气温</string>
@@ -924,7 +924,7 @@
 \n4. 松开以锁定并查看到目标的距离</string>
     <string name="weather_monitor_disabled_resolution">从天气设置启用天气监测</string>
     <string name="error_banners">错误横幅</string>
-    <string name="errors">错去</string>
+    <string name="errors">错误</string>
     <string name="compass_accuracy">指南针精度</string>
     <string name="compass_unavailable">指南针不可用</string>
     <string name="gps_unavailable">GPS 不可用</string>
@@ -1043,4 +1043,5 @@
     <string name="frequency">频率</string>
     <string name="tide_frequency_description">每天涨潮的次数。 多数潮汐是半日潮。</string>
     <string name="permission_alarms_and_reminders">闹铃和提醒</string>
+    <string name="change_resolution">更改分辨率</string>
 </resources>

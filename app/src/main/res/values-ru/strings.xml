@@ -504,7 +504,7 @@
     <string name="battery_usage">%s расход заряда батареи</string>
     <string name="service_update_frequency">Обновляется каждые %s</string>
     <string name="pref_daily_weather_notification_title">Ежедневное уведомление о погоде</string>
-    <string name="pref_daily_weather_notification"></string>
+    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_yesterday">Как вчера</string>
     <string name="weather_worse_than_yesterday">Хуже, чем вчера</string>
     <string name="weather_better_than_yesterday">Лучше, чем вчера</string>
@@ -1023,8 +1023,8 @@
     <string name="explore">Изучить</string>
     <string name="average_speed">Средняя скорость</string>
     <string name="steps">Шаги</string>
-    <string name="pref_pedometer_enabled"></string>
-    <string name="pref_distance_alert"></string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Предупреждение о расстоянии</string>
     <string name="remove_distance_alert">Удалить предупреждение о расстоянии (%s)\?</string>
     <string name="distance_alert_distance_reached">Вы достигли %s</string>
@@ -1079,4 +1079,5 @@
     <string name="frequency">Частота</string>
     <string name="tide_frequency_description">Количество приливов в день. Большинство приливов полусуточные.</string>
     <string name="permission_alarms_and_reminders">Будильники и напоминания</string>
+    <string name="change_resolution">Изменить разрешение</string>
 </resources>
