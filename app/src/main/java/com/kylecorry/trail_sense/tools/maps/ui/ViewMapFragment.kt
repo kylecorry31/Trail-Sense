@@ -179,7 +179,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         map?.let {
-                            mapRepo.addMap(it)
+                            val updated = mapRepo.getMap(it.id)!!.copy(calibrationPoints = it.calibrationPoints)
+                            mapRepo.addMap(updated)
+                            map = updated
                         }
                     }
                 }
@@ -451,11 +453,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun calibratePoint(index: Int) {
         loadCalibrationPointsFromMap()
-        binding.mapCalibrationTitle.text = "Calibrate point ${index + 1}"
+        binding.mapCalibrationTitle.text = getString(R.string.calibrate_map_point, index + 1, 2)
         binding.mapCalibrationCoordinate.coordinate =
             if (index == 0) calibrationPoint1 else calibrationPoint2
         binding.mapCalibrationBottomPanel.isVisible = true
-        binding.calibrationNext.text = if (index == 0) "Next" else "Done"
+        binding.calibrationNext.text =
+            if (index == 0) getString(R.string.next) else getString(R.string.done)
         binding.calibrationPrev.isEnabled = index == 1
     }
 

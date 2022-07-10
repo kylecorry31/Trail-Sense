@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
@@ -95,14 +96,15 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             getString(R.string.create_map_description),
                             map?.name,
                             hint = getString(R.string.name)
-                        ) {
-                            if (it != null) {
-                                map = map?.copy(name = it)
-                                binding.mapName.text = it
-                                lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
+                        ) { name ->
+                            if (name != null) {
+                                binding.mapName.text = name
+                                runInBackground {
+                                    onIO {
                                         map?.let {
-                                            mapRepo.addMap(it)
+                                            val updated = mapRepo.getMap(it.id)!!.copy(name = name)
+                                            mapRepo.addMap(updated)
+                                            map = updated
                                         }
                                     }
                                 }
@@ -123,8 +125,9 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                                     val newProjection = projections[it]
                                     runInBackground {
                                         withContext(Dispatchers.IO) {
-                                            mapService.setProjection(m, newProjection)
-                                            map = map?.copy(projection = newProjection)
+                                            val updated = mapRepo.getMap(m.id)!!
+                                            mapService.setProjection(updated, newProjection)
+                                            map = updated.copy(projection = newProjection)
                                         }
                                         withContext(Dispatchers.Main) {
                                             val fragment = currentFragment
