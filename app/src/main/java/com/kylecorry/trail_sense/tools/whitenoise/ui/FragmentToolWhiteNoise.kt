@@ -44,7 +44,7 @@ class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
                 if (binding.sleepTimerSwitch.isChecked && duration != null && !duration.isZero){
                     cache.putInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME, Instant.now().plus(duration))
                 } else {
-                    cache.remove(WhiteNoiseService.CACHE_KEY_OFF_TIME)
+                    WhiteNoiseService.clearSleepTimer(requireContext())
                 }
 
                 WhiteNoiseService.start(requireContext())

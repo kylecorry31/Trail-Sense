@@ -51,11 +51,11 @@ class WhiteNoiseService : ForegroundService() {
         get() = NOTIFICATION_ID
 
     override fun onDestroy() {
+        offTimer.stop()
         isRunning = false
         whiteNoise?.fadeOff(true)
         stopService(true)
-        offTimer.stop()
-        cache.remove(CACHE_KEY_OFF_TIME)
+        clearSleepTimer(this)
         // super.onDestroy will release the wakelock
         super.onDestroy()
     }
@@ -82,6 +82,10 @@ class WhiteNoiseService : ForegroundService() {
 
         fun stop(context: Context) {
             context.stopService(intent(context))
+        }
+
+        fun clearSleepTimer(context: Context) {
+            Preferences(context).remove(CACHE_KEY_OFF_TIME)
         }
     }
 

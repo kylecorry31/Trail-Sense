@@ -29,6 +29,7 @@ class QuickActionWhiteNoise(btn: ImageButton, fragment: Fragment) :
             if (isOn()) {
                 WhiteNoiseService.stop(context)
             } else {
+                WhiteNoiseService.clearSleepTimer(context)
                 WhiteNoiseService.start(context)
             }
         }

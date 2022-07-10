@@ -75,10 +75,14 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         } else {
             nonNull
         }
-        hours.value = clamped.toHours().toInt()
-        minutes.value = clamped.toMinutes().toInt() % 60
-        seconds.value = clamped.seconds.toInt() % 60
-        this.duration = clamped
+        val h = clamped.toHours().toInt()
+        val m = clamped.toMinutes().toInt() % 60
+        val s = clamped.seconds.toInt() % 60
+        hours.value = h
+        minutes.value = m
+        seconds.value = s
+
+        this.duration = Duration.ofHours(h.toLong()).plusMinutes(m.toLong()).plusSeconds(s.toLong())
     }
 
 
