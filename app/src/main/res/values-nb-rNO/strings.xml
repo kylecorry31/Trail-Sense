@@ -944,4 +944,5 @@
     <string name="change_resolution">Endre oppløsning</string>
     <string name="map_exported">Kart eksportert</string>
     <string name="exporting_map">Eksporterer kart</string>
+    <string name="done">Ferdig</string>
 </resources>
