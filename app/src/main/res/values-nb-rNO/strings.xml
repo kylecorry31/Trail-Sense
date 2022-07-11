@@ -937,4 +937,11 @@
     <string name="tide_semidiurnal">Halvdaglig</string>
     <string name="frequency">Frekvens</string>
     <string name="tide_frequency_description">Antallet høyvann per dag. De fleste tidevann er halvdaglige.</string>
+    <string name="file">Fil</string>
+    <string name="map_export_error">Kan ikke eksportere kartet til den valgte filen</string>
+    <string name="point">Punkt</string>
+    <string name="point_added">Punkt lagt til sti</string>
+    <string name="change_resolution">Endre oppløsning</string>
+    <string name="map_exported">Kart eksportert</string>
+    <string name="exporting_map">Eksporterer kart</string>
 </resources>
