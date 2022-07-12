@@ -1044,4 +1044,6 @@
     <string name="tide_frequency_description">每天涨潮的次数。 多数潮汐是半日潮。</string>
     <string name="permission_alarms_and_reminders">闹铃和提醒</string>
     <string name="change_resolution">更改分辨率</string>
+    <string name="done">完毕</string>
+    <string name="calibrate_map_point">校准点 %d/%d</string>
 </resources>
