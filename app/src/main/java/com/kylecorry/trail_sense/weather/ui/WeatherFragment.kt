@@ -9,13 +9,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.sensors.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
@@ -29,7 +25,6 @@ import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
@@ -38,10 +33,8 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -49,12 +42,6 @@ import java.time.Instant
 
 class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
-    private val barometer by lazy { sensorService.getBarometer() }
-    private val hygrometer by lazy { sensorService.getHygrometer() }
-    private val altimeter by lazy { sensorService.getGPSAltimeter() }
-    private val thermometer by lazy { sensorService.getThermometer() }
-
-    private var altitude = 0F
     private var useSeaLevelPressure = false
     private var units = PressureUnits.Hpa
 
@@ -65,7 +52,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private lateinit var navController: NavController
 
     private lateinit var weatherService: WeatherService
-    private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
@@ -75,7 +61,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
 
-    private var loadAltitudeJob: Job? = null
     private val logger by lazy {
         WeatherLogger(
             requireContext(),
@@ -118,12 +103,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
                 .filter { it.time <= Instant.now() }
             lifecycleScope.launch {
+                update()
                 updateForecast()
             }
         }
-
-        barometer.asLiveData().observe(viewLifecycleOwner) { update() }
-        thermometer.asLiveData().observe(viewLifecycleOwner) { update() }
 
         binding.weatherHumidity.setOnClickListener {
             showHumidityChart()
@@ -133,9 +116,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             showTemperatureChart()
         }
 
-        if (Sensors.hasHygrometer(requireContext())) {
-            hygrometer.asLiveData().observe(viewLifecycleOwner) { update() }
-        } else {
+        if (!Sensors.hasHygrometer(requireContext())) {
             binding.weatherHumidity.isVisible = false
         }
 
@@ -146,20 +127,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         super.onResume()
         logger.start()
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
-        altitude = altimeter.altitude
         units = prefs.pressureUnits
-
-        loadAltitudeJob = runInBackground {
-            withContext(Dispatchers.IO) {
-                if (!altimeter.hasValidReading) {
-                    altimeter.read()
-                }
-            }
-            withContext(Dispatchers.Main) {
-                altitude = altimeter.altitude
-                update()
-            }
-        }
 
         update()
 
@@ -182,17 +150,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     override fun onPause() {
         super.onPause()
         logger.stop()
-        tryOrNothing {
-            loadAltitudeJob?.cancel()
-        }
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
     }
 
 
     private fun update() {
         if (!isBound) return
-        if (barometer.pressure == 0.0f) return
-
         if (throttle.isThrottled()) {
             return
         }
@@ -204,31 +167,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         val tendency = weatherService.getTendency(readings)
         displayTendency(tendency)
 
-        val pressure = getCurrentPressure()
-        displayPressure(pressure)
+        val pressure = readings.lastOrNull()
+        pressure?.let { displayPressure(it) }
 
         val temperature = getCurrentTemperature()
-        displayTemperature(temperature)
+        temperature?.let { displayTemperature(temperature) }
 
-        val humidity = hygrometer.humidity
-        displayHumidity(humidity)
+        val humidity = readingHistory.lastOrNull()?.humidity
+        humidity?.let { displayHumidity(it) }
     }
 
-    private fun getCalibratedPressures(includeCurrent: Boolean = false): List<PressureReading> {
-        val readings = readingHistory.toMutableList()
-        if (includeCurrent) {
-            readings.add(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature,
-                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-                )
-            )
-        }
-
-        return weatherService.calibrate(readings, prefs)
+    private fun getCalibratedPressures(): List<PressureReading> {
+        return weatherService.calibrate(readingHistory, prefs)
     }
 
     private fun displayChart(readings: List<PressureReading>) {
@@ -307,9 +257,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         withContext(Dispatchers.Main) {
             binding.weatherTitle.title.text = formatWeather(hourly)
+            // TODO: Get last calibrated pressure reading
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = getWeatherImage(hourly, PressureReading(Instant.now(), barometer.pressure))
+                left = getWeatherImage(hourly, readingHistory.lastOrNull()?.pressureReading())
             )
             val speed = formatSpeed(hourly)
             binding.weatherTitle.subtitle.text = speed
@@ -318,25 +269,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
     }
 
-    private fun getCurrentTemperature(): Temperature {
-        val temperature = weatherService.calibrateTemperature(thermometer.temperature)
+    private fun getCurrentTemperature(): Temperature? {
+        val uncalibrated = readingHistory.lastOrNull()?.temperature ?: return null
+        val temperature = weatherService.calibrateTemperature(uncalibrated)
         return Temperature.celsius(temperature).convertTo(temperatureUnits)
-    }
-
-    private fun getCurrentPressure(): PressureReading {
-        return if (useSeaLevelPressure) {
-            val reading = PressureAltitudeReading(
-                Instant.now(),
-                barometer.pressure,
-                altimeter.altitude,
-                thermometer.temperature,
-                if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-            )
-            weatherService.calibrate(readingHistory + listOf(reading), prefs).lastOrNull()
-                ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
-        } else {
-            PressureReading(Instant.now(), barometer.pressure)
-        }
     }
 
     private fun displayPressure(pressure: PressureReading) {
@@ -355,12 +291,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherHumidity.title = formatService.formatPercentage(humidity)
     }
 
-    private fun getWeatherImage(weather: Weather, currentPressure: PressureReading): Int {
+    private fun getWeatherImage(weather: Weather, currentPressure: PressureReading?): Int {
         return when (weather) {
-            Weather.ImprovingFast -> if (currentPressure.isLow()) R.drawable.cloudy else R.drawable.sunny
-            Weather.ImprovingSlow -> if (currentPressure.isHigh()) R.drawable.sunny else R.drawable.partially_cloudy
-            Weather.WorseningSlow -> if (currentPressure.isLow()) R.drawable.light_rain else R.drawable.cloudy
-            Weather.WorseningFast -> if (currentPressure.isLow()) R.drawable.heavy_rain else R.drawable.light_rain
+            Weather.ImprovingFast -> if (currentPressure?.isLow() == true) R.drawable.cloudy else R.drawable.sunny
+            Weather.ImprovingSlow -> if (currentPressure?.isHigh() == true) R.drawable.sunny else R.drawable.partially_cloudy
+            Weather.WorseningSlow -> if (currentPressure?.isLow() == true) R.drawable.light_rain else R.drawable.cloudy
+            Weather.WorseningFast -> if (currentPressure?.isLow() == true) R.drawable.heavy_rain else R.drawable.light_rain
             Weather.Storm -> R.drawable.storm
             else -> R.drawable.steady
         }
