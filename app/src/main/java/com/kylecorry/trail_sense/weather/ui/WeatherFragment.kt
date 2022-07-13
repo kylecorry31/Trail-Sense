@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
@@ -36,9 +37,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
@@ -248,24 +247,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private suspend fun updateForecast() {
-        val hourly = withContext(Dispatchers.IO) {
-            weatherForecastService.getHourlyForecast()
-        }
-
-        val daily = withContext(Dispatchers.IO) {
-            weatherForecastService.getDailyForecast()
-        }
-
-        withContext(Dispatchers.Main) {
-            binding.weatherTitle.title.text = formatWeather(hourly)
+        if (!isBound) return
+        val weather = weather ?: return
+        onMain {
+            binding.weatherTitle.title.text = formatWeather(weather.hourly)
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = getWeatherImage(hourly, weather?.pressure)
+                left = getWeatherImage(weather.hourly, weather.pressure)
             )
-            val speed = formatSpeed(hourly)
+            val speed = formatSpeed(weather.hourly)
             binding.weatherTitle.subtitle.text = speed
             binding.weatherTitle.subtitle.isVisible = speed.isNotEmpty()
-            binding.dailyForecast.text = getLongTermWeatherDescription(daily)
+            binding.dailyForecast.text = getLongTermWeatherDescription(weather.daily)
         }
     }
 

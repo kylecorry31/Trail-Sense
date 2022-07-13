@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
-import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -38,21 +37,7 @@ class WeatherContextualService private constructor(private val context: Context)
         }
     }
 
-    suspend fun getTendency(): PressureTendency {
-        return getWeather().tendency
-    }
-
-    suspend fun getPressure(): PressureReading? {
-        return getWeather().pressure
-    }
-
-    suspend fun getHourlyForecast(): Weather {
-        return getWeather().hourly
-    }
-
-    suspend fun getDailyForecast(): Weather {
-        return getWeather().daily
-    }
+    // TODO: Merge all histories using a WeatherReading object
 
     suspend fun getPressureHistory(): List<PressureReading> {
         val readings = weatherRepo.getPressuresSync()

@@ -2,12 +2,10 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
@@ -89,22 +87,12 @@ class MonitorWeatherCommand(private val context: Context, private val background
     }
 
     private suspend fun sendWeatherNotifications() {
-
-        var hourly: Weather
-        var daily: Weather
-        var tendency: PressureTendency
-        var lastReading: PressureReading?
-        withContext(Dispatchers.IO) {
-            hourly = weatherForecastService.getHourlyForecast()
-            daily = weatherForecastService.getDailyForecast()
-            tendency = weatherForecastService.getTendency()
-            lastReading = weatherForecastService.getPressure()
-        }
+        val weather = onIO { weatherForecastService.getWeather() }
 
         val commands = listOf(
-            DailyWeatherAlertCommand(context, daily),
-            StormAlertCommand(context, hourly),
-            CurrentWeatherAlertCommand(context, hourly, tendency, lastReading),
+            DailyWeatherAlertCommand(context, weather.daily),
+            StormAlertCommand(context, weather.hourly),
+            CurrentWeatherAlertCommand(context, weather.hourly, weather.tendency, weather.pressure),
         )
 
         withContext(Dispatchers.Main) {
