@@ -924,4 +924,28 @@
     <string name="precipitation_none">Žádné srážky</string>
     <string name="precipitation_snow_pellets">Sněhové kroupy</string>
     <string name="results">Výsledek</string>
+    <string name="sun">Slunce</string>
+    <string name="moon">Měsíc</string>
+    <string name="notification_weather_update_title">Aktualizace monitorování počasí</string>
+    <string name="sun_moon_position_template">### %s
+\n**Nadmořská výška**: %s
+\n
+\n**Azimut**: %s</string>
+    <string name="enable">Povolit</string>
+    <string name="weather_monitoring_disabled">Monitorování počasí zakázáno</string>
+    <string name="notification_backtrack_update_content">Zaznamenávání vaší polohy</string>
+    <string name="hide">Skrýt</string>
+    <string name="show">Zobrazit</string>
+    <string name="obstacle_removal_sensitivity">Citlivost odstranění překážek</string>
+    <string name="log">Záznam</string>
+    <string name="pressure_logged">Tlak zaznamenán</string>
+    <string name="sky_detection_sensitivity">Citlivost detekce oblohy</string>
+    <string name="notification_weather_update_content">Zaznamenávání tlaku</string>
+    <string name="notification_backtrack_update_title">Aktualizace zpětné navigace</string>
+    <string name="pref_show_nearest_tide_title">Zobrazit nejbližší příliv/odliv</string>
+    <string name="no_clouds">Žádné mraky</string>
+    <string name="no_camera_access">Nedaří se přistoupit k fotoaparátu</string>
+    <string name="path">Cesta</string>
+    <string name="paths">Cesty</string>
+    <string name="keep_forever">Ponechat navždy</string>
 </resources>

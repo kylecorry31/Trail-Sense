@@ -139,7 +139,6 @@
     <string name="sun_up_no_set">Zon is opgekomen</string>
     <string name="sun_does_not_rise">komt niet op</string>
     <string name="sun_does_not_set">gaat niet onder</string>
-
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -266,18 +265,16 @@
     </plurals>
     <string name="export">Exporteren</string>
     <string name="privacy_and_location">Privacy en locatie</string>
-
-
-    <string name="cirrus_desc">Hoog en als veren.</string>
-    <string name="cumulonimbus_desc">Donkergrijs, lang en aambeeldvormig.</string>
-    <string name="cumulus_desc">Ziet eruit als gezwollen watjes.</string>
-    <string name="stratocumulus_desc">Rollende massa\'s die een plaat vormen.</string>
-    <string name="stratus_desc">Bedekt de hemel, objecten werpen geen schaduwen.</string>
-    <string name="nimbostratus_desc">Donkergrijs en bedekt de hemel. Het regent mogelijk.</string>
-    <string name="altostratus_desc">Bedekt de hemel, en de zon is nauwelijks te zien.</string>
-    <string name="altocumulus_desc">Ziet eruit als gezwollen watjes.</string>
-    <string name="cirrostratus_desc">Bedekt de hemel, maar je kunt de zon erdoorheen zien.</string>
-    <string name="cirrocumulus_desc">Vormt een golvende plaat, wolken lijken bijna tweedimensionaal.</string>
+    <string name="cirrus_desc">Hoge, wazige wolken die lijken op kuiven van wit haar.</string>
+    <string name="cumulonimbus_desc">Lage, gezwollen wolken die erg hoog zijn. Zij hebben doorgaans de vorm van een aambeeld en ze zijn donker.</string>
+    <string name="cumulus_desc">Lage, gezwollen wolken die op watjes lijken. Zij zijn verspreid en zijn doorgaans wit met donker vlekken onderaan.</string>
+    <string name="stratocumulus_desc">Lage wolken die lijken op een plaat van watjes met kleine spleten. De kleur verschilt van wit tot donkergrijs.</string>
+    <string name="stratus_desc">Een lage wolk die de hemel verhult. Voorwerpen werpen geen schaduw af en het kan mistig zijn.</string>
+    <string name="nimbostratus_desc">Een donkergrijze, middelhoge wolk die de hemel verhult. Het zou kunnen regenen.</string>
+    <string name="altostratus_desc">Een middelhoge wolk die de hemel verhult. De zon kan amper worden gezien en lijkt een felle vlek.</string>
+    <string name="altocumulus_desc">Middelhoge gezwollen wolken die op watten lijken. Zij zijn doorgaans wit met donker vlekken onderaan. Ze kunnen alleenstaand zijn of als een plaat gevormd.</string>
+    <string name="cirrostratus_desc">Een hoge wolk die de hemel verhult. Het is doorzichtig en veroorzaakt doorgaans een halo rond de zon.</string>
+    <string name="cirrocumulus_desc">Hoge wolken die een golvende plaat vormen. De plaat bestaat uit kleine vlekken die bijna 2D lijken.</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="cumulus">Cumulus</string>
     <string name="stratocumulus">Stratocumulus</string>
@@ -336,7 +333,6 @@
 \n- Als je geen locatietoegang verleent, dan kun je handmatig een locatie invoeren in het Instellingen &gt; gps-ijkmenu in Trail Sense.
 \n
 \n- Nadat je op doorgaan klikt, zul je gevraagd worden om locatietoegang en achtergrondlocatietoegang te verlenen. Als je dit weigert heeft Trail Sense geen toegang tot je locatie. In dat geval is dus een handmatige locatie-invoer aanbevolen.</string>
-
     <string name="backtrack_disabled_low_power_toast">Terugweg is uitgeschakeld in energiebesparingsmodus</string>
     <string name="backtrack">Terugweg</string>
     <string name="backtrack_notification_channel_description">Locatie-updates voor Terugweg</string>
@@ -404,7 +400,6 @@
     <string name="tool_cliff_height_description">Klif- of dalhoogte meten</string>
     <string name="tool_cliff_height_title">Klifhoogte</string>
     <string name="toast_destination_bearing_set">Peiling bestemming ingesteld</string>
-
     <string name="category_natural">Natuurlijk</string>
     <string name="category_safety">Veiligheid</string>
     <string name="category_shelter">Schuilplaats</string>
@@ -422,7 +417,6 @@
     <string name="forecasts_category">Voorspellingen</string>
     <string name="advanced">Geavanceerd</string>
     <string name="tap_sun_moon_hint">Tik op zon of maan voor positiedetails</string>
-
     <string name="no_group">Geen groep</string>
     <string name="group">Groep</string>
     <string name="beacon_create_beacon">Baken</string>
@@ -685,7 +679,7 @@
     <string name="time_not_set">Tijd niet ingesteld</string>
     <string name="half_tide">Halftij</string>
     <string name="low_tide">Laagtij</string>
-    <string name="high_tide">Vloed</string>
+    <string name="high_tide">Hoogtij</string>
     <string name="tides">Getijden</string>
     <string name="experimental">Experimenteel</string>
     <string name="right_quick_action">Snelle actie rechts</string>
@@ -696,7 +690,6 @@
     <string name="onboarding_user_guide">Met de gebruikershandleiding leer je hoe je de functies van Trail Sense kunt gebruiken. Je kunt het vinden onderaan het Hulpmiddelen-tabblad.
 \n
 \nBinnenkort komen er meer gidsen aan.</string>
-
     <string name="location_input_help">Decimaal graden (vb. 1.00, -2.00)
 \n
 \nGraden decimale minuten (vb. 1°23.12\'N, 3°12.1\'W)
@@ -759,4 +752,310 @@
     <string name="altitude_history_length">Lengte hoogtegeschiedenis</string>
     <string name="last_duration">Afgelopen %s</string>
     <string name="units_mmhg">mmHg</string>
+    <string name="astro_dialog_lunar_eclipse">**Begin**: %s
+\n
+\n**Hoogtepunt**: %s
+\n
+\n**Einde**: %s
+\n
+\n**Tijdsduur**: %s
+\n
+\n**Magnitude**: %s
+\n
+\n**Hoogte**: %s</string>
+    <string name="or">Of</string>
+    <string name="notification_weather_update_title">Weermeting bijwerking</string>
+    <string name="notification_weather_update_content">Luchtdruk opnemen</string>
+    <string name="notification_backtrack_update_title">Terugweg bijwerken</string>
+    <string name="closest">Dichtstbij</string>
+    <string name="map_projection_equidistant">Afstandsgetrouw</string>
+    <string name="reduce_map_resolution">Grootte van kaart verminderen</string>
+    <string name="slope_amount">%s helling</string>
+    <string name="avalanche_risk">Lawinegevaar</string>
+    <string name="distance_unset">Afstand niet ingesteld</string>
+    <string name="clinometer_measure_distance_instructions">Om de afstand van een voorwerp dat %s hoog is te meten:
+\n
+\n1. Richt de hellingsmeter op de voet van het doel
+\n2. Tik op het scherm en houd vast
+\n3. Richt de hellingsmeter naar het hoogste punt van het doel
+\n4. Laat los om vast te zetten en om de afstand tot het doel te zien</string>
+    <string name="compass_accuracy">Nauwkeurigheid van kompas</string>
+    <string name="saved_to_note">Opgeslagen als aantekening</string>
+    <string name="open">Openen</string>
+    <string name="note">Aantekening</string>
+    <string name="qr_text_too_long">Tekst is te lang, QR code is afgekort</string>
+    <string name="view">Bekijken</string>
+    <string name="estimated">Geschat</string>
+    <string name="tide_table">Getijdetabel</string>
+    <string name="low_tide_letter">L</string>
+    <string name="tide_deleted">Tij verwijderd</string>
+    <string name="disclaimer_estimated_tide">Geschatte getijden kunnen onnauwkeurig zijn. Gebruik liever een officiële tabel voor de nauwkeurige tijden.</string>
+    <string name="tool_temperature_estimation_title">Geschatte temperatuur</string>
+    <string name="explore">Verkennen</string>
+    <string name="save">Opslaan</string>
+    <string name="running_in_background">In achtergrond draaiend</string>
+    <string name="remove_battery_restrictions">Batterijbesparing uitschakelen\?</string>
+    <string name="exporting_map">Kaart verzenden</string>
+    <string name="map_exported">Kaart verzonden</string>
+    <string name="camera_capture">Opname</string>
+    <string name="file">Bestand</string>
+    <string name="map_export_error">Kan kaart niet verzenden naar het gekozen bestand</string>
+    <string name="second_symbol">s</string>
+    <string name="point">Punt</string>
+    <string name="point_added">Punt toegevoegd aan pad</string>
+    <string name="change_resolution">Verander afmetingen</string>
+    <string name="precipitation_snow_grains">Motsneeuw</string>
+    <string name="result_deleted">Bevinding verwijderd</string>
+    <string name="done">Voltooid</string>
+    <string name="calibrate_map_point">IJk punt %d / %d</string>
+    <string name="diamond">Ruit</string>
+    <string name="square">Vierkant</string>
+    <string name="humidity_history">Geschiedenis van de vochtigheid - laatst %s</string>
+    <string name="temperature_history">Temperatuurverloop - laatste %s</string>
+    <string name="old">Oud</string>
+    <string name="no_paths">Geen paden</string>
+    <string name="new_text">Nieuw</string>
+    <string name="astro_dialog_moon_phase">**Fase**: %s
+\n
+\n**Verlichting**: %s</string>
+    <string name="clinometer_measure_height_instructions">Om de hoogte van een voorwerp op %s afstand te meten:
+\n
+\n1. Richt de hellingsmeter naar de voet van het doel
+\n2. Tik op het scherm en houd vast
+\n3. Richt de hellingsmeter naar het hoogste punt van het doel
+\n4. Laat los om vast te zetten en om de hoogte van het doel te zien</string>
+    <string name="measure">Meten</string>
+    <string name="compass_unavailable">Kompas niet beschikbaar</string>
+    <string name="gps_unavailable">GPS niet beschikbaar</string>
+    <string name="gps_timeouts">GPS onderbrekingen</string>
+    <string name="qr_code_scanner">QR code lezer</string>
+    <string name="no_qr_code_found">Geen QR code herkend</string>
+    <string name="share_ellipsis">Delen…</string>
+    <string name="undo">Ongedaan maken</string>
+    <string name="tool_temperature_estimation_description">Voorspel de temperatuur op een andere hoogte</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="distance_alert">Afstand waarschuwing</string>
+    <string name="remove_distance_alert">Verwijder afstand waarschuwing (%s)\?</string>
+    <string name="off">Uit</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d routepunt verwijderd</item>
+        <item quantity="other">%d routepunten verwijderd</item>
+    </plurals>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d getijde</item>
+        <item quantity="other">%d getijden</item>
+    </plurals>
+    <string name="temporary">Tijdelijk</string>
+    <string name="points">Punten</string>
+    <string name="weather_unchanging">Onveranderlijk</string>
+    <string name="weather_worsening">Verslechterend</string>
+    <string name="very_soon">Zeer spoedig</string>
+    <string name="weather_storm">Storm</string>
+    <string name="soon">Spoedig</string>
+    <string name="diagnostic_message_template">%s: %s
+\n
+\n### Getroffen gereedschappen
+\n%s
+\n
+\n### Oplossing
+\n%s</string>
+    <string name="pick_file">Kies bestand</string>
+    <string name="no_clouds">Geen wolken</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d routepunt wordt verwijderd</item>
+        <item quantity="other">%d routepunten worden verwijderd</item>
+    </plurals>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Vastzetten met de geluidsknoppen</string>
+    <string name="onboarding_explore">- Ontworpen voor het wandelaars, kampeerders en geocachers
+\n
+\n- Plaats bakens en vind de weg ernaartoe
+\n
+\n- Volg paden
+\n
+\n- Vind de weg terug met het opgeslagen pad
+\n
+\n- Bepaal wat u moet inpakken
+\n
+\n- Word gewaarschuwd voordat de zon ondergaat
+\n
+\n- Voorspel het weer
+\n
+\n- Gebruik uw telefoon als zaklamp
+\n
+\n- En nog veel meer!</string>
+    <string name="battery_usage_restricted_benefit">Batterijbesparing uitschakelen voor Trail Sense kan nauwkeurigheid verhogen.</string>
+    <string name="tide_instructions">Gebruik een officiële getijdentabel om een verwijzingskader te hebben voor de lengte van uw tocht.</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="navigate">Padvinden</string>
+    <string name="gps_unavailable_resolution">Schakel locatie in, of verander uw locatiebron naar \'alleen toestel\' of \'hoge precisie\'</string>
+    <string name="delete_path">Pad verwijderen\?</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="path_exported">Pad verzonden</string>
+    <string name="export_path_error">Pad kon niet worden verzonden</string>
+    <string name="low_amount">Laag (%s)</string>
+    <string name="total">Geheel</string>
+    <string name="medium_amount">Gemiddeld (%s)</string>
+    <string name="partial">Deels (%s)</string>
+    <string name="lunar_eclipse_start">Maansverduistering (begin)</string>
+    <string name="lunar_eclipse_end">Maansverduistering (einde)</string>
+    <string name="lunar_eclipse">Maansverduistering</string>
+    <string name="astro_dialog_meteor_shower">**Hoogtepunt**: %s
+\n
+\n**Hoogte op hoogtepunt**: %s
+\n
+\n**Richting op hoogtepunt**: %s
+\n
+\n**Dichtheid**: %s</string>
+    <string name="astro_dialog_rise_set">**Tijd**: %s
+\n
+\n**Richting**: %s</string>
+    <string name="supermoon">Supermaan</string>
+    <string name="astro_dialog_day_length">**Dag**: %s
+\n
+\n**Nacht**: %s
+\n
+\n**Jaargetijde**: %s</string>
+    <string name="season_winter">Winter</string>
+    <string name="weather_monitoring_disabled">Weermeting uitgeschakeld</string>
+    <string name="enable">Inschakelen</string>
+    <string name="log">Log</string>
+    <string name="pressure_logged">Druk gelogd</string>
+    <string name="sky_detection_sensitivity">Gevoeligheid van luchtherkenning</string>
+    <string name="obstacle_removal_sensitivity">Gevoeligheid van verwijderen van belemmeringen</string>
+    <string name="pref_experimental_cloud_scanner_title">Wolkenlezer</string>
+    <string name="precipitation_none">Geen neerslag</string>
+    <string name="precipitation_rain">Regen</string>
+    <string name="precipitation_drizzle">Motregen</string>
+    <string name="precipitation_snow">Sneeuw</string>
+    <string name="precipitation_snow_pellets">Korrelhagel</string>
+    <string name="precipitation_hail">Hagel</string>
+    <string name="precipitation_small_hail">Kleine hagel</string>
+    <string name="precipitation_ice_pellets">IJsregen</string>
+    <string name="hide">Verbergen</string>
+    <string name="show">Tonen</string>
+    <string name="most_recent">Nieuwst</string>
+    <string name="longest">Langst</string>
+    <string name="easy">Eenvoudig</string>
+    <string name="waypoint">Routepunt</string>
+    <string name="importing">Inladen</string>
+    <string name="hard">Moeilijk</string>
+    <string name="merge">Samenvoegen</string>
+    <string name="append_onto">Bijvoegen bij</string>
+    <string name="simplify">Vereenvoudigen</string>
+    <string name="simplifying">Vereenvoudigen</string>
+    <string name="simplification_quality">Vereenvoudiging kwaliteit</string>
+    <string name="pref_auto_simplify_paths_title">Vereenvoudig paden bij inladen</string>
+    <string name="pref_clinometer_baseline_distance_title">Grondlijn afstand</string>
+    <string name="height">Hoogte</string>
+    <string name="navigation_guide_description">Gebruik van herkenningspunten en paden</string>
+    <string name="saving">Opslaan</string>
+    <string name="clinometer_measure_height_title">Afstand tot doel</string>
+    <string name="weather_monitor_disabled_resolution">Schakel weermetingen in in de weerinstellingen</string>
+    <string name="clinometer_measure_distance_title">Hoogte van doel</string>
+    <string name="instructions">Uitleg</string>
+    <string name="error_banners">Balken met foutmelding</string>
+    <string name="pref_flashlight_should_timeout_title">Vanzelf uitschakelen</string>
+    <string name="disclaimer_estimated_tide_title">Geschatte tij</string>
+    <string name="pref_weather_show_temperature_title">Toon temperatuur</string>
+    <string name="pressure_tendency">Veranderlijkheid</string>
+    <string name="distance_alert_distance_reached">U heeft %s bereikt</string>
+    <string name="estimate_stride_length">Schat lengte in van schreden</string>
+    <string name="stride_length_stand_still">Stilstaan</string>
+    <string name="saved">Opgeslagen</string>
+    <string name="stride_length_walk">Loop een rechte lijn, druk stop als u klaar bent</string>
+    <string name="current_speed">Huidige snelheid</string>
+    <string name="current_speed_pedometer">Huidige snelheid (stappenteller)</string>
+    <string name="current_speed_gps">Huidige snelheid (GPS)</string>
+    <string name="average_speed_pedometer">Gemiddelde snelheid (stappenteller)</string>
+    <string name="average_speed_backtrack">Gemiddelde snelheid (terugweg)</string>
+    <string name="reset_distance_title">Afstand opnieuw instellen\?</string>
+    <string name="navigating_to_nearest_path_point">Vind de weg naar het dichtstbijzijnde punt op pad</string>
+    <string name="pref_start_on_boot_title">Aanzetten bij opstarten toestel</string>
+    <string name="bearing">Peiling</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d pad ingeladen</item>
+        <item quantity="other">%d paden ingeladen</item>
+    </plurals>
+    <string name="high_tide_letter">H</string>
+    <string name="beacons">Herkenningspunten</string>
+    <string name="precipitation_chance">Kans op neerslag: %s</string>
+    <string name="results">Bevindingen</string>
+    <string name="take_photo">Foto nemen</string>
+    <string name="choose_photo">Foto kiezen</string>
+    <string name="elevation_gain">Hoogteverschil</string>
+    <string name="duration">Tijdsduur</string>
+    <string name="elevation">Hoogte</string>
+    <string name="difficulty">Moeilijkheid</string>
+    <string name="errors">Fouten</string>
+    <string name="tide_diurnal">Dagelijks</string>
+    <string name="tide_diurnal_description">Hoogtij dagelijks - meeste getijden zijn niet dagelijks</string>
+    <string name="sun_moon_position_template">### %s
+\n**Hoogte**: %s
+\n
+\n**Azimuth**: %s</string>
+    <string name="sun">Zon</string>
+    <string name="moon">Maan</string>
+    <string name="humidity">Luchtvochtigheid</string>
+    <string name="high_amount">Hoog (%s)</string>
+    <string name="lunar_eclipses">Maansverduisteringen</string>
+    <string name="season_fall">Herfst</string>
+    <string name="notification_backtrack_update_content">Uw locatie opnemen</string>
+    <string name="elevation_loss">Hoogteverlies</string>
+    <string name="merging">Samenvoegen</string>
+    <string name="change_map_projection">Kaartprojectie veranderen</string>
+    <string name="beacon">Herkenningspunt</string>
+    <string name="beacon_created">Herkenningspunt aangemaakt</string>
+    <string name="night">Nacht</string>
+    <string name="pref_flashlight_timeout_title">Uitschakelen na</string>
+    <string name="steps">Stappen</string>
+    <string name="astro_dialog_noon">**Tijd**: %s
+\n
+\n**Hoogte**: %s</string>
+    <string name="astronomy_alerts">Sterrenhemel meldingen</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="activity_recognition_permission_denied">Toestemming tot fysieke sensors afgewezen, niet in staat om stappenteller in te schakelen. U kunt dit inschakelen in de instellingen.</string>
+    <string name="dashed">Gestreept</string>
+    <string name="average_speed">Gemiddelde snelheid</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d pad</item>
+        <item quantity="other">%d paden</item>
+    </plurals>
+    <string name="weather_improving">Opklarend</string>
+    <string name="delete_path_group_message">%s en al zijn paden zullen worden verwijderd.</string>
+    <string name="since_time">sinds %s</string>
+    <string name="cross">Kruis</string>
+    <string name="pref_default_path_style_title">Standaard pad stijl</string>
+    <string name="pref_default_path_color_title">Standaard pad kleur</string>
+    <string name="move_to">Verplaatsen naar</string>
+    <string name="season_spring">Lente</string>
+    <string name="tilt">Helling</string>
+    <string name="duration_of_charge">Duur van lading</string>
+    <string name="pref_export_weather_csv_title">Weermetingen verzenden</string>
+    <string name="weather_exported">Weer verzonden</string>
+    <string name="season_summer">Zomer</string>
+    <string name="pref_show_nearest_tide_title">Toon dichtstbijzijnde getijde</string>
+    <string name="capture">Opname</string>
+    <string name="cloud_photo_mask_toast">Op de afbeelding tikken om masker te ver-/onthullen</string>
+    <string name="no_camera_access">Kan camera niet bereiken</string>
+    <string name="path">Pad</string>
+    <string name="point_style">Stijl van punten</string>
+    <string name="path_color">Kleur van paden</string>
+    <string name="sort_by">Ordenen: %s</string>
+    <string name="shortest">Kortst</string>
+    <string name="up_to_amount">Tot %s</string>
+    <string name="kwh_per_meter_squared_format">%s kWh /m²</string>
+    <string name="line_style">Stijl van lijnen</string>
+    <string name="map_projection_mercator">Mercatorprojectie</string>
+    <string name="pref_only_navigate_path_points_title">Alleen padvinden naar opgeslagen punten</string>
+    <string name="error">Fout</string>
+    <string name="warning">Waarschuwing</string>
+    <string name="tide_user_guide_recommendation">Webstedes met officiële getijdentabellen kunnen worden gevonden in de gebruikersgids.</string>
+    <string name="permission_alarms_and_reminders">Wekkers en herinneringen</string>
+    <string name="tide_semidiurnal">Halfdagelijks</string>
+    <string name="frequency">Frequentie</string>
+    <string name="tide_frequency_description">Het aantal hooggetijden iedere dag. Meeste getijden zijn halfdagelijks.</string>
+    <string name="paths">Paden</string>
+    <string name="keep_forever">Voor altijd bewaren</string>
 </resources>
