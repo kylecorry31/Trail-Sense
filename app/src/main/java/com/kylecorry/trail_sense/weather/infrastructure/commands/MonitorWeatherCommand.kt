@@ -98,7 +98,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
             hourly = weatherForecastService.getHourlyForecast()
             daily = weatherForecastService.getDailyForecast()
             tendency = weatherForecastService.getTendency()
-            lastReading = weatherForecastService.getLastReading()
+            lastReading = weatherForecastService.getPressure()
         }
 
         val commands = listOf(

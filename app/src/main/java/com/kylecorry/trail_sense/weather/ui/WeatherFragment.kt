@@ -24,12 +24,14 @@ import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
@@ -60,6 +62,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
+    private var weather: CurrentWeather? = null
 
     private val logger by lazy {
         WeatherLogger(
@@ -103,6 +106,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
                 .filter { it.time <= Instant.now() }
             lifecycleScope.launch {
+                onIO {
+                    weather = weatherForecastService.getWeather()
+                }
                 update()
                 updateForecast()
             }
@@ -159,22 +165,17 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (throttle.isThrottled()) {
             return
         }
+        val weather = weather ?: return
 
         val readings = getCalibratedPressures()
 
         displayChart(readings)
 
-        val tendency = weatherService.getTendency(readings)
-        displayTendency(tendency)
+        displayTendency(weather.tendency)
 
-        val pressure = readings.lastOrNull()
-        pressure?.let { displayPressure(it) }
-
-        val temperature = getCurrentTemperature()
-        temperature?.let { displayTemperature(temperature) }
-
-        val humidity = readingHistory.lastOrNull()?.humidity
-        humidity?.let { displayHumidity(it) }
+        weather.pressure?.let { displayPressure(it) }
+        weather.temperature?.let { displayTemperature(it.value.convertTo(temperatureUnits)) }
+        weather.humidity?.let { displayHumidity(it.value) }
     }
 
     private fun getCalibratedPressures(): List<PressureReading> {
@@ -257,22 +258,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         withContext(Dispatchers.Main) {
             binding.weatherTitle.title.text = formatWeather(hourly)
-            // TODO: Get last calibrated pressure reading
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = getWeatherImage(hourly, readingHistory.lastOrNull()?.pressureReading())
+                left = getWeatherImage(hourly, weather?.pressure)
             )
             val speed = formatSpeed(hourly)
             binding.weatherTitle.subtitle.text = speed
             binding.weatherTitle.subtitle.isVisible = speed.isNotEmpty()
             binding.dailyForecast.text = getLongTermWeatherDescription(daily)
         }
-    }
-
-    private fun getCurrentTemperature(): Temperature? {
-        val uncalibrated = readingHistory.lastOrNull()?.temperature ?: return null
-        val temperature = weatherService.calibrateTemperature(uncalibrated)
-        return Temperature.celsius(temperature).convertTo(temperatureUnits)
     }
 
     private fun displayPressure(pressure: PressureReading) {

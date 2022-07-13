@@ -4,6 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.units.Reading
+import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
@@ -24,44 +26,70 @@ class WeatherContextualService private constructor(private val context: Context)
 
     private lateinit var weatherService: WeatherService
 
-    private var cachedValue = MemoryCachedValue<ForecastCache>()
+    private var cachedValue = MemoryCachedValue<CurrentWeather>()
 
     init {
         resetWeatherService()
     }
 
-    suspend fun getTendency(): PressureTendency {
+    suspend fun getWeather(): CurrentWeather {
         return withContext(Dispatchers.IO) {
-            cachedValue.getOrPut { populateCache() }.tendency
+            cachedValue.getOrPut { populateCache() }
         }
     }
 
-    suspend fun getLastReading(): PressureReading? {
-        return withContext(Dispatchers.IO) {
-            cachedValue.getOrPut { populateCache() }.lastPressure
-        }
+    suspend fun getTendency(): PressureTendency {
+        return getWeather().tendency
+    }
+
+    suspend fun getPressure(): PressureReading? {
+        return getWeather().pressure
     }
 
     suspend fun getHourlyForecast(): Weather {
-        return withContext(Dispatchers.IO) {
-            cachedValue.getOrPut { populateCache() }.hourly
-        }
+        return getWeather().hourly
     }
 
     suspend fun getDailyForecast(): Weather {
-        return withContext(Dispatchers.IO) {
-            cachedValue.getOrPut { populateCache() }.daily
-        }
+        return getWeather().daily
     }
 
     suspend fun getPressureHistory(): List<PressureReading> {
         val readings = weatherRepo.getPressuresSync()
+            .asSequence()
             .map { it.toPressureAltitudeReading() }
             .sortedBy { it.time }
             .filter { it.time <= Instant.now() }
+            .toList()
 
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
         return calibrator.calibrate(readings)
+    }
+
+    suspend fun getTemperatureHistory(): List<Reading<Float>> {
+        return weatherRepo.getPressuresSync()
+            .asSequence()
+            .map { it.toPressureAltitudeReading() }
+            .map {
+                val temperature = weatherService.calibrateTemperature(it.temperature)
+                Reading(temperature, it.time)
+            }
+            .sortedBy { it.time }
+            .filter { it.time <= Instant.now() }
+            .toList()
+    }
+
+    suspend fun getHumidityHistory(): List<Reading<Float>> {
+        return weatherRepo.getPressuresSync()
+            .asSequence()
+            .map { it.toPressureAltitudeReading() }
+            .filter { it.humidity != null }
+            .map {
+                Reading(it.humidity!!, it.time)
+            }
+            .sortedBy { it.time }
+            .filter { it.time <= Instant.now() }
+            .toList()
     }
 
     fun getSeaLevelPressure(
@@ -87,25 +115,28 @@ class WeatherContextualService private constructor(private val context: Context)
         return weatherService.getDailyWeather(readings)
     }
 
-    private suspend fun populateCache(): ForecastCache {
+    private suspend fun calculateLastTemperature(): Reading<Float>? {
+        return getTemperatureHistory().lastOrNull()
+    }
+
+    private suspend fun calculateLastHumidity(): Reading<Float>? {
+        return getHumidityHistory().lastOrNull()
+    }
+
+    private suspend fun populateCache(): CurrentWeather {
         val readings = getPressureHistory()
         val daily = getDailyForecast(readings)
         val hourly = getHourlyForecast(readings)
         val last = readings.lastOrNull()
         val tendency = weatherService.getTendency(readings)
-        return ForecastCache(hourly, daily, tendency, last)
+        val lastTemperature = calculateLastTemperature()?.let { Reading(Temperature.celsius(it.value), it.time) }
+        val lastHumidity = calculateLastHumidity()
+        return CurrentWeather(hourly, daily, tendency, last, lastTemperature, lastHumidity)
     }
 
     private fun resetWeatherService() {
         weatherService = WeatherService(prefs.weather)
     }
-
-    private data class ForecastCache(
-        val hourly: Weather,
-        val daily: Weather,
-        val tendency: PressureTendency,
-        val lastPressure: PressureReading?
-    )
 
     companion object {
         private var instance: WeatherContextualService? = null
