@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
@@ -72,14 +73,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 
-    private var valueSelectedTime = 0L
-
     private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
 
     private var loadAltitudeJob: Job? = null
-    private var logJob: Job? = null
-
-    private var isLogging = false
+    private val logger by lazy {
+        WeatherLogger(
+            requireContext(),
+            Duration.ofSeconds(30),
+            Duration.ofSeconds(1)
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -95,12 +98,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         weatherService = WeatherService(prefs.weather)
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
-            if (isLogging) {
-                return@PressureChart
-            }
             if (timeAgo == null || pressure == null) {
-                binding.pressureMarker.isVisible = false
-                binding.logBtn.isVisible = true
+                binding.pressureMarker.isInvisible = true
             } else {
                 val formatted = formatService.formatPressure(
                     Pressure(pressure, units),
@@ -112,27 +111,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     formatService.formatDuration(timeAgo, false)
                 )
                 binding.pressureMarker.isVisible = true
-                binding.logBtn.isInvisible = true
-                valueSelectedTime = System.currentTimeMillis()
-            }
-        }
-
-        binding.logBtn.setOnClickListener {
-            logJob = runInBackground {
-                isLogging = true
-                withContext(Dispatchers.Main) {
-                    binding.logBtn.isInvisible = true
-                    binding.logLoading.isVisible = true
-                }
-                withContext(Dispatchers.IO) {
-                    MonitorWeatherCommand(requireContext(), false).execute()
-                }
-                withContext(Dispatchers.Main) {
-                    toast(getString(R.string.pressure_logged))
-                    binding.logBtn.isInvisible = false
-                    binding.logLoading.isVisible = false
-                }
-                isLogging = false
             }
         }
 
@@ -166,6 +144,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     override fun onResume() {
         super.onResume()
+        logger.start()
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         altitude = altimeter.altitude
         units = prefs.pressureUnits
@@ -202,13 +181,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     override fun onPause() {
         super.onPause()
+        logger.stop()
         tryOrNothing {
             loadAltitudeJob?.cancel()
         }
-        tryOrNothing {
-            logJob?.cancel()
-        }
-        isLogging = false
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
     }
 
@@ -236,13 +212,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         val humidity = hygrometer.humidity
         displayHumidity(humidity)
-
-        if (System.currentTimeMillis() - valueSelectedTime > 5000) {
-            binding.pressureMarker.isVisible = false
-            if (!isLogging) {
-                binding.logBtn.isVisible = true
-            }
-        }
     }
 
     private fun getCalibratedPressures(includeCurrent: Boolean = false): List<PressureReading> {
