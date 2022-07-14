@@ -176,7 +176,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
-    <string name="set_inclination_instructions">Stiskněte kdekoli k uložení/smazání úhlu</string>
+    <string name="set_inclination_instructions">Stiskněte kdekoli k uzamknutí/odemknutí úhlu</string>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
     <string name="waning_gibbous">Měsíc Couvá</string>
     <string name="sun_down_no_set">Slunce je nízko</string>
