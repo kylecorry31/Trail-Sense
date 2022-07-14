@@ -176,10 +176,10 @@
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
-    <string name="set_inclination_instructions">Klepnutím nebo podržením kdekoliv uzamknete/odemknete</string>
+    <string name="set_inclination_instructions">Stiskněte kdekoli k uzamknutí/odemknutí úhlu</string>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
     <string name="waning_gibbous">Měsíc Couvá</string>
-    <string name="sun_down_no_set">Slunce zapadlo</string>
+    <string name="sun_down_no_set">Slunce je nízko</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -208,7 +208,7 @@
     <string name="pref_use_sea_level_pressure_title">Tlak u hladiny moře</string>
     <string name="pref_center_sun_and_moon_title">Udržovat slunce / měsíc na středu</string>
     <string name="app_disclaimer_message_title">Vyloučení zodpovědnost / Podmínky služeb</string>
-    <string name="disclaimer_message_title">Vyloučení odpovědnosti</string>
+    <string name="disclaimer_message_title">Zřeknutí odpovědnosti</string>
     <string name="units_mmhg">mmHg</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
@@ -308,7 +308,7 @@
     <string name="pref_privacy_policy_title">Zásady ochrany osobních údajů</string>
     <string name="guide_recommended_apps_description">Užitečné aplikace pro přežití</string>
     <string name="duration_second_format">%ds</string>
-    <string name="tap_to_turn_off">Klepnutím vypnete</string>
+    <string name="tap_to_turn_off">Klepněte pro vypnutí</string>
     <string name="thunder">Hrom</string>
     <string name="pref_backtrack_enabled_summary">Nahrávat historii polohy</string>
     <string name="reset">Obnovit</string>
@@ -794,7 +794,7 @@
     <string name="old">Zastaralé</string>
     <string name="location_override_not_set_resolution">Nastavte přepsání polohy v nastavení</string>
     <string name="high_amount">Vysoká (%s)</string>
-    <string name="gps_unavailable_resolution">Povolte polohu nebo změňte zdroj polohy pouze na zařízení nebo vysokou přesnost</string>
+    <string name="gps_unavailable_resolution">Povolte polohu nebo změňte zdroj polohy na Pouze zařízení nebo Vysoká přesnost</string>
     <string name="medium_amount">Střední (%s)</string>
     <string name="daylight">Denní světlo</string>
     <string name="no_permission">Povolení nebylo uděleno</string>
@@ -948,4 +948,126 @@
     <string name="path">Cesta</string>
     <string name="paths">Cesty</string>
     <string name="keep_forever">Ponechat navždy</string>
+    <string name="point_style">Styl bodu</string>
+    <string name="points">Body</string>
+    <string name="merging">Slučování</string>
+    <string name="merge">Sloučit</string>
+    <string name="append_onto">Připojit na</string>
+    <string name="simplify">Zjednodušit</string>
+    <string name="pref_auto_simplify_paths_title">Zjednodušit cesty při importu</string>
+    <string name="reduce_map_resolution">Snížit rozlišení mapy</string>
+    <string name="slope_amount">%s sklon</string>
+    <string name="note">Poznámka</string>
+    <string name="undo">Vrátit</string>
+    <string name="share_ellipsis">Sdílet…</string>
+    <string name="estimated">Odhadovaný</string>
+    <string name="tide_table">Tabulka přílivů a odlivů</string>
+    <string name="tool_temperature_estimation_description">Předpovídejte teplotu v jiné nadmořské výšce</string>
+    <string name="pref_weather_show_temperature_title">Zobrazit teplotu</string>
+    <string name="steps">Kroky</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="remove_distance_alert">Odebrat upozornění na vzdálenost (%s)\?</string>
+    <string name="off">Vypnuto</string>
+    <string name="save">Uložit</string>
+    <string name="estimate_stride_length">Odhad délky kroku</string>
+    <string name="warning">Varování</string>
+    <string name="running_in_background">Běží na pozadí</string>
+    <string name="exporting_map">Exportuji mapu</string>
+    <string name="map_exported">Mapa exportována</string>
+    <string name="file">Soubor</string>
+    <string name="point">Bod</string>
+    <string name="change_resolution">Změnit rozlišení</string>
+    <string name="line_style">Styl čáry</string>
+    <string name="most_recent">Nejnovější</string>
+    <string name="saving">Ukládání</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="gps_unavailable">GPS není k dispozici</string>
+    <string name="result_deleted">Výsledek odstraněn</string>
+    <string name="qr_text_too_long">Text je příliš dlouhý, QR kód byl zkrácen</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="stride_length_stand_still">Zůstaňte stát</string>
+    <string name="reset_distance_title">Obnovit vzdálenost\?</string>
+    <string name="easy">Snadná</string>
+    <string name="hard">Obtížná</string>
+    <string name="waypoint">Navigační bod</string>
+    <string name="map_projection_equidistant">Ekvidistantní</string>
+    <string name="saved">Uložené</string>
+    <string name="error">Chyba</string>
+    <string name="second_symbol">s</string>
+    <string name="explore">Prozkoumat</string>
+    <string name="longest">Nejdelší</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Uzamknout pomocí tlačítek hlasitosti</string>
+    <string name="tide_diurnal_description">Příliv jednou denně – většina přílivů není denních</string>
+    <string name="shortest">Nejkratší</string>
+    <string name="night">Noc</string>
+    <string name="pref_flashlight_should_timeout_title">Automaticky vypnout</string>
+    <string name="view">Zobrazit</string>
+    <string name="pref_flashlight_timeout_title">Vypnout po</string>
+    <string name="pressure_tendency">Tendence</string>
+    <string name="onboarding_explore">- Určeno pro pěší turistiku, turistiku s batohem, kempování a geocaching.
+\n
+\n- Umístěte majáky a navigujte k nim
+\n
+\n- Následujte cesty
+\n
+\n- Rekapitulujte své kroky pomocí zpětné navigace
+\n
+\n- Připravte si seznam věcí v batohu
+\n
+\n- Buďte ve střehu, než zapadne slunce
+\n
+\n- Předvídejte počasí
+\n
+\n- Používejte telefon jako svítilnu
+\n
+\n- A mnoho dalšího!</string>
+    <string name="map_export_error">Mapu nelze exportovat do zvoleného souboru</string>
+    <string name="point_added">Bod přidán do cesty</string>
+    <string name="tide_diurnal">Denní</string>
+    <string name="done">Hotovo</string>
+    <string name="calibrate_map_point">Kalibrovat bod %d / %d</string>
+    <string name="elevation">Nadmořská výška</string>
+    <string name="elevation_gain">Převýšení</string>
+    <string name="elevation_loss">Ztráta nadmořské výšky</string>
+    <string name="pref_clinometer_baseline_distance_title">Základní vzdálenost</string>
+    <string name="instructions">Instrukce</string>
+    <string name="weather_monitor_disabled_resolution">Povolit monitorování počasí z nastavení počasí</string>
+    <string name="error_banners">Chybové bannery</string>
+    <string name="errors">Chyby</string>
+    <string name="gps_timeouts">Časové limity GPS</string>
+    <string name="qr_code_scanner">Skener QR kódů</string>
+    <string name="no_qr_code_found">Nebyl detekován žádn7 QR kód</string>
+    <string name="saved_to_note">Uloženo do poznámky</string>
+    <string name="open">Otevřít</string>
+    <string name="tool_temperature_estimation_title">Odhad teploty</string>
+    <string name="stride_length_walk">Jděte v přímé linii, až budete hotovi, stiskněte stop</string>
+    <string name="simplifying">Zjednodušuji</string>
+    <string name="simplification_quality">Kvalita zjednodušení</string>
+    <string name="tide_deleted">Příliv/odliv odstraněn</string>
+    <string name="measure">Měřit</string>
+    <string name="path_color">Barva cesty</string>
+    <string name="temporary">Dočasná</string>
+    <string name="importing">Importuji</string>
+    <string name="sort_by">Seřadit: %s</string>
+    <string name="navigation_guide_description">Pomocí majáků a cest</string>
+    <string name="navigating_to_nearest_path_point">Navigace k nejbližšímu bodu cesty</string>
+    <string name="pref_start_on_boot_title">Spustit při zapnutí</string>
+    <string name="pref_only_navigate_path_points_title">Navigace pouze k zaznamenaným bodům</string>
+    <string name="remove_battery_restrictions">Odstranit optimalizaci baterie\?</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d navigační bod odstraněn</item>
+        <item quantity="few">%d navigační body odstraněny</item>
+        <item quantity="other">%d navigačních bod: odstraněno</item>
+    </plurals>
+    <string name="tide_instructions">Použijte oficiální tabulku přílivů a odlivů k zadání referenčních přílivů/odlivů pro délku vaší cesty.</string>
+    <string name="tide_user_guide_recommendation">Oficiální webové stránky tabulky přílivů a odlivů najdete v uživatelské příručce.</string>
+    <string name="tide_semidiurnal">Polodenní</string>
+    <string name="frequency">Frekvence</string>
+    <string name="tide_frequency_description">Počet přílivů za den. Většina přílivů je polodenních.</string>
+    <string name="permission_alarms_and_reminders">Budíky a upomínky</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d příliv/odliv</item>
+        <item quantity="few">%d přílivy/odlivy</item>
+        <item quantity="other">%d přílivů/odlivů</item>
+    </plurals>
 </resources>
