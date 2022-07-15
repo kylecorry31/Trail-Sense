@@ -540,7 +540,7 @@
     <string name="pref_nearby_radar_title">Mostrar brújula de radar cercana</string>
     <string name="meteor_shower">Lluvia de meteoritos</string>
     <string name="tomorrow_at">Mañana a las %s</string>
-    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Máximo %d meteorítos / h</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Máximo %d meteoritos / h</string>
     <string name="no_maps">Sin mapas</string>
     <string name="on_map">En el mapa</string>
     <string name="place_beacon_at">¿Colocar una baliza en %s\?</string>
