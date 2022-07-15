@@ -171,7 +171,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         displayChart(readings)
 
-        displayTendency(observation.tendency)
+        displayTendency(weather.pressureTendency)
 
         displayPressure(observation.pressureReading())
         displayTemperature(observation.temperature.convertTo(temperatureUnits))

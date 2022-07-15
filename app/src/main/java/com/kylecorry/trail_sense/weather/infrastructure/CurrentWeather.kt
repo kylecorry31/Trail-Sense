@@ -10,6 +10,7 @@ import java.time.Instant
 
 data class CurrentWeather(
     val prediction: WeatherPrediction,
+    val pressureTendency: PressureTendency,
     val observation: WeatherObservation?
 )
 
@@ -20,7 +21,6 @@ data class WeatherPrediction(val hourly: Weather, val daily: Weather)
 data class WeatherObservation(
     val time: Instant,
     val pressure: Pressure,
-    val tendency: PressureTendency,
     val temperature: Temperature,
     val humidity: Float?
 ) {

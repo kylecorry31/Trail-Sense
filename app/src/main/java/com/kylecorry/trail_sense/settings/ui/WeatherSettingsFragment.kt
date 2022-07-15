@@ -131,7 +131,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         forecastSensitivity?.setOnPreferenceChangeListener { _, _ ->
             lifecycleScope.launch {
-                WeatherContextualService.getInstance(requireContext()).setDataChanged()
+                WeatherContextualService.getInstance(requireContext()).invalidate()
             }
             true
         }
@@ -142,7 +142,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         stormSensitivity?.setOnPreferenceChangeListener { _, _ ->
             lifecycleScope.launch {
-                WeatherContextualService.getInstance(requireContext()).setDataChanged()
+                WeatherContextualService.getInstance(requireContext()).invalidate()
             }
             true
         }

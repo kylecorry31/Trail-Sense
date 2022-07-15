@@ -96,7 +96,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
                 CurrentWeatherAlertCommand(
                     context,
                     weather.prediction.hourly,
-                    it.tendency,
+                    weather.pressureTendency,
                     it.pressureReading()
                 )
             }

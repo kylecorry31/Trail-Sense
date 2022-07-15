@@ -26,7 +26,7 @@ class PressureRepo private constructor(context: Context) : IPressureRepo {
         } else {
             pressureDao.insert(pressure)
         }
-        forecastService.setDataChanged()
+        forecastService.invalidate()
     }
 
     companion object {

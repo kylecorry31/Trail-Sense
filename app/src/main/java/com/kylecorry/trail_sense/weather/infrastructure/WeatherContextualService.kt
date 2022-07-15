@@ -4,17 +4,13 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 import java.time.Instant
 
 class WeatherContextualService private constructor(private val context: Context) {
@@ -33,14 +29,12 @@ class WeatherContextualService private constructor(private val context: Context)
     }
 
     suspend fun getWeather(): CurrentWeather {
-        return withContext(Dispatchers.IO) {
+        return onIO {
             cachedValue.getOrPut { populateCache() }
         }
     }
 
-    // TODO: Merge all histories using a WeatherReading object
-
-    suspend fun getPressureHistory(): List<PressureReading> {
+    suspend fun getHistory(): List<WeatherObservation> {
         val readings = weatherRepo.getPressuresSync()
             .asSequence()
             .map { it.toPressureAltitudeReading() }
@@ -49,89 +43,45 @@ class WeatherContextualService private constructor(private val context: Context)
             .toList()
 
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
-        return calibrator.calibrate(readings)
+        val pressures = calibrator.calibrate(readings)
+
+        return pressures.map {
+            val reading = readings.firstOrNull { r -> r.time == it.time }
+            WeatherObservation(
+                it.time,
+                Pressure.hpa(it.value),
+                Temperature.celsius(
+                    weatherService.calibrateTemperature(reading?.temperature ?: 0f)
+                ),
+                reading?.humidity
+            )
+        }
     }
 
-    suspend fun getTemperatureHistory(): List<Reading<Float>> {
-        return weatherRepo.getPressuresSync()
-            .asSequence()
-            .map { it.toPressureAltitudeReading() }
-            .map {
-                val temperature = weatherService.calibrateTemperature(it.temperature)
-                Reading(temperature, it.time)
-            }
-            .sortedBy { it.time }
-            .filter { it.time <= Instant.now() }
-            .toList()
-    }
-
-    suspend fun getHumidityHistory(): List<Reading<Float>> {
-        return weatherRepo.getPressuresSync()
-            .asSequence()
-            .map { it.toPressureAltitudeReading() }
-            .filter { it.humidity != null }
-            .map {
-                Reading(it.humidity!!, it.time)
-            }
-            .sortedBy { it.time }
-            .filter { it.time <= Instant.now() }
-            .toList()
-    }
-
-    // TODO: Remove this method
-    fun getSeaLevelPressure(
-        reading: PressureAltitudeReading,
-        history: List<PressureAltitudeReading> = listOf()
-    ): PressureReading {
-        val calibrator = SeaLevelCalibrationFactory().create(prefs)
-        val readings = calibrator.calibrate(history + listOf(reading))
-        return readings.lastOrNull() ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
-    }
-
-    suspend fun setDataChanged() {
+    suspend fun invalidate() {
         cachedValue.reset()
         delay(50)
         resetWeatherService()
     }
 
-    private fun getHourlyForecast(readings: List<PressureReading>): Weather {
-        return weatherService.getHourlyWeather(readings)
+    private fun getHourlyForecast(readings: List<WeatherObservation>): Weather {
+        return weatherService.getHourlyWeather(readings.map { it.pressureReading() })
     }
 
-    private fun getDailyForecast(readings: List<PressureReading>): Weather {
-        return weatherService.getDailyWeather(readings)
-    }
-
-    private suspend fun calculateLastTemperature(): Reading<Float>? {
-        return getTemperatureHistory().lastOrNull()
-    }
-
-    private suspend fun calculateLastHumidity(): Reading<Float>? {
-        return getHumidityHistory().lastOrNull()
+    private fun getDailyForecast(readings: List<WeatherObservation>): Weather {
+        return weatherService.getDailyWeather(readings.map { it.pressureReading() })
     }
 
     private suspend fun populateCache(): CurrentWeather {
-        val readings = getPressureHistory()
-        val daily = getDailyForecast(readings)
-        val hourly = getHourlyForecast(readings)
-        val last = readings.lastOrNull()
-        val tendency = weatherService.getTendency(readings)
-
-        // TODO: Get the last temperature from the DB without history
-        val lastTemperature =
-            calculateLastTemperature()?.let { Reading(Temperature.celsius(it.value), it.time) }
-        val lastHumidity = calculateLastHumidity()
+        val history = getHistory()
+        val daily = getDailyForecast(history)
+        val hourly = getHourlyForecast(history)
+        val last = history.lastOrNull()
+        val tendency = weatherService.getTendency(history.map { it.pressureReading() })
         return CurrentWeather(
             WeatherPrediction(hourly, daily),
-            last?.let {
-                WeatherObservation(
-                    it.time,
-                    Pressure.hpa(it.value),
-                    tendency,
-                    lastTemperature?.value ?: Temperature.celsius(0f),
-                    lastHumidity?.value
-                )
-            }
+            tendency,
+            last
         )
     }
 

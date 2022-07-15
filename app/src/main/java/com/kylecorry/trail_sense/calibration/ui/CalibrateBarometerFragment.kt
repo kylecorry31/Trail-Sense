@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
@@ -88,7 +89,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private fun refreshWeatherService() {
         weatherService = WeatherService(prefs.weather)
         lifecycleScope.launch {
-            WeatherContextualService.getInstance(requireContext()).setDataChanged()
+            WeatherContextualService.getInstance(requireContext()).invalidate()
         }
     }
 
@@ -118,7 +119,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 altimeter.start(this::updateAltitude)
             }
             lifecycleScope.launch {
-                weatherForecastService.setDataChanged()
+                weatherForecastService.invalidate()
             }
             refreshWeatherService()
             true
@@ -251,7 +252,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         altitudeSmoothingSeekBar?.isVisible = !isOnTheWallMode
 
         val pressure = if (seaLevelPressure) {
-            WeatherContextualService.getInstance(requireContext()).getSeaLevelPressure(
+            getSeaLevelPressure(
                     PressureAltitudeReading(
                             Instant.now(),
                             barometer.pressure,
@@ -269,6 +270,15 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                         Pressure(pressure, PressureUnits.Hpa).convertTo(units),
                         Units.getDecimalPlaces(units)
                 )
+    }
+
+    private fun getSeaLevelPressure(
+        reading: PressureAltitudeReading,
+        history: List<PressureAltitudeReading> = listOf()
+    ): PressureReading {
+        val calibrator = SeaLevelCalibrationFactory().create(prefs)
+        val readings = calibrator.calibrate(history + listOf(reading))
+        return readings.lastOrNull() ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
     }
 
 
