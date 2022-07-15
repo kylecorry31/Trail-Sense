@@ -165,16 +165,17 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             return
         }
         val weather = weather ?: return
+        val observation = weather.observation ?: return
 
         val readings = getCalibratedPressures()
 
         displayChart(readings)
 
-        displayTendency(weather.tendency)
+        displayTendency(observation.tendency)
 
-        weather.pressure?.let { displayPressure(it) }
-        weather.temperature?.let { displayTemperature(it.value.convertTo(temperatureUnits)) }
-        weather.humidity?.let { displayHumidity(it.value) }
+        displayPressure(observation.pressureReading())
+        displayTemperature(observation.temperature.convertTo(temperatureUnits))
+        observation.humidity?.let { displayHumidity(it) }
     }
 
     private fun getCalibratedPressures(): List<PressureReading> {
@@ -249,16 +250,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private suspend fun updateForecast() {
         if (!isBound) return
         val weather = weather ?: return
+        val observation = weather.observation ?: return
+        val prediction = weather.prediction
         onMain {
-            binding.weatherTitle.title.text = formatWeather(weather.hourly)
+            binding.weatherTitle.title.text = formatWeather(prediction.hourly)
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = getWeatherImage(weather.hourly, weather.pressure)
+                left = getWeatherImage(prediction.hourly, observation.pressureReading())
             )
-            val speed = formatSpeed(weather.hourly)
+            val speed = formatSpeed(prediction.hourly)
             binding.weatherTitle.subtitle.text = speed
             binding.weatherTitle.subtitle.isVisible = speed.isNotEmpty()
-            binding.dailyForecast.text = getLongTermWeatherDescription(weather.daily)
+            binding.dailyForecast.text = getLongTermWeatherDescription(prediction.daily)
         }
     }
 

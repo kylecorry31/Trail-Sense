@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -77,6 +78,7 @@ class WeatherContextualService private constructor(private val context: Context)
             .toList()
     }
 
+    // TODO: Remove this method
     fun getSeaLevelPressure(
         reading: PressureAltitudeReading,
         history: List<PressureAltitudeReading> = listOf()
@@ -114,9 +116,23 @@ class WeatherContextualService private constructor(private val context: Context)
         val hourly = getHourlyForecast(readings)
         val last = readings.lastOrNull()
         val tendency = weatherService.getTendency(readings)
-        val lastTemperature = calculateLastTemperature()?.let { Reading(Temperature.celsius(it.value), it.time) }
+
+        // TODO: Get the last temperature from the DB without history
+        val lastTemperature =
+            calculateLastTemperature()?.let { Reading(Temperature.celsius(it.value), it.time) }
         val lastHumidity = calculateLastHumidity()
-        return CurrentWeather(hourly, daily, tendency, last, lastTemperature, lastHumidity)
+        return CurrentWeather(
+            WeatherPrediction(hourly, daily),
+            last?.let {
+                WeatherObservation(
+                    it.time,
+                    Pressure.hpa(it.value),
+                    tendency,
+                    lastTemperature?.value ?: Temperature.celsius(0f),
+                    lastHumidity?.value
+                )
+            }
+        )
     }
 
     private fun resetWeatherService() {

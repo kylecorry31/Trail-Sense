@@ -89,10 +89,17 @@ class MonitorWeatherCommand(private val context: Context, private val background
     private suspend fun sendWeatherNotifications() {
         val weather = onIO { weatherForecastService.getWeather() }
 
-        val commands = listOf(
-            DailyWeatherAlertCommand(context, weather.daily),
-            StormAlertCommand(context, weather.hourly),
-            CurrentWeatherAlertCommand(context, weather.hourly, weather.tendency, weather.pressure),
+        val commands = listOfNotNull(
+            DailyWeatherAlertCommand(context, weather.prediction.daily),
+            StormAlertCommand(context, weather.prediction.hourly),
+            weather.observation?.let {
+                CurrentWeatherAlertCommand(
+                    context,
+                    weather.prediction.hourly,
+                    it.tendency,
+                    it.pressureReading()
+                )
+            }
         )
 
         withContext(Dispatchers.Main) {

@@ -6,9 +6,21 @@ import com.kylecorry.trail_sense.weather.domain.sealevel.kalman.KalmanSeaLevelCa
 
 class SeaLevelCalibrationFactory {
 
-    fun create(prefs: UserPreferences): ISeaLevelCalibrationStrategy {
+    fun create(
+        prefs: UserPreferences,
+        seaLevelOverride: Boolean? = null
+    ): ISeaLevelCalibrationStrategy {
+        val useSeaLevel = prefs.weather.useSeaLevelPressure
 
-        if (!prefs.weather.useSeaLevelPressure) {
+        if (seaLevelOverride != null && seaLevelOverride != useSeaLevel) {
+            return if (seaLevelOverride) {
+                SimpleSeaLevelCalibrationStrategy(prefs.weather.seaLevelFactorInTemp)
+            } else {
+                NullSeaLevelCalibrationStrategy()
+            }
+        }
+
+        if (!useSeaLevel) {
             return NullSeaLevelCalibrationStrategy()
         }
 
