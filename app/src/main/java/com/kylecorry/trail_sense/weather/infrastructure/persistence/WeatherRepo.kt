@@ -4,95 +4,55 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
 
 class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeatherObservation> {
 
-    private val pressureRepo = PressureRepo.getInstance(context)
+    private val pressureDao = AppDatabase.getInstance(context).pressureDao()
 
-    override suspend fun add(reading: Reading<RawWeatherObservation>): Long {
-        pressureRepo.addPressure(
-            PressureReadingEntity(
-                reading.value.pressure,
-                reading.value.altitude,
-                reading.value.altitudeError,
-                reading.value.temperature,
-                reading.value.humidity ?: 0f,
-                reading.time.toEpochMilli()
-            ).also {
-                it.id = reading.value.id
-            }
-        )
-        // TODO: Return the real value
-        return reading.value.id
-    }
+    // TODO: Use a topic instead
+    private val weatherSubsystem = WeatherSubsystem.getInstance(context)
 
-    override suspend fun delete(reading: Reading<RawWeatherObservation>) {
-        pressureRepo.deletePressure(
-            PressureReadingEntity(
-                reading.value.pressure,
-                reading.value.altitude,
-                reading.value.altitudeError,
-                reading.value.temperature,
-                reading.value.humidity ?: 0f,
-                reading.time.toEpochMilli()
-            ).also {
-                it.id = reading.value.id
-            }
-        )
-    }
+    override suspend fun add(reading: Reading<RawWeatherObservation>): Long = onIO {
+        val entity = PressureReadingEntity.from(reading)
 
-    override suspend fun get(id: Long): Reading<RawWeatherObservation>? {
-        val reading = pressureRepo.getPressure(id) ?: return null
-        return Reading(
-            RawWeatherObservation(
-                reading.id,
-                reading.pressure,
-                reading.altitude,
-                reading.temperature,
-                reading.altitudeAccuracy,
-                reading.humidity
-            ), Instant.ofEpochMilli(reading.time)
-        )
-    }
-
-    override suspend fun getAll(): List<Reading<RawWeatherObservation>> {
-        return pressureRepo.getPressuresSync().map { reading ->
-            Reading(
-                RawWeatherObservation(
-                    reading.id,
-                    reading.pressure,
-                    reading.altitude,
-                    reading.temperature,
-                    reading.altitudeAccuracy,
-                    reading.humidity
-                ), Instant.ofEpochMilli(reading.time)
-            )
+        val id = if (entity.id != 0L) {
+            pressureDao.update(entity)
+            entity.id
+        } else {
+            pressureDao.insert(entity)
         }
+        weatherSubsystem.invalidate()
+        id
+    }
+
+    override suspend fun delete(reading: Reading<RawWeatherObservation>) = onIO {
+        val entity = PressureReadingEntity.from(reading)
+        pressureDao.delete(entity)
+    }
+
+    override suspend fun get(id: Long): Reading<RawWeatherObservation>? = onIO {
+        pressureDao.get(id)?.toWeatherObservation()
+    }
+
+    override suspend fun getAll(): List<Reading<RawWeatherObservation>> = onIO {
+        pressureDao.getAllSync().map { it.toWeatherObservation() }
     }
 
     override fun getAllLive(): LiveData<List<Reading<RawWeatherObservation>>> {
-        return Transformations.map(pressureRepo.getPressures()) {
-            it.map { reading ->
-                Reading(
-                    RawWeatherObservation(
-                        reading.id,
-                        reading.pressure,
-                        reading.altitude,
-                        reading.temperature,
-                        reading.altitudeAccuracy,
-                        reading.humidity
-                    ), Instant.ofEpochMilli(reading.time)
-                )
-            }
+        return Transformations.map(pressureDao.getAll()) {
+            it.map { it.toWeatherObservation() }
         }
     }
 
     override suspend fun clean() {
-        pressureRepo.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION))
+        pressureDao.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION).toEpochMilli())
     }
 
     companion object {
