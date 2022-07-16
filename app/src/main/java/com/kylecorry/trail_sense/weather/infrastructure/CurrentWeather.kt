@@ -17,7 +17,6 @@ data class CurrentWeather(
 data class WeatherPrediction(val hourly: Weather, val daily: Weather)
 
 // TODO: Expose sea level and barometric pressure
-// TODO: Expose history
 data class WeatherObservation(
     val time: Instant,
     val pressure: Pressure,
