@@ -28,7 +28,6 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.domain.toPressureAltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
 
@@ -45,8 +44,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private var altitudeSmoothingSeekBar: SeekBarPreference? = null
 
     private var chart: PressureChartPreference? = null
-
-    private val weatherForecastService by lazy { WeatherSubsystem.getInstance(requireContext()) }
 
     private var readingHistory: List<PressureAltitudeReading> = listOf()
 
@@ -86,7 +83,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private fun refreshWeatherService() {
         weatherService = WeatherService(prefs.weather)
-        WeatherSubsystem.getInstance(requireContext()).invalidate()
     }
 
     private fun bindPreferences() {

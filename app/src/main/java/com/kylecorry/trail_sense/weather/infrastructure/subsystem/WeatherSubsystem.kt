@@ -5,9 +5,11 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Temperature
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.WeatherService
@@ -26,6 +28,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
+    private val sharedPrefs by lazy { Preferences(context) }
 
     private lateinit var weatherService: WeatherService
 
@@ -37,7 +40,24 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
 
+    private val invalidationPrefKeys = listOf(
+        R.string.pref_use_sea_level_pressure,
+        R.string.pref_barometer_altitude_outlier,
+        R.string.pref_barometer_pressure_smoothing,
+        R.string.pref_barometer_altitude_smoothing,
+        R.string.pref_adjust_for_temperature,
+        R.string.pref_forecast_sensitivity,
+        R.string.pref_storm_alert_sensitivity
+    ).map { context.getString(it) }
+
     init {
+        sharedPrefs.onChange.subscribe { key ->
+            if (key in invalidationPrefKeys) {
+                invalidate()
+                return@subscribe true
+            }
+            true
+        }
         resetWeatherService()
     }
 
