@@ -5,7 +5,7 @@ import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import com.kylecorry.andromeda.core.toFloatCompat
-import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R

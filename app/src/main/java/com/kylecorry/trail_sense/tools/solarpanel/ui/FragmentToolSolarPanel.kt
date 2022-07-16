@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.sensors.asLiveData
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
