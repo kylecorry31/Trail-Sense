@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 
 class WeatherCsvConverter {
 
-    fun toCSV(readings: List<Reading<WeatherObservation>>): List<List<String>> {
+    fun toCSV(readings: List<Reading<RawWeatherObservation>>): List<List<String>> {
         val header = listOf(
             "Time",
             "Pressure (hPa)",

@@ -5,15 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
-import com.kylecorry.trail_sense.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import java.time.Duration
 import java.time.Instant
 
-class WeatherRepo private constructor(context: Context) : IReadingRepo<WeatherObservation> {
+class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeatherObservation> {
 
     private val pressureRepo = PressureRepo.getInstance(context)
 
-    override suspend fun add(reading: Reading<WeatherObservation>): Long {
+    override suspend fun add(reading: Reading<RawWeatherObservation>): Long {
         pressureRepo.addPressure(
             PressureReadingEntity(
                 reading.value.pressure,
@@ -30,7 +30,7 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<WeatherOb
         return reading.value.id
     }
 
-    override suspend fun delete(reading: Reading<WeatherObservation>) {
+    override suspend fun delete(reading: Reading<RawWeatherObservation>) {
         pressureRepo.deletePressure(
             PressureReadingEntity(
                 reading.value.pressure,
@@ -45,10 +45,10 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<WeatherOb
         )
     }
 
-    override suspend fun get(id: Long): Reading<WeatherObservation>? {
+    override suspend fun get(id: Long): Reading<RawWeatherObservation>? {
         val reading = pressureRepo.getPressure(id) ?: return null
         return Reading(
-            WeatherObservation(
+            RawWeatherObservation(
                 reading.id,
                 reading.pressure,
                 reading.altitude,
@@ -59,10 +59,10 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<WeatherOb
         )
     }
 
-    override suspend fun getAll(): List<Reading<WeatherObservation>> {
+    override suspend fun getAll(): List<Reading<RawWeatherObservation>> {
         return pressureRepo.getPressuresSync().map { reading ->
             Reading(
-                WeatherObservation(
+                RawWeatherObservation(
                     reading.id,
                     reading.pressure,
                     reading.altitude,
@@ -74,11 +74,11 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<WeatherOb
         }
     }
 
-    override fun getAllLive(): LiveData<List<Reading<WeatherObservation>>> {
+    override fun getAllLive(): LiveData<List<Reading<RawWeatherObservation>>> {
         return Transformations.map(pressureRepo.getPressures()) {
             it.map { reading ->
                 Reading(
-                    WeatherObservation(
+                    RawWeatherObservation(
                         reading.id,
                         reading.pressure,
                         reading.altitude,

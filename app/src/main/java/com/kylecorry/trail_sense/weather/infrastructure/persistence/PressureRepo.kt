@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.database.AppDatabase
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherSubsystem
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Instant
 
 class PressureRepo private constructor(context: Context) : IPressureRepo {

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure
+package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,15 +12,19 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trail_sense.weather.domain.toPressureAltitudeReading
+import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.delay
 import java.time.Instant
 
-class WeatherSubsystem private constructor(private val context: Context) {
+class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
     // TODO: Reset when any of the weather preferences changes regarding tendencies, sea level pressure and calibration
 
-    private val weatherRepo by lazy { PressureRepo.getInstance(context) }
+    private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
 
     private lateinit var weatherService: WeatherService
@@ -29,20 +33,20 @@ class WeatherSubsystem private constructor(private val context: Context) {
 
     // TODO: Emit weather as payload of topic
     private val _weatherChanged = Topic()
-    val weatherChanged: ITopic = _weatherChanged
+    override val weatherChanged: ITopic = _weatherChanged
 
     init {
         resetWeatherService()
     }
 
-    suspend fun getWeather(): CurrentWeather {
+    override suspend fun getWeather(): CurrentWeather {
         return onIO {
             cachedValue.getOrPut { populateCache() }
         }
     }
 
-    suspend fun getHistory(): List<WeatherObservation> {
-        val readings = weatherRepo.getPressuresSync()
+    override suspend fun getHistory(): List<WeatherObservation> {
+        val readings = weatherRepo.getAll()
             .asSequence()
             .map { it.toPressureAltitudeReading() }
             .sortedBy { it.time }
@@ -65,7 +69,7 @@ class WeatherSubsystem private constructor(private val context: Context) {
         }
     }
 
-    suspend fun invalidate() {
+    override suspend fun invalidate() {
         cachedValue.reset()
         delay(50)
         resetWeatherService()

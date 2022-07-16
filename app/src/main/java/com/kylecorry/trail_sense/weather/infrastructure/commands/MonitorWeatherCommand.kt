@@ -6,8 +6,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherSubsystem
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -72,7 +72,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
         withContext(Dispatchers.IO) {
             repo.add(
                 Reading(
-                    WeatherObservation(
+                    RawWeatherObservation(
                         0,
                         barometer.pressure,
                         altimeter.altitude,
