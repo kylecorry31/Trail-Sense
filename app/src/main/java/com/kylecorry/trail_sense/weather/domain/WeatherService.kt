@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.domain
 import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.WeatherService
 import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
@@ -58,7 +59,7 @@ class WeatherService(private val prefs: WeatherPreferences) {
     }
 
     fun calibrate(
-        readings: List<PressureAltitudeReading>,
+        readings: List<Reading<RawWeatherObservation>>,
         prefs: UserPreferences
     ): List<PressureReading> {
         val calibrationStrategy = SeaLevelCalibrationFactory().create(prefs)

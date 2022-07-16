@@ -2,8 +2,9 @@ package com.kylecorry.trail_sense.weather.domain.sealevel.kalman
 
 import com.kylecorry.sol.math.SolMath.removeOutliers
 import com.kylecorry.sol.math.filters.KalmanFilter
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 
 class KalmanSeaLevelPressureConverter(
     private val defaultGPSError: Float = 10f,
@@ -18,13 +19,13 @@ class KalmanSeaLevelPressureConverter(
 ) {
 
     fun convert(
-        readings: List<PressureAltitudeReading>,
+        readings: List<Reading<RawWeatherObservation>>,
         factorInTemperature: Boolean
     ): List<PressureReading> {
-        val altitudes = readings.map { it.altitude.toDouble() }
+        val altitudes = readings.map { it.value.altitude.toDouble() }
         val altitudeErrors =
-            readings.map { if (it.altitudeError == null || it.altitudeError == 0f) defaultGPSError.toDouble() else it.altitudeError.toDouble() }
-        val pressures = readings.map { it.pressure.toDouble() }
+            readings.map { if (it.value.altitudeError == null || it.value.altitudeError == 0f) defaultGPSError.toDouble() else it.value.altitudeError!!.toDouble() }
+        val pressures = readings.map { it.value.pressure.toDouble() }
         val times = readings.map { it.time.toEpochMilli() / (1000.0 * 60.0) }
 
         val altitudesNoOutliers = removeOutliers(
@@ -51,15 +52,17 @@ class KalmanSeaLevelPressureConverter(
         for (i in readings.indices) {
             val pressure = filteredPressures[i]
             val time = readings[i].time
-            val temp = readings[i].temperature
+            val temp = readings[i].value.temperature
             val altitude = filteredAltitudes[i]
             seaLevel.add(
-                PressureAltitudeReading(
-                    time,
-                    pressure.toFloat(),
-                    altitude.toFloat(),
-                    temp
-                ).seaLevel(factorInTemperature)
+                PressureReading(
+                    time, RawWeatherObservation(
+                        0,
+                        pressure.toFloat(),
+                        altitude.toFloat(),
+                        temp
+                    ).seaLevel(factorInTemperature).pressure
+                )
             )
         }
 

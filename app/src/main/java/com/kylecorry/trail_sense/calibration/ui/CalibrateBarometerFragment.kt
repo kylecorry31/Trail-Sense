@@ -16,17 +16,17 @@ import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.weather.domain.toPressureAltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
 import java.time.Instant
@@ -45,7 +45,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private var chart: PressureChartPreference? = null
 
-    private var readingHistory: List<PressureAltitudeReading> = listOf()
+    private var readingHistory: List<Reading<RawWeatherObservation>> = listOf()
 
     private lateinit var barometer: IBarometer
     private lateinit var altimeter: IAltimeter
@@ -76,8 +76,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pressureRepo.getAllLive().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
-                .filter { it.time <= Instant.now() }
+            readingHistory = it.sortedBy { it.time }.filter { it.time <= Instant.now() }
         }
     }
 
@@ -239,12 +238,15 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
         val pressure = if (seaLevelPressure) {
             getSeaLevelPressure(
-                PressureAltitudeReading(
-                    Instant.now(),
-                    barometer.pressure,
-                    altimeter.altitude,
-                    thermometer.temperature,
-                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+                Reading(
+                    RawWeatherObservation(
+                        0,
+                        barometer.pressure,
+                        altimeter.altitude,
+                        thermometer.temperature,
+                        if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+                    ),
+                    Instant.now()
                 ), readingHistory
             ).value
         } else {
@@ -259,12 +261,15 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun getSeaLevelPressure(
-        reading: PressureAltitudeReading,
-        history: List<PressureAltitudeReading> = listOf()
+        reading: Reading<RawWeatherObservation>,
+        history: List<Reading<RawWeatherObservation>> = listOf()
     ): PressureReading {
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
         val readings = calibrator.calibrate(history + listOf(reading))
-        return readings.lastOrNull() ?: reading.seaLevel(prefs.weather.seaLevelFactorInTemp)
+        return readings.lastOrNull() ?: PressureReading(
+            reading.time,
+            reading.value.seaLevel(prefs.weather.seaLevelFactorInTemp).pressure
+        )
     }
 
 

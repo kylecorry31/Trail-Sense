@@ -1,11 +1,17 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 
 class SimpleSeaLevelCalibrationStrategy(private val useTemperature: Boolean) :
     ISeaLevelCalibrationStrategy {
-    override fun calibrate(readings: List<PressureAltitudeReading>): List<PressureReading> {
-        return readings.map { it.seaLevel(useTemperature) }
+    override fun calibrate(readings: List<Reading<RawWeatherObservation>>): List<PressureReading> {
+        return readings.map {
+            PressureReading(
+                it.time,
+                it.value.seaLevel(useTemperature).pressure
+            )
+        }
     }
 }

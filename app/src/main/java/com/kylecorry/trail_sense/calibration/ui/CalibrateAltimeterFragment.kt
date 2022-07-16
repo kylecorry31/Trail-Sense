@@ -16,13 +16,14 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import java.time.Instant
 
@@ -188,12 +189,15 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         val altitude = prefs.altitudeOverride
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
         val readings = listOf(
-            PressureAltitudeReading(
+            Reading(
+                RawWeatherObservation(
+                    0,
+                    barometer.pressure,
+                    altitude,
+                    16f,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+                ),
                 Instant.now(),
-                barometer.pressure,
-                altitude,
-                16f,
-                if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
             )
         )
         val seaLevel = calibrator.calibrate(readings).first()

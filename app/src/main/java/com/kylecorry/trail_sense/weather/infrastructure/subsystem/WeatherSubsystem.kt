@@ -14,7 +14,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.weather.domain.toPressureAltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
@@ -23,8 +22,6 @@ import kotlinx.coroutines.delay
 import java.time.Instant
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
-
-    // TODO: Reset when any of the weather preferences changes regarding tendencies, sea level pressure and calibration
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
@@ -75,7 +72,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
         val readings = weatherRepo.getAll()
             .asSequence()
-            .map { it.toPressureAltitudeReading() }
             .sortedBy { it.time }
             .filter { it.time <= Instant.now() }
             .toList()
@@ -89,9 +85,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 it.time,
                 Pressure.hpa(it.value),
                 Temperature.celsius(
-                    weatherService.calibrateTemperature(reading?.temperature ?: 0f)
+                    weatherService.calibrateTemperature(reading?.value?.temperature ?: 0f)
                 ),
-                reading?.humidity
+                reading?.value?.humidity
             )
         }
     }

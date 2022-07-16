@@ -1,13 +1,14 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel.kalman
 
-import com.kylecorry.trail_sense.weather.domain.sealevel.ISeaLevelCalibrationStrategy
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.weather.domain.sealevel.ISeaLevelCalibrationStrategy
 import kotlin.math.pow
 
 class KalmanSeaLevelCalibrationStrategy(private val settings: KalmanSeaLevelCalibrationSettings) :
     ISeaLevelCalibrationStrategy {
-    override fun calibrate(readings: List<PressureAltitudeReading>): List<PressureReading> {
+    override fun calibrate(readings: List<Reading<RawWeatherObservation>>): List<PressureReading> {
         return KalmanSeaLevelPressureConverter(
             altitudeOutlierThreshold = settings.altitudeOutlierThreshold,
             defaultGPSError = if (settings.useAltitudeVariance) 34f.pow(2) else 34f,
