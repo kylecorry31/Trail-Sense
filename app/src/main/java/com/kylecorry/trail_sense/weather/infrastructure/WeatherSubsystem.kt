@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
+import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Temperature
@@ -13,7 +15,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import kotlinx.coroutines.delay
 import java.time.Instant
 
-class WeatherContextualService private constructor(private val context: Context) {
+class WeatherSubsystem private constructor(private val context: Context) {
 
     // TODO: Reset when any of the weather preferences changes regarding tendencies, sea level pressure and calibration
 
@@ -23,6 +25,10 @@ class WeatherContextualService private constructor(private val context: Context)
     private lateinit var weatherService: WeatherService
 
     private var cachedValue = MemoryCachedValue<CurrentWeather>()
+
+    // TODO: Emit weather as payload of topic
+    private val _weatherChanged = Topic()
+    val weatherChanged: ITopic = _weatherChanged
 
     init {
         resetWeatherService()
@@ -62,6 +68,7 @@ class WeatherContextualService private constructor(private val context: Context)
         cachedValue.reset()
         delay(50)
         resetWeatherService()
+        _weatherChanged.notifySubscribers()
     }
 
     private fun getHourlyForecast(readings: List<WeatherObservation>): Weather {
@@ -90,12 +97,12 @@ class WeatherContextualService private constructor(private val context: Context)
     }
 
     companion object {
-        private var instance: WeatherContextualService? = null
+        private var instance: WeatherSubsystem? = null
 
         @Synchronized
-        fun getInstance(context: Context): WeatherContextualService {
+        fun getInstance(context: Context): WeatherSubsystem {
             if (instance == null) {
-                instance = WeatherContextualService(context.applicationContext)
+                instance = WeatherSubsystem(context.applicationContext)
             }
             return instance!!
         }

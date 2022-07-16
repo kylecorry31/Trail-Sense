@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -22,7 +22,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
     private val repo by lazy { WeatherRepo.getInstance(context) }
-    private val weatherForecastService by lazy { WeatherContextualService.getInstance(context) }
+    private val weatherForecastService by lazy { WeatherSubsystem.getInstance(context) }
 
     override suspend fun execute() {
         sendWeatherNotifications()

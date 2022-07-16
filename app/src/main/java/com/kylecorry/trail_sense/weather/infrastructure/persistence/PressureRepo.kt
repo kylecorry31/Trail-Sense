@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.database.AppDatabase
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherSubsystem
 import java.time.Instant
 
 class PressureRepo private constructor(context: Context) : IPressureRepo {
 
     private val pressureDao = AppDatabase.getInstance(context).pressureDao()
-    private val forecastService = WeatherContextualService.getInstance(context)
+    private val forecastService = WeatherSubsystem.getInstance(context)
 
     override fun getPressures() = pressureDao.getAll()
 

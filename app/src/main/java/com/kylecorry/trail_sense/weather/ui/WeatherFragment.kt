@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.PressureTendency
@@ -28,15 +26,9 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
 import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.WeatherService
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherContextualService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
+import com.kylecorry.trail_sense.weather.infrastructure.*
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -50,17 +42,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val temperatureUnits by lazy { prefs.temperatureUnits }
 
     private lateinit var chart: PressureChart
-    private lateinit var navController: NavController
 
-    private lateinit var weatherService: WeatherService
     private val formatService by lazy { FormatService(requireContext()) }
-    private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
 
-    private val throttle = Throttle(20)
+    private var history: List<WeatherObservation> = listOf()
 
-    private var readingHistory: List<PressureAltitudeReading> = listOf()
-
-    private val weatherForecastService by lazy { WeatherContextualService.getInstance(requireContext()) }
+    private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
 
     private val logger by lazy {
@@ -80,10 +67,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             prefs.weather
         ).bind()
 
-        navController = findNavController()
-
-        weatherService = WeatherService(prefs.weather)
-
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
             if (timeAgo == null || pressure == null) {
                 binding.pressureMarker.isInvisible = true
@@ -101,15 +84,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             }
         }
 
-        pressureRepo.getPressures().observe(viewLifecycleOwner) {
-            readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
-                .filter { it.time <= Instant.now() }
+        weatherSubsystem.weatherChanged.asLiveData().observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 onIO {
-                    weather = weatherForecastService.getWeather()
+                    history = weatherSubsystem.getHistory().filter {
+                        Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
+                    }
+                    weather = weatherSubsystem.getWeather()
                 }
-                update()
-                updateForecast()
+                onMain {
+                    update()
+                    updateForecast()
+                }
             }
         }
 
@@ -161,35 +147,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun update() {
         if (!isBound) return
-        if (throttle.isThrottled()) {
-            return
-        }
         val weather = weather ?: return
         val observation = weather.observation ?: return
 
-        val readings = getCalibratedPressures()
-
-        displayChart(readings)
-
+        displayPressureChart(history)
         displayTendency(weather.pressureTendency)
-
-        displayPressure(observation.pressureReading())
-        displayTemperature(observation.temperature.convertTo(temperatureUnits))
+        displayPressure(observation.pressure)
+        displayTemperature(observation.temperature)
         observation.humidity?.let { displayHumidity(it) }
     }
 
-    private fun getCalibratedPressures(): List<PressureReading> {
-        return weatherService.calibrate(readingHistory, prefs)
-    }
-
-    private fun displayChart(readings: List<PressureReading>) {
-        val displayReadings = readings.filter {
-            Duration.between(
-                it.time,
-                Instant.now()
-            ) <= prefs.weather.pressureHistory
-        }
-
+    private fun displayPressureChart(readings: List<WeatherObservation>) {
+        val displayReadings = readings.map { it.pressureReading() }
 
         if (displayReadings.isNotEmpty()) {
             val totalTime = Duration.between(
@@ -265,16 +234,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
     }
 
-    private fun displayPressure(pressure: PressureReading) {
+    private fun displayPressure(pressure: Pressure) {
         val formatted = formatService.formatPressure(
-            Pressure(pressure.value, PressureUnits.Hpa).convertTo(units),
+            pressure.convertTo(units),
             Units.getDecimalPlaces(units)
         )
         binding.weatherPressure.title = formatted
     }
 
     private fun displayTemperature(temperature: Temperature) {
-        binding.weatherTemperature.title = formatService.formatTemperature(temperature)
+        binding.weatherTemperature.title = formatService.formatTemperature(temperature.convertTo(temperatureUnits))
     }
 
     private fun displayHumidity(humidity: Float) {
@@ -320,12 +289,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun showHumidityChart() {
         val readings =
-            readingHistory.filter {
-                Duration.between(
-                    it.time,
-                    Instant.now()
-                ) <= prefs.weather.pressureHistory
-            }.filter { it.humidity != null }.map { Reading(it.humidity!!, it.time) }
+            history.filter { it.humidity != null }.map { Reading(it.humidity!!, it.time) }
         if (readings.size < 2) {
             return
         }
@@ -343,19 +307,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun showTemperatureChart() {
-        val readings =
-            readingHistory
-                .filter {
-                    Duration.between(
-                        it.time,
-                        Instant.now()
-                    ) <= prefs.weather.pressureHistory
-                }.map {
-                    val temperature =
-                        Temperature.celsius(weatherService.calibrateTemperature(it.temperature))
-                            .convertTo(temperatureUnits)
-                    Reading(temperature.temperature, it.time)
-                }
+        val readings = history.map {
+            Reading(it.temperature.convertTo(temperatureUnits).temperature, it.time)
+        }
         if (readings.size < 2) {
             return
         }
