@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.weather.ui
 import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
 import java.time.Duration
 import kotlin.math.absoluteValue
 import kotlin.math.max
@@ -51,8 +51,8 @@ class PressureChart(
     }
 
     fun setUnits(units: PressureUnits) {
-        minRange = PressureUnitUtils.convert(MIN_RANGE, units)
-        granularity = PressureUnitUtils.convert(1f, units).roundPlaces(2)
+        minRange = Pressure.hpa(MIN_RANGE).convertTo(units).pressure
+        granularity = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
     }
 
     fun plot(data: List<Pair<Number, Number>>) {

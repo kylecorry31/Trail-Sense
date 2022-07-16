@@ -23,8 +23,11 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
+import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
+import com.kylecorry.trail_sense.weather.domain.toPressureAltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.launch
@@ -177,10 +180,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
                     timeAgo as Number,
-                    (PressureUnitUtils.convert(
-                        it.value,
-                        units
-                    )) as Number
+                    Pressure.hpa(it.value).convertTo(units).pressure as Number
                 )
             }
 

@@ -27,8 +27,10 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.PressureReading
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.infrastructure.*
+import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.launch
 import java.time.Duration
@@ -194,10 +196,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
                     timeAgo as Number,
-                    (PressureUnitUtils.convert(
-                        it.value,
-                        units
-                    )) as Number
+                    Pressure.hpa(it.value).convertTo(units).pressure as Number
                 )
             }
 
@@ -244,7 +243,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun displayTemperature(temperature: Temperature) {
-        binding.weatherTemperature.title = formatService.formatTemperature(temperature.convertTo(temperatureUnits))
+        binding.weatherTemperature.title =
+            formatService.formatTemperature(temperature.convertTo(temperatureUnits))
     }
 
     private fun displayHumidity(humidity: Float) {
