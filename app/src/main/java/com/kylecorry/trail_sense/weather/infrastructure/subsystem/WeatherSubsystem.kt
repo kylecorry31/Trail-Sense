@@ -30,6 +30,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private lateinit var weatherService: WeatherService
 
     private var cachedValue = MemoryCachedValue<CurrentWeather>()
+    private var validLock = Object()
+    private var isValid = false
 
     // TODO: Emit weather as payload of topic
     private val _weatherChanged = Topic()
@@ -39,13 +41,17 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         resetWeatherService()
     }
 
-    override suspend fun getWeather(): CurrentWeather {
-        return onIO {
-            cachedValue.getOrPut { populateCache() }
+    override suspend fun getWeather(): CurrentWeather = onIO {
+        if (!isValid) {
+            refresh()
         }
+        cachedValue.getOrPut { populateCache() }
     }
 
-    override suspend fun getHistory(): List<WeatherObservation> {
+    override suspend fun getHistory(): List<WeatherObservation> = onIO {
+        if (!isValid) {
+            refresh()
+        }
         val readings = weatherRepo.getAll()
             .asSequence()
             .map { it.toPressureAltitudeReading() }
@@ -56,7 +62,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
         val pressures = calibrator.calibrate(readings)
 
-        return pressures.map {
+        pressures.map {
             val reading = readings.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
                 it.time,
@@ -69,11 +75,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
-    override suspend fun invalidate() {
+    override fun invalidate() {
+        synchronized(validLock) {
+            isValid = false
+        }
+        _weatherChanged.notifySubscribers()
+    }
+
+    private suspend fun refresh() {
         cachedValue.reset()
         delay(50)
         resetWeatherService()
-        _weatherChanged.notifySubscribers()
+        synchronized(validLock) {
+            isValid = true
+        }
     }
 
     private fun getHourlyForecast(readings: List<WeatherObservation>): Weather {

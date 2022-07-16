@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
@@ -30,7 +29,6 @@ import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFact
 import com.kylecorry.trail_sense.weather.domain.toPressureAltitudeReading
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
@@ -88,9 +86,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private fun refreshWeatherService() {
         weatherService = WeatherService(prefs.weather)
-        lifecycleScope.launch {
-            WeatherSubsystem.getInstance(requireContext()).invalidate()
-        }
+        WeatherSubsystem.getInstance(requireContext()).invalidate()
     }
 
     private fun bindPreferences() {
@@ -117,9 +113,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         seaLevelSwitch?.setOnPreferenceClickListener {
             if (!altimeter.hasValidReading) {
                 altimeter.start(this::updateAltitude)
-            }
-            lifecycleScope.launch {
-                weatherForecastService.invalidate()
             }
             refreshWeatherService()
             true

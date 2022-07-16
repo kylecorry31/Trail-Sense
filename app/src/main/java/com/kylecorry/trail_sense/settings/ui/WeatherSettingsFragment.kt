@@ -14,7 +14,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.weather.infrastructure.*
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.Dispatchers
@@ -131,9 +134,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         forecastSensitivity?.entries = getForecastSensitivities(userPrefs.pressureUnits)
 
         forecastSensitivity?.setOnPreferenceChangeListener { _, _ ->
-            lifecycleScope.launch {
-                WeatherSubsystem.getInstance(requireContext()).invalidate()
-            }
+            WeatherSubsystem.getInstance(requireContext()).invalidate()
             true
         }
 
@@ -142,9 +143,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         stormSensitivity?.entries = getStormSensitivities(userPrefs.pressureUnits)
 
         stormSensitivity?.setOnPreferenceChangeListener { _, _ ->
-            lifecycleScope.launch {
-                WeatherSubsystem.getInstance(requireContext()).invalidate()
-            }
+            WeatherSubsystem.getInstance(requireContext()).invalidate()
             true
         }
 
