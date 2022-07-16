@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
@@ -97,6 +98,7 @@ class WeatherSubsystem private constructor(private val context: Context) {
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var instance: WeatherSubsystem? = null
 
         @Synchronized
