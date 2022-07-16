@@ -47,7 +47,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_barometer_altitude_smoothing,
         R.string.pref_adjust_for_temperature,
         R.string.pref_forecast_sensitivity,
-        R.string.pref_storm_alert_sensitivity
+        R.string.pref_storm_alert_sensitivity,
+        R.string.pref_altimeter_calibration_mode
     ).map { context.getString(it) }
 
     init {
