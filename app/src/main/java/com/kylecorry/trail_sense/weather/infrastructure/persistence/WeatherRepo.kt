@@ -3,12 +3,13 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
 
@@ -16,8 +17,8 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
 
     private val pressureDao = AppDatabase.getInstance(context).pressureDao()
 
-    // TODO: Use a topic instead
-    private val weatherSubsystem = WeatherSubsystem.getInstance(context)
+    private val _readingsChanged = Topic()
+    val readingsChanged: ITopic = _readingsChanged
 
     override suspend fun add(reading: Reading<RawWeatherObservation>): Long = onIO {
         val entity = PressureReadingEntity.from(reading)
@@ -28,13 +29,14 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
         } else {
             pressureDao.insert(entity)
         }
-        weatherSubsystem.invalidate()
+        _readingsChanged.notifySubscribers()
         id
     }
 
     override suspend fun delete(reading: Reading<RawWeatherObservation>) = onIO {
         val entity = PressureReadingEntity.from(reading)
         pressureDao.delete(entity)
+        _readingsChanged.notifySubscribers()
     }
 
     override suspend fun get(id: Long): Reading<RawWeatherObservation>? = onIO {
@@ -53,6 +55,9 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
 
     override suspend fun clean() {
         pressureDao.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION).toEpochMilli())
+
+        // TODO: Only do this if there was a change
+        _readingsChanged.notifySubscribers()
     }
 
     companion object {

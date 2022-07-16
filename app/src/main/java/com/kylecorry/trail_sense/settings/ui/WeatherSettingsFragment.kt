@@ -133,19 +133,9 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_forecast_sensitivity))
         forecastSensitivity?.entries = getForecastSensitivities(userPrefs.pressureUnits)
 
-        forecastSensitivity?.setOnPreferenceChangeListener { _, _ ->
-            WeatherSubsystem.getInstance(requireContext()).invalidate()
-            true
-        }
-
         val stormSensitivity =
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_storm_alert_sensitivity))
         stormSensitivity?.entries = getStormSensitivities(userPrefs.pressureUnits)
-
-        stormSensitivity?.setOnPreferenceChangeListener { _, _ ->
-            WeatherSubsystem.getInstance(requireContext()).invalidate()
-            true
-        }
 
         onClick(preference(R.string.pref_export_weather_csv)) {
             exportWeatherData()

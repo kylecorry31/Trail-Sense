@@ -9,5 +9,4 @@ interface IWeatherSubsystem {
 
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>
-    fun invalidate()
 }

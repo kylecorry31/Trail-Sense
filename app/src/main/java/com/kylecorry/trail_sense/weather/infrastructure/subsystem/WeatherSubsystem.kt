@@ -56,6 +56,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             }
             true
         }
+        weatherRepo.readingsChanged.subscribe {
+            invalidate()
+            true
+        }
         resetWeatherService()
     }
 
@@ -92,7 +96,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
-    override fun invalidate() {
+    private fun invalidate() {
         synchronized(validLock) {
             isValid = false
         }
