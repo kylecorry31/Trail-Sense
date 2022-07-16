@@ -33,7 +33,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private var validLock = Object()
     private var isValid = false
 
-    // TODO: Emit weather as payload of topic
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
 
