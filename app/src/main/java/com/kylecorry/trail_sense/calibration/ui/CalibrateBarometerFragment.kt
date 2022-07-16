@@ -23,13 +23,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.PressureAltitudeReading
-import com.kylecorry.trail_sense.weather.domain.PressureReading
-import com.kylecorry.trail_sense.weather.domain.PressureUnitUtils
-import com.kylecorry.trail_sense.weather.domain.WeatherService
+import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRepo
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -60,7 +57,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private lateinit var units: PressureUnits
     private val formatService by lazy { FormatService(requireContext()) }
 
-    private val pressureRepo by lazy { PressureRepo.getInstance(requireContext()) }
+    private val pressureRepo by lazy { WeatherRepo.getInstance(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
@@ -80,9 +77,9 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pressureRepo.getPressures().observe(viewLifecycleOwner) {
+        pressureRepo.getAllLive().observe(viewLifecycleOwner) {
             readingHistory = it.map { it.toPressureAltitudeReading() }.sortedBy { it.time }
-                    .filter { it.time <= Instant.now() }
+                .filter { it.time <= Instant.now() }
         }
     }
 
@@ -103,14 +100,14 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         chart = findPreference(getString(R.string.pref_holder_pressure_chart))
 
         altitudeOutlierSeekBar?.summary =
-                (if (prefs.weather.altitudeOutlier == 0f) "" else "± ") + formatSmallDistance(
-                        prefs.weather.altitudeOutlier
-                )
+            (if (prefs.weather.altitudeOutlier == 0f) "" else "± ") + formatSmallDistance(
+                prefs.weather.altitudeOutlier
+            )
 
         pressureSmoothingSeekBar?.summary =
-                formatService.formatPercentage(prefs.weather.pressureSmoothing)
+            formatService.formatPercentage(prefs.weather.pressureSmoothing)
         altitudeSmoothingSeekBar?.summary =
-                formatService.formatPercentage(prefs.weather.altitudeSmoothing)
+            formatService.formatPercentage(prefs.weather.altitudeSmoothing)
 
 
 
@@ -128,11 +125,11 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         altitudeOutlierSeekBar?.updatesContinuously = true
         altitudeOutlierSeekBar?.setOnPreferenceChangeListener { _, newValue ->
             altitudeOutlierSeekBar?.summary =
-                    (if (newValue.toString()
-                                    .toFloat() == 0f
-                    ) "" else "± ") + formatSmallDistance(
-                            newValue.toString().toFloat()
-                    )
+                (if (newValue.toString()
+                        .toFloat() == 0f
+                ) "" else "± ") + formatSmallDistance(
+                    newValue.toString().toFloat()
+                )
             true
         }
 
@@ -151,10 +148,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         }
 
         preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
-                Resources.getAndroidColorAttr(
-                        requireContext(),
-                        android.R.attr.textColorSecondary
-                )
+            Resources.getAndroidColorAttr(
+                requireContext(),
+                android.R.attr.textColorSecondary
+            )
         )
 
     }
@@ -169,8 +166,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         val readings = calibrator.calibrate(readingHistory)
         val displayReadings = readings.filter {
             Duration.between(
-                    it.time,
-                    Instant.now()
+                it.time,
+                Instant.now()
             ) <= prefs.weather.pressureHistory
         }
         if (displayReadings.isNotEmpty()) {
@@ -179,11 +176,11 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             val chartData = displayReadings.map {
                 val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
-                        timeAgo as Number,
-                        (PressureUnitUtils.convert(
-                                it.value,
-                                units
-                        )) as Number
+                    timeAgo as Number,
+                    (PressureUnitUtils.convert(
+                        it.value,
+                        units
+                    )) as Number
                 )
             }
 
@@ -241,9 +238,9 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         updateChart()
 
         val isOnTheWallMode =
-                prefs.altimeterMode == UserPreferences.AltimeterMode.Override || !GPS.isAvailable(
-                        requireContext()
-                )
+            prefs.altimeterMode == UserPreferences.AltimeterMode.Override || !GPS.isAvailable(
+                requireContext()
+            )
 
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 
@@ -253,23 +250,23 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
         val pressure = if (seaLevelPressure) {
             getSeaLevelPressure(
-                    PressureAltitudeReading(
-                            Instant.now(),
-                            barometer.pressure,
-                            altimeter.altitude,
-                            thermometer.temperature,
-                            if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
-                    ), readingHistory
+                PressureAltitudeReading(
+                    Instant.now(),
+                    barometer.pressure,
+                    altimeter.altitude,
+                    thermometer.temperature,
+                    if (altimeter is IGPS) (altimeter as IGPS).verticalAccuracy else null
+                ), readingHistory
             ).value
         } else {
             barometer.pressure
         }
 
         pressureTxt?.summary =
-                formatService.formatPressure(
-                        Pressure(pressure, PressureUnits.Hpa).convertTo(units),
-                        Units.getDecimalPlaces(units)
-                )
+            formatService.formatPressure(
+                Pressure(pressure, PressureUnits.Hpa).convertTo(units),
+                Units.getDecimalPlaces(units)
+            )
     }
 
     private fun getSeaLevelPressure(
