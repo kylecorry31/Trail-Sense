@@ -1076,4 +1076,6 @@
     <string name="permission_alarms_and_reminders">Сповіщувачі та нагадування</string>
     <string name="tide_user_guide_recommendation">Офіційні вебсайти таблиці припливів можна знайти в посібнику користувача.</string>
     <string name="change_resolution">Змінити роздільність</string>
+    <string name="done">Готово</string>
+    <string name="calibrate_map_point">Точка калібрування %d / %d</string>
 </resources>
