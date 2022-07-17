@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
 import android.content.Context
-import android.hardware.camera2.CameraManager
-import android.hardware.camera2.CameraManager.TorchCallback
 import android.os.Handler
 import android.os.Looper
-import androidx.core.content.getSystemService
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.Torch
+import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -17,51 +16,15 @@ import java.time.Instant
 
 class FlashlightSubsystem private constructor(private val context: Context) : IFlashlightSubsystem {
 
-    private val torchCallback: TorchCallback
+    private val torchChanged = TorchStateChangedTopic(context)
     private val cache by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
-    private val handler: Handler
     private var isTurningOff = false
     private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     init {
-        torchCallback = object : TorchCallback() {
-            override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
-                try {
-                    super.onTorchModeChanged(cameraId, enabled)
-                    if (!flashlightSettings.toggleWithSystem) {
-                        return
-                    }
-                    if (isTurningOff) {
-                        return
-                    }
-
-                    if (!enabled && FlashlightService.isRunning) {
-                        off()
-                    }
-
-                    if (enabled && !FlashlightService.isRunning && !SosService.isRunning && !StrobeService.isRunning) {
-                        on(false)
-                    }
-                } catch (e: Exception) {
-                    // Ignore
-                }
-            }
-        }
-        handler = Handler(Looper.getMainLooper())
-        initialize()
-    }
-
-    override fun initialize() {
-        registerTorchCallback()
-    }
-
-    override fun release() {
-        clearTimeout()
-        unregisterTorchCallback()
-        SosService.stop(context)
-        StrobeService.stop(context)
-        FlashlightService.stop(context)
+        torchChanged.subscribe(this::onTorchStateChanged)
     }
 
     override fun on(handleTimeout: Boolean) {
@@ -109,7 +72,6 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         if (handleTimeout) {
             setTimeout()
         }
-//        unregisterTorchCallback()
         StrobeService.stop(context)
         FlashlightService.stop(context)
         SosService.start(context)
@@ -120,7 +82,6 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         if (handleTimeout) {
             setTimeout()
         }
-//        unregisterTorchCallback()
         SosService.stop(context)
         FlashlightService.stop(context)
         StrobeService.start(context)
@@ -148,16 +109,24 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         return Torch.isAvailable(context)
     }
 
-    private fun registerTorchCallback() {
-        try {
-            context.getSystemService<CameraManager>()?.registerTorchCallback(
-                torchCallback, Handler(
-                    Looper.getMainLooper()
-                )
-            )
-        } catch (e: Exception) {
+    private fun onTorchStateChanged(enabled: Boolean): Boolean {
+        tryOrLog {
+            if (!flashlightSettings.toggleWithSystem) {
+                return@tryOrLog
+            }
+            if (isTurningOff) {
+                return@tryOrLog
+            }
 
+            if (!enabled && FlashlightService.isRunning) {
+                off()
+            }
+
+            if (enabled && !FlashlightService.isRunning && !SosService.isRunning && !StrobeService.isRunning) {
+                on(false)
+            }
         }
+        return true
     }
 
     private fun setTimeout() {
@@ -171,16 +140,8 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         }
     }
 
-    private fun clearTimeout(){
+    private fun clearTimeout() {
         cache.remove(context.getString(R.string.pref_flashlight_timeout_instant))
-    }
-
-    private fun unregisterTorchCallback() {
-        try {
-            context.getSystemService<CameraManager>()?.unregisterTorchCallback(torchCallback)
-        } catch (e: Exception) {
-
-        }
     }
 
     companion object {

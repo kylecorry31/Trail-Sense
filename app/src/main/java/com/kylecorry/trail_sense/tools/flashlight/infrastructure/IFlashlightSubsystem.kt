@@ -4,8 +4,6 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 
 
 interface IFlashlightSubsystem {
-    fun initialize()
-    fun release()
     fun on(handleTimeout: Boolean = true)
     fun off()
     fun toggle(handleTimeout: Boolean = true)
