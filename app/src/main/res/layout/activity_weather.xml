@@ -94,8 +94,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/default_bottom_margin">
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/pressure_marker"
@@ -105,5 +104,13 @@
             tools:text="999 hPa, 3h ago"
             tools:visibility="visible" />
     </FrameLayout>
+
+    <com.kylecorry.trail_sense.shared.views.PlayBarView
+        android:id="@+id/weather_play_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:playBarIcon="@drawable/ic_weather"
+        app:playBarTitle="@string/weather_monitor" />
 
 </LinearLayout>

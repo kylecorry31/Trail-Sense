@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -20,19 +20,18 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.PressureReading
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.*
+import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
@@ -52,6 +51,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
+    private val weatherMonitorIsEnabled = WeatherMonitorIsEnabled()
 
     private val logger by lazy {
         WeatherLogger(
@@ -88,7 +88,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         weatherSubsystem.weatherChanged.asLiveData().observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
+            runInBackground {
                 onIO {
                     history = weatherSubsystem.getHistory().filter {
                         Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
@@ -97,7 +97,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 }
                 onMain {
                     update()
-                    updateForecast()
                 }
             }
         }
@@ -115,6 +114,30 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         binding.weatherTemperature.isVisible = prefs.weather.showTemperature
+
+        val isWeatherRunning = weatherMonitorIsEnabled.isSatisfiedBy(requireContext())
+        binding.weatherPlayBar.setState(isWeatherRunning, prefs.weather.weatherUpdateFrequency)
+        binding.weatherPlayBar.setOnSubtitleClickListener {
+            ChangeWeatherFrequencyCommand(requireContext()) { onUpdate() }.execute()
+        }
+
+        binding.weatherPlayBar.setOnPlayButtonClickListener {
+            if (!WeatherMonitorIsAvailable().isSatisfiedBy(requireContext())) {
+                toast(getString(R.string.weather_monitoring_disabled))
+            } else {
+                val isOn = weatherMonitorIsEnabled.isSatisfiedBy(requireContext())
+                prefs.weather.shouldMonitorWeather = !isOn
+                if (!isOn) {
+                    WeatherUpdateScheduler.start(requireContext())
+                    RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
+                } else {
+                    WeatherUpdateScheduler.stop(requireContext())
+                }
+            }
+            onUpdate()
+        }
+
+        scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onResume() {
@@ -124,27 +147,17 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         units = prefs.pressureUnits
 
         update()
-
-        if (!prefs.weather.shouldMonitorWeather) {
-            val error = UserError(
-                ErrorBannerReason.WeatherMonitorOff,
-                getString(R.string.weather_monitoring_disabled),
-                R.drawable.ic_weather,
-                action = getString(R.string.enable)
-            ) {
-                prefs.weather.shouldMonitorWeather = true
-                WeatherUpdateScheduler.start(requireContext())
-                RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
-                requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
-            }
-            requireMainActivity().errorBanner.report(error)
-        }
     }
 
     override fun onPause() {
         super.onPause()
         logger.stop()
-        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.WeatherMonitorOff)
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        val isWeatherRunning = weatherMonitorIsEnabled.isSatisfiedBy(requireContext())
+        binding.weatherPlayBar.setState(isWeatherRunning, prefs.weather.weatherUpdateFrequency)
     }
 
 
@@ -158,6 +171,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         displayPressure(observation.pressure)
         displayTemperature(observation.temperature)
         observation.humidity?.let { displayHumidity(it) }
+        runInBackground {
+            updateForecast()
+        }
     }
 
     private fun displayPressureChart(readings: List<WeatherObservation>) {

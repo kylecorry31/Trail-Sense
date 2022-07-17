@@ -35,7 +35,6 @@ class ErrorSettingsFragment : AndromedaPreferenceFragment() {
             ErrorBannerReason.CompassPoor -> getString(R.string.compass_accuracy)
             ErrorBannerReason.NoCompass -> getString(R.string.compass_unavailable)
             ErrorBannerReason.GPSTimeout -> getString(R.string.gps_timeouts)
-            ErrorBannerReason.WeatherMonitorOff -> getString(R.string.weather_monitoring_disabled)
         }
     }
 

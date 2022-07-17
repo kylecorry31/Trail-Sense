@@ -9,6 +9,13 @@ import java.time.Duration
 
 object WeatherUpdateScheduler {
 
+    fun restart(context: Context) {
+        if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
+            stop(context)
+            start(context)
+        }
+    }
+
     fun start(context: Context) {
         if (!WeatherMonitorIsAvailable().isSatisfiedBy(context)) {
             return

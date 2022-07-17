@@ -15,11 +15,10 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -92,19 +91,9 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefWeatherUpdateFrequency?.summary =
             formatService.formatDuration(prefs.weather.weatherUpdateFrequency)
         prefWeatherUpdateFrequency?.setOnPreferenceClickListener {
-            val title = it.title.toString()
-            CustomUiUtils.pickDuration(
-                requireContext(),
-                prefs.weather.weatherUpdateFrequency,
-                title,
-                getString(R.string.actual_frequency_disclaimer)
-            ) {
-                if (it != null && !it.isZero) {
-                    prefs.weather.weatherUpdateFrequency = it
-                    prefWeatherUpdateFrequency?.summary = formatService.formatDuration(it)
-                    restartWeatherMonitor()
-                }
-            }
+            ChangeWeatherFrequencyCommand(requireContext()){
+                prefWeatherUpdateFrequency?.summary = formatService.formatDuration(it)
+            }.execute()
             true
         }
         prefShowPressureInNotification?.setOnPreferenceClickListener {
@@ -143,10 +132,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun restartWeatherMonitor() {
-        if (WeatherMonitorIsEnabled().isSatisfiedBy(requireContext())) {
-            WeatherUpdateScheduler.stop(requireContext())
-            WeatherUpdateScheduler.start(requireContext())
-        }
+        WeatherUpdateScheduler.restart(requireContext())
     }
 
     private fun getForecastSensitivities(units: PressureUnits): Array<CharSequence> {
