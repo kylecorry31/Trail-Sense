@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import java.time.Instant
 
 
-class FlashlightHandler private constructor(private val context: Context) : IFlashlightHandler {
+class FlashlightSubsystem private constructor(private val context: Context) : IFlashlightSubsystem {
 
     private val torchCallback: TorchCallback
     private val cache by lazy { Preferences(context) }
@@ -184,10 +184,10 @@ class FlashlightHandler private constructor(private val context: Context) : IFla
     }
 
     companion object {
-        private var instance: FlashlightHandler? = null
-        fun getInstance(context: Context): FlashlightHandler {
+        private var instance: FlashlightSubsystem? = null
+        fun getInstance(context: Context): FlashlightSubsystem {
             if (instance == null) {
-                instance = FlashlightHandler(context.applicationContext)
+                instance = FlashlightSubsystem(context.applicationContext)
             }
             return instance!!
         }

@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.CameraView
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class SightingCompassView(
     private val camera: CameraView,
@@ -49,7 +49,7 @@ class SightingCompassView(
         reticle.isVisible = true
 
 
-        val handler = FlashlightHandler.getInstance(camera.context)
+        val handler = FlashlightSubsystem.getInstance(camera.context)
         handler.off()
     }
 

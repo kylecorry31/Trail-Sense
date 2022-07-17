@@ -8,13 +8,13 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class QuickActionFlashlight(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     private var flashlightState = FlashlightState.Off
-    private val flashlight by lazy { FlashlightHandler.getInstance(context) }
+    private val flashlight by lazy { FlashlightSubsystem.getInstance(context) }
     private val intervalometer = Timer {
         flashlightState = flashlight.getState()
         updateFlashlightUI()

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 
 
-interface IFlashlightHandler {
+interface IFlashlightSubsystem {
     fun initialize()
     fun release()
     fun on(handleTimeout: Boolean = true)

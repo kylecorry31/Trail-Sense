@@ -9,7 +9,7 @@ class FlashlightOffReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
 
-        val handler = FlashlightHandler.getInstance(context)
+        val handler = FlashlightSubsystem.getInstance(context)
         handler.off()
     }
 

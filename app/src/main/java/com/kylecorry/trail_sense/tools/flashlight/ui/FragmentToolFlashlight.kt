@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightHandler
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 import java.time.Duration
 import java.time.Instant
@@ -27,7 +27,7 @@ import java.time.Instant
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private var flashlightState = FlashlightState.Off
-    private val flashlight by lazy { FlashlightHandler.getInstance(requireContext()) }
+    private val flashlight by lazy { FlashlightSubsystem.getInstance(requireContext()) }
     private val intervalometer = Timer {
         update()
     }
