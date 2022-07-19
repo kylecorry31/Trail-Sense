@@ -1055,4 +1055,7 @@
     <string name="tide_semidiurnal">Halbtäglich</string>
     <string name="frequency">Frequenz</string>
     <string name="tide_frequency_description">Die Anzahl an Gezeiten pro Tag. Die meisten Gezeiten sind halbtäglich.</string>
+    <string name="change_resolution">Auflösung ändern</string>
+    <string name="done">Fertig</string>
+    <string name="calibrate_map_point">Punkt %d / %d kalibrieren</string>
 </resources>
