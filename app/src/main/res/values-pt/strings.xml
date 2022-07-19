@@ -1055,4 +1055,7 @@
     <string name="tide_instructions">Use uma tabela oficial de marés para introduzir marés de referência para o período da sua viagem.</string>
     <string name="tide_user_guide_recommendation">Os sites oficiais com tabelas de marés podem ser encontrados no Guia do utilizador.</string>
     <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
+    <string name="change_resolution">Alterar resolução</string>
+    <string name="done">Feito</string>
+    <string name="calibrate_map_point">Calibrar ponto %d / %d</string>
 </resources>
