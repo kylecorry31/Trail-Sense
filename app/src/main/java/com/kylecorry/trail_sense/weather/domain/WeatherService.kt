@@ -26,16 +26,16 @@ class WeatherService(private val prefs: WeatherPreferences) {
         return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
     }
 
-    fun getHourlyWeather(readings: List<PressureReading>): Weather {
+    fun getHourlyWeather(readings: List<Reading<Pressure>>): Weather {
         val tendency = getTendency(readings)
         return newWeatherService.forecast(tendency, stormThreshold)
     }
 
-    fun getDailyWeather(readings: List<PressureReading>): Weather {
+    fun getDailyWeather(readings: List<Reading<Pressure>>): Weather {
         return longTermForecaster.forecast(readings)
     }
 
-    fun getTendency(readings: List<PressureReading>): PressureTendency {
+    fun getTendency(readings: List<Reading<Pressure>>): PressureTendency {
         val last = readings.minByOrNull {
             Duration.between(
                 it.time,
@@ -49,8 +49,8 @@ class WeatherService(private val prefs: WeatherPreferences) {
         }
 
         val tendency = newWeatherService.getTendency(
-            Pressure.hpa(last.value),
-            Pressure.hpa(current.value),
+            last.value.hpa(),
+            current.value.hpa(),
             Duration.between(last.time, current.time),
             hourlyForecastChangeThreshold / 3f
         )
@@ -61,7 +61,7 @@ class WeatherService(private val prefs: WeatherPreferences) {
     fun calibrate(
         readings: List<Reading<RawWeatherObservation>>,
         prefs: UserPreferences
-    ): List<PressureReading> {
+    ): List<Reading<Pressure>> {
         val calibrationStrategy = SeaLevelCalibrationFactory().create(prefs)
         return calibrationStrategy.calibrate(readings)
     }

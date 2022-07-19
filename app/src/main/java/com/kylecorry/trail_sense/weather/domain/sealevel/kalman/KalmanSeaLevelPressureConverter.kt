@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.weather.domain.sealevel.kalman
 
 import com.kylecorry.sol.math.SolMath.removeOutliers
 import com.kylecorry.sol.math.filters.KalmanFilter
+import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.weather.domain.PressureReading
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 
 class KalmanSeaLevelPressureConverter(
@@ -21,7 +21,7 @@ class KalmanSeaLevelPressureConverter(
     fun convert(
         readings: List<Reading<RawWeatherObservation>>,
         factorInTemperature: Boolean
-    ): List<PressureReading> {
+    ): List<Reading<Pressure>> {
         val altitudes = readings.map { it.value.altitude.toDouble() }
         val altitudeErrors =
             readings.map { if (it.value.altitudeError == null || it.value.altitudeError == 0f) defaultGPSError.toDouble() else it.value.altitudeError!!.toDouble() }
@@ -47,7 +47,7 @@ class KalmanSeaLevelPressureConverter(
             replaceOutliersWithAverage,
             replaceLastOutlier
         )
-        val seaLevel = mutableListOf<PressureReading>()
+        val seaLevel = mutableListOf<Reading<Pressure>>()
 
         for (i in readings.indices) {
             val pressure = filteredPressures[i]
@@ -55,26 +55,27 @@ class KalmanSeaLevelPressureConverter(
             val temp = readings[i].value.temperature
             val altitude = filteredAltitudes[i]
             seaLevel.add(
-                PressureReading(
-                    time, RawWeatherObservation(
+                Reading(
+                    RawWeatherObservation(
                         0,
                         pressure.toFloat(),
                         altitude.toFloat(),
                         temp
-                    ).seaLevel(factorInTemperature).pressure
+                    ).seaLevel(factorInTemperature),
+                    time
                 )
             )
         }
 
         val kalmanSeaLevel = KalmanFilter.filter(
-            seaLevel.map { it.value.toDouble() },
+            seaLevel.map { it.value.hpa().pressure.toDouble() },
             defaultPressureError.toDouble(),
             pressureProcessError.toDouble(),
             if (adjustWithTime) times else null
         )
 
         return kalmanSeaLevel.mapIndexed { index, pressure ->
-            seaLevel[index].copy(value = pressure.toFloat())
+            seaLevel[index].copy(value = Pressure.hpa(pressure.toFloat()))
         }
 
     }

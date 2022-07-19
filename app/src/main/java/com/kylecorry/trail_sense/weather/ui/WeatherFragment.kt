@@ -28,7 +28,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.isHigh
+import com.kylecorry.trail_sense.weather.domain.isLow
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
@@ -212,7 +213,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
                 Pair(
                     timeAgo as Number,
-                    Pressure.hpa(it.value).convertTo(units).pressure as Number
+                    it.value.convertTo(units).pressure as Number
                 )
             }
 
@@ -241,7 +242,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             binding.weatherTitle.title.text = formatWeather(prediction.hourly)
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = getWeatherImage(prediction.hourly, observation.pressureReading())
+                left = getWeatherImage(prediction.hourly, observation.pressure)
             )
             val speed = formatSpeed(prediction.hourly)
             binding.weatherTitle.subtitle.text = speed
@@ -267,7 +268,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherHumidity.title = formatService.formatPercentage(humidity)
     }
 
-    private fun getWeatherImage(weather: Weather, currentPressure: PressureReading?): Int {
+    private fun getWeatherImage(weather: Weather, currentPressure: Pressure?): Int {
         return when (weather) {
             Weather.ImprovingFast -> if (currentPressure?.isLow() == true) R.drawable.cloudy else R.drawable.sunny
             Weather.ImprovingSlow -> if (currentPressure?.isHigh() == true) R.drawable.sunny else R.drawable.partially_cloudy

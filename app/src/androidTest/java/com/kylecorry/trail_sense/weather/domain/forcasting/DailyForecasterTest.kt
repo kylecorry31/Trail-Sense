@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain.forcasting
 
 import com.kylecorry.sol.science.meteorology.Weather
-import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.Reading
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.Duration
@@ -12,24 +13,21 @@ class DailyForecasterTest {
     @Test
     fun forecastWorsening() {
         val pressures = listOf(
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(3)
-                ), 1017f
+            Reading(
+                Pressure.hpa(1017f),
+                Instant.now().minus(Duration.ofHours(3))
             ),
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(2)
-                ), 1013f
+            Reading(
+                Pressure.hpa(1013f),
+                Instant.now().minus(Duration.ofHours(2))
             ),
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(1)
-                ), 1010f
+            Reading(
+                Pressure.hpa(1010f),
+                Instant.now().minus(Duration.ofHours(1))
             ),
-            PressureReading(
-                Instant.now(),
-                1007f
+            Reading(
+                Pressure.hpa(1007f),
+                Instant.now()
             )
         )
 
@@ -43,24 +41,21 @@ class DailyForecasterTest {
     @Test
     fun forecastImproving() {
         val pressures = listOf(
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(3)
-                ), 1007f
+            Reading(
+                Pressure.hpa(1007f),
+                Instant.now().minus(Duration.ofHours(3))
             ),
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(2)
-                ), 1013f
+            Reading(
+                Pressure.hpa(1013f),
+                Instant.now().minus(Duration.ofHours(2))
             ),
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(1)
-                ), 1015f
+            Reading(
+                Pressure.hpa(1015f),
+                Instant.now().minus(Duration.ofHours(1))
             ),
-            PressureReading(
-                Instant.now(),
-                1017f
+            Reading(
+                Pressure.hpa(1017f),
+                Instant.now()
             )
         )
 
@@ -74,24 +69,21 @@ class DailyForecasterTest {
     @Test
     fun forecastSteady() {
         val pressures = listOf(
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(3)
-                ), 1007f
+            Reading(
+                Pressure.hpa(1007f),
+                Instant.now().minus(Duration.ofHours(3))
             ),
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(2)
-                ), 1007.1f
+            Reading(
+                Pressure.hpa(1007.1f),
+                Instant.now().minus(Duration.ofHours(2))
             ),
-            PressureReading(
-                Instant.now().minus(
-                    Duration.ofHours(1)
-                ), 1006.8f
+            Reading(
+                Pressure.hpa(1006.8f),
+                Instant.now().minus(Duration.ofHours(1))
             ),
-            PressureReading(
-                Instant.now(),
-                1007.5f
+            Reading(
+                Pressure.hpa(1007.5f),
+                Instant.now()
             )
         )
 

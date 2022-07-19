@@ -201,7 +201,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             )
         )
         val seaLevel = calibrator.calibrate(readings).first()
-        prefs.seaLevelPressureOverride = seaLevel.value
+        prefs.seaLevelPressureOverride = seaLevel.value.hpa().pressure
         restartAltimeter()
         return false
     }

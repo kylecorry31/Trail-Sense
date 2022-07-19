@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.Weather
-import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -87,7 +86,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             val reading = readings.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
                 it.time,
-                Pressure.hpa(it.value),
+                it.value,
                 Temperature.celsius(
                     weatherService.calibrateTemperature(reading?.value?.temperature ?: 0f)
                 ),

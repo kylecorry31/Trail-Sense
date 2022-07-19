@@ -10,13 +10,15 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.PressureReading
+import com.kylecorry.trail_sense.weather.domain.isHigh
+import com.kylecorry.trail_sense.weather.domain.isLow
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import java.time.Instant
@@ -25,7 +27,7 @@ class CurrentWeatherAlertCommand(
     private val context: Context,
     private val hourly: Weather,
     private val tendency: PressureTendency,
-    private val lastReading: PressureReading?
+    private val lastReading: Reading<Pressure>?
 ) : IWeatherAlertCommand {
 
     private val prefs by lazy { UserPreferences(context) }
@@ -72,13 +74,13 @@ class CurrentWeatherAlertCommand(
     private fun updateNotificationForecast(
         forecast: Weather,
         tendency: PressureTendency,
-        lastReading: PressureReading?
+        lastReading: Reading<Pressure>?
     ) {
         val units = prefs.pressureUnits
-        val pressure = lastReading ?: PressureReading(
-            Instant.now(),
-            SensorManager.PRESSURE_STANDARD_ATMOSPHERE
-        )
+        val pressure = (lastReading ?: Reading(
+            Pressure.hpa(SensorManager.PRESSURE_STANDARD_ATMOSPHERE),
+            Instant.now()
+        )).value
         val icon = when (forecast) {
             Weather.ImprovingFast -> if (pressure.isLow()) R.drawable.cloudy else R.drawable.sunny
             Weather.ImprovingSlow -> if (pressure.isHigh()) R.drawable.sunny else R.drawable.partially_cloudy
@@ -96,7 +98,7 @@ class CurrentWeatherAlertCommand(
             if (prefs.weather.shouldShowPressureInNotification) context.getString(
                 R.string.weather_notification_desc_format,
                 description,
-                getPressureString(pressure.value, units),
+                formatService.formatPressure(pressure.hpa(), Units.getDecimalPlaces(units)),
                 getTendencyString(tendency, units)
             ) else description,
             icon
@@ -104,22 +106,11 @@ class CurrentWeatherAlertCommand(
         updateNotificationText(newNotification)
     }
 
-    private fun getPressureString(
-        pressure: Float?,
-        units: PressureUnits
-    ): String {
-        if (pressure == null) {
-            return "?"
-        }
-        val p = Pressure(pressure, PressureUnits.Hpa).convertTo(units)
-        return formatService.formatPressure(p, Units.getDecimalPlaces(units))
-    }
-
     private fun getTendencyString(
         tendency: PressureTendency,
         units: PressureUnits
     ): String {
-        val pressure = Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units)
+        val pressure = Pressure.hpa(tendency.amount).convertTo(units)
         val formatted = formatService.formatPressure(
             pressure,
             Units.getDecimalPlaces(units) + 1

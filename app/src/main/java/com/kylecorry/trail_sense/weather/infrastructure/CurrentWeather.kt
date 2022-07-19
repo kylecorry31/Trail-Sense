@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.weather.domain.PressureReading
 import java.time.Instant
 
 data class CurrentWeather(
@@ -23,7 +22,7 @@ data class WeatherObservation(
     val temperature: Temperature,
     val humidity: Float?
 ) {
-    fun pressureReading(): PressureReading {
-        return PressureReading(time, pressure.convertTo(PressureUnits.Hpa).pressure)
+    fun pressureReading(): Reading<Pressure> {
+        return Reading(pressure, time)
     }
 }
