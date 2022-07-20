@@ -7,6 +7,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraXConfig
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.database.RepoCleanupWorker
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 
 class TrailSenseApplication : Application(), CameraXConfig.Provider {
@@ -17,6 +18,9 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider {
         NotificationChannels.createChannels(this)
         PreferenceMigrator.getInstance().migrate(this)
         RepoCleanupWorker.scheduler(this).interval(Duration.ofHours(6))
+
+        // Start up the weather subsystem
+        WeatherSubsystem.getInstance(this)
     }
 
     override fun getCameraXConfig(): CameraXConfig {

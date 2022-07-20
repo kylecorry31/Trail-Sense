@@ -89,17 +89,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         weatherSubsystem.weatherChanged.asLiveData().observe(viewLifecycleOwner) {
-            runInBackground {
-                onIO {
-                    history = weatherSubsystem.getHistory().filter {
-                        Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
-                    }
-                    weather = weatherSubsystem.getWeather()
-                }
-                onMain {
-                    update()
-                }
-            }
+            updateWeather()
         }
 
         binding.weatherHumidity.setOnClickListener {
@@ -147,7 +137,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         units = prefs.pressureUnits
 
-        update()
+        updateWeather()
     }
 
     override fun onPause() {
@@ -161,6 +151,19 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherPlayBar.setState(isWeatherRunning, prefs.weather.weatherUpdateFrequency)
     }
 
+    private fun updateWeather(){
+        runInBackground {
+            onIO {
+                history = weatherSubsystem.getHistory().filter {
+                    Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
+                }
+                weather = weatherSubsystem.getWeather()
+            }
+            onMain {
+                update()
+            }
+        }
+    }
 
     private fun update() {
         if (!isBound) return
