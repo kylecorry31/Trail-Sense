@@ -304,8 +304,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (readings.size < 2) {
             return
         }
-        val readingDuration =
-            Duration.between(readings.first().time, readings.last().time)
+        val readingDuration = Duration.between(readings.first().time, Instant.now())
         CustomUiUtils.showLineChart(
             this, getString(
                 R.string.humidity_history,
@@ -324,8 +323,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (readings.size < 2) {
             return
         }
-        val readingDuration =
-            Duration.between(readings.first().time, readings.last().time)
+        val readingDuration = Duration.between(readings.first().time, Instant.now())
         CustomUiUtils.showLineChart(
             this, getString(
                 R.string.temperature_history,

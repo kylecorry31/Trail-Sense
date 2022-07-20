@@ -35,3 +35,9 @@ fun <T> getReadings(
     }
     return readings
 }
+
+fun List<Reading<*>>.duration(): Duration {
+    val start = minByOrNull { it.time } ?: return Duration.ZERO
+    val end = maxByOrNull { it.time } ?: return Duration.ZERO
+    return Duration.between(start.time, end.time)
+}
