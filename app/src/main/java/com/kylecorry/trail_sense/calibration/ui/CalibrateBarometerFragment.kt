@@ -159,19 +159,9 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 it.time,
                 Instant.now()
             ) <= prefs.weather.pressureHistory
-        }
+        }.map { it.pressureReading() }
         if (displayReadings.isNotEmpty()) {
-            chart?.setUnits(units)
-
-            val chartData = displayReadings.map {
-                val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
-                Pair(
-                    timeAgo as Number,
-                    it.pressure.convertTo(units).pressure as Number
-                )
-            }
-
-            chart?.plot(chartData)
+            chart?.plot(displayReadings)
         }
     }
 

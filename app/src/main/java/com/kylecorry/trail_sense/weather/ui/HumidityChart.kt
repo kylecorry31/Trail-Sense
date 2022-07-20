@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
-import java.time.Duration
 
 class HumidityChart(chart: LineChart) {
 
@@ -31,8 +30,7 @@ class HumidityChart(chart: LineChart) {
     }
 
     fun plot(data: List<Reading<Float>>) {
-        val first = data.firstOrNull()?.time
-        val values = data.map { Duration.between(first, it.time).seconds / (60f * 60f) to it.value }
+        val values = SimpleLineChart.getDataFromReadings(data) { it }
         simpleChart.plot(values, color)
     }
 }

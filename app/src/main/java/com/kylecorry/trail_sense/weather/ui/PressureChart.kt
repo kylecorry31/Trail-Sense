@@ -5,10 +5,11 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import java.time.Duration
-import kotlin.math.absoluteValue
+import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 
@@ -20,6 +21,7 @@ class PressureChart(
 
 
     private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
+    private var startTime = Instant.now()
 
     private var minRange = MIN_RANGE
     private var granularity = 1f
@@ -45,19 +47,24 @@ class PressureChart(
                 return@setOnValueSelectedListener
             }
             val seconds = it.x * 60 * 60
-            val duration = Duration.ofSeconds(seconds.absoluteValue.toLong())
+            val duration = Duration.between(startTime.plusSeconds(seconds.toLong()), Instant.now())
             selectionListener?.invoke(duration, it.y)
         }
     }
 
-    fun setUnits(units: PressureUnits) {
+    private fun setUnits(units: PressureUnits) {
         minRange = Pressure.hpa(MIN_RANGE).convertTo(units).pressure
         granularity = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
     }
 
-    fun plot(data: List<Pair<Number, Number>>) {
-        val values = data.map { it.first.toFloat() to it.second.toFloat() }
+    fun plot(data: List<Reading<Pressure>>) {
+        startTime = data.firstOrNull()?.time
+        setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
+        val values = SimpleLineChart.getDataFromReadings(data, startTime){
+            it.pressure
+        }
 
+        // TODO: Extract this to min Y distance
         val pressures = values.map { it.second }
         var minPressure = pressures.minOrNull() ?: 0f
         var maxPressure = pressures.maxOrNull() ?: 0f

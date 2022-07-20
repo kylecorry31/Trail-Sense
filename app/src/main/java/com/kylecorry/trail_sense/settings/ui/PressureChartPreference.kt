@@ -5,15 +5,15 @@ import android.util.AttributeSet
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.github.mikephil.charting.charts.LineChart
-import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.weather.ui.PressureChart
 
 class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Preference(context, attributeSet) {
 
     private var chart: PressureChart? = null
-    private var data: List<Pair<Number, Number>> = listOf()
-    private var units = PressureUnits.Hpa
+    private var data: List<Reading<Pressure>> = listOf()
 
 
     init {
@@ -25,18 +25,11 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Pr
         holder.itemView.isClickable = false
 
         chart = PressureChart(holder.findViewById(R.id.chart) as LineChart)
-        chart?.setUnits(units)
         chart?.plot(data)
     }
 
-    fun plot(data: List<Pair<Number, Number>>){
+    fun plot(data: List<Reading<Pressure>>){
         this.data = data
         chart?.plot(data)
     }
-
-    fun setUnits(units: PressureUnits){
-        this.units = units
-        chart?.setUnits(units)
-    }
-
 }

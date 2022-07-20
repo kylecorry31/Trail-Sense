@@ -210,17 +210,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         if (displayReadings.isNotEmpty()) {
-            chart.setUnits(units)
-
-            val chartData = displayReadings.map {
-                val timeAgo = Duration.between(Instant.now(), it.time).seconds / (60f * 60f)
-                Pair(
-                    timeAgo as Number,
-                    it.value.convertTo(units).pressure as Number
-                )
-            }
-
-            chart.plot(chartData)
+            chart.plot(displayReadings)
         }
     }
 
