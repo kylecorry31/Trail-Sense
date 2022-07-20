@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.views
 
+import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.core.graphics.blue
@@ -16,6 +17,13 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.hoursUntil
+import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.FormatService
+import java.time.Instant
+import java.time.LocalTime
 
 
 class SimpleLineChart(
@@ -237,5 +245,40 @@ class SimpleLineChart(
         val circles: Boolean = false,
         val cubic: Boolean = true
     )
+
+    companion object {
+        fun hourLabelFormatter(
+            context: Context,
+            getStartTime: () -> Instant
+        ): (value: Float) -> String {
+            val formatter = FormatService(context)
+            return {
+                val duration = Time.hours(it.toDouble())
+                val time = getStartTime().plus(duration)
+                val local = time.toZonedDateTime().toLocalTime()
+                val hour = if (local.minute >= 30) {
+                    local.hour + 1
+                } else {
+                    local.hour
+                }
+                formatter.formatTime(
+                    LocalTime.of(hour % 24, 0),
+                    includeSeconds = false,
+                    includeMinutes = false
+                )
+            }
+        }
+
+        fun <T> getDataFromReadings(
+            readings: List<Reading<T>>,
+            startTime: Instant? = null,
+            getY: (T) -> Float
+        ): List<Pair<Float, Float>> {
+            val first = startTime ?: readings.firstOrNull()?.time ?: return emptyList()
+            return readings.map {
+                first.hoursUntil(it.time) to getY(it.value)
+            }
+        }
+    }
 
 }
