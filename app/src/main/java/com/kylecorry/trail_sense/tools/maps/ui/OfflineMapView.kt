@@ -128,7 +128,6 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     override fun onDraw(canvas: Canvas?) {
-
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
@@ -157,6 +156,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     fun setup() {
+        setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         setPanLimit(PAN_LIMIT_OUTSIDE)
         maxScale = 6f
     }
@@ -385,14 +385,16 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         drawer.push()
         drawer.rotate(-mapRotation, location.x, location.y)
         drawer.noTint()
-        drawer.noStroke()
         drawer.fill(Resources.color(context, R.color.colorSecondary))
+        drawer.stroke(Color.WHITE)
+        drawer.strokeWeight(drawer.dp(1f))
         drawer.circle(location.x, location.y, drawer.dp(24f))
 
         drawer.fill(Color.WHITE)
         drawer.textMode(TextMode.Center)
         drawer.textSize(textSize)
         drawer.textStyle(TextStyle.Bold)
+        drawer.noStroke()
         val textWidth = drawer.textWidth(text) // Not sure why this is needed to align the text
         drawer.text(text, location.x - textWidth / 8f, location.y)
 
