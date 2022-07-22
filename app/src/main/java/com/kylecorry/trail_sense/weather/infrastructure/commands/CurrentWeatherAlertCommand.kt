@@ -17,8 +17,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.isHigh
-import com.kylecorry.trail_sense.weather.domain.isLow
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import java.time.Instant
@@ -81,18 +79,9 @@ class CurrentWeatherAlertCommand(
             Pressure.hpa(SensorManager.PRESSURE_STANDARD_ATMOSPHERE),
             Instant.now()
         )).value
-        val icon = when (forecast) {
-            Weather.ImprovingFast -> if (pressure.isLow()) R.drawable.cloudy else R.drawable.sunny
-            Weather.ImprovingSlow -> if (pressure.isHigh()) R.drawable.sunny else R.drawable.partially_cloudy
-            Weather.WorseningSlow -> if (pressure.isLow()) R.drawable.light_rain else R.drawable.cloudy
-            Weather.WorseningFast -> if (pressure.isLow()) R.drawable.heavy_rain else R.drawable.light_rain
-            Weather.Storm -> R.drawable.storm
-            else -> R.drawable.steady
-        }
+        val icon = formatService.getWeatherImage(forecast, lastReading?.value)
 
-        val description = formatService.formatShortTermWeather(
-            forecast
-        )
+        val description = formatService.formatWeather(forecast, true)
 
         val newNotification = getNotification(
             if (prefs.weather.shouldShowPressureInNotification) context.getString(

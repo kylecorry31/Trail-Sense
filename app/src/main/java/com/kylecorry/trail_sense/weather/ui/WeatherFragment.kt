@@ -28,8 +28,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.weather.domain.isHigh
-import com.kylecorry.trail_sense.weather.domain.isLow
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
@@ -232,12 +230,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         val observation = weather.observation ?: return
         val prediction = weather.prediction
         onMain {
-            binding.weatherTitle.title.text = formatWeather(prediction.hourly)
+            binding.weatherTitle.title.text = formatService.formatWeather(prediction.hourly, false)
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = getWeatherImage(prediction.hourly, observation.pressure)
+                left = formatService.getWeatherImage(prediction.hourly, observation.pressure)
             )
-            val speed = formatSpeed(prediction.hourly)
+            val speed = formatService.formatWeatherSpeed(prediction.hourly)
             binding.weatherTitle.subtitle.text = speed
             binding.weatherTitle.subtitle.isVisible = speed.isNotEmpty()
             binding.dailyForecast.text = getLongTermWeatherDescription(prediction.daily)
@@ -261,39 +259,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherHumidity.title = formatService.formatPercentage(humidity)
     }
 
-    private fun getWeatherImage(weather: Weather, currentPressure: Pressure?): Int {
-        return when (weather) {
-            Weather.ImprovingFast -> if (currentPressure?.isLow() == true) R.drawable.cloudy else R.drawable.sunny
-            Weather.ImprovingSlow -> if (currentPressure?.isHigh() == true) R.drawable.sunny else R.drawable.partially_cloudy
-            Weather.WorseningSlow -> if (currentPressure?.isLow() == true) R.drawable.light_rain else R.drawable.cloudy
-            Weather.WorseningFast -> if (currentPressure?.isLow() == true) R.drawable.heavy_rain else R.drawable.light_rain
-            Weather.Storm -> R.drawable.storm
-            else -> R.drawable.steady
-        }
-    }
-
     private fun getLongTermWeatherDescription(weather: Weather): String {
         return when (weather) {
             Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
             Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
-            else -> ""
-        }
-    }
-
-    private fun formatWeather(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.weather_improving)
-            Weather.WorseningFast, Weather.WorseningSlow -> getString(R.string.weather_worsening)
-            Weather.NoChange -> getString(R.string.weather_unchanging)
-            Weather.Storm -> getString(R.string.weather_storm)
-            Weather.Unknown -> "-"
-        }
-    }
-
-    private fun formatSpeed(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast, Weather.WorseningFast, Weather.Storm -> getString(R.string.very_soon)
-            Weather.ImprovingSlow, Weather.WorseningSlow -> getString(R.string.soon)
             else -> ""
         }
     }

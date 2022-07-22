@@ -26,6 +26,8 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.weather.domain.isHigh
+import com.kylecorry.trail_sense.weather.domain.isLow
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -35,6 +37,42 @@ import java.time.format.DateTimeFormatter
 class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
+
+    fun getWeatherImage(weather: Weather, currentPressure: Pressure?): Int {
+        return when (weather) {
+            Weather.ImprovingFast -> if (currentPressure?.isLow() == true) R.drawable.cloudy else R.drawable.sunny
+            Weather.ImprovingSlow -> if (currentPressure?.isHigh() == true) R.drawable.sunny else R.drawable.partially_cloudy
+            Weather.WorseningSlow -> if (currentPressure?.isLow() == true) R.drawable.light_rain else R.drawable.cloudy
+            Weather.WorseningFast -> if (currentPressure?.isLow() == true) R.drawable.heavy_rain else R.drawable.light_rain
+            Weather.Storm -> R.drawable.storm
+            else -> R.drawable.steady
+        }
+    }
+
+    fun formatWeather(weather: Weather, withSpeed: Boolean = false): String {
+        val w = when (weather) {
+            Weather.ImprovingFast, Weather.ImprovingSlow -> context.getString(R.string.weather_improving)
+            Weather.WorseningFast, Weather.WorseningSlow -> context.getString(R.string.weather_worsening)
+            Weather.NoChange -> context.getString(R.string.weather_unchanging)
+            Weather.Storm -> context.getString(R.string.weather_storm)
+            Weather.Unknown -> "-"
+        }
+
+        if (!withSpeed || weather == Weather.Unknown) {
+            return w
+        }
+
+        return w + " " + formatWeatherSpeed(weather).lowercase()
+
+    }
+
+    fun formatWeatherSpeed(weather: Weather): String {
+        return when (weather) {
+            Weather.ImprovingFast, Weather.WorseningFast, Weather.Storm -> context.getString(R.string.very_soon)
+            Weather.ImprovingSlow, Weather.WorseningSlow -> context.getString(R.string.soon)
+            else -> ""
+        }
+    }
 
     fun formatProbability(probability: Probability): String {
         return when (probability) {
@@ -308,7 +346,7 @@ class FormatService(private val context: Context) {
             strs.add(s)
         }
 
-        if (strs.isEmpty()){
+        if (strs.isEmpty()) {
             strs.add(m)
         }
 
@@ -417,17 +455,6 @@ class FormatService(private val context: Context) {
             Formatter.formatShortFileSize(context, bytes)
         } else {
             Formatter.formatFileSize(context, bytes)
-        }
-    }
-
-    fun formatShortTermWeather(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast -> context.getString(R.string.weather_improving_fast)
-            Weather.ImprovingSlow -> context.getString(R.string.weather_improving_slow)
-            Weather.WorseningSlow -> context.getString(R.string.weather_worsening_slow)
-            Weather.WorseningFast -> context.getString(R.string.weather_worsening_fast)
-            Weather.Storm -> context.getString(R.string.weather_storm_incoming)
-            else -> context.getString(R.string.weather_not_changing)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain.clouds
 
 import com.kylecorry.sol.science.meteorology.Precipitation
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.science.meteorology.clouds.CloudService
 import com.kylecorry.sol.science.meteorology.clouds.ICloudService
@@ -16,5 +17,20 @@ class CloudService(private val baseCloudService: ICloudService = CloudService())
 
     fun getPrecipitation(type: CloudGenus): List<Precipitation> {
         return baseCloudService.getPrecipitation(type)
+    }
+
+    fun getWeather(type: CloudGenus): Weather {
+        return when (type) {
+            CloudGenus.Cirrus -> Weather.ImprovingSlow // Fair
+            CloudGenus.Cirrocumulus -> Weather.ImprovingSlow // Fair
+            CloudGenus.Cirrostratus -> Weather.WorseningSlow // 12 - 24 hours before precipitation
+            CloudGenus.Altocumulus -> Weather.WorseningSlow // Before a thunderstorm
+            CloudGenus.Altostratus -> Weather.WorseningSlow // Rain storm on the way
+            CloudGenus.Nimbostratus -> Weather.Storm
+            CloudGenus.Stratus -> Weather.NoChange // May have light rain
+            CloudGenus.Stratocumulus -> Weather.NoChange // May have light rain
+            CloudGenus.Cumulus -> Weather.NoChange // Either fair weather or stormy weather
+            CloudGenus.Cumulonimbus -> Weather.Storm
+        }
     }
 }
