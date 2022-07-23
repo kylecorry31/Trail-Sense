@@ -13,12 +13,12 @@
     <string name="pressure">压强</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
-    <string name="weather_improving_fast">很快好转</string>
-    <string name="weather_improving_slow">很快好转</string>
-    <string name="weather_worsening_slow">即将恶化</string>
-    <string name="weather_worsening_fast">很快恶化</string>
-    <string name="weather_storm_incoming">暴风雨来袭</string>
-    <string name="weather_not_changing">不会很快改变</string>
+    <string name="weather_improving_fast">正在迅速好转</string>
+    <string name="weather_improving_slow">正在慢慢好转</string>
+    <string name="weather_worsening_slow">正在慢慢恶化</string>
+    <string name="weather_worsening_fast">正在迅速恶化</string>
+    <string name="weather_storm_incoming">暴风雨即将来袭</string>
+    <string name="weather_not_changing">基本不会改变</string>
     <string name="forecast_improving">以后可能会好转</string>
     <string name="forecast_worsening">以后可能会恶化</string>
     <string name="no_beacons">没有信标</string>
@@ -26,16 +26,16 @@
     <string name="moon_rise">月出</string>
     <string name="moon_set">月落</string>
     <string name="stop">停止</string>
-    <string name="pref_compass_filter_amt_title">指南针平滑</string>
-    <string name="pref_compass_filter_amt_summary">高值可以减少干扰</string>
+    <string name="pref_compass_filter_amt_title">指南针平滑转动</string>
+    <string name="pref_compass_filter_amt_summary">值越大可能可以减少干扰</string>
     <string name="pref_theme_title">主题</string>
     <string name="pref_use_legacy_compass_title">使用旧式指南针</string>
-    <string name="pref_use_legacy_compass_summary">可能解决指南针问题</string>
+    <string name="pref_use_legacy_compass_summary">有可能解决指南针问题</string>
     <string name="pref_display_multi_beacons_title">显示附近的信标</string>
     <string name="pref_storm_alert_sensitivity_title">风暴敏感性</string>
     <string name="pref_show_sun_moon_compass_title">在指南针上显示太阳/月亮</string>
     <string name="pref_show_linear_compass_title">显示线性罗盘</string>
-    <string name="pref_show_linear_compass_summary">当手机垂直时</string>
+    <string name="pref_show_linear_compass_summary">在手机垂直的时候</string>
     <plurals name="last_hours">
         <item quantity="other">持续 %d 小时</item>
     </plurals>
@@ -43,9 +43,9 @@
         <item quantity="other">持续 %d 分钟</item>
     </plurals>
     <string name="feet_miles">英尺/英里</string>
-    <string name="units_hpa">压强</string>
-    <string name="units_inhg">汞</string>
-    <string name="units_mbar">毫巴</string>
+    <string name="units_hpa">百帕</string>
+    <string name="units_inhg">英寸汞柱</string>
+    <string name="units_mbar">毫巴（100帕斯卡）</string>
     <string name="units_psi">PSI</string>
     <string name="theme_light">明亮</string>
     <string name="theme_dark">暗黑</string>
@@ -63,7 +63,7 @@
     <string name="pressure_24_hours">二十四小时</string>
     <string name="pressure_12_hours">十二小时</string>
     <string name="pressure_4_hours">四个小时</string>
-    <string name="pref_pressure_history_title">压强历史</string>
+    <string name="pref_pressure_history_title">历史大气压</string>
     <string name="never">从不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 气压表</string>
     <string name="pref_altitude_override_sea_level_title">使用已知的海平面气压</string>
