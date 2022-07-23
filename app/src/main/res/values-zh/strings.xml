@@ -10,7 +10,7 @@
     <string name="true_north">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压强</string>
     <string name="general">常规</string>
-    <string name="pressure">压强</string>
+    <string name="pressure">大气压强</string>
     <string name="pref_use_24_hour_title">使用24小时制</string>
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
     <string name="weather_improving_fast">正在迅速好转</string>
@@ -89,7 +89,7 @@
     <string name="pref_ruler_calibration_summary">"校准方式：
 \n-  设置该值为1
 \n-  用标准刻度尺测量，观察在标准刻度尺上的一个单位相当于 Trail Sense 刻度尺上的多少个单位
-\n-  在此处汇报测量的值。"</string>
+\n-  在此处填写测量的值。"</string>
     <string name="pref_compass_sensor_title">指南针</string>
     <string name="sensors">传感器</string>
     <string name="temperature">温度</string>
@@ -104,8 +104,8 @@
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
     <string name="solar_noon">太阳达到白天最高点</string>
-    <string name="sunset_alert_channel_title">日落警告</string>
-    <string name="sunset_alerts">日落警告</string>
+    <string name="sunset_alert_channel_title">日落提醒</string>
+    <string name="sunset_alerts">日落提醒</string>
     <string name="sunset_alert_notification_text">太阳将于 %s 落下</string>
     <string name="sunset_alert_notification_title">太阳即将落下</string>
     <string name="waxing_crescent">残月</string>
@@ -145,7 +145,7 @@
 \n    %s 的实际海拔
 \n    %s 颗卫星
 \n
-\n指南针：以8字形或全方位旋转设备，并使其远离金属。"</string>
+\n指南针：以8字形或全方位旋转设备，并使其远离金属物体。"</string>
     <string name="accuracy_info_title">提高传感器精确度的小提示</string>
     <string name="unknown">未知</string>
     <string name="degree_format">%.0f°</string>
@@ -169,7 +169,7 @@
     <string name="kilometers_per_hour_format">%.1f 公里 / 小时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
     <string name="pref_max_beacon_distance_title">附近的信标半径</string>
-    <string name="water_boil_timer_done_title">水已开</string>
+    <string name="water_boil_timer_done_title">水已烧开</string>
     <string name="unit_feet">英尺</string>
     <string name="metal_detector_disclaimer">只检测磁性金属 （如铁）</string>
     <string name="tool_metal_detector_title">金属探测器</string>
@@ -195,7 +195,7 @@
     <string name="battery_health_dead">死</string>
     <string name="battery_health_cold">冷</string>
     <string name="tool_battery_title">电池</string>
-    <string name="strobe_warning_content">频闪功能包含闪烁的灯光，这可能对一些用户是危险的。</string>
+    <string name="strobe_warning_content">频闪功能包含闪烁的灯光，这对一些用户可能是危险的。</string>
     <string name="strobe_warning_title">闪烁的灯光</string>
     <string name="clock_waiting_for_gps">正从 GPS 更新时间 …</string>
     <string name="water_purification_step_3">启动计时器</string>
@@ -208,7 +208,7 @@
     <string name="precise_inches_format">%s 英寸</string>
     <string name="precise_centimeters_format">%s 厘米</string>
     <string name="tool_lightning_title">雷击距离</string>
-    <string name="tool_lightning_description">测量距离雷击的距离</string>
+    <string name="tool_lightning_description">测量到雷电发生地点的距离</string>
     <string name="reset">重置</string>
     <string name="thunder">雷</string>
     <string name="lightning">闪电</string>
@@ -221,14 +221,14 @@
         <item quantity="other">距离可饮用还剩 %d 秒</item>
     </plurals>
     <string name="water_boil_timer_done_content">你的水现在可以饮用了</string>
-    <string name="water_boil_timer_title">水沸计时器</string>
+    <string name="water_boil_timer_title">烧开水计时器</string>
     <string name="water_boil_timer_channel_description">水在沸腾</string>
     <string name="water_boil_timer">水沸腾计时器</string>
     <string name="solar_panel_instructions">要开始，请把你的手机放在太阳能电池板的面上。</string>
-    <string name="tool_solar_panel_title">太阳能电池板对准器</string>
-    <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产</string>
+    <string name="tool_solar_panel_title">太阳能板对准器</string>
+    <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产效率</string>
     <string name="pref_privacy_policy_title">隐私政策</string>
-    <string name="guide_recommended_apps_description">对生存状况的有用应用程序</string>
+    <string name="guide_recommended_apps_description">对生存状况有用应用程序</string>
     <string name="guide_recommended_apps">推荐的应用</string>
     <string name="unit_nautical_miles">海里</string>
     <string name="unit_miles">英里</string>
@@ -239,7 +239,7 @@
     <string name="inventory_empty_text">无物品</string>
     <string name="tool_whistle_title">哨子</string>
     <string name="cliff_height_guide">预估悬崖高度</string>
-    <string name="tool_cliff_height_disclaimer">只在安全的情况下才使用此工具，并确保检查悬崖下有什么，以避免受伤。请参见用户指南。</string>
+    <string name="tool_cliff_height_disclaimer">确保自身安全的情况下使用此工具，并检查悬崖下有什么，以避免受伤。详细请参见用户指南。</string>
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
     <string name="tool_cliff_height_title">悬崖高度</string>
     <string name="toast_destination_bearing_set">已设定目的地方位</string>
@@ -256,7 +256,7 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="tool_bubble_level_title">气泡水平仪</string>
     <string name="guide_weather_prediction_title">天气预测</string>
-    <string name="guide_conserving_battery_title">节约电池</string>
+    <string name="guide_conserving_battery_title">节约电量</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="forecasts_category">预测</string>
     <string name="advanced">高级设置</string>
@@ -268,14 +268,14 @@
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
     <string name="tool_user_guide_title">用户指南</string>
-    <string name="error_occurred_message">Trail Sense 遇到了一个错误将关闭。请给开发者发邮件修复这个问题。</string>
+    <string name="error_occurred_message">Trail Sense 遇到了一个错误将关闭。请给开发者发邮件以修复这个问题。</string>
     <string name="error_occurred">发生一个错误</string>
     <string name="pref_email_title">给开发者发邮件</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">版本</string>
     <string name="pref_category_about">关于</string>
     <string name="pref_open_source_licenses_title">许可证</string>
-    <string name="pref_sunset_alert_time_title">日落警告时间</string>
+    <string name="pref_sunset_alert_time_title">日落提醒时间</string>
     <string name="update_60_minutes">1 小时</string>
     <string name="update_30_minutes">30 分钟</string>
     <string name="update_180_minutes">3 小时</string>
@@ -285,7 +285,7 @@
     <string name="pref_center_sun_and_moon_title">保持太阳/月亮居中</string>
     <string name="always">始终</string>
     <string name="pref_weather_update_frequency_title">天气更新频率</string>
-    <string name="pref_show_pressure_in_notification_title">在通知中显示气压</string>
+    <string name="pref_show_pressure_in_notification_title">在通知中显示大气压强</string>
     <string name="pref_show_weather_notification_title">显示天气通知</string>
     <string name="pref_forecast_sensitivity_title">预报敏感度</string>
     <string name="pref_monitor_weather_title">监测天气</string>
@@ -421,12 +421,12 @@
     <string name="cirrostratus">卷层云</string>
     <string name="cirrocumulus">卷积云</string>
     <string name="cirrus">卷云</string>
-    <string name="pref_require_satellites_description">需要至少四颗卫星，改善精度</string>
+    <string name="pref_require_satellites_description">至少需要四颗卫星来改善精度</string>
     <string name="pref_require_satellites_title">需要卫星修复</string>
     <string name="clouds">云</string>
     <string name="unit_inches_abbreviation">英寸</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
-    <string name="onboarding_privacy">- Trail Sense 尊重你的隐私，位置数据永远不会离开你的设备
+    <string name="onboarding_privacy">- Trail Sense 尊重你的隐私，位置数据永远不会在未经过允许的情况下，通过任何方式泄露
 \n
 \n- Trail Sense 永远不需要联网权限
 \n
@@ -440,7 +440,7 @@
 \n
 \n\t- 提高预测精度(需要后台位置，不是所有设备上都有)
 \n
-\n\t- Backtrack (需要后台位置)
+\n\t- Backtrack(路径回溯) (需要后台位置)
 \n
 \n\t- 当前位置的太阳和月亮时间
 \n
@@ -547,7 +547,7 @@
     <string name="importing_map">导入地图中</string>
     <string name="hour_symbol">小时</string>
     <string name="minute_symbol">分钟</string>
-    <string name="map_auto_calibrated">以自动校准地图，请验证其精度</string>
+    <string name="map_auto_calibrated">为了自动校准地图，请验证其精度</string>
     <string name="time_until_empty">离空还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
     <string name="sleep_timer">睡眠定时器</string>
@@ -563,11 +563,11 @@
     <string name="app_disclaimer_message_title">免责声明/服务条款</string>
     <string name="disclaimer_message_title">免责声明</string>
     <string name="backtrack_battery_warning">间隔时间过短(15分钟以下)可能导致电池过度消耗</string>
-    <string name="battery_warning">电池耗竭警告</string>
+    <string name="battery_warning">电量即将耗完警告</string>
     <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>
     <string name="updates">更新</string>
     <string name="dotted">点线</string>
-    <string name="solid">实心</string>
+    <string name="solid">实线</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
     <string name="calibrate_new_tide">校准到新的潮汐？</string>
     <string name="time_until_full">距离充满剩</string>
@@ -592,14 +592,14 @@
     <string name="weather_monitor">天气监控器</string>
     <string name="dusk_type">日落 (%s)</string>
     <string name="dawn_type">日出 (%s)</string>
-    <string name="pref_barometer_info_summary">压强可能与附近气象站的压强不同</string>
-    <string name="battery_history">电池历史 - 过去 %s</string>
+    <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
+    <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
     <string name="pref_nmea_altitude_title">NMEA高度偏移</string>
     <string name="delete_map">删除地图？</string>
     <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
-    <string name="pref_barometer_altitude_smoothing_title">高度平滑</string>
-    <string name="pref_barometer_pressure_smoothing_title">压强平滑</string>
+    <string name="pref_barometer_altitude_smoothing_title">高度数据平滑</string>
+    <string name="pref_barometer_pressure_smoothing_title">大气压数据平滑</string>
     <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
     <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
@@ -624,7 +624,7 @@
     </plurals>
     <string name="pref_backtrack_history_days_title">Backtrack 历史</string>
     <string name="units">单元</string>
-    <string name="pref_tiles_enabled_summary">可能阻止电池保护程序完全停止 Trail Sense</string>
+    <string name="pref_tiles_enabled_summary">有可能会阻止电池保护程序完全停止 Trail Sense</string>
     <string name="pref_tiles_enabled_title">系统瓷贴</string>
     <string name="location_not_mocked">使用实际位置</string>
     <string name="location_mocked">使用模拟位置</string>
@@ -733,7 +733,7 @@
     <string name="location_override_resolution">在设置中启用自动调整位置。</string>
     <string name="altitude_override_resolution">在设置中启用自动校准。</string>
     <string name="unblock_notification_channel">解锁 Trail Sense 的 %s 通知</string>
-    <string name="get_gps_signal">走到一览无余的天空下。</string>
+    <string name="get_gps_signal">走到无遮挡的天空下。</string>
     <string name="activity_recognition">活动识别</string>
     <string name="background_location_permission">位置（始终允许）</string>
     <string name="grant_permission">授予 %s 权限</string>
@@ -749,7 +749,7 @@
     <string name="camera">相机</string>
     <string name="quarter_moon">上弦月</string>
     <string name="autofill">自动填充</string>
-    <string name="lightning_dangerously_close">你离闪电太近了</string>
+    <string name="lightning_dangerously_close">你离闪电发生地点太近了</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="other">%d 个航点将被删除</item>
     </plurals>
@@ -764,7 +764,7 @@
     <string name="path_exported">已导出路径</string>
     <string name="no_paths">无路径</string>
     <string name="navigate">导航</string>
-    <string name="astronomy_alerts">天文警报</string>
+    <string name="astronomy_alerts">天文提醒</string>
     <string name="lunar_eclipse">月食</string>
     <string name="lunar_eclipse_end">月食 (结束)</string>
     <string name="lunar_eclipse_start">月食 (开始)</string>
@@ -849,7 +849,7 @@
     <string name="choose_photo">选择照片</string>
     <string name="or">或</string>
     <string name="notification_weather_update_title">天气监测器更新</string>
-    <string name="notification_backtrack_update_title">Backtrack 更新</string>
+    <string name="notification_backtrack_update_title">Backtrack(路径回溯) 更新</string>
     <string name="notification_backtrack_update_content">正在记录你的位置</string>
     <string name="notification_weather_update_content">正在记录气压</string>
     <string name="humidity">湿度</string>
@@ -872,9 +872,9 @@
     <string name="sort_by">排序：%s</string>
     <string name="most_recent">最近</string>
     <string name="duration">持续时间</string>
-    <string name="elevation_gain">海拔增益</string>
+    <string name="elevation_gain">海拔增加</string>
     <string name="easy">容易</string>
-    <string name="elevation_loss">海拔损失</string>
+    <string name="elevation_loss">海拔减少</string>
     <string name="hard">困难</string>
     <string name="difficulty">难度</string>
     <string name="points">点</string>
@@ -907,9 +907,9 @@
     <string name="pref_clinometer_baseline_distance_title">基线距离</string>
     <string name="clinometer_measure_height_instructions">如何测量距离 %s 远的目标的高度：
 \n
-\n1. 将测斜仪对准目标底座
-\n2.点击屏幕并按住
-\n3. 将测斜仪重新对准目标顶部
+\n1. 将测斜仪对准目标底部
+\n2. 按住屏幕
+\n3. 再将测斜仪对准目标顶部
 \n4. 松开以锁定并查看目标高度</string>
     <string name="height">高度</string>
     <string name="clinometer_measure_distance_title">目标高度</string>
@@ -918,11 +918,11 @@
     <string name="clinometer_measure_height_title">到目标的距离</string>
     <string name="clinometer_measure_distance_instructions">如何测量 %s 高的目标的距离：
 \n
-\n1. 将测斜仪对准目标底座
-\n2.点击屏幕并按住
-\n3. 将测斜仪重新对准目标顶部
-\n4. 松开以锁定并查看到目标的距离</string>
-    <string name="weather_monitor_disabled_resolution">从天气设置启用天气监测</string>
+\n1. 将测斜仪对准目标底部
+\n2. 按住屏幕
+\n3. 再将测斜仪对准目标顶部
+\n4. 松开屏幕以锁定并查看到目标的距离</string>
+    <string name="weather_monitor_disabled_resolution">从天气设置中启用天气监测</string>
     <string name="error_banners">错误横幅</string>
     <string name="errors">错误</string>
     <string name="compass_accuracy">指南针精度</string>
@@ -974,8 +974,8 @@
     <string name="steps">步伐</string>
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
-    <string name="distance_alert">距离警报</string>
-    <string name="remove_distance_alert">删除距离警报（%s）？</string>
+    <string name="distance_alert">距离提醒</string>
+    <string name="remove_distance_alert">删除距离提醒（%s）？</string>
     <string name="distance_alert_distance_reached">你已抵达 %s</string>
     <string name="onboarding_explore">- 为徒步旅行、背包旅行、露营和地理寻宝而设计
 \n
@@ -983,15 +983,15 @@
 \n
 \n- 跟随路径
 \n
-\n- 记录走过的路，并沿迹返回
+\n- 记录走过的路，并沿路返回
 \n
 \n- 计划要打包的物品
 \n
-\n- 太阳落山前收到警报
+\n- 太阳落山前收到提醒
 \n
 \n- 预测天气
 \n
-\n- 将手机用作手电筒
+\n- 将手机用作多功能手电筒
 \n
 \n-以及更多其它功能！</string>
     <string name="explore">探索</string>
@@ -1000,7 +1000,7 @@
     <string name="saved">已保存</string>
     <string name="estimate_stride_length">估计步幅</string>
     <string name="stride_length_stand_still">静止不动</string>
-    <string name="stride_length_walk">走直线，走完按“停止”键</string>
+    <string name="stride_length_walk">沿直线走，走完按“停止”键</string>
     <string name="current_speed_gps">当前速度（GPS）</string>
     <string name="average_speed_pedometer">平均速度（计步器）</string>
     <string name="average_speed_backtrack">平均速度（Backtrack）</string>
@@ -1012,7 +1012,7 @@
     <string name="navigating_to_nearest_path_point">导航至最近的路径点</string>
     <string name="pref_start_on_boot_title">开机启动</string>
     <string name="move_to">移动至</string>
-    <string name="bearing">定向</string>
+    <string name="bearing">确定方向</string>
     <string name="cross">十字形</string>
     <string name="pref_only_navigate_path_points_title">仅导航到记录点</string>
     <string name="square">方形</string>
@@ -1031,7 +1031,7 @@
     <string name="path">路径</string>
     <string name="point">点</string>
     <string name="point_added">已添加点至路径</string>
-    <string name="delete_path_group_message">%s 及其所有路径将被删除。</string>
+    <string name="delete_path_group_message">%s 及其所有路径都将被删除。</string>
     <plurals name="path_group_summary">
         <item quantity="other">%d 条路径</item>
     </plurals>
