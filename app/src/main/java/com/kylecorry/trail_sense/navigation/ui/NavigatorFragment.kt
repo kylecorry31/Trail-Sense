@@ -14,12 +14,12 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
@@ -417,7 +417,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 gpsVAccuracyStr,
                 gps.satellites.toString()
             ),
-            cancelText = null
+            cancelText = null,
+            cancelOnOutsideTouch = false
         )
     }
 
@@ -754,10 +755,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
             Alerts.dialog(
-                requireContext(), getString(R.string.calibrate_compass_dialog_title), getString(
+                requireContext(),
+                getString(R.string.calibrate_compass_dialog_title),
+                getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
                     getString(android.R.string.ok)
-                ), cancelText = null
+                ),
+                cancelText = null,
+                cancelOnOutsideTouch = false
             )
         }
     }

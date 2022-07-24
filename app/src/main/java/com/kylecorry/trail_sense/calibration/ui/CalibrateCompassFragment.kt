@@ -108,7 +108,8 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
                 getString(
                     R.string.calibrate_compass_dialog_content, getString(android.R.string.ok)
                 ),
-                cancelText = null
+                cancelText = null,
+                cancelOnOutsideTouch = false
             )
             true
         }
