@@ -21,14 +21,14 @@ class CloudService(private val baseCloudService: ICloudService = CloudService())
 
     fun getWeather(type: CloudGenus): Weather {
         return when (type) {
-            CloudGenus.Cirrus -> Weather.ImprovingSlow // Fair
-            CloudGenus.Cirrocumulus -> Weather.ImprovingSlow // Fair
+            CloudGenus.Cirrus -> Weather.ImprovingSlow
+            CloudGenus.Cirrocumulus -> Weather.ImprovingSlow
             CloudGenus.Cirrostratus -> Weather.WorseningSlow // 12 - 24 hours before precipitation
             CloudGenus.Altocumulus -> Weather.WorseningSlow // Before a thunderstorm
             CloudGenus.Altostratus -> Weather.WorseningSlow // Rain storm on the way
             CloudGenus.Nimbostratus -> Weather.Storm
-            CloudGenus.Stratus -> Weather.NoChange // May have light rain
-            CloudGenus.Stratocumulus -> Weather.NoChange // May have light rain
+            CloudGenus.Stratus -> Weather.NoChange
+            CloudGenus.Stratocumulus -> Weather.ImprovingSlow
             CloudGenus.Cumulus -> Weather.NoChange // Either fair weather or stormy weather
             CloudGenus.Cumulonimbus -> Weather.Storm
         }

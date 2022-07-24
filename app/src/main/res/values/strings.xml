@@ -566,15 +566,25 @@
     <string name="cumulus">Cumulus</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="cirrocumulus_desc">High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.</string>
+    <string name="cirrocumulus_weather">May indicate colder weather soon.</string>
     <string name="cirrostratus_desc">A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.</string>
+    <string name="cirrostratus_weather">May indicate precipitation in the next 12 to 24 hours</string>
     <string name="altocumulus_desc">Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.</string>
+    <string name="altocumulus_weather">May indicate thunderstorms later in the day if it is humid.</string>
     <string name="altostratus_desc">A mid level cloud that covers the sky. The sun can barely be seen as a bright patch.</string>
+    <string name="altostratus_weather">May indicate precipitation soon.</string>
     <string name="nimbostratus_desc">A mid level cloud that is dark gray and covers the sky. It may be raining.</string>
+    <string name="nimbostratus_weather">Precipitation very soon</string>
     <string name="stratus_desc">A low cloud that covers the sky. Objects don\'t cast shadows and it may be foggy.</string>
+    <string name="stratus_weather">May indicate light precipitation soon.</string>
     <string name="stratocumulus_desc">Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray.</string>
+    <string name="stratocumulus_weather">May indicate fair weather soon, with a low chance of precipitation.</string>
     <string name="cumulus_desc">Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.</string>
+    <string name="cumulus_weather">May indicate fair weather, but if they are growing taller, it may lead to a thunderstorm.</string>
     <string name="cumulonimbus_desc">Low puffy clouds that are very tall. They typically have an anvil shape and are dark.</string>
+    <string name="cumulonimbus_weather">Thunderstorm very soon</string>
     <string name="cirrus_desc">High wispy clouds that look like tufts of white hair.</string>
+    <string name="cirrus_weather">May indicate warm front in 12 to 36 hours.</string>
     <string name="privacy_and_location">Privacy and Location</string>
     <!--This is in Markdown format-->
     <string name="onboarding_user_guide">Learn how to use Trail Sense\'s features with the user guide. Available at the bottom of the Tools tab.\n\nMore guides will be coming soon.</string>

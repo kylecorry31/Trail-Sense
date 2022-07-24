@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
+import android.content.Context
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
@@ -23,7 +24,7 @@ class CloudListItem(
     fun display(binding: ListItemCloudBinding) {
         val context = binding.root.context
         binding.name.text = type.name
-        binding.description.text = cloudRepo.getCloudDescription(type)
+        binding.description.text = cloudRepo.getCloudForecast(type)
         binding.cloudImg.setImageResource(cloudRepo.getCloudImage(type))
         val precipitation = cloudService.getPrecipitation(type)
         setPrecipitationActive(
@@ -61,13 +62,8 @@ class CloudListItem(
             Alerts.dialog(
                 context,
                 cloudRepo.getCloudName(type),
-                context.getString(
-                    R.string.precipitation_chance,
-                    formatter.formatProbability(cloudService.getPrecipitationProbability(type))
-                ) + "\n\n" +
-                        if (precipitation.isEmpty()) context.getString(R.string.precipitation_none) else precipitation.joinToString(
-                            "\n"
-                        ) { formatter.formatPrecipitation(it) },
+                cloudRepo.getCloudDescription(type) + "\n\n" +
+                        getPrecipitationDescription(context, type, precipitation, formatter),
                 cancelText = null
             )
         }
@@ -79,6 +75,21 @@ class CloudListItem(
                 cloudRepo.getCloudImage(type)
             )
         }
+    }
+
+    private fun getPrecipitationDescription(
+        context: Context,
+        type: CloudGenus,
+        precipitation: List<Precipitation>,
+        formatter: FormatService
+    ): String {
+        return context.getString(
+            R.string.precipitation_chance,
+            formatter.formatProbability(cloudService.getPrecipitationProbability(type))
+        ) + "\n\n" +
+                if (precipitation.isEmpty()) context.getString(R.string.precipitation_none) else precipitation.joinToString(
+                    "\n"
+                ) { formatter.formatPrecipitation(it) }
     }
 
     private fun setPrecipitationActive(precipitation: ImageView, active: Boolean) {

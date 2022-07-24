@@ -26,6 +26,21 @@ class CloudRepo(private val context: Context) {
         }
     }
 
+    fun getCloudForecast(type: CloudGenus): String {
+        return when (type) {
+            CloudGenus.Cirrocumulus -> context.getString(R.string.cirrocumulus_weather)
+            CloudGenus.Cirrostratus -> context.getString(R.string.cirrostratus_weather)
+            CloudGenus.Altocumulus -> context.getString(R.string.altocumulus_weather)
+            CloudGenus.Altostratus -> context.getString(R.string.altostratus_weather)
+            CloudGenus.Nimbostratus -> context.getString(R.string.nimbostratus_weather)
+            CloudGenus.Stratus -> context.getString(R.string.stratus_weather)
+            CloudGenus.Stratocumulus -> context.getString(R.string.stratocumulus_weather)
+            CloudGenus.Cumulus -> context.getString(R.string.cumulus_weather)
+            CloudGenus.Cumulonimbus -> context.getString(R.string.cumulonimbus_weather)
+            CloudGenus.Cirrus -> context.getString(R.string.cirrus_weather)
+        }
+    }
+
     fun getCloudName(type: CloudGenus): String {
         return when (type) {
             CloudGenus.Cirrus -> context.getString(R.string.cirrus)
