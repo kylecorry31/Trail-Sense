@@ -58,7 +58,7 @@ class CloudListItem(
             binding.confidence.text = formatter.formatPercentage(confidence * 100)
         }
 
-        binding.precipitation.setOnClickListener {
+        binding.root.setOnClickListener {
             Alerts.dialog(
                 context,
                 cloudRepo.getCloudName(type),
