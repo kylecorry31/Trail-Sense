@@ -359,7 +359,7 @@
     <string name="pref_altitude_override_title">Zastępowanie wysokości</string>
     <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="set_inclination_instructions">Dotknij dowolnego miejsca, aby zablokować/odblokować</string>
+    <string name="set_inclination_instructions">Dotknij lub przytrzymaj w dowolnym miejscu, aby zablokować/odblokować</string>
     <string name="accuracy_info">"GPS: Wyjdź na zewnątrz, w miejsce z niezakłóconym widokiem nieba.
 \n    %s rzeczywistej lokalizacji
 \n    %s rzeczywistej wysokości
@@ -990,4 +990,26 @@
     <string name="file">Plik</string>
     <string name="exporting_map">Eksportowanie mapy</string>
     <string name="map_exported">Mapa została wyeksportowana</string>
+    <string name="running_in_background">Działanie w tle</string>
+    <string name="change_resolution">Zmiana rozdzielczości</string>
+    <string name="done">Gotowe</string>
+    <string name="explore">Poznaj</string>
+    <string name="move_to">Przenieś do</string>
+    <string name="path">Ścieżka</string>
+    <string name="elevation_gain">Przyrost wysokości</string>
+    <string name="point_added">Punkt dodany do ścieżki</string>
+    <string name="elevation_loss">Spadek wysokości</string>
+    <string name="pref_only_navigate_path_points_title">Nawiguj tylko do zarejestrowanych punktów</string>
+    <string name="camera_capture">Przechwytywanie</string>
+    <string name="point">Punkt</string>
+    <string name="map_export_error">Nie można wyeksportować mapy do wybranego pliku</string>
+    <string name="second_symbol">s</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d ścieżka</item>
+        <item quantity="few">%d ścieżki</item>
+        <item quantity="many">%d ścieżek</item>
+        <item quantity="other">%d ścieżek</item>
+    </plurals>
+    <string name="frequency">Częstotliwość</string>
+    <string name="permission_alarms_and_reminders">Alarmy i przypomnienia</string>
 </resources>
