@@ -20,6 +20,7 @@ abstract class QuickActionButton(
             Lifecycle.Event.ON_RESUME -> onResume()
             Lifecycle.Event.ON_PAUSE -> onPause()
             Lifecycle.Event.ON_DESTROY -> onDestroy()
+            else -> {} // Do nothing
         }
     }
 
