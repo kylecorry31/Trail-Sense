@@ -1078,4 +1078,14 @@
     <string name="change_resolution">Змінити роздільність</string>
     <string name="done">Готово</string>
     <string name="calibrate_map_point">Точка калібрування %d / %d</string>
+    <string name="cirrocumulus_weather">Може вказувати на похолодання найближчим часом.</string>
+    <string name="cirrostratus_weather">Можливі опади протягом наступних 12-24 годин</string>
+    <string name="stratocumulus_weather">Може вказувати на гарну погоду найближчим часом, з низькою ймовірністю опадів.</string>
+    <string name="cumulus_weather">Може вказувати на гарну погоду, але якщо вони виростають вище, це може призвести до грози.</string>
+    <string name="altocumulus_weather">Може вказувати на грози пізніше вдень, якщо буде волого.</string>
+    <string name="nimbostratus_weather">Опади дуже скоро</string>
+    <string name="stratus_weather">Можливі невеликі опади найближчим часом.</string>
+    <string name="altostratus_weather">Можливі опади найближчим часом.</string>
+    <string name="cumulonimbus_weather">Зовсім скоро гроза</string>
+    <string name="cirrus_weather">Може вказувати на тепло в майбутньому через 12–36 годин.</string>
 </resources>

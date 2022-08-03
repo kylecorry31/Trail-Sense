@@ -1063,4 +1063,21 @@
     <string name="delete_path_group_message">%s e todos os seus caminhos serão excluídos.</string>
     <string name="map_export_error">Não foi possível exportar o mapa ao arquivo escolhido</string>
     <string name="tide_instructions">Use uma tabela oficial de marés para anotar marés de referência para o período da sua viagem.</string>
+    <string name="change_resolution">Alteração da resolução</string>
+    <string name="altostratus_weather">Pode indicar precipitação em breve.</string>
+    <string name="nimbostratus_weather">Precipitação muito em breve</string>
+    <string name="stratus_weather">Pode indicar precipitação leve em breve.</string>
+    <string name="stratocumulus_weather">Pode indicar um bom tempo em breve, com uma baixa chance de precipitação.</string>
+    <string name="cumulonimbus_weather">Tempestade muito em breve</string>
+    <string name="cirrostratus_weather">Pode indicar precipitação em 12 a 24 horas</string>
+    <string name="cirrus_weather">Pode indicar uma frente quente em 12 a 36 horas.</string>
+    <string name="calibrate_map_point">Calibrar ponto %d / %d</string>
+    <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
+    <string name="cirrocumulus_weather">Pode indicar um tempo mais frio em breve.</string>
+    <string name="done">Concluído</string>
+    <string name="altocumulus_weather">Pode indicar trovoadas no final do dia se estiver úmido.</string>
+    <string name="cumulus_weather">Pode indicar um bom tempo, mas se estiverem crescendo mais, pode levar a uma tempestade.</string>
+    <string name="tide_semidiurnal">Semi-diurno</string>
+    <string name="permission_alarms_and_reminders">Alarmes e lembretes</string>
+    <string name="frequency">Frequência</string>
 </resources>
