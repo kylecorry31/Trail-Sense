@@ -247,32 +247,6 @@ object CustomUiUtils {
         }
     }
 
-    fun showImage(
-        context: Context,
-        title: String,
-        @DrawableRes image: Int
-    ) {
-        val view = LinearLayout(context)
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        params.gravity = Gravity.CENTER
-        view.layoutParams = params
-        val imageView = ImageView(context)
-        val imageParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-        imageParams.gravity = Gravity.CENTER
-        imageView.layoutParams = imageParams
-        imageView.setImageResource(image)
-        view.addView(imageView)
-
-        Alerts.dialog(context, title, contentView = view, cancelText = null)
-    }
-
     fun setImageColor(view: ImageView, @ColorInt color: Int?) {
         if (color == null) {
             view.clearColorFilter()

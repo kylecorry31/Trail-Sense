@@ -479,7 +479,6 @@
     <string name="square">Persegi</string>
     <string name="solid">Padat</string>
     <string name="dotted">Bertitik-titik</string>
-    <string name="diamond"></string>
     <string name="battery_warning">Peringatan pengurasan baterai</string>
     <string name="whistle_signal_acknowledged">Diakui</string>
     <string name="delete_map">Hapus peta\?</string>

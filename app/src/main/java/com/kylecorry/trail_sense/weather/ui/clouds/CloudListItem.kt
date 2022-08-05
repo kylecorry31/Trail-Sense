@@ -69,7 +69,7 @@ class CloudListItem(
         }
 
         binding.cloudImg.setOnClickListener {
-            CustomUiUtils.showImage(
+            Alerts.image(
                 context,
                 cloudRepo.getCloudName(type),
                 cloudRepo.getCloudImage(type)
