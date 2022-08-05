@@ -58,7 +58,7 @@ android {
 
 dependencies {
     kapt("androidx.room:room-compiler:2.4.3")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10")
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
@@ -86,7 +86,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:5.8.1")
 
     // Andromeda
-    val andromedaVersion = "4.0.0-beta09"
+    val andromedaVersion = "4.0.0-beta10"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
