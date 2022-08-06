@@ -11,14 +11,15 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
@@ -45,6 +46,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -74,6 +76,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var calculatedDuration = Duration.ZERO
     private var elevationGain = Distance.meters(0f)
     private var elevationLoss = Distance.meters(0f)
+    private var elevationRange: Range<Distance>? = null
     private var difficulty = HikingDifficulty.Easiest
 
     private val paceFactor = 1.75f
@@ -165,6 +168,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         chart.setOnPointClickListener {
             viewWaypoint(it)
+        }
+
+        binding.pathElevationMin.setOnClickListener {
+            val point = waypoints.filter { it.elevation != null }.minByOrNull { it.elevation!! }
+            point?.let { viewWaypoint(it) }
+        }
+
+        binding.pathElevationMax.setOnClickListener {
+            val point = waypoints.filter { it.elevation != null }.maxByOrNull { it.elevation!! }
+            point?.let { viewWaypoint(it) }
         }
 
         pathService.getLivePath(pathId).observe(viewLifecycleOwner) {
@@ -260,8 +273,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
             val gainLoss = hikingService.getElevationLossGain(path)
 
-            elevationGain = gainLoss.second.convertTo(prefs.baseDistanceUnits)
-            elevationLoss = gainLoss.first.convertTo(prefs.baseDistanceUnits)
+            val units = prefs.baseDistanceUnits
+            elevationGain = gainLoss.second.convertTo(units)
+            elevationLoss = gainLoss.first.convertTo(units)
+            elevationRange = path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }.range()
         }
     }
 
@@ -395,6 +410,24 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             Units.getDecimalPlaces(elevationLoss.units),
             false
         )
+
+        val elevationRange = elevationRange
+        binding.pathElevationMin.isVisible = elevationRange != null
+        binding.pathElevationMax.isVisible = elevationRange != null
+
+        elevationRange?.let {
+            binding.pathElevationMin.title = formatService.formatDistance(
+                it.start,
+                Units.getDecimalPlaces(it.start.units),
+                false
+            )
+
+            binding.pathElevationMax.title = formatService.formatDistance(
+                it.end,
+                Units.getDecimalPlaces(it.end.units),
+                false
+            )
+        }
 
         binding.pathDifficulty.title = formatService.formatHikingDifficulty(difficulty)
 

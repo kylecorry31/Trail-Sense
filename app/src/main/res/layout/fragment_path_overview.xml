@@ -160,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:dataPointDescription="@string/elevation_gain"
+                app:dataPointDescription="@string/ascent"
                 app:dataPointIcon="@drawable/ic_elevation_gain"
                 app:layout_columnWeight="1" />
 
@@ -169,8 +169,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:dataPointDescription="@string/elevation_loss"
+                app:dataPointDescription="@string/descent"
                 app:dataPointIcon="@drawable/ic_elevation_loss"
+                app:layout_columnWeight="1" />
+
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_elevation_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:dataPointDescription="@string/lowest_point_altitude"
+                app:dataPointIcon="@drawable/ic_elevation_loss"
+                app:layout_columnWeight="1" />
+
+            <com.kylecorry.trail_sense.shared.views.DataPointView
+                android:id="@+id/path_elevation_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:dataPointDescription="@string/highest_point_altitude"
+                app:dataPointIcon="@drawable/ic_elevation_gain"
                 app:layout_columnWeight="1" />
 
         </androidx.gridlayout.widget.GridLayout>

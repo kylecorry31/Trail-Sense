@@ -1199,6 +1199,10 @@
     <string name="change_resolution">Change resolution</string>
     <string name="done">Done</string>
     <string name="calibrate_map_point">Calibrate point %d / %d</string>
+    <string name="descent">Descent</string>
+    <string name="ascent">Ascent</string>
+    <string name="lowest_point_altitude">Lowest point</string>
+    <string name="highest_point_altitude">Highest point</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
