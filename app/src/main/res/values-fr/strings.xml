@@ -13,12 +13,6 @@
     <string name="pressure">Unité de pression</string>
     <string name="pref_use_24_hour_title">Utiliser le format 24 heures</string>
     <string name="pref_sun_time_mode_title">Heures de lever / coucher du soleil</string>
-    <string name="weather_improving_fast">S\'améliore rapidement</string>
-    <string name="weather_improving_slow">S\'améliore lentement</string>
-    <string name="weather_worsening_slow">Se dégrade lentement</string>
-    <string name="weather_worsening_fast">Se dégrade rapidement</string>
-    <string name="weather_storm_incoming">Tempête imminente</string>
-    <string name="weather_not_changing">Stable</string>
     <string name="forecast_improving">Amélioration probable</string>
     <string name="forecast_worsening">Dégradation probable</string>
     <string name="no_beacons">Pas de repères</string>
@@ -610,7 +604,6 @@
     <string name="humidity">Humidité</string>
     <string name="num_satellites">%d satellites</string>
     <string name="beacon_qr_import_instructions">Scanner un QR Code pour importer</string>
-    <string name="climate_polar">Polaire</string>
     <string name="altitude_history">Historique d’altitude</string>
     <string name="qr_code">QR Code</string>
     <string name="pref_filter_altitude_history_title">Lisser l’historique d’altitude</string>
@@ -661,8 +654,6 @@
     <string name="clear_amounts">Effacer les quantités</string>
     <string name="electronics">Électronique</string>
     <string name="documents">Documents</string>
-    <string name="climate_temperate">Tempéré</string>
-    <string name="climate_tropical">Tropical</string>
     <string name="diagnostic_message_template">%s : %s
 \n
 \n### Outils affictées
@@ -730,7 +721,6 @@
     <string name="pref_show_nautical_times_title">Heure nautique</string>
     <string name="map_rotate_instructions">Tourner jusqu’à ce que le Nord soit au dessus</string>
     <string name="pref_flashlight_toggle_with_system_title">Activer au démarrage</string>
-    <string name="climate_zone">zone %s</string>
     <string name="kilograms">Kilogrammes</string>
     <string name="weight">Masse</string>
     <string name="pref_navigation_lock_screen_presence_title">Afficher sur l’écran de verrouillage lors de la navigation</string>
@@ -793,7 +783,6 @@
         <item quantity="other">%d balises seront supprimées</item>
     </plurals>
     <string name="stratus_desc">Nuage bas couvrant le ciel. Les objets n’ont pas d’ombre et il peut y avoir du brouillard.</string>
-    <string name="log">Journal</string>
     <string name="precipitation_snow">Neige</string>
     <string name="pref_auto_simplify_paths_title">Simplifier les chemins lors de l’importation</string>
     <string name="navigation_guide_description">Utilisation des balises et chemins</string>
@@ -863,7 +852,6 @@
     <string name="enable">Activer</string>
     <string name="weather_monitoring_disabled">Moniteur météo désactivé</string>
     <string name="no_clouds">Pas de nuages</string>
-    <string name="pressure_logged">Pression enregistrée</string>
     <string name="points">Points</string>
     <string name="duration">Durée</string>
     <string name="stratocumulus_desc">Nuages bas pouvant ressembler à des balles de coton faiblement espacées, de couleur blanche à gris foncé.</string>

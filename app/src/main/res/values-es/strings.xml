@@ -14,12 +14,6 @@
     <string name="pressure">Presión</string>
     <string name="pref_use_24_hour_title">Usar el formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Amanecer / atardecer</string>
-    <string name="weather_improving_fast">Mejorará muy pronto</string>
-    <string name="weather_improving_slow">Mejorará pronto</string>
-    <string name="weather_worsening_slow">Empeorará pronto</string>
-    <string name="weather_worsening_fast">Empeorará muy pronto</string>
-    <string name="weather_storm_incoming">Próxima tormenta</string>
-    <string name="weather_not_changing">No cambiará pronto</string>
     <string name="forecast_improving">Posiblemente mejore más tarde</string>
     <string name="forecast_worsening">Posiblemente empeore más tarde</string>
     <string name="no_beacons">Sin balizas</string>
@@ -633,11 +627,8 @@
     <string name="kilograms">Kilos</string>
     <string name="pack_sort_percent_high_to_low">Porcentaje empacado(alto a bajo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (bajo a alto)</string>
-    <string name="climate_temperate">Temperatura</string>
     <string name="autofill">Autorellenar</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="climate_polar">Polar</string>
-    <string name="climate_tropical">Tropical</string>
     <string name="no_resolution">Sin resolución</string>
     <string name="get_gps_signal">Salga con una vista despejada del cielo.</string>
     <string name="location_override_resolution">Habilite la ubicación de ajuste automático en la configuración.</string>
@@ -773,7 +764,6 @@
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="pack_sort_percent_low_to_high">Porcentaje empacado (bajo a alto)</string>
     <string name="humidity">Humedad</string>
-    <string name="climate_zone">%s zona</string>
     <string name="altitude_history">Historial de altitud</string>
     <string name="beacon_qr_import_instructions">Escanea un código QR para importar</string>
     <string name="quarter_moon">Cuarto de luna</string>
@@ -856,8 +846,6 @@
     <string name="moon">Luna</string>
     <string name="enable">Habilitar</string>
     <string name="no_clouds">No hay nubes</string>
-    <string name="log">Registrar</string>
-    <string name="pressure_logged">Presion registrada</string>
     <string name="precipitation_none">Sin precipitaciones</string>
     <string name="precipitation_snow">Nieve</string>
     <string name="precipitation_snow_pellets">Bolitas de nieve</string>

@@ -71,10 +71,6 @@
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
     <string name="pref_use_sea_level_pressure_title">Pressió a nivell del mar</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibració</string>
-    <string name="weather_worsening_fast">Empitjorarà en breu</string>
-    <string name="weather_worsening_slow">Empitjorarà aviat</string>
-    <string name="weather_improving_slow">Millorarà aviat</string>
-    <string name="weather_improving_fast">Millorarà aviat</string>
     <string name="no_data">Sense dades</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -270,8 +266,6 @@
     <string name="sun_does_not_set">sense posta de sol</string>
     <string name="forecast_improving">Possible millora més tard</string>
     <string name="forecast_worsening">Possible empitjorament més tard</string>
-    <string name="weather_not_changing">Estable</string>
-    <string name="weather_storm_incoming">Tempesta inminent</string>
     <string name="units_mmhg">mmHg</string>
     <string name="unit_meters">Metres</string>
     <string name="unit_feet">Peus</string>

@@ -13,12 +13,6 @@
     <string name="pressure">Luftdruck</string>
     <string name="pref_use_24_hour_title">24-Stunden-Zählung verwenden</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
-    <string name="weather_improving_fast">Sehr bald Besserung</string>
-    <string name="weather_improving_slow">Bald besser werdend</string>
-    <string name="weather_worsening_slow">Verschlechtert sich bald</string>
-    <string name="weather_worsening_fast">Verschlechterung sehr bald</string>
-    <string name="weather_storm_incoming">Sturm im Anmarsch</string>
-    <string name="weather_not_changing">Keine baldige Wetteränderung</string>
     <string name="forecast_improving">Möglicherweise spätere Wetterbesserung</string>
     <string name="forecast_worsening">Möglicherweise spätere Wetterverschlechterung</string>
     <string name="no_beacons">Keine Wegpunkte</string>
@@ -709,10 +703,6 @@
     <string name="pack_sort_weight_low_to_high">Gewicht (gering zu hoch)</string>
     <string name="pack_sort_percent_high_to_low">Prozent gepackt (hoch zu wenig)</string>
     <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig zu hoch)</string>
-    <string name="climate_tropical">Tropische</string>
-    <string name="climate_temperate">Gemäßigte</string>
-    <string name="climate_polar">Polare</string>
-    <string name="climate_zone">%s Zone</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d Satelliten</string>
     <string name="no_compass_message">Ihr Gerät hat keinen Kompass</string>
@@ -842,8 +832,6 @@
     <string name="precipitation_snow_grains">Schneekörner</string>
     <string name="capture">Aufnahme</string>
     <string name="results">Ergebnisse</string>
-    <string name="log">Log</string>
-    <string name="pressure_logged">Druck geloggt</string>
     <string name="sky_detection_sensitivity">Empfindlichkeit der Himmelserkennung</string>
     <string name="precipitation_rain">Regen</string>
     <string name="precipitation_none">Kein Niederschlag</string>

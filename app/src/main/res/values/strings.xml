@@ -122,12 +122,6 @@
     <string name="weather_storm">Storm</string>
     <string name="very_soon">Very soon</string>
     <string name="soon">Soon</string>
-    <string name="weather_improving_fast">Improving very soon</string>
-    <string name="weather_improving_slow">Improving soon</string>
-    <string name="weather_worsening_slow">Worsening soon</string>
-    <string name="weather_worsening_fast">Worsening very soon</string>
-    <string name="weather_storm_incoming">Storm incoming</string>
-    <string name="weather_not_changing">Not changing soon</string>
     <string name="forecast_improving">Possibly improving later</string>
     <string name="forecast_worsening">Possibly worsening later</string>
     <!--Astronomy Tab-->
@@ -914,10 +908,6 @@
     <string name="no_compass_message">Your device does not have a compass sensor</string>
     <string name="num_satellites">%d satellites</string>
     <string name="wgs84">WGS 84</string>
-    <string name="climate_zone">%s zone</string>
-    <string name="climate_polar">Polar</string>
-    <string name="climate_temperate">Temperate</string>
-    <string name="climate_tropical">Tropical</string>
     <string name="altitude_history">Altitude history</string>
     <string name="qr_code">QR Code</string>
     <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
@@ -1026,8 +1016,6 @@
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
     <string name="no_clouds">No Clouds</string>
-    <string name="log">Log</string>
-    <string name="pressure_logged">Pressure logged</string>
     <string name="sky_detection_sensitivity">Sky detection sensitivity</string>
     <string name="obstacle_removal_sensitivity">Obstacle removal sensitivity</string>
     <string name="pref_experimental_cloud_scanner_title">Cloud scanner</string>

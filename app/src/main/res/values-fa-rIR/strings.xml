@@ -15,12 +15,6 @@
     <string name="pressure">فشار</string>
     <string name="pref_use_24_hour_title">از قالب 24 ساعته استفاده کنید</string>
     <string name="pref_sun_time_mode_title">زمان طلوع آفتاب / غروب خورشید</string>
-    <string name="weather_improving_fast">خیلی زود بهبود می یابیم</string>
-    <string name="weather_improving_slow">به زودی بهبود می یابیم</string>
-    <string name="weather_worsening_slow">خیلی زود بدتر می شویم</string>
-    <string name="weather_worsening_fast">بدتر می شویم</string>
-    <string name="weather_storm_incoming">طوفان نزدیک میشود</string>
-    <string name="weather_not_changing">به زودی تغییر نمی کند</string>
     <string name="forecast_improving">احتمالا بعداً بهبود می یابد</string>
     <string name="forecast_worsening">احتمالا بعداً بدتر می شود</string>
     <string name="no_beacons">مکان راهنمایی وجود ندارد</string>

@@ -14,12 +14,6 @@
     <string name="pressure">Նշում</string>
     <string name="pref_use_24_hour_title">Օգտագործեք 24-ժամյա ձևաչափ</string>
     <string name="pref_sun_time_mode_title">Արևածագ /մայրամուտի ժամերը</string>
-    <string name="weather_improving_fast">Շատ շուտով բարելավվում է</string>
-    <string name="weather_improving_slow">բարելավելով շուտով</string>
-    <string name="weather_worsening_slow">Շուտով վատանում է</string>
-    <string name="weather_worsening_fast">Շատ շուտ վատթարանալը</string>
-    <string name="weather_storm_incoming">Փոթորիկ եկող</string>
-    <string name="weather_not_changing">Շուտով չի փոխվում</string>
     <string name="forecast_improving">Հնարավոր է, որ հետագայում բարելավվի</string>
     <string name="forecast_worsening">Հնարավոր է ՝ ավելի ուշ վատթարանալ</string>
     <string name="no_beacons">Փարոսներ չկան</string>

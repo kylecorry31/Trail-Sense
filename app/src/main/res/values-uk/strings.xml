@@ -367,7 +367,6 @@
     <string name="sun_does_not_set">не сідає</string>
     <string name="forecast_worsening">Можливо, погіршиться пізніше</string>
     <string name="forecast_improving">Можливо, поліпшиться пізніше</string>
-    <string name="weather_not_changing">Найближчим часом без змін</string>
     <string name="unsaved_changes">Незбережені зміни</string>
     <string name="low_power_mode_on_message">Режим енергоощадження увімкнувся, деякі функції може бути вимкнено.</string>
     <string name="pref_low_power_mode_title">Режим енергоощадження</string>
@@ -493,11 +492,6 @@
     <string name="unit_meters">Метри</string>
     <string name="distance_to">До</string>
     <string name="distance_from">Від</string>
-    <string name="weather_storm_incoming">Наближається шторм</string>
-    <string name="weather_worsening_fast">Дуже скоро погіршиться</string>
-    <string name="weather_worsening_slow">Скоро погіршиться</string>
-    <string name="weather_improving_slow">Скоро поліпшиться</string>
-    <string name="weather_improving_fast">Дуже скоро поліпшиться</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -725,10 +719,6 @@
     <string name="num_satellites">%d супутників</string>
     <string name="no_compass_message">Ваш пристрій не має датника компаса</string>
     <string name="altitude_history">Історія висот</string>
-    <string name="climate_tropical">Тропічна</string>
-    <string name="climate_zone">%s зона</string>
-    <string name="climate_temperate">Помірна</string>
-    <string name="climate_polar">Полярна</string>
     <string name="pref_filter_altitude_history_title">Історія плавності висот</string>
     <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
     <string name="qr_code">QR-код</string>
@@ -855,11 +845,9 @@
     <string name="precipitation_snow_grains">Снігові зернята</string>
     <string name="capture">Захоплення</string>
     <string name="results">Підсумки</string>
-    <string name="log">Журнал</string>
     <string name="precipitation_small_hail">Дрібний град</string>
     <string name="precipitation_ice_pellets">Льодяна крупа</string>
     <string name="pref_experimental_cloud_scanner_title">Зчитувач хмар</string>
-    <string name="pressure_logged">Тиск записано</string>
     <string name="sky_detection_sensitivity">Чутливість виявлення неба</string>
     <string name="obstacle_removal_sensitivity">Чутливість усунення перешкод</string>
     <string name="precipitation_none">Без опадів</string>

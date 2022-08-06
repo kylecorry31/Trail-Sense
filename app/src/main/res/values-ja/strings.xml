@@ -13,12 +13,6 @@
     <string name="pressure">気圧</string>
     <string name="pref_use_24_hour_title">24時間形式を使用する</string>
     <string name="pref_sun_time_mode_title">日の出/日の入りの時刻</string>
-    <string name="weather_improving_fast">急速に晴れてきています</string>
-    <string name="weather_improving_slow">晴れてきています</string>
-    <string name="weather_worsening_slow">急速に悪くなっています</string>
-    <string name="weather_worsening_fast">悪くなっています</string>
-    <string name="weather_storm_incoming">暴風雨が迫っています</string>
-    <string name="weather_not_changing">すぐには変わらないでしょう</string>
     <string name="forecast_improving">しばらくすると晴れるかもしれません</string>
     <string name="forecast_worsening">しばらくすると悪くなるかもしれません</string>
     <string name="no_beacons">ビーコンなし</string>

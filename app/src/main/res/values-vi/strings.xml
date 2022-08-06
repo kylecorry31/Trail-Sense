@@ -12,7 +12,6 @@
     <string name="tools">Công cụ</string>
     <string name="access_background_location">Cập nhật Cài đặt vị trí</string>
     <string name="access_background_location_rationale">Trail Sense sử dụng dữ liệu vị trí ở nền sau. Dữ liệu này được dùng để xác định áp suất mực nước biển trong giám sát thời tiết và để cung cấp chính xác hơn thông báo mặt trời lặn.</string>
-    <string name="weather_storm_incoming">Bão đang đến</string>
     <string name="direction_north">Bắc</string>
     <string name="direction_south">Nam</string>
     <string name="direction_east">Đông</string>

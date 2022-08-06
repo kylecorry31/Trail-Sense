@@ -14,12 +14,6 @@
     <string name="pressure">الضغط</string>
     <string name="pref_use_24_hour_title">استخدم تنسيق 24 ساعة</string>
     <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
-    <string name="weather_improving_fast">تتحسن قريبًا جدًا</string>
-    <string name="weather_improving_slow">تتحسن قريبًا</string>
-    <string name="weather_worsening_slow">تزداد سوءًا قريبًا</string>
-    <string name="weather_worsening_fast">تزداد سوءًا قريبًا</string>
-    <string name="weather_storm_incoming">العاصفة واردة</string>
-    <string name="weather_not_changing">لن يتغير قريبًا</string>
     <string name="forecast_improving">ربما تتحسن لاحقًا</string>
     <string name="forecast_worsening">ربما تزداد سوءًا لاحقًا</string>
     <string name="no_beacons">لا توجد منارات</string>

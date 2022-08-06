@@ -248,7 +248,6 @@
     <string name="moon_illumination">月球亮部</string>
     <string name="sun_down_no_set">太陽落下</string>
     <string name="sun_up_no_set">太陽升起</string>
-    <string name="weather_storm_incoming">暴風雨即將來臨</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -272,7 +271,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="pref_compass_filter_amt_title">電子羅盤平滑化</string>
-    <string name="weather_improving_slow">好轉中</string>
     <string name="daylight">日光時間</string>
     <string name="pref_show_civil_times_summary">黎明與黃昏</string>
     <string name="dawn_type">黎明 (%s)</string>
@@ -288,9 +286,6 @@
     <string name="unit_centimeters_abbreviation">公分</string>
     <string name="units_mmhg_short">毫米</string>
     <string name="water_boil_timer_done_content">您的水現在可以飲用</string>
-    <string name="log">紀錄</string>
-    <string name="weather_worsening_fast">快速惡化中</string>
-    <string name="weather_not_changing">近期不會改變</string>
     <string name="disclaimer_message_title">聲明</string>
     <string name="app_disclaimer_message_title">聲明/服務條款</string>
     <string name="guide_thermometer_calibration_title">溫度計校正</string>
@@ -304,8 +299,6 @@
     <string name="hours">小時</string>
     <string name="minutes">分鐘</string>
     <string name="no_data">無資料</string>
-    <string name="weather_improving_fast">快速好轉中</string>
-    <string name="weather_worsening_slow">惡化中</string>
     <string name="forecast_improving">可能會好轉</string>
     <string name="forecast_worsening">可能會惡化</string>
     <string name="general">一班</string>

@@ -13,12 +13,6 @@
     <string name="pressure">Pressão</string>
     <string name="pref_use_24_hour_title">Utilizar o formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Nascer do sol / pôr do sol</string>
-    <string name="weather_improving_fast">A melhorar muito em breve</string>
-    <string name="weather_improving_slow">A melhorar em breve</string>
-    <string name="weather_worsening_slow">A piorar em breve</string>
-    <string name="weather_worsening_fast">A piorar muito em breve</string>
-    <string name="weather_storm_incoming">Tempestade a chegar</string>
-    <string name="weather_not_changing">Sem alterações em breve</string>
     <string name="forecast_improving">Possivelmente melhorará mais tarde</string>
     <string name="forecast_worsening">Possivelmente piorará mais tarde</string>
     <string name="no_beacons">Sem alfinetes</string>
@@ -737,10 +731,6 @@
     <string name="beacon_qr_import_instructions">Digitalizar um código QR a importar</string>
     <string name="qr_code">Código QR</string>
     <string name="altitude_history">Histórico de altitude</string>
-    <string name="climate_tropical">Tropical</string>
-    <string name="climate_temperate">Temperado</string>
-    <string name="climate_polar">Polar</string>
-    <string name="climate_zone">Zona %s</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">O seu aparelho não possui um sensor de bússola</string>
@@ -836,8 +826,6 @@
     <string name="enable">Ativar</string>
     <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
     <string name="no_clouds">Sem nuvens</string>
-    <string name="log">Registo</string>
-    <string name="pressure_logged">Pressão registada</string>
     <string name="sky_detection_sensitivity">Sensibilidade de deteção do céu</string>
     <string name="obstacle_removal_sensitivity">Sensibilidade à remoção de obstáculos</string>
     <string name="pref_experimental_cloud_scanner_title">Digitalizador de nuvens</string>

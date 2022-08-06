@@ -13,12 +13,6 @@
     <string name="pressure">Давление</string>
     <string name="pref_use_24_hour_title">Использовать 24-часовой формат</string>
     <string name="pref_sun_time_mode_title">Время восхода/захода Солнца</string>
-    <string name="weather_improving_fast">Очень скоро улучшится</string>
-    <string name="weather_improving_slow">Скоро улучшится</string>
-    <string name="weather_worsening_slow">Скоро ухудшится</string>
-    <string name="weather_worsening_fast">Очень скоро ухудшится</string>
-    <string name="weather_storm_incoming">Приближается буря</string>
-    <string name="weather_not_changing">Не изменится в ближайшее время</string>
     <string name="forecast_improving">Возможно, улучшится позже</string>
     <string name="forecast_worsening">Возможно, ухудшится позже</string>
     <string name="no_beacons">Нет маячков</string>
@@ -648,10 +642,6 @@
     <string name="beacon_qr_import_instructions">Отсканируйте QR-код для импорта</string>
     <string name="qr_code">QR-код</string>
     <string name="altitude_history">История высот</string>
-    <string name="climate_tropical">Тропическая</string>
-    <string name="climate_temperate">Умеренная</string>
-    <string name="climate_polar">Полярная</string>
-    <string name="climate_zone">%s зона</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d спутников</string>
     <string name="no_compass_message">В вашем устройстве отсутствует датчик компаса</string>
@@ -852,7 +842,6 @@
     <string name="units_mmhg">мм рт.ст.</string>
     <string name="units_inhg">дюйм рт. ст.</string>
     <string name="no_clouds">Нет облаков</string>
-    <string name="pressure_logged">Давление записано</string>
     <string name="precipitation_snow_pellets">Снежная крупа</string>
     <string name="precipitation_hail">Град</string>
     <string name="precipitation_small_hail">Мелкий град</string>
@@ -860,7 +849,6 @@
     <string name="precipitation_snow_grains">Снежные зерна</string>
     <string name="results">Результат</string>
     <string name="obstacle_removal_sensitivity">Чувствительность устранения помех</string>
-    <string name="log">Журнал</string>
     <string name="sky_detection_sensitivity">Чувствительность обнаружения неба</string>
     <string name="pref_experimental_cloud_scanner_title">Определитель облаков</string>
     <string name="precipitation_none">Без осадков</string>

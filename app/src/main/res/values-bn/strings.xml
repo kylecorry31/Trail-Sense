@@ -13,12 +13,6 @@
     <string name="pressure">চাপ</string>
     <string name="pref_use_24_hour_title">24 ঘন্টা বিন্যাস ব্যবহার করুন</string>
     <string name="pref_sun_time_mode_title">সূর্যোদয় /সূর্যাস্তের সময়</string>
-    <string name="weather_improving_fast">খুব শীঘ্রই উন্নতি হচ্ছে</string>
-    <string name="weather_improving_slow">শীঘ্রই উন্নতি হচ্ছে</string>
-    <string name="weather_worsening_slow">শীঘ্রই খারাপ হচ্ছে</string>
-    <string name="weather_worsening_fast">খুব শীঘ্রই খারাপ হয়</string>
-    <string name="weather_storm_incoming">ঝড়ের আগমন</string>
-    <string name="weather_not_changing">শীঘ্রই পরিবর্তন হচ্ছে না</string>
     <string name="forecast_improving">সম্ভবত পরে উন্নতি হচ্ছে</string>
     <string name="forecast_worsening">সম্ভবত পরে আরও খারাপ হচ্ছে</string>
     <string name="no_beacons">কোনও বীকন নেই</string>

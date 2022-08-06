@@ -14,12 +14,6 @@
     <string name="pressure">налягане</string>
     <string name="pref_use_24_hour_title">Използвайте 24-часов формат</string>
     <string name="pref_sun_time_mode_title">Време за изгрев /залез</string>
-    <string name="weather_improving_fast">Подобряване много скоро</string>
-    <string name="weather_improving_slow">Подобряване скоро</string>
-    <string name="weather_worsening_slow">Влошава се скоро</string>
-    <string name="weather_worsening_fast">Влошава се много скоро</string>
-    <string name="weather_storm_incoming">Бурята идва</string>
-    <string name="weather_not_changing">Не се променя скоро</string>
     <string name="forecast_improving">Възможно подобрение по-късно</string>
     <string name="forecast_worsening">Възможно влошаване по-късно</string>
     <string name="no_beacons">Без маяци</string>

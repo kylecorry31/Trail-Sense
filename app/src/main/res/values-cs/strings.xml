@@ -61,12 +61,6 @@
     <string name="sun_does_not_set">nezapadá</string>
     <string name="forecast_worsening">Možné pozdější zhoršení</string>
     <string name="forecast_improving">Možné pozdější zlepšení</string>
-    <string name="weather_not_changing">Nebude se měnit</string>
-    <string name="weather_storm_incoming">Bouře přichází</string>
-    <string name="weather_worsening_fast">Bude se velmi brzo zhoršovat</string>
-    <string name="weather_worsening_slow">Bude se brzo zhoršovat</string>
-    <string name="weather_improving_slow">Bude se brzo zlepšovat</string>
-    <string name="weather_improving_fast">Bude se velmi brzo zlepšovat</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
@@ -680,9 +674,6 @@
     <string name="no_packing_lists">Žádné seznamy věcí na cesty</string>
     <string name="pack_sort_percent_high_to_low">Procento zabalených (od nejvyšší po nejnižší)</string>
     <string name="pack_sort_weight_low_to_high">Hmotnost (od nejnižší po nejvyšší)</string>
-    <string name="climate_polar">Polární</string>
-    <string name="climate_temperate">Mírný</string>
-    <string name="climate_tropical">Tropický</string>
     <string name="guide_packing_list">Vytvořit seznam věcí na cesty</string>
     <string name="altitude_history">Historie nadmořské výšky</string>
     <string name="overridden">Přepsáno</string>
@@ -859,7 +850,6 @@
     <string name="pounds">Libry</string>
     <string name="imperial_ounces_volume">Imperiální unce</string>
     <string name="imperial_gallons">Imperiální galony</string>
-    <string name="climate_zone">%s pás</string>
     <string name="percent_packed">%s zabaleno</string>
     <string name="packing_lists">Seznamy věcí na cesty</string>
     <string name="pref_filter_altitude_history_title">Vyhlazená historie nadmořské výšky</string>
@@ -937,8 +927,6 @@
     <string name="hide">Skrýt</string>
     <string name="show">Zobrazit</string>
     <string name="obstacle_removal_sensitivity">Citlivost odstranění překážek</string>
-    <string name="log">Záznam</string>
-    <string name="pressure_logged">Tlak zaznamenán</string>
     <string name="sky_detection_sensitivity">Citlivost detekce oblohy</string>
     <string name="notification_weather_update_content">Zaznamenávání tlaku</string>
     <string name="notification_backtrack_update_title">Aktualizace zpětné navigace</string>

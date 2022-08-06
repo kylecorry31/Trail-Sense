@@ -13,12 +13,6 @@
     <string name="pressure">Druk</string>
     <string name="pref_use_24_hour_title">24-uursnotatie gebruiken</string>
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
-    <string name="weather_improving_fast">Zeer binnenkort verbetering</string>
-    <string name="weather_improving_slow">Binnenkort beter</string>
-    <string name="weather_worsening_slow">Verergert binnenkort</string>
-    <string name="weather_worsening_fast">Verergert zeer binnenkort</string>
-    <string name="weather_storm_incoming">Storm op komst</string>
-    <string name="weather_not_changing">Verandert binnenkort niet</string>
     <string name="forecast_improving">Verbetert mogelijk later</string>
     <string name="forecast_worsening">Verergert mogelijk later</string>
     <string name="no_beacons">Geen bakens</string>
@@ -705,10 +699,6 @@
 \nOSNG (OSGB36) (vb. TG 51409 13177)</string>
     <string name="action_inventory_clear_confirm">Alle verpakte bedragen wissen\?</string>
     <string name="altitude_history">Hoogtegeschiedenis</string>
-    <string name="climate_zone">%s klimaat</string>
-    <string name="climate_tropical">Tropisch</string>
-    <string name="climate_temperate">Gematigd</string>
-    <string name="climate_polar">Pool</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satellieten</string>
     <string name="no_compass_message">Je apparaat heeft geen kompassensor</string>
@@ -920,8 +910,6 @@
     <string name="season_winter">Winter</string>
     <string name="weather_monitoring_disabled">Weermeting uitgeschakeld</string>
     <string name="enable">Inschakelen</string>
-    <string name="log">Log</string>
-    <string name="pressure_logged">Druk gelogd</string>
     <string name="sky_detection_sensitivity">Gevoeligheid van luchtherkenning</string>
     <string name="obstacle_removal_sensitivity">Gevoeligheid van verwijderen van belemmeringen</string>
     <string name="pref_experimental_cloud_scanner_title">Wolkenlezer</string>

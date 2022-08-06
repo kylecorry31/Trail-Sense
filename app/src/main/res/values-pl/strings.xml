@@ -13,12 +13,6 @@
     <string name="pressure">Ciśnienie</string>
     <string name="pref_use_24_hour_title">Używaj formatu 24-godzinnego</string>
     <string name="pref_sun_time_mode_title">Czas wschodu/zachodu słońca</string>
-    <string name="weather_improving_fast">Poprawa bardzo szybko</string>
-    <string name="weather_improving_slow">Wkrótce poprawa</string>
-    <string name="weather_worsening_slow">Pogorszenie wkrótce</string>
-    <string name="weather_worsening_fast">Pogorszenie bardzo szybko</string>
-    <string name="weather_storm_incoming">Nadchodzi burza</string>
-    <string name="weather_not_changing">Nie zmieni się wkrótce</string>
     <string name="forecast_improving">Możliwa późniejsza poprawa</string>
     <string name="forecast_worsening">Prawdopodobnie pogorszy się później</string>
     <string name="no_beacons">Brak punktów nawigacyjnych</string>
@@ -700,10 +694,6 @@
     <string name="destination_elevation">Wysokość miejsca docelowego</string>
     <string name="current_format">%s mA</string>
     <string name="altitude_history">Historia wysokości</string>
-    <string name="climate_tropical">tropikalna</string>
-    <string name="climate_temperate">umiarkowana</string>
-    <string name="climate_polar">polarna</string>
-    <string name="climate_zone">Strefa %s</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelity(ów)</string>
     <string name="no_compass_message">Urządzenie nie posiada czujnika kompasu</string>
@@ -872,7 +862,6 @@
     <string name="hide">Ukryj</string>
     <string name="base_temperature">Temperatura bazowa</string>
     <string name="precipitation_chance">Prawdopodobieństwo opadów: %s</string>
-    <string name="pressure_logged">Ciśnienie zapisane</string>
     <string name="easy">Łatwe</string>
     <string name="hard">Trudne</string>
     <string name="difficulty">Trudność</string>
@@ -902,7 +891,6 @@
     <string name="very_soon">Wkrótce</string>
     <string name="soon">Wkrótce</string>
     <string name="dashed">Przerywana</string>
-    <string name="log">Dziennik</string>
     <string name="sky_detection_sensitivity">Czułość wykrywania nieba</string>
     <string name="distance_unset">Odległość nieustawiona</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Blokada za pomocą przycisków głośności</string>

@@ -14,12 +14,6 @@
     <string name="pressure">दबाव</string>
     <string name="pref_use_24_hour_title">24-घंटे के प्रारूप का उपयोग करें</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त के समय</string>
-    <string name="weather_improving_fast">बहुत जल्द सुधार होगा</string>
-    <string name="weather_improving_slow">जल्द ही सुधार होगा</string>
-    <string name="weather_worsening_slow">जल्दी ही झड़ गया</string>
-    <string name="weather_worsening_fast">बहुत जल्द लड़खड़ा जाता है</string>
-    <string name="weather_storm_incoming">आनेवाला तूफान</string>
-    <string name="weather_not_changing">जल्द नहीं बदल रहा है</string>
     <string name="forecast_improving">संभवतः बाद में सुधार होगा</string>
     <string name="forecast_worsening">संभवतः बाद में बिगड़ती जा रही है</string>
     <string name="no_beacons">कोई बीकन नहीं</string>

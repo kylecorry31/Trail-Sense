@@ -13,12 +13,6 @@
     <string name="pressure">Pritisak</string>
     <string name="pref_use_24_hour_title">Koristite 24-satni format</string>
     <string name="pref_sun_time_mode_title">Vrijeme izlaska i zalaska sunca</string>
-    <string name="weather_improving_fast">Poboljšat će se vrlo brzo</string>
-    <string name="weather_improving_slow">Uskoro će se poboljšati</string>
-    <string name="weather_worsening_slow">Uskoro će se pogoršati</string>
-    <string name="weather_worsening_fast">Pogoršat će se vrlo brzo</string>
-    <string name="weather_storm_incoming">Oluja dolazi</string>
-    <string name="weather_not_changing">Ne mijenja se uskoro</string>
     <string name="forecast_improving">Moguće je da će se kasnije poboljšati</string>
     <string name="forecast_worsening">Moguće je da će se kasnije pogoršati</string>
     <string name="no_beacons">Nema svjetionika</string>
@@ -721,10 +715,6 @@
     <string name="beacon_qr_import_instructions">Skenirajte QR kodu da uvezete</string>
     <string name="qr_code">QR Koda</string>
     <string name="altitude_history">Povijest visine</string>
-    <string name="climate_tropical">Tropska</string>
-    <string name="climate_temperate">Umjerena</string>
-    <string name="climate_polar">Polarna</string>
-    <string name="climate_zone">%s zona</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelita</string>
     <string name="no_compass_message">Vas uređaj nema senzor za kompas</string>

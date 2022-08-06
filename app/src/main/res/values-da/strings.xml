@@ -61,11 +61,6 @@
     <string name="weather_unchanging">Uforandret</string>
     <string name="weather_storm">Storm</string>
     <string name="very_soon">Meget snart</string>
-    <string name="weather_improving_fast">Forbedres meget snart</string>
-    <string name="weather_improving_slow">Forbedres snart</string>
-    <string name="weather_worsening_slow">Forværres snart</string>
-    <string name="weather_storm_incoming">Storm på vej</string>
-    <string name="weather_not_changing">Ændrer sig ikke foreløbig</string>
     <string name="forecast_improving">Muligvis forbedring senere</string>
     <string name="forecast_worsening">Muligvis forværring senere</string>
     <string name="sun_does_not_rise">står ikke op</string>
@@ -138,7 +133,6 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="sun_does_not_set">går ikke ned</string>
     <string name="precise_temp_c_format">%s °C</string>
-    <string name="weather_worsening_fast">Forværres meget snart</string>
     <string name="third_quarter">Tredje kvartal</string>
     <string name="full_moon">Fuldmåne</string>
     <string name="sunset_alert_notification_title">Solen går snart ned</string>

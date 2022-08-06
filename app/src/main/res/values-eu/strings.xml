@@ -49,12 +49,6 @@
     <string name="navigation">Nabigazioa</string>
     <string name="forecast_worsening">Baliteke beranduago okerrera egitea</string>
     <string name="forecast_improving">Beliteke beranduago hobetzea</string>
-    <string name="weather_not_changing">Ez da laster aldatuko</string>
-    <string name="weather_storm_incoming">Ekaitza hurbiltzen</string>
-    <string name="weather_worsening_fast">Berehala okerrera egingo du</string>
-    <string name="weather_worsening_slow">Laster okerrera egingo du</string>
-    <string name="weather_improving_fast">Berehala hobetuko du</string>
-    <string name="weather_improving_slow">Laster hobetuko du</string>
     <plurals name="last_minutes">
         <item quantity="one">Azken %d minutua</item>
         <item quantity="other">Azken %d minutuak</item>

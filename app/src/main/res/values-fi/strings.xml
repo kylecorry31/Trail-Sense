@@ -2,12 +2,6 @@
 <resources>
     <string name="forecast_worsening">Saattaa pilvistyä myöhemmin</string>
     <string name="forecast_improving">Saattaa selkeytyä myöhemmin</string>
-    <string name="weather_not_changing">Ei muutu pian</string>
-    <string name="weather_storm_incoming">Myrsky tulossa</string>
-    <string name="weather_worsening_fast">Pilvistyy pian</string>
-    <string name="weather_worsening_slow">Pilvistyy piakkoin</string>
-    <string name="weather_improving_slow">Selkenee piakkoin</string>
-    <string name="weather_improving_fast">Selkenee pian</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">

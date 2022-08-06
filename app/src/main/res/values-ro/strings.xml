@@ -26,12 +26,6 @@
     <string name="sun_does_not_set">nu apune</string>
     <string name="forecast_worsening">Posibil să se înrăutățească mai târziu</string>
     <string name="forecast_improving">Se poate îmbunătăți ulterior</string>
-    <string name="weather_not_changing">Nu se schimbă în curând</string>
-    <string name="weather_storm_incoming">Se apropie furtuna</string>
-    <string name="weather_worsening_fast">Se înrăutățește foarte curând</string>
-    <string name="weather_worsening_slow">Înrăutățire în curând</string>
-    <string name="weather_improving_slow">Îmbunătățire în curând</string>
-    <string name="weather_improving_fast">Se îmbunătățește foarte curând</string>
     <string name="no_data">Nu există date</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>

@@ -13,12 +13,6 @@
     <string name="pressure">Pressione</string>
     <string name="pref_use_24_hour_title">Utilizzare il formato 24 ore</string>
     <string name="pref_sun_time_mode_title">Orari alba / tramonto</string>
-    <string name="weather_improving_fast">Molto presto in miglioramento</string>
-    <string name="weather_improving_slow">Presto in miglioramento</string>
-    <string name="weather_worsening_slow">Presto in peggioramento</string>
-    <string name="weather_worsening_fast">Molto presto in peggioramento</string>
-    <string name="weather_storm_incoming">Temporale in arrivo</string>
-    <string name="weather_not_changing">Non in cambiamento a breve</string>
     <string name="forecast_improving">Possibile successivo miglioramento</string>
     <string name="forecast_worsening">Possibile successivo peggioramento</string>
     <string name="no_beacons">Nessun Segnaposto</string>

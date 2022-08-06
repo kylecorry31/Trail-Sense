@@ -126,12 +126,6 @@
     <string name="sun_does_not_set">gå ikke ned</string>
     <string name="forecast_worsening">Muligens dårligere senere</string>
     <string name="forecast_improving">Muligens bedre senere</string>
-    <string name="weather_not_changing">Endres ikke snart</string>
-    <string name="weather_storm_incoming">Storm i emning</string>
-    <string name="weather_worsening_fast">Blir dårligere veldig snart</string>
-    <string name="weather_worsening_slow">Blir dårligere snart</string>
-    <string name="weather_improving_fast">Blir bedre veldig snart</string>
-    <string name="weather_improving_slow">Blir bedre snart</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
     <string name="units_inhg">inHg</string>
@@ -553,10 +547,6 @@
     <string name="coordinate_format_usng">USNG</string>
     <string name="wgs84">WGS 84</string>
     <string name="altitude_history">Høydehistorikk</string>
-    <string name="climate_tropical">Tropisk</string>
-    <string name="climate_temperate">Temperert</string>
-    <string name="climate_polar">Arktisk</string>
-    <string name="climate_zone">%s sone</string>
     <string name="num_satellites">%d satellitter</string>
     <string name="no_compass_message">Enheten din har ikke kompassensor</string>
     <string name="sort">Sorter</string>
@@ -736,8 +726,6 @@
 \n
 \n**Høyde**: %s</string>
     <string name="weather_exported">Værdata eksportert</string>
-    <string name="log">Logg</string>
-    <string name="pressure_logged">Trykk logget</string>
     <string name="duration_of_charge">Ladevarighet</string>
     <string name="precipitation_rain">Regn</string>
     <string name="precipitation_drizzle">Duskregn</string>

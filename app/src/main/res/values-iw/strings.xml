@@ -67,7 +67,6 @@
     <string name="weight_per_item">משקל לפריט</string>
     <string name="guide_packing_list">יצירת רשימות אריזה</string>
     <string name="humidity">לחות</string>
-    <string name="climate_temperate">ממוזג</string>
     <string name="diagnostics">אבחון</string>
     <string name="old">ישן</string>
     <string name="shortest">הקצר ביותר</string>
@@ -90,7 +89,6 @@
     <string name="wgs84">WGS 84</string>
     <string name="no_resolution">אין פתרון</string>
     <string name="get_gps_signal">צאו החוצה עם נוף ללא הפרעה של השמיים.</string>
-    <string name="climate_tropical">טרופי</string>
     <string name="altitude_history">היסטוריית גבהים</string>
     <string name="qr_code">קוד QR</string>
     <string name="beacon_qr_import_instructions">סריקת קוד QR לייבוא</string>
@@ -185,12 +183,10 @@
 \n**אזימוט**: %s</string>
     <string name="sun">שמש</string>
     <string name="no_clouds">ללא עננים</string>
-    <string name="log">יומן רישום</string>
     <string name="moon">ירח</string>
     <string name="weather_monitoring_disabled">ניטור מזג האוויר מושבת</string>
     <string name="enable">איפשור</string>
     <string name="obstacle_removal_sensitivity">רגישות להסרת מכשולים</string>
-    <string name="pressure_logged">לחץ נרשם</string>
     <string name="sky_detection_sensitivity">רגישות לזיהוי שמיים</string>
     <string name="pref_experimental_cloud_scanner_title">סורק ענן</string>
     <string name="precipitation_snow">שלג</string>
@@ -396,14 +392,8 @@
     <string name="weather_worsening">מחמיר</string>
     <string name="very_soon">בקרוב מאוד</string>
     <string name="soon">בקרוב</string>
-    <string name="weather_improving_slow">שיפור בקרוב</string>
-    <string name="weather_improving_fast">ישתפר בקרוב מאוד</string>
-    <string name="weather_worsening_slow">החמרה בקרוב</string>
-    <string name="weather_worsening_fast">החמרה בקרוב מאוד</string>
-    <string name="weather_not_changing">לא ישתנה בקרוב</string>
     <string name="waxing_crescent">סהר שעווני</string>
     <string name="sunset_alert_notification_title">השמש תשקע בקרוב</string>
-    <string name="weather_storm_incoming">סערה נכנסת</string>
     <string name="forecast_improving">אולי ישתפר בהמשך</string>
     <string name="sun_up_no_set">השמש עולה</string>
     <string name="full_moon">ירח מלא</string>
@@ -990,8 +980,6 @@
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="sort">מיון</string>
     <string name="no_compass_message">להתקן שלך אין חיישן מצפן</string>
-    <string name="climate_zone">אזור %s</string>
-    <string name="climate_polar">קוטבי</string>
     <string name="activity_recognition">זיהוי פעילות</string>
     <string name="unblock_notification_channel">בטל את חסימת התראת %s עבור Trail Sense</string>
     <string name="auto">אוטומטי</string>

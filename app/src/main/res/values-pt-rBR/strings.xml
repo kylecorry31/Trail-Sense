@@ -50,12 +50,6 @@
     <string name="pressure_format">%s %s</string>
     <string name="pressure_reading_time_ago">%s - há %s</string>
     <!--Weather Tab - Forecasts-->
-    <string name="weather_improving_fast">A melhorar muito em breve</string>
-    <string name="weather_improving_slow">A melhorar em breve</string>
-    <string name="weather_worsening_slow">A piorar em breve</string>
-    <string name="weather_worsening_fast">A piorar muito em breve</string>
-    <string name="weather_storm_incoming">Tempestade a chegar</string>
-    <string name="weather_not_changing">Não mudará em breve</string>
     <string name="forecast_improving">Possivelmente melhorando mais tarde</string>
     <string name="forecast_worsening">Possivelmente piorando mais tarde</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
@@ -724,11 +718,7 @@
     <string name="default_pack_name">Pacote padrão</string>
     <string name="action_inventory_clear_confirm">Eliminar todas as quantidades contidas\?</string>
     <string name="current_format">%s mA</string>
-    <string name="climate_temperate">Moderada</string>
-    <string name="climate_zone">Zona %s</string>
     <string name="altitude_history">Histórico de altitude</string>
-    <string name="climate_tropical">Tropical</string>
-    <string name="climate_polar">Polar</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">Seu dispositivo não possui um sensor de bússola</string>
@@ -856,11 +846,9 @@
     <string name="most_recent">Mais recente</string>
     <string name="weather_monitoring_disabled">Monitoramento do clima desabilitado</string>
     <string name="no_clouds">Sem nuvens</string>
-    <string name="pressure_logged">Pressão registrada</string>
     <string name="no_camera_access">Incapaz de acessar a câmera</string>
     <string name="temporary">Temporário</string>
     <string name="enable">Habilitar</string>
-    <string name="log">Registro</string>
     <string name="sky_detection_sensitivity">Sensibilidade de detecção do céu</string>
     <string name="precipitation_small_hail">Granizo pequeno</string>
     <string name="precipitation_rain">Chuva</string>

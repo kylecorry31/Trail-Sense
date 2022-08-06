@@ -14,12 +14,6 @@
     <string name="pressure">Kukakamizidwa</string>
     <string name="pref_use_24_hour_title">Gwiritsani ntchito maola 24</string>
     <string name="pref_sun_time_mode_title">Kutuluka kwa dzuwa /nthawi zamadzulo</string>
-    <string name="weather_improving_fast">Kupititsa patsogolo posachedwa</string>
-    <string name="weather_improving_slow">Kupititsa patsogolo posachedwa</string>
-    <string name="weather_worsening_slow">Kukula posachedwa</string>
-    <string name="weather_worsening_fast">Kukula posachedwa</string>
-    <string name="weather_storm_incoming">Kukubwera mvula yamkuntho</string>
-    <string name="weather_not_changing">Osasintha posachedwa</string>
     <string name="forecast_improving">Mwinanso kusintha pambuyo pake</string>
     <string name="forecast_worsening">Mwinanso kuipiraipira pambuyo pake</string>
     <string name="no_beacons">Palibe ma beacon</string>

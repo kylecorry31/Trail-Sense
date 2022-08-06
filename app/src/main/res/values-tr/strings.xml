@@ -418,12 +418,6 @@
     <string name="sun_does_not_set">batmıyor</string>
     <string name="forecast_worsening">İleride kötüleşebilir</string>
     <string name="forecast_improving">İleride iyileşebilir</string>
-    <string name="weather_not_changing">Yakında değişmiyor</string>
-    <string name="weather_storm_incoming">Fırtına geliyor</string>
-    <string name="weather_worsening_fast">Çok yakında kötüleşiyor</string>
-    <string name="weather_worsening_slow">Yakında kötüleşiyor</string>
-    <string name="weather_improving_slow">Yakında iyileşiyor</string>
-    <string name="weather_improving_fast">Çok yakında iyileşiyor</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -703,10 +697,6 @@
     <string name="beacon_qr_import_instructions">İçe aktarmak için bir QR kodu tarayın</string>
     <string name="qr_code">QR Kodu</string>
     <string name="altitude_history">Rakım geçmişi</string>
-    <string name="climate_tropical">Tropikal</string>
-    <string name="climate_polar">Kutupsal</string>
-    <string name="climate_zone">%s bölge</string>
-    <string name="climate_temperate">Ilıman</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d uydu</string>
     <string name="no_compass_message">Aygıtınızda pusula sensörü yok</string>
@@ -977,7 +967,6 @@
 \n3. Eğim ölçeri hedefin üstüne yeniden hizalayın
 \n4. Kilidi serbest bırakın ve hedefe olan mesafeyi görün</string>
     <string name="off">Kapalı</string>
-    <string name="log">Kayıt</string>
     <string name="pint_format">%s pint</string>
     <string name="activity_recognition_permission_denied">Fiziksel etkinlik izni reddedildi, adımsayar özellikleri açılamıyor. Ayarlardan etkinleştirebilirsiniz.</string>
     <string name="cup_format">%s su b.</string>
@@ -1023,7 +1012,6 @@
     <string name="map_projection_mercator">Merkator</string>
     <string name="map_projection_equidistant">Eşit uzaklıkta</string>
     <string name="save">Kaydet</string>
-    <string name="pressure_logged">Basınç kaydedildi</string>
     <string name="square">Kare</string>
     <string name="diamond">Elmas</string>
     <string name="cross">Haç</string>

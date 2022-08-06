@@ -96,7 +96,6 @@
     <string name="alerts">Peringatan</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
-    <string name="weather_storm_incoming">Badai mendekat</string>
     <string name="gps_unavailable">GPS tidak tersedia</string>
     <string name="qr_code_scanner">Pemindai Kode QR</string>
     <string name="no_qr_code_found">Tidak ada kode QR yang terdeteksi</string>
@@ -148,7 +147,6 @@
     <string name="pref_theme_title">Tema</string>
     <string name="theme_light">Terang</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="weather_improving_slow">Segera membaik</string>
     <string name="add">Tambah</string>
     <string name="subtract">Bagi</string>
     <string name="delete">Hapus</string>
@@ -160,7 +158,6 @@
         <item quantity="other">%d suar</item>
     </plurals>
     <string name="pressure_tendency_format_2">%s / 3j</string>
-    <string name="weather_improving_fast">Membaik dalam waktu dekat</string>
     <string name="sun_does_not_set">tidak diatur</string>
     <string name="sun_does_not_rise">Tidak naik</string>
     <string name="sun_up_no_set">Matahari terbit</string>
@@ -176,7 +173,6 @@
     <string name="threshold">Ambang</string>
     <string name="delete_note_title">Hapus catatan\?</string>
     <string name="discharging_slow">Mengosongkan daya secara perlahan (%s)</string>
-    <string name="weather_worsening_slow">Segera memburuk</string>
     <string name="notification_channel_clock_sync_description">Pemberitahuan untuk menyinkronkan jam Anda ke waktu GPS</string>
     <string name="clock_sync_notification">Sinkronisasi Jam - %s</string>
     <string name="notes_empty_text">Tidak ada catatan</string>
@@ -196,7 +192,6 @@
     <string name="unit_inches">Inchi</string>
     <string name="map_distance">Peta: %s</string>
     <string name="max_temp_calibrated">Suhu lingkungan maks (dikalibrasi)</string>
-    <string name="weather_not_changing">Tidak berubah dalam waktu dekat</string>
     <string name="note_title_hint">Judul</string>
     <string name="map_fractional_separator">:</string>
     <string name="tool_white_noise_title">Kebisingan Putih</string>
@@ -212,7 +207,6 @@
     <string name="min_temp_calibrated">Suhu lingkungan min (dikalibrasi)</string>
     <string name="min_temp_uncalibrated">Suhu telepon min (tidak dikalibrasi)</string>
     <string name="eta">~ %s jauh</string>
-    <string name="weather_worsening_fast">Memburuk dengan cepat</string>
     <string name="forecast_improving">Mungkin nanti akan membaik</string>
     <string name="forecast_worsening">Mungkin nanti akan memburuk</string>
     <string name="third_quarter">Kuartal Ketiga</string>
@@ -225,7 +219,6 @@
     <string name="moon_illumination">Iluminasi bulan</string>
     <string name="offline_maps">Peta Offline</string>
     <string name="contents">Konten</string>
-    <string name="climate_tropical">Tropis</string>
     <string name="qr_code">Kode QR</string>
     <string name="beacon_qr_import_instructions">Pindai kode QR untuk impor</string>
     <string name="closest">Terdekat</string>

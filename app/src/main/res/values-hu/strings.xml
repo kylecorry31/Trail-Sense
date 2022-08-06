@@ -10,12 +10,6 @@
     <string name="today">Ma</string>
     <string name="forecast_worsening">Később romolhat</string>
     <string name="forecast_improving">Később javulhat</string>
-    <string name="weather_not_changing">Egyelőre nem változik</string>
-    <string name="weather_storm_incoming">Közelgő vihar</string>
-    <string name="weather_worsening_fast">Romlani fog nagyon hamar</string>
-    <string name="weather_improving_slow">Nemsokára javulni fog</string>
-    <string name="weather_worsening_slow">Nemsokára romlani fog</string>
-    <string name="weather_improving_fast">Javulni fog nagyon hamar</string>
     <plurals name="last_minutes">
         <item quantity="one">Utolsó %d perc</item>
         <item quantity="other">Utolsó %d perc</item>
