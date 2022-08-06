@@ -1046,4 +1046,14 @@
     <string name="change_resolution">Alterar resolução</string>
     <string name="done">Feito</string>
     <string name="calibrate_map_point">Calibrar ponto %d / %d</string>
+    <string name="cirrocumulus_weather">Pode ser indicação de tempo mais frio brevemente.</string>
+    <string name="cirrostratus_weather">Pode ser indicação de precipitação nas próximas 12 a 24 horas</string>
+    <string name="altocumulus_weather">Pode ser indicação de trovoadas no final do dia se estiver húmido.</string>
+    <string name="cumulus_weather">Pode indicar bom tempo, mas se estiverem aumentar em altura, pode levar a uma tempestade.</string>
+    <string name="cumulonimbus_weather">Tempestade muito em breve</string>
+    <string name="altostratus_weather">Pode ser indicação de precipitação brevemente.</string>
+    <string name="stratus_weather">Pode indicar precipitação leve em breve.</string>
+    <string name="nimbostratus_weather">Precipitação muito em breve</string>
+    <string name="stratocumulus_weather">Pode indicar um bom tempo em breve, com uma baixa probabilidade de precipitação.</string>
+    <string name="cirrus_weather">Pode indicar uma frente quente em 12 a 36 horas.</string>
 </resources>
