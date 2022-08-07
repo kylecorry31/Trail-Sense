@@ -106,7 +106,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chart = PathElevationChart(binding.chart)
+        chart = PathElevationChart(binding.chart, true)
 
         binding.pathImage.isInteractive = true
 
@@ -492,7 +492,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             getString(R.string.none),
             getString(R.string.cell_signal),
             getString(R.string.elevation),
-            getString(R.string.time)
+            getString(R.string.time),
+            getString(R.string.path_slope)
         )[path.style.point.ordinal]
 
         binding.pathLegend.colorScale = factory.createColorScale(waypoints)
@@ -603,6 +604,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
             PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
             PathPointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
+            PathPointColoringStyle.Slope -> SlopePointDisplayFactory(requireContext())
             else -> NonePointDisplayFactory()
         }
     }

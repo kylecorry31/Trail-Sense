@@ -5,9 +5,9 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +25,8 @@ class ChangePointStyleCommand(
                 context.getString(R.string.none),
                 context.getString(R.string.cell_signal),
                 context.getString(R.string.elevation),
-                context.getString(R.string.time)
+                context.getString(R.string.time),
+                context.getString(R.string.path_slope)
             ),
             defaultSelectedIndex = path.style.point.ordinal
         ) {

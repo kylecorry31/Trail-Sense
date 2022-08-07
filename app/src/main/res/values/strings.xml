@@ -1204,6 +1204,10 @@
     <string name="lowest_point_altitude">Lowest point</string>
     <string name="highest_point_altitude">Highest point</string>
     <string name="updating_weather">Updating weather</string>
+    <string name="path_slope_flat">Flat</string>
+    <string name="path_slope_moderate">Moderate</string>
+    <string name="path_slope_steep">Steep</string>
+    <string name="path_slope">Slope</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

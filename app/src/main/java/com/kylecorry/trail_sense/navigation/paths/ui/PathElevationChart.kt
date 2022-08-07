@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import kotlin.math.absoluteValue
 
-class PathElevationChart(chart: LineChart) {
+class PathElevationChart(chart: LineChart, private val showSlope: Boolean) {
 
     private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
 
@@ -27,7 +27,6 @@ class PathElevationChart(chart: LineChart) {
     private var _elevationIndex = emptyList<Int>()
     private var _listener: (PathPoint) -> Unit = {}
     private var _fullDatasetIdx = 0
-    private var _datasetSizes = emptyList<Int>()
 
     init {
         simpleChart.configureYAxis(
@@ -76,14 +75,32 @@ class PathElevationChart(chart: LineChart) {
     fun plot(path: List<PathPoint>, @ColorInt color: Int) {
         val elevations = getElevationPlotPoints(path)
         val datasets = mutableListOf<SimpleLineChart.Dataset>()
-        var currentDataset = mutableListOf<Pair<Float, Float>>()
-        var currentSteepness = elevations.firstOrNull()?.third ?: Steepness.Low
 
-        elevations.forEach {
-            if (it.third == currentSteepness) {
-                currentDataset.add(it.first to it.second)
-            } else {
-                currentDataset.add(it.first to it.second)
+        if (showSlope) {
+            var currentDataset = mutableListOf<Pair<Float, Float>>()
+            var currentSteepness = elevations.firstOrNull()?.third ?: Steepness.Low
+
+            elevations.forEach {
+                if (it.third == currentSteepness) {
+                    currentDataset.add(it.first to it.second)
+                } else {
+                    currentDataset.add(it.first to it.second)
+                    datasets.add(
+                        SimpleLineChart.Dataset(
+                            currentDataset.toList(),
+                            getColor(currentSteepness),
+                            true,
+                            cubic = false,
+                            lineWidth = 0f,
+                            isHighlightEnabled = false
+                        )
+                    )
+                    currentDataset = mutableListOf(it.first to it.second)
+                    currentSteepness = it.third
+                }
+            }
+
+            if (currentDataset.isNotEmpty()) {
                 datasets.add(
                     SimpleLineChart.Dataset(
                         currentDataset.toList(),
@@ -94,25 +111,8 @@ class PathElevationChart(chart: LineChart) {
                         isHighlightEnabled = false
                     )
                 )
-                currentDataset = mutableListOf(it.first to it.second)
-                currentSteepness = it.third
             }
         }
-
-        if (currentDataset.isNotEmpty()) {
-            datasets.add(
-                SimpleLineChart.Dataset(
-                    currentDataset.toList(),
-                    getColor(currentSteepness),
-                    true,
-                    cubic = false,
-                    lineWidth = 0f,
-                    isHighlightEnabled = false
-                )
-            )
-        }
-
-        _datasetSizes = datasets.map { it.data.size }
 
         _fullDatasetIdx = datasets.size
         datasets.add(
