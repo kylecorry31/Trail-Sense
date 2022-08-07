@@ -45,12 +45,14 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
+import kotlin.math.absoluteValue
 
 
 class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
@@ -77,6 +79,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var elevationGain = Distance.meters(0f)
     private var elevationLoss = Distance.meters(0f)
     private var elevationRange: Range<Distance>? = null
+    private var slopes: List<Triple<PathPoint, PathPoint, Float>> = emptyList()
     private var difficulty = HikingDifficulty.Easiest
 
     private val paceFactor = 1.75f
@@ -252,10 +255,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun updateHikingStats() {
         runInBackground {
-            val reversed = waypoints.reversed()
-            calculatedDuration =
-                hikingService.getHikingDuration(reversed, paceFactor)
-            difficulty = hikingService.getHikingDifficulty(reversed)
+            onDefault {
+                val reversed = waypoints.reversed()
+                calculatedDuration =
+                    hikingService.getHikingDuration(reversed, paceFactor)
+                difficulty = hikingService.getHikingDifficulty(reversed)
+            }
         }
     }
 
@@ -269,14 +274,20 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun updateElevationOverview() {
         runInBackground {
-            val path = waypoints.reversed()
+            onDefault {
+                val path = waypoints.reversed()
 
-            val gainLoss = hikingService.getElevationLossGain(path)
+                val gainLoss = hikingService.getElevationLossGain(path)
 
-            val units = prefs.baseDistanceUnits
-            elevationGain = gainLoss.second.convertTo(units)
-            elevationLoss = gainLoss.first.convertTo(units)
-            elevationRange = path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }.range()
+                val units = prefs.baseDistanceUnits
+                elevationGain = gainLoss.second.convertTo(units)
+                elevationLoss = gainLoss.first.convertTo(units)
+                elevationRange =
+                    path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }
+                        .range()
+                slopes = hikingService.getSlopes(path)
+                println(slopes.map { it.third.absoluteValue }.average())
+            }
         }
     }
 

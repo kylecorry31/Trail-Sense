@@ -21,4 +21,6 @@ interface IHikingService {
     ): Duration
 
     fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance>
+
+    fun getSlopes(path: List<PathPoint>): List<Triple<PathPoint, PathPoint, Float>>
 }

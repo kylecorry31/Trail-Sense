@@ -61,7 +61,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10")
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.core:core-ktx:1.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
@@ -83,7 +83,7 @@ dependencies {
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.11.1")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:5.8.1")
+    implementation("com.github.kylecorry31:sol:6.0.0-beta01")
 
     // Andromeda
     val andromedaVersion = "4.0.0"

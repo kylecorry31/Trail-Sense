@@ -60,6 +60,20 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
         return loss to gain
     }
 
+    override fun getSlopes(path: List<PathPoint>): List<Triple<PathPoint, PathPoint, Float>> {
+        return path.zipWithNext()
+            .map {
+                Triple(it.first, it.second, getSlope(it.first, it.second))
+            }
+    }
+
+    private fun getSlope(a: PathPoint, b: PathPoint): Float {
+        return geology.getSlopeGrade(
+            a.coordinate, Distance.meters(a.elevation ?: 0f),
+            b.coordinate, Distance.meters(b.elevation ?: 0f)
+        )
+    }
+
     override fun getHikingDuration(
         path: List<PathPoint>,
         pace: Speed
