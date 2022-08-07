@@ -25,6 +25,8 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
+import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
@@ -51,12 +53,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
     private val weatherMonitorIsEnabled = WeatherMonitorIsEnabled()
+    private val loadingIndicator by lazy {
+        ResettableLoadingIndicator(AlertLoadingIndicator(requireContext(), getString(R.string.updating_weather)))
+    }
 
     private val logger by lazy {
         WeatherLogger(
             requireContext(),
             Duration.ofSeconds(30),
-            Duration.ofSeconds(1)
+            Duration.ofSeconds(1),
+            loadingIndicator
         )
     }
 
@@ -131,6 +137,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     override fun onResume() {
         super.onResume()
+        loadingIndicator.reset()
         logger.start()
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         units = prefs.pressureUnits
@@ -149,7 +156,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherPlayBar.setState(isWeatherRunning, prefs.weather.weatherUpdateFrequency)
     }
 
-    private fun updateWeather(){
+    private fun updateWeather() {
         runInBackground {
             onIO {
                 history = weatherSubsystem.getHistory().filter {
