@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
 import com.kylecorry.trail_sense.shared.*
 import kotlin.math.abs
@@ -69,11 +68,9 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
             atan2(y, x).toDegrees() + 180
         )
 
-        binding.levelTitle.title.text = getString(
-            R.string.bubble_level_angles,
-            formatService.formatDegrees(abs(x)),
-            formatService.formatDegrees(abs(y))
-        )
+        binding.bubbleX.text = formatService.formatDegrees(abs(x))
+        binding.bubbleY.text = formatService.formatDegrees(abs(y))
+
         binding.bubbleOutline.x = binding.root.width / 2f - binding.bubbleOutline.width / 2f
         binding.bubbleOutline.y = binding.root.height / 2f - binding.bubbleOutline.height / 2f
 

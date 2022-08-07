@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.shared.views.ToolTitleView
-        android:id="@+id/level_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:showSubtitle="false"
-        tools:title="X: 10\nY: 25" />
-
     <ImageView
         android:id="@+id/bubble_outline"
         android:layout_width="200dp"
@@ -59,17 +49,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <ImageView
-        android:id="@+id/bubble_x"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/bubble"
+        android:id="@+id/bubble_x_center"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:src="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
         app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
         app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
-        app:tint="@color/orange_40" />
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/bubble_x"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bubble"
+        android:backgroundTint="@color/orange_40"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
+        app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
+        app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
+        app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
+        tools:text="10" />
 
     <View
         android:id="@+id/bubble_y_background"
@@ -83,28 +88,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/bubble_y"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/bubble"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
-        app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/orange_40" />
-
-    <ImageView
-        android:id="@+id/bubble_x_center"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:src="@drawable/rectangle"
-        app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
-        app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
-        app:layout_constraintStart_toStartOf="@+id/bubble_x_background"
-        app:layout_constraintTop_toTopOf="@+id/bubble_x_background"
-        app:tint="@color/white" />
-
-    <ImageView
         android:id="@+id/bubble_y_center"
         android:layout_width="0dp"
         android:layout_height="2dp"
@@ -114,6 +97,22 @@
         app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
         app:layout_constraintTop_toTopOf="@+id/bubble_y_background"
         app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/bubble_y"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bubble"
+        android:backgroundTint="@color/orange_40"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
+        app:layout_constraintStart_toStartOf="@+id/bubble_y_background"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="25" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
