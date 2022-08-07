@@ -1044,4 +1044,8 @@
     <string name="cumulus_weather">可能预示好天气，但如果它们长得更高，可能导致雷暴。</string>
     <string name="stratocumulus_weather">可能预示很快就会有好天气，降水概率小。</string>
     <string name="cirrus_weather">可能预示未来 12 到 36 小时内有暖锋。</string>
+    <string name="ascent">上坡</string>
+    <string name="lowest_point_altitude">最低点</string>
+    <string name="descent">下坡</string>
+    <string name="highest_point_altitude">最高点</string>
 </resources>
