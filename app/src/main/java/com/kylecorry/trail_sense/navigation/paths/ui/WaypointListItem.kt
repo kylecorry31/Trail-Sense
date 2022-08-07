@@ -33,12 +33,15 @@ class WaypointListItem(
             itemBinding.waypointCoordinates.isVisible = true
             val elevation = Distance.meters(item.elevation)
                 .convertTo(UserPreferences(context).baseDistanceUnits)
+
+            val slope = context.getString(R.string.slope_amount, formatService.formatPercentage(item.slope))
+
             itemBinding.waypointCoordinates.text =
                 formatService.formatDistance(
                     elevation,
                     Units.getDecimalPlaces(elevation.units),
                     false
-                )
+                ) + "    $slope"
         } else {
             itemBinding.waypointCoordinates.isVisible = false
         }

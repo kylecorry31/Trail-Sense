@@ -52,7 +52,6 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
-import kotlin.math.absoluteValue
 
 
 class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
@@ -286,7 +285,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }
                         .range()
                 slopes = hikingService.getSlopes(path)
-                println(slopes.map { it.third.absoluteValue }.average())
+                slopes.forEach {
+                    it.first.slope = it.third
+                }
+                val last = slopes.lastOrNull()
+                last?.second?.slope = last?.third ?: 0f
             }
         }
     }
