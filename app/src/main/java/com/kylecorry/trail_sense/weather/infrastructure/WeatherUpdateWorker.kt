@@ -31,7 +31,7 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
                     applicationContext,
                     NotificationChannels.CHANNEL_BACKGROUND_UPDATES,
                     applicationContext.getString(R.string.notification_weather_update_title),
-                    applicationContext.getString(R.string.notification_weather_update_content),
+                    applicationContext.getString(R.string.updating_weather),
                     R.drawable.ic_update
                 ),
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
