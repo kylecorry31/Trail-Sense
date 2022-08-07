@@ -59,20 +59,8 @@ class PathElevationChart(chart: LineChart) {
 
         simpleChart.setOnValueSelectedListener {
             it ?: return@setOnValueSelectedListener
-            if (it.pointIndex != -1) {
-                // TODO: Fix this
-                val idx = if (it.datasetIndex == _fullDatasetIdx) {
-                    _elevationIndex[it.pointIndex]
-                } else {
-                    val before = _datasetSizes.mapIndexed { index, i ->
-                        if (index < it.datasetIndex) {
-                            i
-                        } else {
-                            0
-                        }
-                    }.sum()
-                    _elevationIndex[it.pointIndex + before]
-                }
+            if (it.pointIndex != -1 && it.datasetIndex == _fullDatasetIdx) {
+                val idx = _elevationIndex[it.pointIndex]
                 tryOrNothing {
                     val point = _path[idx]
                     _listener.invoke(point)
@@ -102,7 +90,8 @@ class PathElevationChart(chart: LineChart) {
                         getColor(currentSteepness),
                         true,
                         cubic = false,
-                        lineWidth = 0f
+                        lineWidth = 0f,
+                        isHighlightEnabled = false
                     )
                 )
                 currentDataset = mutableListOf(it.first to it.second)
@@ -117,7 +106,8 @@ class PathElevationChart(chart: LineChart) {
                     getColor(currentSteepness),
                     true,
                     cubic = false,
-                    lineWidth = 0f
+                    lineWidth = 0f,
+                    isHighlightEnabled = false
                 )
             )
         }

@@ -173,6 +173,7 @@ class SimpleLineChart(
             set.setCircleColor(it.color)
             set.setDrawCircleHole(false)
             set.setDrawCircles(it.circles)
+            set.isHighlightEnabled = it.isHighlightEnabled
             set.circleRadius = 1.5f
             set.setDrawFilled(it.filled)
 
@@ -196,9 +197,10 @@ class SimpleLineChart(
         filled: Boolean = false,
         circles: Boolean = false,
         cubic: Boolean = true,
-        lineWidth: Float = 3f
+        lineWidth: Float = 3f,
+        isHighlightEnabled: Boolean = true
     ) {
-        plot(listOf(Dataset(data, color, filled, circles, cubic, lineWidth)))
+        plot(listOf(Dataset(data, color, filled, circles, cubic, lineWidth, isHighlightEnabled)))
     }
 
     fun plotIndexed(data: List<Float>, @ColorInt color: Int, filled: Boolean = false) {
@@ -245,7 +247,8 @@ class SimpleLineChart(
         val filled: Boolean = false,
         val circles: Boolean = false,
         val cubic: Boolean = true,
-        val lineWidth: Float = 3f
+        val lineWidth: Float = 3f,
+        val isHighlightEnabled: Boolean = true
     )
 
     companion object {
