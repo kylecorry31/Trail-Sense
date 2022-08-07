@@ -47,6 +47,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
@@ -199,9 +200,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             }
 
             pointSheet?.setPoints(waypoints)
-            updateElevationPlot()
-            updateHikingStats()
             updateElevationOverview()
+            updateHikingStats()
             updatePathMap()
             updatePointStyleLegend()
             onPathChanged()
@@ -286,10 +286,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                         .range()
                 slopes = hikingService.getSlopes(path)
                 slopes.forEach {
-                    it.second.slope = it.third
+                    it.first.slope = it.third
                 }
-                val first = slopes.firstOrNull()
+                val first = slopes.lastOrNull()
                 first?.first?.slope = first?.third ?: 0f
+            }
+            onMain {
+                updateElevationPlot()
             }
         }
     }

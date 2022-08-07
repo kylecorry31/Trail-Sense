@@ -5,12 +5,14 @@ import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import kotlin.math.absoluteValue
 
 class PathElevationChart(chart: LineChart) {
 
@@ -23,8 +25,9 @@ class PathElevationChart(chart: LineChart) {
 
     private var _path = emptyList<PathPoint>()
     private var _elevationIndex = emptyList<Int>()
-    private var _elevations = emptyList<Pair<Float, Float>>()
     private var _listener: (PathPoint) -> Unit = {}
+    private var _fullDatasetIdx = 0
+    private var _datasetSizes = emptyList<Int>()
 
     init {
         simpleChart.configureYAxis(
@@ -57,8 +60,21 @@ class PathElevationChart(chart: LineChart) {
         simpleChart.setOnValueSelectedListener {
             it ?: return@setOnValueSelectedListener
             if (it.pointIndex != -1) {
+                // TODO: Fix this
+                val idx = if (it.datasetIndex == _fullDatasetIdx) {
+                    _elevationIndex[it.pointIndex]
+                } else {
+                    val before = _datasetSizes.mapIndexed { index, i ->
+                        if (index < it.datasetIndex) {
+                            i
+                        } else {
+                            0
+                        }
+                    }.sum()
+                    _elevationIndex[it.pointIndex + before]
+                }
                 tryOrNothing {
-                    val point = _path[_elevationIndex[it.pointIndex]]
+                    val point = _path[idx]
                     _listener.invoke(point)
                 }
             }
@@ -71,13 +87,60 @@ class PathElevationChart(chart: LineChart) {
 
     fun plot(path: List<PathPoint>, @ColorInt color: Int) {
         val elevations = getElevationPlotPoints(path)
-        simpleChart.plot(elevations, color)
+        val datasets = mutableListOf<SimpleLineChart.Dataset>()
+        var currentDataset = mutableListOf<Pair<Float, Float>>()
+        var currentSteepness = elevations.firstOrNull()?.third ?: Steepness.Low
+
+        elevations.forEach {
+            if (it.third == currentSteepness) {
+                currentDataset.add(it.first to it.second)
+            } else {
+                currentDataset.add(it.first to it.second)
+                datasets.add(
+                    SimpleLineChart.Dataset(
+                        currentDataset.toList(),
+                        getColor(currentSteepness),
+                        true,
+                        cubic = false,
+                        lineWidth = 0f
+                    )
+                )
+                currentDataset = mutableListOf(it.first to it.second)
+                currentSteepness = it.third
+            }
+        }
+
+        if (currentDataset.isNotEmpty()) {
+            datasets.add(
+                SimpleLineChart.Dataset(
+                    currentDataset.toList(),
+                    getColor(currentSteepness),
+                    true,
+                    cubic = false,
+                    lineWidth = 0f
+                )
+            )
+        }
+
+        _datasetSizes = datasets.map { it.data.size }
+
+        _fullDatasetIdx = datasets.size
+        datasets.add(
+            SimpleLineChart.Dataset(
+                elevations.map { it.first to it.second },
+                color,
+                cubic = false,
+                circles = true
+            )
+        )
+
+        simpleChart.plot(datasets)
     }
 
-    private fun getElevationPlotPoints(path: List<PathPoint>): List<Pair<Float, Float>> {
+    private fun getElevationPlotPoints(path: List<PathPoint>): List<Triple<Float, Float, Steepness>> {
         _path = path
         val elevationIndex = mutableListOf<Int>()
-        val points = mutableListOf<Pair<Float, Float>>()
+        val points = mutableListOf<Triple<Float, Float, Steepness>>()
         var distance = 0f
         path.forEachIndexed { index, point ->
             if (index != 0) {
@@ -85,12 +148,36 @@ class PathElevationChart(chart: LineChart) {
             }
 
             if (point.elevation != null) {
-                points.add(distance to point.elevation)
+                points.add(Triple(distance, point.elevation, getSteepness(point.slope)))
                 elevationIndex.add(index)
             }
         }
         _elevationIndex = elevationIndex
-        _elevations = points
         return points
+    }
+
+    @ColorInt
+    private fun getColor(steepness: Steepness): Int {
+        return when (steepness) {
+            Steepness.Low -> AppColor.Green.color
+            Steepness.Medium -> AppColor.Yellow.color
+            Steepness.High -> AppColor.Red.color
+        }
+    }
+
+    private fun getSteepness(slope: Float): Steepness {
+        return if (slope.absoluteValue <= 10f) {
+            Steepness.Low
+        } else if (slope.absoluteValue <= 25f) {
+            Steepness.Medium
+        } else {
+            Steepness.High
+        }
+    }
+
+    private enum class Steepness {
+        Low,
+        Medium,
+        High
     }
 }

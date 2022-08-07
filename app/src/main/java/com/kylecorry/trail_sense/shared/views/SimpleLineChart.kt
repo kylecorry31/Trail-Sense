@@ -167,7 +167,7 @@ class SimpleLineChart(
             val set = LineDataSet(values, "Set ${index + 1}")
             set.color = it.color
             set.fillAlpha = 180
-            set.lineWidth = 3f
+            set.lineWidth = it.lineWidth
             set.setDrawValues(false)
             set.fillColor = it.color
             set.setCircleColor(it.color)
@@ -195,9 +195,10 @@ class SimpleLineChart(
         @ColorInt color: Int,
         filled: Boolean = false,
         circles: Boolean = false,
-        cubic: Boolean = true
+        cubic: Boolean = true,
+        lineWidth: Float = 3f
     ) {
-        plot(listOf(Dataset(data, color, filled, circles, cubic)))
+        plot(listOf(Dataset(data, color, filled, circles, cubic, lineWidth)))
     }
 
     fun plotIndexed(data: List<Float>, @ColorInt color: Int, filled: Boolean = false) {
@@ -243,7 +244,8 @@ class SimpleLineChart(
         @ColorInt val color: Int,
         val filled: Boolean = false,
         val circles: Boolean = false,
-        val cubic: Boolean = true
+        val cubic: Boolean = true,
+        val lineWidth: Float = 3f
     )
 
     companion object {
