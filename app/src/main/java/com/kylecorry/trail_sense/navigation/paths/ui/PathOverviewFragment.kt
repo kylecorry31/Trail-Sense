@@ -286,10 +286,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                         .range()
                 slopes = hikingService.getSlopes(path)
                 slopes.forEach {
-                    it.first.slope = it.third
+                    it.second.slope = it.third
                 }
-                val last = slopes.lastOrNull()
-                last?.second?.slope = last?.third ?: 0f
+                val first = slopes.firstOrNull()
+                first?.first?.slope = first?.third ?: 0f
             }
         }
     }
