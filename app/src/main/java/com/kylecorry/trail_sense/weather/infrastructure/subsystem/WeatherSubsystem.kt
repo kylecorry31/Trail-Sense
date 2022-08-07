@@ -51,7 +51,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         sharedPrefs.onChange.subscribe { key ->
             if (key in invalidationPrefKeys) {
                 invalidate()
-                return@subscribe true
             }
             true
         }

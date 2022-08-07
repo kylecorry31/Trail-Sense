@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsAvai
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
@@ -121,7 +122,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 val isOn = isBacktrackRunning
                 prefs.backtrackEnabled = !isOn
                 if (!isOn) {
-                    BacktrackScheduler.start(requireContext(), true)
+                    BacktrackSubsystem.getInstance(requireContext()).enable(true)
                     RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
                 } else {
                     BacktrackScheduler.stop(requireContext())

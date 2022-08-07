@@ -4,7 +4,8 @@ import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.tiles.TileManager
@@ -47,11 +48,11 @@ object TrailSenseServiceUtils {
     }
 
     private fun startBacktrack(context: Context) {
-        val prefs = UserPreferences(context)
-        if (prefs.backtrackEnabled) {
-            BacktrackScheduler.start(context, false)
+        val backtrack = BacktrackSubsystem.getInstance(context)
+        if (backtrack.backtrackState == FeatureState.On) {
+            backtrack.enable(false)
         } else {
-            BacktrackScheduler.stop(context)
+            backtrack.disable()
         }
     }
 

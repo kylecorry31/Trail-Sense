@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -59,11 +59,12 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         prefBacktrack?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
 
         prefBacktrack?.setOnPreferenceClickListener {
+            val backtrack = BacktrackSubsystem.getInstance(requireContext())
             if (prefs.backtrackEnabled) {
-                BacktrackScheduler.start(requireContext(), true)
+                backtrack.enable(true)
                 RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
             } else {
-                BacktrackScheduler.stop(requireContext())
+                backtrack.disable()
             }
             true
         }
