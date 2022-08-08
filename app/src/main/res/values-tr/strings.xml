@@ -1056,4 +1056,8 @@
     <string name="nimbostratus_weather">Yağış çok yakında</string>
     <string name="cumulus_weather">Güzel havaya işaret edebilir, ancak boyları uzuyorsa fırtınaya yol açabilir.</string>
     <string name="cumulonimbus_weather">Fırtına çok yakında</string>
+    <string name="ascent">Çıkış</string>
+    <string name="highest_point_altitude">En yüksek nokta</string>
+    <string name="descent">İniş</string>
+    <string name="lowest_point_altitude">En düşük nokta</string>
 </resources>
