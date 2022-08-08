@@ -1060,4 +1060,9 @@
     <string name="highest_point_altitude">En yüksek nokta</string>
     <string name="descent">İniş</string>
     <string name="lowest_point_altitude">En düşük nokta</string>
+    <string name="path_slope">Eğim</string>
+    <string name="updating_weather">Hava durumu güncelleniyor</string>
+    <string name="path_slope_moderate">Orta</string>
+    <string name="path_slope_flat">Düz</string>
+    <string name="path_slope_steep">Dik</string>
 </resources>
