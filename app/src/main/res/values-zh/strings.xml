@@ -1048,4 +1048,9 @@
     <string name="lowest_point_altitude">最低点</string>
     <string name="descent">下坡</string>
     <string name="highest_point_altitude">最高点</string>
+    <string name="path_slope_steep">陡峭</string>
+    <string name="path_slope">陡峭</string>
+    <string name="path_slope_flat">平缓</string>
+    <string name="path_slope_moderate">中度</string>
+    <string name="updating_weather">正在更新天气</string>
 </resources>
