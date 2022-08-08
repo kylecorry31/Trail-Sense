@@ -22,8 +22,6 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
         Log.d(javaClass.simpleName, "Started")
         try {
             BatteryLogCommand(applicationContext).execute()
-        } catch (e: Exception) {
-            throw e
         } finally {
             scheduler(applicationContext).once(Duration.ofHours(1))
             Log.d(javaClass.simpleName, "Scheduled next run at ${LocalDateTime.now().plusHours(1)}")
