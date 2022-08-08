@@ -9,16 +9,18 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
+import com.kylecorry.trail_sense.weather.infrastructure.*
+import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.delay
+import java.time.Duration
 import java.time.Instant
+
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
@@ -35,6 +37,22 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
 
+    private val _weatherMonitorStateChanged =
+        com.kylecorry.andromeda.core.topics.generic.Topic<FeatureState>()
+    override val weatherMonitorStateChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
+        get() = _weatherMonitorStateChanged
+
+    private val _weatherMonitorFrequencyChanged =
+        com.kylecorry.andromeda.core.topics.generic.Topic<Duration>()
+    override val weatherMonitorFrequencyChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
+        get() = _weatherMonitorFrequencyChanged
+
+    override var weatherMonitorState: FeatureState = calculateWeatherMonitorState()
+        private set
+
+    override var weatherMonitorFrequency: Duration = calculateWeatherMonitorFrequency()
+        private set
+
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
         R.string.pref_barometer_altitude_outlier,
@@ -47,11 +65,38 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_pressure_history
     ).map { context.getString(it) }
 
+    private val weatherMonitorStatePrefKeys = listOf(
+        R.string.pref_monitor_weather,
+        R.string.pref_low_power_mode_weather,
+        R.string.pref_low_power_mode
+    ).map { context.getString(it) }
+
+    private val weatherMonitorFrequencyPrefKeys = listOf(
+        R.string.pref_weather_update_frequency
+    ).map { context.getString(it) }
+
     init {
         sharedPrefs.onChange.subscribe { key ->
             if (key in invalidationPrefKeys) {
                 invalidate()
             }
+
+            if (key in weatherMonitorStatePrefKeys) {
+                val state = calculateWeatherMonitorState()
+                if (state != weatherMonitorState) {
+                    weatherMonitorState = state
+                    _weatherMonitorStateChanged.notifySubscribers(state)
+                }
+            }
+
+            if (key in weatherMonitorFrequencyPrefKeys) {
+                val frequency = calculateWeatherMonitorFrequency()
+                if (frequency != weatherMonitorFrequency) {
+                    weatherMonitorFrequency = frequency
+                    _weatherMonitorFrequencyChanged.notifySubscribers(frequency)
+                }
+            }
+
             true
         }
         weatherRepo.readingsChanged.subscribe {
@@ -94,6 +139,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
+    override fun enableMonitor() {
+        prefs.weather.shouldMonitorWeather = true
+        WeatherUpdateScheduler.start(context)
+    }
+
+    override fun disableMonitor() {
+        prefs.weather.shouldMonitorWeather = false
+        WeatherUpdateScheduler.stop(context)
+    }
+
+    override suspend fun updateWeather(background: Boolean) {
+        MonitorWeatherCommand(context, background).execute()
+    }
+
     private fun invalidate() {
         synchronized(validLock) {
             isValid = false
@@ -133,6 +192,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private fun resetWeatherService() {
         weatherService = WeatherService(prefs.weather)
+    }
+
+    private fun calculateWeatherMonitorFrequency(): Duration {
+        return prefs.weather.weatherUpdateFrequency
+    }
+
+    private fun calculateWeatherMonitorState(): FeatureState {
+        return if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
+            FeatureState.On
+        } else if (WeatherMonitorIsAvailable().not().isSatisfiedBy(context)) {
+            FeatureState.Unavailable
+        } else {
+            FeatureState.Off
+        }
     }
 
     companion object {

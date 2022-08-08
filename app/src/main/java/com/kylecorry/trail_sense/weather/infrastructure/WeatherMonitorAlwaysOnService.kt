@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
-import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 
 class WeatherMonitorAlwaysOnService : CoroutineIntervalService(TAG) {
@@ -21,7 +21,7 @@ class WeatherMonitorAlwaysOnService : CoroutineIntervalService(TAG) {
         get() = prefs.weather.weatherUpdateFrequency
 
     override suspend fun doWork() {
-        MonitorWeatherCommand(applicationContext).execute()
+        WeatherSubsystem.getInstance(applicationContext).updateWeather(true)
     }
 
     override fun getForegroundNotification(): Notification {

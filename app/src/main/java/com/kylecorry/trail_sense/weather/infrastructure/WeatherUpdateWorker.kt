@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -48,7 +48,7 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
         }
         Log.d(javaClass.simpleName, "Started")
         try {
-            MonitorWeatherCommand(applicationContext).execute()
+            WeatherSubsystem.getInstance(applicationContext).updateWeather(true)
         } catch (e: Exception) {
             throw e
         } finally {

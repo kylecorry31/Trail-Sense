@@ -15,16 +15,14 @@ class BacktrackTile : AndromedaTileService() {
     private val formatService by lazy { FormatService(this) }
     private val backtrack by lazy { BacktrackSubsystem.getInstance(this) }
 
-    override fun isOn(): Boolean {
-        return backtrack.backtrackState == FeatureState.On
-    }
+    override fun onClick() {
+        super.onClick()
 
-    override fun start() {
-        backtrack.enable(true)
-    }
-
-    override fun stop() {
-        backtrack.disable()
+        when (backtrack.backtrackState) {
+            FeatureState.On -> backtrack.disable()
+            FeatureState.Off -> backtrack.enable(true)
+            FeatureState.Unavailable -> {}
+        }
     }
 
     override fun onStartListening() {
@@ -50,12 +48,13 @@ class BacktrackTile : AndromedaTileService() {
     }
 
     private fun onStateChanged(state: FeatureState): Boolean {
-        qsTile.state = when (state) {
-            FeatureState.On -> Tile.STATE_ACTIVE
-            FeatureState.Off -> Tile.STATE_INACTIVE
-            FeatureState.Unavailable -> Tile.STATE_UNAVAILABLE
-        }
-        qsTile.updateTile()
+        setState(
+            when (state) {
+                FeatureState.On -> Tile.STATE_ACTIVE
+                FeatureState.Off -> Tile.STATE_INACTIVE
+                FeatureState.Unavailable -> Tile.STATE_UNAVAILABLE
+            }
+        )
         return true
     }
 }
