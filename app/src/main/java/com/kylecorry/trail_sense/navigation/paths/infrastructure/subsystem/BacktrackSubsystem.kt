@@ -11,17 +11,18 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBa
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
+import java.util.*
 
 class BacktrackSubsystem private constructor(private val context: Context) {
-
-    private val _backtrackStateChanged = Topic<FeatureState>()
-    val backtrackStateChanged: ITopic<FeatureState> = _backtrackStateChanged
-
-    private val _backtrackFrequencyChanged = Topic<Duration>()
-    val backtrackFrequencyChanged: ITopic<Duration> = _backtrackFrequencyChanged
-
+    
     private val sharedPrefs by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
+
+    private val _backtrackStateChanged = Topic(defaultValue = Optional.of(calculateBacktrackState()))
+    val backtrackStateChanged: ITopic<FeatureState> = _backtrackStateChanged
+
+    private val _backtrackFrequencyChanged = Topic(defaultValue = Optional.of(calculateBacktrackFrequency()))
+    val backtrackFrequencyChanged: ITopic<Duration> = _backtrackFrequencyChanged
 
     private val stateChangePrefKeys = listOf(
         R.string.pref_backtrack_enabled,
@@ -30,24 +31,16 @@ class BacktrackSubsystem private constructor(private val context: Context) {
         R.string.pref_backtrack_frequency
     ).map { context.getString(it) }
 
-    var backtrackState: FeatureState = calculateBacktrackState()
-        private set
-
-    var backtrackFrequency: Duration = calculateBacktrackFrequency()
-        private set
-
     init {
         sharedPrefs.onChange.subscribe { key ->
             if (key in stateChangePrefKeys) {
                 val state = calculateBacktrackState()
-                if (state != backtrackState) {
-                    backtrackState = state
+                if (state != backtrackStateChanged.value.get()) {
                     _backtrackStateChanged.notifySubscribers(state)
                 }
 
                 val frequency = calculateBacktrackFrequency()
-                if (frequency != backtrackFrequency) {
-                    backtrackFrequency = frequency
+                if (frequency != backtrackFrequencyChanged.value.get()) {
                     _backtrackFrequencyChanged.notifySubscribers(frequency)
                 }
             }

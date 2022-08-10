@@ -18,7 +18,7 @@ class BacktrackTile : AndromedaTileService() {
     override fun onClick() {
         super.onClick()
 
-        when (backtrack.backtrackState) {
+        when (backtrack.backtrackStateChanged.value.get()) {
             FeatureState.On -> backtrack.disable()
             FeatureState.Off -> backtrack.enable(true)
             FeatureState.Unavailable -> {}
@@ -26,8 +26,8 @@ class BacktrackTile : AndromedaTileService() {
     }
 
     override fun onStartListening() {
-        onFrequencyChanged(backtrack.backtrackFrequency)
-        onStateChanged(backtrack.backtrackState)
+        onFrequencyChanged(backtrack.backtrackFrequencyChanged.value.get())
+        onStateChanged(backtrack.backtrackStateChanged.value.get())
         backtrack.backtrackFrequencyChanged.subscribe(this::onFrequencyChanged)
         backtrack.backtrackStateChanged.subscribe(this::onStateChanged)
     }
