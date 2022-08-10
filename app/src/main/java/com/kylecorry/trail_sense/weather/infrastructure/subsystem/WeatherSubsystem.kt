@@ -5,6 +5,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
+import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Temperature
@@ -41,12 +42,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val _weatherMonitorStateChanged =
         com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorState()))
     override val weatherMonitorStateChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
-        get() = _weatherMonitorStateChanged
+        get() = _weatherMonitorStateChanged.distinct()
 
     private val _weatherMonitorFrequencyChanged =
         com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorFrequency()))
     override val weatherMonitorFrequencyChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
-        get() = _weatherMonitorFrequencyChanged
+        get() = _weatherMonitorFrequencyChanged.distinct()
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
@@ -78,16 +79,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
             if (key in weatherMonitorStatePrefKeys) {
                 val state = calculateWeatherMonitorState()
-                if (state != weatherMonitorStateChanged.value.get()) {
-                    _weatherMonitorStateChanged.notifySubscribers(state)
-                }
+                _weatherMonitorStateChanged.notifySubscribers(state)
             }
 
             if (key in weatherMonitorFrequencyPrefKeys) {
                 val frequency = calculateWeatherMonitorFrequency()
-                if (frequency != weatherMonitorFrequencyChanged.value.get()) {
-                    _weatherMonitorFrequencyChanged.notifySubscribers(frequency)
-                }
+                _weatherMonitorFrequencyChanged.notifySubscribers(frequency)
             }
 
             true

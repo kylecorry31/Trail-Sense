@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.tiles
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.topics.map
 
 @RequiresApi(Build.VERSION_CODES.N)
 class BacktrackTile : TopicTile() {
