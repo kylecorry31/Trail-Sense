@@ -14,7 +14,7 @@ import java.time.Duration
 import java.util.*
 
 class BacktrackSubsystem private constructor(private val context: Context) {
-    
+
     private val sharedPrefs by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
 
