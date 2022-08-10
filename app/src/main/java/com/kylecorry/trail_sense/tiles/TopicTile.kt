@@ -6,18 +6,11 @@ import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.FormatService
-import java.time.Duration
 
 @RequiresApi(Build.VERSION_CODES.N)
 abstract class TopicTile : AndromedaTileService() {
-
-    private val formatService by lazy { FormatService(this) }
-
     abstract val stateTopic: ITopic<FeatureState>
-
-    // TODO: Make this the subtitle topic (map duration on consumer)
-    abstract val frequencyTopic: ITopic<Duration>
+    abstract val subtitleTopic: ITopic<String>
 
     abstract fun stop()
     abstract fun start()
@@ -33,24 +26,19 @@ abstract class TopicTile : AndromedaTileService() {
     }
 
     override fun onStartListening() {
-        onFrequencyChanged(frequencyTopic.value.get())
+        onSubtitleChanged(subtitleTopic.value.get())
         onStateChanged(stateTopic.value.get())
-        frequencyTopic.subscribe(this::onFrequencyChanged)
+        subtitleTopic.subscribe(this::onSubtitleChanged)
         stateTopic.subscribe(this::onStateChanged)
     }
 
     override fun onStopListening() {
-        frequencyTopic.unsubscribe(this::onFrequencyChanged)
+        subtitleTopic.unsubscribe(this::onSubtitleChanged)
         stateTopic.unsubscribe(this::onStateChanged)
     }
 
-    private fun onFrequencyChanged(frequency: Duration): Boolean {
-        setSubtitle(
-            formatService.formatDuration(
-                frequency,
-                includeSeconds = true
-            )
-        )
+    private fun onSubtitleChanged(subtitle: String): Boolean {
+        setSubtitle(subtitle)
         return true
     }
 
