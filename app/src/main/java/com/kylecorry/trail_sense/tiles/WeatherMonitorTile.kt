@@ -17,7 +17,7 @@ class WeatherMonitorTile : AndromedaTileService() {
 
     override fun onClick() {
         super.onClick()
-        when (weather.weatherMonitorState) {
+        when (weather.weatherMonitorStateChanged.value.get()) {
             FeatureState.On -> weather.disableMonitor()
             FeatureState.Off -> weather.enableMonitor()
             FeatureState.Unavailable -> {}
@@ -25,8 +25,8 @@ class WeatherMonitorTile : AndromedaTileService() {
     }
 
     override fun onStartListening() {
-        onFrequencyChanged(weather.weatherMonitorFrequency)
-        onStateChanged(weather.weatherMonitorState)
+        onFrequencyChanged(weather.weatherMonitorFrequencyChanged.value.get())
+        onStateChanged(weather.weatherMonitorStateChanged.value.get())
         weather.weatherMonitorFrequencyChanged.subscribe(this::onFrequencyChanged)
         weather.weatherMonitorStateChanged.subscribe(this::onStateChanged)
     }

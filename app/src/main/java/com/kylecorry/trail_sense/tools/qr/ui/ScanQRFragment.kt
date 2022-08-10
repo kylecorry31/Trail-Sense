@@ -11,8 +11,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.buzz.Buzz
-import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -26,6 +24,7 @@ import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
@@ -43,6 +42,8 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private val beaconQREncoder = BeaconQREncoder()
     private val noteQREncoder = NoteQREncoder()
+
+    private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -246,7 +247,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         val lastMessage = history.firstOrNull()
         if (message.isNotEmpty() && lastMessage != message) {
             addReading(message)
-            Buzz.feedback(requireContext(), HapticFeedbackType.Click)
+            haptics.click()
         }
     }
 
@@ -260,7 +261,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     override fun onPause() {
         super.onPause()
         binding.camera.stop()
-        Buzz.off(requireContext())
+        haptics.off()
     }
 
     private fun isLocation(text: String): Boolean {

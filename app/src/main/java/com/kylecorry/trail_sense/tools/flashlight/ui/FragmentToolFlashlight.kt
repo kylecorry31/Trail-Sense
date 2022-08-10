@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.buzz.Buzz
-import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -18,6 +16,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
@@ -27,6 +26,7 @@ import java.time.Instant
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private var flashlightState = FlashlightState.Off
+    private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
     private val flashlight by lazy { FlashlightSubsystem.getInstance(requireContext()) }
     private val intervalometer = Timer {
         update()
@@ -116,7 +116,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     override fun onPause() {
         super.onPause()
-        Buzz.off(requireContext())
+        haptics.off()
         intervalometer.stop()
         switchStateTimer.stop()
         binding.flashlightDial.areHapticsEnabled = false
@@ -135,7 +135,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     fun toggle() {
-        Buzz.feedback(requireContext(), HapticFeedbackType.Click)
+        haptics.click()
         if (flashlight.getState() != FlashlightState.Off) {
             flashlight.set(FlashlightState.Off)
         } else {

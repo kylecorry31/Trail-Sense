@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.delay
 import java.time.Duration
 import java.time.Instant
+import java.util.*
 
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
@@ -38,20 +39,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     override val weatherChanged: ITopic = _weatherChanged
 
     private val _weatherMonitorStateChanged =
-        com.kylecorry.andromeda.core.topics.generic.Topic<FeatureState>()
+        com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorState()))
     override val weatherMonitorStateChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
         get() = _weatherMonitorStateChanged
 
     private val _weatherMonitorFrequencyChanged =
-        com.kylecorry.andromeda.core.topics.generic.Topic<Duration>()
+        com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorFrequency()))
     override val weatherMonitorFrequencyChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
         get() = _weatherMonitorFrequencyChanged
-
-    override var weatherMonitorState: FeatureState = calculateWeatherMonitorState()
-        private set
-
-    override var weatherMonitorFrequency: Duration = calculateWeatherMonitorFrequency()
-        private set
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
@@ -83,16 +78,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
             if (key in weatherMonitorStatePrefKeys) {
                 val state = calculateWeatherMonitorState()
-                if (state != weatherMonitorState) {
-                    weatherMonitorState = state
+                if (state != weatherMonitorStateChanged.value.get()) {
                     _weatherMonitorStateChanged.notifySubscribers(state)
                 }
             }
 
             if (key in weatherMonitorFrequencyPrefKeys) {
                 val frequency = calculateWeatherMonitorFrequency()
-                if (frequency != weatherMonitorFrequency) {
-                    weatherMonitorFrequency = frequency
+                if (frequency != weatherMonitorFrequencyChanged.value.get()) {
                     _weatherMonitorFrequencyChanged.notifySubscribers(frequency)
                 }
             }

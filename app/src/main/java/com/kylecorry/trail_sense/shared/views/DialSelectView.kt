@@ -8,14 +8,13 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.kylecorry.andromeda.buzz.Buzz
-import com.kylecorry.andromeda.buzz.HapticFeedbackType
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import kotlin.math.absoluteValue
 
 class DialSelectView : CanvasView {
@@ -27,6 +26,8 @@ class DialSelectView : CanvasView {
         attrs,
         defStyleAttr
     )
+
+    private val haptics by lazy { HapticSubsystem.getInstance(context) }
 
     init {
         runEveryCycle = true
@@ -87,7 +88,7 @@ class DialSelectView : CanvasView {
         set(value) {
             field = value
             if (!value){
-                Buzz.off(context)
+                haptics.off()
             }
             invalidate()
         }
@@ -200,7 +201,7 @@ class DialSelectView : CanvasView {
             }.minByOrNull { it.second }?.first ?: 0
 
             if (areHapticsEnabled && nearestOption != selected){
-                Buzz.feedback(context, HapticFeedbackType.Tick)
+                haptics.tick()
             }
 
             selected = nearestOption

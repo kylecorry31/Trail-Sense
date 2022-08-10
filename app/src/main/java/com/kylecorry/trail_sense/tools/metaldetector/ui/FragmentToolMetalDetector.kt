@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.buzz.Buzz
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
@@ -23,6 +22,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import kotlin.math.roundToInt
@@ -56,6 +56,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         calibratedField = lowPassMagnetometer.magneticField
         calibratedOrientation = orientation.orientation
     }
+
+    private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -95,7 +97,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             gravity.stop(this::onMagnetometerUpdate)
             calibrateTimer.stop()
         }
-        Buzz.off(requireContext())
+        haptics.off()
         isVibrating = false
     }
 
@@ -152,10 +154,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         if (metalDetected && !isVibrating) {
             isVibrating = true
-            Buzz.interval(requireContext(), VIBRATION_DURATION, VIBRATION_DURATION)
+            haptics.interval(VIBRATION_DURATION)
         } else if (!metalDetected) {
             isVibrating = false
-            Buzz.off(requireContext())
+            haptics.off()
         }
     }
 

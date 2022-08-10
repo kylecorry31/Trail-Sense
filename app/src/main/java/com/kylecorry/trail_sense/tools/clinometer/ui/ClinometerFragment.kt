@@ -10,10 +10,9 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.buzz.DialHapticFeedback
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
@@ -32,6 +31,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -50,7 +50,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val geology = GeologyService()
     private val markdown by lazy { MarkdownService(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
-    private val feedback by lazy { DialHapticFeedback(requireContext(), 1) }
+    private val feedback by lazy {
+        HapticSubsystem.getInstance(requireContext()).dial()
+    }
     private val throttle = Throttle(20)
     private val hapticsEnabled by lazy { prefs.hapticsEnabled }
 
@@ -94,7 +96,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 clinometer = getClinometer()
             } else {
                 requestCamera { hasPermission ->
-                    if (hasPermission){
+                    if (hasPermission) {
                         useCamera = true
                         binding.camera.start()
                         binding.clinometerTitle.leftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
