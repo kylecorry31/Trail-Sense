@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
@@ -47,6 +48,19 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         if (owner.lifecycle.currentState == Lifecycle.State.DESTROYED) {
             return
         }
+
+        if (!Camera.isAvailable(context)){
+            Alerts.toast(context, context.getString(R.string.camera_unavailable))
+            return
+        }
+
+        val useBackCamera = Camera.hasBackCamera(context)
+
+        if (!useBackCamera && !Camera.hasFrontCamera(context)){
+            Alerts.toast(context, context.getString(R.string.camera_unavailable))
+            return
+        }
+
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
         camera = Camera(
@@ -55,7 +69,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             previewView = preview,
             analyze = readFrames,
             targetResolution = resolution,
-            captureSettings = captureSettings
+            captureSettings = captureSettings,
+            isBackCamera = useBackCamera
         )
         camera?.start(this::onCameraUpdate)
     }

@@ -1211,6 +1211,7 @@
     <string name="pref_show_path_slope" translatable="false">pref_show_path_slope</string>
     <string name="pref_show_path_slope_title">Show path slope</string>
     <string name="pref_show_path_slope_summary">On the elevation chart</string>
+    <string name="camera_unavailable">Camera unavailable</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
