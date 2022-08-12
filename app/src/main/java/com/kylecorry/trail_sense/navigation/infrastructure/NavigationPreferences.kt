@@ -136,6 +136,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         true
     )
 
+    override val showPathSlope by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_path_slope),
+        false
+    )
+
     var maxBeaconDistance: Float
         get() {
             val raw =
