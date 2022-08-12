@@ -148,6 +148,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     override fun onPause() {
         super.onPause()
         logger.stop()
+        loadingIndicator.hide()
     }
 
     override fun onUpdate() {
