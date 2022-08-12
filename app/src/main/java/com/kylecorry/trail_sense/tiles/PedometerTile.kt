@@ -1,67 +1,36 @@
 package com.kylecorry.trail_sense.tiles
 
-import android.hardware.Sensor
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.andromeda.services.PollingTileService
-import com.kylecorry.sol.units.Distance
+import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 
 @RequiresApi(Build.VERSION_CODES.N)
-class PedometerTile : PollingTileService() {
+class PedometerTile : TopicTile() {
 
+    private val pedometer by lazy { PedometerSubsystem.getInstance(this) }
+    private val formatter by lazy { FormatService.getInstance(this) }
     private val prefs by lazy { UserPreferences(this) }
-    private val formatService by lazy { FormatService(this) }
-    private val counter by lazy { StepCounter(Preferences(this)) }
-    private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
 
-    override fun isOn(): Boolean {
-        return prefs.pedometer.isEnabled && !isDisabled()
-    }
+    override val stateTopic: ITopic<FeatureState>
+        get() = pedometer.state
 
-    override fun isDisabled(): Boolean {
-        val hasPermission = Permissions.canRecognizeActivity(this)
-        return !Sensors.hasSensor(
-            this,
-            Sensor.TYPE_STEP_COUNTER
-        ) || !hasPermission || prefs.isLowPowerModeOn
-    }
-
-    override fun onInterval() {
-        setSubtitle(formatService.formatDistance(getDistance()))
-    }
-
-    override fun onClick() {
-        super.onClick()
-        if (isOn()) {
-            stop()
-        } else if (isOff()) {
-            start()
+    override val subtitleTopic: ITopic<String>
+        get() = pedometer.distance.map {
+            formatter.formatDistance(it.convertTo(prefs.baseDistanceUnits).toRelativeDistance())
         }
+
+    override fun stop() {
+        pedometer.disable()
     }
 
-    private fun start() {
-        prefs.pedometer.isEnabled = true
-        StepCounterService.start(this)
-    }
-
-    private fun stop() {
-        prefs.pedometer.isEnabled = false
-        StepCounterService.stop(this)
-    }
-
-    private fun getDistance(): Distance {
-        val units = prefs.baseDistanceUnits
-        val distance = paceCalculator.distance(counter.steps)
-        return distance.convertTo(units).toRelativeDistance()
+    override fun start() {
+        pedometer.enable()
     }
 
 }

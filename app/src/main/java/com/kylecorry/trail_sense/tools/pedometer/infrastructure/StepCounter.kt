@@ -32,7 +32,7 @@ class StepCounter(private val preferences: Preferences) : IStepCounter {
 
     companion object {
         const val STEPS_KEY = "cache_steps"
-        private const val LAST_RESET_KEY = "last_odometer_reset"
+        const val LAST_RESET_KEY = "last_odometer_reset"
     }
 
 }
