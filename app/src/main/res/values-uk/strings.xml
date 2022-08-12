@@ -1076,4 +1076,13 @@
     <string name="altostratus_weather">Можливі опади найближчим часом.</string>
     <string name="cumulonimbus_weather">Зовсім скоро гроза</string>
     <string name="cirrus_weather">Може вказувати на тепло в майбутньому через 12–36 годин.</string>
+    <string name="descent">Спуск</string>
+    <string name="ascent">Підйом</string>
+    <string name="lowest_point_altitude">Найнижча точка</string>
+    <string name="path_slope_flat">Плоский</string>
+    <string name="path_slope_steep">Крутий</string>
+    <string name="path_slope">Схил</string>
+    <string name="highest_point_altitude">Найвища точка</string>
+    <string name="path_slope_moderate">Помірний</string>
+    <string name="updating_weather">Оновлення погоди</string>
 </resources>
