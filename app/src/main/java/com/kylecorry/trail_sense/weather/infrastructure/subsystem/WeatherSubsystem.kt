@@ -72,6 +72,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     ).map { context.getString(it) }
 
     init {
+        // Keep them up to date
+        weatherMonitorFrequency.subscribe { true }
+        weatherMonitorState.subscribe { true }
+
         sharedPrefs.onChange.subscribe { key ->
             if (key in invalidationPrefKeys) {
                 invalidate()
@@ -93,6 +97,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             invalidate()
             true
         }
+
         resetWeatherService()
     }
 

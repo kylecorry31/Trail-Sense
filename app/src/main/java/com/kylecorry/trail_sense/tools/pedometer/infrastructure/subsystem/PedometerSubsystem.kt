@@ -75,6 +75,12 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
 
 
     init {
+        // Keep them up to date
+        state.subscribe { true }
+        steps.subscribe { true }
+        distance.subscribe { true }
+        pace.subscribe { true }
+
         prefsChanged.subscribe {
             if (it in stateChangePrefKeys) {
                 _state.publish(calculateState())

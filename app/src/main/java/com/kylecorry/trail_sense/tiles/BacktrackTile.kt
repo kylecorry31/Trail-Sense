@@ -14,10 +14,10 @@ class BacktrackTile : TopicTile() {
     private val formatter by lazy { FormatService.getInstance(this) }
 
     override val stateTopic: ITopic<FeatureState>
-        get() = backtrack.backtrackStateChanged
+        get() = backtrack.backtrackState
 
     override val subtitleTopic: ITopic<String>
-        get() = backtrack.backtrackFrequencyChanged.map { formatter.formatDuration(it, includeSeconds = true) }
+        get() = backtrack.backtrackFrequency.map { formatter.formatDuration(it, includeSeconds = true) }
 
     override fun stop() {
         backtrack.disable()
