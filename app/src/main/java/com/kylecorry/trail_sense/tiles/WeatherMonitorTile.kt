@@ -14,10 +14,10 @@ class WeatherMonitorTile : TopicTile() {
     private val formatter by lazy { FormatService.getInstance(this) }
 
     override val stateTopic: ITopic<FeatureState>
-        get() = weather.weatherMonitorStateChanged
+        get() = weather.weatherMonitorState
 
     override val subtitleTopic: ITopic<String>
-        get() = weather.weatherMonitorFrequencyChanged.map {
+        get() = weather.weatherMonitorFrequency.map {
             formatter.formatDuration(
                 it,
                 includeSeconds = true

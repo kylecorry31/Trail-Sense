@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewPlayBarBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.Duration
 
@@ -52,6 +53,10 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
 
     fun setShowSubtitle(showSubtitle: Boolean) {
         binding.playBarTitle.setShowDescription(showSubtitle)
+    }
+
+    fun setState(state: FeatureState, frequency: Duration? = null){
+        setState(state == FeatureState.On, frequency)
     }
 
     fun setState(isOn: Boolean, frequency: Duration? = null) {

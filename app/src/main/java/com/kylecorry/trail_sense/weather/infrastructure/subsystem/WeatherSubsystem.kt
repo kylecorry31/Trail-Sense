@@ -39,15 +39,15 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
 
-    private val _weatherMonitorStateChanged =
+    private val _weatherMonitorState =
         com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorState()))
-    override val weatherMonitorStateChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
-        get() = _weatherMonitorStateChanged.distinct()
+    override val weatherMonitorState: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
+        get() = _weatherMonitorState.distinct()
 
-    private val _weatherMonitorFrequencyChanged =
+    private val _weatherMonitorFrequency =
         com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorFrequency()))
-    override val weatherMonitorFrequencyChanged: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
-        get() = _weatherMonitorFrequencyChanged.distinct()
+    override val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
+        get() = _weatherMonitorFrequency.distinct()
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
@@ -79,12 +79,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
             if (key in weatherMonitorStatePrefKeys) {
                 val state = calculateWeatherMonitorState()
-                _weatherMonitorStateChanged.publish(state)
+                _weatherMonitorState.publish(state)
             }
 
             if (key in weatherMonitorFrequencyPrefKeys) {
                 val frequency = calculateWeatherMonitorFrequency()
-                _weatherMonitorFrequencyChanged.publish(frequency)
+                _weatherMonitorFrequency.publish(frequency)
             }
 
             true
