@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 
@@ -22,7 +23,8 @@ class PedometerTile : TopicTile() {
 
     override val subtitleTopic: ITopic<String>
         get() = pedometer.distance.map {
-            formatter.formatDistance(it.convertTo(prefs.baseDistanceUnits).toRelativeDistance())
+            val converted = it.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            formatter.formatDistance(converted, Units.getDecimalPlaces(converted.units))
         }
 
     override fun stop() {
