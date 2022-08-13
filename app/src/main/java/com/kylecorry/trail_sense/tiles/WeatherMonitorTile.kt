@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.map
+import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
@@ -14,7 +15,7 @@ class WeatherMonitorTile : TopicTile() {
     private val formatter by lazy { FormatService.getInstance(this) }
 
     override val stateTopic: ITopic<FeatureState>
-        get() = weather.weatherMonitorState
+        get() = weather.weatherMonitorState.replay()
 
     override val subtitleTopic: ITopic<String>
         get() = weather.weatherMonitorFrequency.map {
@@ -22,7 +23,7 @@ class WeatherMonitorTile : TopicTile() {
                 it,
                 includeSeconds = true
             )
-        }
+        }.replay()
 
     override fun stop() {
         weather.disableMonitor()

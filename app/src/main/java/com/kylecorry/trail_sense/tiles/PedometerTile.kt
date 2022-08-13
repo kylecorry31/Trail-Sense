@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.map
+import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
@@ -19,13 +20,13 @@ class PedometerTile : TopicTile() {
     private val prefs by lazy { UserPreferences(this) }
 
     override val stateTopic: ITopic<FeatureState>
-        get() = pedometer.state
+        get() = pedometer.state.replay()
 
     override val subtitleTopic: ITopic<String>
         get() = pedometer.distance.map {
             val converted = it.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
             formatter.formatDistance(converted, Units.getDecimalPlaces(converted.units))
-        }
+        }.replay()
 
     override fun stop() {
         pedometer.disable()

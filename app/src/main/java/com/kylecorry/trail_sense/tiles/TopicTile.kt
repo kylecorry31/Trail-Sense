@@ -26,8 +26,6 @@ abstract class TopicTile : AndromedaTileService() {
     }
 
     override fun onStartListening() {
-        onSubtitleChanged(subtitleTopic.value.get())
-        onStateChanged(stateTopic.value.get())
         subtitleTopic.subscribe(this::onSubtitleChanged)
         stateTopic.subscribe(this::onStateChanged)
     }
