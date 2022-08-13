@@ -1,57 +1,37 @@
 package com.kylecorry.trail_sense.quickactions
 
-import android.view.View
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.andromeda.core.topics.generic.map
+import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class QuickActionFlashlight(btn: ImageButton, fragment: Fragment) :
-    QuickActionButton(btn, fragment) {
+    TopicQuickAction(btn, fragment, hideWhenUnavailable = true) {
 
-    private var flashlightState = FlashlightState.Off
     private val flashlight by lazy { FlashlightSubsystem.getInstance(context) }
-    private val intervalometer = Timer {
-        flashlightState = flashlight.getState()
-        updateFlashlightUI()
-    }
-
-    private fun updateFlashlightUI() {
-        CustomUiUtils.setButtonState(button, flashlightState == FlashlightState.On)
-    }
 
     override fun onCreate() {
         super.onCreate()
         button.setImageResource(R.drawable.flashlight)
-        CustomUiUtils.setButtonState(button, false)
-        if (!flashlight.isAvailable()) {
-            button.visibility = View.GONE
-        } else {
-            button.setOnClickListener {
-                flashlight.toggle()
+        button.setOnClickListener {
+            flashlight.toggle()
+        }
+    }
+
+    override val state: ITopic<FeatureState> = flashlight.state.map {
+        if (flashlight.isAvailable()) {
+            when (it) {
+                FlashlightState.On -> FeatureState.On
+                FlashlightState.SOS, FlashlightState.Strobe, FlashlightState.Off -> FeatureState.Off
             }
+        } else {
+            FeatureState.Unavailable
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!intervalometer.isRunning()) {
-            intervalometer.interval(20)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        intervalometer.stop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        onPause()
-    }
+    }.replay()
 
 }
