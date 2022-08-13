@@ -39,12 +39,12 @@ class BacktrackSubsystem private constructor(private val context: Context) {
         sharedPrefs.onChange.subscribe { key ->
             if (key in stateChangePrefKeys) {
                 val state = calculateBacktrackState()
-                _backtrackStateChanged.notifySubscribers(state)
+                _backtrackStateChanged.publish(state)
             }
 
             if (key in frequencyChangePrefKeys){
                 val frequency = calculateBacktrackFrequency()
-                _backtrackFrequencyChanged.notifySubscribers(frequency)
+                _backtrackFrequencyChanged.publish(frequency)
             }
             true
         }

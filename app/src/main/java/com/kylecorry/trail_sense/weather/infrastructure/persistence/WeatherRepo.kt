@@ -29,14 +29,14 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
         } else {
             pressureDao.insert(entity)
         }
-        _readingsChanged.notifySubscribers()
+        _readingsChanged.publish()
         id
     }
 
     override suspend fun delete(reading: Reading<RawWeatherObservation>) = onIO {
         val entity = PressureReadingEntity.from(reading)
         pressureDao.delete(entity)
-        _readingsChanged.notifySubscribers()
+        _readingsChanged.publish()
     }
 
     override suspend fun get(id: Long): Reading<RawWeatherObservation>? = onIO {
@@ -57,7 +57,7 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
         pressureDao.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION).toEpochMilli())
 
         // TODO: Only do this if there was a change
-        _readingsChanged.notifySubscribers()
+        _readingsChanged.publish()
     }
 
     companion object {

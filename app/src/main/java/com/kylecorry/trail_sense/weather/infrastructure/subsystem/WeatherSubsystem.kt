@@ -79,12 +79,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
             if (key in weatherMonitorStatePrefKeys) {
                 val state = calculateWeatherMonitorState()
-                _weatherMonitorStateChanged.notifySubscribers(state)
+                _weatherMonitorStateChanged.publish(state)
             }
 
             if (key in weatherMonitorFrequencyPrefKeys) {
                 val frequency = calculateWeatherMonitorFrequency()
-                _weatherMonitorFrequencyChanged.notifySubscribers(frequency)
+                _weatherMonitorFrequencyChanged.publish(frequency)
             }
 
             true
@@ -147,7 +147,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         synchronized(validLock) {
             isValid = false
         }
-        _weatherChanged.notifySubscribers()
+        _weatherChanged.publish()
     }
 
     private suspend fun refresh() {
