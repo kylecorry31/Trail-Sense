@@ -69,7 +69,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
                 itemBinding.qrMessageType.setImageResource(
                     when (type) {
-                        ScanType.Text -> R.drawable.ic_note
+                        ScanType.Text -> R.drawable.ic_tool_notes
                         ScanType.Url -> R.drawable.ic_link
                         ScanType.Geo -> R.drawable.ic_location
                     }

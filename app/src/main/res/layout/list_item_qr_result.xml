@@ -25,7 +25,7 @@
                 android:layout_height="20dp"
                 android:layout_margin="8dp"
                 android:alpha="0.75"
-                app:srcCompat="@drawable/ic_note"
+                app:srcCompat="@drawable/ic_tool_notes"
                 app:tint="?android:textColorPrimary" />
 
             <TextView

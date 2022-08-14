@@ -16,12 +16,15 @@
 
     <TextView
         android:id="@+id/beacon_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
+        android:drawablePadding="8dp"
         android:gravity="center"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:padding="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         tools:text="Beacon Name" />
 
@@ -44,13 +47,13 @@
             app:dataPointIcon="@drawable/ruler" />
 
         <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/beacon_direction"
+            android:id="@+id/beacon_eta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:dataPointIcon="@drawable/ic_compass_icon" />
+            app:dataPointIcon="@drawable/ic_tool_clock" />
 
         <com.kylecorry.trail_sense.shared.views.DataPointView
             android:id="@+id/beacon_elevation"
