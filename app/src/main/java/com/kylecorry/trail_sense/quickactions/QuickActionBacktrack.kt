@@ -22,6 +22,6 @@ class QuickActionBacktrack(btn: ImageButton, fragment: Fragment) :
     }
 
     override val state: ITopic<FeatureState> =
-        BacktrackSubsystem.getInstance(context).backtrackState.replay()
+        BacktrackSubsystem.getInstance(context).state.replay()
 
 }

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.topics.generic.asLiveData
+import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
@@ -16,13 +18,13 @@ import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
 import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsAvailable
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -31,6 +33,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
+    private val backtrack by lazy { BacktrackSubsystem.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val pathService by lazy {
         PathService.getInstance(requireContext())
@@ -110,29 +113,33 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             }
         }
 
-        binding.backtrackPlayBar.setState(isBacktrackRunning, prefs.backtrackRecordFrequency)
         binding.backtrackPlayBar.setOnSubtitleClickListener {
             ChangeBacktrackFrequencyCommand(requireContext()) { onUpdate() }.execute()
         }
 
-        binding.backtrackPlayBar.setOnPlayButtonClickListener {
-            if (!BacktrackIsAvailable().isSatisfiedBy(requireContext())) {
-                toast(getString(R.string.backtrack_disabled_low_power_toast))
-            } else {
-                val isOn = isBacktrackRunning
-                prefs.backtrackEnabled = !isOn
-                if (!isOn) {
-                    BacktrackSubsystem.getInstance(requireContext()).enable(true)
-                    RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
-                } else {
-                    BacktrackScheduler.stop(requireContext())
-                }
+        backtrack.state.replay()
+            .asLiveData().observe(viewLifecycleOwner) {
+                updateStatusBar()
             }
-            onUpdate()
+
+        backtrack.frequency.replay()
+            .asLiveData().observe(viewLifecycleOwner) {
+                updateStatusBar()
+            }
+
+        binding.backtrackPlayBar.setOnPlayButtonClickListener {
+            when (backtrack.state.getOrNull()) {
+                FeatureState.On -> backtrack.disable()
+                FeatureState.Off -> {
+                    backtrack.enable(true)
+                    RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
+                }
+                FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
+                else -> {}
+            }
         }
 
         setupCreateMenu()
-        scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onPause() {
@@ -142,8 +149,11 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
     }
 
-    override fun onUpdate() {
-        binding.backtrackPlayBar.setState(isBacktrackRunning, prefs.backtrackRecordFrequency)
+    private fun updateStatusBar() {
+        binding.backtrackPlayBar.setState(
+            backtrack.state.getOrNull() ?: FeatureState.Off,
+            backtrack.frequency.getOrNull()
+        )
     }
 
     private fun setupCreateMenu() {
@@ -166,9 +176,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     ): FragmentPathsBinding {
         return FragmentPathsBinding.inflate(layoutInflater, container, false)
     }
-
-    private val isBacktrackRunning: Boolean
-        get() = BacktrackScheduler.isOn(requireContext())
 
 
     private fun changeSort() {

@@ -49,7 +49,7 @@ object TrailSenseServiceUtils {
 
     private fun startBacktrack(context: Context) {
         val backtrack = BacktrackSubsystem.getInstance(context)
-        if (backtrack.backtrackState.value.get() == FeatureState.On) {
+        if (backtrack.state.value.get() == FeatureState.On) {
             backtrack.enable(false)
         } else {
             backtrack.disable()

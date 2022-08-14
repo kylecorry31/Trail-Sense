@@ -19,11 +19,11 @@ class BacktrackSubsystem private constructor(private val context: Context) {
     private val sharedPrefs by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
 
-    private val _backtrackState = Topic(defaultValue = Optional.of(calculateBacktrackState()))
-    val backtrackState: ITopic<FeatureState> = _backtrackState.distinct()
+    private val _state = Topic(defaultValue = Optional.of(calculateBacktrackState()))
+    val state: ITopic<FeatureState> = _state.distinct()
 
-    private val _backtrackFrequency = Topic(defaultValue = Optional.of(calculateBacktrackFrequency()))
-    val backtrackFrequency: ITopic<Duration> = _backtrackFrequency.distinct()
+    private val _frequency = Topic(defaultValue = Optional.of(calculateBacktrackFrequency()))
+    val frequency: ITopic<Duration> = _frequency.distinct()
 
     private val stateChangePrefKeys = listOf(
         R.string.pref_backtrack_enabled,
@@ -37,18 +37,18 @@ class BacktrackSubsystem private constructor(private val context: Context) {
 
     init {
         // Keep them up to date
-        backtrackState.subscribe { true }
-        backtrackFrequency.subscribe { true }
+        state.subscribe { true }
+        frequency.subscribe { true }
 
         sharedPrefs.onChange.subscribe { key ->
             if (key in stateChangePrefKeys) {
                 val state = calculateBacktrackState()
-                _backtrackState.publish(state)
+                _state.publish(state)
             }
 
             if (key in frequencyChangePrefKeys){
                 val frequency = calculateBacktrackFrequency()
-                _backtrackFrequency.publish(frequency)
+                _frequency.publish(frequency)
             }
             true
         }
