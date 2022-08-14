@@ -193,7 +193,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner) {
-            waypoints = it.sortedByDescending { p -> p.id }
+            waypoints = hikingService.correctElevations(it.sortedByDescending { p -> p.id })
             val selected = selectedPointId
             if (selected != null && waypoints.find { it.id == selected } == null) {
                 deselectPoint()

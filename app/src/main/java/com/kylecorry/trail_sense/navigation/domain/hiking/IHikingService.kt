@@ -6,6 +6,9 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import java.time.Duration
 
 interface IHikingService {
+
+    fun correctElevations(points: List<PathPoint>): List<PathPoint>
+
     fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty
 
     fun getAveragePace(difficulty: HikingDifficulty, factor: Float = 2f): Speed

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
+import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.sol.math.filters.ProximityChangeFilter
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
@@ -13,8 +14,25 @@ import kotlin.math.sqrt
 
 class HikingService(private val geology: IGeologyService = GeologyService()) : IHikingService {
 
-    private val elevationFilter =
-        ProximityChangeFilter<PathPoint>(2.75f) { a, b -> a.elevation!! - b.elevation!! }
+    private val elevationFilter = ProximityChangeFilter<PathPoint>(
+        2.75f,
+        { prev, curr -> curr.copy(elevation = prev.elevation) }
+    ) { a, b -> (a.elevation ?: 0f) - (b.elevation ?: 0f) }
+
+    override fun correctElevations(points: List<PathPoint>): List<PathPoint> {
+        val elevations = elevationFilter.filter(points)
+        val smoothing = MovingAverageFilter(3)
+
+        return elevations.map {
+            if (it.elevation == null) {
+                it
+            } else {
+                val smoothed = smoothing.filter(it.elevation.toDouble())
+                it.copy(elevation = smoothed.toFloat())
+            }
+        }
+
+    }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
         val gain = getElevationGain(points).convertTo(DistanceUnits.Feet).distance
@@ -54,7 +72,8 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
     }
 
     override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
-        val elevations = filterElevations(path).map { Distance.meters(it.elevation!!) }
+        val elevations =
+            path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
         val gain = geology.getElevationGain(elevations)
         val loss = geology.getElevationLoss(elevations)
         return loss to gain
@@ -97,12 +116,11 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
         return getHikingDuration(path, getAveragePace(difficulty, paceFactor))
     }
 
-    private fun filterElevations(points: List<PathPoint>): List<PathPoint> {
-        return elevationFilter.filter(points.filter { it.elevation != null })
-    }
-
     private fun getElevationGain(path: List<PathPoint>): Distance {
-        val elevations = filterElevations(path).map { Distance.meters(it.elevation!!) }
+        val elevations =
+            path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
         return geology.getElevationGain(elevations)
     }
+
+
 }
