@@ -8,6 +8,8 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.topics.asLiveData
+import com.kylecorry.andromeda.core.topics.generic.asLiveData
+import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
@@ -16,22 +18,21 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import java.time.LocalDate
 
 class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
+    private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
     private val counter by lazy { StepCounter(Preferences(requireContext())) }
     private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
     private val averageSpeedometer by lazy {
@@ -61,12 +62,10 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         }
 
         binding.pedometerPlayBar.setOnPlayButtonClickListener {
-            val wasEnabled = prefs.pedometer.isEnabled
-            prefs.pedometer.isEnabled = !wasEnabled
-            if (wasEnabled) {
-                StepCounterService.stop(requireContext())
-            } else {
-                startStepCounter()
+            when (pedometer.state.getOrNull()) {
+                FeatureState.On -> pedometer.disable()
+                FeatureState.Off -> startStepCounter()
+                else -> {}
             }
         }
 
@@ -117,7 +116,12 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             onUpdate()
         }
 
-        // TODO: Make step counter a sensor
+        pedometer.state.replay()
+            .asLiveData().observe(viewLifecycleOwner) {
+                updateStatusBar()
+            }
+
+        // TODO: Use pedometer subsystem topics
         scheduleUpdates(INTERVAL_30_FPS)
     }
 
@@ -150,9 +154,14 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             false
         )
 
-        binding.pedometerPlayBar.setState(prefs.pedometer.isEnabled)
         updateAverageSpeed()
         updateCurrentSpeed()
+    }
+
+    private fun updateStatusBar() {
+        binding.pedometerPlayBar.setState(
+            pedometer.state.getOrNull() ?: FeatureState.Off
+        )
     }
 
     private fun updateAverageSpeed() {
@@ -181,9 +190,9 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private fun startStepCounter() {
         requestActivityRecognition { hasPermission ->
             if (hasPermission) {
-                StepCounterService.start(requireContext())
+                pedometer.enable()
             } else {
-                prefs.pedometer.isEnabled = false
+                pedometer.disable()
                 alertNoActivityRecognitionPermission()
             }
         }
