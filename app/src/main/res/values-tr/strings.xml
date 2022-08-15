@@ -1063,4 +1063,7 @@
     <string name="path_slope_moderate">Orta</string>
     <string name="path_slope_flat">Düz</string>
     <string name="path_slope_steep">Dik</string>
+    <string name="pref_show_path_slope_title">Yol eğimini göster</string>
+    <string name="camera_unavailable">Kamera kullanılamıyor</string>
+    <string name="pref_show_path_slope_summary">Yükseklik tablosunda</string>
 </resources>
