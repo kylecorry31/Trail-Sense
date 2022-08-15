@@ -314,16 +314,16 @@
     <string name="cumulonimbus">Dešťová kupa</string>
     <string name="stratus_desc">Nízká oblačnost, která zakrývá oblohu. Objekty nevrhají stíny a může být mlha.</string>
     <string name="cumulus_desc">Nízká nadýchaná oblačnost, které vypadají jako vata. Jsou rozmístěny v určitých rozestupech a obvykle jsou bílé s tmavšími skvrnami pod nimi.</string>
-    <string name="cirrus_desc">Vysoká oblačnost, která vypadá jako chomáče bílých vlasů.</string>
+    <string name="cirrus_desc">Vysoká oblačnost, která vypadá jako shluky bílých vlasů.</string>
     <string name="onboarding_user_guide">V uživatelské příručce se dozvíte, jak používat funkce Trail Sense. Je k dispozici v dolní části karty Nástroje.
 \n
-\nDalší průvodci budou brzy přibývat.</string>
+\nDalší návody budou brzy přibývat.</string>
     <string name="import_btn">Importovat</string>
     <string name="pref_backtrack_save_cell_summary">Zaznamenává telefonní signál v navigačním bodě. Nepoužívá internet.</string>
     <string name="pref_backtrack_save_cell_title">Nahrát telefonní signál</string>
     <string name="pref_stride_length_title">Délka kroku</string>
     <string name="gps_user">Uživatel</string>
-    <string name="gps_stale">Zastaralá data</string>
+    <string name="gps_stale">Zastaralá</string>
     <string name="contents">Obsah</string>
     <string name="export">Exportovat</string>
     <string name="help">Pomoc</string>
@@ -453,7 +453,7 @@
     <string name="tool_metal_detector_title">Detektor kovů</string>
     <string name="cirrocumulus_desc">Vysoká oblačnost, která tvoří zvlněný list. List se skládá z malých teček, které vypadají téměř dvourozměrně.</string>
     <string name="stratocumulus_desc">Nízká oblačnost, která vypadá jako plát vaty s malými mezerami. Barva se pohybuje od bílé po tmavě šedou.</string>
-    <string name="privacy_and_location">Soukromí a poloha</string>
+    <string name="privacy_and_location">Soukromí a Poloha</string>
     <string name="cirrostratus_desc">Vysoká oblačnost, která pokrývá oblohu. Je průhledná a obvykle způsobuje, že se kolem Slunce tvoří halo.</string>
     <string name="pref_daily_weather_notification_title">Denní upozornění na počasí</string>
     <string name="low_tide">Odliv</string>
@@ -487,9 +487,9 @@
 \n
 \n- Zobrazit [Zásady ochrany osobních údajů](https://kylecorry.com/Trail-Sense/privacy_policy.html) (otevře se v prohlížeči telefonu)
 \n
-\n- Některé funkce aplikace Trail Sense vyžadují přístup k vaší poloze
+\n- Některé funkce aplikace Trail Sense vyžaduje povolení k určování polohy
 \n
-\n- Udělením oprávnění k určování polohy povolíte následující funkce:
+\n- Udělením povolení k určování polohy povolíte následující funkce:
 \n
 \n\t- Navigace k majákům
 \n
@@ -499,9 +499,9 @@
 \n
 \n\t- Časy Slunce a Měsíce pro vaši aktuální polohu
 \n
-\n- Pokud se rozhodnete neudělit povolení k určování polohy, můžete polohu zadat ručně v nabídce Settings &gt; GPS calibration (Nastavení &gt; Kalibrace GPS) v aplikaci Trail Sense.
+\n- Pokud se rozhodnete neudělit povolení k určování polohy, můžete polohu zadat manuální v nabídce Nastavení &gt; Kalibrace GPS v aplikaci Trail Sense.
 \n
-\n- Po klepnutí na tlačítko pokračovat budete vyzváni k udělení oprávnění k poloze a poloze na pozadí. Odmítnutí těchto oprávnění zabrání aplikaci Trail Sense v přístupu k vaší poloze, proto se doporučuje ruční zadání polohy.</string>
+\n- Po klepnutí na tlačítko pokračovat budete vyzváni k udělení povolení k poloze a poloze na pozadí. Odmítnutí těchto povolení zabrání aplikaci Trail Sense v přístupu k určování vaší polohy, proto se doporučuje manuální zadání polohy.</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d maják exportován</item>
         <item quantity="few">%d majáky exportovány</item>
@@ -1058,4 +1058,23 @@
         <item quantity="few">%d přílivy/odlivy</item>
         <item quantity="other">%d přílivů/odlivů</item>
     </plurals>
+    <string name="nimbostratus_weather">Srážky velmi brzy</string>
+    <string name="cumulus_weather">Mohou naznačovat příznivé počasí, ale pokud rostou do výšky, může to vést k bouřce.</string>
+    <string name="cirrus_weather">Může naznačovat teplou frontu za 12 až 36 hodin.</string>
+    <string name="altostratus_weather">Může naznačovat blízké srážky.</string>
+    <string name="cirrocumulus_weather">Může naznačovat brzké ochlazení.</string>
+    <string name="stratocumulus_weather">Může naznačovat příznivé počasí s nízkou pravděpodobností srážek.</string>
+    <string name="cirrostratus_weather">Může naznačovat srážky v příštích 12 až 24 hodinách</string>
+    <string name="cumulonimbus_weather">Bouřka velmi brzy</string>
+    <string name="lowest_point_altitude">Nejnižší bod</string>
+    <string name="highest_point_altitude">Nejvyšší bod</string>
+    <string name="path_slope_flat">Vodorovný</string>
+    <string name="path_slope">Svah</string>
+    <string name="altocumulus_weather">Může naznačovat bouřky později během dne, pokud-li je vlhko.</string>
+    <string name="ascent">Výstup</string>
+    <string name="descent">Sestup</string>
+    <string name="stratus_weather">Může naznačovat brzké mírné srážky.</string>
+    <string name="updating_weather">Aktualizace informací o počasí</string>
+    <string name="path_slope_moderate">Mírný</string>
+    <string name="path_slope_steep">Strmý</string>
 </resources>
