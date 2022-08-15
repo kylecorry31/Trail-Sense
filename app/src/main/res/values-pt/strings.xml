@@ -727,7 +727,6 @@
     <string name="gps_signal_lost">Sinal do GPS perdido</string>
     <string name="altitude_history_length">Comprimento do histórico de altitude</string>
     <string name="last_duration">Último %s</string>
-    <string name="pref_filter_altitude_history_title">Normalizar histórico de altitude</string>
     <string name="beacon_qr_import_instructions">Digitalizar um código QR a importar</string>
     <string name="qr_code">Código QR</string>
     <string name="altitude_history">Histórico de altitude</string>

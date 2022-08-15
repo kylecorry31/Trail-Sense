@@ -719,7 +719,6 @@
     <string name="num_satellites">%d супутників</string>
     <string name="no_compass_message">Ваш пристрій не має датника компаса</string>
     <string name="altitude_history">Історія висот</string>
-    <string name="pref_filter_altitude_history_title">Історія плавності висот</string>
     <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
     <string name="qr_code">QR-код</string>
     <string name="gps_signal_lost">Сигнал GPS втрачено</string>

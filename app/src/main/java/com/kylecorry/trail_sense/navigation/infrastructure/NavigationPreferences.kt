@@ -209,12 +209,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
-    val smoothAltitudeHistory by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_filter_altitude_history),
-        true
-    )
-
     val areMapsEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_experimental_maps),

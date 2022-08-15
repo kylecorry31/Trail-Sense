@@ -711,7 +711,6 @@
     <string name="lunar_noon">Lunarno podne</string>
     <string name="solar_noon">Solarno podne</string>
     <string name="sunset_alerts">Upozorenja na zalazke</string>
-    <string name="pref_filter_altitude_history_title">Povijest glatke visine</string>
     <string name="beacon_qr_import_instructions">Skenirajte QR kodu da uvezete</string>
     <string name="qr_code">QR Koda</string>
     <string name="altitude_history">Povijest visine</string>

@@ -915,7 +915,6 @@
     <string name="sort_by">מיון: %s</string>
     <string name="distance_unset">מרחק לא מוגדר</string>
     <string name="weight">משקל</string>
-    <string name="pref_filter_altitude_history_title">היסטוריית גבהים חלקה</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="sun_does_not_set">אינו מוגדר</string>

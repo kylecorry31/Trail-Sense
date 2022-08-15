@@ -722,7 +722,6 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">Seu dispositivo não possui um sensor de bússola</string>
-    <string name="pref_filter_altitude_history_title">O histórico de altitude</string>
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
     <string name="autofill">Preenchimento automático</string>

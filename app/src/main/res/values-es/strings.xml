@@ -886,7 +886,6 @@
         <item quantity="one">Ruta importada %d</item>
         <item quantity="other">Rutas importadas %d</item>
     </plurals>
-    <string name="pref_filter_altitude_history_title">Historial de altitud suave</string>
     <string name="roll_pitch_yaw">Giro:%s, Paso:%s, Guiñada:%s</string>
     <string name="camera">Camara</string>
     <string name="lunar_eclipse">Eclipse Lunar</string>

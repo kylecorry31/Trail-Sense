@@ -606,7 +606,6 @@
     <string name="beacon_qr_import_instructions">Scanner un QR Code pour importer</string>
     <string name="altitude_history">Historique d’altitude</string>
     <string name="qr_code">QR Code</string>
-    <string name="pref_filter_altitude_history_title">Lisser l’historique d’altitude</string>
     <string name="altitude_override_resolution">Activer le calibrage automatique dans les paramètres.</string>
     <string name="battery_usage_restricted">Utilisation de la batterie bridée</string>
     <string name="power_saving_mode_resolution">Désactiver l’économiseur de batterie</string>

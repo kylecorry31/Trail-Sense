@@ -911,8 +911,6 @@
     <string name="altitude_history">Altitude history</string>
     <string name="qr_code">QR Code</string>
     <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
-    <string name="pref_filter_altitude_history" translatable="false">pref_filter_altitude_history</string>
-    <string name="pref_filter_altitude_history_title">Smooth altitude history</string>
     <string name="last_duration">Last %s</string>
     <string name="altitude_history_length">Altitude history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>

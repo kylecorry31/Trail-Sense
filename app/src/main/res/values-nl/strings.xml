@@ -710,7 +710,6 @@
     <string name="pack_sort_percent_low_to_high">Percentage ingepakt (laag naar hoog)</string>
     <string name="sort">Sorteren</string>
     <string name="current_format">%s mA</string>
-    <string name="pref_filter_altitude_history_title">Vloeiende hoogtegeschiedenis</string>
     <string name="beacon_qr_import_instructions">Scan een QR-code om te importeren</string>
     <string name="qr_code">QR-code</string>
     <string name="location_override_not_set_resolution">Locatieoverschrijving instellen in instellingen</string>

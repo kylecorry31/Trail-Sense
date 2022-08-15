@@ -638,7 +638,6 @@
     <string name="weather_monitor">Монитор погоды</string>
     <string name="no_data">Нет данных</string>
     <string name="pref_map_url_source_title">Поделиться местоположением на карте</string>
-    <string name="pref_filter_altitude_history_title">История плавности высоты</string>
     <string name="beacon_qr_import_instructions">Отсканируйте QR-код для импорта</string>
     <string name="qr_code">QR-код</string>
     <string name="altitude_history">История высот</string>

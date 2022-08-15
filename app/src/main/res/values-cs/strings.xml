@@ -852,7 +852,6 @@
     <string name="imperial_gallons">Imperiální galony</string>
     <string name="percent_packed">%s zabaleno</string>
     <string name="packing_lists">Seznamy věcí na cesty</string>
-    <string name="pref_filter_altitude_history_title">Vyhlazená historie nadmořské výšky</string>
     <string name="last_duration">Poslední %s</string>
     <string name="lunar_eclipse_end">Zatmění Měsíce (konec)</string>
     <string name="lunar_eclipse">Zatmění Měsíce</string>

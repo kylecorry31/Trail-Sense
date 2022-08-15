@@ -131,16 +131,12 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                 val readings =
                     (backtrackReadings + weatherReadings + listOfNotNull(currentAltitude)).sortedBy { it.time }
 
-                if (prefs.navigation.smoothAltitudeHistory) {
-                    DataUtils.smooth(
-                        readings,
-                        0.25f,
-                        { Vector2(it.time.toEpochMilli() / (1000f * 60), it.value) }
-                    ) { reading, smoothed ->
-                        reading.copy(value = smoothed.y)
-                    }
-                } else {
-                    readings
+                DataUtils.smooth(
+                    readings,
+                    0.25f,
+                    { Vector2(it.time.toEpochMilli() / (1000f * 60), it.value) }
+                ) { reading, smoothed ->
+                    reading.copy(value = smoothed.y)
                 }.filter {
                     Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
                 }

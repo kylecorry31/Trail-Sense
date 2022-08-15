@@ -693,7 +693,6 @@
     <string name="gps_signal_lost">GPS sinyali kayboldu</string>
     <string name="altitude_history_length">Rakım geçmişi uzunluğu</string>
     <string name="last_duration">Son %s</string>
-    <string name="pref_filter_altitude_history_title">Düz rakım geçmişi</string>
     <string name="beacon_qr_import_instructions">İçe aktarmak için bir QR kodu tarayın</string>
     <string name="qr_code">QR Kodu</string>
     <string name="altitude_history">Rakım geçmişi</string>
