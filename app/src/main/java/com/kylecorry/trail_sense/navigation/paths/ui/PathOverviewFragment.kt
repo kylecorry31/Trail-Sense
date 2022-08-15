@@ -193,18 +193,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner) {
-            waypoints = hikingService.correctElevations(it.sortedByDescending { p -> p.id })
-            val selected = selectedPointId
-            if (selected != null && waypoints.find { it.id == selected } == null) {
-                deselectPoint()
-            }
-
-            pointSheet?.setPoints(waypoints)
-            updateElevationOverview()
-            updateHikingStats()
-            updatePathMap()
-            updatePointStyleLegend()
-            onPathChanged()
+            onWaypointsChanged(it)
         }
 
         gps.asLiveData().observe(viewLifecycleOwner) {
@@ -235,6 +224,27 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
+    private fun onWaypointsChanged(waypoints: List<PathPoint>) {
+        lifecycleScope.launchWhenResumed {
+            onDefault {
+                this@PathOverviewFragment.waypoints =
+                    hikingService.correctElevations(waypoints.sortedByDescending { p -> p.id })
+            }
+            onMain {
+                val selected = selectedPointId
+                if (selected != null && waypoints.find { it.id == selected } == null) {
+                    deselectPoint()
+                }
+                pointSheet?.setPoints(waypoints)
+            }
+            updateElevationOverview()
+            updateHikingStats()
+            updatePathMap()
+            updatePointStyleLegend()
+            onPathChanged()
+        }
+    }
+
     private fun updateParent() {
         val path = path ?: return
         runInBackground {
@@ -252,15 +262,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
 
-    private fun updateHikingStats() {
-        runInBackground {
-            onDefault {
-                val reversed = waypoints.reversed()
-                calculatedDuration =
-                    hikingService.getHikingDuration(reversed, paceFactor)
-                difficulty = hikingService.getHikingDifficulty(reversed)
-            }
-        }
+    private suspend fun updateHikingStats() = onDefault {
+        val reversed = waypoints.reversed()
+        calculatedDuration =
+            hikingService.getHikingDuration(reversed, paceFactor)
+        difficulty = hikingService.getHikingDifficulty(reversed)
     }
 
     private fun movePath() {
@@ -271,29 +277,27 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
-    private fun updateElevationOverview() {
-        runInBackground {
-            onDefault {
-                val path = waypoints.reversed()
+    private suspend fun updateElevationOverview() {
+        onDefault {
+            val path = waypoints.reversed()
 
-                val gainLoss = hikingService.getElevationLossGain(path)
+            val gainLoss = hikingService.getElevationLossGain(path)
 
-                val units = prefs.baseDistanceUnits
-                elevationGain = gainLoss.second.convertTo(units)
-                elevationLoss = gainLoss.first.convertTo(units)
-                elevationRange =
-                    path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }
-                        .range()
-                slopes = hikingService.getSlopes(path)
-                slopes.forEach {
-                    it.first.slope = it.third
-                }
-                val first = slopes.lastOrNull()
-                first?.first?.slope = first?.third ?: 0f
+            val units = prefs.baseDistanceUnits
+            elevationGain = gainLoss.second.convertTo(units)
+            elevationLoss = gainLoss.first.convertTo(units)
+            elevationRange =
+                path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }
+                    .range()
+            slopes = hikingService.getSlopes(path)
+            slopes.forEach {
+                it.first.slope = it.third
             }
-            onMain {
-                updateElevationPlot()
-            }
+            val first = slopes.lastOrNull()
+            first?.first?.slope = first?.third ?: 0f
+        }
+        onMain {
+            updateElevationPlot()
         }
     }
 

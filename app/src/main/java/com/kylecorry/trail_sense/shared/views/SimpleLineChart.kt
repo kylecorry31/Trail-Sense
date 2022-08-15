@@ -17,6 +17,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.hoursUntil
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -24,6 +25,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.Instant
 import java.time.LocalTime
+import kotlin.math.max
+import kotlin.math.min
 
 
 class SimpleLineChart(
@@ -283,6 +286,30 @@ class SimpleLineChart(
             return readings.map {
                 first.hoursUntil(it.time) to getY(it.value)
             }
+        }
+
+        fun getYRange(
+            data: List<Pair<Float, Float>>,
+            granularity: Float,
+            minRange: Float
+        ): Range<Float> {
+            val values = data.map { it.second }
+            val minValue = values.minOrNull() ?: 0f
+            val maxValue = values.maxOrNull() ?: 0f
+            return getRange(minValue, maxValue, granularity, minRange)
+        }
+
+        fun getRange(
+            minimum: Float,
+            maximum: Float,
+            granularity: Float,
+            minRange: Float
+        ): Range<Float> {
+            val middle = (minimum + maximum) / 2f
+            val start = min(minimum - granularity, middle - minRange / 2)
+            val end = max(maximum + granularity, middle + minRange / 2)
+
+            return Range(start, end)
         }
     }
 

@@ -6,24 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
-import com.kylecorry.sol.math.filters.KalmanFilter
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.shared.data.DataUtils
+import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.pow
 
 class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHistoryBinding>() {
 
@@ -96,33 +99,23 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         }
     }
 
-    private fun updateChart() {
-        val readings =
-            (backtrackReadings + weatherReadings + listOfNotNull(currentAltitude)).sortedBy { it.time }
-
-        val filteredReadings = if (prefs.navigation.smoothAltitudeHistory) {
-            val kalman = KalmanFilter.filter(
-                readings.map { it.value.toDouble() },
-                34.0.pow(2) * 34.0,
-                10.0,
-                readings.map { it.time.toEpochMilli() / (1000.0 * 60.0) }
-            )
-
-            readings.mapIndexed { index, reading ->
-                Reading(
-                    kalman[index].toFloat(),
-                    reading.time
-                )
-            }
-        } else {
-            readings
-        }.filter {
-            Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
-        }
-
-        val data = filteredReadings.map {
+    private fun updateChart(readings: List<Reading<Float>>) {
+        if (!isBound) return
+        val data = readings.map {
             it.time.toEpochMilli().toFloat() to Distance.meters(it.value).convertTo(units).distance
         }
+
+        val granularity = Distance.meters(5f).convertTo(units).distance
+        val minRange = Distance.meters(30f).convertTo(units).distance
+        val range = SimpleLineChart.getYRange(data, granularity, minRange)
+        chart.configureYAxis(
+            minimum = range.start,
+            maximum = range.end,
+            granularity = granularity,
+            labelCount = 5,
+            drawGridLines = true
+        )
+
         chart.plot(
             data, Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary),
             filled = true
@@ -130,6 +123,31 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         binding.altitudeHistoryLength.text =
             getString(R.string.last_duration, formatService.formatDuration(maxHistoryDuration))
+    }
+
+    private fun updateChart() {
+        lifecycleScope.launchWhenResumed {
+            val filteredReadings = onDefault {
+                val readings =
+                    (backtrackReadings + weatherReadings + listOfNotNull(currentAltitude)).sortedBy { it.time }
+
+                if (prefs.navigation.smoothAltitudeHistory) {
+                    DataUtils.smooth(
+                        readings,
+                        0.25f,
+                        { Vector2(it.time.toEpochMilli() / (1000f * 60), it.value) }
+                    ) { reading, smoothed ->
+                        reading.copy(value = smoothed.y)
+                    }
+                } else {
+                    readings
+                }.filter {
+                    Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
+                }
+            }
+
+            onMain { updateChart(filteredReadings) }
+        }
     }
 
     private fun getWeatherReadings(): LiveData<List<Reading<Float>>> {

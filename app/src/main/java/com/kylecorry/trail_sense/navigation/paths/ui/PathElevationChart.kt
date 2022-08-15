@@ -74,6 +74,30 @@ class PathElevationChart(chart: LineChart, private val showSlope: Boolean) {
 
     fun plot(path: List<PathPoint>, @ColorInt color: Int) {
         val elevations = getElevationPlotPoints(path)
+
+        val granularity = Distance.meters(5f).convertTo(units).distance
+        val minRange = Distance.meters(30f).convertTo(units).distance
+        val range = SimpleLineChart.getRange(elevations.minOfOrNull { it.second } ?: 0f,
+            elevations.maxOfOrNull { it.second } ?: 0f,
+            granularity,
+            minRange)
+
+        simpleChart.configureYAxis(
+            granularity = granularity,
+            labelCount = 3,
+            drawGridLines = true,
+            minimum = range.start,
+            maximum = range.end,
+            labelFormatter = {
+                val distance = Distance.meters(it).convertTo(units)
+                formatter.formatDistance(
+                    distance,
+                    Units.getDecimalPlaces(distance.units),
+                    false
+                )
+            }
+        )
+
         val datasets = mutableListOf<SimpleLineChart.Dataset>()
 
         if (showSlope) {

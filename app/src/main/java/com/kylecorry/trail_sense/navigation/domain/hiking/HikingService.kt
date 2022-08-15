@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
-import com.kylecorry.sol.math.filters.MovingAverageFilter
-import com.kylecorry.sol.math.filters.ProximityChangeFilter
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.GeologyService
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Distance
@@ -9,29 +8,26 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.shared.data.DataUtils
 import java.time.Duration
 import kotlin.math.sqrt
 
 class HikingService(private val geology: IGeologyService = GeologyService()) : IHikingService {
 
-    private val elevationFilter = ProximityChangeFilter<PathPoint>(
-        2.75f,
-        { prev, curr -> curr.copy(elevation = prev.elevation) }
-    ) { a, b -> (a.elevation ?: 0f) - (b.elevation ?: 0f) }
-
     override fun correctElevations(points: List<PathPoint>): List<PathPoint> {
-        val elevations = elevationFilter.filter(points)
-        val smoothing = MovingAverageFilter(3)
+        var distance = 0f
+        var last = points.first()
 
-        return elevations.map {
-            if (it.elevation == null) {
-                it
-            } else {
-                val smoothed = smoothing.filter(it.elevation.toDouble())
-                it.copy(elevation = smoothed.toFloat())
-            }
+        val data = points.map {
+            distance += it.coordinate.distanceTo(last.coordinate)
+            last = it
+            Vector2(distance, it.elevation ?: 0f)
         }
 
+        val smoothed = DataUtils.smooth(data, 0.1f)
+
+        return points.zip(smoothed)
+            .map { it.first.copy(elevation = if (it.first.elevation == null) null else it.second.y) }
     }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {

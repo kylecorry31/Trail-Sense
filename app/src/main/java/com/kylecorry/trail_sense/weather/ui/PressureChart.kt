@@ -10,8 +10,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.max
-import kotlin.math.min
 
 
 class PressureChart(
@@ -64,18 +62,10 @@ class PressureChart(
             it.pressure
         }
 
-        // TODO: Extract this to min Y distance
-        val pressures = values.map { it.second }
-        var minPressure = pressures.minOrNull() ?: 0f
-        var maxPressure = pressures.maxOrNull() ?: 0f
-        val middle = (minPressure + maxPressure) / 2f
-        minPressure = min(minPressure - granularity, middle - minRange / 2)
-        maxPressure = max(maxPressure + granularity, middle + minRange / 2)
-
-
+        val range = SimpleLineChart.getYRange(values, granularity, minRange)
         simpleChart.configureYAxis(
-            minimum = minPressure,
-            maximum = maxPressure,
+            minimum = range.start,
+            maximum = range.end,
             granularity = granularity,
             labelCount = 5,
             drawGridLines = true

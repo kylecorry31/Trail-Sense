@@ -59,7 +59,7 @@ android {
 dependencies {
     kapt("androidx.room:room-compiler:2.4.3")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10")
-    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.appcompat:appcompat:1.5.0")
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -74,6 +74,8 @@ dependencies {
     implementation("androidx.room:room-runtime:2.4.3")
     implementation("androidx.room:room-ktx:2.4.3")
     implementation("androidx.lifecycle:lifecycle-service:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     val cameraxVersion = "1.1.0"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
@@ -83,7 +85,7 @@ dependencies {
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.11.1")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:6.0.0-beta02")
+    implementation("com.github.kylecorry31:sol:6.0.0-beta03")
 
     // Andromeda
     val andromedaVersion = "5.0.0-beta05"
