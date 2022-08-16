@@ -55,8 +55,7 @@
 \n- דווח על הערך הנמדד כאן.</string>
     <string name="pref_compass_sensor_title">מצפן</string>
     <string name="calibrate">כיול</string>
-    <string name="altitude">גובה</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">הנתן לחץ פני הים</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">הנתן לחץ פני הים</string>
     <string name="altimeter_mode_gps_barometer">GPS + ברומטר</string>
     <string name="sun_actual">בפועל</string>
     <string name="one">1</string>
@@ -89,11 +88,11 @@
     <string name="wgs84">WGS 84</string>
     <string name="no_resolution">אין פתרון</string>
     <string name="get_gps_signal">צאו החוצה עם נוף ללא הפרעה של השמיים.</string>
-    <string name="altitude_history">היסטוריית גבהים</string>
+    <string name="elevation_history">היסטוריית גבהים</string>
     <string name="qr_code">קוד QR</string>
     <string name="beacon_qr_import_instructions">סריקת קוד QR לייבוא</string>
     <string name="last_duration">%s אחרון</string>
-    <string name="altitude_history_length">אורך היסטוריית גבהים</string>
+    <string name="elevation_history_length">אורך היסטוריית גבהים</string>
     <string name="gps_signal_lost">אות GPS אבד</string>
     <string name="battery_usage_restricted">השימוש בסוללה מוגבל</string>
     <string name="camera">מצלמה</string>
@@ -105,7 +104,7 @@
     <string name="remove_battery_restrictions">האם להסיר הגבלות סוללה\?</string>
     <string name="grant_permission">הענק את ההרשאה %s</string>
     <string name="location_override_not_set_resolution">הגדרת עקיפת המיקום בהגדרות</string>
-    <string name="altitude_override_resolution">אפשר כיול אוטומטי בהגדרות.</string>
+    <string name="elevation_override_resolution">אפשר כיול אוטומטי בהגדרות.</string>
     <string name="battery_restricted_resolution">הגדר את Trail Sense כלא ממוטבת</string>
     <string name="explore">חקור</string>
     <string name="gps_unavailable_resolution">הפעל מיקום או שנה את מקור המיקום שלך להתקן בלבד או לדיוק גבוה</string>
@@ -358,7 +357,7 @@
 \n
 \nמצפן: יש לסובב את המכשיר בתבנית 8 או לכל הכיוונים ולהתרחק ממתכת."</string>
     <string name="pressure_format">%s %s</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">הזנת הלחץ הנוכחי בגובה פני הים ב-hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">הזנת הלחץ הנוכחי בגובה פני הים ב-hPa</string>
     <string name="sun_nautical">ימי</string>
     <string name="eta">~ %s משם</string>
     <string name="name">שם</string>
@@ -460,7 +459,7 @@
     <string name="pref_auto_declination_summary">בהתבסס על מיקומך הנוכחי</string>
     <string name="compass_accuracy_improved">דיוק המצפן השתפר ל-%s</string>
     <string name="location">מקום</string>
-    <string name="altitude_override_updated_toast">עקיפת הגובה עודכנה</string>
+    <string name="elevation_override_updated_toast">עקיפת הגובה עודכנה</string>
     <string name="pref_show_sun_moon_compass_title">הצגת שמש/ירח במצפן</string>
     <string name="sun_astronomical">אסטרונומי</string>
     <string name="pref_auto_location_title">התאמה אוטומטית של המיקום</string>
@@ -469,7 +468,7 @@
     <string name="pref_forecast_sensitivity_title">רגישות התחזית</string>
     <string name="pref_show_weather_notification_title">הצגת הודעת מזג אוויר</string>
     <string name="sun_moon_compass_when_up">כאשר למעלה</string>
-    <string name="pref_altitude_override_sea_level_title">שימוש בלחץ ידוע בגובה פני הים</string>
+    <string name="pref_elevation_override_sea_level_title">שימוש בלחץ ידוע בגובה פני הים</string>
     <string name="calibrate_compass_on_navigate_dialog_content">יש לסובב את הטלפון בתבנית איור 8 או בכל הכיוונים מספר פעמים, וללחוץ על %s בסיום.
 \n
 \nניתן להשבית התראה זו בהגדרות היישום.</string>
@@ -481,7 +480,7 @@
     <string name="unit_kilometers">קילומטרים</string>
     <string name="gps">GPS</string>
     <string name="delete_beacon_group_message">%s וכל המשואות שלו יימחקו.</string>
-    <string name="pref_altitude_override_title">עקיפת גבוה</string>
+    <string name="pref_elevation_override_title">עקיפת גבוה</string>
     <string name="pref_altimeter_calibration_mode_title">כיול אוטומטי</string>
     <string name="temp_c_short">°C</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">כיול לפני ניווט</string>
@@ -722,7 +721,7 @@
     <string name="set">הגדר</string>
     <string name="weather_better_than_yesterday">יותר טוב מאתמול</string>
     <string name="backtrack_high_priority_notification">הצבת נקודת ציון כל %s</string>
-    <string name="pref_nmea_altitude_title">היסט גובה NMEA</string>
+    <string name="pref_nmea_elevation_title">היסט גובה NMEA</string>
     <string name="location_mocked">שימוש במיקום מזויף</string>
     <string name="distance_from_flashlight">מרחק מהטלפון לפנס</string>
     <string name="guide_light_meter_title">קביעת יעילות הפנס</string>
@@ -821,8 +820,8 @@
     <string name="weather_monitor">צג מזג האוויר</string>
     <string name="temperature_history">היסטוריית טמפרטורה - אחרונה %s</string>
     <string name="pref_barometer_info_summary">הלחץ עשוי להיות שונה מזה של תחנות סמוכות</string>
-    <string name="pref_nmea_altitude_summary">שימוש בהיסט NMEA להמרת גובה</string>
-    <string name="pref_barometer_altitude_smoothing_title">החלקת גובה</string>
+    <string name="pref_nmea_elevation_summary">שימוש בהיסט NMEA להמרת גובה</string>
+    <string name="pref_barometer_elevation_smoothing_title">החלקת גובה</string>
     <string name="preview">תצוגה מקדימה</string>
     <string name="map_rotate_instructions">סובב עד שהצפון יצביע למעלה</string>
     <string name="pref_flashlight_toggle_with_system_title">החלף עם המערכת</string>
@@ -844,7 +843,7 @@
     <string name="whistle_signal_come_here">בוא הנה</string>
     <string name="dusk_type">בין הערביים (%s)</string>
     <string name="humidity_history">היסטוריית לחות - אחרונה %s</string>
-    <string name="pref_barometer_altitude_outlier_title">הסרת גובה חריגה</string>
+    <string name="pref_barometer_elevation_outlier_title">הסרת גובה חריגה</string>
     <string name="dawn_type">שחר (%s)</string>
     <string name="distance">מרחק</string>
     <string name="coordinates_tab">קואורדינטות</string>
@@ -1002,7 +1001,7 @@
         <item quantity="many">%d גאויות ושפל</item>
         <item quantity="other">%d גאויות ושפל</item>
     </plurals>
-    <string name="altitude_from_pressure">הגדרת עקיפה מברומטר</string>
+    <string name="elevation_from_pressure">הגדרת עקיפה מברומטר</string>
     <string name="beacon_1">משואה 1</string>
     <string name="pref_require_satellites_description">דורש לפחות 4 לוויינים, משפר את הדיוק</string>
     <string name="cirrus">ענן נוצות</string>

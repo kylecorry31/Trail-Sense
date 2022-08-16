@@ -107,7 +107,6 @@
     <string name="pref_sun_time_mode_title">Soloppgangs/solnedgangs-tider</string>
     <string name="pref_weather_update_frequency_title">Væroppdateringshyppighet</string>
     <string name="pref_use_sea_level_pressure_title">Lufttrykk ved havnivå</string>
-    <string name="altitude">Høyde</string>
     <string name="pref_altimeter_calibration_title">Høydemåler</string>
     <string name="request_permission">Be om posisjonstillatelse</string>
     <string name="pref_auto_location_title">Automatisk justering av posisjon</string>
@@ -202,11 +201,11 @@
     <string name="inventory_empty_text">Ingen elementer</string>
     <string name="guide_conserving_battery_title">Batterisparing</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrer før navigering</string>
-    <string name="pref_altitude_override_sea_level_title">Ved bruk av kjent havnivåtrykk</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Skriv inn havnivåtrykk</string>
-    <string name="altitude_override_updated_toast">Høydeverdi oppdatert</string>
-    <string name="pref_altitude_override_title">Angi høyde manuelt</string>
-    <string name="altitude_from_pressure">Sett høydeverdien fra barometer</string>
+    <string name="pref_elevation_override_sea_level_title">Ved bruk av kjent havnivåtrykk</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Skriv inn havnivåtrykk</string>
+    <string name="elevation_override_updated_toast">Høydeverdi oppdatert</string>
+    <string name="pref_elevation_override_title">Angi høyde manuelt</string>
+    <string name="elevation_from_pressure">Sett høydeverdien fra barometer</string>
     <string name="compass_accuracy_improved">Kompassnøyaktighet forbedret til %s</string>
     <string name="compass_reported_accuracy">Rapportert nøyaktighet: %s</string>
     <string name="override_from_gps">Sett misvisningsverdien fra GPS</string>
@@ -226,7 +225,7 @@
     <string name="other">Annet</string>
     <string name="category_clothing">Klær</string>
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
     <string name="guide_recommended_apps">Anbefalte apper</string>
     <string name="guide_recommended_apps_description">Nyttige apper for overlevelsessituasjoner</string>
@@ -546,7 +545,7 @@
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="wgs84">WGS 84</string>
-    <string name="altitude_history">Høydehistorikk</string>
+    <string name="elevation_history">Høydehistorikk</string>
     <string name="num_satellites">%d satellitter</string>
     <string name="no_compass_message">Enheten din har ikke kompassensor</string>
     <string name="sort">Sorter</string>
@@ -585,8 +584,8 @@
     <string name="pref_experimental_metal_direction_title">Vis retning til metall</string>
     <string name="pref_flashlight_toggle_with_system_title">Slå av/på med system</string>
     <string name="map_rotate_instructions">Roter til Nord peker opp</string>
-    <string name="pref_nmea_altitude_summary">Bruker NMEA-offset for høydeomregning</string>
-    <string name="pref_nmea_altitude_title">NMEA høyde-offset</string>
+    <string name="pref_nmea_elevation_summary">Bruker NMEA-offset for høydeomregning</string>
+    <string name="pref_nmea_elevation_title">NMEA høyde-offset</string>
     <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
     <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke Internett.</string>
     <string name="pack_sort_weight_high_to_low">Vekt (høy til lav)</string>
@@ -615,10 +614,10 @@
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
     <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
-    <string name="pref_barometer_altitude_smoothing_title">Høydeutjevning</string>
+    <string name="pref_barometer_elevation_smoothing_title">Høydeutjevning</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
     <string name="gps_signal_lost">GPS-signal mistet</string>
-    <string name="altitude_history_length">Lengde på høydehistorikk</string>
+    <string name="elevation_history_length">Lengde på høydehistorikk</string>
     <string name="last_duration">Siste %s</string>
     <string name="diagnostics">Diagnostikk</string>
     <string name="power_saving_mode_resolution">Slå av strømsparingsmodus</string>

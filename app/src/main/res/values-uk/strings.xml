@@ -195,7 +195,7 @@
 \n- Уведіть це значення сюди.</string>
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
-    <string name="altitude_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
+    <string name="elevation_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
     <string name="category_natural">Природне</string>
     <string name="category_safety">Безпека</string>
     <string name="category_shelter">Укриття</string>
@@ -235,7 +235,7 @@
     <string name="update_150_minutes">2 години 30 хвилин</string>
     <string name="contents">Зміст</string>
     <string name="pref_sensor_details_title">Подробиці датників</string>
-    <string name="pref_altitude_override_title">Зсув висоти</string>
+    <string name="pref_elevation_override_title">Зсув висоти</string>
     <string name="declination_override_updated_toast">Зсув компаса оновлено</string>
     <string name="compass_declination_override">Задати зсув компаса</string>
     <string name="override_from_gps">Направляти компас на Справжню Північ, використовуючи поточне місцеперебування GPS</string>
@@ -277,11 +277,10 @@
     <string name="pref_adjust_for_temperature_title">Використовувати дані про температуру</string>
     <string name="pref_use_sea_level_pressure_title">Тиск на рівні моря</string>
     <string name="never">Ніколи</string>
-    <string name="pref_altitude_override_sea_level_title">Використовуючи дані про тиск на рівні моря</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Уведіть поточний тиск рівня моря в гПа</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Уведення значення тиску рівня моря</string>
-    <string name="altitude_override_updated_toast">Значення висоти буде зсунуто на задане число</string>
-    <string name="altitude">Висота</string>
+    <string name="pref_elevation_override_sea_level_title">Використовуючи дані про тиск на рівні моря</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Уведіть поточний тиск рівня моря в гПа</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Уведення значення тиску рівня моря</string>
+    <string name="elevation_override_updated_toast">Значення висоти буде зсунуто на задане число</string>
     <string name="pref_altimeter_calibration_title">Висотомір</string>
     <string name="request_permission">Запит дозволу</string>
     <string name="pref_auto_location_title">Автоматично відстежувати переміщення</string>
@@ -599,12 +598,12 @@
     <string name="weather_monitor">Відстеження погоди</string>
     <string name="dusk_type">Захід сонця (%s)</string>
     <string name="dawn_type">Схід сонця (%s)</string>
-    <string name="pref_barometer_altitude_outlier_title">Вилучення відхилень висоти</string>
+    <string name="pref_barometer_elevation_outlier_title">Вилучення відхилень висоти</string>
     <string name="delete_map">Видалити мапу\?</string>
-    <string name="pref_barometer_altitude_smoothing_title">Згладжування висоти</string>
+    <string name="pref_barometer_elevation_smoothing_title">Згладжування висоти</string>
     <string name="pref_barometer_pressure_smoothing_title">Згладжування тиску</string>
-    <string name="pref_nmea_altitude_summary">Використовує зсуви NMEA для перетворення висоти</string>
-    <string name="pref_nmea_altitude_title">Зсуви висоти NMEA</string>
+    <string name="pref_nmea_elevation_summary">Використовує зсуви NMEA для перетворення висоти</string>
+    <string name="pref_nmea_elevation_title">Зсуви висоти NMEA</string>
     <string name="pref_barometer_info_summary">Тиск може відрізнятися від тиску сусідніх станцій</string>
     <string name="battery_history">Історія батареї - остан. %s</string>
     <string name="no_data">Немає даних</string>
@@ -718,11 +717,11 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d супутників</string>
     <string name="no_compass_message">Ваш пристрій не має датника компаса</string>
-    <string name="altitude_history">Історія висот</string>
+    <string name="elevation_history">Історія висот</string>
     <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
     <string name="qr_code">QR-код</string>
     <string name="gps_signal_lost">Сигнал GPS втрачено</string>
-    <string name="altitude_history_length">Довжина історії висот</string>
+    <string name="elevation_history_length">Довжина історії висот</string>
     <string name="last_duration">Остання %s</string>
     <string name="diagnostic_message_template">%s: %s
 \n
@@ -736,7 +735,7 @@
     <string name="power_saving_mode_resolution">Вимкніть режим енергоощадження</string>
     <string name="location_override_not_set_resolution">Установіть перевизначення розташування в налаштуваннях</string>
     <string name="location_override_resolution">Увімкніть автоматичне налаштування розташування в налаштуваннях.</string>
-    <string name="altitude_override_resolution">Увімкніть автоматичне калібрування в налаштуваннях.</string>
+    <string name="elevation_override_resolution">Увімкніть автоматичне калібрування в налаштуваннях.</string>
     <string name="unblock_notification_channel">Розблокувати сповіщення %s для Trail Sense</string>
     <string name="get_gps_signal">Вийдіть на вулицю з безперепонним видом на небо.</string>
     <string name="activity_recognition">Розпізнавання діяльності</string>
@@ -1077,11 +1076,11 @@
     <string name="cirrus_weather">Може вказувати на тепло в майбутньому через 12–36 годин.</string>
     <string name="descent">Спуск</string>
     <string name="ascent">Підйом</string>
-    <string name="lowest_point_altitude">Найнижча точка</string>
+    <string name="lowest_point_elevation">Найнижча точка</string>
     <string name="path_slope_flat">Плоский</string>
     <string name="path_slope_steep">Крутий</string>
     <string name="path_slope">Схил</string>
-    <string name="highest_point_altitude">Найвища точка</string>
+    <string name="highest_point_elevation">Найвища точка</string>
     <string name="path_slope_moderate">Помірний</string>
     <string name="updating_weather">Оновлення погоди</string>
 </resources>

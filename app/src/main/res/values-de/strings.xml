@@ -130,7 +130,6 @@
 \n    %s Satelliten
 \n
 \nKompass: Entfernen Sie sich von Metallgegenständen und rotieren Sie das Gerät in Form einer 8 oder in alle Richtungen."</string>
-    <string name="altitude">Höhe</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
     <string name="location">Standort</string>
@@ -166,8 +165,8 @@
     <string name="pref_email_title">Entwickler kontaktieren</string>
     <string name="pref_auto_declination_summary">Basiert auf aktuellem Standort</string>
     <string name="declination_override_updated_toast">Deklination gesetzt</string>
-    <string name="altitude_override_updated_toast">Höhe festgelegt</string>
-    <string name="pref_altitude_override_title">Höhe setzen</string>
+    <string name="elevation_override_updated_toast">Höhe festgelegt</string>
+    <string name="pref_elevation_override_title">Höhe setzen</string>
     <string name="compass_accuracy_improved">Kompassgenauigkeit verbessert zu %s</string>
     <string name="pref_auto_location_title">Automatisches Anpassen des Ortes</string>
     <string name="update_60_minutes">1 Stunde</string>
@@ -176,7 +175,7 @@
     <string name="pref_altimeter_calibration_mode_title">Autokalibrierung</string>
     <string name="never">Nie</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Geben Sie den aktuellen Luftdruck auf Meereshöhe in hPa ein</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Rotieren Sie das Telefon mehrfach in Form einer 8 oder in alle Richtungen, drücken Sie %s wenn beendet.
 \n
 \nDieser Hinweis kann in den Einstellungen deaktiviert werden.</string>
@@ -213,9 +212,9 @@
     <string name="pref_weather_update_frequency_title">Häufigkeit der Wetteraktualisierungen</string>
     <string name="pref_show_pressure_in_notification_title">Zeige den Luftdruck in den Benachrichtigungen</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
-    <string name="pref_altitude_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
-    <string name="altitude_from_pressure">Überschreibung durch Barometer einstellen</string>
+    <string name="pref_elevation_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Geben sie den Luftdruck auf Meereshöhe ein</string>
+    <string name="elevation_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
     <string name="set_inclination_instructions">Tippen oder halten zum Sperren/Entsperren</string>
@@ -590,14 +589,14 @@
     <string name="dusk_type">Sonnenuntergang (%s)</string>
     <string name="dawn_type">Sonnenaufgang (%s)</string>
     <string name="weather_monitor">Wettermonitor</string>
-    <string name="pref_nmea_altitude_summary">Nutzt NMEA-Ausgleiche für die Höhenumrechnung</string>
-    <string name="pref_nmea_altitude_title">NMEA-Höhenausgleich</string>
+    <string name="pref_nmea_elevation_summary">Nutzt NMEA-Ausgleiche für die Höhenumrechnung</string>
+    <string name="pref_nmea_elevation_title">NMEA-Höhenausgleich</string>
     <string name="pref_barometer_info_summary">Der Druck könnte von dem von benachbarten Stationen abweichen</string>
     <string name="battery_history">Batterienutzung - letzte %s</string>
     <string name="no_data">Keine Daten</string>
     <string name="delete_map">Karte löschen\?</string>
-    <string name="pref_barometer_altitude_outlier_title">Entfernung von Höhenausreißern</string>
-    <string name="pref_barometer_altitude_smoothing_title">Höhenglättung</string>
+    <string name="pref_barometer_elevation_outlier_title">Entfernung von Höhenausreißern</string>
+    <string name="pref_barometer_elevation_smoothing_title">Höhenglättung</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="moved_to">Nach %s verschoben</string>
@@ -710,11 +709,11 @@
     <string name="current_format">%s mA</string>
     <string name="beacon_qr_import_instructions">Einen QR-Code zum Importieren scannen</string>
     <string name="qr_code">QR-Code</string>
-    <string name="altitude_history">Höhenverlauf</string>
+    <string name="elevation_history">Höhenverlauf</string>
     <string name="gps_signal_lost">GPS-Signal verloren</string>
-    <string name="altitude_history_length">Länge des Höhenverlaufs</string>
+    <string name="elevation_history_length">Länge des Höhenverlaufs</string>
     <string name="last_duration">Letzte %s</string>
-    <string name="altitude_override_resolution">Auto-Kalibrierung in den Einstellungen aktivieren.</string>
+    <string name="elevation_override_resolution">Auto-Kalibrierung in den Einstellungen aktivieren.</string>
     <string name="unblock_notification_channel">%s-Benachrichtigungen für Trail Sense entblockieren</string>
     <string name="get_gps_signal">Gehen Sie nach draußen, mit ungestörtem Blick zum Himmel.</string>
     <string name="activity_recognition">Körperliche Aktivität</string>

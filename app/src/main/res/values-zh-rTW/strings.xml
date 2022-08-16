@@ -14,7 +14,7 @@
     <string name="pref_altimeter_calibration_mode_title">自動校準</string>
     <string name="never">永不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 氣壓計</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">輸入海平面壓力</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">輸入海平面壓力</string>
     <string name="request_permission">要求權限</string>
     <string name="pref_auto_location_title">自動調整位置</string>
     <string name="compass_accuracy_improved">羅盤精確度提升至 %s</string>
@@ -144,7 +144,7 @@
     <string name="update_180_minutes">3 小時</string>
     <string name="update_120_minutes">2 小時</string>
     <string name="sun_actual">實際時間</string>
-    <string name="pref_altitude_override_title">覆寫緯度</string>
+    <string name="pref_elevation_override_title">覆寫緯度</string>
     <string name="map_fractional_separator">:</string>
     <string name="unit_inches">吋</string>
     <string name="unit_centimeters">公分</string>
@@ -302,9 +302,8 @@
     <string name="forecast_improving">可能會好轉</string>
     <string name="forecast_worsening">可能會惡化</string>
     <string name="general">一班</string>
-    <string name="altitude">高度</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
-    <string name="pref_altitude_override_sea_level_title">使用已知海平面壓力</string>
+    <string name="pref_elevation_override_sea_level_title">使用已知海平面壓力</string>
     <string name="hour_symbol">小時</string>
     <string name="minute_symbol">分</string>
     <string name="coordinates_tab">座標</string>

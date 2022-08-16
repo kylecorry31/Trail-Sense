@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:dataPointDescription="@string/altitude"
+            app:dataPointDescription="@string/elevation"
             app:dataPointIcon="@drawable/ic_altitude"
             app:layout_columnWeight="1" />
 

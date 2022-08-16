@@ -56,7 +56,7 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
-    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual altitude\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern or in all directions and move away from metal.</string>
+    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual elevation\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern or in all directions and move away from metal.</string>
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
@@ -234,19 +234,18 @@
     <!--    The button which can be used to update the lat/lng overrides from your current location-->
     <!--Settings - Sensors - Altimeter-->
     <string name="pref_altimeter_calibration_title">Altimeter</string>
-    <string name="altitude">Altitude</string>
-    <!--    The button which can be used to set the current altitude override from the barometer-->
-    <string name="altitude_from_pressure">Set override from barometer</string>
-    <!--    The title for the edit text field where the user can enter their current altitude (a manual override)-->
-    <string name="pref_altitude_override_title">Altitude override</string>
-    <!--    The popup which appears when the altitude override is updated from the GPS or barometer-->
-    <string name="altitude_override_updated_toast">Altitude override updated</string>
+    <!--    The button which can be used to set the current elevation override from the barometer-->
+    <string name="elevation_from_pressure">Set override from barometer</string>
+    <!--    The title for the edit text field where the user can enter their current elevatin (a manual override)-->
+    <string name="pref_elevation_override_title">Elevation override</string>
+    <!--    The popup which appears when the elevation override is updated from the GPS or barometer-->
+    <string name="elevation_override_updated_toast">Elevation override updated</string>
     <!--    The content of the edit text dialog which pops up when the user clicks the set override from barometer button (asks user to enter the sea level pressure)-->
-    <string name="pref_altitude_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
     <!--    The title of the sea level pressure override edit text dialog-->
-    <string name="pref_altitude_override_sea_level_dialog_title">Enter sea level pressure</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Enter sea level pressure</string>
     <!--    The supporting text for the altitude_from_pressure button-->
-    <string name="pref_altitude_override_sea_level_title">Using a known sea level pressure</string>
+    <string name="pref_elevation_override_sea_level_title">Using a known sea level pressure</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
     <string name="never">Never</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
@@ -766,14 +765,14 @@
     <string name="pref_nmea_altitude" translatable="false">pref_nmea_altitude</string>
     <string name="pref_barometer_info_holder" translatable="false">pref_barometer_info_holder</string>
     <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
-    <string name="pref_nmea_altitude_title">NMEA altitude offsets</string>
-    <string name="pref_nmea_altitude_summary">Uses NMEA offsets for altitude conversion</string>
+    <string name="pref_nmea_elevation_title">NMEA elevation offsets</string>
+    <string name="pref_nmea_elevation_summary">Uses NMEA offsets for elevation conversion</string>
     <string name="pref_barometer_altitude_outlier" translatable="false">pref_barometer_altitude_outlier</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
     <string name="pref_barometer_altitude_smoothing" translatable="false">pref_barometer_altitude_smoothing</string>
     <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
-    <string name="pref_barometer_altitude_smoothing_title">Altitude smoothing</string>
-    <string name="pref_barometer_altitude_outlier_title">Altitude outlier removal</string>
+    <string name="pref_barometer_elevation_smoothing_title">Elevation smoothing</string>
+    <string name="pref_barometer_elevation_outlier_title">Elevation outlier removal</string>
     <string name="delete_map">Delete map?</string>
     <string name="convert">Convert</string>
     <string name="distance">Distance</string>
@@ -908,11 +907,11 @@
     <string name="no_compass_message">Your device does not have a compass sensor</string>
     <string name="num_satellites">%d satellites</string>
     <string name="wgs84">WGS 84</string>
-    <string name="altitude_history">Altitude history</string>
+    <string name="elevation_history">Elevation history</string>
     <string name="qr_code">QR Code</string>
     <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
     <string name="last_duration">Last %s</string>
-    <string name="altitude_history_length">Altitude history length</string>
+    <string name="elevation_history_length">Elevation history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
     <string name="quarter_moon">Quarter Moon</string>
     <string name="camera">Camera</string>
@@ -931,7 +930,7 @@
     <string name="activity_recognition">Activity recognition</string>
     <string name="get_gps_signal">Go outside with an unobstructed view of the sky.</string>
     <string name="unblock_notification_channel">Unblock %s notification for Trail Sense</string>
-    <string name="altitude_override_resolution">Enable auto-calibration in settings.</string>
+    <string name="elevation_override_resolution">Enable auto-calibration in settings.</string>
     <string name="location_override_resolution">Enable auto adjust location in settings.</string>
     <string name="location_override_not_set_resolution">Set the location override in settings</string>
     <string name="power_saving_mode_resolution">Disable power saving mode</string>
@@ -1199,8 +1198,8 @@
     <string name="calibrate_map_point">Calibrate point %d / %d</string>
     <string name="descent">Descent</string>
     <string name="ascent">Ascent</string>
-    <string name="lowest_point_altitude">Lowest point</string>
-    <string name="highest_point_altitude">Highest point</string>
+    <string name="lowest_point_elevation">Lowest point</string>
+    <string name="highest_point_elevation">Highest point</string>
     <string name="updating_weather">Updating weather</string>
     <string name="path_slope_flat">Flat</string>
     <string name="path_slope_moderate">Moderate</string>

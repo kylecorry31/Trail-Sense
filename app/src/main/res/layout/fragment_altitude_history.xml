@@ -12,7 +12,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="@string/altitude_history" />
+        android:text="@string/elevation_history" />
 
     <TextView
         android:id="@+id/altitude_history_length"

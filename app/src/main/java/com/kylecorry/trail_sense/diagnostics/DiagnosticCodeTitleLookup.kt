@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.R
 class DiagnosticCodeTitleLookup(private val context: Context) {
     fun getTitle(code: DiagnosticCode): String {
         return when (code) {
-            DiagnosticCode.AltitudeOverridden -> context.getString(R.string.altitude)
+            DiagnosticCode.AltitudeOverridden -> context.getString(R.string.elevation)
             DiagnosticCode.LocationOverridden -> context.getString(R.string.gps)
             DiagnosticCode.LocationUnset -> context.getString(R.string.gps)
             DiagnosticCode.PowerSavingMode -> context.getString(R.string.pref_low_power_mode_title)

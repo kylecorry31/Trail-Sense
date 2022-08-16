@@ -160,13 +160,12 @@
     <string name="compass_azimuth">Azimute</string>
     <string name="compass_declination">Declinação magnética</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
-    <string name="altitude">Altitude</string>
-    <string name="altitude_from_pressure">Substituição do barômetro</string>
-    <string name="pref_altitude_override_title">Substituição da altitude</string>
-    <string name="altitude_override_updated_toast">Substituição da altitude atualizada</string>
+    <string name="elevation_from_pressure">Substituição do barômetro</string>
+    <string name="pref_elevation_override_title">Substituição da altitude</string>
+    <string name="elevation_override_updated_toast">Substituição da altitude atualizada</string>
     <string name="declination_override_updated_toast">Substituição da declinação atualizada</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Digite a pressão atual ao nível do mar em hPa</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Digite pressão ao nível do mar</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Digite a pressão atual ao nível do mar em hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Digite pressão ao nível do mar</string>
     <string name="pref_auto_declination_summary">Com base em sua localização atual</string>
     <string name="location">Localização</string>
     <string name="pref_auto_location_title">Ajuste automático de localização</string>
@@ -179,7 +178,7 @@
 \nEste alerta pode ser desativado nas configurações do aplicativo.</string>
     <string name="compass_reported_accuracy">Precisão relatada: %s</string>
     <string name="compass_accuracy_improved">Precisão da bússola melhorada para %s</string>
-    <string name="pref_altitude_override_sea_level_title">Usando uma pressão conhecida ao nível do mar</string>
+    <string name="pref_elevation_override_sea_level_title">Usando uma pressão conhecida ao nível do mar</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar pressão na notificação</string>
     <string name="pref_open_source_licenses_title">Licenças</string>
     <string name="pref_category_about">Sobre</string>
@@ -572,11 +571,11 @@
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
     <string name="delete_map">Excluir o mapa\?</string>
-    <string name="pref_barometer_altitude_outlier_title">Remoção de altitudes periféricas</string>
-    <string name="pref_barometer_altitude_smoothing_title">Regularização da altitude</string>
+    <string name="pref_barometer_elevation_outlier_title">Remoção de altitudes periféricas</string>
+    <string name="pref_barometer_elevation_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
-    <string name="pref_nmea_altitude_summary">Utiliza compensações NMEA para conversão de altitude</string>
-    <string name="pref_nmea_altitude_title">Compensação de altitude NMEA</string>
+    <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
+    <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente da das estações próximas</string>
     <string name="battery_history">Histórico da bateria - últimos %s</string>
     <string name="dusk_type">Anoitecer (%s)</string>
@@ -718,7 +717,7 @@
     <string name="default_pack_name">Pacote padrão</string>
     <string name="action_inventory_clear_confirm">Eliminar todas as quantidades contidas\?</string>
     <string name="current_format">%s mA</string>
-    <string name="altitude_history">Histórico de altitude</string>
+    <string name="elevation_history">Histórico de altitude</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
     <string name="no_compass_message">Seu dispositivo não possui um sensor de bússola</string>
@@ -737,7 +736,7 @@
     <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
     <string name="location_override_not_set_resolution">Insira a localização simulada em configurações</string>
     <string name="location_override_resolution">Ativar o ajuste automático de localização em configurações.</string>
-    <string name="altitude_override_resolution">Ativar a auto-calibração em configurações.</string>
+    <string name="elevation_override_resolution">Ativar a auto-calibração em configurações.</string>
     <string name="unblock_notification_channel">Desbloquear %s notificação para o Trail Sense</string>
     <string name="get_gps_signal">Vá fora e encontre um lugar desobstruído do céu.</string>
     <string name="activity_recognition">Reconhecimento de atividades</string>
@@ -755,7 +754,7 @@
     <string name="camera">Câmera</string>
     <string name="quarter_moon">Quarto crescente</string>
     <string name="gps_signal_lost">Sinal do GPS perdido</string>
-    <string name="altitude_history_length">Histórico de altitude</string>
+    <string name="elevation_history_length">Histórico de altitude</string>
     <string name="last_duration">Último %s</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d ponto de caminho será excluído</item>

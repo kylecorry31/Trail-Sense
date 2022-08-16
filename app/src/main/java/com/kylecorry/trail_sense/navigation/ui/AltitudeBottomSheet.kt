@@ -84,7 +84,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             CustomUiUtils.pickDuration(
                 requireContext(),
                 historyDuration,
-                getString(R.string.altitude_history_length)
+                getString(R.string.elevation_history_length)
             ) {
                 if (it != null) {
                     historyDuration = it

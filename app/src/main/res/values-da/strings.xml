@@ -193,11 +193,10 @@
     <string name="gps">GPS</string>
     <string name="pref_altimeter_calibration_title">Højdemåler</string>
     <string name="pref_auto_location_title">Automatisk justering af placering</string>
-    <string name="altitude_from_pressure">Indstil tilsidesættelse fra barometer</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Indtast det aktuelle tryk ved havoverfladen i hPa</string>
+    <string name="elevation_from_pressure">Indstil tilsidesættelse fra barometer</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Indtast det aktuelle tryk ved havoverfladen i hPa</string>
     <string name="request_permission">Anmod om tilladelse</string>
-    <string name="altitude">Højde</string>
-    <string name="pref_altitude_override_title">Højde tilsidesættelse</string>
-    <string name="altitude_override_updated_toast">Højdetilsidesættelse opdateret</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Indtast tryk ved havniveau</string>
+    <string name="pref_elevation_override_title">Højde tilsidesættelse</string>
+    <string name="elevation_override_updated_toast">Højdetilsidesættelse opdateret</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Indtast tryk ved havniveau</string>
 </resources>

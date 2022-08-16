@@ -245,7 +245,6 @@
     <string name="pref_altimeter_calibration_mode_title">Auto-calibración</string>
     <string name="never">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barómetro</string>
-    <string name="altitude">Altitud</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="compass_accuracy_improved">Precisión de brújula mejorada a %s</string>
     <string name="compass_reported_accuracy">Precisión reportada: %s</string>
@@ -278,7 +277,7 @@
     <string name="waxing_crescent">Luna Creciente</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="pref_altitude_override_title">Anulación de altitud</string>
+    <string name="pref_elevation_override_title">Anulación de altitud</string>
     <string name="start">Iniciar</string>
     <string name="tool_boil_summary">Dime cuando el agua sea potable</string>
     <string name="pref_sensor_details_title">Detalles del sensor</string>
@@ -431,8 +430,8 @@
     <string name="waypoint_time_format">%s, %s</string>
     <string name="pref_backtrack_enabled_summary">Grabar historial de ubicación</string>
     <string name="pref_backtrack_frequency_title">Intervalo de retroceso</string>
-    <string name="altitude_override_updated_toast">Anulación de altitud actualizada</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Introduce la presión actual al nivel del mar en hPa</string>
+    <string name="elevation_override_updated_toast">Anulación de altitud actualizada</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Introduce la presión actual al nivel del mar en hPa</string>
     <string name="two">2</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="tool_ruler_title">Regla</string>
@@ -578,9 +577,9 @@
     <string name="dawn_type">Amanecer (%s)</string>
     <string name="dusk_type">Anochecer (%s)</string>
     <string name="battery_history">Historial de la batería: último %s</string>
-    <string name="altitude_from_pressure">Establecer la anulación del barómetro</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
-    <string name="pref_altitude_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
+    <string name="elevation_from_pressure">Establecer la anulación del barómetro</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
+    <string name="pref_elevation_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
     <string name="unsaved_changes">Lo cambios no se guardaron</string>
     <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
     <string name="water_boil_timer_channel_description">El agua está hirviendo</string>
@@ -605,7 +604,7 @@
     <string name="partial">Parcial (%s)</string>
     <string name="points">Puntos</string>
     <string name="pref_barometer_pressure_smoothing_title">Suavizado de presión</string>
-    <string name="pref_barometer_altitude_smoothing_title">Suavizado de altitud</string>
+    <string name="pref_barometer_elevation_smoothing_title">Suavizado de altitud</string>
     <string name="gallon_format">%s gal</string>
     <string name="delete_map">¿Eliminar mapa\?</string>
     <string name="import_map">Importar mapa</string>
@@ -647,7 +646,7 @@
     <string name="weather_monitoring_disabled">Monitoreo meteorológico deshabilitado</string>
     <string name="obstacle_removal_sensitivity">Sensibilidad a la eliminación de obstáculos</string>
     <string name="precipitation_drizzle">Llovizna</string>
-    <string name="pref_nmea_altitude_summary">Utiliza compensaciones NMEA para la conversión de altitud</string>
+    <string name="pref_nmea_elevation_summary">Utiliza compensaciones NMEA para la conversión de altitud</string>
     <string name="capture">Capturar</string>
     <string name="duration">Duracion</string>
     <string name="or">o</string>
@@ -663,7 +662,7 @@
     <string name="us_ounces_volume">US Ounces</string>
     <string name="hours_format">%s horas</string>
     <string name="last_duration">Ultimo %s</string>
-    <string name="altitude_history_length">Longitud del historial de altitud</string>
+    <string name="elevation_history_length">Longitud del historial de altitud</string>
     <string name="gps_signal_lost">Señal GPS perdida</string>
     <string name="old">Viejo</string>
     <string name="new_text">Nuevo</string>
@@ -688,8 +687,8 @@
     <string name="guide_packing_list">Crear lista de empacado</string>
     <string name="sun">Sol</string>
     <string name="pref_barometer_info_summary">La presión puede diferir de la de las estaciones cercanas</string>
-    <string name="pref_nmea_altitude_title">Desplazamientos de altitud NMEA</string>
-    <string name="pref_barometer_altitude_outlier_title">Eliminación de valores atípicos de altitud</string>
+    <string name="pref_nmea_elevation_title">Desplazamientos de altitud NMEA</string>
+    <string name="pref_barometer_elevation_outlier_title">Eliminación de valores atípicos de altitud</string>
     <string name="convert">Convertir</string>
     <string name="coordinates_tab">Coordenadas</string>
     <string name="no_groups">Sin grupos</string>
@@ -764,7 +763,7 @@
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="pack_sort_percent_low_to_high">Porcentaje empacado (bajo a alto)</string>
     <string name="humidity">Humedad</string>
-    <string name="altitude_history">Historial de altitud</string>
+    <string name="elevation_history">Historial de altitud</string>
     <string name="beacon_qr_import_instructions">Escanea un código QR para importar</string>
     <string name="quarter_moon">Cuarto de luna</string>
     <string name="diagnostics">Diagnostico</string>
@@ -777,7 +776,7 @@
     <string name="background_location_permission">Ubicación (Permitir todo el tiempo)</string>
     <string name="activity_recognition">Reconocimiento de actividad</string>
     <string name="unblock_notification_channel">Desbloquear la notificación %s para Trail Sense</string>
-    <string name="altitude_override_resolution">Habilite la calibración automática en la configuración.</string>
+    <string name="elevation_override_resolution">Habilite la calibración automática en la configuración.</string>
     <string name="location_override_not_set_resolution">Establecer la anulación de la ubicación en la configuración</string>
     <string name="power_saving_mode_resolution">Desactivar el modo de ahorro de energía</string>
     <string name="battery_restricted_resolution">Establecer Trail Sense como no optimizado</string>

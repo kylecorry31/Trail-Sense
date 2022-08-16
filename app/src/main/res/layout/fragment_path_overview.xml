@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:dataPointDescription="@string/lowest_point_altitude"
+                app:dataPointDescription="@string/lowest_point_elevation"
                 app:dataPointIcon="@drawable/ic_elevation_loss"
                 app:layout_columnWeight="1" />
 
@@ -187,7 +187,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:dataPointDescription="@string/highest_point_altitude"
+                app:dataPointDescription="@string/highest_point_elevation"
                 app:dataPointIcon="@drawable/ic_elevation_gain"
                 app:layout_columnWeight="1" />
 

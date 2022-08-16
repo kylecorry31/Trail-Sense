@@ -164,7 +164,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         prefs.altitudeOverride = elevation
         updateSeaLevelPressureOverride()
         updateAltitude()
-        Alerts.toast(requireContext(), getString(R.string.altitude_override_updated_toast))
+        Alerts.toast(requireContext(), getString(R.string.elevation_override_updated_toast))
         return false
     }
 
@@ -216,7 +216,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         prefs.altitudeOverride = elevation
         updateSeaLevelPressureOverride()
         updateAltitude()
-        Alerts.toast(requireContext(), getString(R.string.altitude_override_updated_toast))
+        Alerts.toast(requireContext(), getString(R.string.elevation_override_updated_toast))
         return false
     }
 

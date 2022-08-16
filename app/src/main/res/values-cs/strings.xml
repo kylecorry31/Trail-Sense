@@ -129,7 +129,6 @@
     <string name="astronomy">Astronomie</string>
     <string name="settings">Nastavení</string>
     <string name="weather">Počasí</string>
-    <string name="altitude">Nadmořská výška</string>
     <string name="pref_altimeter_calibration_title">Výškoměr</string>
     <string name="pref_ruler_calibration_summary">Pravidla kalibrace:
 \n- Nastavte tuto hodnutu na 1.
@@ -145,11 +144,11 @@
     <string name="tool_ruler_title">Pravítko</string>
     <string name="pref_ruler_calibration_title">Měřítko pravítka</string>
     <string name="tool_whistle_title">Píšťalka</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Zadejte tlak na úrovni hladiny moře</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Zadejte aktuální tlak na hladině moře v hPa</string>
-    <string name="altitude_override_updated_toast">Přepsání nadmořské výšky aktualizováno</string>
-    <string name="pref_altitude_override_title">Přepsání nadmořské výšky</string>
-    <string name="altitude_from_pressure">Nastavení přepisu z barometru</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Zadejte tlak na úrovni hladiny moře</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Zadejte aktuální tlak na hladině moře v hPa</string>
+    <string name="elevation_override_updated_toast">Přepsání nadmořské výšky aktualizováno</string>
+    <string name="pref_elevation_override_title">Přepsání nadmořské výšky</string>
+    <string name="elevation_from_pressure">Nastavení přepisu z barometru</string>
     <string name="request_permission">Vyžádat oprávnění</string>
     <string name="pref_auto_location_title">Automatické nastavení polohy</string>
     <string name="compass_accuracy_improved">Přesnost kompasu se zlepšila na %s</string>
@@ -214,7 +213,7 @@
     <string name="soon">Brzy</string>
     <string name="theme_sunset_sunrise">Východ/západ</string>
     <string name="compass_declination">Magnetická deklinace</string>
-    <string name="pref_altitude_override_sea_level_title">Použití známého tlaku u hladiny moře</string>
+    <string name="pref_elevation_override_sea_level_title">Použití známého tlaku u hladiny moře</string>
     <string name="pref_adjust_for_temperature_summary">Používat teplotu v konverzích u hladiny moře</string>
     <string name="pref_display_multi_beacons_title">Ukazovat majáky poblíž</string>
     <string name="pref_show_linear_compass_title">Ukazovat lineární kompas</string>
@@ -615,11 +614,11 @@
     <string name="whistle_signal_come_here">Pojďte sem</string>
     <string name="dusk_type">Soumrak (%s)</string>
     <string name="pref_barometer_info_summary">Tlak se může lišit od tlaku okolních stanic</string>
-    <string name="pref_nmea_altitude_title">Kompenzace nadmořské výšky NMEA</string>
-    <string name="pref_nmea_altitude_summary">Používá kompenzace NMEA pro převod nadmořské výšky</string>
+    <string name="pref_nmea_elevation_title">Kompenzace nadmořské výšky NMEA</string>
+    <string name="pref_nmea_elevation_summary">Používá kompenzace NMEA pro převod nadmořské výšky</string>
     <string name="pref_barometer_pressure_smoothing_title">Vyhlazení tlaku</string>
-    <string name="pref_barometer_altitude_smoothing_title">Vyhlazení nadmořské výšky</string>
-    <string name="pref_barometer_altitude_outlier_title">Odstranění odlehlých výškových hodnot</string>
+    <string name="pref_barometer_elevation_smoothing_title">Vyhlazení nadmořské výšky</string>
+    <string name="pref_barometer_elevation_outlier_title">Odstranění odlehlých výškových hodnot</string>
     <string name="delete_map">Smazat mapu\?</string>
     <string name="convert">Převést</string>
     <string name="distance">Vzdálenost</string>
@@ -675,7 +674,7 @@
     <string name="pack_sort_percent_high_to_low">Procento zabalených (od nejvyšší po nejnižší)</string>
     <string name="pack_sort_weight_low_to_high">Hmotnost (od nejnižší po nejvyšší)</string>
     <string name="guide_packing_list">Vytvořit seznam věcí na cesty</string>
-    <string name="altitude_history">Historie nadmořské výšky</string>
+    <string name="elevation_history">Historie nadmořské výšky</string>
     <string name="overridden">Přepsáno</string>
     <string name="on">Zapnuto</string>
     <string name="sighting_compass">Zaměřovací kompas</string>
@@ -706,7 +705,7 @@
     <string name="grant_permission">Udělte oprávnění %s</string>
     <string name="background_location_permission">Poloha (povolit vždy)</string>
     <string name="activity_recognition">Rozpoznávání aktivit</string>
-    <string name="altitude_override_resolution">Povolte automatickou kalibraci v nastavení.</string>
+    <string name="elevation_override_resolution">Povolte automatickou kalibraci v nastavení.</string>
     <string name="astro_dialog_meteor_shower">**Špička**: %s
 \n
 \n**Nadmořská výška špičky**: %s
@@ -814,7 +813,7 @@
     <string name="humidity">Vlhkost</string>
     <string name="qr_code">QR kód</string>
     <string name="beacon_qr_import_instructions">Naskenujte QR kód pro import</string>
-    <string name="altitude_history_length">Délka historie nadmořské výšky</string>
+    <string name="elevation_history_length">Délka historie nadmořské výšky</string>
     <string name="battery_usage_restricted">Omezené používání baterie</string>
     <string name="diagnostics">Diagnostika</string>
     <string name="gps_signal_lost">GPS signál byl ztracen</string>
@@ -1065,8 +1064,8 @@
     <string name="stratocumulus_weather">Může naznačovat příznivé počasí s nízkou pravděpodobností srážek.</string>
     <string name="cirrostratus_weather">Může naznačovat srážky v příštích 12 až 24 hodinách</string>
     <string name="cumulonimbus_weather">Bouřka velmi brzy</string>
-    <string name="lowest_point_altitude">Nejnižší bod</string>
-    <string name="highest_point_altitude">Nejvyšší bod</string>
+    <string name="lowest_point_elevation">Nejnižší bod</string>
+    <string name="highest_point_elevation">Nejvyšší bod</string>
     <string name="path_slope_flat">Vodorovný</string>
     <string name="path_slope">Svah</string>
     <string name="altocumulus_weather">Může naznačovat bouřky později během dne, pokud-li je vlhko.</string>

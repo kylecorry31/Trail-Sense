@@ -9,8 +9,8 @@ class WeatherCsvConverter {
         val header = listOf(
             "Time",
             "Pressure (hPa)",
-            "Altitude (m)",
-            "Altitude Error (m)",
+            "Elevation (m)",
+            "Elevation Error (m)",
             "Temperature (C)",
             "Humidity (%)"
         )

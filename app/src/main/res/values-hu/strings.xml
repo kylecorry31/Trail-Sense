@@ -113,7 +113,7 @@
     <string name="new_packing_list">Új csomagjegyzék</string>
     <string name="overridden">Felülírva</string>
     <string name="notifications_blocked">Értesítések blokkolva</string>
-    <string name="altitude_override_resolution">Engedélyezd az auto-kalibrációt a beállításokban.</string>
+    <string name="elevation_override_resolution">Engedélyezd az auto-kalibrációt a beállításokban.</string>
     <string name="location_override_resolution">Engedélyezd az auto helybeállítást a beállításokban.</string>
     <string name="pref_show_nearest_tide_title">Legközelebbi árapály mutatása</string>
     <string name="or">Vagy</string>
@@ -219,10 +219,10 @@
     <string name="backtrack_high_priority_notification">Útvonalpont elhelyezése %s-nként</string>
     <string name="battery_warning">Akkumerülési figyelmeztetés</string>
     <string name="activity_recognition_permission_denied">Testmozgáshoz való hozzáférés megtagadva, a lépésszámláló funkciókat nem lehet bekapcsolni. A beállításokban engedélyezheted.</string>
-    <string name="pref_nmea_altitude_summary">NMEA eltéréseket használ a magasság átalakításához</string>
-    <string name="pref_barometer_altitude_outlier_title">Magassági kilengés eltávolítása</string>
+    <string name="pref_nmea_elevation_summary">NMEA eltéréseket használ a magasság átalakításához</string>
+    <string name="pref_barometer_elevation_outlier_title">Magassági kilengés eltávolítása</string>
     <string name="delete_map">Térkép törlése\?</string>
-    <string name="pref_barometer_altitude_smoothing_title">Magasság egyenlítése</string>
+    <string name="pref_barometer_elevation_smoothing_title">Magasság egyenlítése</string>
     <string name="no_groups">Nincsenek csoportok</string>
     <string name="move">Áthelyezés</string>
     <string name="map_perspective_instructions">Rajzold körbe a térképet</string>
@@ -311,7 +311,6 @@
     <string name="precipitation_rain">Eső</string>
     <string name="simplify">Egyszerűsítés</string>
     <string name="simplifying">Egyszerűsítés</string>
-    <string name="altitude">Magasság</string>
     <string name="tool_boil_summary">Állapítsd meg, mikor iható a víz</string>
     <string name="dialog_grant">Beállítások frissítése</string>
     <string name="precise_feet_format">%s láb</string>
@@ -373,8 +372,8 @@
     <string name="pref_use_legacy_compass_title">Régebbi iránytű használata</string>
     <string name="location">Hely</string>
     <string name="pref_auto_location_title">Hely automatikus állítása</string>
-    <string name="altitude_override_updated_toast">Magasság-felülírás frissítve</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Tengerszinti nyomás megadása</string>
+    <string name="elevation_override_updated_toast">Magasság-felülírás frissítve</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Tengerszinti nyomás megadása</string>
     <string name="update_90_minutes">1 óra 30 perc</string>
     <string name="update_120_minutes">2 óra</string>
     <string name="update_150_minutes">2 óra 30 perc</string>
@@ -390,7 +389,7 @@
     <string name="units">Mértékegységek</string>
     <string name="pref_experimental_metal_direction_title">Fém irányának mutatása</string>
     <string name="pint_format">%s pt</string>
-    <string name="altitude_history_length">Magasság előzmények hossza</string>
+    <string name="elevation_history_length">Magasság előzmények hossza</string>
     <string name="difficulty">Nehézség</string>
     <string name="waypoint">Útvonalpont</string>
     <string name="merge">Összevonás</string>
@@ -471,10 +470,10 @@
     <string name="gps">GPS</string>
     <string name="request_permission">Hozzáférés kérése</string>
     <string name="pref_altimeter_calibration_title">Magasságmérő</string>
-    <string name="altitude_from_pressure">Felülírás beállítása a barométer alapján</string>
-    <string name="pref_altitude_override_title">Magasság felülírása</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Add meg a jelenlegi tengerszinti nyomást hPa-ban</string>
-    <string name="pref_altitude_override_sea_level_title">Ismert tengerszinti nyomás használatával</string>
+    <string name="elevation_from_pressure">Felülírás beállítása a barométer alapján</string>
+    <string name="pref_elevation_override_title">Magasság felülírása</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Add meg a jelenlegi tengerszinti nyomást hPa-ban</string>
+    <string name="pref_elevation_override_sea_level_title">Ismert tengerszinti nyomás használatával</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barométer</string>
     <string name="pref_show_linear_compass_title">Lineáris iránytű mutatása</string>
     <string name="pref_show_linear_compass_summary">Ha a telefon függőleges</string>
@@ -568,7 +567,7 @@
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="num_satellites">%d műhold</string>
     <string name="wgs84">WGS 84</string>
-    <string name="altitude_history">Magasság előzmények</string>
+    <string name="elevation_history">Magasság előzmények</string>
     <string name="qr_code">QR Kód</string>
     <string name="gps_signal_lost">Elveszett a GPS jel</string>
     <string name="diagnostics">Diagnosztika</string>
@@ -845,7 +844,7 @@
     <string name="pref_barometer_pressure_smoothing_title">Nyomás egyenlítése</string>
     <string name="convert">Átalakítás</string>
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>
-    <string name="pref_nmea_altitude_title">NMEA magassági eltérések</string>
+    <string name="pref_nmea_elevation_title">NMEA magassági eltérések</string>
     <string name="distance">Távolság</string>
     <string name="pref_flashlight_toggle_with_system_title">Kapcsolás a rendszerrel</string>
     <string name="pref_navigation_lock_screen_presence_title">Mutatás a zárolt képernyőn navigálás közben</string>
@@ -983,8 +982,8 @@
     </plurals>
     <string name="tide_semidiurnal">Félnapos</string>
     <string name="frequency">Gyakoriság</string>
-    <string name="highest_point_altitude">Legmagasabb pont</string>
-    <string name="lowest_point_altitude">Legalacsonyabb pont</string>
+    <string name="highest_point_elevation">Legmagasabb pont</string>
+    <string name="lowest_point_elevation">Legalacsonyabb pont</string>
     <string name="path_slope">Lejtés</string>
     <string name="onboarding_privacy">- A Trail Sense tiszteletben tartja a magánszférád, a helyadatok pedig sosem hagyják el a készüléked
 \n

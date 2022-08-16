@@ -1,13 +1,15 @@
-To calibrate your barometer to sea level, first open the barometer settings (Trail Sense Settings > Barometer and thermometer), then enable sea level pressure. Also, ensure that your altimeter is properly calibrated (Trail Sense Settings > Altimeter), as incorrect altitudes will cause incorrect sea level conversions. If you notice false readings (which appear as spikes in the chart on the weather tab), you may need to adjust the thresholds.
+To calibrate your barometer to sea level, first open the barometer settings (Trail Sense Settings > Barometer and thermometer), then enable sea level pressure. Also, ensure that your altimeter is properly calibrated (Trail Sense Settings > Altimeter), as incorrect elevations will cause incorrect sea level conversions.
 
-## Travelling altitude change threshold
+There are several settings which you can use to get a more accurate sea level pressure reading. Every phone is different, and it may also be different based on where you are hiking (ex. mountain vs a flat plain).
 
-You should start by adjusting the travelling altitude change threshold, which represents maximum altitude change which you would consider the same location. If your altitude changes more than this threshold, you will be considered travelling. It will take an hour of readings within the threshold to no longer be considered travelling. Adjust this value until the spike on the chart is almost gone. An easier way to do this will be created in the future.
+## Elevation outlier removal
+GPS elevations aren't very consistent, therefore you may see spikes in elevation readings. Decreasing the elevation outlier removal threshold will make Trail Sense more aggressive in removing spikes in elevation.
 
-## Ignore rapid altitude changes
+## Elevation smoothing
+Increasing the elevation smoothing will reduce the noise present in GPS elevation readings when you are not moving, but smoothing it too much may cause Trail Sense to ignore real elevation changes.
 
-To ignore readings while travelling, enable the "ignore rapid altitude changes" setting. You may want to enable this because readings taken while changing altitude may cause inaccurate weather predictions.
+## Pressure smoothing
+Increasing the pressure smoothing will reduce the noise present in pressure readings, but smoothing it too much may cause Trail Sense to ignore real pressure changes.
 
-## Factoring in rapid pressure changes
-
-Sometimes the GPS may not be able to detect an altitude change, but there is a large spike in pressure correlated to the change. In this case, you can enable the "factor in rapid pressure changes" setting and adjust the threshold to a bit over the maximum pressure change you see with storms in your area.
+## Factor in temperature
+Factoring in the temperature will give a more accurate pressure reading to what local stations report, but make it prone to noise from your phone's thermometer.

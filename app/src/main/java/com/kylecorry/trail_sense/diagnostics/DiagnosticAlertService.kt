@@ -141,7 +141,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
 
     private fun getResolution(code: DiagnosticCode): String {
         return when (code) {
-            DiagnosticCode.AltitudeOverridden -> getString(R.string.altitude_override_resolution)
+            DiagnosticCode.AltitudeOverridden -> getString(R.string.elevation_override_resolution)
             DiagnosticCode.LocationOverridden -> getString(R.string.location_override_resolution)
             DiagnosticCode.LocationUnset -> getString(R.string.location_override_not_set_resolution)
             DiagnosticCode.PowerSavingMode -> getString(R.string.power_saving_mode_resolution)

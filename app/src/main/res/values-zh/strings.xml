@@ -60,10 +60,9 @@
     <string name="pref_pressure_history_title">历史大气压</string>
     <string name="never">从不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 气压表</string>
-    <string name="pref_altitude_override_sea_level_title">使用已知的海平面气压</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">输入海平面气压</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
-    <string name="altitude">海拔</string>
+    <string name="pref_elevation_override_sea_level_title">使用已知的海平面气压</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">输入海平面气压</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
     <string name="pref_altimeter_calibration_title">高度表</string>
     <string name="request_permission">请求权限</string>
     <string name="pref_auto_location_title">自动调整位置</string>
@@ -289,9 +288,9 @@
     <string name="pref_num_visible_beacons_title">附近的信标</string>
     <string name="pref_adjust_for_temperature_summary">使用海平面压强转换中的温度</string>
     <string name="pref_adjust_for_temperature_title">将温度考虑在内</string>
-    <string name="altitude_override_updated_toast">海拔覆盖已更新</string>
-    <string name="pref_altitude_override_title">海拔覆盖</string>
-    <string name="altitude_from_pressure">从气压计设置覆盖</string>
+    <string name="elevation_override_updated_toast">海拔覆盖已更新</string>
+    <string name="pref_elevation_override_title">海拔覆盖</string>
+    <string name="elevation_from_pressure">从气压计设置覆盖</string>
     <string name="declination_override_updated_toast">赤纬覆盖已更新</string>
     <string name="compass_declination_override">赤纬覆盖</string>
     <string name="override_from_gps">从 GPS 设置覆盖</string>
@@ -589,12 +588,12 @@
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
-    <string name="pref_nmea_altitude_title">NMEA高度偏移</string>
+    <string name="pref_nmea_elevation_title">NMEA高度偏移</string>
     <string name="delete_map">删除地图？</string>
-    <string name="pref_barometer_altitude_outlier_title">海拔高度异常消除</string>
-    <string name="pref_barometer_altitude_smoothing_title">高度数据平滑</string>
+    <string name="pref_barometer_elevation_outlier_title">海拔高度异常消除</string>
+    <string name="pref_barometer_elevation_smoothing_title">高度数据平滑</string>
     <string name="pref_barometer_pressure_smoothing_title">大气压数据平滑</string>
-    <string name="pref_nmea_altitude_summary">使用NMEA偏移量进行高度转换</string>
+    <string name="pref_nmea_elevation_summary">使用NMEA偏移量进行高度转换</string>
     <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
     <string name="no_groups">无群组</string>
@@ -702,12 +701,12 @@
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d 颗卫星</string>
     <string name="no_compass_message">您的设备没有指南针传感器</string>
-    <string name="altitude_history">海拔历史</string>
+    <string name="elevation_history">海拔历史</string>
     <string name="qr_code">二维码</string>
     <string name="beacon_qr_import_instructions">扫描二维码来导入</string>
     <string name="last_duration">持续时长 %s</string>
     <string name="gps_signal_lost">GPS 信号丢失</string>
-    <string name="altitude_history_length">海拔历史长度</string>
+    <string name="elevation_history_length">海拔历史长度</string>
     <string name="diagnostic_message_template">%s: %s
 \n
 \n### 受影响工具
@@ -720,7 +719,7 @@
     <string name="power_saving_mode_resolution">禁用省电模式</string>
     <string name="location_override_not_set_resolution">在设置中设定位置覆盖</string>
     <string name="location_override_resolution">在设置中启用自动调整位置。</string>
-    <string name="altitude_override_resolution">在设置中启用自动校准。</string>
+    <string name="elevation_override_resolution">在设置中启用自动校准。</string>
     <string name="unblock_notification_channel">解锁 Trail Sense 的 %s 通知</string>
     <string name="get_gps_signal">走到无遮挡的天空下。</string>
     <string name="activity_recognition">活动识别</string>
@@ -1044,9 +1043,9 @@
     <string name="stratocumulus_weather">可能预示很快就会有好天气，降水概率小。</string>
     <string name="cirrus_weather">可能预示未来 12 到 36 小时内有暖锋。</string>
     <string name="ascent">上坡</string>
-    <string name="lowest_point_altitude">最低点</string>
+    <string name="lowest_point_elevation">最低点</string>
     <string name="descent">下坡</string>
-    <string name="highest_point_altitude">最高点</string>
+    <string name="highest_point_elevation">最高点</string>
     <string name="path_slope_steep">陡峭</string>
     <string name="path_slope">陡峭</string>
     <string name="path_slope_flat">平缓</string>

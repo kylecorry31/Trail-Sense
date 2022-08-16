@@ -60,12 +60,11 @@
     <string name="pressure_12_hours">12 uur</string>
     <string name="pressure_4_hours">4 uur</string>
     <string name="pref_pressure_history_title">Drukgeschiedenis</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Geef druk op zeeniveau in</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Geef de huidige luchtdruk op zeeniveau in hPa in</string>
-    <string name="altitude_override_updated_toast">Nieuwe hoogte ingesteld</string>
-    <string name="pref_altitude_override_title">Gebruik manuele hoogte</string>
-    <string name="altitude_from_pressure">Gebruik hoogte van luchtdruk</string>
-    <string name="altitude">Hoogte</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Geef druk op zeeniveau in</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Geef de huidige luchtdruk op zeeniveau in hPa in</string>
+    <string name="elevation_override_updated_toast">Nieuwe hoogte ingesteld</string>
+    <string name="pref_elevation_override_title">Gebruik manuele hoogte</string>
+    <string name="elevation_from_pressure">Gebruik hoogte van luchtdruk</string>
     <string name="pref_altimeter_calibration_title">Hoogtemeter</string>
     <string name="pref_auto_location_title">Locatie automatisch aanpassen</string>
     <string name="location">Locatie</string>
@@ -450,7 +449,7 @@
     <string name="pref_altimeter_calibration_mode_title">Automatische kalibratie</string>
     <string name="never">Nooit</string>
     <string name="altimeter_mode_gps_barometer">Gps + barometer</string>
-    <string name="pref_altitude_override_sea_level_title">Een bekende zeespiegeldruk gebruiken</string>
+    <string name="pref_elevation_override_sea_level_title">Een bekende zeespiegeldruk gebruiken</string>
     <string name="request_permission">Toestemming vragen</string>
     <string name="compass_declination">Magnetische declinatie</string>
     <string name="theme_sunset_sunrise">Zonsopkomst/zonsondergang</string>
@@ -599,11 +598,11 @@
     <string name="distance">Distantie</string>
     <string name="convert">Omrekenen</string>
     <string name="delete_map">Kaart verwijderen\?</string>
-    <string name="pref_barometer_altitude_outlier_title">Hoogte uitbijter verwijderen</string>
-    <string name="pref_barometer_altitude_smoothing_title">Hoogtevereffening</string>
+    <string name="pref_barometer_elevation_outlier_title">Hoogte uitbijter verwijderen</string>
+    <string name="pref_barometer_elevation_smoothing_title">Hoogtevereffening</string>
     <string name="pref_barometer_pressure_smoothing_title">Drukvereffening</string>
-    <string name="pref_nmea_altitude_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
-    <string name="pref_nmea_altitude_title">NMEA hoogte offsets</string>
+    <string name="pref_nmea_elevation_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
+    <string name="pref_nmea_elevation_title">NMEA hoogte offsets</string>
     <string name="pref_barometer_info_summary">De druk kan verschillen van die van nabijgelegen stations</string>
     <string name="battery_history">Batterijgeschiedenis - afgelopen %s</string>
     <string name="dusk_type">Schemering (%s)</string>
@@ -698,7 +697,7 @@
 \n
 \nOSNG (OSGB36) (vb. TG 51409 13177)</string>
     <string name="action_inventory_clear_confirm">Alle verpakte bedragen wissen\?</string>
-    <string name="altitude_history">Hoogtegeschiedenis</string>
+    <string name="elevation_history">Hoogtegeschiedenis</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satellieten</string>
     <string name="no_compass_message">Je apparaat heeft geen kompassensor</string>
@@ -720,7 +719,7 @@
     <string name="autofill">Automatisch invullen</string>
     <string name="battery_restricted_resolution">Trail Sense instellen als ongeoptimaliseerd</string>
     <string name="power_saving_mode_resolution">Energiebesparingsmodus uitschakelen</string>
-    <string name="altitude_override_resolution">Automatische kalibratie inschakelen in instellingen.</string>
+    <string name="elevation_override_resolution">Automatische kalibratie inschakelen in instellingen.</string>
     <string name="unblock_notification_channel">%s-melding voor Trail Sense deblokkeren</string>
     <string name="get_gps_signal">Ga naar buiten met een vrij zicht op de hemel.</string>
     <string name="activity_recognition">Activiteitsherkenning</string>
@@ -738,7 +737,7 @@
     <string name="camera">Camera</string>
     <string name="quarter_moon">Kwartier</string>
     <string name="gps_signal_lost">gps-signaal verloren</string>
-    <string name="altitude_history_length">Lengte hoogtegeschiedenis</string>
+    <string name="elevation_history_length">Lengte hoogtegeschiedenis</string>
     <string name="last_duration">Afgelopen %s</string>
     <string name="units_mmhg">mmHg</string>
     <string name="astro_dialog_lunar_eclipse">**Begin**: %s

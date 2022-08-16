@@ -9,7 +9,7 @@
         <Preference
             android:icon="@drawable/ic_altitude"
             android:summary="-"
-            android:title="@string/altitude"
+            android:title="@string/elevation"
             app:key="@string/pref_holder_altitude"
             app:singleLineTitle="false" />
 
@@ -24,7 +24,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <Preference
-            android:title="@string/pref_altitude_override_title"
+            android:title="@string/pref_elevation_override_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override"
             app:singleLineTitle="false" />
@@ -37,18 +37,18 @@
 
         <EditTextPreference
             android:defaultValue="0.0"
-            android:dialogMessage="@string/pref_altitude_override_sea_level_dialog_msg"
-            android:dialogTitle="@string/pref_altitude_override_sea_level_dialog_title"
+            android:dialogMessage="@string/pref_elevation_override_sea_level_dialog_msg"
+            android:dialogTitle="@string/pref_elevation_override_sea_level_dialog_title"
             android:inputType="numberDecimal"
-            android:summary="@string/pref_altitude_override_sea_level_title"
+            android:summary="@string/pref_elevation_override_sea_level_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override_sea_level"
             app:singleLineTitle="false"
-            app:title="@string/altitude_from_pressure" />
+            app:title="@string/elevation_from_pressure" />
 
         <SwitchPreferenceCompat
-            android:summary="@string/pref_nmea_altitude_summary"
-            android:title="@string/pref_nmea_altitude_title"
+            android:summary="@string/pref_nmea_elevation_summary"
+            android:title="@string/pref_nmea_elevation_title"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_nmea_altitude"

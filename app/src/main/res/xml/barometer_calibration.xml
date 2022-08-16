@@ -44,7 +44,7 @@
             app:min="0"
             app:seekBarIncrement="1"
             app:singleLineTitle="false"
-            app:title="@string/pref_barometer_altitude_outlier_title"
+            app:title="@string/pref_barometer_elevation_outlier_title"
             app:updatesContinuously="true" />
         <SeekBarPreference
             android:defaultValue="0"
@@ -55,7 +55,7 @@
             app:min="0"
             app:seekBarIncrement="1"
             app:singleLineTitle="false"
-            app:title="@string/pref_barometer_altitude_smoothing_title"
+            app:title="@string/pref_barometer_elevation_smoothing_title"
             app:updatesContinuously="true" />
         <SeekBarPreference
             android:defaultValue="500"

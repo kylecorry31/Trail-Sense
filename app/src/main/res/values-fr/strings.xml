@@ -82,9 +82,8 @@
     <string name="pref_max_beacon_distance_title">Rayon de visibilité des balises de proximité</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Étalonner les capteurs avant navigation</string>
     <string name="pref_display_multi_beacons_summary">Montrer les repères les plus proches sur la boussole</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Entrez la pression au niveau de la mer en hPa</string>
-    <string name="altitude_from_pressure">Utiliser la donnée du baromètre pour l\'altitude</string>
-    <string name="altitude">Altitude</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Entrez la pression au niveau de la mer en hPa</string>
+    <string name="elevation_from_pressure">Utiliser la donnée du baromètre pour l\'altitude</string>
     <string name="pref_altimeter_calibration_title">Altimètre</string>
     <string name="sun_down_no_set">Le soleil est couché</string>
     <string name="sun_up_no_set">Le soleil est levé</string>
@@ -189,10 +188,10 @@
     <string name="sun_moon_compass_when_up">Lorsque l\'astre est levé</string>
     <string name="pref_forecast_sensitivity_title">Niveau de sensibilité pour les prévisions</string>
     <string name="pref_num_visible_beacons_title">Repères à proximité</string>
-    <string name="pref_altitude_override_sea_level_title">En se basant sur une valeur de pression au niveau de la mer</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Saisissez la valeur de pression au niveau de la mer</string>
-    <string name="altitude_override_updated_toast">Nouvelle valeur d\'altitude obtenue</string>
-    <string name="pref_altitude_override_title">Saisie manuelle de l\'altitude</string>
+    <string name="pref_elevation_override_sea_level_title">En se basant sur une valeur de pression au niveau de la mer</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Saisissez la valeur de pression au niveau de la mer</string>
+    <string name="elevation_override_updated_toast">Nouvelle valeur d\'altitude obtenue</string>
+    <string name="pref_elevation_override_title">Saisie manuelle de l\'altitude</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétée, puis appuyez sur %s quand vous avez terminé.
 \n
 \nVous pouvez désactiver ce message dans les paramètres de l\'application.</string>
@@ -508,8 +507,8 @@
     <string name="dusk_type">Crépuscule (%s)</string>
     <string name="battery_history">Historique de batterie – dernières %s</string>
     <string name="pref_barometer_pressure_smoothing_title">Lissage de pression</string>
-    <string name="pref_barometer_altitude_smoothing_title">Lissage d’altitude</string>
-    <string name="pref_barometer_altitude_outlier_title">Retrait des altitudes aberrantes</string>
+    <string name="pref_barometer_elevation_smoothing_title">Lissage d’altitude</string>
+    <string name="pref_barometer_elevation_outlier_title">Retrait des altitudes aberrantes</string>
     <string name="move_to">Déplacer vers</string>
     <string name="pref_cell_signal_refresh_cache_title">Actualiser le cache du signal</string>
     <string name="pref_cell_signal_refresh_cache_summary">Force le chargement de la qualité du réseau</string>
@@ -519,11 +518,11 @@
 \n**Illumination** : %s</string>
     <string name="pref_backtrack_history_days_title">Historique Backtrack</string>
     <string name="daylight">Lumière du jour</string>
-    <string name="altitude_history_length">Longueur de l’historique d’altitude</string>
+    <string name="elevation_history_length">Longueur de l’historique d’altitude</string>
     <string name="camera">Caméra</string>
     <string name="dashed">Tirets</string>
-    <string name="pref_nmea_altitude_summary">Utilise la compensation NMEA pour la conversion d’altitude</string>
-    <string name="pref_nmea_altitude_title">Compensation d’altitude NMEA</string>
+    <string name="pref_nmea_elevation_summary">Utilise la compensation NMEA pour la conversion d’altitude</string>
+    <string name="pref_nmea_elevation_title">Compensation d’altitude NMEA</string>
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="gallon_format">%s gal</string>
     <string name="pounds">Livres</string>
@@ -604,9 +603,9 @@
     <string name="humidity">Humidité</string>
     <string name="num_satellites">%d satellites</string>
     <string name="beacon_qr_import_instructions">Scanner un QR Code pour importer</string>
-    <string name="altitude_history">Historique d’altitude</string>
+    <string name="elevation_history">Historique d’altitude</string>
     <string name="qr_code">QR Code</string>
-    <string name="altitude_override_resolution">Activer le calibrage automatique dans les paramètres.</string>
+    <string name="elevation_override_resolution">Activer le calibrage automatique dans les paramètres.</string>
     <string name="battery_usage_restricted">Utilisation de la batterie bridée</string>
     <string name="power_saving_mode_resolution">Désactiver l’économiseur de batterie</string>
     <string name="battery_restricted_resolution">Définir Trail Sense comme Non Optimisé</string>

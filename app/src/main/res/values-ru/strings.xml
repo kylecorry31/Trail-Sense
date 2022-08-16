@@ -82,7 +82,6 @@
     <string name="pref_altimeter_calibration_mode_title">Автокалибровка</string>
     <string name="never">Никогда</string>
     <string name="altimeter_mode_gps_barometer">GPS и барометр</string>
-    <string name="altitude">Высота</string>
     <string name="pref_altimeter_calibration_title">Высотомер</string>
     <string name="location">Местоположение</string>
     <string name="calibrate_compass_dialog_title">Калибровать компас</string>
@@ -155,12 +154,12 @@
     <string name="pref_num_visible_beacons_title">Ближайших маячков</string>
     <string name="pref_adjust_for_temperature_title">Использовать данные о температуре</string>
     <string name="pref_adjust_for_temperature_summary">Использовать данные о температуре при расчете давления на уровне моря</string>
-    <string name="pref_altitude_override_sea_level_title">Используя данные о давлении на уровне моря</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Ввод значения давления на уровне моря</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Введите текущее давление на уровне моря в гПа</string>
-    <string name="altitude_override_updated_toast">Высота будут смещена на заданное число</string>
-    <string name="pref_altitude_override_title">Смещение</string>
-    <string name="altitude_from_pressure">Задать смещение с помощью барометра на устройстве</string>
+    <string name="pref_elevation_override_sea_level_title">Используя данные о давлении на уровне моря</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Ввод значения давления на уровне моря</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Введите текущее давление на уровне моря в гПа</string>
+    <string name="elevation_override_updated_toast">Высота будут смещена на заданное число</string>
+    <string name="pref_elevation_override_title">Смещение</string>
+    <string name="elevation_from_pressure">Задать смещение с помощью барометра на устройстве</string>
     <string name="request_permission">Запрос разрешения</string>
     <string name="pref_auto_location_title">Автоматически отслеживать перемещение</string>
     <string name="compass_accuracy_improved">Точность компаса поднялась: %s</string>
@@ -601,7 +600,7 @@
     <string name="color">Цвет</string>
     <string name="water_boil_guide_title">Сделать воду безопасной для питья</string>
     <string name="map_perspective_instructions">Нарисуйте карту</string>
-    <string name="pref_barometer_altitude_outlier_title">Удалить отклонения высоты</string>
+    <string name="pref_barometer_elevation_outlier_title">Удалить отклонения высоты</string>
     <string name="days">Дни</string>
     <plurals name="number_days">
         <item quantity="one">%d день</item>
@@ -627,10 +626,10 @@
     <string name="distance">Расстояние</string>
     <string name="convert">Конвертировать</string>
     <string name="delete_map">Удалить карту\?</string>
-    <string name="pref_barometer_altitude_smoothing_title">Сглаживание высоты</string>
+    <string name="pref_barometer_elevation_smoothing_title">Сглаживание высоты</string>
     <string name="pref_barometer_pressure_smoothing_title">Сглаживание давления</string>
-    <string name="pref_nmea_altitude_summary">Использует смещения NMEA для преобразования высоты</string>
-    <string name="pref_nmea_altitude_title">Смещение высоты по NMEA</string>
+    <string name="pref_nmea_elevation_summary">Использует смещения NMEA для преобразования высоты</string>
+    <string name="pref_nmea_elevation_title">Смещение высоты по NMEA</string>
     <string name="pref_barometer_info_summary">Давление может отличаться от давления на близлежащих станциях</string>
     <string name="battery_history">История батареи - последняя %s</string>
     <string name="dusk_type">Сумерки (%s)</string>
@@ -640,7 +639,7 @@
     <string name="pref_map_url_source_title">Поделиться местоположением на карте</string>
     <string name="beacon_qr_import_instructions">Отсканируйте QR-код для импорта</string>
     <string name="qr_code">QR-код</string>
-    <string name="altitude_history">История высот</string>
+    <string name="elevation_history">История высот</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d спутников</string>
     <string name="no_compass_message">В вашем устройстве отсутствует датчик компаса</string>
@@ -726,7 +725,7 @@
     <string name="action_inventory_clear_confirm">Очистить все упакованные ёмкости\?</string>
     <string name="current_format">%s мА</string>
     <string name="gps_signal_lost">Сигнал GPS потерян</string>
-    <string name="altitude_history_length">Длина истории высот</string>
+    <string name="elevation_history_length">Длина истории высот</string>
     <string name="last_duration">Последняя %s</string>
     <string name="overridden">Переопределено</string>
     <string name="autofill">Автозаполнение</string>
@@ -742,7 +741,7 @@
     <string name="power_saving_mode_resolution">Отключите режим энергосбережения</string>
     <string name="location_override_not_set_resolution">Установите переопределение местоположения в настройках</string>
     <string name="location_override_resolution">Включите автоматическую настройку местоположения в настройках.</string>
-    <string name="altitude_override_resolution">Включите автоматическую калибровку в настройках.</string>
+    <string name="elevation_override_resolution">Включите автоматическую калибровку в настройках.</string>
     <string name="unblock_notification_channel">Разблокировать уведомления %s для Trail Sense</string>
     <string name="get_gps_signal">Выйдите на улицу с беспрепятственным видом на небо.</string>
     <string name="activity_recognition">Распознавание активности</string>

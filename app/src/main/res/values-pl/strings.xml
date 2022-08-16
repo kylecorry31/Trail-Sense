@@ -167,10 +167,9 @@
     <string name="pref_display_multi_beacons_summary">Pokaż najbliższe punkty nawigacjne na kompasie</string>
     <string name="pref_num_visible_beacons_title">Pobliskie punkty nawigacyjne</string>
     <string name="never">Nigdy</string>
-    <string name="pref_altitude_override_sea_level_dialog_title">Wprowadź ciśnienie na poziomie morza</string>
-    <string name="pref_altitude_override_sea_level_dialog_msg">Wprowadź aktualne ciśnienie na poziomie morza w hPa</string>
-    <string name="altitude_from_pressure">Ustawianie zastępowanie z barometru</string>
-    <string name="altitude">Wysokość</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Wprowadź ciśnienie na poziomie morza</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Wprowadź aktualne ciśnienie na poziomie morza w hPa</string>
+    <string name="elevation_from_pressure">Ustawianie zastępowanie z barometru</string>
     <string name="pref_altimeter_calibration_title">Wysokościomierz</string>
     <string name="request_permission">Poproś o uprawnienia</string>
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
@@ -350,7 +349,7 @@
     <string name="threshold">Próg</string>
     <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
     <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
-    <string name="pref_altitude_override_title">Zastępowanie wysokości</string>
+    <string name="pref_elevation_override_title">Zastępowanie wysokości</string>
     <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="set_inclination_instructions">Dotknij lub przytrzymaj w dowolnym miejscu, aby zablokować/odblokować</string>
@@ -453,8 +452,8 @@
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
     <string name="location_override_updated">Zaktualizowano zastępowanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Używaj tego narzędzia tylko wtedy, gdy jest to bezpieczne i sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
-    <string name="pref_altitude_override_sea_level_title">Korzystanie ze znanego ciśnienia na poziomie morza</string>
-    <string name="altitude_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
+    <string name="pref_elevation_override_sea_level_title">Korzystanie ze znanego ciśnienia na poziomie morza</string>
+    <string name="elevation_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="magnetometer">Magnetometr</string>
@@ -588,7 +587,7 @@
     <string name="no_data">Brak danych</string>
     <string name="backtrack">Ślad powrotny</string>
     <string name="delete_map">Usunąć mapę\?</string>
-    <string name="pref_nmea_altitude_title">Przesunięcia wysokości NMEA</string>
+    <string name="pref_nmea_elevation_title">Przesunięcia wysokości NMEA</string>
     <string name="water_boil_guide_title">Spraw, aby woda była bezpieczna do picia</string>
     <string name="solid">Stały</string>
     <string name="arrow">Strzałka</string>
@@ -629,10 +628,10 @@
     <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigowania</string>
     <string name="pref_flashlight_toggle_with_system_title">Przełącz z systemem</string>
     <string name="map_rotate_instructions">Obracaj, aż północ będzie skierowana do góry</string>
-    <string name="pref_barometer_altitude_outlier_title">Usuwanie wartości odstających wysokości</string>
-    <string name="pref_barometer_altitude_smoothing_title">Wygładzanie wysokości</string>
+    <string name="pref_barometer_elevation_outlier_title">Usuwanie wartości odstających wysokości</string>
+    <string name="pref_barometer_elevation_smoothing_title">Wygładzanie wysokości</string>
     <string name="pref_barometer_pressure_smoothing_title">Wygładzanie ciśnienia</string>
-    <string name="pref_nmea_altitude_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>
+    <string name="pref_nmea_elevation_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od ciśnienia w pobliskich stacjach</string>
     <string name="battery_history">Historia baterii - ostatnie %s</string>
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt dla ostatniej lokalizacji z sygnałem komórkowym</string>
@@ -693,7 +692,7 @@
     <string name="clear_cache">Wyczyść pamięć podręczną</string>
     <string name="destination_elevation">Wysokość miejsca docelowego</string>
     <string name="current_format">%s mA</string>
-    <string name="altitude_history">Historia wysokości</string>
+    <string name="elevation_history">Historia wysokości</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelity(ów)</string>
     <string name="no_compass_message">Urządzenie nie posiada czujnika kompasu</string>
@@ -717,7 +716,7 @@
     <string name="qr_code">Kod QR</string>
     <string name="last_duration">Ostatnie %s</string>
     <string name="notifications_blocked">Powiadomienia zablokowane</string>
-    <string name="altitude_override_resolution">Włącz automatyczną kalibrację w ustawieniach.</string>
+    <string name="elevation_override_resolution">Włącz automatyczną kalibrację w ustawieniach.</string>
     <string name="location_override_not_set_resolution">Ustaw nadpisanie lokalizacji w ustawieniach</string>
     <string name="power_saving_mode_resolution">Wyłącz tryb oszczędzania energii</string>
     <string name="activity_recognition">Rozpoznawanie aktywności fizycznej</string>
@@ -763,7 +762,7 @@
     <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automatycznie</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="altitude_history_length">Długość historii wysokości</string>
+    <string name="elevation_history_length">Długość historii wysokości</string>
     <string name="astro_dialog_lunar_eclipse">**Początek**: %s
 \n
 \n**Szczyt**: %s
