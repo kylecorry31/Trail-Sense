@@ -175,14 +175,6 @@
             app:key="@string/pref_only_navigate_path_points"
             app:singleLineTitle="false"
             app:title="@string/pref_only_navigate_path_points_title" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_show_path_slope"
-            app:singleLineTitle="false"
-            app:title="@string/pref_show_path_slope_title"
-            android:summary="@string/pref_show_path_slope_summary"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

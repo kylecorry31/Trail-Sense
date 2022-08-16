@@ -106,7 +106,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chart = PathElevationChart(binding.chart, prefs.navigation.showPathSlope)
+        chart = PathElevationChart(binding.chart, true)
 
         binding.pathImage.isInteractive = true
 
