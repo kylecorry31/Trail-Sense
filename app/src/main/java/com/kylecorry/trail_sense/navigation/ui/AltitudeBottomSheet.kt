@@ -134,7 +134,12 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                 DataUtils.smooth(
                     readings,
                     0.25f,
-                    { Vector2(it.time.toEpochMilli() / (1000f * 60), it.value) }
+                    { _, reading ->
+                        Vector2(
+                            reading.time.toEpochMilli() / (1000f * 60),
+                            reading.value
+                        )
+                    }
                 ) { reading, smoothed ->
                     reading.copy(value = smoothed.y)
                 }.filter {
