@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+        android:id="@+id/level_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showSubtitle="false"
+        tools:title="X: 10\nY: 25" />
+
     <ImageView
         android:id="@+id/bubble_outline"
         android:layout_width="200dp"
