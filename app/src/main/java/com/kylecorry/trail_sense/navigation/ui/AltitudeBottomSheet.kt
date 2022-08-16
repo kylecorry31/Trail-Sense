@@ -42,7 +42,9 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     var backtrackPoints: List<PathPoint>? = null
     var currentAltitude: Reading<Float>? = null
 
-    private var maxHistoryDuration = Duration.ofDays(1)
+    private val maxHistoryDuration = Duration.ofDays(1)
+    private val maxFilterHistoryDuration = maxHistoryDuration.plusHours(6)
+    private var historyDuration = maxHistoryDuration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +58,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         chart.configureXAxis(
             labelCount = 0,
             drawGridLines = false,
-            minimum = (Instant.now().toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
+            minimum = (Instant.now().toEpochMilli() - historyDuration.toMillis()).toFloat(),
             maximum = Instant.now().toEpochMilli().toFloat()
         )
         val path = backtrackPoints
@@ -81,16 +83,16 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         binding.altitudeHistoryLength.setOnClickListener {
             CustomUiUtils.pickDuration(
                 requireContext(),
-                maxHistoryDuration,
+                historyDuration,
                 getString(R.string.altitude_history_length)
             ) {
                 if (it != null) {
-                    maxHistoryDuration = it
+                    historyDuration = it
                     chart.configureXAxis(
                         labelCount = 0,
                         drawGridLines = false,
                         minimum = (Instant.now()
-                            .toEpochMilli() - maxHistoryDuration.toMillis()).toFloat(),
+                            .toEpochMilli() - historyDuration.toMillis()).toFloat(),
                         maximum = Instant.now().toEpochMilli().toFloat()
                     )
                     updateChart()
@@ -123,7 +125,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         )
 
         binding.altitudeHistoryLength.text =
-            getString(R.string.last_duration, formatService.formatDuration(maxHistoryDuration))
+            getString(R.string.last_duration, formatService.formatDuration(historyDuration))
     }
 
     private fun updateChart() {
@@ -131,12 +133,13 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             val filteredReadings = onDefault {
                 val readings =
                     (backtrackReadings + weatherReadings + listOfNotNull(currentAltitude)).sortedBy { it.time }
+                        .filter { Duration.between(it.time, Instant.now()) < maxFilterHistoryDuration }
 
                 val start = readings.firstOrNull()?.time ?: Instant.now()
 
                 DataUtils.smooth(
                     readings,
-                    0.25f,
+                    0.3f,
                     { _, reading ->
                         Vector2(
                             Duration.between(start, reading.time).toMillis() / 1000f,
@@ -146,7 +149,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                 ) { reading, smoothed ->
                     reading.copy(value = smoothed.y)
                 }.filter {
-                    Duration.between(it.time, Instant.now()).abs() <= maxHistoryDuration
+                    Duration.between(it.time, Instant.now()).abs() <= historyDuration
                 }
             }
 
@@ -167,7 +170,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
     private fun getBacktrackReadings(): LiveData<List<Reading<Float>>> {
         return pathService.getRecentAltitudes(
-            Instant.now().minus(prefs.navigation.backtrackHistory)
+            Instant.now().minus(maxFilterHistoryDuration)
         )
     }
 
