@@ -71,8 +71,8 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
         binding.levelTitle.title.text = getString(
             R.string.bubble_level_angles,
-            formatService.formatDegrees(abs(x)),
-            formatService.formatDegrees(abs(y))
+            formatService.formatDegrees(abs(x), 1),
+            formatService.formatDegrees(abs(y), 1)
         )
         binding.bubbleX.text = formatService.formatDegrees(abs(x))
         binding.bubbleY.text = formatService.formatDegrees(abs(y))

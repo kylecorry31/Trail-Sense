@@ -22,15 +22,17 @@ import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
-import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
-import com.kylecorry.andromeda.sense.orientation.*
+import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.andromeda.sense.orientation.Gyroscope
+import com.kylecorry.andromeda.sense.orientation.IGyroscope
 import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
 import com.kylecorry.andromeda.sense.temperature.Thermometer
 import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
+import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
@@ -45,6 +47,7 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeed
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
+import kotlin.math.max
 
 class SensorService(ctx: Context) {
 
@@ -141,12 +144,13 @@ class SensorService(ctx: Context) {
     fun getCompass(): ICompass {
         val smoothing = userPrefs.navigation.compassSmoothing
         val useTrueNorth = userPrefs.navigation.useTrueNorth
+
         return if (userPrefs.navigation.useLegacyCompass) LegacyCompass(
             context,
-            smoothing,
-            useTrueNorth
+            useTrueNorth,
+            MovingAverageFilter(max(1, smoothing * 2))
         ) else GravityCompensatedCompass(
-            context, smoothing, useTrueNorth
+            context, useTrueNorth, MovingAverageFilter(max(1, smoothing * 4))
         )
     }
 
