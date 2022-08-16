@@ -248,6 +248,12 @@ class WeatherPreferences(private val context: Context) {
         false
     )
 
+    val useExperimentalSeaLevelCalibration by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_experimental_sea_level_calibration_v2),
+        false
+    )
+
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

@@ -1017,6 +1017,7 @@
     <string name="obstacle_removal_sensitivity">Obstacle removal sensitivity</string>
     <string name="pref_experimental_cloud_scanner_title">Cloud scanner</string>
     <string name="pref_experimental_cloud_scanner" translatable="false">pref_experimental_cloud_scanner</string>
+    <string name="pref_experimental_sea_level_calibration_v2" translatable="false">pref_experimental_sea_level_calibration_v_80</string>
     <string name="precipitation_none">No precipitation</string>
     <string name="precipitation_rain">Rain</string>
     <string name="precipitation_drizzle">Drizzle</string>
@@ -1206,6 +1207,7 @@
     <string name="path_slope_steep">Steep</string>
     <string name="path_slope">Slope</string>
     <string name="camera_unavailable">Camera unavailable</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Sea level calibration V2</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

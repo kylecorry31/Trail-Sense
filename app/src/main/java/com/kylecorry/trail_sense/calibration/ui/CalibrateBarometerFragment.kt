@@ -220,9 +220,9 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
 
-        altitudeOutlierSeekBar?.isVisible = !isOnTheWallMode
-        pressureSmoothingSeekBar?.isVisible = !isOnTheWallMode
-        altitudeSmoothingSeekBar?.isVisible = !isOnTheWallMode
+        altitudeOutlierSeekBar?.isVisible = !isOnTheWallMode && !prefs.weather.useExperimentalSeaLevelCalibration && seaLevelPressure
+        pressureSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
+        altitudeSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
 
         val pressure = if (seaLevelPressure) {
             // TODO: This isn't going to exactly match what is shown on the weather tab
