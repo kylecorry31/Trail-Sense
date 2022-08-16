@@ -101,6 +101,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
     private fun updateChart(readings: List<Reading<Float>>) {
         if (!isBound) return
+
         val data = readings.map {
             it.time.toEpochMilli().toFloat() to Distance.meters(it.value).convertTo(units).distance
         }
@@ -131,12 +132,14 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                 val readings =
                     (backtrackReadings + weatherReadings + listOfNotNull(currentAltitude)).sortedBy { it.time }
 
+                val start = readings.firstOrNull()?.time ?: Instant.now()
+
                 DataUtils.smooth(
                     readings,
                     0.25f,
                     { _, reading ->
                         Vector2(
-                            reading.time.toEpochMilli() / (1000f * 60),
+                            Duration.between(start, reading.time).toMillis() / 1000f,
                             reading.value
                         )
                     }
