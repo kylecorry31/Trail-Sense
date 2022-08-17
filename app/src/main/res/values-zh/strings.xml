@@ -1051,4 +1051,7 @@
     <string name="path_slope_flat">平缓</string>
     <string name="path_slope_moderate">中度</string>
     <string name="updating_weather">正在更新天气</string>
+    <string name="pref_show_path_slope_title">显示路径坡度</string>
+    <string name="pref_show_path_slope_summary">在海拔图上</string>
+    <string name="camera_unavailable">相机不可用</string>
 </resources>

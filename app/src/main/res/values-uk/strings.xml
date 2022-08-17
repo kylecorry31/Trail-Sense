@@ -1083,4 +1083,7 @@
     <string name="highest_point_elevation">Найвища точка</string>
     <string name="path_slope_moderate">Помірний</string>
     <string name="updating_weather">Оновлення погоди</string>
+    <string name="pref_show_path_slope_title">Показати нахил шляху</string>
+    <string name="pref_show_path_slope_summary">На графіку висот</string>
+    <string name="camera_unavailable">Камера недоступна</string>
 </resources>
