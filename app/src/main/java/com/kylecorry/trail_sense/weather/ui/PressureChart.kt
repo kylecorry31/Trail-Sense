@@ -17,7 +17,6 @@ class PressureChart(
     private val selectionListener: ((timeAgo: Duration?, pressure: Float?) -> Unit)? = null
 ) {
 
-
     private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
     private var startTime = Instant.now()
 
@@ -38,7 +37,14 @@ class PressureChart(
             drawGridLines = false
         )
 
+        setClickable(selectionListener != null)
+    }
 
+    private fun setClickable(clickable: Boolean) {
+        if (!clickable) {
+            simpleChart.setOnValueSelectedListener(null)
+            return
+        }
         simpleChart.setOnValueSelectedListener {
             if (it == null) {
                 selectionListener?.invoke(null, null)
@@ -58,7 +64,7 @@ class PressureChart(
     fun plot(data: List<Reading<Pressure>>) {
         startTime = data.firstOrNull()?.time
         setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
-        val values = SimpleLineChart.getDataFromReadings(data, startTime){
+        val values = SimpleLineChart.getDataFromReadings(data, startTime) {
             it.pressure
         }
 
