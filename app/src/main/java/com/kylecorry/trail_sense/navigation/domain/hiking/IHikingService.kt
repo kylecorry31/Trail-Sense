@@ -7,6 +7,8 @@ import java.time.Duration
 
 interface IHikingService {
 
+    fun getDistances(points: List<PathPoint>): List<Float>
+
     fun correctElevations(points: List<PathPoint>): List<PathPoint>
 
     fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty

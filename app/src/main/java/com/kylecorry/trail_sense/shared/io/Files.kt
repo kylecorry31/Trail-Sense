@@ -6,6 +6,7 @@ import android.webkit.MimeTypeMap
 import com.kylecorry.andromeda.files.ExternalFiles
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.trail_sense.shared.extensions.ifDebug
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import java.io.File
 import java.util.*
@@ -48,6 +49,12 @@ object Files {
 
     fun getLocalPath(file: File): String {
         return file.path.substringAfter("files/")
+    }
+
+    fun debugFile(context: Context, filename: String, text: String){
+        ifDebug {
+            LocalFiles.write(context, "debug/$filename", text)
+        }
     }
 
 }

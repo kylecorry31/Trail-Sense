@@ -14,20 +14,27 @@ import kotlin.math.sqrt
 
 class HikingService(private val geology: IGeologyService = GeologyService()) : IHikingService {
 
-    override fun correctElevations(points: List<PathPoint>): List<PathPoint> {
+    override fun getDistances(points: List<PathPoint>): List<Float> {
         var distance = 0f
         var last = points.first()
 
-        val data = points.map {
+        return points.map {
             distance += it.coordinate.distanceTo(last.coordinate)
             last = it
-            Vector2(distance, it.elevation ?: 0f)
+            distance
         }
+    }
 
-        val smoothed = DataUtils.smooth(data, 0.1f)
-
-        return points.zip(smoothed)
-            .map { it.first.copy(elevation = if (it.first.elevation == null) null else it.second.y) }
+    override fun correctElevations(points: List<PathPoint>): List<PathPoint> {
+        val distances = getDistances(points)
+        val smoothed = DataUtils.smooth(
+            points,
+            0.1f,
+            { index, value -> Vector2(distances[index], value.elevation ?: 0f) }
+        ) { point, smoothed ->
+            point.copy(elevation = if (point.elevation == null) null else smoothed.y)
+        }
+        return smoothed
     }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
