@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
-import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.meteorology.Weather
@@ -16,9 +15,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
-import com.kylecorry.trail_sense.shared.extensions.ifDebug
+import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
@@ -150,45 +148,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             )
         }
 
-        ifDebug {
-            try {
-                val header = listOf(
-                    listOf(
-                        "time",
-                        "raw_pressure",
-                        "raw_altitude",
-                        "raw_sea_level",
-                        "raw_temperature",
-                        "raw_humidity",
-                        "smooth_pressure",
-                        "smooth_temperature",
-                        "smooth_humidity"
-                    )
-                )
-                val data = header + pressures.map {
-                    val original = readings.firstOrNull { r -> r.time == it.time }
-                    val reading = withTemps.firstOrNull { r -> r.time == it.time }
-                    listOf(
-                        it.time.toEpochMilli(),
-                        original?.value?.pressure,
-                        original?.value?.altitude,
-                        original?.value?.seaLevel(useTemperature = prefs.weather.seaLevelFactorInTemp)?.pressure,
-                        original?.value?.temperature,
-                        original?.value?.humidity,
-                        it.value.pressure,
-                        reading?.value?.temperature,
-                        reading?.value?.humidity
-                    )
-                }
-
-                Files.debugFile(
-                    context,
-                    "weather.csv",
-                    CSVConvert.toCSV(data)
-                )
-            } catch (e: Exception) {
-            }
-        }
+        DebugWeatherCommand(
+            context,
+            readings,
+            combined,
+            prefs.weather.seaLevelFactorInTemp
+        ).execute()
 
         combined
     }
