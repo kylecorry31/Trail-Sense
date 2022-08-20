@@ -6,13 +6,20 @@ import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
+import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.data.DataUtils
+import com.kylecorry.trail_sense.shared.extensions.ifDebug
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.*
@@ -40,12 +47,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     override val weatherChanged: ITopic = _weatherChanged
 
     private val _weatherMonitorState =
-        com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorState()))
+        com.kylecorry.andromeda.core.topics.generic.Topic(
+            defaultValue = Optional.of(
+                calculateWeatherMonitorState()
+            )
+        )
     override val weatherMonitorState: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
         get() = _weatherMonitorState.distinct()
 
     private val _weatherMonitorFrequency =
-        com.kylecorry.andromeda.core.topics.generic.Topic(defaultValue = Optional.of(calculateWeatherMonitorFrequency()))
+        com.kylecorry.andromeda.core.topics.generic.Topic(
+            defaultValue = Optional.of(
+                calculateWeatherMonitorFrequency()
+            )
+        )
     override val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
         get() = _weatherMonitorFrequency.distinct()
 
@@ -112,26 +127,70 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         if (!isValid) {
             refresh()
         }
-        val readings = weatherRepo.getAll()
+        var readings = weatherRepo.getAll()
             .asSequence()
             .sortedBy { it.time }
             .filter { it.time <= Instant.now() }
             .toList()
 
-        val calibrator = SeaLevelCalibrationFactory().create(prefs)
-        val pressures = calibrator.calibrate(readings)
+        val withTemps = calibrateTemperatures(readings)
 
-        pressures.map {
-            val reading = readings.firstOrNull { r -> r.time == it.time }
+        val calibrator = SeaLevelCalibrationFactory().create(prefs)
+        val pressures = calibrator.calibrate(withTemps)
+
+        val combined = pressures.map {
+            val reading = withTemps.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
                 it.time,
                 it.value,
                 Temperature.celsius(
-                    weatherService.calibrateTemperature(reading?.value?.temperature ?: 0f)
+                    reading?.value?.temperature ?: 0f
                 ),
                 reading?.value?.humidity
             )
         }
+
+        ifDebug {
+            try {
+                val header = listOf(
+                    listOf(
+                        "time",
+                        "raw_pressure",
+                        "raw_altitude",
+                        "raw_sea_level",
+                        "raw_temperature",
+                        "raw_humidity",
+                        "smooth_pressure",
+                        "smooth_temperature",
+                        "smooth_humidity"
+                    )
+                )
+                val data = header + pressures.map {
+                    val original = readings.firstOrNull { r -> r.time == it.time }
+                    val reading = withTemps.firstOrNull { r -> r.time == it.time }
+                    listOf(
+                        it.time.toEpochMilli(),
+                        original?.value?.pressure,
+                        original?.value?.altitude,
+                        original?.value?.seaLevel(useTemperature = prefs.weather.seaLevelFactorInTemp)?.pressure,
+                        original?.value?.temperature,
+                        original?.value?.humidity,
+                        it.value.pressure,
+                        reading?.value?.temperature,
+                        reading?.value?.humidity
+                    )
+                }
+
+                Files.debugFile(
+                    context,
+                    "weather.csv",
+                    CSVConvert.toCSV(data)
+                )
+            } catch (e: Exception) {
+            }
+        }
+
+        combined
     }
 
     override fun enableMonitor() {
@@ -201,6 +260,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         } else {
             FeatureState.Off
         }
+    }
+
+    private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        val start = readings.firstOrNull()?.time ?: return emptyList()
+        return DataUtils.smooth(
+            readings,
+            0.1f,
+            { _, value ->
+                Vector2(
+                    Duration.between(start, value.time).toMillis() / 1000f,
+                    weatherService.calibrateTemperature(value.value.temperature)
+                )
+            }
+        ) { reading, smoothedValue -> reading.copy(value = reading.value.copy(temperature = smoothedValue.y)) }
     }
 
     companion object {
