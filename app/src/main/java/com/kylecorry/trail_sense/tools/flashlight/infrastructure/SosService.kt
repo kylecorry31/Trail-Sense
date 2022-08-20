@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.asSignal
 import com.kylecorry.trail_sense.shared.morse.Signal
 import com.kylecorry.trail_sense.shared.morse.SignalPlayer
@@ -22,14 +23,20 @@ import java.time.Instant
 class SosService : ForegroundService() {
 
     private var torch: ITorch? = null
-    private val signalPlayer by lazy { if (torch == null) null else SignalPlayer(torch!!.asSignal()) }
+    private val signalPlayer by lazy {
+        if (torch == null) null else SignalPlayer(
+            torch!!.asSignal(
+                UserPreferences(this).flashlight.brightness
+            )
+        )
+    }
     private val cache by lazy { Preferences(this) }
     override val foregroundNotificationId: Int
         get() = NOTIFICATION_ID
 
     private val offTimer = Timer {
         val end = stopAt
-        if (end != null && end <= Instant.now()){
+        if (end != null && end <= Instant.now()) {
             stopSelf()
         }
     }

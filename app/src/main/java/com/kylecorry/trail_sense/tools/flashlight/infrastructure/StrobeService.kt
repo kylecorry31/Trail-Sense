@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Instant
 
 class StrobeService : ForegroundService() {
@@ -38,6 +39,7 @@ class StrobeService : ForegroundService() {
     }
 
     private val prefs by lazy { Preferences(applicationContext) }
+    private val brightness by lazy { UserPreferences(applicationContext).flashlight.brightness }
 
     private fun runNextState() {
         if (!isRunning) {
@@ -49,7 +51,7 @@ class StrobeService : ForegroundService() {
         if (on){
             torch?.off()
         } else {
-            torch?.on()
+            torch?.on(brightness)
         }
 
         on = !on

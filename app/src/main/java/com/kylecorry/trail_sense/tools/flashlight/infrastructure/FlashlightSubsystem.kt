@@ -26,10 +26,14 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     private var isTurningOff = false
     private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
     private val handler by lazy { Handler(Looper.getMainLooper()) }
+    private val torch by lazy { Torch(context) }
 
     private val _state = Topic(defaultValue = Optional.of(getState()))
     override val state: ITopic<FlashlightState>
         get() = _state.distinct()
+
+    override val brightnessLevels: Int
+        get() = torch.brightnessLevels
 
     private var isAvailable: Boolean = Torch.isAvailable(context)
 
@@ -38,11 +42,12 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         torchChanged.subscribe(this::onTorchStateChanged)
     }
 
-    override fun on(handleTimeout: Boolean) {
+    private fun on(handleTimeout: Boolean, brightness: Float) {
         clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
+        setBrightness(brightness)
         SosService.stop(context)
         StrobeService.stop(context)
         FlashlightService.start(context)
@@ -59,11 +64,11 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         _state.publish(FlashlightState.Off)
     }
 
-    override fun toggle(handleTimeout: Boolean) {
+    override fun toggle(handleTimeout: Boolean, brightness: Float) {
         if (getState() == FlashlightState.On) {
             off()
         } else {
-            on(handleTimeout)
+            on(handleTimeout, brightness)
         }
     }
 
@@ -80,34 +85,36 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         }, increment)
     }
 
-    override fun sos(handleTimeout: Boolean) {
+    private fun sos(handleTimeout: Boolean, brightness: Float) {
         clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
+        setBrightness(brightness)
         StrobeService.stop(context)
         FlashlightService.stop(context)
         SosService.start(context)
         _state.publish(FlashlightState.SOS)
     }
 
-    override fun strobe(handleTimeout: Boolean) {
+    private fun strobe(handleTimeout: Boolean, brightness: Float) {
         clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
+        setBrightness(brightness)
         SosService.stop(context)
         FlashlightService.stop(context)
         StrobeService.start(context)
         _state.publish(FlashlightState.Strobe)
     }
 
-    override fun set(state: FlashlightState, handleTimeout: Boolean) {
+    override fun set(state: FlashlightState, handleTimeout: Boolean, brightness: Float) {
         when (state) {
             FlashlightState.Off -> off()
-            FlashlightState.On -> on(handleTimeout)
-            FlashlightState.SOS -> sos(handleTimeout)
-            FlashlightState.Strobe -> strobe(handleTimeout)
+            FlashlightState.On -> on(handleTimeout, brightness)
+            FlashlightState.SOS -> sos(handleTimeout, brightness)
+            FlashlightState.Strobe -> strobe(handleTimeout, brightness)
         }
     }
 
@@ -140,10 +147,14 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
             }
 
             if (enabled && !FlashlightService.isRunning && !SosService.isRunning && !StrobeService.isRunning) {
-                on(false)
+                on(false, 1f)
             }
         }
         return true
+    }
+
+    private fun setBrightness(brightness: Float) {
+        prefs.flashlight.brightness = brightness
     }
 
     private fun setTimeout() {

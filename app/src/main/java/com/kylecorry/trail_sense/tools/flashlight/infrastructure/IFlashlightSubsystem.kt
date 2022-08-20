@@ -6,12 +6,10 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 
 interface IFlashlightSubsystem {
     val state: ITopic<FlashlightState>
-    fun on(handleTimeout: Boolean = true)
+    val brightnessLevels: Int
     fun off()
-    fun toggle(handleTimeout: Boolean = true)
-    fun sos(handleTimeout: Boolean = true)
-    fun strobe(handleTimeout: Boolean = true)
-    fun set(state: FlashlightState, handleTimeout: Boolean = true)
+    fun toggle(handleTimeout: Boolean = true, brightness: Float = 1f)
+    fun set(state: FlashlightState, handleTimeout: Boolean = true, brightness: Float = 1f)
     fun getState(): FlashlightState
     fun isAvailable(): Boolean
 }

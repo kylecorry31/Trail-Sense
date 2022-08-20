@@ -36,6 +36,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/flashlight_dial_indicator"
         android:layout_width="8dp"
         android:layout_height="8dp"
         android:layout_marginTop="16dp"

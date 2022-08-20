@@ -32,8 +32,10 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         update()
     }
 
+    private var brightness = 1f
+
     private val switchStateTimer = Timer {
-        flashlight.set(selectedState)
+        turnOn()
     }
 
     private var selectedState = FlashlightState.On
@@ -45,6 +47,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val hasFlashlight = Torch.isAvailable(requireContext())
+        binding.flashlightDialIndicator.isVisible = hasFlashlight
         binding.flashlightOnBtn.isVisible = hasFlashlight
         binding.flashlightDial.isVisible = hasFlashlight
         binding.flashlightOnBtn.setOnClickListener {
@@ -53,7 +56,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         }
 
         binding.screenFlashlightBtn.setOnClickListener {
-            flashlight.set(FlashlightState.Off)
+            turnOff()
             findNavController().navigate(R.id.action_flashlight_to_screen_flashlight)
         }
 
@@ -137,10 +140,14 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     fun toggle() {
         haptics.click()
         if (flashlight.getState() != FlashlightState.Off) {
-            flashlight.set(FlashlightState.Off)
+            turnOff()
         } else {
-            flashlight.set(selectedState)
+            turnOn()
         }
+    }
+
+    private fun turnOn(){
+        flashlight.set(selectedState, brightness = brightness)
     }
 
     private fun turnOff() {

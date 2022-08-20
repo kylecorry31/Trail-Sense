@@ -12,15 +12,17 @@ import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Instant
 
 class FlashlightService: ForegroundService() {
 
     private var torch: ITorch? = null
     private val cache by lazy { Preferences(this) }
+    private val prefs by lazy { UserPreferences(this) }
 
     private val timer = Timer {
-        torch?.on()
+        torch?.on(prefs.flashlight.brightness)
     }
 
     private val offTimer = Timer {

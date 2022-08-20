@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.trail_sense.R
 import java.time.Duration
 
@@ -23,6 +24,12 @@ class FlashlightPreferenceRepo(context: Context) : PreferenceRepo(context) {
         cache,
         context.getString(R.string.pref_flashlight_should_timeout),
         false
+    )
+
+    var brightness by FloatPreference(
+        cache,
+        context.getString(R.string.pref_flashlight_brightness),
+        1f
     )
 
     var timeout: Duration
