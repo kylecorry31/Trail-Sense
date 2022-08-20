@@ -20,9 +20,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.system.Exceptions
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
@@ -38,7 +36,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
-import com.kylecorry.trail_sense.shared.ExceptionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
@@ -50,8 +47,6 @@ import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
 import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
-import java.time.Duration
-import kotlin.system.exitProcess
 
 
 class MainActivity : AndromedaActivity() {
@@ -79,26 +74,7 @@ class MainActivity : AndromedaActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Exceptions.onUncaughtException(Duration.ofMinutes(1)) {
-            it.printStackTrace()
-            Alerts.dialog(
-                this@MainActivity,
-                getString(R.string.error_occurred),
-                getString(R.string.error_occurred_message),
-                okText = getString(R.string.pref_email_title)
-            ) { cancelled ->
-                if (cancelled) {
-                    exitProcess(2)
-                } else {
-                    ExceptionUtils.report(
-                        this@MainActivity,
-                        it,
-                        getString(R.string.email),
-                        getString(R.string.app_name)
-                    )
-                }
-            }
-        }
+        ExceptionHandler.initialize(this)
 
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
