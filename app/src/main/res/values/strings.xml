@@ -366,7 +366,7 @@
     <string name="pref_sea_level_pressure_override" translatable="false">pref_sea_level_pressure_override</string>
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
     <string name="error_occurred">An error occurred</string>
-    <string name="error_occurred_message">Trail Sense ran into an error and will close. Please email the developer to get this issue fixed.</string>
+    <string name="error_occurred_message">Trail Sense ran into an error. Please email the developer to get this issue fixed.</string>
     <string name="tool_user_guide_title">User Guide</string>
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
