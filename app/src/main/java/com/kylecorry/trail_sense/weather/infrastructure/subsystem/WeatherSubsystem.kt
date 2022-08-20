@@ -125,7 +125,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         if (!isValid) {
             refresh()
         }
-        var readings = weatherRepo.getAll()
+        val readings = weatherRepo.getAll()
             .asSequence()
             .sortedBy { it.time }
             .filter { it.time <= Instant.now() }
@@ -148,12 +148,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             )
         }
 
-        DebugWeatherCommand(
-            context,
-            readings,
-            combined,
-            prefs.weather.seaLevelFactorInTemp
-        ).execute()
+        onIO {
+            DebugWeatherCommand(
+                context,
+                readings,
+                combined,
+                prefs.weather.seaLevelFactorInTemp
+            ).execute()
+        }
 
         combined
     }

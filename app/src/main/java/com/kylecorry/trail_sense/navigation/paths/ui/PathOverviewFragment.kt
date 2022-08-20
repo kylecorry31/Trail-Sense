@@ -16,7 +16,6 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
@@ -45,9 +44,12 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.Backtr
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.extensions.*
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -230,22 +232,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     hikingService.correctElevations(waypoints.sortedByDescending { it.id })
             }
             onIO {
-                ifDebug {
-                    try {
-                        val distances = hikingService.getDistances(this@PathOverviewFragment.waypoints)
-                        val header = listOf(listOf("distance", "raw", "smoothed"))
-                        val data = header + distances.zip(waypoints.sortedByDescending { it.id }.zip(this@PathOverviewFragment.waypoints)).map {
-                            listOf(it.first, it.second.first.elevation, it.second.second.elevation)
-                        }
-
-                        Files.debugFile(
-                            requireContext(),
-                            "path_elevations.csv",
-                            CSVConvert.toCSV(data)
-                        )
-                    } catch (e: Exception) {
-                    }
-                }
+                DebugPathElevationsCommand(
+                    requireContext(),
+                    waypoints,
+                    this@PathOverviewFragment.waypoints
+                ).execute()
             }
             onMain {
                 val selected = selectedPointId

@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
@@ -22,11 +21,10 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
-import com.kylecorry.trail_sense.shared.extensions.ifDebug
+import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
@@ -157,36 +155,15 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                     }
                 ) { reading, smoothed ->
                     reading.copy(value = smoothed.y)
-                }.filter {
-                    Duration.between(it.time, Instant.now()).abs() <= historyDuration
                 }
 
                 onIO {
-                    ifDebug {
-                        try {
-                            val raw = readings.filter {
-                                Duration.between(it.time, Instant.now()).abs() <= historyDuration
-                            }
-                            val header = listOf(listOf("time", "raw", "smoothed"))
-                            val data = header + raw.zip(smoothed).map {
-                                listOf(
-                                    it.first.time.toEpochMilli(),
-                                    it.first.value,
-                                    it.second.value
-                                )
-                            }
-
-                            Files.debugFile(
-                                requireContext(),
-                                "altitude_history.csv",
-                                CSVConvert.toCSV(data)
-                            )
-                        } catch (e: Exception) {
-                        }
-                    }
+                    DebugElevationsCommand(requireContext(), readings, smoothed).execute()
                 }
 
-                smoothed
+                smoothed.filter {
+                    Duration.between(it.time, Instant.now()).abs() <= historyDuration
+                }
             }
 
             onMain { updateChart(filteredReadings) }

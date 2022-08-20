@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.extensions.ifDebug
 
 abstract class DebugCommand : Command {
 
-    abstract fun executeDebug()
+    protected abstract fun executeDebug()
 
     override fun execute() {
         ifDebug {
