@@ -28,7 +28,7 @@ class FlashlightPreferenceRepo(context: Context) : PreferenceRepo(context) {
 
     var brightness by FloatPreference(
         cache,
-        context.getString(R.string.pref_flashlight_brightness),
+        context.getString(R.string.pref_torch_brightness),
         1f
     )
 

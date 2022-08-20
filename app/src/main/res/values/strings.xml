@@ -1208,7 +1208,8 @@
     <string name="path_slope">Slope</string>
     <string name="camera_unavailable">Camera unavailable</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Sea level calibration V2</string>
-    <string name="pref_flashlight_brightness" translatable="false">pref_flashlight_brightness</string>
+    <string name="pref_torch_brightness" translatable="false">pref_torch_brightness</string>
+    <string name="pref_screen_torch_brightness" translatable="false">pref_flashlight_brightness</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

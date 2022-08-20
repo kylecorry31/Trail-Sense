@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 
@@ -63,7 +64,7 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
     }
 
     private fun turnOn(){
-        setBrightness(cache.getInt(KEY_BRIGHTNESS) ?: 100)
+        setBrightness(cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100)
     }
 
     private fun turnOff(){
@@ -72,7 +73,7 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
 
     private fun setBrightness(percent: Int){
         binding.brightnessSeek.progress = percent
-        cache.putInt(KEY_BRIGHTNESS, percent)
+        cache.putInt(getString(R.string.pref_screen_torch_brightness), percent)
         flashlight.on(map(percent / 100f, 0f, 1f, 0.1f, 1f))
     }
 
@@ -84,10 +85,6 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
     override fun onPause() {
         super.onPause()
         turnOff()
-    }
-
-    companion object {
-        const val KEY_BRIGHTNESS = "pref_flashlight_brightness"
     }
 
 }
