@@ -37,7 +37,7 @@ class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) : Fra
         fab.setImageResource(resId)
     }
 
-    fun setImageDrawable(image: Drawable) {
+    fun setImageDrawable(image: Drawable?) {
         fab.setImageDrawable(image)
     }
 

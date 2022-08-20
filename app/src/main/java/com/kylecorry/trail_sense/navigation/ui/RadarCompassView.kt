@@ -284,15 +284,10 @@ class RadarCompassView : BaseCompassView, IMapView {
             layers.forEach { it.invalidate() }
             return true
         }
-
-        override fun onScaleEnd(detector: ScaleGestureDetector?) {
-            super.onScaleEnd(detector)
-            // TODO: Signal for the beacons to be rescanned
-        }
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             singleTapAction?.invoke()
             return super.onSingleTapConfirmed(e)
         }
