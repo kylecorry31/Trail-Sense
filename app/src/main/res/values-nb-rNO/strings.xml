@@ -955,4 +955,7 @@
     <string name="ascent">Stigning</string>
     <string name="highest_point_altitude">Høyeste punkt</string>
     <string name="pref_show_path_slope_title">Vis stihelling</string>
+    <string name="highest_point_elevation">Høyeste punkt</string>
+    <string name="elevation_override_resolution">Slå på auto-kalibrering i innstillingene.</string>
+    <string name="lowest_point_elevation">Laveste punkt</string>
 </resources>

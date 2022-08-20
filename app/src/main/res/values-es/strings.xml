@@ -130,7 +130,7 @@
 \n     %s satélites
 \n
 \n Brújula: Gire el dispositivo en un patrón de 8 (o en todas las direcciones) y aléjese del metal."</string>
-    <string name="accuracy_info_title">Consejos para mejorar la precisión de los datos del sensor</string>
+    <string name="accuracy_info_title">Consejos para mejorar la precisión de los datos de los sensores</string>
     <string name="discharging_fast">Descargando rápido (%s)</string>
     <string name="discharging_slow">Descargando lento (%s)</string>
     <string name="charging_slow">Cargando lento (%s)</string>
