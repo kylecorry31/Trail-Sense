@@ -1,0 +1,19 @@
+Paths
+- Smooth path elevation graph
+- Show slope of path
+- Show highest and lowest elevation of path
+
+Navigation
+- Improve format of destination sheet
+- Smooth elevation history
+
+Weather
+- Add sea level calibrator v2 (experimental)
+
+Bubble level
+- Show 1 digit of precision
+- Show degrees on bubbles
+
+Misc
+- Bug fixes
+- Performance improvements
