@@ -15,6 +15,9 @@ import kotlin.math.sqrt
 class HikingService(private val geology: IGeologyService = GeologyService()) : IHikingService {
 
     override fun getDistances(points: List<PathPoint>): List<Float> {
+        if (points.isEmpty()){
+            return emptyList()
+        }
         var distance = 0f
         var last = points.first()
 
@@ -26,6 +29,9 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
     }
 
     override fun correctElevations(points: List<PathPoint>): List<PathPoint> {
+        if (points.isEmpty()){
+            return emptyList()
+        }
         val distances = getDistances(points)
         val smoothed = DataUtils.smooth(
             points,
