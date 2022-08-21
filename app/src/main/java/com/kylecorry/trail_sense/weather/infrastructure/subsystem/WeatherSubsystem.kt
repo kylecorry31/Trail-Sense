@@ -131,19 +131,17 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             .filter { it.time <= Instant.now() }
             .toList()
 
-        val withTemps = calibrateTemperatures(readings)
+        val precalibrated = calibrateHumidity(calibrateTemperatures(readings))
 
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
-        val pressures = calibrator.calibrate(withTemps)
+        val pressures = calibrator.calibrate(precalibrated)
 
         val combined = pressures.map {
-            val reading = withTemps.firstOrNull { r -> r.time == it.time }
+            val reading = precalibrated.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
                 it.time,
                 it.value,
-                Temperature.celsius(
-                    reading?.value?.temperature ?: 0f
-                ),
+                Temperature.celsius(reading?.value?.temperature ?: 0f),
                 reading?.value?.humidity
             )
         }
@@ -230,17 +228,40 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        return smooth(
+            readings,
+            0.2f,
+            { weatherService.calibrateTemperature(it.temperature) }) { reading, smoothed ->
+            reading.copy(temperature = smoothed)
+        }
+    }
+
+    private fun calibrateHumidity(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        return smooth(
+            readings,
+            0.1f,
+            { it.humidity ?: 0f }) { reading, smoothed ->
+            reading.copy(humidity = if (smoothed == 0f) null else smoothed)
+        }
+    }
+
+    private fun smooth(
+        readings: List<Reading<RawWeatherObservation>>,
+        smoothness: Float,
+        select: (reading: RawWeatherObservation) -> Float,
+        merge: (reading: RawWeatherObservation, smoothed: Float) -> RawWeatherObservation
+    ): List<Reading<RawWeatherObservation>> {
         val start = readings.firstOrNull()?.time ?: return emptyList()
         return DataUtils.smooth(
             readings,
-            0.1f,
+            smoothness,
             { _, value ->
                 Vector2(
                     Duration.between(start, value.time).toMillis() / 1000f,
-                    weatherService.calibrateTemperature(value.value.temperature)
+                    select(value.value)
                 )
             }
-        ) { reading, smoothedValue -> reading.copy(value = reading.value.copy(temperature = smoothedValue.y)) }
+        ) { reading, smoothedValue -> reading.copy(value = merge(reading.value, smoothedValue.y)) }
     }
 
     companion object {
