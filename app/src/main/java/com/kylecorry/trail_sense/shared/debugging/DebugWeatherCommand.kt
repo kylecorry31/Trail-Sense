@@ -36,9 +36,9 @@ class DebugWeatherCommand(
                 originalReading?.value?.seaLevel(useTemperature = factorInTemperature)?.pressure,
                 originalReading?.value?.temperature,
                 originalReading?.value?.humidity,
-                it.pressure,
-                it.temperature,
-                it.humidity
+                it.pressure.pressure,
+                it.temperature.temperature,
+                it.humidity ?: 0f
             )
         }
 
