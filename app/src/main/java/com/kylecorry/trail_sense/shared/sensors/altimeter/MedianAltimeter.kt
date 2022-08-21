@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.sol.math.filters.MedianFilter
 
-class MedianAltimeter(val altimeter: IAltimeter, private val samples: Int = 5) :
+class MedianAltimeter(val altimeter: IAltimeter, private val samples: Int = 3) :
     AbstractSensor(), IAltimeter {
 
     private val filter = MedianFilter(samples)
