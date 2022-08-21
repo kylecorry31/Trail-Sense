@@ -94,7 +94,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         val color = destination.color
         push()
         fill(color)
-        opacity(100)
+
+        // To end of compass
+        opacity(if (_highlightedLocation != null) 25 else 100)
         val dp2 = dp(2f)
         arc(
             iconSize.toFloat() + dp2,
@@ -105,6 +107,24 @@ class RadarCompassView : BaseCompassView, IMapView {
             azimuth.value - 90 + deltaAngle(azimuth.value, destination.bearing.value),
             ArcMode.Pie
         )
+
+        // To highlighted location
+        _highlightedLocation?.let {
+            val pixel = toPixel(it.coordinate)
+            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
+            opacity(75)
+            arc(
+                centerPixel.x - size / 2f,
+                centerPixel.y - size / 2f,
+                size,
+                size,
+                azimuth.value - 90,
+                azimuth.value - 90 + deltaAngle(azimuth.value, destination.bearing.value),
+                ArcMode.Pie
+            )
+        }
+
+
         opacity(255)
         pop()
         drawReferencePoint(
