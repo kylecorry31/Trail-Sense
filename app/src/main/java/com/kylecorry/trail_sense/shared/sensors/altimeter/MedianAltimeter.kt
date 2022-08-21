@@ -29,6 +29,9 @@ class MedianAltimeter(val altimeter: IAltimeter, private val samples: Int = 5) :
     private fun onReading(): Boolean {
         count++
         altitude = filter.filter(altimeter.altitude)
+        if (hasValidReading){
+            notifyListeners()
+        }
         return true
     }
 }
