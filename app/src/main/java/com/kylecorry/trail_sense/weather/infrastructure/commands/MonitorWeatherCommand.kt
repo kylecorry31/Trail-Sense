@@ -6,9 +6,10 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.altimeter.MedianAltimeter
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
@@ -17,7 +18,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
     CoroutineCommand {
 
     private val sensorService by lazy { SensorService(context) }
-    private val altimeter by lazy { sensorService.getGPSAltimeter(background) }
+    private val altimeter by lazy { MedianAltimeter(sensorService.getGPSAltimeter(background)) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
@@ -69,7 +70,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
         if (barometer.pressure == 0f) {
             return
         }
-        withContext(Dispatchers.IO) {
+        onIO {
             repo.add(
                 Reading(
                     RawWeatherObservation(
@@ -77,7 +78,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
                         barometer.pressure,
                         altimeter.altitude,
                         if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
-                        if (altimeter is IGPS) ((altimeter as IGPS).verticalAccuracy ?: 0f) else 0f,
+                        if (altimeter.altimeter is IGPS) ((altimeter.altimeter as IGPS).verticalAccuracy ?: 0f) else 0f,
                         hygrometer.humidity,
                     ),
                     Instant.now()

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -10,7 +9,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.MedianAltimeter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ class BacktrackCommand(private val context: Context, private val pathId: Long = 
 
     private val sensorService = SensorService(context)
     private val gps = sensorService.getGPS()
-    private val altimeter = sensorService.getAltimeter()
+    private val altimeter = MedianAltimeter(sensorService.getAltimeter())
     private val cellSignalSensor =
         if (prefs.backtrackSaveCellHistory && pathId == 0L) sensorService.getCellSignal() else NullCellSignalSensor()
 
@@ -44,9 +43,7 @@ class BacktrackCommand(private val context: Context, private val pathId: Long = 
                     val jobs = mutableListOf<Job>()
                     jobs.add(launch { gps.read() })
 
-                    if (shouldReadAltimeter()) {
-                        jobs.add(launch { altimeter.read() })
-                    }
+                    jobs.add(launch { altimeter.read() })
 
                     jobs.add(launch { cellSignalSensor.read() })
 
@@ -60,9 +57,6 @@ class BacktrackCommand(private val context: Context, private val pathId: Long = 
         }
     }
 
-    private fun shouldReadAltimeter(): Boolean {
-        return altimeter !is IGPS && altimeter !is FusedAltimeter
-    }
 
     private suspend fun recordWaypoint(): PathPoint {
         return onIO {
@@ -70,7 +64,7 @@ class BacktrackCommand(private val context: Context, private val pathId: Long = 
                 0,
                 pathId,
                 gps.location,
-                if (shouldReadAltimeter() && altimeter.altitude != 0f) altimeter.altitude else gps.altitude,
+                altimeter.altitude,
                 Instant.now(),
                 cellSignalSensor.networkQuality()
             )
