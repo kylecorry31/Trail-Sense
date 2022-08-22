@@ -37,7 +37,7 @@
     <string name="clinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="tool_clinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
     <string name="clinometer_title">Sklonoměr</string>
-    <string name="offline_maps">Offline mapy</string>
+    <string name="offline_maps">Offline Mapy</string>
     <string name="moon_illumination">Osvětlení Měsíce</string>
     <string name="moon_phase">Měsíční fáze</string>
     <string name="lunar_noon">Měsíční poledne</string>
@@ -92,12 +92,12 @@
     <string name="eta">~ %s daleko</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Svítilna</string>
-    <string name="accuracy_info">"GPS: Jděte ven, kde budete mít nerušený výhled na oblohu.
+    <string name="accuracy_info">"GPS: Vyjděte ven, kde budete mít nerušený výhled na oblohu.
 \n    %s od skutečné polohy
-\n    %s od skutečné výšky
+\n    %s od skutečného převýšení
 \n    %s satelitů
 \n
-\nKompas: Otáčejte zařízením ve tvaru osmičky nebo všemi směry a odejděte od kovovových předmětů."</string>
+\nKompas: Otáčejte zařízením ve tvaru osmičky nebo všemi směry a vzdalte se od kovových předmětů."</string>
     <string name="accuracy_info_title">Tipy na zlepšení přesnosti dat ze senzorů</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
@@ -131,7 +131,7 @@
     <string name="weather">Počasí</string>
     <string name="pref_altimeter_calibration_title">Výškoměr</string>
     <string name="pref_ruler_calibration_summary">Pravidla kalibrace:
-\n- Nastavte tuto hodnutu na 1.
+\n- Nastavte tuto hodnotu na 1.
 \n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
 \n- Zadejte změřenou hodnotu zde.</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
@@ -966,7 +966,7 @@
     <string name="line_style">Styl čáry</string>
     <string name="most_recent">Nejnovější</string>
     <string name="saving">Ukládání</string>
-    <string name="map_projection_mercator">Mercator</string>
+    <string name="map_projection_mercator">Mercatorova</string>
     <string name="gps_unavailable">GPS není k dispozici</string>
     <string name="result_deleted">Výsledek odstraněn</string>
     <string name="qr_text_too_long">Text je příliš dlouhý, QR kód byl zkrácen</string>
@@ -1075,4 +1075,6 @@
     <string name="updating_weather">Aktualizace informací o počasí</string>
     <string name="path_slope_moderate">Mírný</string>
     <string name="path_slope_steep">Strmý</string>
+    <string name="camera_unavailable">Fotoaparát není k dispozici</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Kalibrace hladiny moře V2</string>
 </resources>
