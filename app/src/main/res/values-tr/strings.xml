@@ -268,7 +268,7 @@
     <string name="beacon_create">Oluştur</string>
     <string name="tool_user_guide_summary">Trail Sense için kullanım kılavuzu</string>
     <string name="tool_user_guide_title">Kullanım Kılavuzu</string>
-    <string name="error_occurred_message">Trail Sense bir hatayla karşılaştı ve kapanacak. Bu sorunun düzeltilmesi için geliştiriciye lütfen e-posta gönderin.</string>
+    <string name="error_occurred_message">Trail Sense bir hatayla karşılaştı. Bu sorunun düzeltilmesi için lütfen geliştiriciye e-posta gönderin.</string>
     <string name="error_occurred">Bir hata yaşandı</string>
     <string name="continue_button">DEVAM ET</string>
     <string name="pref_email_title">Geliştiriciye e-mail yolla</string>
