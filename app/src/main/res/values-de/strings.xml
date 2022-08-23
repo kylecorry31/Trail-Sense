@@ -1054,4 +1054,15 @@
     <string name="cumulonimbus_weather">Sehr bald Gewitter</string>
     <string name="cirrocumulus_weather">Könnte bald kälteres Wetter bedeuten.</string>
     <string name="cirrostratus_weather">Könnte Niederschlag in den nächsten 12 bis 24 Stunden bedeuten</string>
+    <string name="descent">Abstieg</string>
+    <string name="ascent">Anstieg</string>
+    <string name="lowest_point_elevation">Niedrigster Punkt</string>
+    <string name="highest_point_elevation">Höchster Punkt</string>
+    <string name="path_slope_moderate">Mittel</string>
+    <string name="path_slope_steep">Steil</string>
+    <string name="path_slope">Piste</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Kalibrierung der Seehöhe V2</string>
+    <string name="updating_weather">Wetter wird aktualisiert</string>
+    <string name="path_slope_flat">Flach</string>
+    <string name="camera_unavailable">Kamera nicht verfügbar</string>
 </resources>
