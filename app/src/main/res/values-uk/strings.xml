@@ -220,7 +220,7 @@
     <string name="delete_beacon_group_message">%s і все його маячки будуть видалені.</string>
     <string name="tool_user_guide_summary">Посібник із використання Trail Sense</string>
     <string name="tool_user_guide_title">Посібник користувача</string>
-    <string name="error_occurred_message">Trail Sense зупинився з помилкою і буде закритий. Зв\'яжіться з розробником для зворотного зв\'язку.</string>
+    <string name="error_occurred_message">Trail Sense зупинився з помилкою. Зв\'яжіться з розробником для зворотного зв\'язку.</string>
     <string name="error_occurred">Сталася помилка</string>
     <string name="continue_button">ДАЛІ</string>
     <string name="pref_email_title">Написати лист розробникові</string>
@@ -1086,4 +1086,5 @@
     <string name="pref_show_path_slope_title">Показати нахил шляху</string>
     <string name="pref_show_path_slope_summary">На графіку висот</string>
     <string name="camera_unavailable">Камера недоступна</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Калібрування рівня моря V2</string>
 </resources>
