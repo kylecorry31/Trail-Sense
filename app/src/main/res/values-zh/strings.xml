@@ -261,7 +261,7 @@
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
     <string name="tool_user_guide_title">用户指南</string>
-    <string name="error_occurred_message">Trail Sense 遇到了一个错误将关闭。请给开发者发邮件以修复这个问题。</string>
+    <string name="error_occurred_message">Trail Sense 遇到了一个错误。请给开发者发邮件以修复这个问题。</string>
     <string name="error_occurred">发生一个错误</string>
     <string name="pref_email_title">给开发者发邮件</string>
     <string name="pref_github_title">GitHub</string>
