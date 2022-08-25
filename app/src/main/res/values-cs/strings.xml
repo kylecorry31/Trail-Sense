@@ -239,7 +239,7 @@
     <string name="pref_email_title">Napsat e-mail vývojáři</string>
     <string name="continue_button">POKRAČOVAT</string>
     <string name="error_occurred">Došlo k chybě</string>
-    <string name="error_occurred_message">Trail Sense narazil na chybu a zavře se. Zašlete vývojáři e-mail, aby tento problém vyřešil.</string>
+    <string name="error_occurred_message">Trail Sense narazil na chybu. Zašlete prosím vývojáři e-mail, aby tento problém vyřešil.</string>
     <string name="tool_user_guide_title">Uživatelská příručka</string>
     <string name="tool_user_guide_summary">Průvodce používáním aplikace Trail Sense</string>
     <string name="delete_beacon_group_message">%s a všechny jeho majáky budou odstraněny.</string>
