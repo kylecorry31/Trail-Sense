@@ -84,7 +84,7 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
         AppCompatDelegate.setDefaultNightMode(mode)
-        if (userPrefs.useDynamicColors) DynamicColors.applyIfAvailable(this)
+        if (userPrefs.useDynamicColors) DynamicColors.applyToActivityIfAvailable(this)
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
