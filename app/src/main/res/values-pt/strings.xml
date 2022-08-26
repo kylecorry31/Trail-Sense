@@ -213,7 +213,7 @@
     <string name="delete_beacon_group_message">%s e todos os alfinetes pertencentes serão eliminados.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
     <string name="tool_user_guide_title">Guia do utilizador</string>
-    <string name="error_occurred_message">Surgiu um erro no Trail Sense por isso será fechado. Por favor envie um e-mail ao programador para corrigir este problema.</string>
+    <string name="error_occurred_message">Surgiu um erro no Trail Sense. Por favor envie um e-mail ao programador para corrigir este problema.</string>
     <string name="error_occurred">Ocorreu um erro</string>
     <string name="pref_email_title">Enviar email ao programador</string>
     <string name="pref_github_title">GitHub</string>
@@ -345,7 +345,7 @@
     <string name="flashlight_title">Lanterna</string>
     <string name="accuracy_info">"GPS: vá para um espaço exterior sem obstáculos em redor que interfiram entre si e o céu
 \n    %s da localização atual
-\n    %s da altitude atual
+\n    %s da elevação atual
 \n    %s satélites
 \n
 \nBússola: rode o aparelho no ar em movimentos do número 8 ou em todas as direções e afaste-se de metais em redor."</string>
@@ -1054,4 +1054,15 @@
     <string name="nimbostratus_weather">Precipitação muito em breve</string>
     <string name="stratocumulus_weather">Pode indicar um bom tempo em breve, com uma baixa probabilidade de precipitação.</string>
     <string name="cirrus_weather">Pode indicar uma frente quente em 12 a 36 horas.</string>
+    <string name="descent">Descida</string>
+    <string name="ascent">Subida</string>
+    <string name="lowest_point_elevation">Ponto mais baixo</string>
+    <string name="path_slope_moderate">Moderado</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Calibração ao nível do mar V2</string>
+    <string name="updating_weather">A atualizar a previsão</string>
+    <string name="path_slope_flat">Plano</string>
+    <string name="path_slope_steep">Íngreme</string>
+    <string name="path_slope">Declive</string>
+    <string name="highest_point_elevation">Ponto mais alto</string>
+    <string name="camera_unavailable">Câmara não disponível</string>
 </resources>
