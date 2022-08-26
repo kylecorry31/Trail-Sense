@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.main
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.CurrentApp
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.files.LocalFiles
@@ -11,10 +12,19 @@ import com.kylecorry.trail_sense.shared.errors.MainBugReportGenerator
 
 object ExceptionHandler {
 
+    private var hasException: Boolean = false
+
     fun initialize(activity: MainActivity) {
+        hasException = LocalFiles.getFile(activity, FILENAME, create = false).exists()
         Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
             recordException(activity, throwable)
-            restart(activity)
+            if (!hasException) {
+                tryOrLog {
+                    CurrentApp.restart(activity)
+                }
+            } else {
+                CurrentApp.kill()
+            }
         }
         handleLastException(activity)
     }
@@ -33,6 +43,7 @@ object ExceptionHandler {
             context.getString(R.string.error_occurred_message),
             okText = context.getString(R.string.pref_email_title)
         ) { cancelled ->
+            hasException = false
             if (!cancelled) {
                 val intent = Intents.email(
                     context.getString(R.string.email),
