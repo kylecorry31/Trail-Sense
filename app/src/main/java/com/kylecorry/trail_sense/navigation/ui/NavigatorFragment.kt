@@ -8,7 +8,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -72,7 +71,6 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
@@ -120,6 +118,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var destinationBearing: Float? = null
     private var useTrueNorth = false
 
+    private var hasAstronomyData = false
     private var isMoonUp = true
     private var isSunUp = true
     private var moonBearing = 0f
@@ -431,6 +430,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateTides()
 
         onDefault {
+            hasAstronomyData = true
             isMoonUp = astronomyService.isMoonUp(gps.location)
             isSunUp = astronomyService.isSunUp(gps.location)
             sunBearing = getSunBearing()
@@ -450,7 +450,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun getReferencePoints(): List<IMappableReferencePoint> {
         val references = mutableListOf<IMappableReferencePoint>()
-        if (userPrefs.astronomy.showOnCompass) {
+        if (userPrefs.astronomy.showOnCompass && hasAstronomyData) {
             val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
 
             if (isSunUp) {
