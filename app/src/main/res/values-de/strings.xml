@@ -198,7 +198,7 @@
     <string name="beacon_create_beacon">Wegpunkt</string>
     <string name="beacon_create">Erstellen</string>
     <string name="delete_beacon_group_message">%s und alle Wegpunkte werden gelöscht.</string>
-    <string name="error_occurred_message">Trail Sense wird geschlossen, weil ein Fehler aufgetreten ist. Bitte senden Sie eine E-Mail an den Entwickler um den Fehler zu beheben.</string>
+    <string name="error_occurred_message">Ein Fehler ist aufgetreten. Bitte senden Sie eine E-Mail an den Entwickler um den Fehler zu beheben.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
     <string name="access_background_location_rationale">Erlauben Sie Trail Sense jederzeit den Zugriff auf Ihre Ortsdaten. Diese werden zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor und zum Anzeigen einer genaueren Sonnenuntergangsbenachrichtigung genutzt. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
