@@ -15,6 +15,8 @@ import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBindin
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.domain.WaterService
@@ -98,19 +100,27 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
     }
 
     private fun start() {
-        stop()
-        val duration = duration ?: return
-        cache.putInstant(
-            WATER_PURIFICATION_END_TIME_KEY,
-            Instant.now().plus(duration)
-        )
-        WaterPurificationTimerService.start(requireContext(), duration.seconds)
+        stop(updateUI = false)
+        inBackground {
+            val duration = duration ?: getSelectedDuration()
+            onIO {
+                cache.putInstant(
+                    WATER_PURIFICATION_END_TIME_KEY,
+                    Instant.now().plus(duration)
+                )
+            }
+            onMain {
+                WaterPurificationTimerService.start(requireContext(), duration.seconds)
+            }
+        }
     }
 
-    private fun stop() {
+    private fun stop(updateUI: Boolean = true) {
         cache.remove(WATER_PURIFICATION_END_TIME_KEY)
         WaterPurificationTimerService.stop(requireContext())
-        updateSelectedDuration()
+        if (updateUI) {
+            updateSelectedDuration()
+        }
     }
 
     private fun updateSelectedDuration() {
@@ -126,8 +136,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
         }
     }
 
-    private suspend fun getSelectedDuration(): Duration {
-
+    private suspend fun getSelectedDuration(): Duration = onDefault {
         if (selectedTime == TimeSelection.Auto) {
             // Try to update the altimeter
             if (!altimeter.hasValidReading) {
@@ -138,15 +147,15 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
             // Only use altimeter if there's a valid reading
             if (altimeter.hasValidReading) {
-                return waterService.getPurificationTime(
+                return@onDefault waterService.getPurificationTime(
                     Distance(altimeter.altitude, DistanceUnits.Meters)
                 )
             }
         } else if (selectedTime == TimeSelection.LowAltitude) {
-            return Duration.ofMinutes(1)
+            return@onDefault Duration.ofMinutes(1)
         }
 
-        return Duration.ofMinutes(3)
+        Duration.ofMinutes(3)
     }
 
     private fun setBoilTime(time: Duration) {

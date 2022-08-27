@@ -85,7 +85,7 @@ class WaterPurificationTimerService : ForegroundService() {
                 )
                 Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
                 done = true
-                stopForeground(false)
+                stopService(false)
             }
 
         }.start()
