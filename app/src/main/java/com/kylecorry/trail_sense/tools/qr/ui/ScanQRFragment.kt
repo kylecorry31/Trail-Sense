@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -108,7 +109,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
     private fun createNote(text: String) {
-        runInBackground {
+        inBackground {
             val id = withContext(Dispatchers.IO) {
                 NoteRepo.getInstance(requireContext())
                     .addNote(noteQREncoder.decode(text))
@@ -140,7 +141,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private fun createBeacon(text: String) {
         val beacon = beaconQREncoder.decode(text) ?: return
-        runInBackground {
+        inBackground {
             val id = BeaconService(requireContext()).add(beacon)
             CustomUiUtils.snackbar(
                 this@ScanQRFragment,

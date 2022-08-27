@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
@@ -14,10 +14,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.domain.WaterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
-import kotlinx.coroutines.*
+import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Duration
 import java.time.Instant
 
@@ -30,7 +32,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
     private var duration: Duration? = null
     private val waterService = WaterService()
     private var selectedTime = TimeSelection.Auto
-    private var updateJob: Job? = null
+    private val runner = ControlledRunner<Unit>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -113,12 +115,13 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private fun updateSelectedDuration() {
         duration = null
-        updateJob?.cancel()
-        updateJob = lifecycleScope.launch {
-            val duration = getSelectedDuration()
+        inBackground {
+            runner.cancelPreviousThenRun {
+                val duration = getSelectedDuration()
 
-            withContext(Dispatchers.Main) {
-                setBoilTime(duration)
+                onMain {
+                    setBoilTime(duration)
+                }
             }
         }
     }

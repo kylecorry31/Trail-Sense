@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -14,12 +13,12 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackListItemMapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class PackListFragment : BoundFragment<FragmentPackListBinding>() {
@@ -69,7 +68,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             hint = getString(R.string.name)
         ) {
             if (it != null) {
-                lifecycleScope.launch {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         packRepo.addPack(pack.copy(name = it))
                     }
@@ -85,7 +84,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             pack.name
         ) { cancelled ->
             if (!cancelled) {
-                lifecycleScope.launch {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         packRepo.deletePack(pack)
                     }
@@ -110,7 +109,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             hint = getString(R.string.name)
         ) {
             if (it != null) {
-                lifecycleScope.launch {
+                inBackground {
                     val packId = withContext(Dispatchers.IO) {
                         packRepo.addPack(Pack(0, it))
                     }
@@ -132,7 +131,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             hint = getString(R.string.name)
         ) {
             if (it != null) {
-                lifecycleScope.launch {
+                inBackground {
                     val packId = withContext(Dispatchers.IO) {
                         packRepo.copyPack(oldPack, Pack(0, it))
                     }

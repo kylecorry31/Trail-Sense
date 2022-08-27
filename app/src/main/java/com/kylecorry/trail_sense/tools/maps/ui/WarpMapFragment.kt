@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
-import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.FileOutputStream
 import java.io.IOException
@@ -57,13 +56,13 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
         }
 
         binding.nextButton.setOnClickListener {
-            lifecycleScope.launch {
+            inBackground {
                 next()
             }
         }
 
         binding.nextButton.isInvisible = true
-        lifecycleScope.launch {
+        inBackground {
             withContext(Dispatchers.IO) {
                 map = mapRepo.getMap(mapId)
             }

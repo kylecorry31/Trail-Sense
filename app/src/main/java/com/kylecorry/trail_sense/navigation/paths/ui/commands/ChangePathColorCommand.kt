@@ -4,12 +4,11 @@ import android.content.Context
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
@@ -26,7 +25,7 @@ class ChangePathColorCommand(
             context.getString(R.string.path_color)
         ) {
             if (it != null) {
-                lifecycleScope.launch {
+                lifecycleScope.launchWhenResumed {
                     withContext(Dispatchers.IO) {
                         pathService.addPath(path.copy(style = path.style.copy(color = it.color)))
                     }

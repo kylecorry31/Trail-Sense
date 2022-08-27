@@ -15,16 +15,15 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.core.view.isInvisible
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.Files
-import kotlinx.coroutines.launch
 
 
 class PhotoImportBottomSheetFragment(
@@ -50,7 +49,7 @@ class PhotoImportBottomSheetFragment(
 
         binding.captureButton.setOnClickListener {
             binding.captureButton.isInvisible = true
-            lifecycleScope.launch {
+            inBackground {
                 val file = Files.createTempFile(requireContext(), "jpg")
                 val success = onIO {
                     binding.camera.capture(file)

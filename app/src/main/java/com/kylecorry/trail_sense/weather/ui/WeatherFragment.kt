@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
@@ -169,7 +170,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     }
 
     private fun updateWeather() {
-        runInBackground {
+        inBackground {
             onIO {
                 history = weatherSubsystem.getHistory().filter {
                     Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
@@ -192,7 +193,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         displayPressure(observation.pressure)
         displayTemperature(observation.temperature)
         observation.humidity?.let { displayHumidity(it) }
-        runInBackground {
+        inBackground {
             updateForecast()
         }
     }

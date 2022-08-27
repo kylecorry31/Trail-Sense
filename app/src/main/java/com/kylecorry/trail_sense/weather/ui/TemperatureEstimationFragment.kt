@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -18,8 +17,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.views.*
+import com.kylecorry.trail_sense.shared.views.UnitInputView
 import kotlinx.coroutines.*
 import java.time.Duration
 import kotlin.math.roundToInt
@@ -110,7 +110,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private fun autofill() {
-        lifecycleScope.launch {
+        inBackground {
             withContext(Dispatchers.Main) {
                 binding.tempEstAutofill.isVisible = false
                 binding.tempEstLoading.isVisible = true

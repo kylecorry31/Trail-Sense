@@ -9,13 +9,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.domain.PackService
@@ -51,7 +51,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        runInBackground {
+        inBackground {
             withContext(Dispatchers.IO) {
                 loadPack(packId)
             }
@@ -117,7 +117,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                             getString(R.string.action_inventory_clear_confirm)
                         ) { cancelled ->
                             if (!cancelled) {
-                                runInBackground {
+                                inBackground {
                                     withContext(Dispatchers.IO) {
                                         itemRepo.clearPackedAmounts(packId)
                                     }
@@ -145,7 +145,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             hint = getString(R.string.name)
         ) {
             if (it != null) {
-                runInBackground {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         itemRepo.addPack(pack.copy(name = it))
                     }
@@ -164,7 +164,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             pack.name
         ) { cancelled ->
             if (!cancelled) {
-                runInBackground {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         itemRepo.deletePack(pack)
                     }
@@ -189,7 +189,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun deleteItem(item: PackItem) {
-        runInBackground {
+        inBackground {
             withContext(Dispatchers.IO) {
                 itemRepo.deleteItem(item)
             }
@@ -242,7 +242,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun addAmount(item: PackItem, amount: Double) {
-        runInBackground {
+        inBackground {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
                     item.copy(amount = max(0.0, item.amount + amount))
@@ -252,7 +252,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun setAmount(item: PackItem, amount: Double) {
-        runInBackground {
+        inBackground {
             withContext(Dispatchers.IO) {
                 itemRepo.addItem(
                     item.copy(amount = amount)

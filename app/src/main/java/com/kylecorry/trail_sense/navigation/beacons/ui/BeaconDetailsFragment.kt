@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.topics.asLiveData
@@ -20,9 +19,9 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
@@ -41,7 +40,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
     }
 
     private fun loadBeacon(id: Long) {
-        lifecycleScope.launch {
+        inBackground {
             withContext(Dispatchers.IO) {
                 beacon = beaconRepo.getBeacon(id)?.toBeacon()
             }
@@ -97,7 +96,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                                         name
                                     ) { cancelled ->
                                         if (!cancelled) {
-                                            runInBackground {
+                                            inBackground {
                                                 withContext(Dispatchers.IO) {
                                                     beaconRepo.deleteBeacon(BeaconEntity.from(this@apply))
                                                 }

@@ -14,3 +14,4 @@
 .cxx
 *.apk
 .idea/deploymentTargetDropDown.xml
+.idea/misc.xml

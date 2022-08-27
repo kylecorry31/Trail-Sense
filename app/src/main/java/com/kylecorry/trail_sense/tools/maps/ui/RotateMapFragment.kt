@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
-import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
@@ -47,13 +46,13 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
         }
 
         binding.nextButton.setOnClickListener {
-            lifecycleScope.launch {
+            inBackground {
                 next()
             }
         }
 
         binding.nextButton.isInvisible = true
-        lifecycleScope.launch {
+        inBackground {
             withContext(Dispatchers.IO) {
                 map = mapRepo.getMap(mapId)
             }

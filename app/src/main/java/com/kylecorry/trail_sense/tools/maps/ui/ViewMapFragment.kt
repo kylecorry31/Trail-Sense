@@ -10,10 +10,10 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.GeologyService
@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -153,7 +154,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         pathService.getLivePaths().observe(viewLifecycleOwner) {
             paths = it.filter { path -> path.style.visible }
-            runInBackground {
+            inBackground {
                 withContext(Dispatchers.IO) {
                     currentBacktrackPathId = pathService.getBacktrackPathId()
                     pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
@@ -176,7 +177,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 }
                 binding.mapCalibrationBottomPanel.isVisible = false
                 binding.map.hideCalibrationPoints()
-                lifecycleScope.launch {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         map?.let {
                             val updated = mapRepo.getMap(it.id)!!.copy(calibrationPoints = it.calibrationPoints)
@@ -283,7 +284,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         val dest = cache.getLong(NavigatorFragment.LAST_BEACON_ID)
         if (dest != null) {
-            lifecycleScope.launch {
+            inBackground {
                 val beacon = withContext(Dispatchers.IO) {
                     beaconRepo.getBeacon(dest)?.toBeacon()
                 }
@@ -302,7 +303,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     fun reloadMap() {
-        runInBackground {
+        inBackground {
             withContext(Dispatchers.IO) {
                 map = mapRepo.getMap(mapId)
             }
@@ -472,8 +473,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         calibrationPoint2Percent = second?.imageLocation
     }
 
-    private fun updateTides() = runInBackground {
-        val context = context ?: return@runInBackground
+    private fun updateTides() = inBackground {
+        val context = context ?: return@inBackground
         // TODO: Limit to nearby tides
         val tables = LoadAllTideTablesCommand(context).execute()
         val currentTideCommand = CurrentTideTypeCommand(TideService())

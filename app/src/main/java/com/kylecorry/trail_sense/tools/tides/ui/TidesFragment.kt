@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
@@ -49,7 +50,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private val loadTideCommand by lazy { LoadTideTableCommand(requireContext()) }
 
     private var currentRefreshTimer = Timer {
-        runInBackground { refreshCurrent() }
+        inBackground { refreshCurrent() }
     }
 
     override fun generateBinding(
@@ -83,7 +84,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             ?: if (tide.location != null) formatService.formatLocation(tide.location) else getString(
                 android.R.string.untitled
             )
-        runInBackground {
+        inBackground {
             refreshDaily()
             refreshCurrent()
         }
@@ -91,7 +92,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     private fun onDisplayDateChanged() {
         if (!isBound) return
-        runInBackground {
+        inBackground {
             refreshDaily()
         }
     }
@@ -154,7 +155,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         if (!isBound) return
         binding.loading.isVisible = true
         binding.tideList.setItems(emptyList())
-        runInBackground {
+        inBackground {
             table = loadTideCommand.execute()
             onMain {
                 if (isBound) {

@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.flatten
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -195,7 +196,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         tides.clear()
         if (editingId != 0L) {
-            runInBackground {
+            inBackground {
                 withContext(Dispatchers.IO) {
                     editingTide = tideRepo.getTideTable(editingId)
                 }
@@ -221,7 +222,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.createTideTitle.rightQuickAction.setOnClickListener {
             val tide = getTide()
             if (tide != null) {
-                runInBackground {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         tideRepo.addTideTable(tide)
                     }

@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCameraInputBinding
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
@@ -38,7 +39,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         }
 
         binding.upload.setOnClickListener {
-            runInBackground {
+            inBackground {
                 val uri = uriPicker.open(listOf("image/*"))
                 uri?.let {
                     onIO {

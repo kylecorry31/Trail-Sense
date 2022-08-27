@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
@@ -24,11 +23,11 @@ import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
@@ -78,7 +77,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         weatherSubsystem.weatherChanged.asLiveData().observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
+            inBackground {
                 history = runner.cancelPreviousThenRun {
                     weatherSubsystem.getHistory()
                 }

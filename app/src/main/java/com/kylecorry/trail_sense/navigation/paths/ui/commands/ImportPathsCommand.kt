@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ImportService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
@@ -26,8 +25,8 @@ class ImportPathsCommand(
 ) {
 
     fun execute(parentId: Long?) {
-        lifecycleScope.launch {
-            val gpx = gpxService.import() ?: return@launch
+        lifecycleScope.launchWhenResumed {
+            val gpx = gpxService.import() ?: return@launchWhenResumed
             val style = prefs.defaultPathStyle
             val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
             for (track in gpx.tracks) {
@@ -52,7 +51,7 @@ class ImportPathsCommand(
                     List(paths.size) { it }
                 ) {
                     if (it != null) {
-                        lifecycleScope.launch {
+                        lifecycleScope.launchWhenResumed {
                             val loading = withContext(Dispatchers.Main) {
                                 Alerts.loading(context, context.getString(R.string.importing))
                             }

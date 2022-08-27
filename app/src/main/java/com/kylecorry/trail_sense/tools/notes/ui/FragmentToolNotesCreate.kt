@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
@@ -41,12 +44,12 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
             val note = existingNote?.copy(title = title, contents = content)
                 ?.apply { id = existingNote.id }
                 ?: Note(title, content, Instant.now().toEpochMilli())
-            runInBackground {
-                withContext(Dispatchers.IO) {
+            inBackground {
+                onIO {
                     notesRepo.addNote(note)
                 }
 
-                withContext(Dispatchers.Main) {
+                onMain {
                     findNavController().navigateUp()
                 }
             }
@@ -75,7 +78,7 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
 
 
     private fun loadEditingNote(id: Long) {
-        runInBackground {
+        inBackground {
             withContext(Dispatchers.IO) {
                 editingNote = notesRepo.getNote(id)
             }

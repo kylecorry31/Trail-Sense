@@ -8,7 +8,6 @@ import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
@@ -26,7 +25,7 @@ class RenamePathCommand(
             hint = context.getString(R.string.name)
         ) {
             if (it != null) {
-                lifecycleScope.launch {
+                lifecycleScope.launchWhenResumed {
                     withContext(Dispatchers.IO) {
                         pathService.addPath(path.copy(name = it.ifBlank { null }))
                     }

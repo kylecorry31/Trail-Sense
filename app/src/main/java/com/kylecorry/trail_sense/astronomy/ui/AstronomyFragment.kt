@@ -22,7 +22,6 @@ import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstroPositions
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyEvent
@@ -34,11 +33,13 @@ import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
 import com.kylecorry.trail_sense.astronomy.ui.fields.providers.*
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.quickactions.AstronomyQuickActionBinder
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -79,8 +80,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val maxProgress = 60 * 24
 
     private var gpsErrorShown = false
-
-    private var uiUpdateJob: Job? = null
 
     private val intervalometer = Timer {
         updateUI()
@@ -278,9 +277,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onPause() {
         super.onPause()
-        tryOrNothing {
-            uiUpdateJob?.cancel()
-        }
         gps.stop(this::onLocationUpdate)
         intervalometer.stop()
         gpsErrorShown = false
@@ -307,7 +303,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         if (!isBound) {
             return
         }
-        uiUpdateJob = runInBackground {
+        inBackground {
             withContext(Dispatchers.Main) {
                 detectAndShowGPSError()
             }

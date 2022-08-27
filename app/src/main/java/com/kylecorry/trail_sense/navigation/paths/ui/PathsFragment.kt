@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -301,7 +302,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun createPath() {
         val command = CreatePathCommand(requireContext(), pathService, prefs.navigation)
-        runInBackground {
+        inBackground {
             command.execute(manager.root?.id)?.let {
                 showPath(it)
             }
@@ -311,7 +312,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     // Groups
     private fun deleteGroup(group: PathGroup) {
         val command = DeletePathGroupGroupCommand(requireContext(), pathService)
-        runInBackground {
+        inBackground {
             command.execute(group)
             manager.refresh()
         }
@@ -319,7 +320,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun renameGroup(group: PathGroup) {
         val command = RenamePathGroupGroupCommand(requireContext(), pathService)
-        runInBackground {
+        inBackground {
             command.execute(group)
             manager.refresh()
         }
@@ -327,7 +328,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun createGroup() {
         val command = CreatePathGroupCommand(requireContext(), pathService)
-        runInBackground {
+        inBackground {
             command.execute(manager.root?.id)
             manager.refresh()
         }
@@ -335,7 +336,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun movePath(path: IPath) {
         val command = MoveIPathCommand(requireContext(), pathService)
-        runInBackground {
+        inBackground {
             val newGroup = command.execute(path)
             if (newGroup?.id != path.parentId) {
                 toast(getString(R.string.moved_to, newGroup?.name ?: getString(R.string.no_group)))

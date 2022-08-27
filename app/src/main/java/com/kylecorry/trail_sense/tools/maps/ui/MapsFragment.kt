@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -15,6 +14,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
@@ -55,7 +54,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
         binding.recenterBtn.isVisible = false
 
-        lifecycleScope.launch {
+        inBackground {
             loadMap()
         }
 
@@ -99,7 +98,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                         ) { name ->
                             if (name != null) {
                                 binding.mapName.text = name
-                                runInBackground {
+                                inBackground {
                                     onIO {
                                         map?.let {
                                             val updated = mapRepo.getMap(it.id)!!.copy(name = name)
@@ -123,7 +122,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             if (it != null) {
                                 map?.let { m ->
                                     val newProjection = projections[it]
-                                    runInBackground {
+                                    inBackground {
                                         withContext(Dispatchers.IO) {
                                             val updated = mapRepo.getMap(m.id)!!
                                             mapService.setProjection(updated, newProjection)
@@ -152,7 +151,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             map?.name,
                         ) { cancelled ->
                             if (!cancelled) {
-                                lifecycleScope.launch {
+                                inBackground {
                                     withContext(Dispatchers.IO) {
                                         map?.let {
                                             mapRepo.deleteMap(it)
@@ -196,7 +195,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     arguments = bundleOf("mapId" to mapId)
                 }.also {
                     it.setOnCompleteListener {
-                        lifecycleScope.launch {
+                        inBackground {
                             loadMap()
                         }
                     }
@@ -207,7 +206,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     arguments = bundleOf("mapId" to mapId)
                 }.also {
                     it.setOnCompleteListener {
-                        lifecycleScope.launch {
+                        inBackground {
                             loadMap()
                         }
                     }

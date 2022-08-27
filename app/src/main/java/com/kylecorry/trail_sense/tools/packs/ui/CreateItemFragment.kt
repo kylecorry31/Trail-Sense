@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.toDoubleCompat
@@ -14,13 +13,13 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.ItemCategoryStringMapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
@@ -52,7 +51,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             val weight = binding.itemWeightInput.value
 
             if (name != null) {
-                lifecycleScope.launch {
+                inBackground {
                     withContext(Dispatchers.IO) {
                         itemRepo.addItem(
                             PackItem(
@@ -96,7 +95,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
     }
 
     private fun loadEditingItem(id: Long) {
-        lifecycleScope.launch {
+        inBackground {
             withContext(Dispatchers.IO) {
                 editingItem = itemRepo.getItem(id)
             }

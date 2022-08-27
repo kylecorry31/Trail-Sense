@@ -14,6 +14,9 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudScanBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.AMTCloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.CloudPixelClassifier
@@ -133,12 +136,12 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
             return
         }
         val thresholdCalculator = NRBRSkyThresholdCalculator()
-        runInBackground {
+        inBackground {
             val threshold = withContext(Dispatchers.Default) {
                 thresholdCalculator.getThreshold(image)
             }
 
-            withContext(Dispatchers.Main) {
+            onMain {
                 if (isBound) {
                     binding.thresholdSeek.progress = threshold
                 }
@@ -151,7 +154,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         if (!isBound) {
             return
         }
-        runInBackground {
+        inBackground {
             runner.cancelPreviousThenRun {
                 val cloudColor = Color.WHITE
                 val obstacleColor = AppColor.Red.color
@@ -164,12 +167,12 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 val mask = OverlayCloudMask(pixelClassifier, cloudColor, skyColor, obstacleColor)
                 val classifier = AMTCloudClassifier(pixelClassifier)
 
-                clouds = withContext(Dispatchers.IO) {
+                clouds = onIO {
                     mask.mask(image, clouds)
                 }
-                
+
                 if (isBound) {
-                    withContext(Dispatchers.Main) {
+                    onMain {
                         binding.cloudImage.invalidate()
                     }
                 }

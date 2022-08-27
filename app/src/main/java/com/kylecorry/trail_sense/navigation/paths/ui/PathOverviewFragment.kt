@@ -46,10 +46,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.extensions.onDefault
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.extensions.range
+import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -148,7 +145,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         binding.addPointBtn.setOnClickListener {
-            runInBackground {
+            inBackground {
                 binding.addPointBtn.isEnabled = false
                 BacktrackCommand(requireContext(), pathId).execute()
                 if (isBound) {
@@ -226,7 +223,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun onWaypointsChanged(waypoints: List<PathPoint>) {
-        lifecycleScope.launchWhenResumed {
+        inBackground {
             onDefault {
                 this@PathOverviewFragment.waypoints =
                     hikingService.correctElevations(waypoints.sortedByDescending { it.id })
@@ -255,7 +252,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun updateParent() {
         val path = path ?: return
-        runInBackground {
+        inBackground {
             val parent = onIO { pathService.getGroup(path.parentId) }
             if (isBound) {
                 binding.pathTitle.subtitle.text = parent?.name ?: getString(R.string.no_group)
@@ -280,7 +277,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun movePath() {
         val path = path ?: return
         val command = MoveIPathCommand(requireContext(), pathService)
-        runInBackground {
+        inBackground {
             command.execute(path)
         }
     }
@@ -594,7 +591,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         toast(getString(R.string.navigating_to_nearest_path_point))
 
-        runInBackground {
+        inBackground {
             command.execute(path, points)
         }
     }

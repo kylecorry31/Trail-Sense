@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -25,11 +24,11 @@ import com.kylecorry.trail_sense.navigation.beacons.ui.form.IsBeaconFormDataComp
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.launch
 
 class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
@@ -84,7 +83,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private fun loadExistingBeacon() {
         // TODO: Prevent interaction until loaded
         editingBeaconId?.let {
-            runInBackground {
+            inBackground {
                 val beacon = onIO {
                     beaconService.getBeacon(it)
                 }
@@ -150,13 +149,13 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         binding.beaconGroupPicker.setOnClickListener {
-            lifecycleScope.launch {
+            inBackground {
                 val result = BeaconPickers.pickGroup(
                     requireContext(),
                     initialGroup = form.data.groupId
                 )
                 if (result.first) {
-                    return@launch
+                    return@inBackground
                 }
                 form.onGroupChanged(result.second?.id)
                 updateBeaconGroupName()
@@ -215,7 +214,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private fun updateBeaconGroupName() {
         val parent = form.data.groupId
-        runInBackground {
+        inBackground {
             val name = onIO {
                 if (parent == null) {
                     getString(R.string.no_group)
@@ -255,7 +254,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private fun onSubmit() {
         val beacon = form.data.toBeacon() ?: return
-        runInBackground {
+        inBackground {
             onIO {
                 beaconService.add(beacon)
             }

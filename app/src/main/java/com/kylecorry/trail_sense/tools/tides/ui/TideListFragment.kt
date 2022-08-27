@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -60,7 +61,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
             getTideTitle(tide)
         ) { cancelled ->
             if (!cancelled) {
-                runInBackground {
+                inBackground {
                     onIO {
                         tideRepo.deleteTideTable(tide)
                     }
@@ -81,7 +82,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     }
 
     private fun toggleVisibility(tide: TideTable){
-        runInBackground {
+        inBackground {
             ToggleTideTableVisibilityCommand(requireContext()).execute(tide)
             refreshTides()
         }
@@ -111,7 +112,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     }
 
     private fun refreshTides() {
-        runInBackground {
+        inBackground {
             val tides = onIO {
                 tideRepo.getTideTables().map {
                     it to tideTypeCommand.execute(it)

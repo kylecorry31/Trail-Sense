@@ -37,10 +37,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.onBackPressed
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
+import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -204,7 +201,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun onExportBeacons() {
-        runInBackground {
+        inBackground {
             val gpx = getExportGPX()
             onMain {
                 Pickers.items(
@@ -260,7 +257,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun export(gpx: GPXData) {
-        runInBackground {
+        inBackground {
             val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
             val success = gpxService.export(gpx, exportFile)
             onMain {
@@ -283,7 +280,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun importBeacons() {
         val importer = BeaconGpxImporter(requireContext())
-        runInBackground {
+        inBackground {
             val gpx = gpxService.import()
             val waypoints = gpx?.waypoints ?: emptyList()
             onMain {
@@ -296,7 +293,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     List(waypoints.size) { it }
                 ) {
                     if (it != null) {
-                        runInBackground {
+                        inBackground {
                             val gpxToImport = GPXData(waypoints.filterIndices(it), emptyList())
                             val count = onIO {
                                 importer.import(gpxToImport, manager.root?.id)
@@ -396,7 +393,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             ),
         ) { cancelled ->
             if (!cancelled) {
-                runInBackground {
+                inBackground {
                     onIO {
                         beaconService.delete(group)
                     }
@@ -428,7 +425,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun toggleVisibility(beacon: Beacon) {
-        runInBackground {
+        inBackground {
             val newBeacon = beacon.copy(visible = !beacon.visible)
 
             onIO {

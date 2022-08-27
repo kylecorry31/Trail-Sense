@@ -59,6 +59,7 @@ import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -134,7 +135,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val loadPathRunner = ControlledRunner<Unit>()
 
     private val astronomyIntervalometer = Timer {
-        lifecycleScope.launch {
+        inBackground {
             updateAstronomyData()
         }
     }
@@ -160,7 +161,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (beaconId != 0L) {
             showCalibrationDialog()
-            lifecycleScope.launch {
+            inBackground {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
                     cache.putLong(LAST_BEACON_ID, beaconId)
@@ -205,7 +206,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         pathService.getLivePaths().observe(viewLifecycleOwner) {
             paths = it.filter { path -> path.style.visible }
-            runInBackground {
+            inBackground {
                 withContext(Dispatchers.IO) {
                     currentBacktrackPathId = pathService.getBacktrackPathId()
                     updateCompassPaths(true)
@@ -490,7 +491,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
         if (lastBeaconId != null) {
-            runInBackground {
+            inBackground {
                 withContext(Dispatchers.IO) {
                     destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
                 }
@@ -707,7 +708,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateCompassPaths(reload: Boolean = false) {
-        runInBackground {
+        inBackground {
             loadPathRunner.joinPreviousOrRun {
                 val mappablePaths = withContext(Dispatchers.IO) {
                     val loadGeofence = Geofence(
@@ -804,7 +805,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         compass.declination = getDeclination()
 
         if (sunBearing == 0f) {
-            lifecycleScope.launch {
+            inBackground {
                 updateAstronomyData()
             }
         }

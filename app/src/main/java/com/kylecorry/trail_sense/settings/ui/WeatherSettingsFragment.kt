@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -12,6 +11,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
@@ -186,7 +185,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private fun exportWeatherData() {
         val exporter = IOFactory().createCsvService(requireMainActivity())
         val repo = WeatherRepo.getInstance(requireContext())
-        lifecycleScope.launch {
+        inBackground {
             val exported = withContext(Dispatchers.IO) {
                 val readings = repo.getAll().sortedByDescending { it.time }
                 val csv = WeatherCsvConverter().toCSV(readings)

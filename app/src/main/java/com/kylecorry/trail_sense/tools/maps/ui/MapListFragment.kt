@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
@@ -28,6 +27,7 @@ import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
+import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
@@ -43,7 +43,6 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MapListFragment : BoundFragment<FragmentMapListBinding>() {
@@ -157,7 +156,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 )
                             ) {
                                 if (it != null) {
-                                    runInBackground {
+                                    inBackground {
                                         mapImportingIndicator.show()
                                         onIO {
                                             val reducer = when (it) {
@@ -187,7 +186,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 map.name
                             ) { cancelled ->
                                 if (!cancelled) {
-                                    lifecycleScope.launch {
+                                    inBackground {
                                         withContext(Dispatchers.IO) {
                                             mapRepo.deleteMap(map)
                                         }
@@ -306,7 +305,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun createMap(command: ICreateMapCommand) {
-        runInBackground {
+        inBackground {
             binding.addBtn.isEnabled = false
 
             val map = command.execute()?.copy(name = mapName)
@@ -314,7 +313,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             if (map == null) {
                 toast(getString(R.string.error_importing_map))
                 binding.addBtn.isEnabled = true
-                return@runInBackground
+                return@inBackground
             }
 
             if (mapName.isNotBlank()) {
