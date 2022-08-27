@@ -8,4 +8,5 @@ interface IBatteryRepo {
     fun get(): LiveData<List<BatteryReadingEntity>>
     suspend fun add(reading: BatteryReadingEntity)
     suspend fun deleteBefore(time: Instant)
+    fun getMaxCapacity(): Float
 }
