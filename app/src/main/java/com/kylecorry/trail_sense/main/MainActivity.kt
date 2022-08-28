@@ -14,7 +14,6 @@ import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -331,10 +330,6 @@ class MainActivity : AndromedaActivity() {
         }
 
         return null
-    }
-
-    fun getFragment(): Fragment? {
-        return supportFragmentManager.fragments.firstOrNull()?.childFragmentManager?.fragments?.firstOrNull()
     }
 
     private fun findNavController(): NavController {

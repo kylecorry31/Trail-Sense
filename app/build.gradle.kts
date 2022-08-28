@@ -89,7 +89,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:6.0.0-beta07")
 
     // Andromeda
-    val andromedaVersion = "5.0.0-beta07"
+    val andromedaVersion = "5.0.0-beta08"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -120,6 +120,7 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:battery:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:compression:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:pdf:$andromedaVersion")
+    implementation("com.github.kylecorry31.andromeda:exceptions:$andromedaVersion")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
