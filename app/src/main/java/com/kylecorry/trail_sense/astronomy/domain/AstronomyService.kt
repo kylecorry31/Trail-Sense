@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.domain
 
-import com.kylecorry.sol.science.astronomy.AstronomyService
-import com.kylecorry.sol.science.astronomy.IAstronomyService
+import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.eclipse.EclipseType
@@ -20,13 +19,11 @@ import java.time.*
  * The facade for astronomy related services
  */
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
-
-    private val newAstronomyService: IAstronomyService = AstronomyService()
-
+    
     // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
-        return newAstronomyService.getMoonPhase(ZonedDateTime.now(clock))
+        return Astronomy.getMoonPhase(ZonedDateTime.now(clock))
     }
 
     /**
@@ -34,16 +31,16 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
      */
     fun getMoonPhase(date: LocalDate): MoonPhase {
         val time = date.atTime(12, 0).toZonedDateTime()
-        return newAstronomyService.getMoonPhase(time)
+        return Astronomy.getMoonPhase(time)
     }
 
     fun isSuperMoon(date: LocalDate): Boolean {
         val time = date.atTime(12, 0).toZonedDateTime()
-        return newAstronomyService.isSuperMoon(time)
+        return Astronomy.isSuperMoon(time)
     }
 
     fun getMoonTimes(location: Coordinate, date: LocalDate): RiseSetTransitTimes {
-        return newAstronomyService.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location)
+        return Astronomy.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location)
     }
 
     fun getCenteredMoonAltitudes(
@@ -72,15 +69,15 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonAltitude(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Float {
-        return newAstronomyService.getMoonAltitude(time, location, true)
+        return Astronomy.getMoonAltitude(time, location, true)
     }
 
     fun getMoonAzimuth(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Bearing {
-        return newAstronomyService.getMoonAzimuth(time, location)
+        return Astronomy.getMoonAzimuth(time, location)
     }
 
     fun isMoonUp(location: Coordinate): Boolean {
-        return newAstronomyService.isMoonUp(ZonedDateTime.now(clock), location)
+        return Astronomy.isMoonUp(ZonedDateTime.now(clock), location)
     }
 
     // PUBLIC SUN METHODS
@@ -90,7 +87,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         sunTimesMode: SunTimesMode,
         date: LocalDate
     ): RiseSetTransitTimes {
-        return newAstronomyService.getSunEvents(
+        return Astronomy.getSunEvents(
             date.atStartOfDay().toZonedDateTime(),
             location,
             sunTimesMode
@@ -102,7 +99,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         sunTimesMode: SunTimesMode,
         date: LocalDate
     ): Duration {
-        return newAstronomyService.getDaylightLength(
+        return Astronomy.getDaylightLength(
             date.atStartOfDay().toZonedDateTime(),
             location,
             sunTimesMode
@@ -143,25 +140,25 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
-        return newAstronomyService.getNextSunset(ZonedDateTime.now(clock), location, sunTimesMode)
+        return Astronomy.getNextSunset(ZonedDateTime.now(clock), location, sunTimesMode)
             ?.toLocalDateTime()
     }
 
     fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
-        return newAstronomyService.getNextSunrise(ZonedDateTime.now(clock), location, sunTimesMode)
+        return Astronomy.getNextSunrise(ZonedDateTime.now(clock), location, sunTimesMode)
             ?.toLocalDateTime()
     }
 
     fun isSunUp(location: Coordinate): Boolean {
-        return newAstronomyService.isSunUp(ZonedDateTime.now(clock), location)
+        return Astronomy.isSunUp(ZonedDateTime.now(clock), location)
     }
 
     fun getSunAzimuth(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Bearing {
-        return newAstronomyService.getSunAzimuth(time, location)
+        return Astronomy.getSunAzimuth(time, location)
     }
 
     fun getSunAltitude(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Float {
-        return newAstronomyService.getSunAltitude(time, location, true)
+        return Astronomy.getSunAltitude(time, location, true)
     }
 
     fun getMeteorShower(
@@ -169,13 +166,13 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         date: LocalDate = LocalDate.now()
     ): MeteorShowerPeak? {
         val today = date.atTime(12, 0).toZonedDateTime()
-        val todays = newAstronomyService.getMeteorShower(location, today)
-        val tomorrows = newAstronomyService.getMeteorShower(location, today.plusDays(1))
+        val todays = Astronomy.getMeteorShower(location, today)
+        val tomorrows = Astronomy.getMeteorShower(location, today.plusDays(1))
         return todays ?: tomorrows
     }
 
     fun getMeteorShowerPeakAltitude(peak: MeteorShowerPeak, location: Coordinate): Float {
-        return newAstronomyService.getMeteorShowerAltitude(
+        return Astronomy.getMeteorShowerAltitude(
             peak.shower,
             location,
             peak.peak.toInstant()
@@ -183,7 +180,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMeteorShowerPeakAzimuth(peak: MeteorShowerPeak, location: Coordinate): Bearing {
-        return newAstronomyService.getMeteorShowerAzimuth(
+        return Astronomy.getMeteorShowerAzimuth(
             peak.shower,
             location,
             peak.peak.toInstant()
@@ -191,7 +188,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSeason(location: Coordinate, date: LocalDate = LocalDate.now()): Season {
-        return newAstronomyService.getSeason(
+        return Astronomy.getSeason(
             location,
             date.atStartOfDay(ZoneId.systemDefault())
         )
@@ -201,7 +198,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): LunarEclipse? {
-        val nextEclipse = newAstronomyService.getNextEclipse(
+        val nextEclipse = Astronomy.getNextEclipse(
             date.atStartOfDay(ZoneId.systemDefault()),
             location,
             EclipseType.PartialLunar

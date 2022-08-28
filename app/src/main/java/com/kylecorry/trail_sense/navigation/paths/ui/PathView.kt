@@ -16,7 +16,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.SolMath.wrap
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
@@ -70,7 +70,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     var pathColor = Color.BLACK
     var pathStyle = LineStyle.Dotted
-    private val geoService = GeologyService()
     private var metersPerPixel: Float = 1f
     private var center: Coordinate = Coordinate.zero
 
@@ -115,7 +114,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawMap() {
-        val bounds = geoService.getBounds(path.map { it.coordinate })
+        val bounds = Geology.getBounds(path.map { it.coordinate })
 
         distanceX = bounds.width().meters().distance
         val distanceY = bounds.height().meters().distance

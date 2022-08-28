@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.IGPS
@@ -48,7 +47,6 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.shared.views.UserError
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
@@ -152,7 +150,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     updateUI()
                 }
             }
-            true
         }
 
         gps = sensorService.getGPS()

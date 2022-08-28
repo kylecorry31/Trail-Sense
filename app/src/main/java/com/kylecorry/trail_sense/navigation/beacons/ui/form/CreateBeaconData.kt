@@ -2,8 +2,7 @@ package com.kylecorry.trail_sense.navigation.beacons.ui.form
 
 import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.sol.science.geology.GeologyService
-import com.kylecorry.sol.science.geology.IGeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
@@ -28,7 +27,6 @@ data class CreateBeaconData(
 ) {
 
     fun toBeacon(
-        geology: IGeologyService = GeologyService(),
         isComplete: Specification<CreateBeaconData> = IsBeaconFormDataComplete()
     ): Beacon? {
         if (!isComplete.isSatisfiedBy(this)) return null
@@ -36,7 +34,7 @@ data class CreateBeaconData(
         val coordinate = if (createAtDistance) {
             val distanceTo = distanceTo?.meters()?.distance?.toDouble() ?: 0.0
             val bearingTo = bearingTo ?: Bearing.from(CompassDirection.North)
-            val declination = if (!bearingIsTrueNorth) geology.getGeomagneticDeclination(
+            val declination = if (!bearingIsTrueNorth) Geology.getGeomagneticDeclination(
                 coordinate!!,
                 elevation?.meters()?.distance
             ) else 0f

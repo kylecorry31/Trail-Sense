@@ -1,10 +1,9 @@
 package com.kylecorry.trail_sense.tools.solarpanel.domain
 
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.calculus.CalculusService
+import com.kylecorry.sol.math.calculus.Calculus
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
-import com.kylecorry.sol.science.astronomy.AstronomyService
-import com.kylecorry.sol.science.astronomy.IAstronomyService
+import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.time.Time.plusHours
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -18,11 +17,8 @@ import kotlin.math.max
 import kotlin.math.min
 
 class SolarPanelService(
-    private val astronomy: IAstronomyService = AstronomyService(),
     private val timeProvider: ITimeProvider = SystemTimeProvider()
 ) {
-
-    private val calculus = CalculusService()
 
     /**
      * Gets the solar radiation in kWh / m^2
@@ -75,13 +71,13 @@ class SolarPanelService(
         dt: Duration = Duration.ofMinutes(15)
     ): Double {
         val secondsToHours = 1.0 / (60 * 60)
-        return calculus.integral(
+        return Calculus.integral(
             0.0,
             Duration.between(start, end).seconds * secondsToHours,
             dt.seconds * secondsToHours
         ) { hours ->
             val t = start.toLocalDateTime().plusHours(hours).toZonedDateTime()
-            astronomy.getSolarRadiation(t, location, tilt, bearing)
+            Astronomy.getSolarRadiation(t, location, tilt, bearing)
         }
     }
 
@@ -96,7 +92,7 @@ class SolarPanelService(
             end = start.atEndOfDay()
         }
 
-        val sunAzimuth = astronomy.getSunAzimuth(start, location).value.toDouble()
+        val sunAzimuth = Astronomy.getSunAzimuth(start, location).value.toDouble()
 
         val startAzimuth = if (location.isNorthernHemisphere) {
             // East

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.cliffheight.domain
 
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -11,9 +11,8 @@ import java.time.Instant
 class CliffHeightService {
 
     private val physics = PhysicsService()
-    private val geology = GeologyService()
 
-    private var cachedGravity = GeologyService.GRAVITY
+    private var cachedGravity = Geology.GRAVITY
     private var cachedLocation: Coordinate? = null
 
     fun getCliffHeight(start: Instant, end: Instant, location: Coordinate? = null): Distance {
@@ -26,7 +25,7 @@ class CliffHeightService {
             val gravity = if (location == cachedLocation) {
                 cachedGravity
             } else {
-                val g = geology.getGravity(location)
+                val g = Geology.getGravity(location)
                 cachedGravity = g
                 cachedLocation = location
                 g

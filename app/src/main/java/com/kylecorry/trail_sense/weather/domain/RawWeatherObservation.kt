@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain
 
-import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Temperature
@@ -15,8 +15,7 @@ data class RawWeatherObservation(
     val humidity: Float? = null
 ) : Identifiable {
     fun seaLevel(useTemperature: Boolean = true): Pressure {
-        val service = WeatherService()
-        return service.getSeaLevelPressure(
+        return Meteorology.getSeaLevelPressure(
             Pressure.hpa(pressure),
             Distance.meters(altitude),
             if (useTemperature) Temperature.celsius(temperature) else null

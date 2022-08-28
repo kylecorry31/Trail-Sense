@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -21,7 +21,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
-    private val geoService = GeologyService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -101,12 +100,12 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         // All information is available to triangulate
-        val declination1 = if (trueNorth1) 0f else geoService.getGeomagneticDeclination(location1)
-        val declination2 = if (trueNorth2) 0f else geoService.getGeomagneticDeclination(location2)
+        val declination1 = if (trueNorth1) 0f else Geology.getGeomagneticDeclination(location1)
+        val declination2 = if (trueNorth2) 0f else Geology.getGeomagneticDeclination(location2)
         val bearing1 = direction1.withDeclination(declination1)
         val bearing2 = direction2.withDeclination(declination2)
 
-        val location = geoService.triangulate(location1, bearing1, location2, bearing2)
+        val location = Geology.triangulate(location1, bearing1, location2, bearing2)
         setLocation(location)
     }
 

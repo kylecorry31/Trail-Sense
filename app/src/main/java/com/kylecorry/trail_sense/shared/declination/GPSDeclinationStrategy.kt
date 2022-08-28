@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.shared.declination
 
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.IGeologyService
 
 class GPSDeclinationStrategy(
     private val gps: IGPS,
-    private val geology: IGeologyService = GeologyService()
+    private val geology: IGeologyService = Geology
 ) : IDeclinationStrategy {
     override fun getDeclination(): Float {
         return geology.getGeomagneticDeclination(gps.location, gps.altitude)

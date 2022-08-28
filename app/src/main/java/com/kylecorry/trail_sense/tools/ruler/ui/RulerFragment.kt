@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -18,7 +18,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
-    private val geoService = GeologyService()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var scaleMode = MapScaleMode.Fractional
@@ -129,7 +128,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                 if (scaleFrom == null || scaleTo == null) {
                     null
                 } else {
-                    val mapDistance = geoService.getMapDistance(currentDistance, scaleFrom, scaleTo)
+                    val mapDistance = Geology.getMapDistance(currentDistance, scaleFrom, scaleTo)
                     formatService.formatDistance(
                         Distance(mapDistance.distance, scaleTo.units),
                         mapPrecision,
@@ -144,7 +143,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                 if (ratioFrom == null || ratioTo == null) {
                     null
                 } else {
-                    val mapDistance = geoService.getMapDistance(currentDistance, ratioFrom, ratioTo)
+                    val mapDistance = Geology.getMapDistance(currentDistance, ratioFrom, ratioTo)
                     formatService.formatDistance(
                         mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision, false
                     )

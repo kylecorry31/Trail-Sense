@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -23,7 +23,6 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.Instant
 
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
-    private val weatherService = WeatherService()
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -36,14 +35,14 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         val lightning = lightningTime
         if (lightning != null) {
             val d =
-                Distance.meters(weatherService.getLightningStrikeDistance(lightning, Instant.now()))
+                Distance.meters(Meteorology.getLightningStrikeDistance(lightning, Instant.now()))
                     .convertTo(units)
                     .toRelativeDistance()
             binding.lightningTitle.title.text = formatService.formatDistance(
                 d, Units.getDecimalPlaces(d.units),
                 false
             )
-            binding.lightningTitle.subtitle.isVisible = weatherService.isLightningStrikeDangerous(d)
+            binding.lightningTitle.subtitle.isVisible = Meteorology.isLightningStrikeDangerous(d)
         }
     }
 

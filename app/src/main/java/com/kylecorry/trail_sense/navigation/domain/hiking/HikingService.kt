@@ -1,8 +1,7 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.science.geology.GeologyService
-import com.kylecorry.sol.science.geology.IGeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -12,7 +11,7 @@ import com.kylecorry.trail_sense.shared.data.DataUtils
 import java.time.Duration
 import kotlin.math.sqrt
 
-class HikingService(private val geology: IGeologyService = GeologyService()) : IHikingService {
+class HikingService() : IHikingService {
 
     override fun getDistances(points: List<PathPoint>): List<Float> {
         if (points.isEmpty()){
@@ -47,7 +46,7 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
         val gain = getElevationGain(points).convertTo(DistanceUnits.Feet).distance
 
         val distance =
-            geology.getPathDistance(points.map { it.coordinate })
+            Geology.getPathDistance(points.map { it.coordinate })
                 .convertTo(DistanceUnits.Miles).distance
 
         val rating = sqrt(gain * 2 * distance)
@@ -83,8 +82,8 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
     override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
         val elevations =
             path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
-        val gain = geology.getElevationGain(elevations)
-        val loss = geology.getElevationLoss(elevations)
+        val gain = Geology.getElevationGain(elevations)
+        val loss = Geology.getElevationLoss(elevations)
         return loss to gain
     }
 
@@ -96,7 +95,7 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
     }
 
     private fun getSlope(a: PathPoint, b: PathPoint): Float {
-        return geology.getSlopeGrade(
+        return Geology.getSlopeGrade(
             a.coordinate, Distance.meters(a.elevation ?: 0f),
             b.coordinate, Distance.meters(b.elevation ?: 0f)
         )
@@ -109,7 +108,7 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
         val speed = pace.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed
         val gain = getElevationGain(path).meters().distance
 
-        val distance = geology.getPathDistance(path.map { it.coordinate }).meters().distance
+        val distance = Geology.getPathDistance(path.map { it.coordinate }).meters().distance
 
         val scarfs = distance + 7.92f * gain
 
@@ -128,7 +127,7 @@ class HikingService(private val geology: IGeologyService = GeologyService()) : I
     private fun getElevationGain(path: List<PathPoint>): Distance {
         val elevations =
             path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
-        return geology.getElevationGain(elevations)
+        return Geology.getElevationGain(elevations)
     }
 
 

@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
@@ -32,7 +32,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val temperatureUnits by lazy { prefs.temperatureUnits }
     private val baseUnits by lazy { prefs.baseDistanceUnits }
-    private val weatherService = WeatherService()
     private val formatService by lazy { FormatService(requireContext()) }
 
     private val intervalometer = Timer {
@@ -165,7 +164,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             return null
         }
 
-        return weatherService.getTemperatureAtElevation(baseTemp, baseElevation, destElevation)
+        return Meteorology.getTemperatureAtElevation(baseTemp, baseElevation, destElevation)
     }
 
     private fun getBaseTemperature(): Temperature? {

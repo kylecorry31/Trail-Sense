@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.weather.domain
 
-import com.kylecorry.sol.science.meteorology.*
-import com.kylecorry.sol.science.meteorology.WeatherService
+import com.kylecorry.sol.science.meteorology.Meteorology
+import com.kylecorry.sol.science.meteorology.PressureCharacteristic
+import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -15,7 +17,6 @@ class WeatherService(private val prefs: WeatherPreferences) {
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
     private val longTermForecaster = DailyForecaster(prefs.dailyForecastChangeThreshold)
-    private val newWeatherService: IWeatherService = WeatherService()
 
     fun calibrateTemperature(temp: Float): Float {
         val calibrated1 = prefs.minActualTemperature
@@ -28,7 +29,7 @@ class WeatherService(private val prefs: WeatherPreferences) {
 
     fun getHourlyWeather(readings: List<Reading<Pressure>>): Weather {
         val tendency = getTendency(readings)
-        return newWeatherService.forecast(tendency, stormThreshold)
+        return Meteorology.forecast(tendency, stormThreshold)
     }
 
     fun getDailyWeather(readings: List<Reading<Pressure>>): Weather {
@@ -48,7 +49,7 @@ class WeatherService(private val prefs: WeatherPreferences) {
             return PressureTendency(PressureCharacteristic.Steady, 0f)
         }
 
-        val tendency = newWeatherService.getTendency(
+        val tendency = Meteorology.getTendency(
             last.value.hpa(),
             current.value.hpa(),
             Duration.between(last.time, current.time),

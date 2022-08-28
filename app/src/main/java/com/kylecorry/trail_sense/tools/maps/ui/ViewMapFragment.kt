@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -16,7 +15,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -47,7 +46,6 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
 
@@ -62,7 +60,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var pathPoints: kotlin.collections.Map<Long, List<PathPoint>> = emptyMap()
     private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
-    private val geoService by lazy { GeologyService() }
     private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -137,7 +134,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
         altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
         compass.asLiveData().observe(viewLifecycleOwner) {
-            compass.declination = geoService.getGeomagneticDeclination(gps.location, gps.altitude)
+            compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.bearing
             binding.map.azimuth = bearing
             myLocationLayer.setAzimuth(bearing)

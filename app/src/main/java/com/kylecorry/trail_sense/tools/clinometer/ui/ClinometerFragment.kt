@@ -21,7 +21,7 @@ import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.sol.science.geology.AvalancheRisk
-import com.kylecorry.sol.science.geology.GeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -47,7 +47,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val sideClinometer by lazy { SideClinometer(requireContext()) }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val geology = GeologyService()
     private val markdown by lazy { MarkdownService(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
     private val feedback by lazy {
@@ -356,7 +355,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             feedback.angle = angle
         }
 
-        val avalancheRisk = geology.getAvalancheRisk(incline)
+        val avalancheRisk = Geology.getAvalancheRisk(incline)
 
         binding.clinometer.angle = angle
         binding.cameraClinometer.inclination = incline
@@ -404,7 +403,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun getSlopePercent(incline: Float): Float {
-        return geology.getSlopeGrade(incline)
+        return Geology.getSlopeGrade(incline)
     }
 
     private fun getAvalancheRiskString(risk: AvalancheRisk): String {
@@ -436,7 +435,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun getHeight(distanceAway: Distance, bottom: Float, top: Float): Distance {
-        return geology.getHeightFromInclination(
+        return Geology.getHeightFromInclination(
             distanceAway,
             bottom,
             top
@@ -444,7 +443,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun getDistance(height: Distance, bottom: Float, top: Float): Distance {
-        return geology.getDistanceFromInclination(
+        return Geology.getDistanceFromInclination(
             height,
             bottom,
             top

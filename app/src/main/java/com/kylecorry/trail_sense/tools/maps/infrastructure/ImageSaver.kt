@@ -14,6 +14,7 @@ class ImageSaver {
                 image.compress(Bitmap.CompressFormat.WEBP_LOSSY, quality, stream)
             }
         } else {
+            @Suppress("DEPRECATION")
             image.compress(Bitmap.CompressFormat.WEBP, quality, stream)
         }
     }

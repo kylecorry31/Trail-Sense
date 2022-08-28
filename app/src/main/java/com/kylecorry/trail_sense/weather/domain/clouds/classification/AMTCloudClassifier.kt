@@ -10,7 +10,7 @@ import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.GLCMService
-import com.kylecorry.sol.math.statistics.StatisticsService
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.ICloudPixelClassifier
@@ -20,8 +20,6 @@ import com.kylecorry.trail_sense.weather.domain.clouds.mask.SkyPixelClassificati
  * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
  */
 class AMTCloudClassifier(private val pixelClassifier: ICloudPixelClassifier) : ICloudClassifier {
-
-    private val statistics = StatisticsService()
 
     @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus>> {
@@ -75,10 +73,10 @@ class AMTCloudClassifier(private val pixelClassifier: ICloudPixelClassifier) : I
             blueMean /= cloudPixels
         }
 
-        val blueStdev = statistics.stdev(cloudBluePixels, mean = blueMean.toFloat())
+        val blueStdev = Statistics.stdev(cloudBluePixels, mean = blueMean.toFloat())
         val blueSkewness =
             map(
-                statistics.skewness(cloudBluePixels, blueMean.toFloat(), blueStdev),
+                Statistics.skewness(cloudBluePixels, blueMean.toFloat(), blueStdev),
                 -3f,
                 3f,
                 0f,

@@ -6,8 +6,7 @@ import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
-import com.kylecorry.sol.science.geology.GeologyService
-import com.kylecorry.sol.science.geology.IGeologyService
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.navigation.paths.domain.*
@@ -28,8 +27,7 @@ class PathService(
     private val waypointRepo: IWaypointRepo,
     private val pathPreferences: IPathPreferences,
     private val cache: Preferences,
-    private val time: ITimeProvider = SystemTimeProvider(),
-    private val geology: IGeologyService = GeologyService()
+    private val time: ITimeProvider = SystemTimeProvider()
 ) : IPathService {
 
     private val backtrackLock = Mutex()
@@ -188,7 +186,7 @@ class PathService(
             PathSimplificationQuality.High -> 2f
         }
         val filter = RDPFilter<PathPoint>(epsilon) { point, start, end ->
-            geology.getCrossTrackDistance(
+            Geology.getCrossTrackDistance(
                 point.coordinate,
                 start.coordinate,
                 end.coordinate
@@ -291,10 +289,10 @@ class PathService(
         val start = points.firstOrNull()?.time
         val end = points.lastOrNull()?.time
         val metadata = PathMetadata(
-            geology.getPathDistance(coords),
+            Geology.getPathDistance(coords),
             points.size,
             if (start != null && end != null) Range(start, end) else null,
-            geology.getBounds(coords)
+            Geology.getBounds(coords)
         )
 
         addPath(path.copy(metadata = metadata))
