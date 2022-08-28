@@ -8,9 +8,9 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-internal class IsBatteryExemptionRequiredTest {
+internal class IsPersistentForegroundRequiredTest {
 
-    private lateinit var exemptionRequired: IsBatteryExemptionRequired
+    private lateinit var isPersistentForegroundRequired: IsPersistentForegroundRequired
     private lateinit var isRestricted: Specification<Context>
     private lateinit var isRequired: Specification<Context>
 
@@ -18,7 +18,7 @@ internal class IsBatteryExemptionRequiredTest {
     fun setUp() {
         isRestricted = mock()
         isRequired = mock()
-        exemptionRequired = IsBatteryExemptionRequired(isRestricted, isRequired)
+        isPersistentForegroundRequired = IsPersistentForegroundRequired(isRestricted, isRequired)
     }
 
     @Test
@@ -30,7 +30,7 @@ internal class IsBatteryExemptionRequiredTest {
         whenever(isRequired.isSatisfiedBy(any())).thenReturn(true)
 
         // Verify exemption is not required
-        assert(!exemptionRequired.isSatisfiedBy(mock()))
+        assert(!isPersistentForegroundRequired.isSatisfiedBy(mock()))
     }
 
     @Test
@@ -42,7 +42,7 @@ internal class IsBatteryExemptionRequiredTest {
         whenever(isRequired.isSatisfiedBy(any())).thenReturn(true)
 
         // Verify exemption is required
-        assert(exemptionRequired.isSatisfiedBy(mock()))
+        assert(isPersistentForegroundRequired.isSatisfiedBy(mock()))
     }
 
     @Test
@@ -54,6 +54,6 @@ internal class IsBatteryExemptionRequiredTest {
         whenever(isRequired.isSatisfiedBy(any())).thenReturn(false)
 
         // Verify exemption is not required
-        assert(!exemptionRequired.isSatisfiedBy(mock()))
+        assert(!isPersistentForegroundRequired.isSatisfiedBy(mock()))
     }
 }

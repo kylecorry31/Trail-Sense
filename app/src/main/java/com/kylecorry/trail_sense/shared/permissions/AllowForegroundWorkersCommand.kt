@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.commands.Command
 class AllowForegroundWorkersCommand(private val context: Context) : Command {
 
     override fun execute() {
-        if (IsBatteryExemptionRequired().isSatisfiedBy(context)) {
+        if (IsPersistentForegroundRequired().isSatisfiedBy(context)) {
             BackgroundWorkerService.start(context)
         } else {
             BackgroundWorkerService.stop(context)

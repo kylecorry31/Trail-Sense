@@ -3,27 +3,25 @@ package com.kylecorry.trail_sense.shared.permissions
 import android.content.Context
 import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackRequiresForeground
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorRequiresForeground
 
 class IsBatteryExemptionRequired(
-    private val areForegroundServicesRestricted: Specification<Context> = AreForegroundServicesRestricted(),
-    private val areForegroundServicesRequired: Specification<Context> = foregroundRequired
+    private val isBatteryUsageRestricted: Specification<Context> = IsBatteryUsageRestricted(),
+    private val areBackgroundServicesRequired: Specification<Context> = backgroundRequired
 ) : Specification<Context>() {
 
     override fun isSatisfiedBy(value: Context): Boolean {
-        if (!areForegroundServicesRestricted.isSatisfiedBy(value)) {
+        if (!isBatteryUsageRestricted.isSatisfiedBy(value)) {
             return false
         }
-        return areForegroundServicesRequired.isSatisfiedBy(value)
+        return areBackgroundServicesRequired.isSatisfiedBy(value)
     }
 
     companion object {
 
-        private val backtrack = BacktrackIsEnabled().and(BacktrackRequiresForeground())
-        private val weather = WeatherMonitorIsEnabled().and(WeatherMonitorRequiresForeground())
-        private val foregroundRequired = backtrack.or(weather)
+        private val backtrack = BacktrackIsEnabled()
+        private val weather = WeatherMonitorIsEnabled()
+        private val backgroundRequired = backtrack.or(weather)
 
     }
 }

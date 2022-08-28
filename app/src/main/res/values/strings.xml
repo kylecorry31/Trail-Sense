@@ -1175,7 +1175,8 @@
     <string name="error">Error</string>
     <string name="warning">Warning</string>
     <string name="running_in_background">Running in background</string>
-    <string name="battery_usage_restricted_benefit">Removing battery restrictions for Trail Sense may improve accuracy.</string>
+    <!--The OK string is what is seen as a button in the dialog containing this message. Don't kill my app is the name of the website - it is formatted as a Markdown URL.-->
+    <string name="battery_usage_restricted_benefit">Removing battery restrictions for Trail Sense may improve accuracy.\n\nOn most devices, click \'OK\', then switch to all apps, and switch off battery optimization for Trail Sense.\n\nVisit [Don\'t kill my app](https://dontkillmyapp.com/) for device specific instructions.</string>
     <string name="remove_battery_restrictions">Remove battery restrictions?</string>
     <string name="exporting_map">Exporting map</string>
     <string name="map_exported">Map exported</string>
