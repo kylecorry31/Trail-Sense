@@ -1,64 +1,35 @@
 package com.kylecorry.trail_sense.main
 
-import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.system.CurrentApp
-import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.exceptions.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.errors.MainBugReportGenerator
+import com.kylecorry.trail_sense.shared.errors.DiagnosticsBugReportGenerator
+import com.kylecorry.trail_sense.shared.errors.FragmentDetailsBugReportGenerator
 
 object ExceptionHandler {
 
     fun initialize(activity: MainActivity) {
-        if (!LocalFiles.getFile(activity, FILENAME, create = false).exists()) {
-            setupHandler(activity)
-        }
-        handleLastException(activity)
-    }
-
-    private fun handleLastException(context: MainActivity) {
-        val file = LocalFiles.getFile(context, FILENAME, create = false)
-        if (!file.exists()) {
-            return
-        }
-        val body = LocalFiles.read(context, FILENAME)
-        LocalFiles.delete(context, FILENAME)
-
-        Alerts.dialog(
-            context,
-            context.getString(R.string.error_occurred),
-            context.getString(R.string.error_occurred_message),
-            okText = context.getString(R.string.pref_email_title)
-        ) { cancelled ->
-            if (!cancelled) {
-                val intent = Intents.email(
-                    context.getString(R.string.email),
-                    "Error in ${context.getString(R.string.app_name)}",
-                    body
+        val handler = EmailExceptionHandler(
+            activity,
+            AggregateBugReportGenerator(
+                listOf(
+                    AppDetailsBugReportGenerator(activity.getString(R.string.app_name)),
+                    AndroidDetailsBugReportGenerator(),
+                    DeviceDetailsBugReportGenerator(),
+                    FragmentDetailsBugReportGenerator(),
+                    DiagnosticsBugReportGenerator(),
+                    StackTraceBugReportGenerator()
                 )
-
-                context.startActivity(intent)
-            } else {
-                setupHandler(context)
-            }
+            )
+        ) { context, _ ->
+            BugReportEmailMessage(
+                context.getString(R.string.error_occurred),
+                context.getString(R.string.error_occurred_message),
+                context.getString(R.string.pref_email_title),
+                context.getString(android.R.string.cancel),
+                context.getString(R.string.email),
+                "Error in ${context.getString(R.string.app_name)}"
+            )
         }
+        handler.bind()
     }
-
-    private fun setupHandler(context: MainActivity) {
-        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
-            recordException(context, throwable)
-            tryOrLog {
-                CurrentApp.restart(context)
-            }
-        }
-    }
-
-    private fun recordException(activity: MainActivity, throwable: Throwable) {
-        val details = MainBugReportGenerator(activity, throwable).generate()
-        LocalFiles.write(activity, FILENAME, details, false)
-    }
-
-    private const val FILENAME = "errors/error.txt"
-
 }

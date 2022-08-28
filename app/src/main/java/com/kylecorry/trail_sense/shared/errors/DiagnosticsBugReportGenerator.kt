@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.shared.errors
 
 import android.content.Context
+import com.kylecorry.andromeda.exceptions.IBugReportGenerator
 import com.kylecorry.trail_sense.diagnostics.*
 
-class DiagnosticsBugReportGenerator(private val context: Context) : IBugReportGenerator {
-    override fun generate(): String {
+class DiagnosticsBugReportGenerator : IBugReportGenerator {
+    override fun generate(context: Context, throwable: Throwable): String {
         val diagnostics = listOf(
             AccelerometerDiagnostic(context, null),
             MagnetometerDiagnostic(context, null),
