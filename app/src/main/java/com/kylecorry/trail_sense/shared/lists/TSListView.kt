@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
@@ -45,7 +46,7 @@ class TSListView(context: Context, attrs: AttributeSet?) : RecyclerView(context,
                 val tag = listItem.tags.first()
                 binding.tag.isVisible = true
                 val foregroundColor =
-                    ColorUtils.mostContrastingColor(Color.WHITE, Color.BLACK, tag.color)
+                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, tag.color)
                 when (tag.icon) {
                     is ResourceListIcon -> {
                         binding.tag.statusImage.isVisible = true

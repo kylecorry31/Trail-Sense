@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.domain.clouds.mask
 
 import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.trail_sense.shared.specifications.FalseSpecification
+import kotlin.math.max
 
 class CloudPixelClassifier(
     private val isSky: Specification<Int>,
@@ -23,8 +24,10 @@ class CloudPixelClassifier(
             val isSky = NRBRIsSkySpecification(skyDetectionSensitivity / 200f)
 
             val isObstacle =
-                SaturationIsObstacleSpecification(1 - obstacleRemovalSensitivity / 100f)
-                    .or(BrightnessIsObstacleSpecification(0.75f * obstacleRemovalSensitivity.toFloat()))
+                SaturationIsObstacleSpecification(
+                    max(0.4f, 1 - obstacleRemovalSensitivity / 100f)
+                )
+                    .or(BrightnessIsObstacleSpecification(150 * obstacleRemovalSensitivity / 100f))
                     .or(if (obstacleRemovalSensitivity > 0) IsSunSpecification() else FalseSpecification())
 
             return CloudPixelClassifier(isSky, isObstacle)
