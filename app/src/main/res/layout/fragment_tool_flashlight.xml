@@ -35,6 +35,16 @@
 
     </LinearLayout>
 
+    <SeekBar
+        android:id="@+id/brightness_seek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:max="100"
+        app:layout_constraintBottom_toTopOf="@id/flashlight_dial_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/flashlight_dial_indicator"
         android:layout_width="8dp"

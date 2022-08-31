@@ -10,18 +10,19 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.roundToInt
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
@@ -43,13 +44,30 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private val cache by lazy { Preferences(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
+    private var maxBrightness = 1
+    private var hasBrightnessControl = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val hasFlashlight = Torch.isAvailable(requireContext())
+        val hasFlashlight = flashlight.isAvailable()
         binding.flashlightDialIndicator.isVisible = hasFlashlight
         binding.flashlightOnBtn.isVisible = hasFlashlight
         binding.flashlightDial.isVisible = hasFlashlight
+
+        maxBrightness = flashlight.brightnessLevels
+        hasBrightnessControl = maxBrightness > 1
+        binding.brightnessSeek.max = maxBrightness
+        updateBrightness()
+        binding.brightnessSeek.isVisible = hasBrightnessControl
+        binding.brightnessSeek.setOnProgressChangeListener { progress, fromUser ->
+            if (fromUser) {
+                if (hasBrightnessControl) {
+                    brightness = progress / maxBrightness.toFloat()
+                }
+                onBrightnessChanged()
+            }
+        }
+
         binding.flashlightOnBtn.setOnClickListener {
             switchStateTimer.stop()
             toggle()
@@ -125,10 +143,10 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         binding.flashlightDial.areHapticsEnabled = false
     }
 
-    private fun changeMode() {
+    private fun changeMode(delay: Long = 400) {
         if (flashlight.getState() != FlashlightState.Off) {
             turnOff()
-            switchStateTimer.once(400)
+            switchStateTimer.once(delay)
         }
     }
 
@@ -137,11 +155,23 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         updateTimer()
     }
 
+    private fun updateBrightness(value: Float? = null){
+        if (hasBrightnessControl) {
+            brightness = value ?: prefs.flashlight.brightness
+            binding.brightnessSeek.progress = (brightness * maxBrightness).roundToInt()
+        } else {
+            brightness = 1f
+        }
+    }
+
     fun toggle() {
         haptics.click()
         if (flashlight.getState() != FlashlightState.Off) {
             turnOff()
         } else {
+            if (brightness == 0f){
+                updateBrightness(1 / maxBrightness.toFloat())
+            }
             turnOn()
         }
     }
@@ -158,6 +188,16 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private fun update() {
         flashlightState = flashlight.getState()
         updateFlashlightUI()
+    }
+
+    private fun onBrightnessChanged(){
+        if (brightness == 0f){
+            turnOff()
+        } else if (selectedState == FlashlightState.On){
+            turnOn()
+        } else {
+            turnOff()
+        }
     }
 
     private fun updateTimer() {
