@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.andromeda.battery.BatteryHealth
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.asLiveData
@@ -95,9 +96,10 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         CustomUiUtils.setButtonState(binding.batteryTitle.leftQuickAction, false)
         CustomUiUtils.setButtonState(binding.batteryTitle.rightQuickAction, false)
 
+        val settingsIntent = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
+        binding.batteryTitle.rightQuickAction.isVisible = Intents.hasReceiver(requireContext(), settingsIntent)
         binding.batteryTitle.rightQuickAction.setOnClickListener {
-            val intentBatteryPhoneSettings = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-            startActivity(intentBatteryPhoneSettings)
+            startActivity(settingsIntent)
         }
 
         binding.batteryTitle.leftQuickAction.setOnClickListener {
