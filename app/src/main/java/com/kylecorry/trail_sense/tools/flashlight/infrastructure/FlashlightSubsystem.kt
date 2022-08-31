@@ -79,8 +79,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
             return
         }
         handler.postDelayed({
-            val flashlight = Torch(context)
-            flashlight.off()
+            torch.off()
             forceOff(millis - increment)
         }, increment)
     }
