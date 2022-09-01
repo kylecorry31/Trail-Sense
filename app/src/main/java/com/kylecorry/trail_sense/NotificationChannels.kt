@@ -6,8 +6,6 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.SosService
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.StrobeService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
@@ -37,31 +35,12 @@ object NotificationChannels {
         // Flashlight
         Notify.createChannel(
             context,
-            StrobeService.CHANNEL_ID,
-            context.getString(R.string.flashlight_title),
-            context.getString(R.string.flashlight_title),
-            Notify.CHANNEL_IMPORTANCE_LOW,
-            muteSound = true
-        )
-
-        Notify.createChannel(
-            context,
             FlashlightService.CHANNEL_ID,
             context.getString(R.string.flashlight_title),
             context.getString(R.string.flashlight_title),
             Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
-
-        Notify.createChannel(
-            context,
-            SosService.CHANNEL_ID,
-            context.getString(R.string.flashlight_title),
-            context.getString(R.string.flashlight_title),
-            Notify.CHANNEL_IMPORTANCE_LOW,
-            muteSound = true
-        )
-
 
         // Backtrack
         Notify.createChannel(

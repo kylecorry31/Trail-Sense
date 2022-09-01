@@ -1,19 +1,22 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
+import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.andromeda.torch.TorchStateChangedTopic
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
+import java.time.Duration
 import java.time.Instant
 import java.util.*
 
@@ -23,106 +26,73 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     private val torchChanged = TorchStateChangedTopic(context)
     private val cache by lazy { Preferences(context) }
     private val prefs by lazy { UserPreferences(context) }
-    private var isTurningOff = false
     private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
-    private val handler by lazy { Handler(Looper.getMainLooper()) }
     private val torch by lazy { Torch(context) }
 
-    private val _state = Topic(defaultValue = Optional.of(getState()))
-    override val state: ITopic<FlashlightState>
-        get() = _state.distinct()
+    private val _mode = Topic(defaultValue = Optional.of(getMode()))
+    override val mode: ITopic<FlashlightMode>
+        get() = _mode.distinct()
 
     override val brightnessLevels: Int
-        get() = torch.brightnessLevels
+        get() = torch.brightnessLevels - 1
 
-    private var isAvailable: Boolean = Torch.isAvailable(context)
+    private var isAvailable: Boolean = torch.isAvailable()
 
-    init {
-        _state.subscribe { true }
-        torchChanged.subscribe(this::onTorchStateChanged)
+    private var isTransitioning = false
+    private val transitionTimer = Timer {
+        isTransitioning = false
     }
 
-    private fun on(handleTimeout: Boolean, brightness: Float) {
+    private var brightness: Float = 1f
+
+    init {
+        _mode.subscribe { true }
+        torchChanged.subscribe(this::onTorchStateChanged)
+        brightness = prefs.flashlight.brightness
+    }
+
+    private fun on(newMode: FlashlightMode, handleTimeout: Boolean) {
         clearTimeout()
         if (handleTimeout) {
             setTimeout()
         }
-        setBrightness(brightness)
-        SosService.stop(context)
-        StrobeService.stop(context)
-        FlashlightService.start(context)
-        _state.publish(FlashlightState.On)
+        val mode = getMode()
+        isTransitioning = true
+        transitionTimer.once(Duration.ofSeconds(1))
+        _mode.publish(newMode)
+        if (mode == FlashlightMode.Off) {
+            FlashlightService.start(context)
+        }
     }
 
     override fun off() {
         clearTimeout()
-        SosService.stop(context)
-        StrobeService.stop(context)
+        isTransitioning = true
+        transitionTimer.once(Duration.ofSeconds(1))
+        _mode.publish(FlashlightMode.Off)
         FlashlightService.stop(context)
-        isTurningOff = true
-        forceOff(200)
-        _state.publish(FlashlightState.Off)
+        torch.off()
     }
 
-    override fun toggle(handleTimeout: Boolean, brightness: Float) {
-        if (getState() == FlashlightState.On) {
+    override fun toggle() {
+        if (getMode() == FlashlightMode.Torch) {
             off()
         } else {
-            on(handleTimeout, brightness)
+            set(FlashlightMode.Torch)
         }
     }
 
-    private fun forceOff(millis: Long) {
-        val increment = 20L
-        if ((millis - increment) < 0) {
-            isTurningOff = false
-            return
-        }
-        handler.postDelayed({
-            torch.off()
-            forceOff(millis - increment)
-        }, increment)
-    }
 
-    private fun sos(handleTimeout: Boolean, brightness: Float) {
-        clearTimeout()
-        if (handleTimeout) {
-            setTimeout()
-        }
-        setBrightness(brightness)
-        StrobeService.stop(context)
-        FlashlightService.stop(context)
-        SosService.start(context)
-        _state.publish(FlashlightState.SOS)
-    }
-
-    private fun strobe(handleTimeout: Boolean, brightness: Float) {
-        clearTimeout()
-        if (handleTimeout) {
-            setTimeout()
-        }
-        setBrightness(brightness)
-        SosService.stop(context)
-        FlashlightService.stop(context)
-        StrobeService.start(context)
-        _state.publish(FlashlightState.Strobe)
-    }
-
-    override fun set(state: FlashlightState, handleTimeout: Boolean, brightness: Float) {
-        when (state) {
-            FlashlightState.Off -> off()
-            FlashlightState.On -> on(handleTimeout, brightness)
-            FlashlightState.SOS -> sos(handleTimeout, brightness)
-            FlashlightState.Strobe -> strobe(handleTimeout, brightness)
+    override fun set(mode: FlashlightMode) {
+        when (mode) {
+            FlashlightMode.Off -> off()
+            else -> on(mode, true)
         }
     }
 
-    override fun getState(): FlashlightState {
-        return when {
-            FlashlightService.isRunning -> FlashlightState.On
-            SosService.isRunning -> FlashlightState.SOS
-            StrobeService.isRunning -> FlashlightState.Strobe
-            else -> FlashlightState.Off
+    override fun getMode(): FlashlightMode {
+        return tryOrDefault(FlashlightMode.Off) {
+            mode.getOrNull() ?: FlashlightMode.Off
         }
     }
 
@@ -130,30 +100,47 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         return isAvailable
     }
 
+    internal fun turnOn() {
+        if (brightnessLevels > 0) {
+            val mapped = SolMath.map(brightness, 0f, 1f, 1f / (brightnessLevels + 1), 1f)
+            torch.on(mapped)
+        } else {
+            torch.on()
+        }
+    }
+
+    internal fun turnOff() {
+        torch.off()
+    }
+
     private fun onTorchStateChanged(enabled: Boolean): Boolean {
         tryOrLog {
             if (!flashlightSettings.toggleWithSystem) {
                 return@tryOrLog
             }
-            if (isTurningOff) {
+
+            if (isTransitioning) {
                 return@tryOrLog
             }
 
-            _state.publish(getState())
-
-            if (!enabled && FlashlightService.isRunning) {
+            if (!enabled && getMode() == FlashlightMode.Torch) {
                 off()
             }
 
-            if (enabled && !FlashlightService.isRunning && !SosService.isRunning && !StrobeService.isRunning) {
-                on(false, 1f)
+            if (enabled && getMode() == FlashlightMode.Off) {
+                setBrightness(1f)
+                on(FlashlightMode.Torch, false)
             }
         }
         return true
     }
 
-    private fun setBrightness(brightness: Float) {
+    override fun setBrightness(brightness: Float) {
         prefs.flashlight.brightness = brightness
+        this.brightness = brightness
+        if (getMode() == FlashlightMode.Torch){
+            turnOn()
+        }
     }
 
     private fun setTimeout() {

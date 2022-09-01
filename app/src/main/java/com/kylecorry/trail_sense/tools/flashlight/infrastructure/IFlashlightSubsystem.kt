@@ -1,15 +1,16 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
 import com.kylecorry.andromeda.core.topics.generic.ITopic
-import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 
 
 interface IFlashlightSubsystem {
-    val state: ITopic<FlashlightState>
+    val mode: ITopic<FlashlightMode>
     val brightnessLevels: Int
     fun off()
-    fun toggle(handleTimeout: Boolean = true, brightness: Float = 1f)
-    fun set(state: FlashlightState, handleTimeout: Boolean = true, brightness: Float = 1f)
-    fun getState(): FlashlightState
+    fun setBrightness(brightness: Float)
+    fun toggle()
+    fun set(mode: FlashlightMode)
+    fun getMode(): FlashlightMode
     fun isAvailable(): Boolean
 }

@@ -91,12 +91,6 @@
             android:name=".tools.flashlight.infrastructure.FlashlightService"
             android:exported="false" />
         <service
-            android:name=".tools.flashlight.infrastructure.SosService"
-            android:exported="false" />
-        <service
-            android:name=".tools.flashlight.infrastructure.StrobeService"
-            android:exported="false" />
-        <service
             android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService"
             android:exported="false" />
 

@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
-import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightState
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
@@ -75,7 +75,7 @@ class BatteryService {
             )
         }
 
-        if (FlashlightSubsystem.getInstance(context).getState() != FlashlightState.Off) {
+        if (FlashlightSubsystem.getInstance(context).getMode() != FlashlightMode.Off) {
             services.add(
                 RunningService(
                     context.getString(R.string.flashlight_title),
