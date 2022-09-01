@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -26,6 +28,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
@@ -49,6 +52,9 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     private val currentFilterSize = 100
     private var currentFilter: IFilter = MedianFilter(currentFilterSize)
     private var lastChargingStatus = BatteryChargingStatus.Unknown
+    private var current = 0f
+    private var pct = 0
+    private var capacity = 0f
 
     private var readings = listOf<BatteryReading>()
 
@@ -58,6 +64,25 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     private val serviceIntervalometer = Timer {
         updateServices()
+    }
+
+    private val batteryUpdateTimer = CoroutineTimer(lifecycleScope) {
+        onDefault {
+            // If charging, show up arrow
+            val chargingStatus = battery.chargingStatus
+            val isCharging = chargingStatus == BatteryChargingStatus.Charging
+
+            if (chargingStatus != lastChargingStatus){
+                resetCurrentFilter()
+            }
+
+            lastChargingStatus = chargingStatus
+
+            // If charging and current is negative, invert current
+            current = currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1)
+            capacity = battery.capacity
+            pct = battery.percent.roundToInt()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -134,7 +159,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             update()
         }
 
-        battery.asLiveData().observe(viewLifecycleOwner) {}
+        battery.asLiveData().observe(viewLifecycleOwner) { }
     }
 
     private fun resetCurrentFilter(){
@@ -144,7 +169,8 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     override fun onResume() {
         super.onResume()
         resetCurrentFilter()
-        intervalometer.interval(20)
+        intervalometer.interval(INTERVAL_1_FPS)
+        batteryUpdateTimer.interval(20)
         serviceIntervalometer.interval(1000)
         binding.batteryCurrent.text = ""
     }
@@ -152,6 +178,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     override fun onPause() {
         super.onPause()
         serviceIntervalometer.stop()
+        batteryUpdateTimer.stop()
         intervalometer.stop()
     }
 
@@ -175,16 +202,6 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         val chargingStatus = battery.chargingStatus
         val isCharging = chargingStatus == BatteryChargingStatus.Charging
 
-        if (chargingStatus != lastChargingStatus){
-            resetCurrentFilter()
-        }
-
-        lastChargingStatus = chargingStatus
-
-        // If charging and current is negative, invert current
-        val current = currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1)
-        val capacity = battery.capacity
-        val pct = battery.percent.roundToInt()
         val time = if (isCharging) getTimeUntilFull() else getTimeUntilEmpty()
 
         binding.batteryPercentage.text = formatService.formatPercentage(pct.toFloat())
