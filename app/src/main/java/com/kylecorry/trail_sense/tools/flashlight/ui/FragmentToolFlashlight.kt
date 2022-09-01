@@ -106,7 +106,6 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                     considerShownIfCancelled = false,
                 ) { _, agreed ->
                     val frequency = if (it == 10) 200 else it
-                    prefs.flashlight.strobeInterval = Duration.ofMillis(1000L / frequency)
                     selectedMode = if (agreed) {
                         getStrobeMode(frequency)
                     } else {
