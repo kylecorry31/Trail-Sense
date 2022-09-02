@@ -80,7 +80,7 @@ class BatteryService {
                 RunningService(
                     context.getString(R.string.flashlight_title),
                     Duration.ZERO
-                ) { FlashlightSubsystem.getInstance(context).off() }
+                ) { FlashlightSubsystem.getInstance(context).set(FlashlightMode.Off) }
             )
         }
 

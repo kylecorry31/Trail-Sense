@@ -4,13 +4,14 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 
 class FlashlightOffReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
 
-        val handler = FlashlightSubsystem.getInstance(context)
-        handler.off()
+        val flashlight = FlashlightSubsystem.getInstance(context)
+        flashlight.set(FlashlightMode.Off)
     }
 
 

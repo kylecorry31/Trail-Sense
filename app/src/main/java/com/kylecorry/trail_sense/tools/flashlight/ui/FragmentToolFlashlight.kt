@@ -184,7 +184,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     private fun turnOff() {
-        flashlight.off()
+        flashlight.set(FlashlightMode.Off)
     }
 
     private fun update() {

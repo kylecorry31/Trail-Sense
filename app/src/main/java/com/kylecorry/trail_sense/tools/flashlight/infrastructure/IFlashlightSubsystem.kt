@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 interface IFlashlightSubsystem {
     val mode: ITopic<FlashlightMode>
     val brightnessLevels: Int
-    fun off()
     fun setBrightness(brightness: Float)
     fun toggle()
     fun set(mode: FlashlightMode)

@@ -45,30 +45,41 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     private var brightness: Float = 1f
 
+    private val modeLock = Object()
+    private val torchLock = Object()
+
     init {
         _mode.subscribe { true }
         torchChanged.subscribe(this::onTorchStateChanged)
         brightness = prefs.flashlight.brightness
     }
 
-    private fun on(newMode: FlashlightMode, handleTimeout: Boolean) {
+    private fun on(newMode: FlashlightMode, bySystem: Boolean = false) = synchronized(modeLock) {
         clearTimeout()
-        if (handleTimeout) {
+        if (!bySystem) {
+            isTransitioning = true
+            transitionTimer.once(Duration.ofSeconds(1))
             setTimeout()
+        } else {
+            isTransitioning = false
+            transitionTimer.stop()
         }
         val mode = getMode()
-        isTransitioning = true
-        transitionTimer.once(Duration.ofSeconds(1))
         _mode.publish(newMode)
         if (mode == FlashlightMode.Off) {
             FlashlightService.start(context)
         }
     }
 
-    override fun off() {
+    private fun off(bySystem: Boolean = false) = synchronized(modeLock) {
         clearTimeout()
-        isTransitioning = true
-        transitionTimer.once(Duration.ofSeconds(1))
+        if (!bySystem) {
+            isTransitioning = true
+            transitionTimer.once(Duration.ofSeconds(1))
+        } else {
+            isTransitioning = false
+            transitionTimer.stop()
+        }
         _mode.publish(FlashlightMode.Off)
         FlashlightService.stop(context)
         torch.off()
@@ -86,7 +97,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     override fun set(mode: FlashlightMode) {
         when (mode) {
             FlashlightMode.Off -> off()
-            else -> on(mode, true)
+            else -> on(mode)
         }
     }
 
@@ -100,7 +111,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         return isAvailable
     }
 
-    internal fun turnOn() {
+    internal fun turnOn() = synchronized(torchLock) {
         if (brightnessLevels > 0) {
             val mapped = SolMath.map(brightness, 0f, 1f, 1f / (brightnessLevels + 1), 1f)
             torch.on(mapped)
@@ -109,7 +120,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         }
     }
 
-    internal fun turnOff() {
+    internal fun turnOff() = synchronized(torchLock) {
         torch.off()
     }
 
@@ -119,17 +130,19 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
                 return@tryOrLog
             }
 
-            if (isTransitioning) {
-                return@tryOrLog
+            synchronized(modeLock) {
+                if (isTransitioning) {
+                    return@tryOrLog
+                }
             }
 
             if (!enabled && getMode() == FlashlightMode.Torch) {
-                off()
+                off(true)
             }
 
             if (enabled && getMode() == FlashlightMode.Off) {
                 setBrightness(1f)
-                on(FlashlightMode.Torch, false)
+                on(FlashlightMode.Torch, true)
             }
         }
         return true
@@ -138,7 +151,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     override fun setBrightness(brightness: Float) {
         prefs.flashlight.brightness = brightness
         this.brightness = brightness
-        if (getMode() == FlashlightMode.Torch){
+        if (getMode() == FlashlightMode.Torch) {
             turnOn()
         }
     }
