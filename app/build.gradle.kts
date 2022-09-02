@@ -46,6 +46,9 @@ android {
     packagingOptions {
         resources.merges += "META-INF/LICENSE.md"
         resources.merges += "META-INF/LICENSE-notice.md"
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
