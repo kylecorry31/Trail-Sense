@@ -10,10 +10,10 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.lists.ListItem
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
-import com.kylecorry.trail_sense.shared.lists.ListMenuItem
-import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ListMenuItem
+import com.kylecorry.ceres.list.ResourceListIcon
 
 class PathListItemMapper(
     private val context: Context,

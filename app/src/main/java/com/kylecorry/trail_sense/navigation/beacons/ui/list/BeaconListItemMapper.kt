@@ -1,9 +1,12 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui.list
 
 import android.content.Context
+import android.graphics.Color
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.ceres.list.*
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -16,7 +19,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.lists.*
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 
 class BeaconListItemMapper(
@@ -110,38 +112,42 @@ class BeaconListItemMapper(
     }
 
     private fun Beacon.getListIcon(context: Context): ListIcon {
+        val foregroundScale = 0.6f
         if (owner == BeaconOwner.User) {
-            return ResourceListIcon(icon?.icon ?: R.drawable.ic_location, color)
+            return if (icon != null) {
+                val foregroundColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, color)
+                ResourceListIcon(
+                    icon.icon,
+                    foregroundColor,
+                    backgroundId = R.drawable.bubble,
+                    backgroundTint = color,
+                    foregroundScale = foregroundScale
+                )
+            } else {
+                ResourceListIcon(
+                    R.drawable.bubble,
+                    color
+                )
+            }
         }
 
         val formatService = FormatService.getInstance(context)
 
         // Cell signal is the only other shown beacon owner
-        return when {
-            name.contains(formatService.formatQuality(Quality.Poor)) -> {
-                ResourceListIcon(
-                    CellSignalUtils.getCellQualityImage(Quality.Poor),
-                    CustomUiUtils.getQualityColor(Quality.Poor)
-                )
-            }
-            name.contains(formatService.formatQuality(Quality.Moderate)) -> {
-                ResourceListIcon(
-                    CellSignalUtils.getCellQualityImage(Quality.Moderate),
-                    CustomUiUtils.getQualityColor(Quality.Moderate)
-                )
-            }
-            name.contains(formatService.formatQuality(Quality.Good)) -> {
-                ResourceListIcon(
-                    CellSignalUtils.getCellQualityImage(Quality.Good),
-                    CustomUiUtils.getQualityColor(Quality.Good)
-                )
-            }
-            else -> {
-                ResourceListIcon(
-                    CellSignalUtils.getCellQualityImage(Quality.Unknown),
-                    CustomUiUtils.getQualityColor(Quality.Unknown)
-                )
-            }
+        val quality = when {
+            name.contains(formatService.formatQuality(Quality.Poor)) -> Quality.Poor
+            name.contains(formatService.formatQuality(Quality.Moderate)) -> Quality.Moderate
+            name.contains(formatService.formatQuality(Quality.Good)) -> Quality.Good
+            else -> Quality.Unknown
         }
+        val backgroundColor = CustomUiUtils.getQualityColor(quality)
+        val foregroundColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, backgroundColor)
+        return ResourceListIcon(
+            CellSignalUtils.getCellQualityImage(quality),
+            foregroundColor,
+            backgroundId = R.drawable.bubble,
+            backgroundTint = backgroundColor,
+            foregroundScale = foregroundScale
+        )
     }
 }

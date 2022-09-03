@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui.list
 
 import android.content.Context
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ListMenuItem
+import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.lists.ListItem
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
-import com.kylecorry.trail_sense.shared.lists.ListMenuItem
-import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
 
 class BeaconGroupListItemMapper(
     private val context: Context,

@@ -4,12 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.kylecorry.ceres.list.ListItemMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewGroupableSelectorBinding
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 
 class GroupableSelectView<T : Groupable>(
     context: Context,

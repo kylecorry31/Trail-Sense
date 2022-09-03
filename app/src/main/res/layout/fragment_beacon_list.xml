@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/beacon_title"
         app:queryHint="@string/search" />
 
-    <com.kylecorry.trail_sense.shared.lists.TSListView
+    <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/beacon_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"

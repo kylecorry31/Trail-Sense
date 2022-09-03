@@ -125,6 +125,10 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:pdf:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:exceptions:$andromedaVersion")
 
+    // Ceres
+    val ceresVersion = "0.1.3"
+    implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
+
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
 import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
-import com.kylecorry.trail_sense.shared.lists.ListItem
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
 
 class IPathListItemMapper(
     context: Context,
