@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 class BitmapMapMarker(
     override val location: Coordinate,
     private val bitmap: Bitmap,
-    override val size: Float = 10f,
+    override val size: Float = 12f,
     private val rotation: Float? = null,
     private val tint: Int? = null,
     private val onClickFn: () -> Boolean = { false }

@@ -57,7 +57,7 @@ class TideLayer : BaseLayer() {
         drawer: ICanvasDrawer,
         setter: KMutableProperty0<Bitmap?>
     ): Bitmap {
-        val size = drawer.dp(10f).toInt()
+        val size = drawer.dp(12f).toInt()
         val img = drawer.loadImage(id, size, size)
         setter.set(img)
         return img

@@ -11,7 +11,7 @@ import kotlin.math.max
 class PathMapMarker(
     override val location: Coordinate,
     private val path: Path,
-    override val size: Float = 10f,
+    override val size: Float = 12f,
     @ColorInt private val color: Int?,
     @ColorInt private val strokeColor: Int? = null,
     private val strokeWeight: Float = 0f,

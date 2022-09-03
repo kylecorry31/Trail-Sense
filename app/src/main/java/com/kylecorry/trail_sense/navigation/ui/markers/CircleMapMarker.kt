@@ -10,7 +10,7 @@ class CircleMapMarker(
     @ColorInt private val color: Int,
     @ColorInt private val strokeColor: Int? = null,
     private val opacity: Int = 255,
-    override val size: Float = 10f,
+    override val size: Float = 12f,
     private val strokeWeight: Float = 0.5f,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {
