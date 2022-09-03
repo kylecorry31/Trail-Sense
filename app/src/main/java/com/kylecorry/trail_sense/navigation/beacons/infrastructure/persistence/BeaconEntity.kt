@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
@@ -21,7 +22,8 @@ data class BeaconEntity(
     @ColumnInfo(name = "elevation") val elevation: Float?,
     @ColumnInfo(name = "temporary") val temporary: Boolean,
     @ColumnInfo(name = "owner") val owner: BeaconOwner,
-    @ColumnInfo(name = "color") val color: AppColor
+    @ColumnInfo(name = "color") val color: AppColor,
+    @ColumnInfo(name = "icon") val icon: BeaconIcon?
 ) {
 
     @PrimaryKey(autoGenerate = true)
@@ -42,7 +44,8 @@ data class BeaconEntity(
             elevation,
             temporary = temporary,
             color = color.color,
-            owner = owner
+            owner = owner,
+            icon = icon
         )
     }
 
@@ -59,7 +62,8 @@ data class BeaconEntity(
                 beacon.elevation,
                 beacon.temporary,
                 beacon.owner,
-                AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange
+                AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange,
+                beacon.icon
             ).also {
                 it.id = beacon.id
             }

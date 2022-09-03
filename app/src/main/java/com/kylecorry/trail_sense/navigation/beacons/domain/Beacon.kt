@@ -15,7 +15,8 @@ data class Beacon(
     val elevation: Float? = null,
     val temporary: Boolean = false,
     val owner: BeaconOwner = BeaconOwner.User,
-    @ColorInt override val color: Int = Color.BLACK
+    @ColorInt override val color: Int = Color.BLACK,
+    val icon: BeaconIcon? = null
 ) : IBeacon, IMappableLocation {
     override val isGroup = false
     override val count: Int? = null

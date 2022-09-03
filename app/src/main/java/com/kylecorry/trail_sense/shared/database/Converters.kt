@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.database
 
 import androidx.room.TypeConverter
 import com.kylecorry.sol.units.WeightUnits
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
@@ -60,6 +61,17 @@ class Converters {
     @TypeConverter
     fun toAppColor(value: Long): AppColor {
         return AppColor.values().withId(value) ?: AppColor.Orange
+    }
+
+    @TypeConverter
+    fun fromBeaconIcon(value: BeaconIcon?): Long? {
+        return value?.id
+    }
+
+    @TypeConverter
+    fun toBeaconIcon(value: Long?): BeaconIcon? {
+        value ?: return null
+        return BeaconIcon.values().withId(value)
     }
 
     @TypeConverter
