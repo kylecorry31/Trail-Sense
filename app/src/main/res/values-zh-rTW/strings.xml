@@ -81,7 +81,6 @@
     <string name="units_hpa">百帕(hPa)</string>
     <string name="beacon_comment">註記(選填)</string>
     <string name="maps">地圖</string>
-    <string name="eta">~ %s 遠</string>
     <string name="sos">求救訊號SOS</string>
     <string name="tap_to_turn_off">輕觸以關閉</string>
     <string name="accuracy_distance_format">± %s</string>

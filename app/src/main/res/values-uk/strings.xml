@@ -464,7 +464,6 @@
     <string name="thunder">Грім</string>
     <string name="lightning">Блискавки</string>
     <string name="tool_clock_title">Годинник</string>
-    <string name="flashlight_strobe">Стробоскоп</string>
     <string name="tool_boil_summary">Сповіщає, коли вода питна</string>
     <string name="start">Почати</string>
     <plurals name="water_boil_timer_content">
@@ -531,7 +530,6 @@
         <item quantity="other">%d маячків</item>
     </plurals>
     <string name="no_beacons">Немає маячків</string>
-    <string name="eta">~ %s до маячка</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Вимкнути</string>
     <string name="tap_to_turn_off">Торкніться, щоб вимкнути</string>

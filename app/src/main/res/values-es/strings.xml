@@ -120,7 +120,6 @@
         <item quantity="one">%d baliza</item>
         <item quantity="other">%d balizas</item>
     </plurals>
-    <string name="eta">~%s de distancia</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>
     <string name="tap_to_turn_off">Toca para apagar</string>
@@ -386,7 +385,6 @@
         <item quantity="one">%d segundo para que sea potable</item>
         <item quantity="other">%d segundos para que sea potable</item>
     </plurals>
-    <string name="flashlight_strobe">Parpadea de forma intermitente.</string>
     <string name="tool_clock_title">Reloj</string>
     <string name="lightning">Relámpago</string>
     <string name="reset">Reiniciar</string>

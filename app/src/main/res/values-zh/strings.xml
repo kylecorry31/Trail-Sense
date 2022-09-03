@@ -129,7 +129,6 @@
     <plurals name="beacon_group_summary">
         <item quantity="other">%d 个信标</item>
     </plurals>
-    <string name="eta">还有 ~%s 远</string>
     <string name="sos">紧急求救信号</string>
     <string name="tap_to_turn_off">轻触以关闭</string>
     <string name="flashlight_title">手电筒</string>
@@ -206,7 +205,6 @@
     <string name="thunder">雷</string>
     <string name="lightning">闪电</string>
     <string name="tool_clock_title">时钟</string>
-    <string name="flashlight_strobe">频闪闪光灯</string>
     <string name="pref_sensor_details_title">传感器详情</string>
     <string name="tool_boil_summary">判断水何时可以饮用</string>
     <string name="start">开始</string>

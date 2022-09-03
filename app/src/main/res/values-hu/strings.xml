@@ -43,7 +43,6 @@
         <item quantity="other">%d jelzőpont</item>
     </plurals>
     <string name="no_beacons">Nincsenek jelzőpontok</string>
-    <string name="eta">~ %s távolságra</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Érintse meg a kikapcsoláshoz</string>
     <string name="flashlight_title">Zseblámpa</string>
@@ -425,7 +424,6 @@
     <string name="coordinate_format_decimal_degrees">Tizedes Fok</string>
     <string name="beacon_create">Létrehozás</string>
     <string name="pref_sensor_details_title">Érzékelő részletek</string>
-    <string name="flashlight_strobe">Stroboszkóp</string>
     <string name="tool_clock_title">Óra</string>
     <string name="lightning">Villámlás</string>
     <string name="thunder">Mennydörgés</string>

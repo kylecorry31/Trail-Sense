@@ -66,7 +66,6 @@
         <item quantity="other">%d balize</item>
     </plurals>
     <string name="no_beacons">Fără balize</string>
-    <string name="eta">~ %s departe</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Opreşte</string>
     <string name="tap_to_turn_off">Atingeți pentru a dezactiva</string>

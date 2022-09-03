@@ -8,7 +8,6 @@
         <item quantity="other">%d baliza</item>
     </plurals>
     <string name="no_beacons">Balizarik ez</string>
-    <string name="eta">~ %s urruti</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
     <string name="flashlight_title">Linterna</string>
@@ -234,7 +233,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="map_scale_ratio">Proportzioa</string>
-    <string name="flashlight_strobe">Estroboa</string>
     <string name="pressure_4_hours">4 ordu</string>
     <string name="pressure_12_hours">12 ordu</string>
     <string name="pressure_24_hours">24 ordu</string>

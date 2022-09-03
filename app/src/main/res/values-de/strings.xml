@@ -118,7 +118,6 @@
     <string name="flashlight_title">Taschenlampe</string>
     <string name="tap_to_turn_off">Tippen zum Abschalten</string>
     <string name="sos">SOS</string>
-    <string name="eta">~ %s entfernt</string>
     <string name="beacon_comment">Anmerkungen (optional)</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%s %s</string>
@@ -260,7 +259,6 @@
     <string name="thunder">Donner</string>
     <string name="lightning">Blitz</string>
     <string name="tool_clock_title">Uhr</string>
-    <string name="flashlight_strobe">Stroboskop</string>
     <string name="pref_sensor_details_title">Sensordetails</string>
     <string name="tool_boil_summary">Bestimmen wann Wasser trinkbar ist</string>
     <string name="start">Starten</string>

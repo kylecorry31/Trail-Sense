@@ -163,7 +163,6 @@
     <string name="beacon_comment">Notes (optionnel)</string>
     <string name="beacon_invalid_name">Nom invalide</string>
     <string name="share_action_send">Envoyer</string>
-    <string name="eta">À environ ~ %s</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
     <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
@@ -275,7 +274,6 @@
     <string name="thunder">Tonnerre</string>
     <string name="lightning">Foudre</string>
     <string name="tool_clock_title">Horloge</string>
-    <string name="flashlight_strobe">Stroboscope</string>
     <string name="tool_boil_summary">Indique quand l\'eau est potable</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">encore %d seconde pour que l\'eau soit potable</item>

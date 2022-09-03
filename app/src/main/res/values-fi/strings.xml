@@ -37,7 +37,6 @@
         <item quantity="other">%d maamerkit</item>
     </plurals>
     <string name="no_beacons">Ei maamerkkejä</string>
-    <string name="eta">~ %s päässä</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Sammuta napauttamalla</string>
     <string name="flashlight_title">Taskulamppu</string>

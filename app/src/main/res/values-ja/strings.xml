@@ -153,7 +153,6 @@
     <string name="beacon_comment">ノート (オプション)</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="share_action_send">送信</string>
-    <string name="eta">~ %s 離れています</string>
     <string name="accuracy_info">"GPS: 屋外の視界の開けた場所に移動してください.
 \n    現在地との誤差%s
 \n    現在の高度との誤差%s

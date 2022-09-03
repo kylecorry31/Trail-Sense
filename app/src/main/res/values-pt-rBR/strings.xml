@@ -32,7 +32,6 @@
 \n
 \nBússola: gire o dispositivo num padrão de número 8 ou em todas as direções e afaste-se de metais."</string>
     <!--Navigation Tab - Destination Panel-->
-    <string name="eta">~ %s de distância</string>
     <!--Navigation Tab - Beacon List-->
     <string name="no_beacons">Nenhum ponto de orientação</string>
     <!--Navigation Tab - Beacon List - Sharesheet-->
@@ -258,7 +257,6 @@
     <string name="thunder">Trovão</string>
     <string name="lightning">Relâmpago</string>
     <string name="tool_clock_title">Relógio</string>
-    <string name="flashlight_strobe">Estroboscópico</string>
     <string name="pref_sensor_details_title">Detalhes do sensor</string>
     <string name="tool_boil_summary">Avisar quando a água é potável</string>
     <string name="start">Começar</string>

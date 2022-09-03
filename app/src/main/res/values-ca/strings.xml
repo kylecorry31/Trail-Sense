@@ -108,7 +108,6 @@
     </plurals>
     <string name="no_beacons">Cap fita</string>
     <string name="access_background_location_rationale">Trail Sense utilitza la ubicació en segon plà. S\'utilitza per calibrar el nivell de pressió a nivell de mas en la monitorització metereològica i per proporcionar alertes més acurades sobre postes de sol. [Veure la política de privacitat](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="eta">~ %s de distància</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>
     <string name="tap_to_turn_off">Toca per apagar</string>
@@ -284,7 +283,6 @@
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="notification_channel_clock_sync_description">Una notificació per sincronitzar el rellotge amb l\'hora GPS</string>
     <string name="start">Comença</string>
-    <string name="flashlight_strobe">Estroboscòpic</string>
     <string name="reset">Restableix</string>
     <string name="water_purification_step_3">Inicieu el temporitzador</string>
     <string name="water_purification_step_1">Filtreu l’aigua</string>

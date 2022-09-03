@@ -203,7 +203,6 @@
     <string name="sun_does_not_set">не заходит</string>
     <string name="notification_monitoring_weather">Сбор данных о погоде в фоне</string>
     <string name="notification_storm_alert_title">Штормовое предупреждение</string>
-    <string name="eta">~ %s до маячка</string>
     <string name="accuracy_info">"GPS: Выйдите на открытое пространство с беспрепятственным видом на небо.
 \n    %s на текущем месте
 \n    %s на текущей высоте
@@ -271,7 +270,6 @@
     <string name="reset">Сброс</string>
     <string name="lightning">Молнии</string>
     <string name="tool_clock_title">Часы</string>
-    <string name="flashlight_strobe">Стробоскоп</string>
     <string name="pref_sensor_details_title">Информация о датчиках</string>
     <string name="tool_boil_summary">Узнайте, когда вода пригодна для питья</string>
     <string name="start">Начать</string>

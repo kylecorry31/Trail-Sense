@@ -63,7 +63,6 @@
     <string name="turn_off">Turn off</string>
     <string name="sos">SOS</string>
     <!--Navigation Tab - Destination Panel-->
-    <string name="eta">~ %s away</string>
     <!--Navigation Tab - Beacon List-->
     <string name="no_beacons">No beacons</string>
     <plurals name="beacon_group_summary">
@@ -357,7 +356,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog" translatable="false">pref_show_calibrate_on_navigate_dialog</string>
     <string name="pref_github" translatable="false">pref_github</string>
     <string name="pref_email" translatable="false">pref_email</string>
-    <string name="pref_non_linear_distances" translatable="false">pref_non_linear_distances</string>
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
@@ -431,7 +429,6 @@
     <string name="tool_boil_summary">Tell when water is potable</string>
     <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
     <string name="pref_sensor_details_title">Sensor details</string>
-    <string name="flashlight_strobe">Strobe</string>
     <string name="tool_clock_title">Clock</string>
     <string name="lightning">Lightning</string>
     <string name="thunder">Thunder</string>

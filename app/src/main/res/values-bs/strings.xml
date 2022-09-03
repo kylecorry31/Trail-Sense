@@ -438,7 +438,6 @@
     <string name="thunder">Gromovi</string>
     <string name="lightning">Munja</string>
     <string name="tool_clock_title">Sat</string>
-    <string name="flashlight_strobe">Stroboskop</string>
     <string name="pref_sensor_details_title">Detalji Senzora</string>
     <string name="tool_boil_summary">Reći kada je voda pitka</string>
     <string name="start">Počni</string>
@@ -560,7 +559,6 @@
         <item quantity="few">%d svjetionika</item>
         <item quantity="other">%d svjetionika</item>
     </plurals>
-    <string name="eta">~ %s udaljeno</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Ugasi</string>
     <string name="tap_to_turn_off">Dodirnite da ugasite</string>

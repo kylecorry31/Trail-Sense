@@ -156,7 +156,6 @@
     <string name="thunder">Trovão</string>
     <string name="lightning">Relâmpago</string>
     <string name="tool_clock_title">Relógio</string>
-    <string name="flashlight_strobe">Estroboscópico</string>
     <string name="pref_sensor_details_title">Detalhes do sensor</string>
     <string name="tool_boil_summary">Avisar quando a água for potável</string>
     <string name="start">Começar</string>
@@ -339,7 +338,6 @@
         <item quantity="one">%d alfinete</item>
         <item quantity="other">%d alfinetes</item>
     </plurals>
-    <string name="eta">~ %s de distância</string>
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>

@@ -217,7 +217,6 @@
     <string name="whistle_signal_come_here">Buraya gel</string>
     <string name="whistle_signal_acknowledged">Anlaşıldı/alındı</string>
     <string name="whistle_signal_where_are_you">Neredesin\?</string>
-    <string name="flashlight_strobe">Hızla yanıp sön / strobe</string>
     <string name="pref_sensor_details_title">Sensör detayları</string>
     <string name="tool_boil_summary">Su içilebilir olduğunda belirt</string>
     <string name="start">Başla</string>
@@ -452,7 +451,6 @@
         <item quantity="other">%d işaret</item>
     </plurals>
     <string name="no_beacons">İşaret yok</string>
-    <string name="eta">~ %s uzaklıkta</string>
     <string name="sos">SOS</string>
     <string name="turn_off">Kapat</string>
     <string name="tap_to_turn_off">Kapatmak için dokun</string>

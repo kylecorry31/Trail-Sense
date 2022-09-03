@@ -27,7 +27,6 @@
 \nKompas: Drej enheden i et 8-talsmønster eller i alle retninger, og hold dig væk fra metal."</string>
     <string name="flashlight_title">Lommelygte</string>
     <string name="tap_to_turn_off">Tryk for at slukke</string>
-    <string name="eta">~ %s væk</string>
     <string name="no_beacons">Ingen fyrtårne</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d fyrtårn</item>

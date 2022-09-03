@@ -89,7 +89,6 @@
         <item quantity="other">%d majáků</item>
     </plurals>
     <string name="no_beacons">Žádné majáky</string>
-    <string name="eta">~ %s daleko</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Svítilna</string>
     <string name="accuracy_info">"GPS: Vyjděte ven, kde budete mít nerušený výhled na oblohu.
@@ -420,7 +419,6 @@
     <string name="altostratus_desc">Střední oblačnost, která pokrývá oblohu. Slunce je sotva vidět jako jasná skvrna.</string>
     <string name="altocumulus_desc">Střední oblačnost, která vypadá jako vata. Obvykle je bílá s tmavšími skvrnami pod sebou a může být rozmístěná nebo připomínat plát.</string>
     <string name="notification_channel_clock_sync">Synchronizace hodin</string>
-    <string name="flashlight_strobe">Stroboskop</string>
     <string name="tool_clock_title">Hodiny</string>
     <string name="pip_button">Aktualizovat systémový čas</string>
     <string name="lightning">Blesk</string>

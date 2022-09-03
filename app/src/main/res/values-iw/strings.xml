@@ -359,7 +359,6 @@
     <string name="pressure_format">%s %s</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">הזנת הלחץ הנוכחי בגובה פני הים ב-hPa</string>
     <string name="sun_nautical">ימי</string>
-    <string name="eta">~ %s משם</string>
     <string name="name">שם</string>
     <string name="beacon_comment">הערות (אופציונלי)</string>
     <string name="units_inhg">inHg</string>
@@ -589,7 +588,6 @@
     <string name="tool_whistle_title">משרוקית</string>
     <string name="action_inventory_clear_confirm">לנקות את כל הסכומים הארוזים\?</string>
     <string name="water_boil_timer_done_content">המים שלך ראויים לשתייה כעת</string>
-    <string name="flashlight_strobe">מבזק מחזורי</string>
     <string name="lightning">ברק</string>
     <string name="create_beacon">צור משואה</string>
     <string name="tool_boil_summary">לדעת מתי מים ראויים לשתייה</string>

@@ -130,7 +130,6 @@
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
-    <string name="eta">~ %s unna</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: Gå ut med fri sikt mot himmelen.
 \n    %s av faktisk posisjon
@@ -250,7 +249,6 @@
     <string name="one">1</string>
     <string name="water_purification_step_2">Kok opp vannet til det fosskoker</string>
     <string name="water_purification_step_1">Filtrer vannet</string>
-    <string name="flashlight_strobe">Blinkemodus</string>
     <string name="tool_boil_summary">Gi beskjed når vannet er drikkelig</string>
     <string name="start">Start</string>
     <plurals name="water_boil_timer_content">

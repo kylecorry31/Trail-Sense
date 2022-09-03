@@ -206,7 +206,6 @@
     <string name="max_temp_uncalibrated">Suhu telepon maks (tidak dikalibrasi)</string>
     <string name="min_temp_calibrated">Suhu lingkungan min (dikalibrasi)</string>
     <string name="min_temp_uncalibrated">Suhu telepon min (tidak dikalibrasi)</string>
-    <string name="eta">~ %s jauh</string>
     <string name="forecast_improving">Mungkin nanti akan membaik</string>
     <string name="forecast_worsening">Mungkin nanti akan memburuk</string>
     <string name="third_quarter">Kuartal Ketiga</string>
@@ -488,7 +487,6 @@
     <string name="open_beacon_in_maps">Lihat di Peta</string>
     <string name="water_boil_timer">Pengatur Waktu Mendidih Air</string>
     <string name="water_purification_step_3">Mulai pewaktu</string>
-    <string name="flashlight_strobe">Strobo</string>
     <string name="two">2</string>
     <string name="three">3</string>
     <string name="strobe_warning_content">Fitur strobo berisi lampu yang berkedip, yang mungkin berbahaya bagi sebagian pengguna.</string>
