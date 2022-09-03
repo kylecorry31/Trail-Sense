@@ -13,7 +13,7 @@ class WhiteNoiseOffReceiver: BroadcastReceiver() {
 
     companion object {
 
-        const val PI_ID = 67832494
+        private const val PI_ID = 67832494
 
         fun intent(context: Context): Intent {
             return Intent(context, WhiteNoiseOffReceiver::class.java)

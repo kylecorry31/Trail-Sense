@@ -17,7 +17,7 @@ class FlashlightOffReceiver: BroadcastReceiver() {
 
     companion object {
 
-        const val PI_ID = 38095822
+        private const val PI_ID = 38095822
 
         fun intent(context: Context): Intent {
             return Intent(context, FlashlightOffReceiver::class.java)

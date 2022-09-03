@@ -7,7 +7,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.LunarEclipse
 import com.kylecorry.trail_sense.shared.FormatService
 
-class LunarEclipseField(val eclipse: LunarEclipse, val showStart: Boolean, val altitude: Float) :
+class LunarEclipseField(
+    private val eclipse: LunarEclipse,
+    private val showStart: Boolean,
+    private val altitude: Float
+) :
     AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return if (showStart) {

@@ -190,7 +190,7 @@ class PerspectiveCorrectionView : CanvasView {
         linesLoaded = true
     }
 
-    fun getBounds(): PixelBounds {
+    private fun getBounds(): PixelBounds {
         return PixelBounds(topLeft, topRight, bottomLeft, bottomRight)
     }
 

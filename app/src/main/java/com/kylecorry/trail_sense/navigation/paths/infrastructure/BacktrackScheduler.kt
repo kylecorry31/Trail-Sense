@@ -59,7 +59,7 @@ object BacktrackScheduler {
         return BacktrackIsAvailable().not().isSatisfiedBy(context)
     }
 
-    fun getScheduler(context: Context): IOneTimeTaskScheduler {
+    private fun getScheduler(context: Context): IOneTimeTaskScheduler {
         return BacktrackWorker.scheduler(context)
     }
 }

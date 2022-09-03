@@ -77,7 +77,7 @@ class NavigationService {
             .toList()
     }
 
-    fun isFacingBearing(azimuth: Bearing, bearing: Bearing): Boolean {
+    private fun isFacingBearing(azimuth: Bearing, bearing: Bearing): Boolean {
         return abs(deltaAngle(bearing.value, azimuth.value)) < 20
     }
 

@@ -29,6 +29,8 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
     private val torch by lazy { Torch(context) }
 
+    private val transitionDuration = Duration.ofSeconds(1)
+
     private val _mode = Topic(defaultValue = Optional.of(getMode()))
     override val mode: ITopic<FlashlightMode>
         get() = _mode.distinct()
@@ -58,7 +60,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         clearTimeout()
         if (!bySystem) {
             isTransitioning = true
-            transitionTimer.once(Duration.ofSeconds(1))
+            transitionTimer.once(transitionDuration)
             setTimeout()
         } else {
             isTransitioning = false
@@ -75,7 +77,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         clearTimeout()
         if (!bySystem) {
             isTransitioning = true
-            transitionTimer.once(Duration.ofSeconds(1))
+            transitionTimer.once(transitionDuration)
         } else {
             isTransitioning = false
             transitionTimer.stop()

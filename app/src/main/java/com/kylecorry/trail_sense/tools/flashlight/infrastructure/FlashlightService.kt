@@ -26,9 +26,8 @@ class FlashlightService : ForegroundService() {
 
     private val offTimer = Timer {
         val end = stopAt
-        if (end != null && end <= Instant.now()) {
-            flashlight.turnOff()
-            stopService(true)
+        if (end != null && end <= Instant.now() && flashlight.getMode() != FlashlightMode.Off) {
+            flashlight.set(FlashlightMode.Off)
         }
     }
 

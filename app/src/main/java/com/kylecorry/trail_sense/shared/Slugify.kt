@@ -20,7 +20,7 @@ object Slugify {
             .replace(whitespace, "-")
     }
 
-    fun String.removeAccents(): String {
+    private fun String.removeAccents(): String {
         // Adapted from https://stackoverflow.com/questions/51731574/removing-accents-and-diacritics-in-kotlin
         return Normalizer.normalize(this, Normalizer.Form.NFD)
             .replace(nonSpacingMark, "")

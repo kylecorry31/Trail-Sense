@@ -72,7 +72,7 @@ class PowerService {
 
     }
 
-    fun wasCharged(first: BatteryReading, second: BatteryReading): Boolean {
+    private fun wasCharged(first: BatteryReading, second: BatteryReading): Boolean {
         return second.isCharging || second.capacity > first.capacity || second.percent > first.percent
     }
 

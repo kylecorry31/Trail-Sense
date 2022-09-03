@@ -9,7 +9,8 @@ import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-class MoonPhaseAstroField(val phase: MoonPhase, val isSupermoon: Boolean) : AstroFieldTemplate() {
+class MoonPhaseAstroField(private val phase: MoonPhase, private val isSupermoon: Boolean) :
+    AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return context.getString(R.string.moon_phase)
     }

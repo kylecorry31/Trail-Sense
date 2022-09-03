@@ -27,12 +27,12 @@ data class WaypointEntity(
     val coordinate: Coordinate
         get() = Coordinate(latitude, longitude)
 
-    val cellQuality: Quality
+    private val cellQuality: Quality
         get() {
             return Quality.values().firstOrNull { it.ordinal == cellQualityId } ?: Quality.Unknown
         }
 
-    val cellNetwork: CellNetwork?
+    private val cellNetwork: CellNetwork?
         get() {
             return CellNetwork.values().firstOrNull { it.id == cellTypeId }
         }

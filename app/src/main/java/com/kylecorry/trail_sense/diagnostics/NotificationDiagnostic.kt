@@ -56,7 +56,7 @@ class NotificationDiagnostic(private val context: Context) : IDiagnostic {
     /**
      * Determines if a channel is blocked
      */
-    fun isChannelBlocked(context: Context, channelId: String): Boolean {
+    private fun isChannelBlocked(context: Context, channelId: String): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return false
         }
@@ -86,7 +86,7 @@ class NotificationDiagnostic(private val context: Context) : IDiagnostic {
     /**
      * Determines if notifications are blocked for the app
      */
-    fun areNotificationsBlocked(context: Context): Boolean {
+    private fun areNotificationsBlocked(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             getNotificationManager(context)?.areNotificationsEnabled() == false
         } else {
