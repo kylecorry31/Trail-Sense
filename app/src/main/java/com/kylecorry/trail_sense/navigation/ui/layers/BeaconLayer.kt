@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui.layers
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
@@ -69,7 +70,8 @@ class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { fal
             })
             if (it.icon != null) {
                 val image = drawer.load(it.icon.icon, size)
-                addMarker(BitmapMapMarker(it.coordinate, image, size = 8f, tint = Color.WHITE) {
+                val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
+                addMarker(BitmapMapMarker(it.coordinate, image, size = 8f, tint = color) {
                     onBeaconClick(it)
                 })
             }
