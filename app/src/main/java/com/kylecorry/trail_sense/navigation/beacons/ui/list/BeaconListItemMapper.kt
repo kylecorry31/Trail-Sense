@@ -111,7 +111,7 @@ class BeaconListItemMapper(
 
     private fun Beacon.getListIcon(context: Context): ListIcon {
         if (owner == BeaconOwner.User) {
-            return ResourceListIcon(R.drawable.ic_location, color)
+            return ResourceListIcon(icon?.icon ?: R.drawable.ic_location, color)
         }
 
         val formatService = FormatService.getInstance(context)

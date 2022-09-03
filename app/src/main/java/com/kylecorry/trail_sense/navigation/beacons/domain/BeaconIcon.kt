@@ -36,5 +36,6 @@ enum class BeaconIcon(override val id: Long, @DrawableRes val icon: Int) : Ident
     Fire(29, R.drawable.ic_category_fire),
 //    Cliff(30, R.drawable.ic_cliff),
 //    Boulder(31, R.drawable.ic_boulder),
-    Power(32, R.drawable.ic_torch_on)
+    Power(32, R.drawable.ic_torch_on),
+//    Historic(33, R.drawable.ic_historic)
 }
