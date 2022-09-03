@@ -9,6 +9,8 @@ import androidx.core.view.isInvisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -106,6 +108,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
         // TODO: Prevent interaction until loaded
+        updateIcon()
         updateColor()
         updateBeaconGroupName()
         loadExistingBeacon()
@@ -144,6 +147,19 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                 if (it != null) {
                     form.onColorChanged(it)
                     updateColor()
+                }
+            }
+        }
+
+        binding.beaconIconPicker.setOnClickListener {
+            CustomUiUtils.pickBeaconIcon(
+                requireContext(),
+                form.data.icon,
+                getString(R.string.icon)
+            ) {
+                if (it != null) {
+                    form.onIconChanged(it)
+                    updateIcon()
                 }
             }
         }
@@ -212,6 +228,13 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         CustomUiUtils.setImageColor(binding.beaconColorPicker, form.data.color.color)
     }
 
+    private fun updateIcon() {
+        binding.beaconIconPicker.setCompoundDrawables(
+            Resources.dp(requireContext(), 24f).toInt(),
+            left = form.data.icon?.icon ?: R.drawable.bubble
+        )
+    }
+
     private fun updateBeaconGroupName() {
         val parent = form.data.groupId
         inBackground {
@@ -245,6 +268,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         binding.comment.setText(data.notes)
         updateBeaconGroupName()
         updateColor()
+        updateIcon()
     }
 
     private fun updateElevationUnits() {

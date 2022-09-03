@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.fromColor
 
@@ -23,7 +24,8 @@ data class CreateBeaconData(
     val groupId: Long? = null,
     val color: AppColor = AppColor.Orange,
     val notes: String = "",
-    val isVisible: Boolean = true
+    val isVisible: Boolean = true,
+    val icon: BeaconIcon? = null
 ) {
 
     fun toBeacon(
@@ -52,6 +54,7 @@ data class CreateBeaconData(
             groupId,
             elevation?.meters()?.distance,
             color = color.color,
+            icon = icon
         )
     }
 
@@ -86,7 +89,8 @@ data class CreateBeaconData(
                 beacon.parentId,
                 AppColor.values().fromColor(beacon.color) ?: AppColor.Orange,
                 beacon.comment ?: "",
-                beacon.visible
+                beacon.visible,
+                beacon.icon
             )
         }
 

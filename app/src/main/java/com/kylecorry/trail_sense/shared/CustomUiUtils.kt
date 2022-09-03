@@ -7,7 +7,6 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Size
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -30,9 +29,11 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.views.BeaconIconPickerView
 import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
@@ -72,10 +73,15 @@ object CustomUiUtils {
         @ColorInt secondaryColor: Int
     ) {
         if (isOn) {
-            setImageColor(button.drawable, secondaryColor)
+            button.drawable?.let { setImageColor(it, secondaryColor) }
             button.backgroundTintList = ColorStateList.valueOf(primaryColor)
         } else {
-            setImageColor(button.drawable, Resources.androidTextColorSecondary(button.context))
+            button.drawable?.let {
+                setImageColor(
+                    it,
+                    Resources.androidTextColorSecondary(button.context)
+                )
+            }
             button.backgroundTintList =
                 ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
         }
@@ -169,6 +175,34 @@ object CustomUiUtils {
                 onColorPick.invoke(null)
             } else {
                 onColorPick.invoke(color)
+            }
+        }
+    }
+
+    // TODO: Make this generic - pick icon, takes in a list of resouces, returns selected (and allows user to pick none)
+    fun pickBeaconIcon(
+        context: Context,
+        default: BeaconIcon? = null,
+        title: String,
+        onIconPick: (icon: BeaconIcon?) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_beacon_icon_picker_prompt, null)
+        val iconPicker = view.findViewById<BeaconIconPickerView>(R.id.prompt_icon_picker)
+        var icon = default
+        iconPicker?.setOnIconChangeListener {
+            icon = it
+        }
+        iconPicker?.icon = icon
+
+        Alerts.dialog(
+            context,
+            title,
+            contentView = view
+        ) { cancelled ->
+            if (cancelled) {
+                onIconPick.invoke(null)
+            } else {
+                onIconPick.invoke(icon)
             }
         }
     }

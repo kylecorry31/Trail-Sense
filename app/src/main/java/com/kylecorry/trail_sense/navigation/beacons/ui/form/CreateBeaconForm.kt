@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.beacons.ui.form
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
 class CreateBeaconForm {
@@ -22,6 +23,10 @@ class CreateBeaconForm {
 
     fun onColorChanged(color: AppColor) {
         updateData(data.copy(color = color))
+    }
+
+    fun onIconChanged(icon: BeaconIcon?) {
+        updateData(data.copy(icon = icon))
     }
 
     fun bind(binding: FragmentCreateBeaconBinding) {

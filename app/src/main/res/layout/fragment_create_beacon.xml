@@ -98,6 +98,7 @@
                 android:focusable="true"
                 android:text="@string/no_group"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:drawableSize="24dp"
                 app:drawableStartCompat="@drawable/ic_beacon_group"
                 app:drawableTint="@color/gray" />
 
@@ -112,8 +113,24 @@
                 android:focusable="true"
                 android:text="@string/color"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:drawableSize="24dp"
                 app:drawableStartCompat="@drawable/bubble"
                 app:drawableTint="@color/orange" />
+
+            <TextView
+                android:id="@+id/beacon_icon_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:drawablePadding="8dp"
+                android:focusable="true"
+                android:text="@string/icon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:drawableSize="24dp"
+                app:drawableStartCompat="@drawable/bubble"
+                app:drawableTint="?android:textColorSecondary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

@@ -732,6 +732,7 @@
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
     <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="color">Color</string>
+    <string name="icon">Icon</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
     <string name="activity_recognition_permission_denied">Physical activity permission denied, unable to turn on pedometer features. You can enable it in settings.</string>
     <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
