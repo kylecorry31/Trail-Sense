@@ -1,8 +1,8 @@
-<!-- drawable/signal_cellular_3.xml -->
+<!-- drawable/exclamation_thick.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="24dp"
     android:width="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#fff" android:pathData="M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" />
+    <path android:fillColor="#fff" android:pathData="M10 3H14V14H10V3M10 21V17H14V21H10Z" />
 </vector>
