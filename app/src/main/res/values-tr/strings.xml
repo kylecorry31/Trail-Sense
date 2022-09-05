@@ -1069,4 +1069,5 @@
     <string name="camera_unavailable">Kamera kullanılamıyor</string>
     <string name="pref_show_path_slope_summary">Yükseklik tablosunda</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Deniz seviyesi kalibrasyonu V2</string>
+    <string name="icon">Simge</string>
 </resources>
