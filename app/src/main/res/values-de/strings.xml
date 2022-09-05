@@ -1014,7 +1014,11 @@
     <string name="pref_only_navigate_path_points_title">Nur zu aufgenommenen Punkten navigieren</string>
     <string name="error">Fehler</string>
     <string name="warning">Warnung</string>
-    <string name="battery_usage_restricted_benefit">Batterieoptimierung für Trail Sense auszuschalten kann die Genauigkeit verbessern.</string>
+    <string name="battery_usage_restricted_benefit">Batterieoptimierung für Trail Sense auszuschalten kann die Genauigkeit verbessern.
+\n
+\nAuf den meisten Geräten können Sie auf „OK“ klicken, dann zu allen Apps umschalten und die Batterieoptimierung für Trail Sense ausschalten.
+\n
+\nBesuchen sie [Don\'t kill my app](https://dontkillmyapp.com/) für gerätespezifische Anweisungen.</string>
     <string name="running_in_background">Im Hintergrund laufend</string>
     <string name="remove_battery_restrictions">Batterieoptimierung ausschalten\?</string>
     <string name="exporting_map">Exportiere Karte</string>
