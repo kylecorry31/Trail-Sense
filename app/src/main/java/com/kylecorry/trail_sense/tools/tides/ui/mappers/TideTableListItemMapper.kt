@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.lists.*
+import com.kylecorry.ceres.list.*
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 
 class TideTableListItemMapper(

@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.lists.*
+import com.kylecorry.ceres.list.*
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 
 enum class PackItemAction {

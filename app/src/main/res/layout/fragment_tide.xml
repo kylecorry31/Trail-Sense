@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/tide_list_date" />
 
 
-    <com.kylecorry.trail_sense.shared.lists.TSListView
+    <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/tide_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

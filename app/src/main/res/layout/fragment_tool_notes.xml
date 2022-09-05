@@ -15,7 +15,7 @@
         app:showSubtitle="false"
         app:title="@string/tool_notes_title" />
 
-    <com.kylecorry.trail_sense.shared.lists.TSListView
+    <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/note_list"
         style="@style/AppTheme.ListViewWithFab"
         android:layout_width="match_parent"

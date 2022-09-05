@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.notes.ui
 
 import android.content.Context
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ListMenuItem
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.lists.ListItem
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
-import com.kylecorry.trail_sense.shared.lists.ListMenuItem
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 
 
@@ -46,7 +46,7 @@ class NoteListItemMapper(
             value.id,
             title,
             subtitle = contents,
-            singleLineSubtitle = true,
+            subtitleMaxLines = 1,
             menu = menu
         ) {
             actionHandler(value, NoteAction.Edit)

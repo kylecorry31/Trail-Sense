@@ -2,14 +2,14 @@ package com.kylecorry.trail_sense.tools.tides.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.lists.ListItem
-import com.kylecorry.trail_sense.shared.lists.ListItemMapper
-import com.kylecorry.trail_sense.shared.lists.ResourceListIcon
 
 class TideListItemMapper(private val context: Context) : ListItemMapper<Tide> {
 

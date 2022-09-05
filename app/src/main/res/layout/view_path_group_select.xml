@@ -14,7 +14,7 @@
         app:leftQuickActionIcon="@drawable/ic_prev"
         app:showSubtitle="false" />
 
-    <com.kylecorry.trail_sense.shared.lists.TSListView
+    <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/path_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

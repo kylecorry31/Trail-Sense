@@ -15,7 +15,7 @@
         app:showSubtitle="false"
         app:title="@string/packing_lists" />
 
-    <com.kylecorry.trail_sense.shared.lists.TSListView
+    <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/pack_list"
         style="@style/AppTheme.ListViewWithFab"
         android:layout_width="match_parent"
