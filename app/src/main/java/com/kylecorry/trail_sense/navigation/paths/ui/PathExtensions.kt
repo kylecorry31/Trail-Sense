@@ -17,7 +17,8 @@ fun List<PathPoint>.asMappable(context: Context, path: Path): IMappablePath {
         MappableLocation(
             point.id,
             point.coordinate,
-            strategy.getColor(point) ?: Color.TRANSPARENT
+            strategy.getColor(point) ?: Color.TRANSPARENT,
+            null
         )
     }, path.style.color, path.style.line)
 }

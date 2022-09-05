@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
@@ -48,12 +49,14 @@ data class MappableReferencePoint(
 interface IMappableLocation : Identifiable {
     val coordinate: Coordinate
     val color: Int
+    val icon: BeaconIcon?
 }
 
 data class MappableLocation(
     override val id: Long,
     override val coordinate: Coordinate,
-    override val color: Int
+    override val color: Int,
+    override val icon: BeaconIcon?
 ) : IMappableLocation
 
 interface IMappablePath : Identifiable {

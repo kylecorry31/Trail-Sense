@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
@@ -135,6 +136,20 @@ class RadarCompassView : BaseCompassView, IMapView {
                 destination.color
             )
         )
+
+        _highlightedLocation?.let { location ->
+            location.icon?.let { icon ->
+                drawReferencePoint(
+                    MappableReferencePoint(
+                        location.id,
+                        icon.icon,
+                        destination.bearing,
+                        Colors.mostContrastingColor(Color.WHITE, Color.BLACK, destination.color)
+                    ),
+                    (iconSize * 0.35f).toInt()
+                )
+            }
+        }
     }
 
     private fun drawLayers() {
@@ -149,7 +164,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         _references.forEach { drawReferencePoint(it) }
     }
 
-    private fun drawReferencePoint(reference: IMappableReferencePoint) {
+    private fun drawReferencePoint(reference: IMappableReferencePoint, size: Int = iconSize) {
         if (reference.opacity == 0f) {
             return
         }
@@ -162,8 +177,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         opacity((255 * reference.opacity).toInt())
         push()
         rotate(reference.bearing.value)
-        val bitmap = getBitmap(reference.drawableId, iconSize)
-        image(bitmap, width / 2f - iconSize / 2f, 0f)
+        val bitmap = getBitmap(reference.drawableId, size)
+        image(bitmap, width / 2f - size / 2f, (iconSize - size) * 0.6f)
         pop()
         noTint()
         opacity(255)

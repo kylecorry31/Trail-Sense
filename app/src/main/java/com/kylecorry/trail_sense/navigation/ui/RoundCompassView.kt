@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
@@ -142,7 +143,7 @@ class RoundCompassView : BaseCompassView {
         }
     }
 
-    private fun drawReference(reference: IMappableReferencePoint) {
+    private fun drawReference(reference: IMappableReferencePoint, size: Int = iconSize) {
         val tint = reference.tint
         if (tint != null) {
             tint(tint)
@@ -152,9 +153,9 @@ class RoundCompassView : BaseCompassView {
         opacity((255 * reference.opacity).toInt())
         push()
         rotate(reference.bearing.value)
-        val bitmap = getBitmap(reference.drawableId, iconSize)
+        val bitmap = getBitmap(reference.drawableId, size)
         imageMode(ImageMode.Corner)
-        image(bitmap, width / 2f - iconSize / 2f, 0f)
+        image(bitmap, width / 2f - size / 2f, (iconSize - size) * 0.6f)
         pop()
         noTint()
         opacity(255)
@@ -201,6 +202,20 @@ class RoundCompassView : BaseCompassView {
                 opacity = opacity
             )
         )
+
+        location.icon?.let { icon ->
+            drawReference(
+                MappableReferencePoint(
+                    location.id,
+                    icon.icon,
+                    bearing,
+                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, location.color),
+                    opacity = opacity
+                ),
+                (iconSize * 0.35f).toInt()
+            )
+        }
+
     }
 
     override fun setup() {
