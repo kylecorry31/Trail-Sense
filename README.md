@@ -30,7 +30,7 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
 ## Table of Contents
 
-- [2022](#2022-goals)
+- [Feature Roadmap](#feature-roadmap)
 - [Goals](#goals)
 - [Features](#features)
 - [Privacy](#privacy)
@@ -40,12 +40,10 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
-## 2022 Goals
-- Release tides, maps, and cloud scanner
-- Refine existing tools
-- Make TS more focused
-- Improve stability, usability, and performance
-- Increase test coverage
+## Feature Roadmap
+- Q4 2022: Cloud scanner
+- Q1 2023: Improved weather forecasts
+- Q2 2023: Maps
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
