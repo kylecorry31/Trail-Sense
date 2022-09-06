@@ -561,7 +561,7 @@
     <string name="updates">Aktualizace</string>
     <string name="import_gpx">Import GPX</string>
     <string name="diamond">Diamant</string>
-    <string name="camera_permission_denied">Oprávnění fotoaparátu bylo odepřeno, nelze zapnout funkce fotoaparátu. Můžete ho povolit v nastavení.</string>
+    <string name="camera_permission_denied">Povolení používání fotoaparátu bylo zamítnuto, nelze zapnout funkce, které používající fotoaparát. Můžete je povolit v nastavení.</string>
     <string name="backtrack_battery_warning">Malé intervaly (do 15 minut) mohou způsobit nadměrné vybíjení baterie</string>
     <string name="calibrate_new_tide">Kalibrovat na nový příliv/odliv\?</string>
     <string name="water_boil_guide_title">Zajistěte, aby byla voda pitná</string>
@@ -607,7 +607,7 @@
     <string name="whistle_signal_acknowledged">Potvrzený</string>
     <string name="dawn_type">Svítání (%s)</string>
     <string name="preview">Náhled</string>
-    <string name="activity_recognition_permission_denied">Povolení k fyzické aktivitě zamítnuto, nelze zapnout funkce krokoměru. Můžete je povolit v nastavení.</string>
+    <string name="activity_recognition_permission_denied">Povolení k pohybové aktivitě bylo zamítnuto, nelze zapnout funkce, které používají krokoměr. Můžete je povolit v nastavení.</string>
     <string name="pref_show_civil_times_summary">Svítání a soumrak</string>
     <string name="whistle_signal_come_here">Pojďte sem</string>
     <string name="dusk_type">Soumrak (%s)</string>
@@ -880,7 +880,11 @@
         <item quantity="few">%d cesty importovány</item>
         <item quantity="other">%d cest importováno</item>
     </plurals>
-    <string name="battery_usage_restricted_benefit">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.</string>
+    <string name="battery_usage_restricted_benefit">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.
+\n
+\nNa většině zařízení klikněte na tlačítko OK, přepněte na všechny aplikace a vypněte optimalizaci baterie pro Trail Sense.
+\n
+\nPokyny pro konkrétní zařízení naleznete na stránce [Don\'t kill my app](https://dontkillmyapp.com/).</string>
     <string name="season_spring">Jaro</string>
     <string name="season_summer">Léto</string>
     <string name="season_fall">Podzim</string>
@@ -1075,4 +1079,5 @@
     <string name="path_slope_steep">Strmý</string>
     <string name="camera_unavailable">Fotoaparát není k dispozici</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Kalibrace hladiny moře V2</string>
+    <string name="icon">Ikona</string>
 </resources>
