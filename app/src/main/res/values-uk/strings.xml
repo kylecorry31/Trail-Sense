@@ -1034,7 +1034,11 @@
     <string name="warning">Увага</string>
     <string name="remove_battery_restrictions">Зняти обмеження на акумулятор\?</string>
     <string name="running_in_background">Запуск у тлі</string>
-    <string name="battery_usage_restricted_benefit">Зняття обмежень акумулятора для Trail Sense може підвищити точність.</string>
+    <string name="battery_usage_restricted_benefit">Зняття обмежень на заряд акумулятора для Trail Sense може підвищити точність.
+\n
+\nНа більшості пристроїв натисніть «ОК», потім перецдіть на всі додатки та вимкніть оптимізацію акумулятора для Trail Sense.
+\n
+\nВідвідайте сторінку [Не знищуйте мій додаток] (https://dontkillmyapp.com/), щоб отримати вказівки щодо конкретного пристрою.</string>
     <string name="exporting_map">Експортування мапи</string>
     <string name="map_exported">Мапу експортовано</string>
     <string name="file">Файл</string>
@@ -1085,4 +1089,5 @@
     <string name="pref_show_path_slope_summary">На графіку висот</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Калібрування рівня моря V2</string>
+    <string name="icon">Піктограма</string>
 </resources>
