@@ -1057,4 +1057,5 @@
     <string name="pref_show_path_slope_summary">在海拔图上</string>
     <string name="camera_unavailable">相机不可用</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">海平面校准 V2</string>
+    <string name="icon">图标</string>
 </resources>

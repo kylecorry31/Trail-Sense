@@ -165,12 +165,12 @@
     <string name="share_action_send">Envoyer</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
-    <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
+    <string name="accuracy_info">GPS : Placez-vous à l\'extérieur avec une vue dégagée du ciel.
 \n\tIncertitude sur la localisation : %s
-\n\tIncertitude sur l\'altitude : %s
+\n\tIncertitude sur l\'élévation : %s
 \n\tNombre de satellites : %s
 \n
-\nBoussole : Déplacez votre téléphone selon une trajectoire décrivant un «8» de manière répétitive, tout en prenant soin de vous éloigner d\'objets métalliques.</string>
+\nBoussole : Déplacez votre téléphone selon une trajectoire décrivant un « 8 » de manière répétitive, tout en prenant soin de vous éloigner d\'objets métalliques.</string>
     <string name="accuracy_info_title">Conseils pour améliorer la précision des données issues des capteurs</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Inconnue</string>
@@ -203,7 +203,7 @@
     <string name="dialog_grant">Mettre à jour les paramètres</string>
     <string name="access_background_location_rationale">Trail Sense utilise vos données de position. Elles sont utilisées pour calibrer la pression atmosphérique au niveau de la mer et fournir des prévisions de lever de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html).</string>
     <string name="access_background_location">Paramètres de localisation</string>
-    <string name="error_occurred_message">Un dysfonctionnement inattendu force l\'arrêt de Trail Sense. Merci d\'envoyer un courriel au développeur afin que ce problème puisse être résolu.</string>
+    <string name="error_occurred_message">Trail Sense a rencontré une erreur. Veuillez envoyer un courriel au développeur pour que ce problème soit résolu.</string>
     <string name="error_occurred">Une erreur est survenue</string>
     <string name="no_group">Pas de groupes définis</string>
     <string name="group">Groupe</string>
@@ -853,4 +853,17 @@
     <string name="stratocumulus_desc">Nuages bas pouvant ressembler à des balles de coton faiblement espacées, de couleur blanche à gris foncé.</string>
     <string name="keep_forever">Conserver indéfiniment</string>
     <string name="paths">Chemins</string>
+    <string name="altocumulus_weather">Peut indiquer des orages plus tard dans la journée s\'il fait humide.</string>
+    <string name="altostratus_weather">Peut indiquer une précipitation imminente.</string>
+    <string name="nimbostratus_weather">Précipitation très bientôt</string>
+    <string name="stratus_weather">Peut indiquer de légères précipitations à venir.</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d chemin</item>
+        <item quantity="many">%d chemins</item>
+        <item quantity="other">%d chemins</item>
+    </plurals>
+    <string name="cirrostratus_weather">Peut indiquer des précipitations dans les 12 à 24 heures à venir</string>
+    <string name="cirrocumulus_weather">Peut indiquer un temps plus froid bientôt.</string>
+    <string name="stratocumulus_weather">Peut indiquer que le temps sera bientôt beau, avec de faibles probabilités de précipitations.</string>
+    <string name="delete_path_group_message">%s et tous ses chemins seront supprimés.</string>
 </resources>
