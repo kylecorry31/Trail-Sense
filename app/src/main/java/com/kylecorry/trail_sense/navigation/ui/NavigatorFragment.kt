@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
@@ -36,6 +37,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
+import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
@@ -417,6 +419,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 gpsVAccuracyStr,
                 gps.satellites.toString()
             ),
+            contentView = CompassCalibrationView.withFrame(
+                requireContext(),
+                height = Resources.dp(requireContext(), 200f).toInt()
+            ),
             cancelText = null,
             cancelOnOutsideTouch = false
         )
@@ -761,6 +767,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
                     getString(android.R.string.ok)
+                ),
+                contentView = CompassCalibrationView.withFrame(
+                    requireContext(),
+                    height = Resources.dp(requireContext(), 200f).toInt()
                 ),
                 cancelText = null,
                 cancelOnOutsideTouch = false

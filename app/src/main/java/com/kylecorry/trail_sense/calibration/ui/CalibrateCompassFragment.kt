@@ -107,6 +107,10 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
                 getString(
                     R.string.calibrate_compass_dialog_content, getString(android.R.string.ok)
                 ),
+                contentView = CompassCalibrationView.withFrame(
+                    requireContext(),
+                    height = Resources.dp(requireContext(), 200f).toInt()
+                ),
                 cancelText = null,
                 cancelOnOutsideTouch = false
             )
