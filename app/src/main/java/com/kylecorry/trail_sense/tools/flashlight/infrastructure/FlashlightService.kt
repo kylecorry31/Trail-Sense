@@ -3,19 +3,19 @@ package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
-import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.andromeda.services.ForegroundService
+import com.kylecorry.andromeda.services.AndromedaService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import java.time.Duration
 import java.time.Instant
 
-class FlashlightService : ForegroundService() {
+class FlashlightService : AndromedaService() {
 
     private val flashlight by lazy { FlashlightSubsystem.getInstance(this) }
     private val cache by lazy { Preferences(this) }
@@ -33,10 +33,7 @@ class FlashlightService : ForegroundService() {
 
     private var stopAt: Instant? = null
 
-    override val foregroundNotificationId: Int
-        get() = NOTIFICATION_ID
-
-    override fun getForegroundNotification(): Notification {
+    private fun getNotification(): Notification {
         return Notify.persistent(
             this,
             CHANNEL_ID,
@@ -53,11 +50,12 @@ class FlashlightService : ForegroundService() {
         topic.unsubscribe(this::onStateChanged)
         offTimer.stop()
         strategy?.stop()
-        stopService(true)
+        Notify.cancel(this, NOTIFICATION_ID)
         super.onDestroy()
     }
 
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Notify.send(this, NOTIFICATION_ID, getNotification())
         topic.subscribe(this::onStateChanged)
         stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
         offTimer.interval(1000)
@@ -108,15 +106,12 @@ class FlashlightService : ForegroundService() {
         }
 
         fun start(context: Context) {
-            try {
-                ContextCompat.startForegroundService(context, intent(context))
-            } catch (e: Exception) {
-                // Don't do anything
-            }
+            Intents.startService(context, intent(context), false)
         }
 
         fun stop(context: Context) {
             context.stopService(intent(context))
+            Notify.cancel(context, NOTIFICATION_ID)
         }
     }
 }
