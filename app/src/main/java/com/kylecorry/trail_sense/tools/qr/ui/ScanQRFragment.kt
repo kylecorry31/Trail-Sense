@@ -135,7 +135,14 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
     private fun openUrl(text: String) {
-        val intent = Intents.url(text)
+        val protocols = listOf("http", "https", "rtsp", "ftp")
+        val url = if (protocols.none { text.lowercase().startsWith(it) }){
+            // Default to HTTPS
+            "https://$text"
+        } else {
+            text
+        }
+        val intent = Intents.url(url)
         Intents.openChooser(requireContext(), intent, text)
     }
 
