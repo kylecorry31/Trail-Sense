@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Saturday, 5:00" />
 
-    <com.kylecorry.trail_sense.shared.views.StatusBadgeView
+    <com.kylecorry.ceres.badge.CeresBadge
         android:id="@+id/signal_strength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

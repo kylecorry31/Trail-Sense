@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Compass" />
 
-    <com.kylecorry.trail_sense.shared.views.StatusBadgeView
+    <com.kylecorry.ceres.badge.CeresBadge
         android:id="@+id/sensor_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

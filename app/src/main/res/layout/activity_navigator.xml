@@ -153,7 +153,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.kylecorry.trail_sense.shared.views.StatusBadgeView
+        <com.kylecorry.ceres.badge.CeresBadge
             android:id="@+id/gps_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
             app:foregroundTint="@android:color/black"
             app:icon="@drawable/satellite" />
 
-        <com.kylecorry.trail_sense.shared.views.StatusBadgeView
+        <com.kylecorry.ceres.badge.CeresBadge
             android:id="@+id/compass_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
