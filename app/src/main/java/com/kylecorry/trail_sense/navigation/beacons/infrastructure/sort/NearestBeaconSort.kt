@@ -2,21 +2,20 @@ package com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.distance.IBeaconDistanceCalculatorFactory
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.IBeaconService
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.mappers.BeaconDistanceMapper
+import com.kylecorry.trail_sense.shared.grouping.sort.GroupSort
 
 class NearestBeaconSort(
-    private val distanceFactory: IBeaconDistanceCalculatorFactory,
-    private val locationProvider: () -> Coordinate
+    beaconService: IBeaconService,
+    locationProvider: () -> Coordinate
 ) : IBeaconSort {
-    override suspend fun sort(beacons: List<IBeacon>): List<IBeacon> {
-        val location = locationProvider.invoke()
-        return beacons
-            .map { it to getDistance(location, it) }
-            .sortedBy { it.second }
-            .map { it.first }
-    }
 
-    private suspend fun getDistance(location: Coordinate, beacon: IBeacon): Float {
-        return distanceFactory.getCalculator(beacon).calculate(location, beacon)
+    private val sort = GroupSort(
+        BeaconDistanceMapper(beaconService.loader, locationProvider)
+    )
+
+    override suspend fun sort(beacons: List<IBeacon>): List<IBeacon> {
+        return sort.sort(beacons)
     }
 }

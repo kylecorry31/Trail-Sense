@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.distance.BeaconDistanceCalculatorFactory
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestBeaconSort
 import com.kylecorry.trail_sense.shared.FormatService
@@ -88,13 +87,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                 CoroutineScope(Dispatchers.Main).launch {
                     val beacon = BeaconPickers.pickBeacon(
                         context,
-                        sort = NearestBeaconSort(
-                            BeaconDistanceCalculatorFactory(
-                                BeaconService(
-                                    context
-                                )
-                            ), gps::location
-                        )
+                        sort = NearestBeaconSort(BeaconService(context), gps::location)
                     ) ?: return@launch
                     coordinate = beacon.coordinate
                 }

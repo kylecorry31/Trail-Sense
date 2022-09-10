@@ -4,8 +4,12 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 
 interface IBeaconService {
+
+    val loader: IGroupLoader<IBeacon>
+
     // Add
     suspend fun add(beacon: Beacon): Long
     suspend fun add(group: BeaconGroup): Long

@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 class BeaconService(context: Context) : IBeaconService {
 
     private val repo = BeaconRepo.getInstance(context)
-    private val loader = GroupLoader(this::getGroup, this::getChildren)
+    override val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
     private val filter = GroupFilter(loader)
 

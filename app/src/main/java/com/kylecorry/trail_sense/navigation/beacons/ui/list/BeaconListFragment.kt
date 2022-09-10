@@ -25,7 +25,6 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.*
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.distance.BeaconDistanceCalculatorFactory
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxConverter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
@@ -57,8 +56,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
-    private val distanceFactory by lazy { BeaconDistanceCalculatorFactory(beaconService) }
-    private val beaconSort by lazy { NearestBeaconSort(distanceFactory, gps::location) }
+    private val beaconSort by lazy { NearestBeaconSort(beaconService, gps::location) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
     private lateinit var loadingIndicator: ILoadingIndicator
 
