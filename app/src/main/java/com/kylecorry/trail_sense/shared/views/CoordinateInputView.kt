@@ -16,7 +16,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestBeaconSort
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.CoroutineScope
@@ -87,7 +87,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                 CoroutineScope(Dispatchers.Main).launch {
                     val beacon = BeaconPickers.pickBeacon(
                         context,
-                        sort = NearestBeaconSort(BeaconService(context), gps::location)
+                        sort = ClosestBeaconSort(BeaconService(context), gps::location)
                     ) ?: return@launch
                     coordinate = beacon.coordinate
                 }

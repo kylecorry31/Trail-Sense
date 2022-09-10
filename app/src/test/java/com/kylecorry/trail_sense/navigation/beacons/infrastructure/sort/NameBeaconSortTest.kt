@@ -8,12 +8,12 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class AlphabeticalBeaconSortTest {
+internal class NameBeaconSortTest {
 
     @Test
     fun sort() = runBlocking {
 
-        val sort = AlphabeticalBeaconSort()
+        val sort = NameBeaconSort()
 
         val beacons = listOf(
             Beacon(1, "Test 2", Coordinate.zero),
@@ -32,7 +32,7 @@ internal class AlphabeticalBeaconSortTest {
 
     @Test
     fun sortWhenEmpty() = runBlocking {
-        val sort = AlphabeticalBeaconSort()
+        val sort = NameBeaconSort()
 
         val sorted = sort.sort(emptyList())
 

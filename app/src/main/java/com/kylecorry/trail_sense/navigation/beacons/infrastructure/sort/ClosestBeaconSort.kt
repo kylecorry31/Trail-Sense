@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.I
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.mappers.BeaconDistanceMapper
 import com.kylecorry.trail_sense.shared.grouping.sort.GroupSort
 
-class NearestBeaconSort(
+class ClosestBeaconSort(
     beaconService: IBeaconService,
     locationProvider: () -> Coordinate
 ) : IBeaconSort {

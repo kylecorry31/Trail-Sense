@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.AlphabeticalBeaconSort
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.IBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.ui.list.IBeaconListItemMapper
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -26,7 +26,7 @@ object BeaconPickers {
         title: String? = null,
         initialGroup: Long? = null,
         scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
-        sort: IBeaconSort = AlphabeticalBeaconSort(),
+        sort: IBeaconSort = NameBeaconSort(),
         filter: (List<IBeacon>) -> List<IBeacon> = { it }
     ): Beacon? = suspendCoroutine { cont ->
         val loader = BeaconLoader(BeaconService(context), UserPreferences(context).navigation)
@@ -64,7 +64,7 @@ object BeaconPickers {
         okText: String = context.getString(android.R.string.ok),
         initialGroup: Long? = null,
         scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
-        sort: IBeaconSort = AlphabeticalBeaconSort(),
+        sort: IBeaconSort = NameBeaconSort(),
         filter: (List<BeaconGroup>) -> List<BeaconGroup> = { it }
     ): Pair<Boolean, BeaconGroup?> = suspendCoroutine { cont ->
         val loader = BeaconLoader(BeaconService(context), UserPreferences(context).navigation)

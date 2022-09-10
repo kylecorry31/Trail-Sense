@@ -30,7 +30,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NearestBeaconSort
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -56,7 +56,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
-    private val beaconSort by lazy { NearestBeaconSort(beaconService, gps::location) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
     private lateinit var loadingIndicator: ILoadingIndicator
 
@@ -100,8 +99,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         manager = GroupListManager(
             lifecycleScope,
             beaconLoader,
-            lastRoot
-        ) { beaconSort.sort(it) }
+            lastRoot,
+            this::sortBeacons
+        )
 
         binding.searchbox.setOnQueryTextListener { _, _ ->
             manager.search(binding.searchbox.query)
@@ -184,6 +184,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 }
             }
         }
+    }
+
+    private suspend fun sortBeacons(beacons: List<IBeacon>): List<IBeacon> {
+        val sort = ClosestBeaconSort(beaconService, gps::location)
+        return sort.sort(beacons)
     }
 
     private fun setCreateMenuVisibility(isShowing: Boolean) {
