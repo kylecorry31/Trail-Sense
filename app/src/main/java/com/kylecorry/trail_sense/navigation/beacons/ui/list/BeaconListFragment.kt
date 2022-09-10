@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.gpx.GPXData
@@ -72,11 +71,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
-    }
-
-    private val delayedUpdate = Timer {
-        loadingIndicator.hide()
-        refresh()
     }
 
     private lateinit var manager: GroupListManager<IBeacon>
@@ -224,19 +218,13 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     override fun onResume() {
         super.onResume()
-        manager.clear(false)
-        loadingIndicator.show()
-        if (gps.hasValidReading) {
-            onLocationUpdate()
-        } else {
-            gps.start(this::onLocationUpdate)
-        }
+        manager.refresh()
+        // Get a GPS reading
+        gps.start(this::onLocationUpdate)
     }
 
     override fun onPause() {
-        loadingIndicator.hide()
         gps.stop(this::onLocationUpdate)
-        delayedUpdate.stop()
         tryOrNothing {
             lastRoot = manager.root
         }
@@ -244,7 +232,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun onLocationUpdate(): Boolean {
-        delayedUpdate.once(LOAD_DELAY)
         return false
     }
 
