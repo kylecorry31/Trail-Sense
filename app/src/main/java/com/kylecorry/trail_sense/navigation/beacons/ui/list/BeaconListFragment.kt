@@ -33,8 +33,6 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestB
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
-import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -56,7 +54,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
-    private lateinit var loadingIndicator: ILoadingIndicator
 
     private val listMapper by lazy {
         IBeaconListItemMapper(
@@ -89,7 +86,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         navController = findNavController()
 
         binding.beaconRecycler.emptyView = binding.beaconEmptyText
-        loadingIndicator = ViewLoadingIndicator(binding.loading)
         manager = GroupListManager(
             lifecycleScope,
             beaconLoader,
