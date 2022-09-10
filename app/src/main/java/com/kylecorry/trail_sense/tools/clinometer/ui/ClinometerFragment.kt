@@ -81,16 +81,16 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         toast(getString(R.string.set_inclination_instructions))
 
-        CustomUiUtils.setButtonState(binding.clinometerTitle.leftQuickAction, false)
-        CustomUiUtils.setButtonState(binding.clinometerTitle.rightQuickAction, false)
+        CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
+        CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, false)
 
         binding.cameraViewHolder.clipToOutline = true
 
-        binding.clinometerTitle.leftQuickAction.setOnClickListener {
+        binding.clinometerTitle.leftButton.setOnClickListener {
             if (useCamera) {
                 binding.camera.stop()
-                binding.clinometerTitle.leftQuickAction.setImageResource(R.drawable.ic_camera)
-                CustomUiUtils.setButtonState(binding.clinometerTitle.leftQuickAction, false)
+                binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
                 useCamera = false
                 clinometer = getClinometer()
             } else {
@@ -98,8 +98,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     if (hasPermission) {
                         useCamera = true
                         binding.camera.start()
-                        binding.clinometerTitle.leftQuickAction.setImageResource(R.drawable.ic_screen_flashlight)
-                        CustomUiUtils.setButtonState(binding.clinometerTitle.leftQuickAction, false)
+                        binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_screen_flashlight)
+                        CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
                         clinometer = getClinometer()
                     } else {
                         alertNoCameraPermission()
@@ -108,7 +108,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
         }
 
-        binding.clinometerTitle.rightQuickAction.setOnClickListener {
+        binding.clinometerTitle.rightButton.setOnClickListener {
             askForHeightOrDistance()
         }
 
@@ -205,7 +205,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             if (distance != null) {
                 distanceAway = distance
                 knownHeight = null
-                CustomUiUtils.setButtonState(binding.clinometerTitle.rightQuickAction, true)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
                 if (!prefs.clinometer.measureHeightInstructionsSent) {
                     dialog(
                         getString(R.string.instructions),
@@ -236,7 +236,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             if (distance != null) {
                 knownHeight = distance
                 distanceAway = null
-                CustomUiUtils.setButtonState(binding.clinometerTitle.rightQuickAction, true)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
                 if (!prefs.clinometer.measureDistanceInstructionsSent) {
                     dialog(
                         getString(R.string.instructions),
@@ -291,7 +291,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         if (distanceAway == null && knownHeight == null) {
             distanceAway = prefs.clinometer.baselineDistance
             CustomUiUtils.setButtonState(
-                binding.clinometerTitle.rightQuickAction,
+                binding.clinometerTitle.rightButton,
                 distanceAway != null
             )
         }

@@ -125,7 +125,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             createBeacon(initialLocation = it)
         }
 
-        binding.beaconTitle.rightQuickAction.setOnClickListener {
+        binding.beaconTitle.rightButton.setOnClickListener {
             onExportBeacons()
         }
 

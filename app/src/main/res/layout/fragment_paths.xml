@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+    <com.kylecorry.ceres.toolbar.CeresToolbar
         android:id="@+id/paths_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:flattenQuickActions="true"
+        app:flattenButtons="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightQuickActionIcon="@drawable/ic_menu_dots"
+        app:rightButtonIcon="@drawable/ic_menu_dots"
         app:showSubtitle="false"
         app:title="@string/paths" />
 

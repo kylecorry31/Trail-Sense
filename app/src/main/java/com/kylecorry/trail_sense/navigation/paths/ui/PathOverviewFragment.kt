@@ -159,7 +159,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             navigateToNearestPathPoint()
         }
 
-        binding.pathTitle.rightQuickAction.setOnClickListener {
+        binding.pathTitle.rightButton.setOnClickListener {
             showPathMenu()
         }
 
@@ -318,7 +318,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
 
         Pickers.menu(
-            binding.pathTitle.rightQuickAction, listOf(
+            binding.pathTitle.rightButton, listOf(
                 getString(R.string.rename),
                 if (path.temporary) getString(R.string.keep_forever) else null,
                 if (prefs.navigation.useRadarCompass || prefs.navigation.areMapsEnabled) {

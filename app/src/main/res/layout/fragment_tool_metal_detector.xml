@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+    <com.kylecorry.ceres.toolbar.CeresToolbar
         android:id="@+id/metal_detector_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

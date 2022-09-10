@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.trail_sense.shared.views.ToolTitleView
+    <com.kylecorry.ceres.toolbar.CeresToolbar
         android:id="@+id/location_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:flattenQuickActions="true"
-        app:rightQuickActionIcon="@drawable/ic_share"
+        app:flattenButtons="true"
+        app:rightButtonIcon="@drawable/ic_share"
         tools:subtitle="@string/coordinate_format_decimal_degrees"
         tools:title="0.0000, 0.0000" />
 

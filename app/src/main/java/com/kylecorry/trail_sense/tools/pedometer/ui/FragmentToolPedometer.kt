@@ -69,7 +69,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             }
         }
 
-        binding.pedometerTitle.rightQuickAction.setOnClickListener {
+        binding.pedometerTitle.rightButton.setOnClickListener {
             val alertDistance = prefs.pedometer.alertDistance
             if (alertDistance == null) {
                 val units = listOf(
@@ -131,7 +131,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         val lastReset = counter.startTime?.toZonedDateTime()
 
         CustomUiUtils.setButtonState(
-            binding.pedometerTitle.rightQuickAction,
+            binding.pedometerTitle.rightButton,
             prefs.pedometer.alertDistance != null
         )
 

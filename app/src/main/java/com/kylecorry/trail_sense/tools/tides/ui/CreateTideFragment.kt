@@ -51,7 +51,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     private var backCallback: OnBackPressedCallback? = null
 
     private val intervalometer = Timer {
-        binding.createTideTitle.rightQuickAction.isVisible = formIsValid()
+        binding.createTideTitle.rightButton.isVisible = formIsValid()
     }
 
     override fun generateBinding(
@@ -80,12 +80,12 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.createTideTitle.leftQuickAction.flatten()
-        binding.createTideTitle.leftQuickAction.setOnClickListener {
+        binding.createTideTitle.leftButton.flatten()
+        binding.createTideTitle.leftButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.tides)
         }
 
-        CustomUiUtils.setButtonState(binding.createTideTitle.rightQuickAction, true)
+        CustomUiUtils.setButtonState(binding.createTideTitle.rightButton, true)
 
         binding.tideFrequencyDiurnal.text = buildSpannedString {
             bold {
@@ -219,7 +219,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             tideTimesList.scrollToPosition(tides.lastIndex)
         }
 
-        binding.createTideTitle.rightQuickAction.setOnClickListener {
+        binding.createTideTitle.rightButton.setOnClickListener {
             val tide = getTide()
             if (tide != null) {
                 inBackground {

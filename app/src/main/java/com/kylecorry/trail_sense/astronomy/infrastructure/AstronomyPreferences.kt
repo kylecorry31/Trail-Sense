@@ -109,7 +109,7 @@ class AstronomyPreferences(private val context: Context) {
         cache.putString("sunset_alert_last_sent_date", date.toString())
     }
 
-    val leftQuickAction: QuickActionType
+    val leftButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_left))
                 ?.toIntCompat()
@@ -117,7 +117,7 @@ class AstronomyPreferences(private val context: Context) {
                 ?: QuickActionType.Flashlight
         }
 
-    val rightQuickAction: QuickActionType
+    val rightButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))
                 ?.toIntCompat()

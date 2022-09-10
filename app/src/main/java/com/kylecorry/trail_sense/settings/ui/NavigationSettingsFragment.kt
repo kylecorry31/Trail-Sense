@@ -26,8 +26,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
     private var prefNearbyRadius: Preference? = null
     private var prefBacktrack: SwitchPreferenceCompat? = null
-    private var prefLeftQuickAction: ListPreference? = null
-    private var prefRightQuickAction: ListPreference? = null
+    private var prefleftButton: ListPreference? = null
+    private var prefrightButton: ListPreference? = null
     private val formatService by lazy { FormatService(requireContext()) }
 
     private lateinit var prefs: UserPreferences
@@ -35,8 +35,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     private fun bindPreferences() {
         prefNearbyRadius = preference(R.string.pref_nearby_radius_holder)
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
-        prefLeftQuickAction = list(R.string.pref_navigation_quick_action_left)
-        prefRightQuickAction = list(R.string.pref_navigation_quick_action_right)
+        prefleftButton = list(R.string.pref_navigation_quick_action_left)
+        prefrightButton = list(R.string.pref_navigation_quick_action_right)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -49,11 +49,11 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
         val actionValues = actions.map { it.id.toString() }
 
-        prefLeftQuickAction?.entries = actionNames.toTypedArray()
-        prefRightQuickAction?.entries = actionNames.toTypedArray()
+        prefleftButton?.entries = actionNames.toTypedArray()
+        prefrightButton?.entries = actionNames.toTypedArray()
 
-        prefLeftQuickAction?.entryValues = actionValues.toTypedArray()
-        prefRightQuickAction?.entryValues = actionValues.toTypedArray()
+        prefleftButton?.entryValues = actionValues.toTypedArray()
+        prefrightButton?.entryValues = actionValues.toTypedArray()
 
 
         prefBacktrack?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)

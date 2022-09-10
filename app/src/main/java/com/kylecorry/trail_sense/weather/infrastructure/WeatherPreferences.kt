@@ -223,14 +223,14 @@ class WeatherPreferences(private val context: Context) {
             cache.putString(context.getString(R.string.pref_daily_weather_time), value.toString())
         }
 
-    val leftQuickAction: QuickActionType
+    val leftButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))
                 ?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Clouds
         }
 
-    val rightQuickAction: QuickActionType
+    val rightButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))
                 ?.toIntCompat()

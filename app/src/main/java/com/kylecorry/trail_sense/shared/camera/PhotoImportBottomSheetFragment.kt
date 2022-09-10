@@ -42,7 +42,7 @@ class PhotoImportBottomSheetFragment(
             captureSettings = ImageCaptureSettings(captureMode = ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
         )
 
-        binding.toolTitle.rightQuickAction.setOnClickListener {
+        binding.toolTitle.rightButton.setOnClickListener {
             onCapture(null)
             dismiss()
         }

@@ -64,7 +64,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         super.onViewCreated(view, savedInstanceState)
         chart = TideChart(binding.chart)
 
-        binding.tideTitle.rightQuickAction.setOnClickListener {
+        binding.tideTitle.rightButton.setOnClickListener {
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
 

@@ -94,8 +94,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             )
         }
 
-        binding.inventoryListTitle.rightQuickAction.setOnClickListener {
-            Pickers.menu(binding.inventoryListTitle.rightQuickAction, R.menu.inventory_menu) {
+        binding.inventoryListTitle.rightButton.setOnClickListener {
+            Pickers.menu(binding.inventoryListTitle.rightButton, R.menu.inventory_menu) {
                 when (it) {
                     R.id.action_pack_sort -> {
                         changeSort()

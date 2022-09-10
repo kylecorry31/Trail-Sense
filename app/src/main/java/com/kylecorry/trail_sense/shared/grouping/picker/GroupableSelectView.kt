@@ -44,7 +44,7 @@ class GroupableSelectView<T : Groupable>(
         binding.emptyText.text = emptyText
         manager.onChange = { root, items, rootChanged ->
             this.root = root
-            binding.groupTitle.leftQuickAction.isVisible = root != null
+            binding.groupTitle.leftButton.isVisible = root != null
             binding.groupTitle.title.text = titleProvider(root)
             val mapped = items.map {
                 // TODO: Don't override anything, just intercept the click action to open folders (let the caller decide what to do on click)
@@ -62,8 +62,8 @@ class GroupableSelectView<T : Groupable>(
         }
 
         // Back
-        binding.groupTitle.leftQuickAction.isVisible = false
-        binding.groupTitle.leftQuickAction.setOnClickListener {
+        binding.groupTitle.leftButton.isVisible = false
+        binding.groupTitle.leftButton.setOnClickListener {
             manager.up()
         }
 

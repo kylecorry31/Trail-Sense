@@ -25,7 +25,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 
-            <com.kylecorry.trail_sense.shared.views.ToolTitleView
+            <com.kylecorry.ceres.toolbar.CeresToolbar
                 android:id="@+id/page_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

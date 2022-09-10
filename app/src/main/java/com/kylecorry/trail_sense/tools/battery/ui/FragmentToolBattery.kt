@@ -118,16 +118,16 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             updateServices()
         }
 
-        CustomUiUtils.setButtonState(binding.batteryTitle.leftQuickAction, false)
-        CustomUiUtils.setButtonState(binding.batteryTitle.rightQuickAction, false)
+        CustomUiUtils.setButtonState(binding.batteryTitle.leftButton, false)
+        CustomUiUtils.setButtonState(binding.batteryTitle.rightButton, false)
 
         val settingsIntent = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-        binding.batteryTitle.rightQuickAction.isVisible = Intents.hasReceiver(requireContext(), settingsIntent)
-        binding.batteryTitle.rightQuickAction.setOnClickListener {
+        binding.batteryTitle.rightButton.isVisible = Intents.hasReceiver(requireContext(), settingsIntent)
+        binding.batteryTitle.rightButton.setOnClickListener {
             startActivity(settingsIntent)
         }
 
-        binding.batteryTitle.leftQuickAction.setOnClickListener {
+        binding.batteryTitle.leftButton.setOnClickListener {
             val readingDuration =
                 Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
             CustomUiUtils.showLineChart(
@@ -154,7 +154,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                 else null
             )
 
-            binding.batteryTitle.leftQuickAction.isVisible = readings.size >= 2
+            binding.batteryTitle.leftButton.isVisible = readings.size >= 2
 
             update()
         }

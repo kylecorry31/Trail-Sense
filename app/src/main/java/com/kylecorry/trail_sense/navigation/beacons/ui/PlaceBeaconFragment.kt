@@ -104,7 +104,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         form.bind(binding)
         binding.beaconElevation.defaultHint = getString(R.string.elevation)
         binding.beaconElevation.hint = getString(R.string.elevation)
-        CustomUiUtils.setButtonState(binding.createBeaconTitle.rightQuickAction, true)
+        CustomUiUtils.setButtonState(binding.createBeaconTitle.rightButton, true)
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
         // TODO: Prevent interaction until loaded
@@ -180,7 +180,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         backCallback = promptIfUnsavedChanges { hasChanges.isSatisfiedBy(form.data) }
 
-        binding.createBeaconTitle.rightQuickAction.setOnClickListener { onSubmit() }
+        binding.createBeaconTitle.rightButton.setOnClickListener { onSubmit() }
 
         binding.distanceAway.units = formatter.sortDistanceUnits(
             listOf(
@@ -215,7 +215,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun updateSubmitButton() {
-        binding.createBeaconTitle.rightQuickAction.isInvisible =
+        binding.createBeaconTitle.rightButton.isInvisible =
             !isComplete.isSatisfiedBy(form.data)
     }
 

@@ -37,15 +37,6 @@
         <attr name="playBarSubtitle" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="ToolTitleView">
-        <attr name="leftQuickActionIcon" format="reference" />
-        <attr name="rightQuickActionIcon" format="reference" />
-        <attr name="title" format="string" />
-        <attr name="subtitle" format="string" />
-        <attr name="showSubtitle" format="boolean" />
-        <attr name="flattenQuickActions" format="boolean" />
-    </declare-styleable>
-
     <declare-styleable name="TileButton">
         <attr name="tileIcon" format="reference" />
         <attr name="tileText" format="string" />

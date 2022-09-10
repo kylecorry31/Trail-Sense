@@ -80,7 +80,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                         )
                     }
 
-                    binding.beaconTitle.rightQuickAction.setOnClickListener {
+                    binding.beaconTitle.rightButton.setOnClickListener {
                         Pickers.menu(
                             it,
                             listOf(getString(R.string.share_ellipsis), getString(R.string.delete))
@@ -119,7 +119,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.beaconTitle.rightQuickAction.flatten()
+        binding.beaconTitle.rightButton.flatten()
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }

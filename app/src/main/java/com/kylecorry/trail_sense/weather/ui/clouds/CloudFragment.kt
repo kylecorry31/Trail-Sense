@@ -33,9 +33,9 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         listView.addLineSeparator()
         listView.setData(cloudRepo.getClouds().sortedByDescending { it.level })
 
-        CustomUiUtils.setButtonState(binding.cloudListTitle.rightQuickAction, false)
-        binding.cloudListTitle.rightQuickAction.isVisible = UserPreferences(requireContext()).weather.showCloudScanner
-        binding.cloudListTitle.rightQuickAction.setOnClickListener {
+        CustomUiUtils.setButtonState(binding.cloudListTitle.rightButton, false)
+        binding.cloudListTitle.rightButton.isVisible = UserPreferences(requireContext()).weather.showCloudScanner
+        binding.cloudListTitle.rightButton.setOnClickListener {
             tryOrNothing {
                 findNavController().navigate(R.id.action_cloud_to_cloud_scan)
             }

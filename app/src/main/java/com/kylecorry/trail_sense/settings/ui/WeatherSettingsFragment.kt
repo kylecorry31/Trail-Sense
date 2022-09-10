@@ -30,8 +30,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowDailyWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
-    private var prefLeftQuickAction: ListPreference? = null
-    private var prefRightQuickAction: ListPreference? = null
+    private var prefleftButton: ListPreference? = null
+    private var prefrightButton: ListPreference? = null
     private var prefDailyWeatherTime: Preference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService(requireContext()) }
@@ -46,8 +46,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefShowPressureInNotification = switch(R.string.pref_show_pressure_in_notification)
         prefStormAlerts = switch(R.string.pref_send_storm_alert)
         prefDailyWeatherTime = preference(R.string.pref_daily_weather_time_holder)
-        prefLeftQuickAction = list(R.string.pref_weather_quick_action_left)
-        prefRightQuickAction = list(R.string.pref_weather_quick_action_right)
+        prefleftButton = list(R.string.pref_weather_quick_action_left)
+        prefrightButton = list(R.string.pref_weather_quick_action_right)
     }
 
 
@@ -61,11 +61,11 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
         val actionValues = actions.map { it.id.toString() }
 
-        prefLeftQuickAction?.entries = actionNames.toTypedArray()
-        prefRightQuickAction?.entries = actionNames.toTypedArray()
+        prefleftButton?.entries = actionNames.toTypedArray()
+        prefrightButton?.entries = actionNames.toTypedArray()
 
-        prefLeftQuickAction?.entryValues = actionValues.toTypedArray()
-        prefRightQuickAction?.entryValues = actionValues.toTypedArray()
+        prefleftButton?.entryValues = actionValues.toTypedArray()
+        prefrightButton?.entryValues = actionValues.toTypedArray()
 
         prefMonitorWeather?.isEnabled =
             !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)

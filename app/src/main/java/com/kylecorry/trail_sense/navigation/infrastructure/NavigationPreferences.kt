@@ -176,14 +176,14 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         PathSortMethod.MostRecent
     )
 
-    val leftQuickAction: QuickActionType
+    val leftButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_left))
                 ?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Backtrack
         }
 
-    val rightQuickAction: QuickActionType
+    val rightButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))
                 ?.toIntCompat()

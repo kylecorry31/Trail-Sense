@@ -100,7 +100,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
 
 
-        binding.pathsTitle.rightQuickAction.setOnClickListener {
+        binding.pathsTitle.rightButton.setOnClickListener {
             val defaultSort = prefs.navigation.pathSort
             Pickers.menu(
                 it, listOf(

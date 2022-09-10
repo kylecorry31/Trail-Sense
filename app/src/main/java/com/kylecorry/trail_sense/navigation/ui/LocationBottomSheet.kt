@@ -78,7 +78,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
             ShareAction.Send to LocationSharesheet(requireContext())
         )
 
-        binding.locationTitle.rightQuickAction.setOnClickListener {
+        binding.locationTitle.rightButton.setOnClickListener {
             Share.share(
                 this,
                 getString(R.string.location),

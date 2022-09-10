@@ -339,22 +339,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (sightingCompass.isRunning()) {
             // TODO: Extract this logic to the flashlight (if camera is in use)
-            if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-                binding.navigationTitle.rightQuickAction.isClickable = false
+            if (userPrefs.navigation.rightButton == QuickActionType.Flashlight) {
+                binding.navigationTitle.rightButton.isClickable = false
             }
-            if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-                binding.navigationTitle.leftQuickAction.isClickable = false
+            if (userPrefs.navigation.leftButton == QuickActionType.Flashlight) {
+                binding.navigationTitle.leftButton.isClickable = false
             }
         }
     }
 
     private fun disableSightingCompass() {
         sightingCompass.stop()
-        if (userPrefs.navigation.rightQuickAction == QuickActionType.Flashlight) {
-            binding.navigationTitle.rightQuickAction.isClickable = true
+        if (userPrefs.navigation.rightButton == QuickActionType.Flashlight) {
+            binding.navigationTitle.rightButton.isClickable = true
         }
-        if (userPrefs.navigation.leftQuickAction == QuickActionType.Flashlight) {
-            binding.navigationTitle.leftQuickAction.isClickable = true
+        if (userPrefs.navigation.leftButton == QuickActionType.Flashlight) {
+            binding.navigationTitle.leftButton.isClickable = true
         }
     }
 

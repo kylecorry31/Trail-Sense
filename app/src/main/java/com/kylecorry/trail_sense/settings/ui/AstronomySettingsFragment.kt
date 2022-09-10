@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
-    private var prefLeftQuickAction: ListPreference? = null
-    private var prefRightQuickAction: ListPreference? = null
+    private var prefleftButton: ListPreference? = null
+    private var prefrightButton: ListPreference? = null
 
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -27,18 +27,18 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
                 true
             }
 
-        prefLeftQuickAction = list(R.string.pref_astronomy_quick_action_left)
-        prefRightQuickAction = list(R.string.pref_astronomy_quick_action_right)
+        prefleftButton = list(R.string.pref_astronomy_quick_action_left)
+        prefrightButton = list(R.string.pref_astronomy_quick_action_right)
 
         val actions = QuickActionUtils.astronomy(requireContext())
         val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
         val actionValues = actions.map { it.id.toString() }
 
-        prefLeftQuickAction?.entries = actionNames.toTypedArray()
-        prefRightQuickAction?.entries = actionNames.toTypedArray()
+        prefleftButton?.entries = actionNames.toTypedArray()
+        prefrightButton?.entries = actionNames.toTypedArray()
 
-        prefLeftQuickAction?.entryValues = actionValues.toTypedArray()
-        prefRightQuickAction?.entryValues = actionValues.toTypedArray()
+        prefleftButton?.entryValues = actionValues.toTypedArray()
+        prefrightButton?.entryValues = actionValues.toTypedArray()
 
 
     }

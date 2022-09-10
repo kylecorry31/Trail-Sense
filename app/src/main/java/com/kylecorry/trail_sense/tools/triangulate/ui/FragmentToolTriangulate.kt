@@ -46,7 +46,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
 
-        binding.triangulateTitle.rightQuickAction.setOnClickListener {
+        binding.triangulateTitle.rightButton.setOnClickListener {
             location?.let {
                 val share = LocationCopy(requireContext())
                 share.send(it)
@@ -113,11 +113,11 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         this.location = location
         if (location == null || location.latitude.isNaN() || location.longitude.isNaN()) {
             binding.triangulateTitle.title.text = getString(R.string.could_not_triangulate)
-            binding.triangulateTitle.rightQuickAction.isInvisible = true
+            binding.triangulateTitle.rightButton.isInvisible = true
             binding.actions.isVisible = false
         } else {
             binding.triangulateTitle.title.text = formatService.formatLocation(location)
-            binding.triangulateTitle.rightQuickAction.isInvisible = false
+            binding.triangulateTitle.rightButton.isInvisible = false
             binding.actions.isVisible = true
         }
     }

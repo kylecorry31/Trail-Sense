@@ -16,13 +16,13 @@ class NavigationQuickActionBinder(
 
     override fun bind() {
         getQuickActionButton(
-            prefs.leftQuickAction,
-            binding.navigationTitle.leftQuickAction
+            prefs.leftButton,
+            binding.navigationTitle.leftButton
         ).bind(fragment)
 
         getQuickActionButton(
-            prefs.rightQuickAction,
-            binding.navigationTitle.rightQuickAction
+            prefs.rightButton,
+            binding.navigationTitle.rightButton
         ).bind(fragment)
     }
 

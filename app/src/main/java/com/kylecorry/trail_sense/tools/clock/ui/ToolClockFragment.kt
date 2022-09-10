@@ -41,8 +41,8 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.pipButton.setOnClickListener {
             sendNextMinuteNotification()
         }
-        CustomUiUtils.setButtonState(binding.clockTitle.rightQuickAction, false)
-        binding.clockTitle.rightQuickAction.setOnClickListener {
+        CustomUiUtils.setButtonState(binding.clockTitle.rightButton, false)
+        binding.clockTitle.rightButton.setOnClickListener {
             gps.start(this::onGPSUpdate)
             binding.updatingClock.visibility = View.VISIBLE
             binding.pipButton.visibility = View.INVISIBLE
