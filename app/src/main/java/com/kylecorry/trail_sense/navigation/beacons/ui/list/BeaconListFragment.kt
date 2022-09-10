@@ -29,7 +29,10 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.BeaconSortMethod
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.MostRecentBeaconSort
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeaconSort
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -54,6 +57,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
+    private var sort = BeaconSortMethod.Closest
 
     private val listMapper by lazy {
         IBeaconListItemMapper(
@@ -85,6 +89,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
         navController = findNavController()
 
+        sort = prefs.navigation.beaconSort
+
         binding.beaconRecycler.emptyView = binding.beaconEmptyText
         manager = GroupListManager(
             lifecycleScope,
@@ -114,7 +120,19 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         }
 
         binding.beaconTitle.rightButton.setOnClickListener {
-            onExportBeacons()
+            val defaultSort = prefs.navigation.beaconSort
+            Pickers.menu(
+                it, listOf(
+                    getString(R.string.sort_by, getSortString(defaultSort)),
+                    getString(R.string.export)
+                )
+            ) { selected ->
+                when (selected) {
+                    0 -> changeSort()
+                    1 -> onExportBeacons()
+                }
+                true
+            }
         }
 
         binding.createMenu.setOverlay(binding.overlayMask)
@@ -177,8 +195,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private suspend fun sortBeacons(beacons: List<IBeacon>): List<IBeacon> {
-        val sort = ClosestBeaconSort(beaconService, gps::location)
-        return sort.sort(beacons)
+        val method = when (sort) {
+            BeaconSortMethod.MostRecent -> MostRecentBeaconSort(beaconService)
+            BeaconSortMethod.Closest -> ClosestBeaconSort(beaconService, gps::location)
+            BeaconSortMethod.Name -> NameBeaconSort()
+        }
+        return method.sort(beacons)
     }
 
     private fun setCreateMenuVisibility(isShowing: Boolean) {
@@ -240,6 +262,34 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             }
             false
         }
+    }
+
+    private fun changeSort() {
+        val sortOptions = BeaconSortMethod.values()
+        Pickers.item(
+            requireContext(),
+            getString(R.string.sort),
+            sortOptions.map { getSortString(it) },
+            sortOptions.indexOf(prefs.navigation.beaconSort)
+        ) { newSort ->
+            if (newSort != null) {
+                prefs.navigation.beaconSort = sortOptions[newSort]
+                sort = sortOptions[newSort]
+                onSortChanged()
+            }
+        }
+    }
+
+    private fun getSortString(sortMethod: BeaconSortMethod): String {
+        return when (sortMethod) {
+            BeaconSortMethod.MostRecent -> getString(R.string.most_recent)
+            BeaconSortMethod.Closest -> getString(R.string.closest)
+            BeaconSortMethod.Name -> getString(R.string.name)
+        }
+    }
+
+    private fun onSortChanged() {
+        manager.refresh(true)
     }
 
     private fun export(gpx: GPXData) {

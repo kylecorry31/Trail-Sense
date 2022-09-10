@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.BeaconSortMethod
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
@@ -168,6 +169,13 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 else -> CoordinateFormat.DecimalDegrees
             }
         }
+
+    override var beaconSort: BeaconSortMethod by IntEnumPreference(
+        cache,
+        context.getString(R.string.pref_beacon_sort),
+        BeaconSortMethod.values().associateBy { it.id.toInt() },
+        BeaconSortMethod.Closest
+    )
 
     var pathSort: PathSortMethod by IntEnumPreference(
         cache,
