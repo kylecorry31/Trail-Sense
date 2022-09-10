@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.core.bitmap.ColorChannel
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
-import com.kylecorry.sol.math.statistics.GLCMService
+import com.kylecorry.sol.math.statistics.GLCM
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.ClassificationResult
@@ -59,7 +59,7 @@ class AMTCloudClassifier(private val pixelClassifier: ICloudPixelClassifier) : I
 
         val glcm = cloudBitmap.glcm(1 to 1, ColorChannel.Blue, true)
         cloudBitmap.recycle()
-        val texture = GLCMService().features(glcm)
+        val texture = GLCM.features(glcm)
 
         val cover = if (skyPixels + cloudPixels != 0) {
             cloudPixels / (skyPixels + cloudPixels).toFloat()

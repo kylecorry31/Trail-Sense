@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.analysis.Waves
+import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.time.Time
@@ -18,7 +18,7 @@ class GapWaterLevelCalculator(
         val firstVec = Vector2(getX(first.time), first.height ?: (if (first.isHigh) 1f else -1f))
         val secondVec =
             Vector2(getX(second.time), second.height ?: (if (second.isHigh) 1f else -1f))
-        Waves.connect(firstVec, secondVec, approximateFrequency)
+        Trigonometry.connect(firstVec, secondVec, approximateFrequency)
     }
 
     override fun calculate(time: ZonedDateTime): Float {
