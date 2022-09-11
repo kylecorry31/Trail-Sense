@@ -1065,9 +1065,7 @@
     <string name="path_slope_moderate">Orta</string>
     <string name="path_slope_flat">Düz</string>
     <string name="path_slope_steep">Dik</string>
-    <string name="pref_show_path_slope_title">Yol eğimini göster</string>
     <string name="camera_unavailable">Kamera kullanılamıyor</string>
-    <string name="pref_show_path_slope_summary">Yükseklik tablosunda</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Deniz seviyesi kalibrasyonu V2</string>
     <string name="icon">Simge</string>
 </resources>

@@ -1085,8 +1085,6 @@
     <string name="highest_point_elevation">Найвища точка</string>
     <string name="path_slope_moderate">Помірний</string>
     <string name="updating_weather">Оновлення погоди</string>
-    <string name="pref_show_path_slope_title">Показати нахил шляху</string>
-    <string name="pref_show_path_slope_summary">На графіку висот</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Калібрування рівня моря V2</string>
     <string name="icon">Піктограма</string>
