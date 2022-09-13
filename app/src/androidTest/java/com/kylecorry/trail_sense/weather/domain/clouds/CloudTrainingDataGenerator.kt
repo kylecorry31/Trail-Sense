@@ -30,8 +30,9 @@ class CloudTrainingDataGenerator {
         val training = mutableListOf<List<Any>>()
         var i = 0
         for (image in images) {
-            val original = BitmapUtils.decodeBitmapScaled(image.second.path, 512, 512)
-            val bitmap = original.resize(512, 512)
+            val size = 500
+            val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size)
+            val bitmap = original.resize(size, size)
             original.recycle()
 
             // Calculate thresholds
@@ -63,7 +64,9 @@ class CloudTrainingDataGenerator {
             )
 
             // Add training data sample
-            training.add(listOf(cloudMap.indexOf(image.first)) + features)
+            if (features.isNotEmpty()) {
+                training.add(listOf(cloudMap.indexOf(image.first)) + features)
+            }
             bitmap.recycle()
             i++
             println("Processed $i / ${images.size}")
