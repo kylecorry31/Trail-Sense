@@ -194,7 +194,6 @@
     <string name="weather_worse_than_today">Rosszabb, mint ma</string>
     <string name="weather_better_than_today">Jobb, mint ma</string>
     <string name="weather_same_as_today">Ugyanolyan, mint ma</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_notification_title">Napi időjárás értesítés</string>
     <string name="battery_usage">%s akkumulátorhasználat</string>
     <string name="high">Magas</string>

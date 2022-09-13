@@ -47,7 +47,6 @@
     <string name="odometer">Відстанемір</string>
     <string name="speedometer">Спідометр</string>
     <string name="screen_flashlight">Екран</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_time_title">Щоденний час погоди</string>
     <string name="time_not_set">Час не встановлено</string>
     <string name="half_tide">Половинний</string>

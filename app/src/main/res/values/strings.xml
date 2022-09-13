@@ -636,7 +636,7 @@
     <string name="weather_better_than_today">Better than today</string>
     <string name="weather_worse_than_today">Worse than today</string>
     <string name="weather_same_as_today">Same as today</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
+    <string name="pref_daily_weather_notification" translatable="false">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_notification_title">Daily weather notification</string>
     <string name="always_on">Always on</string>
     <string name="service_update_frequency">Updates every %s</string>

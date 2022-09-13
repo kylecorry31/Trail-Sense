@@ -475,7 +475,6 @@
     <string name="service_update_frequency">Atualizações a cada %s</string>
     <string name="always_on">Sempre ligada</string>
     <string name="pref_daily_weather_notification_title">Notificações meteorológicas diárias</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_yesterday">O mesmo de ontem</string>
     <string name="weather_worse_than_yesterday">Pior do que ontem</string>
     <string name="weather_better_than_yesterday">Melhor do que ontem</string>

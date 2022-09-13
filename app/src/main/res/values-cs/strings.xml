@@ -766,7 +766,6 @@
         <item quantity="other">%d dní</item>
     </plurals>
     <string name="pref_tiles_enabled_summary">Může zabránit aplikacím spořiče baterie v úplném zastavení Trail Sense</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="kilograms">Kilogramy</string>
     <string name="ounces_weight">Unce</string>
     <string name="find_next_occurrence">Najít další výskyt</string>

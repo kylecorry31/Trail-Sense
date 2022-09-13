@@ -353,7 +353,6 @@
     <string name="weather_better_than_today">Mejor que hoy</string>
     <string name="weather_worse_than_today">Peor que hoy</string>
     <string name="weather_same_as_today">Igual que hoy</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="time_not_set">Tiempo no ajustado</string>
     <string name="no_tides">Sin mareas</string>
     <string name="create_map">Crear mapa</string>

@@ -251,7 +251,6 @@
     <string name="service_update_frequency">Ažurira se svakog %s</string>
     <string name="always_on">Uvijek uključeno</string>
     <string name="pref_daily_weather_notification_title">Svakodnevno obavještavanje o vremenu</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_today">Isto ko danas</string>
     <string name="weather_worse_than_today">Gore od danas</string>
     <string name="weather_better_than_today">Bolje nego danas</string>

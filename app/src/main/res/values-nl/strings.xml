@@ -204,7 +204,6 @@
     <string name="service_update_frequency">Updates iedere %s</string>
     <string name="always_on">Altijd aan</string>
     <string name="pref_daily_weather_notification_title">Dagelijkse weermelding</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_today">Hetzelfde als vandaag</string>
     <string name="weather_worse_than_today">Slechter dan vandaag</string>
     <string name="weather_better_than_today">Beter dan vandaag</string>

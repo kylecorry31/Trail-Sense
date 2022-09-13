@@ -481,7 +481,6 @@
     <string name="guide_light_meter_description">如何确定手电筒的光束距离</string>
     <string name="guide_light_meter_title">确定手电筒效率</string>
     <string name="pref_daily_weather_notification_title">每日天气通知</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="weather_same_as_yesterday">和昨天一样</string>
     <string name="weather_worse_than_yesterday">比昨天差</string>
     <string name="weather_better_than_yesterday">比昨天好</string>

@@ -457,7 +457,6 @@
     <string name="location_not_set">Lokasi tidak diatur</string>
     <string name="set">Atur</string>
     <string name="guide_light_meter_description">Cara menentukan jarak sinar lampu senter</string>
-    <string name="pref_daily_weather_notification">pref_daily_weather_notification</string>
     <string name="pref_daily_weather_notification_title">Notifikasi cuaca harian</string>
     <string name="always_on">Selalu aktif</string>
     <string name="time_not_set">Waktu tidak disetel</string>
