@@ -479,8 +479,8 @@
     <string name="guide_light_meter_description">Comment déterminer la portée d’une source lumineuse</string>
     <string name="pref_stride_length_title">Longueur d’enjambée</string>
     <string name="pref_meteor_showers_title">Pluies de météores</string>
-    <string name="time_until_empty">jusqu’à vide</string>
-    <string name="time_until_full">jusqu’à rempli</string>
+    <string name="time_until_empty">jusqu\'à ce que ce soit vide</string>
+    <string name="time_until_full">jusqu\'à ce que ça soit plein</string>
     <string name="map_auto_calibrated">Calibrage automatique de la carte, précision à vérifier</string>
     <string name="minute_symbol">m</string>
     <string name="square">Carré</string>
@@ -528,7 +528,7 @@
     <string name="guide_light_meter_title">Détermine l’efficacité d’une source lumineuse</string>
     <string name="pref_daily_weather_notification_title">Notification météo quotidienne</string>
     <string name="service_update_frequency">Actualisation toutes les %s</string>
-    <string name="battery_usage">%s utilisation de batterie</string>
+    <string name="battery_usage">Utilisation %s de batterie</string>
     <string name="high">Haute</string>
     <string name="moderate">Modérée</string>
     <string name="left_quick_action">Action rapide gauche</string>
@@ -770,7 +770,7 @@
     <string name="season_spring">Printemps</string>
     <string name="total">Totale</string>
     <string name="supermoon">Super Lune</string>
-    <string name="pref_nearby_radar_title">Afficher les boussoles proches</string>
+    <string name="pref_nearby_radar_title">Afficher les boussoles radar à proximité</string>
     <string name="rename">Renommer</string>
     <string name="battery_warning">Avertissement de consommation de batterie</string>
     <string name="color">Couleur</string>
@@ -866,4 +866,87 @@
     <string name="cirrocumulus_weather">Peut indiquer un temps plus froid bientôt.</string>
     <string name="stratocumulus_weather">Peut indiquer que le temps sera bientôt beau, avec de faibles probabilités de précipitations.</string>
     <string name="delete_path_group_message">%s et tous ses chemins seront supprimés.</string>
+    <string name="cumulus_weather">Peut indiquer du beau temps, mais s\'ils se développent, peut mener à un orage.</string>
+    <string name="cumulonimbus_desc">Nuages bas gonflés très grands. Ils ont généralement une forme d\'enclume et sont sombres.</string>
+    <string name="onboarding_privacy">- Trail Sense respecte votre vie privée et les données de localisation ne quittent jamais votre appareil.
+\n
+\n- Trail Sense ne nécessitera jamais d\'autorisation Internet
+\n
+\n- Consultez la [Politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html) (s\'ouvre dans le navigateur de votre téléphone)
+\n
+\n- Certaines fonctions de Trail Sense requièrent l\'accès à votre emplacement
+\n
+\n- Accorder l\'autorisation de localisation permettra d\'activer les fonctions suivantes :
+\n
+\n\t- Navigation vers les repères
+\n
+\n\t- Amélioration de la précision des prévisions (nécessite la localisation en arrière-plan, pas disponible sur tous les appareils)
+\n
+\n\t- Retour en arrière (nécessite la localisation en arrière-plan)
+\n
+\n\t- Heures du soleil et de la lune pour votre position actuelle
+\n
+\n- Si vous choisissez de ne pas accorder l\'autorisation de localisation, vous pouvez saisir manuellement un emplacement dans le menu Paramètres &gt; Calibrage GPS de Trail Sense.
+\n
+\n- Après avoir cliqué sur Continuer, vous serez invité à accorder les autorisations de localisation et de localisation en arrière-plan. Si vous refusez ces autorisations, Trail Sense ne pourra pas accéder à votre position. Il est donc recommandé de saisir manuellement votre position.</string>
+    <string name="tool_light_meter_title">Luminomètre</string>
+    <string name="icon">Icône</string>
+    <string name="precipitation_snow_grains">Neige en grains</string>
+    <string name="precipitation_ice_pellets">Grésil</string>
+    <string name="privacy_and_location">Confidentialité et localisation</string>
+    <string name="location_disabled">La localisation est désactivée</string>
+    <string name="measure">Mesure</string>
+    <string name="errors">Erreurs</string>
+    <string name="cumulus_desc">Des nuages bas gonflés qui ressemblent à des boules de coton. Ils sont espacés et sont généralement blancs avec des taches plus sombres en dessous.</string>
+    <string name="cirrus_desc">Nuages élevés et vaporeux qui ressemblent à des touffes de cheveux blancs.</string>
+    <string name="onboarding_user_guide">Apprenez à utiliser les fonctionnalités de Trail Sense grâce au guide d\'utilisation. Disponible en bas de l\'onglet Outils.
+\n
+\nD\'autres guides seront bientôt disponibles.</string>
+    <string name="hygrometer">Hygromètre</string>
+    <string name="magnetometer">Magnétomètre</string>
+    <string name="lux_format">%s lx</string>
+    <string name="candela_format">%s cd</string>
+    <string name="beacon_export_error">Impossible d\'exporter les repères</string>
+    <string name="distance_from_flashlight">Distance entre le téléphone et la lampe de poche</string>
+    <string name="beam_distance">%s distance du faisceau</string>
+    <string name="pref_backtrack_save_cell_summary">Enregistre le signal cellulaire au point de repère. N\'utilise pas l\'Internet.</string>
+    <string name="pref_backtrack_save_cell_title">Enregistre le signal cellulaire</string>
+    <string name="gps_cache">Cache du GPS</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Verrouiller avec les boutons de volume</string>
+    <string name="pref_clinometer_baseline_distance_title">Distance de base</string>
+    <string name="compass_unavailable">Boussole non disponible</string>
+    <string name="gps_unavailable">GPS non disponible</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="path">Chemin</string>
+    <string name="open">Ouvert</string>
+    <string name="location_not_set">Localisation non définie</string>
+    <string name="clinometer_measure_distance_instructions">Pour mesurer la distance à une cible qui fait %s de hauteur :
+\n
+\n1. Alignez le clinomètre à la base de la cible
+\n2. Appuyez sur l\'écran et maintenez
+\n3. Réalignez le clinomètre vers le haut de la cible
+\n4. Relâchez pour verrouiller et voir la distance de la cible</string>
+    <string name="cumulonimbus_weather">Orage très bientôt</string>
+    <string name="cirrus_weather">Peut indiquer un front chaud dans 12 à 36 heures.</string>
+    <string name="no_qr_code_found">Aucun code QR détecté</string>
+    <string name="gps_searching">Recherche</string>
+    <string name="gps_stale">Obsolète</string>
+    <string name="error_banners">Bandes d\'erreur</string>
+    <string name="compass_accuracy">Précision de la boussole</string>
+    <string name="clinometer_measure_height_title">Distance de la cible</string>
+    <string name="weather_monitor_disabled_resolution">Activer le moniteur de météo à partir des paramètres météo</string>
+    <string name="gps_timeouts">Délais d\'attente GPS</string>
+    <string name="qr_code_scanner">Lecteur de codes QR</string>
+    <string name="saved_to_note">Enregistré dans la note</string>
+    <string name="precipitation_small_hail">Petite grêle</string>
+    <string name="precipitation_snow_pellets">Neige roulée</string>
+    <string name="clinometer_measure_height_instructions">Pour mesurer la hauteur d\'une cible qui se trouve à %s de distance :
+\n
+\n1. Alignez le clinomètre sur la base de la cible
+\n2. Appuyez sur l\'écran et maintenez enfoncé
+\n3. Réalignez le clinomètre vers le haut de la cible
+\n4. Relâchez pour verrouiller et voir la hauteur de la cible</string>
+    <string name="height">Hauteur</string>
+    <string name="clinometer_measure_distance_title">Hauteur de la cible</string>
+    <string name="instructions">Instructions</string>
 </resources>
