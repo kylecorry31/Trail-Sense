@@ -3,11 +3,9 @@ package com.kylecorry.trail_sense.weather.domain.clouds.classification
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.util.Log
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
 import com.kylecorry.andromeda.core.bitmap.ColorChannel
 import com.kylecorry.sol.math.SolMath.map
-import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.GLCM
 import com.kylecorry.sol.math.statistics.Statistics
@@ -19,7 +17,10 @@ import com.kylecorry.trail_sense.weather.domain.clouds.mask.SkyPixelClassificati
 /**
  * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
  */
-class AMTCloudClassifier(private val pixelClassifier: ICloudPixelClassifier) : ICloudClassifier {
+class AMTCloudClassifier(
+    private val pixelClassifier: ICloudPixelClassifier,
+    private val onFeaturesCalculated: (List<Float>) -> Unit = {}
+) : ICloudClassifier {
 
     @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus>> {
@@ -129,22 +130,9 @@ class AMTCloudClassifier(private val pixelClassifier: ICloudPixelClassifier) : I
             )
         }.sortedByDescending { it.confidence }
 
-        logFeatures(features)
+        onFeaturesCalculated(features)
 
         return result
-    }
-
-    /**
-     * Logs an observation to the console in CSV training format
-     */
-    private fun logFeatures(features: List<Float>) {
-        Log.d("CloudFeatures", features.joinToString(",") {
-            if (it.isNaN()) {
-                it
-            } else {
-                it.roundPlaces(2)
-            }.toString()
-        })
     }
 
     private fun percentDifference(color1: Double, color2: Double): Float {
