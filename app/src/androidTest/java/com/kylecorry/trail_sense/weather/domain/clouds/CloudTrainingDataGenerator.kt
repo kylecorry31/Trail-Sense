@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.domain.clouds
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -33,7 +33,7 @@ class CloudTrainingDataGenerator {
         for (image in images) {
             val size = CloudIdentificationFragment.IMAGE_SIZE
             val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size)
-            val bitmap = original.resizeToFit(size, size)
+            val bitmap = original.resizeExact(size, size)
             original.recycle()
 
             // Calculate thresholds

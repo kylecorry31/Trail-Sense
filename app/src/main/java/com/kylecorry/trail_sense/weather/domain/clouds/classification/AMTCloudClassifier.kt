@@ -3,15 +3,20 @@ package com.kylecorry.trail_sense.weather.domain.clouds.classification
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
+import android.graphics.Rect
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.getChannel
 import com.kylecorry.andromeda.core.bitmap.ColorChannel
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.math.statistics.Texture
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.ICloudPixelClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.SkyPixelClassification
+import kotlin.math.roundToInt
 
 /**
  * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
@@ -41,7 +46,7 @@ class AMTCloudClassifier(
                         skyPixels++
                     }
                     SkyPixelClassification.Obstacle -> {
-                        cloudBitmap.setPixel(w, h, Color.TRANSPARENT)
+                        // Do nothing
                     }
                     else -> {
                         cloudPixels++
@@ -53,25 +58,35 @@ class AMTCloudClassifier(
             }
         }
 
-        val levels = 32
+        val levels = 16
         val step = 1
+        val windowSize = 50
+        val regions = mutableListOf<Rect>()
+        for (x in 0 until bitmap.width step windowSize) {
+            for (y in 0 until bitmap.height step windowSize) {
+                regions.add(Rect(x, y, x + windowSize, y + windowSize))
+            }
+        }
 
-        // Allow setting window size
-        val glcm = cloudBitmap.glcm(
-            listOf(
-                0 to step,
-                step to step,
-                step to 0,
-                step to -step
-            ),
-            ColorChannel.Blue,
-            excludeTransparent = true,
-            normed = true,
-            symmetric = true,
-            levels = levels
-        )
+        val textures = regions.map {
+            val glcm = cloudBitmap.glcm(
+                listOf(
+                    0 to step,
+                    step to step,
+                    step to 0,
+                    step to -step
+                ),
+                ColorChannel.Blue,
+                excludeTransparent = true,
+                normed = true,
+                symmetric = true,
+                levels = levels,
+                region = it
+            )
+            Texture.features(glcm)
+        }
+
         cloudBitmap.recycle()
-        val texture = Texture.features(glcm)
 
         val cover = if (skyPixels + cloudPixels != 0) {
             cloudPixels / (skyPixels + cloudPixels).toFloat()
@@ -98,10 +113,10 @@ class AMTCloudClassifier(
             percentDifference(redMean, blueMean),
             percentDifference(greenMean, blueMean),
             // Texture
-            texture.entropy / 16f,
-            texture.contrast / levels.toFloat(),
-            texture.verticalMean / levels.toFloat(),
-            texture.correlation,
+            Statistics.median(textures.map { it.entropy / 16f }),
+            Statistics.median(textures.map { it.contrast / levels.toFloat() }),
+            Statistics.median(textures.map { it.verticalMean / levels.toFloat() }),
+            Statistics.median(textures.map { it.correlation }),
             // Bias
             1f
         )
@@ -140,139 +155,222 @@ class AMTCloudClassifier(
         return map((color1 - color2).toFloat(), -255f, 255f, 0f, 1f)
     }
 
+    fun Bitmap.glcm(
+        steps: List<Pair<Int, Int>>,
+        channel: ColorChannel,
+        excludeTransparent: Boolean = false,
+        symmetric: Boolean = false,
+        normed: Boolean = true,
+        levels: Int = 256,
+        region: Rect? = null
+    ): com.kylecorry.sol.math.algebra.Matrix {
+        // TODO: Make this faster with RenderScript
+        val glcm = createMatrix(levels, levels, 0f)
+
+        var total = 0
+
+        val startX = (region?.left ?: 0).coerceIn(0, width)
+        val endX = (region?.right ?: width).coerceIn(0, width)
+
+        val startY = (region?.top ?: 0).coerceIn(0, height)
+        val endY = (region?.bottom ?: height).coerceIn(0, height)
+
+        for (x in startX until endX) {
+            for (y in startY until endY) {
+                for (step in steps) {
+                    val neighborX = x + step.first
+                    val neighborY = y + step.second
+
+                    if (neighborX >= endX || neighborX < startX) {
+                        continue
+                    }
+
+                    if (neighborY >= endY || neighborY < startY) {
+                        continue
+                    }
+
+                    val currentPx = getPixel(x, y)
+
+                    if (excludeTransparent && currentPx.getChannel(ColorChannel.Alpha) != 255) {
+                        continue
+                    }
+
+                    val neighborPx = getPixel(neighborX, neighborY)
+
+                    if (excludeTransparent && neighborPx.getChannel(ColorChannel.Alpha) != 255) {
+                        continue
+                    }
+
+                    val current = quantize(currentPx.getChannel(channel), levels)
+                    val neighbor = quantize(neighborPx.getChannel(channel), levels)
+
+                    glcm[current][neighbor]++
+                    total++
+                    if (symmetric) {
+                        glcm[neighbor][current]++
+                        total++
+                    }
+                }
+            }
+        }
+
+        if (normed && total > 0) {
+            for (row in glcm.indices) {
+                for (col in glcm[0].indices) {
+                    glcm[row][col] /= total.toFloat()
+                }
+            }
+        }
+
+
+        return glcm
+    }
+
+    private fun quantize(value: Int, bins: Int): Int {
+        if (bins == 256) {
+            return value
+        }
+
+        if (bins <= 0) {
+            return 0
+        }
+        return (SolMath.map(value.toFloat(), 0f, 255f, 0f, bins - 1f)).roundToInt()
+    }
+
+
     companion object {
         private val weights = arrayOf(
             arrayOf(
-                -5.057464806367483f,
-                -5.411295966176792f,
-                0.012418699359434519f,
-                6.2760515806004f,
-                -4.563347079470772f,
-                9.401760428627433f,
-                5.04758221236154f,
-                -11.021926380293946f,
-                7.010062381570169f,
-                -2.0843405366479435f
+                -4.8890135143776785f,
+                -4.86067579758433f,
+                0.6496566261447395f,
+                6.189094474308713f,
+                -4.49221248576373f,
+                9.217741694338727f,
+                4.328311402501023f,
+                -11.439505036575826f,
+                7.525365592313418f,
+                -2.0894330280650233f
             ),
             arrayOf(
-                -13.605115419734345f,
-                -2.9329281613825087f,
-                -3.5697586664865075f,
-                2.7202379359822673f,
-                1.0949077019368805f,
-                2.8249923983101426f,
-                1.3359528002998209f,
-                11.060034334880264f,
-                1.0859022919947017f,
-                0.18163242148851796f
+                -13.067279937853305f,
+                -1.727532994954166f,
+                -3.179860972961632f,
+                2.672091281591219f,
+                0.8402879000505321f,
+                3.743056520642552f,
+                -0.07268128021855019f,
+                9.620963032178897f,
+                1.1814832319829f,
+                0.14155840583401008f
             ),
             arrayOf(
-                8.24195817097587f,
-                0.7049080904630168f,
-                1.5673564419112964f,
-                -0.5357945823603437f,
-                0.6572625023132387f,
-                -0.14077273911894023f,
-                -7.275411170560537f,
-                -3.120162728897589f,
-                0.38626465440839636f,
-                -0.1595172630261247f
+                9.451529208392932f,
+                1.6349773030585206f,
+                2.247829140771352f,
+                -0.6882934368397159f,
+                0.9124205704743994f,
+                0.15845079449974458f,
+                -8.943848344707577f,
+                -5.0628528540423225f,
+                0.6493928820113739f,
+                -0.33840482378936254f
             ),
             arrayOf(
-                -0.08685564918030228f,
-                0.9535152241495743f,
-                -0.85889096002469f,
-                -1.4756066638477494f,
-                0.013831225032203607f,
-                -0.9006026950462528f,
-                0.5902380456986058f,
-                2.84784634295513f,
-                -1.114374002515207f,
-                -0.029483739360400333f
+                1.5398322263853312f,
+                2.443923457771001f,
+                0.14979395258288056f,
+                -0.8288368105020324f,
+                -1.1096920244220965f,
+                -1.6375951422617385f,
+                -1.8107822396943023f,
+                1.06527386396407f,
+                0.1652388420184461f,
+                0.14074625064127255f
             ),
             arrayOf(
-                -8.509503883575816f,
-                -0.09266411306728893f,
-                -2.229737272730536f,
-                0.010466345987272896f,
-                1.1497575908522997f,
-                -0.6033912187673565f,
-                4.48340972543388f,
-                6.853289803655368f,
-                -0.9427456471967093f,
-                0.02725488236764529f
+                -6.992460320283093f,
+                1.398189500397681f,
+                -1.6702190646681068f,
+                0.49781350093393867f,
+                0.14878787562227208f,
+                -0.7836038085131055f,
+                1.9468168185474857f,
+                5.640569089587589f,
+                0.12328792343627595f,
+                0.31289813468583183f
             ),
             arrayOf(
-                -6.108864200970441f,
-                0.8843235615993846f,
-                -1.3609688754335052f,
-                -0.46228896362293115f,
-                2.202878520234456f,
-                -1.8845597164785264f,
-                3.949887429641883f,
-                4.145435051564102f,
-                -1.5636500074946464f,
-                0.11689522687672274f
+                -4.495281228938655f,
+                2.111416732188496f,
+                -0.7197048730635448f,
+                0.2895367046133483f,
+                1.2210026112671148f,
+                -1.8954683680944202f,
+                1.1961043053692426f,
+                2.638530840278272f,
+                0.11696872702883662f,
+                0.12952382941722465f
             ),
             arrayOf(
-                -1.0950494125446688f,
-                7.887321850169209f,
-                -1.0054240434318946f,
-                -3.899144652588313f,
-                3.583516682668419f,
-                -9.832638017104165f,
-                6.557086008232251f,
-                1.8978140488482147f,
-                -4.85979022169562f,
-                0.7219099893167191f
+                -2.378504062748752f,
+                5.16368529037409f,
+                -1.4421524398734296f,
+                -2.87353783619913f,
+                5.470393652843714f,
+                -6.248800642069856f,
+                4.8173804673980865f,
+                0.582279819471783f,
+                -3.39501585849374f,
+                0.47162836315960216f
             ),
             arrayOf(
-                -1.9569238841206966f,
-                1.4932626828432405f,
-                0.2810472318613391f,
-                -1.3195068483366637f,
-                3.8139512457555833f,
-                -3.0382751420574556f,
-                2.38163776494011f,
-                -0.468226705059459f,
-                -1.2456109616488231f,
-                -0.2502449871160575f
+                -0.47806708132116776f,
+                1.2072265757036962f,
+                -0.21202636898678337f,
+                -0.3033477116688911f,
+                1.0283431630641509f,
+                -0.8108241466188087f,
+                0.20934685982995946f,
+                -0.43786322231590824f,
+                -0.2533283879249874f,
+                -0.0525657981890969f
             ),
             arrayOf(
-                3.5738036793824186f,
-                -5.89751061005609f,
-                2.596195083723413f,
-                1.5339159641533686f,
-                4.128691418145582f,
-                2.8556901801591392f,
-                -6.160436355512531f,
-                -4.860465006062838f,
-                2.357899080012385f,
-                -0.32523974178310855f
+                1.8226423004834906f,
+                -5.724456835502467f,
+                3.028268734024902f,
+                1.0377899492775704f,
+                1.6143635093683089f,
+                3.41794093767296f,
+                -3.8519396579385208f,
+                -2.1446240308649016f,
+                1.9302482551800766f,
+                -0.8420599824917269f
             ),
             arrayOf(
-                6.262093208344162f,
-                3.600737918539337f,
-                0.2087665120406197f,
-                -2.736923272298697f,
-                -2.9157057991527573f,
-                -3.208480889546755f,
-                -0.6483039277190044f,
-                2.0365364938850115f,
-                -3.060195081684604f,
-                0.00478453253644736f
+                0.04818627518619918f,
+                -1.5687078505760832f,
+                -4.214610472948905f,
+                -5.679910817376066f,
+                2.53402043805123f,
+                -4.394108008570153f,
+                12.263693284553076f,
+                10.526340632765685f,
+                -10.354311859070377f,
+                0.5300933484945843f
             ),
             arrayOf(
-                4.485330292808015f,
-                3.5619209045067923f,
-                0.6311076032438854f,
-                -3.3306244730820787f,
-                2.1167759482970094f,
-                -4.537688380020497f,
-                0.18249308212651166f,
-                0.14226344857789563f,
-                -2.9632951410994544f,
-                0.049585126593915715f
+                8.499331894904152f,
+                6.123214507113178f,
+                1.8469230551855653f,
+                -2.2608757483364377f,
+                0.4036479254096566f,
+                -5.399336245503867f,
+                -5.198807747495122f,
+                -3.700342330485511f,
+                -0.5231923496388189f,
+                0.13501716989779736f
             )
         )
     }
