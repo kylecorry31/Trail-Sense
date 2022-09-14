@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.getChannel
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
 import com.kylecorry.andromeda.core.bitmap.ColorChannel
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.map
@@ -154,89 +155,6 @@ class AMTCloudClassifier(
     private fun percentDifference(color1: Double, color2: Double): Float {
         return map((color1 - color2).toFloat(), -255f, 255f, 0f, 1f)
     }
-
-    fun Bitmap.glcm(
-        steps: List<Pair<Int, Int>>,
-        channel: ColorChannel,
-        excludeTransparent: Boolean = false,
-        symmetric: Boolean = false,
-        normed: Boolean = true,
-        levels: Int = 256,
-        region: Rect? = null
-    ): com.kylecorry.sol.math.algebra.Matrix {
-        // TODO: Make this faster with RenderScript
-        val glcm = createMatrix(levels, levels, 0f)
-
-        var total = 0
-
-        val startX = (region?.left ?: 0).coerceIn(0, width)
-        val endX = (region?.right ?: width).coerceIn(0, width)
-
-        val startY = (region?.top ?: 0).coerceIn(0, height)
-        val endY = (region?.bottom ?: height).coerceIn(0, height)
-
-        for (x in startX until endX) {
-            for (y in startY until endY) {
-                for (step in steps) {
-                    val neighborX = x + step.first
-                    val neighborY = y + step.second
-
-                    if (neighborX >= endX || neighborX < startX) {
-                        continue
-                    }
-
-                    if (neighborY >= endY || neighborY < startY) {
-                        continue
-                    }
-
-                    val currentPx = getPixel(x, y)
-
-                    if (excludeTransparent && currentPx.getChannel(ColorChannel.Alpha) != 255) {
-                        continue
-                    }
-
-                    val neighborPx = getPixel(neighborX, neighborY)
-
-                    if (excludeTransparent && neighborPx.getChannel(ColorChannel.Alpha) != 255) {
-                        continue
-                    }
-
-                    val current = quantize(currentPx.getChannel(channel), levels)
-                    val neighbor = quantize(neighborPx.getChannel(channel), levels)
-
-                    glcm[current][neighbor]++
-                    total++
-                    if (symmetric) {
-                        glcm[neighbor][current]++
-                        total++
-                    }
-                }
-            }
-        }
-
-        if (normed && total > 0) {
-            for (row in glcm.indices) {
-                for (col in glcm[0].indices) {
-                    glcm[row][col] /= total.toFloat()
-                }
-            }
-        }
-
-
-        return glcm
-    }
-
-    private fun quantize(value: Int, bins: Int): Int {
-        if (bins == 256) {
-            return value
-        }
-
-        if (bins <= 0) {
-            return 0
-        }
-        return (SolMath.map(value.toFloat(), 0f, 255f, 0f, bins - 1f)).roundToInt()
-    }
-
 
     companion object {
         private val weights = arrayOf(
