@@ -11,7 +11,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.LocalFiles
@@ -85,7 +85,7 @@ class PerspectiveCorrectionView : CanvasView {
                     width,
                     height
                 )
-                image = bitmap.resize(width, height)
+                image = bitmap.resizeToFit(width, height)
                 if (image != bitmap) {
                     bitmap.recycle()
                 }
@@ -93,7 +93,7 @@ class PerspectiveCorrectionView : CanvasView {
         } else if (image == null && imageDrawable != null){
             imageDrawable?.let {
                 val img = loadImage(it)
-                image = img.resize(width, height)
+                image = img.resizeToFit(width, height)
                 if (img != image) {
                     img.recycle()
                 }

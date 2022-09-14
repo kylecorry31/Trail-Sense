@@ -50,8 +50,8 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
         binding.thresholdObstacleSeek.max = 100
         binding.thresholdSeek.progress = 60
         binding.threshold.text = "60"
-        binding.thresholdObstacleSeek.progress = 50
-        binding.thresholdObstacle.text = "50"
+        binding.thresholdObstacleSeek.progress = 25
+        binding.thresholdObstacle.text = "25"
 
         binding.thresholdSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -144,7 +144,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
             onMain {
                 if (isBound) {
                     binding.thresholdSeek.progress = threshold
-                    binding.thresholdObstacleSeek.progress = 50
+                    binding.thresholdObstacleSeek.progress = 25
                 }
                 mask(image)
             }

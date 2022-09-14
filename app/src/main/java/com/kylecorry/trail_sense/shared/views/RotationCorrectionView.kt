@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.files.LocalFiles
 
@@ -52,7 +52,7 @@ class RotationCorrectionView : CanvasView {
                     width,
                     height
                 )
-                image = bitmap.resize(width, height)
+                image = bitmap.resizeToFit(width, height)
                 if (image != bitmap) {
                     bitmap.recycle()
                 }
@@ -60,7 +60,7 @@ class RotationCorrectionView : CanvasView {
         } else if (image == null && imageDrawable != null){
             imageDrawable?.let {
                 val img = loadImage(it)
-                image = img.resize(width, height)
+                image = img.resizeToFit(width, height)
                 if (image != img) {
                     img.recycle()
                 }

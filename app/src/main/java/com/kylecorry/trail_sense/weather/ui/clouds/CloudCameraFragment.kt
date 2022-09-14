@@ -45,7 +45,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
                     onIO {
                         // TODO: Let the user know the file couldn't be opened
                         val temp = Files.copyToTemp(requireContext(), uri) ?: return@onIO
-                        val bp = BitmapUtils.decodeBitmapScaled(temp.path, 500, 500)
+                        val bp = BitmapUtils.decodeBitmapScaled(temp.path, CloudIdentificationFragment.IMAGE_SIZE, CloudIdentificationFragment.IMAGE_SIZE)
                         DeleteTempFilesCommand(requireContext()).execute()
                         onMain {
                             onImage.invoke(bp)
@@ -65,7 +65,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         super.onResume()
         if (Camera.isAvailable(requireContext())) {
             try {
-                binding.camera.start(Size(500, 500))
+                binding.camera.start(Size(CloudIdentificationFragment.IMAGE_SIZE, CloudIdentificationFragment.IMAGE_SIZE))
                 showCamera()
             } catch (e: Exception) {
                 e.printStackTrace()

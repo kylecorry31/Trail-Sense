@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resize
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTabsBinding
@@ -35,7 +35,7 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
 
         camera.setOnImageListener {
             image?.recycle()
-            image = it.resize(500, 500)
+            image = it.resizeToFit(IMAGE_SIZE, IMAGE_SIZE)
             it.recycle()
             image?.let {
                 calibration.setImage(it)
@@ -81,5 +81,9 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         image?.recycle()
+    }
+
+    companion object {
+        const val IMAGE_SIZE = 500
     }
 }
