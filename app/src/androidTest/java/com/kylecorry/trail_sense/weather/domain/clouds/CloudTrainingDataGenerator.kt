@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.AMTCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.CloudPixelClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.NRBRSkyThresholdCalculator
 import com.kylecorry.trail_sense.weather.ui.clouds.CloudIdentificationFragment
@@ -48,7 +48,7 @@ class CloudTrainingDataGenerator {
 
             // Calculate training data
             var features = listOf<Float>()
-            val classifier = AMTCloudClassifier(pixelClassifier) { features = it }
+            val classifier = TextureCloudClassifier(pixelClassifier) { features = it }
             runBlocking { classifier.classify(bitmap) }
             // By genus
             val cloudMap = mapOf(

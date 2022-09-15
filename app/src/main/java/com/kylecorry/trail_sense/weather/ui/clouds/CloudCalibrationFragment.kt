@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.AMTCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.CloudPixelClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.mask.NRBRSkyThresholdCalculator
@@ -167,7 +167,7 @@ class CloudCalibrationFragment : BoundFragment<FragmentCloudScanBinding>() {
                 )
                 val mask = OverlayCloudMask(pixelClassifier, cloudColor, skyColor, obstacleColor)
 //                val mask = DebugCloudMask()
-                val classifier = AMTCloudClassifier(pixelClassifier)
+                val classifier = TextureCloudClassifier(pixelClassifier)
 
                 clouds = onIO {
                     mask.mask(image, clouds)
