@@ -50,23 +50,51 @@ class CloudTrainingDataGenerator {
             var features = listOf<Float>()
             val classifier = AMTCloudClassifier(pixelClassifier) { features = it }
             runBlocking { classifier.classify(bitmap) }
-
-            val cloudMap = arrayOf(
-                CloudGenus.Cirrus,
-                CloudGenus.Cirrocumulus,
-                CloudGenus.Cirrostratus,
-                CloudGenus.Altostratus,
-                CloudGenus.Altocumulus,
-                CloudGenus.Nimbostratus,
-                CloudGenus.Stratocumulus,
-                CloudGenus.Cumulus,
-                CloudGenus.Stratus,
-                CloudGenus.Cumulonimbus
+            // By genus
+            val cloudMap = mapOf(
+                CloudGenus.Cirrus to 0,
+                CloudGenus.Cirrocumulus to 1,
+                CloudGenus.Cirrostratus to 2,
+                CloudGenus.Altostratus to 3,
+                CloudGenus.Altocumulus to 4,
+                CloudGenus.Nimbostratus to 5,
+                CloudGenus.Stratocumulus to 6,
+                CloudGenus.Cumulus to 7,
+                CloudGenus.Stratus to 8,
+                CloudGenus.Cumulonimbus to 9
             )
+
+//            // By altitude
+//            val cloudMap = mapOf(
+//                CloudGenus.Cirrus to 0,
+//                CloudGenus.Cirrocumulus to 0,
+//                CloudGenus.Cirrostratus to 0,
+//                CloudGenus.Altostratus to 1,
+//                CloudGenus.Altocumulus to 1,
+//                CloudGenus.Nimbostratus to 2,
+//                CloudGenus.Stratocumulus to 2,
+//                CloudGenus.Cumulus to 2,
+//                CloudGenus.Stratus to 2,
+//                CloudGenus.Cumulonimbus to 2
+//            )
+
+//            // By form
+//            val cloudMap = mapOf(
+//                CloudGenus.Cirrus to 0,
+//                CloudGenus.Cirrocumulus to 1,
+//                CloudGenus.Cirrostratus to 2,
+//                CloudGenus.Altostratus to 2,
+//                CloudGenus.Altocumulus to 1,
+//                CloudGenus.Nimbostratus to 2,
+//                CloudGenus.Stratocumulus to 2,
+//                CloudGenus.Cumulus to 1,
+//                CloudGenus.Stratus to 2,
+//                CloudGenus.Cumulonimbus to 1
+//            )
 
             // Add training data sample
             if (features.isNotEmpty()) {
-                training.add(listOf(cloudMap.indexOf(image.first)) + features)
+                training.add(listOf(cloudMap[image.first]!!) + features)
             }
             bitmap.recycle()
             i++

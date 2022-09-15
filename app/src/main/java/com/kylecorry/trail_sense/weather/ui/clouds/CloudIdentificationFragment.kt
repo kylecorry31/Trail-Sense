@@ -84,6 +84,6 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
     }
 
     companion object {
-        const val IMAGE_SIZE = 500
+        const val IMAGE_SIZE = 400
     }
 }
