@@ -230,7 +230,7 @@
     <string name="guide_recommended_apps_description">Nyttige apper for overlevelsessituasjoner</string>
     <string name="unit_nautical_miles">Nautisk mil</string>
     <string name="tool_whistle_title">Fløyte</string>
-    <string name="error_occurred_message">Trail Sense støtte på en feil og lukkes. Send e-post til utvikleren for å få dette problemet løst.</string>
+    <string name="error_occurred_message">Trail Sense støtte på en feil. Send e-post til utvikleren for å få dette problemet løst.</string>
     <string name="category_shelter">Ly</string>
     <string name="category_medical">Medisinsk</string>
     <string name="category_hydration">Drikke</string>
@@ -903,7 +903,11 @@
     <string name="diamond">Diamant</string>
     <string name="pref_only_navigate_path_points_title">Bare naviger til registrerte punkter</string>
     <string name="remove_battery_restrictions">Fjerne batterirestriksjoner\?</string>
-    <string name="battery_usage_restricted_benefit">Fjerning av batterirestriksjoner for Trail Sense kan forbedre nøyaktigheten.</string>
+    <string name="battery_usage_restricted_benefit">Fjerning av batterirestriksjoner for Trail Sense kan forbedre nøyaktigheten.
+\n
+\nPå de fleste enheter, trykk \'OK\', så skift til alle apper, og slå av batterioptimalisering for Trail Sense.
+\n
+\nBesøk [Don\'t kill my app](https://dontkillmyapp.com/) for enhetsspesifikke instruksjoner.</string>
     <string name="running_in_background">Kjører i bakgrunn</string>
     <string name="estimated">Beregnet</string>
     <string name="view">Vis</string>
