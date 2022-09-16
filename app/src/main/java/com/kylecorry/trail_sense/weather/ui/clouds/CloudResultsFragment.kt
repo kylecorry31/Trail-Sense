@@ -27,7 +27,6 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
     private lateinit var listView: ListView<ClassificationResult<CloudGenus>>
 
-    private var result: List<ClassificationResult<CloudGenus>> = emptyList()
     private var image: Bitmap? = null
     private var classifier: ICloudClassifier = TextureCloudClassifier(this::debugLogFeatures)
 
@@ -48,8 +47,6 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
 
         listView.addLineSeparator()
-
-        setResult(result)
     }
 
     override fun onResume() {
@@ -66,10 +63,9 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     }
 
     private fun analyze() {
-        if (result.isEmpty()) {
-            binding.emptyText.isVisible = false
-            binding.loadingIndicator.isVisible = true
-        }
+        binding.emptyText.isVisible = false
+        binding.loadingIndicator.isVisible = true
+        listView.setData(emptyList())
         inBackground {
             val results = onDefault {
                 image?.let { classifier.classify(it) }
@@ -83,7 +79,6 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     }
 
     private fun setResult(result: List<ClassificationResult<CloudGenus>>) {
-        this.result = result
         if (!isBound) {
             return
         }
