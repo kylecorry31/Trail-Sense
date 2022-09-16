@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.database
 
 import androidx.room.TypeConverter
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
@@ -21,6 +22,17 @@ class Converters {
     @TypeConverter
     fun toItemCategory(value: Int): ItemCategory {
         return ItemCategory.values().first { it.id == value }
+    }
+
+    // TODO: Add an id to the cloud genus
+    @TypeConverter
+    fun fromCloudGenus(value: CloudGenus): Int {
+        return value.ordinal
+    }
+
+    @TypeConverter
+    fun toCloudGenus(value: Int): CloudGenus {
+        return CloudGenus.values().first { it.ordinal == value }
     }
 
     @TypeConverter
