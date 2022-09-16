@@ -23,6 +23,7 @@ class CloudIdentificationFragment : BoundFragment<FragmentTabsBinding>() {
         val results = CloudResultsFragment()
 
         camera.setOnImageListener {
+            results.clearImage()
             image?.recycle()
             image = it.resizeExact(TextureCloudClassifier.IMAGE_SIZE, TextureCloudClassifier.IMAGE_SIZE)
             it.recycle()

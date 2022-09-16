@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/cloud_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cloud_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cloud_image" />
 
     <TextView
         android:id="@+id/empty_text"
@@ -21,6 +35,10 @@
         android:text="@string/no_clouds"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/cloud_list"
+        app:layout_constraintEnd_toEndOf="@id/cloud_list"
+        app:layout_constraintStart_toStartOf="@id/cloud_list"
+        app:layout_constraintTop_toTopOf="@id/cloud_list"
         tools:visibility="visible" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -30,6 +48,10 @@
         android:layout_gravity="center"
         android:indeterminate="true"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/cloud_list"
+        app:layout_constraintEnd_toEndOf="@id/cloud_list"
+        app:layout_constraintStart_toStartOf="@id/cloud_list"
+        app:layout_constraintTop_toTopOf="@id/cloud_list"
         tools:visibility="visible" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

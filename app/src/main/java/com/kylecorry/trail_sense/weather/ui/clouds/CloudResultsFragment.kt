@@ -54,8 +54,18 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         analyze()
     }
 
+    fun clearImage() {
+        this.image = null
+        if (isBound) {
+            binding.cloudImage.setImageBitmap(null)
+        }
+    }
+
     fun setImage(image: Bitmap) {
         this.image = image
+        if (isBound) {
+            binding.cloudImage.setImageBitmap(image)
+        }
     }
 
     private fun debugLogFeatures(features: List<Float>) {
@@ -63,6 +73,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     }
 
     private fun analyze() {
+        binding.cloudImage.setImageBitmap(image)
         binding.emptyText.isVisible = false
         binding.loadingIndicator.isVisible = true
         listView.setData(emptyList())
