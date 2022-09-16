@@ -844,7 +844,6 @@
     <string name="no_camera_access">Incapaz de acessar a câmera</string>
     <string name="temporary">Temporário</string>
     <string name="enable">Habilitar</string>
-    <string name="sky_detection_sensitivity">Sensibilidade de detecção do céu</string>
     <string name="precipitation_small_hail">Granizo pequeno</string>
     <string name="precipitation_rain">Chuva</string>
     <string name="precipitation_drizzle">Chuviscos</string>
@@ -860,7 +859,6 @@
     <string name="line_style">Estilo de linha</string>
     <string name="hide">Esconder</string>
     <string name="show">Mostrar</string>
-    <string name="obstacle_removal_sensitivity">Sensibilidade de remoção de obstáculos</string>
     <string name="pref_experimental_cloud_scanner_title">Escâner de nuvens</string>
     <string name="humidity">Umidade</string>
     <string name="precipitation_snow">Neve</string>

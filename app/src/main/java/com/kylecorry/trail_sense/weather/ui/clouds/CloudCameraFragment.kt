@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
 
 class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
 
@@ -45,7 +46,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
                     onIO {
                         // TODO: Let the user know the file couldn't be opened
                         val temp = Files.copyToTemp(requireContext(), uri) ?: return@onIO
-                        val bp = BitmapUtils.decodeBitmapScaled(temp.path, CloudIdentificationFragment.IMAGE_SIZE, CloudIdentificationFragment.IMAGE_SIZE)
+                        val bp = BitmapUtils.decodeBitmapScaled(temp.path, TextureCloudClassifier.IMAGE_SIZE, TextureCloudClassifier.IMAGE_SIZE)
                         DeleteTempFilesCommand(requireContext()).execute()
                         onMain {
                             onImage.invoke(bp)
@@ -65,7 +66,7 @@ class CloudCameraFragment : BoundFragment<FragmentCameraInputBinding>() {
         super.onResume()
         if (Camera.isAvailable(requireContext())) {
             try {
-                binding.camera.start(Size(CloudIdentificationFragment.IMAGE_SIZE, CloudIdentificationFragment.IMAGE_SIZE))
+                binding.camera.start(Size(TextureCloudClassifier.IMAGE_SIZE, TextureCloudClassifier.IMAGE_SIZE))
                 showCamera()
             } catch (e: Exception) {
                 e.printStackTrace()

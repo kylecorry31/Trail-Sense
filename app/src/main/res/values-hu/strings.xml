@@ -606,7 +606,6 @@
 \n**Magasság**: %s</string>
     <string name="tilt">Dőlés</string>
     <string name="pref_export_weather_csv_title">Időjárási adatok exportálása</string>
-    <string name="sky_detection_sensitivity">Ég érzékelés érzékenysége</string>
     <string name="precipitation_small_hail">Apró jégeső</string>
     <string name="precipitation_ice_pellets">Jégdara</string>
     <string name="precipitation_snow_grains">Szemcsés Hó</string>
@@ -1047,7 +1046,6 @@
 \n**Évszak**: %s</string>
     <string name="season_spring">Tavasz</string>
     <string name="enable">Engedélyezés</string>
-    <string name="obstacle_removal_sensitivity">Akadály eltávolításának érzékenysége</string>
     <string name="no_clouds">Nincsenek Felhők</string>
     <string name="pref_experimental_cloud_scanner_title">Felhő szkenner</string>
     <string name="clinometer_measure_distance_instructions">Egy %s magas célpont távolságának méréséhez:

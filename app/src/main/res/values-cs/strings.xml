@@ -925,8 +925,6 @@
     <string name="notification_backtrack_update_content">Zaznamenávání vaší polohy</string>
     <string name="hide">Skrýt</string>
     <string name="show">Zobrazit</string>
-    <string name="obstacle_removal_sensitivity">Citlivost odstranění překážek</string>
-    <string name="sky_detection_sensitivity">Citlivost detekce oblohy</string>
     <string name="notification_weather_update_content">Zaznamenávání tlaku</string>
     <string name="notification_backtrack_update_title">Aktualizace zpětné navigace</string>
     <string name="pref_show_nearest_tide_title">Zobrazit nejbližší příliv/odliv</string>

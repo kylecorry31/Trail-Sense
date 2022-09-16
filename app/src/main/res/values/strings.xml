@@ -1011,8 +1011,6 @@
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
     <string name="no_clouds">No Clouds</string>
-    <string name="sky_detection_sensitivity">Sky detection sensitivity</string>
-    <string name="obstacle_removal_sensitivity">Obstacle removal sensitivity</string>
     <string name="pref_experimental_cloud_scanner_title">Cloud scanner</string>
     <string name="pref_experimental_cloud_scanner" translatable="false">pref_experimental_cloud_scanner</string>
     <string name="pref_experimental_sea_level_calibration_v2" translatable="false">pref_experimental_sea_level_calibration_v_80</string>
@@ -1027,7 +1025,6 @@
     <string name="precipitation_snow_grains">Snow Grains</string>
     <string name="capture">Capture</string>
     <string name="results">Results</string>
-    <string name="disclaimer_experimental_clouds_key" translatable="false">disclaimer_experimental_clouds_key</string>
     <string name="precipitation_chance">Precipitation chance: %s</string>
     <string name="take_photo">Take photo</string>
     <string name="choose_photo">Choose photo</string>

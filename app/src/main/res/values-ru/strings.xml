@@ -843,8 +843,6 @@
     <string name="precipitation_ice_pellets">Ледяная крупа</string>
     <string name="precipitation_snow_grains">Снежные зерна</string>
     <string name="results">Результат</string>
-    <string name="obstacle_removal_sensitivity">Чувствительность устранения помех</string>
-    <string name="sky_detection_sensitivity">Чувствительность обнаружения неба</string>
     <string name="pref_experimental_cloud_scanner_title">Определитель облаков</string>
     <string name="precipitation_none">Без осадков</string>
     <string name="capture">Снимок</string>

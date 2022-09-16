@@ -823,8 +823,6 @@
 \n
 \n**Azimut**: %s</string>
     <string name="moon">Ay</string>
-    <string name="sky_detection_sensitivity">Gökyüzü algılama hassasiyeti</string>
-    <string name="obstacle_removal_sensitivity">Engel kaldırma hassasiyeti</string>
     <string name="pref_experimental_cloud_scanner_title">Bulut tarayıcı</string>
     <string name="precipitation_none">Yağış yok</string>
     <string name="precipitation_rain">Yağmur</string>

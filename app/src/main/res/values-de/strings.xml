@@ -821,13 +821,11 @@
     <string name="enable">Aktivieren</string>
     <string name="weather_monitoring_disabled">Wettermonitor deaktiviert</string>
     <string name="no_clouds">Keine Wolken</string>
-    <string name="obstacle_removal_sensitivity">Empfindlichkeit für Hindernisentfernung</string>
     <string name="pref_experimental_cloud_scanner_title">Wolkenscanner</string>
     <string name="precipitation_ice_pellets">Hagelkörner</string>
     <string name="precipitation_snow_grains">Schneekörner</string>
     <string name="capture">Aufnahme</string>
     <string name="results">Ergebnisse</string>
-    <string name="sky_detection_sensitivity">Empfindlichkeit der Himmelserkennung</string>
     <string name="precipitation_rain">Regen</string>
     <string name="precipitation_none">Kein Niederschlag</string>
     <string name="precipitation_drizzle">Nieseln</string>

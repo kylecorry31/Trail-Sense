@@ -821,8 +821,6 @@
     <string name="enable">Ativar</string>
     <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
     <string name="no_clouds">Sem nuvens</string>
-    <string name="sky_detection_sensitivity">Sensibilidade de deteção do céu</string>
-    <string name="obstacle_removal_sensitivity">Sensibilidade à remoção de obstáculos</string>
     <string name="pref_experimental_cloud_scanner_title">Digitalizador de nuvens</string>
     <string name="precipitation_none">Sem precipitação</string>
     <string name="precipitation_rain">Chuva</string>

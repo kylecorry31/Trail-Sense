@@ -886,7 +886,6 @@
     <string name="very_soon">Wkrótce</string>
     <string name="soon">Wkrótce</string>
     <string name="dashed">Przerywana</string>
-    <string name="sky_detection_sensitivity">Czułość wykrywania nieba</string>
     <string name="distance_unset">Odległość nieustawiona</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Blokada za pomocą przycisków głośności</string>
     <string name="errors">Błędy</string>
@@ -925,7 +924,6 @@
     <string name="saving">Oszczędzanie</string>
     <string name="gps_unavailable">GPS niedostępny</string>
     <string name="gps_timeouts">Limity czasu GPS</string>
-    <string name="obstacle_removal_sensitivity">Czułość usuwania przeszkód</string>
     <string name="pref_experimental_cloud_scanner_title">Skaner chmur</string>
     <string name="map_projection_equidistant">W równej odległości</string>
     <string name="instructions">Instrukcje</string>

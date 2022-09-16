@@ -7,9 +7,6 @@ import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.mask.CloudPixelClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.mask.NRBRSkyThresholdCalculator
-import com.kylecorry.trail_sense.weather.ui.clouds.CloudIdentificationFragment
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -31,24 +28,14 @@ class CloudTrainingDataGenerator {
         val training = mutableListOf<List<Any>>()
         var i = 0
         for (image in images) {
-            val size = CloudIdentificationFragment.IMAGE_SIZE
+            val size = TextureCloudClassifier.IMAGE_SIZE
             val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size)
             val bitmap = original.resizeExact(size, size)
             original.recycle()
 
-            // Calculate thresholds
-            val thresholdCalculator = NRBRSkyThresholdCalculator()
-            val skyThreshold = runBlocking { thresholdCalculator.getThreshold(bitmap) }
-            val obstacleThreshold = 25
-
-            val pixelClassifier = CloudPixelClassifier.default(
-                skyThreshold,
-                obstacleThreshold
-            )
-
             // Calculate training data
             var features = listOf<Float>()
-            val classifier = TextureCloudClassifier(pixelClassifier) { features = it }
+            val classifier = TextureCloudClassifier { features = it }
             runBlocking { classifier.classify(bitmap) }
             // By genus
             val cloudMap = mapOf(

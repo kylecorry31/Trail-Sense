@@ -813,10 +813,8 @@
     <string name="enable">启用</string>
     <string name="weather_monitoring_disabled">已禁用天气检测</string>
     <string name="no_clouds">没有云</string>
-    <string name="sky_detection_sensitivity">天空探测灵敏度</string>
     <string name="precipitation_rain">雨</string>
     <string name="precipitation_snow_pellets">雪粒</string>
-    <string name="obstacle_removal_sensitivity">障碍物清除灵敏度</string>
     <string name="pref_experimental_cloud_scanner_title">云扫描仪</string>
     <string name="precipitation_none">无降水</string>
     <string name="precipitation_drizzle">细雨</string>

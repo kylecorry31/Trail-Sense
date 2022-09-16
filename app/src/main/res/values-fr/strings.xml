@@ -812,7 +812,6 @@
     <string name="pref_show_nearest_tide_title">Afficher la marée la plus proche</string>
     <string name="moon">Lune</string>
     <string name="precipitation_rain">Pluie</string>
-    <string name="obstacle_removal_sensitivity">Sensibilité de détection d’obstacle</string>
     <string name="pref_experimental_cloud_scanner_title">Analyse de nuage</string>
     <string name="precipitation_none">Pas de précipitation</string>
     <string name="precipitation_drizzle">Bruine</string>
@@ -844,7 +843,6 @@
 \n**Altitude** : %s
 \n
 \n**Azimuth** : %s</string>
-    <string name="sky_detection_sensitivity">Sensibilité de détection du ciel</string>
     <string name="enable">Activer</string>
     <string name="weather_monitoring_disabled">Moniteur météo désactivé</string>
     <string name="no_clouds">Pas de nuages</string>

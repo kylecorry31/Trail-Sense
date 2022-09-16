@@ -4,90 +4,71 @@ import android.graphics.Bitmap
 import android.graphics.Rect
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
 import com.kylecorry.andromeda.core.bitmap.ColorChannel
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.math.statistics.Texture
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.ClassificationResult
-import com.kylecorry.trail_sense.weather.domain.clouds.mask.ICloudPixelClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.mask.SkyPixelClassification
+import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.sqrt
 
 /**
  * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
  */
 class TextureCloudClassifier(
-    private val pixelClassifier: ICloudPixelClassifier,
     private val onFeaturesCalculated: (List<Float>) -> Unit = {}
 ) : ICloudClassifier {
 
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus>> {
-        var skyPixels = 0
-        var cloudPixels = 0
+        var averageNRBR = 0.0
 
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
-                when (pixelClassifier.classify(pixel)) {
-                    SkyPixelClassification.Sky -> {
-                        skyPixels++
-                    }
-                    SkyPixelClassification.Obstacle -> {
-                        // Do nothing
-                    }
-                    else -> {
-                        cloudPixels++
-                    }
-                }
+                averageNRBR += ColorUtils.nrbr(pixel)
             }
         }
 
-        val levels = 16
-        val step = 1
-        val windowSize = 50
+        averageNRBR /= bitmap.width * bitmap.height
+
         val regions = mutableListOf<Rect>()
-        for (x in 0 until bitmap.width step windowSize) {
-            for (y in 0 until bitmap.height step windowSize) {
-                regions.add(Rect(x, y, x + windowSize, y + windowSize))
+        for (x in 0 until bitmap.width step GLCM_WINDOW_SIZE) {
+            for (y in 0 until bitmap.height step GLCM_WINDOW_SIZE) {
+                regions.add(Rect(x, y, x + GLCM_WINDOW_SIZE, y + GLCM_WINDOW_SIZE))
             }
         }
 
         val textures = regions.map {
             val glcm = bitmap.glcm(
                 listOf(
-                    0 to step,
-                    step to step,
-                    step to 0,
-                    step to -step
+                    0 to GLCM_STEP_SIZE,
+                    GLCM_STEP_SIZE to GLCM_STEP_SIZE,
+                    GLCM_STEP_SIZE to 0,
+                    GLCM_STEP_SIZE to -GLCM_STEP_SIZE
                 ),
                 ColorChannel.Red,
                 excludeTransparent = true,
                 normed = true,
                 symmetric = true,
-                levels = levels,
+                levels = GLCM_LEVELS,
                 region = it
             )
             Texture.features(glcm)
         }
 
-        val cover = if (skyPixels + cloudPixels != 0) {
-            cloudPixels / (skyPixels + cloudPixels).toFloat()
-        } else {
-            0f
-        }
-
-        if (cover < 0.05) {
-            return emptyList()
-        }
-
         val features = listOf(
-            cover,
             // Color
+            SolMath.norm(averageNRBR.toFloat(), -1f, 1f),
             // Texture
             Statistics.median(textures.map { it.energy }),
-            Statistics.median(textures.map { it.contrast }),
-            Statistics.median(textures.map { it.verticalMean / levels.toFloat() }),
-            sqrt(Statistics.median(textures.map { it.verticalVariance })),
+            SolMath.norm(Statistics.median(textures.map { it.contrast }), 0f, 1.5f),
+            SolMath.norm(
+                Statistics.median(textures.map { it.verticalMean }),
+                0f,
+                GLCM_LEVELS.toFloat()
+            ),
+            SolMath.norm(sqrt(Statistics.median(textures.map { it.verticalVariance })), 0f, 3f),
             // Bias
             1f
         )
@@ -123,78 +104,82 @@ class TextureCloudClassifier(
     }
 
     companion object {
+        const val IMAGE_SIZE = 400
+        private const val GLCM_LEVELS = 16
+        private const val GLCM_WINDOW_SIZE = 50
+        private const val GLCM_STEP_SIZE = 1
         private val weights = arrayOf(
             arrayOf(
-                -7.250256463037756f,
-                -4.147736274525556f,
-                0.3755199753075953f,
-                4.589243099539504f,
-                -1.845928008834235f,
-                4.908645138471656f,
-                11.219120709404606f,
-                -6.790296822305672f,
-                4.271255236243025f,
-                -5.078931339468556f
+                -13.02802297485645f,
+                -4.8928910026430374f,
+                1.1873968557991594f,
+                2.843122641068841f,
+                -1.6610208802157038f,
+                4.074353173237457f,
+                16.83373066202042f,
+                -5.886576478465538f,
+                1.445592387846503f,
+                -0.7271188659330753f
             ),
             arrayOf(
-                -1.5443827498507463f,
-                -9.414194411603633f,
-                1.412629830665699f,
-                1.1455987001818895f,
-                -1.7250537633351157f,
-                3.4211658160901997f,
-                -6.704610844974213f,
-                10.842933858607733f,
-                3.300899290292573f,
-                -0.42218175734462415f
+                -1.3481173252650023f,
+                -9.695948697050072f,
+                1.6601859143383941f,
+                3.902077982817408f,
+                -4.190505014836371f,
+                6.251309785886855f,
+                -8.883053725871655f,
+                7.905690895636963f,
+                6.55144074697563f,
+                -1.9742005571871462f
             ),
             arrayOf(
-                -1.7397053593412013f,
-                11.005394534868476f,
-                -1.3856443667900888f,
-                -0.7244740607361306f,
-                6.148813870397207f,
-                -3.830943978456825f,
-                -6.174615895990192f,
-                -1.9859222652914816f,
-                -0.23274256964738435f,
-                -1.072136722553462f
+                -1.642489948283554f,
+                12.640609641784742f,
+                -2.0725670062396584f,
+                -2.511949182736662f,
+                8.08965118808117f,
+                -4.746995430867104f,
+                -6.181738486028459f,
+                -1.036624824021855f,
+                -1.9115554217910815f,
+                -0.5772751855090763f
             ),
             arrayOf(
-                -3.047097033236946f,
-                -2.526716507126389f,
-                -5.02673259321876f,
-                2.046949479515713f,
-                -1.9097106427044819f,
-                4.83109845838557f,
-                0.8981684319382629f,
-                0.3592890429469326f,
-                1.2063343359270386f,
-                2.678338055853715f
+                -7.835530379419983f,
+                -5.132120476822591f,
+                -3.490374938357374f,
+                5.232834479017481f,
+                -2.7697493867619434f,
+                8.67341887138739f,
+                5.717399674847507f,
+                -6.1952489800622805f,
+                4.329176810029505f,
+                1.2194277282471122f
             ),
             arrayOf(
-                0.7561704668286304f,
-                -1.0461089999242144f,
-                0.7109376794759613f,
-                -6.892539149836536f,
-                4.267063946413256f,
-                -7.278889684846466f,
-                6.697499363791351f,
-                9.033987638940351f,
-                -9.335215796146226f,
-                3.1192129065102945f
+                -3.1378175901217857f,
+                -5.401111536229517f,
+                -1.5256289662826514f,
+                -5.969624095420895f,
+                5.7423424135815235f,
+                -6.997464859618627f,
+                5.972284092691329f,
+                17.373706869882184f,
+                -7.321325999079119f,
+                1.5543523254913414f
             ),
             arrayOf(
-                9.762526131231256f,
-                10.592115720239878f,
-                1.5126671331019226f,
-                -1.9905054771733097f,
-                1.0402367572484648f,
-                -4.535581536212689f,
-                -8.537721793456281f,
-                -6.396546373637519f,
-                -2.2502285030993576f,
-                0.8653463458293095f
+                12.110068048189834f,
+                10.776232838539801f,
+                0.323110917152315f,
+                -5.222049390718706f,
+                2.9615518723215835f,
+                -8.440511352370835f,
+                -4.2683045066043315f,
+                -2.62146016845962f,
+                -6.126602180469509f,
+                -0.09537140977377909f
             )
         )
     }
