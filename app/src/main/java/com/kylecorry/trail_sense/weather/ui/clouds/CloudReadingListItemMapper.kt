@@ -16,19 +16,20 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 
 
 internal class CloudReadingListItemMapper(private val context: Context) :
-    ListItemMapper<Reading<CloudGenus?>> {
+    ListItemMapper<Reading<CloudObservation>> {
     private val repo: CloudDetailsService = CloudDetailsService(context)
     private val cloudService: CloudService = CloudService()
     private val formatter = FormatService(context)
 
-    override fun map(value: Reading<CloudGenus?>): ListItem {
+    override fun map(value: Reading<CloudObservation>): ListItem {
         return ListItem(
-            value.value?.ordinal?.toLong() ?: -1L,
-            repo.getCloudName(value.value),
-            repo.getCloudForecast(value.value),
+            value.value.genus?.ordinal?.toLong() ?: -1L,
+            repo.getCloudName(value.value.genus),
+            repo.getCloudForecast(value.value.genus),
             data = listOf(
                 ListItemData(
                     formatter.formatDateTime(
@@ -42,28 +43,28 @@ internal class CloudReadingListItemMapper(private val context: Context) :
                 )
             ),
             icon = ClippedResourceListIcon(
-                repo.getCloudImage(value.value),
-                if (value.value == null) AppColor.Blue.color else null,
+                repo.getCloudImage(value.value.genus),
+                if (value.value.genus == null) AppColor.Blue.color else null,
                 size = 48f,
                 background = R.drawable.rounded_rectangle
             ) {
                 Alerts.image(
                     context,
-                    repo.getCloudName(value.value),
-                    repo.getCloudImage(value.value)
+                    repo.getCloudName(value.value.genus),
+                    repo.getCloudImage(value.value.genus)
                 )
             }
         ) {
-            if (value.value != null) {
-                val precipitation = cloudService.getPrecipitation(value.value)
+            if (value.value.genus != null) {
+                val precipitation = cloudService.getPrecipitation(value.value.genus)
                 Alerts.dialog(
                     context,
-                    repo.getCloudName(value.value),
-                    repo.getCloudDescription(value.value) + "\n\n" +
-                            repo.getCloudForecast(value.value) + "\n\n" +
+                    repo.getCloudName(value.value.genus),
+                    repo.getCloudDescription(value.value.genus) + "\n\n" +
+                            repo.getCloudForecast(value.value.genus) + "\n\n" +
                             getPrecipitationDescription(
                                 context,
-                                value.value,
+                                value.value.genus,
                                 precipitation,
                                 formatter
                             ),
