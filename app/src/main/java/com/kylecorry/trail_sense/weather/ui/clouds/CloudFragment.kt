@@ -4,37 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
-import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
+    private val mapper by lazy { CloudReadingListItemMapper(requireContext(), this::handleAction) }
+    private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private val cloudDetailsService by lazy { CloudDetailsService(requireContext()) }
-    private lateinit var listView: ListView<CloudGenus>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
-            val itemBinding = ListItemCloudBinding.bind(itemView)
-            CloudListItem(item, cloudDetailsService).display(itemBinding)
+        repo.getAllLive().observe(viewLifecycleOwner) {
+            binding.cloudList.setItems(it.sortedByDescending { it.time }, mapper)
         }
 
-        listView.addLineSeparator()
-        listView.setData(cloudDetailsService.getClouds().sortedByDescending { it.level })
-
         CustomUiUtils.setButtonState(binding.cloudListTitle.rightButton, false)
-        binding.cloudListTitle.rightButton.isVisible = UserPreferences(requireContext()).weather.showCloudScanner
+        // TODO: Add FAB menu
+        binding.cloudList.emptyView = binding.cloudEmptyText
         binding.cloudListTitle.rightButton.setOnClickListener {
             tryOrNothing {
                 findNavController().navigate(R.id.action_cloud_to_cloud_scan)
@@ -49,5 +48,25 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         return FragmentCloudsBinding.inflate(layoutInflater, container, false)
     }
 
+    private fun handleAction(action: CloudReadingAction, reading: Reading<CloudObservation>) {
+        when (action) {
+            CloudReadingAction.Delete -> delete(reading)
+        }
+    }
+
+    private fun delete(reading: Reading<CloudObservation>) {
+        inBackground {
+            val cancelled = onMain {
+                CoroutineAlerts.dialog(
+                    requireContext(),
+                    getString(R.string.delete),
+                    cloudDetailsService.getCloudName(reading.value.genus)
+                )
+            }
+            if (!cancelled) {
+                repo.delete(reading)
+            }
+        }
+    }
 
 }

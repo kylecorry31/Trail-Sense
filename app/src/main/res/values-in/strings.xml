@@ -740,7 +740,6 @@
     <string name="sun">Matahari</string>
     <string name="no_clouds">Tidak Ada Awan</string>
     <string name="precipitation_snow">Salju</string>
-    <string name="pref_experimental_cloud_scanner_title">Pemindai awan</string>
     <string name="camera_unavailable">Kamera tidak tersedia</string>
     <string name="hygiene">Higenis</string>
     <string name="pick_file">Pilih berkas</string>

@@ -733,7 +733,6 @@
     <string name="take_photo">Ta bilde</string>
     <string name="choose_photo">Velg bilde</string>
     <string name="notification_weather_update_title">Værovervåkingsoppdatering</string>
-    <string name="pref_experimental_cloud_scanner_title">Skyskanner</string>
     <string name="precipitation_none">Ingen nedbør</string>
     <string name="precipitation_snow">Snø</string>
     <string name="updates">Oppdateringer</string>

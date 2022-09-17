@@ -39,7 +39,7 @@ class CloudDetailsService(private val context: Context) {
             CloudGenus.Cumulus -> context.getString(R.string.cumulus_weather)
             CloudGenus.Cumulonimbus -> context.getString(R.string.cumulonimbus_weather)
             CloudGenus.Cirrus -> context.getString(R.string.cirrus_weather)
-            null -> ""
+            null -> "-"
         }
     }
 

@@ -924,7 +924,6 @@
     <string name="saving">Oszczędzanie</string>
     <string name="gps_unavailable">GPS niedostępny</string>
     <string name="gps_timeouts">Limity czasu GPS</string>
-    <string name="pref_experimental_cloud_scanner_title">Skaner chmur</string>
     <string name="map_projection_equidistant">W równej odległości</string>
     <string name="instructions">Instrukcje</string>
     <string name="height">Wysokość</string>

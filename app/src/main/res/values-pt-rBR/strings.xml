@@ -859,7 +859,6 @@
     <string name="line_style">Estilo de linha</string>
     <string name="hide">Esconder</string>
     <string name="show">Mostrar</string>
-    <string name="pref_experimental_cloud_scanner_title">Escâner de nuvens</string>
     <string name="humidity">Umidade</string>
     <string name="precipitation_snow">Neve</string>
     <string name="capture">Capturar</string>

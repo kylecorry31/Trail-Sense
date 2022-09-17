@@ -3,10 +3,7 @@ package com.kylecorry.trail_sense.weather.ui.clouds
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ListItemData
-import com.kylecorry.ceres.list.ListItemMapper
-import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.ceres.list.*
 import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -19,7 +16,10 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsServi
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 
 
-internal class CloudReadingListItemMapper(private val context: Context) :
+internal class CloudReadingListItemMapper(
+    private val context: Context,
+    private val onAction: (action: CloudReadingAction, reading: Reading<CloudObservation>) -> Unit
+) :
     ListItemMapper<Reading<CloudObservation>> {
     private val repo: CloudDetailsService = CloudDetailsService(context)
     private val cloudService: CloudService = CloudService()
@@ -48,29 +48,37 @@ internal class CloudReadingListItemMapper(private val context: Context) :
                 size = 48f,
                 background = R.drawable.rounded_rectangle
             ) {
-                Alerts.image(
-                    context,
-                    repo.getCloudName(value.value.genus),
-                    repo.getCloudImage(value.value.genus)
-                )
-            }
+                if (value.value.genus != null) {
+                    Alerts.image(
+                        context,
+                        repo.getCloudName(value.value.genus),
+                        repo.getCloudImage(value.value.genus)
+                    )
+                }
+            },
+            menu = listOf(
+                ListMenuItem(context.getString(R.string.delete)) {
+                    onAction(
+                        CloudReadingAction.Delete,
+                        value
+                    )
+                }
+            )
         ) {
-            if (value.value.genus != null) {
-                val precipitation = cloudService.getPrecipitation(value.value.genus)
-                Alerts.dialog(
-                    context,
-                    repo.getCloudName(value.value.genus),
-                    repo.getCloudDescription(value.value.genus) + "\n\n" +
-                            repo.getCloudForecast(value.value.genus) + "\n\n" +
-                            getPrecipitationDescription(
-                                context,
-                                value.value.genus,
-                                precipitation,
-                                formatter
-                            ),
-                    cancelText = null
-                )
-            }
+            val precipitation = cloudService.getPrecipitation(value.value.genus)
+            Alerts.dialog(
+                context,
+                repo.getCloudName(value.value.genus),
+                repo.getCloudDescription(value.value.genus) + "\n\n" +
+                        repo.getCloudForecast(value.value.genus) + "\n\n" +
+                        getPrecipitationDescription(
+                            context,
+                            value.value.genus,
+                            precipitation,
+                            formatter
+                        ),
+                cancelText = null
+            )
         }
     }
 

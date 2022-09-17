@@ -185,7 +185,6 @@
     <string name="moon">ירח</string>
     <string name="weather_monitoring_disabled">ניטור מזג האוויר מושבת</string>
     <string name="enable">איפשור</string>
-    <string name="pref_experimental_cloud_scanner_title">סורק ענן</string>
     <string name="precipitation_snow">שלג</string>
     <string name="precipitation_snow_pellets">כדורי שלג</string>
     <string name="precipitation_ice_pellets">כדורי קרח</string>

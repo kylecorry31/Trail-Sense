@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -10,6 +12,7 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
 import com.kylecorry.trail_sense.shared.ClassificationResult
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
@@ -35,6 +38,9 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
                     it
                 }
             }
+            CustomUiUtils.setButtonState(
+                binding.cloudTitle.rightButton,
+                selection.any { it.isSelected })
             updateItems()
         }
     }
@@ -46,6 +52,14 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         container: ViewGroup?
     ): FragmentCloudResultsBinding {
         return FragmentCloudResultsBinding.inflate(layoutInflater, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.cloudImage.clipToOutline = true
+        binding.cloudTitle.rightButton.setOnClickListener {
+            save()
+        }
     }
 
     override fun onResume() {
@@ -90,6 +104,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private fun analyze() {
         binding.cloudImage.setImageBitmap(image)
+        binding.cloudImage.isVisible = true
         binding.loadingIndicator.isVisible = true
         binding.cloudList.setItems(emptyList())
         inBackground {
@@ -119,6 +134,9 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         selection = result.mapIndexed { index, value ->
             CloudSelection(value.value, value.confidence, index == 0)
         }
+        CustomUiUtils.setButtonState(
+            binding.cloudTitle.rightButton,
+            selection.any { it.isSelected })
         updateItems()
         binding.cloudList.scrollToPosition(0, false)
     }

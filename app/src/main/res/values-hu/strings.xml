@@ -1047,7 +1047,6 @@
     <string name="season_spring">Tavasz</string>
     <string name="enable">Engedélyezés</string>
     <string name="no_clouds">Nincsenek Felhők</string>
-    <string name="pref_experimental_cloud_scanner_title">Felhő szkenner</string>
     <string name="clinometer_measure_distance_instructions">Egy %s magas célpont távolságának méréséhez:
 \n
 \n1. Állítsd a dőlésmérőt a célpont aljához

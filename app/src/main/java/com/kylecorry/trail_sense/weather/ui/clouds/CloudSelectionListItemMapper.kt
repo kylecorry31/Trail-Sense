@@ -48,32 +48,32 @@ internal class CloudSelectionListItemMapper(
                 size = 48f,
                 background = R.drawable.rounded_rectangle
             ) {
-                Alerts.image(
-                    context,
-                    repo.getCloudName(value.genus),
-                    repo.getCloudImage(value.genus)
-                )
+                if (value.genus != null) {
+                    Alerts.image(
+                        context,
+                        repo.getCloudName(value.genus),
+                        repo.getCloudImage(value.genus)
+                    )
+                }
             },
             checkbox = ListItemCheckbox(value.isSelected) {
                 onSelectionChanged(value.genus, !value.isSelected)
             }
         ) {
-            if (value.genus != null) {
-                val precipitation = cloudService.getPrecipitation(value.genus)
-                Alerts.dialog(
-                    context,
-                    repo.getCloudName(value.genus),
-                    repo.getCloudDescription(value.genus) + "\n\n" +
-                            repo.getCloudForecast(value.genus) + "\n\n" +
-                            getPrecipitationDescription(
-                                context,
-                                value.genus,
-                                precipitation,
-                                formatter
-                            ),
-                    cancelText = null
-                )
-            }
+            val precipitation = cloudService.getPrecipitation(value.genus)
+            Alerts.dialog(
+                context,
+                repo.getCloudName(value.genus),
+                repo.getCloudDescription(value.genus) + "\n\n" +
+                        repo.getCloudForecast(value.genus) + "\n\n" +
+                        getPrecipitationDescription(
+                            context,
+                            value.genus,
+                            precipitation,
+                            formatter
+                        ),
+                cancelText = null
+            )
         }
     }
 
@@ -89,7 +89,7 @@ internal class CloudSelectionListItemMapper(
 
     private fun getPrecipitationDescription(
         context: Context,
-        type: CloudGenus,
+        type: CloudGenus?,
         precipitation: List<Precipitation>,
         formatter: FormatService
     ): String {

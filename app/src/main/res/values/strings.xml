@@ -1011,8 +1011,6 @@
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
     <string name="no_clouds">No Clouds</string>
-    <string name="pref_experimental_cloud_scanner_title">Cloud scanner</string>
-    <string name="pref_experimental_cloud_scanner" translatable="false">pref_experimental_cloud_scanner</string>
     <string name="pref_experimental_sea_level_calibration_v2" translatable="false">pref_experimental_sea_level_calibration_v_80</string>
     <string name="precipitation_none">No precipitation</string>
     <string name="precipitation_rain">Rain</string>

@@ -905,7 +905,6 @@
     <string name="season_winter">Winter</string>
     <string name="weather_monitoring_disabled">Weermeting uitgeschakeld</string>
     <string name="enable">Inschakelen</string>
-    <string name="pref_experimental_cloud_scanner_title">Wolkenlezer</string>
     <string name="precipitation_none">Geen neerslag</string>
     <string name="precipitation_rain">Regen</string>
     <string name="precipitation_drizzle">Motregen</string>

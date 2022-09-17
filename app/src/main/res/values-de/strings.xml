@@ -821,7 +821,6 @@
     <string name="enable">Aktivieren</string>
     <string name="weather_monitoring_disabled">Wettermonitor deaktiviert</string>
     <string name="no_clouds">Keine Wolken</string>
-    <string name="pref_experimental_cloud_scanner_title">Wolkenscanner</string>
     <string name="precipitation_ice_pellets">Hagelkörner</string>
     <string name="precipitation_snow_grains">Schneekörner</string>
     <string name="capture">Aufnahme</string>

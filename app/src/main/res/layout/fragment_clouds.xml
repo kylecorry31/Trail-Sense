@@ -13,13 +13,18 @@
         app:showSubtitle="false"
         app:title="@string/clouds" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/cloud_empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/no_clouds" />
+
+    <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/cloud_list"
+        style="@style/AppTheme.ListViewWithFab"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp" />
+        android:layout_weight="1" />
 
 </LinearLayout>

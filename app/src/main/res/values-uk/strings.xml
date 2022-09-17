@@ -842,7 +842,6 @@
     <string name="results">Підсумки</string>
     <string name="precipitation_small_hail">Дрібний град</string>
     <string name="precipitation_ice_pellets">Льодяна крупа</string>
-    <string name="pref_experimental_cloud_scanner_title">Зчитувач хмар</string>
     <string name="precipitation_none">Без опадів</string>
     <string name="precipitation_rain">Дощ</string>
     <string name="humidity">Вологість</string>

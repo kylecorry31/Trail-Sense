@@ -242,12 +242,6 @@ class WeatherPreferences(private val context: Context) {
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
 
-    val showCloudScanner by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_experimental_cloud_scanner),
-        false
-    )
-
     val useExperimentalSeaLevelCalibration by BooleanPreference(
         cache,
         context.getString(R.string.pref_experimental_sea_level_calibration_v2),
