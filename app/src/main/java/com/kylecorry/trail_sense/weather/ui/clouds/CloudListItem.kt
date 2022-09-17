@@ -13,11 +13,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 
 class CloudListItem(
     private val type: CloudGenus?,
-    private val cloudRepo: CloudRepo,
+    private val cloudDetailsService: CloudDetailsService,
     private val confidence: Float? = null,
     private val cloudService: CloudService = CloudService()
 ) {
@@ -41,8 +41,8 @@ class CloudListItem(
         }
 
         binding.name.text = type.name
-        binding.description.text = cloudRepo.getCloudForecast(type)
-        binding.cloudImg.setImageResource(cloudRepo.getCloudImage(type))
+        binding.description.text = cloudDetailsService.getCloudForecast(type)
+        binding.cloudImg.setImageResource(cloudDetailsService.getCloudImage(type))
         val precipitation = cloudService.getPrecipitation(type)
 
         binding.confidence.isVisible = confidence != null
@@ -53,8 +53,8 @@ class CloudListItem(
         binding.root.setOnClickListener {
             Alerts.dialog(
                 context,
-                cloudRepo.getCloudName(type),
-                cloudRepo.getCloudDescription(type) + "\n\n" +
+                cloudDetailsService.getCloudName(type),
+                cloudDetailsService.getCloudDescription(type) + "\n\n" +
                         getPrecipitationDescription(context, type, precipitation, formatter),
                 cancelText = null
             )
@@ -63,8 +63,8 @@ class CloudListItem(
         binding.cloudImg.setOnClickListener {
             Alerts.image(
                 context,
-                cloudRepo.getCloudName(type),
-                cloudRepo.getCloudImage(type)
+                cloudDetailsService.getCloudName(type),
+                cloudDetailsService.getCloudImage(type)
             )
         }
     }

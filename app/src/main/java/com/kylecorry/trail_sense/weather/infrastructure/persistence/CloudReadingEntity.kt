@@ -16,13 +16,15 @@ data class CloudReadingEntity(
     @ColumnInfo(name = "_id")
     var id: Long = 0
 
-    fun toReading(): Reading<CloudGenus?> {
-        return Reading(genus, time)
+    fun toReading(): Reading<CloudObservation> {
+        return Reading(CloudObservation(id, genus), time)
     }
 
     companion object {
-        fun fromReading(reading: Reading<CloudGenus?>): CloudReadingEntity {
-            return CloudReadingEntity(reading.time, reading.value)
+        fun from(reading: Reading<CloudObservation>): CloudReadingEntity {
+            return CloudReadingEntity(reading.time, reading.value.genus).also {
+                it.id = reading.value.id
+            }
         }
     }
 

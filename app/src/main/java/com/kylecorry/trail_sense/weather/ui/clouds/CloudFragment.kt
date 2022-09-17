@@ -15,11 +15,11 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
-    private val cloudRepo by lazy { CloudRepo(requireContext()) }
+    private val cloudDetailsService by lazy { CloudDetailsService(requireContext()) }
     private lateinit var listView: ListView<CloudGenus>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,11 +27,11 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
         listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
             val itemBinding = ListItemCloudBinding.bind(itemView)
-            CloudListItem(item, cloudRepo).display(itemBinding)
+            CloudListItem(item, cloudDetailsService).display(itemBinding)
         }
 
         listView.addLineSeparator()
-        listView.setData(cloudRepo.getClouds().sortedByDescending { it.level })
+        listView.setData(cloudDetailsService.getClouds().sortedByDescending { it.level })
 
         CustomUiUtils.setButtonState(binding.cloudListTitle.rightButton, false)
         binding.cloudListTitle.rightButton.isVisible = UserPreferences(requireContext()).weather.showCloudScanner

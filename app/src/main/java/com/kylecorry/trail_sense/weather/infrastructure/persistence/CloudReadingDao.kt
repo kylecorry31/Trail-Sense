@@ -8,6 +8,9 @@ interface CloudReadingDao {
     @Query("SELECT * FROM clouds")
     fun getAll(): LiveData<List<CloudReadingEntity>>
 
+    @Query("SELECT * FROM clouds")
+    suspend fun getAllSync(): List<CloudReadingEntity>
+
     @Query("SELECT * FROM clouds WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): CloudReadingEntity?
 

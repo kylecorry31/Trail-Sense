@@ -5,7 +5,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 
-class CloudRepo(private val context: Context) {
+class CloudDetailsService(private val context: Context) {
 
     fun getClouds(): List<CloudGenus> {
         return CloudGenus.values().toList()

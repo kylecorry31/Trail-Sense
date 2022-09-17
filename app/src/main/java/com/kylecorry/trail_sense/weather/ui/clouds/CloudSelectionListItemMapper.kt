@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 
 internal data class CloudSelection(
     val genus: CloudGenus?,
@@ -23,7 +23,7 @@ internal class CloudSelectionListItemMapper(
     private val context: Context,
     private val onSelectionChanged: (CloudGenus?, Boolean) -> Unit
 ) : ListItemMapper<CloudSelection> {
-    private val repo: CloudRepo = CloudRepo(context)
+    private val repo: CloudDetailsService = CloudDetailsService(context)
     private val cloudService: CloudService = CloudService()
     private val formatter = FormatService(context)
 

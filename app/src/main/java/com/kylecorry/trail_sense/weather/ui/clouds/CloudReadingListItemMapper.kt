@@ -15,12 +15,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.clouds.CloudService
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 
 
 internal class CloudReadingListItemMapper(private val context: Context) :
     ListItemMapper<Reading<CloudGenus?>> {
-    private val repo: CloudRepo = CloudRepo(context)
+    private val repo: CloudDetailsService = CloudDetailsService(context)
     private val cloudService: CloudService = CloudService()
     private val formatter = FormatService(context)
 
