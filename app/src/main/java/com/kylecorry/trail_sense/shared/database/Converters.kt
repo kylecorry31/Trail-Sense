@@ -26,13 +26,13 @@ class Converters {
 
     // TODO: Add an id to the cloud genus
     @TypeConverter
-    fun fromCloudGenus(value: CloudGenus): Int {
-        return value.ordinal
+    fun fromCloudGenus(value: CloudGenus?): Int? {
+        return value?.ordinal
     }
 
     @TypeConverter
-    fun toCloudGenus(value: Int): CloudGenus {
-        return CloudGenus.values().first { it.ordinal == value }
+    fun toCloudGenus(value: Int?): CloudGenus? {
+        return CloudGenus.values().firstOrNull { it.ordinal == value }
     }
 
     @TypeConverter
