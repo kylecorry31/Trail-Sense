@@ -6,6 +6,6 @@ import com.kylecorry.trail_sense.shared.ClassificationResult
 
 interface ICloudClassifier {
 
-    suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus>>
+    suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus?>>
 
 }

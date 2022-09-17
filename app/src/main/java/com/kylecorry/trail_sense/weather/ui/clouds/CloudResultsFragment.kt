@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<ClassificationResult<CloudGenus>>
+    private lateinit var listView: ListView<ClassificationResult<CloudGenus?>>
 
     private var image: Bitmap? = null
     private var classifier: ICloudClassifier = TextureCloudClassifier(this::debugLogFeatures)
@@ -89,7 +89,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
     }
 
-    private fun setResult(result: List<ClassificationResult<CloudGenus>>) {
+    private fun setResult(result: List<ClassificationResult<CloudGenus?>>) {
         if (!isBound) {
             return
         }

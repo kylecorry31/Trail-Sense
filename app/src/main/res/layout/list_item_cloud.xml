@@ -41,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-        app:layout_constraintEnd_toStartOf="@+id/precipitation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cloud_img"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
@@ -59,53 +59,6 @@
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="A description of the cloud" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/precipitation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/precipitation_rain"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_precipitation_rain"
-            app:layout_constraintEnd_toStartOf="@id/precipitation_snow"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/precipitation_snow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_precipitation_snow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/precipitation_hail"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/bubble"
-            app:layout_constraintStart_toStartOf="@id/precipitation_rain"
-            app:layout_constraintTop_toBottomOf="@id/precipitation_rain"
-            app:tint="@color/offWhite" />
-
-        <ImageView
-            android:id="@+id/precipitation_lightning"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_torch_on"
-            app:layout_constraintStart_toStartOf="@id/precipitation_snow"
-            app:layout_constraintTop_toBottomOf="@id/precipitation_snow"
-            app:tint="@color/sun" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

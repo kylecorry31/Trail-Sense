@@ -20,7 +20,7 @@ class TextureCloudClassifier(
     private val onFeaturesCalculated: (List<Float>) -> Unit = {}
 ) : ICloudClassifier {
 
-    override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus>> {
+    override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus?>> {
         var averageNRBR = 0.0
 
         for (w in 0 until bitmap.width) {
@@ -76,7 +76,9 @@ class TextureCloudClassifier(
         onFeaturesCalculated(features)
 
         if (features[4] < 0.1f) {
-            return emptyList()
+            return listOf(ClassificationResult<CloudGenus?>(null, 1f)) + CloudGenus.values().map {
+                ClassificationResult(it, 0f)
+            }
         }
         val classifier = LogisticRegressionClassifier(weights)
 
@@ -96,11 +98,11 @@ class TextureCloudClassifier(
         )
 
         val result = cloudMap.zip(prediction) { genus, confidence ->
-            ClassificationResult(
+            ClassificationResult<CloudGenus?>(
                 genus,
                 confidence
             )
-        }.sortedByDescending { it.confidence }
+        }.sortedByDescending { it.confidence } + listOf(ClassificationResult<CloudGenus?>(null, 0f))
 
 
         return result
