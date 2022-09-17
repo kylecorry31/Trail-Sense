@@ -352,7 +352,7 @@
 \n
 \nGrad und Dezimalminuten (z. B. 1°23,12\'N, 3°12,1\'W)
 \n
-\nGrad, Minuten und Sekunden (zB 1°23\'12,1\"N, 3°12\"1,2\'W)
+\nGrad, Minuten und Sekunden (zB 1°23\'12,1\"N, 3°12\'1,2\"W)
 \n
 \nUTM (z. B. 03T 12345E 67890N)
 \n
@@ -1063,4 +1063,5 @@
     <string name="updating_weather">Wetter wird aktualisiert</string>
     <string name="path_slope_flat">Flach</string>
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
+    <string name="icon">Zeichen</string>
 </resources>
