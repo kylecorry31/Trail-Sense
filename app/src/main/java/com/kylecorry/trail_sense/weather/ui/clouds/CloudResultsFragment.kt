@@ -1,18 +1,12 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
-import com.kylecorry.trail_sense.databinding.ListItemCloudBinding
 import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
@@ -20,15 +14,24 @@ import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudRepo
 
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
-    private val cloudRepo by lazy { CloudRepo(requireContext()) }
-    private lateinit var listView: ListView<ClassificationResult<CloudGenus?>>
-
     private var image: Bitmap? = null
     private var classifier: ICloudClassifier = TextureCloudClassifier(this::debugLogFeatures)
+    private var selection: List<CloudSelection> = emptyList()
+    private val mapper by lazy {
+        CloudSelectionListItemMapper(requireContext()) { genus, selected ->
+            selection = selection.map {
+                if (genus == it.genus) {
+                    it.copy(isSelected = selected)
+                } else {
+                    it
+                }
+            }
+            updateItems()
+        }
+    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -37,21 +40,11 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         return FragmentCloudResultsBinding.inflate(layoutInflater, container, false)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        listView = ListView(binding.cloudList, R.layout.list_item_cloud) { itemView, item ->
-            val itemBinding = ListItemCloudBinding.bind(itemView)
-            CloudListItem(item.value, cloudRepo, item.confidence).display(itemBinding)
-        }
-
-        listView.addLineSeparator()
-    }
-
     override fun onResume() {
         super.onResume()
-        analyze()
+        if (selection.isEmpty()) {
+            analyze()
+        }
     }
 
     fun clearImage() {
@@ -74,9 +67,8 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private fun analyze() {
         binding.cloudImage.setImageBitmap(image)
-        binding.emptyText.isVisible = false
         binding.loadingIndicator.isVisible = true
-        listView.setData(emptyList())
+        binding.cloudList.setItems(emptyList())
         inBackground {
             val results = onDefault {
                 image?.let { classifier.classify(it) }
@@ -89,14 +81,22 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
     }
 
+    private fun updateItems() {
+        if (isBound) {
+            binding.cloudList.setItems(selection, mapper)
+        }
+    }
+
     private fun setResult(result: List<ClassificationResult<CloudGenus?>>) {
         if (!isBound) {
             return
         }
 
         binding.loadingIndicator.isVisible = false
-        binding.emptyText.isVisible = result.isEmpty()
-        listView.setData(result)
-        listView.scrollToPosition(0, false)
+        selection = result.mapIndexed { index, value ->
+            CloudSelection(value.value, value.confidence, index == 0)
+        }
+        updateItems()
+        binding.cloudList.scrollToPosition(0, false)
     }
 }

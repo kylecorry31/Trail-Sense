@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.units.Reading
 import java.time.Instant
 
 @Entity(tableName = "clouds")
@@ -14,4 +15,15 @@ data class CloudReadingEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     var id: Long = 0
+
+    fun toReading(): Reading<CloudGenus?> {
+        return Reading(genus, time)
+    }
+
+    companion object {
+        fun fromReading(reading: Reading<CloudGenus?>): CloudReadingEntity {
+            return CloudReadingEntity(reading.time, reading.value)
+        }
+    }
+
 }
