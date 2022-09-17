@@ -93,6 +93,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     fun setImage(image: Bitmap) {
         this.image = image
+        selection = emptyList()
         if (isBound) {
             binding.cloudImage.setImageBitmap(image)
         }

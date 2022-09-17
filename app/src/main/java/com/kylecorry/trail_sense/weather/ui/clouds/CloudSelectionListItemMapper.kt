@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.content.Context
-import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.ceres.list.*
 import com.kylecorry.sol.science.meteorology.Precipitation
@@ -27,20 +26,35 @@ internal class CloudSelectionListItemMapper(
     private val cloudService: CloudService = CloudService()
     private val formatter = FormatService(context)
 
+    // Clouds less than 60% accuracy on test data
+    private val unreliable =
+        listOf(
+            CloudGenus.Cumulonimbus,
+            CloudGenus.Altostratus,
+            CloudGenus.Stratus,
+            CloudGenus.Altocumulus,
+            null
+        )
+
     override fun map(value: CloudSelection): ListItem {
         return ListItem(
             value.genus?.ordinal?.toLong() ?: -1L,
             repo.getCloudName(value.genus),
             repo.getCloudDescription(value.genus),
-            tags = if (value.confidence != null) listOf(
-                ListItemTag(
+            data = if (value.confidence != null) listOfNotNull(
+                ListItemData(
                     formatter.formatPercentage(
                         value.confidence * 100,
                         0
                     ),
-                    icon = ResourceListIcon(R.drawable.ic_help),
-                    color = getConfidenceColor(value.confidence)
-                )
+                    ResourceListIcon(R.drawable.ic_help)
+                ),
+                if (unreliable.contains(value.genus)) {
+                    ListItemData(
+                        context.getString(R.string.experimental),
+                        ResourceListIcon(R.drawable.ic_experimental)
+                    )
+                } else null
             ) else emptyList(),
             icon = ClippedResourceListIcon(
                 repo.getCloudImage(value.genus),
@@ -75,16 +89,6 @@ internal class CloudSelectionListItemMapper(
                 cancelText = null
             )
         }
-    }
-
-    @ColorInt
-    private fun getConfidenceColor(confidence: Float): Int {
-        return when {
-            confidence > 0.75f -> AppColor.Green
-            confidence > 0.5f -> AppColor.Yellow
-            confidence > 0.25f -> AppColor.Orange
-            else -> AppColor.Red
-        }.color
     }
 
     private fun getPrecipitationDescription(
