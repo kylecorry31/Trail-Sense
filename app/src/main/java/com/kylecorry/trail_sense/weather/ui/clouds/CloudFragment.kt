@@ -19,6 +19,8 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
@@ -57,16 +59,22 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     }
 
     private fun addFromCamera() {
-        inBackground {
-            val uri = CustomUiUtils.takePhoto(
-                this@CloudFragment,
-                Size(SoftmaxCloudClassifier.IMAGE_SIZE, SoftmaxCloudClassifier.IMAGE_SIZE)
-            )
-            uri?.let {
-                findNavController().navigate(
-                    R.id.action_cloud_to_cloud_picker,
-                    bundleOf("image" to uri)
-                )
+        requestCamera {
+            if (it) {
+                inBackground {
+                    val uri = CustomUiUtils.takePhoto(
+                        this@CloudFragment,
+                        Size(SoftmaxCloudClassifier.IMAGE_SIZE, SoftmaxCloudClassifier.IMAGE_SIZE)
+                    )
+                    uri?.let {
+                        findNavController().navigate(
+                            R.id.action_cloud_to_cloud_picker,
+                            bundleOf("image" to uri)
+                        )
+                    }
+                }
+            } else {
+                alertNoCameraPermission()
             }
         }
     }
