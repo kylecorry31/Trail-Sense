@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureClo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import java.time.Instant
+import kotlin.math.abs
 
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
@@ -132,8 +133,14 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
 
         binding.loadingIndicator.isVisible = false
-        selection = result.mapIndexed { index, value ->
-            CloudSelection(value.value, value.confidence, index == 0)
+        val maxConfidence = result[0].confidence
+        val threshold = 0.1f
+        selection = result.map {
+            CloudSelection(
+                it.value,
+                it.confidence,
+                abs(it.confidence - maxConfidence) <= threshold
+            )
         }
         CustomUiUtils.setButtonState(
             binding.cloudTitle.rightButton,
