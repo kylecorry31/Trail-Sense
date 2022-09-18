@@ -26,13 +26,13 @@ internal class CloudSelectionListItemMapper(
     private val cloudService: CloudService = CloudService()
     private val formatter = FormatService(context)
 
-    // Clouds less than 60% accuracy on test data
+    // Clouds less than 50% accuracy on test data
     private val unreliable =
         listOf(
             CloudGenus.Cumulonimbus,
+            CloudGenus.Cirrocumulus,
             CloudGenus.Altostratus,
             CloudGenus.Stratus,
-            CloudGenus.Altocumulus,
             null
         )
 
