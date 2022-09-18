@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain.clouds.classification
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Rect
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
 import com.kylecorry.andromeda.core.bitmap.ColorChannel
@@ -22,15 +23,18 @@ class TextureCloudClassifier(
 
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus?>> {
         var averageNRBR = 0.0
+        var darkness = 0.0
 
         for (w in 0 until bitmap.width) {
             for (h in 0 until bitmap.height) {
                 val pixel = bitmap.getPixel(w, h)
                 averageNRBR += ColorUtils.nrbr(pixel)
+                darkness += Color.blue(pixel)
             }
         }
 
         averageNRBR /= bitmap.width * bitmap.height
+        darkness /= bitmap.width * bitmap.height
 
         val regions = mutableListOf<Rect>()
         for (x in 0 until bitmap.width step GLCM_WINDOW_SIZE) {
@@ -47,8 +51,7 @@ class TextureCloudClassifier(
                     GLCM_STEP_SIZE to 0,
                     GLCM_STEP_SIZE to -GLCM_STEP_SIZE
                 ),
-                ColorChannel.Red,
-                excludeTransparent = true,
+                ColorChannel.Blue,
                 normed = true,
                 symmetric = true,
                 levels = GLCM_LEVELS,
@@ -60,6 +63,7 @@ class TextureCloudClassifier(
         val features = listOf(
             // Color
             SolMath.norm(averageNRBR.toFloat(), -1f, 1f),
+            SolMath.norm(darkness.toFloat(), 0f, 255f),
             // Texture
             Statistics.median(textures.map { it.energy }),
             SolMath.norm(Statistics.median(textures.map { it.contrast }), 0f, 1.5f),
@@ -109,82 +113,94 @@ class TextureCloudClassifier(
     }
 
     companion object {
-        const val IMAGE_SIZE = 400
+        const val IMAGE_SIZE = 500
         private const val GLCM_LEVELS = 16
-        private const val GLCM_WINDOW_SIZE = 50
+        private const val GLCM_WINDOW_SIZE = 100
         private const val GLCM_STEP_SIZE = 1
         private val weights = arrayOf(
             arrayOf(
-                -25.301912227418875f,
-                -18.643574572683992f,
-                4.804891680686801f,
-                4.5795778048436935f,
-                7.711989624838524f,
-                9.316704133312824f,
-                22.820119361977873f,
-                -8.15451286077698f,
-                5.91780128142596f,
-                -2.97786970691181f
+                -23.590385283860275f,
+                -12.878197687650868f,
+                -1.8089660768115572f,
+                5.3213117044138345f,
+                3.256097558630317f,
+                24.563627849459586f,
+                25.525458092793492f,
+                -27.06583429448029f,
+                8.899954410331198f,
+                -1.9559503360905768f
             ),
             arrayOf(
-                -8.986940539328149f,
-                -18.26748287806681f,
-                8.901277354304815f,
-                1.2112026410455143f,
-                -8.824866869998651f,
-                11.663651818522796f,
-                -3.2010224662144338f,
-                14.469683531887052f,
-                4.550277461234826f,
-                -1.8118016190986985f
+                10.229628331651195f,
+                2.5557881303681302f,
+                -0.25430563130985673f,
+                -5.777905059519628f,
+                10.644368531063675f,
+                -0.8800658476446017f,
+                -7.473367732073277f,
+                -8.01881885410084f,
+                -1.7463650301877915f,
+                0.1986570023700655f
             ),
             arrayOf(
-                -2.5011596240272373f,
-                17.899407056061925f,
-                -5.839273171968869f,
-                -2.803960455290144f,
-                13.588786568266078f,
-                -7.379556587131587f,
-                -8.322882353881813f,
-                -3.6285862645257745f,
-                0.07400172735873418f,
-                -1.019609668610693f
+                -2.3211721455208703f,
+                -20.86676344583415f,
+                9.8062435706812f,
+                3.9069813746717754f,
+                -11.827842541584502f,
+                8.220238353420413f,
+                -2.567231953415041f,
+                11.88267993474244f,
+                3.070358153245062f,
+                0.6139097652330388f
             ),
             arrayOf(
-                -5.920347899081299f,
-                -2.7612789530180204f,
-                -5.301072911828902f,
-                -1.274701758271556f,
-                -3.9075652904761857f,
-                13.679517482092576f,
-                3.494824513283382f,
-                -5.300138990097928f,
-                4.681902273623455f,
-                2.5670201307271627f
+                -4.3363284311063195f,
+                25.350006795505607f,
+                -6.192472883258766f,
+                -2.752686754831529f,
+                23.77236233908768f,
+                -10.891061568251493f,
+                -19.06005920120243f,
+                -7.6830610105824295f,
+                -2.036828587612685f,
+                3.8924355668106676f
             ),
             arrayOf(
-                -8.664588324916473f,
-                -16.942105611121814f,
-                -1.8080384074853528f,
-                -3.5468278861843467f,
-                1.3294635468409732f,
-                -9.641240530881067f,
-                13.809345642474772f,
-                27.274389222404157f,
-                -6.7523327698025986f,
-                4.8403904993439175f
+                -4.5057660802776205f,
+                -0.12604633252403427f,
+                -3.271321394410598f,
+                -6.440769368615688f,
+                -3.9538930591943444f,
+                3.5573986342942088f,
+                9.334350058685803f,
+                5.123483591798314f,
+                -1.7640415722416827f,
+                2.0872571537926103f
             ),
             arrayOf(
-                22.280227462670876f,
-                23.61088749658286f,
-                -4.136367509645848f,
-                -2.7587434795479466f,
-                4.442978959670547f,
-                -17.297375386575137f,
-                -10.809187929287008f,
-                -8.027907670055182f,
-                -7.163310986058574f,
-                -0.4501808737510704f
+                1.8287548988021192f,
+                -17.45794341569634f,
+                -1.7056952472502602f,
+                -3.3539920178470757f,
+                -1.9692954293617997f,
+                -12.290552247075114f,
+                19.31661602173667f,
+                25.977081293334162f,
+                -7.876209793096056f,
+                -2.52669940860955f
+            ),
+            arrayOf(
+                8.074944225595898f,
+                19.649911811845246f,
+                -2.198774965487402f,
+                1.7906831186990473f,
+                1.7914603713919812f,
+                -14.288849876051462f,
+                -12.156980071672495f,
+                1.0595155664169953f,
+                -2.5263022076371833f,
+                -1.595863227943878f
             )
         )
     }
