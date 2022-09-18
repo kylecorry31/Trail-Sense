@@ -1064,4 +1064,6 @@
     <string name="camera_unavailable">Kamera kullanılamıyor</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Deniz seviyesi kalibrasyonu V2</string>
     <string name="icon">Simge</string>
+    <string name="clouds_clear">Açık</string>
+    <string name="manual">El ile</string>
 </resources>
