@@ -1,19 +1,25 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.os.Bundle
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
@@ -32,13 +38,55 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         }
 
         CustomUiUtils.setButtonState(binding.cloudListTitle.rightButton, false)
-        // TODO: Add FAB menu
         binding.cloudList.emptyView = binding.cloudEmptyText
-        binding.cloudListTitle.rightButton.setOnClickListener {
-            tryOrNothing {
-                findNavController().navigate(R.id.action_cloud_to_cloud_scan)
+        setupCreateMenu()
+    }
+
+    private fun setupCreateMenu() {
+        binding.addMenu.setOverlay(binding.overlayMask)
+        binding.addMenu.fab = binding.addBtn
+        binding.addMenu.hideOnMenuOptionSelected = true
+        binding.addMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_cloud_camera -> addFromCamera()
+                R.id.action_cloud_file -> addFromFile()
+                R.id.action_cloud_manual -> addManual()
+            }
+            true
+        }
+    }
+
+    private fun addFromCamera() {
+        inBackground {
+            val uri = CustomUiUtils.takePhoto(
+                this@CloudFragment,
+                Size(SoftmaxCloudClassifier.IMAGE_SIZE, SoftmaxCloudClassifier.IMAGE_SIZE)
+            )
+            uri?.let {
+                findNavController().navigate(
+                    R.id.action_cloud_to_cloud_picker,
+                    bundleOf("image" to uri)
+                )
             }
         }
+    }
+
+    private fun addFromFile() {
+        inBackground {
+            val uri =
+                FragmentUriPicker(this@CloudFragment).open(listOf("image/*"))
+            val temp = uri?.let { onIO { Files.copyToTemp(requireContext(), it) }?.toUri() }
+            temp?.let {
+                findNavController().navigate(
+                    R.id.action_cloud_to_cloud_picker,
+                    bundleOf("image" to it)
+                )
+            }
+        }
+    }
+
+    private fun addManual() {
+        findNavController().navigate(R.id.action_cloud_to_cloud_picker)
     }
 
     override fun generateBinding(

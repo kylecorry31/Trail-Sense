@@ -655,17 +655,13 @@
         android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudFragment"
         android:label="CloudFragment">
         <action
-            android:id="@+id/action_cloud_to_cloud_scan"
-            app:destination="@id/cloudScanFragment"
+            android:id="@+id/action_cloud_to_cloud_picker"
+            app:destination="@id/cloudResultsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-    <fragment
-        android:id="@+id/cloudScanFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudIdentificationFragment"
-        android:label="CloudScanFragment" />
     <fragment
         android:id="@+id/sensorDetailsFragment"
         android:name="com.kylecorry.trail_sense.diagnostics.SensorDetailsFragment"
@@ -911,5 +907,9 @@
         android:id="@+id/fragmentStrideLengthEstimation"
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentStrideLengthEstimation"
         android:label="FragmentStrideLengthEstimation" />
+    <fragment
+        android:id="@+id/cloudResultsFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudResultsFragment"
+        android:label="CloudResultsFragment" />
 
 </navigation>

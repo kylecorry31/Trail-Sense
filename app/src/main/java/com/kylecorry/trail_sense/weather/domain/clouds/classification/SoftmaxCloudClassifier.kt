@@ -13,10 +13,7 @@ import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.sqrt
 
-/**
- * A cloud classifier using the method outlined in: doi:10.5194/amt-3-557-2010
- */
-class TextureCloudClassifier(
+class SoftmaxCloudClassifier(
     private val onFeaturesCalculated: (List<Float>) -> Unit = {}
 ) : ICloudClassifier {
 

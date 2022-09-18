@@ -1,12 +1,19 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toFile
 import androidx.core.view.isVisible
+import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
@@ -16,9 +23,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import java.time.Instant
@@ -27,7 +36,7 @@ import kotlin.math.abs
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private var image: Bitmap? = null
-    private var classifier: ICloudClassifier = TextureCloudClassifier(this::debugLogFeatures)
+    private var classifier: ICloudClassifier = SoftmaxCloudClassifier(this::debugLogFeatures)
     private var selection: List<CloudSelection> = emptyList()
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private val mapper by lazy {
@@ -46,7 +55,12 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
     }
 
-    // TODO: Read URI from arguments, if present analyze else show all clouds
+    private var uri: Uri? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        uri = arguments?.getParcelable("image")
+    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -65,8 +79,17 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (selection.isEmpty()) {
+        if (uri != null && selection.isEmpty()) {
             analyze()
+        } else {
+            selection = CloudGenus.values().map { CloudSelection(it, null, false) } + listOf(
+                CloudSelection(
+                    null,
+                    null,
+                    false
+                )
+            )
+            updateItems()
         }
     }
 
@@ -85,40 +108,58 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
     }
 
-    fun clearImage() {
-        this.image = null
-        if (isBound) {
-            binding.cloudImage.setImageBitmap(null)
-        }
-    }
-
-    fun setImage(image: Bitmap) {
-        this.image = image
-        selection = emptyList()
-        if (isBound) {
-            binding.cloudImage.setImageBitmap(image)
-        }
-    }
-
     private fun debugLogFeatures(features: List<Float>) {
         DebugCloudCommand(requireContext(), features).execute()
     }
 
     private fun analyze() {
-        binding.cloudImage.setImageBitmap(image)
-        binding.cloudImage.isVisible = true
+        val uri = uri ?: return
         binding.loadingIndicator.isVisible = true
+        selection = emptyList()
         binding.cloudList.setItems(emptyList())
         inBackground {
+            onIO {
+                if (image == null) {
+                    image = loadImage(uri)
+                    DeleteTempFilesCommand(requireContext()).execute()
+                }
+            }
             val results = onDefault {
                 image?.let { classifier.classify(it) }
             }
-
             onMain {
+                binding.cloudImage.isVisible = true
+                binding.cloudImage.setImageBitmap(image)
                 results?.let { setResult(results) }
             }
-
         }
+    }
+
+    private suspend fun loadImage(uri: Uri): Bitmap = onIO {
+        val file = uri.toFile()
+        val path = file.path
+        val rotation = tryOrDefault(0) {
+            val exif = ExifInterface(uri.toFile())
+            exif.rotationDegrees
+        }
+        val full = BitmapUtils.decodeBitmapScaled(
+            path,
+            SoftmaxCloudClassifier.IMAGE_SIZE,
+            SoftmaxCloudClassifier.IMAGE_SIZE
+        )
+        val bmp = full.resizeExact(
+            SoftmaxCloudClassifier.IMAGE_SIZE,
+            SoftmaxCloudClassifier.IMAGE_SIZE
+        )
+        full.recycle()
+        val rotated = bmp.rotate(rotation.toFloat())
+        bmp.recycle()
+        rotated
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        image?.recycle()
     }
 
     private fun updateItems() {

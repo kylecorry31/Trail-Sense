@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.TextureCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -28,14 +28,14 @@ class CloudTrainingDataGenerator {
         val training = mutableListOf<List<Any>>()
         var i = 0
         for (image in images) {
-            val size = TextureCloudClassifier.IMAGE_SIZE
+            val size = SoftmaxCloudClassifier.IMAGE_SIZE
             val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size)
             val bitmap = original.resizeExact(size, size)
             original.recycle()
 
             // Calculate training data
             var features = listOf<Float>()
-            val classifier = TextureCloudClassifier { features = it }
+            val classifier = SoftmaxCloudClassifier { features = it }
             runBlocking { classifier.classify(bitmap) }
             // By genus
             val cloudMap = mapOf(

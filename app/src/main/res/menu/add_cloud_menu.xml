@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_cloud_file"
+        android:icon="@drawable/ic_file"
+        android:title="@string/file" />
+    <item
+        android:id="@+id/action_cloud_camera"
+        android:icon="@drawable/ic_camera"
+        android:title="@string/camera" />
+    <item
+        android:id="@+id/action_cloud_manual"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/manual" />
+</menu>
