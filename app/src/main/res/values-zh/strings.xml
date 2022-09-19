@@ -1052,4 +1052,6 @@
     <string name="camera_unavailable">相机不可用</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">海平面校准 V2</string>
     <string name="icon">图标</string>
+    <string name="clouds_clear">澄澈</string>
+    <string name="manual">手动</string>
 </resources>
