@@ -32,10 +32,12 @@
     <string name="pref_show_linear_compass_summary">Quando o telemóvel está na vertical</string>
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
+        <item quantity="many">Últimas %d horas</item>
         <item quantity="other">Últimas %d horas</item>
     </plurals>
     <plurals name="last_minutes">
         <item quantity="one">Último %d minuto</item>
+        <item quantity="many">Últimos %d minutos</item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
     <string name="feet_miles">Pés / milhas</string>
@@ -160,6 +162,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
+        <item quantity="many">%d segundos até se tornar potável</item>
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -335,6 +338,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
+        <item quantity="many">%d alfinetes</item>
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -504,6 +508,7 @@
     <string name="access_background_location">Atualizar as configurações de localização</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d ponto de passagem será eliminado</item>
+        <item quantity="many">%d pontos de passagem serão eliminados</item>
         <item quantity="other">%d pontos de passagem serão eliminados</item>
     </plurals>
     <string name="new_text">Novo</string>
@@ -602,6 +607,7 @@
     <string name="pref_privacy_screenshot_protection_title">Impedir capturas do ecrã</string>
     <plurals name="number_days">
         <item quantity="one">%d dia</item>
+        <item quantity="many">%d dias</item>
         <item quantity="other">%d dias</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Histórico do voltar para trás</string>
@@ -707,10 +713,12 @@
     <string name="tomorrows_forecast">Previsão para amanhã</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d alfinete exportado</item>
+        <item quantity="many">%d alfinetes exportados</item>
         <item quantity="other">%d alfinetes exportados</item>
     </plurals>
     <plurals name="beacons_imported">
         <item quantity="one">%d alfinete importado</item>
+        <item quantity="many">%d alfinetes importados</item>
         <item quantity="other">%d alfinetes importados</item>
     </plurals>
     <string name="delete_tide_prompt">Eliminar maré\?</string>
@@ -858,6 +866,7 @@
     <string name="sort_by">Ordenar: %s</string>
     <plurals name="paths_imported">
         <item quantity="one">%d percurso importado</item>
+        <item quantity="many">%d percursos importados</item>
         <item quantity="other">%d percursos importados</item>
     </plurals>
     <string name="importing">A importar</string>
@@ -878,6 +887,7 @@
     <string name="pref_auto_simplify_paths_title">Simplificar percursos ao importar</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d ponto do percurso eliminado</item>
+        <item quantity="many">%d pontos do percurso eliminados</item>
         <item quantity="other">%d pontos do percurso eliminados</item>
     </plurals>
     <string name="pref_default_path_color_title">Cor predefinida do percurso</string>
@@ -915,6 +925,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
+        <item quantity="many">%d percursos</item>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>
@@ -932,6 +943,7 @@
     <string name="map_export_error">Não foi possível exportar o mapa para o ficheiro escolhido</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d maré</item>
+        <item quantity="many">%d marés</item>
         <item quantity="other">%d marés</item>
     </plurals>
     <string name="tide_deleted">A maré foi eliminada</string>
@@ -1031,7 +1043,11 @@
 \n
 \n- E muito mais!</string>
     <string name="running_in_background">Execução em segundo plano</string>
-    <string name="battery_usage_restricted_benefit">Ao remover as restrições da bateria no Trail Sense melhora-se a precisão.</string>
+    <string name="battery_usage_restricted_benefit">A remoção de restrições de bateria para o Trail Sense pode melhorar a precisão.
+\n
+\nNa maioria dos dispositivos, clique em \'OK\', depois mude para todas as aplicações, e desligue a otimização da bateria para o Trail Sense.
+\n
+\nVisite [Don\'t kill my app](https://dontkillmyapp.com/) para instruções específicas do seu dispositivo.</string>
     <string name="tide_instructions">Use uma tabela oficial de marés para introduzir marés de referência para o período da sua viagem.</string>
     <string name="tide_user_guide_recommendation">Os sites oficiais com tabelas de marés podem ser encontrados no Guia do utilizador.</string>
     <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
@@ -1059,4 +1075,7 @@
     <string name="path_slope">Declive</string>
     <string name="highest_point_elevation">Ponto mais alto</string>
     <string name="camera_unavailable">Câmara não disponível</string>
+    <string name="clouds_clear">Limpar</string>
+    <string name="manual">Manual</string>
+    <string name="icon">Ícone</string>
 </resources>
