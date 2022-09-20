@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.math.statistics.Texture
+import com.kylecorry.sol.math.statistics.TextureFeatures
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
@@ -44,7 +45,7 @@ class SoftmaxCloudClassifier(
                     GLCM_STEP_SIZE to 0,
                     GLCM_STEP_SIZE to -GLCM_STEP_SIZE
                 ),
-                ColorChannel.Blue,
+                ColorChannel.Red,
                 normed = true,
                 symmetric = true,
                 levels = GLCM_LEVELS,
@@ -53,25 +54,36 @@ class SoftmaxCloudClassifier(
             Texture.features(glcm)
         }
 
+        val texture = TextureFeatures(
+            textures.map { it.energy }.avg(),
+            textures.map { it.entropy }.avg(),
+            textures.map { it.contrast }.avg(),
+            textures.map { it.homogeneity }.avg(),
+            textures.map { it.dissimilarity }.avg(),
+            textures.map { it.angularSecondMoment }.avg(),
+            textures.map { it.horizontalMean }.avg(),
+            textures.map { it.verticalMean }.avg(),
+            textures.map { it.horizontalVariance }.avg(),
+            textures.map { it.verticalVariance }.avg(),
+            textures.map { it.correlation }.avg(),
+            textures.map { it.max }.avg(),
+        )
+
         val features = listOf(
             // Color
             SolMath.norm(averageNRBR.toFloat(), -1f, 1f) * 2,
             // Texture
-            Statistics.median(textures.map { it.energy }),
-            Statistics.median(textures.map { it.contrast }),
-            SolMath.norm(
-                Statistics.median(textures.map { it.verticalMean }),
-                0f,
-                GLCM_LEVELS.toFloat()
-            ),
-            SolMath.norm(sqrt(Statistics.median(textures.map { it.verticalVariance })), 0f, 3f),
+            texture.energy,
+            texture.contrast,
+            SolMath.norm(texture.verticalMean, 0f, GLCM_LEVELS.toFloat()),
+            SolMath.norm(sqrt(texture.verticalVariance), 0f, 3f),
             // Bias
             1f
         )
 
         onFeaturesCalculated(features)
 
-        val isClear = features[4] < 0.15f
+        val isClear = features[0] < 0.55 && features[4] < 0.15f
 
         val classifier = LogisticRegressionClassifier(weights)
 
@@ -106,83 +118,87 @@ class SoftmaxCloudClassifier(
         return result.sortedByDescending { it.confidence }
     }
 
+    private fun List<Float>.avg(): Float {
+        return Statistics.mean(this)
+    }
+
     companion object {
-        const val IMAGE_SIZE = 500
+        const val IMAGE_SIZE = 400
         private const val GLCM_LEVELS = 16
-        private const val GLCM_WINDOW_SIZE = 100
+        private const val GLCM_WINDOW_SIZE = IMAGE_SIZE / 4
         private const val GLCM_STEP_SIZE = 1
         private val weights = arrayOf(
             arrayOf(
-                -11.547071451503827f,
-                -5.115500780328104f,
-                0.2910332249450597f,
-                1.5564150086077198f,
-                3.398955758589519f,
-                7.6248515193988f,
-                10.816267339969862f,
-                -9.213037081918916f,
-                3.1280520755999612f,
-                -0.7523284601086945f
+                -9.455291886552716f,
+                -5.529273509622504f,
+                1.2065397677633543f,
+                1.2942317663005285f,
+                2.293825769651199f,
+                3.4536953462376943f,
+                9.647234665124858f,
+                -4.1242535793211905f,
+                2.407888277175005f,
+                -1.1182752250719166f
             ),
             arrayOf(
-                0.24338589066452004f,
-                -6.671817905040107f,
-                7.286939915228218f,
-                0.5209459615138191f,
-                -7.106403528607966f,
-                5.349015156309769f,
-                -6.145826168722913f,
-                4.617403631335282f,
-                1.5130817654547768f,
-                0.6893930332403198f
+                0.18636950807953298f,
+                -8.747776353655098f,
+                5.452264998827839f,
+                -0.35911764102922566f,
+                -8.603026793230137f,
+                4.285516495093585f,
+                -2.0801003229730286f,
+                8.320033490393724f,
+                1.162004287682592f,
+                -0.04646037846803479f
             ),
             arrayOf(
-                -1.2070819945607896f,
-                11.895088640242566f,
-                -3.197145539877684f,
-                -1.3602310846585581f,
-                9.740528367208151f,
-                -5.5245689733975265f,
-                -7.200946982029556f,
-                -1.6640359696405833f,
-                -1.7438036581719285f,
-                -0.3480005911674311f
+                -0.9298648057182556f,
+                4.150394757581087f,
+                -0.9082485093962868f,
+                -2.077398930942411f,
+                4.2750949685609845f,
+                1.855222837295111f,
+                -2.2642203151651232f,
+                -1.1247565812874052f,
+                -2.3652623587103836f,
+                -0.9085187194435138f
             ),
             arrayOf(
-                4.316402459100921f,
-                3.544179091004945f,
-                -4.034130363501316f,
-                -2.8702676013149966f,
-                1.769685384728576f,
-                1.1380830555862878f,
-                -1.6315452268659139f,
-                -0.5091664821803447f,
-                -1.8423320498298612f,
-                -0.3760520725601046f
+                -6.925748683924586f,
+                -1.1697693273870886f,
+                -3.171879237369924f,
+                -0.3568579733310823f,
+                2.714280513515399f,
+                8.803094313992927f,
+                2.718158928911068f,
+                -4.044381323561874f,
+                1.8148882772384f,
+                -0.2700125866226722f
             ),
             arrayOf(
-                0.31370864015881134f,
-                -4.966264259326547f,
-                -4.053860755542305f,
-                -1.5485712384570751f,
-                0.5458379709702794f,
-                -7.834422348097236f,
-                7.798293986119925f,
-                14.180283097350312f,
-                -3.5929516545524476f,
-                -1.4553509849377053f
+                -2.3162599713370815f,
+                -3.592191989487161f,
+                -2.784331416635153f,
+                -1.7840051336890426f,
+                0.1245760479195146f,
+                -6.259950465596728f,
+                6.29331286200891f,
+                13.129016966802732f,
+                -4.43089879815486f,
+                2.020735050585396f
             ),
             arrayOf(
-                7.701931353996819f,
-                6.642761757196731f,
-                -0.9129722735345788f,
-                -1.05700965800932f,
-                0.49968105607821445f,
-                -8.33166129893201f,
-                -4.417204946051044f,
-                3.129815856173385f,
-                -2.145288495218916f,
-                -0.8955201707852971f
+                13.132217488221098f,
+                11.234823825951004f,
+                -1.0250668431941798f,
+                -1.2151538349699724f,
+                1.8465555977537638f,
+                -7.744806979361771f,
+                -8.757451158899999f,
+                -4.072433268200014f,
+                -2.417565535982144f,
+                -0.9149695804696036f
             )
         )
     }

@@ -175,7 +175,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
         binding.loadingIndicator.isVisible = false
         val maxConfidence = result[0].confidence
-        val threshold = 0.1f
+        val threshold = if (result[0].value == null) 0.001f else 0.1f
         selection = result.map {
             CloudSelection(
                 it.value,
