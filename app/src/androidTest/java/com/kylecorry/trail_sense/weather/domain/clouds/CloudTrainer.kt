@@ -42,7 +42,7 @@ class CloudTrainer {
         clf.fitClasses(
             trainX,
             trainY,
-            1000,
+            5000,
             learningRate = 0.1f,
             batchSize = 5
         ) { error, epoch ->
