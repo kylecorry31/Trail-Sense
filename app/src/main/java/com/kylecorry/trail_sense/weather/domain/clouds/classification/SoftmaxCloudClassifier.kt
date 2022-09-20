@@ -85,7 +85,7 @@ class SoftmaxCloudClassifier(
 
         val isClear = features[0] < 0.55 && features[4] < 0.15f
 
-        val classifier = LogisticRegressionClassifier(weights)
+        val classifier = LogisticRegressionClassifier.fromWeights(weights)
 
         val prediction = classifier.classify(features)
 
