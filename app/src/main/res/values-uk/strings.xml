@@ -1084,4 +1084,6 @@
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Калібрування рівня моря V2</string>
     <string name="icon">Піктограма</string>
+    <string name="clouds_clear">Чисто</string>
+    <string name="manual">Вручну</string>
 </resources>
