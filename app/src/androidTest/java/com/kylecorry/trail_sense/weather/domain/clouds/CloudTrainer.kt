@@ -61,8 +61,9 @@ class CloudTrainer {
         )
 
         // TODO: Print confusion matrix
-
-        println(score(clf, testX, testY))
+        println()
+        println("Train: ${score(clf, trainX, trainY)}")
+        println("Test: ${score(clf, testX, testY)}")
     }
 
     private fun score(classifier: IClassifier, x: List<List<Float>>, y: List<Int>): Float {
