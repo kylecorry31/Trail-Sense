@@ -4,10 +4,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.files.LocalFiles
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.algebra.*
-import com.kylecorry.sol.math.classifiers.IClassifier
+import com.kylecorry.sol.math.algebra.Matrix
+import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
+import com.kylecorry.sol.math.classifiers.confusion
+import com.kylecorry.sol.math.statistics.Statistics
 import org.junit.Test
 import kotlin.random.Random
 
@@ -45,9 +46,9 @@ class CloudTrainer {
         clf.fitClasses(
             trainX,
             trainY,
-            5000,
-            learningRate = 0.1f,
-            batchSize = 5
+            10000,
+            learningRate = 0.2f,
+            batchSize = 3
         ) { error, epoch ->
             loss.add(listOf(epoch, error))
         }
@@ -68,12 +69,12 @@ class CloudTrainer {
         )
 
         println()
-        val trainConfusion = confusion(clf, 10, trainX, trainY)
-        val testConfusion = confusion(clf, 10, testX, testY)
+        val trainConfusion = clf.confusion(10, trainX, trainY)
+        val testConfusion = clf.confusion(10, testX, testY)
         println("TRAIN")
-        println("Accuracy: ${accuracy(trainConfusion)}")
-        println("F1 (Average): ${f1(trainConfusion)}")
-        println("F1 (Weighted): ${f1(trainConfusion, true)}")
+        println("Accuracy: ${Statistics.accuracy(trainConfusion)}")
+        println("F1 (Average): ${Statistics.f1Score(trainConfusion)}")
+        println("F1 (Weighted): ${Statistics.f1Score(trainConfusion, true)}")
         println(" ")
         println("F1")
         printF1Matrix(trainConfusion)
@@ -83,9 +84,9 @@ class CloudTrainer {
         println(" ")
         println(" ")
         println("Test")
-        println("Accuracy: ${accuracy(testConfusion)}")
-        println("F1 (Average): ${f1(testConfusion)}")
-        println("F1 (Weighted): ${f1(testConfusion, true)}")
+        println("Accuracy: ${Statistics.accuracy(testConfusion)}")
+        println("F1 (Average): ${Statistics.f1Score(testConfusion)}")
+        println("F1 (Weighted): ${Statistics.f1Score(testConfusion, true)}")
         println(" ")
         println("F1")
         printF1Matrix(testConfusion)
@@ -107,7 +108,7 @@ class CloudTrainer {
             "St",
             "Cb"
         )
-        val f1s = confusion.mapIndexed { index, _ -> index to f1(confusion, index) }
+        val f1s = confusion.mapIndexed { index, _ -> index to Statistics.f1Score(confusion, index) }
         println(
             f1s.joinToString("\n") {
                 "${labels[it.first]}: ${
@@ -143,51 +144,5 @@ class CloudTrainer {
             }
         )
     }
-
-    private fun confusion(
-        classifier: IClassifier,
-        classes: Int,
-        x: List<List<Float>>,
-        y: List<Int>
-    ): Matrix {
-        val matrix = createMatrix(classes, classes, 0f)
-        x.zip(y).forEach {
-            val pred = SolMath.argmax(classifier.classify(it.first))
-            matrix[pred][it.second]++
-        }
-        return matrix
-    }
-
-    private fun accuracy(confusion: Matrix): Float {
-        val total = confusion.sum()
-        val correct = confusion.multiply(identityMatrix(confusion.rows())).sum()
-        return correct / total
-    }
-
-    private fun f1(confusion: Matrix, weighted: Boolean = false): Float {
-        val all = confusion.sum()
-        val weight = 1 / confusion.rows().toFloat()
-        return confusion.mapIndexed { index, _ ->
-            val total = confusion.transpose()[index].sum()
-            f1(confusion, index) * if (weighted) total / all else weight
-        }.sum()
-    }
-
-    private fun f1(confusion: Matrix, label: Int): Float {
-        val predicted = confusion[label]
-        val actual = confusion.transpose()[label]
-
-        val tp = confusion[label][label]
-        val fp = predicted.sum() - tp
-        val fn = actual.sum() - tp
-        val precision = tp / (tp + fp)
-        val recall = tp / (tp + fn)
-        val f = (2 * precision * recall) / (precision + recall)
-        if (f.isNaN()) {
-            return 0f
-        }
-        return f
-    }
-
 
 }
