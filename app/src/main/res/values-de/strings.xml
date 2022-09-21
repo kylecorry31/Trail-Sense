@@ -1064,4 +1064,6 @@
     <string name="path_slope_flat">Flach</string>
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
     <string name="icon">Zeichen</string>
+    <string name="clouds_clear">Löschen</string>
+    <string name="manual">Manuell</string>
 </resources>
