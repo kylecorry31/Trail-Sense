@@ -71,7 +71,6 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         }
 
         binding.screenFlashlightBtn.setOnClickListener {
-            turnOff()
             findNavController().navigate(R.id.action_flashlight_to_screen_flashlight)
         }
 
