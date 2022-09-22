@@ -119,6 +119,10 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
         }
 
+        binding.mapListTitle.rightButton.setOnClickListener {
+            UserGuideUtils.showGuide(this, R.raw.importing_maps)
+        }
+
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false

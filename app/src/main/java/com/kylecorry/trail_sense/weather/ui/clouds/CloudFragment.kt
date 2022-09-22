@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.shared.io.Files
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
@@ -39,7 +40,10 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
             binding.cloudList.setItems(it.sortedByDescending { it.time }, mapper)
         }
 
-        CustomUiUtils.setButtonState(binding.cloudListTitle.rightButton, false)
+        binding.cloudListTitle.rightButton.setOnClickListener {
+            UserGuideUtils.showGuide(this, R.raw.weather)
+        }
+
         binding.cloudList.emptyView = binding.cloudEmptyText
         setupCreateMenu()
     }

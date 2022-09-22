@@ -10,9 +10,11 @@
         android:id="@+id/cloud_list_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:flattenButtons="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:rightButtonIcon="@drawable/ic_help"
         app:showSubtitle="false"
         app:title="@string/clouds" />
 
