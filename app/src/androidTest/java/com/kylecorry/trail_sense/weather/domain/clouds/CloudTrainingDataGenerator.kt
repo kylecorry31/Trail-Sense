@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.weather.domain.clouds
 
-import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
-import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
@@ -15,14 +13,9 @@ class CloudTrainingDataGenerator {
 
     @Test
     fun generateTrainingData() {
-
-        // TODO: Create batch script to push cloud images onto device and retrieve training data file
-
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-
         // Load images
         val images = CloudGenus.values().flatMap {
-            val dir = LocalFiles.getDirectory(context, "debug/clouds/${it.name.lowercase()}", true)
+            val dir = File("sdcard/Documents/clouds/${it.name.lowercase()}")
             dir.listFiles()?.map { file ->
                 it to file
             } ?: emptyList()
@@ -64,8 +57,8 @@ class CloudTrainingDataGenerator {
         }
 
         // Record training data
-        val file = File("sdcard/Documents/clouds.csv")
-        file.writeText(CSVConvert.toCSV(training))
+        val output = File("sdcard/Documents/clouds.csv")
+        output.writeText(CSVConvert.toCSV(training))
     }
 
 }
