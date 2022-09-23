@@ -11,7 +11,7 @@ A general rule is that air pressure will drop as a storm moves in. Trail Sense u
 
 ## Predicting weather using clouds
 
-Trail Sense can be used to track clouds throughout the day. You can do this by opening the Cloud tool and logging a new cloud. If you know what cloud type you are looking at, you can choose Manual and select the cloud you see. Selecting the other two options will allow you to scan a cloud using your camera or a photo. Trail Sense will automatically select the most likely clouds in the photo. Some clouds are flagged as experimental due to low detection accuracy. Clicking on a cloud in the log will give you more details including a description, forecast, and associated precipitation. If you notice that cloud cover is increasing, or clouds are getting darker it may be a sign that a storm is on the way.
+Trail Sense can be used to track clouds throughout the day. You can do this by opening the Cloud tool and logging a new cloud. If you know what cloud type you are looking at, you can choose Manual and select the cloud you see. Selecting the other two options will allow you to scan a cloud using your camera or a photo. Trail Sense will automatically select the most likely clouds in the photo. For best results, use a photo that contains just clouds and the sky. Some clouds are flagged as experimental due to low detection accuracy. Clicking on a cloud in the log will give you more details including a description, forecast, and associated precipitation. If you notice that cloud cover is increasing, or clouds are getting darker it may be a sign that a storm is on the way.
 
 ## Estimating the temperature
 
