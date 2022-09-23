@@ -9,11 +9,14 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import java.io.File
 
 class CloudTrainingDataGenerator {
 
     @Test
     fun generateTrainingData() {
+
+        // TODO: Create batch script to push cloud images onto device and retrieve training data file
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -61,11 +64,8 @@ class CloudTrainingDataGenerator {
         }
 
         // Record training data
-        LocalFiles.write(
-            context,
-            "debug/clouds/clouds.csv",
-            CSVConvert.toCSV(training)
-        )
+        val file = File("sdcard/Documents/clouds.csv")
+        file.writeText(CSVConvert.toCSV(training))
     }
 
 }

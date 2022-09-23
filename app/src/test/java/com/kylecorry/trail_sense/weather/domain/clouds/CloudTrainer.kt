@@ -1,23 +1,22 @@
 package com.kylecorry.trail_sense.weather.domain.clouds
 
-import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.csv.CSVConvert
-import com.kylecorry.andromeda.files.LocalFiles
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.classifiers.confusion
+import com.kylecorry.sol.math.split
 import com.kylecorry.sol.math.statistics.Statistics
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import java.io.File
 import kotlin.random.Random
 
 class CloudTrainer {
 
     @Test
     fun train() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val file = LocalFiles.read(context, "debug/clouds/clouds.csv")
+        val file = File("src/data/clouds.csv").readText()
         val csv = CSVConvert.parse(file)
 
         val x = mutableListOf<List<Float>>()
@@ -29,11 +28,11 @@ class CloudTrainer {
             // Remove label
             x.add(it.subList(1, it.size).map { it.toFloat() })
         }
-        val samples = (x.size * 0.8).toInt()
-        val trainX = x.take(samples)
-        val trainY = y.take(samples)
-        val testX = x.takeLast(x.size - samples)
-        val testY = y.takeLast(x.size - samples)
+        val split = x.zip(y).split(0.8f)
+        val trainX = split.first.unzip().first
+        val trainY = split.first.unzip().second
+        val testX = split.second.unzip().first
+        val testY = split.second.unzip().second
 
         val clf = LogisticRegressionClassifier.fromWeights(
             createMatrix(
@@ -56,17 +55,15 @@ class CloudTrainer {
         // Record training data
         val rows =
             clf.dump().joinToString(",\n") { "arrayOf(${it.joinToString(",") { "${it}f" }})" }
-        LocalFiles.write(
-            context,
-            "debug/clouds/weights.txt",
-            "arrayOf(\n$rows\n)"
-        )
 
-        LocalFiles.write(
-            context,
-            "debug/clouds/loss.csv",
-            CSVConvert.toCSV(loss)
-        )
+        val output = File("src/data/output")
+        output.mkdir()
+
+        val weightsFile = File("src/data/output/weights.txt")
+        weightsFile.writeText("arrayOf(\n$rows\n)")
+
+        val lossFile = File("src/data/output/loss.csv")
+        lossFile.writeText(CSVConvert.toCSV(loss))
 
         println()
         val trainConfusion = clf.confusion(10, trainX, trainY)
