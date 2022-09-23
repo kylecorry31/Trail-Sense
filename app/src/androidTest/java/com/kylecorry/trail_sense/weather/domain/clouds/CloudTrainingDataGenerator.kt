@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.weather.domain.clouds
 
+import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
+import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
@@ -13,11 +15,29 @@ class CloudTrainingDataGenerator {
 
     @Test
     fun generateTrainingData() {
+        /*
+            Before running this test ensure the androidTest/assets/clouds is populated with folders for each cloud genus.
+
+            Use the lowercase name of each CloudGenus enum as the folder name and place all images of that cloud in the folder.
+
+            Not supported yet, but use "clear" as the folder name for images without clouds.
+         */
+
+
         // Load images
+        val context = InstrumentationRegistry.getInstrumentation().context
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        val saver = FileSaver()
+        File(appContext.cacheDir.path + "/clouds").deleteRecursively()
         val images = CloudGenus.values().flatMap {
-            val dir = File("sdcard/Documents/clouds/${it.name.lowercase()}")
-            dir.listFiles()?.map { file ->
-                it to file
+            val files = context.assets.list("clouds/${it.name.lowercase()}")
+            File(appContext.cacheDir.path + "/clouds/${it.name.lowercase()}").mkdirs()
+            files?.map { file ->
+                val f = File(appContext.cacheDir.path + "/clouds/${it.name.lowercase()}/$file")
+                f.createNewFile()
+                val stream = context.assets.open("clouds/${it.name.lowercase()}/$file")
+                saver.save(stream, f)
+                it to f
             } ?: emptyList()
         }
 
@@ -59,6 +79,8 @@ class CloudTrainingDataGenerator {
         // Record training data
         val output = File("sdcard/Documents/clouds.csv")
         output.writeText(CSVConvert.toCSV(training))
+
+        File(appContext.cacheDir.path + "/clouds").deleteRecursively()
     }
 
 }
