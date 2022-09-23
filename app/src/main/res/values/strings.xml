@@ -1108,6 +1108,7 @@
     <string name="qr_code_scanner">QR Code Scanner</string>
     <string name="no_qr_code_found">No QR code detected</string>
     <string name="saved_to_note">Saved to note</string>
+    <!--Verb / Action-->
     <string name="open">Open</string>
     <string name="note">Note</string>
     <string name="beacon">Beacon</string>
