@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.domain.ImageMagnifier
@@ -60,6 +60,8 @@ class PerspectiveCorrectionView : CanvasView {
     private var imageX = 0f
     private var imageY = 0f
 
+    private val localFiles = LocalFileSystem(context)
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -79,7 +81,7 @@ class PerspectiveCorrectionView : CanvasView {
     override fun draw() {
         if (image == null && imagePath != null){
             imagePath?.let {
-                val file = LocalFiles.getFile(context, it, false)
+                val file = localFiles.getFile(it, false)
                 val bitmap = BitmapUtils.decodeBitmapScaled(
                     file.path,
                     width,

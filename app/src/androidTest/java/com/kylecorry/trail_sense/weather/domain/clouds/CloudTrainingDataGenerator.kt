@@ -21,6 +21,8 @@ class CloudTrainingDataGenerator {
             Use the lowercase name of each CloudGenus enum as the folder name and place all images of that cloud in the folder.
 
             Not supported yet, but use "clear" as the folder name for images without clouds.
+
+            Run /scripts/update-cloud-data.bat once complete to update the training data for the CloudTrainer test
          */
 
 

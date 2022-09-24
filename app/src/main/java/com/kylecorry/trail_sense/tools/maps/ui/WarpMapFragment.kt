@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
@@ -24,6 +24,7 @@ import java.io.IOException
 class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val localFileSystem by lazy { LocalFileSystem(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -94,7 +95,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
         }
         withContext(Dispatchers.IO) {
             if (binding.perspective.hasChanges) {
-                val file = LocalFiles.getFile(requireContext(), map.filename, false)
+                val file = localFileSystem.getFile(map.filename, false)
                 val bitmap = BitmapFactory.decodeFile(file.path)
                 val bounds =
                     percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())

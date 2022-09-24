@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.files.LocalFileSystem
 
 class RotationCorrectionView : CanvasView {
 
@@ -28,6 +28,8 @@ class RotationCorrectionView : CanvasView {
     private var imageX = 0f
     private var imageY = 0f
 
+    private val localFiles = LocalFileSystem(context)
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -46,7 +48,7 @@ class RotationCorrectionView : CanvasView {
     override fun draw() {
         if (image == null && imagePath != null){
             imagePath?.let {
-                val file = LocalFiles.getFile(context, it, false)
+                val file = localFiles.getFile(it, false)
                 val bitmap = BitmapUtils.decodeBitmapScaled(
                     file.path,
                     width,

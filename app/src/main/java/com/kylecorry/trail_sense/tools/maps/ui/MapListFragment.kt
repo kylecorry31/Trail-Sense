@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -70,6 +70,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         )
     }
     private val exportService by lazy { FragmentMapExportService(this) }
+    private val localFiles by lazy { LocalFileSystem(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -209,7 +210,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         mapRepo.getMaps().observe(viewLifecycleOwner) {
             maps = it
             maps.forEach {
-                val file = LocalFiles.getFile(requireContext(), it.filename, false)
+                val file = localFiles.getFile(it.filename, false)
 
                 val size = BitmapUtils.getBitmapSize(file.path)
                 val width = if (it.rotation == 90 || it.rotation == 270) {
@@ -286,7 +287,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun loadMapThumbnail(map: Map): Bitmap {
-        val file = LocalFiles.getFile(requireContext(), map.filename, false)
+        val file = localFiles.getFile(map.filename, false)
         val size = Resources.dp(requireContext(), 48f).toInt()
         val bitmap = try {
             BitmapUtils.decodeBitmapScaled(file.path, size, size)

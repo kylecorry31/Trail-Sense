@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
@@ -54,6 +54,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     private val distanceScale = DistanceScale()
 
     private val layers = mutableListOf<ILayer>()
+
+    private val localFiles = LocalFileSystem(context)
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -204,7 +206,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             }
         }
         if (lastImage != map.filename) {
-            val file = LocalFiles.getFile(context, map.filename, false)
+            val file = localFiles.getFile(map.filename, false)
             setImage(ImageSource.uri(file.toUri()))
             lastImage = map.filename
         }

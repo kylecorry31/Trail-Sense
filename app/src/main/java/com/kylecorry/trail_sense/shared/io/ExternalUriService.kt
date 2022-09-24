@@ -2,14 +2,15 @@ package com.kylecorry.trail_sense.shared.io
 
 import android.content.Context
 import android.net.Uri
-import com.kylecorry.andromeda.files.ExternalFiles
+import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import java.io.InputStream
 import java.io.OutputStream
 
 class ExternalUriService(private val context: Context) : UriService {
+    private val externalFiles = ExternalFileSystem(context)
     override suspend fun write(uri: Uri, data: String): Boolean {
-        return ExternalFiles.write(context, uri, data)
+        return externalFiles.write(uri, data)
     }
 
     override suspend fun outputStream(uri: Uri): OutputStream? {
@@ -17,11 +18,11 @@ class ExternalUriService(private val context: Context) : UriService {
     }
 
     override suspend fun read(uri: Uri): String? {
-        return ExternalFiles.read(context, uri)
+        return externalFiles.read(uri)
     }
 
     override suspend fun inputStream(uri: Uri): InputStream? {
-        return ExternalFiles.stream(context, uri)
+        return externalFiles.stream(uri)
     }
 
     // TODO: Move this to external files

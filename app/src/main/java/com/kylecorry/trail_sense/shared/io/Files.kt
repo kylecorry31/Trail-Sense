@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.shared.io
 import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
-import com.kylecorry.andromeda.files.ExternalFiles
+import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.andromeda.files.FileSaver
-import com.kylecorry.andromeda.files.LocalFiles
+import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.trail_sense.shared.extensions.ifDebug
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import java.io.File
@@ -18,8 +18,10 @@ object Files {
         val type = context.contentResolver.getType(from)
         val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
         val filename = "$to/${UUID.randomUUID()}.$extension"
-        val file = LocalFiles.getFile(context, filename, true)
-        val stream = ExternalFiles.stream(context, from) ?: return@onIO null
+        val local = LocalFileSystem(context)
+        val external = ExternalFileSystem(context)
+        val file = local.getFile(filename, true)
+        val stream = external.stream(from) ?: return@onIO null
 
         try {
             val saver = FileSaver()
@@ -36,24 +38,27 @@ object Files {
     }
 
     suspend fun deleteTempFiles(context: Context) = onIO {
-        val dir = LocalFiles.getDirectory(context, TEMP_DIR, false)
+        val local = LocalFileSystem(context)
+        val dir = local.getDirectory(TEMP_DIR, false)
         if (dir.exists()) {
             dir.deleteRecursively()
         }
     }
 
     suspend fun createTempFile(context: Context, extension: String): File = onIO {
+        val local = LocalFileSystem(context)
         val filename = "${TEMP_DIR}/${UUID.randomUUID()}.$extension"
-        LocalFiles.getFile(context, filename, true)
+        local.getFile(filename, true)
     }
 
     fun getLocalPath(file: File): String {
         return file.path.substringAfter("files/")
     }
 
-    fun debugFile(context: Context, filename: String, text: String){
+    fun debugFile(context: Context, filename: String, text: String) {
+        val local = LocalFileSystem(context)
         ifDebug {
-            LocalFiles.write(context, "debug/$filename", text)
+            local.write("debug/$filename", text)
         }
     }
 
