@@ -4,12 +4,14 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
+import com.kylecorry.andromeda.files.AssetFileSystem
+import com.kylecorry.andromeda.files.BaseFileSystem
+import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import java.io.File
 
 class CloudTrainingDataGenerator {
 
@@ -25,22 +27,25 @@ class CloudTrainingDataGenerator {
             Run /scripts/update-cloud-data.bat once complete to update the training data for the CloudTrainer test
          */
 
-
         // Load images
         val context = InstrumentationRegistry.getInstrumentation().context
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val saver = FileSaver()
-        File(appContext.cacheDir.path + "/clouds").deleteRecursively()
+        val cacheFiles = CacheFileSystem(appContext)
+        val assetFiles = AssetFileSystem(context)
+        val documentFiles = BaseFileSystem(appContext, "sdcard/Documents")
+
+        cacheFiles.delete("clouds", true)
         val images = CloudGenus.values().flatMap {
-            val files = context.assets.list("clouds/${it.name.lowercase()}")
-            File(appContext.cacheDir.path + "/clouds/${it.name.lowercase()}").mkdirs()
-            files?.map { file ->
-                val f = File(appContext.cacheDir.path + "/clouds/${it.name.lowercase()}/$file")
-                f.createNewFile()
-                val stream = context.assets.open("clouds/${it.name.lowercase()}/$file")
+            val files = assetFiles.list("clouds/${it.name.lowercase()}")
+            cacheFiles.createDirectory("clouds/${it.name.lowercase()}")
+            files.map { file ->
+                val f = cacheFiles.getFile("clouds/${it.name.lowercase()}/$file", true)
+                val stream =
+                    runBlocking { assetFiles.stream("clouds/${it.name.lowercase()}/$file") }
                 saver.save(stream, f)
                 it to f
-            } ?: emptyList()
+            }
         }
 
         val training = mutableListOf<List<Any>>()
@@ -79,10 +84,8 @@ class CloudTrainingDataGenerator {
         }
 
         // Record training data
-        val output = File("sdcard/Documents/clouds.csv")
-        output.writeText(CSVConvert.toCSV(training))
-
-        File(appContext.cacheDir.path + "/clouds").deleteRecursively()
+        documentFiles.write("clouds.csv", CSVConvert.toCSV(training))
+        cacheFiles.delete("clouds", true)
     }
 
 }
