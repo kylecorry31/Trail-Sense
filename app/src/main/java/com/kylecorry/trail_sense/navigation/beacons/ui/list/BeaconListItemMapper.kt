@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.beacons.ui.list
 
 import android.content.Context
 import android.graphics.Color
+import android.widget.ImageView
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -121,12 +122,13 @@ class BeaconListItemMapper(
                     foregroundColor,
                     backgroundId = R.drawable.bubble,
                     backgroundTint = color,
-                    foregroundScale = foregroundScale
+                    foregroundSize = foregroundScale * 24f
                 )
             } else {
                 ResourceListIcon(
                     R.drawable.bubble,
-                    color
+                    color,
+                    scaleType = ImageView.ScaleType.CENTER
                 )
             }
         }
@@ -147,7 +149,7 @@ class BeaconListItemMapper(
             foregroundColor,
             backgroundId = R.drawable.bubble,
             backgroundTint = backgroundColor,
-            foregroundScale = foregroundScale
+            foregroundSize = foregroundScale * 24f
         )
     }
 }
