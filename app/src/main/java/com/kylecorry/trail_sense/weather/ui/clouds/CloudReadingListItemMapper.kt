@@ -41,11 +41,12 @@ internal class CloudReadingListItemMapper(
                     )
                 )
             ),
-            icon = ClippedResourceListIcon(
+            icon = ResourceListIcon(
                 details.getCloudImage(cloud),
                 if (cloud == null) AppColor.Blue.color else null,
                 size = 48f,
-                background = R.drawable.rounded_rectangle
+                backgroundId = R.drawable.rounded_rectangle,
+                clipToBackground = true
             ) {
                 imageModal.show(cloud)
             },

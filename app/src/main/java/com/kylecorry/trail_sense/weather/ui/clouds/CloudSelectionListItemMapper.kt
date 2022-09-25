@@ -48,11 +48,12 @@ internal class CloudSelectionListItemMapper(
                     )
                 } else null
             ) else emptyList(),
-            icon = ClippedResourceListIcon(
+            icon = ResourceListIcon(
                 details.getCloudImage(value.genus),
                 if (value.genus == null) AppColor.Blue.color else null,
                 size = 48f,
-                background = R.drawable.rounded_rectangle
+                backgroundId = R.drawable.rounded_rectangle,
+                clipToBackground = true
             ) {
                 imageModal.show(value.genus)
             },
