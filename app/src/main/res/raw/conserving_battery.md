@@ -29,8 +29,7 @@ Start navigating using Trail Sense and find a landmark / prominent feature in th
 You can disable weather monitoring in settings to conserve battery life. If you need weather monitoring, there are a few options available:
 
 - Decrease update frequency
-- Disable "force weather updates" (will not run on low battery)
-- Use the pressure setpoint instead (long press the pressure on the weather tab), and set a new setpoint every 3 hours
+- Disable weather monitor and open the weather tab to log every couple hours
 
 ## Use the black theme
 
