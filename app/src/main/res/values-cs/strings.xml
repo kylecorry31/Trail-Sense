@@ -1054,22 +1054,13 @@
         <item quantity="few">%d přílivy/odlivy</item>
         <item quantity="other">%d přílivů/odlivů</item>
     </plurals>
-    <string name="nimbostratus_weather">Srážky velmi brzy</string>
-    <string name="cumulus_weather">Mohou naznačovat příznivé počasí, ale pokud rostou do výšky, může to vést k bouřce.</string>
-    <string name="cirrus_weather">Může naznačovat teplou frontu za 12 až 36 hodin.</string>
-    <string name="altostratus_weather">Může naznačovat blízké srážky.</string>
-    <string name="cirrocumulus_weather">Může naznačovat brzké ochlazení.</string>
-    <string name="stratocumulus_weather">Může naznačovat příznivé počasí s nízkou pravděpodobností srážek.</string>
-    <string name="cirrostratus_weather">Může naznačovat srážky v příštích 12 až 24 hodinách</string>
-    <string name="cumulonimbus_weather">Bouřka velmi brzy</string>
+    <string name="cloud_precipitation_forecast_hour_range">Může naznačovat srážky v příštích %d až %d hodinách</string>
     <string name="lowest_point_elevation">Nejnižší bod</string>
     <string name="highest_point_elevation">Nejvyšší bod</string>
     <string name="path_slope_flat">Vodorovný</string>
     <string name="path_slope">Svah</string>
-    <string name="altocumulus_weather">Může naznačovat bouřky později během dne, pokud-li je vlhko.</string>
     <string name="ascent">Výstup</string>
     <string name="descent">Sestup</string>
-    <string name="stratus_weather">Může naznačovat brzké mírné srážky.</string>
     <string name="updating_weather">Aktualizace informací o počasí</string>
     <string name="path_slope_moderate">Mírný</string>
     <string name="path_slope_steep">Strmý</string>

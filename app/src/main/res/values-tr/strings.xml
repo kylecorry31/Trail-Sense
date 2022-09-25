@@ -1042,16 +1042,7 @@
     <string name="change_resolution">Çözünürlüğü değiştir</string>
     <string name="done">Bitti</string>
     <string name="calibrate_map_point">%d / %d noktayı kalibre et</string>
-    <string name="stratus_weather">Yakında hafif yağışa işaret edebilir.</string>
-    <string name="stratocumulus_weather">Düşük yağış ihtimali ile yakında güzel bir havaya işaret edebilir.</string>
-    <string name="cirrus_weather">12 ila 36 saat içinde bir sıcak hava dalgasına işaret edebilir.</string>
-    <string name="cirrocumulus_weather">Yakında daha soğuk bir havaya işaret edebilir.</string>
-    <string name="altostratus_weather">Yakında yağışa işaret edebilir.</string>
-    <string name="cirrostratus_weather">Önümüzdeki 12 ila 24 saat içinde yağışa işaret edebilir</string>
-    <string name="altocumulus_weather">Hava nemliyse günün ilerleyen saatlerinde gök gürültülü fırtınalara işaret edebilir.</string>
-    <string name="nimbostratus_weather">Yağış çok yakında</string>
-    <string name="cumulus_weather">Güzel havaya işaret edebilir, ancak boyları uzuyorsa fırtınaya yol açabilir.</string>
-    <string name="cumulonimbus_weather">Fırtına çok yakında</string>
+    <string name="cloud_precipitation_forecast_hour_range">Önümüzdeki %d ila %d saat içinde yağışa işaret edebilir</string>
     <string name="ascent">Çıkış</string>
     <string name="highest_point_elevation">En yüksek nokta</string>
     <string name="descent">İniş</string>

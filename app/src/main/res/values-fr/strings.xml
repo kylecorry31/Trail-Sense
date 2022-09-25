@@ -850,20 +850,13 @@
     <string name="stratocumulus_desc">Nuages bas pouvant ressembler à des balles de coton faiblement espacées, de couleur blanche à gris foncé.</string>
     <string name="keep_forever">Conserver indéfiniment</string>
     <string name="paths">Chemins</string>
-    <string name="altocumulus_weather">Peut indiquer des orages plus tard dans la journée s\'il fait humide.</string>
-    <string name="altostratus_weather">Peut indiquer une précipitation imminente.</string>
-    <string name="nimbostratus_weather">Précipitation très bientôt</string>
-    <string name="stratus_weather">Peut indiquer de légères précipitations à venir.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d chemin</item>
         <item quantity="many">%d chemins</item>
         <item quantity="other">%d chemins</item>
     </plurals>
-    <string name="cirrostratus_weather">Peut indiquer des précipitations dans les 12 à 24 heures à venir</string>
-    <string name="cirrocumulus_weather">Peut indiquer un temps plus froid bientôt.</string>
-    <string name="stratocumulus_weather">Peut indiquer que le temps sera bientôt beau, avec de faibles probabilités de précipitations.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Peut indiquer des précipitations dans les %d à %d heures à venir</string>
     <string name="delete_path_group_message">%s et tous ses chemins seront supprimés.</string>
-    <string name="cumulus_weather">Peut indiquer du beau temps, mais s\'ils se développent, peut mener à un orage.</string>
     <string name="cumulonimbus_desc">Nuages bas gonflés très grands. Ils ont généralement une forme d\'enclume et sont sombres.</string>
     <string name="onboarding_privacy">- Trail Sense respecte votre vie privée et les données de localisation ne quittent jamais votre appareil.
 \n
@@ -923,8 +916,6 @@
 \n2. Appuyez sur l\'écran et maintenez
 \n3. Réalignez le clinomètre vers le haut de la cible
 \n4. Relâchez pour verrouiller et voir la distance de la cible</string>
-    <string name="cumulonimbus_weather">Orage très bientôt</string>
-    <string name="cirrus_weather">Peut indiquer un front chaud dans 12 à 36 heures.</string>
     <string name="no_qr_code_found">Aucun code QR détecté</string>
     <string name="gps_searching">Recherche</string>
     <string name="gps_stale">Obsolète</string>

@@ -1042,16 +1042,7 @@
     <string name="change_resolution">Auflösung ändern</string>
     <string name="done">Fertig</string>
     <string name="calibrate_map_point">Punkt %d / %d kalibrieren</string>
-    <string name="altocumulus_weather">Könnte Gewitter später am Tag bedeuten, wenn es feucht ist.</string>
-    <string name="altostratus_weather">Könnte bald Niederschlag bedeuten.</string>
-    <string name="nimbostratus_weather">Sehr bald Niederschlag</string>
-    <string name="stratus_weather">Könnte bald leichten Niederschlag bedeuten.</string>
-    <string name="stratocumulus_weather">Kann bald schönes Wetter bedeuten, mit einer geringen Niederschlagswahrscheinlichkeit.</string>
-    <string name="cumulus_weather">Kann bald schönes Wetter bedeuten, aber wenn sie größer werden, könnte es zu Gewittern kommen.</string>
-    <string name="cirrus_weather">Könnte eine Warmfront in 12 bis 36 Stunden bedeuten.</string>
-    <string name="cumulonimbus_weather">Sehr bald Gewitter</string>
-    <string name="cirrocumulus_weather">Könnte bald kälteres Wetter bedeuten.</string>
-    <string name="cirrostratus_weather">Könnte Niederschlag in den nächsten 12 bis 24 Stunden bedeuten</string>
+    <string name="cloud_precipitation_forecast_hour_range">Könnte Niederschlag in den nächsten %d bis %d Stunden bedeuten</string>
     <string name="descent">Abstieg</string>
     <string name="ascent">Anstieg</string>
     <string name="lowest_point_elevation">Niedrigster Punkt</string>

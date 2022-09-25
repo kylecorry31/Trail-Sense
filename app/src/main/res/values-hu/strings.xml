@@ -512,17 +512,9 @@
     <string name="stratus">Stratus (rétegfelhő)</string>
     <string name="stratocumulus">Stratocumulus (gomolyos rétegfelhő)</string>
     <string name="cirrocumulus_desc">Magas szinti felhők, melyek hullámos leplet alkotnak. A leplet kis, síkszerűnek tűnő pontok alkotják.</string>
-    <string name="cirrocumulus_weather">A későbbiekben hidegebb időt jelezhet.</string>
-    <string name="cirrostratus_weather">Csapadékot jelezhet a következő 12-24 órában</string>
-    <string name="altocumulus_weather">Párás időben vihart jelezhet a nap folyamán.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Csapadékot jelezhet a következő %d-%d órában</string>
     <string name="altostratus_desc">Középszintű felhő, mely beborítja a teljes eget. A nap csak egy világos foltként látszik.</string>
     <string name="nimbostratus_desc">Középszintű, sötétszürke felhő, mely beborítja az eget. Eshet belőle.</string>
-    <string name="nimbostratus_weather">Csapadék nagyon hamar</string>
-    <string name="stratus_weather">Enyhébb csapadékot jelezhet a közeljövőben.</string>
-    <string name="stratocumulus_weather">Jó időt jelezhet, alacsony csapadék-valószínűséggel.</string>
-    <string name="cumulus_weather">Jó időt jelezhet, de ha magasra kezdenek nyúlni, az viharhoz vezethet.</string>
-    <string name="cumulonimbus_weather">Vihar rövidesen</string>
-    <string name="cirrus_weather">Melegfrontot jelezhet 12-36 óra múlva.</string>
     <string name="gps_searching">Keresés</string>
     <string name="quality_good">Jó</string>
     <string name="network_2g">2G</string>
@@ -949,7 +941,6 @@
 \n
 \nOSNG (OSGB36) (pl. TG 51409 13177)</string>
     <string name="pref_gps_override_title">Hely felülírása</string>
-    <string name="altostratus_weather">Csapadékot jelezhet a közeljövőben.</string>
     <string name="stratus_desc">Alacsony felhő, mely beborítja az eget. Nincsenek éles árnyékok és ködös lehet az idő.</string>
     <string name="gps_stale">Elévült</string>
     <string name="onboarding_user_guide">Tanuld meg a Trail Sense funkcióinak használatát a felhasználói útmutatóval. Elérhető az Eszközök fül legalján.

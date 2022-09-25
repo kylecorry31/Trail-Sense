@@ -1030,16 +1030,7 @@
     <string name="change_resolution">更改分辨率</string>
     <string name="done">完毕</string>
     <string name="calibrate_map_point">校准点 %d/%d</string>
-    <string name="nimbostratus_weather">即将降水</string>
-    <string name="cumulonimbus_weather">即将发生雷暴</string>
-    <string name="altocumulus_weather">如果天气潮湿，可能预示当天晚些时候出现雷暴。</string>
-    <string name="cirrocumulus_weather">可能预示着天气即将变冷。</string>
-    <string name="cirrostratus_weather">可能预示未来 12 至 24 小时内有降水</string>
-    <string name="stratus_weather">可能预示即将有少量降水。</string>
-    <string name="altostratus_weather">可能预示着即将有降水。</string>
-    <string name="cumulus_weather">可能预示好天气，但如果它们长得更高，可能导致雷暴。</string>
-    <string name="stratocumulus_weather">可能预示很快就会有好天气，降水概率小。</string>
-    <string name="cirrus_weather">可能预示未来 12 到 36 小时内有暖锋。</string>
+    <string name="cloud_precipitation_forecast_hour_range">可能预示未来 %d 至 %d 小时内有降水</string>
     <string name="ascent">上坡</string>
     <string name="lowest_point_elevation">最低点</string>
     <string name="descent">下坡</string>
