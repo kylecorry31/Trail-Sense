@@ -992,4 +992,9 @@
     </plurals>
     <string name="frequency">Częstotliwość</string>
     <string name="permission_alarms_and_reminders">Alarmy i przypomnienia</string>
+    <string name="clouds_clear">Bezchmurnie</string>
+    <string name="highest_point_elevation">Najwyższy punkt</string>
+    <string name="lowest_point_elevation">Najniższy punkt</string>
+    <string name="updating_weather">Aktualizowanie pogody</string>
+    <string name="camera_unavailable">Aparat niedostępny</string>
 </resources>
