@@ -1030,7 +1030,7 @@
     <string name="change_resolution">更改分辨率</string>
     <string name="done">完毕</string>
     <string name="calibrate_map_point">校准点 %d/%d</string>
-    <string name="cloud_precipitation_forecast_hour_range">可能预示未来 %d 至 %d 小时内有降水</string>
+    <string name="cloud_precipitation_forecast_hour_range">可能预示未来 %d 至 %d 小时内发生降水。</string>
     <string name="ascent">上坡</string>
     <string name="lowest_point_elevation">最低点</string>
     <string name="descent">下坡</string>
@@ -1045,4 +1045,10 @@
     <string name="icon">图标</string>
     <string name="clouds_clear">澄澈</string>
     <string name="manual">手动</string>
+    <string name="cumulonimbus_forecast">可能预示雷雨会在数分钟内落下。</string>
+    <string name="altocumulus_forecast">可能预示未来 %d 小时内发生降水或雷雨。</string>
+    <string name="altostratus_forecast">可能预示未来 %d 小时内发生降水。</string>
+    <string name="nimbostratus_forecast">降水会在未来 %d 小时持续。</string>
+    <string name="cloud_fair_forecast_hours">未来 %d 小时都是晴好天气。</string>
+    <string name="cumulus_forecast">可能预示天气晴好。如果上升，可能预示未来 %d 小时内发生降水或雷雨。</string>
 </resources>
