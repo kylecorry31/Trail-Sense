@@ -1042,7 +1042,7 @@
     <string name="change_resolution">Çözünürlüğü değiştir</string>
     <string name="done">Bitti</string>
     <string name="calibrate_map_point">%d / %d noktayı kalibre et</string>
-    <string name="cloud_precipitation_forecast_hour_range">Önümüzdeki %d ila %d saat içinde yağışa işaret edebilir</string>
+    <string name="cloud_precipitation_forecast_hour_range">Sonraki %d ila %d saat içinde yağışa işaret edebilir.</string>
     <string name="ascent">Çıkış</string>
     <string name="highest_point_elevation">En yüksek nokta</string>
     <string name="descent">İniş</string>
@@ -1057,4 +1057,10 @@
     <string name="icon">Simge</string>
     <string name="clouds_clear">Açık</string>
     <string name="manual">El ile</string>
+    <string name="cloud_fair_forecast_hours">Sonraki %d saat için güzel havaya işaret edebilir.</string>
+    <string name="cumulonimbus_forecast">Birkaç dakika içinde fırtınaya işaret edebilir.</string>
+    <string name="altostratus_forecast">Sonraki %d saat içinde yağışa işaret edebilir.</string>
+    <string name="nimbostratus_forecast">Sonraki %d saat boyunca yağış olabilir.</string>
+    <string name="cumulus_forecast">Güzel havaya işaret edebilir. Boyu uzuyorsa, sonraki %d saat içinde yağış veya fırtınaya işaret edebilir.</string>
+    <string name="altocumulus_forecast">Sonraki %d saat içinde yağış veya fırtınaya işaret edebilir.</string>
 </resources>
