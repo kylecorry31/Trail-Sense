@@ -33,8 +33,12 @@ class LoessSeaLevelPressureConverter(
             }
         ) { reading, smoothedValue -> reading.copy(value = reading.value.copy(altitude = smoothedValue.y)) }
 
-        smoothed = DataUtils.smooth(
-            smoothed,
+        val seaLevel = smoothed.map {
+            Reading(it.value.seaLevel(factorInTemperature), it.time)
+        }
+
+        return DataUtils.smooth(
+            seaLevel,
             pressureSmoothing,
             { _, value ->
                 Vector2(
@@ -43,10 +47,6 @@ class LoessSeaLevelPressureConverter(
                 )
             }
         ) { reading, smoothedValue -> reading.copy(value = reading.value.copy(pressure = smoothedValue.y)) }
-
-        return smoothed.map {
-            Reading(it.value.seaLevel(factorInTemperature), it.time)
-        }
 
     }
 }
