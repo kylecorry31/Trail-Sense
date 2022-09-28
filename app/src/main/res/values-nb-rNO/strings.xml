@@ -940,10 +940,16 @@
     <string name="path_slope_steep">Bratt</string>
     <string name="path_slope">Helling</string>
     <string name="camera_unavailable">Kamera utilgjengelig</string>
-    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør de neste %d til %d timene</string>
+    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør de neste %d til %d timene.</string>
     <string name="descent">Nedstigning</string>
     <string name="ascent">Stigning</string>
     <string name="highest_point_elevation">Høyeste punkt</string>
     <string name="elevation_override_resolution">Slå på auto-kalibrering i innstillingene.</string>
     <string name="lowest_point_elevation">Laveste punkt</string>
+    <string name="altocumulus_forecast">Kan indikere nedbør eller tordenvær de neste %d timene.</string>
+    <string name="cloud_fair_forecast_hours">Kan indikere pent vær for de neste %d timene.</string>
+    <string name="cumulonimbus_forecast">Kan indikere tordenvær om få minutter.</string>
+    <string name="altostratus_forecast">Kan indikere nedbør de neste %d timene.</string>
+    <string name="cumulus_forecast">Kan indikere pent vær. Hvis de vokser seg høyere, kan det indikere nedbør eller tordenvær de neste %d timene.</string>
+    <string name="nimbostratus_forecast">Kan ha nedbør for de neste %d timene.</string>
 </resources>
