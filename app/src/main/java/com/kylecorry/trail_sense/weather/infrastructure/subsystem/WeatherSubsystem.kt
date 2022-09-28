@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -228,40 +227,22 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
-        return smooth(
+        return DataUtils.smoothTemporal(
             readings,
             0.2f,
-            { weatherService.calibrateTemperature(it.temperature) }) { reading, smoothed ->
+            { weatherService.calibrateTemperature(it.temperature) }
+        ) { reading, smoothed ->
             reading.copy(temperature = smoothed)
         }
     }
 
     private fun calibrateHumidity(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
-        return smooth(
+        return DataUtils.smoothTemporal(
             readings,
             0.1f,
             { it.humidity ?: 0f }) { reading, smoothed ->
             reading.copy(humidity = if (smoothed == 0f) null else smoothed)
         }
-    }
-
-    private fun smooth(
-        readings: List<Reading<RawWeatherObservation>>,
-        smoothness: Float,
-        select: (reading: RawWeatherObservation) -> Float,
-        merge: (reading: RawWeatherObservation, smoothed: Float) -> RawWeatherObservation
-    ): List<Reading<RawWeatherObservation>> {
-        val start = readings.firstOrNull()?.time ?: return emptyList()
-        return DataUtils.smooth(
-            readings,
-            smoothness,
-            { _, value ->
-                Vector2(
-                    Duration.between(start, value.time).toMillis() / 1000f,
-                    select(value.value)
-                )
-            }
-        ) { reading, smoothedValue -> reading.copy(value = merge(reading.value, smoothedValue.y)) }
     }
 
     companion object {

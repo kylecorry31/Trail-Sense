@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading
@@ -142,20 +141,8 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
                             ) < maxFilterHistoryDuration
                         }
 
-                val start = readings.firstOrNull()?.time ?: Instant.now()
 
-                val smoothed = DataUtils.smooth(
-                    readings,
-                    0.3f,
-                    { _, reading ->
-                        Vector2(
-                            Duration.between(start, reading.time).toMillis() / 1000f,
-                            reading.value
-                        )
-                    }
-                ) { reading, smoothed ->
-                    reading.copy(value = smoothed.y)
-                }
+                val smoothed = DataUtils.smoothTemporal(readings, 0.3f)
 
                 onIO {
                     DebugElevationsCommand(requireContext(), readings, smoothed).execute()
