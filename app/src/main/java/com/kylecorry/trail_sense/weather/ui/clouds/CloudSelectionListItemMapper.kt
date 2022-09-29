@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.content.Context
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.ceres.list.*
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
@@ -39,12 +40,18 @@ internal class CloudSelectionListItemMapper(
                         value.confidence * 100,
                         0
                     ),
-                    ResourceListIcon(R.drawable.ic_help)
+                    ResourceListIcon(
+                        R.drawable.ic_help,
+                        Resources.androidTextColorSecondary(context)
+                    )
                 ),
                 if (unreliable.contains(value.genus)) {
                     ListItemData(
                         context.getString(R.string.experimental),
-                        ResourceListIcon(R.drawable.ic_experimental)
+                        ResourceListIcon(
+                            R.drawable.ic_experimental,
+                            Resources.androidTextColorSecondary(context)
+                        )
                     )
                 } else null
             ) else emptyList(),
