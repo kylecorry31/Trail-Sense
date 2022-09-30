@@ -91,7 +91,7 @@ class PressureChart(
             }
             simpleChart.plot(
                 listOf(
-                    SimpleLineChart.Dataset(rawValues, withAlpha(AppColor.Gray.color, 60)),
+                    SimpleLineChart.Dataset(rawValues, withAlpha(AppColor.Gray.color, 50), isHighlightEnabled = false),
                     SimpleLineChart.Dataset(values, color),
                 )
             )

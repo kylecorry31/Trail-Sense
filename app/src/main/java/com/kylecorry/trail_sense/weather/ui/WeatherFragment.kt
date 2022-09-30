@@ -13,12 +13,10 @@ import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
-import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.PressureUnits
-import com.kylecorry.sol.units.Reading
-import com.kylecorry.sol.units.Temperature
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
@@ -26,10 +24,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
-import com.kylecorry.trail_sense.shared.extensions.inBackground
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
@@ -52,6 +47,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var history: List<WeatherObservation> = listOf()
+    private var rawHistory: List<Reading<Pressure>> = listOf()
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
@@ -175,10 +171,44 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 history = weatherSubsystem.getHistory().filter {
                     Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
                 }
+
+                loadRawWeatherReadings()
+
                 weather = weatherSubsystem.getWeather()
             }
             onMain {
                 update()
+            }
+        }
+    }
+
+    private suspend fun loadRawWeatherReadings() {
+        if (isDebug()) {
+            if (prefs.weather.useSeaLevelPressure) {
+                val showMeanShiftedReadings = prefs.weather.showMeanShiftedReadings
+                val raw = weatherSubsystem.getRawHistory().filter {
+                    Duration.between(
+                        it.time,
+                        Instant.now()
+                    ) <= prefs.weather.pressureHistory
+                }
+                val averageAltitude =
+                    if (!showMeanShiftedReadings) {
+                        0f
+                    } else {
+                        raw.map { it.value.altitude }.average().toFloat()
+                    }
+                rawHistory = raw.map {
+                    if (showMeanShiftedReadings) {
+                        val seaLevel = Meteorology.getSeaLevelPressure(
+                            Pressure.hpa(it.value.pressure),
+                            Distance.meters(averageAltitude)
+                        )
+                        Reading(seaLevel, it.time)
+                    } else {
+                        Reading(it.value.seaLevel(false), it.time)
+                    }
+                }
             }
         }
     }
@@ -188,7 +218,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         val weather = weather ?: return
         val observation = weather.observation ?: return
 
-        displayPressureChart(history)
+        displayPressureChart(history, rawHistory)
         displayTendency(weather.pressureTendency)
         displayPressure(observation.pressure)
         displayTemperature(observation.temperature)
@@ -198,7 +228,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
     }
 
-    private fun displayPressureChart(readings: List<WeatherObservation>) {
+    private fun displayPressureChart(
+        readings: List<WeatherObservation>,
+        rawReadings: List<Reading<Pressure>>
+    ) {
         val displayReadings = readings.map { it.pressureReading() }
 
         if (displayReadings.isNotEmpty()) {
@@ -228,7 +261,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         if (displayReadings.isNotEmpty()) {
-            chart.plot(displayReadings)
+            chart.plot(displayReadings, rawReadings.ifEmpty { null })
         }
     }
 

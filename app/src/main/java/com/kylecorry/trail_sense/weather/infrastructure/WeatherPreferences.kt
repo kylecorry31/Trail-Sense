@@ -78,6 +78,12 @@ class WeatherPreferences(private val context: Context) {
     val useSeaLevelPressure: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_use_sea_level_pressure)) ?: true
 
+    var showMeanShiftedReadings by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_debug_show_mean_adj_sea_level),
+        false
+    )
+
     val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
 
