@@ -157,6 +157,17 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         combined
     }
 
+    override suspend fun getRawHistory(): List<Reading<RawWeatherObservation>> = onIO {
+        if (!isValid) {
+            refresh()
+        }
+        weatherRepo.getAll()
+            .asSequence()
+            .sortedBy { it.time }
+            .filter { it.time <= Instant.now() }
+            .toList()
+    }
+
     override fun enableMonitor() {
         prefs.weather.shouldMonitorWeather = true
         WeatherUpdateScheduler.start(context)

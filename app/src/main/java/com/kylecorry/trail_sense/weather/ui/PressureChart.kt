@@ -1,5 +1,10 @@
 package com.kylecorry.trail_sense.weather.ui
 
+import android.graphics.Color
+import androidx.annotation.ColorInt
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.roundPlaces
@@ -7,6 +12,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.SimpleLineChart
 import java.time.Duration
 import java.time.Instant
@@ -61,7 +67,7 @@ class PressureChart(
         granularity = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
     }
 
-    fun plot(data: List<Reading<Pressure>>) {
+    fun plot(data: List<Reading<Pressure>>, raw: List<Reading<Pressure>>? = null) {
         startTime = data.firstOrNull()?.time
         setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
         val values = SimpleLineChart.getDataFromReadings(data, startTime) {
@@ -77,7 +83,24 @@ class PressureChart(
             drawGridLines = true
         )
 
-        simpleChart.plot(values, color)
+        if (raw == null) {
+            simpleChart.plot(values, color)
+        } else {
+            val rawValues = SimpleLineChart.getDataFromReadings(raw, startTime) {
+                it.pressure
+            }
+            simpleChart.plot(
+                listOf(
+                    SimpleLineChart.Dataset(rawValues, withAlpha(AppColor.Gray.color, 60)),
+                    SimpleLineChart.Dataset(values, color),
+                )
+            )
+        }
+    }
+
+    @ColorInt
+    private fun withAlpha(@ColorInt color: Int, alpha: Int): Int {
+        return Color.argb(alpha, color.red, color.green, color.blue)
     }
 
     companion object {

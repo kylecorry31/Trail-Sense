@@ -28,8 +28,8 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Pr
         chart?.plot(data)
     }
 
-    fun plot(data: List<Reading<Pressure>>){
+    fun plot(data: List<Reading<Pressure>>, raw: List<Reading<Pressure>>? = null){
         this.data = data
-        chart?.plot(data)
+        chart?.plot(data, raw)
     }
 }

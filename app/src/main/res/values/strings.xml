@@ -358,6 +358,7 @@
     <string name="pref_email" translatable="false">pref_email</string>
     <string name="pref_temperature_units" translatable="false">pref_temperature_units</string>
     <string name="pref_adjust_for_temperature" translatable="false">pref_adjust_for_temperature</string>
+    <string name="pref_debug_show_mean_adj_sea_level" translatable="false">pref_debug_show_mean_adj_sea_level</string>
     <string name="pref_temperature_holder" translatable="false">pref_temperature_holder</string>
     <string name="pref_weather_update_frequency" translatable="false">pref_weather_update_frequency_seconds</string>
     <string name="pref_altimeter_calibration_mode" translatable="false">pref_altimeter_calibration_mode</string>

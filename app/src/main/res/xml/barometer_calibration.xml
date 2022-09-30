@@ -78,6 +78,15 @@
             app:singleLineTitle="false"
             app:title="@string/pref_adjust_for_temperature_title" />
 
+        <!--This is for debug only, no need to translate-->
+        <SwitchPreferenceCompat
+            android:summary="Debug only"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_debug_show_mean_adj_sea_level"
+            app:singleLineTitle="false"
+            app:title="Show mean-calibrated sea level" />
+
         <Preference
             android:icon="@drawable/ic_info"
             android:summary="@string/pref_barometer_info_summary"
