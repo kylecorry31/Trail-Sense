@@ -1,11 +1,7 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.sol.units.Speed
-import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import java.time.Duration
@@ -13,31 +9,32 @@ import kotlin.math.sqrt
 
 class HikingService() : IHikingService {
 
-    override fun getDistances(points: List<PathPoint>): List<Float> {
-        if (points.isEmpty()){
+    override fun getDistances(points: List<Coordinate>): List<Float> {
+        if (points.isEmpty()) {
             return emptyList()
         }
         var distance = 0f
         var last = points.first()
 
         return points.map {
-            distance += it.coordinate.distanceTo(last.coordinate)
+            distance += it.distanceTo(last)
             last = it
             distance
         }
     }
 
     override fun correctElevations(points: List<PathPoint>): List<PathPoint> {
-        if (points.isEmpty()){
+        if (points.isEmpty()) {
             return emptyList()
         }
-        val distances = getDistances(points)
-        val smoothed = DataUtils.smooth(
+        val smoothed = DataUtils.smoothGeospatial(
             points,
             0.1f,
-            { index, value -> Vector2(distances[index], value.elevation ?: 0f) }
+            DataUtils.GeospatialSmoothingType.Path,
+            { it.coordinate },
+            { it.elevation ?: 0f }
         ) { point, smoothed ->
-            point.copy(elevation = if (point.elevation == null) null else smoothed.y)
+            point.copy(elevation = if (point.elevation == null) null else smoothed)
         }
         return smoothed
     }

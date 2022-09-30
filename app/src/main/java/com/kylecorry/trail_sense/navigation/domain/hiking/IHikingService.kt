@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
@@ -7,7 +8,7 @@ import java.time.Duration
 
 interface IHikingService {
 
-    fun getDistances(points: List<PathPoint>): List<Float>
+    fun getDistances(points: List<Coordinate>): List<Float>
 
     fun correctElevations(points: List<PathPoint>): List<PathPoint>
 
