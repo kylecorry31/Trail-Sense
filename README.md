@@ -50,7 +50,7 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 - Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
 - Features should make use of the sensors on a phone rather than relying on stored information such as guides
 - Features must be based on peer-reviewed science or be verified against real world data
-- [Use Cases (WIP)](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
+- [Use Cases](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
 ## Features
 
