@@ -14,6 +14,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -26,23 +27,35 @@ import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxClo
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
+import java.time.Duration
+import java.time.Instant
 
 class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
     private val mapper by lazy { CloudReadingListItemMapper(requireContext(), this::handleAction) }
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private val cloudDetailsService by lazy { CloudDetailsService(requireContext()) }
+    private val formatter by lazy { FormatService(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         repo.getAllLive().observe(viewLifecycleOwner) {
-            binding.cloudList.setItems(it.sortedByDescending { it.time }, mapper)
+            val since = Instant.now().minus(Duration.ofHours(48))
+            binding.cloudList.setItems(it.sortedByDescending { it.time }
+                .filter { it.time >= since }, mapper)
         }
 
         binding.cloudListTitle.rightButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.weather)
         }
+
+        binding.cloudListTitle.subtitle.text = getString(
+            R.string.last_duration, formatter.formatDuration(
+                Duration.ofHours(48),
+                short = true
+            )
+        )
 
         binding.cloudList.emptyView = binding.cloudEmptyText
         setupCreateMenu()

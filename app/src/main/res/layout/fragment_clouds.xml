@@ -15,7 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rightButtonIcon="@drawable/ic_help"
-        app:showSubtitle="false"
         app:title="@string/clouds" />
 
     <TextView
