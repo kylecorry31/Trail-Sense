@@ -15,11 +15,15 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
 import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
@@ -39,6 +43,8 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     private var classifier: ICloudClassifier = SoftmaxCloudClassifier(this::debugLogFeatures)
     private var selection: List<CloudSelection> = emptyList()
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
+    private var time = Instant.now()
+    private val formatter by lazy { FormatService(requireContext()) }
     private val mapper by lazy {
         CloudSelectionListItemMapper(requireContext()) { genus, selected ->
             selection = selection.map {
@@ -71,7 +77,37 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        time = Instant.now()
         binding.cloudImage.clipToOutline = true
+        binding.cloudTitle.subtitle.text =
+            formatter.formatDateTime(
+                time.toZonedDateTime(),
+                relative = true,
+                abbreviateMonth = true
+            )
+        binding.cloudTitle.subtitle.setOnClickListener {
+            runInBackground {
+                val current = time.toZonedDateTime().toLocalDateTime()
+                val newTime = CoroutinePickers.datetime(
+                    requireContext(),
+                    UserPreferences(requireContext()).use24HourTime,
+                    current
+                )
+                if (newTime != null) {
+                    time = newTime.toZonedDateTime().toInstant()
+                    onMain {
+                        if (isBound) {
+                            binding.cloudTitle.subtitle.text =
+                                formatter.formatDateTime(
+                                    time.toZonedDateTime(),
+                                    relative = true,
+                                    abbreviateMonth = true
+                                )
+                        }
+                    }
+                }
+            }
+        }
         binding.cloudTitle.rightButton.setOnClickListener {
             save()
         }
@@ -95,10 +131,9 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private fun save() {
         inBackground {
-            val now = Instant.now()
             val readings =
                 selection.filter { it.isSelected }
-                    .map { Reading(CloudObservation(0, it.genus), now) }
+                    .map { Reading(CloudObservation(0, it.genus), time) }
             readings.forEach {
                 repo.add(it)
             }
