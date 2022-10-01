@@ -12,19 +12,18 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.color.DynamicColors
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
+import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.preferences.Preferences
@@ -77,13 +76,13 @@ class MainActivity : AndromedaActivity() {
 
         userPrefs = UserPreferences(this)
         val mode = when (userPrefs.theme) {
-            UserPreferences.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
-            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> AppCompatDelegate.MODE_NIGHT_YES
-            UserPreferences.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            UserPreferences.Theme.Light -> ColorTheme.Light
+            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
+            UserPreferences.Theme.System -> ColorTheme.System
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
-        AppCompatDelegate.setDefaultNightMode(mode)
-        if (userPrefs.useDynamicColors) DynamicColors.applyToActivityIfAvailable(this)
+        setTheme(R.style.AppTheme)
+        setColorTheme(mode, userPrefs.useDynamicColors)
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
@@ -239,18 +238,18 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    private fun sunriseSunsetTheme(): Int {
+    private fun sunriseSunsetTheme(): ColorTheme {
         val astronomyService = AstronomyService()
         val sensorService by lazy { SensorService(applicationContext) }
         val gps by lazy { sensorService.getGPS() }
         if (gps.location == Coordinate.zero) {
-            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            return ColorTheme.System
         }
         val isSunUp = astronomyService.isSunUp(gps.location)
         return if (isSunUp) {
-            AppCompatDelegate.MODE_NIGHT_NO
+            ColorTheme.Light
         } else {
-            AppCompatDelegate.MODE_NIGHT_YES
+            ColorTheme.Dark
         }
     }
 
