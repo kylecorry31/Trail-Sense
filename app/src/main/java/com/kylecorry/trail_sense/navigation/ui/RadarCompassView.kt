@@ -230,7 +230,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         opacity(255)
         push()
         rotate(0f)
-        fill(primaryColor)
+        fill(Color.WHITE)
         text(
             north,
             width / 2f,
@@ -281,7 +281,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
         distanceSize = sp(10f)
-        cardinalSize = sp(10f)
+        cardinalSize = sp(12f)
         primaryColor = Resources.color(context, R.color.orange_40)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)

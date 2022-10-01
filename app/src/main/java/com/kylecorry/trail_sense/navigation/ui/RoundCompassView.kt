@@ -96,7 +96,7 @@ class RoundCompassView : BaseCompassView {
         strokeWeight(32f)
         push()
         rotate(0f)
-        fill(primaryColor)
+        fill(Color.WHITE)
         text(
             north,
             width / 2f,
