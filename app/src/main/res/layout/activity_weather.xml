@@ -36,19 +36,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/pressure_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <TextView
-            android:id="@+id/pressure_marker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            tools:text="999 hPa, 3h ago"
-            tools:visibility="visible" />
-    </FrameLayout>
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        tools:text="999 hPa, 3h ago"
+        tools:visibility="visible" />
 
     <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/weather_list"
