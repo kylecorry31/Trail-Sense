@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 
 class PhotoImportBottomSheetFragment(
@@ -50,7 +50,7 @@ class PhotoImportBottomSheetFragment(
         binding.captureButton.setOnClickListener {
             binding.captureButton.isInvisible = true
             inBackground {
-                val file = Files.createTempFile(requireContext(), "jpg")
+                val file = FileSubsystem.getInstance(requireContext()).createTemp("jpg")
                 val success = onIO {
                     binding.camera.capture(file)
                 }

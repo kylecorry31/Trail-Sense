@@ -6,14 +6,17 @@ import androidx.core.net.toFile
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 
 class CreateMapFromImageCommand(private val context: Context, private val repo: IMapRepo) {
+
+    private val files = FileSubsystem.getInstance(context)
+
     suspend fun execute(uri: Uri): Map? = onIO {
         val defaultName = context.getString(android.R.string.untitled)
-        val file = Files.copyToDirectory(context, uri, "maps") ?: return@onIO null
+        val file = files.copyToLocal(uri, "maps") ?: return@onIO null
         var rotation = 0
         tryOrLog {
             val exif = ExifInterface(uri.toFile())
@@ -23,7 +26,7 @@ class CreateMapFromImageCommand(private val context: Context, private val repo: 
         val map = Map(
             0,
             defaultName,
-            Files.getLocalPath(file),
+            files.getLocalPath(file),
             emptyList(),
             warped = false,
             rotated = false,

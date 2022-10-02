@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.debugging
 import android.content.Context
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 
@@ -42,8 +42,7 @@ class DebugWeatherCommand(
             )
         }
 
-        Files.debugFile(
-            context,
+        FileSubsystem.getInstance(context).writeDebug(
             "weather.csv",
             CSVConvert.toCSV(data)
         )

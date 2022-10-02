@@ -5,7 +5,6 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import androidx.core.net.toUri
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
@@ -15,7 +14,6 @@ import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
@@ -28,6 +26,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
@@ -55,7 +54,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     private val layers = mutableListOf<ILayer>()
 
-    private val localFiles = LocalFileSystem(context)
+    private val files = FileSubsystem.getInstance(context)
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -206,8 +205,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             }
         }
         if (lastImage != map.filename) {
-            val file = localFiles.getFile(map.filename, false)
-            setImage(ImageSource.uri(file.toUri()))
+            val uri = files.uri(map.filename)
+            setImage(ImageSource.uri(uri))
             lastImage = map.filename
         }
         this.map = map

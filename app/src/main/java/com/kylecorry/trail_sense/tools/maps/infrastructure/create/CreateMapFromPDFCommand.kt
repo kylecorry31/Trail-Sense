@@ -1,26 +1,21 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
-import com.kylecorry.andromeda.files.ExternalFileSystem
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
-import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
-import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
 class CreateMapFromPDFCommand(private val context: Context, private val repo: IMapRepo) {
 
-    private val localFiles = LocalFileSystem(context)
-    private val externalFiles = ExternalFileSystem(context)
+    private val files = FileSubsystem.getInstance(context)
 
     suspend fun execute(uri: Uri): Map? = onIO {
         val defaultName = context.getString(android.R.string.untitled)
@@ -29,7 +24,7 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         var projection = MapProjectionType.CylindricalEquidistant
 
         val parser = GeospatialPDFParser()
-        val metadata = externalFiles.stream(uri)?.use {
+        val metadata = files.stream(uri)?.use {
             parser.parse(it)
         }
         val maxSize = 2048
@@ -52,7 +47,7 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         }
 
         try {
-            copyToLocalStorage(bp, filename)
+            files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
             return@onIO null
         }
@@ -71,14 +66,4 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         map.copy(id = id)
     }
 
-    private fun copyToLocalStorage(bitmap: Bitmap, filename: String) {
-        try {
-            @Suppress("BlockingMethodInNonBlockingContext")
-            FileOutputStream(localFiles.getFile(filename)).use { out ->
-                ImageSaver().save(bitmap, out)
-            }
-        } finally {
-            bitmap.recycle()
-        }
-    }
 }

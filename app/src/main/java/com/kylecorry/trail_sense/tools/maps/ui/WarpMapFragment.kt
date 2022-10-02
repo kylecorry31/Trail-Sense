@@ -1,30 +1,29 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsPerspectiveBinding
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.FileOutputStream
 import java.io.IOException
 
 class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val localFileSystem by lazy { LocalFileSystem(requireContext()) }
+    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     private var mapId = 0L
     private var map: Map? = null
@@ -90,35 +89,29 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     private suspend fun next() {
         val map = map ?: return
         val percentBounds = binding.perspective.getPercentBounds() ?: return
-        val loading = withContext(Dispatchers.Main) {
+        val loading = onMain {
             Alerts.loading(requireContext(), getString(R.string.saving))
         }
-        withContext(Dispatchers.IO) {
+        onIO {
             if (binding.perspective.hasChanges) {
-                val file = localFileSystem.getFile(map.filename, false)
-                val bitmap = BitmapFactory.decodeFile(file.path)
+                val bitmap = files.bitmap(map.filename)
                 val bounds =
                     percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
                 val warped = bitmap.fixPerspective(bounds)
+                bitmap.recycle()
                 try {
-                    @Suppress("BlockingMethodInNonBlockingContext")
-                    FileOutputStream(file).use { out ->
-                        ImageSaver().save(warped, out)
-                    }
+                    files.save(map.filename, warped, recycleOnSave = true)
                 } catch (e: IOException) {
-                    withContext(Dispatchers.Main) {
+                    onMain {
                         loading.dismiss()
                     }
-                    return@withContext
-                } finally {
-                    bitmap.recycle()
-                    warped.recycle()
+                    return@onIO
                 }
             }
             mapRepo.addMap(map.copy(warped = true))
         }
 
-        withContext(Dispatchers.Main) {
+        onMain {
             loading.dismiss()
             onDone.invoke()
         }

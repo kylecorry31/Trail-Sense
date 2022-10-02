@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.shared.debugging
 
 import android.content.Context
 import com.kylecorry.andromeda.csv.CSVConvert
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 class DebugCloudCommand(
     private val context: Context,
     private val features: List<Float>
 ) : DebugCommand() {
+
     override fun executeDebug() {
         val header = listOf(
             listOf(
@@ -21,8 +22,7 @@ class DebugCloudCommand(
         )
         val data = header + listOf(features)
 
-        Files.debugFile(
-            context,
+        FileSubsystem.getInstance(context).writeDebug(
             "cloud.csv",
             CSVConvert.toCSV(data)
         )

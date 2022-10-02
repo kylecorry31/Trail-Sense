@@ -1,20 +1,21 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.trail_sense.shared.database.AppDatabase
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 
-class MapRepo private constructor(private val context: Context) : IMapRepo {
+class MapRepo private constructor(context: Context) : IMapRepo {
 
     private val mapDao = AppDatabase.getInstance(context).mapDao()
-    private val localFiles = LocalFileSystem(context)
+    private val files = FileSubsystem.getInstance(context)
 
     override fun getMaps(): LiveData<List<Map>> {
-        return Transformations.map(mapDao.getAll()){it.map { it.toMap() }}
+        return Transformations.map(mapDao.getAll()) { it.map { it.toMap() } }
     }
 
     override suspend fun getMap(id: Long): Map? {
@@ -22,7 +23,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     }
 
     override suspend fun deleteMap(map: Map) {
-        localFiles.delete(map.filename)
+        files.delete(map.filename)
         mapDao.delete(MapEntity.from(map))
     }
 
@@ -36,6 +37,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var instance: MapRepo? = null
 
         @Synchronized

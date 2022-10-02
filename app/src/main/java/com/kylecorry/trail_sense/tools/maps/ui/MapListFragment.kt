@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.ui
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,9 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -30,6 +29,7 @@ import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -70,7 +70,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         )
     }
     private val exportService by lazy { FragmentMapExportService(this) }
-    private val localFiles by lazy { LocalFileSystem(requireContext()) }
+    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -210,18 +210,16 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         mapRepo.getMaps().observe(viewLifecycleOwner) {
             maps = it
             maps.forEach {
-                val file = localFiles.getFile(it.filename, false)
-
-                val size = BitmapUtils.getBitmapSize(file.path)
+                val size = files.imageSize(it.filename)
                 val width = if (it.rotation == 90 || it.rotation == 270) {
-                    size.second
+                    size.height
                 } else {
-                    size.first
+                    size.width
                 }
                 val height = if (it.rotation == 90 || it.rotation == 270) {
-                    size.first
+                    size.width
                 } else {
-                    size.second
+                    size.height
                 }
                 val bounds = it.boundary(width.toFloat(), height.toFloat())
                 if (bounds != null) {
@@ -229,7 +227,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
 
                 tryOrNothing {
-                    fileSizes[it.id] = file.length()
+                    fileSizes[it.id] = files.size(it.filename)
                 }
             }
 
@@ -287,10 +285,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun loadMapThumbnail(map: Map): Bitmap {
-        val file = localFiles.getFile(map.filename, false)
         val size = Resources.dp(requireContext(), 48f).toInt()
         val bitmap = try {
-            BitmapUtils.decodeBitmapScaled(file.path, size, size)
+            files.bitmap(map.filename, Size(size, size))
         } catch (e: Exception) {
             Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         }

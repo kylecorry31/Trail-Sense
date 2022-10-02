@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 
 class DeleteTempFilesCommand(private val context: Context) : CoroutineCommand {
     override suspend fun execute() = onIO {
-        Files.deleteTempFiles(context)
+        val files = FileSubsystem.getInstance(context)
+        files.clearTemp()
     }
 }

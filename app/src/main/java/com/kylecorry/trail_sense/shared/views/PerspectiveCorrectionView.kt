@@ -10,13 +10,12 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.ImageMagnifier
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -30,6 +29,7 @@ class PerspectiveCorrectionView : CanvasView {
 
     private var image: Bitmap? = null
     private var imagePath: String? = null
+
     @DrawableRes
     private var imageDrawable: Int? = null
     private var linesLoaded = false
@@ -60,7 +60,7 @@ class PerspectiveCorrectionView : CanvasView {
     private var imageX = 0f
     private var imageY = 0f
 
-    private val localFiles = LocalFileSystem(context)
+    private val files = FileSubsystem.getInstance(context)
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -79,20 +79,21 @@ class PerspectiveCorrectionView : CanvasView {
     }
 
     override fun draw() {
-        if (image == null && imagePath != null){
+        if (image == null && imagePath != null) {
             imagePath?.let {
-                val file = localFiles.getFile(it, false)
-                val bitmap = BitmapUtils.decodeBitmapScaled(
-                    file.path,
-                    width,
-                    height
+                val bitmap = files.bitmap(
+                    it,
+                    android.util.Size(
+                        width,
+                        height
+                    )
                 )
                 image = bitmap.resizeToFit(width, height)
                 if (image != bitmap) {
                     bitmap.recycle()
                 }
             }
-        } else if (image == null && imageDrawable != null){
+        } else if (image == null && imageDrawable != null) {
             imageDrawable?.let {
                 val img = loadImage(it)
                 image = img.resizeToFit(width, height)
@@ -104,7 +105,7 @@ class PerspectiveCorrectionView : CanvasView {
 
         val bitmap = image ?: return
 
-        if (!linesLoaded){
+        if (!linesLoaded) {
             resetLines()
         }
 
@@ -115,7 +116,7 @@ class PerspectiveCorrectionView : CanvasView {
         rotate(mapRotation)
         translate(imageX, imageY)
         scale(scale)
-        if (isPreview){
+        if (isPreview) {
             drawPreviewCanvas()
         } else {
             drawEditCanvas()
@@ -124,7 +125,7 @@ class PerspectiveCorrectionView : CanvasView {
         pop()
     }
 
-    private fun drawMagnify(){
+    private fun drawMagnify() {
         val image = image ?: return
         val corner = movingCorner ?: return
         val center = when (corner) {
@@ -135,7 +136,10 @@ class PerspectiveCorrectionView : CanvasView {
         }
 
         val magnifierSize = min(image.width, image.height) / 4f
-        val magnifier = ImageMagnifier(Size(image.width.toFloat(), image.height.toFloat()), Size(magnifierSize, magnifierSize))
+        val magnifier = ImageMagnifier(
+            Size(image.width.toFloat(), image.height.toFloat()),
+            Size(magnifierSize, magnifierSize)
+        )
         val pos = magnifier.getMagnifierPosition(center)
         val magCenter = PixelCoordinate(pos.x + magnifierSize / 2f, pos.y + magnifierSize / 2f)
 
@@ -153,7 +157,7 @@ class PerspectiveCorrectionView : CanvasView {
         line(magCenter.x, magCenter.y - plusSize / 2f, magCenter.x, magCenter.y + plusSize / 2f)
     }
 
-    private fun drawPreviewCanvas(){
+    private fun drawPreviewCanvas() {
         val bitmap = image ?: return
         val warped = bitmap.fixPerspective(getBounds())
         image(warped, 0f, 0f)
@@ -162,7 +166,7 @@ class PerspectiveCorrectionView : CanvasView {
         }
     }
 
-    private fun drawEditCanvas(){
+    private fun drawEditCanvas() {
         val bitmap = image ?: return
 
         image(bitmap, 0f, 0f)
@@ -183,7 +187,7 @@ class PerspectiveCorrectionView : CanvasView {
         line(bottomLeft.x, bottomLeft.y, topLeft.x, topLeft.y)
     }
 
-    private fun resetLines(){
+    private fun resetLines() {
         val image = image ?: return
         topLeft = PixelCoordinate(0f, 0f)
         topRight = PixelCoordinate(image.width.toFloat(), 0f)
@@ -237,13 +241,16 @@ class PerspectiveCorrectionView : CanvasView {
         val point = floatArrayOf(pixel.x, pixel.y)
         sourceMatrix.mapPoints(point)
         val rotated = PixelCoordinate(point[0], point[1])
-        return PixelCoordinate(rotated.x / scale - imageX / scale, rotated.y / scale - imageY / scale)
+        return PixelCoordinate(
+            rotated.x / scale - imageX / scale,
+            rotated.y / scale - imageY / scale
+        )
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val position = toSource(PixelCoordinate(event.x, event.y))
 
-        when (event.action){
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 val radius = dp(10f)
 
@@ -291,23 +298,29 @@ class PerspectiveCorrectionView : CanvasView {
         return true
     }
 
-    private fun constrain(pixel: PixelCoordinate, top: Float?, bottom: Float?, left: Float?, right: Float?): PixelCoordinate {
+    private fun constrain(
+        pixel: PixelCoordinate,
+        top: Float?,
+        bottom: Float?,
+        left: Float?,
+        right: Float?
+    ): PixelCoordinate {
         var x = pixel.x
         var y = pixel.y
 
-        if (top != null && y < top){
+        if (top != null && y < top) {
             y = top
         }
 
-        if (bottom != null && y > bottom){
+        if (bottom != null && y > bottom) {
             y = bottom
         }
 
-        if (left != null && x < left){
+        if (left != null && x < left) {
             x = left
         }
 
-        if (right != null && x > right){
+        if (right != null && x > right) {
             x = right
         }
 

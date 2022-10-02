@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.debugging
 import android.content.Context
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 class DebugElevationsCommand(
     private val context: Context,
@@ -20,8 +20,7 @@ class DebugElevationsCommand(
             )
         }
 
-        Files.debugFile(
-            context,
+        FileSubsystem.getInstance(context).writeDebug(
             "altitude_history.csv",
             CSVConvert.toCSV(data)
         )

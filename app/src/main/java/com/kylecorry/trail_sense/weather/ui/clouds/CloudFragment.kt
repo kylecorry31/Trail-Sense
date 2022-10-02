@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.io.Files
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -36,6 +36,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private val cloudDetailsService by lazy { CloudDetailsService(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
+    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -100,7 +101,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         inBackground {
             val uri =
                 FragmentUriPicker(this@CloudFragment).open(listOf("image/*"))
-            val temp = uri?.let { onIO { Files.copyToTemp(requireContext(), it) }?.toUri() }
+            val temp = uri?.let { onIO { files.copyToTemp(it) }?.toUri() }
             temp?.let {
                 findNavController().navigate(
                     R.id.action_cloud_to_cloud_picker,
