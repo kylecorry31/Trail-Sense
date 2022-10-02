@@ -39,8 +39,9 @@ class PressureChart(
         )
 
         simpleChart.configureXAxis(
-            labelCount = 0,
-            drawGridLines = false
+            labelCount = 7,
+            drawGridLines = false,
+            labelFormatter = SimpleLineChart.hourLabelFormatter(chart.context) { startTime }
         )
 
         setClickable(selectionListener != null)
