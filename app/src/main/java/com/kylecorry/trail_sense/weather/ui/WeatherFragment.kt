@@ -178,7 +178,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             PressureCharacteristicImageMapper().getImageResource(weather.pressureTendency.characteristic)
 
         val humidity = formatService.formatPercentage(observation.humidity ?: 0f)
-        
+
         val items = listOfNotNull(
             WeatherListItem(1, R.drawable.cloud, getString(R.string.pressure), pressure),
             WeatherListItem(2, tendencyIcon, getString(R.string.pressure_tendency), tendency),

@@ -20,13 +20,6 @@
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         tools:text="@string/forecast_improving" />
 
-    <com.kylecorry.ceres.list.CeresListView
-        android:id="@+id/weather_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1" />
-
     <TextView
         android:id="@+id/pressure_history_duration"
         android:layout_width="wrap_content"
@@ -56,6 +49,13 @@
             tools:text="999 hPa, 3h ago"
             tools:visibility="visible" />
     </FrameLayout>
+
+    <com.kylecorry.ceres.list.CeresListView
+        android:id="@+id/weather_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1" />
 
     <com.kylecorry.trail_sense.shared.views.PlayBarView
         android:id="@+id/weather_play_bar"
