@@ -947,7 +947,6 @@
     <string name="estimated">Odhadovaný</string>
     <string name="tide_table">Tabulka přílivů a odlivů</string>
     <string name="tool_temperature_estimation_description">Předpovídejte teplotu v jiné nadmořské výšce</string>
-    <string name="pref_weather_show_temperature_title">Zobrazit teplotu</string>
     <string name="steps">Kroky</string>
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="remove_distance_alert">Odebrat upozornění na vzdálenost (%s)\?</string>

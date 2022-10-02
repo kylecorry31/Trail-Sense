@@ -271,7 +271,6 @@
     <string name="tool_temperature_estimation_title">הערכת טמפרטורה</string>
     <string name="error">שגיאה</string>
     <string name="map_export_error">אין אפשרות לייצא מפה לקובץ הנבחר</string>
-    <string name="pref_weather_show_temperature_title">הצג טמפרטורה</string>
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="off">כבוי</string>
     <string name="onboarding_explore">- מיועד לטיולי הליכה, תרמילאים, קמפינג ומטמון גיאוגרפי

@@ -945,7 +945,6 @@
     <string name="qr_text_too_long">Tekst jest zbyt długi, kod QR został skrócony</string>
     <string name="pref_flashlight_timeout_title">Wyłącz po</string>
     <string name="tide_table">Tabela pływów</string>
-    <string name="pref_weather_show_temperature_title">Pokaż temperaturę</string>
     <string name="pressure_tendency">Tendencja</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Alert odległości</string>

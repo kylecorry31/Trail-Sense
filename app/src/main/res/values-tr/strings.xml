@@ -879,7 +879,6 @@
     <string name="temperature_history">Sıcaklık geçmişi - son %s</string>
     <string name="measure">Ölç</string>
     <string name="weather_monitor_disabled_resolution">Hava durumu ayarlarından hava durumunu izlemeyi etkinleştir</string>
-    <string name="pref_weather_show_temperature_title">Sıcaklığı göster</string>
     <string name="steps">Adımlar</string>
     <string name="onboarding_explore">- Yürüyüş, sırt çantasıyla gezme, kamp yapma ve geocaching için tasarlandı
 \n

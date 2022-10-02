@@ -911,7 +911,6 @@
     <string name="tide_table">Tabla de mareas</string>
     <string name="high_tide_letter">A</string>
     <string name="pressure_tendency">Tendencia</string>
-    <string name="pref_weather_show_temperature_title">Mostrar temperatura</string>
     <string name="tool_temperature_estimation_title">Estimación de temperatura</string>
     <string name="tool_temperature_estimation_description">Predecir la temperatura a una elevación diferente</string>
     <plurals name="tides_entered_count">

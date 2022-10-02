@@ -985,7 +985,6 @@
     <string name="pref_flashlight_timeout_title">Desligar após</string>
     <string name="tide_deleted">A maré foi excluída</string>
     <string name="tool_temperature_estimation_title">Previsão de temperatura</string>
-    <string name="pref_weather_show_temperature_title">Mostrar temperatura</string>
     <string name="explore">Explorar</string>
     <string name="average_speed">Velocidade média</string>
     <string name="steps">Passos</string>

@@ -943,7 +943,6 @@
     <string name="soon">不久</string>
     <string name="tool_temperature_estimation_title">温度预估</string>
     <string name="tool_temperature_estimation_description">预测不同海拔的温度</string>
-    <string name="pref_weather_show_temperature_title">显示温度</string>
     <string name="pressure_tendency">趋势</string>
     <string name="weather_improving">好转</string>
     <string name="weather_worsening">恶化</string>

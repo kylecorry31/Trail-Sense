@@ -14,9 +14,11 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
@@ -48,6 +50,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private var history: List<WeatherObservation> = listOf()
     private var rawHistory: List<Reading<Pressure>> = listOf()
+    private val mapper by lazy { WeatherListItemMapper(requireContext()) }
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
@@ -100,20 +103,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             updateWeather()
         }
 
-        binding.weatherHumidity.setOnClickListener {
-            showHumidityChart()
-        }
-
-        binding.weatherTemperature.setOnClickListener {
-            showTemperatureChart()
-        }
-
-        if (!Sensors.hasHygrometer(requireContext())) {
-            binding.weatherHumidity.isVisible = false
-        }
-
-        binding.weatherTemperature.isVisible = prefs.weather.showTemperature
-
         weatherSubsystem.weatherMonitorState.replay()
             .asLiveData().observe(viewLifecycleOwner) {
                 updateStatusBar()
@@ -163,6 +152,56 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         super.onPause()
         logger.stop()
         loadingIndicator.hide()
+    }
+
+    private fun updateList() {
+        if (!isBound) return
+        val weather = weather ?: return
+        val observation = weather.observation ?: return
+
+        val pressure = formatService.formatPressure(
+            observation.pressure.convertTo(units),
+            Units.getDecimalPlaces(units)
+        )
+
+        val temperature = formatService.formatTemperature(
+            observation.temperature.convertTo(temperatureUnits)
+        )
+
+        val tendency = getString(
+            R.string.pressure_tendency_format_2, formatService.formatPressure(
+                Pressure.hpa(weather.pressureTendency.amount).convertTo(units),
+                Units.getDecimalPlaces(units) + 1
+            )
+        )
+        val tendencyIcon =
+            PressureCharacteristicImageMapper().getImageResource(weather.pressureTendency.characteristic)
+
+        val humidity = formatService.formatPercentage(observation.humidity ?: 0f)
+        
+        val items = listOfNotNull(
+            WeatherListItem(1, R.drawable.cloud, getString(R.string.pressure), pressure),
+            WeatherListItem(2, tendencyIcon, getString(R.string.pressure_tendency), tendency),
+            WeatherListItem(
+                3,
+                R.drawable.thermometer,
+                getString(R.string.temperature),
+                temperature
+            ) { showTemperatureChart() },
+            if (Sensors.hasHygrometer(requireContext())){
+                WeatherListItem(
+                    4,
+                    R.drawable.ic_category_water,
+                    getString(R.string.humidity),
+                    humidity
+                ) { showHumidityChart() }
+            } else {
+                null
+            }
+        )
+
+        binding.weatherList.setItems(items, mapper)
+
     }
 
     private fun updateWeather() {
@@ -215,14 +254,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun update() {
         if (!isBound) return
-        val weather = weather ?: return
-        val observation = weather.observation ?: return
-
         displayPressureChart(history, rawHistory)
-        displayTendency(weather.pressureTendency)
-        displayPressure(observation.pressure)
-        displayTemperature(observation.temperature)
-        observation.humidity?.let { displayHumidity(it) }
+        updateList()
         inBackground {
             updateForecast()
         }
@@ -265,18 +298,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
     }
 
-    private fun displayTendency(tendency: PressureTendency) {
-        val formatted = formatService.formatPressure(
-            Pressure(tendency.amount, PressureUnits.Hpa).convertTo(units),
-            Units.getDecimalPlaces(units) + 1
-        )
-        binding.weatherPressureTendency.title =
-            getString(R.string.pressure_tendency_format_2, formatted)
-
-        val imageMapper = PressureCharacteristicImageMapper()
-        binding.weatherPressureTendency.setImageResource(imageMapper.getImageResource(tendency.characteristic))
-    }
-
     private suspend fun updateForecast() {
         if (!isBound) return
         val weather = weather ?: return
@@ -293,23 +314,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             binding.weatherTitle.subtitle.isVisible = speed.isNotEmpty()
             binding.dailyForecast.text = getLongTermWeatherDescription(prediction.daily)
         }
-    }
-
-    private fun displayPressure(pressure: Pressure) {
-        val formatted = formatService.formatPressure(
-            pressure.convertTo(units),
-            Units.getDecimalPlaces(units)
-        )
-        binding.weatherPressure.title = formatted
-    }
-
-    private fun displayTemperature(temperature: Temperature) {
-        binding.weatherTemperature.title =
-            formatService.formatTemperature(temperature.convertTo(temperatureUnits))
-    }
-
-    private fun displayHumidity(humidity: Float) {
-        binding.weatherHumidity.title = formatService.formatPercentage(humidity)
     }
 
     private fun getLongTermWeatherDescription(weather: Weather): String {

@@ -938,7 +938,6 @@
     <string name="error_banners">Balken met foutmelding</string>
     <string name="pref_flashlight_should_timeout_title">Vanzelf uitschakelen</string>
     <string name="disclaimer_estimated_tide_title">Geschatte tij</string>
-    <string name="pref_weather_show_temperature_title">Toon temperatuur</string>
     <string name="pressure_tendency">Veranderlijkheid</string>
     <string name="distance_alert_distance_reached">U heeft %s bereikt</string>
     <string name="estimate_stride_length">Schat lengte in van schreden</string>

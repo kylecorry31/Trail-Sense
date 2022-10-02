@@ -849,7 +849,6 @@
     <string name="qr_code_scanner">QR-kode-skanner</string>
     <string name="tool_temperature_estimation_title">Temperaturberegning</string>
     <string name="tool_temperature_estimation_description">Forutsi temperaturen ved en annen høyde</string>
-    <string name="pref_weather_show_temperature_title">Vis temperatur</string>
     <string name="pressure_tendency">Tendens</string>
     <string name="tide_table">Tidevannstabell</string>
     <string name="easy">Lett</string>

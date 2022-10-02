@@ -973,7 +973,6 @@
     <string name="weather_improving">Улучшается</string>
     <string name="weather_worsening">Ухудшается</string>
     <string name="pressure_tendency">Тенденция</string>
-    <string name="pref_weather_show_temperature_title">Показать температуру</string>
     <string name="weather_unchanging">Без изменений</string>
     <string name="very_soon">Очень скоро</string>
     <string name="temperature_history">История температуры - последняя %s</string>

@@ -359,7 +359,6 @@
     <string name="tide_table">Árapály táblázat</string>
     <string name="high_tide_letter">Á</string>
     <string name="tide_deleted">Árapály törölve</string>
-    <string name="pref_weather_show_temperature_title">Hőmérséklet mutatása</string>
     <string name="pressure_tendency">Tendencia</string>
     <string name="explore">Felfedezés</string>
     <string name="error">Hiba</string>

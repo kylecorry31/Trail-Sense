@@ -977,7 +977,6 @@
     <string name="tool_temperature_estimation_description">Prever a temperatura numa elevação diferente</string>
     <string name="stride_length_stand_still">Fique parado</string>
     <string name="stride_length_walk">Caminhe em linha reta e toque em parar quando terminar</string>
-    <string name="pref_weather_show_temperature_title">Mostrar temperatura</string>
     <string name="pressure_tendency">Tendência</string>
     <string name="current_speed">Velocidade atual</string>
     <string name="current_speed_pedometer">Velocidade atual (pedómetro)</string>

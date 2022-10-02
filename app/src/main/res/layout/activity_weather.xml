@@ -20,59 +20,11 @@
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         tools:text="@string/forecast_improving" />
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/weather_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:columnCount="2"
-        app:useDefaultMargins="false">
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/weather_pressure"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/pressure"
-            app:dataPointIcon="@drawable/cloud"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/weather_pressure_tendency"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/pressure_tendency"
-            app:dataPointIcon="@drawable/ic_arrow_up"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/weather_temperature"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="Temperature"
-            app:dataPointIcon="@drawable/thermometer"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/weather_humidity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/humidity"
-            app:dataPointIcon="@drawable/ic_category_water"
-            app:layout_columnWeight="1" />
-
-    </androidx.gridlayout.widget.GridLayout>
-
-
-    <View
+    <com.kylecorry.ceres.list.CeresListView
+        android:id="@+id/weather_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1" />
 
     <TextView

@@ -20,13 +20,6 @@
             app:singleLineTitle="false"
             app:title="@string/right_quick_action"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreferenceCompat
-            app:key="@string/pref_weather_show_temperature"
-            app:title="@string/pref_weather_show_temperature_title"
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

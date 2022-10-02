@@ -976,7 +976,6 @@
     <string name="disclaimer_estimated_tide_title">Geschätzte Gezeit</string>
     <string name="tool_temperature_estimation_title">Temperaturschätzung</string>
     <string name="tool_temperature_estimation_description">Temperatur in einer anderen Höhenlage schätzen</string>
-    <string name="pref_weather_show_temperature_title">Temperatur anzeigen</string>
     <string name="pressure_tendency">Tendenz</string>
     <string name="explore">Erkunden</string>
     <string name="average_speed">Durchschnittsgeschwindigkeit</string>
