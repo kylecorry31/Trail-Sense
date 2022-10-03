@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.asLiveData
@@ -255,7 +255,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             name,
             color
         ) {
-            Alerts.dialog(requireContext(), name, description)
+            dialog(name, description, cancelText = null)
         }
     }
 
