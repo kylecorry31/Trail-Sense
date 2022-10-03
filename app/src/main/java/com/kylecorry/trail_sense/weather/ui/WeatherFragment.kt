@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.asLiveData
@@ -16,10 +17,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.PressureUnits
-import com.kylecorry.sol.units.Reading
+import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
@@ -27,8 +25,11 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.weather.domain.isHigh
+import com.kylecorry.trail_sense.weather.domain.isLow
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
@@ -53,7 +54,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private var history: List<WeatherObservation> = listOf()
     private var rawHistory: List<Reading<Pressure>> = listOf()
-    private val mapper by lazy { WeatherListItemMapper(requireContext()) }
+    private val mapper = WeatherListItemMapper()
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
@@ -167,10 +168,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             Units.getDecimalPlaces(units)
         )
 
-        val temperature = formatService.formatTemperature(
-            observation.temperature.convertTo(temperatureUnits)
-        )
-
         val tendency = getString(
             R.string.pressure_tendency_format_2, formatService.formatPressure(
                 Pressure.hpa(weather.pressureTendency.amount).convertTo(units),
@@ -180,32 +177,86 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         val tendencyIcon =
             PressureCharacteristicImageMapper().getImageResource(weather.pressureTendency.characteristic)
 
-        val humidity = formatService.formatPercentage(observation.humidity ?: 0f)
 
+        val color = Resources.androidTextColorSecondary(requireContext())
+
+        // TODO: Extract these to fields like astronomy
         val items = listOfNotNull(
-            WeatherListItem(1, R.drawable.cloud, getString(R.string.pressure), pressure),
-            WeatherListItem(2, tendencyIcon, getString(R.string.pressure_tendency), tendency),
+            WeatherListItem(1, R.drawable.cloud, getString(R.string.pressure), pressure, color),
             WeatherListItem(
-                3,
-                R.drawable.thermometer,
-                getString(R.string.temperature),
-                temperature
-            ) { showTemperatureChart() },
-            if (Sensors.hasHygrometer(requireContext())) {
-                WeatherListItem(
-                    4,
-                    R.drawable.ic_category_water,
-                    getString(R.string.humidity),
-                    humidity
-                ) { showHumidityChart() }
-            } else {
-                null
-            },
+                2,
+                tendencyIcon,
+                getString(R.string.pressure_tendency),
+                tendency,
+                color
+            ),
+            getPressureSystemListItem(observation.pressure),
+            getTemperatureListItem(observation.temperature),
+            getHumidityListItem(observation.humidity),
             getCloudListItem(weather.clouds)
         )
 
         binding.weatherList.setItems(items, mapper)
+    }
 
+    private fun getHumidityListItem(humidity: Float?): WeatherListItem? {
+        return if (Sensors.hasHygrometer(requireContext()) && humidity != null) {
+            val value = formatService.formatPercentage(humidity)
+            WeatherListItem(
+                4,
+                R.drawable.ic_category_water,
+                getString(R.string.humidity),
+                value,
+                AppColor.Blue.color
+            ) { showHumidityChart() }
+        } else {
+            null
+        }
+    }
+
+    private fun getTemperatureListItem(temperature: Temperature): WeatherListItem {
+        val value = formatService.formatTemperature(
+            temperature.convertTo(temperatureUnits)
+        )
+        val color = when {
+            temperature.temperature <= 15f -> AppColor.Blue.color
+            temperature.temperature >= 25f -> AppColor.Red.color
+            else -> Resources.androidTextColorSecondary(requireContext())
+        }
+        return WeatherListItem(
+            3,
+            R.drawable.thermometer,
+            getString(R.string.temperature),
+            value,
+            color
+        ) { showTemperatureChart() }
+    }
+
+    private fun getPressureSystemListItem(pressure: Pressure): WeatherListItem? {
+        val name: String
+        val description: String
+        val color: Int
+        if (pressure.isHigh()) {
+            name = getString(R.string.high_pressure)
+            description = getString(R.string.high_pressure_system_description)
+            color = AppColor.Blue.color
+        } else if (pressure.isLow()) {
+            name = getString(R.string.low_pressure)
+            description = getString(R.string.low_pressure_system_description)
+            color = AppColor.Red.color
+        } else {
+            return null
+        }
+
+        return WeatherListItem(
+            6,
+            R.drawable.ic_pressure_system,
+            getString(R.string.pressure_system),
+            name,
+            color
+        ) {
+            Alerts.dialog(requireContext(), name, description)
+        }
     }
 
     private fun getCloudListItem(cloud: Reading<CloudGenus?>?): WeatherListItem? {
@@ -216,7 +267,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             5,
             R.drawable.cloud,
             getString(R.string.clouds),
-            name
+            name,
+            AppColor.Gray.color
         ) {
             CloudDetailsModal(requireContext()).show(cloud.value)
         }

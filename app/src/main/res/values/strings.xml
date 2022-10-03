@@ -1211,6 +1211,13 @@
     <string name="clouds_clear">Clear</string>
     <!--Adjective: Worked by hand, not automatically or electronically-->
     <string name="manual">Manual</string>
+    <!--    High pressure system / anticyclone-->
+    <string name="high_pressure">High</string>
+    <!--    Low pressure system / depression / cyclone-->
+    <string name="low_pressure">Low</string>
+    <string name="pressure_system">Pressure system</string>
+    <string name="high_pressure_system_description">Associated with fair weather, clear skies, and cooler temperatures.</string>
+    <string name="low_pressure_system_description">Associated with poor weather, overcast skies, and warmer temperatures.</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
