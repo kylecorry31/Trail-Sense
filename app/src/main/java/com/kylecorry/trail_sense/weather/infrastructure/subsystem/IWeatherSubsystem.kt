@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
@@ -18,6 +19,7 @@ interface IWeatherSubsystem {
 
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>
+    suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
     suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
 
     // Weather monitor

@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -23,6 +24,7 @@ import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.delay
 import java.time.Duration
@@ -33,6 +35,7 @@ import java.util.*
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
+    private val cloudRepo by lazy { CloudRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { Preferences(context) }
     private val location by lazy { LocationSubsystem.getInstance(context) }
@@ -109,6 +112,11 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             true
         }
         weatherRepo.readingsChanged.subscribe {
+            invalidate()
+            true
+        }
+
+        cloudRepo.readingsChanged.subscribe {
             invalidate()
             true
         }
@@ -203,16 +211,26 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return weatherService.getDailyWeather(readings.map { it.pressureReading() })
     }
 
+    override suspend fun getCloudHistory(): List<Reading<CloudGenus?>> = onIO {
+        cloudRepo.getAll().sortedBy { it.time }.map { Reading(it.value.genus, it.time) }
+    }
+
     private suspend fun populateCache(): CurrentWeather {
         val history = getHistory()
         val daily = getDailyForecast(history)
         val hourly = getHourlyForecast(history)
         val last = history.lastOrNull()
         val tendency = weatherService.getTendency(history.map { it.pressureReading() })
+        var clouds = getCloudHistory().lastOrNull()
+        val maxCloudTime = Duration.ofHours(4)
+        if (clouds == null || Duration.between(clouds.time, Instant.now()).abs() > maxCloudTime) {
+            clouds = null
+        }
         return CurrentWeather(
             WeatherPrediction(hourly, daily),
             tendency,
-            last
+            last,
+            clouds
         )
     }
 

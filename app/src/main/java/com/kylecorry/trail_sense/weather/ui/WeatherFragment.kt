@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
@@ -31,8 +32,10 @@ import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrict
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.weather.ui.clouds.CloudDetailsModal
 import java.time.Duration
 import java.time.Instant
 
@@ -197,11 +200,26 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 ) { showHumidityChart() }
             } else {
                 null
-            }
+            },
+            getCloudListItem(weather.clouds)
         )
 
         binding.weatherList.setItems(items, mapper)
 
+    }
+
+    private fun getCloudListItem(cloud: Reading<CloudGenus?>?): WeatherListItem? {
+        cloud ?: return null
+        val cloudDetailsService = CloudDetailsService(requireContext())
+        val name = cloudDetailsService.getCloudName(cloud.value)
+        return WeatherListItem(
+            5,
+            R.drawable.cloud,
+            getString(R.string.clouds),
+            name
+        ) {
+            CloudDetailsModal(requireContext()).show(cloud.value)
+        }
     }
 
     private fun updateWeather() {
