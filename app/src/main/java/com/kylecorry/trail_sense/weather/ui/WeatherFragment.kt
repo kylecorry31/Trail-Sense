@@ -264,10 +264,9 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         val name = cloudDetailsService.getCloudName(cloud.value)
         return WeatherListItem(
             5,
-            R.drawable.cloud,
+            R.drawable.cloudy,
             getString(R.string.clouds),
-            name,
-            AppColor.Gray.color
+            name
         ) {
             CloudDetailsModal(requireContext()).show(cloud.value)
         }
