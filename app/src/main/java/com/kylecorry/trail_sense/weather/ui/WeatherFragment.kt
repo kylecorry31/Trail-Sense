@@ -235,25 +235,24 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private fun getPressureSystemListItem(pressure: Pressure): WeatherListItem? {
         val name: String
         val description: String
-        val color: Int
+        val icon: Int
         if (pressure.isHigh()) {
             name = getString(R.string.high_pressure)
             description = getString(R.string.high_pressure_system_description)
-            color = AppColor.Blue.color
+            icon = R.drawable.ic_high_pressure_system
         } else if (pressure.isLow()) {
             name = getString(R.string.low_pressure)
             description = getString(R.string.low_pressure_system_description)
-            color = AppColor.Red.color
+            icon = R.drawable.ic_low_pressure_system
         } else {
             return null
         }
 
         return WeatherListItem(
             6,
-            R.drawable.ic_pressure_system,
+            icon,
             getString(R.string.pressure_system),
-            name,
-            color
+            name
         ) {
             dialog(name, description, cancelText = null)
         }
