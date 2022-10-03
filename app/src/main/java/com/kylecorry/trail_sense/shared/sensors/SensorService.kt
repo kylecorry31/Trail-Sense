@@ -121,7 +121,6 @@ class SensorService(ctx: Context) {
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
         } else if (mode == UserPreferences.AltimeterMode.Barometer && Sensors.hasBarometer(context)) {
-            // TODO: Verify this still works correctly
             return Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
         } else {
             if (!GPS.isAvailable(context)) {

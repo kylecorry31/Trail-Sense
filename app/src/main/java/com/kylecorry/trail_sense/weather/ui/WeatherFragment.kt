@@ -188,7 +188,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 getString(R.string.temperature),
                 temperature
             ) { showTemperatureChart() },
-            if (Sensors.hasHygrometer(requireContext())){
+            if (Sensors.hasHygrometer(requireContext())) {
                 WeatherListItem(
                     4,
                     R.drawable.ic_category_water,
@@ -266,33 +266,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         rawReadings: List<Reading<Pressure>>
     ) {
         val displayReadings = readings.map { it.pressureReading() }
-
-        if (displayReadings.isNotEmpty()) {
-            val totalTime = Duration.between(
-                displayReadings.first().time, Instant.now()
-            )
-            var hours = totalTime.toHours()
-            val minutes = totalTime.toMinutes() % 60
-
-            when (hours) {
-                0L -> binding.pressureHistoryDuration.text = context?.resources?.getQuantityString(
-                    R.plurals.last_minutes,
-                    minutes.toInt(),
-                    minutes
-                )
-                else -> {
-                    if (minutes >= 30) hours++
-                    binding.pressureHistoryDuration.text =
-                        context?.resources?.getQuantityString(
-                            R.plurals.last_hours,
-                            hours.toInt(),
-                            hours
-                        )
-                }
-            }
-
-        }
-
         if (displayReadings.isNotEmpty()) {
             chart.plot(displayReadings, rawReadings.ifEmpty { null })
         }

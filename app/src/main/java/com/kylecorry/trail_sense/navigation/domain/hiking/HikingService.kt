@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 
 class HikingService() : IHikingService {
 
-    override fun getDistances(points: List<Coordinate>): List<Float> {
+    override fun getDistances(points: List<Coordinate>, minDistance: Float): List<Float> {
         if (points.isEmpty()) {
             return emptyList()
         }
@@ -17,7 +17,7 @@ class HikingService() : IHikingService {
         var last = points.first()
 
         return points.map {
-            distance += it.distanceTo(last)
+            distance += it.distanceTo(last).coerceAtLeast(minDistance)
             last = it
             distance
         }

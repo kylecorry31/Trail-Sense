@@ -45,7 +45,8 @@ object DataUtils {
                 }
             }
             GeospatialSmoothingType.Path -> {
-                val distances = HikingService().getDistances(data.map(location))
+                // The min distance is used to reflect a temporal association if all values are the same (ex. GPS mocked)
+                val distances = HikingService().getDistances(data.map(location), 0.1f)
                 smooth(
                     data,
                     smoothness,

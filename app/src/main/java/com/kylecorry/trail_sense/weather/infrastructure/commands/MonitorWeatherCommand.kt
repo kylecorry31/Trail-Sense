@@ -18,7 +18,13 @@ class MonitorWeatherCommand(private val context: Context, private val background
     CoroutineCommand {
 
     private val sensorService by lazy { SensorService(context) }
-    private val altimeter by lazy { MedianAltimeter(sensorService.getGPSAltimeter(background)) }
+    private val baseAltimeter by lazy { sensorService.getGPSAltimeter(background) }
+    private val gps: IGPS by lazy {
+        if (baseAltimeter is IGPS) baseAltimeter as IGPS else sensorService.getGPS(
+            background
+        )
+    }
+    private val altimeter by lazy { MedianAltimeter(baseAltimeter) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
@@ -31,21 +37,15 @@ class MonitorWeatherCommand(private val context: Context, private val background
         try {
             withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
                 val jobs = mutableListOf<Job>()
-                if (!altimeter.hasValidReading) {
-                    jobs.add(launch { altimeter.read() })
-                }
+                jobs.add(launch { altimeter.read() })
 
-                if (!barometer.hasValidReading) {
-                    jobs.add(launch { barometer.read() })
+                // If the base altimeter is the GPS, its readings are already being update by the line above
+                if (baseAltimeter != gps) {
+                    jobs.add(launch { gps.read() })
                 }
-
-                if (!thermometer.hasValidReading) {
-                    jobs.add(launch { thermometer.read() })
-                }
-
-                if (!hygrometer.hasValidReading) {
-                    jobs.add(launch { hygrometer.read() })
-                }
+                jobs.add(launch { barometer.read() })
+                jobs.add(launch { thermometer.read() })
+                jobs.add(launch { hygrometer.read() })
 
                 jobs.joinAll()
             }
@@ -60,6 +60,7 @@ class MonitorWeatherCommand(private val context: Context, private val background
     private fun forceStopSensors() {
         // This shouldn't be needed, but for some reason the GPS got stuck on
         altimeter.stop(null)
+        gps.stop(null)
         barometer.stop(null)
         thermometer.stop(null)
         hygrometer.stop(null)
@@ -78,8 +79,10 @@ class MonitorWeatherCommand(private val context: Context, private val background
                         barometer.pressure,
                         altimeter.altitude,
                         if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
-                        if (altimeter.altimeter is IGPS) ((altimeter.altimeter as IGPS).verticalAccuracy ?: 0f) else 0f,
+                        if (altimeter.altimeter is IGPS) ((altimeter.altimeter as IGPS).verticalAccuracy
+                            ?: 0f) else 0f,
                         hygrometer.humidity,
+                        gps.location
                     ),
                     Instant.now()
                 )

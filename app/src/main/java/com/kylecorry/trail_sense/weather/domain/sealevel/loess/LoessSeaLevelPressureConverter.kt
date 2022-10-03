@@ -14,15 +14,24 @@ class LoessSeaLevelPressureConverter(
         readings: List<Reading<RawWeatherObservation>>,
         factorInTemperature: Boolean
     ): List<Reading<Pressure>> {
-        var smoothed = readings
+//        val smoothed = DataUtils.smoothTemporal(
+//            readings,
+//            altitudeSmoothing,
+//            { it.altitude }
+//        ) { reading, value ->
+//            reading.copy(altitude = value)
+//        }
 
-        smoothed = DataUtils.smoothTemporal(
-            smoothed,
+        val smoothed = DataUtils.smoothGeospatial(
+            readings,
             altitudeSmoothing,
-            { it.altitude }
-        ) { reading, value ->
-            reading.copy(altitude = value)
+            DataUtils.GeospatialSmoothingType.Path,
+            { it.value.location },
+            { it.value.altitude }
+        ) { reading, smoothedValue ->
+            reading.copy(value = reading.value.copy(altitude = smoothedValue))
         }
+
         val seaLevel = smoothed.map {
             Reading(it.value.seaLevel(factorInTemperature), it.time)
         }

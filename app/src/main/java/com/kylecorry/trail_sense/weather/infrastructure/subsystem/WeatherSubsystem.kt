@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
@@ -16,6 +17,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
@@ -33,6 +35,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { Preferences(context) }
+    private val location by lazy { LocationSubsystem.getInstance(context) }
 
     private lateinit var weatherService: WeatherService
 
@@ -121,14 +124,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     override suspend fun getHistory(): List<WeatherObservation> = onIO {
-        if (!isValid) {
-            refresh()
-        }
-        val readings = weatherRepo.getAll()
-            .asSequence()
-            .sortedBy { it.time }
-            .filter { it.time <= Instant.now() }
-            .toList()
+        val readings = getRawHistory()
 
         val precalibrated = calibrateHumidity(calibrateTemperatures(readings))
 
@@ -165,6 +161,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             .asSequence()
             .sortedBy { it.time }
             .filter { it.time <= Instant.now() }
+            .map { if (it.value.location == Coordinate.zero) it.copy(value = it.value.copy(location = location.location)) else it }
             .toList()
     }
 
