@@ -9,7 +9,7 @@
         <Preference
             android:summary="@string/dash"
             android:title="@string/pressure"
-            app:icon="@drawable/cloud"
+            app:icon="@drawable/ic_barometer"
             app:key="@string/pref_holder_pressure"
             app:selectable="false"
             app:singleLineTitle="false" />

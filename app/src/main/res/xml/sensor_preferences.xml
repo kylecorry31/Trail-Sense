@@ -27,7 +27,7 @@
         <Preference
             android:key="@string/pref_barometer_calibration"
             android:title="@string/barometer"
-            app:icon="@drawable/cloud"
+            app:icon="@drawable/ic_barometer"
             app:singleLineTitle="false" />
 
         <Preference

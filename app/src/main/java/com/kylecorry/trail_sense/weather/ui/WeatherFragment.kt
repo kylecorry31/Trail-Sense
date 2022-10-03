@@ -182,7 +182,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         // TODO: Extract these to fields like astronomy
         val items = listOfNotNull(
-            WeatherListItem(1, R.drawable.cloud, getString(R.string.pressure), pressure, color),
+            WeatherListItem(1, R.drawable.ic_barometer, getString(R.string.pressure), pressure, color),
             WeatherListItem(
                 2,
                 tendencyIcon,
