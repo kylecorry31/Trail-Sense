@@ -25,7 +25,7 @@ class LoessSeaLevelPressureConverter(
         val smoothed = DataUtils.smoothGeospatial(
             readings,
             altitudeSmoothing,
-            DataUtils.GeospatialSmoothingType.Path,
+            DataUtils.GeospatialSmoothingType.FromStart,
             { it.value.location },
             { it.value.altitude }
         ) { reading, smoothedValue ->
