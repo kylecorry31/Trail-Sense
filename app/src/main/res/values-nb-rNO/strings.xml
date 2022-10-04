@@ -978,4 +978,5 @@
     <string name="camera_capture">Knips bilde</string>
     <string name="delete_path_group_message">%s og alle dens stier vil bli slettet.</string>
     <string name="roll_pitch_yaw">Slingring/rulling: %s stamping: %s, giring: %s</string>
+    <string name="clouds_clear">Klart</string>
 </resources>
