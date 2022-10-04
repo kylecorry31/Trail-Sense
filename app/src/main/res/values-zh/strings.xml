@@ -1050,4 +1050,9 @@
     <string name="nimbostratus_forecast">降水会在未来 %d 小时持续。</string>
     <string name="cloud_fair_forecast_hours">未来 %d 小时都是晴好天气。</string>
     <string name="cumulus_forecast">可能预示天气晴好。如果上升，可能预示未来 %d 小时内发生降水或雷雨。</string>
+    <string name="high_pressure">高</string>
+    <string name="low_pressure_system_description">与恶劣的天气、阴天和较高温度有关。</string>
+    <string name="high_pressure_system_description">与好天气、晴朗的天空和较凉爽的温度有关。</string>
+    <string name="pressure_system">气压系统</string>
+    <string name="low_pressure">低</string>
 </resources>
