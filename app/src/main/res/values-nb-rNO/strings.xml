@@ -951,4 +951,5 @@
     <string name="altostratus_forecast">Kan indikere nedbør de neste %d timene.</string>
     <string name="cumulus_forecast">Kan indikere pent vær. Hvis de vokser seg høyere, kan det indikere nedbør eller tordenvær de neste %d timene.</string>
     <string name="nimbostratus_forecast">Kan ha nedbør for de neste %d timene.</string>
+    <string name="manual">Manuelt</string>
 </resources>
