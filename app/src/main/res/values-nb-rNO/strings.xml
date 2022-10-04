@@ -952,4 +952,30 @@
     <string name="cumulus_forecast">Kan indikere pent vær. Hvis de vokser seg høyere, kan det indikere nedbør eller tordenvær de neste %d timene.</string>
     <string name="nimbostratus_forecast">Kan ha nedbør for de neste %d timene.</string>
     <string name="manual">Manuelt</string>
+    <string name="pint_format">%s pt</string>
+    <string name="location_disabled">Posisjon er avskrudd</string>
+    <string name="cup_format">%s kp</string>
+    <string name="bearing">Peiling</string>
+    <string name="ounces_weight">Unser</string>
+    <string name="instructions">Instruks</string>
+    <string name="onboarding_user_guide">Lær om funksjonene i brukerveiledningen i bunnen av verktøyfanen.
+\n
+\nFlere veiledninger kommer snart.</string>
+    <string name="pref_cell_signal_refresh_cache_summary">Påtvinger innlasting av de siste signalstyrkene</string>
+    <string name="explore">Utforsk</string>
+    <string name="high_pressure_system_description">Svarer til godt vær, klar himmel, og kaldere temperaturer.</string>
+    <string name="low_pressure_system_description">Svarer til dårligere vær, overskyet himmel, og varmere temperaturer.</string>
+    <string name="icon">Ikon</string>
+    <string name="pressure_system">Trykksystem</string>
+    <string name="high_pressure">Høy</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Havnivåkalibrering V2</string>
+    <string name="low_pressure">Lav</string>
+    <string name="cross">Kors</string>
+    <string name="pref_tiles_enabled_title">Systemflis</string>
+    <string name="pref_cell_signal_refresh_cache_title">Gjenoppfrisk signalhurtiglager</string>
+    <string name="quart_format">%s qt</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="camera_capture">Knips bilde</string>
+    <string name="delete_path_group_message">%s og alle dens stier vil bli slettet.</string>
+    <string name="roll_pitch_yaw">Slingring/rulling: %s stamping: %s, giring: %s</string>
 </resources>
