@@ -28,7 +28,8 @@ object DataUtils {
         merge: (value: T, smoothed: Float) -> T
     ): List<T> {
         return when (type) {
-            GeospatialSmoothingType.Nearby -> { // TODO: This isn't performant enough, but is the preferred one
+            GeospatialSmoothingType.Nearby -> {
+                // TODO: This isn't performant enough, but is the preferred one
                 val start = data.firstOrNull()?.let(location) ?: Coordinate.zero
                 smoothMultivariate(
                     data,

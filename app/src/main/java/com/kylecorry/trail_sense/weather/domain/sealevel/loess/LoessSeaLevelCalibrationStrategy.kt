@@ -6,15 +6,17 @@ import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.sealevel.ISeaLevelCalibrationStrategy
 
 class LoessSeaLevelCalibrationStrategy(
-    private val altitudeSmoothing: Float,
+    private val elevationSmoothing: Float,
     private val pressureSmoothing: Float,
-    private val useTemperature: Boolean
+    private val useTemperature: Boolean,
+    private val usePathSmoothing: Boolean
 ) :
     ISeaLevelCalibrationStrategy {
     override fun calibrate(readings: List<Reading<RawWeatherObservation>>): List<Reading<Pressure>> {
         return LoessSeaLevelPressureConverter(
-            altitudeSmoothing,
-            pressureSmoothing
+            elevationSmoothing,
+            pressureSmoothing,
+            usePathSmoothing
         ).convert(readings, useTemperature)
     }
 }

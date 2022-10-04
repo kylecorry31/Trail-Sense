@@ -81,6 +81,12 @@ class WeatherPreferences(private val context: Context) {
     val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
 
+    val usePathSmoothing by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_path_smoothing),
+        true
+    )
+
     val pressureHistory: Duration
         get() {
             val raw = cache.getString(context.getString(R.string.pref_pressure_history)) ?: "48"

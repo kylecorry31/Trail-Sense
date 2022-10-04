@@ -76,7 +76,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_forecast_sensitivity,
         R.string.pref_storm_alert_sensitivity,
         R.string.pref_altimeter_calibration_mode,
-        R.string.pref_pressure_history
+        R.string.pref_pressure_history,
+        R.string.pref_use_path_smoothing,
+        R.string.pref_experimental_sea_level_calibration_v2
     ).map { context.getString(it) }
 
     private val weatherMonitorStatePrefKeys = listOf(

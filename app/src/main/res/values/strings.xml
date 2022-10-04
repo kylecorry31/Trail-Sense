@@ -1218,6 +1218,7 @@
     <string name="pressure_system">Pressure system</string>
     <string name="high_pressure_system_description">Associated with fair weather, clear skies, and cooler temperatures.</string>
     <string name="low_pressure_system_description">Associated with poor weather, overcast skies, and warmer temperatures.</string>
+    <string name="pref_use_path_smoothing" translatable="false">pref_use_path_smoothing</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

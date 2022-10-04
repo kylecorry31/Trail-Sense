@@ -33,7 +33,8 @@ class SeaLevelCalibrationFactory {
             return LoessSeaLevelCalibrationStrategy(
                 prefs.weather.altitudeSmoothing / 100f,
                 prefs.weather.pressureSmoothing / 100f,
-                prefs.weather.seaLevelFactorInTemp
+                prefs.weather.seaLevelFactorInTemp,
+                prefs.weather.usePathSmoothing
             )
         }
 
