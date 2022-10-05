@@ -15,6 +15,8 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
+import com.kylecorry.sol.science.meteorology.PressureCharacteristic
+import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.*
@@ -182,7 +184,13 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         // TODO: Extract these to fields like astronomy
         val items = listOfNotNull(
-            WeatherListItem(1, R.drawable.ic_barometer, getString(R.string.pressure), pressure, color),
+            WeatherListItem(
+                1,
+                R.drawable.ic_barometer,
+                getString(R.string.pressure),
+                pressure,
+                color
+            ),
             WeatherListItem(
                 2,
                 tendencyIcon,
@@ -191,12 +199,44 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 color
             ),
             getPressureSystemListItem(observation.pressure),
+            getWeatherFrontListItem(weather.pressureTendency),
             getTemperatureListItem(observation.temperature),
             getHumidityListItem(observation.humidity),
             getCloudListItem(weather.clouds)
         )
 
         binding.weatherList.setItems(items, mapper)
+    }
+
+    private fun getWeatherFrontListItem(tendency: PressureTendency): WeatherListItem? {
+        if (tendency.characteristic == PressureCharacteristic.Steady) {
+            return null
+        }
+
+        val front: String
+        val icon: Int
+        when (tendency.characteristic) {
+            PressureCharacteristic.Falling, PressureCharacteristic.FallingFast -> {
+                front = getString(R.string.weather_warm_front)
+                icon = R.drawable.ic_warm_weather_front
+            }
+            PressureCharacteristic.Rising, PressureCharacteristic.RisingFast -> {
+                front = getString(R.string.weather_cold_front)
+                icon = R.drawable.ic_cold_weather_front
+            }
+            else -> {
+                // This should never be hit
+                front = ""
+                icon = 0
+            }
+        }
+
+        return WeatherListItem(
+            7,
+            icon,
+            getString(R.string.weather_front),
+            front
+        )
     }
 
     private fun getHumidityListItem(humidity: Float?): WeatherListItem? {
