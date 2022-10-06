@@ -159,7 +159,7 @@ img {
 }
 
 #hero-img img {
-  max-height: calc(100vh - 70px);
+  max-height: calc(100vh - 200px);
   max-width: 100%;
   display: block;
   margin-left: auto;
