@@ -1082,4 +1082,9 @@
     <string name="altocumulus_forecast">Може вказувати на опади або грозу в найближчі %d години.</string>
     <string name="nimbostratus_forecast">Можливі опади в найближчі %d години.</string>
     <string name="cumulus_forecast">Може вказувати на ясну погоду. Якщо зростає у висоту, може вказувати на опади або грозу в найближчі %d години.</string>
+    <string name="pressure_system">Система тиску</string>
+    <string name="high_pressure">Високий</string>
+    <string name="low_pressure_system_description">Пов\'язаний з поганою погодою, похмурим небом та підвищенням температури.</string>
+    <string name="low_pressure">Низький</string>
+    <string name="high_pressure_system_description">Пов\'язаний з гарною погодою, ясним небом та прохолодною температурою.</string>
 </resources>
