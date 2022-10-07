@@ -93,7 +93,7 @@ img {
 }
 
 #hero {
-  min-height: 100vh;
+  height: 100vh;
   padding: 0;
   background: url("background.jpg");
   background-repeat: no-repeat;
@@ -170,6 +170,10 @@ img {
   min-height: 75vh;
 }
 
+#feature-header {
+  margin-bottom: 32px;
+}
+
 #features .grid {
   grid-template-columns: 1fr 1fr 1fr;
   height: 100%;
@@ -200,4 +204,29 @@ img {
 
 #privacy {
   background-color: rgba(255, 109, 0, 0.17);
+}
+
+@media screen and (max-width: 600px) {
+  #features .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #hero .grid {
+    grid-template-areas:
+      "titlebar"
+      "header"
+      "screenshot";
+  }
+
+  #titlebar {
+    display: none;
+  }
+
+  #hero-title {
+    padding: 20px 20px;
+  }
+
+  #hero-img img {
+    max-height: min(500px, 100%);
+  }
 }
