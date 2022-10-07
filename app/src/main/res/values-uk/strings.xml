@@ -1087,4 +1087,7 @@
     <string name="low_pressure_system_description">Пов\'язаний з поганою погодою, похмурим небом та підвищенням температури.</string>
     <string name="low_pressure">Низький</string>
     <string name="high_pressure_system_description">Пов\'язаний з гарною погодою, ясним небом та прохолодною температурою.</string>
+    <string name="weather_front">Погодний фронт</string>
+    <string name="weather_warm_front">Теплий</string>
+    <string name="weather_cold_front">Холодний</string>
 </resources>
