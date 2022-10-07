@@ -1067,4 +1067,7 @@
     <string name="high_pressure">Yüksek</string>
     <string name="low_pressure">Düşük</string>
     <string name="low_pressure_system_description">Kötü hava koşulları, kapalı gökyüzü ve daha yüksek sıcaklıklarla ilişkilidir.</string>
+    <string name="weather_cold_front">Soğuk</string>
+    <string name="weather_front">Hava Cephesi</string>
+    <string name="weather_warm_front">Sıcak</string>
 </resources>
