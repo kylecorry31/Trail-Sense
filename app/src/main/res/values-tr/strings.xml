@@ -1062,4 +1062,9 @@
     <string name="nimbostratus_forecast">Sonraki %d saat boyunca yağış olabilir.</string>
     <string name="cumulus_forecast">Güzel havaya işaret edebilir. Boyu uzuyorsa, sonraki %d saat içinde yağış veya fırtınaya işaret edebilir.</string>
     <string name="altocumulus_forecast">Sonraki %d saat içinde yağış veya fırtınaya işaret edebilir.</string>
+    <string name="pressure_system">Basınç sistemi</string>
+    <string name="high_pressure_system_description">Güzel hava, açık gökyüzü ve daha serin sıcaklıklarla ilişkilidir.</string>
+    <string name="high_pressure">Yüksek</string>
+    <string name="low_pressure">Düşük</string>
+    <string name="low_pressure_system_description">Kötü hava koşulları, kapalı gökyüzü ve daha yüksek sıcaklıklarla ilişkilidir.</string>
 </resources>
