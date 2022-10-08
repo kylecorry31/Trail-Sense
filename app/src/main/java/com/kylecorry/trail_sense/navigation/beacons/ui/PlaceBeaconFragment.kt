@@ -116,7 +116,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         // Fill in the initial location information
         initialLocation?.let {
-            val data = CreateBeaconData.from(it)
+            val data = CreateBeaconData.from(it).copy(groupId = form.data.groupId)
             fill(data)
             updateSubmitButton()
         }
