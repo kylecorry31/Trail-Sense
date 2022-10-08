@@ -27,10 +27,10 @@
     <string name="accuracy_info_title">Dicas para melhorar a precisão de dados dos sensores</string>
     <string name="accuracy_info">"GPS: vá para fora e encontre um lugar ao ar livre desobstruído.
 \n    %s da localização atual
-\n    %s da altitude atual
+\n    %s da elevação atual
 \n    %s satélites
 \n
-\nBússola: gire o dispositivo num padrão de número 8 ou em todas as direções e afaste-se de metais."</string>
+\nBússola: Rotacione o dispositivo num padrão de número 8 ou em todas as direções e afaste-se de metais."</string>
     <!--Navigation Tab - Destination Panel-->
     <!--Navigation Tab - Beacon List-->
     <string name="no_beacons">Nenhum ponto de orientação</string>
@@ -208,7 +208,7 @@
     <string name="delete_beacon_group_message">%s e todos os seus pontos de orientação serão excluídos.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
     <string name="tool_user_guide_title">Guia de usuário</string>
-    <string name="error_occurred_message">O Trail Sense encontrou um erro e vai fechar. Por favor, envie um e-mail ao desenvolvedor para corrigir este problema.</string>
+    <string name="error_occurred_message">O Trail Sense encontrou um erro. Por favor, envie um e-mail ao desenvolvedor para corrigir este problema.</string>
     <string name="error_occurred">Ocorreu um erro</string>
     <string name="update_60_minutes">1 hora</string>
     <string name="update_30_minutes">30 minutos</string>
