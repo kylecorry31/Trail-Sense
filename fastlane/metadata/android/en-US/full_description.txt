@@ -4,35 +4,16 @@
 
 <p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>
 
-<p>How can Trail Sense help you explore the wilderness?</p>
-
-<h4>Navigating</h4>
 <ul>
-- Place beacons and navigate back to them using your phone's compass
-- Retrace your steps with Backtrack
-- View your current GPS coordinates and altitude
-</ul>
-
-<h4>Weather</h4>
-<ul>
-    <li>Predict how the weather might change</li>
-    <li>Get alerted when a storm might be approaching (on phones with a barometer)</li>
-</ul>
-
-<h4>Astronomy</h4>
-<ul>
-    <li>See when the sun and moon will rise or set</li>
-    <li>Get notified when the sun is about to set, so you don't get caught in the dark</li>
-</ul>
-
-<h4>Other Tools</h4>
-<ul>
-    <li>Use your phone as a flashlight or whistle to signal for help</li>
-    <li>Measure using just your phone - useful for reading distance from a map</li>
-    <li>Determine if surfaces are level, estimate avalanche risk, or determine the height of objects</li>
-    <li>Convert distances, coordinates, weight, and more</li>
-    <li>Create and manage packing lists</li>
-    <li>And more!</li>
+    <li>Designed for hiking, backpacking, camping, and geocaching</li>
+    <li>Place beacons and navigate to them</li>
+    <li>Follow paths</li>
+    <li>Retrace your steps with backtrack</li>
+    <li>Plan what to pack</li>
+    <li>Be alerted before the sun sets</li>
+    <li>Predict the weather</li>
+    <li>Use your phone as a flashlight</li>
+    <li>And much more!</li>
 </ul>
 
 <p>Trail Sense is a tool that you can use, but not something you should rely on. This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc. Use at your own risk, always have backup tools (ex. compass), and stay safe as much as possible.</p>
@@ -43,27 +24,3 @@
 
 <p>Privacy policy: https://kylecorry.com/Trail-Sense/#privacy</p>
 <p>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</p>
-
-
-
-
-
-
-<h4>Navigation</h4>
-<p>The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed.</p>
-<p>Example beacons: home, work, trailhead, campsite</p>
-<p>The flashlight can also be easily accessed on the navigation tab (torch or SOS mode).</p>
-
-<h4>Weather</h4>
-<p>The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent.</p>
-
-<h4>Astronomy</h4>
-<p>View the sun/moon rise and set times and see the current phase of the moon at your exact location.</p>
-
-<h4>Privacy</h4>
-<p>All location data is stored on your device and the app does not use the Internet at all.</p>
-
-<h4>Permissions</h4>
-<p>Location (fine, background): Used for beacon navigation, True North, barometer altitude correction (in background), and sun/moon rise/set times</p>
-<p>Flashlight: Used for the flashlight feature on the navigation tab.</p>
-<p>Activity Recognition: Used for the pedometer based odometer, to measure distance.</p>
