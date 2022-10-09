@@ -62,7 +62,7 @@ android {
 
 dependencies {
     kapt("androidx.room:room-compiler:2.4.3")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20")
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
@@ -85,7 +85,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
     implementation("com.google.android.material:material:1.6.1")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.6")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.11.1")
 
     // Sol
@@ -139,5 +139,5 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 }
