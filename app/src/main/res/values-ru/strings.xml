@@ -143,7 +143,7 @@
     <string name="duration_minute_format">%dм</string>
     <string name="duration_hour_format">%dч</string>
     <string name="miles_per_hour_format">%.1f миль/ч</string>
-    <string name="error_occurred_message">Trail Sense остановился с ошибкой и будет закрыт. Свяжитесь с разработчиком для обратной связи.</string>
+    <string name="error_occurred_message">Trail Sense остановился с ошибкой. Свяжитесь с разработчиком для обратной связи.</string>
     <string name="error_occurred">Произошла ошибка</string>
     <string name="pref_sunset_alert_time_title">Оповещать о заходе за</string>
     <string name="pref_center_sun_and_moon_title">Держать Солнце/Луну в центре</string>
@@ -371,7 +371,7 @@
 \n
 \nДесятичные градусы и минуты: 1°23,12\'N, 3°12,1\'W
 \n
-\nГрадусы, минуты, и секунды: 1°23\'12,1 \"N, 3°12\"1,2\'W
+\nГрадусы, минуты, и секунды: 1°23\'12,1 \"N, 3°12\'1,2\"W
 \n
 \nUTM: 03T 12345E 67890N
 \n
@@ -1035,7 +1035,11 @@
     <string name="map_exported">Карта экспортирована</string>
     <string name="running_in_background">Работа в фоновом режиме</string>
     <string name="remove_battery_restrictions">Снять ограничения на использование батареи\?</string>
-    <string name="battery_usage_restricted_benefit">Снятие ограничений на использование батареи для Trail Sense может повысить точность.</string>
+    <string name="battery_usage_restricted_benefit">Снятие ограничений на использование батареи для Trail Sense может повысить точность.
+\n
+\nНа большинстве устройств нажмите \"ОК\", затем переключитесь на все приложения и отключите оптимизацию батареи для Trail Sense.
+\n
+\nПосетите [Don\'t kill my app](https://dontkillmyapp.com/) для получения инструкций для конкретного устройства.</string>
     <string name="file">Файл</string>
     <string name="second_symbol">с</string>
     <string name="delete_path_group_message">%s и все его пути будут удалены.</string>
@@ -1059,4 +1063,35 @@
     <string name="tide_frequency_description">Количество приливов в день. Большинство приливов полусуточные.</string>
     <string name="permission_alarms_and_reminders">Будильники и напоминания</string>
     <string name="change_resolution">Изменить разрешение</string>
+    <string name="descent">Спуск</string>
+    <string name="weather_front">Погодный фронт</string>
+    <string name="nimbostratus_forecast">Возможны осадки в течение следующих %d часов.</string>
+    <string name="lowest_point_elevation">Низшая точка</string>
+    <string name="cloud_fair_forecast_hours">Может указывать на хорошую погоду на ближайшие %d часов.</string>
+    <string name="cumulus_forecast">Может указывать на хорошую погоду. При росте в высоту может указывать на осадки или грозу в ближайшие %d часов.</string>
+    <string name="cumulonimbus_forecast">Может указывать на грозу через несколько минут.</string>
+    <string name="ascent">Подъем</string>
+    <string name="updating_weather">Обновление погоды</string>
+    <string name="path_slope_steep">Крутой</string>
+    <string name="highest_point_elevation">Высшая точка</string>
+    <string name="path_slope_moderate">Умеренный</string>
+    <string name="path_slope">Склон</string>
+    <string name="high_pressure">Высокий</string>
+    <string name="path_slope_flat">Плоский</string>
+    <string name="pref_experimental_sea_level_calibration_v2_title">Калибровка уровня моря V2</string>
+    <string name="low_pressure">Низкий</string>
+    <string name="pressure_system">Система давления</string>
+    <string name="icon">Значок</string>
+    <string name="high_pressure_system_description">Ассоциируется с хорошей погодой, ясным небом и прохладной температурой.</string>
+    <string name="low_pressure_system_description">Ассоциируется с плохой погодой, пасмурным небом и теплыми температурами.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Может указывать на осадки в ближайшие %d - %d часов.</string>
+    <string name="altostratus_forecast">Может указывать на осадки в ближайшие %d часов.</string>
+    <string name="altocumulus_forecast">Может указывать на осадки или грозу в ближайшие %d часов.</string>
+    <string name="done">Готово</string>
+    <string name="calibrate_map_point">Точка калибровки %d / %d</string>
+    <string name="clouds_clear">Ясно</string>
+    <string name="manual">Вручную</string>
+    <string name="weather_warm_front">Теплый</string>
+    <string name="weather_cold_front">Холодный</string>
+    <string name="camera_unavailable">Камера недоступна</string>
 </resources>
