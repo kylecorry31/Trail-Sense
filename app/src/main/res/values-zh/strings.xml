@@ -1055,4 +1055,7 @@
     <string name="high_pressure_system_description">与好天气、晴朗的天空和较凉爽的温度有关。</string>
     <string name="pressure_system">气压系统</string>
     <string name="low_pressure">低</string>
+    <string name="weather_front">锋</string>
+    <string name="weather_warm_front">暖锋</string>
+    <string name="weather_cold_front">冷锋</string>
 </resources>
