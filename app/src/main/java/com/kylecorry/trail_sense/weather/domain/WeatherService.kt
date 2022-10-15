@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.weather.domain
 
-import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.science.meteorology.PressureCharacteristic
-import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.*
+import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -25,6 +23,18 @@ class WeatherService(private val prefs: WeatherPreferences) {
         val uncalibrated2 = prefs.maxBatteryTemperature
 
         return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
+    }
+
+    fun getForecast(
+        pressures: List<Reading<Pressure>>,
+        clouds: List<Reading<CloudGenus?>>
+    ): List<WeatherForecast> {
+        return Meteorology.forecast(
+            pressures,
+            clouds,
+            hourlyForecastChangeThreshold / 3f,
+            stormThreshold / 3f
+        )
     }
 
     fun getHourlyWeather(readings: List<Reading<Pressure>>): Weather {

@@ -3,13 +3,14 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
 
-class StormAlertCommand(private val context: Context, private val forecast: Weather) :
+class StormAlertCommand(private val context: Context, private val forecast: WeatherPrediction) :
     IWeatherAlertCommand {
 
     private val cache by lazy { Preferences(context) }
@@ -18,7 +19,7 @@ class StormAlertCommand(private val context: Context, private val forecast: Weat
     override fun execute() {
         val sentAlert = cache.getBoolean(context.getString(R.string.pref_just_sent_alert)) ?: false
 
-        if (forecast == Weather.Storm) {
+        if (forecast.hourly.contains(WeatherCondition.Storm)) {
             val shouldSend = prefs.weather.sendStormAlerts && prefs.weather.shouldMonitorWeather
             if (shouldSend && !sentAlert) {
                 val notification = Notify.alert(

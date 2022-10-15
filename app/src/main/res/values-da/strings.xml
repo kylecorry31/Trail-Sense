@@ -55,13 +55,9 @@
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
     <string name="no_data">Ingen data</string>
-    <string name="weather_improving">Forbedring</string>
-    <string name="weather_worsening">Forværring</string>
     <string name="weather_unchanging">Uforandret</string>
     <string name="weather_storm">Storm</string>
     <string name="very_soon">Meget snart</string>
-    <string name="forecast_improving">Muligvis forbedring senere</string>
-    <string name="forecast_worsening">Muligvis forværring senere</string>
     <string name="sun_does_not_rise">står ikke op</string>
     <string name="sun_up_no_set">Solen er stået op</string>
     <string name="sun_down_no_set">Solen er gået ned</string>

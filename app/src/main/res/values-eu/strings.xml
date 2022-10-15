@@ -46,8 +46,6 @@
     <string name="settings">Ezarpenak</string>
     <string name="weather">Eguraldia</string>
     <string name="navigation">Nabigazioa</string>
-    <string name="forecast_worsening">Baliteke beranduago okerrera egitea</string>
-    <string name="forecast_improving">Beliteke beranduago hobetzea</string>
     <plurals name="last_minutes">
         <item quantity="one">Azken %d minutua</item>
         <item quantity="other">Azken %d minutuak</item>

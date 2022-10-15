@@ -339,7 +339,6 @@
     <string name="tap_to_turn_off">הקשה כדי לכבות</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="units_mmhg">ממ\"כ</string>
-    <string name="forecast_worsening">אולי יחמיר בהמשך</string>
     <string name="pref_altimeter_calibration_title">מד גובה</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">עצות לשיפור דיוק נתוני החיישן</string>
@@ -382,13 +381,10 @@
         <item quantity="many">ב-%d אחרונות</item>
         <item quantity="other">ב-%d אחרונות</item>
     </plurals>
-    <string name="weather_improving">משתפר</string>
-    <string name="weather_worsening">מחמיר</string>
     <string name="very_soon">בקרוב מאוד</string>
     <string name="soon">בקרוב</string>
     <string name="waxing_crescent">סהר שעווני</string>
     <string name="sunset_alert_notification_title">השמש תשקע בקרוב</string>
-    <string name="forecast_improving">אולי ישתפר בהמשך</string>
     <string name="sun_up_no_set">השמש עולה</string>
     <string name="full_moon">ירח מלא</string>
     <string name="sun_does_not_rise">לא עולה</string>
@@ -713,13 +709,11 @@
     <string name="network_5g">5G</string>
     <string name="network_3g">3G</string>
     <string name="set">הגדר</string>
-    <string name="weather_better_than_yesterday">יותר טוב מאתמול</string>
     <string name="backtrack_high_priority_notification">הצבת נקודת ציון כל %s</string>
     <string name="pref_nmea_elevation_title">היסט גובה NMEA</string>
     <string name="location_mocked">שימוש במיקום מזויף</string>
     <string name="distance_from_flashlight">מרחק מהטלפון לפנס</string>
     <string name="guide_light_meter_title">קביעת יעילות הפנס</string>
-    <string name="weather_same_as_yesterday">כמו אתמול</string>
     <string name="pref_backtrack_save_cell_title">הקלט אות סלולרי</string>
     <string name="tomorrows_forecast">התחזית למחר</string>
     <string name="left_quick_action">פעולה מהירה שמאלה</string>
@@ -731,11 +725,7 @@
     <string name="todays_forecast">התחזית להיום</string>
     <string name="location_disabled">המיקום מושבת</string>
     <string name="gps_cache">מטמון GPS</string>
-    <string name="weather_worse_than_yesterday">יותר גרוע מאתמול</string>
-    <string name="weather_better_than_today">יותר טוב מהיום</string>
     <string name="always_on">פועל תמיד</string>
-    <string name="weather_worse_than_today">יותר גרוע מהיום</string>
-    <string name="weather_same_as_today">כמו היום</string>
     <string name="pref_daily_weather_notification_title">הודעה יומית על מזג האוויר</string>
     <string name="tides">גאות ושפל</string>
     <string name="half_tide">חצי</string>

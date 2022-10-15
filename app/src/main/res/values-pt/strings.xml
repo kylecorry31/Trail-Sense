@@ -13,8 +13,6 @@
     <string name="pressure">Pressão</string>
     <string name="pref_use_24_hour_title">Utilizar o formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Nascer do sol / pôr do sol</string>
-    <string name="forecast_improving">Possivelmente melhorará mais tarde</string>
-    <string name="forecast_worsening">Possivelmente piorará mais tarde</string>
     <string name="no_beacons">Sem alfinetes</string>
     <string name="continue_button">CONTINUAR</string>
     <string name="moon_rise">Nascer da lua</string>
@@ -81,9 +79,6 @@
     <string name="service_update_frequency">Atualizações a cada %s</string>
     <string name="always_on">Sempre ativado</string>
     <string name="pref_daily_weather_notification_title">Notificações meteorológicas diárias</string>
-    <string name="weather_same_as_yesterday">O mesmo de ontem</string>
-    <string name="weather_worse_than_yesterday">Pior do que ontem</string>
-    <string name="weather_better_than_yesterday">Melhor do que ontem</string>
     <string name="todays_forecast">Previsão para hoje</string>
     <string name="guide_light_meter_description">Como determinar a distância do sinal das lanternas</string>
     <string name="guide_light_meter_title">Determinar a eficácia da lanterna</string>
@@ -707,9 +702,6 @@
     <string name="high_tide">Alta</string>
     <string name="tides">Marés</string>
     <string name="experimental">Experimental</string>
-    <string name="weather_same_as_today">O mesmo que hoje</string>
-    <string name="weather_worse_than_today">Pior que hoje</string>
-    <string name="weather_better_than_today">Melhor que hoje</string>
     <string name="tomorrows_forecast">Previsão para amanhã</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d alfinete exportado</item>
@@ -896,13 +888,11 @@
     <string name="pref_default_path_style_title">Estilo predefinido do percurso</string>
     <string name="navigation_guide_description">Utilizando alfinetes e percursos</string>
     <string name="weather_storm">Tempestade</string>
-    <string name="weather_improving">A melhorar</string>
     <string name="change_map_projection">Alterar projeção</string>
     <string name="reduce_map_resolution">Reduzir resolução do mapa</string>
     <string name="slope_amount">%s inclinação</string>
     <string name="temp_c_short">°C</string>
     <string name="very_soon">Muito em breve</string>
-    <string name="weather_worsening">A piorar</string>
     <string name="weather_unchanging">Sem alterações</string>
     <string name="humidity_history">Histórico de humidade - último %s</string>
     <string name="avalanche_risk">Risco de avalanche</string>

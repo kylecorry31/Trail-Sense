@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="forecast_worsening">Saattaa pilvistyä myöhemmin</string>
-    <string name="forecast_improving">Saattaa selkeytyä myöhemmin</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">

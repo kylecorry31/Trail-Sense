@@ -108,7 +108,6 @@
     <string name="night">Malam</string>
     <string name="pref_flashlight_timeout_title">Nyalakan setelah</string>
     <string name="estimated">Diperkirakan</string>
-    <string name="weather_worsening">Memburuk</string>
     <string name="weather_unchanging">Tidak berubah</string>
     <string name="weather_storm">Badai</string>
     <string name="very_soon">Sebentar lagi</string>
@@ -126,7 +125,6 @@
     <string name="soon">Segera</string>
     <string name="moon_set">Bulan terbenam</string>
     <string name="general">Umum</string>
-    <string name="weather_improving">Membaik</string>
     <string name="tomorrow">Besok</string>
     <string name="yesterday">Kemarin</string>
     <string name="sunrise_label">Matahari terbit</string>
@@ -206,8 +204,6 @@
     <string name="max_temp_uncalibrated">Suhu telepon maks (tidak dikalibrasi)</string>
     <string name="min_temp_calibrated">Suhu lingkungan min (dikalibrasi)</string>
     <string name="min_temp_uncalibrated">Suhu telepon min (tidak dikalibrasi)</string>
-    <string name="forecast_improving">Mungkin nanti akan membaik</string>
-    <string name="forecast_worsening">Mungkin nanti akan memburuk</string>
     <string name="third_quarter">Kuartal Ketiga</string>
     <string name="full_moon">Bulan purnama</string>
     <string name="waxing_crescent">Waxing Crescent</string>
@@ -339,8 +335,6 @@
     <string name="height">Tinggi</string>
     <string name="todays_forecast">Perkiraan hari ini</string>
     <string name="tomorrows_forecast">Perkiraan besok</string>
-    <string name="weather_better_than_yesterday">Lebih baik dari kemarin</string>
-    <string name="weather_same_as_today">Sama seperti hari ini</string>
     <string name="high">Tinggi</string>
     <string name="moderate">Sedang</string>
     <string name="low">Rendah</string>
@@ -364,10 +358,6 @@
     <string name="time">Waktu</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Kunci dengan tombol volume</string>
     <string name="instructions">Instruksi</string>
-    <string name="weather_worse_than_yesterday">Lebih buruk dari kemarin</string>
-    <string name="weather_same_as_yesterday">Sama seperti kemarin</string>
-    <string name="weather_better_than_today">Lebih baik dari hari ini</string>
-    <string name="weather_worse_than_today">Lebih buruk dari hari ini</string>
     <string name="category_shelter">Tempat berlindung</string>
     <string name="category_safety">Keamanan</string>
     <string name="category_natural">Alami</string>

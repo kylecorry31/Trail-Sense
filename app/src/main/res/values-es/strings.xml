@@ -14,8 +14,6 @@
     <string name="pressure">Presión</string>
     <string name="pref_use_24_hour_title">Usar el formato de 24 horas</string>
     <string name="pref_sun_time_mode_title">Amanecer / atardecer</string>
-    <string name="forecast_improving">Posiblemente mejore más tarde</string>
-    <string name="forecast_worsening">Posiblemente empeore más tarde</string>
     <string name="no_beacons">Sin balizas</string>
     <string name="continue_button">SEGUIR</string>
     <string name="moon_rise">Salida de la luna</string>
@@ -312,7 +310,6 @@
     <string name="nimbostratus">Nimboestrato</string>
     <string name="thunder">Trueno</string>
     <string name="pedometer">Podómetro</string>
-    <string name="weather_better_than_yesterday">Mejor que ayer</string>
     <string name="import_btn">Importar</string>
     <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de ubicación nunca salen de tu dispositivo
 \n
@@ -347,12 +344,7 @@
     <string name="pref_backtrack_save_cell_summary">Registra la señal telefónica en el waypoint. No utiliza Internet.</string>
     <string name="candela_format">%s cd</string>
     <string name="todays_forecast">Pronóstico para hoy</string>
-    <string name="weather_worse_than_yesterday">Peor que ayer</string>
     <string name="guide_light_meter_description">Cómo determinar la distancia del haz de linternas</string>
-    <string name="weather_same_as_yesterday">Igual que ayer</string>
-    <string name="weather_better_than_today">Mejor que hoy</string>
-    <string name="weather_worse_than_today">Peor que hoy</string>
-    <string name="weather_same_as_today">Igual que hoy</string>
     <string name="time_not_set">Tiempo no ajustado</string>
     <string name="no_tides">Sin mareas</string>
     <string name="create_map">Crear mapa</string>
@@ -891,8 +883,6 @@
     <string name="reduce_map_resolution">Reducir resolución de mapa</string>
     <string name="change_map_projection">Cambiar proyección</string>
     <string name="distance_unset">Distancia no fijada</string>
-    <string name="weather_improving">Mejorando</string>
-    <string name="weather_worsening">Empeorando</string>
     <string name="clinometer_measure_distance_instructions">Para medir la distancia hacia un objetivo que es %s de alto:
 \n
 \n1. Alinee el clinómetro a la base del objetivo

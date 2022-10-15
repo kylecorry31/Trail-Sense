@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
@@ -382,26 +381,32 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private suspend fun updateForecast() {
         if (!isBound) return
         val weather = weather ?: return
-        val observation = weather.observation ?: return
         val prediction = weather.prediction
         onMain {
-            binding.weatherTitle.title.text = formatService.formatWeather(prediction.hourly, false)
+            binding.weatherTitle.title.text = formatService.formatWeather(prediction.primaryHourly)
+            binding.weatherTitle.title.setOnClickListener {
+                if (prediction.hourly.isNotEmpty()) {
+                    val conditions = prediction.hourly.joinToString("\n") {
+                        formatService.formatWeather(it)
+                    }
+                    dialog(getString(R.string.weather), conditions, cancelText = null)
+                }
+            }
             binding.weatherTitle.title.setCompoundDrawables(
                 size = Resources.dp(requireContext(), 24f).toInt(),
-                left = formatService.getWeatherImage(prediction.hourly, observation.pressure)
+                left = formatService.getWeatherImage(prediction.primaryHourly)
             )
-            val speed = formatService.formatWeatherSpeed(prediction.hourly)
-            binding.weatherTitle.subtitle.text = speed
-            binding.weatherTitle.subtitle.isVisible = speed.isNotEmpty()
-            binding.dailyForecast.text = getLongTermWeatherDescription(prediction.daily)
-        }
-    }
-
-    private fun getLongTermWeatherDescription(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast, Weather.ImprovingSlow -> getString(R.string.forecast_improving)
-            Weather.WorseningSlow, Weather.WorseningFast, Weather.Storm -> getString(R.string.forecast_worsening)
-            else -> ""
+            val speed = formatService.formatWeatherSpeed(weather.pressureTendency.characteristic).lowercase()
+            val then = getString(
+                R.string.then_weather,
+                formatService.formatWeather(prediction.primaryDaily).lowercase()
+            )
+            binding.weatherTitle.subtitle.text = if (speed.isNotEmpty()) {
+                "$speed, $then"
+            } else {
+                then
+            }
+            binding.weatherTitle.subtitle.isVisible = prediction.primaryDaily != null
         }
     }
 

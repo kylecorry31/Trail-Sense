@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared
 import android.content.Context
 import android.text.format.DateUtils
 import android.text.format.Formatter
+import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.Quality
@@ -17,7 +18,8 @@ import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.meteorology.Precipitation
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.PressureCharacteristic
+import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.units.*
@@ -26,8 +28,6 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
-import com.kylecorry.trail_sense.weather.domain.isHigh
-import com.kylecorry.trail_sense.weather.domain.isLow
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -38,38 +38,33 @@ class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
 
-    fun getWeatherImage(weather: Weather, currentPressure: Pressure?): Int {
-        return when (weather) {
-            Weather.ImprovingFast -> if (currentPressure?.isLow() == true) R.drawable.cloudy else R.drawable.sunny
-            Weather.ImprovingSlow -> if (currentPressure?.isHigh() == true) R.drawable.sunny else R.drawable.partially_cloudy
-            Weather.WorseningSlow -> if (currentPressure?.isLow() == true) R.drawable.light_rain else R.drawable.cloudy
-            Weather.WorseningFast -> if (currentPressure?.isLow() == true) R.drawable.heavy_rain else R.drawable.light_rain
-            Weather.Storm -> R.drawable.storm
-            else -> R.drawable.steady
+    @DrawableRes
+    fun getWeatherImage(condition: WeatherCondition?): Int {
+        return when (condition) {
+            WeatherCondition.Clear -> R.drawable.sunny
+            WeatherCondition.Overcast -> R.drawable.cloudy
+            WeatherCondition.Precipitation -> R.drawable.light_rain
+            WeatherCondition.Storm -> R.drawable.storm
+            WeatherCondition.Wind -> R.drawable.wind
+            null -> R.drawable.steady
         }
     }
 
-    fun formatWeather(weather: Weather, withSpeed: Boolean = false): String {
-        val w = when (weather) {
-            Weather.ImprovingFast, Weather.ImprovingSlow -> context.getString(R.string.weather_improving)
-            Weather.WorseningFast, Weather.WorseningSlow -> context.getString(R.string.weather_worsening)
-            Weather.NoChange -> context.getString(R.string.weather_unchanging)
-            Weather.Storm -> context.getString(R.string.weather_storm)
-            Weather.Unknown -> "-"
+    fun formatWeather(condition: WeatherCondition?): String {
+        return when (condition) {
+            WeatherCondition.Clear -> context.getString(R.string.weather_clear)
+            WeatherCondition.Overcast -> context.getString(R.string.weather_overcast)
+            WeatherCondition.Precipitation -> context.getString(R.string.weather_precipitation)
+            WeatherCondition.Storm -> context.getString(R.string.weather_storm)
+            WeatherCondition.Wind -> context.getString(R.string.weather_wind)
+            null -> context.getString(R.string.weather_unchanging)
         }
-
-        if (!withSpeed || weather == Weather.Unknown) {
-            return w
-        }
-
-        return w + " " + formatWeatherSpeed(weather).lowercase()
-
     }
 
-    fun formatWeatherSpeed(weather: Weather): String {
-        return when (weather) {
-            Weather.ImprovingFast, Weather.WorseningFast, Weather.Storm -> context.getString(R.string.very_soon)
-            Weather.ImprovingSlow, Weather.WorseningSlow -> context.getString(R.string.soon)
+    fun formatWeatherSpeed(characteristic: PressureCharacteristic): String {
+        return when {
+            characteristic.isRapid -> context.getString(R.string.very_soon)
+            characteristic != PressureCharacteristic.Steady -> context.getString(R.string.soon)
             else -> ""
         }
     }

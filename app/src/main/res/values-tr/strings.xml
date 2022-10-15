@@ -46,12 +46,6 @@
     <string name="left_quick_action">Sola hızlı hareket</string>
     <string name="right_quick_action">Sağa hızlı hareket</string>
     <string name="none">Yok</string>
-    <string name="weather_same_as_today">Bugünle aynı</string>
-    <string name="weather_worse_than_today">Bugünden daha kötü</string>
-    <string name="weather_better_than_today">Bugünden daha iyi</string>
-    <string name="weather_same_as_yesterday">Dünle aynı</string>
-    <string name="weather_worse_than_yesterday">Dünden daha kötü</string>
-    <string name="weather_better_than_yesterday">Dünden daha iyi</string>
     <string name="tomorrows_forecast">Yarının hava durumu</string>
     <string name="todays_forecast">Bugünün hava durumu</string>
     <string name="guide_light_meter_title">El feneri tesirini belirle</string>
@@ -413,8 +407,6 @@
     <string name="sun_up_no_set">Güneş doğdu</string>
     <string name="sun_does_not_rise">doğmuyor</string>
     <string name="sun_does_not_set">batmıyor</string>
-    <string name="forecast_worsening">İleride kötüleşebilir</string>
-    <string name="forecast_improving">İleride iyileşebilir</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <plurals name="last_minutes">
@@ -899,8 +891,6 @@
 \n- Ve daha fazlası!</string>
     <string name="average_speed">Ortalama hız</string>
     <string name="distance_alert">Mesafe uyarısı</string>
-    <string name="weather_improving">İyileşiyor</string>
-    <string name="weather_worsening">Kötüleşiyor</string>
     <string name="notification_weather_update_content">Basınç kaydediliyor</string>
     <string name="notification_backtrack_update_title">Geri İzleme Güncellemesi</string>
     <string name="notification_backtrack_update_content">Konumunuz kaydediliyor</string>

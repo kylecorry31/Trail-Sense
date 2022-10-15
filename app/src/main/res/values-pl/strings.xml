@@ -13,8 +13,6 @@
     <string name="pressure">Ciśnienie</string>
     <string name="pref_use_24_hour_title">Używaj formatu 24-godzinnego</string>
     <string name="pref_sun_time_mode_title">Czas wschodu/zachodu słońca</string>
-    <string name="forecast_improving">Możliwa późniejsza poprawa</string>
-    <string name="forecast_worsening">Prawdopodobnie pogorszy się później</string>
     <string name="no_beacons">Brak punktów nawigacyjnych</string>
     <string name="continue_button">KONTYNUUJ</string>
     <string name="moon_rise">Wschód Księżyca</string>
@@ -480,9 +478,6 @@
     <string name="gps_cache">Pamięć podręczna GPS</string>
     <string name="gps_stale">Nieaktualny</string>
     <string name="pref_daily_weather_notification_title">Codzienne powiadomienia o pogodzie</string>
-    <string name="weather_same_as_yesterday">Tak samo jak wczoraj</string>
-    <string name="weather_worse_than_yesterday">Gorzej niż wczoraj</string>
-    <string name="weather_better_than_yesterday">Lepiej niż wczoraj</string>
     <string name="todays_forecast">Dzisiejsza prognoza</string>
     <string name="battery_usage">%s użycie baterii</string>
     <string name="service_update_frequency">Aktualizacje co %s</string>
@@ -499,9 +494,6 @@
     <string name="tool_light_meter_title">Światłomierz</string>
     <string name="beam_distance">%s odległość wiązki</string>
     <string name="pref_daily_weather_time_title">Czas codziennej prognozy pogody</string>
-    <string name="weather_same_as_today">Taka sama jak dzisiaj</string>
-    <string name="weather_worse_than_today">Gorsza niż dzisiaj</string>
-    <string name="weather_better_than_today">Lepsza niż dzisiaj</string>
     <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
     <string name="battery_power_ac">AC</string>
     <string name="low">Niskie</string>
@@ -879,8 +871,6 @@
     <string name="closest">Najbliższe</string>
     <string name="reduce_map_resolution">Zmniejszenie rozdzielczości mapy</string>
     <string name="keep_forever">Zachowaj na zawsze</string>
-    <string name="weather_improving">Poprawa</string>
-    <string name="weather_worsening">Pogorszenie</string>
     <string name="weather_unchanging">Bez zmian</string>
     <string name="weather_storm">Sztorm</string>
     <string name="very_soon">Wkrótce</string>

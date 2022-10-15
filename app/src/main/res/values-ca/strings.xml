@@ -262,8 +262,6 @@
     <string name="sun_up_no_set">El sol ha sortit</string>
     <string name="sun_does_not_rise">sense sortida del sol</string>
     <string name="sun_does_not_set">sense posta de sol</string>
-    <string name="forecast_improving">Possible millora més tard</string>
-    <string name="forecast_worsening">Possible empitjorament més tard</string>
     <string name="units_mmhg">mmHg</string>
     <string name="unit_meters">Metres</string>
     <string name="unit_feet">Peus</string>

@@ -65,12 +65,6 @@
     <string name="service_update_frequency">Оновлюється кожні %s</string>
     <string name="always_on">Завжди увімкнено</string>
     <string name="pref_daily_weather_notification_title">Щоденне сповіщення про погоду</string>
-    <string name="weather_same_as_today">Так само, як і сьогодні</string>
-    <string name="weather_worse_than_today">Гірше, ніж сьогодні</string>
-    <string name="weather_better_than_today">Краще, ніж сьогодні</string>
-    <string name="weather_same_as_yesterday">Так само, як і вчора</string>
-    <string name="weather_worse_than_yesterday">Гірше, ніж учора</string>
-    <string name="weather_better_than_yesterday">Краще, ніж учора</string>
     <string name="tomorrows_forecast">Завтрашній прогноз</string>
     <string name="todays_forecast">Сьогоднішній прогноз</string>
     <string name="guide_light_meter_description">Визначає відстань променя ліхтарика</string>
@@ -363,8 +357,6 @@
     <string name="sun_up_no_set">Сонце зійшло</string>
     <string name="sun_does_not_rise">не сходить</string>
     <string name="sun_does_not_set">не сідає</string>
-    <string name="forecast_worsening">Можливо, погіршиться пізніше</string>
-    <string name="forecast_improving">Можливо, поліпшиться пізніше</string>
     <string name="unsaved_changes">Незбережені зміни</string>
     <string name="low_power_mode_on_message">Режим енергоощадження увімкнувся, деякі функції може бути вимкнено.</string>
     <string name="pref_low_power_mode_title">Режим енергоощадження</string>
@@ -990,10 +982,8 @@
 \n- Використовуйте свій телефон як ліхтарик
 \n
 \n- І багато іншого!</string>
-    <string name="weather_improving">Покращення</string>
     <string name="weather_storm">Буря</string>
     <string name="pressure_tendency">Тенденція</string>
-    <string name="weather_worsening">Погіршення</string>
     <string name="weather_unchanging">Без змін</string>
     <string name="soon">Скоро</string>
     <string name="very_soon">Дуже скоро</string>

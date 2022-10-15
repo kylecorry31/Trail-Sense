@@ -13,8 +13,6 @@
     <string name="pressure">Pressione</string>
     <string name="pref_use_24_hour_title">Utilizzare il formato 24 ore</string>
     <string name="pref_sun_time_mode_title">Orari alba / tramonto</string>
-    <string name="forecast_improving">Possibile successivo miglioramento</string>
-    <string name="forecast_worsening">Possibile successivo peggioramento</string>
     <string name="no_beacons">Nessun Segnaposto</string>
     <string name="continue_button">CONTINUA</string>
     <string name="moon_rise">Alba lunare</string>
@@ -74,7 +72,6 @@
     <string name="flashlight_title">Torcia</string>
     <string name="screen_flashlight">Schermo</string>
     <string name="half_tide">Marea media</string>
-    <string name="weather_same_as_today">Uguale ad oggi</string>
     <string name="no_gps_signal">Nessun segnale GPS</string>
     <string name="low_tide">Bassa marea</string>
     <string name="high_tide">Alta marea</string>
@@ -271,11 +268,6 @@
     <string name="moderate">Moderata</string>
     <string name="high">Elevata</string>
     <string name="pref_daily_weather_notification_title">Notifica meteo giornaliera</string>
-    <string name="weather_worse_than_today">Peggiore di oggi</string>
-    <string name="weather_better_than_today">Migliore di oggi</string>
-    <string name="weather_same_as_yesterday">Uguale a ieri</string>
-    <string name="weather_worse_than_yesterday">Peggiore di ieri</string>
-    <string name="weather_better_than_yesterday">Migliore di ieri</string>
     <string name="tomorrows_forecast">Previsioni per domani</string>
     <string name="todays_forecast">Previsioni per oggi</string>
     <string name="tool_solar_panel_title">Allineamento pannelli solari</string>

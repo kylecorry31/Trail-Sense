@@ -13,8 +13,6 @@
     <string name="pressure">Pritisak</string>
     <string name="pref_use_24_hour_title">Koristite 24-satni format</string>
     <string name="pref_sun_time_mode_title">Vrijeme izlaska i zalaska sunca</string>
-    <string name="forecast_improving">Moguće je da će se kasnije poboljšati</string>
-    <string name="forecast_worsening">Moguće je da će se kasnije pogoršati</string>
     <string name="no_beacons">Nema svjetionika</string>
     <string name="continue_button">NASTAVAK</string>
     <string name="moon_rise">Izlazak mjeseca</string>
@@ -251,12 +249,6 @@
     <string name="service_update_frequency">Ažurira se svakog %s</string>
     <string name="always_on">Uvijek uključeno</string>
     <string name="pref_daily_weather_notification_title">Svakodnevno obavještavanje o vremenu</string>
-    <string name="weather_same_as_today">Isto ko danas</string>
-    <string name="weather_worse_than_today">Gore od danas</string>
-    <string name="weather_better_than_today">Bolje nego danas</string>
-    <string name="weather_same_as_yesterday">Isto ko jučer</string>
-    <string name="weather_worse_than_yesterday">Gore od jučer</string>
-    <string name="weather_better_than_yesterday">Bolje od jučer</string>
     <string name="tomorrows_forecast">Sutrašnja prognoza</string>
     <string name="todays_forecast">Današnja prognoza</string>
     <string name="guide_light_meter_description">Kako odrediti udaljenost snopa svjetiljki</string>

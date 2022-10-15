@@ -13,8 +13,6 @@
     <string name="pressure">気圧</string>
     <string name="pref_use_24_hour_title">24時間形式を使用する</string>
     <string name="pref_sun_time_mode_title">日の出/日の入りの時刻</string>
-    <string name="forecast_improving">しばらくすると晴れるかもしれません</string>
-    <string name="forecast_worsening">しばらくすると悪くなるかもしれません</string>
     <string name="no_beacons">ビーコンなし</string>
     <string name="continue_button">次へ</string>
     <string name="moon_rise">月の出</string>

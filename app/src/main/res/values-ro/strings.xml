@@ -24,8 +24,6 @@
     <string name="sun_up_no_set">Soarele este sus</string>
     <string name="sun_does_not_rise">nu răsare</string>
     <string name="sun_does_not_set">nu apune</string>
-    <string name="forecast_worsening">Posibil să se înrăutățească mai târziu</string>
-    <string name="forecast_improving">Se poate îmbunătăți ulterior</string>
     <string name="no_data">Nu există date</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>

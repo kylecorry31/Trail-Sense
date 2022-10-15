@@ -14,8 +14,6 @@
     <string name="pressure">الضغط</string>
     <string name="pref_use_24_hour_title">استخدم تنسيق 24 ساعة</string>
     <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
-    <string name="forecast_improving">ربما تتحسن لاحقًا</string>
-    <string name="forecast_worsening">ربما تزداد سوءًا لاحقًا</string>
     <string name="no_beacons">لا توجد منارات</string>
     <string name="continue_button">استمر</string>
     <string name="moon_rise">طلوع القمر</string>

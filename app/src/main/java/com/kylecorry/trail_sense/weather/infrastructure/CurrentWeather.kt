@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
@@ -15,7 +15,13 @@ data class CurrentWeather(
     val clouds: Reading<CloudGenus?>?
 )
 
-data class WeatherPrediction(val hourly: Weather, val daily: Weather)
+data class WeatherPrediction(val hourly: List<WeatherCondition>, val daily: List<WeatherCondition>){
+
+    private val primarySelector = PrimaryWeatherSelector()
+
+    val primaryHourly = primarySelector.getWeather(hourly)
+    val primaryDaily = primarySelector.getWeather(daily)
+}
 
 // TODO: Expose sea level and barometric pressure
 data class WeatherObservation(

@@ -14,8 +14,6 @@
     <string name="pressure">налягане</string>
     <string name="pref_use_24_hour_title">Използвайте 24-часов формат</string>
     <string name="pref_sun_time_mode_title">Време за изгрев /залез</string>
-    <string name="forecast_improving">Възможно подобрение по-късно</string>
-    <string name="forecast_worsening">Възможно влошаване по-късно</string>
     <string name="no_beacons">Без маяци</string>
     <string name="continue_button">ПРОДЪЛЖИ</string>
     <string name="moon_rise">Moonrise</string>

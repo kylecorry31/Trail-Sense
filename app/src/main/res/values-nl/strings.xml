@@ -13,8 +13,6 @@
     <string name="pressure">Druk</string>
     <string name="pref_use_24_hour_title">24-uursnotatie gebruiken</string>
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
-    <string name="forecast_improving">Verbetert mogelijk later</string>
-    <string name="forecast_worsening">Verergert mogelijk later</string>
     <string name="no_beacons">Geen bakens</string>
     <string name="continue_button">DOORGAAN</string>
     <string name="moon_rise">Maansopkomst</string>
@@ -204,12 +202,6 @@
     <string name="service_update_frequency">Updates iedere %s</string>
     <string name="always_on">Altijd aan</string>
     <string name="pref_daily_weather_notification_title">Dagelijkse weermelding</string>
-    <string name="weather_same_as_today">Hetzelfde als vandaag</string>
-    <string name="weather_worse_than_today">Slechter dan vandaag</string>
-    <string name="weather_better_than_today">Beter dan vandaag</string>
-    <string name="weather_same_as_yesterday">Hetzelfde als gisteren</string>
-    <string name="weather_worse_than_yesterday">Slechter dan gisteren</string>
-    <string name="weather_better_than_yesterday">Beter dan gisteren</string>
     <string name="tomorrows_forecast">De voorspelling voor morgen</string>
     <string name="todays_forecast">De voorspelling van vandaag</string>
     <string name="guide_light_meter_description">De reikafstand van een zaklamp bepalen</string>
@@ -834,7 +826,6 @@
     <string name="temporary">Tijdelijk</string>
     <string name="points">Punten</string>
     <string name="weather_unchanging">Onveranderlijk</string>
-    <string name="weather_worsening">Verslechterend</string>
     <string name="very_soon">Zeer spoedig</string>
     <string name="weather_storm">Storm</string>
     <string name="soon">Spoedig</string>
@@ -1001,7 +992,6 @@
         <item quantity="one">%d pad</item>
         <item quantity="other">%d paden</item>
     </plurals>
-    <string name="weather_improving">Opklarend</string>
     <string name="delete_path_group_message">%s en al zijn paden zullen worden verwijderd.</string>
     <string name="since_time">sinds %s</string>
     <string name="cross">Kruis</string>

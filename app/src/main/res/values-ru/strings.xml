@@ -13,8 +13,6 @@
     <string name="pressure">Давление</string>
     <string name="pref_use_24_hour_title">Использовать 24-часовой формат</string>
     <string name="pref_sun_time_mode_title">Время восхода/захода Солнца</string>
-    <string name="forecast_improving">Возможно, улучшится позже</string>
-    <string name="forecast_worsening">Возможно, ухудшится позже</string>
     <string name="no_beacons">Нет маячков</string>
     <string name="continue_button">ДАЛЕЕ</string>
     <string name="moon_rise">Восход Луны</string>
@@ -495,9 +493,6 @@
     <string name="battery_usage">%s расход заряда батареи</string>
     <string name="service_update_frequency">Обновляется каждые %s</string>
     <string name="pref_daily_weather_notification_title">Ежедневное уведомление о погоде</string>
-    <string name="weather_same_as_yesterday">Как вчера</string>
-    <string name="weather_worse_than_yesterday">Хуже, чем вчера</string>
-    <string name="weather_better_than_yesterday">Лучше, чем вчера</string>
     <string name="todays_forecast">Прогноз на сегодня</string>
     <string name="guide_light_meter_description">Как определить расстояние луча фонарика</string>
     <string name="guide_light_meter_title">Определить эффективность фонарика</string>
@@ -512,9 +507,6 @@
     <string name="none">Ничего</string>
     <string name="no_gps_signal">Нет сигнала GPS</string>
     <string name="always_on">Всегда включено</string>
-    <string name="weather_same_as_today">Как сегодня</string>
-    <string name="weather_worse_than_today">Хуже, чем сегодня</string>
-    <string name="weather_better_than_today">Лучше, чем сегодня</string>
     <string name="tomorrows_forecast">Прогноз на завтра</string>
     <string name="speedometer">Спидометр</string>
     <string name="screen_flashlight">Экран</string>
@@ -970,8 +962,6 @@
     <string name="estimated">Приблизительно</string>
     <string name="disclaimer_estimated_tide">Приблизительное время приливов может быть неточным. Используйте официальную таблицу приливов для точного времени.</string>
     <string name="disclaimer_estimated_tide_title">Приблизительный прилив</string>
-    <string name="weather_improving">Улучшается</string>
-    <string name="weather_worsening">Ухудшается</string>
     <string name="pressure_tendency">Тенденция</string>
     <string name="weather_unchanging">Без изменений</string>
     <string name="very_soon">Очень скоро</string>

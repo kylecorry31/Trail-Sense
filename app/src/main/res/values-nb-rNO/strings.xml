@@ -123,8 +123,6 @@
     <string name="sun_up_no_set">Sola er oppe</string>
     <string name="sun_does_not_rise">kommer ikke opp</string>
     <string name="sun_does_not_set">gå ikke ned</string>
-    <string name="forecast_worsening">Muligens dårligere senere</string>
-    <string name="forecast_improving">Muligens bedre senere</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
     <string name="units_inhg">inHg</string>
@@ -415,9 +413,6 @@
     <string name="quality_poor">Dårlig</string>
     <string name="help">Hjelp</string>
     <string name="pref_daily_weather_notification_title">Daglig værmelding</string>
-    <string name="weather_same_as_yesterday">Samme som i går</string>
-    <string name="weather_worse_than_yesterday">Verre enn i går</string>
-    <string name="weather_better_than_yesterday">Bedre enn i går</string>
     <string name="todays_forecast">Dagens værvarsel</string>
     <string name="guide_light_meter_title">Bestem lommelykteffektivitet</string>
     <string name="gps_cache">GPS-hurtiglager</string>
@@ -435,9 +430,6 @@
     <string name="right_quick_action">Høyre hurtighandling</string>
     <string name="left_quick_action">Venstre hurtighandling</string>
     <string name="none">Ingen</string>
-    <string name="weather_same_as_today">Samme som i dag</string>
-    <string name="weather_worse_than_today">Verre enn i dag</string>
-    <string name="weather_better_than_today">Bedre enn i dag</string>
     <string name="tomorrows_forecast">Morgendagens værvarsel</string>
     <string name="low">Lav</string>
     <string name="moderate">Moderat</string>
@@ -806,9 +798,7 @@
     <string name="pref_flashlight_timeout_title">Slå av etter</string>
     <string name="very_soon">Veldig snart</string>
     <string name="soon">Snart</string>
-    <string name="weather_improving">Forbedring</string>
     <string name="weather_storm">Storm</string>
-    <string name="weather_worsening">Forverring</string>
     <string name="weather_unchanging">Uendret</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="backtrack_high_priority_notification">Plasserer et veipunkt hver %s</string>

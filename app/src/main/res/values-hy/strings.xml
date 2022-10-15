@@ -14,8 +14,6 @@
     <string name="pressure">Նշում</string>
     <string name="pref_use_24_hour_title">Օգտագործեք 24-ժամյա ձևաչափ</string>
     <string name="pref_sun_time_mode_title">Արևածագ /մայրամուտի ժամերը</string>
-    <string name="forecast_improving">Հնարավոր է, որ հետագայում բարելավվի</string>
-    <string name="forecast_worsening">Հնարավոր է ՝ ավելի ուշ վատթարանալ</string>
     <string name="no_beacons">Փարոսներ չկան</string>
     <string name="continue_button">ՇԱՐՈՒՆԱԿԵԼ</string>
     <string name="moon_rise">Լուսաբաց</string>

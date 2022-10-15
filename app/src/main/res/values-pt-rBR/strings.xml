@@ -49,8 +49,6 @@
     <string name="pressure_format">%s %s</string>
     <string name="pressure_reading_time_ago">%s - há %s</string>
     <!--Weather Tab - Forecasts-->
-    <string name="forecast_improving">Possivelmente melhorando mais tarde</string>
-    <string name="forecast_worsening">Possivelmente piorando mais tarde</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
@@ -475,9 +473,6 @@
     <string name="service_update_frequency">Atualizações a cada %s</string>
     <string name="always_on">Sempre ligada</string>
     <string name="pref_daily_weather_notification_title">Notificações meteorológicas diárias</string>
-    <string name="weather_same_as_yesterday">O mesmo de ontem</string>
-    <string name="weather_worse_than_yesterday">Pior do que ontem</string>
-    <string name="weather_better_than_yesterday">Melhor do que ontem</string>
     <string name="todays_forecast">Previsão de hoje</string>
     <string name="guide_light_meter_description">Como determinar a distância do sinal das lanternas</string>
     <string name="guide_light_meter_title">Determinar a eficácia da lanterna</string>
@@ -516,9 +511,6 @@
     <string name="high_tide">Alta</string>
     <string name="tides">Marés</string>
     <string name="experimental">Experimental</string>
-    <string name="weather_same_as_today">O mesmo que hoje</string>
-    <string name="weather_worse_than_today">Pior que hoje</string>
-    <string name="weather_better_than_today">Melhor que hoje</string>
     <string name="tomorrows_forecast">Previsão de amanhã</string>
     <string name="pref_cell_signal_refresh_cache_summary">Força o carregamento dos últimos níveis de sinal</string>
     <string name="pref_show_last_signal_beacon_summary">Cria um ponto de orientação para a localização do último sinal de celular</string>
@@ -876,8 +868,6 @@
     <string name="soon">Em breve</string>
     <string name="weather_unchanging">Imutável</string>
     <string name="weather_storm">Tempestade</string>
-    <string name="weather_improving">Melhorando</string>
-    <string name="weather_worsening">Piora</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d ponto do caminho excluído</item>
         <item quantity="other">%d pontos do caminho excluídos</item>

@@ -7,7 +7,6 @@ import android.content.Intent
 import android.hardware.SensorManager
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.Weather
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
@@ -17,13 +16,14 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import java.time.Instant
 
 class CurrentWeatherAlertCommand(
     private val context: Context,
-    private val hourly: Weather,
+    private val hourly: WeatherPrediction,
     private val tendency: PressureTendency,
     private val lastReading: Reading<Pressure>?
 ) : IWeatherAlertCommand {
@@ -70,7 +70,7 @@ class CurrentWeatherAlertCommand(
     }
 
     private fun updateNotificationForecast(
-        forecast: Weather,
+        forecast: WeatherPrediction,
         tendency: PressureTendency,
         lastReading: Reading<Pressure>?
     ) {
@@ -79,9 +79,15 @@ class CurrentWeatherAlertCommand(
             Pressure.hpa(SensorManager.PRESSURE_STANDARD_ATMOSPHERE),
             Instant.now()
         )).value
-        val icon = formatService.getWeatherImage(forecast, lastReading?.value)
+        val icon = formatService.getWeatherImage(forecast.primaryHourly)
+        val weather = formatService.formatWeather(forecast.primaryHourly)
+        val speed = formatService.formatWeatherSpeed(tendency.characteristic)
 
-        val description = formatService.formatWeather(forecast, true)
+        val description = if (speed.isNotEmpty()){
+            "$weather $speed"
+        } else {
+            weather
+        }
 
         val newNotification = getNotification(
             if (prefs.weather.shouldShowPressureInNotification) context.getString(

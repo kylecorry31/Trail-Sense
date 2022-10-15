@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.science.meteorology.Weather
+import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
@@ -205,12 +205,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
-    private fun getHourlyForecast(readings: List<WeatherObservation>): Weather {
-        return weatherService.getHourlyWeather(readings.map { it.pressureReading() })
-    }
-
-    private fun getDailyForecast(readings: List<WeatherObservation>): Weather {
-        return weatherService.getDailyWeather(readings.map { it.pressureReading() })
+    private fun getForecast(
+        readings: List<WeatherObservation>,
+        clouds: List<Reading<CloudGenus?>>
+    ): List<WeatherForecast> {
+        return weatherService.getForecast(
+            readings.map { it.pressureReading() },
+            clouds
+        )
     }
 
     override suspend fun getCloudHistory(): List<Reading<CloudGenus?>> = onIO {
@@ -219,17 +221,17 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private suspend fun populateCache(): CurrentWeather {
         val history = getHistory()
-        val daily = getDailyForecast(history)
-        val hourly = getHourlyForecast(history)
+        val allClouds = getCloudHistory()
+        val forecast = getForecast(history, allClouds)
         val last = history.lastOrNull()
         val tendency = weatherService.getTendency(history.map { it.pressureReading() })
-        var clouds = getCloudHistory().lastOrNull()
+        var clouds = allClouds.lastOrNull()
         val maxCloudTime = Duration.ofHours(4)
         if (clouds == null || Duration.between(clouds.time, Instant.now()).abs() > maxCloudTime) {
             clouds = null
         }
         return CurrentWeather(
-            WeatherPrediction(hourly, daily),
+            WeatherPrediction(forecast.first().conditions, forecast.last().conditions),
             tendency,
             last,
             clouds

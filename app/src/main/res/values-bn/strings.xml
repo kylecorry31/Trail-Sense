@@ -13,8 +13,6 @@
     <string name="pressure">চাপ</string>
     <string name="pref_use_24_hour_title">24 ঘন্টা বিন্যাস ব্যবহার করুন</string>
     <string name="pref_sun_time_mode_title">সূর্যোদয় /সূর্যাস্তের সময়</string>
-    <string name="forecast_improving">সম্ভবত পরে উন্নতি হচ্ছে</string>
-    <string name="forecast_worsening">সম্ভবত পরে আরও খারাপ হচ্ছে</string>
     <string name="no_beacons">কোনও বীকন নেই</string>
     <string name="continue_button">চালিয়ে</string>
     <string name="moon_rise">চন্দ্রোদয়</string>

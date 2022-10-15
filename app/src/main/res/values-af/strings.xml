@@ -14,8 +14,6 @@
     <string name="pressure">druk</string>
     <string name="pref_use_24_hour_title">Gebruik 24-uur-formaat</string>
     <string name="pref_sun_time_mode_title">Sonop /sonsondergang tye</string>
-    <string name="forecast_improving">Miskien later verbeter</string>
-    <string name="forecast_worsening">Miskien sal dit later vererger</string>
     <string name="no_beacons">Geen bakens nie</string>
     <string name="continue_button">AANHOU</string>
     <string name="moon_rise">maansopkoms</string>

@@ -298,8 +298,6 @@
     <string name="hours">小時</string>
     <string name="minutes">分鐘</string>
     <string name="no_data">無資料</string>
-    <string name="forecast_improving">可能會好轉</string>
-    <string name="forecast_worsening">可能會惡化</string>
     <string name="general">一班</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
     <string name="pref_elevation_override_sea_level_title">使用已知海平面壓力</string>

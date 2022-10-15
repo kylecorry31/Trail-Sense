@@ -14,8 +14,6 @@
     <string name="pressure">दबाव</string>
     <string name="pref_use_24_hour_title">24-घंटे के प्रारूप का उपयोग करें</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त के समय</string>
-    <string name="forecast_improving">संभवतः बाद में सुधार होगा</string>
-    <string name="forecast_worsening">संभवतः बाद में बिगड़ती जा रही है</string>
     <string name="no_beacons">कोई बीकन नहीं</string>
     <string name="continue_button">जारी रखें</string>
     <string name="moon_rise">चंद्रोदय</string>

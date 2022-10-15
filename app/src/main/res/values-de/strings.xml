@@ -13,8 +13,6 @@
     <string name="pressure">Luftdruck</string>
     <string name="pref_use_24_hour_title">24-Stunden-Zählung verwenden</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
-    <string name="forecast_improving">Möglicherweise spätere Wetterbesserung</string>
-    <string name="forecast_worsening">Möglicherweise spätere Wetterverschlechterung</string>
     <string name="no_beacons">Keine Wegpunkte</string>
     <string name="continue_button">FORTSETZEN</string>
     <string name="moon_rise">Mondaufgang</string>
@@ -468,9 +466,6 @@
     <string name="service_update_frequency">Aktualisiere alle %s</string>
     <string name="always_on">Immer an</string>
     <string name="pref_daily_weather_notification_title">Tägliche Wetter-Benachrichtigung</string>
-    <string name="weather_same_as_yesterday">Genau so wie gestern</string>
-    <string name="weather_worse_than_yesterday">Schlechter als gestern</string>
-    <string name="weather_better_than_yesterday">Besser als gestern</string>
     <string name="todays_forecast">Vorhersage für heute</string>
     <string name="guide_light_meter_title">Effektivität einer Taschenlampe herausfinden</string>
     <string name="gps_cache">GPS Cache</string>
@@ -507,9 +502,6 @@
     <string name="low_tide">Ebbe</string>
     <string name="high_tide">Flut</string>
     <string name="tides">Gezeiten</string>
-    <string name="weather_same_as_today">So wie heute</string>
-    <string name="weather_worse_than_today">Schlechter als heute</string>
-    <string name="weather_better_than_today">Besser als heute</string>
     <string name="tomorrows_forecast">Vorhersage für morgen</string>
     <string name="guide_light_meter_description">Reichweite einer Taschenlampe herausfinden</string>
     <string name="set">Festlegen</string>
@@ -941,7 +933,6 @@
     <string name="high_tide_letter">F</string>
     <string name="low_tide_letter">E</string>
     <string name="tide_deleted">Gezeit gelöscht</string>
-    <string name="weather_improving">Wird besser</string>
     <string name="weather_storm">Sturm</string>
     <string name="activity_recognition_permission_denied">Körperliche-Aktivitäts-Berechtigung verweigert, kann Schrittzähler-Features nicht aktivieren. Sie können es in den Einstellungen aktivieren.</string>
     <string name="estimated">Geschätzt</string>
@@ -992,7 +983,6 @@
     <string name="current_speed_gps">Aktuelle Geschwindigkeit (GPS)</string>
     <string name="average_speed_pedometer">Durchschnittsgeschwindigkeit (Schrittzähler)</string>
     <string name="average_speed_backtrack">Durchschnittsgeschwindigkeit (Rückweg)</string>
-    <string name="weather_worsening">Wird schlechter</string>
     <string name="weather_unchanging">Unverändert</string>
     <string name="very_soon">Sehr bald</string>
     <string name="pref_distance_alert">pref_distance_alert</string>

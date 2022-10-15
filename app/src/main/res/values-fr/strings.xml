@@ -13,8 +13,6 @@
     <string name="pressure">Unité de pression</string>
     <string name="pref_use_24_hour_title">Utiliser le format 24 heures</string>
     <string name="pref_sun_time_mode_title">Heures de lever / coucher du soleil</string>
-    <string name="forecast_improving">Amélioration probable</string>
-    <string name="forecast_worsening">Dégradation probable</string>
     <string name="no_beacons">Pas de repères</string>
     <string name="continue_button">CONTINUER</string>
     <string name="moon_rise">Lever de la lune</string>
@@ -385,12 +383,6 @@
     <string name="convert">Convertir</string>
     <string name="move">Déplacer</string>
     <string name="preview">Prévisualiser</string>
-    <string name="weather_same_as_today">Comme aujourd\'hui</string>
-    <string name="weather_worse_than_today">Pire qu\'aujourd\'hui</string>
-    <string name="weather_better_than_today">Mieux qu\'aujourd\'hui</string>
-    <string name="weather_same_as_yesterday">Pareil qu\'hier</string>
-    <string name="weather_worse_than_yesterday">Pire qu\'hier</string>
-    <string name="weather_better_than_yesterday">Mieux qu\'hier</string>
     <string name="tomorrows_forecast">Prévisions pour demain</string>
     <string name="todays_forecast">Prévisions pour aujourd\'hui</string>
     <string name="set">Définir</string>
@@ -457,8 +449,6 @@
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="pref_low_power_mode_summary">Désactive certaines fonctionnalités pour économiser de l\'énergie</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="weather_worsening">Détérioration</string>
-    <string name="weather_improving">Amélioration</string>
     <string name="weather_unchanging">Inchangé</string>
     <string name="weather_storm">Tempête</string>
     <string name="very_soon">Très bientôt</string>

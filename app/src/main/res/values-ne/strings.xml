@@ -14,8 +14,6 @@
     <string name="pressure">दवाव</string>
     <string name="pref_use_24_hour_title">२--घण्टा ढाँचा प्रयोग गर्नुहोस्</string>
     <string name="pref_sun_time_mode_title">सूर्योदय /सूर्यास्त समय</string>
-    <string name="forecast_improving">सम्भवतः पछि सुधार हुँदैछ</string>
-    <string name="forecast_worsening">सम्भवतः पछि खराब हुँदै गयो</string>
     <string name="no_beacons">बीकनहरू छैनन्</string>
     <string name="continue_button">जारी राख्नुहोस्</string>
     <string name="moon_rise">मून्रोइज</string>
