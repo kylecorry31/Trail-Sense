@@ -566,7 +566,7 @@
     <string name="altostratus_desc">A mid level cloud that covers the sky. The sun can barely be seen as a bright patch.</string>
     <!--%d is an hour, ex. 8-->
     <string name="altostratus_forecast">May indicate precipitation in the next %d hours.</string>
-    <string name="nimbostratus_desc">A mid level cloud that is dark gray and covers the sky. It may be raining.</string>
+    <string name="nimbostratus_desc">A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud.</string>
     <!--%d is an hour, ex. 4-->
     <string name="nimbostratus_forecast">May have precipitation for the next %d hours.</string>
     <string name="stratus_desc">A low cloud that covers the sky. Objects don\'t cast shadows and it may be foggy.</string>
@@ -1222,6 +1222,8 @@
     <string name="weather_front">Weather Front</string>
     <string name="weather_warm_front">Warm</string>
     <string name="weather_cold_front">Cold</string>
+    <!--%d is an hour, ex. 3-->
+    <string name="cloud_stratus_forecast">May indicate fair weather for the next %d hours if it is foggy, otherwise it may indicate precipitation soon.</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

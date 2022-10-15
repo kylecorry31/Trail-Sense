@@ -42,7 +42,7 @@ class CloudDetailsService(private val context: Context) {
             CloudGenus.Altocumulus -> context.getString(R.string.altocumulus_forecast, 12)
             CloudGenus.Altostratus -> context.getString(R.string.altostratus_forecast, 8)
             CloudGenus.Nimbostratus -> context.getString(R.string.nimbostratus_forecast, 4)
-            CloudGenus.Stratus -> context.getString(R.string.cloud_fair_forecast_hours, 3)
+            CloudGenus.Stratus -> context.getString(R.string.cloud_stratus_forecast, 3)
             CloudGenus.Stratocumulus -> context.getString(R.string.cloud_fair_forecast_hours, 3)
             CloudGenus.Cumulus -> context.getString(R.string.cumulus_forecast, 3)
             CloudGenus.Cumulonimbus -> context.getString(R.string.cumulonimbus_forecast)
