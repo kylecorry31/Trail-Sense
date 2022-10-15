@@ -61,9 +61,9 @@
         <item quantity="other">Siste %d timer</item>
     </plurals>
     <string name="notification_monitoring_weather">Overvåking av været i bakgrunnen</string>
-    <string name="notification_storm_alert_title">Stormvarsel</string>
-    <string name="notification_storm_alert_text">En storm kan nærme seg</string>
-    <string name="storm_alerts">Stormvarsler</string>
+    <string name="notification_storm_alert_title">Uværvarsel</string>
+    <string name="notification_storm_alert_text">Et uvær kan nærme seg</string>
+    <string name="storm_alerts">Uværvarsler</string>
     <string name="alerts">Varsler</string>
     <string name="stop">Stopp</string>
     <string name="beacon_invalid_name">Ugyldig navn</string>
@@ -184,7 +184,7 @@
     <string name="moon_set">Månenedgang</string>
     <string name="moon_rise">Måneoppgang</string>
     <string name="tap_sun_moon_hint">Trykk på solen eller månen for posisjonsdetaljer</string>
-    <string name="pref_storm_alert_sensitivity_title">Stormfølsomhet</string>
+    <string name="pref_storm_alert_sensitivity_title">Uværfølsomhet</string>
     <string name="pref_forecast_sensitivity_title">Værvarselfølsomhet</string>
     <string name="cliff_height_guide">Anslå høyden på en klippe</string>
     <string name="tool_cliff_height_disclaimer">Bruk bare dette verktøyet når det er trygt å gjøre det, og sørg for å sjekke hva som er under klippen for å unngå skade. Se brukerveiledningen for instruksjoner.</string>
@@ -807,7 +807,7 @@
     <string name="very_soon">Veldig snart</string>
     <string name="soon">Snart</string>
     <string name="weather_improving">Forbedring</string>
-    <string name="weather_storm">Storm</string>
+    <string name="weather_storm">Uvær</string>
     <string name="weather_worsening">Forverring</string>
     <string name="weather_unchanging">Uendret</string>
     <string name="unit_inches_abbreviation">in</string>
@@ -963,15 +963,15 @@
 \nFlere veiledninger kommer snart.</string>
     <string name="pref_cell_signal_refresh_cache_summary">Påtvinger innlasting av de siste signalstyrkene</string>
     <string name="explore">Utforsk</string>
-    <string name="high_pressure_system_description">Svarer til godt vær, klar himmel, og kaldere temperaturer.</string>
-    <string name="low_pressure_system_description">Svarer til dårligere vær, overskyet himmel, og varmere temperaturer.</string>
+    <string name="high_pressure_system_description">Forbundet med pent vær, klar himmel.</string>
+    <string name="low_pressure_system_description">Forbundet med dårlig vær, overskyet.</string>
     <string name="icon">Ikon</string>
     <string name="pressure_system">Trykksystem</string>
-    <string name="high_pressure">Høy</string>
+    <string name="high_pressure">Høyt</string>
     <string name="pref_experimental_sea_level_calibration_v2_title">Havnivåkalibrering V2</string>
-    <string name="low_pressure">Lav</string>
+    <string name="low_pressure">Lavt</string>
     <string name="cross">Kors</string>
-    <string name="pref_tiles_enabled_title">Systemflis</string>
+    <string name="pref_tiles_enabled_title">Systemfliser</string>
     <string name="pref_cell_signal_refresh_cache_title">Gjenoppfrisk signalhurtiglager</string>
     <string name="quart_format">%s qt</string>
     <string name="ounces_volume_format">%s oz</string>
@@ -979,4 +979,9 @@
     <string name="delete_path_group_message">%s og alle dens stier vil bli slettet.</string>
     <string name="roll_pitch_yaw">Slingring/rulling: %s stamping: %s, giring: %s</string>
     <string name="clouds_clear">Klart</string>
+    <string name="pref_tiles_enabled_summary">Kan hindre batterisparingsapper fra å stoppe Trail Sense helt</string>
+    <string name="path">Sti</string>
+    <string name="weather_front">Værfront</string>
+    <string name="weather_warm_front">Varm</string>
+    <string name="weather_cold_front">Kald</string>
 </resources>
