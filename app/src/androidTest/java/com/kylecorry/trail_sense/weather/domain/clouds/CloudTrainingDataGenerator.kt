@@ -11,11 +11,10 @@ import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 
 class CloudTrainingDataGenerator {
 
-    @Test
+//    @Test
     fun generateTrainingData() {
         /*
             Before running this test ensure the androidTest/assets/clouds is populated with folders for each cloud genus.

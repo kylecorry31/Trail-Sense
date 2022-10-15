@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.science.meteorology.PressureCharacteristic
+import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
@@ -224,7 +226,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val allClouds = getCloudHistory()
         val forecast = getForecast(history, allClouds)
         val last = history.lastOrNull()
-        val tendency = weatherService.getTendency(history.map { it.pressureReading() })
         var clouds = allClouds.lastOrNull()
         val maxCloudTime = Duration.ofHours(4)
         if (clouds == null || Duration.between(clouds.time, Instant.now()).abs() > maxCloudTime) {
@@ -232,7 +233,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
         return CurrentWeather(
             WeatherPrediction(forecast.first().conditions, forecast.last().conditions),
-            tendency,
+            forecast.first().tendency ?: PressureTendency(PressureCharacteristic.Steady, 0f),
             last,
             clouds
         )

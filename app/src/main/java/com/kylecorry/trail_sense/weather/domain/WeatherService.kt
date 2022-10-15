@@ -1,20 +1,17 @@
 package com.kylecorry.trail_sense.weather.domain
 
-import com.kylecorry.sol.science.meteorology.*
+import com.kylecorry.sol.science.meteorology.Meteorology
+import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.forcasting.DailyForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
-import java.time.Duration
-import java.time.Instant
 
 class WeatherService(private val prefs: WeatherPreferences) {
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
-    private val longTermForecaster = DailyForecaster(prefs.dailyForecastChangeThreshold)
 
     fun calibrateTemperature(temp: Float): Float {
         val calibrated1 = prefs.minActualTemperature
@@ -35,38 +32,6 @@ class WeatherService(private val prefs: WeatherPreferences) {
             hourlyForecastChangeThreshold / 3f,
             stormThreshold / 3f
         )
-    }
-
-    fun getHourlyWeather(readings: List<Reading<Pressure>>): Weather {
-        val tendency = getTendency(readings)
-        return Meteorology.forecast(tendency, stormThreshold)
-    }
-
-    fun getDailyWeather(readings: List<Reading<Pressure>>): Weather {
-        return longTermForecaster.forecast(readings)
-    }
-
-    fun getTendency(readings: List<Reading<Pressure>>): PressureTendency {
-        val last = readings.minByOrNull {
-            Duration.between(
-                it.time,
-                Instant.now().minus(Duration.ofHours(3))
-            ).abs()
-        }
-        val current = readings.lastOrNull()
-
-        if (last == null || current == null) {
-            return PressureTendency(PressureCharacteristic.Steady, 0f)
-        }
-
-        val tendency = Meteorology.getTendency(
-            last.value.hpa(),
-            current.value.hpa(),
-            Duration.between(last.time, current.time),
-            hourlyForecastChangeThreshold / 3f
-        )
-
-        return tendency.copy(amount = tendency.amount * 3f)
     }
 
     fun calibrate(
