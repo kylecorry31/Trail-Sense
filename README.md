@@ -115,18 +115,24 @@ The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/
 
 <table>
     <tr>
-        <th>PayPal</th>
+        <th>Buy Me a Coffee</th>
         <th>Liberapay</th>
+        <th>Stripe</th>
     </tr>
     <tr>
         <td id="Donate">
-         <a href="https://www.paypal.me/kylecorry">
-          <img alt="Donate using PayPal" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" height="60" align="middle"/>
+         <a href="https://www.buymeacoffee.com/kylecorry">
+          Buy Me a Coffee
          </a>
         </td>
         <td>
             <a href="https://liberapay.com/kylecorry31/donate">
                 <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" height="40" align="middle">
+            </a>
+        </td>
+        <td>
+            <a href="https://buy.stripe.com/28ocQ75ua2EO5EY000">
+                Stripe
             </a>
         </td>
     </tr>
