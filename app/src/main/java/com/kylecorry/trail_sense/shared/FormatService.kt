@@ -18,7 +18,6 @@ import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.meteorology.Precipitation
-import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
@@ -28,6 +27,7 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.weather.infrastructure.HourlyArrivalTime
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -61,11 +61,12 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatWeatherSpeed(characteristic: PressureCharacteristic): String {
-        return when {
-            characteristic.isRapid -> context.getString(R.string.very_soon)
-            characteristic != PressureCharacteristic.Steady -> context.getString(R.string.soon)
-            else -> ""
+    fun formatWeatherSpeed(speed: HourlyArrivalTime): String {
+        return when (speed) {
+            HourlyArrivalTime.Now -> context.getString(R.string.now)
+            HourlyArrivalTime.VerySoon -> context.getString(R.string.very_soon)
+            HourlyArrivalTime.Soon -> context.getString(R.string.soon)
+            HourlyArrivalTime.Later -> context.getString(R.string.later)
         }
     }
 

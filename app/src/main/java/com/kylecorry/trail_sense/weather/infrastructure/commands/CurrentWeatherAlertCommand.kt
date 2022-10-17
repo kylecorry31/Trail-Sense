@@ -81,7 +81,7 @@ class CurrentWeatherAlertCommand(
         )).value
         val icon = formatService.getWeatherImage(forecast.primaryHourly)
         val weather = formatService.formatWeather(forecast.primaryHourly)
-        val speed = formatService.formatWeatherSpeed(tendency.characteristic)
+        val speed = formatService.formatWeatherSpeed(forecast.hourlyArrival).lowercase()
 
         val description = if (speed.isNotEmpty()){
             "$weather $speed"

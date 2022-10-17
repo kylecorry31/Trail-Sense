@@ -1222,6 +1222,9 @@
     <string name="weather_overcast">Overcast</string>
     <string name="weather_precipitation">Precipitation</string>
     <string name="weather_wind">Wind</string>
+    <!--As in, Precipitation Later-->
+    <string name="later">Later</string>
+    <string name="now">Now</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

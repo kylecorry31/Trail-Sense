@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
@@ -231,9 +232,44 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         if (clouds == null || Duration.between(clouds.time, Instant.now()).abs() > maxCloudTime) {
             clouds = null
         }
+
+        val stormCloudsSeen = listOf<CloudGenus?>(
+            CloudGenus.Cumulonimbus,
+            CloudGenus.Nimbostratus
+        ).contains(clouds?.value)
+
+        val tendency =
+            forecast.first().tendency ?: PressureTendency(PressureCharacteristic.Steady, 0f)
+
+        val currentConditions = forecast.first().conditions
+        val primaryCondition = WeatherPrediction(
+            currentConditions,
+            listOf(),
+            null,
+            HourlyArrivalTime.Now
+        ).primaryHourly
+
+        val steadySystem =
+            tendency.characteristic == PressureCharacteristic.Steady && listOf(
+                WeatherCondition.Clear,
+                WeatherCondition.Overcast
+            ).contains(primaryCondition)
+
+        // TODO: Replace with hourly forecast
+        val arrival = when {
+            steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
+            primaryCondition == WeatherCondition.Storm || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
+            tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
+            else -> HourlyArrivalTime.Later
+        }
         return CurrentWeather(
-            WeatherPrediction(forecast.first().conditions, forecast.last().conditions),
-            forecast.first().tendency ?: PressureTendency(PressureCharacteristic.Steady, 0f),
+            WeatherPrediction(
+                forecast.first().conditions,
+                forecast.last().conditions,
+                forecast.first().front,
+                arrival
+            ),
+            tendency,
             last,
             clouds
         )

@@ -15,8 +15,7 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.science.meteorology.PressureCharacteristic
-import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
@@ -198,7 +197,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 color
             ),
             getPressureSystemListItem(observation.pressure),
-            getWeatherFrontListItem(weather.pressureTendency),
+            getWeatherFrontListItem(weather.prediction.front),
             getTemperatureListItem(observation.temperature),
             getHumidityListItem(observation.humidity),
             getCloudListItem(weather.clouds)
@@ -207,26 +206,19 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         binding.weatherList.setItems(items, mapper)
     }
 
-    private fun getWeatherFrontListItem(tendency: PressureTendency): WeatherListItem? {
-        if (tendency.characteristic == PressureCharacteristic.Steady) {
-            return null
-        }
+    private fun getWeatherFrontListItem(front: WeatherFront?): WeatherListItem? {
+        front ?: return null
 
-        val front: String
+        val frontName: String
         val icon: Int
-        when (tendency.characteristic) {
-            PressureCharacteristic.Falling, PressureCharacteristic.FallingFast -> {
-                front = getString(R.string.weather_warm_front)
+        when (front) {
+            WeatherFront.Warm -> {
+                frontName = getString(R.string.weather_warm_front)
                 icon = R.drawable.ic_warm_weather_front
             }
-            PressureCharacteristic.Rising, PressureCharacteristic.RisingFast -> {
-                front = getString(R.string.weather_cold_front)
+            WeatherFront.Cold -> {
+                frontName = getString(R.string.weather_cold_front)
                 icon = R.drawable.ic_cold_weather_front
-            }
-            else -> {
-                // This should never be hit
-                front = ""
-                icon = 0
             }
         }
 
@@ -234,7 +226,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             7,
             icon,
             getString(R.string.weather_front),
-            front
+            frontName
         )
     }
 
@@ -396,17 +388,19 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 size = Resources.dp(requireContext(), 24f).toInt(),
                 left = formatService.getWeatherImage(prediction.primaryHourly)
             )
-            val speed = formatService.formatWeatherSpeed(weather.pressureTendency.characteristic).lowercase()
+            val speed = formatService.formatWeatherSpeed(weather.prediction.hourlyArrival)
+                .lowercase()
             val then = getString(
                 R.string.then_weather,
                 formatService.formatWeather(prediction.primaryDaily).lowercase()
             )
-            binding.weatherTitle.subtitle.text = if (speed.isNotEmpty()) {
+            binding.weatherTitle.subtitle.text = if (speed.isNotEmpty() && prediction.primaryDaily == null) {
+                speed
+            } else if (speed.isNotEmpty()) {
                 "$speed, $then"
             } else {
                 then
             }
-            binding.weatherTitle.subtitle.isVisible = prediction.primaryDaily != null
         }
     }
 

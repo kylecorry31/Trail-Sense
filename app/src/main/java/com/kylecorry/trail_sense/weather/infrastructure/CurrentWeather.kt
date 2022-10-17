@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
+import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
@@ -15,7 +16,19 @@ data class CurrentWeather(
     val clouds: Reading<CloudGenus?>?
 )
 
-data class WeatherPrediction(val hourly: List<WeatherCondition>, val daily: List<WeatherCondition>){
+enum class HourlyArrivalTime {
+    Now,
+    VerySoon,
+    Soon,
+    Later
+}
+
+data class WeatherPrediction(
+    val hourly: List<WeatherCondition>,
+    val daily: List<WeatherCondition>,
+    val front: WeatherFront?,
+    val hourlyArrival: HourlyArrivalTime
+) {
 
     private val primarySelector = PrimaryWeatherSelector()
 
