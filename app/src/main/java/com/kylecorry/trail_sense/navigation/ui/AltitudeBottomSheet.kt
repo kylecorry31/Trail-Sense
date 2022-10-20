@@ -39,6 +39,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private lateinit var chart: SimpleLineChart
     private var backtrackReadings = listOf<Reading<Float>>()
     private var weatherReadings = listOf<Reading<Float>>()
+    private var startTime = Instant.now()
 
     var backtrackPoints: List<PathPoint>? = null
     var currentAltitude: Reading<Float>? = null
@@ -57,10 +58,9 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         )
 
         chart.configureXAxis(
-            labelCount = 0,
+            labelCount = 7,
             drawGridLines = false,
-            minimum = (Instant.now().toEpochMilli() - historyDuration.toMillis()).toFloat(),
-            maximum = Instant.now().toEpochMilli().toFloat()
+            labelFormatter = SimpleLineChart.hourLabelFormatter(requireContext()) { startTime }
         )
         val path = backtrackPoints
         if (path != null) {
@@ -89,13 +89,6 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             ) {
                 if (it != null) {
                     historyDuration = it
-                    chart.configureXAxis(
-                        labelCount = 0,
-                        drawGridLines = false,
-                        minimum = (Instant.now()
-                            .toEpochMilli() - historyDuration.toMillis()).toFloat(),
-                        maximum = Instant.now().toEpochMilli().toFloat()
-                    )
                     updateChart()
                 }
             }
@@ -105,8 +98,10 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private fun updateChart(readings: List<Reading<Float>>) {
         if (!isBound) return
 
-        val data = readings.map {
-            it.time.toEpochMilli().toFloat() to Distance.meters(it.value).convertTo(units).distance
+        startTime = readings.firstOrNull()?.time
+
+        val data = SimpleLineChart.getDataFromReadings(readings){
+            Distance.meters(it).convertTo(units).distance
         }
 
         val granularity = Distance.meters(10f).convertTo(units).distance
