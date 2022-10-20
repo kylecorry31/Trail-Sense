@@ -44,7 +44,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private var pressureTxt: Preference? = null
     private var seaLevelSwitch: SwitchPreferenceCompat? = null
     private var meanShiftedSwitch: SwitchPreferenceCompat? = null
-    private var usePathSmoothingSwitch: SwitchPreferenceCompat? = null
     private var altitudeOutlierSeekBar: SeekBarPreference? = null
     private var pressureSmoothingSeekBar: SeekBarPreference? = null
     private var altitudeSmoothingSeekBar: SeekBarPreference? = null
@@ -97,7 +96,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
         meanShiftedSwitch = switch(R.string.pref_debug_show_mean_adj_sea_level)
-        usePathSmoothingSwitch = switch(R.string.pref_use_path_smoothing)
         chart = findPreference(getString(R.string.pref_holder_pressure_chart))
 
         altitudeOutlierSeekBar?.summary =
@@ -220,7 +218,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         pressureSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
         altitudeSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
         meanShiftedSwitch?.isVisible = isDebug()
-        usePathSmoothingSwitch?.isVisible = isDebug()
 
         val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)
 

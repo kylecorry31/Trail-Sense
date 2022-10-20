@@ -80,16 +80,6 @@
 
         <!--This is for debug only, no need to translate-->
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_use_sea_level_pressure"
-            android:summary="Debug only"
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_use_path_smoothing"
-            app:singleLineTitle="false"
-            app:title="Smooth elevations as path" />
-
-        <!--This is for debug only, no need to translate-->
-        <SwitchPreferenceCompat
             android:summary="Debug only"
             app:defaultValue="false"
             app:iconSpaceReserved="false"

@@ -7,31 +7,22 @@ import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 
 class LoessSeaLevelPressureConverter(
     private val elevationSmoothing: Float = 0.3f,
-    private val pressureSmoothing: Float = 0.1f,
-    private val pathElevationSmoothing: Boolean = true
+    private val pressureSmoothing: Float = 0.1f
 ) {
 
     fun convert(
         readings: List<Reading<RawWeatherObservation>>,
         factorInTemperature: Boolean
     ): List<Reading<Pressure>> {
-//        val smoothed = DataUtils.smoothTemporal(
-//            readings,
-//            elevationSmoothing,
-//            { it.altitude }
-//        ) { reading, value ->
-//            reading.copy(altitude = value)
-//        }
-
-        val smoothed = DataUtils.smoothGeospatial(
+        val smoothed = if (elevationSmoothing > 0f) DataUtils.smoothGeospatial(
             readings,
             elevationSmoothing,
-            if (pathElevationSmoothing) DataUtils.GeospatialSmoothingType.Path else DataUtils.GeospatialSmoothingType.FromStart,
+            DataUtils.GeospatialSmoothingType.Path,
             { it.value.location },
             { it.value.altitude }
         ) { reading, smoothedValue ->
             reading.copy(value = reading.value.copy(altitude = smoothedValue))
-        }
+        } else readings
 
         val seaLevel = smoothed.map {
             Reading(it.value.seaLevel(factorInTemperature), it.time)
