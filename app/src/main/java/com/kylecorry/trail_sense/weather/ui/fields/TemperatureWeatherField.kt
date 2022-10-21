@@ -22,16 +22,28 @@ class TemperatureWeatherField(
         val value = formatter.formatTemperature(
             temperature.convertTo(units)
         )
-        val color = when {
-            temperature.temperature <= 15f -> AppColor.Blue.color
-            temperature.temperature >= 25f -> AppColor.Red.color
-            else -> Resources.androidTextColorSecondary(context)
+        val color: Int
+        val icon: Int
+
+        when {
+            temperature.temperature <= 15f -> {
+                color = AppColor.Blue.color
+                icon = R.drawable.ic_thermometer_low
+            }
+            temperature.temperature >= 25f -> {
+                color = AppColor.Red.color
+                icon = R.drawable.ic_thermometer_high
+            }
+            else -> {
+                color = Resources.androidTextColorSecondary(context)
+                icon = R.drawable.thermometer
+            }
         }
 
         return ListItem(
             5,
             context.getString(R.string.temperature),
-            icon = ResourceListIcon(R.drawable.thermometer, color),
+            icon = ResourceListIcon(icon, color),
             trailingText = value
         ) {
             onClick()
