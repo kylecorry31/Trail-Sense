@@ -41,9 +41,10 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 - [License](#license)
 
 ## Feature Roadmap
-- Q4 2022: Cloud scanner
-- Q1 2023: Improved weather forecasts
-- Q2 2023: Maps
+- [x] Q4 2022: Cloud scanner
+- [ ] Q1 2023: Improved weather forecasts
+- [ ] Q2 2023: Maps
+- [ ] Q3 2023: Path navigation
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
