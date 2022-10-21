@@ -13,11 +13,11 @@ import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.science.meteorology.WeatherFront
-import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
@@ -25,18 +25,14 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.weather.domain.isHigh
-import com.kylecorry.trail_sense.weather.domain.isLow
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import com.kylecorry.trail_sense.weather.ui.clouds.CloudDetailsModal
+import com.kylecorry.trail_sense.weather.ui.fields.*
 import java.time.Duration
 import java.time.Instant
 
@@ -54,7 +50,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private var history: List<WeatherObservation> = listOf()
     private var rawHistory: List<Reading<Pressure>> = listOf()
-    private val mapper = WeatherListItemMapper()
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var weather: CurrentWeather? = null
@@ -161,147 +156,22 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private fun updateList() {
         if (!isBound) return
         val weather = weather ?: return
-        val observation = weather.observation ?: return
 
-        val pressure = formatService.formatPressure(
-            observation.pressure.convertTo(units),
-            Units.getDecimalPlaces(units)
+        val fields = listOf(
+            PressureWeatherField(weather.observation?.pressure),
+            PressureTendencyWeatherField(weather.pressureTendency),
+            PressureSystemWeatherField(weather.observation?.pressure),
+            FrontWeatherField(weather.prediction.front),
+            TemperatureWeatherField(weather.observation?.temperature) { showTemperatureChart() },
+            HumidityWeatherField(weather.observation?.humidity) { showHumidityChart() },
+            CloudWeatherField(weather.clouds)
         )
 
-        val tendency = getString(
-            R.string.pressure_tendency_format_2, formatService.formatPressure(
-                Pressure.hpa(weather.pressureTendency.amount).convertTo(units),
-                Units.getDecimalPlaces(units) + 1
-            )
-        )
-        val tendencyIcon =
-            PressureCharacteristicImageMapper().getImageResource(weather.pressureTendency.characteristic)
+        val items = fields.mapNotNull { it.getListItem(requireContext()) }
 
-
-        val color = Resources.androidTextColorSecondary(requireContext())
-
-        // TODO: Extract these to fields like astronomy
-        val items = listOfNotNull(
-            WeatherListItem(
-                1,
-                R.drawable.ic_barometer,
-                getString(R.string.pressure),
-                pressure,
-                color
-            ),
-            WeatherListItem(
-                2,
-                tendencyIcon,
-                getString(R.string.pressure_tendency),
-                tendency,
-                color
-            ),
-            getPressureSystemListItem(observation.pressure),
-            getWeatherFrontListItem(weather.prediction.front),
-            getTemperatureListItem(observation.temperature),
-            getHumidityListItem(observation.humidity),
-            getCloudListItem(weather.clouds)
-        )
-
-        binding.weatherList.setItems(items, mapper)
+        binding.weatherList.setItems(items)
     }
 
-    private fun getWeatherFrontListItem(front: WeatherFront?): WeatherListItem? {
-        front ?: return null
-
-        val frontName: String
-        val icon: Int
-        when (front) {
-            WeatherFront.Warm -> {
-                frontName = getString(R.string.weather_warm_front)
-                icon = R.drawable.ic_warm_weather_front
-            }
-            WeatherFront.Cold -> {
-                frontName = getString(R.string.weather_cold_front)
-                icon = R.drawable.ic_cold_weather_front
-            }
-        }
-
-        return WeatherListItem(
-            7,
-            icon,
-            getString(R.string.weather_front),
-            frontName
-        )
-    }
-
-    private fun getHumidityListItem(humidity: Float?): WeatherListItem? {
-        return if (Sensors.hasHygrometer(requireContext()) && humidity != null) {
-            val value = formatService.formatPercentage(humidity)
-            WeatherListItem(
-                4,
-                R.drawable.ic_category_water,
-                getString(R.string.humidity),
-                value,
-                AppColor.Blue.color
-            ) { showHumidityChart() }
-        } else {
-            null
-        }
-    }
-
-    private fun getTemperatureListItem(temperature: Temperature): WeatherListItem {
-        val value = formatService.formatTemperature(
-            temperature.convertTo(temperatureUnits)
-        )
-        val color = when {
-            temperature.temperature <= 15f -> AppColor.Blue.color
-            temperature.temperature >= 25f -> AppColor.Red.color
-            else -> Resources.androidTextColorSecondary(requireContext())
-        }
-        return WeatherListItem(
-            3,
-            R.drawable.thermometer,
-            getString(R.string.temperature),
-            value,
-            color
-        ) { showTemperatureChart() }
-    }
-
-    private fun getPressureSystemListItem(pressure: Pressure): WeatherListItem? {
-        val name: String
-        val description: String
-        val icon: Int
-        if (pressure.isHigh()) {
-            name = getString(R.string.high_pressure)
-            description = getString(R.string.high_pressure_system_description)
-            icon = R.drawable.ic_high_pressure_system
-        } else if (pressure.isLow()) {
-            name = getString(R.string.low_pressure)
-            description = getString(R.string.low_pressure_system_description)
-            icon = R.drawable.ic_low_pressure_system
-        } else {
-            return null
-        }
-
-        return WeatherListItem(
-            6,
-            icon,
-            getString(R.string.pressure_system),
-            name
-        ) {
-            dialog(name, description, cancelText = null)
-        }
-    }
-
-    private fun getCloudListItem(cloud: Reading<CloudGenus?>?): WeatherListItem? {
-        cloud ?: return null
-        val cloudDetailsService = CloudDetailsService(requireContext())
-        val name = cloudDetailsService.getCloudName(cloud.value)
-        return WeatherListItem(
-            5,
-            R.drawable.cloudy,
-            getString(R.string.clouds),
-            name
-        ) {
-            CloudDetailsModal(requireContext()).show(cloud.value)
-        }
-    }
 
     private fun updateWeather() {
         inBackground {
@@ -394,13 +264,14 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 R.string.then_weather,
                 formatService.formatWeather(prediction.primaryDaily).lowercase()
             )
-            binding.weatherTitle.subtitle.text = if (speed.isNotEmpty() && prediction.primaryDaily == null) {
-                speed
-            } else if (speed.isNotEmpty()) {
-                "$speed, $then"
-            } else {
-                then
-            }
+            binding.weatherTitle.subtitle.text =
+                if (speed.isNotEmpty() && prediction.primaryDaily == null) {
+                    speed
+                } else if (speed.isNotEmpty()) {
+                    "$speed, $then"
+                } else {
+                    then
+                }
         }
     }
 
