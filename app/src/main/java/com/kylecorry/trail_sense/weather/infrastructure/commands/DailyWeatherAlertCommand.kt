@@ -1,64 +1,50 @@
 package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.NotificationChannels
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
+import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
-import java.time.LocalDate
-import java.time.LocalTime
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
+import java.time.LocalDateTime
 
 class DailyWeatherAlertCommand(
-    private val context: Context,
-    private val forecast: WeatherPrediction
-) :
-    IWeatherAlertCommand {
-
-    private val prefs by lazy { UserPreferences(context) }
-    private val formatter = FormatService(context)
+    private val prefs: IWeatherPreferences,
+    private val forecast: WeatherPrediction,
+    private val alerter: IValueAlerter<WeatherPrediction>,
+    private val timeProvider: () -> LocalDateTime
+) : IWeatherAlertCommand {
 
     override fun execute() {
-        if (!prefs.weather.shouldShowDailyWeatherNotification || !prefs.weather.shouldMonitorWeather) {
+        if (!prefs.shouldShowDailyWeatherNotification || !prefs.shouldMonitorWeather) {
             return
         }
 
-        val lastSentDate = prefs.weather.dailyWeatherLastSent
-        if (LocalDate.now() == lastSentDate) {
+        val time = timeProvider.invoke()
+
+        val lastSentDate = prefs.dailyWeatherLastSent
+        if (time.toLocalDate() == lastSentDate) {
             return
         }
 
-        if (!CanSendDailyForecast(prefs.weather.dailyForecastTime).isSatisfiedBy(LocalTime.now())) {
+        if (!CanSendDailyForecast(prefs.dailyForecastTime).isSatisfiedBy(time.toLocalTime())) {
             return
         }
 
-        prefs.weather.dailyWeatherLastSent = LocalDate.now()
-        val icon = formatter.getWeatherImage(forecast.primaryHourly)
-        val description = formatter.formatWeather(forecast.primaryHourly)
-
-        val openIntent = NavigationUtils.pendingIntent(context, R.id.action_weather)
-
-        val notification = Notify.status(
-            context,
-            DAILY_CHANNEL_ID,
-            context.getString(if (prefs.weather.dailyWeatherIsForTomorrow) R.string.tomorrows_forecast else R.string.todays_forecast),
-            description,
-            icon,
-            showBigIcon = prefs.weather.showColoredNotificationIcon,
-            group = NotificationChannels.GROUP_DAILY_WEATHER,
-            intent = openIntent,
-            autoCancel = true
-        )
-
-        Notify.send(context, DAILY_NOTIFICATION_ID, notification)
+        prefs.dailyWeatherLastSent = time.toLocalDate()
+        alerter.alert(forecast)
     }
 
     companion object {
-        private const val DAILY_NOTIFICATION_ID = 798643
-        const val DAILY_CHANNEL_ID = "daily-weather"
+        fun create(context: Context, forecast: WeatherPrediction): DailyWeatherAlertCommand {
+            val prefs = UserPreferences(context).weather
+            return DailyWeatherAlertCommand(
+                prefs,
+                forecast,
+                DailyWeatherAlerter(context, FormatService.getInstance(context), prefs)
+            ) { LocalDateTime.now() }
+        }
     }
-
 }

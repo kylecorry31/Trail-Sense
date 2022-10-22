@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.WeatherAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.IWeatherSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem

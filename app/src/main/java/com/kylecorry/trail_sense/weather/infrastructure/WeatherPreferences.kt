@@ -14,41 +14,41 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 
-class WeatherPreferences(private val context: Context) {
+class WeatherPreferences(private val context: Context) : IWeatherPreferences {
 
     private val cache = Preferences(context)
 
-    val hasBarometer: Boolean
+    override val hasBarometer: Boolean
         get() = Sensors.hasBarometer(context)
 
-    var shouldMonitorWeather: Boolean
+    override var shouldMonitorWeather: Boolean
         get() = Sensors.hasBarometer(context) && (cache.getBoolean(context.getString(R.string.pref_monitor_weather))
             ?: false)
         set(value) {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
 
-    val useAltitudeVariance: Boolean = true
+    override val useAltitudeVariance: Boolean = true
 
-    val altitudeOutlier: Float
+    override val altitudeOutlier: Float
         get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_outlier))?.toFloat()
             ?: 34f
 
-    val pressureSmoothing: Float
+    override val pressureSmoothing: Float
         get() {
             val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing))
                 ?: 500) / 1000f
             return raw * 100
         }
 
-    val altitudeSmoothing: Float
+    override val altitudeSmoothing: Float
         get() {
             val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing))
                 ?: 0) / 1000f
             return raw * 100
         }
 
-    var weatherUpdateFrequency: Duration
+    override var weatherUpdateFrequency: Duration
         get() {
             return cache.getDuration(context.getString(R.string.pref_weather_update_frequency))
                 ?: Duration.ofMinutes(15)
@@ -57,40 +57,40 @@ class WeatherPreferences(private val context: Context) {
             cache.putDuration(context.getString(R.string.pref_weather_update_frequency), value)
         }
 
-    val shouldShowDailyWeatherNotification: Boolean
+    override val shouldShowDailyWeatherNotification: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_daily_weather_notification))
             ?: true
 
-    val shouldShowWeatherNotification: Boolean
+    override val shouldShowWeatherNotification: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_weather_notification)) ?: true
 
-    val shouldShowPressureInNotification: Boolean
+    override val shouldShowPressureInNotification: Boolean
         get() = cache.getBoolean(
             context.getString(R.string.pref_show_pressure_in_notification)
         ) ?: false
 
-    val useSeaLevelPressure: Boolean
+    override val useSeaLevelPressure: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_use_sea_level_pressure)) ?: true
 
-    var showMeanShiftedReadings by BooleanPreference(
+    override var showMeanShiftedReadings by BooleanPreference(
         cache,
         context.getString(R.string.pref_debug_show_mean_adj_sea_level),
         false
     )
 
-    val seaLevelFactorInTemp: Boolean
+    override val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
 
-    val pressureHistory: Duration
+    override val pressureHistory: Duration
         get() {
             val raw = cache.getString(context.getString(R.string.pref_pressure_history)) ?: "48"
             return Duration.ofHours(raw.toLong())
         }
 
-    val sendStormAlerts: Boolean
+    override val sendStormAlerts: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true
 
-    val dailyForecastChangeThreshold: Float
+    override val dailyForecastChangeThreshold: Float
         get() {
             return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
                 "low" -> HPA_DAILY_LOW
@@ -99,7 +99,7 @@ class WeatherPreferences(private val context: Context) {
             }
         }
 
-    val hourlyForecastChangeThreshold: Float
+    override val hourlyForecastChangeThreshold: Float
         get() {
             return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
                 "low" -> HPA_FORECAST_LOW
@@ -108,7 +108,7 @@ class WeatherPreferences(private val context: Context) {
             }
         }
 
-    val stormAlertThreshold: Float
+    override val stormAlertThreshold: Float
         get() {
             if (!sendStormAlerts) {
                 return HPA_STORM_MEDIUM
@@ -121,7 +121,7 @@ class WeatherPreferences(private val context: Context) {
             }
         }
 
-    var minBatteryTemperature: Float
+    override var minBatteryTemperature: Float
         get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))
             ?.toFloatCompat() ?: 0f
         set(value) {
@@ -131,7 +131,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var minActualTemperature: Float
+    override var minActualTemperature: Float
         get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))
             ?.toFloatCompat() ?: 0f
         set(value) {
@@ -141,7 +141,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var maxBatteryTemperature: Float
+    override var maxBatteryTemperature: Float
         get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))
             ?.toFloatCompat() ?: 100f
         set(value) {
@@ -151,7 +151,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var maxActualTemperature: Float
+    override var maxActualTemperature: Float
         get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))
             ?.toFloatCompat() ?: 100f
         set(value) {
@@ -161,7 +161,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var minBatteryTemperatureF: Float
+    override var minBatteryTemperatureF: Float
         get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))
             ?.toFloatCompat() ?: 32f
         set(value) {
@@ -171,7 +171,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var minActualTemperatureF: Float
+    override var minActualTemperatureF: Float
         get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))
             ?.toFloatCompat() ?: 32f
         set(value) {
@@ -181,7 +181,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var maxBatteryTemperatureF: Float
+    override var maxBatteryTemperatureF: Float
         get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))
             ?.toFloatCompat() ?: 212f
         set(value) {
@@ -191,7 +191,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var maxActualTemperatureF: Float
+    override var maxActualTemperatureF: Float
         get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))
             ?.toFloatCompat() ?: 212f
         set(value) {
@@ -201,7 +201,7 @@ class WeatherPreferences(private val context: Context) {
             )
         }
 
-    var dailyWeatherLastSent: LocalDate
+    override var dailyWeatherLastSent: LocalDate
         get() {
             val raw = (cache.getString("daily_weather_last_sent_date") ?: LocalDate.MIN.toString())
             return LocalDate.parse(raw)
@@ -210,10 +210,10 @@ class WeatherPreferences(private val context: Context) {
             cache.putString("daily_weather_last_sent_date", value.toString())
         }
 
-    val dailyWeatherIsForTomorrow: Boolean
+    override val dailyWeatherIsForTomorrow: Boolean
         get() = dailyForecastTime >= LocalTime.of(16, 0)
 
-    var dailyForecastTime: LocalTime
+    override var dailyForecastTime: LocalTime
         get() {
             val raw = (cache.getString(context.getString(R.string.pref_daily_weather_time))
                 ?: LocalTime.of(7, 0).toString())
@@ -223,14 +223,14 @@ class WeatherPreferences(private val context: Context) {
             cache.putString(context.getString(R.string.pref_daily_weather_time), value.toString())
         }
 
-    val leftButton: QuickActionType
+    override val leftButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))
                 ?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Clouds
         }
 
-    val rightButton: QuickActionType
+    override val rightButton: QuickActionType
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))
                 ?.toIntCompat()
@@ -238,11 +238,11 @@ class WeatherPreferences(private val context: Context) {
                 ?: QuickActionType.Temperature
         }
 
-    val showColoredNotificationIcon: Boolean
+    override val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
 
-    val useExperimentalSeaLevelCalibration by BooleanPreference(
+    override val useExperimentalSeaLevelCalibration by BooleanPreference(
         cache,
         context.getString(R.string.pref_experimental_sea_level_calibration_v2),
         false
