@@ -16,22 +16,25 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 import java.time.Instant
 
 class CurrentWeatherAlertCommand(
-    private val context: Context,
-    private val hourly: WeatherPrediction,
-    private val tendency: PressureTendency,
-    private val lastReading: Reading<Pressure>?
+    private val context: Context
 ) : IWeatherAlertCommand {
 
     private val prefs by lazy { UserPreferences(context) }
     private val formatService by lazy { FormatService(context) }
 
-    override fun execute() {
+    override fun execute(weather: CurrentWeather) {
+
+        val hourly = weather.prediction
+        val tendency = weather.pressureTendency
+        val lastReading = weather.observation?.pressureReading()
+
         if (prefs.weather.shouldShowWeatherNotification && prefs.weather.shouldMonitorWeather) {
             updateNotificationForecast(
                 hourly,
@@ -83,7 +86,7 @@ class CurrentWeatherAlertCommand(
         val weather = formatService.formatWeather(forecast.primaryHourly)
         val speed = formatService.formatWeatherSpeed(forecast.hourlyArrival).lowercase()
 
-        val description = if (speed.isNotEmpty()){
+        val description = if (speed.isNotEmpty()) {
             "$weather $speed"
         } else {
             weather

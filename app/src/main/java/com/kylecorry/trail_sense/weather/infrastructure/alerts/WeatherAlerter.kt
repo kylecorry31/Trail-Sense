@@ -11,19 +11,11 @@ class WeatherAlerter(private val context: Context) : IValueAlerter<CurrentWeathe
 
     override fun alert(value: CurrentWeather) {
         val commands = listOfNotNull(
-            DailyWeatherAlertCommand.create(context, value.prediction),
-            StormAlertCommand(context, value.prediction),
-            value.observation?.let {
-                CurrentWeatherAlertCommand(
-                    context,
-                    value.prediction,
-                    value.pressureTendency,
-                    it.pressureReading()
-                )
-            }
+            DailyWeatherAlertCommand.create(context),
+            StormAlertCommand(context),
+            CurrentWeatherAlertCommand(context)
         )
-
-        commands.forEach { it.execute() }
+        commands.forEach { it.execute(value) }
     }
 
 }

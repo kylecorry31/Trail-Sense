@@ -7,18 +7,18 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
+import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
 
 class DailyWeatherAlertCommand(
     private val prefs: IWeatherPreferences,
-    private val forecast: WeatherPrediction,
     private val alerter: IValueAlerter<WeatherPrediction>,
     private val timeProvider: ITimeProvider
 ) : IWeatherAlertCommand {
 
-    override fun execute() {
+    override fun execute(weather: CurrentWeather) {
         if (!prefs.shouldShowDailyWeatherNotification || !prefs.shouldMonitorWeather) {
             return
         }
@@ -35,15 +35,14 @@ class DailyWeatherAlertCommand(
         }
 
         prefs.dailyWeatherLastSent = time.toLocalDate()
-        alerter.alert(forecast)
+        alerter.alert(weather.prediction)
     }
 
     companion object {
-        fun create(context: Context, forecast: WeatherPrediction): DailyWeatherAlertCommand {
+        fun create(context: Context): DailyWeatherAlertCommand {
             val prefs = UserPreferences(context).weather
             return DailyWeatherAlertCommand(
                 prefs,
-                forecast,
                 DailyWeatherAlerter(context, FormatService.getInstance(context), prefs),
                 SystemTimeProvider()
             )
