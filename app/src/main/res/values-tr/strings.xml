@@ -104,7 +104,7 @@
     <string name="stratocumulus_desc">Küçük boşluklara sahip pamuk topları gibi görünen alçak bulutlar. Renk beyazdan koyu griye kadar değişir.</string>
     <string name="cumulus_desc">Pamuk topları gibi görünen alçak kabarık bulutlar. Aralıklıdırlar ve genellikle aşağıda daha koyu yamaları olan beyazdırlar.</string>
     <string name="stratus_desc">Gökyüzünü kaplayan alçak bir bulut. Nesneler gölge oluşturmaz ve hava sisli olabilir.</string>
-    <string name="nimbostratus_desc">Koyu gri renkli ve gökyüzünü kaplayan orta seviye bir bulut. Yağmur yağıyor olabilir.</string>
+    <string name="nimbostratus_desc">Koyu gri renkte olan ve gökyüzünü kaplayan orta seviye bir bulut. Eğer yağmur yağmıyorsa, stratus bulutu olabilir.</string>
     <string name="altostratus_desc">Gökyüzünü kaplayan orta seviye bir bulut. Güneş, parlak bir yama olarak zar zor görülebilir.</string>
     <string name="altocumulus_desc">Pamuk topları gibi görünen orta seviye kabarık bulutlar. Genellikle aşağıda daha koyu yamaları olan beyazdırlar ve aralıklı veya tabaka şeklinde olabilirler.</string>
     <string name="cirrostratus_desc">Gökyüzünü kaplayan yüksek bir bulut. Saydamdır ve genellikle güneşin etrafında bir halenin oluşmasına neden olur.</string>
@@ -1060,4 +1060,12 @@
     <string name="weather_cold_front">Soğuk</string>
     <string name="weather_front">Hava Cephesi</string>
     <string name="weather_warm_front">Sıcak</string>
+    <string name="now">Şimdi</string>
+    <string name="cloud_stratus_forecast">Sisli olması durumunda önümüzdeki %d saat için güzel havaya işaret edebilir, aksi takdirde yakında yağışa işaret edebilir.</string>
+    <string name="weather_clear">Açık</string>
+    <string name="weather_overcast">Bulutlu</string>
+    <string name="weather_wind">Rüzgar</string>
+    <string name="then_weather">sonra %s</string>
+    <string name="later">Sonra</string>
+    <string name="weather_precipitation">Yağış</string>
 </resources>
