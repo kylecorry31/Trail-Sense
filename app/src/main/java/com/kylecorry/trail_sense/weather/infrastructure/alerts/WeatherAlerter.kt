@@ -12,7 +12,7 @@ class WeatherAlerter(private val context: Context) : IValueAlerter<CurrentWeathe
     override fun alert(value: CurrentWeather) {
         val commands = listOfNotNull(
             DailyWeatherAlertCommand.create(context),
-            StormAlertCommand(context),
+            StormAlertCommand.create(context),
             CurrentWeatherAlertCommand(context)
         )
         commands.forEach { it.execute(value) }

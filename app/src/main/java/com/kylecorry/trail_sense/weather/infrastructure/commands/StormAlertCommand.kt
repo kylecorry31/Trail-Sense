@@ -1,48 +1,48 @@
 package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.meteorology.WeatherCondition
-import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
+import com.kylecorry.trail_sense.shared.preferences.Flag
+import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
 
-class StormAlertCommand(private val context: Context) : IWeatherAlertCommand {
-
-    private val cache by lazy { Preferences(context) }
-    private val prefs by lazy { UserPreferences(context) }
+class StormAlertCommand(
+    private val justShownFlag: Flag,
+    private val prefs: IWeatherPreferences,
+    private val alerter: IDismissibleAlerter
+) : IWeatherAlertCommand {
 
     override fun execute(weather: CurrentWeather) {
-        val sentAlert = cache.getBoolean(context.getString(R.string.pref_just_sent_alert)) ?: false
+        val sentAlert = justShownFlag.get()
 
         if (weather.prediction.hourly.contains(WeatherCondition.Storm)) {
-            val shouldSend = prefs.weather.sendStormAlerts && prefs.weather.shouldMonitorWeather
+            val shouldSend = prefs.sendStormAlerts && prefs.shouldMonitorWeather
             if (shouldSend && !sentAlert) {
-                val notification = Notify.alert(
-                    context,
-                    STORM_CHANNEL_ID,
-                    context.getString(R.string.notification_storm_alert_title),
-                    context.getString(R.string.notification_storm_alert_text),
-                    R.drawable.ic_alert,
-                    group = NotificationChannels.GROUP_STORM,
-                    intent = NavigationUtils.pendingIntent(context, R.id.action_weather),
-                    autoCancel = true
-                )
-                Notify.send(context, STORM_ALERT_NOTIFICATION_ID, notification)
-                cache.putBoolean(context.getString(R.string.pref_just_sent_alert), true)
+                alerter.alert()
+                justShownFlag.set(true)
             }
         } else {
-            Notify.cancel(context, STORM_ALERT_NOTIFICATION_ID)
-            cache.putBoolean(context.getString(R.string.pref_just_sent_alert), false)
+            alerter.dismiss()
+            justShownFlag.set(false)
         }
     }
 
     companion object {
-        private const val STORM_ALERT_NOTIFICATION_ID = 74309823
-        const val STORM_CHANNEL_ID = "Alerts"
+        fun create(context: Context): StormAlertCommand {
+            val prefs = Preferences(context)
+            return StormAlertCommand(
+                PreferencesFlag(prefs, context.getString(R.string.pref_just_sent_alert)),
+                UserPreferences(context).weather,
+                StormAlerter(context)
+            )
+        }
+
     }
 
 }
