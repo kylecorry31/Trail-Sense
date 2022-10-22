@@ -188,7 +188,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     override suspend fun updateWeather(background: Boolean) {
-        MonitorWeatherCommand(context, background).execute()
+        MonitorWeatherCommand.create(context, background).execute()
     }
 
     private fun invalidate() {
