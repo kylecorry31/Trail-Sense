@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.solarpanel.domain
 
+import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.calculus.Calculus
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
@@ -9,8 +11,6 @@ import com.kylecorry.sol.time.Time.plusHours
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
-import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.max

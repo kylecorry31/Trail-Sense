@@ -8,13 +8,12 @@ import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.classifiers.confusion
 import com.kylecorry.sol.math.split
 import com.kylecorry.sol.math.statistics.Statistics
-import org.junit.jupiter.api.Test
 import java.io.File
 import kotlin.random.Random
 
 class CloudTrainer {
 
-    @Test
+//    @Test
     fun train() {
         val file = File("src/data/clouds.csv").readText()
         val csv = CSVConvert.parse(file)

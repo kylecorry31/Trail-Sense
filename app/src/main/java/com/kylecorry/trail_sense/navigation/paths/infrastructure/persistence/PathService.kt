@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
@@ -15,8 +17,6 @@ import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
-import com.kylecorry.trail_sense.shared.sensors.ITimeProvider
-import com.kylecorry.trail_sense.shared.sensors.SystemTimeProvider
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant

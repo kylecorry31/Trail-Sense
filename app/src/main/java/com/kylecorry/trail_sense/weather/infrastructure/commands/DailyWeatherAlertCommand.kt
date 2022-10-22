@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
+import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
@@ -8,13 +10,12 @@ import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
-import java.time.LocalDateTime
 
 class DailyWeatherAlertCommand(
     private val prefs: IWeatherPreferences,
     private val forecast: WeatherPrediction,
     private val alerter: IValueAlerter<WeatherPrediction>,
-    private val timeProvider: () -> LocalDateTime
+    private val timeProvider: ITimeProvider
 ) : IWeatherAlertCommand {
 
     override fun execute() {
@@ -22,7 +23,7 @@ class DailyWeatherAlertCommand(
             return
         }
 
-        val time = timeProvider.invoke()
+        val time = timeProvider.getTime()
 
         val lastSentDate = prefs.dailyWeatherLastSent
         if (time.toLocalDate() == lastSentDate) {
@@ -43,8 +44,9 @@ class DailyWeatherAlertCommand(
             return DailyWeatherAlertCommand(
                 prefs,
                 forecast,
-                DailyWeatherAlerter(context, FormatService.getInstance(context), prefs)
-            ) { LocalDateTime.now() }
+                DailyWeatherAlerter(context, FormatService.getInstance(context), prefs),
+                SystemTimeProvider()
+            )
         }
     }
 }
