@@ -395,7 +395,7 @@
     <string name="cumulus_desc">看起来像棉球的低浮云。 它们间隔开，通常是白色的，下面有较暗的斑块。</string>
     <string name="stratocumulus_desc">看起来像有小缝隙的棉球的低云。 颜色范围从白色到深灰色。</string>
     <string name="stratus_desc">覆盖天空的低云。 物体不会投射阴影，可能雾蒙蒙的。</string>
-    <string name="nimbostratus_desc">深灰色并覆盖天空的中层云。 可能正在下雨。</string>
+    <string name="nimbostratus_desc">深灰色并覆盖天空的中层云。 如果没在下雨，可能是层云。</string>
     <string name="altostratus_desc">覆盖天空的中层云。 肉眼勉强可见太阳形似明亮的补丁。</string>
     <string name="altocumulus_desc">看起来像棉球的中层浮云。 它们通常是白色的，下方有较深的斑块，可以间隔开或呈片状。</string>
     <string name="cirrostratus_desc">遮住了天空的高云。 它是透明的，通常会在太阳周围形成光晕。</string>
@@ -1048,4 +1048,12 @@
     <string name="weather_front">锋</string>
     <string name="weather_warm_front">暖锋</string>
     <string name="weather_cold_front">冷锋</string>
+    <string name="then_weather">接着 %s</string>
+    <string name="weather_clear">天气晴朗，无云</string>
+    <string name="weather_overcast">阴天，乌云密布</string>
+    <string name="weather_precipitation">降水</string>
+    <string name="weather_wind">风</string>
+    <string name="later">稍后</string>
+    <string name="now">马上</string>
+    <string name="cloud_stratus_forecast">如果雾蒙蒙地，可能表明接下去 %d 个小时会是好天气，否则可能表明很快会有降水。</string>
 </resources>
