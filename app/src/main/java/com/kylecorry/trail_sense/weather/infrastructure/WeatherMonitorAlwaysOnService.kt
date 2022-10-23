@@ -6,7 +6,7 @@ import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 
@@ -25,7 +25,7 @@ class WeatherMonitorAlwaysOnService : CoroutineIntervalService(TAG) {
     }
 
     override fun getForegroundNotification(): Notification {
-        return CurrentWeatherAlertCommand.getDefaultNotification(applicationContext)
+        return CurrentWeatherAlerter.getDefaultNotification(applicationContext)
     }
 
     override fun onDestroy() {

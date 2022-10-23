@@ -10,9 +10,9 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.commands.CurrentWeatherAlertCommand
 
 object NotificationChannels {
 
@@ -102,7 +102,7 @@ object NotificationChannels {
 
         Notify.createChannel(
             context,
-            CurrentWeatherAlertCommand.WEATHER_CHANNEL_ID,
+            CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
             context.getString(R.string.weather),
             context.getString(R.string.notification_monitoring_weather),
             Notify.CHANNEL_IMPORTANCE_LOW,

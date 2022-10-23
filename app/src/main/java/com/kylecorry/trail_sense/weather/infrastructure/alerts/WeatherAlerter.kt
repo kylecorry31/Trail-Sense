@@ -13,7 +13,7 @@ class WeatherAlerter(private val context: Context) : IValueAlerter<CurrentWeathe
         val commands = listOfNotNull(
             DailyWeatherAlertCommand.create(context),
             StormAlertCommand.create(context),
-            CurrentWeatherAlertCommand(context)
+            CurrentWeatherAlertCommand.create(context)
         )
         commands.forEach { it.execute(value) }
     }
