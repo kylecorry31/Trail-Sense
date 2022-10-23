@@ -370,7 +370,7 @@
     <string name="cumulus_desc">Lave skyer. Tette, oppblåste, skarpe konturer i form av kupler eller tårn. De er atskilt fra hverandre og vanligvis hvite med mørkere flekker under.</string>
     <string name="stratocumulus_desc">Lave skyer. Hvitaktige eller gråblåe flak av dotter eller valker.</string>
     <string name="stratus_desc">En lav sky som dekker himmelen. Jevn og ullen, grå til hvit, gjenstander kaster ikke skygger og det kan være tåkete.</string>
-    <string name="nimbostratus_desc">En middels høy sky som er mørk grå, diffus og dekker himmelen. Det kan regne.</string>
+    <string name="nimbostratus_desc">En middels høy sky som er mørk grå, diffus og dekker himmelen. Hvis det ikke regner, kan det være en stratussky.</string>
     <string name="altostratus_desc">En middels høy sky som dekker himmelen. Jevn gråfarge, solen kan knapt sees.</string>
     <string name="altocumulus_desc">Middels høye skyer. Kuleformede, oppblåste dotter eller ruller. Vanligvis hvite med mørkere flekker under.</string>
     <string name="cirrostratus_desc">En høy sky som dekker himmelen. Tynn, hvitaktig, gjennomsiktig og forårsaker vanligvis at en halo dannes rundt solen.</string>
@@ -974,4 +974,15 @@
     <string name="weather_front">Værfront</string>
     <string name="weather_warm_front">Varm</string>
     <string name="weather_cold_front">Kald</string>
+    <string name="sighting_compass">Peilekompass</string>
+    <string name="then_weather">så %s</string>
+    <string name="later">Senere</string>
+    <string name="now">Nå</string>
+    <string name="cloud_stratus_forecast">Kan indikere pent vær de neste %d timene hvis det er tåkete, ellers kan det indikere nedbør snart.</string>
+    <string name="weather_clear">Klart</string>
+    <string name="weather_overcast">Overskyet</string>
+    <string name="weather_precipitation">Nedbør</string>
+    <string name="weather_wind">Vind</string>
+    <string name="place_beacon_at">Plassere en navigeringsmarkør på %s\?</string>
+    <string name="map_auto_calibrated">Kart auto-kalibrert, kontroller nøyaktigheten</string>
 </resources>
