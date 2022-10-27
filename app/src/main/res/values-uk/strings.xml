@@ -147,7 +147,7 @@
     <string name="cumulus_desc">Низькі пухкі хмари, схожі на ватяні кульки. Вони розташовані на невеликій відстані один від одного і зазвичай білі з темнішими плямами знизу.</string>
     <string name="stratocumulus_desc">Низькі хмари, схожі на лист ватних кульок з невеликими просвічуваннями. Колір варіюється від білого до темно-сірого.</string>
     <string name="stratus_desc">Низька хмара, що закриває небо. Об\'єкти не відкидають тіні, і може бути туман.</string>
-    <string name="nimbostratus_desc">Хмара середньої висоти, темно-сірого кольору, що закриває небо. Може йти дощ.</string>
+    <string name="nimbostratus_desc">Хмара середньої висоти, яка має темно-сірий колір і закриває небо. Якщо не йде дощ, то це може бути шарувато-дощова хмара.</string>
     <string name="altostratus_desc">Хмара середньої висоти, що закриває небо. Сонце ледь видно у вигляді яскравої плями.</string>
     <string name="altocumulus_desc">Пухкі хмари середнього рівня, схожі на ватяні кульки. Вони зазвичай білі з темнішими плямами внизу і можуть бути розрізненими або схожими на лист.</string>
     <string name="cirrostratus_desc">Висока хмара, що закриває небо. Вона прозора і зазвичай викликає утворення ореолу навколо сонця.</string>
@@ -1080,4 +1080,12 @@
     <string name="weather_front">Погодний фронт</string>
     <string name="weather_warm_front">Теплий</string>
     <string name="weather_cold_front">Холодний</string>
+    <string name="cloud_stratus_forecast">Може вказувати на ясну погоду на найближчі %d години, якщо в цей час там туман, в іншому випадку це може свідчити про швидке випадання опадів.</string>
+    <string name="then_weather">потім %s</string>
+    <string name="weather_clear">Ясно</string>
+    <string name="weather_overcast">Похмуро</string>
+    <string name="now">Зараз</string>
+    <string name="weather_precipitation">Опади</string>
+    <string name="later">Пізніше</string>
+    <string name="weather_wind">Вітер</string>
 </resources>
