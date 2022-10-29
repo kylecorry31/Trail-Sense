@@ -1,0 +1,52 @@
+package com.kylecorry.trail_sense.shared.sensors.altimeter
+
+import com.kylecorry.andromeda.core.sensors.AbstractSensor
+import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.math.RingBuffer
+import com.kylecorry.sol.math.statistics.GaussianDistribution
+import com.kylecorry.sol.math.statistics.Statistics
+
+class GaussianAltimeter(val altimeter: IAltimeter, samples: Int = 4) : AbstractSensor(),
+    IAltimeter {
+
+    // TODO: Add this to IAltimeter
+    var altitudeAccuracy: Float? = null
+        private set
+
+    private val buffer = RingBuffer<GaussianDistribution>(samples)
+
+    override fun startImpl() {
+        buffer.clear()
+        altimeter.start(this::onReading)
+    }
+
+    override fun stopImpl() {
+        altimeter.stop(this::onReading)
+    }
+
+    override var altitude: Float = altimeter.altitude
+        private set
+
+
+    override val hasValidReading: Boolean
+        get() = altimeter.hasValidReading && buffer.isFull()
+
+    private fun onReading(): Boolean {
+        buffer.add(
+            GaussianDistribution(
+                altimeter.altitude,
+                if (altimeter is IGPS) altimeter.verticalAccuracy ?: 10f else 10f
+            )
+        )
+        val calculated = Statistics.joint(buffer.toList())
+        if (calculated != null) {
+            altitude = calculated.mean
+            altitudeAccuracy = calculated.standardDeviation
+            if (hasValidReading) {
+                notifyListeners()
+            }
+        }
+        return true
+    }
+}

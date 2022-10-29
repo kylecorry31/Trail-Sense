@@ -89,7 +89,7 @@ dependencies {
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.11.1")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:6.1.2")
+    implementation("com.github.kylecorry31:sol:6.2.0-beta01")
 
     // Andromeda
     val andromedaVersion = "5.0.0-beta18"

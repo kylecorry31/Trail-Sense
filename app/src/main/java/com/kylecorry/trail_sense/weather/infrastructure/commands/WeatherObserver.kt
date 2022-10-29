@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.altimeter.MedianAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeter
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
@@ -28,7 +28,7 @@ internal class WeatherObserver(
             background
         )
     }
-    private val altimeter by lazy { MedianAltimeter(baseAltimeter) }
+    private val altimeter by lazy { GaussianAltimeter(baseAltimeter) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
@@ -62,8 +62,7 @@ internal class WeatherObserver(
                 barometer.pressure,
                 altimeter.altitude,
                 if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
-                if (altimeter.altimeter is IGPS) ((altimeter.altimeter as IGPS).verticalAccuracy
-                    ?: 0f) else 0f,
+                altimeter.altitudeAccuracy,
                 hygrometer.humidity,
                 gps.location
             ),
