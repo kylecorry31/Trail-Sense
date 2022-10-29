@@ -322,7 +322,7 @@
     <string name="pref_weather_update_frequency_title">Frekuensi pembaruan cuaca</string>
     <string name="pref_app_version_title">Versi</string>
     <string name="continue_button">LANJUTKAN</string>
-    <string name="error_occurred_message">Trail Sense mengalami kesalahan dan akan ditutup. Silakan kirim email ke pengembang untuk memperbaiki masalah ini.</string>
+    <string name="error_occurred_message">Trail Sense mengalami kesalahan. Silakan kirim email ke pengembang untuk memperbaiki masalah ini.</string>
     <string name="delete_beacon_group_message">%s dan semua suarnya akan dihapus.</string>
     <string name="pref_max_beacon_distance_title">Radius suar terdekat</string>
     <string name="pref_display_multi_beacons_summary">Tampilkan suar terdekat di kompas</string>
@@ -547,12 +547,12 @@
     <string name="delete_path_group_message">%s dan semua jalur akan dihapus.</string>
     <string name="cliff_height_guide">Perkiraan ketinggian tebing</string>
     <string name="location_override_updated">Penggantian lokasi diperbarui</string>
-    <string name="backtrack">Backtrack</string>
+    <string name="backtrack">Mundur</string>
     <string name="backtrack_notification_channel_description">Backtrack lokasi diperbarui</string>
     <string name="create_beacon">Buat suar</string>
     <string name="waypoint_time_format">%s, %s</string>
     <string name="pref_backtrack_enabled_summary">Rekam riwayat lokasi</string>
-    <string name="pref_backtrack_frequency_title">Inverval Backtrack</string>
+    <string name="pref_backtrack_frequency_title">Interval mundur</string>
     <string name="location_input_help_title">Format lokasi yang didukung</string>
     <string name="location_input_help">Derajat desimal (mis. 1.00, -2.00)
 \n
@@ -590,7 +590,7 @@
     <string name="stratus_desc">Awan rendah yang menutupi langit. Objek tidak menghasilkan bayangan dan mungkin berkabut.</string>
     <string name="stratocumulus_desc">Awan rendah yang terlihat seperti selembar bola kapas dengan celah-celah kecil. Warnanya berkisar dari putih hingga abu-abu gelap.</string>
     <string name="altostratus_desc">Awan tingkat menengah yang menutupi langit. Matahari hampir tidak bisa dilihat sebagai titik terang.</string>
-    <string name="nimbostratus_desc">Awan tingkat menengah yang berwarna abu-abu gelap dan menutupi langit. Mungkin sedang hujan.</string>
+    <string name="nimbostratus_desc">Awan tingkat menengah yang berwarna abu-abu gelap dan menutupi langit. Jika tidak hujan, mungkin awan stratus.</string>
     <string name="cumulus_desc">Awan rendah yang terlihat seperti bola kapas. Awan-awan ini berjarak dan biasanya berwarna putih dengan bercak-bercak yang lebih gelap di bawahnya.</string>
     <string name="cumulonimbus_desc">Awan gembung rendah yang sangat tinggi. Awan ini biasanya memiliki bentuk paron dan berwarna gelap.</string>
     <string name="cirrus_desc">Awan tipis tinggi yang terlihat seperti jumbai rambut putih.</string>
@@ -734,4 +734,44 @@
     <string name="hygiene">Higenis</string>
     <string name="pick_file">Pilih berkas</string>
     <string name="temporary">Sementara</string>
+    <string name="find_next_occurrence">Temukan kejadian berikutnya</string>
+    <string name="yards_format">%s yd</string>
+    <string name="altostratus_forecast">Dapat mengindikasikan curah hujan dalam %d jam berikutnya.</string>
+    <string name="nimbostratus_forecast">Mungkin ada curah hujan selama %d jam ke depan.</string>
+    <string name="pref_experimental_metal_direction_title">Tampilkan arah logam</string>
+    <string name="location_not_mocked">Menggunakan lokasi sebenarnya</string>
+    <string name="liter_format">%s l</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="gallon_format">%s gal</string>
+    <string name="liters">Liter</string>
+    <string name="milliliters">Mililiter</string>
+    <string name="volume">Volume</string>
+    <string name="altocumulus_forecast">Dapat mengindikasikan curah hujan atau badai petir dalam %d jam berikutnya.</string>
+    <string name="pref_backtrack_history_days_title">Riwayat perjalanan</string>
+    <string name="pref_privacy_screenshot_protection_title">Mencegah tangkapan layar</string>
+    <string name="location_mocked">Menggunakan lokasi tiruan</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Beralih dengan tombol volume</string>
+    <string name="pref_tiles_enabled_summary">Dapat mencegah aplikasi penghemat baterai menghentikan Trail Sense sepenuhnya</string>
+    <string name="pref_auto_low_power_title">Penghematan daya otomatis</string>
+    <string name="unit_yards">Yard</string>
+    <string name="pref_map_url_source_title">Peta pembagian lokasi</string>
+    <string name="us_ounces_volume">Ons AS</string>
+    <string name="cloud_precipitation_forecast_hour_range">Dapat mengindikasikan curah hujan dalam %d hingga %d jam ke depan.</string>
+    <string name="cloud_fair_forecast_hours">Dapat mengindikasikan cuaca cerah untuk %d jam berikutnya.</string>
+    <string name="icon">Ikon</string>
+    <string name="cup_format">%s c</string>
+    <string name="pounds">Pound</string>
+    <string name="cumulus_forecast">Dapat mengindikasikan cuaca cerah. Jika tumbuh lebih tinggi, dapat mengindikasikan curah hujan atau badai petir dalam %d jam berikutnya.</string>
+    <string name="cumulonimbus_forecast">Dapat mengindikasikan badai petir dalam beberapa menit.</string>
+    <string name="units">Satuan</string>
+    <plurals name="number_days">
+        <item quantity="other">%d hari</item>
+    </plurals>
+    <string name="daylight">Siang hari</string>
+    <string name="us_gallons">Galon AS</string>
+    <string name="base_elevation">Ketinggian dasar</string>
+    <string name="base_temperature">Temperatur dasar</string>
+    <string name="destination_elevation">Ketinggian tujuan</string>
+    <string name="cross">Menyilang</string>
 </resources>
