@@ -1,0 +1,11 @@
+Weather
+- Factor clouds into weather forecast
+- Show the most likely weather condition
+- Improve elevation accuracy for sea level conversion
+- Determine if weather condition is likely to occur now, soon, or later
+
+Backtrack
+- Improve elevation accuracy
+
+Elevation history
+- Show time on X axis
