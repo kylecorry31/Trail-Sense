@@ -124,7 +124,7 @@
         android:tint="?android:textColorSecondary"
         android:visibility="invisible"
         app:backgroundTint="?android:colorBackgroundFloating"
-        app:fabSize="mini"
+        style="?attr/floatingActionButtonSmallStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear_compass"
         app:srcCompat="@drawable/ic_camera" />

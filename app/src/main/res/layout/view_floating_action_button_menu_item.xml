@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        app:fabSize="mini"
+        style="?attr/floatingActionButtonSmallStyle"
         tools:srcCompat="@drawable/ic_location" />
 
 </LinearLayout>
