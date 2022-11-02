@@ -68,7 +68,11 @@ class PressureChart(
         granularity = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
     }
 
-    fun plot(data: List<Reading<Pressure>>, raw: List<Reading<Pressure>>? = null) {
+    fun plot(
+        data: List<Reading<Pressure>>,
+        rawLower: List<Reading<Pressure>>? = null,
+        rawUpper: List<Reading<Pressure>>? = null
+    ) {
         startTime = data.firstOrNull()?.time
         setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
         val values = SimpleLineChart.getDataFromReadings(data, startTime) {
@@ -84,19 +88,33 @@ class PressureChart(
             drawGridLines = true
         )
 
-        if (raw == null) {
-            simpleChart.plot(values, color)
-        } else {
-            val rawValues = SimpleLineChart.getDataFromReadings(raw, startTime) {
+        val datasets = mutableListOf<SimpleLineChart.Dataset>()
+
+        if (rawLower != null){
+            val rawValues = SimpleLineChart.getDataFromReadings(rawLower, startTime) {
                 it.pressure
             }
-            simpleChart.plot(
-                listOf(
-                    SimpleLineChart.Dataset(rawValues, withAlpha(AppColor.Gray.color, 50), isHighlightEnabled = false),
-                    SimpleLineChart.Dataset(values, color),
-                )
-            )
+            datasets.add(SimpleLineChart.Dataset(
+                rawValues,
+                withAlpha(AppColor.Gray.color, 50),
+                isHighlightEnabled = false
+            ))
         }
+
+        if (rawUpper != null){
+            val rawValues = SimpleLineChart.getDataFromReadings(rawUpper, startTime) {
+                it.pressure
+            }
+            datasets.add(SimpleLineChart.Dataset(
+                rawValues,
+                withAlpha(AppColor.Gray.color, 50),
+                isHighlightEnabled = false
+            ))
+        }
+
+        datasets.add(SimpleLineChart.Dataset(values, color))
+
+        simpleChart.plot(datasets)
     }
 
     @ColorInt

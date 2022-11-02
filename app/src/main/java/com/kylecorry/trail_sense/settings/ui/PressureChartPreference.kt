@@ -10,7 +10,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.weather.ui.PressureChart
 
-class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Preference(context, attributeSet) {
+class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
+    Preference(context, attributeSet) {
 
     private var chart: PressureChart? = null
     private var data: List<Reading<Pressure>> = listOf()
@@ -28,8 +29,12 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) : Pr
         chart?.plot(data)
     }
 
-    fun plot(data: List<Reading<Pressure>>, raw: List<Reading<Pressure>>? = null){
+    fun plot(
+        data: List<Reading<Pressure>>,
+        lowerRaw: List<Reading<Pressure>>? = null,
+        upperRaw: List<Reading<Pressure>>? = null
+    ) {
         this.data = data
-        chart?.plot(data, raw)
+        chart?.plot(data, lowerRaw, upperRaw)
     }
 }
