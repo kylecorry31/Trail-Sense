@@ -35,7 +35,9 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
                     provider.invoke()
                 }
                 onMain {
-                    super.setImageBitmap(lastBitmap)
+                    if (lastBitmap?.isRecycled == false) {
+                        super.setImageBitmap(lastBitmap)
+                    }
                 }
             }
         }

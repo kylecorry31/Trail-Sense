@@ -1224,6 +1224,8 @@
     <!--As in, Precipitation Later-->
     <string name="later">Later</string>
     <string name="now">Now</string>
+    <string name="pref_show_map_previews" translatable="false">pref_show_map_previews</string>
+    <string name="pref_show_map_previews_title">Show map previews</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

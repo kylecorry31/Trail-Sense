@@ -223,6 +223,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         true
     )
 
+    val showMapPreviews by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_map_previews),
+        true
+    )
+
     enum class SpeedometerMode {
         Backtrack,
         GPS,

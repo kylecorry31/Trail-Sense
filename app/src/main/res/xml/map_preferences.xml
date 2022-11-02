@@ -12,6 +12,13 @@
             app:singleLineTitle="false"
             app:title="@string/reduce_map_resolution" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_map_previews"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_map_previews_title" />
+
 
     </PreferenceCategory>
 </PreferenceScreen>

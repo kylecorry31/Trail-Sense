@@ -124,13 +124,19 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             UserGuideUtils.showGuide(this, R.raw.importing_maps)
         }
 
+        val showMapPreviews = prefs.navigation.showMapPreviews
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
             val mapItemBinding = ListItemMapBinding.bind(itemView)
             val onMap = boundMap[map.id]?.contains(gps.location) ?: false
-            tryOrNothing {
-                mapItemBinding.mapImg.setImageBitmap(viewLifecycleOwner) {
-                    loadMapThumbnail(map)
+            if (showMapPreviews) {
+                tryOrNothing {
+                    mapItemBinding.mapImg.isVisible = true
+                    mapItemBinding.mapImg.setImageBitmap(viewLifecycleOwner) {
+                        loadMapThumbnail(map)
+                    }
                 }
+            } else {
+                mapItemBinding.mapImg.isVisible = false
             }
             mapItemBinding.fileSize.text = formatService.formatFileSize(fileSizes[map.id] ?: 0)
             mapItemBinding.name.text = map.name
