@@ -9,8 +9,8 @@ import com.kylecorry.trail_sense.shared.views.chart.IChart
 // TODO: Highlight on click?
 class LineChartLayer(
     override val data: List<Vector2>,
-    @ColorInt val color: Int,
-    val thickness: Float = 6f,
+    @ColorInt private val color: Int,
+    private val thickness: Float = 6f,
     onPointClick: (point: Vector2) -> Boolean = { false }
 ) : BaseChartLayer(data, true, onPointClick = onPointClick) {
     val path = Path()

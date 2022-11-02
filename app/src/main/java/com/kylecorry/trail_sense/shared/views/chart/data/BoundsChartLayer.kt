@@ -8,9 +8,9 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 class BoundsChartLayer(
-    val upper: List<Vector2>,
-    val lower: List<Vector2>,
-    @ColorInt val color: Int
+    private val upper: List<Vector2>,
+    private val lower: List<Vector2>,
+    @ColorInt private val color: Int
 ) : ChartLayer {
 
     override val data: List<Vector2> = upper + lower

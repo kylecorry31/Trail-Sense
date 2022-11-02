@@ -9,24 +9,47 @@ import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 class AreaChartLayer(
     override val data: List<Vector2>,
-    @ColorInt val color: Int,
-    val fillTo: Float = 0f
-) : ChartLayer {
+    @ColorInt private val lineColor: Int,
+    @ColorInt private val areaColor: Int,
+    private val fillTo: Float = 0f,
+    private val lineThickness: Float = 6f,
+    onPointClick: (point: Vector2) -> Boolean = { false }
+) : BaseChartLayer(data, true, onPointClick = onPointClick) {
 
-    val path = Path()
+    val areaPath = Path()
+    val linePath = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
         // TODO: Scale rather than recompute
-        path.rewind()
+        // Top line
+        linePath.rewind()
+        for (i in 1 until data.size) {
+            if (i == 1) {
+                val start = chart.toPixel(data[0])
+                linePath.moveTo(start.x, start.y)
+            }
+
+            val next = chart.toPixel(data[i])
+            linePath.lineTo(next.x, next.y)
+        }
+
+        drawer.noFill()
+        drawer.strokeWeight(lineThickness)
+        drawer.stroke(lineColor)
+        drawer.path(linePath)
+
+
+        // Area
+        areaPath.rewind()
         // Add upper to path
         for (i in 1 until data.size) {
             if (i == 1) {
                 val start = chart.toPixel(data[0])
-                path.moveTo(start.x, start.y)
+                areaPath.moveTo(start.x, start.y)
             }
 
             val next = chart.toPixel(data[i])
-            path.lineTo(next.x, next.y)
+            areaPath.lineTo(next.x, next.y)
         }
 
         // Add fill to
@@ -34,14 +57,14 @@ class AreaChartLayer(
             listOfNotNull(data.lastOrNull()?.copy(y = fillTo), data.firstOrNull()?.copy(y = fillTo))
         for (point in fillToPoints) {
             val next = chart.toPixel(point)
-            path.lineTo(next.x, next.y)
+            areaPath.lineTo(next.x, next.y)
         }
 
-        path.close()
+        areaPath.close()
 
-        drawer.fill(color)
+        drawer.fill(areaColor)
         drawer.noStroke()
-        drawer.path(path)
+        drawer.path(areaPath)
     }
 
     override fun onClick(drawer: ICanvasDrawer, chart: IChart, pixel: PixelCoordinate): Boolean {
