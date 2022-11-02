@@ -47,6 +47,16 @@ class Chart : CanvasView {
     private var _yMinimum: Float? = null
     private var _yMaximum: Float? = null
 
+    // Current values
+    private var _currentXMinimum: Float = 0f
+    private var _currentXMaximum: Float = 0f
+    private var _currentYMinimum: Float = 0f
+    private var _currentYMaximum: Float = 0f
+    private var _currentChartXMinimum: Float = 0f
+    private var _currentChartXMaximum: Float = 0f
+    private var _currentChartYMinimum: Float = 0f
+    private var _currentChartYMaximum: Float = 0f
+
     init {
         runEveryCycle = false
     }
@@ -57,6 +67,14 @@ class Chart : CanvasView {
         _labelMargin = dp(4f)
         _labelColor = Resources.androidTextColorPrimary(context).withAlpha(150)
         _gridColor = Resources.androidTextColorPrimary(context).withAlpha(50)
+        _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
+        _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
+        _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
+        _currentYMaximum = _yMaximum ?: Float.NEGATIVE_INFINITY
+        _currentChartXMinimum = _margin
+        _currentChartXMaximum = width.toFloat() - _margin
+        _currentChartYMinimum = _margin
+        _currentChartYMaximum = height.toFloat() - _margin
     }
 
     override fun draw() {
@@ -64,41 +82,36 @@ class Chart : CanvasView {
         background(_backgroundColor)
 
         // Update min / max
-        var xMin = _xMinimum ?: Float.POSITIVE_INFINITY
-        var xMax = _xMaximum ?: Float.NEGATIVE_INFINITY
-        var yMin = _yMinimum ?: Float.POSITIVE_INFINITY
-        var yMax = _yMaximum ?: Float.NEGATIVE_INFINITY
+        _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
+        _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
+        _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
+        _currentYMaximum = _yMaximum ?: Float.NEGATIVE_INFINITY
+        _currentChartXMinimum = _margin
+        _currentChartXMaximum = width.toFloat() - _margin
+        _currentChartYMinimum = _margin
+        _currentChartYMaximum = height.toFloat() - _margin
 
         if (_xMinimum == null || _xMaximum == null || _yMinimum == null || _yMaximum == null) {
             for (d in _data) {
                 for (point in d.data) {
-                    if (_xMinimum == null && point.x < xMin) {
-                        xMin = point.x
+                    if (_xMinimum == null && point.x < _currentXMinimum) {
+                        _currentXMinimum = point.x
                     }
 
-                    if (_xMaximum == null && point.x > xMax) {
-                        xMax = point.x
+                    if (_xMaximum == null && point.x > _currentXMaximum) {
+                        _currentXMaximum = point.x
                     }
 
-                    if (_yMinimum == null && point.y < yMin) {
-                        yMin = point.y
+                    if (_yMinimum == null && point.y < _currentYMinimum) {
+                        _currentYMinimum = point.y
                     }
 
-                    if (_yMaximum == null && point.y > yMax) {
-                        yMax = point.y
+                    if (_yMaximum == null && point.y > _currentYMaximum) {
+                        _currentYMaximum = point.y
                     }
                 }
             }
         }
-
-        var chartXMin = _margin
-        val chartXMax = width.toFloat() - _margin
-
-        val chartYMin = _margin
-        var chartYMax = height.toFloat() - _margin
-
-        val xMap: (Float) -> Float = { SolMath.map(it, xMin, xMax, chartXMin, chartXMax) }
-        val yMap: (Float) -> Float = { -SolMath.map(it, yMin, yMax, -chartYMax, -chartYMin) }
 
         // Y axis labels
         textSize(_labelSize)
@@ -107,7 +120,8 @@ class Chart : CanvasView {
         val yLabels = mutableListOf<Pair<String, Float>>()
         var yLabelSize = 0f
         for (i in 0 until _yLabelCount) {
-            val value = SolMath.lerp(i / (_yLabelCount - 1).toFloat(), yMin, yMax)
+            val value =
+                SolMath.lerp(i / (_yLabelCount - 1).toFloat(), _currentYMinimum, _currentYMaximum)
             val label = _yLabelFormatter.format(value)
             yLabels.add(label to value)
             yLabelSize = max(yLabelSize, textWidth(label))
@@ -117,27 +131,28 @@ class Chart : CanvasView {
         val xLabels = mutableListOf<Pair<String, Float>>()
         var xLabelSize = 0f
         for (i in 0 until _xLabelCount) {
-            val value = SolMath.lerp(i / (_xLabelCount - 1).toFloat(), xMin, xMax)
+            val value =
+                SolMath.lerp(i / (_xLabelCount - 1).toFloat(), _currentXMinimum, _currentXMaximum)
             val label = _xLabelFormatter.format(value)
             xLabels.add(label to value)
             xLabelSize = max(xLabelSize, textHeight(label))
         }
 
-        chartXMin += yLabelSize + if (_yLabelCount > 0f) _labelMargin else 0f
-        chartYMax -= xLabelSize + if (_xLabelCount > 0f) _labelMargin else 0f
+        _currentChartXMinimum += yLabelSize + if (_yLabelCount > 0f) _labelMargin else 0f
+        _currentChartYMaximum -= xLabelSize + if (_xLabelCount > 0f) _labelMargin else 0f
 
         // Draw y labels
         for (label in yLabels) {
             textAlign(TextAlign.Right)
             val x = yLabelSize
-            val y = yMap(label.second) + textHeight(label.first) / 2f
+            val y = mapY(label.second) + textHeight(label.first) / 2f
             text(label.first, x, y)
         }
 
         // Draw x labels
         for (label in xLabels) {
             textAlign(TextAlign.Left)
-            val x = xMap(label.second) - textWidth(label.first) / 2f
+            val x = mapX(label.second) - textWidth(label.first) / 2f
             val y = height.toFloat() - _margin
             text(label.first, x, y)
         }
@@ -148,7 +163,12 @@ class Chart : CanvasView {
             stroke(_gridColor)
             strokeWeight(_gridThickness)
             for (label in yLabels) {
-                line(chartXMin, yMap(label.second), chartXMax, yMap(label.second))
+                line(
+                    _currentChartXMinimum,
+                    mapY(label.second),
+                    _currentChartXMaximum,
+                    mapY(label.second)
+                )
             }
         }
 
@@ -158,14 +178,41 @@ class Chart : CanvasView {
             stroke(_gridColor)
             strokeWeight(_gridThickness)
             for (label in xLabels) {
-                line(xMap(label.second), chartYMin, xMap(label.second), chartYMax)
+                line(
+                    mapX(label.second),
+                    _currentChartYMinimum,
+                    mapX(label.second),
+                    _currentChartYMaximum
+                )
             }
         }
 
         // Data
         _data.forEach {
-            it.draw(this, xMap, yMap)
+            it.draw(this, this::mapX, this::mapY)
         }
+    }
+
+    // Map x to view coordinates
+    private fun mapX(x: Float): Float {
+        return SolMath.map(
+            x,
+            _currentXMinimum,
+            _currentXMaximum,
+            _currentChartXMinimum,
+            _currentChartXMaximum
+        )
+    }
+
+    // Map y to view coordinates
+    private fun mapY(y: Float): Float {
+        return -SolMath.map(
+            y,
+            _currentYMinimum,
+            _currentYMaximum,
+            -_currentChartYMaximum,
+            -_currentChartYMinimum
+        )
     }
 
     fun plot(data: List<ChartData>) {
