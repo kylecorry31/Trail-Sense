@@ -6,18 +6,19 @@ import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.time.Time.hoursUntil
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
-import com.kylecorry.trail_sense.shared.views.chart.data.ChartData
+import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Instant
 import kotlin.math.max
 
-class Chart : CanvasView {
+class Chart : CanvasView, IChart {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -27,7 +28,7 @@ class Chart : CanvasView {
         defStyleAttr
     )
 
-    private var _data = emptyList<ChartData>()
+    private var _data = emptyList<ChartLayer>()
     private var _backgroundColor = Color.TRANSPARENT
     private var _labelColor = Color.BLACK
     private var _gridColor = Color.BLACK
@@ -83,7 +84,7 @@ class Chart : CanvasView {
 
     private fun drawData() {
         _data.forEach {
-            it.draw(this, this::mapX, this::mapY)
+            it.draw(this, this)
         }
     }
 
@@ -218,12 +219,12 @@ class Chart : CanvasView {
         )
     }
 
-    fun plot(data: List<ChartData>) {
+    fun plot(data: List<ChartLayer>) {
         _data = data
         invalidate()
     }
 
-    fun plot(vararg data: ChartData) {
+    fun plot(vararg data: ChartLayer) {
         plot(data.toList())
     }
 
@@ -288,6 +289,30 @@ class Chart : CanvasView {
                 Vector2(first.hoursUntil(it.time), getY(it.value))
             }
         }
+    }
+
+    override fun toPixel(data: Vector2): PixelCoordinate {
+        val x = mapX(data.x)
+        val y = mapY(data.y)
+        return PixelCoordinate(x, y)
+    }
+
+    override fun toData(pixel: PixelCoordinate): Vector2 {
+        val x = SolMath.map(
+            pixel.x,
+            _currentChartXMinimum,
+            _currentChartXMaximum,
+            _currentXMinimum,
+            _currentXMaximum
+        )
+        val y = SolMath.map(
+            -pixel.y,
+            -_currentChartYMaximum,
+            -_currentChartYMinimum,
+            _currentYMinimum,
+            _currentYMaximum
+        )
+        return Vector2(x, y)
     }
 
 
