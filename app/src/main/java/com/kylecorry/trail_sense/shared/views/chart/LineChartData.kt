@@ -13,17 +13,17 @@ class LineChartData(
 ) : ChartData {
     val path = Path()
 
-    override fun draw(drawer: ICanvasDrawer, xMap: (Float) -> Float, yMap: (Float) -> Float) {
+    override fun draw(drawer: ICanvasDrawer, mapX: (Float) -> Float, mapY: (Float) -> Float) {
         // TODO: Scale rather than recompute
         path.rewind()
         for (i in 1 until data.size) {
             if (i == 1) {
                 val start = data[0]
-                path.moveTo(xMap(start.x), yMap(start.y))
+                path.moveTo(mapX(start.x), mapY(start.y))
             }
 
             val next = data[i]
-            path.lineTo(xMap(next.x), yMap(next.y))
+            path.lineTo(mapX(next.x), mapY(next.y))
         }
 
         drawer.noFill()

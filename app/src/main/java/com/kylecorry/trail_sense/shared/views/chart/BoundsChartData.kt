@@ -15,24 +15,24 @@ class BoundsChartData(
 
     val path = Path()
 
-    override fun draw(drawer: ICanvasDrawer, xMap: (Float) -> Float, yMap: (Float) -> Float) {
+    override fun draw(drawer: ICanvasDrawer, mapX: (Float) -> Float, mapY: (Float) -> Float) {
         // TODO: Scale rather than recompute
         path.rewind()
         // Add upper to path
         for (i in 1 until upper.size) {
             if (i == 1) {
                 val start = upper[0]
-                path.moveTo(xMap(start.x), yMap(start.y))
+                path.moveTo(mapX(start.x), mapY(start.y))
             }
 
             val next = upper[i]
-            path.lineTo(xMap(next.x), yMap(next.y))
+            path.lineTo(mapX(next.x), mapY(next.y))
         }
 
         // Add lower to path
         for (i in (0..lower.lastIndex).reversed()) {
             val next = lower[i]
-            path.lineTo(xMap(next.x), yMap(next.y))
+            path.lineTo(mapX(next.x), mapY(next.y))
         }
 
         path.close()
