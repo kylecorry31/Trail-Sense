@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.shared.views.chart
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.core.system.Resources
@@ -28,7 +30,7 @@ class Chart : CanvasView, IChart {
         defStyleAttr
     )
 
-    private var _data = emptyList<ChartLayer>()
+    private var _layers = emptyList<ChartLayer>()
     private var _backgroundColor = Color.TRANSPARENT
     private var _labelColor = Color.BLACK
     private var _gridColor = Color.BLACK
@@ -62,6 +64,7 @@ class Chart : CanvasView, IChart {
     private var _currentChartYMaximum: Float = 0f
 
     init {
+        // TODO: It should update when a layer changes (maybe have layers event/callback)
         runEveryCycle = false
     }
 
@@ -83,7 +86,7 @@ class Chart : CanvasView, IChart {
     }
 
     private fun drawData() {
-        _data.forEach {
+        _layers.forEach {
             it.draw(this, this)
         }
     }
@@ -175,7 +178,7 @@ class Chart : CanvasView, IChart {
         _currentChartYMaximum = height.toFloat() - _margin
 
         if (_xMinimum == null || _xMaximum == null || _yMinimum == null || _yMaximum == null) {
-            for (d in _data) {
+            for (d in _layers) {
                 for (point in d.data) {
                     if (_xMinimum == null && point.x < _currentXMinimum) {
                         _currentXMinimum = point.x
@@ -220,7 +223,7 @@ class Chart : CanvasView, IChart {
     }
 
     fun plot(data: List<ChartLayer>) {
-        _data = data
+        _layers = data
         invalidate()
     }
 
@@ -315,6 +318,26 @@ class Chart : CanvasView, IChart {
         return Vector2(x, y)
     }
 
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            val pixel = PixelCoordinate(e.x, e.y)
+
+            // TODO: Choose nearest data point rather than layer order?
+            for (layer in _layers.reversed()) {
+                if (layer.onClick(drawer, this@Chart, pixel)) {
+                    break
+                }
+            }
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
+    private val gestureDetector = GestureDetector(context, gestureListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val consumed = gestureDetector.onTouchEvent(event)
+        return consumed || super.onTouchEvent(event)
+    }
 }
 

@@ -3,16 +3,16 @@ package com.kylecorry.trail_sense.shared.views.chart.data
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
-// TODO: Handle on click
+// TODO: Highlight on click?
 class LineChartLayer(
     override val data: List<Vector2>,
     @ColorInt val color: Int,
-    val thickness: Float = 6f
-) : ChartLayer {
+    val thickness: Float = 6f,
+    onPointClick: (point: Vector2) -> Boolean = { false }
+) : BaseChartLayer(data, true, onPointClick = onPointClick) {
     val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
@@ -32,9 +32,5 @@ class LineChartLayer(
         drawer.strokeWeight(thickness)
         drawer.stroke(color)
         drawer.path(path)
-    }
-
-    override fun onClick(drawer: ICanvasDrawer, chart: IChart, pixel: PixelCoordinate): Boolean {
-        return false
     }
 }
