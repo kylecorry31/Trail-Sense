@@ -67,52 +67,24 @@ class Chart : CanvasView {
         _labelMargin = dp(4f)
         _labelColor = Resources.androidTextColorPrimary(context).withAlpha(150)
         _gridColor = Resources.androidTextColorPrimary(context).withAlpha(50)
-        _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
-        _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
-        _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
-        _currentYMaximum = _yMaximum ?: Float.NEGATIVE_INFINITY
-        _currentChartXMinimum = _margin
-        _currentChartXMaximum = width.toFloat() - _margin
-        _currentChartYMinimum = _margin
-        _currentChartYMaximum = height.toFloat() - _margin
+        updateRange()
     }
 
     override fun draw() {
         clear()
         background(_backgroundColor)
+        updateRange()
+        drawLabelsAndGrid()
+        drawData()
+    }
 
-        // Update min / max
-        _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
-        _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
-        _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
-        _currentYMaximum = _yMaximum ?: Float.NEGATIVE_INFINITY
-        _currentChartXMinimum = _margin
-        _currentChartXMaximum = width.toFloat() - _margin
-        _currentChartYMinimum = _margin
-        _currentChartYMaximum = height.toFloat() - _margin
-
-        if (_xMinimum == null || _xMaximum == null || _yMinimum == null || _yMaximum == null) {
-            for (d in _data) {
-                for (point in d.data) {
-                    if (_xMinimum == null && point.x < _currentXMinimum) {
-                        _currentXMinimum = point.x
-                    }
-
-                    if (_xMaximum == null && point.x > _currentXMaximum) {
-                        _currentXMaximum = point.x
-                    }
-
-                    if (_yMinimum == null && point.y < _currentYMinimum) {
-                        _currentYMinimum = point.y
-                    }
-
-                    if (_yMaximum == null && point.y > _currentYMaximum) {
-                        _currentYMaximum = point.y
-                    }
-                }
-            }
+    private fun drawData() {
+        _data.forEach {
+            it.draw(this, this::mapX, this::mapY)
         }
+    }
 
+    private fun drawLabelsAndGrid() {
         // Y axis labels
         textSize(_labelSize)
         fill(_labelColor)
@@ -186,10 +158,38 @@ class Chart : CanvasView {
                 )
             }
         }
+    }
 
-        // Data
-        _data.forEach {
-            it.draw(this, this::mapX, this::mapY)
+    private fun updateRange() {
+        _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
+        _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
+        _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
+        _currentYMaximum = _yMaximum ?: Float.NEGATIVE_INFINITY
+        _currentChartXMinimum = _margin
+        _currentChartXMaximum = width.toFloat() - _margin
+        _currentChartYMinimum = _margin
+        _currentChartYMaximum = height.toFloat() - _margin
+
+        if (_xMinimum == null || _xMaximum == null || _yMinimum == null || _yMaximum == null) {
+            for (d in _data) {
+                for (point in d.data) {
+                    if (_xMinimum == null && point.x < _currentXMinimum) {
+                        _currentXMinimum = point.x
+                    }
+
+                    if (_xMaximum == null && point.x > _currentXMaximum) {
+                        _currentXMaximum = point.x
+                    }
+
+                    if (_yMinimum == null && point.y < _currentYMinimum) {
+                        _currentYMinimum = point.y
+                    }
+
+                    if (_yMaximum == null && point.y > _currentYMaximum) {
+                        _currentYMaximum = point.y
+                    }
+                }
+            }
         }
     }
 
