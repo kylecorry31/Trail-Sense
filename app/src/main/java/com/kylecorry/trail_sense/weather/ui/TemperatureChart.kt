@@ -12,8 +12,8 @@ class TemperatureChart(private val chart: Chart) {
     private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
     init {
-        chart.setYLabelCount(5)
-        chart.setXLabelCount(0)
+        chart.configureXAxis(labelCount = 0, drawGridLines = false)
+        chart.configureYAxis(labelCount = 5, drawGridLines = true)
     }
 
     fun plot(data: List<Reading<Float>>) {

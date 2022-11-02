@@ -33,15 +33,19 @@ class Chart : CanvasView {
     private var _gridThickness = 2f
     private var _margin = 0f
 
-    // Y axis
-    private var _yLabelCount = 3
-    private var _yGridLines = true
-    private var _yLabelFormatter: ChartLabelFormatter = NumberChartLabelFormatter()
-
     // X axis
     private var _xLabelCount = 3
     private var _xGridLines = true
     private var _xLabelFormatter: ChartLabelFormatter = NumberChartLabelFormatter()
+    private var _xMinimum: Float? = null
+    private var _xMaximum: Float? = null
+
+    // Y axis
+    private var _yLabelCount = 3
+    private var _yGridLines = true
+    private var _yLabelFormatter: ChartLabelFormatter = NumberChartLabelFormatter()
+    private var _yMinimum: Float? = null
+    private var _yMaximum: Float? = null
 
     init {
         runEveryCycle = false
@@ -60,27 +64,29 @@ class Chart : CanvasView {
         background(_backgroundColor)
 
         // Update min / max
-        var xMin = Float.POSITIVE_INFINITY
-        var xMax = Float.NEGATIVE_INFINITY
-        var yMin = Float.POSITIVE_INFINITY
-        var yMax = Float.NEGATIVE_INFINITY
+        var xMin = _xMinimum ?: Float.POSITIVE_INFINITY
+        var xMax = _xMaximum ?: Float.NEGATIVE_INFINITY
+        var yMin = _yMinimum ?: Float.POSITIVE_INFINITY
+        var yMax = _yMaximum ?: Float.NEGATIVE_INFINITY
 
-        for (d in _data) {
-            for (point in d.data) {
-                if (point.x < xMin) {
-                    xMin = point.x
-                }
+        if (_xMinimum == null || _xMaximum == null || _yMinimum == null || _yMaximum == null) {
+            for (d in _data) {
+                for (point in d.data) {
+                    if (_xMinimum == null && point.x < xMin) {
+                        xMin = point.x
+                    }
 
-                if (point.x > xMax) {
-                    xMax = point.x
-                }
+                    if (_xMaximum == null && point.x > xMax) {
+                        xMax = point.x
+                    }
 
-                if (point.y < yMin) {
-                    yMin = point.y
-                }
+                    if (_yMinimum == null && point.y < yMin) {
+                        yMin = point.y
+                    }
 
-                if (point.y > yMax) {
-                    yMax = point.y
+                    if (_yMaximum == null && point.y > yMax) {
+                        yMax = point.y
+                    }
                 }
             }
         }
@@ -171,13 +177,53 @@ class Chart : CanvasView {
         plot(data.toList())
     }
 
-    fun setYLabelCount(count: Int) {
-        _yLabelCount = count
+    fun configureXAxis(
+        minimum: Float? = null,
+        maximum: Float? = null,
+        labelCount: Int? = null,
+        drawGridLines: Boolean? = null,
+        labelFormatter: ChartLabelFormatter? = null
+    ) {
+        _xMinimum = minimum
+        _xMaximum = maximum
+
+        if (labelCount != null) {
+            _xLabelCount = labelCount
+        }
+
+        if (labelFormatter != null) {
+            _xLabelFormatter = labelFormatter
+        }
+
+        if (drawGridLines != null) {
+            _xGridLines = drawGridLines
+        }
+
         invalidate()
     }
 
-    fun setXLabelCount(count: Int) {
-        _xLabelCount = count
+    fun configureYAxis(
+        minimum: Float? = null,
+        maximum: Float? = null,
+        labelCount: Int? = null,
+        drawGridLines: Boolean? = null,
+        labelFormatter: ChartLabelFormatter? = null
+    ) {
+        _yMinimum = minimum
+        _yMaximum = maximum
+
+        if (labelCount != null) {
+            _yLabelCount = labelCount
+        }
+
+        if (labelFormatter != null) {
+            _yLabelFormatter = labelFormatter
+        }
+
+        if (drawGridLines != null) {
+            _yGridLines = drawGridLines
+        }
+
         invalidate()
     }
 
