@@ -16,6 +16,8 @@ class GaussianAltimeter(val altimeter: IAltimeter, samples: Int = 4) : AbstractS
 
     private val buffer = RingBuffer<GaussianDistribution>(samples)
 
+    private var lastDistribution: GaussianDistribution? = null
+
     override fun startImpl() {
         buffer.clear()
         altimeter.start(this::onReading)
@@ -33,12 +35,19 @@ class GaussianAltimeter(val altimeter: IAltimeter, samples: Int = 4) : AbstractS
         get() = altimeter.hasValidReading && buffer.isFull()
 
     private fun onReading(): Boolean {
-        buffer.add(
-            GaussianDistribution(
-                altimeter.altitude,
-                if (altimeter is IGPS) altimeter.verticalAccuracy ?: 10f else 10f
-            )
+        val distribution = GaussianDistribution(
+            altimeter.altitude,
+            if (altimeter is IGPS) altimeter.verticalAccuracy ?: 10f else 10f
         )
+
+        // A new elevation reading was not received
+        if (distribution == lastDistribution) {
+            return true
+        }
+
+        lastDistribution = distribution
+
+        buffer.add(distribution)
         val calculated = Statistics.joint(buffer.toList())
         if (calculated != null) {
             altitude = calculated.mean
