@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.views.chart
+package com.kylecorry.trail_sense.shared.views.chart.data
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.math.Vector2

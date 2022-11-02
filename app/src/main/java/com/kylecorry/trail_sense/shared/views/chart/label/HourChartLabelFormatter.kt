@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.views.chart
+package com.kylecorry.trail_sense.shared.views.chart.label
 
 import android.content.Context
 import com.kylecorry.sol.time.Time

@@ -11,6 +11,9 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.time.Time.hoursUntil
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.trail_sense.shared.views.chart.data.ChartData
+import com.kylecorry.trail_sense.shared.views.chart.label.ChartLabelFormatter
+import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Instant
 import kotlin.math.max
 

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.views.chart
+package com.kylecorry.trail_sense.shared.views.chart.data
 
 import android.graphics.Path
 import androidx.annotation.ColorInt

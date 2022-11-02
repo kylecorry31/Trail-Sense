@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.LineChartData
+import com.kylecorry.trail_sense.shared.views.chart.data.LineChartData
 
 
 class TemperatureChart(private val chart: Chart) {
