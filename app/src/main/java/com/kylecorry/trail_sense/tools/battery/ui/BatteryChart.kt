@@ -1,37 +1,47 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
-import com.github.mikephil.charting.charts.LineChart
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.trail_sense.shared.views.chart.Chart
+import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 
-class BatteryChart(chart: LineChart) {
+class BatteryChart(private val chart: Chart) {
 
-    private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
     private val context = chart.context
 
     init {
-        simpleChart.configureYAxis(
+        chart.configureYAxis(
             minimum = 0f,
             maximum = 100f,
-            granularity = 20f,
             labelCount = 5,
             drawGridLines = true
         )
 
-        simpleChart.configureXAxis(
+        chart.configureXAxis(
             labelCount = 0,
             drawGridLines = false
         )
     }
 
-    fun plot(readings: List<BatteryReading>, showCapacity: Boolean = false){
-        val data = readings.map {
-            it.time.toEpochMilli().toFloat() to if (showCapacity) it.capacity else it.percent
+    fun plot(readings: List<BatteryReading>, showCapacity: Boolean = false) {
+        val data = Chart.getDataFromReadings(readings.map {
+            Reading(
+                if (showCapacity) it.capacity else it.percent,
+                it.time
+            )
+        }) {
+            it
         }
 
-        simpleChart.plot(data, Resources.getAndroidColorAttr(context, R.attr.colorPrimary), true)
+        val color = AppColor.Orange.color
+
+        chart.plot(
+            AreaChartLayer(data, color.withAlpha(150)),
+            LineChartLayer(data, color)
+        )
     }
 
 }
