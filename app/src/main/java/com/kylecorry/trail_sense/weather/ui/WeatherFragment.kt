@@ -301,7 +301,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             return
         }
         val readingDuration = Duration.between(readings.first().time, Instant.now())
-        CustomUiUtils.showLineChart(
+        CustomUiUtils.showChart(
             this, getString(
                 R.string.temperature_history,
                 formatService.formatDuration(readingDuration, true)
