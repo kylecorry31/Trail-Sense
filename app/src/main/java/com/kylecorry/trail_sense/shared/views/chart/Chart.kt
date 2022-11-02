@@ -1,12 +1,9 @@
-package com.kylecorry.trail_sense.shared.views
+package com.kylecorry.trail_sense.shared.views.chart
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Path
 import android.util.AttributeSet
-import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath
@@ -16,7 +13,6 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import java.time.Instant
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 class Chart : CanvasView {
 
@@ -33,12 +29,19 @@ class Chart : CanvasView {
     private var _labelColor = Color.BLACK
     private var _gridColor = Color.BLACK
     private var _labelSize = 0f
+    private var _labelMargin = 0f
     private var _gridThickness = 2f
+    private var _margin = 0f
+
+    // Y axis
     private var _yLabelCount = 3
     private var _yGridLines = true
+    private var _yLabelFormatter: ChartLabelFormatter = NumberChartLabelFormatter()
 
-    // TODO: Use granularity for default label formatter
-    private var _yLabelFormatter: (Float) -> String = { it.roundToInt().toString() }
+    // X axis
+    private var _xLabelCount = 3
+    private var _xGridLines = true
+    private var _xLabelFormatter: ChartLabelFormatter = NumberChartLabelFormatter()
 
     init {
         runEveryCycle = false
@@ -46,6 +49,8 @@ class Chart : CanvasView {
 
     override fun setup() {
         _labelSize = sp(10f)
+        _margin = dp(8f)
+        _labelMargin = dp(4f)
         _labelColor = Resources.androidTextColorPrimary(context).withAlpha(150)
         _gridColor = Resources.androidTextColorPrimary(context).withAlpha(50)
     }
@@ -80,13 +85,11 @@ class Chart : CanvasView {
             }
         }
 
-        val margin = dp(4f)
+        var chartXMin = _margin
+        val chartXMax = width.toFloat() - _margin
 
-        var chartXMin = margin
-        val chartXMax = width.toFloat() - margin
-
-        val chartYMin = margin
-        val chartYMax = height.toFloat() - margin
+        val chartYMin = _margin
+        var chartYMax = height.toFloat() - _margin
 
         val xMap: (Float) -> Float = { SolMath.map(it, xMin, xMax, chartXMin, chartXMax) }
         val yMap: (Float) -> Float = { -SolMath.map(it, yMin, yMax, -chartYMax, -chartYMin) }
@@ -99,18 +102,37 @@ class Chart : CanvasView {
         var yLabelSize = 0f
         for (i in 0 until _yLabelCount) {
             val value = SolMath.lerp(i / (_yLabelCount - 1).toFloat(), yMin, yMax)
-            val label = _yLabelFormatter(value)
-            val yPos = yMap(value)
-            yLabels.add(label to yPos)
+            val label = _yLabelFormatter.format(value)
+            yLabels.add(label to value)
             yLabelSize = max(yLabelSize, textWidth(label))
         }
 
-        chartXMin += yLabelSize + if (yLabelSize > 0f) dp(4f) else 0f
+        // X axis labels
+        val xLabels = mutableListOf<Pair<String, Float>>()
+        var xLabelSize = 0f
+        for (i in 0 until _xLabelCount) {
+            val value = SolMath.lerp(i / (_xLabelCount - 1).toFloat(), xMin, xMax)
+            val label = _xLabelFormatter.format(value)
+            xLabels.add(label to value)
+            xLabelSize = max(xLabelSize, textHeight(label))
+        }
 
+        chartXMin += yLabelSize + if (_yLabelCount > 0f) _labelMargin else 0f
+        chartYMax -= xLabelSize + if (_xLabelCount > 0f) _labelMargin else 0f
+
+        // Draw y labels
         for (label in yLabels) {
             textAlign(TextAlign.Right)
             val x = yLabelSize
-            val y = label.second + textHeight(label.first) / 2f
+            val y = yMap(label.second) + textHeight(label.first) / 2f
+            text(label.first, x, y)
+        }
+
+        // Draw x labels
+        for (label in xLabels) {
+            textAlign(TextAlign.Left)
+            val x = xMap(label.second) - textWidth(label.first) / 2f
+            val y = height.toFloat() - _margin
             text(label.first, x, y)
         }
 
@@ -120,11 +142,19 @@ class Chart : CanvasView {
             stroke(_gridColor)
             strokeWeight(_gridThickness)
             for (label in yLabels) {
-                line(chartXMin, label.second, chartXMax, label.second)
+                line(chartXMin, yMap(label.second), chartXMax, yMap(label.second))
             }
         }
 
-        // TODO: X axis
+        // X grid lines
+        if (_xGridLines) {
+            noFill()
+            stroke(_gridColor)
+            strokeWeight(_gridThickness)
+            for (label in xLabels) {
+                line(xMap(label.second), chartYMin, xMap(label.second), chartYMax)
+            }
+        }
 
         // Data
         _data.forEach {
@@ -141,8 +171,13 @@ class Chart : CanvasView {
         plot(data.toList())
     }
 
-    fun setYLabelCount(count: Int){
+    fun setYLabelCount(count: Int) {
         _yLabelCount = count
+        invalidate()
+    }
+
+    fun setXLabelCount(count: Int) {
+        _xLabelCount = count
         invalidate()
     }
 
@@ -162,74 +197,3 @@ class Chart : CanvasView {
 
 }
 
-interface ChartData {
-    val data: List<Vector2>
-
-    fun draw(drawer: ICanvasDrawer, xMap: (Float) -> Float, yMap: (Float) -> Float)
-}
-
-// TODO: Handle on click
-class LineChartData(
-    override val data: List<Vector2>,
-    @ColorInt val color: Int,
-    val thickness: Float = 6f
-) : ChartData {
-    val path = Path()
-
-    override fun draw(drawer: ICanvasDrawer, xMap: (Float) -> Float, yMap: (Float) -> Float) {
-        // TODO: Scale rather than recompute
-        path.rewind()
-        for (i in 1 until data.size) {
-            if (i == 1) {
-                val start = data[0]
-                path.moveTo(xMap(start.x), yMap(start.y))
-            }
-
-            val next = data[i]
-            path.lineTo(xMap(next.x), yMap(next.y))
-        }
-
-        drawer.noFill()
-        drawer.strokeWeight(thickness)
-        drawer.stroke(color)
-        drawer.path(path)
-    }
-}
-
-class AreaChartData(
-    val upper: List<Vector2>,
-    val lower: List<Vector2>,
-    @ColorInt val color: Int
-) : ChartData {
-
-    override val data: List<Vector2> = upper + lower
-
-    val path = Path()
-
-    override fun draw(drawer: ICanvasDrawer, xMap: (Float) -> Float, yMap: (Float) -> Float) {
-        // TODO: Scale rather than recompute
-        path.rewind()
-        // Add upper to path
-        for (i in 1 until upper.size) {
-            if (i == 1) {
-                val start = upper[0]
-                path.moveTo(xMap(start.x), yMap(start.y))
-            }
-
-            val next = upper[i]
-            path.lineTo(xMap(next.x), yMap(next.y))
-        }
-
-        // Add lower to path
-        for (i in (0..lower.lastIndex).reversed()) {
-            val next = lower[i]
-            path.lineTo(xMap(next.x), yMap(next.y))
-        }
-
-        path.close()
-
-        drawer.fill(color)
-        drawer.noStroke()
-        drawer.path(path)
-    }
-}
