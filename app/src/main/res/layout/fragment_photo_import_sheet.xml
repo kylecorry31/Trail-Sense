@@ -22,6 +22,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_rectangle"
         app:layout_constraintBottom_toTopOf="@id/capture_button"
         app:layout_constraintDimensionRatio="H,1:1"
