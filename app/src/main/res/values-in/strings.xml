@@ -774,4 +774,120 @@
     <string name="base_temperature">Temperatur dasar</string>
     <string name="destination_elevation">Ketinggian tujuan</string>
     <string name="cross">Menyilang</string>
+    <string name="precipitation_snow_grains">Butir Salju</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="new_packing_list">Daftar kemasan baru</string>
+    <string name="delete_pack">Hapus paket\?</string>
+    <string name="pack_sort_weight_low_to_high">Berat (rendah ke tinggi)</string>
+    <string name="pack_sort_weight_high_to_low">Berat (tinggi ke rendah)</string>
+    <string name="last_duration">Terakhir %s</string>
+    <string name="get_gps_signal">Pergi ke luar dengan pemandangan langit yang tidak terhalang.</string>
+    <string name="supermoon">Bulan super</string>
+    <string name="precipitation_chance">Peluang curah hujan: %s</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="percent_packed">%s dikemas</string>
+    <string name="elevation_history">Riwayat ketinggian</string>
+    <string name="quarter_moon">Seperempat Bulan</string>
+    <string name="battery_usage_restricted">Penggunaan baterai dibatasi</string>
+    <string name="no_issues">Tidak ada masalah yang terdeteksi</string>
+    <string name="no_resolution">Tidak ada resolusi</string>
+    <string name="no_paths">Tidak ada jalan</string>
+    <string name="lunar_eclipse_start">Gerhana bulan (mulai)</string>
+    <string name="lunar_eclipse_end">Gerhana bulan (akhir)</string>
+    <string name="lunar_eclipse">Gerhana bulan</string>
+    <string name="astro_dialog_meteor_shower">**Puncak**: %s
+\n
+\n** Ketinggian puncak **: %s
+\n
+\n** Arah puncak **: %s
+\n
+\n**Tingkat**: %s</string>
+    <string name="astro_dialog_rise_set">**Waktu**: %s
+\n
+\n**Arah**: %s</string>
+    <string name="astro_dialog_noon">**Waktu**: %s
+\n
+\n**Ketinggian**: %s</string>
+    <string name="notification_weather_update_content">Merekam tekanan</string>
+    <string name="weight_per_item">Berat per item</string>
+    <string name="on">Aktif</string>
+    <string name="packing_lists">Daftar Kemasan</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="default_pack_name">Paket bawaan</string>
+    <string name="no_packing_lists">Tidak ada daftar kemasan</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
+    <string name="gps_unavailable_resolution">Aktifkan Lokasi atau ubah sumber lokasi Anda menjadi Hanya Perangkat atau Akurasi Tinggi</string>
+    <string name="dash_separated_pair">%s - %s</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="navigate">Navigasi</string>
+    <string name="astro_dialog_day_length">**Hari**: %s
+\n
+\n**Malam**: %s
+\n
+\n**Musim**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Mulai**: %s
+\n
+\n**Puncak**: %s
+\n
+\n**Akhir**: %s
+\n
+\n**Durasi**: %s
+\n
+\n**Besarnya**: %s
+\n
+\n**Ketinggian**: %s</string>
+    <string name="clear_amounts">Kosongkan bawaan</string>
+    <string name="low_amount">Rendah (%s)</string>
+    <string name="weather_monitoring_disabled">Pemantauan cuaca dinonaktifkan</string>
+    <string name="ounces_weight">Ons</string>
+    <string name="packed_amount">Jumlah yang dikemas</string>
+    <string name="tilt">Kemiringan</string>
+    <string name="kilograms">Kilogram</string>
+    <string name="grams">Gram</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="pack_sort_percent_low_to_high">Persen dikemas (rendah ke tinggi)</string>
+    <string name="pack_sort_percent_high_to_low">Persen dikemas (tinggi ke rendah)</string>
+    <string name="guide_packing_list">Buat daftar pengemasan</string>
+    <string name="humidity">Kelembaban</string>
+    <string name="elevation_history_length">Panjang riwayat ketinggian</string>
+    <string name="diagnostic_message_template">%s: %s
+\n
+\n### Alat yang terpengaruh
+\n%s
+\n
+\n### Resolusi
+\n%s</string>
+    <string name="activity_recognition">Pengenalan aktivitas</string>
+    <string name="battery_restricted_resolution">Atur Trail Sense sebagai Tidak Dioptimalkan</string>
+    <string name="lightning_dangerously_close">Petir sangat dekat</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="weather_exported">Cuaca yang diekspor</string>
+    <string name="pref_show_nearest_tide_title">Tampilkan pasang terdekat</string>
+    <string name="enable">Aktifkan</string>
+    <string name="precipitation_none">Tidak ada curah hujan</string>
+    <string name="precipitation_small_hail">Hujan Es Kecil</string>
+    <string name="precipitation_ice_pellets">Pelet Es</string>
+    <string name="capture">Tangkap</string>
+    <string name="notification_weather_update_title">Pembaruan Pantauan Cuaca</string>
+    <string name="medium_amount">Sedang (%s)</string>
+    <string name="high_amount">Tinggi (%s)</string>
+    <string name="duration_of_charge">Durasi pengisian</string>
+    <string name="pref_export_weather_csv_title">Ekspor pembacaan cuaca</string>
+    <string name="sun_moon_position_template">### %s
+\n**Ketinggian**: %s
+\n
+\n**Azimuth**: %s</string>
+    <string name="precipitation_drizzle">Gerimis</string>
+    <string name="precipitation_snow_pellets">Pelet salju</string>
+    <string name="precipitation_hail">Hujan es</string>
+    <string name="desired_amount">Jumlah yang diinginkan</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="other">Titik jalan %d akan dihapus</item>
+    </plurals>
+    <string name="lunar_eclipses">Gerhana bulan</string>
+    <string name="astro_dialog_moon_phase">**Fase**: %s
+\n
+\n**Iluminasi**: %s</string>
 </resources>
