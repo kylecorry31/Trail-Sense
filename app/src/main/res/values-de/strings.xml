@@ -18,8 +18,7 @@
     <string name="moon_rise">Mondaufgang</string>
     <string name="moon_set">Monduntergang</string>
     <string name="stop">Stopp</string>
-    <string name="pref_compass_filter_amt_title">Kompassrauschen</string>
-    <string name="pref_compass_filter_amt_summary">Hohe Werte können Signalrauschen reduzieren</string>
+    <string name="smoothing_summary">Hohe Werte können Signalrauschen reduzieren</string>
     <string name="pref_theme_title">Thema</string>
     <string name="pref_use_legacy_compass_title">Altsystem-Kompass verwenden</string>
     <string name="pref_use_legacy_compass_summary">Kann Kompassprobleme beheben</string>

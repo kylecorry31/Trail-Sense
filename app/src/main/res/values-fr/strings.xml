@@ -18,8 +18,7 @@
     <string name="moon_rise">Lever de la lune</string>
     <string name="moon_set">Coucher de la lune</string>
     <string name="stop">Arrêter</string>
-    <string name="pref_compass_filter_amt_title">Lissage de la boussole</string>
-    <string name="pref_compass_filter_amt_summary">Une valeur élevée peur permettre de réduire l\'impact de parasites</string>
+    <string name="smoothing_summary">Une valeur élevée peur permettre de réduire l\'impact de parasites</string>
     <string name="pref_theme_title">Thème</string>
     <string name="pref_use_legacy_compass_title">Utiliser la boussole basique</string>
     <string name="pref_use_legacy_compass_summary">Peut résoudre les problèmes de boussole</string>

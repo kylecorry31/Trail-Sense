@@ -196,8 +196,7 @@
     <!--Settings - Sensors - Compass-->
     <string name="pref_compass_sensor_title">Compass</string>
     <string name="true_north">True North</string>
-    <string name="pref_compass_filter_amt_title">Compass smoothing</string>
-    <string name="pref_compass_filter_amt_summary">High values may reduce noise</string>
+    <string name="smoothing_summary">High values may reduce noise</string>
     <!--    A legacy compass sensor - Google recommends not using it, but it may work better on some devices.-->
     <string name="pref_use_legacy_compass_title">Use legacy compass</string>
     <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
@@ -1226,6 +1225,7 @@
     <string name="now">Now</string>
     <string name="pref_show_map_previews" translatable="false">pref_show_map_previews</string>
     <string name="pref_show_map_previews_title">Show map previews</string>
+    <string name="smoothing">Smoothing</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

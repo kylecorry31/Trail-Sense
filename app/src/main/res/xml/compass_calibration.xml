@@ -36,8 +36,8 @@
             app:seekBarIncrement="1"
             app:showSeekBarValue="true"
             app:singleLineTitle="false"
-            app:summary="@string/pref_compass_filter_amt_summary"
-            app:title="@string/pref_compass_filter_amt_title" />
+            app:summary="@string/smoothing_summary"
+            app:title="@string/smoothing" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

@@ -15,6 +15,7 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
 
     private var chart: PressureChart? = null
     private var data: List<Reading<Pressure>> = listOf()
+    private var raw: List<Reading<Pressure>>? = null
 
 
     init {
@@ -26,7 +27,7 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
         holder.itemView.isClickable = false
 
         chart = PressureChart(holder.findViewById(R.id.chart) as Chart)
-        chart?.plot(data)
+        chart?.plot(data, raw)
     }
 
     fun plot(
@@ -34,6 +35,7 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
         raw: List<Reading<Pressure>>? = null
     ) {
         this.data = data
+        this.raw = raw
         chart?.plot(data, raw)
     }
 }

@@ -18,8 +18,7 @@
     <string name="moon_rise">Izlazak mjeseca</string>
     <string name="moon_set">Zalazak mjeseca</string>
     <string name="stop">Stani</string>
-    <string name="pref_compass_filter_amt_title">Zaglađivanje kompasa</string>
-    <string name="pref_compass_filter_amt_summary">Visoke vrijednosti mogu umanjiti buku</string>
+    <string name="smoothing_summary">Visoke vrijednosti mogu umanjiti buku</string>
     <string name="pref_theme_title">Izgled</string>
     <string name="pref_use_legacy_compass_title">Koristite stari kompas</string>
     <string name="pref_use_legacy_compass_summary">Može riješiti probleme s kompasom</string>

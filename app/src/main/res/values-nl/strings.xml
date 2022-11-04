@@ -18,8 +18,7 @@
     <string name="moon_rise">Maansopkomst</string>
     <string name="moon_set">Maanondergang</string>
     <string name="stop">Stop</string>
-    <string name="pref_compass_filter_amt_title">Kompas vloeiend maken</string>
-    <string name="pref_compass_filter_amt_summary">Hoge waarden kunnen het lawaai verminderen</string>
+    <string name="smoothing_summary">Hoge waarden kunnen het lawaai verminderen</string>
     <string name="pref_theme_title">Thema</string>
     <string name="pref_use_legacy_compass_title">Verouderd kompas gebruiken</string>
     <string name="pref_use_legacy_compass_summary">Kan kompasproblemen oplossen</string>

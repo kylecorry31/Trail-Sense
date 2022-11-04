@@ -18,8 +18,7 @@
     <string name="moon_rise">Alba lunare</string>
     <string name="moon_set">Tramonto lunare</string>
     <string name="stop">Ferma</string>
-    <string name="pref_compass_filter_amt_title">Lisciatura della bussola</string>
-    <string name="pref_compass_filter_amt_summary">Valori elevati possono ridurre il rumore</string>
+    <string name="smoothing_summary">Valori elevati possono ridurre il rumore</string>
     <string name="pref_theme_title">Tema</string>
     <string name="pref_use_legacy_compass_title">Utilizzare la bussola ereditata</string>
     <string name="pref_use_legacy_compass_summary">Può risolvere i problemi della bussola</string>

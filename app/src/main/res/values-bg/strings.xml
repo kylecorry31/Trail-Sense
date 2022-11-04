@@ -19,8 +19,7 @@
     <string name="moon_rise">Moonrise</string>
     <string name="moon_set">Залез на Луната</string>
     <string name="stop">Спри се</string>
-    <string name="pref_compass_filter_amt_title">Изглаждане на компас</string>
-    <string name="pref_compass_filter_amt_summary">Високите стойности могат да намалят шума</string>
+    <string name="smoothing_summary">Високите стойности могат да намалят шума</string>
     <string name="pref_theme_title">тема</string>
     <string name="pref_use_legacy_compass_title">Използвайте наследен компас</string>
     <string name="pref_use_legacy_compass_summary">Може да коригира проблеми с компаса</string>

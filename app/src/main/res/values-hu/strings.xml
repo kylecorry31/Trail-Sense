@@ -135,8 +135,7 @@
     <string name="sun_does_not_set">nem megy le</string>
     <string name="category">Kategória</string>
     <string name="dialog_item_amount">Mennyiség</string>
-    <string name="pref_compass_filter_amt_title">Iránytű egyenlítése</string>
-    <string name="pref_compass_filter_amt_summary">Nagyobb értékek csökkenthetik a zajt</string>
+    <string name="smoothing_summary">Nagyobb értékek csökkenthetik a zajt</string>
     <string name="pref_forecast_sensitivity_title">Előrejelzés érzékenység</string>
     <string name="pref_show_pressure_in_notification_title">Nyomás mutatása az értesítésben</string>
     <string name="pref_weather_update_frequency_title">Időjárás frissítési gyakorisága</string>

@@ -230,8 +230,7 @@
     <string name="pref_adjust_for_temperature_summary">Gunakan suhu dalam konversi tekanan permukaan laut</string>
     <string name="solar_noon">Matahari tengah hari</string>
     <string name="pref_compass_sensor_title">Kompas</string>
-    <string name="pref_compass_filter_amt_title">Menghaluskan putaran kompas</string>
-    <string name="pref_compass_filter_amt_summary">Nilai tinggi dapat mengurangi derau</string>
+    <string name="smoothing_summary">Nilai tinggi dapat mengurangi derau</string>
     <string name="pref_use_legacy_compass_summary">Dapat memperbaiki masalah kompas</string>
     <string name="compass_declination_override">Penimpaan deklinasi</string>
     <string name="compass_azimuth">Azimut</string>

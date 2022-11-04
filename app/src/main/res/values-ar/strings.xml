@@ -19,8 +19,7 @@
     <string name="moon_rise">طلوع القمر</string>
     <string name="moon_set">القمر</string>
     <string name="stop">قف</string>
-    <string name="pref_compass_filter_amt_title">تنعيم البوصلة</string>
-    <string name="pref_compass_filter_amt_summary">قد تؤدي القيم العالية إلى تقليل الضوضاء</string>
+    <string name="smoothing_summary">قد تؤدي القيم العالية إلى تقليل الضوضاء</string>
     <string name="pref_theme_title">موضوع</string>
     <string name="pref_use_legacy_compass_title">استخدم بوصلة قديمة</string>
     <string name="pref_use_legacy_compass_summary">قد إصلاح مشاكل البوصلة</string>

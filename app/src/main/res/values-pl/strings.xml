@@ -18,8 +18,7 @@
     <string name="moon_rise">Wschód Księżyca</string>
     <string name="moon_set">Zachód Księżyca</string>
     <string name="stop">Stop</string>
-    <string name="pref_compass_filter_amt_title">Wygładzanie kompasu</string>
-    <string name="pref_compass_filter_amt_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
+    <string name="smoothing_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
     <string name="pref_theme_title">Motyw</string>
     <string name="pref_use_legacy_compass_title">Używaj starszej implementacji kompasu</string>
     <string name="pref_use_legacy_compass_summary">Może naprawić problemy z kompasem</string>

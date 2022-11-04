@@ -192,9 +192,8 @@
     <string name="override_from_gps">Utilitzar el valor del GPS</string>
     <string name="pref_use_legacy_compass_summary">Pot solucionar problemes amb la brúixola</string>
     <string name="pref_use_legacy_compass_title">Utilitzar la brúixola bàsica</string>
-    <string name="pref_compass_filter_amt_summary">Valors alts poden reduir el soroll</string>
+    <string name="smoothing_summary">Valors alts poden reduir el soroll</string>
     <string name="pref_compass_sensor_title">Brúixola</string>
-    <string name="pref_compass_filter_amt_title">Suavització de la brúixola</string>
     <string name="true_north">Nord veritable</string>
     <string name="pref_ruler_calibration_summary">Procès de calibració:
 \n- Establiu aquest valor a 1.

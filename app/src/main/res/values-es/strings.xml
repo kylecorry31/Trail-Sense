@@ -19,8 +19,7 @@
     <string name="moon_rise">Salida de la luna</string>
     <string name="moon_set">Puesta de la luna</string>
     <string name="stop">Detener</string>
-    <string name="pref_compass_filter_amt_title">Alisado de brújula</string>
-    <string name="pref_compass_filter_amt_summary">Los valores altos pueden reducir el ruido.</string>
+    <string name="smoothing_summary">Los valores altos pueden reducir el ruido.</string>
     <string name="pref_theme_title">Tema</string>
     <string name="pref_use_legacy_compass_title">Usar brújula heredada</string>
     <string name="pref_use_legacy_compass_summary">Puede solucionar problemas de brújula</string>

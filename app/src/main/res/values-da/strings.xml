@@ -165,8 +165,7 @@
 \n- Rapporter den målte værdi her.</string>
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="true_north">Det sande nord</string>
-    <string name="pref_compass_filter_amt_summary">Høje værdier kan reducere støj</string>
-    <string name="pref_compass_filter_amt_title">Udjævning af kompas</string>
+    <string name="smoothing_summary">Høje værdier kan reducere støj</string>
     <string name="pref_use_legacy_compass_title">Brug ældre kompas</string>
     <string name="pref_use_legacy_compass_summary">Kan løse kompasproblemer</string>
     <string name="compass_accuracy_improved">Kompassets nøjagtighed forbedret til %s</string>

@@ -19,8 +19,7 @@
     <string name="moon_rise">Լուսաբաց</string>
     <string name="moon_set">Moonset</string>
     <string name="stop">Դադարեցրեք</string>
-    <string name="pref_compass_filter_amt_title">Կոմպասի հարթեցում</string>
-    <string name="pref_compass_filter_amt_summary">Բարձր արժեքները կարող են նվազեցնել աղմուկը</string>
+    <string name="smoothing_summary">Բարձր արժեքները կարող են նվազեցնել աղմուկը</string>
     <string name="pref_theme_title">Թեման</string>
     <string name="pref_use_legacy_compass_title">Օգտագործեք ժառանգական կողմնացույց</string>
     <string name="pref_use_legacy_compass_summary">Կարող է շտկել կողմնացույցի խնդիրները</string>

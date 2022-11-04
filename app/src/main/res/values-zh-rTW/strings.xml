@@ -191,7 +191,7 @@
     <string name="sun_does_not_rise">未升起</string>
     <string name="sun_does_not_set">未落下</string>
     <string name="compass_azimuth">方位角</string>
-    <string name="pref_compass_filter_amt_summary">數值太高可能導致雜訊</string>
+    <string name="smoothing_summary">數值太高可能導致雜訊</string>
     <string name="coordinate_format_degrees_minutes_seconds">角度 角分 角秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">角度 角分小數點</string>
     <string name="edit">編輯</string>
@@ -269,7 +269,6 @@
     <string name="discharging_slow">慢速放電中 (%s)</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="pref_compass_filter_amt_title">電子羅盤平滑化</string>
     <string name="daylight">日光時間</string>
     <string name="pref_show_civil_times_summary">黎明與黃昏</string>
     <string name="dawn_type">黎明 (%s)</string>

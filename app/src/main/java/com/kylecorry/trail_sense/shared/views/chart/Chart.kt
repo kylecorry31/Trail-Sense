@@ -89,6 +89,7 @@ class Chart : CanvasView, IChart {
             _layers.forEach { it.invalidate() }
             updateRange()
         }
+        updateRange()
         resetChartBounds()
         drawLabelsAndGrid()
         drawData()

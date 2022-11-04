@@ -66,7 +66,7 @@
             app:min="0"
             app:seekBarIncrement="1"
             app:singleLineTitle="false"
-            app:title="@string/pref_barometer_pressure_smoothing_title"
+            app:title="@string/smoothing"
             app:updatesContinuously="true" />
 
         <SwitchPreferenceCompat

@@ -19,8 +19,7 @@
     <string name="moon_rise">चंद्रोदय</string>
     <string name="moon_set">चंद्रास्त</string>
     <string name="stop">रुकें</string>
-    <string name="pref_compass_filter_amt_title">कम्पास चौरसाई</string>
-    <string name="pref_compass_filter_amt_summary">उच्च मूल्यों से शोर कम हो सकता है</string>
+    <string name="smoothing_summary">उच्च मूल्यों से शोर कम हो सकता है</string>
     <string name="pref_theme_title">विषय</string>
     <string name="pref_use_legacy_compass_title">विरासत कम्पास का उपयोग करें</string>
     <string name="pref_use_legacy_compass_summary">कम्पास मुद्दों को ठीक कर सकते हैं</string>

@@ -217,7 +217,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         altitudeOutlierSeekBar?.isVisible =
             !isOnTheWallMode && !prefs.weather.useExperimentalSeaLevelCalibration && seaLevelPressure
         pressureSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
-        altitudeSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
+        altitudeSmoothingSeekBar?.isVisible =
+            !isOnTheWallMode && seaLevelPressure && !prefs.weather.useExperimentalSeaLevelCalibration
         meanShiftedSwitch?.isVisible = isDebug()
 
         val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)

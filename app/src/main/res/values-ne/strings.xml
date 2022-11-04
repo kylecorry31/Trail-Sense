@@ -19,8 +19,7 @@
     <string name="moon_rise">मून्रोइज</string>
     <string name="moon_set">मूनसेट</string>
     <string name="stop">रोक</string>
-    <string name="pref_compass_filter_amt_title">कम्पास स्मूथिंग</string>
-    <string name="pref_compass_filter_amt_summary">उच्च मानले आवाज कम गर्न सक्दछ</string>
+    <string name="smoothing_summary">उच्च मानले आवाज कम गर्न सक्दछ</string>
     <string name="pref_theme_title">विषयवस्तु</string>
     <string name="pref_use_legacy_compass_title">लिगेसी कम्पास प्रयोग गर्नुहोस्</string>
     <string name="pref_use_legacy_compass_summary">कम्पास मुद्दाहरूको समाधान गर्न सक्छ</string>

@@ -18,8 +18,7 @@
     <string name="moon_rise">Восход Луны</string>
     <string name="moon_set">Закат Луны</string>
     <string name="stop">Стоп</string>
-    <string name="pref_compass_filter_amt_title">Фильтрование компаса</string>
-    <string name="pref_compass_filter_amt_summary">Высокие значения могут увеличить плавность</string>
+    <string name="smoothing_summary">Высокие значения могут увеличить плавность</string>
     <string name="pref_theme_title">Тема</string>
     <string name="pref_use_legacy_compass_title">Использовать старое API компаса</string>
     <string name="pref_use_legacy_compass_summary">Может исправить проблемы с компасом</string>

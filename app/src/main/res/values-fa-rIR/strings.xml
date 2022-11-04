@@ -21,8 +21,7 @@
     <string name="moon_rise">طلوع ماه</string>
     <string name="moon_set">غروب ماه</string>
     <string name="stop">متوقف کردن</string>
-    <string name="pref_compass_filter_amt_title">تنظیم قطب نما</string>
-    <string name="pref_compass_filter_amt_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
+    <string name="smoothing_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
     <string name="pref_theme_title">تم</string>
     <string name="pref_use_legacy_compass_title">از قطب نما قدیمی استفاده کنید</string>
     <string name="pref_use_legacy_compass_summary">ممکن است مشکلات قطب نما را برطرف کند</string>

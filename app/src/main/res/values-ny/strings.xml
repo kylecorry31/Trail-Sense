@@ -19,8 +19,7 @@
     <string name="moon_rise">Kutuluka kwa mwezi</string>
     <string name="moon_set">Moonset</string>
     <string name="stop">Imani</string>
-    <string name="pref_compass_filter_amt_title">Compass yosalala</string>
-    <string name="pref_compass_filter_amt_summary">Mitengo yapamwamba imatha kuchepetsa phokoso</string>
+    <string name="smoothing_summary">Mitengo yapamwamba imatha kuchepetsa phokoso</string>
     <string name="pref_theme_title">Mutu</string>
     <string name="pref_use_legacy_compass_title">Gwiritsani ntchito kampasi ya cholowa</string>
     <string name="pref_use_legacy_compass_summary">Mukhoza kukonza zovuta</string>
