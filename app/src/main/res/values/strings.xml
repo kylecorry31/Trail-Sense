@@ -758,12 +758,8 @@
     <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
     <string name="pref_nmea_elevation_title">NMEA elevation offsets</string>
     <string name="pref_nmea_elevation_summary">Uses NMEA offsets for elevation conversion</string>
-    <string name="pref_barometer_altitude_outlier" translatable="false">pref_barometer_altitude_outlier</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
-    <string name="pref_barometer_altitude_smoothing" translatable="false">pref_barometer_altitude_smoothing</string>
     <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
-    <string name="pref_barometer_elevation_smoothing_title">Elevation smoothing</string>
-    <string name="pref_barometer_elevation_outlier_title">Elevation outlier removal</string>
     <string name="delete_map">Delete map?</string>
     <string name="convert">Convert</string>
     <string name="distance">Distance</string>
@@ -1004,7 +1000,6 @@
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
     <string name="enable">Enable</string>
     <string name="no_clouds">No Clouds</string>
-    <string name="pref_experimental_sea_level_calibration_v2" translatable="false">pref_experimental_sea_level_calibration_v_80</string>
     <string name="precipitation_none">No precipitation</string>
     <string name="precipitation_rain">Rain</string>
     <string name="precipitation_drizzle">Drizzle</string>
@@ -1193,7 +1188,6 @@
     <string name="path_slope_steep">Steep</string>
     <string name="path_slope">Slope</string>
     <string name="camera_unavailable">Camera unavailable</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Sea level calibration V2</string>
     <string name="pref_torch_brightness" translatable="false">pref_torch_brightness</string>
     <string name="pref_screen_torch_brightness" translatable="false">pref_flashlight_brightness</string>
     <string name="pref_beacon_sort" translatable="false">pref_beacon_sort</string>

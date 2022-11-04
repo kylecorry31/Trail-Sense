@@ -559,8 +559,6 @@
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
     <string name="delete_map">Excluir o mapa\?</string>
-    <string name="pref_barometer_elevation_outlier_title">Remoção de altitudes periféricas</string>
-    <string name="pref_barometer_elevation_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
     <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>

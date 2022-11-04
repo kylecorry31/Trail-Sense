@@ -44,9 +44,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private var pressureTxt: Preference? = null
     private var seaLevelSwitch: SwitchPreferenceCompat? = null
     private var meanShiftedSwitch: SwitchPreferenceCompat? = null
-    private var altitudeOutlierSeekBar: SeekBarPreference? = null
     private var pressureSmoothingSeekBar: SeekBarPreference? = null
-    private var altitudeSmoothingSeekBar: SeekBarPreference? = null
 
     private var chart: PressureChartPreference? = null
 
@@ -89,40 +87,20 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun bindPreferences() {
-        altitudeOutlierSeekBar = seekBar(R.string.pref_barometer_altitude_outlier)
         pressureSmoothingSeekBar = seekBar(R.string.pref_barometer_pressure_smoothing)
-        altitudeSmoothingSeekBar = seekBar(R.string.pref_barometer_altitude_smoothing)
 
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
         meanShiftedSwitch = switch(R.string.pref_debug_show_mean_adj_sea_level)
         chart = findPreference(getString(R.string.pref_holder_pressure_chart))
 
-        altitudeOutlierSeekBar?.summary =
-            (if (prefs.weather.altitudeOutlier == 0f) "" else "± ") + formatSmallDistance(
-                prefs.weather.altitudeOutlier
-            )
-
         pressureSmoothingSeekBar?.summary =
             formatService.formatPercentage(prefs.weather.pressureSmoothing)
-        altitudeSmoothingSeekBar?.summary =
-            formatService.formatPercentage(prefs.weather.altitudeSmoothing)
 
         showMeanShiftedReadings = meanShiftedSwitch?.isChecked ?: false
         meanShiftedSwitch?.setOnPreferenceClickListener {
             showMeanShiftedReadings = meanShiftedSwitch?.isChecked ?: false
             updateChart()
-            true
-        }
-
-        altitudeOutlierSeekBar?.updatesContinuously = true
-        altitudeOutlierSeekBar?.setOnPreferenceChangeListener { _, newValue ->
-            altitudeOutlierSeekBar?.summary =
-                (if (newValue.toString()
-                        .toFloat() == 0f
-                ) "" else "± ") + formatSmallDistance(
-                    newValue.toString().toFloat()
-                )
             true
         }
 
@@ -133,13 +111,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        altitudeSmoothingSeekBar?.updatesContinuously = true
-        altitudeSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
-            val change = 100 * newValue.toString().toFloat() / 1000f
-            altitudeSmoothingSeekBar?.summary = formatService.formatPercentage(change)
-            true
-        }
-
         preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
             Resources.getAndroidColorAttr(
                 requireContext(),
@@ -147,11 +118,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             )
         )
 
-    }
-
-    private fun formatSmallDistance(meters: Float): String {
-        val distance = Distance.meters(meters).convertTo(prefs.baseDistanceUnits)
-        return formatService.formatDistance(distance)
     }
 
     private fun updateChart() {
@@ -213,12 +179,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             )
 
         val seaLevelPressure = prefs.weather.useSeaLevelPressure
-
-        altitudeOutlierSeekBar?.isVisible =
-            !isOnTheWallMode && !prefs.weather.useExperimentalSeaLevelCalibration && seaLevelPressure
         pressureSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
-        altitudeSmoothingSeekBar?.isVisible =
-            !isOnTheWallMode && seaLevelPressure && !prefs.weather.useExperimentalSeaLevelCalibration
         meanShiftedSwitch?.isVisible = isDebug()
 
         val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)

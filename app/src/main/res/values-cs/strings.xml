@@ -604,8 +604,6 @@
     <string name="pref_nmea_elevation_title">Kompenzace nadmořské výšky NMEA</string>
     <string name="pref_nmea_elevation_summary">Používá kompenzace NMEA pro převod nadmořské výšky</string>
     <string name="pref_barometer_pressure_smoothing_title">Vyhlazení tlaku</string>
-    <string name="pref_barometer_elevation_smoothing_title">Vyhlazení nadmořské výšky</string>
-    <string name="pref_barometer_elevation_outlier_title">Odstranění odlehlých výškových hodnot</string>
     <string name="delete_map">Smazat mapu\?</string>
     <string name="convert">Převést</string>
     <string name="distance">Vzdálenost</string>
@@ -1053,6 +1051,5 @@
     <string name="path_slope_moderate">Mírný</string>
     <string name="path_slope_steep">Strmý</string>
     <string name="camera_unavailable">Fotoaparát není k dispozici</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Kalibrace hladiny moře V2</string>
     <string name="icon">Ikona</string>
 </resources>

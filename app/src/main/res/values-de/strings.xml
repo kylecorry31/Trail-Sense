@@ -583,8 +583,6 @@
     <string name="battery_history">Batterienutzung - letzte %s</string>
     <string name="no_data">Keine Daten</string>
     <string name="delete_map">Karte löschen\?</string>
-    <string name="pref_barometer_elevation_outlier_title">Entfernung von Höhenausreißern</string>
-    <string name="pref_barometer_elevation_smoothing_title">Höhenglättung</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="moved_to">Nach %s verschoben</string>
@@ -1038,7 +1036,6 @@
     <string name="path_slope_moderate">Mittel</string>
     <string name="path_slope_steep">Steil</string>
     <string name="path_slope">Gefälle</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Kalibrierung der Seehöhe V2</string>
     <string name="updating_weather">Wetter wird aktualisiert</string>
     <string name="path_slope_flat">Flach</string>
     <string name="camera_unavailable">Kamera nicht verfügbar</string>

@@ -586,8 +586,6 @@
     <string name="distance">Distantie</string>
     <string name="convert">Omrekenen</string>
     <string name="delete_map">Kaart verwijderen\?</string>
-    <string name="pref_barometer_elevation_outlier_title">Hoogte uitbijter verwijderen</string>
-    <string name="pref_barometer_elevation_smoothing_title">Hoogtevereffening</string>
     <string name="pref_barometer_pressure_smoothing_title">Drukvereffening</string>
     <string name="pref_nmea_elevation_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
     <string name="pref_nmea_elevation_title">NMEA hoogte offsets</string>

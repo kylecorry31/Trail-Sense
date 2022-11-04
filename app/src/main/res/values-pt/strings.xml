@@ -622,8 +622,6 @@
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
     <string name="delete_map">Eliminar o mapa\?</string>
-    <string name="pref_barometer_elevation_outlier_title">Remover valores discrepantes de altitude</string>
-    <string name="pref_barometer_elevation_smoothing_title">Regularização da altitude</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
     <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>
@@ -1047,7 +1045,6 @@
     <string name="ascent">Subida</string>
     <string name="lowest_point_elevation">Ponto mais baixo</string>
     <string name="path_slope_moderate">Moderado</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Calibração ao nível do mar V2</string>
     <string name="updating_weather">A atualizar a previsão</string>
     <string name="path_slope_flat">Plano</string>
     <string name="path_slope_steep">Íngreme</string>

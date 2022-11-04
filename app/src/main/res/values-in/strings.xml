@@ -665,8 +665,6 @@
     <string name="dawn_type">Fajar (%s)</string>
     <string name="pref_nmea_elevation_summary">Menggunakan offset NMEA untuk konversi ketinggian</string>
     <string name="pref_barometer_pressure_smoothing_title">Perataan tekanan</string>
-    <string name="pref_barometer_elevation_smoothing_title">Perataan ketinggian</string>
-    <string name="pref_barometer_elevation_outlier_title">Penghapusan pencilan ketinggian</string>
     <string name="distance">Jarak</string>
     <string name="moved_to">Dipindahkan ke %s</string>
     <string name="preview">Pratinjau</string>

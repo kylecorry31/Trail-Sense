@@ -803,7 +803,6 @@
     <string name="temperature_history">היסטוריית טמפרטורה - אחרונה %s</string>
     <string name="pref_barometer_info_summary">הלחץ עשוי להיות שונה מזה של תחנות סמוכות</string>
     <string name="pref_nmea_elevation_summary">שימוש בהיסט NMEA להמרת גובה</string>
-    <string name="pref_barometer_elevation_smoothing_title">החלקת גובה</string>
     <string name="preview">תצוגה מקדימה</string>
     <string name="map_rotate_instructions">סובב עד שהצפון יצביע למעלה</string>
     <string name="pref_flashlight_toggle_with_system_title">החלף עם המערכת</string>
@@ -825,7 +824,6 @@
     <string name="whistle_signal_come_here">בוא הנה</string>
     <string name="dusk_type">בין הערביים (%s)</string>
     <string name="humidity_history">היסטוריית לחות - אחרונה %s</string>
-    <string name="pref_barometer_elevation_outlier_title">הסרת גובה חריגה</string>
     <string name="dawn_type">שחר (%s)</string>
     <string name="distance">מרחק</string>
     <string name="coordinates_tab">קואורדינטות</string>

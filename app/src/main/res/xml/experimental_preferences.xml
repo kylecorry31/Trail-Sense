@@ -24,15 +24,6 @@
             app:singleLineTitle="false"
             app:title="@string/pref_experimental_metal_direction_title" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/guide_barometer_calibration_title"
-            app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_experimental_sea_level_calibration_v2"
-            app:singleLineTitle="false"
-            app:title="@string/pref_experimental_sea_level_calibration_v2_title" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -8,10 +8,7 @@ import java.time.LocalTime
 interface IWeatherPreferences {
     val hasBarometer: Boolean
     var shouldMonitorWeather: Boolean
-    val useAltitudeVariance: Boolean
-    val altitudeOutlier: Float
     val pressureSmoothing: Float
-    val altitudeSmoothing: Float
     var weatherUpdateFrequency: Duration
     val shouldShowDailyWeatherNotification: Boolean
     val shouldShowWeatherNotification: Boolean
@@ -38,5 +35,4 @@ interface IWeatherPreferences {
     val leftButton: QuickActionType
     val rightButton: QuickActionType
     val showColoredNotificationIcon: Boolean
-    val useExperimentalSeaLevelCalibration: Boolean
 }

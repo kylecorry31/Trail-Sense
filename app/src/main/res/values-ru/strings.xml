@@ -588,7 +588,6 @@
     <string name="color">Цвет</string>
     <string name="water_boil_guide_title">Сделать воду безопасной для питья</string>
     <string name="map_perspective_instructions">Нарисуйте карту</string>
-    <string name="pref_barometer_elevation_outlier_title">Удалить отклонения высоты</string>
     <string name="days">Дни</string>
     <plurals name="number_days">
         <item quantity="one">%d день</item>
@@ -614,7 +613,6 @@
     <string name="distance">Расстояние</string>
     <string name="convert">Конвертировать</string>
     <string name="delete_map">Удалить карту\?</string>
-    <string name="pref_barometer_elevation_smoothing_title">Сглаживание высоты</string>
     <string name="pref_barometer_pressure_smoothing_title">Сглаживание давления</string>
     <string name="pref_nmea_elevation_summary">Использует смещения NMEA для преобразования высоты</string>
     <string name="pref_nmea_elevation_title">Смещение высоты по NMEA</string>
@@ -1067,7 +1065,6 @@
     <string name="path_slope">Склон</string>
     <string name="high_pressure">Высокий</string>
     <string name="path_slope_flat">Плоский</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Калибровка уровня моря V2</string>
     <string name="low_pressure">Низкий</string>
     <string name="pressure_system">Система давления</string>
     <string name="icon">Значок</string>

@@ -36,29 +36,7 @@
             app:title="@string/pref_use_sea_level_pressure_title" />
 
         <SeekBarPreference
-            android:defaultValue="34"
-            android:max="200"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
-            app:key="@string/pref_barometer_altitude_outlier"
-            app:min="0"
-            app:seekBarIncrement="1"
-            app:singleLineTitle="false"
-            app:title="@string/pref_barometer_elevation_outlier_title"
-            app:updatesContinuously="true" />
-        <SeekBarPreference
-            android:defaultValue="0"
-            android:max="1000"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
-            app:key="@string/pref_barometer_altitude_smoothing"
-            app:min="0"
-            app:seekBarIncrement="1"
-            app:singleLineTitle="false"
-            app:title="@string/pref_barometer_elevation_smoothing_title"
-            app:updatesContinuously="true" />
-        <SeekBarPreference
-            android:defaultValue="500"
+            android:defaultValue="300"
             android:max="1000"
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="false"

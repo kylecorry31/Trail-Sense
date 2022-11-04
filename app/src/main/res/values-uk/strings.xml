@@ -586,9 +586,7 @@
     <string name="weather_monitor">Відстеження погоди</string>
     <string name="dusk_type">Захід сонця (%s)</string>
     <string name="dawn_type">Схід сонця (%s)</string>
-    <string name="pref_barometer_elevation_outlier_title">Вилучення відхилень висоти</string>
     <string name="delete_map">Видалити мапу\?</string>
-    <string name="pref_barometer_elevation_smoothing_title">Згладжування висоти</string>
     <string name="pref_barometer_pressure_smoothing_title">Згладжування тиску</string>
     <string name="pref_nmea_elevation_summary">Використовує зсуви NMEA для перетворення висоти</string>
     <string name="pref_nmea_elevation_title">Зсуви висоти NMEA</string>
@@ -1061,7 +1059,6 @@
     <string name="path_slope_moderate">Помірний</string>
     <string name="updating_weather">Оновлення погоди</string>
     <string name="camera_unavailable">Камера недоступна</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Калібрування рівня моря V2</string>
     <string name="icon">Піктограма</string>
     <string name="clouds_clear">Чисто</string>
     <string name="manual">Вручну</string>

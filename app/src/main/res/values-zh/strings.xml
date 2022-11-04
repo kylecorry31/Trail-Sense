@@ -578,8 +578,6 @@
     <string name="no_data">无数据</string>
     <string name="pref_nmea_elevation_title">NMEA高度偏移</string>
     <string name="delete_map">删除地图？</string>
-    <string name="pref_barometer_elevation_outlier_title">海拔高度异常消除</string>
-    <string name="pref_barometer_elevation_smoothing_title">高度数据平滑</string>
     <string name="pref_barometer_pressure_smoothing_title">大气压数据平滑</string>
     <string name="pref_nmea_elevation_summary">使用NMEA偏移量进行高度转换</string>
     <string name="moved_to">已移动到 %s</string>
@@ -1029,7 +1027,6 @@
     <string name="path_slope_moderate">中度</string>
     <string name="updating_weather">正在更新天气</string>
     <string name="camera_unavailable">相机不可用</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">海平面校准 V2</string>
     <string name="icon">图标</string>
     <string name="clouds_clear">澄澈</string>
     <string name="manual">手动</string>

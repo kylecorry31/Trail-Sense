@@ -616,8 +616,6 @@
     <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigowania</string>
     <string name="pref_flashlight_toggle_with_system_title">Przełącz z systemem</string>
     <string name="map_rotate_instructions">Obracaj, aż północ będzie skierowana do góry</string>
-    <string name="pref_barometer_elevation_outlier_title">Usuwanie wartości odstających wysokości</string>
-    <string name="pref_barometer_elevation_smoothing_title">Wygładzanie wysokości</string>
     <string name="pref_barometer_pressure_smoothing_title">Wygładzanie ciśnienia</string>
     <string name="pref_nmea_elevation_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od ciśnienia w pobliskich stacjach</string>

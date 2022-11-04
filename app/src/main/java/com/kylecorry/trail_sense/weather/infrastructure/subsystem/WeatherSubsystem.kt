@@ -72,15 +72,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
-        R.string.pref_barometer_altitude_outlier,
         R.string.pref_barometer_pressure_smoothing,
-        R.string.pref_barometer_altitude_smoothing,
         R.string.pref_adjust_for_temperature,
         R.string.pref_forecast_sensitivity,
         R.string.pref_storm_alert_sensitivity,
         R.string.pref_altimeter_calibration_mode,
-        R.string.pref_pressure_history,
-        R.string.pref_experimental_sea_level_calibration_v2
+        R.string.pref_pressure_history
     ).map { context.getString(it) }
 
     private val weatherMonitorStatePrefKeys = listOf(

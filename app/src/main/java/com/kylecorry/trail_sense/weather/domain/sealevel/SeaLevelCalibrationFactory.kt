@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain.sealevel
 
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.sealevel.kalman.KalmanSeaLevelCalibrationSettings
-import com.kylecorry.trail_sense.weather.domain.sealevel.kalman.KalmanSeaLevelCalibrationStrategy
 import com.kylecorry.trail_sense.weather.domain.sealevel.loess.LoessSeaLevelCalibrationStrategy
 
 class SeaLevelCalibrationFactory {
@@ -29,21 +27,9 @@ class SeaLevelCalibrationFactory {
             return SimpleSeaLevelCalibrationStrategy(prefs.weather.seaLevelFactorInTemp)
         }
 
-        if (prefs.weather.useExperimentalSeaLevelCalibration){
-            return LoessSeaLevelCalibrationStrategy(
-                prefs.weather.pressureSmoothing / 100f,
-                prefs.weather.seaLevelFactorInTemp
-            )
-        }
-
-        return KalmanSeaLevelCalibrationStrategy(
-            KalmanSeaLevelCalibrationSettings(
-                prefs.weather.altitudeOutlier,
-                prefs.weather.altitudeSmoothing,
-                prefs.weather.pressureSmoothing,
-                prefs.weather.seaLevelFactorInTemp,
-                prefs.weather.useAltitudeVariance
-            )
+        return LoessSeaLevelCalibrationStrategy(
+            prefs.weather.pressureSmoothing / 100f,
+            prefs.weather.seaLevelFactorInTemp
         )
     }
 

@@ -603,7 +603,6 @@
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
     <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
-    <string name="pref_barometer_elevation_smoothing_title">Høydeutjevning</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
     <string name="gps_signal_lost">GPS-signal mistet</string>
     <string name="elevation_history_length">Lengde på høydehistorikk</string>
@@ -957,7 +956,6 @@
     <string name="icon">Ikon</string>
     <string name="pressure_system">Trykksystem</string>
     <string name="high_pressure">Høyt</string>
-    <string name="pref_experimental_sea_level_calibration_v2_title">Havnivåkalibrering V2</string>
     <string name="low_pressure">Lavt</string>
     <string name="cross">Kors</string>
     <string name="pref_tiles_enabled_title">Systemfliser</string>

@@ -28,24 +28,18 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
             cache.putBoolean(context.getString(R.string.pref_monitor_weather), value)
         }
 
-    override val useAltitudeVariance: Boolean = true
-
-    override val altitudeOutlier: Float
-        get() = cache.getInt(context.getString(R.string.pref_barometer_altitude_outlier))?.toFloat()
-            ?: 34f
-
-    override val pressureSmoothing: Float
+    override var pressureSmoothing: Float
         get() {
             val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing))
-                ?: 500) / 1000f
+                ?: 300) / 1000f
             return raw * 100
         }
-
-    override val altitudeSmoothing: Float
-        get() {
-            val raw = (cache.getInt(context.getString(R.string.pref_barometer_altitude_smoothing))
-                ?: 0) / 1000f
-            return raw * 100
+        set(value) {
+            val scaled = (value * 10).coerceIn(0f, 1000f)
+            cache.putInt(
+                context.getString(R.string.pref_barometer_pressure_smoothing),
+                scaled.toInt()
+            )
         }
 
     override var weatherUpdateFrequency: Duration
@@ -241,13 +235,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
-
-    override val useExperimentalSeaLevelCalibration by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_experimental_sea_level_calibration_v2),
-        false
-    )
-
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

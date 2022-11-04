@@ -123,6 +123,16 @@ class PreferenceMigrator private constructor() {
                 prefs.getString("pref_weather_update_frequency")?.toLongOrNull()?.let {
                     userPrefs.weather.weatherUpdateFrequency = Duration.ofMinutes(it)
                 }
+            },
+            PreferenceMigration(9, 10) { context, prefs ->
+                if (prefs.getBoolean("pref_experimental_sea_level_calibration_v2") != true) {
+                    val userPreferences = UserPreferences(context)
+                    userPreferences.weather.pressureSmoothing = 30f
+                }
+
+                prefs.remove("pref_barometer_altitude_outlier")
+                prefs.remove("pref_barometer_altitude_smoothing")
+                prefs.remove("pref_experimental_sea_level_calibration_v2")
             }
         )
 
