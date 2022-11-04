@@ -16,16 +16,17 @@ class LineChartLayer(
     val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
-        // TODO: Scale rather than recompute
-        path.rewind()
-        for (i in 1 until data.size) {
-            if (i == 1) {
-                val start = chart.toPixel(data[0])
-                path.moveTo(start.x, start.y)
-            }
+        if (hasChanges) {
+            path.rewind()
+            for (i in 1 until data.size) {
+                if (i == 1) {
+                    val start = chart.toPixel(data[0])
+                    path.moveTo(start.x, start.y)
+                }
 
-            val next = chart.toPixel(data[i])
-            path.lineTo(next.x, next.y)
+                val next = chart.toPixel(data[i])
+                path.lineTo(next.x, next.y)
+            }
         }
 
         drawer.noFill()

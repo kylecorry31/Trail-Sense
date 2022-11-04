@@ -20,47 +20,51 @@ class AreaChartLayer(
     val linePath = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
-        // TODO: Scale rather than recompute
-        // Top line
-        linePath.rewind()
-        for (i in 1 until data.size) {
-            if (i == 1) {
-                val start = chart.toPixel(data[0])
-                linePath.moveTo(start.x, start.y)
+        if (hasChanges) {
+            // Top line
+            linePath.rewind()
+            for (i in 1 until data.size) {
+                if (i == 1) {
+                    val start = chart.toPixel(data[0])
+                    linePath.moveTo(start.x, start.y)
+                }
+
+                val next = chart.toPixel(data[i])
+                linePath.lineTo(next.x, next.y)
             }
 
-            val next = chart.toPixel(data[i])
-            linePath.lineTo(next.x, next.y)
+            // Area
+            areaPath.rewind()
+            // Add upper to path
+            for (i in 1 until data.size) {
+                if (i == 1) {
+                    val start = chart.toPixel(data[0])
+                    areaPath.moveTo(start.x, start.y)
+                }
+
+                val next = chart.toPixel(data[i])
+                areaPath.lineTo(next.x, next.y)
+            }
+
+            // Add fill to
+            val fillToPoints =
+                listOfNotNull(
+                    data.lastOrNull()?.copy(y = fillTo),
+                    data.firstOrNull()?.copy(y = fillTo)
+                )
+            for (point in fillToPoints) {
+                val next = chart.toPixel(point)
+                areaPath.lineTo(next.x, next.y)
+            }
+
+            areaPath.close()
+
         }
 
         drawer.noFill()
         drawer.strokeWeight(lineThickness)
         drawer.stroke(lineColor)
         drawer.path(linePath)
-
-
-        // Area
-        areaPath.rewind()
-        // Add upper to path
-        for (i in 1 until data.size) {
-            if (i == 1) {
-                val start = chart.toPixel(data[0])
-                areaPath.moveTo(start.x, start.y)
-            }
-
-            val next = chart.toPixel(data[i])
-            areaPath.lineTo(next.x, next.y)
-        }
-
-        // Add fill to
-        val fillToPoints =
-            listOfNotNull(data.lastOrNull()?.copy(y = fillTo), data.firstOrNull()?.copy(y = fillTo))
-        for (point in fillToPoints) {
-            val next = chart.toPixel(point)
-            areaPath.lineTo(next.x, next.y)
-        }
-
-        areaPath.close()
 
         drawer.fill(areaColor)
         drawer.noStroke()

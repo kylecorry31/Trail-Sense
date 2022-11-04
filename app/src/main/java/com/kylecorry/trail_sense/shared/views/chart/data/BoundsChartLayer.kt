@@ -21,26 +21,27 @@ class BoundsChartLayer(
     val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
-        // TODO: Scale rather than recompute
-        path.rewind()
-        // Add upper to path
-        for (i in 1 until upper.size) {
-            if (i == 1) {
-                val start = chart.toPixel(upper[0])
-                path.moveTo(start.x, start.y)
+        if (hasChanges) {
+            path.rewind()
+            // Add upper to path
+            for (i in 1 until upper.size) {
+                if (i == 1) {
+                    val start = chart.toPixel(upper[0])
+                    path.moveTo(start.x, start.y)
+                }
+
+                val next = chart.toPixel(upper[i])
+                path.lineTo(next.x, next.y)
             }
 
-            val next = chart.toPixel(upper[i])
-            path.lineTo(next.x, next.y)
-        }
+            // Add lower to path
+            for (i in (0..lower.lastIndex).reversed()) {
+                val next = chart.toPixel(lower[i])
+                path.lineTo(next.x, next.y)
+            }
 
-        // Add lower to path
-        for (i in (0..lower.lastIndex).reversed()) {
-            val next = chart.toPixel(lower[i])
-            path.lineTo(next.x, next.y)
+            path.close()
         }
-
-        path.close()
 
         drawer.fill(color)
         drawer.noStroke()
