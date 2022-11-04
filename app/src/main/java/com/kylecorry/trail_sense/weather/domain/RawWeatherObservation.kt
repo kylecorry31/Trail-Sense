@@ -23,23 +23,4 @@ data class RawWeatherObservation(
             if (useTemperature) Temperature.celsius(temperature) else null
         )
     }
-
-    /**
-     * Returns the 95% confidence interval for the sea level pressure reading
-     */
-    fun seaLevelConfidenceInterval(useTemperature: Boolean = true): Pair<Pressure, Pressure> {
-        val lower = Meteorology.getSeaLevelPressure(
-            Pressure.hpa(pressure),
-            Distance.meters(altitude - 1.96f * (altitudeError ?: 0f)),
-            if (useTemperature) Temperature.celsius(temperature) else null
-        )
-
-        val upper = Meteorology.getSeaLevelPressure(
-            Pressure.hpa(pressure),
-            Distance.meters(altitude + 1.96f * (altitudeError ?: 0f)),
-            if (useTemperature) Temperature.celsius(temperature) else null
-        )
-
-        return lower to upper
-    }
 }

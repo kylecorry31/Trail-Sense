@@ -1,125 +1,105 @@
 package com.kylecorry.trail_sense.weather.ui
 
-import android.graphics.Color
-import androidx.annotation.ColorInt
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
-import com.github.mikephil.charting.charts.LineChart
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.trail_sense.shared.views.chart.Chart
+import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
+import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Duration
 import java.time.Instant
 
 
 class PressureChart(
-    chart: LineChart,
+    private val chart: Chart,
     private val selectionListener: ((timeAgo: Duration?, pressure: Float?) -> Unit)? = null
 ) {
 
-    private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
     private var startTime = Instant.now()
 
     private var minRange = MIN_RANGE
-    private var granularity = 1f
+    private var precision = 1
+    private var margin = 1f
+    private var clickable = selectionListener != null
 
     private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
     init {
-        simpleChart.configureYAxis(
-            granularity = granularity,
+        chart.configureYAxis(
             labelCount = 5,
-            drawGridLines = true
+            drawGridLines = true,
+            labelFormatter = NumberChartLabelFormatter(precision)
         )
 
-        simpleChart.configureXAxis(
+        chart.configureXAxis(
             labelCount = 7,
             drawGridLines = false,
-            labelFormatter = SimpleLineChart.hourLabelFormatter(chart.context) { startTime }
+            labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
-
-        setClickable(selectionListener != null)
     }
 
-    private fun setClickable(clickable: Boolean) {
-        if (!clickable) {
-            simpleChart.setOnValueSelectedListener(null)
-            return
+    private fun onClick(value: Vector2): Boolean {
+        if (!clickable || selectionListener == null) {
+            return false
         }
-        simpleChart.setOnValueSelectedListener {
-            if (it == null) {
-                selectionListener?.invoke(null, null)
-                return@setOnValueSelectedListener
-            }
-            val seconds = it.x * 60 * 60
-            val duration = Duration.between(startTime.plusSeconds(seconds.toLong()), Instant.now())
-            selectionListener?.invoke(duration, it.y)
-        }
+        val seconds = value.x * 60 * 60
+        val duration = Duration.between(startTime.plusSeconds(seconds.toLong()), Instant.now())
+        selectionListener.invoke(duration, value.y)
+        chart.selectPoint(
+            value,
+            Resources.androidTextColorPrimary(chart.context),
+            Resources.dp(chart.context, 8f)
+        )
+        return true
     }
 
     private fun setUnits(units: PressureUnits) {
         minRange = Pressure.hpa(MIN_RANGE).convertTo(units).pressure
-        granularity = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
+        precision = (Units.getDecimalPlaces(units) - 1).coerceAtLeast(0)
+        margin = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
     }
 
     fun plot(
         data: List<Reading<Pressure>>,
-        rawLower: List<Reading<Pressure>>? = null,
-        rawUpper: List<Reading<Pressure>>? = null
+        raw: List<Reading<Pressure>>? = null
     ) {
-        startTime = data.firstOrNull()?.time
+        startTime = data.firstOrNull()?.time ?: Instant.now()
         setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
-        val values = SimpleLineChart.getDataFromReadings(data, startTime) {
+        val values = Chart.getDataFromReadings(data, startTime) {
             it.pressure
         }
 
-        val range = SimpleLineChart.getYRange(values, granularity, minRange)
-        simpleChart.configureYAxis(
+        val range = Chart.getYRange(values, margin, minRange)
+        // TODO: Support minimum range
+        chart.configureYAxis(
             minimum = range.start,
             maximum = range.end,
-            granularity = granularity,
             labelCount = 5,
-            drawGridLines = true
+            drawGridLines = true,
+            labelFormatter = NumberChartLabelFormatter(precision)
         )
 
-        val datasets = mutableListOf<SimpleLineChart.Dataset>()
+        val layers = mutableListOf<ChartLayer>()
 
-        if (rawLower != null){
-            val rawValues = SimpleLineChart.getDataFromReadings(rawLower, startTime) {
+        if (raw != null) {
+            val rawValues = Chart.getDataFromReadings(raw, startTime) {
                 it.pressure
             }
-            datasets.add(SimpleLineChart.Dataset(
-                rawValues,
-                withAlpha(AppColor.Gray.color, 50),
-                isHighlightEnabled = false
-            ))
+            layers.add(LineChartLayer(rawValues, AppColor.Gray.color.withAlpha(50)))
         }
 
-        if (rawUpper != null){
-            val rawValues = SimpleLineChart.getDataFromReadings(rawUpper, startTime) {
-                it.pressure
-            }
-            datasets.add(SimpleLineChart.Dataset(
-                rawValues,
-                withAlpha(AppColor.Gray.color, 50),
-                isHighlightEnabled = false
-            ))
-        }
+        layers.add(LineChartLayer(values, color) { onClick(it) })
 
-        datasets.add(SimpleLineChart.Dataset(values, color))
-
-        simpleChart.plot(datasets)
-    }
-
-    @ColorInt
-    private fun withAlpha(@ColorInt color: Int, alpha: Int): Int {
-        return Color.argb(alpha, color.red, color.green, color.blue)
+        chart.plot(layers)
     }
 
     companion object {

@@ -166,34 +166,28 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             if (!showMeanShiftedReadings) 0f else uncalibratedHistory.map { it.value.altitude }
                 .average().toFloat()
 
-        val filteredRaw = uncalibratedHistory.filter {
+        val displayRawReadings = uncalibratedHistory.filter {
             Duration.between(
                 it.time,
                 Instant.now()
             ) <= prefs.weather.pressureHistory
-        }
-
-        val confidenceInterval = filteredRaw.map {
+        }.map {
             if (prefs.weather.useSeaLevelPressure) {
                 if (showMeanShiftedReadings) {
                     val seaLevel = Meteorology.getSeaLevelPressure(
                         Pressure.hpa(it.value.pressure),
                         Distance.meters(averageAltitude)
                     )
-                    Reading(seaLevel to seaLevel, it.time)
+                    Reading(seaLevel, it.time)
                 } else {
-                    Reading(it.value.seaLevelConfidenceInterval(false), it.time)
+                    Reading(it.value.seaLevel(false), it.time)
                 }
             } else {
-                Reading(Pressure.hpa(it.value.pressure) to Pressure.hpa(it.value.pressure), it.time)
+                Reading(Pressure.hpa(it.value.pressure), it.time)
             }
         }
-
         if (displayReadings.isNotEmpty()) {
-            chart?.plot(
-                displayReadings,
-                confidenceInterval.map { Reading(it.value.first, it.time) },
-                confidenceInterval.map { Reading(it.value.second, it.time) })
+            chart?.plot(displayReadings, displayRawReadings)
         }
     }
 

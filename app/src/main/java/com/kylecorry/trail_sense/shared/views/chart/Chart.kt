@@ -5,20 +5,24 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.time.Time.hoursUntil
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Instant
 import kotlin.math.max
+import kotlin.math.min
 
 class Chart : CanvasView, IChart {
 
@@ -38,6 +42,11 @@ class Chart : CanvasView, IChart {
     private var _labelMargin = 0f
     private var _gridThickness = 2f
     private var _margin = 0f
+
+    // TODO: Does this belong here?
+    private var _highlightedPoint: Vector2? = null
+    private var _highlightedColor: Int = Color.WHITE
+    private var _highlightedSize: Float = 6f
 
     // X axis
     private var _xLabelCount = 3
@@ -85,9 +94,27 @@ class Chart : CanvasView, IChart {
         drawData()
     }
 
+    fun deselectPoint() {
+        _highlightedPoint = null
+        _highlightedColor = Color.WHITE
+        _highlightedSize = 6f
+        invalidate()
+    }
+
+    fun selectPoint(point: Vector2, @ColorInt color: Int, size: Float = 6f) {
+        _highlightedPoint = point
+        _highlightedColor = color
+        _highlightedSize = size
+        invalidate()
+    }
+
     private fun drawData() {
         _layers.forEach {
             it.draw(this, this)
+        }
+
+        _highlightedPoint?.let {
+            ScatterChartLayer(listOf(it), _highlightedColor, _highlightedSize).draw(this, this)
         }
     }
 
@@ -281,19 +308,6 @@ class Chart : CanvasView, IChart {
         invalidate()
     }
 
-    companion object {
-        fun <T> getDataFromReadings(
-            readings: List<Reading<T>>,
-            startTime: Instant? = null,
-            getY: (T) -> Float
-        ): List<Vector2> {
-            val first = startTime ?: readings.firstOrNull()?.time ?: return emptyList()
-            return readings.map {
-                Vector2(first.hoursUntil(it.time), getY(it.value))
-            }
-        }
-    }
-
     override fun toPixel(data: Vector2): PixelCoordinate {
         val x = mapX(data.x)
         val y = mapY(data.y)
@@ -319,7 +333,6 @@ class Chart : CanvasView, IChart {
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             val pixel = PixelCoordinate(e.x, e.y)
 
@@ -336,8 +349,47 @@ class Chart : CanvasView, IChart {
     private val gestureDetector = GestureDetector(context, gestureListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val consumed = gestureDetector.onTouchEvent(event)
-        return consumed || super.onTouchEvent(event)
+        gestureDetector.onTouchEvent(event)
+        return true
     }
+
+    companion object {
+        fun <T> getDataFromReadings(
+            readings: List<Reading<T>>,
+            startTime: Instant? = null,
+            getY: (T) -> Float
+        ): List<Vector2> {
+            val first = startTime ?: readings.firstOrNull()?.time ?: return emptyList()
+            return readings.map {
+                Vector2(first.hoursUntil(it.time), getY(it.value))
+            }
+        }
+
+        fun getYRange(
+            data: List<Vector2>,
+            margin: Float,
+            minRange: Float
+        ): Range<Float> {
+            val values = data.map { it.y }
+            val minValue = values.minOrNull() ?: 0f
+            val maxValue = values.maxOrNull() ?: 0f
+            return getRange(minValue, maxValue, margin, minRange)
+        }
+
+        fun getRange(
+            minimum: Float,
+            maximum: Float,
+            margin: Float,
+            minRange: Float
+        ): Range<Float> {
+            val middle = (minimum + maximum) / 2f
+            val start = min(minimum - margin, middle - minRange / 2)
+            val end = max(maximum + margin, middle + minRange / 2)
+
+            return Range(start, end)
+        }
+
+    }
+
 }
 

@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.views.chart.IChart
 abstract class BaseChartLayer(
     override val data: List<Vector2>,
     private val handleClicks: Boolean = true,
-    private val pointClickRadiusPixels: Float = 12f,
+    private val pointClickRadiusDp: Float = 12f,
     private val onPointClick: (point: Vector2) -> Boolean = { false },
 ) : ChartLayer {
 
@@ -17,9 +17,10 @@ abstract class BaseChartLayer(
         if (!handleClicks) {
             return false
         }
+        val radius = drawer.dp(pointClickRadiusDp)
         val clicked = data.map {
             val anchor = chart.toPixel(it)
-            it to PixelCircle(anchor, pointClickRadiusPixels)
+            it to PixelCircle(anchor, radius)
         }
             .filter { it.second.contains(pixel) }
             .sortedBy { it.second.center.distanceTo(pixel) }

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content" />
 
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.kylecorry.trail_sense.shared.views.chart.Chart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_height"
