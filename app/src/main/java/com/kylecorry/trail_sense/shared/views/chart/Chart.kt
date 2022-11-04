@@ -201,7 +201,7 @@ class Chart : CanvasView, IChart {
         }
     }
 
-    private fun resetChartBounds(){
+    private fun resetChartBounds() {
         _currentChartXMinimum = _margin
         _currentChartXMaximum = width.toFloat() - _margin
         _currentChartYMinimum = _margin
@@ -373,6 +373,12 @@ class Chart : CanvasView, IChart {
             val first = startTime ?: readings.firstOrNull()?.time ?: return emptyList()
             return readings.map {
                 Vector2(first.hoursUntil(it.time), getY(it.value))
+            }
+        }
+
+        fun indexedData(values: List<Float>): List<Vector2> {
+            return values.mapIndexed { index, value ->
+                Vector2(index.toFloat(), value)
             }
         }
 

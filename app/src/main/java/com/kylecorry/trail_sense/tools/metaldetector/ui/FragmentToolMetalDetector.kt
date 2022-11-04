@@ -135,7 +135,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 readings.removeAt(0)
             }
             lastReadingTime = System.currentTimeMillis()
-            chart.plot(readings)
+            chart.plot(readings, threshold)
         }
 
         threshold = binding.threshold.progress.toFloat()

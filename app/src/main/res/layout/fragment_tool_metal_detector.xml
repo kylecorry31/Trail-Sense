@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:showSubtitle="false"
-        tools:title="65 uT"/>
+        tools:title="65 uT" />
 
     <SeekBar
         android:id="@+id/threshold"
@@ -58,10 +58,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/threshold" />
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.kylecorry.trail_sense.shared.views.chart.Chart
         android:id="@+id/metal_chart"
         android:layout_width="0dp"
         android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/metal_detector_disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
