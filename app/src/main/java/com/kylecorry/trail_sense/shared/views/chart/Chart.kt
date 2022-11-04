@@ -156,9 +156,15 @@ class Chart : CanvasView, IChart {
         }
 
         // Draw x labels
-        for (label in xLabels) {
+        for (i in xLabels.indices) {
+            val label = xLabels[i]
             textAlign(TextAlign.Left)
-            val x = mapX(label.second) - textWidth(label.first) / 2f
+            val offset = when (i) {
+                0 -> 0f
+                xLabels.lastIndex -> textWidth(label.first)
+                else -> textWidth(label.first) / 2f
+            }
+            val x = mapX(label.second) - offset
             val y = height.toFloat() - _margin
             text(label.first, x, y)
         }
