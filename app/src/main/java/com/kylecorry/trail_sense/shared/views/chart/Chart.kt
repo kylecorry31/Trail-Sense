@@ -84,7 +84,12 @@ class Chart : CanvasView, IChart {
     override fun draw() {
         clear()
         background(_backgroundColor)
-        updateRange()
+        // Invalidate all layers if one changed
+        if (_layers.any { it.hasChanges }) {
+            _layers.forEach { it.invalidate() }
+            updateRange()
+        }
+        resetChartBounds()
         drawLabelsAndGrid()
         drawData()
     }
@@ -104,11 +109,6 @@ class Chart : CanvasView, IChart {
     }
 
     private fun drawData() {
-        // Invalidate all layers if one changed
-        if (_layers.any { it.hasChanges }) {
-            _layers.forEach { it.invalidate() }
-        }
-
         _layers.forEach {
             it.draw(this, this)
         }
@@ -200,15 +200,19 @@ class Chart : CanvasView, IChart {
         }
     }
 
+    private fun resetChartBounds(){
+        _currentChartXMinimum = _margin
+        _currentChartXMaximum = width.toFloat() - _margin
+        _currentChartYMinimum = _margin
+        _currentChartYMaximum = height.toFloat() - _margin
+    }
+
     private fun updateRange() {
         _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
         _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
         _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
         _currentYMaximum = _yMaximum ?: Float.NEGATIVE_INFINITY
-        _currentChartXMinimum = _margin
-        _currentChartXMaximum = width.toFloat() - _margin
-        _currentChartYMinimum = _margin
-        _currentChartYMaximum = height.toFloat() - _margin
+        resetChartBounds()
 
         if (_xMinimum == null || _xMaximum == null || _yMinimum == null || _yMaximum == null) {
             for (d in _layers) {
