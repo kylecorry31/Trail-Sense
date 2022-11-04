@@ -32,5 +32,7 @@ class LineChartLayer(
         drawer.strokeWeight(thickness)
         drawer.stroke(color)
         drawer.path(path)
+
+        super.draw(drawer, chart)
     }
 }

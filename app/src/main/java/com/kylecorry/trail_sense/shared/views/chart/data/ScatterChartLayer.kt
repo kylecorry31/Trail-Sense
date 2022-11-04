@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
-// TODO: Highlight on click?
 class ScatterChartLayer(
     override val data: List<Vector2>,
     @ColorInt val color: Int,
@@ -22,5 +21,6 @@ class ScatterChartLayer(
             val mapped = chart.toPixel(point)
             drawer.circle(mapped.x, mapped.y, radius)
         }
+        super.draw(drawer, chart)
     }
 }

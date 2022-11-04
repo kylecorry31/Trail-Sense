@@ -65,6 +65,8 @@ class AreaChartLayer(
         drawer.fill(areaColor)
         drawer.noStroke()
         drawer.path(areaPath)
+
+        super.draw(drawer, chart)
     }
 
     override fun onClick(drawer: ICanvasDrawer, chart: IChart, pixel: PixelCoordinate): Boolean {

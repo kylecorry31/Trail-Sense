@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 interface ChartLayer {
     val data: List<Vector2>
+    val hasChanges: Boolean
 
     fun draw(drawer: ICanvasDrawer, chart: IChart)
 
@@ -15,4 +16,6 @@ interface ChartLayer {
      * @return true if the click event was handled by this layer, false otherwise
      */
     fun onClick(drawer: ICanvasDrawer, chart: IChart, pixel: PixelCoordinate): Boolean
+
+    fun invalidate()
 }

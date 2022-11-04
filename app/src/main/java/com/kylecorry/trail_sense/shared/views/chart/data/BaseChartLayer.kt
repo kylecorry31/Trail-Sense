@@ -13,6 +13,9 @@ abstract class BaseChartLayer(
     private val onPointClick: (point: Vector2) -> Boolean = { false },
 ) : ChartLayer {
 
+    final override var hasChanges: Boolean = true
+        private set
+
     override fun onClick(drawer: ICanvasDrawer, chart: IChart, pixel: PixelCoordinate): Boolean {
         if (!handleClicks) {
             return false
@@ -31,5 +34,13 @@ abstract class BaseChartLayer(
             }
         }
         return false
+    }
+
+    override fun draw(drawer: ICanvasDrawer, chart: IChart) {
+        hasChanges = false
+    }
+
+    override fun invalidate() {
+        hasChanges = true
     }
 }

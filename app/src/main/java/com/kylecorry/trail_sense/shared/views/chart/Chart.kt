@@ -72,11 +72,6 @@ class Chart : CanvasView, IChart {
     private var _currentChartYMinimum: Float = 0f
     private var _currentChartYMaximum: Float = 0f
 
-    init {
-        // TODO: It should update when a layer changes (maybe have layers event/callback)
-        runEveryCycle = false
-    }
-
     override fun setup() {
         _labelSize = sp(10f)
         _margin = dp(8f)
@@ -109,6 +104,11 @@ class Chart : CanvasView, IChart {
     }
 
     private fun drawData() {
+        // Invalidate all layers if one changed
+        if (_layers.any { it.hasChanges }) {
+            _layers.forEach { it.invalidate() }
+        }
+
         _layers.forEach {
             it.draw(this, this)
         }

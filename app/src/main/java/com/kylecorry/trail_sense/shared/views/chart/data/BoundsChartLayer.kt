@@ -15,6 +15,9 @@ class BoundsChartLayer(
 
     override val data: List<Vector2> = upper + lower
 
+    override var hasChanges: Boolean = false
+        private set
+
     val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
@@ -42,9 +45,15 @@ class BoundsChartLayer(
         drawer.fill(color)
         drawer.noStroke()
         drawer.path(path)
+
+        hasChanges = false
     }
 
     override fun onClick(drawer: ICanvasDrawer, chart: IChart, pixel: PixelCoordinate): Boolean {
         return false
+    }
+
+    override fun invalidate() {
+        hasChanges = true
     }
 }
