@@ -1068,4 +1068,5 @@
     <string name="then_weather">sonra %s</string>
     <string name="later">Sonra</string>
     <string name="weather_precipitation">Yağış</string>
+    <string name="pref_show_map_previews_title">Harita ön izlemelerini göster</string>
 </resources>
