@@ -130,7 +130,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.batteryTitle.leftButton.setOnClickListener {
             val readingDuration =
                 Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
-            CustomUiUtils.showLineChart(
+            CustomUiUtils.showChart(
                 this,
                 getString(
                     R.string.battery_history,

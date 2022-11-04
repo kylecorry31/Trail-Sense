@@ -13,8 +13,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 33
-        versionCode = 86
-        versionName = "4.8.0"
+        versionCode = 87
+        versionName = "4.9.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations.addAll(listOf("en", "af", "ar", "bg", "bn", "bs", "ca", "cs", "da", "de", "es", "eu", "fa-rIR", "fi", "fr", "hi", "hu", "hy", "in", "it", "iw", "js", "nb-rNO", "ne", "nl", "ny", "pl", "pt", "pt-rBR", "ro", "ru", "sk", "tr", "uk", "vi", "zh", "zh-rTW"))
     }
@@ -92,7 +92,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:6.2.0-beta04")
 
     // Andromeda
-    val andromedaVersion = "5.0.0-beta18"
+    val andromedaVersion = "5.0.0-beta19"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
