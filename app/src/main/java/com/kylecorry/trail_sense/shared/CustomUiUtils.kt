@@ -16,7 +16,6 @@ import androidx.annotation.MenuRes
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
@@ -33,7 +32,10 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.shared.views.*
+import com.kylecorry.trail_sense.shared.views.BeaconIconPickerView
+import com.kylecorry.trail_sense.shared.views.ColorPickerView
+import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.chart.Chart
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
@@ -427,19 +429,8 @@ object CustomUiUtils {
 
     }
 
-    fun showLineChart(fragment: Fragment, title: String, populateFn: (LineChart) -> Unit) {
-        val chartView = View.inflate(fragment.requireContext(), R.layout.view_chart_prompt, null)
-        populateFn(chartView.findViewById(R.id.chart))
-        Alerts.dialog(
-            fragment.requireContext(),
-            title,
-            contentView = chartView,
-            cancelText = null
-        )
-    }
-
     fun showChart(fragment: Fragment, title: String, populateFn: (Chart) -> Unit) {
-        val chartView = View.inflate(fragment.requireContext(), R.layout.view_chart_prompt2, null)
+        val chartView = View.inflate(fragment.requireContext(), R.layout.view_chart_prompt, null)
         populateFn(chartView.findViewById(R.id.chart))
         Alerts.dialog(
             fragment.requireContext(),
