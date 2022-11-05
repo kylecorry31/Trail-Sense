@@ -9,24 +9,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/elevation_history"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="@string/elevation_history" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/altitude_history_length"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        tools:text="Last 14 hours"
         android:gravity="center_vertical"
-        app:drawableEndCompat="@drawable/ic_drop_down" />
+        app:drawableEndCompat="@drawable/ic_drop_down"
+        tools:text="Last 14 hours" />
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.kylecorry.trail_sense.shared.views.chart.Chart
         android:id="@+id/chart"
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

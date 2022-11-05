@@ -18,13 +18,16 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import com.kylecorry.trail_sense.shared.views.chart.Chart
+import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
 import java.time.Instant
@@ -36,7 +39,6 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private var units = DistanceUnits.Meters
-    private lateinit var chart: SimpleLineChart
     private var backtrackReadings = listOf<Reading<Float>>()
     private var weatherReadings = listOf<Reading<Float>>()
     private var startTime = Instant.now()
@@ -48,20 +50,31 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private val maxFilterHistoryDuration = maxHistoryDuration.plusHours(6)
     private var historyDuration = maxHistoryDuration
 
+    private val elevationLine by lazy {
+        val color = Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary)
+        AreaChartLayer(
+            emptyList(),
+            color,
+            color.withAlpha(50)
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         units = prefs.baseDistanceUnits
-        chart = SimpleLineChart(binding.chart, getString(R.string.no_data))
-        chart.configureYAxis(
+        binding.chart.configureYAxis(
             labelCount = 5,
             drawGridLines = true
         )
 
-        chart.configureXAxis(
+        binding.chart.configureXAxis(
             labelCount = 7,
             drawGridLines = false,
-            labelFormatter = SimpleLineChart.hourLabelFormatter(requireContext()) { startTime }
+            labelFormatter = HourChartLabelFormatter(requireContext()) { startTime }
         )
+
+        binding.chart.plot(elevationLine)
+
         val path = backtrackPoints
         if (path != null) {
             backtrackReadings = path.mapNotNull { point ->
@@ -100,25 +113,23 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         startTime = readings.firstOrNull()?.time
 
-        val data = SimpleLineChart.getDataFromReadings(readings){
+        val data = Chart.getDataFromReadings(readings) {
             Distance.meters(it).convertTo(units).distance
         }
 
-        val granularity = Distance.meters(10f).convertTo(units).distance
+        val margin = Distance.meters(10f).convertTo(units).distance
         val minRange = Distance.meters(100f).convertTo(units).distance
-        val range = SimpleLineChart.getYRange(data, granularity, minRange)
-        chart.configureYAxis(
+        val range = Chart.getYRange(data, margin, minRange)
+        binding.chart.configureYAxis(
             minimum = range.start,
             maximum = range.end,
-            granularity = granularity,
             labelCount = 5,
             drawGridLines = true
         )
 
-        chart.plot(
-            data, Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary),
-            filled = true
-        )
+
+        elevationLine.data = data
+        elevationLine.fillTo = range.start
 
         binding.altitudeHistoryLength.text =
             getString(R.string.last_duration, formatService.formatDuration(historyDuration))
