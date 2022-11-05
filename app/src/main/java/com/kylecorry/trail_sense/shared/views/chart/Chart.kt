@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.core.system.Resources
@@ -20,6 +21,7 @@ import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Instant
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -66,6 +68,12 @@ class Chart : CanvasView, IChart {
     private var _currentChartYMinimum: Float = 0f
     private var _currentChartYMaximum: Float = 0f
 
+    override val xRange: Range<Float>
+        get() = Range(_currentXMinimum, _currentXMaximum)
+
+    override val yRange: Range<Float>
+        get() = Range(_currentYMinimum, _currentYMaximum)
+
     override fun setup() {
         _labelSize = sp(10f)
         _margin = dp(8f)
@@ -77,7 +85,6 @@ class Chart : CanvasView, IChart {
 
     override fun draw() {
         clear()
-        background(_backgroundColor)
         // Invalidate all layers if one changed
         if (_layers.any { it.hasChanges }) {
             _layers.forEach { it.invalidate() }
@@ -86,7 +93,24 @@ class Chart : CanvasView, IChart {
         updateRange()
         resetChartBounds()
         drawLabelsAndGrid()
+        drawBackground()
         drawData()
+    }
+
+    fun setChartBackground(@ColorInt color: Int) {
+        _backgroundColor = color
+        invalidate()
+    }
+
+    private fun drawBackground() {
+        fill(_backgroundColor)
+        noStroke()
+        rect(
+            _currentChartXMinimum,
+            _currentChartYMinimum,
+            abs(_currentChartXMinimum - _currentChartXMaximum),
+            abs(_currentChartYMinimum - _currentChartYMaximum)
+        )
     }
 
     private fun drawData() {

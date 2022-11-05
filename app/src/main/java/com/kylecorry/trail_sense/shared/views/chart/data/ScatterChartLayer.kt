@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.views.chart.data
 
-import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.math.Vector2
@@ -20,8 +19,6 @@ class ScatterChartLayer(
             field = value
             invalidate()
         }
-
-    val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
         drawer.noStroke()

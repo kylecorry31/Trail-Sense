@@ -24,37 +24,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/astronomy_title" />
 
-    <ImageView
-        android:id="@+id/chart_night"
-        android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/colorSecondary"
-        app:layout_constraintBottom_toBottomOf="@id/sunMoonChart"
-        app:layout_constraintEnd_toEndOf="@id/sunMoonChart"
-        app:layout_constraintStart_toStartOf="@id/sunMoonChart" />
-
-    <ImageView
-        android:id="@+id/chart_day"
-        android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="@id/sunMoonChart"
-        app:layout_constraintStart_toStartOf="@id/sunMoonChart"
-        app:layout_constraintTop_toTopOf="@id/sunMoonChart" />
-
-
-    <com.github.mikephil.charting.charts.LineChart
+    <com.kylecorry.trail_sense.shared.views.chart.Chart
         android:id="@+id/sunMoonChart"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display_date" />

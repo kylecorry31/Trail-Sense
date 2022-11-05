@@ -344,18 +344,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         maxChartTime = data.sun.last().time.toZonedDateTime()
 
         onMain {
-            chart.plot(
-                listOf(
-                    AstroChart.AstroChartDataset(
-                        data.moon,
-                        resources.getColor(R.color.white, null)
-                    ),
-                    AstroChart.AstroChartDataset(
-                        data.sun,
-                        resources.getColor(R.color.sun, null)
-                    )
-                )
-            )
+            chart.plot(data.sun, data.moon)
 
             if (displayDate == LocalDate.now()) {
                 plotCelestialBodyImage(binding.moonPosition, data.moon, 0)
