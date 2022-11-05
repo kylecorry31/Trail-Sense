@@ -108,11 +108,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             apache2("year", "Google", "")
         ),
         Library(
-            "MpChartAndroid",
-            "https://github.com/PhilJay/MPAndroidChart",
-            apache2("2020", "Philipp Jahoda", "")
-        ),
-        Library(
             "geoid_heights",
             "https://github.com/vectorstofinal/geoid_heights",
             mit("2015", "vectorstofinal")
