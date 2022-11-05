@@ -34,31 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display_date" />
 
-    <ImageView
-        android:id="@+id/moon_position"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
-        app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
-        app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
-        app:srcCompat="@drawable/ic_moon_waning_crescent"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/sun_position"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/sunMoonChart"
-        app:layout_constraintStart_toStartOf="@+id/sunMoonChart"
-        app:layout_constraintTop_toTopOf="@+id/sunMoonChart"
-        app:srcCompat="@drawable/ic_sun"
-        tools:visibility="visible" />
-
-
     <ScrollView
         android:id="@+id/time_seeker_panel"
         android:layout_width="0dp"

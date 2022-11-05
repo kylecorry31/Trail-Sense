@@ -23,7 +23,13 @@ class BitmapLoader(private val context: Context) {
         return bitmap!!
     }
 
-    fun clear(){
+    fun unload(@DrawableRes id: Int) {
+        if (icons.containsKey(id)) {
+            icons.remove(id)?.recycle()
+        }
+    }
+
+    fun clear() {
         tryOrNothing {
             for (icon in icons) {
                 icon.value.recycle()

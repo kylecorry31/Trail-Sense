@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -110,7 +109,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
 
 
-        chart = AstroChart(binding.sunMoonChart)
+        chart = AstroChart(binding.sunMoonChart, this::showTimeSeeker)
 
         binding.displayDate.setOnDateChangeListener {
             updateUI()
@@ -156,14 +155,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
-        binding.sunPosition.setOnClickListener {
-            showTimeSeeker()
-        }
-
-        binding.moonPosition.setOnClickListener {
-            showTimeSeeker()
-        }
-
         binding.timeSeeker.max = maxProgress
 
         binding.timeSeeker.setOnProgressChangeListener { progress, _ ->
@@ -177,8 +168,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     currentSeekChartTime.toLocalTime(),
                     includeSeconds = false
                 )
-            plotCelestialBodyImage(binding.moonPosition, data.moon, 0, currentSeekChartTime)
-            plotCelestialBodyImage(binding.sunPosition, data.sun, 1, currentSeekChartTime)
+            plotMoonImage(data.moon, currentSeekChartTime)
+            plotSunImage(data.sun, currentSeekChartTime)
             updateSeekPositions()
         }
     }
@@ -230,8 +221,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private fun hideTimeSeeker() {
         binding.timeSeekerPanel.isVisible = false
         binding.astronomyDetailList.isVisible = true
-        plotCelestialBodyImage(binding.moonPosition, data.moon, 0)
-        plotCelestialBodyImage(binding.sunPosition, data.sun, 1)
+        plotMoonImage(data.moon)
+        plotSunImage(data.sun)
     }
 
 
@@ -318,11 +309,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         val moonPhase = withContext(Dispatchers.Default) {
-            astronomyService.getCurrentMoonPhase()
+            astronomyService.getMoonPhase(binding.displayDate.date)
         }
 
         withContext(Dispatchers.Main) {
-            binding.moonPosition.setImageResource(getMoonImage(moonPhase.phase))
+            chart.setMoonImage(getMoonImage(moonPhase.phase))
         }
     }
 
@@ -347,36 +338,38 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             chart.plot(data.sun, data.moon)
 
             if (displayDate == LocalDate.now()) {
-                plotCelestialBodyImage(binding.moonPosition, data.moon, 0)
-                plotCelestialBodyImage(binding.sunPosition, data.sun, 1)
+                plotMoonImage(data.moon)
+                plotSunImage(data.sun)
             } else {
-                binding.sunPosition.visibility = View.INVISIBLE
-                binding.moonPosition.visibility = View.INVISIBLE
+                chart.moveSun(null)
+                chart.moveMoon(null)
             }
         }
     }
 
 
-    // TODO: Extract this to simple chart
-    private fun plotCelestialBodyImage(
-        image: ImageView,
+    private fun plotSunImage(
         altitudes: List<Reading<Float>>,
-        datasetId: Int,
         time: ZonedDateTime = ZonedDateTime.now()
     ) {
         val instant = time.toInstant()
         val current = altitudes.minByOrNull {
             Duration.between(instant, it.time).abs()
         }
-        val currentIdx = altitudes.indexOf(current)
-        val point = chart.getPoint(datasetId, currentIdx)
-        image.x = point.x - image.width / 2f
-        image.y = point.y - image.height / 2f
-
-        if (image.height != 0) {
-            image.visibility = View.VISIBLE
-        }
+        chart.moveSun(current)
     }
+
+    private fun plotMoonImage(
+        altitudes: List<Reading<Float>>,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ) {
+        val instant = time.toInstant()
+        val current = altitudes.minByOrNull {
+            Duration.between(instant, it.time).abs()
+        }
+        chart.moveMoon(current)
+    }
+
 
     private suspend fun updateSunUI() {
         if (!isBound) {
