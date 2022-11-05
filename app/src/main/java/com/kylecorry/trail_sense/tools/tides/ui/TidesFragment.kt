@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
@@ -135,12 +134,11 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         val currentLevel = daily.waterLevels.minByOrNull {
             Duration.between(Instant.now(), it.time).abs()
         }
-        val currentIdx = daily.waterLevels.indexOf(currentLevel)
-        val point = chart.getPoint(currentIdx)
-        binding.position.isInvisible =
-            point.x == binding.chart.x && point.y == binding.chart.y || displayDate != LocalDate.now()
-        binding.position.x = point.x - binding.position.width / 2f
-        binding.position.y = point.y - binding.position.height / 2f
+        if (currentLevel != null && displayDate == LocalDate.now()) {
+            chart.highlight(currentLevel, daily.waterLevelRange)
+        } else {
+            chart.removeHighlight()
+        }
         binding.tideTitle.title.setCompoundDrawables(
             Resources.dp(requireContext(), 24f).toInt(),
             left = if (current.rising) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down

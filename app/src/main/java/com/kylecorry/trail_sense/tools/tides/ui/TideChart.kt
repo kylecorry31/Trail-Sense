@@ -1,52 +1,70 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
-import com.github.mikephil.charting.charts.LineChart
-import com.kylecorry.andromeda.core.tryOrDefault
-import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.norm
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.trail_sense.shared.views.chart.Chart
+import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 
 
-class TideChart(private val chart: LineChart) {
+class TideChart(chart: Chart) {
 
-    private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
-    private val color = AppColor.Blue.color
     private var startTime = Instant.now()
 
+    private val highlight = ScatterChartLayer(
+        emptyList(),
+        Resources.androidTextColorPrimary(chart.context),
+        12f
+    )
+
+    private val level = AreaChartLayer(
+        emptyList(),
+        AppColor.Blue.color,
+        AppColor.Blue.color.withAlpha(50)
+    )
+
     init {
-        simpleChart.configureYAxis(
+        chart.configureYAxis(
             labelCount = 0,
             drawGridLines = false,
             minimum = 0f,
             maximum = 1f,
         )
 
-        simpleChart.configureXAxis(
+        chart.configureXAxis(
             labelCount = 7,
             drawGridLines = false,
-            labelFormatter = SimpleLineChart.hourLabelFormatter(chart.context) { startTime }
+            labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
+
+        chart.plot(level, highlight)
     }
 
     fun plot(data: List<Reading<Float>>, range: Range<Float>) {
         val first = data.firstOrNull()?.time
         startTime = first
-        val values = SimpleLineChart.getDataFromReadings(data, startTime) {
-            norm(it, range.start - 0.5f, range.end + 0.5f)
-        }
-        simpleChart.plot(values, color, filled = true)
+        level.data = convert(data, range)
     }
 
-    fun getPoint(index: Int): PixelCoordinate {
-        val point = tryOrDefault(SimpleLineChart.Point(0, index, 0f, 0f)) {
-            simpleChart.getPoint(0, index)
-        }
+    fun highlight(point: Reading<Float>, range: Range<Float>) {
+        val value = convert(listOf(point), range)
+        highlight.data = value
+    }
 
-        return PixelCoordinate(point.x + chart.x, point.y + chart.y)
+    fun removeHighlight() {
+        highlight.data = emptyList()
+    }
+
+    private fun convert(readings: List<Reading<Float>>, range: Range<Float>): List<Vector2> {
+        return Chart.getDataFromReadings(readings, startTime) {
+            norm(it, range.start - 0.5f, range.end + 0.5f)
+        }
     }
 }

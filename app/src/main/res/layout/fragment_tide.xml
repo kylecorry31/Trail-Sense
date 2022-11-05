@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tide_title" />
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.kylecorry.trail_sense.shared.views.chart.Chart
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="@dimen/chart_height"
@@ -59,19 +59,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chart" />
-
-    <ImageView
-        android:id="@+id/position"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:scaleType="fitCenter"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/chart"
-        app:layout_constraintStart_toStartOf="@+id/chart"
-        app:layout_constraintTop_toTopOf="@+id/chart"
-        app:srcCompat="@drawable/bubble"
-        app:tint="?android:textColorPrimary"
-        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tide_disclaimer"
