@@ -26,9 +26,10 @@ class ScatterChartLayer(
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
         drawer.noStroke()
         drawer.fill(color)
+        val dpRadius = drawer.dp(radius)
         for (point in data) {
             val mapped = chart.toPixel(point)
-            drawer.circle(mapped.x, mapped.y, radius)
+            drawer.circle(mapped.x, mapped.y, dpRadius)
         }
         super.draw(drawer, chart)
     }

@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Duration
@@ -33,6 +33,24 @@ class PressureChart(
 
     private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
 
+    private val rawLine = LineChartLayer(
+        emptyList(),
+        AppColor.Gray.color.withAlpha(50)
+    )
+
+    private val line = LineChartLayer(
+        emptyList(),
+        color
+    ) {
+        onClick(it)
+    }
+
+    private val highlight = ScatterChartLayer(
+        emptyList(),
+        Resources.androidTextColorPrimary(chart.context),
+        8f
+    )
+
     init {
         chart.configureYAxis(
             labelCount = 5,
@@ -45,6 +63,8 @@ class PressureChart(
             drawGridLines = false,
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
+
+        chart.plot(rawLine, line, highlight)
     }
 
     private fun onClick(value: Vector2): Boolean {
@@ -54,11 +74,7 @@ class PressureChart(
         val seconds = value.x * 60 * 60
         val duration = Duration.between(startTime.plusSeconds(seconds.toLong()), Instant.now())
         selectionListener.invoke(duration, value.y)
-        chart.selectPoint(
-            value,
-            Resources.androidTextColorPrimary(chart.context),
-            Resources.dp(chart.context, 8f)
-        )
+        highlight.data = listOf(value)
         return true
     }
 
@@ -88,18 +104,15 @@ class PressureChart(
             labelFormatter = NumberChartLabelFormatter(precision)
         )
 
-        val layers = mutableListOf<ChartLayer>()
-
         if (raw != null) {
-            val rawValues = Chart.getDataFromReadings(raw, startTime) {
+            rawLine.data = Chart.getDataFromReadings(raw, startTime) {
                 it.pressure
             }
-            layers.add(LineChartLayer(rawValues, AppColor.Gray.color.withAlpha(50)))
+        } else {
+            rawLine.data = emptyList()
         }
 
-        layers.add(LineChartLayer(values, color) { onClick(it) })
-
-        chart.plot(layers)
+        line.data = values
     }
 
     companion object {
