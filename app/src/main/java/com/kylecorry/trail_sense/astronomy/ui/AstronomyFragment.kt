@@ -221,8 +221,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private fun hideTimeSeeker() {
         binding.timeSeekerPanel.isVisible = false
         binding.astronomyDetailList.isVisible = true
-        plotMoonImage(data.moon)
-        plotSunImage(data.sun)
+        val displayDate = binding.displayDate.date
+        if (displayDate == LocalDate.now()) {
+            plotMoonImage(data.moon)
+            plotSunImage(data.sun)
+        } else {
+            chart.moveSun(null)
+            chart.moveMoon(null)
+        }
     }
 
 
@@ -308,8 +314,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             return
         }
 
+        val displayDate = binding.displayDate.date
+
         val moonPhase = withContext(Dispatchers.Default) {
-            astronomyService.getMoonPhase(binding.displayDate.date)
+            if (displayDate == LocalDate.now()) {
+                astronomyService.getCurrentMoonPhase()
+            } else {
+                astronomyService.getMoonPhase(displayDate)
+            }
         }
 
         withContext(Dispatchers.Main) {
