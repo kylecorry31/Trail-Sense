@@ -7,11 +7,20 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 class ScatterChartLayer(
-    override val data: List<Vector2>,
-    @ColorInt val color: Int,
+    initialData: List<Vector2>,
+    @ColorInt initialColor: Int,
     val radius: Float = 6f,
     onPointClick: (point: Vector2) -> Boolean = { false }
-) : BaseChartLayer(data, true, radius * 2, onPointClick) {
+) : BaseChartLayer(initialData, true, radius * 2, onPointClick) {
+
+
+    @ColorInt
+    var color: Int = initialColor
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {

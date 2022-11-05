@@ -266,6 +266,7 @@ class Chart : CanvasView, IChart {
     }
 
     fun plot(vararg data: ChartLayer) {
+        data.forEach { it.invalidate() }
         plot(data.toList())
     }
 

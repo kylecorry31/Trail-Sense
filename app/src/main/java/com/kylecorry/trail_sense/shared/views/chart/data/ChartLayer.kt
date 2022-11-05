@@ -6,7 +6,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 interface ChartLayer {
-    val data: List<Vector2>
+    var data: List<Vector2>
     val hasChanges: Boolean
 
     fun draw(drawer: ICanvasDrawer, chart: IChart)

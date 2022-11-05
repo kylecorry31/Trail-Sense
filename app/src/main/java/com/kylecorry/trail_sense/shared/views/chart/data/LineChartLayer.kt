@@ -7,11 +7,19 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 class LineChartLayer(
-    override val data: List<Vector2>,
-    @ColorInt private val color: Int,
+    initialData: List<Vector2>,
+    @ColorInt initialColor: Int,
     private val thickness: Float = 6f,
     onPointClick: (point: Vector2) -> Boolean = { false }
-) : BaseChartLayer(data, true, onPointClick = onPointClick) {
+) : BaseChartLayer(initialData, true, onPointClick = onPointClick) {
+
+    @ColorInt
+    var color: Int = initialColor
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     val path = Path()
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {

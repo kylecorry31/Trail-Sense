@@ -12,6 +12,17 @@ import kotlin.math.min
 
 class MetalDetectorChart(private val chart: Chart, private val color: Int) {
 
+    private val thresholdArea = AreaChartLayer(
+        emptyList(),
+        initialLineColor = Color.TRANSPARENT,
+        initialAreaColor = AppColor.Gray.color.withAlpha(50)
+    )
+
+    private val line = LineChartLayer(
+        emptyList(),
+        color
+    )
+
     init {
         chart.configureYAxis(
             labelCount = 5,
@@ -22,6 +33,8 @@ class MetalDetectorChart(private val chart: Chart, private val color: Int) {
             labelCount = 0,
             drawGridLines = false
         )
+
+        chart.plot(thresholdArea, line)
     }
 
     fun plot(data: List<Float>, threshold: Float) {
@@ -32,15 +45,8 @@ class MetalDetectorChart(private val chart: Chart, private val color: Int) {
             maximum = max(100f, data.maxOrNull() ?: 100f)
         )
 
-        chart.plot(
-            AreaChartLayer(
-                listOf(Vector2(0f, threshold), Vector2(data.size.toFloat(), threshold)),
-                lineColor = Color.TRANSPARENT,
-                areaColor = AppColor.Gray.color.withAlpha(50)
-            ),
-            LineChartLayer(
-                Chart.indexedData(data), color
-            )
-        )
+        thresholdArea.data =
+            listOf(Vector2(0f, threshold), Vector2(data.lastIndex.toFloat(), threshold))
+        line.data = Chart.indexedData(data)
     }
 }

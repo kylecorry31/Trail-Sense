@@ -7,11 +7,17 @@ import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 abstract class BaseChartLayer(
-    override val data: List<Vector2>,
+    initialData: List<Vector2>,
     private val handleClicks: Boolean = true,
     private val pointClickRadiusDp: Float = 12f,
     private val onPointClick: (point: Vector2) -> Boolean = { false },
 ) : ChartLayer {
+
+    override var data: List<Vector2> = initialData
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     final override var hasChanges: Boolean = true
         private set

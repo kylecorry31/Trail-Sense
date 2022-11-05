@@ -8,13 +8,33 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 class AreaChartLayer(
-    override val data: List<Vector2>,
-    @ColorInt private val lineColor: Int,
-    @ColorInt private val areaColor: Int,
-    private val fillTo: Float = 0f,
+    initialData: List<Vector2>,
+    @ColorInt initialLineColor: Int,
+    @ColorInt initialAreaColor: Int,
+    initialFillTo: Float = 0f,
     private val lineThickness: Float = 6f,
     onPointClick: (point: Vector2) -> Boolean = { false }
-) : BaseChartLayer(data, true, onPointClick = onPointClick) {
+) : BaseChartLayer(initialData, true, onPointClick = onPointClick) {
+
+    @ColorInt
+    var lineColor: Int = initialLineColor
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    @ColorInt
+    var areaColor: Int = initialAreaColor
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var fillTo: Float = initialFillTo
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     val areaPath = Path()
     val linePath = Path()

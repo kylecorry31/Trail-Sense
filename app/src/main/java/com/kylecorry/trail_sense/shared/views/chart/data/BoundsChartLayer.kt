@@ -8,12 +8,35 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.views.chart.IChart
 
 class BoundsChartLayer(
-    private val upper: List<Vector2>,
-    private val lower: List<Vector2>,
-    @ColorInt private val color: Int
+    initialUpper: List<Vector2>,
+    initialLower: List<Vector2>,
+    @ColorInt initialColor: Int
 ) : ChartLayer {
 
-    override val data: List<Vector2> = upper + lower
+    @ColorInt
+    var color: Int = initialColor
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var upper: List<Vector2> = initialUpper
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var lower: List<Vector2> = initialLower
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var data: List<Vector2>
+        get() = upper + lower
+        set(value) {
+            // Do nothing - eventually maybe determine which is upper and which is lower
+        }
 
     override var hasChanges: Boolean = false
         private set
