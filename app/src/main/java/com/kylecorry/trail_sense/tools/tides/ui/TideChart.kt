@@ -21,7 +21,7 @@ class TideChart(chart: Chart) {
     private val highlight = ScatterChartLayer(
         emptyList(),
         Resources.androidTextColorPrimary(chart.context),
-        12f
+        8f
     )
 
     private val level = AreaChartLayer(

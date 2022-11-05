@@ -104,7 +104,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chart = PathElevationChart(binding.chart, true)
+        chart = PathElevationChart(binding.chart)
 
         binding.pathImage.isInteractive = true
 
@@ -489,6 +489,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun deselectPoint() {
         selectedPointId = null
         binding.pathSelectedPoint.isVisible = false
+        chart.removeHighlight()
     }
 
     private fun updatePointStyleLegend() {
@@ -557,6 +558,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         if (selectedPointId != null) {
             binding.pathSelectedPoint.isVisible = true
+            chart.highlight(point)
             val binding =
                 ListItemWaypointBinding.inflate(layoutInflater, binding.pathSelectedPoint, true)
             drawWaypointListItem(binding, point)

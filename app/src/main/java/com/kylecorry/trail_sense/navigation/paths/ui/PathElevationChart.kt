@@ -1,71 +1,62 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
+import android.graphics.Color
 import androidx.annotation.ColorInt
-import com.github.mikephil.charting.charts.LineChart
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.R
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.toRelativeDistance
-import com.kylecorry.trail_sense.shared.views.SimpleLineChart
+import com.kylecorry.trail_sense.shared.views.chart.Chart
+import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
+import com.kylecorry.trail_sense.shared.views.chart.label.DistanceChartLabelFormatter
 import kotlin.math.absoluteValue
 
-class PathElevationChart(chart: LineChart, private val showSlope: Boolean) {
-
-    private val simpleChart = SimpleLineChart(chart, chart.context.getString(R.string.no_data))
-
-    private var granularity = 10f
+class PathElevationChart(private val chart: Chart) {
 
     private val units = UserPreferences(chart.context).baseDistanceUnits
     private val formatter = FormatService(chart.context)
 
     private var _path = emptyList<PathPoint>()
     private var _elevationIndex = emptyList<Int>()
+    private var _elevations = emptyList<Vector2>()
     private var _listener: (PathPoint) -> Unit = {}
-    private var _fullDatasetIdx = 0
+
+    private val highlight = ScatterChartLayer(
+        emptyList(),
+        Resources.androidTextColorPrimary(chart.context),
+        8f
+    )
 
     init {
-        simpleChart.configureYAxis(
-            granularity = granularity,
+        chart.configureYAxis(
             labelCount = 3,
             drawGridLines = true,
-            labelFormatter = {
-                val distance = Distance.meters(it).convertTo(units)
-                formatter.formatDistance(
-                    distance,
-                    Units.getDecimalPlaces(distance.units),
-                    false
-                )
-            }
+            labelFormatter = DistanceChartLabelFormatter(
+                formatter,
+                DistanceUnits.Meters,
+                units,
+                false
+            )
         )
 
-        simpleChart.configureXAxis(
+        chart.configureXAxis(
             labelCount = 4,
             drawGridLines = false,
-            labelFormatter = {
-                val distance = Distance.meters(it).convertTo(units).toRelativeDistance()
-                formatter.formatDistance(
-                    distance,
-                    Units.getDecimalPlaces(distance.units),
-                    false
-                )
-            }
+            labelFormatter = DistanceChartLabelFormatter(
+                formatter,
+                DistanceUnits.Meters,
+                units,
+                true
+            )
         )
-
-        simpleChart.setOnValueSelectedListener {
-            it ?: return@setOnValueSelectedListener
-            if (it.pointIndex != -1 && it.datasetIndex == _fullDatasetIdx) {
-                val idx = _elevationIndex[it.pointIndex]
-                tryOrNothing {
-                    val point = _path[idx]
-                    _listener.invoke(point)
-                }
-            }
-        }
     }
 
     fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {
@@ -75,86 +66,103 @@ class PathElevationChart(chart: LineChart, private val showSlope: Boolean) {
     fun plot(path: List<PathPoint>, @ColorInt color: Int) {
         val elevations = getElevationPlotPoints(path)
 
-        val granularity = Distance.meters(10f).convertTo(units).distance
+        val margin = Distance.meters(10f).convertTo(units).distance
         val minRange = Distance.meters(100f).convertTo(units).distance
-        val range = SimpleLineChart.getRange(elevations.minOfOrNull { it.second } ?: 0f,
-            elevations.maxOfOrNull { it.second } ?: 0f,
-            granularity,
+        val range = Chart.getRange(
+            elevations.minOfOrNull { it.first.y } ?: 0f,
+            elevations.maxOfOrNull { it.first.y } ?: 0f,
+            margin,
             minRange)
 
-        simpleChart.configureYAxis(
-            granularity = granularity,
+        chart.configureYAxis(
             labelCount = 3,
             drawGridLines = true,
             minimum = range.start,
             maximum = range.end,
-            labelFormatter = {
-                val distance = Distance.meters(it).convertTo(units)
-                formatter.formatDistance(
-                    distance,
-                    Units.getDecimalPlaces(distance.units),
-                    false
-                )
-            }
-        )
-
-        val datasets = mutableListOf<SimpleLineChart.Dataset>()
-
-        if (showSlope) {
-            var currentDataset = mutableListOf<Pair<Float, Float>>()
-            var currentSteepness = elevations.firstOrNull()?.third ?: Steepness.Low
-
-            elevations.forEach {
-                if (it.third == currentSteepness) {
-                    currentDataset.add(it.first to it.second)
-                } else {
-                    currentDataset.add(it.first to it.second)
-                    datasets.add(
-                        SimpleLineChart.Dataset(
-                            currentDataset.toList(),
-                            getColor(currentSteepness),
-                            true,
-                            cubic = false,
-                            lineWidth = 0f,
-                            isHighlightEnabled = false
-                        )
-                    )
-                    currentDataset = mutableListOf(it.first to it.second)
-                    currentSteepness = it.third
-                }
-            }
-
-            if (currentDataset.isNotEmpty()) {
-                datasets.add(
-                    SimpleLineChart.Dataset(
-                        currentDataset.toList(),
-                        getColor(currentSteepness),
-                        true,
-                        cubic = false,
-                        lineWidth = 0f,
-                        isHighlightEnabled = false
-                    )
-                )
-            }
-        }
-
-        _fullDatasetIdx = datasets.size
-        datasets.add(
-            SimpleLineChart.Dataset(
-                elevations.map { it.first to it.second },
-                color,
-                cubic = false,
-                circles = true
+            labelFormatter = DistanceChartLabelFormatter(
+                formatter,
+                DistanceUnits.Meters,
+                units,
+                false
             )
         )
 
-        simpleChart.plot(datasets)
+        val layers = mutableListOf<ChartLayer>()
+
+        var currentLayer = mutableListOf<Vector2>()
+        var currentSteepness = elevations.firstOrNull()?.second ?: Steepness.Low
+
+        elevations.forEach {
+            if (it.second == currentSteepness) {
+                currentLayer.add(it.first)
+            } else {
+                currentLayer.add(it.first)
+                layers.add(getSlopeChart(currentLayer, currentSteepness, range.start))
+                currentLayer = mutableListOf(it.first)
+                currentSteepness = it.second
+            }
+        }
+
+        if (currentLayer.isNotEmpty()) {
+            layers.add(getSlopeChart(currentLayer, currentSteepness, range.start))
+        }
+
+        _elevations = elevations.map { it.first }
+
+        layers.add(
+            LineChartLayer(
+                _elevations,
+                color
+            ) { point ->
+                val pointIndex = _elevations.indexOf(point)
+                val idx = _elevationIndex[pointIndex]
+                tryOrNothing {
+                    _listener.invoke(_path[idx])
+                }
+                true
+            }
+        )
+
+        layers.add(highlight)
+
+        chart.plot(layers)
     }
 
-    private fun getElevationPlotPoints(path: List<PathPoint>): List<Triple<Float, Float, Steepness>> {
+    fun highlight(point: PathPoint) {
+        val idx = _path.indexOf(point)
+        if (idx == -1) {
+            return
+        }
+        val pointIndex = _elevationIndex.indexOf(idx)
+        if (pointIndex == -1) {
+            return
+        }
+        tryOrNothing {
+            highlight.data = listOf(_elevations[pointIndex])
+        }
+    }
+
+    fun removeHighlight() {
+        highlight.data = emptyList()
+    }
+
+    private fun getSlopeChart(
+        data: List<Vector2>,
+        steepness: Steepness,
+        bottom: Float
+    ): ChartLayer {
+        return AreaChartLayer(
+            data,
+            Color.TRANSPARENT,
+            getColor(steepness),
+            initialFillTo = bottom
+        )
+    }
+
+    private fun getElevationPlotPoints(path: List<PathPoint>): List<Pair<Vector2, Steepness>> {
         _path = path
         val elevationIndex = mutableListOf<Int>()
-        val points = mutableListOf<Triple<Float, Float, Steepness>>()
+        val points = mutableListOf<Pair<Vector2, Steepness>>()
         var distance = 0f
         path.forEachIndexed { index, point ->
             if (index != 0) {
@@ -162,7 +170,7 @@ class PathElevationChart(chart: LineChart, private val showSlope: Boolean) {
             }
 
             if (point.elevation != null) {
-                points.add(Triple(distance, point.elevation, getSteepness(point.slope)))
+                points.add(Vector2(distance, point.elevation) to getSteepness(point.slope))
                 elevationIndex.add(index)
             }
         }
