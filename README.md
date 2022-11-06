@@ -142,7 +142,6 @@ The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/
 # Open Source Credits
 
 - Icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews) and [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
-- Charts: [MpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 - Thanks to @qwerty287 for implementing several features and bugfixes
 

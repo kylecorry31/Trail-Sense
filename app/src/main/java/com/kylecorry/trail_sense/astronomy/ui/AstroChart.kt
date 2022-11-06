@@ -75,6 +75,8 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
 
+        chart.emptyText = chart.context.getString(R.string.no_data)
+
         chart.plot(night, moonLine, sunLine, moonImage, sunImage)
     }
 

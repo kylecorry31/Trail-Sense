@@ -73,6 +73,8 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
             labelFormatter = HourChartLabelFormatter(requireContext()) { startTime }
         )
 
+        binding.chart.emptyText = requireContext().getString(R.string.no_data)
+
         binding.chart.plot(elevationLine)
 
         val path = backtrackPoints

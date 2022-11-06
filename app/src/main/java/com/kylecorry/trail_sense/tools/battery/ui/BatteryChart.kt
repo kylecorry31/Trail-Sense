@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.views.chart.Chart
@@ -23,6 +24,8 @@ class BatteryChart(private val chart: Chart) {
             labelCount = 0,
             drawGridLines = false
         )
+
+        chart.emptyText = chart.context.getString(R.string.no_data)
     }
 
     fun plot(readings: List<BatteryReading>, showCapacity: Boolean = false) {

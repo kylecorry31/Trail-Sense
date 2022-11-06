@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -57,6 +58,8 @@ class PathElevationChart(private val chart: Chart) {
                 true
             )
         )
+
+        chart.emptyText = chart.context.getString(R.string.no_data)
     }
 
     fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {

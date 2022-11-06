@@ -64,6 +64,8 @@ class PressureChart(
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
 
+        chart.emptyText = chart.context.getString(R.string.no_data)
+
         chart.plot(rawLine, line, highlight)
     }
 

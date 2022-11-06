@@ -22,6 +22,8 @@ class HumidityChart(private val chart: Chart) {
             labelCount = 0,
             drawGridLines = false
         )
+
+        chart.emptyText = chart.context.getString(R.string.no_data)
     }
 
     fun plot(data: List<Reading<Float>>) {

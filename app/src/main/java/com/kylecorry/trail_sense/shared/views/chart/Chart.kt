@@ -44,6 +44,11 @@ class Chart : CanvasView, IChart {
     private var _gridThickness = 2f
     private var _margin = 0f
 
+    private var _isEmpty = true
+    var emptyText = ""
+    var emptyTextColor = Resources.androidTextColorPrimary(context)
+    var emptyTextSizeSp = 10f
+
     // X axis
     private var _xLabelCount = 3
     private var _xGridLines = true
@@ -112,6 +117,7 @@ class Chart : CanvasView, IChart {
         clip(chartClipPath)
         drawBackground()
         drawData()
+        drawEmptyText()
         pop()
     }
 
@@ -128,6 +134,16 @@ class Chart : CanvasView, IChart {
         _layers.forEach {
             it.draw(this, this)
         }
+    }
+
+    private fun drawEmptyText() {
+        if (!_isEmpty) return
+
+        textSize(sp(emptyTextSizeSp))
+        textAlign(TextAlign.Center)
+        fill(emptyTextColor)
+        noStroke()
+        text(emptyText, width / 2f, height / 2f)
     }
 
     private fun drawLabelsAndGrid() {
@@ -220,6 +236,7 @@ class Chart : CanvasView, IChart {
     }
 
     private fun updateRange() {
+        _isEmpty = true
         _currentXMinimum = _xMinimum ?: Float.POSITIVE_INFINITY
         _currentXMaximum = _xMaximum ?: Float.NEGATIVE_INFINITY
         _currentYMinimum = _yMinimum ?: Float.POSITIVE_INFINITY
@@ -247,6 +264,8 @@ class Chart : CanvasView, IChart {
                 }
             }
         }
+
+        _isEmpty = _layers.all { it.data.isEmpty() }
     }
 
     // Map x to view coordinates

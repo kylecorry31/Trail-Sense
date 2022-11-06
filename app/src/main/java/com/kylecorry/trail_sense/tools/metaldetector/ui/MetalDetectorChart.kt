@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.metaldetector.ui
 
 import android.graphics.Color
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
 import com.kylecorry.trail_sense.shared.views.chart.Chart
@@ -10,7 +11,7 @@ import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
 import kotlin.math.max
 import kotlin.math.min
 
-class MetalDetectorChart(private val chart: Chart, private val color: Int) {
+class MetalDetectorChart(private val chart: Chart, color: Int) {
 
     private val thresholdArea = AreaChartLayer(
         emptyList(),
@@ -33,6 +34,8 @@ class MetalDetectorChart(private val chart: Chart, private val color: Int) {
             labelCount = 0,
             drawGridLines = false
         )
+
+        chart.emptyText = chart.context.getString(R.string.no_data)
 
         chart.plot(thresholdArea, line)
     }
