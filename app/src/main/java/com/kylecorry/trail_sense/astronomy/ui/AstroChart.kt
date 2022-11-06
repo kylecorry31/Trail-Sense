@@ -35,7 +35,7 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
 
     private val night = FullAreaChartLayer(
         0f,
-        -101f,
+        -100f,
         Resources.color(chart.context, R.color.colorSecondary)
     )
 

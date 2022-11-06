@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.views.chart.data
 
 import android.graphics.Path
 import androidx.annotation.ColorInt
+import androidx.core.graphics.alpha
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
@@ -12,7 +13,7 @@ class AreaChartLayer(
     @ColorInt initialLineColor: Int,
     @ColorInt initialAreaColor: Int,
     initialFillTo: Float = 0f,
-    private val lineThickness: Float = 6f,
+    private val lineThickness: Float = 2f,
     onPointClick: (point: Vector2) -> Boolean = { false }
 ) : BaseChartLayer(initialData, true, onPointClick = onPointClick) {
 
@@ -41,16 +42,19 @@ class AreaChartLayer(
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
         if (hasChanges) {
-            // Top line
-            linePath.rewind()
-            for (i in 1 until data.size) {
-                if (i == 1) {
-                    val start = chart.toPixel(data[0])
-                    linePath.moveTo(start.x, start.y)
-                }
 
-                val next = chart.toPixel(data[i])
-                linePath.lineTo(next.x, next.y)
+            if (lineColor.alpha != 0) {
+                // Top line
+                linePath.rewind()
+                for (i in 1 until data.size) {
+                    if (i == 1) {
+                        val start = chart.toPixel(data[0])
+                        linePath.moveTo(start.x, start.y)
+                    }
+
+                    val next = chart.toPixel(data[i])
+                    linePath.lineTo(next.x, next.y)
+                }
             }
 
             // Area
@@ -81,10 +85,12 @@ class AreaChartLayer(
 
         }
 
-        drawer.noFill()
-        drawer.strokeWeight(lineThickness)
-        drawer.stroke(lineColor)
-        drawer.path(linePath)
+        if (lineColor.alpha != 0) {
+            drawer.noFill()
+            drawer.strokeWeight(drawer.dp(lineThickness))
+            drawer.stroke(lineColor)
+            drawer.path(linePath)
+        }
 
         drawer.fill(areaColor)
         drawer.noStroke()

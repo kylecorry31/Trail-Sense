@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.views.chart.IChart
 class LineChartLayer(
     initialData: List<Vector2>,
     @ColorInt initialColor: Int,
-    private val thickness: Float = 6f,
+    private val thickness: Float = 2f,
     onPointClick: (point: Vector2) -> Boolean = { false }
 ) : BaseChartLayer(initialData, true, onPointClick = onPointClick) {
 
@@ -37,7 +37,7 @@ class LineChartLayer(
         }
 
         drawer.noFill()
-        drawer.strokeWeight(thickness)
+        drawer.strokeWeight(drawer.dp(thickness))
         drawer.stroke(color)
         drawer.path(path)
 

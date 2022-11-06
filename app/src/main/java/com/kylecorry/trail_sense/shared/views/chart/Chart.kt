@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.views.chart
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -21,7 +22,6 @@ import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Instant
-import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -68,6 +68,8 @@ class Chart : CanvasView, IChart {
     private var _currentChartYMinimum: Float = 0f
     private var _currentChartYMaximum: Float = 0f
 
+    private val chartClipPath = Path()
+
     override val xRange: Range<Float>
         get() = Range(_currentXMinimum, _currentXMaximum)
 
@@ -86,15 +88,31 @@ class Chart : CanvasView, IChart {
     override fun draw() {
         clear()
         // Invalidate all layers if one changed
+        var isInvalidated = false
         if (_layers.any { it.hasChanges }) {
+            isInvalidated = true
             _layers.forEach { it.invalidate() }
             updateRange()
         }
         updateRange()
         resetChartBounds()
         drawLabelsAndGrid()
+
+        push()
+        if (isInvalidated) {
+            chartClipPath.rewind()
+            chartClipPath.addRect(
+                _currentChartXMinimum,
+                _currentChartYMinimum,
+                _currentChartXMaximum,
+                _currentChartYMaximum,
+                Path.Direction.CW
+            )
+        }
+        clip(chartClipPath)
         drawBackground()
         drawData()
+        pop()
     }
 
     fun setChartBackground(@ColorInt color: Int) {
@@ -103,14 +121,7 @@ class Chart : CanvasView, IChart {
     }
 
     private fun drawBackground() {
-        fill(_backgroundColor)
-        noStroke()
-        rect(
-            _currentChartXMinimum,
-            _currentChartYMinimum,
-            abs(_currentChartXMinimum - _currentChartXMaximum),
-            abs(_currentChartYMinimum - _currentChartYMaximum)
-        )
+        background(_backgroundColor)
     }
 
     private fun drawData() {
