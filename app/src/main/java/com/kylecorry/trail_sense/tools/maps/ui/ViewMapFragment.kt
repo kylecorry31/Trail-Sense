@@ -34,7 +34,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService

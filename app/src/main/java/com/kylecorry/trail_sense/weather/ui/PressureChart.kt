@@ -13,7 +13,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Duration
 import java.time.Instant

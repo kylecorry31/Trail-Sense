@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.battery.ui
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading

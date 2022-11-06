@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
