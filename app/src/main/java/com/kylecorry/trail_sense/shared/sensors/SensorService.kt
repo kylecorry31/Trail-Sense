@@ -36,6 +36,7 @@ import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeter
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -69,6 +70,16 @@ class SensorService(ctx: Context) {
         return CachedGPS(context, frequency.toMillis())
     }
 
+    fun getGPSFromAltimeter(altimeter: IAltimeter): IGPS? {
+        return if (altimeter is IGPS) {
+            altimeter
+        } else if (altimeter is GaussianAltimeter && altimeter.altimeter is IGPS) {
+            altimeter.altimeter
+        } else {
+            null
+        }
+    }
+
     private fun hasLocationPermission(background: Boolean): Boolean {
         return if (background) {
             Permissions.isBackgroundLocationEnabled(context)
@@ -100,7 +111,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getGPSAltimeter(background: Boolean = false): IAltimeter {
+    private fun getGPSAltimeter(background: Boolean = false): IAltimeter {
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
@@ -114,13 +125,19 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getAltimeter(background: Boolean = false): IAltimeter {
+    fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false): IAltimeter {
+        if (preferGPS) {
+            return GaussianAltimeter(getGPSAltimeter(background))
+        }
 
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
-        } else if (mode == UserPreferences.AltimeterMode.Barometer && Sensors.hasBarometer(context)) {
+        } else if (mode == UserPreferences.AltimeterMode.Barometer && Sensors.hasBarometer(
+                context
+            )
+        ) {
             return Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
         } else {
             if (!GPS.isAvailable(context)) {
@@ -135,7 +152,7 @@ class SensorService(ctx: Context) {
             ) {
                 FusedAltimeter(gps, Barometer(context))
             } else {
-                gps
+                GaussianAltimeter(gps)
             }
         }
     }

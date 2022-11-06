@@ -22,13 +22,11 @@ internal class WeatherObserver(
 ) : IWeatherObserver {
 
     private val sensorService by lazy { SensorService(context) }
-    private val baseAltimeter by lazy { sensorService.getGPSAltimeter(background) }
+    private val altimeter by lazy { sensorService.getAltimeter(background, preferGPS = true) }
+    private val altimeterAsGPS by lazy { sensorService.getGPSFromAltimeter(altimeter) }
     private val gps: IGPS by lazy {
-        if (baseAltimeter is IGPS) baseAltimeter as IGPS else sensorService.getGPS(
-            background
-        )
+        altimeterAsGPS ?: sensorService.getGPS(background)
     }
-    private val altimeter by lazy { GaussianAltimeter(baseAltimeter) }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
@@ -39,8 +37,8 @@ internal class WeatherObserver(
                 val jobs = mutableListOf<Job>()
                 jobs.add(launch { altimeter.read() })
 
-                // If the base altimeter is the GPS, its readings are already being update by the line above
-                if (baseAltimeter != gps) {
+                // If the base altimeter is the GPS, its readings are already being updated by the line above
+                if (altimeterAsGPS != gps) {
                     jobs.add(launch { gps.read() })
                 }
                 jobs.add(launch { barometer.read() })
@@ -62,7 +60,7 @@ internal class WeatherObserver(
                 barometer.pressure,
                 altimeter.altitude,
                 if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
-                altimeter.altitudeAccuracy,
+                if (altimeter is GaussianAltimeter) (altimeter as GaussianAltimeter).altitudeAccuracy else 0f,
                 hygrometer.humidity,
                 gps.location
             ),
