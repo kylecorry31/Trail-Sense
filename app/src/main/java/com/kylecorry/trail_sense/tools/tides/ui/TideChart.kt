@@ -8,9 +8,9 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
-import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
+import com.kylecorry.ceres.chart.data.ScatterChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 

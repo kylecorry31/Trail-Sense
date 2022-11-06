@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/astronomy_title" />
 
-    <com.kylecorry.trail_sense.shared.views.chart.Chart
+    <com.kylecorry.ceres.chart.Chart
         android:id="@+id/sunMoonChart"
         android:layout_width="0dp"
         android:layout_height="200dp"

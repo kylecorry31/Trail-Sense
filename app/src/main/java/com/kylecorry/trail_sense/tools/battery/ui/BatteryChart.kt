@@ -4,8 +4,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
-import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 
 class BatteryChart(private val chart: Chart) {

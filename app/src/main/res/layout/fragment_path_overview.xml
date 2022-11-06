@@ -200,7 +200,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/elevation" />
 
-        <com.kylecorry.trail_sense.shared.views.chart.Chart
+        <com.kylecorry.ceres.chart.Chart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="150dp"

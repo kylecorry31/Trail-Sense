@@ -12,11 +12,11 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.ChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
+import com.kylecorry.ceres.chart.data.ChartLayer
+import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.ceres.chart.data.ScatterChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.DistanceChartLabelFormatter
 import kotlin.math.absoluteValue
 

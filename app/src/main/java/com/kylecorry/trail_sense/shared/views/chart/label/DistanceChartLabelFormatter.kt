@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.views.chart.label
 
+import com.kylecorry.ceres.chart.label.ChartLabelFormatter
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.FormatService

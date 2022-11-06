@@ -125,10 +125,11 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:exceptions:$andromedaVersion")
 
     // Ceres
-    val ceresVersion = "0.1.5"
+    val ceresVersion = "0.1.6"
     implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")
+    implementation("com.github.kylecorry31.ceres:chart:$ceresVersion")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

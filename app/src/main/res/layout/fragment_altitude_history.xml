@@ -23,7 +23,7 @@
         app:drawableEndCompat="@drawable/ic_drop_down"
         tools:text="Last 14 hours" />
 
-    <com.kylecorry.trail_sense.shared.views.chart.Chart
+    <com.kylecorry.ceres.chart.Chart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"

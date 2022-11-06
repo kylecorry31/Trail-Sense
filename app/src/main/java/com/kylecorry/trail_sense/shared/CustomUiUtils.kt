@@ -36,7 +36,7 @@ import com.kylecorry.trail_sense.shared.views.BeaconIconPickerView
 import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
-import com.kylecorry.trail_sense.shared.views.chart.Chart
+import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration

@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.astronomy.ui
 import android.graphics.Color
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.ui.BitmapLoader
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.BitmapChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.FullAreaChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
+import com.kylecorry.ceres.chart.data.BitmapChartLayer
+import com.kylecorry.ceres.chart.data.FullAreaChartLayer
+import com.kylecorry.ceres.chart.data.LineChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 

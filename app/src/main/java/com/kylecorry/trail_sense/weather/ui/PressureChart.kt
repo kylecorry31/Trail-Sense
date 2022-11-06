@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.weather.ui
 
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.ceres.chart.data.ScatterChartLayer
+import com.kylecorry.ceres.chart.label.NumberChartLabelFormatter
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Pressure
@@ -10,11 +14,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
-import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.ScatterChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
-import com.kylecorry.trail_sense.shared.views.chart.label.NumberChartLabelFormatter
 import java.time.Duration
 import java.time.Instant
 

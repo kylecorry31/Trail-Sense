@@ -5,9 +5,9 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.colors.ColorUtils.withAlpha
-import com.kylecorry.trail_sense.shared.views.chart.Chart
-import com.kylecorry.trail_sense.shared.views.chart.data.AreaChartLayer
-import com.kylecorry.trail_sense.shared.views.chart.data.LineChartLayer
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
+import com.kylecorry.ceres.chart.data.LineChartLayer
 import kotlin.math.max
 import kotlin.math.min
 

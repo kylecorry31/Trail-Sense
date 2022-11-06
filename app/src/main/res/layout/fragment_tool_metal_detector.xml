@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/threshold" />
 
-    <com.kylecorry.trail_sense.shared.views.chart.Chart
+    <com.kylecorry.ceres.chart.Chart
         android:id="@+id/metal_chart"
         android:layout_width="0dp"
         android:layout_height="200dp"

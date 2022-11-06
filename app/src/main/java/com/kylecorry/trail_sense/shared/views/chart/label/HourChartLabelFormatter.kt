@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.views.chart.label
 
 import android.content.Context
+import com.kylecorry.ceres.chart.label.ChartLabelFormatter
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.shared.FormatService
