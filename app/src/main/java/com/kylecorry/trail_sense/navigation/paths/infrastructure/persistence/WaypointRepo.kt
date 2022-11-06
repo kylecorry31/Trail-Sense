@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.WaypointEntity
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import java.time.Instant
 
 class WaypointRepo private constructor(context: Context) : IWaypointRepo {
@@ -54,8 +54,9 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         return waypointDao.get(id)?.toPathPoint()
     }
 
-    override suspend fun getAll(): List<PathPoint> {
-        return waypointDao.getAllSync().map { it.toPathPoint() }
+    override suspend fun getAll(since: Instant?): List<PathPoint> {
+        return (if (since == null) waypointDao.getAllSync() else waypointDao.getAllSinceSync(since.toEpochMilli()))
+            .map { it.toPathPoint() }
     }
 
     override fun getAllLive(since: Instant?): LiveData<List<PathPoint>> {

@@ -15,6 +15,9 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints")
     suspend fun getAllSync(): List<WaypointEntity>
 
+    @Query("SELECT * FROM waypoints WHERE createdOn > :since")
+    suspend fun getAllSinceSync(since: Long): List<WaypointEntity>
+
     @Query("SELECT * FROM waypoints WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): WaypointEntity?
 

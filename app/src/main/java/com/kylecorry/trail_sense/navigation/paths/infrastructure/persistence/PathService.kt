@@ -21,6 +21,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant
 import kotlin.math.absoluteValue
+import kotlin.streams.toList
 
 class PathService(
     private val pathRepo: IPathRepo,
@@ -161,7 +162,8 @@ class PathService(
         val startPoints = getWaypoints(startPathId)
         val endPoints = getWaypoints(endPathId)
 
-        val newPathId = addPath(getEmptyPath(false).copy(name = name, style = style, parentId = parentId))
+        val newPathId =
+            addPath(getEmptyPath(false).copy(name = name, style = style, parentId = parentId))
 
         val allPoints = (startPoints + endPoints).map {
             it.copy(id = 0)
@@ -253,12 +255,19 @@ class PathService(
         }
     }
 
-    override fun getRecentAltitudes(since: Instant): LiveData<List<Reading<Float>>> {
+    override fun getRecentAltitudesLive(since: Instant): LiveData<List<Reading<Float>>> {
         val recent = waypointRepo.getAllLive(since)
         return Transformations.map(recent) {
             it.filter { point -> point.elevation != null && point.time != null }
                 .map { point -> Reading(point.elevation!!, point.time!!) }
         }
+    }
+
+    override suspend fun getRecentAltitudes(since: Instant): List<Reading<Float>> = onIO {
+        waypointRepo.getAll(since).stream()
+            .filter { it.elevation != null && it.time != null }
+            .map { Reading(it.elevation!!, it.time!!) }
+            .toList()
     }
 
     override suspend fun clean() {

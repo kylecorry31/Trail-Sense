@@ -7,26 +7,25 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
@@ -43,7 +42,6 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private var weatherReadings = listOf<Reading<Float>>()
     private var startTime = Instant.now()
 
-    var backtrackPoints: List<PathPoint>? = null
     var currentAltitude: Reading<Float>? = null
 
     private val maxHistoryDuration = Duration.ofDays(1)
@@ -77,19 +75,9 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         binding.chart.plot(elevationLine)
 
-        val path = backtrackPoints
-        if (path != null) {
-            backtrackReadings = path.mapNotNull { point ->
-                point.elevation ?: return@mapNotNull null
-                point.time ?: return@mapNotNull null
-                Reading(point.elevation, point.time)
-            }
+        getBacktrackReadings().observe(viewLifecycleOwner) {
+            backtrackReadings = it
             updateChart()
-        } else {
-            getBacktrackReadings().observe(viewLifecycleOwner) {
-                backtrackReadings = it
-                updateChart()
-            }
         }
         getWeatherReadings().observe(viewLifecycleOwner) {
             weatherReadings = it
@@ -177,7 +165,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     }
 
     private fun getBacktrackReadings(): LiveData<List<Reading<Float>>> {
-        return pathService.getRecentAltitudes(
+        return pathService.getRecentAltitudesLive(
             Instant.now().minus(maxFilterHistoryDuration)
         )
     }

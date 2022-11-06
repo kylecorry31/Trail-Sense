@@ -39,5 +39,6 @@ interface IPathService : ICleanable {
     suspend fun deleteWaypoint(point: PathPoint)
     suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long)
 
-    fun getRecentAltitudes(since: Instant): LiveData<List<Reading<Float>>>
+    fun getRecentAltitudesLive(since: Instant): LiveData<List<Reading<Float>>>
+    suspend fun getRecentAltitudes(since: Instant): List<Reading<Float>>
 }
