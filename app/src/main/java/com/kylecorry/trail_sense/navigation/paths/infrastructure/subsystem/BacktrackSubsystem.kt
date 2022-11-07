@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackSchedu
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBacktrackCommand
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import java.time.Duration
 import java.util.*
 
@@ -46,12 +47,20 @@ class BacktrackSubsystem private constructor(private val context: Context) {
                 _state.publish(state)
             }
 
-            if (key in frequencyChangePrefKeys){
+            if (key in frequencyChangePrefKeys) {
                 val frequency = calculateBacktrackFrequency()
                 _frequency.publish(frequency)
             }
             true
         }
+    }
+
+    fun getState(): FeatureState {
+        return state.getOrNull() ?: FeatureState.Off
+    }
+
+    fun getFrequency(): Duration {
+        return frequency.getOrNull() ?: Duration.ofMinutes(30)
     }
 
     fun enable(startNewPath: Boolean) {

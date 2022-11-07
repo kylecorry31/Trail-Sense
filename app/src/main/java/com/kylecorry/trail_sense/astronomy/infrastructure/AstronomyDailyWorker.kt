@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 import java.time.LocalTime
 
+// TODO: Update daily worker to handle wakelocks and unique id ints - autogenerate last run key (pref_andromeda_daily_worker_last_run_date_UNIQUEID)
 class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWorker(
     context,
     params

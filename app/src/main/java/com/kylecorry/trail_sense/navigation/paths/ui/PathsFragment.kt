@@ -129,14 +129,13 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             }
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
-            when (backtrack.state.getOrNull()) {
+            when (backtrack.getState()) {
                 FeatureState.On -> backtrack.disable()
                 FeatureState.Off -> {
                     backtrack.enable(true)
                     RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
                 }
                 FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
-                else -> {}
             }
         }
 
@@ -152,8 +151,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
     private fun updateStatusBar() {
         binding.backtrackPlayBar.setState(
-            backtrack.state.getOrNull() ?: FeatureState.Off,
-            backtrack.frequency.getOrNull()
+            backtrack.getState(),
+            backtrack.getFrequency()
         )
     }
 
