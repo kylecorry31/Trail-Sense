@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
@@ -110,7 +111,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
         observe(instantSpeedometer) { onUpdate() }
 
-        observe(pedometer.state.replay()) { updateStatusBar() }
+        pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
 
         // TODO: Use pedometer subsystem topics
         scheduleUpdates(INTERVAL_30_FPS)

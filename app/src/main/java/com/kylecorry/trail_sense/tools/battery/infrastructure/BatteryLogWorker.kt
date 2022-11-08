@@ -2,9 +2,8 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.content.Context
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.jobs.IntervalWorker
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
+import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.BatteryLogCommand
 import java.time.Duration
 
@@ -19,18 +18,5 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
         BatteryLogCommand(context).execute()
     }
 
-    override val uniqueId: Int = UNIQUE_ID
-
-    companion object {
-
-        private const val UNIQUE_ID = 2739852
-
-        fun scheduler(context: Context): IOneTimeTaskScheduler {
-            return OneTimeTaskSchedulerFactory(context).deferrable(
-                BatteryLogWorker::class.java,
-                UNIQUE_ID
-            )
-        }
-    }
-
+    override val uniqueId: Int = Background.BatteryLogger
 }

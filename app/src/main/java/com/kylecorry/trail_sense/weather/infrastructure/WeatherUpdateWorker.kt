@@ -5,12 +5,11 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.jobs.IntervalWorker
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
@@ -18,7 +17,7 @@ import java.time.Duration
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
     IntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
 
-    override val uniqueId: Int = UNIQUE_ID
+    override val uniqueId: Int = Background.WeatherMonitor
 
     override fun isEnabled(context: Context): Boolean {
         return UserPreferences(context).weather.shouldMonitorWeather
@@ -48,18 +47,6 @@ class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
                 0
             }
         )
-    }
-
-    companion object {
-
-        private const val UNIQUE_ID = 2387092
-
-        fun scheduler(context: Context): IOneTimeTaskScheduler {
-            return OneTimeTaskSchedulerFactory(context).deferrable(
-                WeatherUpdateWorker::class.java,
-                UNIQUE_ID
-            )
-        }
     }
 
 }

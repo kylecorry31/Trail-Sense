@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
@@ -139,7 +140,7 @@ class PreferenceMigrator private constructor() {
                 val date = prefs.getLocalDate("pref_astronomy_alerts_last_run_date")
                 if (date != null) {
                     prefs.putLocalDate(
-                        "pref_andromeda_daily_worker_last_run_date_${AstronomyDailyWorker.UNIQUE_ID}",
+                        "pref_andromeda_daily_worker_last_run_date_${Background.AstronomyAlerts}",
                         date
                     )
                 }

@@ -3,13 +3,12 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 import android.content.Context
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.DailyWorker
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.AstronomyAlertCommand
+import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 import java.time.LocalTime
 
-// TODO: Autogenerate last run key (pref_andromeda_daily_worker_last_run_date_UNIQUEID)
 class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWorker(
     context,
     params,
@@ -30,17 +29,5 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
         AstronomyAlertCommand(context).execute()
     }
 
-    override val uniqueId: Int = UNIQUE_ID
-
-
-    companion object {
-
-        const val UNIQUE_ID = 72394823
-        fun start(context: Context) {
-            OneTimeTaskSchedulerFactory(context).deferrable(
-                AstronomyDailyWorker::class.java,
-                UNIQUE_ID
-            ).once()
-        }
-    }
+    override val uniqueId: Int = Background.AstronomyAlerts
 }
