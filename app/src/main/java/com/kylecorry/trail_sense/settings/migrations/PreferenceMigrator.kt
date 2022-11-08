@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
@@ -33,7 +34,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 9
+        private const val version = 11
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -133,6 +134,16 @@ class PreferenceMigrator private constructor() {
                 prefs.remove("pref_barometer_altitude_outlier")
                 prefs.remove("pref_barometer_altitude_smoothing")
                 prefs.remove("pref_experimental_sea_level_calibration_v2")
+            },
+            PreferenceMigration(10, 11) { _, prefs ->
+                val date = prefs.getLocalDate("pref_astronomy_alerts_last_run_date")
+                if (date != null) {
+                    prefs.putLocalDate(
+                        "pref_andromeda_daily_worker_last_run_date_${AstronomyDailyWorker.UNIQUE_ID}",
+                        date
+                    )
+                }
+                prefs.remove("pref_astronomy_alerts_last_run_date")
             }
         )
 

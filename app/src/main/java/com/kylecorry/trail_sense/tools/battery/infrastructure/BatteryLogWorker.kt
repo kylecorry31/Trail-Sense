@@ -3,17 +3,13 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.Context
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.jobs.IntervalWorker
 import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
-import com.kylecorry.trail_sense.shared.VariableIntervalWorker
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.BatteryLogCommand
 import java.time.Duration
 
 class BatteryLogWorker(context: Context, params: WorkerParameters) :
-    VariableIntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
-
-    override fun isEnabled(context: Context): Boolean {
-        return true
-    }
+    IntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
 
     override fun getFrequency(context: Context): Duration {
         return Duration.ofHours(1)

@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.jobs.IntervalWorker
 import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
@@ -13,11 +14,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.VariableIntervalWorker
 import java.time.Duration
 
 class BacktrackWorker(context: Context, params: WorkerParameters) :
-    VariableIntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
+    IntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
 
     override fun isEnabled(context: Context): Boolean {
         return BacktrackSubsystem.getInstance(context).getState() == FeatureState.On

@@ -6,17 +6,17 @@ import android.os.Build
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.jobs.IntervalWorker
 import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.VariableIntervalWorker
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 
 class WeatherUpdateWorker(context: Context, params: WorkerParameters) :
-    VariableIntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
+    IntervalWorker(context, params, wakelockDuration = Duration.ofSeconds(15)) {
 
     override val uniqueId: Int = UNIQUE_ID
 
