@@ -1053,4 +1053,5 @@
     <string name="now">马上</string>
     <string name="cloud_stratus_forecast">如果雾蒙蒙地，可能表明接下去 %d 个小时会是好天气，否则可能表明很快会有降水。</string>
     <string name="pref_show_map_previews_title">显示地图预览</string>
+    <string name="smoothing">平滑</string>
 </resources>
