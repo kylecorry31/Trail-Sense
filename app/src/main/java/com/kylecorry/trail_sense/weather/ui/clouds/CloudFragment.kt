@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -41,7 +42,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        repo.getAllLive().observe(viewLifecycleOwner) {
+        observe(repo.getAllLive()) {
             val since = Instant.now().minus(Duration.ofHours(48))
             binding.cloudList.setItems(it.sortedByDescending { it.time }
                 .filter { it.time >= since }, mapper)

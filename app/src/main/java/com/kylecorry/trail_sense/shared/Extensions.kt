@@ -5,8 +5,12 @@ import android.graphics.Color
 import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.andromeda.core.topics.asLiveData
+import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
@@ -16,8 +20,8 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.database.Identifiable
@@ -92,4 +96,23 @@ val ZERO_SPEED = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
 fun ICellSignalSensor.networkQuality(): CellNetworkQuality? {
     val signal = signals.maxByOrNull { it.strength }
     return signal?.let { CellNetworkQuality(it.network, it.quality) }
+}
+
+fun <T> Fragment.observe(liveData: LiveData<T>, listener: (T) -> Unit) {
+    liveData.observe(viewLifecycleOwner) {
+        listener(it)
+    }
+}
+
+fun Fragment.observe(topic: ITopic, listener: () -> Unit) {
+    topic.asLiveData().observe(viewLifecycleOwner) {
+        listener()
+    }
+}
+
+fun <T> Fragment.observe(
+    topic: com.kylecorry.andromeda.core.topics.generic.ITopic<T>,
+    listener: (T) -> Unit
+) {
+    observe(topic.asLiveData(), listener)
 }

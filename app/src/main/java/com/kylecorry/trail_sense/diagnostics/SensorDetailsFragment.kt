@@ -11,7 +11,6 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
@@ -22,10 +21,7 @@ import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.NullBarometer
@@ -88,18 +84,18 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
         sensorListView.addLineSeparator()
 
-        cachedGPS.asLiveData().observe(viewLifecycleOwner) { updateGPSCache() }
-        gps.asLiveData().observe(viewLifecycleOwner) { updateGPS() }
-        compass.asLiveData().observe(viewLifecycleOwner) { updateCompass() }
-        barometer.asLiveData().observe(viewLifecycleOwner) { updateBarometer() }
-        altimeter.asLiveData().observe(viewLifecycleOwner) { updateAltimeter() }
-        thermometer.asLiveData().observe(viewLifecycleOwner) { updateThermometer() }
-        hygrometer.asLiveData().observe(viewLifecycleOwner) { updateHygrometer() }
-        gravity.asLiveData().observe(viewLifecycleOwner) { updateGravity() }
-        cellSignal.asLiveData().observe(viewLifecycleOwner) { updateCellSignal() }
-        magnetometer.asLiveData().observe(viewLifecycleOwner) { updateMagnetometer() }
-        battery.asLiveData().observe(viewLifecycleOwner) { updateBattery() }
-        gyroscope.asLiveData().observe(viewLifecycleOwner) { updateGyro() }
+        observe(cachedGPS) { updateGPSCache() }
+        observe(gps) { updateGPS() }
+        observe(compass) { updateCompass() }
+        observe(barometer) { updateBarometer() }
+        observe(altimeter) { updateAltimeter() }
+        observe(thermometer) { updateThermometer() }
+        observe(hygrometer) { updateHygrometer() }
+        observe(gravity) { updateGravity() }
+        observe(cellSignal) { updateCellSignal() }
+        observe(magnetometer) { updateMagnetometer() }
+        observe(battery) { updateBattery() }
+        observe(gyroscope) { updateGyro() }
 
         if (!Sensors.hasCompass(requireContext())) {
             sensorDetailsMap["compass"] = SensorDetails(

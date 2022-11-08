@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.math.filters.IFilter
@@ -23,10 +22,7 @@ import com.kylecorry.sol.math.filters.MedianFilter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
 import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.LowPowerMode
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
@@ -142,7 +138,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             }
         }
 
-        batteryRepo.get().observe(viewLifecycleOwner) {
+        observe(batteryRepo.get()) {
             readings = it.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
                 if (battery.hasValidReading)
                     BatteryReading(
@@ -159,7 +155,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             update()
         }
 
-        battery.asLiveData().observe(viewLifecycleOwner) { }
+        observe(battery) { }
     }
 
     private fun resetCurrentFilter(){

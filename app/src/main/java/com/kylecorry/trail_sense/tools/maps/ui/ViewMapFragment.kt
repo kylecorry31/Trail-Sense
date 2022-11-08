@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.topics.asLiveData
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.Geology
@@ -30,13 +30,9 @@ import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.layers.*
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.extensions.inBackground
-import com.kylecorry.trail_sense.shared.getPathPoint
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
@@ -119,7 +115,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         beaconLayer.setOutlineColor(Color.WHITE)
         myLocationLayer.setColor(AppColor.Orange.color)
 
-        gps.asLiveData().observe(viewLifecycleOwner) {
+        observe(gps) {
             myLocationLayer.setLocation(gps.location)
             binding.map.setMyLocation(gps.location)
             navigationLayer.setStart(gps.location)
@@ -132,8 +128,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
             }
         }
-        altimeter.asLiveData().observe(viewLifecycleOwner) { updateDestination() }
-        compass.asLiveData().observe(viewLifecycleOwner) {
+        observe(altimeter) { updateDestination() }
+        observe(compass) {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.bearing
             binding.map.azimuth = bearing
@@ -144,12 +140,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
             updateDestination()
         }
-        beaconRepo.getBeacons().observe(viewLifecycleOwner) {
+        observe(beaconRepo.getBeacons()) {
             beacons = it.map { it.toBeacon() }.filter { it.visible }
             updateBeacons()
         }
 
-        pathService.getLivePaths().observe(viewLifecycleOwner) {
+        observe(pathService.getLivePaths()) {
             paths = it.filter { path -> path.style.visible }
             inBackground {
                 withContext(Dispatchers.IO) {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.sol.science.physics.PhysicsService
@@ -12,6 +11,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.observe
 import kotlin.math.max
 
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
@@ -31,7 +31,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lightSensor.asLiveData().observe(viewLifecycleOwner) { updateLight() }
+        observe(lightSensor) { updateLight() }
 
         binding.resetBtn.setOnClickListener {
             maxLux = 0f

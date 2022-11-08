@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
@@ -19,7 +18,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
@@ -199,13 +197,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             userPrefs.navigation
         ).bind()
 
-        beaconRepo.getBeacons().observe(viewLifecycleOwner) {
+        observe(beaconRepo.getBeacons()) {
             beacons = it.map { it.toBeacon() }
             nearbyBeacons = getNearbyBeacons()
             updateUI()
         }
 
-        pathService.getLivePaths().observe(viewLifecycleOwner) {
+        observe(pathService.getLivePaths()) {
             paths = it.filter { path -> path.style.visible }
             inBackground {
                 withContext(Dispatchers.IO) {
@@ -221,21 +219,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         navController = findNavController()
 
-        compass.asLiveData().observe(
-            viewLifecycleOwner
-        ) { updateUI() }
-        orientation.asLiveData().observe(
-            viewLifecycleOwner
-        ) { onOrientationUpdate() }
-        altimeter.asLiveData().observe(
-            viewLifecycleOwner
-        ) { updateUI() }
-        gps.asLiveData().observe(
-            viewLifecycleOwner
-        ) { onLocationUpdate() }
-        speedometer.asLiveData().observe(
-            viewLifecycleOwner
-        ) { updateUI() }
+        observe(compass) { updateUI() }
+        observe(orientation) { onOrientationUpdate() }
+        observe(altimeter) { updateUI() }
+        observe(gps) { onLocationUpdate() }
+        observe(speedometer) { updateUI() }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
             // TODO: Show custom share sheet instead

@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
@@ -123,7 +122,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }
-        gps.asLiveData().observe(viewLifecycleOwner) {
+        observe(gps) {
             val beacon = beacon
             if (isBound && beacon != null) {
                 val distance = Distance.meters(beacon.coordinate.distanceTo(gps.location))

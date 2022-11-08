@@ -10,7 +10,6 @@ import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -22,6 +21,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelService
 import kotlinx.coroutines.Dispatchers
@@ -75,8 +75,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             cancelText = null
         )
 
-        compass.asLiveData().observe(viewLifecycleOwner) {}
-        orientation.asLiveData().observe(viewLifecycleOwner) {}
+        observe(compass) {}
+        observe(orientation) {}
 
         scheduleUpdates(INTERVAL_30_FPS)
         throttleUpdates(16)

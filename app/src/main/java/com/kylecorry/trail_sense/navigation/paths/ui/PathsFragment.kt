@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -24,11 +23,11 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.Backt
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
@@ -88,7 +87,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         sort = prefs.navigation.pathSort
 
         // TODO: See if it is possible to get notified of changes without loading all paths
-        pathService.getLivePaths().observe(viewLifecycleOwner) {
+        observe(pathService.getLivePaths()) {
             manager.refresh()
         }
 
@@ -118,15 +117,9 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             ChangeBacktrackFrequencyCommand(requireContext()) { onUpdate() }.execute()
         }
 
-        backtrack.state.replay()
-            .asLiveData().observe(viewLifecycleOwner) {
-                updateStatusBar()
-            }
+        observe(backtrack.state.replay()) { updateStatusBar() }
 
-        backtrack.frequency.replay()
-            .asLiveData().observe(viewLifecycleOwner) {
-                updateStatusBar()
-            }
+        observe(backtrack.frequency.replay()) { updateStatusBar() }
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
             when (backtrack.getState()) {

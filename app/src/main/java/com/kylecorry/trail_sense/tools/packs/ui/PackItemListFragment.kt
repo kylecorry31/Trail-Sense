@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.domain.PackService
@@ -72,7 +73,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     private fun setupUI() {
         binding.inventoryListTitle.title.text = pack?.name
         binding.inventoryList.emptyView = binding.inventoryEmptyText
-        itemsLiveData.observe(viewLifecycleOwner) { items ->
+        observe(itemsLiveData) { items ->
             this.items = items
             val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
             val packedPercent = floor(packService.getPercentPacked(items))

@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
@@ -213,7 +214,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapList.addLineSeparator()
 
-        mapRepo.getMaps().observe(viewLifecycleOwner) {
+        observe(mapRepo.getMaps()) {
             maps = it
             maps.forEach {
                 val size = files.imageSize(it.filename)

@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
@@ -181,7 +180,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             point?.let { viewWaypoint(it) }
         }
 
-        pathService.getLivePath(pathId).observe(viewLifecycleOwner) {
+        observe(pathService.getLivePath(pathId)) {
             path = it
             updateParent()
             updateElevationPlot()
@@ -190,16 +189,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             onPathChanged()
         }
 
-        pathService.getWaypointsLive(pathId).observe(viewLifecycleOwner) {
+        observe(pathService.getWaypointsLive(pathId)) {
             onWaypointsChanged(it)
         }
 
-        gps.asLiveData().observe(viewLifecycleOwner) {
+        observe(gps) {
             compass.declination = getDeclination()
             onPathChanged()
         }
 
-        compass.asLiveData().observe(viewLifecycleOwner) {
+        observe(compass) {
             onPathChanged()
         }
 

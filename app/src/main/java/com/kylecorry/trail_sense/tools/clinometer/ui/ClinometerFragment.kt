@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
@@ -26,11 +25,8 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.PressState
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -121,10 +117,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             true
         }
 
-        sideClinometer.asLiveData().observe(viewLifecycleOwner) { updateUI() }
-        cameraClinometer.asLiveData().observe(viewLifecycleOwner) { updateUI() }
-        deviceOrientation.asLiveData().observe(viewLifecycleOwner) { updateUI() }
-
+        observe(sideClinometer) { updateUI() }
+        observe(cameraClinometer) { updateUI() }
+        observe(deviceOrientation) { updateUI() }
     }
 
     fun updateLockState(pressState: PressState) {

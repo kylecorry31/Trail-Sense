@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
@@ -75,11 +76,11 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         binding.chart.plot(elevationLine)
 
-        getBacktrackReadings().observe(viewLifecycleOwner) {
+         observe(getBacktrackReadings()) {
             backtrackReadings = it
             updateChart()
         }
-        getWeatherReadings().observe(viewLifecycleOwner) {
+        observe(getWeatherReadings()) {
             weatherReadings = it
             updateChart()
         }

@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
@@ -30,7 +31,7 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.noteList.emptyView = binding.notesEmptyText
         notesLiveData = notesRepo.getNotes()
-        notesLiveData.observe(viewLifecycleOwner) { items ->
+        observe(notesLiveData) { items ->
             binding.noteList.setItems(items.sortedByDescending { it.createdOn }, listMapper)
         }
 

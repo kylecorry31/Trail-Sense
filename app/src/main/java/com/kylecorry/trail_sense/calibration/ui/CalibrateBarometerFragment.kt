@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.sol.science.meteorology.Meteorology
@@ -25,6 +24,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
@@ -73,7 +73,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        weatherSubsystem.weatherChanged.asLiveData().observe(viewLifecycleOwner) {
+        observe(weatherSubsystem.weatherChanged) {
             inBackground {
                 runner.cancelPreviousThenRun {
                     history = weatherSubsystem.getHistory()
