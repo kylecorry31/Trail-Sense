@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.preference.ListPreference
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 
@@ -21,11 +21,14 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
         prefs = userPrefs
 
         list(R.string.pref_sunset_alert_time)?.setOnPreferenceClickListener { _ ->
-                context?.apply {
-                    SunsetAlarmReceiver.start(this)
-                }
-                true
-            }
+            Background.start(requireContext(), Background.SunsetAlerts)
+            true
+        }
+
+        switch(R.string.pref_sunset_alerts)?.setOnPreferenceClickListener { _ ->
+            Background.start(requireContext(), Background.SunsetAlerts)
+            true
+        }
 
         prefleftButton = list(R.string.pref_astronomy_quick_action_left)
         prefrightButton = list(R.string.pref_astronomy_quick_action_right)

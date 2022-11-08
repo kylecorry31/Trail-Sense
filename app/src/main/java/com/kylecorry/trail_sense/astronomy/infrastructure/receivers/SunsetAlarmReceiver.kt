@@ -28,9 +28,5 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         fun scheduler(context: Context): IOneTimeTaskScheduler {
             return OneTimeTaskSchedulerFactory(context).exact(SunsetAlarmReceiver::class.java, PI_ID)
         }
-
-        fun start(context: Context) {
-            scheduler(context).once()
-        }
     }
 }

@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.receivers
 
 import android.content.Context
 import android.os.Build
-import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.shared.FeatureState
@@ -56,7 +55,7 @@ object TrailSenseServiceUtils {
     }
 
     private fun startSunsetAlarm(context: Context) {
-        SunsetAlarmReceiver.start(context)
+        Background.start(context, Background.SunsetAlerts)
     }
 
     private fun startAstronomyAlerts(context: Context) {
