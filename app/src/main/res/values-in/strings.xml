@@ -30,7 +30,7 @@
     <plurals name="last_hours">
         <item quantity="other">%d jam terakhir</item>
     </plurals>
-    <string name="gps_timeouts">GPS waktu habis</string>
+    <string name="gps_timeouts">Batas waktu GPS</string>
     <string name="pref_flashlight_should_timeout_title">Secara otomatis dimatikan</string>
     <string name="access_background_location">Perbarui pengaturan lokasi</string>
     <string name="direction_north">U</string>
@@ -887,4 +887,129 @@
     <string name="astro_dialog_moon_phase">**Fase**: %s
 \n
 \n**Iluminasi**: %s</string>
+    <string name="highest_point_elevation">Titik tertinggi</string>
+    <string name="simplifying">Menyederhanakan</string>
+    <string name="error_banners">Spanduk kesalahan</string>
+    <string name="waypoint">Titik arah</string>
+    <string name="append_onto">Tambahkan ke</string>
+    <string name="distance_alert">Peringatan jarak</string>
+    <string name="distance_alert_distance_reached">Anda telah mencapai %s</string>
+    <string name="off">Mati</string>
+    <string name="saved">Tersimpan</string>
+    <string name="stride_length_walk">Berjalan dalam garis lurus, tekan berhenti ketika Anda selesai</string>
+    <string name="reset_distance_title">Atur ulang jarak\?</string>
+    <string name="running_in_background">Berjalan di latar belakang</string>
+    <string name="tide_diurnal">Harian</string>
+    <string name="path_slope_steep">Curam</string>
+    <string name="done">Selesai</string>
+    <string name="keep_forever">Simpan selamanya</string>
+    <string name="merge">Menggabungkan</string>
+    <string name="slope_amount">Kemiringan %s</string>
+    <string name="tool_temperature_estimation_title">Estimasi suhu</string>
+    <string name="pressure_tendency">Kecenderungan</string>
+    <string name="steps">Langkah</string>
+    <string name="current_speed">Kecepatan saat ini</string>
+    <string name="current_speed_pedometer">Kecepatan saat ini (Pedometer)</string>
+    <string name="current_speed_gps">Kecepatan saat ini (GPS)</string>
+    <string name="average_speed_pedometer">Kecepatan rata-rata (Pedometer)</string>
+    <string name="permission_alarms_and_reminders">Alarm dan pengingat</string>
+    <string name="calibrate_map_point">Titik kalibrasi %d / %d</string>
+    <string name="path_slope">Lereng</string>
+    <string name="remove_distance_alert">Hapus peringatan jarak (%s)\?</string>
+    <string name="battery_usage_restricted_benefit">Menghapus pembatasan baterai untuk Trail Sense dapat meningkatkan akurasi.
+\n
+\nPada sebagian besar perangkat, klik \'OK\', lalu beralih ke semua aplikasi, dan matikan pengoptimalan baterai untuk Trail Sense.
+\n
+\nKunjungi [Don\'t kill my app](https://dontkillmyapp.com/) untuk instruksi perangkat secara spesifik.</string>
+    <string name="error">Kesalahan</string>
+    <string name="point_added">Titik ditambahkan ke jalur</string>
+    <string name="imperial_cups">Piala Imperial</string>
+    <string name="points">Titik</string>
+    <string name="elevation">Ketinggian</string>
+    <string name="elevation_gain">Peningkatan ketinggian</string>
+    <string name="elevation_loss">Pengurangan Ketinggian</string>
+    <string name="avalanche_risk">Risiko longsoran salju</string>
+    <string name="distance_unset">Jarak tidak disetel</string>
+    <string name="tide_diurnal_description">Pasang akan tinggi sesekali - sebagian besar pasang surut bukan harian</string>
+    <string name="pref_tiles_enabled_title">Petak sistem</string>
+    <string name="point_style">Gaya titik</string>
+    <string name="onboarding_explore">- Dirancang untuk hiking, backpacking, berkemah, dan geocaching
+\n
+\n- Tempatkan suar dan navigasikan ke suar tersebut
+\n
+\n- Mengikuti jalur
+\n
+\n- Telusuri kembali langkah Anda dengan backtrack
+\n
+\n- Rencanakan apa yang harus dikemas
+\n
+\n- Waspada sebelum matahari terbenam
+\n
+\n- Memprediksi cuaca
+\n
+\n- Gunakan ponsel Anda sebagai senter
+\n
+\n- Dan masih banyak lagi!</string>
+    <string name="exporting_map">Mengekspor peta</string>
+    <string name="estimate_stride_length">Memperkirakan panjang langkah</string>
+    <string name="bearing">Bantalan</string>
+    <string name="warning">Peringatan</string>
+    <string name="tool_temperature_estimation_description">Memprediksi suhu pada ketinggian yang berbeda</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="save">Simpan</string>
+    <string name="stride_length_stand_still">Berdiri diam</string>
+    <string name="notification_backtrack_update_title">Perbarui Backtrack</string>
+    <string name="line_style">Gaya garis</string>
+    <string name="simplify">Sederhanakan</string>
+    <string name="simplification_quality">Kualitas penyederhanaan</string>
+    <string name="pref_auto_simplify_paths_title">Sederhanakan jalur saat impor</string>
+    <string name="clinometer_measure_distance_instructions">Untuk mengukur jarak ke target yang tingginya %s:
+\n
+\n1. Sejajarkan klinometer ke dasar target
+\n2. Ketuk layar dan tahan
+\n3. Sejajarkan kembali klinometer ke bagian atas target
+\n4. Lepaskan untuk mengunci dan melihat jarak ke target</string>
+    <string name="pref_clinometer_baseline_distance_title">Jarak dasar</string>
+    <string name="beacon">Suar</string>
+    <string name="beacon_created">Suar dibuat</string>
+    <string name="tide_table">Tabel pasang surut</string>
+    <string name="tide_deleted">Pasang surut dihapus</string>
+    <string name="disclaimer_estimated_tide_title">Perkiraan pasang surut</string>
+    <string name="explore">Jelajahi</string>
+    <string name="average_speed">Kecepatan rata-rata</string>
+    <string name="pref_only_navigate_path_points_title">Hanya navigasikan ke titik yang direkam</string>
+    <string name="average_speed_backtrack">Kecepatan rata-rata (Mundur)</string>
+    <string name="navigating_to_nearest_path_point">Menavigasi ke titik jalur terdekat</string>
+    <string name="beacons">Suar</string>
+    <string name="pref_start_on_boot_title">Mulai saat menyala</string>
+    <string name="remove_battery_restrictions">Hapus pembatasan baterai\?</string>
+    <string name="map_exported">Peta yang diekspor</string>
+    <string name="camera_capture">Tangkap</string>
+    <string name="file">Berkas</string>
+    <string name="map_export_error">Tidak dapat mengekspor peta ke file yang dipilih</string>
+    <string name="second_symbol">s</string>
+    <string name="point">Titik</string>
+    <string name="tide_instructions">Gunakan tabel pasang surut resmi untuk memasukkan referensi pasang surut selama perjalanan Anda.</string>
+    <string name="tide_user_guide_recommendation">Situs resmi tabel pasang surut dapat ditemukan di panduan pengguna.</string>
+    <string name="tide_semidiurnal">Setengah hari</string>
+    <string name="lowest_point_elevation">Titik terendah</string>
+    <string name="updating_weather">Membarui cuaca</string>
+    <string name="path_slope_moderate">Sedang</string>
+    <string name="disclaimer_estimated_tide">Perkiraan pasang surut mungkin tidak akurat. Silakan gunakan tabel pasang surut resmi untuk mengetahui waktu yang tepat.</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="merging">Penggabungan</string>
+    <string name="navigation_guide_description">Menggunakan suar dan jalur</string>
+    <string name="change_map_projection">Ubah proyeksi</string>
+    <string name="map_projection_equidistant">Jarak yang sama</string>
+    <string name="reduce_map_resolution">Kurangi resolusi peta</string>
+    <string name="clinometer_measure_height_instructions">Untuk mengukur ketinggian target yang berjarak %s:
+\n
+\n1. Sejajarkan klinometer ke dasar target
+\n2. Ketuk layar dan tahan
+\n3. Sejajarkan kembali klinometer ke bagian atas target
+\n4. Lepaskan untuk mengunci dan melihat ketinggian target</string>
+    <string name="clinometer_measure_height_title">Jarak ke sasaran</string>
+    <string name="weather_monitor_disabled_resolution">Aktifkan pemantauan cuaca dari pengaturan cuaca</string>
+    <string name="measure">Ukur</string>
+    <string name="qr_text_too_long">Teks terlalu panjang, kode QR terpotong</string>
 </resources>
