@@ -8,6 +8,7 @@ import androidx.work.ListenableWorker
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackWorker
@@ -27,20 +28,15 @@ object Background {
 
     private val alwaysOnThreshold = Duration.ofMinutes(15)
 
-    private val workers = mapOf<Int, Class<out ListenableWorker>>(
-        WeatherMonitor to WeatherUpdateWorker::class.java,
-        Backtrack to BacktrackWorker::class.java,
-        BatteryLogger to BatteryLogWorker::class.java,
-        AstronomyAlerts to AstronomyDailyWorker::class.java
-    )
-
-    private val foregroundServices = mapOf<Int, Class<out Service>>(
-        WeatherMonitor to WeatherMonitorAlwaysOnService::class.java,
-        Backtrack to BacktrackAlwaysOnService::class.java
-    )
-
-    private val alarms = mapOf<Int, Class<out BroadcastReceiver>>(
-        SunsetAlerts to SunsetAlarmReceiver::class.java
+    private val tasks = mapOf<Int, List<Class<*>>>(
+        WeatherMonitor to listOf(
+            WeatherUpdateWorker::class.java,
+            WeatherMonitorAlwaysOnService::class.java
+        ),
+        Backtrack to listOf(BacktrackWorker::class.java, BacktrackAlwaysOnService::class.java),
+        BatteryLogger to listOf(BatteryLogWorker::class.java),
+        AstronomyAlerts to listOf(AstronomyDailyWorker::class.java),
+        SunsetAlerts to listOf(SunsetAlarmReceiver::class.java)
     )
 
     /**
@@ -50,10 +46,9 @@ object Background {
      * @param frequency the frequency that the process is run at - used to choose between a service and worker
      */
     fun start(context: Context, id: Int, frequency: Duration? = null) {
-
-        val hasWorker = workers.containsKey(id)
-        val hasService = foregroundServices.containsKey(id)
-        val hasAlarm = alarms.containsKey(id)
+        val hasWorker = getTask(id, ListenableWorker::class.java) != null
+        val hasService = getTask(id, Service::class.java) != null
+        val hasAlarm = getTask(id, BroadcastReceiver::class.java) != null
 
         if (hasWorker) {
             if (hasService && frequency != null && frequency < alwaysOnThreshold) {
@@ -93,12 +88,17 @@ object Background {
     }
 
     private fun startService(context: Context, id: Int) {
-        val service = foregroundServices[id] ?: return
-        Intents.startService(context, Intent(context, service), foreground = true)
+        val foregroundService = getTask(id, ForegroundService::class.java)
+        val service = getTask(id, Service::class.java) ?: return
+        Intents.startService(
+            context,
+            Intent(context, foregroundService ?: service),
+            foreground = foregroundService != null
+        )
     }
 
     private fun stopService(context: Context, id: Int) {
-        val service = foregroundServices[id] ?: return
+        val service = getTask(id, Service::class.java) ?: return
         context.stopService(Intent(context, service))
     }
 
@@ -111,7 +111,7 @@ object Background {
     }
 
     private fun createAlarmScheduler(context: Context, id: Int): IOneTimeTaskScheduler? {
-        val alarm = alarms[id] ?: return null
+        val alarm = getTask(id, BroadcastReceiver::class.java) ?: return null
         return OneTimeTaskSchedulerFactory(context).exact(alarm, id)
     }
 
@@ -119,8 +119,14 @@ object Background {
         context: Context,
         id: Int
     ): IOneTimeTaskScheduler? {
-        val worker = workers[id] ?: return null
+        val worker = getTask(id, ListenableWorker::class.java) ?: return null
         return OneTimeTaskSchedulerFactory(context).deferrable(worker, id)
+    }
+
+    private fun <T> getTask(id: Int, type: Class<out T>): Class<out T>? {
+        val availableTasks = tasks[id] ?: return null
+        val task = availableTasks.firstOrNull { type.isAssignableFrom(it) } ?: return null
+        return task as Class<out T>
     }
 
 }
