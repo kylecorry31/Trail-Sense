@@ -982,4 +982,7 @@
     <string name="weather_wind">Vind</string>
     <string name="place_beacon_at">Plassere en navigeringsmarkør på %s\?</string>
     <string name="map_auto_calibrated">Kart auto-kalibrert, kontroller nøyaktigheten</string>
+    <string name="smoothing">Utjevning</string>
+    <string name="half_tide">Middels</string>
+    <string name="pref_show_map_previews_title">Vis kartforhåndsvisninger</string>
 </resources>
