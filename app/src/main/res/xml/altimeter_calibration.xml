@@ -46,6 +46,12 @@
             app:singleLineTitle="false"
             app:title="@string/elevation_from_pressure" />
 
+        <Preference
+            android:key="@string/pref_altimeter_accuracy_holder"
+            android:title="@string/samples"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <SwitchPreferenceCompat
             android:summary="@string/pref_nmea_elevation_summary"
             android:title="@string/pref_nmea_elevation_title"

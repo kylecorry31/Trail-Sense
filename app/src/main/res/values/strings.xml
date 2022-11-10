@@ -1220,6 +1220,10 @@
     <string name="pref_show_map_previews" translatable="false">pref_show_map_previews</string>
     <string name="pref_show_map_previews_title">Show map previews</string>
     <string name="smoothing">Smoothing</string>
+    <string name="pref_altimeter_accuracy_holder" translatable="false">pref_altimeter_accuracy_holder</string>
+    <string name="pref_altimeter_accuracy" translatable="false">pref_altimeter_accuracy</string>
+<!--    The number of samples-->
+    <string name="samples">Samples</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -44,6 +45,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private lateinit var altitudeOverridePref: Preference
     private lateinit var altitudeOverrideGpsBtn: Preference
     private lateinit var altitudeOverrideBarometerEdit: EditTextPreference
+    private lateinit var accuracyPref: Preference
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
     private val intervalometer = Timer(this::updateAltitude)
@@ -75,6 +77,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         altitudeOverrideGpsBtn = findPreference(getString(R.string.pref_altitude_from_gps_btn))!!
         altitudeOverrideBarometerEdit =
             findPreference(getString(R.string.pref_altitude_override_sea_level))!!
+        accuracyPref = preference(R.string.pref_altimeter_accuracy_holder)!!
 
         val altitudeOverride = Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits)
         altitudeOverridePref.summary = formatService.formatDistance(altitudeOverride)
@@ -115,6 +118,25 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             }
             true
         }
+
+        val samples = (1..8).toList()
+        accuracyPref.summary = prefs.altimeterSamples.toString()
+        onClick(accuracyPref) {
+            val idx = samples.indexOf(prefs.altimeterSamples)
+            Pickers.item(
+                requireContext(),
+                getString(R.string.samples),
+                samples.map { it.toString() },
+                idx
+            ) {
+                if (it != null) {
+                    prefs.altimeterSamples = samples[it]
+                    accuracyPref.summary = samples[it].toString()
+                    restartAltimeter()
+                }
+            }
+        }
+
 
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateElevationFromBarometer(prefs.seaLevelPressureOverride)
@@ -233,6 +255,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             lastMode = prefs.altimeterMode
             restartAltimeter()
             setOverrideStates()
+            accuracyPref.isVisible = prefs.altimeterMode == UserPreferences.AltimeterMode.GPS
             if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
                 updateSeaLevelPressureOverride()
             }

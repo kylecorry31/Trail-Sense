@@ -5,6 +5,7 @@ import android.hardware.SensorManager
 import android.text.format.DateFormat
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.*
@@ -169,6 +170,12 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
             }
 
         }
+
+    var altimeterSamples: Int by IntPreference(
+        cache,
+        context.getString(R.string.pref_altimeter_accuracy),
+        4
+    )
 
     var seaLevelPressureOverride: Float
         get() = cache.getFloat(

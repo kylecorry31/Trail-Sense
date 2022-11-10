@@ -127,7 +127,7 @@ class SensorService(ctx: Context) {
 
     fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false): IAltimeter {
         if (preferGPS) {
-            return GaussianAltimeter(getGPSAltimeter(background))
+            return GaussianAltimeter(getGPSAltimeter(background), userPrefs.altimeterSamples)
         }
 
         val mode = userPrefs.altimeterMode
@@ -152,7 +152,7 @@ class SensorService(ctx: Context) {
             ) {
                 FusedAltimeter(gps, Barometer(context))
             } else {
-                GaussianAltimeter(gps)
+                GaussianAltimeter(gps, userPrefs.altimeterSamples)
             }
         }
     }
