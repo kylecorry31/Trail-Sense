@@ -28,7 +28,7 @@ object WeatherUpdateScheduler {
 
         if (prefs.weather.weatherUpdateFrequency >= Duration.ofMinutes(15)) {
             WeatherMonitorAlwaysOnService.stop(context)
-            scheduler.once()
+            scheduler.start()
         } else {
             WeatherMonitorAlwaysOnService.start(context)
             scheduler.cancel()

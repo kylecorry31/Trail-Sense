@@ -40,7 +40,7 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
             OneTimeTaskSchedulerFactory(context).deferrable(
                 AstronomyDailyWorker::class.java,
                 UNIQUE_ID
-            ).once()
+            ).start()
         }
     }
 }

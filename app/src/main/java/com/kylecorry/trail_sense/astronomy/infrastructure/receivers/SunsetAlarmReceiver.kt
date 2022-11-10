@@ -30,7 +30,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         }
 
         fun start(context: Context) {
-            scheduler(context).once()
+            scheduler(context).start()
         }
     }
 }
