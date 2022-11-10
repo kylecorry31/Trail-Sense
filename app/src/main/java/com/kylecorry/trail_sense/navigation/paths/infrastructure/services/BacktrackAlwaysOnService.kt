@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.services
 
 import android.app.Notification
 import android.content.Context
-import android.content.Intent
 import com.kylecorry.andromeda.core.coroutines.SingleRunner
-import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.jobs.IAlwaysOnTaskScheduler
+import com.kylecorry.andromeda.jobs.TaskSchedulerFactory
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.services.CoroutineIntervalService
 import com.kylecorry.trail_sense.R
@@ -71,16 +71,16 @@ class BacktrackAlwaysOnService : CoroutineIntervalService(TAG) {
         const val TAG = "BacktrackHighPriorityService"
         const val FOREGROUND_CHANNEL_ID = "Backtrack"
 
-        fun intent(context: Context): Intent {
-            return Intent(context, BacktrackAlwaysOnService::class.java)
-        }
-
         fun start(context: Context) {
-            Intents.startService(context, intent(context), foreground = true)
+            scheduler(context).start()
         }
 
         fun stop(context: Context) {
-            context.stopService(intent(context))
+            scheduler(context).cancel()
+        }
+
+        fun scheduler(context: Context): IAlwaysOnTaskScheduler {
+            return TaskSchedulerFactory(context).alwaysOn(BacktrackAlwaysOnService::class.java)
         }
 
     }
