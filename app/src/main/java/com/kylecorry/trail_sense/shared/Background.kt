@@ -25,8 +25,6 @@ object Background {
     const val AstronomyAlerts = 72394823
     const val SunsetAlerts = 8309
 
-    private val alwaysOnThreshold = Duration.ofMinutes(15)
-
     private val workers = mapOf<Int, Class<out ListenableWorker>>(
         WeatherMonitor to WeatherUpdateWorker::class.java,
         Backtrack to BacktrackWorker::class.java,
@@ -46,8 +44,8 @@ object Background {
     /**
      * Start a background process
      * @param context the context
-     * @param id the unique ID of the process
-     * @param frequency the frequency that the process is run at - used to choose between a service and worker
+     * @param id the unique ID of the service
+     * @param frequency the frequency in which the service is going to be run - used to choose between a service and worker
      */
     fun start(context: Context, id: Int, frequency: Duration? = null) {
 
@@ -56,7 +54,7 @@ object Background {
         val hasAlarm = alarms.containsKey(id)
 
         if (hasWorker) {
-            if (hasService && frequency != null && frequency < alwaysOnThreshold) {
+            if (hasService && frequency != null && frequency < Duration.ofMinutes(15)) {
                 // This needs to run as an always on service since the frequency is too small for a worker to pick up
                 stopWorker(context, id)
                 startService(context, id)
@@ -73,11 +71,6 @@ object Background {
         }
     }
 
-    /**
-     * Stop a background process
-     * @param context the context
-     * @param id the unique ID of the process
-     */
     fun stop(context: Context, id: Int) {
         stopWorker(context, id)
         stopService(context, id)
