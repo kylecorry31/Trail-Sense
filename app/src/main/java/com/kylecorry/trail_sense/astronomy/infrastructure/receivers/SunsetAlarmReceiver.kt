@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
-import com.kylecorry.trail_sense.shared.Background
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class SunsetAlarmReceiver : BroadcastReceiver() {
@@ -24,8 +23,10 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
 
     companion object {
 
+        private const val PI_ID = 8309
+
         fun scheduler(context: Context): IOneTimeTaskScheduler {
-            return OneTimeTaskSchedulerFactory(context).exact(SunsetAlarmReceiver::class.java, Background.SunsetAlerts)
+            return OneTimeTaskSchedulerFactory(context).exact(SunsetAlarmReceiver::class.java, PI_ID)
         }
     }
 }
