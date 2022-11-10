@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -118,9 +117,9 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             ChangeBacktrackFrequencyCommand(requireContext()) { onUpdate() }.execute()
         }
 
-        backtrack.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
+        observe(backtrack.state.replay()) { updateStatusBar() }
 
-        backtrack.frequency.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
+        observe(backtrack.frequency.replay()) { updateStatusBar() }
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
             when (backtrack.getState()) {

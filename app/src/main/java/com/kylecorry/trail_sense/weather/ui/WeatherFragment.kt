@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.Meteorology
@@ -101,11 +100,11 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             updateWeather()
         }
 
-        weatherSubsystem.weatherMonitorState.replay().asLiveData().observe(viewLifecycleOwner) {
+        observe(weatherSubsystem.weatherMonitorState.replay()) {
             updateStatusBar()
         }
 
-        weatherSubsystem.weatherMonitorFrequency.replay().asLiveData().observe(viewLifecycleOwner) {
+        observe(weatherSubsystem.weatherMonitorFrequency.replay()) {
             updateStatusBar()
         }
 
