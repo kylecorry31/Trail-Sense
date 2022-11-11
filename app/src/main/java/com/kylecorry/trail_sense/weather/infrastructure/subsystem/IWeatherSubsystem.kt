@@ -16,6 +16,8 @@ interface IWeatherSubsystem {
     // Weather monitor
     val weatherMonitorState: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
     val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
+    fun getWeatherMonitorState(): FeatureState
+    fun getWeatherMonitorFrequency(): Duration
 
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>

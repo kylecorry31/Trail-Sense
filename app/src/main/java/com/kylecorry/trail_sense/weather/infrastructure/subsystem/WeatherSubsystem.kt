@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
+import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
@@ -69,6 +70,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         )
     override val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
         get() = _weatherMonitorFrequency.distinct()
+
+    override fun getWeatherMonitorState(): FeatureState {
+        return weatherMonitorState.getOrNull() ?: FeatureState.Off
+    }
+
+    override fun getWeatherMonitorFrequency(): Duration {
+        return weatherMonitorFrequency.getOrNull() ?: Duration.ofMinutes(15)
+    }
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
@@ -185,6 +194,13 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     override suspend fun updateWeather(background: Boolean) {
+        val last = getRawHistory().lastOrNull()?.time
+        val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
+
+        if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
+            return
+        }
+
         MonitorWeatherCommand.create(context, background).execute()
     }
 
