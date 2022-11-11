@@ -14,6 +14,13 @@ body {
   line-height: 20px;
 }
 
+body {
+  background: url("background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 section {
   padding: 20px;
 }
@@ -29,7 +36,7 @@ h6 {
 }
 
 h1 {
-  font-size: 38px;
+  font-size: 48px;
   margin-top: 20px;
 }
 
@@ -93,19 +100,32 @@ img {
 }
 
 #hero {
-  height: 100vh;
+  height: 60vh;
   padding: 0;
-  background: url("background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
 }
 
 #hero .grid {
   grid-template-areas:
-    "titlebar titlebar"
-    "header screenshot";
+    "titlebar"
+    "header";
   height: 100%;
+}
+
+#content {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px;
+}
+
+#content section:first-child {
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+}
+
+#content section:last-child {
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
 }
 
 #titlebar {
@@ -136,12 +156,13 @@ img {
   grid-area: header;
   justify-self: center;
   align-self: center;
-  padding: 20px 20px 220px;
+  padding: 20px 20px 100px;
+  text-align: center;
 }
 
 #hero-title p {
   opacity: 0.8;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 #play-badge img {
@@ -155,20 +176,9 @@ img {
   margin-left: 8px;
 }
 
-#hero-img {
-  grid-area: screenshot;
-}
-
-#hero-img img {
-  max-height: calc(100vh - 200px);
-  max-width: 100%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #features {
   min-height: 75vh;
+  background: white;
 }
 
 #feature-header {
@@ -198,14 +208,15 @@ img {
 }
 
 #disclaimer,
-#contact {
+#contact,
+#privacy {
   color: rgba(255, 255, 255, 0.86);
   background-color: #222222;
 }
 
-#privacy {
-  background-color: rgba(255, 109, 0, 0.17);
-}
+/* #privacy {
+  background-color: #ffe6d4;
+} */
 
 @media screen and (max-width: 600px) {
   #features .grid {
@@ -225,10 +236,5 @@ img {
 
   #hero-title {
     padding: 20px 20px;
-    text-align: center;
-  }
-
-  #hero-img img {
-    display: none;
   }
 }
