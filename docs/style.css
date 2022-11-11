@@ -98,6 +98,7 @@ img {
   background: url("background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 #hero .grid {
@@ -224,9 +225,10 @@ img {
 
   #hero-title {
     padding: 20px 20px;
+    text-align: center;
   }
 
   #hero-img img {
-    max-height: min(500px, 100%);
+    display: none;
   }
 }
