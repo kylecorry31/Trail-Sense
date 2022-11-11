@@ -99,6 +99,12 @@ img {
   text-align: center;
 }
 
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
 #hero {
   height: 60vh;
   padding: 0;
@@ -122,16 +128,6 @@ img {
   margin-right: auto;
   padding: 16px;
   margin-top: 60vh;
-}
-
-#content section:first-child {
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
-}
-
-#content section:last-child {
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
 }
 
 #titlebar {
@@ -201,7 +197,6 @@ img {
   width: 100%;
   flex-direction: column;
   align-items: center;
-  align-self: center;
   justify-self: center;
 }
 
@@ -219,10 +214,6 @@ img {
   color: rgba(255, 255, 255, 0.86);
   background-color: #222222;
 }
-
-/* #privacy {
-  background-color: #ffe6d4;
-} */
 
 @media screen and (max-width: 600px) {
   #features .grid {
