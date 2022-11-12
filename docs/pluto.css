@@ -1,0 +1,131 @@
+/* Pre-applied */
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 36px;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* General */
+.w-100 {
+  width: 100% !important;
+}
+
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Navbar */
+.navbar {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+}
+
+.navbar > * {
+  padding: 1rem;
+}
+
+.navbar * {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.navbar *:hover {
+  color: black;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  top: 100%;
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  transition: opacity 0.1s ease;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-content > * {
+  display: block;
+  padding: 1rem;
+  transition: background 0.1s ease;
+}
+
+.dropdown-content > *:hover {
+  background: white;
+}
+
+/* Card */
+.card {
+  padding: 16px;
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.card-round {
+  padding: 16px;
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
