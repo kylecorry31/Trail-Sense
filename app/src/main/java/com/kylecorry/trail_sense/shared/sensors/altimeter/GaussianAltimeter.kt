@@ -7,11 +7,11 @@ import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.math.statistics.GaussianDistribution
 import com.kylecorry.sol.math.statistics.Statistics
 
-class GaussianAltimeter(val altimeter: IAltimeter, samples: Int = 4) : AbstractSensor(),
-    IAltimeter {
+class GaussianAltimeter(override val altimeter: IAltimeter, samples: Int = 4) : AbstractSensor(),
+    FilteredAltimeter {
 
     // TODO: Add this to IAltimeter
-    var altitudeAccuracy: Float? = null
+    override var altitudeAccuracy: Float? = null
         private set
 
     private val buffer = RingBuffer<GaussianDistribution>(samples)

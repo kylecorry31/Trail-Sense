@@ -20,7 +20,6 @@ internal class MonitorWeatherCommand(
 ) : CoroutineCommand {
 
     override suspend fun execute() {
-        sendWeatherNotifications()
         updateWeather()
         sendWeatherNotifications()
     }

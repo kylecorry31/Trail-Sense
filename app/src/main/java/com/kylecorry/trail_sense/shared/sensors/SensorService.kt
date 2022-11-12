@@ -35,8 +35,9 @@ import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.altimeter.FilteredAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
-import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.MedianAltimeter
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -73,8 +74,8 @@ class SensorService(ctx: Context) {
     fun getGPSFromAltimeter(altimeter: IAltimeter): IGPS? {
         return if (altimeter is IGPS) {
             altimeter
-        } else if (altimeter is GaussianAltimeter && altimeter.altimeter is IGPS) {
-            altimeter.altimeter
+        } else if (altimeter is FilteredAltimeter && altimeter.altimeter is IGPS) {
+            altimeter.altimeter as IGPS
         } else {
             null
         }
@@ -127,7 +128,7 @@ class SensorService(ctx: Context) {
 
     fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false): IAltimeter {
         if (preferGPS) {
-            return GaussianAltimeter(getGPSAltimeter(background), userPrefs.altimeterSamples)
+            return MedianAltimeter(getGPSAltimeter(background), userPrefs.altimeterSamples)
         }
 
         val mode = userPrefs.altimeterMode
@@ -152,7 +153,7 @@ class SensorService(ctx: Context) {
             ) {
                 FusedAltimeter(gps, Barometer(context))
             } else {
-                GaussianAltimeter(gps, userPrefs.altimeterSamples)
+                MedianAltimeter(gps, userPrefs.altimeterSamples)
             }
         }
     }
