@@ -39,12 +39,6 @@ internal class MonitorWeatherCommandTest {
 
     @Test
     fun canRecordWeather() = runBlocking {
-        val initialWeather = CurrentWeather(
-            WeatherPrediction(emptyList(), emptyList(), null, HourlyArrivalTime.Now),
-            PressureTendency(PressureCharacteristic.Steady, 0f),
-            null,
-            null
-        )
         val weather = CurrentWeather(
             WeatherPrediction(emptyList(), emptyList(), WeatherFront.Warm, HourlyArrivalTime.Now),
             PressureTendency(PressureCharacteristic.Falling, -1f),
@@ -54,13 +48,12 @@ internal class MonitorWeatherCommandTest {
         val observation = Reading(RawWeatherObservation(0, 1000f, 0f, 0f), Instant.now())
 
         whenever(observer.getWeatherObservation()).thenReturn(observation)
-        whenever(subsystem.getWeather()).thenReturn(initialWeather, weather)
+        whenever(subsystem.getWeather()).thenReturn(weather)
         whenever(repo.add(observation)).thenReturn(1L)
 
         monitor.execute()
 
         verify(repo, times(1)).add(observation)
-        verify(alerter, times(1)).alert(initialWeather)
         verify(alerter, times(1)).alert(weather)
     }
 
