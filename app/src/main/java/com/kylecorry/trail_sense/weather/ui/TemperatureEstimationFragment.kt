@@ -18,7 +18,9 @@ import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBindin
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.readAll
 import com.kylecorry.trail_sense.shared.views.UnitInputView
 import kotlinx.coroutines.*
 import java.time.Duration
@@ -110,22 +112,19 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
     private fun autofill() {
         inBackground {
-            withContext(Dispatchers.Main) {
+            onMain {
                 binding.tempEstAutofill.isVisible = false
                 binding.tempEstLoading.isVisible = true
                 binding.tempEstBaseTemperature.isEnabled = false
                 binding.tempEstBaseElevation.isEnabled = false
             }
-            withContext(Dispatchers.IO) {
-                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
-                    val jobs = mutableListOf<Job>()
-                    jobs.add(launch { altimeter.read() })
-                    jobs.add(launch { thermometer.read() })
-                    jobs.joinAll()
-                }
-            }
+            
+            readAll(
+                listOf(altimeter, thermometer),
+                Duration.ofSeconds(10)
+            )
 
-            withContext(Dispatchers.Main) {
+            onMain {
                 setFieldsFromSensors()
                 binding.tempEstAutofill.isVisible = true
                 binding.tempEstLoading.isVisible = false

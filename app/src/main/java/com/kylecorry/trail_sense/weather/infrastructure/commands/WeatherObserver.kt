@@ -1,17 +1,13 @@
 package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeter
+import com.kylecorry.trail_sense.shared.sensors.readAll
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Duration
 import java.time.Instant
 
@@ -32,24 +28,18 @@ internal class WeatherObserver(
     private val hygrometer by lazy { sensorService.getHygrometer() }
 
     override suspend fun getWeatherObservation(): Reading<RawWeatherObservation>? = onDefault {
-        try {
-            withTimeoutOrNull(timeout.toMillis()) {
-                val jobs = mutableListOf<Job>()
-                jobs.add(launch { altimeter.read() })
+        readAll(
+            listOfNotNull(
+                altimeter,
+                if (altimeterAsGPS != gps) gps else null,
+                barometer,
+                thermometer,
+                hygrometer
+            ),
+            timeout,
+            forceStopOnCompletion = true
+        )
 
-                // If the base altimeter is the GPS, its readings are already being updated by the line above
-                if (altimeterAsGPS != gps) {
-                    jobs.add(launch { gps.read() })
-                }
-                jobs.add(launch { barometer.read() })
-                jobs.add(launch { thermometer.read() })
-                jobs.add(launch { hygrometer.read() })
-
-                jobs.joinAll()
-            }
-        } finally {
-            forceStopSensors()
-        }
         if (barometer.pressure == 0f) {
             return@onDefault null
         }
@@ -66,16 +56,6 @@ internal class WeatherObserver(
             ),
             Instant.now()
         )
-    }
-
-    private fun forceStopSensors() {
-        // This shouldn't be needed, but for some reason the GPS got stuck on at one point (may want to revisit this)
-        val sensors = listOf(altimeter, gps, barometer, thermometer, hygrometer)
-        sensors.forEach {
-            tryOrLog {
-                it.stop(null)
-            }
-        }
     }
 
 }

@@ -9,10 +9,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
+import com.kylecorry.trail_sense.shared.sensors.readAll
 import java.time.Duration
 import java.time.Instant
 
@@ -36,24 +33,11 @@ class BacktrackCommand(private val context: Context, private val pathId: Long = 
     }
 
     private suspend fun updateSensors() {
-        onIO {
-            try {
-                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
-                    val jobs = mutableListOf<Job>()
-                    jobs.add(launch { gps.read() })
-
-                    jobs.add(launch { altimeter.read() })
-
-                    jobs.add(launch { cellSignalSensor.read() })
-
-                    jobs.joinAll()
-                }
-            } finally {
-                gps.stop(null)
-                altimeter.stop(null)
-                cellSignalSensor.stop(null)
-            }
-        }
+        readAll(
+            listOf(gps, altimeter, cellSignalSensor),
+            timeout = Duration.ofSeconds(10),
+            forceStopOnCompletion = true
+        )
     }
 
 
