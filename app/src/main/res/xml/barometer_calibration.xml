@@ -36,7 +36,7 @@
             app:title="@string/pref_use_sea_level_pressure_title" />
 
         <SeekBarPreference
-            android:defaultValue="300"
+            android:defaultValue="150"
             android:max="1000"
             app:iconSpaceReserved="false"
             app:key="@string/pref_barometer_pressure_smoothing"

@@ -128,7 +128,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(9, 10) { context, prefs ->
                 if (prefs.getBoolean("pref_experimental_sea_level_calibration_v2") != true) {
                     val userPreferences = UserPreferences(context)
-                    userPreferences.weather.pressureSmoothing = 30f
+                    userPreferences.weather.pressureSmoothing = 15f
                 }
 
                 prefs.remove("pref_barometer_altitude_outlier")

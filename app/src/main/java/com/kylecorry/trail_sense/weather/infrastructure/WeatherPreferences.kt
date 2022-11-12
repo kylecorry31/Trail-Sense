@@ -31,7 +31,7 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override var pressureSmoothing: Float
         get() {
             val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing))
-                ?: 300) / 1000f
+                ?: 150) / 1000f
             return raw * 100
         }
         set(value) {
