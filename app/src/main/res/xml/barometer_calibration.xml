@@ -39,7 +39,6 @@
             android:defaultValue="300"
             android:max="1000"
             app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
             app:key="@string/pref_barometer_pressure_smoothing"
             app:min="0"
             app:seekBarIncrement="1"

@@ -5,8 +5,6 @@ import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 
 class WeatherService(private val prefs: WeatherPreferences) {
@@ -33,13 +31,4 @@ class WeatherService(private val prefs: WeatherPreferences) {
             stormThreshold / 3f
         )
     }
-
-    fun calibrate(
-        readings: List<Reading<RawWeatherObservation>>,
-        prefs: UserPreferences
-    ): List<Reading<Pressure>> {
-        val calibrationStrategy = SeaLevelCalibrationFactory().create(prefs)
-        return calibrationStrategy.calibrate(readings)
-    }
-
 }

@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
@@ -173,13 +172,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             return
         }
 
-        val isOnTheWallMode =
-            prefs.altimeterMode == UserPreferences.AltimeterMode.Override || !GPS.isAvailable(
-                requireContext()
-            )
-
-        val seaLevelPressure = prefs.weather.useSeaLevelPressure
-        pressureSmoothingSeekBar?.isVisible = !isOnTheWallMode && seaLevelPressure
         meanShiftedSwitch?.isVisible = isDebug()
 
         val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)

@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
@@ -319,6 +320,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     private fun calibrateHumidity(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        if (!Sensors.hasHygrometer(context)) {
+            return readings
+        }
         return DataUtils.smoothTemporal(
             readings,
             0.1f,
