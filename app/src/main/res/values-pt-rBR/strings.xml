@@ -863,7 +863,7 @@
     <string name="keep_forever">Mantenha para sempre</string>
     <string name="very_soon">Muito em breve</string>
     <string name="soon">Em breve</string>
-    <string name="weather_unchanging">Imutável</string>
+    <string name="weather_not_changing">Imutável</string>
     <string name="weather_storm">Tempestade</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d ponto do caminho excluído</item>

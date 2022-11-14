@@ -927,7 +927,7 @@
     <string name="weather_storm">Tormenta</string>
     <string name="slope_amount">%s pendiente</string>
     <string name="compass_accuracy">Precisión de la brújula</string>
-    <string name="weather_unchanging">Sin cambios</string>
+    <string name="weather_not_changing">Sin cambios</string>
     <string name="very_soon">Muy pronto</string>
     <string name="soon">Pronto</string>
     <string name="avalanche_risk">Riesgo de avalancha</string>

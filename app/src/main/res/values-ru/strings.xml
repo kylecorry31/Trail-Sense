@@ -960,7 +960,7 @@
     <string name="disclaimer_estimated_tide">Приблизительное время приливов может быть неточным. Используйте официальную таблицу приливов для точного времени.</string>
     <string name="disclaimer_estimated_tide_title">Приблизительный прилив</string>
     <string name="pressure_tendency">Тенденция</string>
-    <string name="weather_unchanging">Без изменений</string>
+    <string name="weather_not_changing">Без изменений</string>
     <string name="very_soon">Очень скоро</string>
     <string name="temperature_history">История температуры - последняя %s</string>
     <string name="since_time">с %s</string>

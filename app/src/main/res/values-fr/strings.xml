@@ -448,7 +448,7 @@
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="pref_low_power_mode_summary">Désactive certaines fonctionnalités pour économiser de l\'énergie</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="weather_unchanging">Inchangé</string>
+    <string name="weather_not_changing">Inchangé</string>
     <string name="weather_storm">Tempête</string>
     <string name="very_soon">Très bientôt</string>
     <string name="soon">Bientôt</string>

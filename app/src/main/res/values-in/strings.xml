@@ -108,7 +108,7 @@
     <string name="night">Malam</string>
     <string name="pref_flashlight_timeout_title">Nyalakan setelah</string>
     <string name="estimated">Diperkirakan</string>
-    <string name="weather_unchanging">Tidak berubah</string>
+    <string name="weather_not_changing">Tidak berubah</string>
     <string name="weather_storm">Badai</string>
     <string name="very_soon">Sebentar lagi</string>
     <string name="edit">Ubah</string>

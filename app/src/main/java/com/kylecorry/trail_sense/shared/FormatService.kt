@@ -57,7 +57,7 @@ class FormatService(private val context: Context) {
             WeatherCondition.Precipitation -> context.getString(R.string.weather_precipitation)
             WeatherCondition.Storm -> context.getString(R.string.weather_storm)
             WeatherCondition.Wind -> context.getString(R.string.weather_wind)
-            null -> context.getString(R.string.weather_unchanging)
+            null -> context.getString(R.string.weather_not_changing)
         }
     }
 

@@ -115,7 +115,7 @@
     <string name="temp_c_short">°C</string>
     <string name="no_data">No data</string>
     <!--Weather Tab - Forecasts-->
-    <string name="weather_unchanging">Unchanging</string>
+    <string name="weather_not_changing">Not changing</string>
     <string name="weather_storm">Storm</string>
     <string name="very_soon">Very soon</string>
     <string name="soon">Soon</string>

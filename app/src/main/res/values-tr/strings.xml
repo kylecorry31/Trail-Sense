@@ -911,7 +911,7 @@
     <string name="clinometer_measure_distance_title">Hedefin yüksekliği</string>
     <string name="tide_deleted">Gelgit silindi</string>
     <string name="duration_second_format">%dsn</string>
-    <string name="weather_unchanging">Değişmiyor</string>
+    <string name="weather_not_changing">Değişmiyor</string>
     <string name="weather_storm">Fırtına</string>
     <string name="since_time">%s\'den beri</string>
     <string name="humidity_history">Nem geçmişi - son %s</string>

@@ -980,7 +980,7 @@
     <string name="current_speed_gps">Aktuelle Geschwindigkeit (GPS)</string>
     <string name="average_speed_pedometer">Durchschnittsgeschwindigkeit (Schrittzähler)</string>
     <string name="average_speed_backtrack">Durchschnittsgeschwindigkeit (Rückweg)</string>
-    <string name="weather_unchanging">Unverändert</string>
+    <string name="weather_not_changing">Unverändert</string>
     <string name="very_soon">Sehr bald</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Distanzwarnung</string>

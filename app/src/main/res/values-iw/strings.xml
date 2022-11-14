@@ -373,7 +373,7 @@
     <string name="notification_monitoring_weather">ניטור מזג האוויר ברקע</string>
     <string name="temp_f_short">°F</string>
     <string name="no_data">אין מידע</string>
-    <string name="weather_unchanging">ללא שינוי</string>
+    <string name="weather_not_changing">ללא שינוי</string>
     <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_minutes">
         <item quantity="one">בדקה האחרונה</item>
