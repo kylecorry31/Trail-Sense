@@ -33,6 +33,8 @@ import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherC
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -51,6 +53,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private var cachedValue = MemoryCachedValue<CurrentWeather>()
     private var validLock = Object()
     private var isValid = false
+    private var updateWeatherMutex = Mutex()
 
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
@@ -196,16 +199,18 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     override suspend fun updateWeather(background: Boolean) {
-        val last = getRawHistory().lastOrNull()?.time
-        val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
+        updateWeatherMutex.withLock {
+            val last = getRawHistory().lastOrNull()?.time
+            val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
 
-        if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
-            // Still send out the weather alerts, just don't log a new reading
-            WeatherAlerter(context).alert(getWeather())
-            return
+            if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
+                // Still send out the weather alerts, just don't log a new reading
+                WeatherAlerter(context).alert(getWeather())
+                return
+            }
+
+            MonitorWeatherCommand.create(context, background).execute()
         }
-
-        MonitorWeatherCommand.create(context, background).execute()
     }
 
     private fun invalidate() {
