@@ -926,7 +926,7 @@
     <plurals name="tides_entered_count">
         <item quantity="other">%d 个潮汐</item>
     </plurals>
-    <string name="weather_not_changing">不变</string>
+    <string name="weather_no_change">不变</string>
     <string name="weather_storm">暴风雨</string>
     <string name="very_soon">很快</string>
     <string name="soon">不久</string>

@@ -665,7 +665,7 @@
     <string name="distance_alert_distance_reached">Elérted a(z) %s-es távot</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="weather_not_changing">Változatlan marad</string>
+    <string name="weather_no_change">Változatlan marad</string>
     <string name="waning_crescent">Fogyó Sarló</string>
     <string name="weather_storm">Vihar</string>
     <string name="very_soon">Nagyon hamar</string>

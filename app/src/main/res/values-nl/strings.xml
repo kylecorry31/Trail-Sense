@@ -822,7 +822,7 @@
     </plurals>
     <string name="temporary">Tijdelijk</string>
     <string name="points">Punten</string>
-    <string name="weather_not_changing">Onveranderlijk</string>
+    <string name="weather_no_change">Onveranderlijk</string>
     <string name="very_soon">Zeer spoedig</string>
     <string name="weather_storm">Storm</string>
     <string name="soon">Spoedig</string>

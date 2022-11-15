@@ -868,7 +868,7 @@
     <string name="closest">Najbliższe</string>
     <string name="reduce_map_resolution">Zmniejszenie rozdzielczości mapy</string>
     <string name="keep_forever">Zachowaj na zawsze</string>
-    <string name="weather_not_changing">Bez zmian</string>
+    <string name="weather_no_change">Bez zmian</string>
     <string name="weather_storm">Sztorm</string>
     <string name="very_soon">Wkrótce</string>
     <string name="soon">Wkrótce</string>

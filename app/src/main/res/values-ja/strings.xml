@@ -206,7 +206,7 @@
     <string name="flashlight_title">懐中電灯</string>
     <string name="turn_off">オフにする</string>
     <string name="tap_to_turn_off">タップしてオフにする</string>
-    <string name="weather_not_changing">変化なし</string>
+    <string name="weather_no_change">変化なし</string>
     <string name="delete">削除</string>
     <string name="clock_sync_time_settings">時刻の設定を開きますか？</string>
     <string name="tool_notes_title">ノート</string>

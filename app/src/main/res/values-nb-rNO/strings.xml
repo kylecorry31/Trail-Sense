@@ -797,7 +797,7 @@
     <string name="very_soon">Veldig snart</string>
     <string name="soon">Snart</string>
     <string name="weather_storm">Uvær</string>
-    <string name="weather_not_changing">Uendret</string>
+    <string name="weather_no_change">Uendret</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="backtrack_high_priority_notification">Plasserer et veipunkt hver %s</string>
     <string name="battery_warning">Advarsel om batteribruk</string>
