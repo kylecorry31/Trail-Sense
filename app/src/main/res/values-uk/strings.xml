@@ -981,7 +981,7 @@
 \n- І багато іншого!</string>
     <string name="weather_storm">Буря</string>
     <string name="pressure_tendency">Тенденція</string>
-    <string name="weather_not_changing">Без змін</string>
+    <string name="weather_no_change">Без змін</string>
     <string name="soon">Скоро</string>
     <string name="very_soon">Дуже скоро</string>
     <string name="since_time">з %s</string>
