@@ -1042,4 +1042,13 @@
     <string name="icon">Zeichen</string>
     <string name="clouds_clear">Löschen</string>
     <string name="manual">Manuell</string>
+    <string name="altocumulus_forecast">Kann auf Niederschlag oder Gewitter in den nächsten %d Stunden hinweisen.</string>
+    <string name="weather_wind">Wind</string>
+    <string name="later">Später</string>
+    <string name="weather_clear">Klar</string>
+    <string name="weather_precipitation">Niederschlag</string>
+    <string name="altostratus_forecast">Kann auf Niederschlag in den nächsten %d Stunden hinweisen.</string>
+    <string name="high_pressure">Hoch</string>
+    <string name="low_pressure">Tief</string>
+    <string name="weather_front">Wetterfront</string>
 </resources>
