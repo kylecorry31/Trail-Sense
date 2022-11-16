@@ -1066,4 +1066,6 @@
     <string name="weather_precipitation">Yağış</string>
     <string name="pref_show_map_previews_title">Harita ön izlemelerini göster</string>
     <string name="smoothing">Düzeltme</string>
+    <string name="samples">Örnekler</string>
+    <string name="sensor_summary">Pusula, GPS, yükseklikölçer, barometre vb.</string>
 </resources>
