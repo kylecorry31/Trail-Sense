@@ -985,4 +985,6 @@
     <string name="smoothing">Utjevning</string>
     <string name="half_tide">Middels</string>
     <string name="pref_show_map_previews_title">Vis kartforhåndsvisninger</string>
+    <string name="samples">Prøver</string>
+    <string name="sensor_summary">Kompass, GPS, høydemåler, barometer etc.</string>
 </resources>
