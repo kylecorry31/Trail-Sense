@@ -8,7 +8,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.trail_sense.weather.ui.PressureChart
+import com.kylecorry.trail_sense.weather.ui.charts.PressureChart
 
 class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
     Preference(context, attributeSet) {

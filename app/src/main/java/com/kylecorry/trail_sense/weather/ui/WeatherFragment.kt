@@ -31,6 +31,9 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.weather.ui.charts.HumidityChart
+import com.kylecorry.trail_sense.weather.ui.charts.PressureChart
+import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChart
 import com.kylecorry.trail_sense.weather.ui.fields.*
 import java.time.Duration
 import java.time.Instant

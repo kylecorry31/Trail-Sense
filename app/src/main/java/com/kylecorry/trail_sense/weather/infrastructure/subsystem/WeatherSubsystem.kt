@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.*
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.WeatherAlerter
+import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
@@ -205,7 +205,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
             if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
                 // Still send out the weather alerts, just don't log a new reading
-                WeatherAlerter(context).alert(getWeather())
+                SendWeatherAlertsCommand(context).execute(getWeather())
                 return
             }
 

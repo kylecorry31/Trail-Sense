@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
+import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
@@ -16,7 +17,7 @@ class DailyWeatherAlertCommand(
     private val prefs: IWeatherPreferences,
     private val alerter: IValueAlerter<WeatherPrediction>,
     private val timeProvider: ITimeProvider
-) : IWeatherAlertCommand {
+) : Command<CurrentWeather> {
 
     override fun execute(weather: CurrentWeather) {
         if (!prefs.shouldShowDailyWeatherNotification || !prefs.shouldMonitorWeather) {

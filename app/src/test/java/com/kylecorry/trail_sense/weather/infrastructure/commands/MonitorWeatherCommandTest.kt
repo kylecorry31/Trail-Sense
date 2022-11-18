@@ -4,7 +4,7 @@ import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
+import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
@@ -26,7 +26,7 @@ internal class MonitorWeatherCommandTest {
     private lateinit var repo: IReadingRepo<RawWeatherObservation>
     private lateinit var observer: IWeatherObserver
     private lateinit var subsystem: IWeatherSubsystem
-    private lateinit var alerter: IValueAlerter<CurrentWeather>
+    private lateinit var alerter: Command<CurrentWeather>
 
     @BeforeEach
     fun setup() {
@@ -54,7 +54,7 @@ internal class MonitorWeatherCommandTest {
         monitor.execute()
 
         verify(repo, times(1)).add(observation)
-        verify(alerter, times(1)).alert(weather)
+        verify(alerter, times(1)).execute(weather)
     }
 
 }

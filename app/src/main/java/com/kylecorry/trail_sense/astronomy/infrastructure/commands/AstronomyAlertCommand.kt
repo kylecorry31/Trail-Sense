@@ -3,28 +3,16 @@ package com.kylecorry.trail_sense.astronomy.infrastructure.commands
 import android.content.Context
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
-import com.kylecorry.trail_sense.shared.commands.LocationCommand
+import com.kylecorry.trail_sense.shared.commands.generic.ComposedCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
+import com.kylecorry.trail_sense.shared.sensors.readAll
 import java.time.Duration
 
 class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
     override suspend fun execute() {
         val gps = SensorService(context).getGPS(true)
 
-        try {
-            withContext(Dispatchers.IO) {
-                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
-                    if (!gps.hasValidReading) {
-                        gps.read()
-                    }
-                }
-            }
-        } finally {
-            gps.stop(null)
-        }
+        readAll(listOf(gps), timeout = Duration.ofSeconds(10), forceStopOnCompletion = true)
 
         val location = gps.location
 
@@ -32,11 +20,11 @@ class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
             return
         }
 
-        val commands: List<LocationCommand> = listOf(
+        val command = ComposedCommand(
             LunarEclipseAlertCommand(context),
             MeteorShowerAlertCommand(context)
         )
 
-        commands.forEach { it.execute(location) }
+        command.execute(location)
     }
 }

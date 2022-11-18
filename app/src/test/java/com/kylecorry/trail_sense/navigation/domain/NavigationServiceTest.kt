@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.navigation.domain
 import android.graphics.Color
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import org.junit.Assert
-import org.junit.Test
+import com.kylecorry.trail_sense.shared.Position
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class NavigationServiceTest {
 
@@ -24,8 +24,8 @@ internal class NavigationServiceTest {
         val near5km = service.getNearbyBeacons(mtWashington, beacons, 100, 0f, 5000f).map { it.id }
         val near500m = service.getNearbyBeacons(mtWashington, beacons, 100, 0f, 500f).map { it.id }
 
-        Assert.assertEquals(listOf(0L, 1L, 2L), near5km)
-        Assert.assertEquals(listOf(0L, 1L), near500m)
+        assertEquals(listOf(0L, 1L, 2L), near5km)
+        assertEquals(listOf(0L, 1L), near500m)
     }
 
     @Test
@@ -42,7 +42,7 @@ internal class NavigationServiceTest {
 
         val linearEtaDownhill = service.eta(Position(location, destinationAltitude, Bearing(0f), speed), beacon.copy(elevation = altitude))
 
-        Assert.assertEquals(127L, linearEta.toMinutes())
-        Assert.assertEquals(47L, linearEtaDownhill.toMinutes())
+        assertEquals(127L, linearEta.toMinutes())
+        assertEquals(47L, linearEtaDownhill.toMinutes())
     }
 }

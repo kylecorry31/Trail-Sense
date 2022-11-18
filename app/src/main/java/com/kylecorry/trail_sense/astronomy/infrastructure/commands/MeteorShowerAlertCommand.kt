@@ -11,12 +11,12 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.commands.LocationCommand
+import com.kylecorry.trail_sense.shared.commands.generic.Command
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class MeteorShowerAlertCommand(private val context: Context) : LocationCommand {
+class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinate> {
     override fun execute(location: Coordinate) {
         val prefs = UserPreferences(context)
         val shouldSend = prefs.astronomy.sendMeteorShowerAlerts
