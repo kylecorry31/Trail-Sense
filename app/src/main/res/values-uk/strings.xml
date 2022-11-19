@@ -1086,4 +1086,6 @@
     <string name="weather_wind">Вітер</string>
     <string name="pref_show_map_previews_title">Показ передоглядів мапи</string>
     <string name="smoothing">Згладжування</string>
+    <string name="samples">Зразки</string>
+    <string name="sensor_summary">Компас, GPS, висотомір, барометр тощо.</string>
 </resources>
