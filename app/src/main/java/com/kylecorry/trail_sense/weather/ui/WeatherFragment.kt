@@ -275,6 +275,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 } else {
                     ""
                 }
+            binding.weatherTitle.subtitle.isVisible = binding.weatherTitle.subtitle.text.isNotEmpty()
         }
     }
 
