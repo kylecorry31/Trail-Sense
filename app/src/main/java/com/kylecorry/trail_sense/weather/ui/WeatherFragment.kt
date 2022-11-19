@@ -262,13 +262,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 R.string.then_weather,
                 formatService.formatWeather(prediction.primaryDaily).lowercase()
             )
+
+            val hourlySameAsDaily = prediction.primaryDaily == prediction.primaryHourly
+
             binding.weatherTitle.subtitle.text =
-                if (arrival.isNotEmpty() && prediction.primaryDaily == null) {
+                if (arrival.isNotEmpty() && (prediction.primaryDaily == null || hourlySameAsDaily)) {
                     arrival
                 } else if (arrival.isNotEmpty()) {
                     "$arrival, $then"
-                } else {
+                } else if (!hourlySameAsDaily) {
                     then
+                } else {
+                    ""
                 }
         }
     }
