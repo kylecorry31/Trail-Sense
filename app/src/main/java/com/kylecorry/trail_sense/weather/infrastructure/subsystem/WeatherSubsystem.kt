@@ -28,8 +28,8 @@ import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.*
-import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
+import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.delay
@@ -281,6 +281,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
             primaryCondition == WeatherCondition.Storm || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
             tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
+            primaryCondition == null -> null
             else -> HourlyArrivalTime.Later
         }
         return CurrentWeather(

@@ -61,12 +61,13 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatWeatherSpeed(speed: HourlyArrivalTime): String {
+    fun formatWeatherArrival(speed: HourlyArrivalTime?): String {
         return when (speed) {
             HourlyArrivalTime.Now -> context.getString(R.string.now)
             HourlyArrivalTime.VerySoon -> context.getString(R.string.very_soon)
             HourlyArrivalTime.Soon -> context.getString(R.string.soon)
             HourlyArrivalTime.Later -> context.getString(R.string.later)
+            null -> ""
         }
     }
 

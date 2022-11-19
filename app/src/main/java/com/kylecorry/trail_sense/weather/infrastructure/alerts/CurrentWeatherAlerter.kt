@@ -39,10 +39,10 @@ class CurrentWeatherAlerter(
         )).value
         val icon = formatter.getWeatherImage(forecast.primaryHourly)
         val weather = formatter.formatWeather(forecast.primaryHourly)
-        val speed = formatter.formatWeatherSpeed(forecast.hourlyArrival).lowercase()
+        val arrival = formatter.formatWeatherArrival(forecast.hourlyArrival).lowercase()
 
-        val description = if (speed.isNotEmpty()) {
-            "$weather $speed"
+        val description = if (arrival.isNotEmpty()) {
+            "$weather $arrival"
         } else {
             weather
         }

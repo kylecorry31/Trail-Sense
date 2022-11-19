@@ -27,7 +27,7 @@ data class WeatherPrediction(
     val hourly: List<WeatherCondition>,
     val daily: List<WeatherCondition>,
     val front: WeatherFront?,
-    val hourlyArrival: HourlyArrivalTime
+    val hourlyArrival: HourlyArrivalTime?
 ) {
 
     private val primarySelector = PrimaryWeatherSelector()

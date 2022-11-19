@@ -257,17 +257,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 size = Resources.dp(requireContext(), 24f).toInt(),
                 left = formatService.getWeatherImage(prediction.primaryHourly)
             )
-            val speed = formatService.formatWeatherSpeed(weather.prediction.hourlyArrival)
-                .lowercase()
+            val arrival = formatService.formatWeatherArrival(weather.prediction.hourlyArrival).lowercase()
             val then = getString(
                 R.string.then_weather,
                 formatService.formatWeather(prediction.primaryDaily).lowercase()
             )
             binding.weatherTitle.subtitle.text =
-                if (speed.isNotEmpty() && prediction.primaryDaily == null) {
-                    speed
-                } else if (speed.isNotEmpty()) {
-                    "$speed, $then"
+                if (arrival.isNotEmpty() && prediction.primaryDaily == null) {
+                    arrival
+                } else if (arrival.isNotEmpty()) {
+                    "$arrival, $then"
                 } else {
                     then
                 }
