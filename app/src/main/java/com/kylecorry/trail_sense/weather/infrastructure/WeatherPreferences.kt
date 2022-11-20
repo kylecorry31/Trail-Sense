@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.extensions.getDuration
+import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.extensions.putDuration
 import java.time.Duration
 import java.time.LocalDate
@@ -235,6 +236,10 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
+
+    // TODO: Make this and experimental setting
+    override val showHistoricalTemperature: Boolean
+        get() = isDebug()
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

@@ -156,12 +156,13 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (!isBound) return
         val weather = weather ?: return
 
-        val fields = listOf(
+        val fields = listOfNotNull(
             PressureWeatherField(weather.observation?.pressure),
             PressureTendencyWeatherField(weather.pressureTendency),
             PressureSystemWeatherField(weather.observation?.pressure),
             FrontWeatherField(weather.prediction.front),
             TemperatureWeatherField(weather.observation?.temperature) { showTemperatureChart() },
+            if (prefs.weather.showHistoricalTemperature) AverageTemperatureWeatherField(weather.prediction.averageTemperature) else null,
             HumidityWeatherField(weather.observation?.humidity) { showHumidityChart() },
             CloudWeatherField(weather.clouds)
         )
@@ -257,7 +258,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 size = Resources.dp(requireContext(), 24f).toInt(),
                 left = formatService.getWeatherImage(prediction.primaryHourly)
             )
-            val arrival = formatService.formatWeatherArrival(weather.prediction.hourlyArrival).lowercase()
+            val arrival =
+                formatService.formatWeatherArrival(weather.prediction.hourlyArrival).lowercase()
             val then = getString(
                 R.string.then_weather,
                 formatService.formatWeather(prediction.primaryDaily).lowercase()
@@ -275,7 +277,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 } else {
                     ""
                 }
-            binding.weatherTitle.subtitle.isVisible = binding.weatherTitle.subtitle.text.isNotEmpty()
+            binding.weatherTitle.subtitle.isVisible =
+                binding.weatherTitle.subtitle.text.isNotEmpty()
         }
     }
 

@@ -1226,6 +1226,7 @@
     <string name="samples">Samples</string>
 <!--    Examples of the sensors you can adjust settings for-->
     <string name="sensor_summary">Compass, GPS, altimeter, barometer, etc.</string>
+    <string name="historical_temperature_disclaimer">Estimated based on historical temperatures for your location.</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

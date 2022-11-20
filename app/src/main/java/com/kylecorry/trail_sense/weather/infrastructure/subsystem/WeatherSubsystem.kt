@@ -2,18 +2,17 @@ package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.sol.science.meteorology.PressureCharacteristic
-import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.WeatherCondition
-import com.kylecorry.sol.science.meteorology.WeatherForecast
+import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
@@ -37,6 +36,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 import java.util.*
 
 
@@ -157,6 +157,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val combined = pressures.map {
             val reading = precalibrated.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
+                reading?.value?.id ?: 0L,
                 it.time,
                 it.value,
                 Temperature.celsius(reading?.value?.temperature ?: 0f),
@@ -267,7 +268,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             currentConditions,
             listOf(),
             null,
-            HourlyArrivalTime.Now
+            HourlyArrivalTime.Now,
+            null
         ).primaryHourly
 
         val steadySystem =
@@ -284,12 +286,29 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             primaryCondition == null -> null
             else -> HourlyArrivalTime.Later
         }
+
+        val averageTemperature = try {
+            val lastRawReading = last?.id?.let {
+                weatherRepo.get(it)
+            }
+
+            val location = lastRawReading?.value?.location ?: location.location
+            val elevation = lastRawReading?.value?.altitude ?: 0f
+
+
+            Meteorology.getAverageTemperature(location, Distance.meters(elevation), LocalDate.now())
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, "Unable to lookup average temperature", e)
+            null
+        }
+
         return CurrentWeather(
             WeatherPrediction(
                 forecast.first().conditions,
                 forecast.last().conditions,
                 forecast.first().front,
-                arrival
+                arrival,
+                averageTemperature
             ),
             tendency,
             last,
