@@ -280,10 +280,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
         // TODO: Replace with hourly forecast
         val arrival = when {
+            primaryCondition == null -> null
             steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
             primaryCondition == WeatherCondition.Storm || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
             tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
-            primaryCondition == null -> null
             else -> HourlyArrivalTime.Later
         }
 
