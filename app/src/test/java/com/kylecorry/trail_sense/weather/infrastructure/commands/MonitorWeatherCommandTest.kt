@@ -40,7 +40,7 @@ internal class MonitorWeatherCommandTest {
     @Test
     fun canRecordWeather() = runBlocking {
         val weather = CurrentWeather(
-            WeatherPrediction(emptyList(), emptyList(), WeatherFront.Warm, HourlyArrivalTime.Now),
+            WeatherPrediction(emptyList(), emptyList(), WeatherFront.Warm, HourlyArrivalTime.Now, null),
             PressureTendency(PressureCharacteristic.Falling, -1f),
             null,
             null

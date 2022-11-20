@@ -77,7 +77,7 @@ internal class StormAlertCommandTest {
 
     private fun weather(vararg conditions: WeatherCondition): CurrentWeather {
         return CurrentWeather(
-            WeatherPrediction(conditions.toList(), emptyList(), null, HourlyArrivalTime.Now),
+            WeatherPrediction(conditions.toList(), emptyList(), null, HourlyArrivalTime.Now, null),
             PressureTendency(PressureCharacteristic.Steady, 0f),
             null,
             null

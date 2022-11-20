@@ -27,7 +27,7 @@ internal class DailyWeatherAlertCommandTest {
     @BeforeEach
     fun setup() {
         weather = CurrentWeather(
-            WeatherPrediction(emptyList(), emptyList(), null, HourlyArrivalTime.Now),
+            WeatherPrediction(emptyList(), emptyList(), null, HourlyArrivalTime.Now, null),
             PressureTendency(PressureCharacteristic.Steady, 0f),
             null,
             null

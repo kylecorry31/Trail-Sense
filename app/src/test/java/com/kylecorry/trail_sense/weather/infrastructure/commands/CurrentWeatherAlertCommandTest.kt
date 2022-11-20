@@ -17,7 +17,7 @@ internal class CurrentWeatherAlertCommandTest {
     private lateinit var prefs: IWeatherPreferences
     private lateinit var alerter: IValueAlerter<CurrentWeather>
     private val weather = CurrentWeather(
-        WeatherPrediction(emptyList(), emptyList(), null, HourlyArrivalTime.Now),
+        WeatherPrediction(emptyList(), emptyList(), null, HourlyArrivalTime.Now, null),
         PressureTendency(PressureCharacteristic.Steady, 0f),
         null,
         null
