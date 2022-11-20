@@ -29,7 +29,7 @@ data class WeatherPrediction(
     val daily: List<WeatherCondition>,
     val front: WeatherFront?,
     val hourlyArrival: HourlyArrivalTime?,
-    val averageTemperature: Temperature?
+    val historicalDailyTemperature: Temperature?
 ) {
 
     private val primarySelector = PrimaryWeatherSelector()

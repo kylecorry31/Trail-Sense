@@ -162,7 +162,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             PressureSystemWeatherField(weather.observation?.pressure),
             FrontWeatherField(weather.prediction.front),
             TemperatureWeatherField(weather.observation?.temperature) { showTemperatureChart() },
-            if (prefs.weather.showHistoricalTemperature) AverageTemperatureWeatherField(weather.prediction.averageTemperature) else null,
+            if (prefs.weather.showHistoricalTemperature) AverageTemperatureWeatherField(weather.prediction.historicalDailyTemperature) else null,
             HumidityWeatherField(weather.observation?.humidity) { showHumidityChart() },
             CloudWeatherField(weather.clouds)
         )

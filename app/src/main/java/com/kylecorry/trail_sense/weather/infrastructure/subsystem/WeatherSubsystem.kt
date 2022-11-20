@@ -287,7 +287,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             else -> HourlyArrivalTime.Later
         }
 
-        val averageTemperature = try {
+        // TODO: Maybe construct a confidence interval for temperature estimates
+        // TODO: Calculate min, max, and current instead of average
+        val historicalTemperature = try {
             val lastRawReading = last?.id?.let {
                 weatherRepo.get(it)
             }
@@ -308,7 +310,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 forecast.last().conditions,
                 forecast.first().front,
                 arrival,
-                averageTemperature
+                historicalTemperature
             ),
             tendency,
             last,
