@@ -294,18 +294,24 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             }
             val location = lastRawReading?.value?.location ?: location.location
             val elevation = lastRawReading?.value?.altitude ?: 0f
-            // TODO: Lerp temperature between this and the next latitude
-            // TODO: Lerp temperature between this and the next month
-            val historic = TemperatureEstimator(context).getDailyTemperature(
+            val range = TemperatureEstimator(context).getDailyTemperatureRange(
                 location,
                 LocalDate.now()
             )
-//            val range = HistoricTemperatureLookup.getTemperatureDiurnalRange(context, location)
-            Meteorology.getTemperatureAtElevation(
-                historic,
+            val low = Meteorology.getTemperatureAtElevation(
+                range.start,
                 Distance.meters(0f),
                 Distance.meters(elevation)
             )
+
+            val high = Meteorology.getTemperatureAtElevation(
+                range.end,
+                Distance.meters(0f),
+                Distance.meters(elevation)
+            )
+
+            val average = Temperature((low.temperature + high.temperature) / 2f, low.units)
+            TemperaturePrediction(average, low, high, average)
         } catch (e: Exception) {
             Log.e(javaClass.simpleName, "Unable to lookup average temperature", e)
             null

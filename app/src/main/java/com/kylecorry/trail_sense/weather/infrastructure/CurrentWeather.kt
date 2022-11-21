@@ -24,12 +24,19 @@ enum class HourlyArrivalTime {
     Later
 }
 
+data class TemperaturePrediction(
+    val average: Temperature,
+    val low: Temperature,
+    val high: Temperature,
+    val current: Temperature
+)
+
 data class WeatherPrediction(
     val hourly: List<WeatherCondition>,
     val daily: List<WeatherCondition>,
     val front: WeatherFront?,
     val hourlyArrival: HourlyArrivalTime?,
-    val historicalDailyTemperature: Temperature?
+    val temperature: TemperaturePrediction?
 ) {
 
     private val primarySelector = PrimaryWeatherSelector()
@@ -45,7 +52,7 @@ data class WeatherObservation(
     val pressure: Pressure,
     val temperature: Temperature,
     val humidity: Float?
-): Identifiable {
+) : Identifiable {
     fun pressureReading(): Reading<Pressure> {
         return Reading(pressure, time)
     }

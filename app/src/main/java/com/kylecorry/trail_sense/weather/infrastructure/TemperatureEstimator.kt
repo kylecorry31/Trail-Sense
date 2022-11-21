@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
@@ -10,6 +11,19 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 class TemperatureEstimator(private val context: Context) {
+
+    fun getDailyTemperatureRange(
+        location: Coordinate,
+        date: LocalDate
+    ): Range<Temperature> {
+        val average = getDailyTemperature(location, date)
+        val range = getTemperatureRange(location)
+
+        return Range(
+            average.copy(temperature = average.temperature - range / 2f),
+            average.copy(temperature = average.temperature + range / 2f)
+        )
+    }
 
     fun getDailyTemperature(location: Coordinate, date: LocalDate): Temperature {
         return if (date.dayOfMonth == 15) {
@@ -86,6 +100,31 @@ class TemperatureEstimator(private val context: Context) {
 
         val lerped = SolMath.lerp(pct.toFloat(), lower.temperature, upper.temperature)
         return Temperature.celsius(lerped)
+    }
+
+    private fun getTemperatureRange(location: Coordinate): Float {
+        val start = floor(location.latitude)
+        val end = ceil(location.latitude)
+
+        if (start == end) {
+            return HistoricTemperatureLookup.getTemperatureDiurnalRange(
+                context,
+                location
+            )
+        }
+
+        val lower = HistoricTemperatureLookup.getTemperatureDiurnalRange(
+            context,
+            location.copy(latitude = start)
+        )
+        val upper = HistoricTemperatureLookup.getTemperatureDiurnalRange(
+            context,
+            location.copy(latitude = end)
+        )
+
+        val pct = SolMath.norm(location.latitude, start, end)
+
+        return SolMath.lerp(pct.toFloat(), lower, upper)
     }
 
 }
