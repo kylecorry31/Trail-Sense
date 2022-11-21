@@ -37,6 +37,7 @@ import kotlinx.coroutines.sync.withLock
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZonedDateTime
 import java.util.*
 
 
@@ -47,6 +48,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { Preferences(context) }
     private val location by lazy { LocationSubsystem.getInstance(context) }
+    private val estimator by lazy { TemperatureEstimator(context) }
 
     private lateinit var weatherService: WeatherService
 
@@ -294,10 +296,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             }
             val location = lastRawReading?.value?.location ?: location.location
             val elevation = lastRawReading?.value?.altitude ?: 0f
-            val range = TemperatureEstimator(context).getDailyTemperatureRange(
+
+            val range = estimator.getDailyTemperatureRange(
                 location,
                 LocalDate.now()
             )
+            val currentRaw = estimator.getTemperature(location, ZonedDateTime.now())
             val low = Meteorology.getTemperatureAtElevation(
                 range.start,
                 Distance.meters(0f),
@@ -310,8 +314,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 Distance.meters(elevation)
             )
 
+            val current = Meteorology.getTemperatureAtElevation(
+                currentRaw,
+                Distance.meters(0f),
+                Distance.meters(elevation)
+            )
+
             val average = Temperature((low.temperature + high.temperature) / 2f, low.units)
-            TemperaturePrediction(average, low, high, average)
+            TemperaturePrediction(average, low, high, current)
         } catch (e: Exception) {
             Log.e(javaClass.simpleName, "Unable to lookup average temperature", e)
             null

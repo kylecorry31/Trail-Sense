@@ -3,14 +3,71 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.analysis.Trigonometry
+import com.kylecorry.sol.science.astronomy.SunTimesMode
+import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.atStartOfDay
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import java.time.Duration
 import java.time.LocalDate
+import java.time.ZonedDateTime
 import kotlin.math.ceil
 import kotlin.math.floor
 
 internal class TemperatureEstimator(private val context: Context) {
+
+    private val astronomy = AstronomyService()
+
+    fun getTemperature(location: Coordinate, time: ZonedDateTime): Temperature {
+        val range = getDailyTemperatureRange(location, time.toLocalDate())
+        val today = astronomy.getSunTimes(location, SunTimesMode.Actual, time.toLocalDate())
+
+        val defaultMaxTime = time.withHour(14).withMinute(0).withSecond(0).withNano(0)
+
+        val todayMin = today.rise ?: time.atStartOfDay()
+        val todayMax = today.transit?.plusHours(2) ?: defaultMaxTime
+
+        return if (time.isAfter(todayMin) && time.isBefore(todayMax)) {
+            // Sine between min and max
+            val firstVec = Vector2(0f, range.start.temperature)
+            val secondVec = Vector2(getX(todayMin, todayMax), range.end.temperature)
+            val wave = Trigonometry.connect(firstVec, secondVec)
+            val temperature = wave.calculate(getX(todayMin, time))
+            Temperature.celsius(temperature)
+        } else if (time.isBefore(todayMin)) {
+            // Sine between yesterday max and min
+            val yesterday = astronomy.getSunTimes(
+                location,
+                SunTimesMode.Actual,
+                time.toLocalDate().minusDays(1)
+            )
+            val yesterdayMax = yesterday.transit?.plusHours(2) ?: defaultMaxTime.minusDays(1)
+
+            val firstVec = Vector2(0f, range.end.temperature)
+            val secondVec = Vector2(getX(yesterdayMax, todayMin), range.start.temperature)
+            val wave = Trigonometry.connect(firstVec, secondVec)
+            val temperature = wave.calculate(getX(yesterdayMax, time))
+            Temperature.celsius(temperature)
+        } else {
+            // Sine between today max and tomorrow min
+            val tomorrow =
+                astronomy.getSunTimes(location, SunTimesMode.Actual, time.toLocalDate().plusDays(1))
+            val tomorrowMin = tomorrow.rise ?: time.atStartOfDay().minusDays(1)
+
+            val firstVec = Vector2(0f, range.end.temperature)
+            val secondVec = Vector2(getX(todayMax, tomorrowMin), range.start.temperature)
+            val wave = Trigonometry.connect(firstVec, secondVec)
+            val temperature = wave.calculate(getX(todayMax, time))
+            Temperature.celsius(temperature)
+        }
+    }
+
+    private fun getX(start: ZonedDateTime, time: ZonedDateTime): Float {
+        return Time.hoursBetween(start, time)
+    }
 
     fun getDailyTemperatureRange(
         location: Coordinate,
