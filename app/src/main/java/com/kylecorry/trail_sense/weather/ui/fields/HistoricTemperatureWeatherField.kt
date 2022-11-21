@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
-class AverageTemperatureWeatherField(private val temperature: Temperature?) : WeatherField {
+class HistoricTemperatureWeatherField(private val temperature: Temperature?) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
         temperature ?: return null
         val formatter = FormatService(context)
@@ -19,29 +19,24 @@ class AverageTemperatureWeatherField(private val temperature: Temperature?) : We
         val value = formatter.formatTemperature(
             temperature.convertTo(units)
         )
-        val color: Int
-        val icon: Int
 
-        when {
-            temperature.temperature <= 15f -> {
-                color = AppColor.Blue.color
-                icon = R.drawable.ic_thermometer_low
+        val color = when {
+            temperature.temperature <= 5f -> {
+                AppColor.Blue.color
             }
-            temperature.temperature >= 25f -> {
-                color = AppColor.Red.color
-                icon = R.drawable.ic_thermometer_high
+            temperature.temperature >= 32.5f -> {
+                AppColor.Red.color
             }
             else -> {
-                color = Resources.androidTextColorSecondary(context)
-                icon = R.drawable.thermometer
+                Resources.androidTextColorSecondary(context)
             }
         }
 
         return ListItem(
             8,
             context.getString(R.string.temperature),
-            subtitle = context.getString(R.string.estimated),
-            icon = ResourceListIcon(icon, color),
+            subtitle = context.getString(R.string.historic),
+            icon = ResourceListIcon(R.drawable.thermometer, color),
             trailingText = value
         ) {
             Alerts.dialog(

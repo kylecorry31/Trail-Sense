@@ -19,29 +19,24 @@ class HighTemperatureWeatherField(private val temperature: Temperature?) : Weath
         val value = formatter.formatTemperature(
             temperature.convertTo(units)
         )
-        val color: Int
-        val icon: Int
 
-        when {
-            temperature.temperature <= 15f -> {
-                color = AppColor.Blue.color
-                icon = R.drawable.ic_thermometer_low
+        val color = when {
+            temperature.temperature <= 5f -> {
+                AppColor.Blue.color
             }
-            temperature.temperature >= 25f -> {
-                color = AppColor.Red.color
-                icon = R.drawable.ic_thermometer_high
+            temperature.temperature >= 32.5f -> {
+                AppColor.Red.color
             }
             else -> {
-                color = Resources.androidTextColorSecondary(context)
-                icon = R.drawable.thermometer
+                Resources.androidTextColorSecondary(context)
             }
         }
 
         return ListItem(
             10,
             context.getString(R.string.high),
-            subtitle = context.getString(R.string.estimated),
-            icon = ResourceListIcon(icon, color),
+            subtitle = context.getString(R.string.historic),
+            icon = ResourceListIcon(R.drawable.ic_thermometer_high, color),
             trailingText = value
         ) {
             Alerts.dialog(
