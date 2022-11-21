@@ -35,5 +35,4 @@ interface IWeatherPreferences {
     val leftButton: QuickActionType
     val rightButton: QuickActionType
     val showColoredNotificationIcon: Boolean
-    val showHistoricalTemperature: Boolean
 }

@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
 // TODO: Build chart into this
-class TemperatureWeatherField(
+class SensorTemperatureWeatherField(
     private val temperature: Temperature?,
     private val onClick: () -> Unit
 ) : WeatherField {
