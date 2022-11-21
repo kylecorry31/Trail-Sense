@@ -11,20 +11,27 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
-class LowTemperatureWeatherField(private val temperature: Temperature?) : WeatherField {
+class HistoricTemperatureRangeWeatherField(
+    private val low: Temperature?,
+    private val high: Temperature?
+) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
-        temperature ?: return null
+        low ?: return null
+        high ?: return null
         val formatter = FormatService(context)
         val units = UserPreferences(context).temperatureUnits
-        val value = formatter.formatTemperature(
-            temperature.convertTo(units)
+        val lowValue = formatter.formatTemperature(
+            low.convertTo(units)
+        )
+        val highValue = formatter.formatTemperature(
+            high.convertTo(units)
         )
 
         val color = when {
-            temperature.temperature <= 5f -> {
+            low.temperature <= 5f -> {
                 AppColor.Blue.color
             }
-            temperature.temperature >= 32.5f -> {
+            high.temperature >= 32.5f -> {
                 AppColor.Red.color
             }
             else -> {
@@ -32,12 +39,14 @@ class LowTemperatureWeatherField(private val temperature: Temperature?) : Weathe
             }
         }
 
+        // TODO: Create a high / low icon (thermometer with up/down arrow on side)
+
         return ListItem(
             9,
-            context.getString(R.string.low),
+            context.getString(R.string.temperature_high_low),
             subtitle = context.getString(R.string.historic),
-            icon = ResourceListIcon(R.drawable.ic_thermometer_low, color),
-            trailingText = value
+            icon = ResourceListIcon(R.drawable.thermometer, color),
+            trailingText = "$highValue / $lowValue"
         ) {
             Alerts.dialog(
                 context,

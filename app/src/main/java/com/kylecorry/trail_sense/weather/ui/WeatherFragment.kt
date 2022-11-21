@@ -165,8 +165,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             HistoricTemperatureWeatherField(weather.prediction.temperature?.current),
             // TODO: Let the user hide this
             SensorTemperatureWeatherField(weather.observation?.temperature) { showTemperatureChart() },
-            LowTemperatureWeatherField(weather.prediction.temperature?.low),
-            HighTemperatureWeatherField(weather.prediction.temperature?.high),
+            HistoricTemperatureRangeWeatherField(weather.prediction.temperature?.low, weather.prediction.temperature?.high),
 
             // Humidity
             HumidityWeatherField(weather.observation?.humidity) { showHumidityChart() },
