@@ -68,7 +68,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         binding.chart.configureXAxis(
             labelCount = 7,
-            drawGridLines = false,
+            drawGridLines = true,
             labelFormatter = HourChartLabelFormatter(requireContext()) { startTime }
         )
 

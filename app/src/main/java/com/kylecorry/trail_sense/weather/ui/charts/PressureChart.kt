@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.ui.charts
 
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.LineChartLayer
 import com.kylecorry.ceres.chart.data.ScatterChartLayer
@@ -13,7 +14,6 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Duration
 import java.time.Instant
@@ -60,7 +60,7 @@ class PressureChart(
 
         chart.configureXAxis(
             labelCount = 7,
-            drawGridLines = false,
+            drawGridLines = true,
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
 

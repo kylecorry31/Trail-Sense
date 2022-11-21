@@ -1,16 +1,16 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
+import com.kylecorry.ceres.chart.data.ScatterChartLayer
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.AreaChartLayer
-import com.kylecorry.ceres.chart.data.ScatterChartLayer
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 
@@ -41,7 +41,7 @@ class TideChart(chart: Chart) {
 
         chart.configureXAxis(
             labelCount = 7,
-            drawGridLines = false,
+            drawGridLines = true,
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
 

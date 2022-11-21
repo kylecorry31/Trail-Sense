@@ -23,7 +23,7 @@ class HumidityChart(private val chart: Chart) {
 
         chart.configureXAxis(
             labelCount = 0,
-            drawGridLines = false,
+            drawGridLines = true,
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
 

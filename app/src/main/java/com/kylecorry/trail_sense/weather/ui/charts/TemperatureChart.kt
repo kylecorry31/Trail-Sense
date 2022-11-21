@@ -17,7 +17,7 @@ class TemperatureChart(private val chart: Chart) {
     init {
         chart.configureXAxis(
             labelCount = 5,
-            drawGridLines = false,
+            drawGridLines = true,
             labelFormatter = HourChartLabelFormatter(chart.context) { startTime }
         )
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
