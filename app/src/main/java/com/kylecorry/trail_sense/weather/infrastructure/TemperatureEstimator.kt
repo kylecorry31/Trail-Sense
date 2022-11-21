@@ -10,7 +10,7 @@ import java.time.LocalDate
 import kotlin.math.ceil
 import kotlin.math.floor
 
-class TemperatureEstimator(private val context: Context) {
+internal class TemperatureEstimator(private val context: Context) {
 
     fun getDailyTemperatureRange(
         location: Coordinate,
@@ -25,7 +25,7 @@ class TemperatureEstimator(private val context: Context) {
         )
     }
 
-    fun getDailyTemperature(location: Coordinate, date: LocalDate): Temperature {
+    private fun getDailyTemperature(location: Coordinate, date: LocalDate): Temperature {
         return if (date.dayOfMonth == 15) {
             getMonthlyTemperature(location, date)
         } else if (date.dayOfMonth > 15) {
