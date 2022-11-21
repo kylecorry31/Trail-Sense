@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChart
 import com.kylecorry.trail_sense.weather.ui.fields.*
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 
 class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
@@ -162,10 +163,13 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             PressureTendencyWeatherField(weather.pressureTendency),
 
             // Temperature
-            HistoricTemperatureWeatherField(weather.prediction.temperature?.current),
+            HistoricTemperatureWeatherField(weather.prediction.temperature?.current) { showTemperatureForecast() },
             // TODO: Let the user hide this
             SensorTemperatureWeatherField(weather.observation?.temperature) { showTemperatureChart() },
-            HistoricTemperatureRangeWeatherField(weather.prediction.temperature?.low, weather.prediction.temperature?.high),
+            HistoricTemperatureRangeWeatherField(
+                weather.prediction.temperature?.low,
+                weather.prediction.temperature?.high
+            ) { showTemperatureForecast() },
 
             // Humidity
             HumidityWeatherField(weather.observation?.humidity) { showHumidityChart() },
@@ -306,6 +310,24 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         ) {
             val chart = HumidityChart(it)
             chart.plot(readings)
+        }
+    }
+
+    private fun showTemperatureForecast() {
+        inBackground {
+            val forecast = onIO { weatherSubsystem.getTemperatureForecast(LocalDate.now()) }
+            CustomUiUtils.showChart(
+                this@WeatherFragment,
+                getString(R.string.historical_temperature_disclaimer)
+            ) {
+                val chart = TemperatureChart(it)
+                chart.plot(forecast.map { reading ->
+                    Reading(
+                        reading.value.convertTo(temperatureUnits).temperature,
+                        reading.time
+                    )
+                })
+            }
         }
     }
 

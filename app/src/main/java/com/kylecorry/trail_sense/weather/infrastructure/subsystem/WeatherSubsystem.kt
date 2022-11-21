@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherC
 import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
+import com.kylecorry.trail_sense.weather.infrastructure.temperatures.TemperatureEstimator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -177,6 +178,22 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
 
         combined
+    }
+
+    override suspend fun getTemperatureForecast(date: LocalDate): List<Reading<Temperature>> {
+        val last = getRawHistory().lastOrNull()
+        val location = last?.value?.location ?: location.location
+        val elevation = last?.value?.altitude ?: 0f
+        val temperatures = estimator.getTemperaturesForDay(location, date)
+        return temperatures.map {
+            it.copy(
+                value = Meteorology.getTemperatureAtElevation(
+                    it.value,
+                    Distance.meters(0f),
+                    Distance.meters(elevation)
+                )
+            )
+        }
     }
 
     override suspend fun getRawHistory(): List<Reading<RawWeatherObservation>> = onIO {

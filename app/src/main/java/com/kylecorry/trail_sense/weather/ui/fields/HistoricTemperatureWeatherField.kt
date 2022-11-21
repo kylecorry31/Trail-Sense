@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.ui.fields
 
 import android.content.Context
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ResourceListIcon
@@ -11,7 +10,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
-class HistoricTemperatureWeatherField(private val temperature: Temperature?) : WeatherField {
+class HistoricTemperatureWeatherField(private val temperature: Temperature?, private val onClick: () -> Unit) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
         temperature ?: return null
         val formatter = FormatService(context)
@@ -39,11 +38,7 @@ class HistoricTemperatureWeatherField(private val temperature: Temperature?) : W
             icon = ResourceListIcon(R.drawable.thermometer, color),
             trailingText = value
         ) {
-            Alerts.dialog(
-                context,
-                context.getString(R.string.historical_temperature_disclaimer),
-                cancelText = null
-            )
+            onClick()
         }
     }
 }

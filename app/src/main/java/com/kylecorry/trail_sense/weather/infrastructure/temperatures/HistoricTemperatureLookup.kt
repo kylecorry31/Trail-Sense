@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure
+package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
 import com.kylecorry.andromeda.compression.CompressionUtils

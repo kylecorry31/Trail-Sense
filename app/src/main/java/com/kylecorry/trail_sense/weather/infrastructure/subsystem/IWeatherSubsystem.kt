@@ -3,11 +3,13 @@ package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 import java.time.Duration
+import java.time.LocalDate
 
 // TODO: Split into two subsystems: Weather and Weather Monitor
 interface IWeatherSubsystem {
@@ -21,6 +23,7 @@ interface IWeatherSubsystem {
 
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>
+    suspend fun getTemperatureForecast(date: LocalDate): List<Reading<Temperature>>
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
     suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
 
