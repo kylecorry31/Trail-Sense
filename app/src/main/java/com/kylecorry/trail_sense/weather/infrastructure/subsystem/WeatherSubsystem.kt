@@ -352,7 +352,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 arrival,
                 historicalTemperature
             ),
-            tendency,
+            tendency.copy(amount = tendency.amount * 3),
             last,
             clouds
         )
