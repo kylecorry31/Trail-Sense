@@ -644,7 +644,6 @@
     <string name="old">Eski</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Yol silinsin mi\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Otomatik</string>
     <string name="lightning_dangerously_close">Yıldırım tehlikeli bir şekilde yakın</string>
     <string name="autofill">Otomatik doldur</string>

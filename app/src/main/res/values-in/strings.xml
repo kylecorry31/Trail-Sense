@@ -815,7 +815,6 @@
     <string name="coordinate_format_usng">USNG</string>
     <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="gps_unavailable_resolution">Aktifkan Lokasi atau ubah sumber lokasi Anda menjadi Hanya Perangkat atau Akurasi Tinggi</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="units_mmhg_short">mm</string>
     <string name="navigate">Navigasi</string>
     <string name="astro_dialog_day_length">**Hari**: %s

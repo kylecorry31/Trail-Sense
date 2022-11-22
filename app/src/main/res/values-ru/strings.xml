@@ -820,7 +820,6 @@
     <string name="old">Старый</string>
     <string name="units_mmhg_short">мм</string>
     <string name="delete_path">Удалить путь\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Авто</string>
     <string name="lightning_dangerously_close">Молния опасно близко</string>
     <string name="units_mmhg">мм рт.ст.</string>

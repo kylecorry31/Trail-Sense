@@ -509,7 +509,6 @@
     <string name="old">Antigo</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Eliminar o percurso\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automático</string>
     <string name="lightning_dangerously_close">Perigo: o relâmpago está muito perto</string>
     <string name="autofill">Preenchimento automático</string>

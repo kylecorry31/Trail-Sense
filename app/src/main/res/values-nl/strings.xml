@@ -699,7 +699,6 @@
     <string name="qr_code">QR-code</string>
     <string name="location_override_not_set_resolution">Locatieoverschrijving instellen in instellingen</string>
     <string name="location_override_resolution">Automatische locatieaanpassing inschakelen in instellingen.</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Auto</string>
     <string name="lightning_dangerously_close">Bliksem gevaarlijk dichtbij</string>
     <string name="autofill">Automatisch invullen</string>

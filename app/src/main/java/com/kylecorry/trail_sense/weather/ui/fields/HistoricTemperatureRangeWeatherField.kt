@@ -46,7 +46,7 @@ class HistoricTemperatureRangeWeatherField(
             context.getString(R.string.temperature_high_low),
             subtitle = context.getString(R.string.historic),
             icon = ResourceListIcon(R.drawable.thermometer, color),
-            trailingText = "$highValue / $lowValue"
+            trailingText = context.getString(R.string.slash_separated_pair, highValue, lowValue)
         ) {
             onClick()
         }

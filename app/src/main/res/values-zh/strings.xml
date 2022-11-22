@@ -728,7 +728,6 @@
         <item quantity="other">%d 个航点将被删除</item>
     </plurals>
     <string name="delete_path">删除路径？</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">自动</string>
     <string name="new_text">新</string>
     <string name="old">旧</string>

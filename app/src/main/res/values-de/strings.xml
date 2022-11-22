@@ -737,7 +737,6 @@
     <string name="old">Alt</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Pfad löschen\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Auto</string>
     <string name="lightning_dangerously_close">Gewitter gefährlich nah</string>
     <string name="autofill">Autofill</string>

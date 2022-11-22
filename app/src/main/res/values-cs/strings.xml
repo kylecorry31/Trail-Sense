@@ -674,7 +674,6 @@
 \n**Roční období**: %s</string>
     <string name="auto">Auto</string>
     <string name="autofill">Automatické vyplňování</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="lightning_dangerously_close">Blesk byl nebezpečně blízko</string>
     <string name="low_amount">Nízká (%s)</string>
     <string name="beacon">Maják</string>

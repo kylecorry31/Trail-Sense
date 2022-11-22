@@ -961,7 +961,6 @@
     <string name="activity_recognition">זיהוי פעילות</string>
     <string name="unblock_notification_channel">בטל את חסימת התראת %s עבור Trail Sense</string>
     <string name="auto">אוטומטי</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="pref_export_weather_csv_title">ייצא קריאות מזג אוויר</string>
     <string name="precipitation_none">אין משקעים</string>
     <string name="results">תוצאות</string>

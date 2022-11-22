@@ -1002,7 +1002,6 @@
     <string name="pref_auto_low_power_title">Automatikus energiatakarékos mód</string>
     <string name="clear_amounts">Mennyiségek törlése</string>
     <string name="delete_pack">Csomag törlése\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="pack_sort_percent_low_to_high">Becsomagolt százalék (növekvő)</string>
     <string name="quarter_moon">Negyed Hold</string>
     <string name="camera">Kamera</string>

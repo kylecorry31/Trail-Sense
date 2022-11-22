@@ -745,7 +745,6 @@
     <string name="old">Stary</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Usunąć ścieżkę\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automatycznie</string>
     <string name="units_mmhg">mmHg</string>
     <string name="elevation_history_length">Długość historii wysokości</string>

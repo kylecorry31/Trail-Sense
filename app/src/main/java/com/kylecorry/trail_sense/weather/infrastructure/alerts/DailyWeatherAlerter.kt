@@ -32,13 +32,13 @@ class DailyWeatherAlerter(
             val highValue = formatter.formatTemperature(
                 high.convertTo(units)
             )
-            "$highValue / $lowValue"
+            context.getString(R.string.slash_separated_pair, highValue, lowValue)
         } else {
             null
         }
 
         val description = if (temperatureStr != null) {
-            context.getString(R.string.dash_separated_pair, temperatureStr, condition)
+            context.getString(R.string.dot_separated_pair, temperatureStr, condition)
         } else {
             condition
         }

@@ -746,7 +746,6 @@
         <item quantity="other">%d шляхових точок буде видалено</item>
     </plurals>
     <string name="delete_path">Видалити шлях\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Авто</string>
     <string name="lightning_dangerously_close">Блискавка небезпечно близько</string>
     <string name="units_inhg">дюйм рт.ст.</string>

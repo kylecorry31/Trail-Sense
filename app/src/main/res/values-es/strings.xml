@@ -773,7 +773,6 @@
 \n%s</string>
     <string name="lightning_dangerously_close">Rayo peligrosamente cerca</string>
     <string name="auto">Automatico</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="delete_path">¿Eliminar ruta\?</string>
     <string name="path_exported">Ruta exportada</string>
     <string name="export_path_error">No se pudo exportar la ruta</string>

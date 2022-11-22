@@ -929,7 +929,9 @@
     <string name="autofill">Autofill</string>
     <string name="lightning_dangerously_close">Lightning dangerously close</string>
     <string name="auto">Auto</string>
-    <string name="dash_separated_pair">%s - %s</string>
+    <string name="dash_separated_pair" translatable="false">%s - %s</string>
+    <string name="dot_separated_pair" translatable="false">%s • %s</string>
+    <string name="slash_separated_pair" translatable="false">%s / %s</string>
     <string name="delete_path">Delete path?</string>
     <!--    This will always be in mm-->
     <string name="units_mmhg_short">mm</string>

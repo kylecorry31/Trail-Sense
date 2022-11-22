@@ -750,7 +750,6 @@
     <string name="old">Anterior</string>
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Eliminar o caminho\?</string>
-    <string name="dash_separated_pair">%s - %s</string>
     <string name="auto">Automático</string>
     <string name="lightning_dangerously_close">O relâmpago está perigosamente perto</string>
     <string name="export_path_error">Não foi possível exportar o caminho</string>

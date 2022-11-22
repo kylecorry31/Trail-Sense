@@ -724,7 +724,6 @@
     <string name="gps_signal_lost">Signal GPS perdu</string>
     <string name="background_location_permission">Position (Accorder tout le temps)</string>
     <string name="location_override_not_set_resolution">Définir une position fixe dans les paramètres</string>
-    <string name="dash_separated_pair">%s – %s</string>
     <string name="units_mmhg_short">mm</string>
     <string name="imperial_cups">Tasse Impériale</string>
     <string name="grams_format">%s g</string>
