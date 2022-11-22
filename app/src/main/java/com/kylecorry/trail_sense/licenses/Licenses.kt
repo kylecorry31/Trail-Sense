@@ -238,6 +238,11 @@ D. Entire Understanding: This Agreement constitutes the entire understanding and
 E. Binding Authority: By accepting and using the Subject Software under this Agreement, a Recipient affirms its authority to bind the Recipient to all terms and conditions of this Agreement and that that Recipient hereby agrees to all terms and conditions herein.
 
 F. Point of Contact: Any Recipient contact with Government Agency is to be directed to the designated representative as follows: Patrick.Hogan@nasa.gov"""
+        ),
+        Library(
+            "WorldClim",
+            "https://www.worldclim.org/",
+            """Fick, S.E. and R.J. Hijmans, 2017. WorldClim 2: new 1km spatial resolution climate surfaces for global land areas. International Journal of Climatology 37 (12): 4302-4315."""
         )
     )
 
