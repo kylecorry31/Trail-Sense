@@ -13,36 +13,48 @@ import kotlin.math.roundToInt
 
 internal object HistoricTemperatureLookup {
 
+    internal const val lonStep = 18
+
     fun getMonthlyTemperatureRange(
         context: Context,
         location: Coordinate,
         month: Month
     ): Range<Temperature> {
-        val loc = location.latitude.roundToInt()
-        val low = loadMinimum(context, loc, month)
-        val high = loadMaximum(context, loc, month)
+        val lat = location.latitude.roundToInt()
+        val lon = location.longitude.roundToInt()
+        val low = loadMinimum(context, lat, lon, month)
+        val high = loadMaximum(context, lat, lon, month)
         return Range(
             Temperature(low?.toFloat() ?: 0f, TemperatureUnits.F).celsius(),
             Temperature(high?.toFloat() ?: 0f, TemperatureUnits.F).celsius()
         )
     }
 
-    private fun loadMinimum(context: Context, latitude: Int, month: Month): Short? {
-        return loadMonthly(context, latitude, month, R.raw.low_temperatures)
+    private fun loadMinimum(context: Context, latitude: Int, longitude: Int, month: Month): Short? {
+        return loadMonthly(context, latitude, longitude, month, R.raw.low_temperatures_global)
     }
 
-    private fun loadMaximum(context: Context, latitude: Int, month: Month): Short? {
-        return loadMonthly(context, latitude, month, R.raw.high_temperatures)
+    private fun loadMaximum(context: Context, latitude: Int, longitude: Int, month: Month): Short? {
+        return loadMonthly(context, latitude, longitude, month, R.raw.high_temperatures_global)
     }
 
     private fun loadMonthly(
         context: Context,
         latitude: Int,
+        longitude: Int,
         month: Month,
         @RawRes file: Int
     ): Short? {
         val input = context.resources.openRawResource(file)
-        val line = ((month.value - 1) * 181 + (90 + latitude))
+        val lonIdx = (longitude + 180) / lonStep
+
+        val valuesPerLat = 360 / lonStep + 1
+        val valuesPerMonth = 181 * valuesPerLat
+        val monthIdx = month.value - 1
+
+        val latIdx = 90 + latitude
+
+        val line = (monthIdx * valuesPerMonth + latIdx * valuesPerLat + lonIdx)
         return CompressionUtils.getShort(input, line)
     }
 

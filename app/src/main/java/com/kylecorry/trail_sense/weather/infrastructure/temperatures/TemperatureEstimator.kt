@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
@@ -35,14 +36,14 @@ internal class TemperatureEstimator(private val context: Context) {
 
     fun getDailyTemperatureRange(location: Coordinate, date: LocalDate): Range<Temperature> {
         return if (date.dayOfMonth == 15) {
-            getMonthlyTemperature(location, date)
+            getMonthlyTemperatureLongitudeLerp(location, date)
         } else if (date.dayOfMonth > 15) {
             // Load this month and next
-            val thisMonth = getMonthlyTemperature(
+            val thisMonth = getMonthlyTemperatureLongitudeLerp(
                 location,
                 date
             )
-            val nextMonth = getMonthlyTemperature(
+            val nextMonth = getMonthlyTemperatureLongitudeLerp(
                 location,
                 date.plusMonths(1)
             )
@@ -55,16 +56,14 @@ internal class TemperatureEstimator(private val context: Context) {
                 date.plusMonths(1).withDayOfMonth(15).atStartOfDay()
             )
             val pct = daysSinceMiddle.toDays() / daysBetweenMonths.toDays().toDouble()
-            val lerpedLow = SolMath.lerp(pct.toFloat(), thisMonth.start.temperature, nextMonth.start.temperature)
-            val lerpedHigh = SolMath.lerp(pct.toFloat(), thisMonth.end.temperature, nextMonth.end.temperature)
-            Range(Temperature.celsius(lerpedLow), Temperature.celsius(lerpedHigh))
+            lerp(pct.toFloat(), thisMonth, nextMonth)
         } else {
             // Load this month and previous
-            val thisMonth = getMonthlyTemperature(
+            val thisMonth = getMonthlyTemperatureLongitudeLerp(
                 location,
                 date
             )
-            val prevMonth = getMonthlyTemperature(
+            val prevMonth = getMonthlyTemperatureLongitudeLerp(
                 location,
                 date.minusMonths(1)
             )
@@ -77,13 +76,85 @@ internal class TemperatureEstimator(private val context: Context) {
                 date.withDayOfMonth(15).atStartOfDay()
             )
             val pct = daysSinceMiddle.toDays() / daysBetweenMonths.toDays().toDouble()
-            val lerpedLow = SolMath.lerp(pct.toFloat(), prevMonth.start.temperature, thisMonth.start.temperature)
-            val lerpedHigh = SolMath.lerp(pct.toFloat(), prevMonth.end.temperature, thisMonth.end.temperature)
-            Range(Temperature.celsius(lerpedLow), Temperature.celsius(lerpedHigh))
+            lerp(pct.toFloat(), prevMonth, thisMonth)
         }
     }
 
-    private fun getMonthlyTemperature(location: Coordinate, date: LocalDate): Range<Temperature> {
+    private fun getRegion(location: Coordinate): CoordinateBounds {
+        val idx = (floor(location.longitude).toInt() + 180) / HistoricTemperatureLookup.lonStep
+        val minLon = Coordinate.toLongitude(idx * HistoricTemperatureLookup.lonStep.toDouble() - 180)
+        val maxLon =
+            Coordinate.toLongitude((idx + 1) * HistoricTemperatureLookup.lonStep.toDouble() - 180)
+        val minLat = floor(location.latitude)
+        val maxLat = ceil(location.latitude)
+        return CoordinateBounds(maxLat, maxLon, minLat, minLon)
+    }
+
+    private fun getRegionToNorth(location: Coordinate): CoordinateBounds? {
+        val region = getRegion(location)
+        if (region.north == 90.0) {
+            return null
+        }
+        return CoordinateBounds(region.north + 1, region.east, region.south + 1, region.west)
+    }
+
+    private fun getRegionToSouth(location: Coordinate): CoordinateBounds? {
+        val region = getRegion(location)
+        if (region.south == -90.0) {
+            return null
+        }
+        return CoordinateBounds(region.north - 1, region.east, region.south - 1, region.west)
+    }
+
+    private fun getRegionToEast(location: Coordinate): CoordinateBounds {
+        val region = getRegion(location)
+
+        val eastern = Coordinate.toLongitude(region.east + HistoricTemperatureLookup.lonStep)
+        val western = Coordinate.toLongitude(region.west + HistoricTemperatureLookup.lonStep)
+
+        return CoordinateBounds(region.north, eastern, region.south, western)
+    }
+
+    private fun getRegionToWest(location: Coordinate): CoordinateBounds {
+        val region = getRegion(location)
+
+        val eastern = Coordinate.toLongitude(region.east - HistoricTemperatureLookup.lonStep)
+        val western = Coordinate.toLongitude(region.west - HistoricTemperatureLookup.lonStep)
+
+        return CoordinateBounds(region.north, eastern, region.south, western)
+    }
+
+    private fun getMonthlyTemperatureLongitudeLerp(
+        location: Coordinate,
+        date: LocalDate
+    ): Range<Temperature> {
+        val region = getRegion(location)
+        val western =
+            CoordinateBounds(region.north, region.center.longitude, region.south, region.west)
+        val currentRange = getMonthlyTemperatureLatitudeLerp(location, date)
+        return if (western.contains(location)) {
+            val neighbor = getRegionToWest(location)
+            val range = getMonthlyTemperatureLatitudeLerp(neighbor.center, date)
+            val distanceBetweenNeighbors = neighbor.center.distanceTo(region.center)
+            val distanceToPoint =
+                neighbor.center.distanceTo(location.copy(latitude = neighbor.center.latitude))
+            lerp(distanceToPoint / distanceBetweenNeighbors, range, currentRange)
+        } else {
+            val neighbor = getRegionToEast(location)
+            val range = getMonthlyTemperatureLatitudeLerp(neighbor.center, date)
+            val distanceBetweenNeighbors = neighbor.center.distanceTo(region.center)
+            val distanceToPoint =
+                region.center.distanceTo(location.copy(latitude = region.center.latitude))
+            lerp(distanceToPoint / distanceBetweenNeighbors, range, currentRange)
+        }
+    }
+
+    // TODO: Lerp across longitude (find nearest longitude divisible by 18 (lonStep))
+    private fun getMonthlyTemperatureLatitudeLerp(
+        location: Coordinate,
+        date: LocalDate
+    ): Range<Temperature> {
+        // TODO: Use the regions to lerp
         val start = floor(location.latitude)
         val end = ceil(location.latitude)
 
@@ -108,8 +179,16 @@ internal class TemperatureEstimator(private val context: Context) {
 
         val pct = SolMath.norm(location.latitude, start, end)
 
-        val lerpedLow = SolMath.lerp(pct.toFloat(), lower.start.temperature, upper.start.temperature)
-        val lerpedHigh = SolMath.lerp(pct.toFloat(), lower.end.temperature, upper.end.temperature)
+        return lerp(pct.toFloat(), lower, upper)
+    }
+
+    private fun lerp(
+        pct: Float,
+        lower: Range<Temperature>,
+        upper: Range<Temperature>
+    ): Range<Temperature> {
+        val lerpedLow = SolMath.lerp(pct, lower.start.temperature, upper.start.temperature)
+        val lerpedHigh = SolMath.lerp(pct, lower.end.temperature, upper.end.temperature)
         return Range(Temperature.celsius(lerpedLow), Temperature.celsius(lerpedHigh))
     }
 
