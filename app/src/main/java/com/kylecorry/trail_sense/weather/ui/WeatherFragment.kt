@@ -318,6 +318,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             val forecast = onIO { weatherSubsystem.getTemperatureForecast(LocalDate.now()) }
             CustomUiUtils.showChart(
                 this@WeatherFragment,
+                getString(R.string.temperature),
                 getString(R.string.historical_temperature_disclaimer)
             ) {
                 val chart = TemperatureChart(it)

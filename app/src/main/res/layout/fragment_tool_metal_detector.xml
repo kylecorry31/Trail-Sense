@@ -61,7 +61,7 @@
     <com.kylecorry.ceres.chart.Chart
         android:id="@+id/metal_chart"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/chart_height"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/metal_detector_disclaimer"

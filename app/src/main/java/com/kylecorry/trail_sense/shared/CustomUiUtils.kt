@@ -25,6 +25,7 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -36,7 +37,6 @@ import com.kylecorry.trail_sense.shared.views.BeaconIconPickerView
 import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
-import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
@@ -429,8 +429,20 @@ object CustomUiUtils {
 
     }
 
-    fun showChart(fragment: Fragment, title: String, populateFn: (Chart) -> Unit) {
+    fun showChart(
+        fragment: Fragment,
+        title: String,
+        content: String? = null,
+        populateFn: (Chart) -> Unit
+    ) {
         val chartView = View.inflate(fragment.requireContext(), R.layout.view_chart_prompt, null)
+
+        if (content != null) {
+            chartView.findViewById<TextView>(R.id.content).text = content
+        } else {
+            chartView.findViewById<TextView>(R.id.content).isVisible = false
+        }
+
         populateFn(chartView.findViewById(R.id.chart))
         Alerts.dialog(
             fragment.requireContext(),

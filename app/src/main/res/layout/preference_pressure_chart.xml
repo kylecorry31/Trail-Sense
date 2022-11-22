@@ -11,6 +11,6 @@
     <com.kylecorry.ceres.chart.Chart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="@dimen/chart_height" />
 
 </FrameLayout>
