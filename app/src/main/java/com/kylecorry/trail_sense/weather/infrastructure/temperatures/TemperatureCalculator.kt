@@ -20,7 +20,7 @@ internal class TemperatureCalculator(
 ) {
 
     private val astronomy = AstronomyService()
-    private val maxTempOffset = Duration.ofHours(2)
+    private val maxTempOffset = Duration.ofHours(3)
     private val defaultMaxTime = date.atTime(14, 0).toZonedDateTime()
     private val today by lazy {
         astronomy.getSunTimes(
