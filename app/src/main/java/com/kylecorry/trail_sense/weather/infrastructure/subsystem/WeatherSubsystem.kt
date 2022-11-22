@@ -291,7 +291,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 forecast.first().front,
                 arrival
             ),
-            tendency,
+            tendency.copy(amount = tendency.amount * 3),
             last,
             clouds
         )
