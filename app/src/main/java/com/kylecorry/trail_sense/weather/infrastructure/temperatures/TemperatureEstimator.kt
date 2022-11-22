@@ -33,20 +33,7 @@ internal class TemperatureEstimator(private val context: Context) {
         return calculator.getTemperature(time)
     }
 
-    fun getDailyTemperatureRange(
-        location: Coordinate,
-        date: LocalDate
-    ): Range<Temperature> {
-        val average = getDailyTemperature(location, date)
-        val range = getTemperatureRange(location)
-
-        return Range(
-            average.copy(temperature = average.temperature - range / 2f),
-            average.copy(temperature = average.temperature + range / 2f)
-        )
-    }
-
-    private fun getDailyTemperature(location: Coordinate, date: LocalDate): Temperature {
+    fun getDailyTemperatureRange(location: Coordinate, date: LocalDate): Range<Temperature> {
         return if (date.dayOfMonth == 15) {
             getMonthlyTemperature(location, date)
         } else if (date.dayOfMonth > 15) {
@@ -68,8 +55,9 @@ internal class TemperatureEstimator(private val context: Context) {
                 date.plusMonths(1).withDayOfMonth(15).atStartOfDay()
             )
             val pct = daysSinceMiddle.toDays() / daysBetweenMonths.toDays().toDouble()
-            val lerped = SolMath.lerp(pct.toFloat(), thisMonth.temperature, nextMonth.temperature)
-            Temperature.celsius(lerped)
+            val lerpedLow = SolMath.lerp(pct.toFloat(), thisMonth.start.temperature, nextMonth.start.temperature)
+            val lerpedHigh = SolMath.lerp(pct.toFloat(), thisMonth.end.temperature, nextMonth.end.temperature)
+            Range(Temperature.celsius(lerpedLow), Temperature.celsius(lerpedHigh))
         } else {
             // Load this month and previous
             val thisMonth = getMonthlyTemperature(
@@ -89,29 +77,30 @@ internal class TemperatureEstimator(private val context: Context) {
                 date.withDayOfMonth(15).atStartOfDay()
             )
             val pct = daysSinceMiddle.toDays() / daysBetweenMonths.toDays().toDouble()
-            val lerped = SolMath.lerp(pct.toFloat(), prevMonth.temperature, thisMonth.temperature)
-            Temperature.celsius(lerped)
+            val lerpedLow = SolMath.lerp(pct.toFloat(), prevMonth.start.temperature, thisMonth.start.temperature)
+            val lerpedHigh = SolMath.lerp(pct.toFloat(), prevMonth.end.temperature, thisMonth.end.temperature)
+            Range(Temperature.celsius(lerpedLow), Temperature.celsius(lerpedHigh))
         }
     }
 
-    private fun getMonthlyTemperature(location: Coordinate, date: LocalDate): Temperature {
+    private fun getMonthlyTemperature(location: Coordinate, date: LocalDate): Range<Temperature> {
         val start = floor(location.latitude)
         val end = ceil(location.latitude)
 
         if (start == end) {
-            return HistoricTemperatureLookup.getMonthlyAverageTemperature(
+            return HistoricTemperatureLookup.getMonthlyTemperatureRange(
                 context,
                 location,
                 date.month
             )
         }
 
-        val lower = HistoricTemperatureLookup.getMonthlyAverageTemperature(
+        val lower = HistoricTemperatureLookup.getMonthlyTemperatureRange(
             context,
             location.copy(latitude = start),
             date.month
         )
-        val upper = HistoricTemperatureLookup.getMonthlyAverageTemperature(
+        val upper = HistoricTemperatureLookup.getMonthlyTemperatureRange(
             context,
             location.copy(latitude = end),
             date.month
@@ -119,33 +108,9 @@ internal class TemperatureEstimator(private val context: Context) {
 
         val pct = SolMath.norm(location.latitude, start, end)
 
-        val lerped = SolMath.lerp(pct.toFloat(), lower.temperature, upper.temperature)
-        return Temperature.celsius(lerped)
-    }
-
-    private fun getTemperatureRange(location: Coordinate): Float {
-        val start = floor(location.latitude)
-        val end = ceil(location.latitude)
-
-        if (start == end) {
-            return HistoricTemperatureLookup.getTemperatureDiurnalRange(
-                context,
-                location
-            )
-        }
-
-        val lower = HistoricTemperatureLookup.getTemperatureDiurnalRange(
-            context,
-            location.copy(latitude = start)
-        )
-        val upper = HistoricTemperatureLookup.getTemperatureDiurnalRange(
-            context,
-            location.copy(latitude = end)
-        )
-
-        val pct = SolMath.norm(location.latitude, start, end)
-
-        return SolMath.lerp(pct.toFloat(), lower, upper)
+        val lerpedLow = SolMath.lerp(pct.toFloat(), lower.start.temperature, upper.start.temperature)
+        val lerpedHigh = SolMath.lerp(pct.toFloat(), lower.end.temperature, upper.end.temperature)
+        return Range(Temperature.celsius(lerpedLow), Temperature.celsius(lerpedHigh))
     }
 
 }

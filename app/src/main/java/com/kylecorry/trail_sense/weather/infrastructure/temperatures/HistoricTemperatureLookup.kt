@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
+import androidx.annotation.RawRes
 import com.kylecorry.andromeda.compression.CompressionUtils
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
@@ -11,31 +13,36 @@ import kotlin.math.roundToInt
 
 internal object HistoricTemperatureLookup {
 
-    fun getMonthlyAverageTemperature(
+    fun getMonthlyTemperatureRange(
         context: Context,
         location: Coordinate,
         month: Month
-    ): Temperature {
+    ): Range<Temperature> {
         val loc = location.latitude.roundToInt()
-        val temperature = loadTemperature(context, loc, month)
-        return Temperature(temperature?.toFloat() ?: 0f, TemperatureUnits.F).celsius()
+        val low = loadMinimum(context, loc, month)
+        val high = loadMaximum(context, loc, month)
+        return Range(
+            Temperature(low?.toFloat() ?: 0f, TemperatureUnits.F).celsius(),
+            Temperature(high?.toFloat() ?: 0f, TemperatureUnits.F).celsius()
+        )
     }
 
-    fun getTemperatureDiurnalRange(context: Context, location: Coordinate): Float {
-        val loc = location.latitude.roundToInt()
-        val temperature = loadTemperatureRange(context, loc)?.toFloat() ?: 0f
-        return temperature * 5 / 9f
+    private fun loadMinimum(context: Context, latitude: Int, month: Month): Short? {
+        return loadMonthly(context, latitude, month, R.raw.low_temperatures)
     }
 
-    private fun loadTemperatureRange(context: Context, key: Int): Short? {
-        val input = context.resources.openRawResource(R.raw.temperature_range)
-        val line = 90 + key
-        return CompressionUtils.getShort(input, line)
+    private fun loadMaximum(context: Context, latitude: Int, month: Month): Short? {
+        return loadMonthly(context, latitude, month, R.raw.high_temperatures)
     }
 
-    private fun loadTemperature(context: Context, key: Int, month: Month): Short? {
-        val input = context.resources.openRawResource(R.raw.temperatures)
-        val line = ((month.value - 1) * 181 + (90 + key))
+    private fun loadMonthly(
+        context: Context,
+        latitude: Int,
+        month: Month,
+        @RawRes file: Int
+    ): Short? {
+        val input = context.resources.openRawResource(file)
+        val line = ((month.value - 1) * 181 + (90 + latitude))
         return CompressionUtils.getShort(input, line)
     }
 
