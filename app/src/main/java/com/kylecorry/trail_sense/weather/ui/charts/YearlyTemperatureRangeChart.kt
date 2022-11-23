@@ -10,10 +10,20 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.LocalDate
 
 
-class YearlyTemperatureRangeChart(private val chart: Chart) {
+class YearlyTemperatureRangeChart(
+    private val chart: Chart,
+    private val onClick: (dayOfYear: Int) -> Unit
+) {
 
-    private val lowLine = LineChartLayer(emptyList(), AppColor.Blue.color)
-    private val highLine = LineChartLayer(emptyList(), AppColor.Red.color)
+    private val lowLine = LineChartLayer(emptyList(), AppColor.Blue.color) {
+        onClick(it.x.toInt())
+        true
+    }
+
+    private val highLine = LineChartLayer(emptyList(), AppColor.Red.color) {
+        onClick(it.x.toInt())
+        true
+    }
 
     init {
         chart.configureXAxis(
