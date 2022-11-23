@@ -7,7 +7,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import java.time.Month
+import java.time.LocalDate
 
 
 class YearlyTemperatureRangeChart(private val chart: Chart) {
@@ -19,26 +19,31 @@ class YearlyTemperatureRangeChart(private val chart: Chart) {
         chart.configureXAxis(
             labelCount = 5,
             drawGridLines = true,
-            labelFormatter = MonthChartLabelFormatter(chart.context)
+            labelFormatter = MonthChartLabelFormatter(chart.context, LocalDate.now().year)
         )
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
         chart.plot(lowLine, highLine)
     }
 
-    fun plot(data: List<Pair<Month, Range<Temperature>>>, units: TemperatureUnits) {
+    fun plot(data: List<Pair<Int, Range<Temperature>>>, units: TemperatureUnits, year: Int) {
         val lows = data.map {
             Vector2(
-                it.first.value.toFloat(),
+                it.first.toFloat(),
                 it.second.start.convertTo(units).temperature
             )
         }
         val highs = data.map {
             Vector2(
-                it.first.value.toFloat(),
+                it.first.toFloat(),
                 it.second.start.convertTo(units).temperature
             )
         }
         val range = Chart.getYRange(lows + highs, 5f, 10f)
+        chart.configureXAxis(
+            labelCount = 5,
+            drawGridLines = true,
+            labelFormatter = MonthChartLabelFormatter(chart.context, year)
+        )
         chart.configureYAxis(
             labelCount = 5,
             drawGridLines = true,

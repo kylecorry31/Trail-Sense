@@ -10,7 +10,6 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.extensions.getReadings
 import java.time.Duration
 import java.time.LocalDate
-import java.time.Month
 import java.time.ZonedDateTime
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -42,15 +41,6 @@ internal class TemperatureEstimator(private val context: Context) {
     fun getTemperature(location: Coordinate, time: ZonedDateTime): Temperature {
         val calculator = TemperatureCalculator(context, location, time.toLocalDate())
         return calculator.getTemperature(time)
-    }
-
-    fun getYearlyTemperatureRanges(location: Coordinate): List<Pair<Month, Range<Temperature>>> {
-        return Month.values().map {
-            it to getDailyTemperatureRange(
-                location,
-                LocalDate.now().withDayOfMonth(15).withMonth(it.value)
-            )
-        }
     }
 
     fun getDailyTemperatureRange(location: Coordinate, date: LocalDate): Range<Temperature> {
