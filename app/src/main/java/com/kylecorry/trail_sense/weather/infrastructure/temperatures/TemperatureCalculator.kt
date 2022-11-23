@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -50,6 +51,10 @@ internal class TemperatureCalculator(
         val tomorrow =
             astronomy.getSunTimes(location, SunTimesMode.Actual, date.plusDays(1))
         tomorrow.rise ?: date.atStartOfDay().minusDays(1).toZonedDateTime()
+    }
+
+    val predictionRange by lazy {
+        Range(startTime, tomorrowMin)
     }
 
     private val range by lazy {

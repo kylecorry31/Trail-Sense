@@ -4,8 +4,6 @@ import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.time.Time.atEndOfDay
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -18,13 +16,24 @@ import kotlin.math.floor
 
 internal class TemperatureEstimator(private val context: Context) {
 
-    fun getTemperaturesForDay(location: Coordinate, date: LocalDate): List<Reading<Temperature>> {
-        val calculator = TemperatureCalculator(context, location, date)
+    fun getTemperatures(
+        start: ZonedDateTime,
+        end: ZonedDateTime,
+        location: Coordinate
+    ): List<Reading<Temperature>> {
+        val calculators = listOf(
+            TemperatureCalculator(context, location, start.toLocalDate().minusDays(1)),
+            TemperatureCalculator(context, location, start.toLocalDate()),
+            TemperatureCalculator(context, location, start.toLocalDate().plusDays(1))
+        )
         return getReadings(
-            date.atStartOfDay().toZonedDateTime(),
-            date.atEndOfDay().toZonedDateTime(),
+            start,
+            end,
             Duration.ofMinutes(10)
         ) {
+            val calculator =
+                calculators.firstOrNull { calculator -> calculator.predictionRange.contains(it) }
+                    ?: calculators.last()
             calculator.getTemperature(it)
         }
     }

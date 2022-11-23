@@ -183,7 +183,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     override suspend fun getTemperatureForecast(
-        date: LocalDate,
+        start: ZonedDateTime,
+        end: ZonedDateTime,
         location: Coordinate?,
         elevation: Distance?
     ): List<Reading<Temperature>> = onDefault {
@@ -198,7 +199,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             lookupLocation = location
             lookupElevation = elevation
         }
-        val temperatures = estimator.getTemperaturesForDay(lookupLocation, date)
+        val temperatures = estimator.getTemperatures(start, end, lookupLocation)
         temperatures.map {
             it.copy(
                 value = Meteorology.getTemperatureAtElevation(
