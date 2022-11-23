@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 import java.time.Duration
 import java.time.LocalDate
-import java.time.Month
 import java.time.ZonedDateTime
 
 // TODO: Split into two subsystems: Weather and Weather Monitor
@@ -40,11 +39,6 @@ interface IWeatherSubsystem {
         location: Coordinate? = null,
         elevation: Distance? = null
     ): Range<Temperature>
-
-    suspend fun getYearlyTemperatureRanges(
-        location: Coordinate? = null,
-        elevation: Distance? = null
-    ): List<Pair<Month, Range<Temperature>>>
 
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
     suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
