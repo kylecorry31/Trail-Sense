@@ -1234,6 +1234,9 @@
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">High / Low</string>
     <string name="altimeter_cache">Altimeter cache</string>
+    <!--This is in markdown formatting, %s will be replaced by the time of high / low -->
+    <string name="high_low_temperature_dialog">**Low**: %s\n\n**High**: %s</string>
+
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

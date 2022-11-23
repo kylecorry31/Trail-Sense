@@ -432,7 +432,7 @@ object CustomUiUtils {
     fun showChart(
         fragment: Fragment,
         title: String,
-        content: String? = null,
+        content: CharSequence? = null,
         populateFn: (Chart) -> Unit
     ) {
         val chartView = View.inflate(fragment.requireContext(), R.layout.view_chart_prompt, null)
