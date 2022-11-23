@@ -1060,4 +1060,8 @@
     <string name="high_pressure_system_description">Verbunden mit schönem Wetter, klarem Himmel und kühleren Temperaturen.</string>
     <string name="nimbostratus_forecast">In den nächsten %d Stunden kann es zu Niederschlägen kommen.</string>
     <string name="cumulonimbus_forecast">Kann auf ein Gewitter in wenigen Minuten hindeuten.</string>
+    <string name="weather_overcast">Bewölkt</string>
+    <string name="cloud_stratus_forecast">Kann schönes Wetter für die nächsten %d Stunden anzeigen, wenn es neblig ist, ansonsten kann es bald Niederschläge geben.</string>
+    <string name="then_weather">danach %s</string>
+    <string name="pref_show_map_previews_title">Kartenvorschau anzeigen</string>
 </resources>
