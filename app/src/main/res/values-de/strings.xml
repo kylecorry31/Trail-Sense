@@ -387,7 +387,7 @@
     <string name="cumulonimbus_desc">Niedrige, bauschige Wolken, nicht sehr groß. Sie haben typischerweise eine Ambossform und sind dunkel.</string>
     <string name="cumulus_desc">Niedrige Wolken, wie Wattebäusche. Sie sind voneinander getrennt und typischerweise weiß mit dunkleren Stellen an der Unterseite.</string>
     <string name="stratus_desc">Eine niedrige Wolke, die den Himmel bedeckt. Objekte werfen keinen Schatten und es könnte neblig sein.</string>
-    <string name="nimbostratus_desc">Eine Wolke mittlerer Höhe, dunkelgrau, und bedeckt den Himmel. Es regnet vielleicht bald.</string>
+    <string name="nimbostratus_desc">Eine mittelhohe Wolke, die dunkelgrau ist und den Himmel bedeckt. Wenn es nicht regnet, kann es sich um eine Stratuswolke handeln.</string>
     <string name="altostratus_desc">Eine Wolke mittlerer Höhe, die den Himmel bedeckt. Die Sonne ist kaum, als helle Stelle, zu sehen.</string>
     <string name="altocumulus_desc">Mittlere Höhe, bauschige Wolken, die wie Wattebäusche aussehen. Sind typischerweise weiß mit dunkleren Stellen an der Unterseite und können getrennt oder wie ein Blatt sein.</string>
     <string name="cirrostratus_desc">Eine hohe Wolke, die den Himmel bedeckt. Transparent und erzeugt typischerweise einen Halo, der sich um die Sonne bildet.</string>
@@ -1050,4 +1050,14 @@
     <string name="high_pressure">Hoch</string>
     <string name="low_pressure">Tief</string>
     <string name="weather_front">Wetterfront</string>
+    <string name="pressure_system">Drucksystem</string>
+    <string name="cloud_fair_forecast_hours">Kann auf schönes Wetter für die nächsten %d Stunden hinweisen.</string>
+    <string name="low_pressure_system_description">Verbunden mit schlechtem Wetter, bedecktem Himmel und wärmeren Temperaturen.</string>
+    <string name="weather_warm_front">Warm</string>
+    <string name="now">Jetzt</string>
+    <string name="cumulus_forecast">Kann auf schönes Wetter hinweisen. Wenn sie größer werden, kann dies auf Niederschlag oder ein Gewitter in den nächsten %d Stunden hinweisen.</string>
+    <string name="weather_cold_front">Kalt</string>
+    <string name="high_pressure_system_description">Verbunden mit schönem Wetter, klarem Himmel und kühleren Temperaturen.</string>
+    <string name="nimbostratus_forecast">In den nächsten %d Stunden kann es zu Niederschlägen kommen.</string>
+    <string name="cumulonimbus_forecast">Kann auf ein Gewitter in wenigen Minuten hindeuten.</string>
 </resources>
