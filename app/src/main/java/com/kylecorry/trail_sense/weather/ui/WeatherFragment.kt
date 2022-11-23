@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.buildSpannedString
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
@@ -13,9 +12,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
@@ -37,10 +34,10 @@ import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsyst
 import com.kylecorry.trail_sense.weather.ui.charts.HumidityChart
 import com.kylecorry.trail_sense.weather.ui.charts.PressureChart
 import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChart
+import com.kylecorry.trail_sense.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
 import com.kylecorry.trail_sense.weather.ui.fields.*
 import java.time.Duration
 import java.time.Instant
-import java.time.LocalDate
 
 class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
@@ -318,41 +315,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun showTemperatureForecast() {
         inBackground {
-            val forecast = onIO { weatherSubsystem.getTemperatureForecast(LocalDate.now()) }
-            val timeOfLow = onDefault {
-                forecast.minByOrNull { it.value.temperature }?.time ?: Instant.now()
-            }.toZonedDateTime().toLocalTime()
-            val timeOfHigh = onDefault {
-                forecast.maxByOrNull { it.value.temperature }?.time ?: Instant.now()
-            }.toZonedDateTime().toLocalTime()
-
-            val timeStr = MarkdownService(requireContext()).toMarkdown(
-                getString(
-                    R.string.high_low_temperature_dialog,
-                    formatService.formatTime(timeOfLow, includeSeconds = false),
-                    formatService.formatTime(timeOfHigh, includeSeconds = false),
-                )
-            )
-
-            val description = buildSpannedString {
-                append(timeStr)
-                append("\n\n")
-                append(getString(R.string.historical_temperature_disclaimer))
-            }
-
-            CustomUiUtils.showChart(
-                this@WeatherFragment,
-                getString(R.string.temperature),
-                description
-            ) {
-                val chart = TemperatureChart(it)
-                chart.plot(forecast.map { reading ->
-                    Reading(
-                        reading.value.convertTo(temperatureUnits).temperature,
-                        reading.time
-                    )
-                })
-            }
+            ShowHighLowTemperatureDialogCommand(this@WeatherFragment).execute()
         }
     }
 

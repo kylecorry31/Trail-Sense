@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
@@ -185,20 +186,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         date: LocalDate,
         location: Coordinate?,
         elevation: Distance?
-    ): List<Reading<Temperature>> {
+    ): List<Reading<Temperature>> = onDefault {
         val lookupLocation: Coordinate
         val lookupElevation: Distance
         if (location == null || elevation == null) {
             val last = getRawHistory().lastOrNull()
-            lookupLocation = last?.value?.location ?: this.location.location
+            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
             lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) } ?: this.location.elevation
+                last?.value?.altitude?.let { Distance.meters(it) } ?: this@WeatherSubsystem.location.elevation
         } else {
             lookupLocation = location
             lookupElevation = elevation
         }
         val temperatures = estimator.getTemperaturesForDay(lookupLocation, date)
-        return temperatures.map {
+        temperatures.map {
             it.copy(
                 value = Meteorology.getTemperatureAtElevation(
                     it.value,
@@ -213,20 +214,20 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         date: LocalDate,
         location: Coordinate?,
         elevation: Distance?
-    ): Range<Temperature> {
+    ): Range<Temperature> = onDefault {
         val lookupLocation: Coordinate
         val lookupElevation: Distance
         if (location == null || elevation == null) {
             val last = getRawHistory().lastOrNull()
-            lookupLocation = last?.value?.location ?: this.location.location
+            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
             lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) } ?: this.location.elevation
+                last?.value?.altitude?.let { Distance.meters(it) } ?: this@WeatherSubsystem.location.elevation
         } else {
             lookupLocation = location
             lookupElevation = elevation
         }
         val temperatures = estimator.getDailyTemperatureRange(lookupLocation, date)
-        return Range(
+        Range(
             Meteorology.getTemperatureAtElevation(
                 temperatures.start,
                 Distance.meters(0f),
@@ -356,7 +357,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 weatherRepo.get(it)
             }
             val location = lastRawReading?.value?.location ?: location.location
-            val elevation = lastRawReading?.value?.altitude?.let { Distance.meters(it) } ?: this.location.elevation
+            val elevation = lastRawReading?.value?.altitude?.let { Distance.meters(it) }
+                ?: this.location.elevation
 
             val range = estimator.getDailyTemperatureRange(
                 location,

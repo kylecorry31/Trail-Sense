@@ -8,11 +8,11 @@
 
     <com.kylecorry.ceres.toolbar.CeresToolbar
         android:id="@+id/beacon_title"
-        app:rightButtonIcon="@drawable/ic_menu_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:title="Test Name"
-        tools:subtitle="0, 0"/>
+        app:rightButtonIcon="@drawable/ic_menu_dots"
+        tools:subtitle="0, 0"
+        tools:title="Test Name" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/beacon_grid"
@@ -40,6 +40,15 @@
             android:layout_margin="8dp"
             app:dataPointDescription="@string/distance"
             app:dataPointIcon="@drawable/ruler"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/temperature_high_low"
+            app:dataPointIcon="@drawable/ic_temperature_range"
             app:layout_columnWeight="1" />
 
     </androidx.gridlayout.widget.GridLayout>

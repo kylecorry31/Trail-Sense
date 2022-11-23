@@ -19,9 +19,14 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
@@ -29,6 +34,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val gps by lazy { SensorService(requireContext()).getGPS(false) }
+    private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }
 
     private var beacon: Beacon? = null
     private var beaconId: Long? = null
@@ -40,21 +46,24 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     private fun loadBeacon(id: Long) {
         inBackground {
-            withContext(Dispatchers.IO) {
+            onIO {
                 beacon = beaconRepo.getBeacon(id)?.toBeacon()
             }
 
-            withContext(Dispatchers.Main) {
+            onMain {
                 beacon?.apply {
+                    updateBeaconTemperature(this)
+
                     binding.beaconTitle.title.text = this.name
-                    binding.beaconTitle.subtitle.text = formatService.formatLocation(this.coordinate)
+                    binding.beaconTitle.subtitle.text =
+                        formatService.formatLocation(this.coordinate)
 
                     if (this.elevation != null) {
                         val d = Distance.meters(this.elevation).convertTo(prefs.baseDistanceUnits)
                         binding.beaconAltitude.title =
                             formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
                     } else {
-                        binding.beaconAltitude.isVisible = false
+                        binding.beaconGrid.removeView(binding.beaconAltitude)
                     }
 
                     if (!this.comment.isNullOrEmpty()) {
@@ -112,6 +121,35 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private suspend fun updateBeaconTemperature(beacon: Beacon) {
+        val temperatureRange = weather.getTemperatureRange(
+            LocalDate.now(),
+            beacon.coordinate,
+            Distance.meters(beacon.elevation ?: 0f)
+        )
+
+        val units = prefs.temperatureUnits
+        val lowValue = formatService.formatTemperature(
+            temperatureRange.start.convertTo(units)
+        )
+        val highValue = formatService.formatTemperature(
+            temperatureRange.end.convertTo(units)
+        )
+
+        binding.beaconTemperature.title =
+            getString(R.string.slash_separated_pair, highValue, lowValue)
+
+        binding.beaconTemperature.setOnClickListener {
+            inBackground {
+                ShowHighLowTemperatureDialogCommand(
+                    this@BeaconDetailsFragment,
+                    beacon.coordinate,
+                    Distance.meters(beacon.elevation ?: 0f)
+                ).execute()
             }
         }
     }
