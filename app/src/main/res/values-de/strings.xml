@@ -1064,4 +1064,13 @@
     <string name="cloud_stratus_forecast">Kann schönes Wetter für die nächsten %d Stunden anzeigen, wenn es neblig ist, ansonsten kann es bald Niederschläge geben.</string>
     <string name="then_weather">danach %s</string>
     <string name="pref_show_map_previews_title">Kartenvorschau anzeigen</string>
+    <string name="sensor">Sensor</string>
+    <string name="historic">Historisch</string>
+    <string name="altimeter_cache">Höhenmesser-Cache</string>
+    <string name="samples">Proben</string>
+    <string name="sensor_summary">Kompass, GPS, Höhenmesser, Barometer, usw.</string>
+    <string name="temperature_high_low">Hoch / Niedrig</string>
+    <string name="historical_temperature_disclaimer">Geschätzt basierend auf historischen Temperaturen für Ihren Standort.</string>
+    <string name="smoothing">Glättung</string>
+    <string name="next_24_hours">Nächste 24 Stunden</string>
 </resources>
