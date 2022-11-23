@@ -1054,7 +1054,7 @@
     <string name="cloud_fair_forecast_hours">Kann auf schönes Wetter für die nächsten %d Stunden hinweisen.</string>
     <string name="low_pressure_system_description">Verbunden mit schlechtem Wetter, bedecktem Himmel und wärmeren Temperaturen.</string>
     <string name="weather_warm_front">Warm</string>
-    <string name="now">Jetzt</string>
+    <string name="now">Derzeit</string>
     <string name="cumulus_forecast">Kann auf schönes Wetter hinweisen. Wenn sie größer werden, kann dies auf Niederschlag oder ein Gewitter in den nächsten %d Stunden hinweisen.</string>
     <string name="weather_cold_front">Kalt</string>
     <string name="high_pressure_system_description">Verbunden mit schönem Wetter, klarem Himmel und kühleren Temperaturen.</string>
