@@ -28,11 +28,10 @@ import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.weather.infrastructure.HourlyArrivalTime
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZonedDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.*
 
 class FormatService(private val context: Context) {
 
@@ -115,6 +114,13 @@ class FormatService(private val context: Context) {
         } else {
             time.format(DateTimeFormatter.ofPattern("H${if (includeMinutes) ":mm" else ""}${if (includeSeconds) ":ss" else ""}"))
         }
+    }
+
+    fun formatMonth(
+        month: Month,
+        short: Boolean = false
+    ): String {
+        return month.getDisplayName(if (short) TextStyle.SHORT else TextStyle.FULL, Locale.getDefault())
     }
 
     fun formatDate(
