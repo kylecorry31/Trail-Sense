@@ -475,7 +475,7 @@
     <string name="pref_sun_time_mode_title">Napkelte / Napnyugta időpontjai</string>
     <string name="update_180_minutes">3 óra</string>
     <string name="update_30_minutes">30 perc</string>
-    <string name="error_occurred_message">A Trail Sense hibába futott és most leáll. Kérlek, írj e-mailt a fejlesztőnek a hiba javításához.</string>
+    <string name="error_occurred_message">A Trail Sense hibába futott. Kérlek, írj e-mailt a fejlesztőnek a hiba javításához.</string>
     <string name="update_60_minutes">1 óra</string>
     <string name="pref_sunset_alert_time_title">Napnyugta figyelmeztetés ideje</string>
     <string name="tap_sun_moon_hint">Nyomj a Napra vagy a Holdra a pozíció részleteiért</string>
@@ -503,9 +503,9 @@
     <string name="stratus">Stratus (rétegfelhő)</string>
     <string name="stratocumulus">Stratocumulus (gomolyos rétegfelhő)</string>
     <string name="cirrocumulus_desc">Magas szinti felhők, melyek hullámos leplet alkotnak. A leplet kis, síkszerűnek tűnő pontok alkotják.</string>
-    <string name="cloud_precipitation_forecast_hour_range">Csapadékot jelezhet a következő %d-%d órában</string>
+    <string name="cloud_precipitation_forecast_hour_range">Csapadékot jelezhet a következő %d - %d órában.</string>
     <string name="altostratus_desc">Középszintű felhő, mely beborítja a teljes eget. A nap csak egy világos foltként látszik.</string>
-    <string name="nimbostratus_desc">Középszintű, sötétszürke felhő, mely beborítja az eget. Eshet belőle.</string>
+    <string name="nimbostratus_desc">Középszintű, sötétszürke felhő, mely beborítja az eget. Ha nem esik belőle, elképzelhető, hogy rétegfelhő.</string>
     <string name="gps_searching">Keresés</string>
     <string name="quality_good">Jó</string>
     <string name="network_2g">2G</string>
@@ -1032,4 +1032,7 @@
     <string name="weather_monitor_disabled_resolution">Engedélyezd az időjárás figyelést az időjárás-beállításokban</string>
     <string name="paths">Ösvények</string>
     <string name="keep_forever">Megtartás örökre</string>
+    <string name="altocumulus_forecast">Csapadékot vagy vihart jelezhet a következő %d órában.</string>
+    <string name="cumulus_forecast">Jó időt jelezhet. Ha magasra nőnek, csapadékot vagy vihart jelezhet a következő %d órában.</string>
+    <string name="cumulonimbus_forecast">Vihart jelezhet perceken belül.</string>
 </resources>
