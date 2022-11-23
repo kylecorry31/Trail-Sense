@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.altimeter.FilteredAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.readAll
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import java.time.Duration
@@ -50,7 +50,7 @@ internal class WeatherObserver(
                 barometer.pressure,
                 altimeter.altitude,
                 if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
-                if (altimeter is FilteredAltimeter) (altimeter as FilteredAltimeter).altitudeAccuracy else 0f,
+                if (altimeter is AltimeterWrapper) (altimeter as AltimeterWrapper).altitudeAccuracy else 0f,
                 hygrometer.humidity,
                 gps.location
             ),

@@ -35,13 +35,9 @@ import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.altimeter.FilteredAltimeter
-import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
-import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.*
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
@@ -74,8 +70,10 @@ class SensorService(ctx: Context) {
     fun getGPSFromAltimeter(altimeter: IAltimeter): IGPS? {
         return if (altimeter is IGPS) {
             altimeter
-        } else if (altimeter is FilteredAltimeter && altimeter.altimeter is IGPS) {
+        } else if (altimeter is AltimeterWrapper && altimeter.altimeter is IGPS) {
             altimeter.altimeter as IGPS
+        } else if (altimeter is AltimeterWrapper && altimeter.altimeter is AltimeterWrapper) {
+            getGPSFromAltimeter(altimeter.altimeter)
         } else {
             null
         }
@@ -127,9 +125,11 @@ class SensorService(ctx: Context) {
     }
 
     fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false): IAltimeter {
-        // TODO: Create a wrapper to cache latest altitude value
         if (preferGPS) {
-            return GaussianAltimeter(getGPSAltimeter(background), userPrefs.altimeterSamples)
+            return CachingAltimeterWrapper(
+                context,
+                GaussianAltimeterWrapper(getGPSAltimeter(background), userPrefs.altimeterSamples)
+            )
         }
 
         val mode = userPrefs.altimeterMode
@@ -140,7 +140,10 @@ class SensorService(ctx: Context) {
                 context
             )
         ) {
-            return Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
+            return CachingAltimeterWrapper(
+                context,
+                Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
+            )
         } else {
             if (!GPS.isAvailable(context)) {
                 return CachedAltimeter(context)
@@ -152,9 +155,15 @@ class SensorService(ctx: Context) {
                     context
                 )
             ) {
-                FusedAltimeter(gps, Barometer(context))
+                CachingAltimeterWrapper(
+                    context,
+                    FusedAltimeter(gps, Barometer(context))
+                )
             } else {
-                GaussianAltimeter(gps, userPrefs.altimeterSamples)
+                CachingAltimeterWrapper(
+                    context,
+                    GaussianAltimeterWrapper(gps, userPrefs.altimeterSamples),
+                )
             }
         }
     }

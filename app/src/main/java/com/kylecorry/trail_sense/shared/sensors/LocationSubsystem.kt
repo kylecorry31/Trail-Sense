@@ -11,9 +11,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors.overrides
+package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor

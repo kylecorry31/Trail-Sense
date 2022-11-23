@@ -1233,6 +1233,7 @@
     <string name="historic">Historic</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">High / Low</string>
+    <string name="altimeter_cache">Altimeter cache</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>

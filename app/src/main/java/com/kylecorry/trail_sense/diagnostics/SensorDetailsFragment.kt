@@ -26,10 +26,10 @@ import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.NullBarometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import java.time.Duration
 import java.time.Instant
@@ -48,6 +48,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
+    private val cachedAltimeter by lazy { CachedAltimeter(requireContext(), 500) }
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
@@ -85,6 +86,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         sensorListView.addLineSeparator()
 
         observe(cachedGPS) { updateGPSCache() }
+        observe(cachedAltimeter) { updateAltimeterCache() }
         observe(gps) { updateGPS() }
         observe(compass) { updateCompass() }
         observe(barometer) { updateBarometer() }
@@ -158,6 +160,21 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             getGPSCacheStatus(),
             CustomUiUtils.getQualityColor(getGPSCacheQuality()),
             R.drawable.satellite
+        )
+    }
+
+    private fun updateAltimeterCache() {
+        val altitude = Distance(
+            cachedAltimeter.altitude,
+            DistanceUnits.Meters
+        ).convertTo(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Meters else DistanceUnits.Feet)
+
+        sensorDetailsMap["altimeter_cache"] = SensorDetails(
+            getString(R.string.altimeter_cache),
+            formatService.formatDistance(altitude),
+            getAltimeterCacheStatus(),
+            CustomUiUtils.getQualityColor(getAltimeterCacheQuality()),
+            R.drawable.ic_altitude
         )
     }
 
@@ -361,6 +378,22 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
     private fun getGPSCacheQuality(): Quality {
         return if (cachedGPS.location == Coordinate.zero) {
+            Quality.Poor
+        } else {
+            Quality.Good
+        }
+    }
+
+    private fun getAltimeterCacheStatus(): String {
+        return if (cachedAltimeter.altitude == 0f) {
+            getString(R.string.unavailable)
+        } else {
+            formatService.formatQuality(Quality.Good)
+        }
+    }
+
+    private fun getAltimeterCacheQuality(): Quality {
+        return if (cachedAltimeter.altitude == 0f) {
             Quality.Poor
         } else {
             Quality.Good

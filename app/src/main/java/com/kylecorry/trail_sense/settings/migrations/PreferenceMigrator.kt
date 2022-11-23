@@ -6,6 +6,8 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
 
@@ -34,7 +36,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 11
+        private const val version = 12
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -144,6 +146,12 @@ class PreferenceMigrator private constructor() {
                     )
                 }
                 prefs.remove("pref_astronomy_alerts_last_run_date")
+            },
+            PreferenceMigration(11, 12) { _, prefs ->
+                val elevation = prefs.getFloat(CustomGPS.LAST_ALTITUDE)
+                if (elevation != null) {
+                    prefs.putFloat(CachingAltimeterWrapper.LAST_ALTITUDE_KEY, elevation)
+                }
             }
         )
 

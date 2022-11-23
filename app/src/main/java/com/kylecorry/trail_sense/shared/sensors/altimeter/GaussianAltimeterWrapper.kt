@@ -2,13 +2,14 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.math.statistics.GaussianDistribution
 import com.kylecorry.sol.math.statistics.Statistics
 
-class GaussianAltimeter(override val altimeter: IAltimeter, samples: Int = 4) : AbstractSensor(),
-    FilteredAltimeter {
+class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int = 4) : AbstractSensor(),
+    AltimeterWrapper {
 
     // TODO: Add this to IAltimeter
     override var altitudeAccuracy: Float? = null
@@ -33,6 +34,9 @@ class GaussianAltimeter(override val altimeter: IAltimeter, samples: Int = 4) : 
 
     override val hasValidReading: Boolean
         get() = altimeter.hasValidReading && buffer.isFull()
+
+    override val quality: Quality
+        get() = altimeter.quality
 
     private fun onReading(): Boolean {
         val distribution = GaussianDistribution(
