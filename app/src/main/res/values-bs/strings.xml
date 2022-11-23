@@ -321,20 +321,16 @@
 \nUskoro će doći još vodiča.</string>
     <string name="privacy_and_location">Privatnost i Lokacija</string>
     <string name="metal_detector_disclaimer">Otkriva samo magnetne metale (npr. Željezo)</string>
-
-
-
-
-    <string name="cirrus_desc">Visoko i pernato.</string>
-    <string name="cumulonimbus_desc">Tamno sivo, visoko i u obliku nakovnja.</string>
-    <string name="cumulus_desc">Izgleda kao napuhane kuglice od pamuka.</string>
-    <string name="cirrocumulus_desc">Oblikuje valoviti lim, oblaci gotovo izgledaju dvodimenzionalno.</string>
-    <string name="stratocumulus_desc">Valjane mase koje čine lim.</string>
-    <string name="stratus_desc">Pokriva nebo, predmeti ne daju sjenke.</string>
-    <string name="nimbostratus_desc">Tamno sivo i prekriva nebo. Možda pada kiša.</string>
-    <string name="altostratus_desc">Pokriva nebo, sunce se jedva vidi.</string>
-    <string name="altocumulus_desc">Izgleda kao napuhane kuglice od pamuka.</string>
-    <string name="cirrostratus_desc">Pokriva nebo, ali se kroz njega vidi sunce.</string>
+    <string name="cirrus_desc">Visoki oblaci koji izgledaju kao pramenovi bijele kose.</string>
+    <string name="cumulonimbus_desc">Niski napuhani oblaci koji su veoma visoki. Obično imaju oblik nakovnja i tamne su boje.</string>
+    <string name="cumulus_desc">Niski napuhani oblaci koji izgledaju kao pamučne kuglice. Razmaknute su i obično su bijele s tamnijim mrljama ispod.</string>
+    <string name="cirrocumulus_desc">Oblaci visokog nivoa koji formiraju talasastu ploču. List je sastavljen od malih tačaka koje izgledaju gotovo dvodimenzionalno.</string>
+    <string name="stratocumulus_desc">Niski oblaci koji izgledaju kao list pamuka sa malim prazninama. Boja se kreće od bijele do tamno sive.</string>
+    <string name="stratus_desc">Nizak oblak koji prekriva nebo. Predmeti ne bacaju sjenke i može biti magla.</string>
+    <string name="nimbostratus_desc">Oblak srednjeg nivoa koji je tamno siv i prekriva nebo. Ako ne pada kiša, možda je riječ o slojevitom oblaku.</string>
+    <string name="altostratus_desc">Oblak srednjeg nivoa koji prekriva nebo. Sunce se jedva vidi kao svijetla mrlja.</string>
+    <string name="altocumulus_desc">Nabujali oblaci srednjeg nivoa koji izgledaju kao pamučne kuglice. Obično su bijele boje s tamnijim mrljama ispod i mogu biti razmaknute ili u obliku listova.</string>
+    <string name="cirrostratus_desc">Visok oblak koji prekriva nebo. Proziran je i obično uzrokuje formiranje oreola oko sunca.</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="cumulus">Cumulus</string>
     <string name="stratocumulus">Stratocumulus</string>
@@ -460,7 +456,6 @@
     <string name="tool_cliff_height_description">Izmjerite visinu litice ili pada</string>
     <string name="tool_cliff_height_title">Visina Litice</string>
     <string name="toast_destination_bearing_set">Odredišni ležaj postavljen</string>
-
     <string name="category_natural">Prirodno</string>
     <string name="category_safety">Sigurnost</string>
     <string name="category_shelter">Sklonište</string>
@@ -478,7 +473,6 @@
     <string name="forecasts_category">Prognoze</string>
     <string name="advanced">Napredno</string>
     <string name="tap_sun_moon_hint">Za detalje položaja dodirnite sunce ili mjesec</string>
-
     <string name="no_group">Bez grupe</string>
     <string name="group">Grupa</string>
     <string name="beacon_create_beacon">Svjetionik</string>
@@ -486,7 +480,7 @@
     <string name="delete_beacon_group_message">%s i svi njegovi svjetionici će biti izbrisani.</string>
     <string name="tool_user_guide_summary">Vodič kako koristiti Trail Sense</string>
     <string name="tool_user_guide_title">Korisnički Vodič</string>
-    <string name="error_occurred_message">Trail Sense je naišao na grešku i zatvorit će se. Pošaljite programeru da ispravi ovaj problem.</string>
+    <string name="error_occurred_message">Trail Sense je naišao na grešku. Pošaljite programeru da ispravi ovaj problem.</string>
     <string name="error_occurred">Dogodila se greška</string>
     <string name="pref_email_title">Pošalji mejl programeru</string>
     <string name="pref_github_title">GitHub</string>
@@ -609,7 +603,7 @@
 \n
 \nStupnjevi za decine u minutama (npr. 1 ° 23,12\'N, 3 ° 12,1\'Z)
 \n
-\nStupnjevi minute sekunde (npr. 1 ° 23\'12,1 \"N, 3 ° 12\" 1,2\'W)
+\nStupnjevi minute sekunde (npr. 1 ° 23\'12,1 \"N, 3 ° 12\'1,2\"W)
 \n
 \nUTM (npr. 03T 12345E 67890N)
 \n
@@ -686,7 +680,7 @@
     <string name="delete">Izbriši</string>
     <string name="subtract">Oduzmi</string>
     <string name="add">Sabiraj</string>
-    <string name="set_inclination_instructions">Dodirnite bilo gdje da postavite/poništite kut nagiba</string>
+    <string name="set_inclination_instructions">Dodirnite ili držite bilo gdje da kut nagiba otključate/zaključate</string>
     <string name="clinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
     <string name="tool_clinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
     <string name="clinometer_title">Inklinometar</string>
@@ -710,4 +704,387 @@
     <string name="pack_sort_percent_low_to_high">Postotina spakovana (niska do visoke)</string>
     <string name="sort">Razvrstaj</string>
     <string name="current_format">%s mA</string>
+    <string name="notification_weather_update_title">Ažuriranje Vremenskog Monitora</string>
+    <string name="new_text">Novo</string>
+    <string name="precipitation_rain">Kiša</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d putanja</item>
+        <item quantity="few">%d putanje</item>
+        <item quantity="other">%d putanjih</item>
+    </plurals>
+    <string name="units_mmhg">mmHg</string>
+    <string name="delete_path">Izbrišite putanju\?</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d međutočka će biti izbrisana</item>
+        <item quantity="few">%d međutočke će biti izbrisane</item>
+        <item quantity="other">%d međutočkih će biti izbrisano</item>
+    </plurals>
+    <string name="precipitation_snow">Snijeg</string>
+    <string name="precipitation_snow_pellets">Snježne pahuljice</string>
+    <string name="precipitation_small_hail">Mali Grad</string>
+    <string name="capture">Snimanje</string>
+    <string name="precipitation_chance">Prilike za padavine: %s</string>
+    <string name="choose_photo">Odaberite fotografiju</string>
+    <string name="notification_backtrack_update_title">Ažuriranje Izatraga</string>
+    <string name="notification_weather_update_content">Snimanje pritiska</string>
+    <string name="shortest">Najkraće</string>
+    <string name="paths">Putanje</string>
+    <string name="keep_forever">Zadrži zauvijek</string>
+    <string name="elevation_loss">Gubitak na uzvišenju</string>
+    <string name="cloud_photo_mask_toast">Tapnite fotografiju da promijenite masku</string>
+    <string name="no_camera_access">Nije moguće pristupiti kameri</string>
+    <string name="path">Putanja</string>
+    <string name="sort_by">Poredaj: %s</string>
+    <string name="closest">Najbliže</string>
+    <string name="most_recent">Najnovije</string>
+    <string name="longest">Najduže</string>
+    <string name="duration">Trajanje</string>
+    <string name="elevation_gain">Dobitak na uzvišenju</string>
+    <string name="easy">Lagano</string>
+    <string name="difficulty">Razina</string>
+    <string name="hard">Teško</string>
+    <string name="distance_unset">Udaljenost je nepostavljena</string>
+    <string name="map_projection_mercator">Merkator</string>
+    <string name="clinometer_measure_distance_instructions">Za mjerenje udaljenosti do cilja koji je visok %s:
+\n
+\n1. Poravnajte klinometar sa bazom mete
+\n2. Dodirnite ekran i zadržite
+\n3. Postavite klinometar na vrh mete
+\n4. Otpustite da zaključate i vidite udaljenost do mete</string>
+    <string name="clinometer_measure_height_instructions">Za mjerenje visine mete koja je udaljena %s:
+\n
+\n1. Poravnajte klinometar sa bazom mete
+\n2. Dodirnite ekran i zadržite
+\n3. Postavite klinometar na vrh mete
+\n4. Otpustite da zaključate i vidite visinu mete</string>
+    <string name="avalanche_risk">Rizik od lavine</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Zaključajte sa dugmadima jačine zvuka</string>
+    <string name="height">Visina</string>
+    <string name="clinometer_measure_distance_title">Visina mete</string>
+    <string name="measure">Mjera</string>
+    <string name="clinometer_measure_height_title">Udaljenost do mete</string>
+    <string name="compass_accuracy">Preciznost kompasa</string>
+    <string name="compass_unavailable">Kompas je nedostupan</string>
+    <string name="gps_unavailable">GPS je nedostupan</string>
+    <string name="weather_monitor_disabled_resolution">Omogućite praćenje vremena iz vremenskih postavki</string>
+    <string name="error_banners">Barjaci o grešci</string>
+    <string name="errors">Greške</string>
+    <string name="beacon_created">Svjetionik je napravljen</string>
+    <string name="open">Otvori</string>
+    <string name="no_paths">Nema putanja</string>
+    <string name="get_gps_signal">Izađite napolje sa neometanim pogledom na nebo.</string>
+    <string name="unblock_notification_channel">Deblokirajte %s obavještenje za Trail Sense</string>
+    <string name="weather_no_change">Nema promjene</string>
+    <string name="soon">Uskoro</string>
+    <string name="since_time">od %s</string>
+    <string name="cross">Križ</string>
+    <string name="pref_default_path_color_title">Zadana boja putanje</string>
+    <string name="diagnostic_message_template">%s: %s
+\n
+\n### Pogođeni alati
+\n%s
+\n
+\n### Rezolucija
+\n%s</string>
+    <string name="temperature_history">Povijest temperature - zadnjih %s</string>
+    <string name="auto">Automatski</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="old">Staro</string>
+    <string name="navigate">Navigirajte</string>
+    <string name="path_exported">Putanja je izvezena</string>
+    <string name="export_path_error">Nije moguće izvesti putanju</string>
+    <string name="pick_file">Izaberite dodatak</string>
+    <string name="medium_amount">Srednje (%s)</string>
+    <string name="lunar_eclipses">Pomračenja Mjeseca</string>
+    <string name="low_amount">Nisko (%s)</string>
+    <string name="high_amount">Visoko (%s)</string>
+    <string name="supermoon">Supermjesec</string>
+    <string name="duration_of_charge">Trajanje punjenja</string>
+    <string name="astronomy_alerts">Astronomska upozorenja</string>
+    <string name="astro_dialog_meteor_shower">**Vrh**: %s
+\n
+\n**Vršna visina**: %s
+\n
+\n**Vršni pravac**: %s
+\n
+\n**Rata**: %s</string>
+    <string name="up_to_amount">Do %s</string>
+    <string name="weather_exported">Vrijeme izvezeno</string>
+    <string name="sun_moon_position_template">### %s
+\n**Visina**: %s
+\n
+\n**Azimut**: %s</string>
+    <string name="astro_dialog_noon">**Vrijeme**: %s
+\n
+\n**Visina**: %s</string>
+    <string name="astro_dialog_lunar_eclipse">**Početak**: %s
+\n
+\n**Vrhunac**: %s
+\n
+\n**Kraj**: %s
+\n
+\n**Trajanje**: %s
+\n
+\n**Veličina**: %s
+\n
+\n**Visina**: %s</string>
+    <string name="astro_dialog_day_length">**Dan**: %s
+\n
+\n**Noć**: %s
+\n
+\n**Sezona**: %s</string>
+    <string name="season_spring">Proljeće</string>
+    <string name="season_summer">Ljeto</string>
+    <string name="season_fall">Jesen</string>
+    <string name="pref_show_nearest_tide_title">Prikažite najbližu plimu</string>
+    <string name="results">Rezultati</string>
+    <string name="sun">Sunce</string>
+    <string name="weather_monitoring_disabled">Praćenje vremena onemogućeno</string>
+    <string name="notification_backtrack_update_content">Snimanje vaše lokacije</string>
+    <string name="hide">Sakrij</string>
+    <string name="precipitation_ice_pellets">Ledene Kuglice</string>
+    <string name="precipitation_none">Nema Padavina</string>
+    <string name="precipitation_drizzle">Rosa</string>
+    <string name="tide_table">Tablica plime i oseke</string>
+    <string name="tool_temperature_estimation_description">Predvidite temperaturu na različitoj nadmorskoj visini</string>
+    <string name="onboarding_explore">- Dizajnirana za planinarenje, ruksak, kampiranje i geoprikup
+\n
+\n- Postavite svjetionike i idite do njih
+\n
+\n- Pratite staze
+\n
+\n- Vratite svoje korake unazad
+\n
+\n- Planirajte šta ćete spakovati
+\n
+\n- Budite upozoreni prije zalaska sunca
+\n
+\n- Predvidite vrijeme
+\n
+\n- Koristite svoj telefon kao baterijsku lampu
+\n
+\n- I mnogo više!</string>
+    <string name="pref_distance_alert">pref_udaljenost_pozor</string>
+    <string name="reset_distance_title">Ponovo namjestite udaljenost\?</string>
+    <string name="qr_code_scanner">QR skener koda</string>
+    <string name="note">Bilješka</string>
+    <string name="beacon">Svjetionik</string>
+    <string name="change_resolution">Promijenite rezoluciju</string>
+    <string name="undo">Poništi</string>
+    <string name="beacons">Svjetionici</string>
+    <string name="exporting_map">Izvozi se karta</string>
+    <string name="estimated">Procijenjeno</string>
+    <string name="distance_alert">Upozorenje na daljinu</string>
+    <string name="navigating_to_nearest_path_point">Naviguje se do najbliže tačke putanje</string>
+    <string name="pref_start_on_boot_title">Počnite pri pokretanju</string>
+    <string name="warning">Upozorenje</string>
+    <string name="night">Noć</string>
+    <string name="high_tide_letter">V</string>
+    <string name="view">Prikaz</string>
+    <string name="average_speed">Prosječna brzina</string>
+    <string name="pref_pedometer_enabled">pref_pedometar_omogućen</string>
+    <string name="stride_length_walk">Hodajte u pravoj liniji, pritisnite stop kada završite</string>
+    <string name="current_speed">Trenutna brzina</string>
+    <string name="current_speed_pedometer">Trenutna brzina (Pedometar)</string>
+    <string name="current_speed_gps">Trenutna brzina (GPS)</string>
+    <string name="average_speed_pedometer">Prosječna brzina (Pedometar)</string>
+    <string name="bearing">Ležište</string>
+    <string name="remove_battery_restrictions">Uklonite ograničenja baterije\?</string>
+    <string name="clouds_clear">Vedro</string>
+    <string name="manual">Priručnik</string>
+    <string name="pressure_system">Sistem pritiska</string>
+    <string name="temperature_high_low">Visoka / Niska</string>
+    <string name="weather_front">Vremenski Paravan</string>
+    <string name="cloud_stratus_forecast">Može ukazivati na lijepo vrijeme u narednih %d sati ako je magla, suprotno može ukazivati na uskoro padavine.</string>
+    <string name="then_weather">zatim %s</string>
+    <string name="weather_overcast">Oblačno</string>
+    <string name="weather_warm_front">Topli</string>
+    <string name="smoothing">Glađenje</string>
+    <string name="samples">Uzorci</string>
+    <string name="weather_precipitation">Padavine</string>
+    <string name="weather_wind">Vjetar</string>
+    <string name="pref_show_map_previews_title">Prikažite preglede karte</string>
+    <string name="sensor_summary">Kompas, GPS, visinomjer, barometar itd.</string>
+    <string name="historical_temperature_disclaimer">Procijenjeno na osnovu istorijskih temperatura za vašu lokaciju.</string>
+    <string name="historic">Istorijski</string>
+    <string name="sensor">Senzor</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d plima</item>
+        <item quantity="few">%d plime</item>
+        <item quantity="other">%d plima</item>
+    </plurals>
+    <string name="altimeter_cache">Keš visinomjera</string>
+    <string name="high_low_temperature_dialog">**Niska**: %s
+\n
+\n**Visoka**: %s</string>
+    <string name="running_in_background">Radi u pozadini</string>
+    <string name="battery_usage_restricted_benefit">Uklanjanje ograničenja baterije za Trail Sense može poboljšati preciznost.
+\n
+\nNa većini uređaja kliknite na \'OK\', zatim se prebacite na sve aplikacije i isključite optimizaciju baterije za Trail Sense.
+\n
+\nPosjetite [Don\'t kill my app](https://dontkillmyapp.com/) za upute za određeni uređaj.</string>
+    <string name="map_export_error">Nije moguće izvesti mapu u odabranu datoteku</string>
+    <string name="second_symbol">s</string>
+    <string name="point">Točka</string>
+    <string name="point_added">Točka je dodata u putanju</string>
+    <string name="tide_diurnal">Diurnal</string>
+    <string name="calibrate_map_point">Kalibrirajte tačku %d / %d</string>
+    <string name="weather_cold_front">Hladni</string>
+    <string name="weather_clear">Vedro</string>
+    <string name="path_slope">Nagib</string>
+    <string name="high_pressure">Visok</string>
+    <string name="low_pressure">Nizak</string>
+    <string name="frequency">Frekvencija</string>
+    <string name="permission_alarms_and_reminders">Alarmi i podsjetnici</string>
+    <string name="ascent">Uspon</string>
+    <string name="lowest_point_elevation">Najniža tačka</string>
+    <string name="path_slope_flat">Ravno</string>
+    <string name="done">Gotovo</string>
+    <string name="updating_weather">Ažuriranje vremena</string>
+    <string name="highest_point_elevation">Najviša tačka</string>
+    <string name="path_slope_moderate">Ubreženo</string>
+    <string name="pref_default_path_style_title">Zadani stil putanje</string>
+    <string name="no_resolution">Nema rezolucije</string>
+    <string name="grant_permission">Dajte %s dozvolu</string>
+    <string name="battery_restricted_resolution">Podesite Trail Sense na Ne Optimizovanu postavku</string>
+    <string name="gps_unavailable_resolution">Omogućite lokaciju ili promijenite izvor lokacije na Samo Uređaj ili Visoka Preciznost</string>
+    <string name="lightning_dangerously_close">Munja je opasno blizu</string>
+    <string name="sighting_compass">Razgledni kompas</string>
+    <string name="map_projection_equidistant">Ravnostrano</string>
+    <string name="result_deleted">Rezultat je izbrisan</string>
+    <string name="steps">Koraci</string>
+    <string name="last_duration">Posljednjih %s</string>
+    <string name="background_location_permission">Lokacija (dopustite za uvijek)</string>
+    <string name="astro_dialog_rise_set">**Vrijeme**: %s
+\n
+\n**Smjer**: %s</string>
+    <string name="take_photo">Uslikajte</string>
+    <string name="low_tide_letter">N</string>
+    <string name="off">Isključeno</string>
+    <string name="error">Greška</string>
+    <string name="cloud_precipitation_forecast_hour_range">Može ukazivati na padavine u narednih %d do %d sati.</string>
+    <string name="cloud_fair_forecast_hours">Može ukazivati na lijepo vrijeme u narednih %d sati.</string>
+    <string name="activity_recognition_permission_denied">Dozvola za fizičku aktivnost je odbijena, nije moguće uključiti funkcije pedometra. Možete ga omogućiti u postavkama.</string>
+    <string name="total">Ukupno</string>
+    <string name="lunar_eclipse_start">Pomračenje Mjeseca (početak)</string>
+    <string name="lunar_eclipse_end">Pomračenje Mjeseca (kraj)</string>
+    <string name="lunar_eclipse">Pomračenje Mjeseca</string>
+    <string name="no_qr_code_found">Nije otkrivena QR koda</string>
+    <string name="saved_to_note">Sačuvano u bilješku</string>
+    <string name="camera_unavailable">Kamera je nedostupna</string>
+    <string name="high_pressure_system_description">Povezan je sa lijepim vremenom, vedrim nebom i hladnijim temperaturama.</string>
+    <string name="later">Kasnije</string>
+    <string name="now">Sada</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d putanja je uvezena</item>
+        <item quantity="few">%d putanje je uvezeno</item>
+        <item quantity="other">%d putanja je uvezeno</item>
+    </plurals>
+    <string name="tide_user_guide_recommendation">Službene web stranice tablice plime i oseke mogu se naći u korisničkom vodiču.</string>
+    <string name="tide_frequency_description">Broj visokih plima po danu. Većina plime su semidiurnalne.</string>
+    <string name="descent">Spuštanje</string>
+    <string name="share_ellipsis">Podijelite…</string>
+    <string name="altocumulus_forecast">Može ukazivati na padavine ili grmljavinu u narednih %d sati.</string>
+    <string name="altostratus_forecast">Može ukazivati na padavine u narednih %d sati.</string>
+    <string name="nimbostratus_forecast">Moguće padavine u narednih %d sati.</string>
+    <string name="cumulus_forecast">Može ukazivati na lijepo vrijeme. Ako raste, može ukazivati na padavine ili grmljavinu u narednih %d sati.</string>
+    <string name="cumulonimbus_forecast">Može ukazivati na grmljavinu za nekoliko minuta.</string>
+    <string name="diamond">Dijamant</string>
+    <string name="humidity_history">Povijest vlažnosti - zadnjih %s</string>
+    <string name="elevation_history_length">Dužina povijesti nadmorske visine</string>
+    <string name="gps_signal_lost">GPS signal izgubljen</string>
+    <string name="quarter_moon">Četvrt mjeseca</string>
+    <string name="camera">Kamera</string>
+    <string name="no_permission">Dozvola nije odobrena</string>
+    <string name="diagnostics">Dijagnostike</string>
+    <string name="battery_usage_restricted">Ograničena upotreba baterije</string>
+    <string name="overridden">Nadjačano</string>
+    <string name="on">Uključeno</string>
+    <string name="no_issues">Nema otkrivenih problema</string>
+    <string name="activity_recognition">Prepoznavanje aktivnosti</string>
+    <string name="elevation_override_resolution">Omogućite automatsku kalibraciju u postavkama.</string>
+    <string name="location_override_resolution">Omogućite automatsko podešavanje lokacije u postavkama.</string>
+    <string name="location_override_not_set_resolution">Postavite premošćivanje lokacije u postavkama</string>
+    <string name="partial">Djelomično (%s)</string>
+    <string name="astro_dialog_moon_phase">**Faza**: %s
+\n
+\n**Osvjetljenje**: %s</string>
+    <string name="or">Ili</string>
+    <string name="show">Pokaži</string>
+    <string name="path_color">Boja putanje</string>
+    <string name="temporary">Privremeno</string>
+    <string name="importing">Uvoženje</string>
+    <string name="points">Poeni</string>
+    <string name="change_map_projection">Promijenite projekciju karte</string>
+    <string name="reduce_map_resolution">Smanjite rezoluciju karte</string>
+    <string name="pref_clinometer_baseline_distance_title">Osnovna udaljenost</string>
+    <string name="gps_timeouts">GPS nema pristupa</string>
+    <string name="qr_text_too_long">Tekst je predugačak, QR koda je skraćena</string>
+    <string name="disclaimer_estimated_tide">Procijenjene plime mogu biti netačne. Za tačna vremena koristite službenu tabelu plime i oseke.</string>
+    <string name="disclaimer_estimated_tide_title">Procijenjena plima</string>
+    <string name="tool_temperature_estimation_title">Procjena temperature</string>
+    <string name="estimate_stride_length">Procijenite daljinu koraka</string>
+    <string name="stride_length_stand_still">Stanite mirno</string>
+    <string name="average_speed_backtrack">Prosječna brzina (Izatrag)</string>
+    <string name="map_exported">Karta je izvezena</string>
+    <string name="camera_capture">Snimanje</string>
+    <string name="tide_diurnal_description">Visoka plima jednom dnevno - većina plima i oseka nisu diurnalne</string>
+    <string name="low_pressure_system_description">Povezan je sa lošim vremenom, prelivenim nebom i toplijim temperaturama.</string>
+    <string name="tide_deleted">Plima je izbrisana</string>
+    <string name="tide_semidiurnal">Semidiurnal</string>
+    <string name="no_clouds">Nema Oblaka</string>
+    <string name="waypoint">Putna Tačka</string>
+    <string name="slope_amount">%s nagib</string>
+    <string name="pref_flashlight_should_timeout_title">Automatski isključi</string>
+    <string name="remove_distance_alert">Uklonite upozorenje na daljinu (%s)\?</string>
+    <string name="distance_alert_distance_reached">Stigli ste do %s</string>
+    <string name="precipitation_snow_grains">Snježna Zrna</string>
+    <string name="autofill">Automatsko punjenje</string>
+    <string name="season_winter">Zima</string>
+    <string name="precipitation_hail">Grad</string>
+    <string name="simplification_quality">Kvalitet pojednostavljenja</string>
+    <string name="pref_auto_simplify_paths_title">Pojednostavite putanje pri uvozu</string>
+    <string name="saving">Spašavanje</string>
+    <string name="instructions">Instrukcije</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="dashed">Isprekidano</string>
+    <string name="icon">Ikona</string>
+    <string name="move_to">Premjesti u</string>
+    <string name="notifications_blocked">Obavještenja su blokirana</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="tilt">Nagib</string>
+    <string name="pref_export_weather_csv_title">Izvozite očitavanja vremena</string>
+    <string name="moon">Mjesec</string>
+    <string name="enable">Omogući</string>
+    <string name="point_style">Stil točke</string>
+    <string name="line_style">Stil crte</string>
+    <string name="elevation">Uzvišenje</string>
+    <string name="merging">Spajanje</string>
+    <string name="merge">Spoji</string>
+    <string name="append_onto">Priloži na</string>
+    <string name="simplify">Pojednostavite</string>
+    <string name="simplifying">Pojednostavljenje</string>
+    <string name="navigation_guide_description">Korištenje svjetionika i putanja</string>
+    <string name="pressure_tendency">Sklonost pritiska</string>
+    <string name="explore">Istražite</string>
+    <string name="pref_only_navigate_path_points_title">Navigirajte samo do snimljenih tačaka</string>
+    <string name="file">Datoteka</string>
+    <string name="tide_instructions">Koristite službenu tablicu plime i oseke da unesete referentne morske mijene za dužinu vašeg putovanja.</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d putna tačka je izbrisana</item>
+        <item quantity="few">%d putne tačke su izbrisane</item>
+        <item quantity="other">%d putnih točkih je izbrisano</item>
+    </plurals>
+    <string name="path_slope_steep">Strmo</string>
+    <string name="pref_flashlight_timeout_title">Isključite nakon</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="weather_storm">Oluja</string>
+    <string name="very_soon">Vrlo uskoro</string>
+    <string name="delete_path_group_message">%s I svi njegovi putevi će biti izbrisani.</string>
+    <string name="square">Kvadrat</string>
+    <string name="humidity">Vlažnost</string>
+    <string name="power_saving_mode_resolution">Onemogućite postavku uštede energije</string>
+    <string name="save">Sačuvaj</string>
+    <string name="saved">Sačuvano</string>
 </resources>
