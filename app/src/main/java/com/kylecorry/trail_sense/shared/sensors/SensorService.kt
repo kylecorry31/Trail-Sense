@@ -127,6 +127,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false): IAltimeter {
+        // TODO: Create a wrapper to cache latest altitude value
         if (preferGPS) {
             return GaussianAltimeter(getGPSAltimeter(background), userPrefs.altimeterSamples)
         }

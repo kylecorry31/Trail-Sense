@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
@@ -180,20 +181,63 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         combined
     }
 
-    override suspend fun getTemperatureForecast(date: LocalDate): List<Reading<Temperature>> {
-        val last = getRawHistory().lastOrNull()
-        val location = last?.value?.location ?: location.location
-        val elevation = last?.value?.altitude ?: 0f
-        val temperatures = estimator.getTemperaturesForDay(location, date)
+    override suspend fun getTemperatureForecast(
+        date: LocalDate,
+        location: Coordinate?,
+        elevation: Distance?
+    ): List<Reading<Temperature>> {
+        val lookupLocation: Coordinate
+        val lookupElevation: Distance
+        if (location == null || elevation == null) {
+            val last = getRawHistory().lastOrNull()
+            lookupLocation = last?.value?.location ?: this.location.location
+            lookupElevation =
+                last?.value?.altitude?.let { Distance.meters(it) } ?: this.location.elevation
+        } else {
+            lookupLocation = location
+            lookupElevation = elevation
+        }
+        val temperatures = estimator.getTemperaturesForDay(lookupLocation, date)
         return temperatures.map {
             it.copy(
                 value = Meteorology.getTemperatureAtElevation(
                     it.value,
                     Distance.meters(0f),
-                    Distance.meters(elevation)
+                    lookupElevation
                 )
             )
         }
+    }
+
+    override suspend fun getTemperatureRange(
+        date: LocalDate,
+        location: Coordinate?,
+        elevation: Distance?
+    ): Range<Temperature> {
+        val lookupLocation: Coordinate
+        val lookupElevation: Distance
+        if (location == null || elevation == null) {
+            val last = getRawHistory().lastOrNull()
+            lookupLocation = last?.value?.location ?: this.location.location
+            lookupElevation =
+                last?.value?.altitude?.let { Distance.meters(it) } ?: this.location.elevation
+        } else {
+            lookupLocation = location
+            lookupElevation = elevation
+        }
+        val temperatures = estimator.getDailyTemperatureRange(lookupLocation, date)
+        return Range(
+            Meteorology.getTemperatureAtElevation(
+                temperatures.start,
+                Distance.meters(0f),
+                lookupElevation
+            ),
+            Meteorology.getTemperatureAtElevation(
+                temperatures.end,
+                Distance.meters(0f),
+                lookupElevation
+            )
+        )
     }
 
     override suspend fun getRawHistory(): List<Reading<RawWeatherObservation>> = onIO {
@@ -312,7 +356,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 weatherRepo.get(it)
             }
             val location = lastRawReading?.value?.location ?: location.location
-            val elevation = lastRawReading?.value?.altitude ?: 0f
+            val elevation = lastRawReading?.value?.altitude?.let { Distance.meters(it) } ?: this.location.elevation
 
             val range = estimator.getDailyTemperatureRange(
                 location,
@@ -322,19 +366,19 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             val low = Meteorology.getTemperatureAtElevation(
                 range.start,
                 Distance.meters(0f),
-                Distance.meters(elevation)
+                elevation
             )
 
             val high = Meteorology.getTemperatureAtElevation(
                 range.end,
                 Distance.meters(0f),
-                Distance.meters(elevation)
+                elevation
             )
 
             val current = Meteorology.getTemperatureAtElevation(
                 currentRaw,
                 Distance.meters(0f),
-                Distance.meters(elevation)
+                elevation
             )
 
             val average = Temperature((low.temperature + high.temperature) / 2f, low.units)

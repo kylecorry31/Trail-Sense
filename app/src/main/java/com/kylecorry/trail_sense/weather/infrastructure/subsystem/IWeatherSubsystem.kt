@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.FeatureState
@@ -23,7 +26,18 @@ interface IWeatherSubsystem {
 
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>
-    suspend fun getTemperatureForecast(date: LocalDate): List<Reading<Temperature>>
+    suspend fun getTemperatureForecast(
+        date: LocalDate,
+        location: Coordinate? = null,
+        elevation: Distance? = null
+    ): List<Reading<Temperature>>
+
+    suspend fun getTemperatureRange(
+        date: LocalDate,
+        location: Coordinate? = null,
+        elevation: Distance? = null
+    ): Range<Temperature>
+
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
     suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
 
