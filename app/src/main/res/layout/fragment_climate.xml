@@ -26,4 +26,26 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <com.kylecorry.trail_sense.shared.views.DistanceInputView
+        android:id="@+id/elevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        app:hint="@string/elevation" />
+
 </LinearLayout>
