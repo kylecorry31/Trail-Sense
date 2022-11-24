@@ -13,7 +13,7 @@ import kotlin.math.roundToInt
 
 internal object HistoricTemperatureLookup {
 
-    internal const val lonStep = 18
+    internal const val lonStep = 9
 
     fun getMonthlyTemperatureRange(
         context: Context,
