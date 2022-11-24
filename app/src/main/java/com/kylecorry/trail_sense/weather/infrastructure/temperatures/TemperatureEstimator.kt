@@ -21,20 +21,15 @@ internal class TemperatureEstimator(private val context: Context) {
         end: ZonedDateTime,
         location: Coordinate
     ): List<Reading<Temperature>> {
-        val calculators = listOf(
-            TemperatureCalculator(context, location, start.toLocalDate().minusDays(1)),
-            TemperatureCalculator(context, location, start.toLocalDate()),
-            TemperatureCalculator(context, location, start.toLocalDate().plusDays(1))
-        )
+        val calculator = DailyTemperatureCalculator(location) { location, date ->
+            getDailyTemperatureRange(location, date)
+        }
         return getReadings(
             start,
             end,
             Duration.ofMinutes(10)
         ) {
-            val calculator =
-                calculators.firstOrNull { calculator -> calculator.predictionRange.contains(it) }
-                    ?: calculators.last()
-            calculator.getTemperature(it)
+            calculator.calculate(it)
         }
     }
 
