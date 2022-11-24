@@ -42,16 +42,41 @@ class DailyTemperatureCalculator(
 
         // Low High x Low High
         if (nextLow.isBefore(nextHigh)) {
+
+            val start = if (nextLow.toLocalDate() != time.toLocalDate()) {
+                dailyTemperatureRangeProvider.invoke(location, nextLow.toLocalDate()).start
+            } else {
+                range.start
+            }
+
+            val end = if (previousHigh.toLocalDate() != time.toLocalDate()) {
+                dailyTemperatureRangeProvider.invoke(location, previousHigh.toLocalDate()).end
+            } else {
+                range.end
+            }
+
             return Range(previousHigh, nextLow) to QuadraticTemperatureCalculator(
-                Reading(range.start, nextLow.toInstant()),
-                Reading(range.end, previousHigh.toInstant())
+                Reading(start, nextLow.toInstant()),
+                Reading(end, previousHigh.toInstant())
             )
+        }
+
+        val start = if (previousLow.toLocalDate() != time.toLocalDate()) {
+            dailyTemperatureRangeProvider.invoke(location, previousLow.toLocalDate()).start
+        } else {
+            range.start
+        }
+
+        val end = if (nextHigh.toLocalDate() != time.toLocalDate()) {
+            dailyTemperatureRangeProvider.invoke(location, nextHigh.toLocalDate()).end
+        } else {
+            range.end
         }
 
         // High Low x High Low
         return Range(previousLow, nextHigh) to SineTemperatureCalculator(
-            Reading(range.start, previousLow.toInstant()),
-            Reading(range.end, nextHigh.toInstant())
+            Reading(start, previousLow.toInstant()),
+            Reading(end, nextHigh.toInstant())
         )
     }
 
