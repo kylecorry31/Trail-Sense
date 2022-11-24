@@ -8,12 +8,12 @@ import java.time.Instant
 import java.time.ZonedDateTime
 
 class QuadraticTemperatureCalculator(
-    private val first: Reading<Temperature>,
-    private val second: Reading<Temperature>
+    private val low: Reading<Temperature>,
+    private val high: Reading<Temperature>
 ) : ITemperatureCalculator {
 
-    private val b = first.value.celsius().temperature
-    private val a = (second.value.celsius().temperature - b) / getX(second.time)
+    private val b = low.value.celsius().temperature
+    private val a = (high.value.celsius().temperature - b) / square(getX(high.time))
 
     override fun calculate(time: ZonedDateTime): Temperature {
         val x = getX(time.toInstant())
@@ -21,6 +21,6 @@ class QuadraticTemperatureCalculator(
     }
 
     private fun getX(time: Instant): Float {
-        return Time.hoursBetween(first.time, time)
+        return Time.hoursBetween(low.time, time)
     }
 }

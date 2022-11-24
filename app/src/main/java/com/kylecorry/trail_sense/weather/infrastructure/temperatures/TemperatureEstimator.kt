@@ -34,8 +34,10 @@ internal class TemperatureEstimator(private val context: Context) {
     }
 
     fun getTemperature(location: Coordinate, time: ZonedDateTime): Temperature {
-        val calculator = TemperatureCalculator(context, location, time.toLocalDate())
-        return calculator.getTemperature(time)
+        val calculator = DailyTemperatureCalculator(location) { location, date ->
+            getDailyTemperatureRange(location, date)
+        }
+        return calculator.calculate(time)
     }
 
     fun getDailyTemperatureRange(location: Coordinate, date: LocalDate): Range<Temperature> {

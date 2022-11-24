@@ -41,9 +41,9 @@ class DailyTemperatureCalculator(
 
         // Low High x Low High
         if (nextLow.isBefore(nextHigh)) {
-            return Range(previousHigh, nextLow) to SineTemperatureCalculator(
-                Reading(range.end, previousHigh.toInstant()),
-                Reading(range.start, nextLow.toInstant())
+            return Range(previousHigh, nextLow) to QuadraticTemperatureCalculator(
+                Reading(range.start, nextLow.toInstant()),
+                Reading(range.end, previousHigh.toInstant())
             )
         }
 
