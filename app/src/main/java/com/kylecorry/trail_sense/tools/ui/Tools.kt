@@ -141,6 +141,12 @@ object Tools {
         val weather = ToolGroup(
             context.getString(R.string.weather), listOfNotNull(
                 Tool(
+                  context.getString(R.string.tool_climate),
+                  R.drawable.ic_temperature_range,
+                  R.id.action_toolsFragment_to_toolClimate,
+                  context.getString(R.string.tool_climate_summary)
+                ),
+                Tool(
                     context.getString(R.string.tool_temperature_estimation_title),
                     R.drawable.thermometer,
                     R.id.action_tools_to_temperature_estimation,

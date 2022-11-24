@@ -1235,6 +1235,8 @@
     <string name="temperature_high_low">High / Low</string>
     <string name="altimeter_cache">Altimeter cache</string>
     <string name="next_24_hours">Next 24 hours</string>
+    <string name="tool_climate">Climate</string>
+    <string name="tool_climate_summary">View historic temperatures</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>

@@ -45,7 +45,7 @@ class YearlyTemperatureRangeChart(
         val highs = data.map {
             Vector2(
                 it.first.toFloat(),
-                it.second.start.convertTo(units).temperature
+                it.second.end.convertTo(units).temperature
             )
         }
         val range = Chart.getYRange(lows + highs, 5f, 10f)

@@ -238,6 +238,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_toolsFragment_to_toolClimate"
+            app:destination="@id/climateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/action_weather"
@@ -911,5 +918,9 @@
         android:id="@+id/cloudResultsFragment"
         android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudResultsFragment"
         android:label="CloudResultsFragment" />
+    <fragment
+        android:id="@+id/climateFragment"
+        android:name="com.kylecorry.trail_sense.weather.ui.ClimateFragment"
+        android:label="ClimateFragment" />
 
 </navigation>
