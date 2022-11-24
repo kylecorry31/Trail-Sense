@@ -100,8 +100,10 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
             val range = temperatures.first { it.first == date }.second
 
             onMain {
-                plotTemperatures(temperatures)
-                updateTitle(range)
+                if (isBound) {
+                    plotTemperatures(temperatures)
+                    updateTitle(range)
+                }
             }
         }
     }
@@ -119,6 +121,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
 
     private fun plotTemperatures(data: List<Pair<LocalDate, Range<Temperature>>>) {
         chart.plot(data, temperatureUnits)
+        chart.highlight(binding.displayDate.date)
     }
 
     private fun updateElevationUnits() {

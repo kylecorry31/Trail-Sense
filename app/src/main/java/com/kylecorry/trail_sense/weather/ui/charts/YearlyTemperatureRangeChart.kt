@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.weather.ui.charts
 
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.ceres.chart.data.ScatterChartLayer
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Temperature
@@ -27,6 +29,12 @@ class YearlyTemperatureRangeChart(
         true
     }
 
+    private val highlight = ScatterChartLayer(
+        emptyList(),
+        Resources.androidTextColorPrimary(chart.context),
+        8f
+    )
+
     init {
         chart.configureXAxis(
             labelCount = 5,
@@ -34,7 +42,18 @@ class YearlyTemperatureRangeChart(
             labelFormatter = MonthChartLabelFormatter(chart.context, year)
         )
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
-        chart.plot(lowLine, highLine)
+        chart.plot(lowLine, highLine, highlight)
+    }
+
+    fun highlight(date: LocalDate) {
+        val x = date.dayOfYear
+        val low = lowLine.data.firstOrNull { it.x.toInt() == x }
+        val high = highLine.data.firstOrNull { it.x.toInt() == x }
+        highlight.data = listOfNotNull(low, high)
+    }
+
+    fun removeHighlight() {
+        highlight.data = emptyList()
     }
 
     fun plot(data: List<Pair<LocalDate, Range<Temperature>>>, units: TemperatureUnits) {
