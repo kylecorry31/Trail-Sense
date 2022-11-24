@@ -19,6 +19,7 @@ class DailyTemperatureCalculator(
 ) : ITemperatureCalculator {
 
     private val calculators = mutableListOf<Pair<Range<ZonedDateTime>, ITemperatureCalculator>>()
+    private val offset = Duration.ofHours(3)
 
     override fun calculate(time: ZonedDateTime): Temperature {
         val existing = calculators.firstOrNull { it.first.contains(time) }
@@ -56,7 +57,6 @@ class DailyTemperatureCalculator(
 
 
     private fun getNextHighTime(time: ZonedDateTime): ZonedDateTime {
-        val offset = Duration.ofHours(3)
         val today = Astronomy.getSunEvents(time, location, SunTimesMode.Actual, false)
         val tomorrow =
             Astronomy.getSunEvents(time.plusDays(1), location, SunTimesMode.Actual, false)
@@ -87,7 +87,6 @@ class DailyTemperatureCalculator(
     }
 
     private fun getPreviousHighTime(time: ZonedDateTime): ZonedDateTime {
-        val offset = Duration.ofHours(3)
         val today = Astronomy.getSunEvents(time, location, SunTimesMode.Actual, false)
         val yesterday =
             Astronomy.getSunEvents(time.minusDays(1), location, SunTimesMode.Actual, false)
