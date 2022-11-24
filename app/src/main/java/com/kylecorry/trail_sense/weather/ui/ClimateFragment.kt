@@ -80,7 +80,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         loadTemperatures(
             binding.displayDate.date,
             binding.location.coordinate ?: location.location,
-            binding.elevation.value ?: location.elevation,
+            binding.elevation.value ?: Distance.meters(0f),
             recalculate
         )
     }
