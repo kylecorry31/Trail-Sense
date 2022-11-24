@@ -10,11 +10,61 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.extensions.getReadings
 import java.time.Duration
 import java.time.LocalDate
+import java.time.Month
 import java.time.ZonedDateTime
 import kotlin.math.ceil
 import kotlin.math.floor
 
 internal class TemperatureEstimator(private val context: Context) {
+
+    fun getYearlyTemperatures(
+        year: Int,
+        location: Coordinate
+    ): List<Pair<LocalDate, Range<Temperature>>> {
+        val byMonth = Month.values().map {
+            val date = LocalDate.of(year, it, 15)
+            date to getDailyTemperatureRange(location, date)
+        }
+
+        var date = LocalDate.of(year, Month.JANUARY, 1)
+
+        val readings = mutableListOf<Pair<LocalDate, Range<Temperature>>>()
+
+        while (date.year == year) {
+
+            if (date.dayOfMonth == 15) {
+                readings.add(byMonth[date.monthValue - 1])
+                date = date.plusDays(1)
+                continue
+            }
+
+            val startDate = if (date.dayOfMonth > 15) {
+                date.withDayOfMonth(15)
+            } else {
+                date.withDayOfMonth(15).minusMonths(1)
+            }
+
+            val endDate = if (date.dayOfMonth > 15) {
+                date.withDayOfMonth(15).plusMonths(1)
+            } else {
+                date.withDayOfMonth(15)
+            }
+
+            val start = byMonth[startDate.monthValue - 1]
+            val end = byMonth[endDate.monthValue - 1]
+
+            val daysSinceStart = Duration.between(startDate.atStartOfDay(), date.atStartOfDay()).toDays()
+            val daysBetweenMonths = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays()
+
+            val pct = daysSinceStart / daysBetweenMonths.toFloat()
+
+            readings.add(date to lerp(pct, start.second, end.second))
+
+            date = date.plusDays(1)
+        }
+
+        return readings
+    }
 
     fun getTemperatures(
         start: ZonedDateTime,

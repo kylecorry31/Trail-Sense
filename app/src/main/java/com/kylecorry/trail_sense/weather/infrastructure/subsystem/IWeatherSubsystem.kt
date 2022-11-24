@@ -40,6 +40,12 @@ interface IWeatherSubsystem {
         elevation: Distance? = null
     ): Range<Temperature>
 
+    suspend fun getTemperatureRanges(
+        year: Int,
+        location: Coordinate? = null,
+        elevation: Distance? = null
+    ): List<Pair<LocalDate, Range<Temperature>>>
+
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
     suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
 

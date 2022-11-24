@@ -15,13 +15,11 @@ import com.kylecorry.trail_sense.databinding.FragmentClimateBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
-import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.ui.charts.YearlyTemperatureRangeChart
 import java.time.LocalDate
-import java.time.Month
 
 class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
 
@@ -32,14 +30,15 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     private val distanceUnits by lazy { prefs.baseDistanceUnits }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
-    private var temperatures: List<Pair<Month, Range<Temperature>>> = emptyList()
+    private var temperatures: List<Pair<LocalDate, Range<Temperature>>> = emptyList()
+    private var currentYear = 0
 
     private val chart by lazy {
         YearlyTemperatureRangeChart(binding.temperatureChart) {
-            binding.displayDate.date = LocalDate.of(binding.displayDate.date.year, it, 1)
+            binding.displayDate.date = it
         }
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,7 +60,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         }
 
         binding.displayDate.setOnDateChangeListener {
-            reloadTemperatures(recalculate = false)
+            reloadTemperatures(recalculate = it.year != currentYear)
         }
     }
 
@@ -94,18 +93,11 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     ) {
         inBackground {
             if (recalculate) {
-                temperatures = onDefault {
-                    Month.values().map {
-                        it to weather.getTemperatureRange(
-                            LocalDate.of(date.year, it, 15),
-                            location,
-                            elevation
-                        )
-                    }
-                }
+                temperatures = weather.getTemperatureRanges(date.year, location, elevation)
+                currentYear = date.year
             }
 
-            val range = weather.getTemperatureRange(date, location, elevation)
+            val range = temperatures.first { it.first == date }.second
 
             onMain {
                 plotTemperatures(temperatures)
@@ -125,7 +117,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
             getString(R.string.slash_separated_pair, highValue, lowValue)
     }
 
-    private fun plotTemperatures(data: List<Pair<Month, Range<Temperature>>>) {
+    private fun plotTemperatures(data: List<Pair<LocalDate, Range<Temperature>>>) {
         chart.plot(data, temperatureUnits)
     }
 
