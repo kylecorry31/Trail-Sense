@@ -103,7 +103,7 @@
     <string name="edit">Aanpassen</string>
     <string name="delete">Verwijderen</string>
     <string name="subtract">Aftrekken</string>
-    <string name="set_inclination_instructions">Tik om de hellingshoek vast te zetten of los te maken</string>
+    <string name="set_inclination_instructions">Tik of houd ergens vast om te vergrendelen/ontgrendelen</string>
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="clinometer_title">Hellingsmeter</string>
@@ -252,7 +252,7 @@
     <string name="cumulus_desc">Lage, gezwollen wolken die op watjes lijken. Zij zijn verspreid en zijn doorgaans wit met donker vlekken onderaan.</string>
     <string name="stratocumulus_desc">Lage wolken die lijken op een plaat van watjes met kleine spleten. De kleur verschilt van wit tot donkergrijs.</string>
     <string name="stratus_desc">Een lage wolk die de hemel verhult. Voorwerpen werpen geen schaduw af en het kan mistig zijn.</string>
-    <string name="nimbostratus_desc">Een donkergrijze, middelhoge wolk die de hemel verhult. Het zou kunnen regenen.</string>
+    <string name="nimbostratus_desc">Een middelhoge wolk die donkergrijs is en de lucht bedekt. Als het niet regent, kan het een stratuswolk zijn.</string>
     <string name="altostratus_desc">Een middelhoge wolk die de hemel verhult. De zon kan amper worden gezien en lijkt een felle vlek.</string>
     <string name="altocumulus_desc">Middelhoge gezwollen wolken die op watten lijken. Zij zijn doorgaans wit met donker vlekken onderaan. Ze kunnen alleenstaand zijn of als een plaat gevormd.</string>
     <string name="cirrostratus_desc">Een hoge wolk die de hemel verhult. Het is doorzichtig en veroorzaakt doorgaans een halo rond de zon.</string>
@@ -406,7 +406,7 @@
     <string name="delete_beacon_group_message">%s en al zijn bakens zullen worden verwijderd.</string>
     <string name="tool_user_guide_summary">Een handleiding voor het gebruik van Trail Sense</string>
     <string name="tool_user_guide_title">Handleiding</string>
-    <string name="error_occurred_message">Trail Sense is op een fout gestuit en wordt gesloten. Stuur een e-mail naar de ontwikkelaar om dit probleem op te lossen.</string>
+    <string name="error_occurred_message">Trail Sense is op een fout gestuit. Stuur een e-mail naar de ontwikkelaar om dit probleem op te lossen.</string>
     <string name="error_occurred">Er is een fout opgetreden</string>
     <string name="pref_email_title">E-mail ontwikkelaar</string>
     <string name="pref_github_title">GitHub</string>
@@ -856,7 +856,11 @@
 \n- Gebruik uw telefoon als zaklamp
 \n
 \n- En nog veel meer!</string>
-    <string name="battery_usage_restricted_benefit">Batterijbesparing uitschakelen voor Trail Sense kan nauwkeurigheid verhogen.</string>
+    <string name="battery_usage_restricted_benefit">Het opheffen van de batterijbeperkingen voor Trail Sense kan de nauwkeurigheid verbeteren.
+\n
+\nKlik op de meeste apparaten op \'OK\', schakel vervolgens naar alle apps en schakel de batterijoptimalisatie voor Trail Sense uit.
+\n
+\nGa naar [Don\'t kill my app](https://dontkillmyapp.com/) voor apparaatspecifieke instructies.</string>
     <string name="tide_instructions">Gebruik een officiële getijdentabel om een verwijzingskader te hebben voor de lengte van uw tocht.</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
@@ -1023,4 +1027,52 @@
     <string name="tide_frequency_description">Het aantal hooggetijden iedere dag. Meeste getijden zijn halfdagelijks.</string>
     <string name="paths">Paden</string>
     <string name="keep_forever">Voor altijd bewaren</string>
+    <string name="cloud_fair_forecast_hours">Kan duiden op mooi weer voor de komende %d uren.</string>
+    <string name="path_slope_flat">Vlak</string>
+    <string name="path_slope_steep">Steil</string>
+    <string name="camera_unavailable">Camera niet beschikbaar</string>
+    <string name="weather_wind">Wind</string>
+    <string name="nimbostratus_forecast">Mogelijk valt er de komende %d uren neerslag.</string>
+    <string name="path_slope">Helling</string>
+    <string name="updating_weather">Het weer bijwerken</string>
+    <string name="path_slope_moderate">Gematigd</string>
+    <string name="weather_clear">Helder</string>
+    <string name="clouds_clear">Helder</string>
+    <string name="manual">Handleiding</string>
+    <string name="low_pressure">Lage</string>
+    <string name="high_pressure">Hoge</string>
+    <string name="pressure_system">Druksysteem</string>
+    <string name="smoothing">Gladstrijken</string>
+    <string name="sensor">Sensor</string>
+    <string name="high_pressure_system_description">Geassocieerd met mooi weer, heldere hemel en koelere temperaturen.</string>
+    <string name="low_pressure_system_description">Geassocieerd met slecht weer, bewolking en warmere temperaturen.</string>
+    <string name="weather_cold_front">Koud</string>
+    <string name="weather_overcast">Bewolkt</string>
+    <string name="weather_precipitation">Neerslag</string>
+    <string name="weather_warm_front">Warm</string>
+    <string name="later">Later</string>
+    <string name="now">Nu</string>
+    <string name="pref_show_map_previews_title">Toon kaartvoorbeelden</string>
+    <string name="sensor_summary">Kompas, GPS, hoogtemeter, barometer, enz.</string>
+    <string name="historical_temperature_disclaimer">Geschat op basis van historische temperaturen voor uw locatie.</string>
+    <string name="historic">Historisch</string>
+    <string name="samples">Monsters</string>
+    <string name="temperature_high_low">Hoog / Laag</string>
+    <string name="altimeter_cache">Hoogtemetercache</string>
+    <string name="high_low_temperature_dialog">**Laag: %s
+\n
+\n**Hoog: %s</string>
+    <string name="cloud_stratus_forecast">Kan duiden op mooi weer voor de komende %d uren als het mistig is, anders kan het duiden op neerslag binnenkort.</string>
+    <string name="then_weather">dan %s</string>
+    <string name="cumulonimbus_forecast">Kan binnen enkele minuten duiden op een onweersbui.</string>
+    <string name="altostratus_forecast">Kan duiden op neerslag in de komende %d uren.</string>
+    <string name="cumulus_forecast">Kan duiden op mooi weer. Als hij groter wordt, kan dat duiden op neerslag of onweer in de komende %d uren.</string>
+    <string name="icon">Pictogram</string>
+    <string name="descent">Afdaling</string>
+    <string name="lowest_point_elevation">Laagste punt</string>
+    <string name="highest_point_elevation">Hoogste punt</string>
+    <string name="ascent">Opstijging</string>
+    <string name="cloud_precipitation_forecast_hour_range">Kan duiden op neerslag in de komende %d tot %d uur.</string>
+    <string name="altocumulus_forecast">Kan duiden op neerslag of onweer in de komende %d uren.</string>
+    <string name="weather_front">Weerfront</string>
 </resources>
