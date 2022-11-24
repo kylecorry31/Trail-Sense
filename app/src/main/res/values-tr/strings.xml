@@ -1075,4 +1075,5 @@
     <string name="high_low_temperature_dialog">**Düşük**: %s
 \n
 \n**Yüksek**: %s</string>
+    <string name="next_24_hours">Sonraki 24 saat</string>
 </resources>
