@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val thermometer by lazy { sensorService.getThermometer() }
+    private val thermometer by lazy { sensorService.getThermometer(false) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
 

@@ -11,15 +11,6 @@ class WeatherService(private val prefs: WeatherPreferences) {
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
 
-    fun calibrateTemperature(temp: Float): Float {
-        val calibrated1 = prefs.minActualTemperature
-        val uncalibrated1 = prefs.minBatteryTemperature
-        val calibrated2 = prefs.maxActualTemperature
-        val uncalibrated2 = prefs.maxBatteryTemperature
-
-        return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
-    }
-
     fun getForecast(
         pressures: List<Reading<Pressure>>,
         clouds: List<Reading<CloudGenus?>>

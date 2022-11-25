@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.readAll
 import com.kylecorry.trail_sense.shared.views.UnitInputView
-import kotlinx.coroutines.*
 import java.time.Duration
 import kotlin.math.roundToInt
 
@@ -118,7 +117,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
                 binding.tempEstBaseTemperature.isEnabled = false
                 binding.tempEstBaseElevation.isEnabled = false
             }
-            
+
             readAll(
                 listOf(altimeter, thermometer),
                 Duration.ofSeconds(10)
@@ -142,12 +141,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
         if (thermometer.hasValidReading) {
             tryOrNothing {
-                val temp = Temperature(
-                    getCalibratedReading(thermometer.temperature),
-                    TemperatureUnits.C
-                ).convertTo(
-                    temperatureUnits
-                )
+                val temp = Temperature.celsius(thermometer.temperature).convertTo(temperatureUnits)
                 binding.tempEstBaseTemperature.amount = temp.temperature.roundToInt()
                 binding.tempEstBaseTemperature.unit = temperatureUnits
             }
@@ -181,16 +175,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private fun getDestElevation(): Distance? {
         val distance = binding.tempEstDestElevation.value ?: return null
         return distance.meters()
-    }
-
-    // TODO: Extract this
-    private fun getCalibratedReading(temp: Float): Float {
-        val calibrated1 = prefs.weather.minActualTemperature
-        val uncalibrated1 = prefs.weather.minBatteryTemperature
-        val calibrated2 = prefs.weather.maxActualTemperature
-        val uncalibrated2 = prefs.weather.maxBatteryTemperature
-
-        return calibrated1 + (calibrated2 - calibrated1) * (uncalibrated1 - temp) / (uncalibrated1 - uncalibrated2)
     }
 
 }

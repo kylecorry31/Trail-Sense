@@ -28,6 +28,12 @@ interface IWeatherSubsystem {
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>
     suspend fun getTemperatureForecast(
+        time: ZonedDateTime,
+        location: Coordinate? = null,
+        elevation: Distance? = null
+    ): Reading<Temperature>
+
+    suspend fun getTemperatureForecast(
         start: ZonedDateTime,
         end: ZonedDateTime,
         location: Coordinate? = null,

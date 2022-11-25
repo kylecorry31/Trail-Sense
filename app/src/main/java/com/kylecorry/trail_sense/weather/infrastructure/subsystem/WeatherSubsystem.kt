@@ -183,23 +183,33 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     override suspend fun getTemperatureForecast(
+        time: ZonedDateTime,
+        location: Coordinate?,
+        elevation: Distance?
+    ): Reading<Temperature> = onDefault {
+        val resolved = resolveLocation(location, elevation)
+        val lookupLocation = resolved.first
+        val lookupElevation = resolved.second
+        val temperature = estimator.getTemperature(lookupLocation, time)
+        Reading(
+            Meteorology.getTemperatureAtElevation(
+                temperature,
+                Distance.meters(0f),
+                lookupElevation
+            ),
+            time.toInstant()
+        )
+    }
+
+    override suspend fun getTemperatureForecast(
         start: ZonedDateTime,
         end: ZonedDateTime,
         location: Coordinate?,
         elevation: Distance?
     ): List<Reading<Temperature>> = onDefault {
-        val lookupLocation: Coordinate
-        val lookupElevation: Distance
-        if (location == null || elevation == null) {
-            val last = getRawHistory().lastOrNull()
-            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
-            lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) }
-                    ?: this@WeatherSubsystem.location.elevation
-        } else {
-            lookupLocation = location
-            lookupElevation = elevation
-        }
+        val resolved = resolveLocation(location, elevation)
+        val lookupLocation = resolved.first
+        val lookupElevation = resolved.second
         val temperatures = estimator.getTemperatures(start, end, lookupLocation)
         temperatures.map {
             it.copy(
@@ -217,18 +227,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         location: Coordinate?,
         elevation: Distance?
     ): Range<Temperature> = onDefault {
-        val lookupLocation: Coordinate
-        val lookupElevation: Distance
-        if (location == null || elevation == null) {
-            val last = getRawHistory().lastOrNull()
-            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
-            lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) }
-                    ?: this@WeatherSubsystem.location.elevation
-        } else {
-            lookupLocation = location
-            lookupElevation = elevation
-        }
+        val resolved = resolveLocation(location, elevation)
+        val lookupLocation = resolved.first
+        val lookupElevation = resolved.second
         val temperatures = estimator.getDailyTemperatureRange(lookupLocation, date)
         Range(
             Meteorology.getTemperatureAtElevation(
@@ -249,18 +250,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         location: Coordinate?,
         elevation: Distance?
     ): List<Pair<LocalDate, Range<Temperature>>> = onDefault {
-        val lookupLocation: Coordinate
-        val lookupElevation: Distance
-        if (location == null || elevation == null) {
-            val last = getRawHistory().lastOrNull()
-            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
-            lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) }
-                    ?: this@WeatherSubsystem.location.elevation
-        } else {
-            lookupLocation = location
-            lookupElevation = elevation
-        }
+        val resolved = resolveLocation(location, elevation)
+        val lookupLocation = resolved.first
+        val lookupElevation = resolved.second
         val temperatures = estimator.getYearlyTemperatures(year, lookupLocation)
         temperatures.map {
             it.first to Range(
@@ -276,6 +268,26 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 )
             )
         }
+    }
+
+    private suspend fun resolveLocation(
+        location: Coordinate?,
+        elevation: Distance?
+    ): Pair<Coordinate, Distance> {
+        val lookupLocation: Coordinate
+        val lookupElevation: Distance
+        if (location == null || elevation == null) {
+            val last = getRawHistory().lastOrNull()
+            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
+            lookupElevation =
+                last?.value?.altitude?.let { Distance.meters(it) }
+                    ?: this@WeatherSubsystem.location.elevation
+        } else {
+            lookupLocation = location
+            lookupElevation = elevation
+        }
+
+        return lookupLocation to lookupElevation
     }
 
     override suspend fun getRawHistory(): List<Reading<RawWeatherObservation>> = onIO {
@@ -463,7 +475,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return DataUtils.smoothTemporal(
             readings,
             0.2f,
-            { weatherService.calibrateTemperature(it.temperature) }
+            { it.temperature }
         ) { reading, smoothed ->
             reading.copy(temperature = smoothed)
         }

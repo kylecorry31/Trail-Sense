@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
+import com.kylecorry.trail_sense.shared.sensors.thermometer.RangeCalibratedThermometerWrapper
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
@@ -190,7 +191,22 @@ class SensorService(ctx: Context) {
     }
 
     @Suppress("DEPRECATION")
-    fun getThermometer(): IThermometer {
+    fun getThermometer(calibrated: Boolean = true): IThermometer {
+        val thermometer = getThermometerSensor()
+        return if (calibrated) {
+            RangeCalibratedThermometerWrapper(
+                thermometer,
+                userPrefs.weather.minBatteryTemperature,
+                userPrefs.weather.maxBatteryTemperature,
+                userPrefs.weather.minActualTemperature,
+                userPrefs.weather.maxActualTemperature
+            )
+        } else {
+            thermometer
+        }
+    }
+
+    private fun getThermometerSensor(): IThermometer {
         if (Sensors.hasSensor(context, Sensor.TYPE_AMBIENT_TEMPERATURE)) {
             return AmbientThermometer(context)
         }
