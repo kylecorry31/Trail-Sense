@@ -9,12 +9,19 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 
-class HistoricTemperatureWeatherField(private val temperature: Temperature?, private val onClick: () -> Unit) : WeatherField {
+// TODO: Build chart into this
+class TemperatureWeatherField(
+    private val temperature: Temperature?,
+    private val onClick: () -> Unit
+) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
         temperature ?: return null
         val formatter = FormatService(context)
-        val units = UserPreferences(context).temperatureUnits
+        val prefs = UserPreferences(context)
+        val units = prefs.temperatureUnits
+        val source = prefs.thermometer.source
         val value = formatter.formatTemperature(
             temperature.convertTo(units)
         )
@@ -32,9 +39,13 @@ class HistoricTemperatureWeatherField(private val temperature: Temperature?, pri
         }
 
         return ListItem(
-            8,
+            5,
             context.getString(R.string.temperature),
-            subtitle = context.getString(R.string.historic),
+            subtitle = when (source) {
+                ThermometerSource.Historic -> context.getString(R.string.historic)
+                ThermometerSource.Sensor -> context.getString(R.string.sensor)
+                ThermometerSource.Override -> context.getString(R.string.manual)
+            },
             icon = ResourceListIcon(R.drawable.thermometer, color),
             trailingText = value
         ) {

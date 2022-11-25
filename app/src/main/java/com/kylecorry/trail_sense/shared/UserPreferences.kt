@@ -36,6 +36,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val clinometer by lazy { ClinometerPreferences(context) }
     val errors by lazy { ErrorPreferences(context) }
     val pedometer by lazy { PedometerPreferences(context) }
+    val thermometer by lazy { ThermometerPreferences(context) }
 
     var hapticsEnabled = false
 

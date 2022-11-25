@@ -472,9 +472,15 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        val smoothing = prefs.thermometer.smoothing
+
+        if (smoothing == 0f) {
+            return readings
+        }
+
         return DataUtils.smoothTemporal(
             readings,
-            0.2f,
+            smoothing,
             { it.temperature }
         ) { reading, smoothed ->
             reading.copy(temperature = smoothed)
