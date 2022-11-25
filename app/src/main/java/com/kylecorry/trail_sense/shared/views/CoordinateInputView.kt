@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.units.CoordinateExtensions.parse
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
@@ -49,6 +50,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     private var _coordinate: Coordinate? = null
 
     private var changeListener: ((coordinate: Coordinate?) -> Unit)? = null
+    private var beaconListener: ((beacon: Beacon) -> Unit)? = null
     private var autofillListener: (() -> Unit)? = null
 
     private lateinit var locationEdit: EditText
@@ -90,6 +92,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                         sort = ClosestBeaconSort(BeaconService(context), gps::location)
                     ) ?: return@launch
                     coordinate = beacon.coordinate
+                    beaconListener?.invoke(beacon)
                 }
             }
 
@@ -139,6 +142,10 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
 
     fun setOnCoordinateChangeListener(listener: ((coordinate: Coordinate?) -> Unit)?) {
         changeListener = listener
+    }
+
+    fun setOnBeaconSelectedListener(listener: ((beacon: Beacon) -> Unit)?) {
+        beaconListener = listener
     }
 
 }
