@@ -292,7 +292,11 @@
     <string name="beacons">Jelzőpontok</string>
     <string name="bearing">Irány</string>
     <string name="file">Fájl</string>
-    <string name="battery_usage_restricted_benefit">A Trail Sense akkukorlátozásainak eltávolítása javíthatja a pontosságot.</string>
+    <string name="battery_usage_restricted_benefit">A Trail Sense akkukorlátozásainak eltávolítása javíthatja a pontosságot.
+\n
+\nA legtöbb eszközön nyomd meg az \'OK\'-t, válts át minden alkalmazásra, majd kapcsold ki az akkuoptimalizálást a Trail Sense-nél.
+\n
+\nEszközspecifikus útmutatóért látogass el a [Don\'t kill my app] (https://dontkillmyapp.com/) oldalra.</string>
     <string name="running_in_background">Fut a háttérben</string>
     <string name="kilograms_format">%s kg</string>
     <string name="on">Be</string>
@@ -816,7 +820,7 @@
     <string name="temperature_history">Hőmérséklet előzmények - elmúlt %s</string>
     <string name="weather_monitor">Időjárás Figyelő</string>
     <string name="pref_show_civil_times_summary">Hajnal és alkony</string>
-    <string name="pref_barometer_pressure_smoothing_title">Nyomás egyenlítése</string>
+    <string name="pref_barometer_pressure_smoothing_title">Nyomásértékek simítása</string>
     <string name="convert">Átalakítás</string>
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>
     <string name="pref_nmea_elevation_title">NMEA magassági eltérések</string>
@@ -1035,4 +1039,40 @@
     <string name="altocumulus_forecast">Csapadékot vagy vihart jelezhet a következő %d órában.</string>
     <string name="cumulus_forecast">Jó időt jelezhet. Ha magasra nőnek, csapadékot vagy vihart jelezhet a következő %d órában.</string>
     <string name="cumulonimbus_forecast">Vihart jelezhet perceken belül.</string>
+    <string name="camera_unavailable">Kamera nem elérhető</string>
+    <string name="high_pressure">Magas</string>
+    <string name="pressure_system">Nyomásrendszer</string>
+    <string name="weather_front">Időjárási Front</string>
+    <string name="weather_warm_front">Meleg</string>
+    <string name="weather_cold_front">Hideg</string>
+    <string name="weather_clear">Tiszta</string>
+    <string name="weather_overcast">Felhős</string>
+    <string name="weather_wind">Szél</string>
+    <string name="later">Később</string>
+    <string name="pref_show_map_previews_title">Térkép előnézetek mutatása</string>
+    <string name="smoothing">Simítás</string>
+    <string name="samples">Minták</string>
+    <string name="historical_temperature_disclaimer">Becsült érték a helyzeted történelmileg feljegyzett hőmérsékletei alapján.</string>
+    <string name="sensor">Érzékelő</string>
+    <string name="next_24_hours">Következő 24 óra</string>
+    <string name="nimbostratus_forecast">Csapadéka lehet a következő %d óra folyamán.</string>
+    <string name="cloud_fair_forecast_hours">Jó időt jelezhet a következő %d órára.</string>
+    <string name="low_pressure_system_description">Rossz időhöz, borult éghez és enyhébb hőmérsékletekhez társul.</string>
+    <string name="calibrate_map_point">%d / %d pont kalibrálása</string>
+    <string name="low_pressure">Alacsony</string>
+    <string name="weather_precipitation">Csapadék</string>
+    <string name="tool_climate">Klíma</string>
+    <string name="sensor_summary">Iránytű, GPS, magasságmérő, barométer, stb.</string>
+    <string name="altimeter_cache">Magasságmérő gyorsítótár</string>
+    <string name="historic">Történelmi</string>
+    <string name="temperature_high_low">Csúcs / Mélypont</string>
+    <string name="tool_climate_summary">Történelmi hőmérsékletek megtekintése</string>
+    <string name="cloud_stratus_forecast">Jó időt jelezhet a következő %d órában, ha köd van, egyébként hamarosan hulló csapadékot jelezhet.</string>
+    <string name="then_weather">majd %s</string>
+    <string name="now">Most</string>
+    <string name="clouds_clear">Derült</string>
+    <string name="manual">Manuális</string>
+    <string name="high_pressure_system_description">Jó időhöz, tiszta égbolthoz és hűvösebb hőmérsékletekhez társul.</string>
+    <string name="altostratus_forecast">Csapadékot jelezhet a következő %d órában.</string>
+    <string name="icon">Ikon</string>
 </resources>
