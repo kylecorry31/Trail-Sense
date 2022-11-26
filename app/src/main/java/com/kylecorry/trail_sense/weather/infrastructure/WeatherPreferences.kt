@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.toIntCompat
-import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
@@ -65,12 +64,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
 
     override val useSeaLevelPressure: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_use_sea_level_pressure)) ?: true
-
-    override var showMeanShiftedReadings by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_debug_show_mean_adj_sea_level),
-        false
-    )
 
     override val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false

@@ -10,8 +10,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
@@ -21,7 +19,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
-import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -42,14 +39,12 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private var pressureTxt: Preference? = null
     private var seaLevelSwitch: SwitchPreferenceCompat? = null
-    private var meanShiftedSwitch: SwitchPreferenceCompat? = null
     private var pressureSmoothingSeekBar: SeekBarPreference? = null
 
     private var chart: PressureChartPreference? = null
 
     private var history: List<WeatherObservation> = listOf()
     private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = listOf()
-    private var showMeanShiftedReadings = false
 
     private lateinit var units: PressureUnits
     private val formatService by lazy { FormatService(requireContext()) }
@@ -90,18 +85,10 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
         pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
         seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
-        meanShiftedSwitch = switch(R.string.pref_debug_show_mean_adj_sea_level)
         chart = findPreference(getString(R.string.pref_holder_pressure_chart))
 
         pressureSmoothingSeekBar?.summary =
             formatService.formatPercentage(prefs.weather.pressureSmoothing)
-
-        showMeanShiftedReadings = meanShiftedSwitch?.isChecked ?: false
-        meanShiftedSwitch?.setOnPreferenceClickListener {
-            showMeanShiftedReadings = meanShiftedSwitch?.isChecked ?: false
-            updateChart()
-            true
-        }
 
         pressureSmoothingSeekBar?.updatesContinuously = true
         pressureSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
@@ -127,9 +114,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             ) <= prefs.weather.pressureHistory
         }.map { it.pressureReading() }
 
-        val averageAltitude =
-            if (!showMeanShiftedReadings) 0f else uncalibratedHistory.map { it.value.altitude }
-                .average().toFloat()
+        val useTemperature = prefs.weather.seaLevelFactorInTemp
+        val useSeaLevel = prefs.weather.useSeaLevelPressure
 
         val displayRawReadings = uncalibratedHistory.filter {
             Duration.between(
@@ -137,16 +123,8 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 Instant.now()
             ) <= prefs.weather.pressureHistory
         }.map {
-            if (prefs.weather.useSeaLevelPressure) {
-                if (showMeanShiftedReadings) {
-                    val seaLevel = Meteorology.getSeaLevelPressure(
-                        Pressure.hpa(it.value.pressure),
-                        Distance.meters(averageAltitude)
-                    )
-                    Reading(seaLevel, it.time)
-                } else {
-                    Reading(it.value.seaLevel(false), it.time)
-                }
+            if (useSeaLevel) {
+                Reading(it.value.seaLevel(useTemperature), it.time)
             } else {
                 Reading(Pressure.hpa(it.value.pressure), it.time)
             }
@@ -171,8 +149,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         if (throttle.isThrottled()) {
             return
         }
-
-        meanShiftedSwitch?.isVisible = isDebug()
 
         val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)
 

@@ -14,7 +14,6 @@ interface IWeatherPreferences {
     val shouldShowWeatherNotification: Boolean
     val shouldShowPressureInNotification: Boolean
     val useSeaLevelPressure: Boolean
-    var showMeanShiftedReadings: Boolean
     val seaLevelFactorInTemp: Boolean
     val pressureHistory: Duration
     val sendStormAlerts: Boolean

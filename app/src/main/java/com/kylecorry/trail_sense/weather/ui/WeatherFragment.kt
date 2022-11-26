@@ -12,8 +12,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
@@ -204,29 +202,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private suspend fun loadRawWeatherReadings() {
         if (isDebug()) {
             if (prefs.weather.useSeaLevelPressure) {
-                val showMeanShiftedReadings = prefs.weather.showMeanShiftedReadings
                 val raw = weatherSubsystem.getRawHistory().filter {
                     Duration.between(
                         it.time,
                         Instant.now()
                     ) <= prefs.weather.pressureHistory
                 }
-                val averageAltitude =
-                    if (!showMeanShiftedReadings) {
-                        0f
-                    } else {
-                        raw.map { it.value.altitude }.average().toFloat()
-                    }
+                val useTemperature = prefs.weather.seaLevelFactorInTemp
                 rawHistory = raw.map {
-                    if (showMeanShiftedReadings) {
-                        val seaLevel = Meteorology.getSeaLevelPressure(
-                            Pressure.hpa(it.value.pressure),
-                            Distance.meters(averageAltitude)
-                        )
-                        Reading(seaLevel, it.time)
-                    } else {
-                        Reading(it.value.seaLevel(false), it.time)
-                    }
+                    Reading(it.value.seaLevel(useTemperature), it.time)
                 }
             }
         }
