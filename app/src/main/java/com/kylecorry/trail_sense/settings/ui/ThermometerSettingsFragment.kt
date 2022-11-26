@@ -17,6 +17,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
+import kotlin.math.roundToInt
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -125,8 +127,8 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val source = getString(R.string.pref_thermometer_source)
         val thermometerInvalidationKeys = listOf(
-            R.string.pref_thermometer_source,
             R.string.pref_min_calibrated_temp_c,
             R.string.pref_max_calibrated_temp_c,
             R.string.pref_min_uncalibrated_temp_c,
@@ -135,12 +137,30 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             R.string.pref_max_calibrated_temp_f,
             R.string.pref_min_uncalibrated_temp_f,
             R.string.pref_max_uncalibrated_temp_f
-        ).map { getString(it) }
+        ).map { getString(it) } + listOf(source)
         Preferences(requireContext()).onChange.asLiveData().observe(viewLifecycleOwner) {
             if (thermometerInvalidationKeys.contains(it)) {
                 reloadThermometer()
             }
+
+            if (it == source) {
+                onSourceChanged()
+            }
         }
+    }
+
+    private fun onSourceChanged() {
+        when (prefs.thermometer.source) {
+            ThermometerSource.Historic -> setSmoothing(0f)
+            ThermometerSource.Sensor -> setSmoothing(0.2f)
+            ThermometerSource.Override -> setSmoothing(0f)
+        }
+    }
+
+    private fun setSmoothing(smoothing: Float) {
+//        prefs.thermometer.smoothing = smoothing
+        smoothingSeekBar?.value = (smoothing * 1000).roundToInt()
+        smoothingSeekBar?.summary = formatService.formatPercentage(smoothing * 100)
     }
 
     private fun reloadThermometer() {
