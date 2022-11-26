@@ -1061,4 +1061,6 @@
     <string name="next_24_hours">接下去 24 小时</string>
     <string name="historical_temperature_disclaimer">预估是基于你所在位置的历史温度进行的。</string>
     <string name="altimeter_cache">高度计缓存</string>
+    <string name="tool_climate">气候</string>
+    <string name="tool_climate_summary">查看历史气温</string>
 </resources>
