@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
@@ -475,14 +476,23 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         val smoothing = prefs.thermometer.smoothing
 
-        if (smoothing == 0f) {
-            return readings
-        }
+        val sensorMin = prefs.weather.minBatteryTemperature
+        val sensorMax = prefs.weather.maxBatteryTemperature
+        val calibratedMin = prefs.weather.minActualTemperature
+        val calibratedMax = prefs.weather.maxActualTemperature
 
         return DataUtils.smoothTemporal(
             readings,
             smoothing,
-            { it.temperature }
+            {
+                calibrateTemperature(
+                    it.temperature,
+                    sensorMin,
+                    sensorMax,
+                    calibratedMin,
+                    calibratedMax
+                )
+            }
         ) { reading, smoothed ->
             reading.copy(temperature = smoothed)
         }
@@ -498,6 +508,16 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             { it.humidity ?: 0f }) { reading, smoothed ->
             reading.copy(humidity = if (smoothed == 0f) null else smoothed)
         }
+    }
+
+    private fun calibrateTemperature(
+        temperature: Float,
+        sensorMin: Float,
+        sensorMax: Float,
+        calibratedMin: Float,
+        calibratedMax: Float
+    ): Float {
+        return SolMath.map(temperature, sensorMin, sensorMax, calibratedMin, calibratedMax)
     }
 
     companion object {
