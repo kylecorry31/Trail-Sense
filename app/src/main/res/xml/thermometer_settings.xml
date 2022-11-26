@@ -15,6 +15,17 @@
             app:selectable="false"
             app:singleLineTitle="false" />
 
+        <SeekBarPreference
+            android:defaultValue="150"
+            android:max="1000"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_temperature_smoothing"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/smoothing"
+            app:updatesContinuously="true" />
+
         <!--        Celsius calibration-->
         <EditTextPreference
             android:defaultValue="0.0"

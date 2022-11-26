@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -31,6 +32,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     private var maxTempCalibratedF: EditTextPreference? = null
     private var minTempUncalibratedF: EditTextPreference? = null
     private var maxTempUncalibratedF: EditTextPreference? = null
+    private var smoothingSeekBar: SeekBarPreference? = null
 
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -46,6 +48,16 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         minTempUncalibratedF = editText(R.string.pref_min_uncalibrated_temp_f)
         maxTempUncalibratedF = editText(R.string.pref_max_uncalibrated_temp_f)
         temperatureTxt = preference(R.string.pref_temperature_holder)
+        smoothingSeekBar = seekBar(R.string.pref_temperature_smoothing)
+
+        smoothingSeekBar?.summary =
+            formatService.formatPercentage(prefs.thermometer.smoothing * 100)
+
+        smoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
+            val change = newValue.toString().toFloat() / 1000f
+            smoothingSeekBar?.summary = formatService.formatPercentage(change * 100)
+            true
+        }
 
         if (prefs.temperatureUnits == TemperatureUnits.C) {
             minTempCalibratedF?.isVisible = false

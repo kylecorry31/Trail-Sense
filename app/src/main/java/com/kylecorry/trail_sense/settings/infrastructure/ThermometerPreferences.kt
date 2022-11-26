@@ -9,11 +9,19 @@ class ThermometerPreferences(context: Context) : PreferenceRepo(context), ITherm
     // TODO: Populate these
     // TODO: Move calibration here
     override val source: ThermometerSource = ThermometerSource.Historic //by IntEnumPreference()
-    override val smoothing: Float by FloatPreference(
-        cache,
-        context.getString(R.string.pref_temperature_smoothing),
-        0.15f
-    )
+    override var smoothing: Float
+        get() {
+            return (cache.getInt(context.getString(R.string.pref_temperature_smoothing))
+                ?: 150) / 1000f
+        }
+        set(value) {
+            val scaled = (value * 1000).coerceIn(0f, 1000f)
+            cache.putInt(
+                context.getString(R.string.pref_temperature_smoothing),
+                scaled.toInt()
+            )
+        }
+
     override val temperatureOverride by FloatPreference(
         cache,
         context.getString(R.string.pref_temperature_override),
