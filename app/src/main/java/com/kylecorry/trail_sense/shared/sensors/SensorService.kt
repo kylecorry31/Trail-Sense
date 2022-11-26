@@ -41,6 +41,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
 import com.kylecorry.trail_sense.shared.sensors.thermometer.HistoricThermometer
+import com.kylecorry.trail_sense.shared.sensors.thermometer.OverrideThermometer
 import com.kylecorry.trail_sense.shared.sensors.thermometer.RangeCalibratedThermometerWrapper
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
@@ -192,14 +193,15 @@ class SensorService(ctx: Context) {
         return if (userPrefs.weather.hasBarometer) Barometer(context) else NullBarometer()
     }
 
-    @Suppress("DEPRECATION")
     fun getThermometer(calibrated: Boolean = true): IThermometer {
-        val thermometer = when (userPrefs.thermometer.source) {
+        val source = userPrefs.thermometer.source
+        val thermometer = when (source) {
             ThermometerSource.Historic -> HistoricThermometer(context)
             ThermometerSource.Sensor -> getThermometerSensor()
-            ThermometerSource.Override -> getThermometerSensor() // TODO: Add an override
+            ThermometerSource.Override -> OverrideThermometer(context)
         }
-        return if (calibrated) {
+        // Override does not support calibration
+        return if (calibrated && source != ThermometerSource.Override) {
             RangeCalibratedThermometerWrapper(
                 thermometer,
                 userPrefs.weather.minBatteryTemperature,
@@ -212,6 +214,7 @@ class SensorService(ctx: Context) {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun getThermometerSensor(): IThermometer {
         if (Sensors.hasSensor(context, Sensor.TYPE_AMBIENT_TEMPERATURE)) {
             return AmbientThermometer(context)

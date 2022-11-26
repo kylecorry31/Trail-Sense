@@ -1224,12 +1224,12 @@
     <string name="smoothing">Smoothing</string>
     <string name="pref_altimeter_accuracy_holder" translatable="false">pref_altimeter_accuracy_holder</string>
     <string name="pref_altimeter_accuracy" translatable="false">pref_altimeter_accuracy</string>
-<!--    The number of samples-->
+    <!--    The number of samples-->
     <string name="samples">Samples</string>
-<!--    Examples of the sensors you can adjust settings for-->
+    <!--    Examples of the sensors you can adjust settings for-->
     <string name="sensor_summary">Compass, GPS, altimeter, barometer, etc.</string>
     <string name="historical_temperature_disclaimer">Estimated based on historical temperatures for your location.</string>
-<!--    Used to indicate a value was derived from historic readings (ex. historic high/low temperature)-->
+    <!--    Used to indicate a value was derived from historic readings (ex. historic high/low temperature)-->
     <string name="historic">Historic</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">High / Low</string>
@@ -1237,6 +1237,8 @@
     <string name="next_24_hours">Next 24 hours</string>
     <string name="tool_climate">Climate</string>
     <string name="tool_climate_summary">View historic temperatures</string>
+    <string name="pref_temperature_override" translatable="false">pref_temperature_override</string>
+    <string name="pref_temperature_smoothing" translatable="false">pref_temperature_smoothing</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>

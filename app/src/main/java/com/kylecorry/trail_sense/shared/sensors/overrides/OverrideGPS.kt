@@ -1,18 +1,21 @@
 package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
-import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.IntervalSensor
+import java.time.Duration
 import java.time.Instant
 
-class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): AbstractSensor(),
+class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
+    IntervalSensor(Duration.ofMillis(updateFrequency)),
     IGPS {
+
+    private val userPrefs by lazy { UserPreferences(context) }
 
     override val location: Coordinate
         get() = userPrefs.locationOverride
@@ -32,15 +35,4 @@ class OverrideGPS(context: Context, private val updateFrequency: Long = 20L): Ab
         get() = userPrefs.altitudeOverride
     override val mslAltitude: Float
         get() = altitude
-
-    private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = Timer { notifyListeners() }
-
-    override fun startImpl() {
-        intervalometer.interval(updateFrequency)
-    }
-
-    override fun stopImpl() {
-        intervalometer.stop()
-    }
 }
