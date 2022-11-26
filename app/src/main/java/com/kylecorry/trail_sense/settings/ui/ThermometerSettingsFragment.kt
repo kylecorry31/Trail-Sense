@@ -5,21 +5,23 @@ import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
+import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
+import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val thermometer by lazy { sensorService.getThermometer(false) }
+    private var uncalibratedThermometer: IThermometer? = null
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
 
@@ -39,6 +41,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.thermometer_settings, rootKey)
         setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
+        // TODO: No need for multiple units, use a UnitPreference
         minTempCalibratedC = editText(R.string.pref_min_calibrated_temp_c)
         maxTempCalibratedC = editText(R.string.pref_max_calibrated_temp_c)
         minTempUncalibratedC = editText(R.string.pref_min_uncalibrated_temp_c)
@@ -122,15 +125,50 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observe(thermometer) {
-            temperatureTxt?.summary =
-                formatService.formatTemperature(
-                    Temperature(
-                        thermometer.temperature,
-                        TemperatureUnits.C
-                    ).convertTo(prefs.temperatureUnits)
-                )
+        val thermometerInvalidationKeys = listOf(
+            R.string.pref_thermometer_source,
+            R.string.pref_min_calibrated_temp_c,
+            R.string.pref_max_calibrated_temp_c,
+            R.string.pref_min_uncalibrated_temp_c,
+            R.string.pref_max_uncalibrated_temp_c,
+            R.string.pref_min_calibrated_temp_f,
+            R.string.pref_max_calibrated_temp_f,
+            R.string.pref_min_uncalibrated_temp_f,
+            R.string.pref_max_uncalibrated_temp_f
+        ).map { getString(it) }
+        Preferences(requireContext()).onChange.asLiveData().observe(viewLifecycleOwner) {
+            if (thermometerInvalidationKeys.contains(it)) {
+                reloadThermometer()
+            }
         }
+    }
+
+    private fun reloadThermometer() {
+        uncalibratedThermometer?.stop(this::onThermometerUpdate)
+        uncalibratedThermometer = sensorService.getThermometer(true)
+        uncalibratedThermometer?.start(this::onThermometerUpdate)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        reloadThermometer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        uncalibratedThermometer?.stop(this::onThermometerUpdate)
+    }
+
+    private fun onThermometerUpdate(): Boolean {
+        val temperature = uncalibratedThermometer?.temperature ?: return true
+        temperatureTxt?.summary =
+            formatService.formatTemperature(
+                Temperature(
+                    temperature,
+                    TemperatureUnits.C
+                ).convertTo(prefs.temperatureUnits)
+            )
+        return true
     }
 
 }

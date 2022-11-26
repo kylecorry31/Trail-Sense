@@ -171,6 +171,18 @@
         <item>override</item>
     </string-array>
 
+    <string-array name="thermometer_source_entries">
+        <item>@string/historic</item>
+        <item>@string/sensor</item>
+        <item>@string/manual</item>
+    </string-array>
+
+    <string-array name="thermometer_source_values">
+        <item>historic</item>
+        <item>sensor</item>
+        <item>manual</item>
+    </string-array>
+
     <string-array name="altimeter_mode_no_barometer_entries">
         <item>@string/gps</item>
         <item>@string/never</item>

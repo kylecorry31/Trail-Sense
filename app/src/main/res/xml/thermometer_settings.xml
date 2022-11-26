@@ -15,6 +15,16 @@
             app:selectable="false"
             app:singleLineTitle="false" />
 
+        <ListPreference
+            app:defaultValue="historic"
+            app:entries="@array/thermometer_source_entries"
+            app:entryValues="@array/thermometer_source_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_thermometer_source"
+            app:singleLineTitle="false"
+            app:title="@string/source"
+            app:useSimpleSummaryProvider="true" />
+
         <SeekBarPreference
             android:defaultValue="150"
             android:max="1000"
@@ -99,7 +109,6 @@
             app:singleLineTitle="false"
             app:title="@string/max_temp_calibrated"
             app:useSimpleSummaryProvider="true" />
-
 
 
     </PreferenceCategory>
