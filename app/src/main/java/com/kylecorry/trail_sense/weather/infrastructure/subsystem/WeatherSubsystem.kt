@@ -98,11 +98,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_storm_alert_sensitivity,
         R.string.pref_altimeter_calibration_mode,
         R.string.pref_pressure_history,
-        R.string.pref_temperature_smoothing,
-        R.string.pref_min_calibrated_temp_c,
-        R.string.pref_max_calibrated_temp_c,
-        R.string.pref_min_uncalibrated_temp_c,
-        R.string.pref_max_uncalibrated_temp_c
+        R.string.pref_temperature_smoothing
     ).map { context.getString(it) }
 
     private val weatherMonitorStatePrefKeys = listOf(
@@ -480,23 +476,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         val smoothing = prefs.thermometer.smoothing
 
-        val sensorMin = prefs.weather.minBatteryTemperature
-        val sensorMax = prefs.weather.maxBatteryTemperature
-        val calibratedMin = prefs.weather.minActualTemperature
-        val calibratedMax = prefs.weather.maxActualTemperature
-
         return DataUtils.smoothTemporal(
             readings,
             smoothing,
-            {
-                calibrateTemperature(
-                    it.temperature,
-                    sensorMin,
-                    sensorMax,
-                    calibratedMin,
-                    calibratedMax
-                )
-            }
+            { it.temperature }
         ) { reading, smoothed ->
             reading.copy(temperature = smoothed)
         }
@@ -512,16 +495,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             { it.humidity ?: 0f }) { reading, smoothed ->
             reading.copy(humidity = if (smoothed == 0f) null else smoothed)
         }
-    }
-
-    private fun calibrateTemperature(
-        temperature: Float,
-        sensorMin: Float,
-        sensorMax: Float,
-        calibratedMin: Float,
-        calibratedMax: Float
-    ): Float {
-        return SolMath.map(temperature, sensorMin, sensorMax, calibratedMin, calibratedMax)
     }
 
     companion object {

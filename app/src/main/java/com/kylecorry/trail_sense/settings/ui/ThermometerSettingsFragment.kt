@@ -34,7 +34,7 @@ import kotlin.math.roundToInt
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private var uncalibratedThermometer: IThermometer? = null
+    private var calibratedThermometer: IThermometer? = null
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val temperatureUnits by lazy { prefs.temperatureUnits }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -216,15 +216,14 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun setSmoothing(smoothing: Float) {
-//        prefs.thermometer.smoothing = smoothing
         smoothingSeekBar?.value = (smoothing * 1000).roundToInt()
         smoothingSeekBar?.summary = formatService.formatPercentage(smoothing * 100)
     }
 
     private fun reloadThermometer() {
-        uncalibratedThermometer?.stop(this::onThermometerUpdate)
-        uncalibratedThermometer = sensorService.getThermometer(true)
-        uncalibratedThermometer?.start(this::onThermometerUpdate)
+        calibratedThermometer?.stop(this::onThermometerUpdate)
+        calibratedThermometer = sensorService.getThermometer()
+        calibratedThermometer?.start(this::onThermometerUpdate)
     }
 
     override fun onResume() {
@@ -234,11 +233,11 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onPause() {
         super.onPause()
-        uncalibratedThermometer?.stop(this::onThermometerUpdate)
+        calibratedThermometer?.stop(this::onThermometerUpdate)
     }
 
     private fun onThermometerUpdate(): Boolean {
-        val temperature = uncalibratedThermometer?.temperature ?: return true
+        val temperature = calibratedThermometer?.temperature ?: return true
         temperatureTxt?.summary =
             formatService.formatTemperature(
                 Temperature(

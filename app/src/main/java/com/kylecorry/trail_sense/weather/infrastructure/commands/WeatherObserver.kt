@@ -25,7 +25,7 @@ internal class WeatherObserver(
         altimeterAsGPS ?: sensorService.getGPS(background)
     }
     private val barometer by lazy { sensorService.getBarometer() }
-    private val thermometer by lazy { sensorService.getThermometer(calibrated = false) }
+    private val thermometer by lazy { sensorService.getThermometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
 
     override suspend fun getWeatherObservation(): Reading<RawWeatherObservation>? = onDefault {
