@@ -177,6 +177,8 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun updateChart() {
+        chart?.isVisible = history.isNotEmpty()
+
         val displayReadings = history.filter {
             Duration.between(
                 it.time,
@@ -188,20 +190,20 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             )
         }
 
-//        val displayRawReadings = uncalibratedHistory.filter {
-//            Duration.between(
-//                it.time,
-//                Instant.now()
-//            ) <= prefs.weather.pressureHistory
-//        }.map {
-//            Reading(
-//                Temperature.celsius(it.value.temperature).convertTo(temperatureUnits).temperature,
-//                it.time
-//            )
-//        }
+        val displayRawReadings = uncalibratedHistory.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }.map {
+            Reading(
+                Temperature.celsius(it.value.temperature).convertTo(temperatureUnits).temperature,
+                it.time
+            )
+        }
 
         if (displayReadings.isNotEmpty()) {
-            chart?.plot(displayReadings)//, displayRawReadings)
+            chart?.plot(displayReadings, displayRawReadings)
         }
     }
 

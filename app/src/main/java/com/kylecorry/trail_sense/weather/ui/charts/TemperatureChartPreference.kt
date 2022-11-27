@@ -13,6 +13,7 @@ class TemperatureChartPreference(context: Context, attributeSet: AttributeSet) :
 
     private var chart: TemperatureChart? = null
     private var data: List<Reading<Float>> = emptyList()
+    private var raw: List<Reading<Float>>? = null
 
 
     init {
@@ -24,11 +25,12 @@ class TemperatureChartPreference(context: Context, attributeSet: AttributeSet) :
         holder.itemView.isClickable = false
 
         chart = TemperatureChart(holder.findViewById(R.id.chart) as Chart)
-        chart?.plot(data)
+        chart?.plot(data, raw)
     }
 
-    fun plot(data: List<Reading<Float>>) {
+    fun plot(data: List<Reading<Float>>, raw: List<Reading<Float>>? = null) {
         this.data = data
-        chart?.plot(data)
+        this.raw = raw
+        chart?.plot(data, raw)
     }
 }
