@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
+import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.trail_sense.weather.ui.charts.PressureChart
 
 class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
@@ -19,7 +19,7 @@ class PressureChartPreference(context: Context, attributeSet: AttributeSet) :
 
 
     init {
-        layoutResource = R.layout.preference_pressure_chart
+        layoutResource = R.layout.preference_chart
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {

@@ -5,19 +5,30 @@ import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChartPreference
+import java.time.Duration
+import java.time.Instant
 import kotlin.math.roundToInt
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
@@ -25,6 +36,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private var uncalibratedThermometer: IThermometer? = null
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val temperatureUnits by lazy { prefs.temperatureUnits }
     private val formatService by lazy { FormatService(requireContext()) }
 
     private var temperatureTxt: Preference? = null
@@ -37,7 +49,13 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     private var minTempUncalibratedF: EditTextPreference? = null
     private var maxTempUncalibratedF: EditTextPreference? = null
     private var smoothingSeekBar: SeekBarPreference? = null
+    private var chart: TemperatureChartPreference? = null
 
+    private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }
+    private var history: List<WeatherObservation> = emptyList()
+    private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = emptyList()
+
+    private val runner = ControlledRunner<Unit>()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.thermometer_settings, rootKey)
@@ -54,6 +72,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         maxTempUncalibratedF = editText(R.string.pref_max_uncalibrated_temp_f)
         temperatureTxt = preference(R.string.pref_temperature_holder)
         smoothingSeekBar = seekBar(R.string.pref_temperature_smoothing)
+        chart = findPreference(getString(R.string.pref_holder_temperature_chart))
 
         smoothingSeekBar?.summary =
             formatService.formatPercentage(prefs.thermometer.smoothing * 100)
@@ -132,11 +151,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             R.string.pref_min_calibrated_temp_c,
             R.string.pref_max_calibrated_temp_c,
             R.string.pref_min_uncalibrated_temp_c,
-            R.string.pref_max_uncalibrated_temp_c,
-            R.string.pref_min_calibrated_temp_f,
-            R.string.pref_max_calibrated_temp_f,
-            R.string.pref_min_uncalibrated_temp_f,
-            R.string.pref_max_uncalibrated_temp_f
+            R.string.pref_max_uncalibrated_temp_c
         ).map { getString(it) } + listOf(source)
         Preferences(requireContext()).onChange.asLiveData().observe(viewLifecycleOwner) {
             if (thermometerInvalidationKeys.contains(it)) {
@@ -146,6 +161,47 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             if (it == source) {
                 onSourceChanged()
             }
+        }
+
+        observe(weather.weatherChanged) {
+            inBackground {
+                runner.cancelPreviousThenRun {
+                    history = weather.getHistory()
+                    uncalibratedHistory = weather.getRawHistory()
+                    onMain {
+                        updateChart()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateChart() {
+        val displayReadings = history.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }.map {
+            Reading(
+                it.temperature.convertTo(temperatureUnits).temperature, it.time
+            )
+        }
+
+//        val displayRawReadings = uncalibratedHistory.filter {
+//            Duration.between(
+//                it.time,
+//                Instant.now()
+//            ) <= prefs.weather.pressureHistory
+//        }.map {
+//            Reading(
+//                Temperature.celsius(it.value.temperature).convertTo(temperatureUnits).temperature,
+//                it.time
+//            )
+//        }
+
+        if (displayReadings.isNotEmpty()) {
+            chart?.plot(displayReadings)//, displayRawReadings)
         }
     }
 

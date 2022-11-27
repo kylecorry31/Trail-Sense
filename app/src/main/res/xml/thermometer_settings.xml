@@ -15,6 +15,10 @@
             app:selectable="false"
             app:singleLineTitle="false" />
 
+        <com.kylecorry.trail_sense.weather.ui.charts.TemperatureChartPreference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_temperature_chart" />
+
         <ListPreference
             app:defaultValue="historic"
             app:entries="@array/thermometer_source_entries"

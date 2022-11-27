@@ -1241,6 +1241,7 @@
     <string name="pref_thermometer_source" translatable="false">pref_thermometer_source</string>
     <!--The source of the readings / provider.-->
     <string name="source">Source</string>
+    <string name="pref_holder_temperature_chart" translatable="false">pref_holder_temperature_chart</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
