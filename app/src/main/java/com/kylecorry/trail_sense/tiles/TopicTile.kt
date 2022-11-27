@@ -4,6 +4,7 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FeatureState
 
@@ -36,18 +37,22 @@ abstract class TopicTile : AndromedaTileService() {
     }
 
     private fun onSubtitleChanged(subtitle: String): Boolean {
-        setSubtitle(subtitle)
+        tryOrLog {
+            setSubtitle(subtitle)
+        }
         return true
     }
 
     private fun onStateChanged(state: FeatureState): Boolean {
-        setState(
-            when (state) {
-                FeatureState.On -> Tile.STATE_ACTIVE
-                FeatureState.Off -> Tile.STATE_INACTIVE
-                FeatureState.Unavailable -> Tile.STATE_UNAVAILABLE
-            }
-        )
+        tryOrLog {
+            setState(
+                when (state) {
+                    FeatureState.On -> Tile.STATE_ACTIVE
+                    FeatureState.Off -> Tile.STATE_INACTIVE
+                    FeatureState.Unavailable -> Tile.STATE_UNAVAILABLE
+                }
+            )
+        }
         return true
     }
 }
