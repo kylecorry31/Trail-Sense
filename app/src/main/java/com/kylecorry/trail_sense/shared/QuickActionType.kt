@@ -15,7 +15,8 @@ enum class QuickActionType(val id: Int) {
     Whistle(8),
     WhiteNoise(9),
     LowPowerMode(10),
-    Thunder(11)
+    Thunder(11),
+    Climate(12),
 }
 
 object QuickActionUtils {
@@ -33,6 +34,7 @@ object QuickActionUtils {
             QuickActionType.WhiteNoise -> context.getString(R.string.tool_white_noise_title)
             QuickActionType.LowPowerMode -> context.getString(R.string.pref_low_power_mode_title)
             QuickActionType.Thunder -> context.getString(R.string.tool_lightning_title)
+            QuickActionType.Climate -> context.getString(R.string.tool_climate)
         }
     }
 
@@ -61,7 +63,8 @@ object QuickActionUtils {
             QuickActionType.Clouds,
             QuickActionType.Temperature,
             QuickActionType.LowPowerMode,
-            QuickActionType.Thunder
+            QuickActionType.Thunder,
+            QuickActionType.Climate
         )
     }
 
