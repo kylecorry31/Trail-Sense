@@ -60,11 +60,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
         val distanceUnits = formatService.sortDistanceUnits(
             listOf(
                 DistanceUnits.Feet,
-                DistanceUnits.Yards,
-                DistanceUnits.Miles,
-                DistanceUnits.NauticalMiles,
-                DistanceUnits.Meters,
-                DistanceUnits.Kilometers
+                DistanceUnits.Meters
             )
         )
 
