@@ -1078,4 +1078,5 @@
     <string name="next_24_hours">Sonraki 24 saat</string>
     <string name="tool_climate">İklim</string>
     <string name="tool_climate_summary">Geçmiş sıcaklıkları görüntüleyin</string>
+    <string name="source">Kaynak</string>
 </resources>

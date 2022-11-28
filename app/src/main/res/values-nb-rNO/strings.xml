@@ -987,4 +987,10 @@
     <string name="pref_show_map_previews_title">Vis kartforhåndsvisninger</string>
     <string name="samples">Prøver</string>
     <string name="sensor_summary">Kompass, GPS, høydemåler, barometer etc.</string>
+    <string name="altimeter_cache">Høydemåler-hurtiglager</string>
+    <string name="next_24_hours">Neste 24 timer</string>
+    <string name="historic">Historisk</string>
+    <string name="sensor">Sensor</string>
+    <string name="temperature_high_low">Høy / Lav</string>
+    <string name="historical_temperature_disclaimer">Beregnet basert på historiske temperaturer for ditt sted.</string>
 </resources>
