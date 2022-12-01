@@ -125,7 +125,7 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:exceptions:$andromedaVersion")
 
     // Ceres
-    val ceresVersion = "0.1.8"
+    val ceresVersion = "0.1.9"
     implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")
