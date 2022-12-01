@@ -447,7 +447,7 @@
     <string name="cirrostratus_desc">Vysoká oblačnost, která pokrývá oblohu. Je průhledná a obvykle způsobuje, že se kolem Slunce tvoří halo.</string>
     <string name="pref_daily_weather_notification_title">Denní upozornění na počasí</string>
     <string name="low_tide">Odliv</string>
-    <string name="nimbostratus_desc">Střední oblačnost, která je tmavě šedá a zakrývá oblohu. Může pršet.</string>
+    <string name="nimbostratus_desc">Střední úroveň mraku, který je tmavě šedý a pokrývá oblohu. Pokud neprší, může se jednat o oblačnou slohu.</string>
     <string name="metal_detector_disclaimer">Detekuje pouze magnetické kovy (např. železo)</string>
     <string name="update_gps_override">Aktualizujte přepsání GPS</string>
     <string name="location_override_updated">Přepsání polohy aktualizováno</string>
@@ -1051,4 +1051,8 @@
     <string name="path_slope_steep">Strmý</string>
     <string name="camera_unavailable">Fotoaparát není k dispozici</string>
     <string name="icon">Ikona</string>
+    <string name="nimbostratus_forecast">V příštích %d hodinách se mohou vyskytnout srážky.</string>
+    <string name="cloud_fair_forecast_hours">Může indikovat pěkné počasí pro následujících %d hodin.</string>
+    <string name="altocumulus_forecast">Může indikovat srážky nebo bouřku v příštích %d hodinách.</string>
+    <string name="altostratus_forecast">Může indikovat srážky v příštích %d hodinách.</string>
 </resources>
