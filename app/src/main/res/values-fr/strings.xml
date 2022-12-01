@@ -29,6 +29,7 @@
     <string name="pref_show_linear_compass_summary">Lorsque le téléphone est vertical</string>
     <plurals name="last_hours">
         <item quantity="one">Dernière %d heure</item>
+        <item quantity="many">Dernières %d heures</item>
         <item quantity="other">Dernières %d heures</item>
     </plurals>
     <plurals name="last_minutes">
@@ -162,7 +163,7 @@
     <string name="share_action_send">Envoyer</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
-    <string name="accuracy_info">GPS : Placez-vous à l\'extérieur avec une vue dégagée du ciel.
+    <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
 \n\tIncertitude sur la localisation : %s
 \n\tIncertitude sur l\'élévation : %s
 \n\tNombre de satellites : %s
@@ -198,8 +199,8 @@
     <string name="offline_maps">Cartes hors-ligne</string>
     <string name="dialog_deny">Non merci</string>
     <string name="dialog_grant">Mettre à jour les paramètres</string>
-    <string name="access_background_location_rationale">Trail Sense utilise vos données de position. Elles sont utilisées pour calibrer la pression atmosphérique au niveau de la mer et fournir des prévisions de lever de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html).</string>
-    <string name="access_background_location">Paramètres de localisation</string>
+    <string name="access_background_location_rationale">Trail Sense utilise vos données de position. Elles sont utilisées pour calibrer la pression atmosphérique au niveau de la mer et fournir des prévisions de lever de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location">Actualiser les paramètres de localisation</string>
     <string name="error_occurred_message">Trail Sense a rencontré une erreur. Veuillez envoyer un courriel au développeur pour que ce problème soit résolu.</string>
     <string name="error_occurred">Une erreur est survenue</string>
     <string name="no_group">Pas de groupes définis</string>
@@ -457,7 +458,7 @@
     <string name="action_inventory_clear_confirm">Effacer toutes les quantités \?</string>
     <string name="cirrocumulus_desc">Nuages de haute altitude formant un tissu ondulé composé de petits points apparaissant en deux dimensions.</string>
     <string name="altostratus_desc">Nuage de moyenne altitude couvrant le ciel. Le Soleil se devine comme un point lumineux.</string>
-    <string name="nimbostratus_desc">Un nuage d’altitude moyenne gris foncé et couvrant le ciel. Il peut pleuvoir.</string>
+    <string name="nimbostratus_desc">Un nuage d’altitude moyenne gris foncé et couvrant le ciel. Si il ne pleut pas, cela peut être un nuage stratus.</string>
     <string name="backtrack_disabled_low_power_toast">Le retour en arrière est désactivé en mode d\'économie d\'énergie</string>
     <string name="current_format">%s mA</string>
     <string name="duration_second_format">%d s</string>
@@ -924,4 +925,156 @@
     <string name="clinometer_measure_distance_title">Hauteur de la cible</string>
     <string name="instructions">Instructions</string>
     <string name="share_ellipsis">Partager…</string>
+    <string name="estimated">Estimé</string>
+    <string name="high_tide_letter">H</string>
+    <string name="save">Sauvegarder</string>
+    <string name="saved">Sauvegardé</string>
+    <string name="pref_start_on_boot_title">Démarrer au démarrage</string>
+    <string name="tide_diurnal">Diurne</string>
+    <string name="pref_show_map_previews_title">Afficher les aperçus de la carte</string>
+    <string name="smoothing">Lissage</string>
+    <string name="samples">Exemples</string>
+    <string name="historic">Historique</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="battery_usage_restricted_benefit">La suppression des restrictions de batterie pour Trail Sense peut améliorer la précision.
+\n
+\nSur la plupart des appareils, cliquez sur \'OK\', puis passez à toutes les applications, et désactivez l’optimisation de la batterie pour Trail Sense.
+\n
+\nVisitez [Don’t kill my app] (https://dontkillmyapp.com/) pour obtenir des instructions spécifiques à l’appareil.</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d point de passage supprimé</item>
+        <item quantity="many">%d points de passage supprimés</item>
+        <item quantity="other">%d points de passage supprimés</item>
+    </plurals>
+    <string name="next_24_hours">Prochaines 24 heures</string>
+    <string name="tool_climate">Climat</string>
+    <string name="tool_climate_summary">Voir les températures historiques</string>
+    <string name="error">Erreur</string>
+    <string name="average_speed">Vitesse moyenne</string>
+    <string name="pref_flashlight_should_timeout_title">Éteindre automatiquement</string>
+    <string name="pref_flashlight_timeout_title">Éteindre après</string>
+    <string name="view">Voir</string>
+    <string name="low_tide_letter">L</string>
+    <string name="tide_table">Table des marées</string>
+    <string name="distance_alert_distance_reached">Vous avez atteint %s</string>
+    <string name="reset_distance_title">Réinitialisation de la distance \?</string>
+    <string name="bearing">Palier</string>
+    <string name="running_in_background">Fonctionner en arrière-plan</string>
+    <string name="tide_diurnal_description">Marée haute une fois par jour - la plupart des marées ne sont pas diurnes</string>
+    <string name="highest_point_elevation">Point le plus haut</string>
+    <string name="updating_weather">Actualiser la météo</string>
+    <string name="camera_unavailable">Caméra indisponible</string>
+    <string name="high_pressure">Elevé</string>
+    <string name="low_pressure_system_description">Associé au mauvais temps, au ciel couvert et aux températures plus chaudes.</string>
+    <string name="weather_front">Front météorologique</string>
+    <string name="historical_temperature_disclaimer">Estimation fondée sur les températures historiques de votre emplacement.</string>
+    <string name="sensor">Senseur</string>
+    <string name="temperature_high_low">Elevé / Bas</string>
+    <string name="altimeter_cache">Cache altimétrique</string>
+    <string name="source">Source</string>
+    <string name="beacons">Balises</string>
+    <string name="done">Fait</string>
+    <string name="altostratus_forecast">Peut indiquer des précipitations dans les %d prochaines heures.</string>
+    <string name="steps">Pas</string>
+    <string name="onboarding_explore">- Prévu pour randonner, camper et le geocaching
+\n
+\n- Placer les repères et aller jusqu\'à eux
+\n
+\n- Suivre les chemins
+\n
+\n- Rebrousser chemin avec backtrack
+\n
+\n- Prévoir quoi emporter
+\n
+\n- Être alerté avant que le Soleil ne se couche
+\n
+\n- Prédire la méteo
+\n
+\n- Utiliser votre téléphone comme lampe
+\n
+\n- Et bien plus encore !</string>
+    <string name="distance_alert">Distance d\'alerte</string>
+    <string name="current_speed_gps">Vitesse actuelle (GPS)</string>
+    <string name="navigating_to_nearest_path_point">Navigation jusqu’au point de cheminement le plus proche</string>
+    <string name="estimate_stride_length">Estimer la longueur de foulée</string>
+    <string name="tide_semidiurnal">Semi diurne</string>
+    <string name="calibrate_map_point">Point de calibration %d / %d</string>
+    <string name="ascent">Ascension</string>
+    <string name="lowest_point_elevation">Point le plus bas</string>
+    <string name="pressure_system">Système de pression</string>
+    <string name="low_pressure">Bas</string>
+    <string name="then_weather">Soit %s</string>
+    <string name="weather_clear">Clair</string>
+    <string name="weather_overcast">Couvert</string>
+    <string name="weather_precipitation">Précipitations</string>
+    <string name="now">Maintenant</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d chemin importé</item>
+        <item quantity="many">%d chemins importés</item>
+        <item quantity="other">%d chemins importés</item>
+    </plurals>
+    <string name="exporting_map">Exporter la carte</string>
+    <string name="second_symbol">s</string>
+    <string name="permission_alarms_and_reminders">Alarmes et rappels</string>
+    <string name="descent">Descente</string>
+    <string name="undo">Annuler</string>
+    <string name="note">Note</string>
+    <string name="current_speed_pedometer">Vitesse actuelle (podomètre)</string>
+    <string name="average_speed_backtrack">Vitesse moyenne (Repère)</string>
+    <string name="pref_only_navigate_path_points_title">Naviguer uniquement vers les points enregistrés</string>
+    <string name="tide_user_guide_recommendation">Les sites Web officiels des tables de marée se trouvent dans le guide de l’utilisateur.</string>
+    <string name="map_exported">Carte exportée</string>
+    <string name="tide_instructions">Utilisez un tableau des marées officiel pour entrer les marées de référence pour la durée de votre voyage.</string>
+    <string name="frequency">Fréquence</string>
+    <string name="tide_frequency_description">Le nombre de marées hautes par jour. La plupart des marées sont semi-diurnes.</string>
+    <string name="weather_cold_front">Froid</string>
+    <string name="high_pressure_system_description">Associé au beau temps, au ciel dégagé et aux températures plus fraîches.</string>
+    <string name="weather_warm_front">Chaud</string>
+    <string name="cloud_stratus_forecast">Peut indiquer du beau temps pour les prochaines %d heures si elle est brumeuse, sinon il peut indiquer des précipitations bientôt.</string>
+    <string name="weather_wind">Vent</string>
+    <string name="later">Plus tard</string>
+    <string name="sensor_summary">Compas, GPS, altimètre, baromètre, etc.</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d marée</item>
+        <item quantity="many">%d marées</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="altocumulus_forecast">Peut indiquer des précipitations ou orages dans les %d prochaines heures.</string>
+    <string name="nimbostratus_forecast">Précipitations possibles dans les %d prochaines heures.</string>
+    <string name="cumulonimbus_forecast">Peut annoncer un orage dans les minutes à suivre.</string>
+    <string name="cumulus_forecast">Peut indiquer un beau temps. S’il grandit, peut indiquer des précipitations ou un orage dans les prochaines %d heures.</string>
+    <string name="cloud_fair_forecast_hours">Peut indiquer du beau temps pour les %d heures à venir.</string>
+    <string name="beacon_created">Repère créé</string>
+    <string name="result_deleted">Résultat supprimé</string>
+    <string name="tide_deleted">Marée supprimée</string>
+    <string name="pressure_tendency">Tendance</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="average_speed_pedometer">Vitesse moyenne (Podomètre)</string>
+    <string name="change_resolution">Changer la résolution</string>
+    <string name="path_slope_flat">Plat</string>
+    <string name="path_slope_moderate">Moyen</string>
+    <string name="path_slope_steep">Etapes</string>
+    <string name="clouds_clear">Clair</string>
+    <string name="manual">Manuel</string>
+    <string name="path_slope">Pente</string>
+    <string name="beacon">Repère</string>
+    <string name="night">Nuit</string>
+    <string name="qr_text_too_long">Le texte est trop long, le QR code a été tronqué</string>
+    <string name="disclaimer_estimated_tide_title">Estimation de la marée</string>
+    <string name="tool_temperature_estimation_title">Estimation de la température</string>
+    <string name="disclaimer_estimated_tide">L\'estimation de la marée peut être imprécise. Merci d\'utiliser une table des marées officielle pour des horaires précis.</string>
+    <string name="tool_temperature_estimation_description">Prédire la température à une altitude différente</string>
+    <string name="remove_distance_alert">Supprimer l\'alerte de distance (%s) \?</string>
+    <string name="off">Eteint</string>
+    <string name="explore">Explorer</string>
+    <string name="current_speed">Vitesse actuelle</string>
+    <string name="stride_length_stand_still">S\'arrêter</string>
+    <string name="stride_length_walk">Marchez en ligne droite, appuyez sur arrêt lorsque vous avez terminé</string>
+    <string name="warning">Alerte</string>
+    <string name="map_export_error">Impossible d\'exporter la carte dans le fichier sélectionné</string>
+    <string name="point">Point</string>
+    <string name="point_added">Point ajouté au chemin</string>
+    <string name="remove_battery_restrictions">Supprimer les restrictions de batterie \?</string>
+    <string name="camera_capture">Capturer</string>
+    <string name="file">Fichier</string>
 </resources>
