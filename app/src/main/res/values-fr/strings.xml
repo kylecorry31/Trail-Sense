@@ -923,4 +923,5 @@
     <string name="height">Hauteur</string>
     <string name="clinometer_measure_distance_title">Hauteur de la cible</string>
     <string name="instructions">Instructions</string>
+    <string name="share_ellipsis">Partager…</string>
 </resources>

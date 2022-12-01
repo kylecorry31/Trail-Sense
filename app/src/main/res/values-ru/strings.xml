@@ -405,7 +405,7 @@
     <string name="cumulonimbus_desc">Низкие пухлые облака, очень высокие. Они обычно имеют форму наковальни и тёмные.</string>
     <string name="cumulus_desc">Низкие пухлые облака, похожие на ватные шарики. Они расположены на небольшом расстоянии друг от друга и обычно белые с более тёмными пятнами внизу.</string>
     <string name="stratus_desc">Низкое облако, закрывающее небо. Предметы не отбрасывают тени, и может быть туман.</string>
-    <string name="nimbostratus_desc">Облако средней высоты, темно-серого цвета, закрывающее небо. Может идти дождь.</string>
+    <string name="nimbostratus_desc">Облако средней высоты, темно-серого цвета и закрывает небо. Если не идет дождь, то это может быть слоисто-дождевое облако.</string>
     <string name="altostratus_desc">Облако средней высоты, закрывающее небо. Солнце едва видно в виде яркого пятна.</string>
     <string name="altocumulus_desc">Пухлые облака средней высоты, похожие на ватные шарики. Они обычно белые с более темными пятнами внизу и могут быть разрозненными или похожими на лист.</string>
     <string name="cirrostratus_desc">Высокое облако, закрывающее небо. Оно прозрачно и обычно вызывает образование ореола вокруг солнца.</string>
@@ -1079,4 +1079,25 @@
     <string name="weather_warm_front">Теплый</string>
     <string name="weather_cold_front">Холодный</string>
     <string name="camera_unavailable">Камера недоступна</string>
+    <string name="next_24_hours">Следующие 24 часа</string>
+    <string name="smoothing">Сглаживание</string>
+    <string name="samples">Образцы</string>
+    <string name="historical_temperature_disclaimer">Предполагается на основе исторических температур для вашего местоположения.</string>
+    <string name="historic">Исторический</string>
+    <string name="temperature_high_low">Высокая / Низкая</string>
+    <string name="altimeter_cache">Кэш высотомера</string>
+    <string name="tool_climate">Климат</string>
+    <string name="tool_climate_summary">Просмотр исторических температур</string>
+    <string name="pref_show_map_previews_title">Показать превью карты</string>
+    <string name="sensor">Датчик</string>
+    <string name="sensor_summary">Компас, GPS, высотомер, барометр и т.д.</string>
+    <string name="source">Источник</string>
+    <string name="then_weather">затем %s</string>
+    <string name="cloud_stratus_forecast">Может указывать на хорошую погоду на ближайшие %d часов, если туманно, в противном случае может указывать на скорое выпадение осадков.</string>
+    <string name="weather_clear">Ясно</string>
+    <string name="weather_wind">Ветер</string>
+    <string name="weather_overcast">Пасмурно</string>
+    <string name="weather_precipitation">Осадки</string>
+    <string name="later">Позже</string>
+    <string name="now">Сейчас</string>
 </resources>
