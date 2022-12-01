@@ -462,7 +462,7 @@
     <string name="backtrack_disabled_low_power_toast">Le retour en arrière est désactivé en mode d\'économie d\'énergie</string>
     <string name="current_format">%s mA</string>
     <string name="duration_second_format">%d s</string>
-    <string name="delete_tide_prompt">Supprimer la marée \?</string>
+    <string name="delete_tide_prompt">Effacer la marée \?</string>
     <string name="cirrostratus_desc">Un nuage haut qui couvre le ciel. Il est transparent et forme généralement un halo autour du Soleil.</string>
     <string name="tap_to_turn_off">Toucher pour éteindre</string>
     <string name="always_on">Toujours activé</string>
