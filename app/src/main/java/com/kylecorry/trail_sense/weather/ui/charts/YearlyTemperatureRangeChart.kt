@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.weather.ui.charts
 
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.FullAreaChartLayer
 import com.kylecorry.ceres.chart.data.LineChartLayer
 import com.kylecorry.ceres.chart.data.ScatterChartLayer
 import com.kylecorry.sol.math.Range
@@ -35,6 +37,12 @@ class YearlyTemperatureRangeChart(
         8f
     )
 
+    private val freezingArea = FullAreaChartLayer(
+        0f,
+        -100f,
+        AppColor.Gray.color.withAlpha(50)
+    )
+
     init {
         chart.configureXAxis(
             labelCount = 5,
@@ -42,7 +50,7 @@ class YearlyTemperatureRangeChart(
             labelFormatter = MonthChartLabelFormatter(chart.context, year)
         )
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
-        chart.plot(lowLine, highLine, highlight)
+        chart.plot(freezingArea, lowLine, highLine, highlight)
     }
 
     fun highlight(date: LocalDate) {
@@ -57,6 +65,7 @@ class YearlyTemperatureRangeChart(
     }
 
     fun plot(data: List<Pair<LocalDate, Range<Temperature>>>, units: TemperatureUnits) {
+        val freezing = Temperature.celsius(0f).convertTo(units)
         val lows = data.map {
             Vector2(
                 it.first.dayOfYear.toFloat(),
@@ -82,6 +91,8 @@ class YearlyTemperatureRangeChart(
             drawGridLines = true,
             labelFormatter = MonthChartLabelFormatter(chart.context, year)
         )
+        freezingArea.top = freezing.temperature
+        freezingArea.bottom = range.start
         lowLine.data = lows
         highLine.data = highs
     }
