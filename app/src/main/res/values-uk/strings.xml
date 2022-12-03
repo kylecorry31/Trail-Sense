@@ -1087,4 +1087,13 @@
     <string name="smoothing">Згладжування</string>
     <string name="samples">Зразки</string>
     <string name="sensor_summary">Компас, GPS, висотомір, барометр тощо.</string>
+    <string name="historic">Історичне</string>
+    <string name="next_24_hours">Наступну добу</string>
+    <string name="historical_temperature_disclaimer">Розраховано на основі історичних температур у вашому місцеперебуванні.</string>
+    <string name="sensor">Датник</string>
+    <string name="temperature_high_low">Висока / Низька</string>
+    <string name="altimeter_cache">Кеш висотоміра</string>
+    <string name="tool_climate">Клімат</string>
+    <string name="source">Джерело</string>
+    <string name="tool_climate_summary">Перегляд історичних температур</string>
 </resources>
