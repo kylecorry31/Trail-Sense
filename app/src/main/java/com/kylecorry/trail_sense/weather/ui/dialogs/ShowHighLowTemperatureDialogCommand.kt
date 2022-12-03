@@ -35,10 +35,15 @@ class ShowHighLowTemperatureDialogCommand(
                 )
             }
 
+        val now = formatter.formatTemperature(forecast.first().value.convertTo(temperatureUnits))
+
         CustomUiUtils.showChart(
             fragment,
             fragment.getString(R.string.next_24_hours),
-            fragment.getString(R.string.historical_temperature_disclaimer)
+            fragment.getString(R.string.historical_temperature_disclaimer) + "\n\n" + fragment.getString(
+                R.string.now_value,
+                now
+            )
         ) {
             val chart = TemperatureChart(it)
             chart.plot(forecast.map { reading ->

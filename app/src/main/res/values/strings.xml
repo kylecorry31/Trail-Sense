@@ -1242,6 +1242,8 @@
     <!--The source of the readings / provider.-->
     <string name="source">Source</string>
     <string name="pref_holder_temperature_chart" translatable="false">pref_holder_temperature_chart</string>
+    <!--The value that is is now, ex. Now: 10°C-->
+    <string name="now_value">Now: %s</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
