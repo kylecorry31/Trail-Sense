@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
 import android.media.AudioTrack
 import com.kylecorry.andromeda.sound.SoundGenerator
-import kotlin.math.abs
+import com.kylecorry.sol.math.SolMath
 import kotlin.random.Random
 
 class PinkNoiseGenerator {
@@ -21,7 +21,7 @@ class PinkNoiseGenerator {
         val random = Random(0)
         var noise = mutableListOf<Double>()
         val size = (durationSeconds + 1) * sampleRate
-        for (i in 0 until size){
+        for (i in 0 until size) {
             val white = random.nextDouble()
             b0 = 0.99886 * b0 + white * 0.0555179
             b1 = 0.99332 * b1 + white * 0.0750759
@@ -37,10 +37,9 @@ class PinkNoiseGenerator {
         val min = noise.minOrNull() ?: 0.0
         val max = noise.maxOrNull() ?: 0.0
 
-        noise = if(abs(min) > max)
-            noise.map { it / abs(min) }.toMutableList()
-        else
-            noise.map { it / max }.toMutableList()
+        noise = noise.map {
+            SolMath.map(it, min, max, -1.0, 1.0)
+        }.toMutableList()
 
         return soundGenerator.getSound(sampleRate, durationSeconds) {
             noise[it + sampleRate]
