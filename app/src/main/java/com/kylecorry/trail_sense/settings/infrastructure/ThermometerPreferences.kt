@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
@@ -12,8 +11,7 @@ class ThermometerPreferences(context: Context) : PreferenceRepo(context), ITherm
         cache, getString(R.string.pref_thermometer_source),
         mapOf(
             "historic" to ThermometerSource.Historic,
-            "sensor" to ThermometerSource.Sensor,
-            "manual" to ThermometerSource.Override
+            "sensor" to ThermometerSource.Sensor
         ),
         ThermometerSource.Historic
     )
@@ -30,10 +28,4 @@ class ThermometerPreferences(context: Context) : PreferenceRepo(context), ITherm
                 scaled.toInt()
             )
         }
-
-    override val temperatureOverride by FloatPreference(
-        cache,
-        context.getString(R.string.pref_temperature_override),
-        0f
-    )
 }

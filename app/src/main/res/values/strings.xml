@@ -1236,7 +1236,6 @@
     <string name="next_24_hours">Next 24 hours</string>
     <string name="tool_climate">Climate</string>
     <string name="tool_climate_summary">View historic temperatures</string>
-    <string name="pref_temperature_override" translatable="false">pref_temperature_override</string>
     <string name="pref_temperature_smoothing" translatable="false">pref_temperature_smoothing</string>
     <string name="pref_thermometer_source" translatable="false">pref_thermometer_source</string>
     <!--The source of the readings / provider.-->

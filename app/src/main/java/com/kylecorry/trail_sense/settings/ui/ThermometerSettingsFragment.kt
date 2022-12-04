@@ -211,7 +211,6 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         when (prefs.thermometer.source) {
             ThermometerSource.Historic -> setSmoothing(0f)
             ThermometerSource.Sensor -> setSmoothing(0.2f)
-            ThermometerSource.Override -> setSmoothing(0f)
         }
     }
 

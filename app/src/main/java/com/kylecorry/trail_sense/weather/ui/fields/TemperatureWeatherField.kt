@@ -44,7 +44,6 @@ class TemperatureWeatherField(
             subtitle = when (source) {
                 ThermometerSource.Historic -> context.getString(R.string.historic)
                 ThermometerSource.Sensor -> context.getString(R.string.sensor)
-                ThermometerSource.Override -> context.getString(R.string.manual)
             },
             icon = ResourceListIcon(R.drawable.thermometer, color),
             trailingText = value
