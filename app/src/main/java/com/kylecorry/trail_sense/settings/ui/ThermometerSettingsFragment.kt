@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
@@ -16,13 +17,14 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
+import com.kylecorry.trail_sense.diagnostics.GPSDiagnostic
+import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
+import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
@@ -208,10 +210,12 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun onSourceChanged() {
-        when (prefs.thermometer.source) {
+        val source = prefs.thermometer.source
+        when (source) {
             ThermometerSource.Historic -> setSmoothing(0f)
             ThermometerSource.Sensor -> setSmoothing(0.2f)
         }
+        displayErrors(source)
     }
 
     private fun setSmoothing(smoothing: Float) {
@@ -228,11 +232,14 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     override fun onResume() {
         super.onResume()
         reloadThermometer()
+        val source = prefs.thermometer.source
+        displayErrors(source)
     }
 
     override fun onPause() {
         super.onPause()
         calibratedThermometer?.stop(this::onThermometerUpdate)
+        hideLocationUnsetError()
     }
 
     private fun onThermometerUpdate(): Boolean {
@@ -245,6 +252,39 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
                 ).convertTo(prefs.temperatureUnits)
             )
         return true
+    }
+
+    private fun displayErrors(source: ThermometerSource) {
+        if (source == ThermometerSource.Historic && isLocationUnset()) {
+            showLocationUnsetError()
+        } else {
+            hideLocationUnsetError()
+        }
+    }
+
+    private fun hideLocationUnsetError() {
+        val activity = requireMainActivity()
+        activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
+    }
+
+    private fun showLocationUnsetError() {
+        val activity = requireMainActivity()
+        val navController = findNavController()
+        val error = UserError(
+            ErrorBannerReason.LocationNotSet,
+            getString(R.string.location_not_set) + "\n" + getString(R.string.for_historic_temperatures),
+            R.drawable.satellite,
+            getString(R.string.set)
+        ) {
+            activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
+            navController.navigate(R.id.calibrateGPSFragment)
+        }
+        activity.errorBanner.report(error)
+    }
+
+    private fun isLocationUnset(): Boolean {
+        val diagnostic = GPSDiagnostic(requireContext(), null)
+        return diagnostic.scan().contains(DiagnosticCode.LocationUnset)
     }
 
 }
