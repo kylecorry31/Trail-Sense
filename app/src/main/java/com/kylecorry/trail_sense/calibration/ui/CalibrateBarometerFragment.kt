@@ -130,7 +130,9 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             }
         }
         if (displayReadings.isNotEmpty()) {
-            chart?.plot(displayReadings, displayRawReadings)
+            chart?.plot(
+                displayReadings.map { it.copy(value = it.value.convertTo(units)) },
+                displayRawReadings.map { it.copy(value = it.value.convertTo(units)) })
         }
     }
 

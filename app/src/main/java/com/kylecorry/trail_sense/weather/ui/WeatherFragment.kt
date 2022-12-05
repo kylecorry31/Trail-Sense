@@ -229,9 +229,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         readings: List<WeatherObservation>,
         rawReadings: List<Reading<Pressure>>
     ) {
-        val displayReadings = readings.map { it.pressureReading() }
+        val displayReadings =
+            readings.map { it.pressureReading() }.map { it.copy(value = it.value.convertTo(units)) }
         if (displayReadings.isNotEmpty()) {
-            chart.plot(displayReadings, rawReadings.ifEmpty { null })
+            chart.plot(
+                displayReadings,
+                rawReadings.map { it.copy(value = it.value.convertTo(units)) }.ifEmpty { null })
         }
     }
 
