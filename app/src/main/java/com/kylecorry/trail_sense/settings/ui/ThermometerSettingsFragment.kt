@@ -7,6 +7,7 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
@@ -216,6 +217,19 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             ThermometerSource.Sensor -> setSmoothing(0.2f)
         }
         displayErrors(source)
+        resetCalibration()
+    }
+
+    private fun resetCalibration(){
+        prefs.weather.resetThermometerCalibration()
+        minTempCalibratedC?.text = DecimalFormatter.format(prefs.weather.minActualTemperature, 1)
+        maxTempCalibratedC?.text = DecimalFormatter.format(prefs.weather.maxActualTemperature, 1)
+        minTempUncalibratedC?.text = DecimalFormatter.format(prefs.weather.minBatteryTemperature, 1)
+        maxTempUncalibratedC?.text = DecimalFormatter.format(prefs.weather.maxBatteryTemperature, 1)
+        minTempCalibratedF?.text = DecimalFormatter.format(prefs.weather.minActualTemperatureF, 1)
+        maxTempCalibratedF?.text = DecimalFormatter.format(prefs.weather.maxActualTemperatureF, 1)
+        minTempUncalibratedF?.text = DecimalFormatter.format(prefs.weather.minBatteryTemperatureF, 1)
+        maxTempUncalibratedF?.text = DecimalFormatter.format(prefs.weather.maxBatteryTemperatureF, 1)
     }
 
     private fun setSmoothing(smoothing: Float) {

@@ -34,4 +34,7 @@ interface IWeatherPreferences {
     val leftButton: QuickActionType
     val rightButton: QuickActionType
     val showColoredNotificationIcon: Boolean
+
+    // TODO: Move into thermometer preferences
+    fun resetThermometerCalibration()
 }

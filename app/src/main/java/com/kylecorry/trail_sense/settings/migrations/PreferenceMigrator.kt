@@ -36,7 +36,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 12
+        private const val version = 13
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -152,6 +152,10 @@ class PreferenceMigrator private constructor() {
                 if (elevation != null) {
                     prefs.putFloat(CachingAltimeterWrapper.LAST_ALTITUDE_KEY, elevation)
                 }
+            },
+            PreferenceMigration(12, 13) { context, _ ->
+                val userPrefs = UserPreferences(context)
+                userPrefs.weather.resetThermometerCalibration()
             }
         )
 

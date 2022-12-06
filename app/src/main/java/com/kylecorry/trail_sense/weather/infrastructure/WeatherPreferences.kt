@@ -229,6 +229,17 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
 
+    override fun resetThermometerCalibration() {
+        minActualTemperature = 0f
+        minActualTemperatureF = 32f
+        maxActualTemperature = 100f
+        maxActualTemperatureF = 212f
+        minBatteryTemperature = 0f
+        minBatteryTemperatureF = 32f
+        maxBatteryTemperature = 100f
+        maxBatteryTemperatureF = 212f
+    }
+
     companion object {
         const val HPA_FORECAST_LOW = 2.5f
         const val HPA_FORECAST_MEDIUM = 1.5f
