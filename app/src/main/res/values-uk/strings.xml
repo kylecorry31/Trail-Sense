@@ -1096,4 +1096,6 @@
     <string name="tool_climate">Клімат</string>
     <string name="source">Джерело</string>
     <string name="tool_climate_summary">Перегляд історичних температур</string>
+    <string name="now_value">Зараз: %s</string>
+    <string name="for_historic_temperatures">Для історичних температур</string>
 </resources>
