@@ -1075,4 +1075,7 @@
     <string name="high_pressure_system_description">Jó időhöz, tiszta égbolthoz és hűvösebb hőmérsékletekhez társul.</string>
     <string name="altostratus_forecast">Csapadékot jelezhet a következő %d órában.</string>
     <string name="icon">Ikon</string>
+    <string name="source">Forrás</string>
+    <string name="now_value">Jelenleg: %s</string>
+    <string name="for_historic_temperatures">Történelmi hőmérsékletekhez</string>
 </resources>
