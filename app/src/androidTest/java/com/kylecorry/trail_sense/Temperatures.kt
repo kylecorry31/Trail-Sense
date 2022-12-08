@@ -28,4 +28,19 @@ object Temperatures {
     val hawaiiLow = arrayOf(-9.1f, -9.0f, -8.5f, -7.5f, -6.5f, -5.4f, -4.9f, -4.9f, -5.2f, -5.7f, -6.7f, -8.2f)
     val hawaiiHigh = arrayOf(2.7f, 2.7f, 2.8f, 3.4f, 4.6f, 5.6f, 6.1f, 6.3f, 5.9f, 5.4f, 4.1f, 2.9f)
 
+    val equadorLow = arrayOf(5.9f, 6.1f, 6.2f, 6.4f, 6.3f, 5.7f, 5.5f, 5.4f, 5.6f, 5.9f, 5.9f, 5.9f)
+    val equadorHigh = arrayOf(15.5f, 15.4f, 15.5f, 15.4f, 15.4f, 14.7f, 14.4f, 14.9f, 15.8f, 16.1f, 16.3f, 15.9f)
+
+    val brazilLow = arrayOf(21.2f, 21.0f, 21.2f, 21.3f, 20.9f, 20.0f, 19.1f, 19.7f, 20.5f, 21.3f, 21.2f, 21.3f)
+    val brazilHigh = arrayOf(28.6f, 28.6f, 28.7f, 29.3f, 29.8f, 30.5f, 31.1f, 31.8f, 31.4f, 31.1f, 30.6f, 29.5f)
+
+    val argentinaLow = arrayOf(15.6f, 14.6f, 12.8f, 9.1f, 6.1f, 3.0f, 2.0f, 3.1f, 5.6f, 9.3f, 12.1f, 14.7f)
+    val argentinaHigh = arrayOf(28.4f, 27.2f, 24.7f, 21.8f, 18.9f, 15.3f, 15.2f, 17.7f, 20.2f, 23.3f, 25.6f, 28.0f)
+
+    val boliviaLow = arrayOf(19.1f, 19.0f, 18.9f, 16.4f, 14.6f, 13.3f, 12.4f, 12.9f, 15.4f, 17.2f, 18.1f, 18.6f)
+    val boliviaHigh = arrayOf(28.7f, 28.7f, 27.8f, 27.4f, 25.0f, 23.2f, 23.8f, 25.8f, 28.0f, 28.6f, 29.1f, 28.9f)
+
+    val chileLow = arrayOf(0.3f, 0.0f, -1.2f, -2.9f, -4.9f, -6.2f, -6.7f, -6.2f, -4.7f, -3.0f, -1.9f, -0.4f)
+    val chileHigh = arrayOf(8.3f, 7.9f, 6.5f, 4.2f, 1.3f, -0.5f, -0.7f, 0.0f, 1.9f, 4.5f, 5.9f, 7.5f)
+
 }

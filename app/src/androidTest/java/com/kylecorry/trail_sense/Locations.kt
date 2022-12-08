@@ -35,20 +35,20 @@ object Locations {
 
     // South America
 //    SA
-//    Equador
-//    -1.33033,-77.90625    996m
-//
-//    Brazil
-//    -5.67502,-56.77734   158m
-//
-//    Argentina
-//    -31.70387,-63.45703  241m
-//
-//    Bolivia
-//    -17.53301,-63.80859  388m
-//
-//    Chile
-//    -53.40102,-71.54297  636m
+    val equador = Coordinate(-1.33033,-77.90625)
+    val equadorElevation = Distance.meters(996f)
+
+    val brazil = Coordinate(-5.67502,-56.77734)
+    val brazilElevation = Distance.meters(158f)
+
+    val argentina = Coordinate(-31.70387,-63.45703)
+    val argentinaElevation = Distance.meters(241f)
+
+    val bolivia = Coordinate(-17.53301,-63.80859)
+    val boliviaElevation = Distance.meters(388f)
+
+    val chile = Coordinate(-53.40102,-71.54297)
+    val chileElevation = Distance.meters(636f)
 //
 //
 //

@@ -23,7 +23,12 @@ internal class WeatherSubsystemTest {
             Locations.puertoRico,
 //            Locations.newYork,
 //            Locations.greenland,
-//            Locations.hawaii
+//            Locations.hawaii,
+//            Locations.equador,
+            Locations.brazil,
+            Locations.argentina,
+            Locations.bolivia,
+            Locations.chile,
         )
         val elevations = listOf(
             Locations.canadaElevation,
@@ -34,7 +39,12 @@ internal class WeatherSubsystemTest {
             Locations.puertoRicoElevation,
 //            Locations.newYorkElevation,
 //            Locations.greenlandElevation,
-//            Locations.hawaiiElevation
+//            Locations.hawaiiElevation,
+//            Locations.equadorElevation,
+            Locations.brazilElevation,
+            Locations.argentinaElevation,
+            Locations.boliviaElevation,
+            Locations.chileElevation,
         )
         val lows = listOf(
             Temperatures.canadaLow,
@@ -45,7 +55,12 @@ internal class WeatherSubsystemTest {
             Temperatures.puertoRicoLow,
 //            Temperatures.newYorkLow,
 //            Temperatures.greenlandLow,
-//            Temperatures.hawaiiLow
+//            Temperatures.hawaiiLow,
+//            Temperatures.equadorLow,
+            Temperatures.brazilLow,
+            Temperatures.argentinaLow,
+            Temperatures.boliviaLow,
+            Temperatures.chileLow,
         )
         val highs = listOf(
             Temperatures.canadaHigh,
@@ -56,7 +71,12 @@ internal class WeatherSubsystemTest {
             Temperatures.puertoRicoHigh,
 //            Temperatures.newYorkHigh,
 //            Temperatures.greenlandHigh,
-//            Temperatures.hawaiiHigh
+//            Temperatures.hawaiiHigh,
+//            Temperatures.equadorHigh,
+            Temperatures.brazilHigh,
+            Temperatures.argentinaHigh,
+            Temperatures.boliviaHigh,
+            Temperatures.chileHigh,
         )
 
         for (i in locations.indices){
@@ -68,11 +88,18 @@ internal class WeatherSubsystemTest {
             val actualHighs = actual.map { it.second }
 
             actualLows.forEachIndexed { index, value ->
-                Assert.assertEquals(lows[i][index], value, 3f)
+                Assert.assertEquals(lows[i][index], value, 5f)
             }
 
             actualHighs.forEachIndexed { index, value ->
-                Assert.assertEquals(highs[i][index], value, 4f)
+                Assert.assertEquals(highs[i][index], value, 5f)
+            }
+
+            val actualRanges = actual.map { it.second - it.first }
+            val expectedRanges = highs[i].mapIndexed { index, high -> high - lows[i][index] }
+
+            actualRanges.forEachIndexed { index, value ->
+                Assert.assertEquals(expectedRanges[i], value, 5f)
             }
         }
 
