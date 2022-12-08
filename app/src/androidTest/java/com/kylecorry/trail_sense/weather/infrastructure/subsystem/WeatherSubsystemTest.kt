@@ -79,6 +79,9 @@ internal class WeatherSubsystemTest {
             Temperatures.chileHigh,
         )
 
+        val maxTempDiff = 5f
+        val maxTempRangeDiff = 3f
+
         for (i in locations.indices){
             val actual = subsystem.getTemperatureRanges(2022, locations[i], elevations[i])
                 .filter { it.first.dayOfMonth == 15 }
@@ -88,18 +91,18 @@ internal class WeatherSubsystemTest {
             val actualHighs = actual.map { it.second }
 
             actualLows.forEachIndexed { index, value ->
-                Assert.assertEquals(lows[i][index], value, 5f)
+                Assert.assertEquals(lows[i][index], value, maxTempDiff)
             }
 
             actualHighs.forEachIndexed { index, value ->
-                Assert.assertEquals(highs[i][index], value, 5f)
+                Assert.assertEquals(highs[i][index], value, maxTempDiff)
             }
 
             val actualRanges = actual.map { it.second - it.first }
             val expectedRanges = highs[i].mapIndexed { index, high -> high - lows[i][index] }
 
             actualRanges.forEachIndexed { index, value ->
-                Assert.assertEquals(expectedRanges[i], value, 5f)
+                Assert.assertEquals(expectedRanges[index], value, maxTempRangeDiff)
             }
         }
 
