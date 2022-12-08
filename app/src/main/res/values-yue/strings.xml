@@ -1,2 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="tools">架生</string>
+    <string name="copied_to_clipboard_toast">複製咗去剪貼簿</string>
+    <string name="access_background_location">更新定位設定</string>
+    <string name="dialog_grant">更新設定</string>
+    <string name="navigation">方位</string>
+    <string name="weather">氣象</string>
+    <string name="astronomy">天文</string>
+    <string name="precise_miles_format">%s 英里</string>
+    <string name="precise_nautical_miles_format">%s 海里</string>
+    <string name="precise_meters_format">%s 公尺</string>
+    <string name="precise_kilometers_format">%s 公里</string>
+    <string name="duration_hour_format">%d 個鐘</string>
+    <string name="duration_minute_format">%d 分鐘</string>
+    <string name="duration_second_format">%d 秒</string>
+    <string name="direction_north">北</string>
+    <string name="direction_south">南</string>
+    <string name="direction_east">東</string>
+    <string name="direction_west">西</string>
+    <string name="direction_north_east">東北</string>
+    <string name="direction_south_east">東南</string>
+    <string name="direction_north_west">西北</string>
+    <string name="direction_south_west">西南</string>
+    <string name="increase">+</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="degree">%s°</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="current_format">%s 毫安</string>
+    <string name="dash">-</string>
+    <string name="unknown">未知</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="accuracy_distance_format">± %s</string>
+    <string name="stop">停止</string>
+    <string name="pressure_format">%s %s</string>
+    <string name="weather_notification_desc_format">%s · %s (%s)</string>
+    <plurals name="last_hours">
+        <item quantity="other">過去 %d 個鐘</item>
+    </plurals>
+    <plurals name="last_minutes">
+        <item quantity="other">過去 %d 分鐘</item>
+    </plurals>
+    <string name="precise_temp_f_format">%s °F</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="temp_c_short">°C</string>
+    <string name="no_data">未有數據</string>
+    <string name="weather_no_change">未有變化</string>
+    <string name="today">今日</string>
+    <string name="tomorrow">聽日</string>
+    <string name="yesterday">琴日</string>
+    <string name="settings">設定</string>
+    <string name="precise_feet_format">%s 英尺</string>
+    <string name="battery_capacity_format">%s 毫安時</string>
+    <string name="maps">地圖</string>
+    <string name="pressure_reading_time_ago">%s - %s之前</string>
+    <string name="temp_f_short">°F</string>
+    <string name="offline_maps">離線地圖</string>
+</resources>

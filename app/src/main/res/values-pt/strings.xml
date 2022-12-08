@@ -1088,4 +1088,6 @@
     <string name="cumulus_forecast">Pode indicar tempo bom. Se crescer mais alto, pode indicar precipitação ou tempestade nas próximas %d horas.</string>
     <string name="cumulonimbus_forecast">Pode indicar uma tempestade em alguns minutos.</string>
     <string name="samples">Amostras</string>
+    <string name="for_historic_temperatures">Para temperaturas históricas</string>
+    <string name="now_value">Agora: %s</string>
 </resources>
