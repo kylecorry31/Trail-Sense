@@ -68,7 +68,7 @@ internal class WeatherSubsystemTest {
             val actualHighs = actual.map { it.second }
 
             actualLows.forEachIndexed { index, value ->
-                Assert.assertEquals(lows[i][index], value, 4f)
+                Assert.assertEquals(lows[i][index], value, 3f)
             }
 
             actualHighs.forEachIndexed { index, value ->
