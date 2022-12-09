@@ -343,4 +343,18 @@
     <string name="days">Egunak</string>
     <string name="sensor_gyroscope">Giroskopioa</string>
     <string name="privacy">Pribatutasuna</string>
+    <string name="pounds">Liberak</string>
+    <string name="minutes">Minutuak</string>
+    <string name="seconds">Segunduak</string>
+    <string name="ounces_weight">Ontzak</string>
+    <string name="kilograms">Kilogramoak</string>
+    <string name="weight">Pisua</string>
+    <string name="milliliters">Mililitroak</string>
+    <string name="high_tide">Altua</string>
+    <string name="low_tide">Baxua</string>
+    <string name="half_tide">Tartekoa</string>
+    <string name="liters">Litroak</string>
+    <string name="volume">Bolumena</string>
+    <string name="hours">Orduak</string>
+    <string name="grams">Gramoak</string>
 </resources>
