@@ -9,77 +9,67 @@ object Locations {
     val canada = Coordinate(55.13446, -98.80664)
     val canadaElevation = Distance.meters(248f)
 
-    val alaska = Coordinate(65.19961,-150.11719)
+    val alaska = Coordinate(65.19961, -150.11719)
     val alaskaElevation = Distance.meters(474f)
 
-    val california = Coordinate(36.89,-121.41)
+    val california = Coordinate(36.89, -121.41)
     val californiaElevation = Distance.meters(67f)
 
-    val mexico = Coordinate(26.70341,-102.41016)
+    val mexico = Coordinate(26.70341, -102.41016)
     val mexicoElevation = Distance.meters(1413f)
 
-    val costaRica = Coordinate(9.69308,-83.10059)
+    val costaRica = Coordinate(9.69308, -83.10059)
     val costaRicaElevation = Distance.meters(241f)
 
-    val puertoRico = Coordinate(18.3432317,-66.9515867)
+    val puertoRico = Coordinate(18.3432317, -66.9515867)
     val puertoRicoElevation = Distance.meters(609f)
 
-    val newYork = Coordinate(42.24255,-79.37402)
+    val newYork = Coordinate(42.24255, -79.37402)
     val newYorkElevation = Distance.meters(528f)
 
-    val greenland = Coordinate(64.1836575,-51.7130293)
+    val greenland = Coordinate(64.1836575, -51.7130293)
     val greenlandElevation = Distance.meters(7f)
 
-    val hawaii = Coordinate(21.32,-157.92)
+    val hawaii = Coordinate(21.32, -157.92)
     val hawaiiElevation = Distance.meters(1f)
 
     // South America
-//    SA
-    val equador = Coordinate(-1.33033,-77.90625)
+    val equador = Coordinate(-1.33033, -77.90625)
     val equadorElevation = Distance.meters(996f)
 
-    val brazil = Coordinate(-5.67502,-56.77734)
+    val brazil = Coordinate(-5.67502, -56.77734)
     val brazilElevation = Distance.meters(158f)
 
-    val argentina = Coordinate(-31.70387,-63.45703)
+    val argentina = Coordinate(-31.70387, -63.45703)
     val argentinaElevation = Distance.meters(241f)
 
-    val bolivia = Coordinate(-17.53301,-63.80859)
+    val bolivia = Coordinate(-17.53301, -63.80859)
     val boliviaElevation = Distance.meters(388f)
 
-    val chile = Coordinate(-53.40102,-71.54297)
+    val chile = Coordinate(-53.40102, -71.54297)
     val chileElevation = Distance.meters(636f)
-//
-//
-//
+
 //    ANTARCTICA
 //    Antarctica
 //    -69.10464,-65.95312  1717m
-//
-//
-//
-//
-//
-//    AFRICA
-//    Morocco
-//    31.63281,-6.18750   2343m
-//
-//    Egypt
-//    26.37809,26.92969   316m
-//
-//    Chad
-//    13.35328,16.55860  303m
-//
-//    South Africa
-//    -32.00249,21.62109  1343m
-//
-//    Madagascar
-//    -19.53287,46.05469  850m
-//
-//
-//
-//
-//
+
+    // Africa
+    val morocco = Coordinate(31.63281, -6.18750)
+    val moroccoElevation = Distance.meters(2343f)
+
+    val egypt = Coordinate(26.37809, 26.92969)
+    val egyptElevation = Distance.meters(316f)
+
+    val chad = Coordinate(13.35328, 16.55860)
+    val chadElevation = Distance.meters(303f)
+
+    val southAfrica = Coordinate(-32.00249, 21.62109)
+    val southAfricaElevation = Distance.meters(1343f)
+
+    val madagascar = Coordinate(-19.53287, 46.05469)
+    val madagascarElevation = Distance.meters(850f)
+
+
 //    EUR
 //    France
 //    45.59098,0.10547  103m

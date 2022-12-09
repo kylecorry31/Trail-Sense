@@ -30,6 +30,11 @@ internal class WeatherSubsystemTest {
             Locations.argentina,
             Locations.bolivia,
             Locations.chile,
+            Locations.morocco,
+            Locations.egypt,
+            Locations.chad,
+            Locations.southAfrica,
+            Locations.madagascar,
         )
         val elevations = listOf(
             Locations.canadaElevation,
@@ -46,6 +51,11 @@ internal class WeatherSubsystemTest {
             Locations.argentinaElevation,
             Locations.boliviaElevation,
             Locations.chileElevation,
+            Locations.moroccoElevation,
+            Locations.egyptElevation,
+            Locations.chadElevation,
+            Locations.southAfricaElevation,
+            Locations.madagascarElevation,
         )
         val lows = listOf(
             Temperatures.canadaLow,
@@ -62,6 +72,11 @@ internal class WeatherSubsystemTest {
             Temperatures.argentinaLow,
             Temperatures.boliviaLow,
             Temperatures.chileLow,
+            Temperatures.moroccoLow,
+            Temperatures.egyptLow,
+            Temperatures.chadLow,
+            Temperatures.southAfricaLow,
+            Temperatures.madagascarLow,
         )
         val highs = listOf(
             Temperatures.canadaHigh,
@@ -78,6 +93,11 @@ internal class WeatherSubsystemTest {
             Temperatures.argentinaHigh,
             Temperatures.boliviaHigh,
             Temperatures.chileHigh,
+            Temperatures.moroccoHigh,
+            Temperatures.egyptHigh,
+            Temperatures.chadHigh,
+            Temperatures.southAfricaHigh,
+            Temperatures.madagascarHigh,
         )
 
         val maxTempDiff = 8f
@@ -114,6 +134,7 @@ internal class WeatherSubsystemTest {
             }
         }
 
+        println(deltas / total)
         Assert.assertTrue((deltas / total) <= maxAverageDelta)
 
     }

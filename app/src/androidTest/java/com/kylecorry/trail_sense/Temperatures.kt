@@ -43,4 +43,19 @@ object Temperatures {
     val chileLow = arrayOf(0.3f, 0.0f, -1.2f, -2.9f, -4.9f, -6.2f, -6.7f, -6.2f, -4.7f, -3.0f, -1.9f, -0.4f)
     val chileHigh = arrayOf(8.3f, 7.9f, 6.5f, 4.2f, 1.3f, -0.5f, -0.7f, 0.0f, 1.9f, 4.5f, 5.9f, 7.5f)
 
+    val moroccoLow = arrayOf(-19.6f, -18.4f, -16.1f, -12.9f, -10.1f, -5.9f, -2.4f, -2.2f, -5.6f, -10.1f, -15.5f, -18.4f)
+    val moroccoHigh = arrayOf(-8.7f, -6.8f, -3.4f, 0.0f, 3.6f, 9.0f, 14.0f, 13.4f, 8.7f, 2.2f, -4.5f, -7.6f)
+
+    val egyptLow = arrayOf(1.8f, 3.5f, 7.2f, 12.0f, 16.4f, 18.9f, 20.1f, 19.7f, 17.3f, 13.1f, 7.5f, 3.3f)
+    val egyptHigh = arrayOf(17.0f, 19.2f, 23.4f, 28.5f, 32.5f, 35.1f, 35.4f, 35.1f, 32.4f, 28.2f, 22.5f, 18.4f)
+
+    val chadLow = arrayOf(12.2f, 14.7f, 18.9f, 22.4f, 23.3f, 22.3f, 21.1f, 19.9f, 20.1f, 19.4f, 16.2f, 13.6f)
+    val chadHigh = arrayOf(30.4f, 32.9f, 36.5f, 38.7f, 38.1f, 36.0f, 32.4f, 30.2f, 32.8f, 35.5f, 34.1f, 31.9f)
+
+    val southAfricaLow = arrayOf(4.5f, 4.6f, 2.6f, -1.5f, -5.7f, -8.6f, -9.4f, -8.1f, -5.5f, -2.2f, 0.7f, 3.2f)
+    val southAfricaHigh = arrayOf(21.7f, 21.0f, 18.4f, 14.1f, 9.6f, 6.3f, 6.1f, 8.4f, 11.7f, 15.0f, 17.6f, 20.1f)
+
+    val madagascarLow = arrayOf(14.5f, 14.4f, 13.9f, 12.8f, 9.2f, 7.1f, 7.0f, 9.0f, 10.3f, 11.8f, 13.1f, 14.1f)
+    val madagascarHigh = arrayOf(24.5f, 24.6f, 24.8f, 24.8f, 24.3f, 22.8f, 21.9f, 23.6f, 25.3f, 26.7f, 26.4f, 25.7f)
+
 }
