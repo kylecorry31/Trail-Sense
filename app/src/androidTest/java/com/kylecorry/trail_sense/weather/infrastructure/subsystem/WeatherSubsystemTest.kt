@@ -39,6 +39,17 @@ internal class WeatherSubsystemTest {
             Locations.unitedKingdom,
             Locations.ukraine,
             Locations.sweden,
+            Locations.siberia,
+            Locations.mongolia,
+            Locations.moscow,
+            Locations.saudiArabia,
+            Locations.india,
+            Locations.china,
+            Locations.indonesia,
+            Locations.westernAustralia,
+            Locations.queensland,
+            Locations.southAustralia,
+            Locations.newSouthWales,
         )
         val elevations = listOf(
             Locations.canadaElevation,
@@ -64,6 +75,17 @@ internal class WeatherSubsystemTest {
             Locations.unitedKingdomElevation,
             Locations.ukraineElevation,
             Locations.swedenElevation,
+            Locations.siberiaElevation,
+            Locations.mongoliaElevation,
+            Locations.moscowElevation,
+            Locations.saudiArabiaElevation,
+            Locations.indiaElevation,
+            Locations.chinaElevation,
+            Locations.indonesiaElevation,
+            Locations.westernAustraliaElevation,
+            Locations.queenslandElevation,
+            Locations.southAustraliaElevation,
+            Locations.newSouthWalesElevation,
         )
         val lows = listOf(
             Temperatures.canadaLow,
@@ -89,6 +111,17 @@ internal class WeatherSubsystemTest {
             Temperatures.unitedKingdomLow,
             Temperatures.ukraineLow,
             Temperatures.swedenLow,
+            Temperatures.siberiaLow,
+            Temperatures.mongoliaLow,
+            Temperatures.moscowLow,
+            Temperatures.saudiArabiaLow,
+            Temperatures.indiaLow,
+            Temperatures.chinaLow,
+            Temperatures.indonesiaLow,
+            Temperatures.westernAustraliaLow,
+            Temperatures.queenslandLow,
+            Temperatures.southAustraliaLow,
+            Temperatures.newSouthWalesLow,
         )
         val highs = listOf(
             Temperatures.canadaHigh,
@@ -114,11 +147,22 @@ internal class WeatherSubsystemTest {
             Temperatures.unitedKingdomHigh,
             Temperatures.ukraineHigh,
             Temperatures.swedenHigh,
+            Temperatures.siberiaHigh,
+            Temperatures.mongoliaHigh,
+            Temperatures.moscowHigh,
+            Temperatures.saudiArabiaHigh,
+            Temperatures.indiaHigh,
+            Temperatures.chinaHigh,
+            Temperatures.indonesiaHigh,
+            Temperatures.westernAustraliaHigh,
+            Temperatures.queenslandHigh,
+            Temperatures.southAustraliaHigh,
+            Temperatures.newSouthWalesHigh,
         )
 
         val maxTempDiff = 8f
         val maxTempRangeDiff = 5f
-        val maxAverageDelta = 2f
+        val maxAverageDelta = 1.5f
 
         var total = 0
         var deltas = 0f

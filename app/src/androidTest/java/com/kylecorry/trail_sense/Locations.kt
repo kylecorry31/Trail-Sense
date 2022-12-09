@@ -49,10 +49,6 @@ object Locations {
     val chile = Coordinate(-53.40102, -71.54297)
     val chileElevation = Distance.meters(636f)
 
-//    ANTARCTICA
-//    Antarctica
-//    -69.10464,-65.95312  1717m
-
     // Africa
     val morocco = Coordinate(31.63281, -6.18750)
     val moroccoElevation = Distance.meters(2343f)
@@ -70,58 +66,50 @@ object Locations {
     val madagascarElevation = Distance.meters(850f)
 
     // Europe
-    val france = Coordinate(45.59098,0.10547)
+    val france = Coordinate(45.59098, 0.10547)
     val franceElevation = Distance.meters(103f)
 
-    val unitedKingdom = Coordinate(56.37134,-4.11328)
+    val unitedKingdom = Coordinate(56.37134, -4.11328)
     val unitedKingdomElevation = Distance.meters(542f)
 
-    val ukraine = Coordinate(49.61783,33.32813)
+    val ukraine = Coordinate(49.61783, 33.32813)
     val ukraineElevation = Distance.meters(86f)
 
-    val sweden = Coordinate(65.57573,17.71875)
+    val sweden = Coordinate(65.57573, 17.71875)
     val swedenElevation = Distance.meters(440f)
 
+    // Asia
+    val siberia = Coordinate(69.44367, 150.89062)
+    val siberiaElevation = Distance.meters(109f)
 
-//    ASIA
-//    Siberia
-//    69.44367,150.89062  109m
-//
-//    Mongolia
-//    48.25540,93.19922  1213m
-//
-//    Moscow
-//    55.91628,37.52930  182m
-//
-//    Saudi Arabia
-//    25.52460,43.27735  756m
-//
-//    India
-//    21.65947,78.43360   542m
-//
-//    China
-//    34.92378,116.47266  35m
-//
-//    Indonesia
-//    -1.57084,113.62500  31m
-//
-//    Micronesia
-//    7.43827,151.85303   283m
-//
-//
-//
-//    AUS
-//    Western
-//    -24.62854,114.74121  145m
-//
-//    Queensland
-//    -20.72066,147.76172  136m
-//
-//    South
-//    -27.22874,132.19629  447m
-//
-//    New South Wales
-//    -33.99939,149.89746  1186
+    val mongolia = Coordinate(48.25540, 93.19922)
+    val mongoliaElevation = Distance.meters(1213f)
 
+    val moscow = Coordinate(55.91628, 37.52930)
+    val moscowElevation = Distance.meters(182f)
 
+    val saudiArabia = Coordinate(25.52460, 43.27735)
+    val saudiArabiaElevation = Distance.meters(756f)
+
+    val india = Coordinate(21.65947, 78.43360)
+    val indiaElevation = Distance.meters(542f)
+
+    val china = Coordinate(34.92378, 116.47266)
+    val chinaElevation = Distance.meters(35f)
+
+    val indonesia = Coordinate(-1.57084, 113.62500)
+    val indonesiaElevation = Distance.meters(31f)
+
+    // Australia
+    val westernAustralia = Coordinate(-24.62854, 114.74121)
+    val westernAustraliaElevation = Distance.meters(145f)
+
+    val queensland = Coordinate(-20.72066, 147.76172)
+    val queenslandElevation = Distance.meters(136f)
+
+    val southAustralia = Coordinate(-27.22874, 132.19629)
+    val southAustraliaElevation = Distance.meters(447f)
+
+    val newSouthWales = Coordinate(-33.99939, 149.89746)
+    val newSouthWalesElevation = Distance.meters(1186f)
 }
