@@ -13,7 +13,7 @@ import kotlin.math.roundToInt
 
 internal object HistoricTemperatureLookup {
 
-    internal const val lonStep = 3
+    internal const val lonStep = 2
     internal const val minLat = -60
     internal const val maxLat = 84
 
