@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.Temperatures
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
+import kotlin.math.abs
 
 internal class WeatherSubsystemTest {
 
@@ -79,11 +80,13 @@ internal class WeatherSubsystemTest {
             Temperatures.chileHigh,
         )
 
-        // TODO: Get this delta down to 5
         val maxTempDiff = 8f
         val maxTempRangeDiff = 5f
+        val maxAverageDelta = 2f
 
-        for (i in locations.indices){
+        var total = 0
+        var deltas = 0f
+        for (i in locations.indices) {
             val actual = subsystem.getTemperatureRanges(2022, locations[i], elevations[i])
                 .filter { it.first.dayOfMonth == 15 }
                 .map { it.second.start.temperature to it.second.end.temperature }
@@ -92,10 +95,14 @@ internal class WeatherSubsystemTest {
             val actualHighs = actual.map { it.second }
 
             actualLows.forEachIndexed { index, value ->
+                deltas += abs(lows[i][index] - value)
+                total++
                 Assert.assertEquals(lows[i][index], value, maxTempDiff)
             }
 
             actualHighs.forEachIndexed { index, value ->
+                deltas += abs(highs[i][index] - value)
+                total++
                 Assert.assertEquals(highs[i][index], value, maxTempDiff)
             }
 
@@ -106,6 +113,8 @@ internal class WeatherSubsystemTest {
                 Assert.assertEquals(expectedRanges[index], value, maxTempRangeDiff)
             }
         }
+
+        Assert.assertTrue((deltas / total) <= maxAverageDelta)
 
     }
 
