@@ -17,14 +17,14 @@ internal class WeatherSubsystemTest {
         val locations = listOf(
             Locations.canada,
             Locations.alaska,
-//            Locations.california, // Not accurate
+            Locations.california,
             Locations.mexico,
             Locations.costaRica,
             Locations.puertoRico,
-            Locations.newYork, // Not accurate
+            Locations.newYork,
 //            Locations.greenland, // Not accurate
 //            Locations.hawaii, // Not accurate
-            Locations.equador, // Not accurate
+            Locations.equador,
             Locations.brazil,
             Locations.argentina,
             Locations.bolivia,
@@ -33,14 +33,14 @@ internal class WeatherSubsystemTest {
         val elevations = listOf(
             Locations.canadaElevation,
             Locations.alaskaElevation,
-//            Locations.californiaElevation, // Not accurate
+            Locations.californiaElevation,
             Locations.mexicoElevation,
             Locations.costaRicaElevation,
             Locations.puertoRicoElevation,
-            Locations.newYorkElevation, // Not accurate
+            Locations.newYorkElevation,
 //            Locations.greenlandElevation, // Not accurate
 //            Locations.hawaiiElevation, // Not accurate
-            Locations.equadorElevation, // Not accurate
+            Locations.equadorElevation,
             Locations.brazilElevation,
             Locations.argentinaElevation,
             Locations.boliviaElevation,
@@ -49,14 +49,14 @@ internal class WeatherSubsystemTest {
         val lows = listOf(
             Temperatures.canadaLow,
             Temperatures.alaskaLow,
-//            Temperatures.californiaLow, // Not accurate
+            Temperatures.californiaLow,
             Temperatures.mexicoLow,
             Temperatures.costaRicaLow,
             Temperatures.puertoRicoLow,
-            Temperatures.newYorkLow, // Not accurate
+            Temperatures.newYorkLow,
 //            Temperatures.greenlandLow, // Not accurate
 //            Temperatures.hawaiiLow, // Not accurate
-            Temperatures.equadorLow, // Not accurate
+            Temperatures.equadorLow,
             Temperatures.brazilLow,
             Temperatures.argentinaLow,
             Temperatures.boliviaLow,
@@ -65,14 +65,14 @@ internal class WeatherSubsystemTest {
         val highs = listOf(
             Temperatures.canadaHigh,
             Temperatures.alaskaHigh,
-//            Temperatures.californiaHigh, // Not accurate
+            Temperatures.californiaHigh,
             Temperatures.mexicoHigh,
             Temperatures.costaRicaHigh,
             Temperatures.puertoRicoHigh,
-            Temperatures.newYorkHigh, // Not accurate
+            Temperatures.newYorkHigh,
 //            Temperatures.greenlandHigh, // Not accurate
 //            Temperatures.hawaiiHigh, // Not accurate
-            Temperatures.equadorHigh, // Not accurate
+            Temperatures.equadorHigh,
             Temperatures.brazilHigh,
             Temperatures.argentinaHigh,
             Temperatures.boliviaHigh,
@@ -80,8 +80,8 @@ internal class WeatherSubsystemTest {
         )
 
         // TODO: Get this delta down to 5
-        val maxTempDiff = 10f
-        val maxTempRangeDiff = 3f
+        val maxTempDiff = 8f
+        val maxTempRangeDiff = 5f
 
         for (i in locations.indices){
             val actual = subsystem.getTemperatureRanges(2022, locations[i], elevations[i])
