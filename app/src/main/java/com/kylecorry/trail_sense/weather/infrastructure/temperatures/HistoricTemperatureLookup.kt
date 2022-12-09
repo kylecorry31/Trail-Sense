@@ -13,14 +13,16 @@ import kotlin.math.roundToInt
 
 internal object HistoricTemperatureLookup {
 
-    internal const val lonStep = 9
+    internal const val lonStep = 3
+    internal const val minLat = -60
+    internal const val maxLat = 84
 
     fun getMonthlyTemperatureRange(
         context: Context,
         location: Coordinate,
         month: Month
     ): Range<Temperature> {
-        val lat = location.latitude.roundToInt()
+        val lat = location.latitude.roundToInt().coerceIn(minLat, maxLat)
         val lon = location.longitude.roundToInt()
         val low = loadMinimum(context, lat, lon, month)
         val high = loadMaximum(context, lat, lon, month)
@@ -30,11 +32,11 @@ internal object HistoricTemperatureLookup {
         )
     }
 
-    private fun loadMinimum(context: Context, latitude: Int, longitude: Int, month: Month): Short? {
+    private fun loadMinimum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
         return loadMonthly(context, latitude, longitude, month, R.raw.low_temperatures_global)
     }
 
-    private fun loadMaximum(context: Context, latitude: Int, longitude: Int, month: Month): Short? {
+    private fun loadMaximum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
         return loadMonthly(context, latitude, longitude, month, R.raw.high_temperatures_global)
     }
 
@@ -44,18 +46,20 @@ internal object HistoricTemperatureLookup {
         longitude: Int,
         month: Month,
         @RawRes file: Int
-    ): Short? {
+    ): Byte? {
         val input = context.resources.openRawResource(file)
-        val lonIdx = (longitude + 180) / lonStep
+        val lonIdx = (longitude + 180) / lonStep + 1
+        val latitudes = maxLat - minLat + 1
 
         val valuesPerLat = 360 / lonStep + 1
-        val valuesPerMonth = 181 * valuesPerLat
+        val valuesPerMonth = latitudes * valuesPerLat
         val monthIdx = month.value - 1
 
-        val latIdx = 90 + latitude
+        val latIdx = latitude - minLat
 
         val line = (monthIdx * valuesPerMonth + latIdx * valuesPerLat + lonIdx)
-        return CompressionUtils.getShort(input, line)
+//        println("$latitude, $longitude, $month, $line, $latIdx, $lonIdx")
+        return CompressionUtils.getBytes(input, line, 1)?.get(0)
     }
 
 }
