@@ -22,8 +22,8 @@ internal class WeatherSubsystemTest {
             Locations.costaRica,
             Locations.puertoRico,
             Locations.newYork,
-//            Locations.greenland, // Not accurate
-//            Locations.hawaii, // Not accurate
+            Locations.greenland,
+            Locations.hawaii,
             Locations.equador,
             Locations.brazil,
             Locations.argentina,
@@ -38,8 +38,8 @@ internal class WeatherSubsystemTest {
             Locations.costaRicaElevation,
             Locations.puertoRicoElevation,
             Locations.newYorkElevation,
-//            Locations.greenlandElevation, // Not accurate
-//            Locations.hawaiiElevation, // Not accurate
+            Locations.greenlandElevation,
+            Locations.hawaiiElevation,
             Locations.equadorElevation,
             Locations.brazilElevation,
             Locations.argentinaElevation,
@@ -54,8 +54,8 @@ internal class WeatherSubsystemTest {
             Temperatures.costaRicaLow,
             Temperatures.puertoRicoLow,
             Temperatures.newYorkLow,
-//            Temperatures.greenlandLow, // Not accurate
-//            Temperatures.hawaiiLow, // Not accurate
+            Temperatures.greenlandLow,
+            Temperatures.hawaiiLow,
             Temperatures.equadorLow,
             Temperatures.brazilLow,
             Temperatures.argentinaLow,
@@ -70,8 +70,8 @@ internal class WeatherSubsystemTest {
             Temperatures.costaRicaHigh,
             Temperatures.puertoRicoHigh,
             Temperatures.newYorkHigh,
-//            Temperatures.greenlandHigh, // Not accurate
-//            Temperatures.hawaiiHigh, // Not accurate
+            Temperatures.greenlandHigh,
+            Temperatures.hawaiiHigh,
             Temperatures.equadorHigh,
             Temperatures.brazilHigh,
             Temperatures.argentinaHigh,

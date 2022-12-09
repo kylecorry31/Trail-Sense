@@ -27,11 +27,11 @@ object Locations {
     val newYork = Coordinate(42.24255,-79.37402)
     val newYorkElevation = Distance.meters(528f)
 
-    val greenland = Coordinate(83.40257,-33.25783)
-    val greenlandElevation = Distance.meters(1447f)
+    val greenland = Coordinate(64.1836575,-51.7130293)
+    val greenlandElevation = Distance.meters(7f)
 
-    val hawaii = Coordinate(19.61491,-155.45654)
-    val hawaiiElevation = Distance.meters(2243f)
+    val hawaii = Coordinate(21.32,-157.92)
+    val hawaiiElevation = Distance.meters(1f)
 
     // South America
 //    SA
