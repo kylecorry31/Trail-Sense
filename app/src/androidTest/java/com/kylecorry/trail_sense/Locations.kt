@@ -69,22 +69,20 @@ object Locations {
     val madagascar = Coordinate(-19.53287, 46.05469)
     val madagascarElevation = Distance.meters(850f)
 
+    // Europe
+    val france = Coordinate(45.59098,0.10547)
+    val franceElevation = Distance.meters(103f)
 
-//    EUR
-//    France
-//    45.59098,0.10547  103m
-//
-//    UK
-//    56.37134,-4.11328   542m
-//
-//    Ukraine
-//    49.61783,33.32813   86m
-//
-//    Sweden
-//    65.57573,17.71875   440m
-//
-//
-//
+    val unitedKingdom = Coordinate(56.37134,-4.11328)
+    val unitedKingdomElevation = Distance.meters(542f)
+
+    val ukraine = Coordinate(49.61783,33.32813)
+    val ukraineElevation = Distance.meters(86f)
+
+    val sweden = Coordinate(65.57573,17.71875)
+    val swedenElevation = Distance.meters(440f)
+
+
 //    ASIA
 //    Siberia
 //    69.44367,150.89062  109m

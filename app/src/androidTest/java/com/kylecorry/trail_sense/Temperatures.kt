@@ -58,4 +58,16 @@ object Temperatures {
     val madagascarLow = arrayOf(14.5f, 14.4f, 13.9f, 12.8f, 9.2f, 7.1f, 7.0f, 9.0f, 10.3f, 11.8f, 13.1f, 14.1f)
     val madagascarHigh = arrayOf(24.5f, 24.6f, 24.8f, 24.8f, 24.3f, 22.8f, 21.9f, 23.6f, 25.3f, 26.7f, 26.4f, 25.7f)
 
+    val franceLow = arrayOf(1.4f, 1.7f, 3.1f, 5.0f, 8.8f, 11.6f, 13.6f, 13.5f, 10.9f, 7.9f, 3.6f, 2.1f)
+    val franceHigh = arrayOf(8.1f, 9.7f, 12.8f, 15.0f, 19.3f, 22.4f, 25.2f, 25.2f, 22.1f, 17.1f, 11.7f, 8.8f)
+
+    val unitedKingdomLow = arrayOf(-4.9f, -5.1f, -4.5f, -2.9f, -0.3f, 2.2f, 4.3f, 4.3f, 2.7f, 0.0f, -2.9f, -4.6f)
+    val unitedKingdomHigh = arrayOf(-0.5f, -0.5f, 0.6f, 3.8f, 7.1f, 9.3f, 10.9f, 10.7f, 8.4f, 4.6f, 1.5f, -0.1f)
+
+    val ukraineLow = arrayOf(-8.2f, -7.4f, -3.0f, 3.6f, 9.1f, 13.0f, 14.5f, 13.2f, 8.3f, 2.7f, -1.9f, -5.8f)
+    val ukraineHigh = arrayOf(-2.5f, -1.6f, 3.8f, 13.7f, 20.9f, 23.6f, 25.0f, 24.7f, 19.2f, 11.8f, 3.8f, -0.9f)
+
+    val swedenLow = arrayOf(-20.5f, -19.6f, -15.1f, -9.8f, -3.0f, 2.8f, 5.3f, 3.4f, -0.9f, -5.9f, -13.7f, -18.5f)
+    val swedenHigh = arrayOf(-11.2f, -9.7f, -4.7f, 0.0f, 6.5f, 12.7f, 14.8f, 12.1f, 6.5f, 0.0f, -6.6f, -9.5f)
+
 }

@@ -35,6 +35,10 @@ internal class WeatherSubsystemTest {
             Locations.chad,
             Locations.southAfrica,
             Locations.madagascar,
+            Locations.france,
+            Locations.unitedKingdom,
+            Locations.ukraine,
+            Locations.sweden,
         )
         val elevations = listOf(
             Locations.canadaElevation,
@@ -56,6 +60,10 @@ internal class WeatherSubsystemTest {
             Locations.chadElevation,
             Locations.southAfricaElevation,
             Locations.madagascarElevation,
+            Locations.franceElevation,
+            Locations.unitedKingdomElevation,
+            Locations.ukraineElevation,
+            Locations.swedenElevation,
         )
         val lows = listOf(
             Temperatures.canadaLow,
@@ -77,6 +85,10 @@ internal class WeatherSubsystemTest {
             Temperatures.chadLow,
             Temperatures.southAfricaLow,
             Temperatures.madagascarLow,
+            Temperatures.franceLow,
+            Temperatures.unitedKingdomLow,
+            Temperatures.ukraineLow,
+            Temperatures.swedenLow,
         )
         val highs = listOf(
             Temperatures.canadaHigh,
@@ -98,6 +110,10 @@ internal class WeatherSubsystemTest {
             Temperatures.chadHigh,
             Temperatures.southAfricaHigh,
             Temperatures.madagascarHigh,
+            Temperatures.franceHigh,
+            Temperatures.unitedKingdomHigh,
+            Temperatures.ukraineHigh,
+            Temperatures.swedenHigh,
         )
 
         val maxTempDiff = 8f
