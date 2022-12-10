@@ -58,7 +58,6 @@
     <string name="sun_up_no_set">Slunce je vysoko</string>
     <string name="sun_does_not_rise">nesvítá</string>
     <string name="sun_does_not_set">nezapadá</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>

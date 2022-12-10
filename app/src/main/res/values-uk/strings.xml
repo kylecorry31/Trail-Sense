@@ -494,7 +494,6 @@
         <item quantity="many">Останні %d годин</item>
         <item quantity="other">Останні %d годин</item>
     </plurals>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Збирання даних про погоду у тлі</string>
     <string name="notification_storm_alert_title">Штормове попередження</string>
     <string name="notification_storm_alert_text">Можливо, наближається шторм</string>

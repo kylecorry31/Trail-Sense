@@ -123,7 +123,6 @@
     <string name="sun_up_no_set">Sola er oppe</string>
     <string name="sun_does_not_rise">kommer ikke opp</string>
     <string name="sun_does_not_set">gå ikke ned</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s siden</string>
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>

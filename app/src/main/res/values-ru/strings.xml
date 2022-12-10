@@ -125,7 +125,6 @@
     <string name="access_background_location">Обновить настройки местоположения</string>
     <string name="copied_to_clipboard_toast">Скопировано в буфер обмена</string>
     <string name="tools">Инструменты</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">%s - %s тому назад</string>
     <string name="pressure_format">%s %s</string>
     <string name="pressure_tendency_format_2">%s / 3ч</string>

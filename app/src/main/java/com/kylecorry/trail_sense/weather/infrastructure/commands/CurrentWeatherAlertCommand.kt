@@ -28,6 +28,7 @@ internal class CurrentWeatherAlertCommand(
                     context,
                     FormatService.getInstance(context),
                     prefs.pressureUnits,
+                    prefs.temperatureUnits,
                     prefs.weather
                 )
             )

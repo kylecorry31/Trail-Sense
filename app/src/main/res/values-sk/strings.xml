@@ -2,7 +2,6 @@
 <resources>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Monitorovanie počasia na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha pred búrkou</string>
     <string name="notification_storm_alert_text">Možno sa blíži búrka</string>

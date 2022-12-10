@@ -41,7 +41,6 @@
     <string name="notification_storm_alert_text">Badai mungkin mendekat</string>
     <string name="notification_storm_alert_title">Peringatan Badai</string>
     <string name="notification_monitoring_weather">Pemantauan cuaca di latar belakang</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_minutes">
         <item quantity="other">%d menit terakhir</item>
     </plurals>

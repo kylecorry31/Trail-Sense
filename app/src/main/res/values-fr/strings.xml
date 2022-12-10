@@ -177,7 +177,6 @@
     <string name="full_moon">Pleine lune</string>
     <string name="copied_to_clipboard_toast">Copié dans le presse-papier</string>
     <string name="lunar_noon">Midi lunaire</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="pressure_reading_time_ago">il y a %s - %s</string>
     <string name="maps">Cartes</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>

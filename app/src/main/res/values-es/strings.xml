@@ -72,7 +72,6 @@
     <string name="sun_up_no_set">el sol está arriba</string>
     <string name="sun_down_no_set">el sol está abajo</string>
     <string name="tools">Herramientas</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
     <string name="storm_alerts">Alertas de tormenta</string>

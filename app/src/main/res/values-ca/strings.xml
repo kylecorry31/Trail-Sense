@@ -82,7 +82,6 @@
         <item quantity="one">Última %d hora</item>
         <item quantity="other">Últimes %d hores</item>
     </plurals>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Monitorització metereològica en segon plà</string>
     <string name="notification_storm_alert_title">Alerta de tempesta</string>
     <string name="notification_storm_alert_text">Una tempesta podria estar apropant-se</string>

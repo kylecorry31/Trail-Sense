@@ -111,7 +111,6 @@
     <string name="sun_down_no_set">已日落</string>
     <string name="sun_does_not_rise">还未升起</string>
     <string name="sun_does_not_set">还未落下</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">后台监测天气</string>
     <string name="notification_storm_alert_title">暴风雨警报</string>
     <string name="notification_storm_alert_text">一场暴风雨可能正在逼近</string>

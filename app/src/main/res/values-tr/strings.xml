@@ -416,7 +416,6 @@
         <item quantity="one">Son %d saat</item>
         <item quantity="other">Son %d saat</item>
     </plurals>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Arkaplanda hava durumu gözetleniyor</string>
     <string name="notification_storm_alert_title">Fırtına Uyarısı</string>
     <string name="notification_storm_alert_text">Fırtına yaklaşıyor olabilir</string>

@@ -4,12 +4,11 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.hardware.SensorManager
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
-import com.kylecorry.sol.units.Reading
+import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -20,40 +19,46 @@ import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
-import java.time.Instant
 
 class CurrentWeatherAlerter(
     private val context: Context,
     private val formatter: FormatService,
-    private val units: PressureUnits,
+    private val pressureUnits: PressureUnits,
+    private val temperatureUnits: TemperatureUnits,
     private val prefs: IWeatherPreferences
 ) : IValueAlerter<CurrentWeather> {
 
     override fun alert(value: CurrentWeather) {
         val forecast = value.prediction
         val tendency = value.pressureTendency
-        val lastReading = value.observation?.pressureReading()
-        val pressure = (lastReading ?: Reading(
-            Pressure.hpa(SensorManager.PRESSURE_STANDARD_ATMOSPHERE),
-            Instant.now()
-        )).value
+        val lastPressure = value.observation?.pressureReading()?.value?.convertTo(pressureUnits)
+        val lastTemperature = value.observation?.temperature?.convertTo(temperatureUnits)
         val icon = formatter.getWeatherImage(forecast.primaryHourly)
         val weather = formatter.formatWeather(forecast.primaryHourly)
         val arrival = formatter.formatWeatherArrival(forecast.hourlyArrival).lowercase()
 
-        val description = if (arrival.isNotEmpty()) {
-            "$weather $arrival"
-        } else {
-            weather
+        val descriptionStringBuilder = StringBuilder()
+        descriptionStringBuilder.append(weather)
+
+        if (arrival.isNotEmpty()) {
+            descriptionStringBuilder.append(" $arrival")
+        }
+
+        if (lastTemperature != null) {
+            descriptionStringBuilder.append(" ${context.getString(R.string.dot)} ")
+            descriptionStringBuilder.append(formatter.formatTemperature(lastTemperature))
+        }
+
+        if (prefs.shouldShowPressureInNotification && lastPressure != null) {
+            descriptionStringBuilder.append(" ${context.getString(R.string.dot)} ")
+            descriptionStringBuilder.append(
+                formatter.formatPressure(lastPressure, Units.getDecimalPlaces(pressureUnits))
+            )
+            descriptionStringBuilder.append(" (${getTendencyString(tendency, pressureUnits)})")
         }
 
         val newNotification = getNotification(
-            if (prefs.shouldShowPressureInNotification) context.getString(
-                R.string.weather_notification_desc_format,
-                description,
-                formatter.formatPressure(pressure.hpa(), Units.getDecimalPlaces(units)),
-                getTendencyString(tendency, units)
-            ) else description,
+            descriptionStringBuilder.toString(),
             icon
         )
         updateNotificationText(newNotification)

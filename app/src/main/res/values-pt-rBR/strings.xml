@@ -49,7 +49,6 @@
     <string name="pressure_format">%s %s</string>
     <string name="pressure_reading_time_ago">%s - há %s</string>
     <!--Weather Tab - Forecasts-->
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
         <item quantity="other">Últimas %d horas</item>

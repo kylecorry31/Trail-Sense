@@ -96,7 +96,6 @@
     <string name="sun_down_no_set">Słońce zaszło</string>
     <string name="sun_does_not_rise">nie wschodzi</string>
     <string name="sun_does_not_set">nie zachodzi</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_storm_alert_title">Alarmy burzowe</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
     <string name="storm_alerts">Alarmy burzowe</string>

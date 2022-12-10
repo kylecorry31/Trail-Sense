@@ -16,7 +16,6 @@
         <item quantity="one">Utolsó %d óra</item>
         <item quantity="other">Utolsó %d óra</item>
     </plurals>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Időjárás figyelése a háttérben</string>
     <string name="notification_storm_alert_title">Vihar Riasztás</string>
     <string name="notification_storm_alert_text">Vihar közeledhet</string>

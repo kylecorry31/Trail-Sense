@@ -37,7 +37,6 @@
         <item quantity="few">Ultimele %d ore</item>
         <item quantity="other">Ultimele %d ore</item>
     </plurals>
-    <string name="weather_notification_desc_format">%s - %s (%s)</string>
     <string name="notification_monitoring_weather">Monitorizarea vremii în fundal</string>
     <string name="notification_storm_alert_title">Alertă de furtună</string>
     <string name="notification_storm_alert_text">S-ar putea să se apropie o furtună</string>

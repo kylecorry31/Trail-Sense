@@ -100,7 +100,6 @@
     <string name="notification_storm_alert_text">A storm might be approaching</string>
     <string name="notification_storm_alert_title">Storm Alert</string>
     <string name="notification_monitoring_weather">Monitoring weather in the background</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_hours">
         <item quantity="one">Last %d hour</item>
         <item quantity="other">Last %d hours</item>
@@ -930,6 +929,7 @@
     <string name="auto">Auto</string>
     <string name="dash_separated_pair" translatable="false">%s - %s</string>
     <string name="dot_separated_pair" translatable="false">%s • %s</string>
+    <string name="dot" translatable="false">•</string>
     <string name="slash_separated_pair" translatable="false">%s / %s</string>
     <string name="delete_path">Delete path?</string>
     <!--    This will always be in mm-->

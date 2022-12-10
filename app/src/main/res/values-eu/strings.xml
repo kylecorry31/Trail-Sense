@@ -54,7 +54,6 @@
         <item quantity="one">Azken %d ordua</item>
         <item quantity="other">Azken %d orduak</item>
     </plurals>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <string name="notification_monitoring_weather">Eguraldia atzekaldean monitorizatzen</string>
     <string name="notification_storm_alert_title">Ekaitz abisua</string>
     <string name="notification_storm_alert_text">Ekaitz bat hurbiltzen egon liteke</string>

@@ -43,7 +43,6 @@
     <string name="units_psi">PSI</string>
     <string name="pressure_tendency_format_2">%s / 3 timer</string>
     <string name="pressure_format">%s %s</string>
-    <string name="weather_notification_desc_format">%s · %s (%s)</string>
     <plurals name="last_hours">
         <item quantity="one">Seneste %d time</item>
         <item quantity="other">Seneste %d timer</item>
