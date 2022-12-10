@@ -30,7 +30,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <SeekBarPreference
-            android:defaultValue="150"
+            android:defaultValue="0"
             android:max="1000"
             app:iconSpaceReserved="false"
             app:key="@string/pref_temperature_smoothing"

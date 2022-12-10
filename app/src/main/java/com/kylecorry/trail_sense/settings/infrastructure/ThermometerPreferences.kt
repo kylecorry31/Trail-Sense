@@ -19,7 +19,7 @@ class ThermometerPreferences(context: Context) : PreferenceRepo(context), ITherm
     override var smoothing: Float
         get() {
             return (cache.getInt(context.getString(R.string.pref_temperature_smoothing))
-                ?: 150) / 1000f
+                ?: 0) / 1000f
         }
         set(value) {
             val scaled = (value * 1000).coerceIn(0f, 1000f)
