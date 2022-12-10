@@ -1072,9 +1072,6 @@
     <string name="historical_temperature_disclaimer">Konumunuz için geçmiş sıcaklıklara göre tahmin edildi.</string>
     <string name="historic">Geçmiş</string>
     <string name="temperature_high_low">Yüksek / Düşük</string>
-    <string name="high_low_temperature_dialog">**Düşük**: %s
-\n
-\n**Yüksek**: %s</string>
     <string name="next_24_hours">Sonraki 24 saat</string>
     <string name="tool_climate">İklim</string>
     <string name="tool_climate_summary">Geçmiş sıcaklıkları görüntüleyin</string>

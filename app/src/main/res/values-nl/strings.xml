@@ -1059,9 +1059,6 @@
     <string name="samples">Monsters</string>
     <string name="temperature_high_low">Hoog / Laag</string>
     <string name="altimeter_cache">Hoogtemetercache</string>
-    <string name="high_low_temperature_dialog">**Laag: %s
-\n
-\n**Hoog: %s</string>
     <string name="cloud_stratus_forecast">Kan duiden op mooi weer voor de komende %d uren als het mistig is, anders kan het duiden op neerslag binnenkort.</string>
     <string name="then_weather">dan %s</string>
     <string name="cumulonimbus_forecast">Kan binnen enkele minuten duiden op een onweersbui.</string>
