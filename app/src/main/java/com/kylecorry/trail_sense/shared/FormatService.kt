@@ -42,7 +42,7 @@ class FormatService(private val context: Context) {
         return when (condition) {
             WeatherCondition.Clear -> R.drawable.sunny
             WeatherCondition.Overcast -> R.drawable.cloudy
-            WeatherCondition.Precipitation -> R.drawable.light_rain // TODO: Change this
+            WeatherCondition.Precipitation -> R.drawable.ic_precipitation
             WeatherCondition.Storm -> R.drawable.storm
             WeatherCondition.Wind -> R.drawable.wind
             WeatherCondition.Rain -> R.drawable.light_rain
