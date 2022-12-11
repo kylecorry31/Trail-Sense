@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 
 class DailyWeatherAlerter(
     private val context: Context,

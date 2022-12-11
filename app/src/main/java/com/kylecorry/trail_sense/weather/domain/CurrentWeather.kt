@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure
+package com.kylecorry.trail_sense.weather.domain
 
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.weather.infrastructure.PrimaryWeatherSelector
 import java.time.Instant
 
 data class CurrentWeather(

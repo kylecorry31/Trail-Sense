@@ -9,8 +9,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZonedDateTime

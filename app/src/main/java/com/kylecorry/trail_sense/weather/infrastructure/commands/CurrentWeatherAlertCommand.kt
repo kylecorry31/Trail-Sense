@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.commands.generic.Command
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
 

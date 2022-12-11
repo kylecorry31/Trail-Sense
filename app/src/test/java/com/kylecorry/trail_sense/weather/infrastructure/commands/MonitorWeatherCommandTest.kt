@@ -7,9 +7,9 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.HourlyArrivalTime
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
+import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.IWeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach

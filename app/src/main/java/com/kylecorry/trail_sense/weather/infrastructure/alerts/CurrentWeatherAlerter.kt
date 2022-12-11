@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.weather.infrastructure.receivers.WeatherStopMonitoringReceiver

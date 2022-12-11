@@ -8,9 +8,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.weather.domain.CanSendDailyForecast
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
 
 class DailyWeatherAlertCommand(

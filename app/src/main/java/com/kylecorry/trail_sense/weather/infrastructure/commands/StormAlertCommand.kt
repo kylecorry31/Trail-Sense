@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
 

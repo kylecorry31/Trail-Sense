@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherObservation
+import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChartPreference
 import java.time.Duration

@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.HourlyArrivalTime
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*

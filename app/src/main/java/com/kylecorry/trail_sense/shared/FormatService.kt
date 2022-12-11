@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
-import com.kylecorry.trail_sense.weather.infrastructure.HourlyArrivalTime
+import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
