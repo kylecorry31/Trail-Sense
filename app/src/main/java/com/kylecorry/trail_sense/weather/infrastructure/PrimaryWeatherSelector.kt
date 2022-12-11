@@ -6,6 +6,8 @@ internal class PrimaryWeatherSelector {
 
     private val order = listOf(
         WeatherCondition.Storm,
+        WeatherCondition.Snow,
+        WeatherCondition.Rain,
         WeatherCondition.Precipitation,
         WeatherCondition.Wind,
         WeatherCondition.Overcast,

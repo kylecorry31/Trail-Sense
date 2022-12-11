@@ -42,9 +42,11 @@ class FormatService(private val context: Context) {
         return when (condition) {
             WeatherCondition.Clear -> R.drawable.sunny
             WeatherCondition.Overcast -> R.drawable.cloudy
-            WeatherCondition.Precipitation -> R.drawable.light_rain
+            WeatherCondition.Precipitation -> R.drawable.light_rain // TODO: Change this
             WeatherCondition.Storm -> R.drawable.storm
             WeatherCondition.Wind -> R.drawable.wind
+            WeatherCondition.Rain -> R.drawable.light_rain
+            WeatherCondition.Snow -> R.drawable.ic_precipitation_snow
             null -> R.drawable.steady
         }
     }
@@ -56,6 +58,8 @@ class FormatService(private val context: Context) {
             WeatherCondition.Precipitation -> context.getString(R.string.weather_precipitation)
             WeatherCondition.Storm -> context.getString(R.string.weather_storm)
             WeatherCondition.Wind -> context.getString(R.string.weather_wind)
+            WeatherCondition.Rain -> context.getString(R.string.precipitation_rain)
+            WeatherCondition.Snow -> context.getString(R.string.precipitation_snow)
             null -> context.getString(R.string.weather_no_change)
         }
     }

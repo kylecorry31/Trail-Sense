@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
@@ -343,14 +344,54 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
-    private fun getForecast(
+    private suspend fun getForecast(
         readings: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>
-    ): List<WeatherForecast> {
-        return weatherService.getForecast(
-            readings.map { it.pressureReading() },
-            clouds
+    ): Pair<HourlyArrivalTime?, List<WeatherForecast>> {
+        val mapped = readings.map { it.pressureReading() }
+        // Gets the weather reading twice - first to get arrival time, second to determine precipitation type
+        val original = weatherService.getForecast(
+            mapped,
+            clouds,
+            null
         )
+
+        val last = readings.lastOrNull()
+        val (location, elevation) = getLocationAndElevation(last?.id)
+        val arrival = getArrivalTime(original, clouds)
+
+        val arrivesIn = when (arrival) {
+            HourlyArrivalTime.Now, null -> Duration.ZERO
+            HourlyArrivalTime.VerySoon -> Duration.ofHours(1)
+            HourlyArrivalTime.Soon -> Duration.ofHours(2)
+            HourlyArrivalTime.Later -> Duration.ofHours(8)
+        }
+
+        val temperatures =
+            getHighLowTemperature(
+                ZonedDateTime.now(),
+                arrivesIn,
+                Duration.ofHours(6),
+                location,
+                elevation
+            )
+        
+        return arrival to weatherService.getForecast(
+            mapped,
+            clouds,
+            temperatures
+        )
+    }
+
+    private fun getLastCloud(clouds: List<Reading<CloudGenus?>>): Reading<CloudGenus?>? {
+        var lastCloud = clouds.lastOrNull()
+        val maxCloudTime = Duration.ofHours(4)
+        if (lastCloud == null || Duration.between(lastCloud.time, Instant.now())
+                .abs() > maxCloudTime
+        ) {
+            lastCloud = null
+        }
+        return lastCloud
     }
 
     override suspend fun getCloudHistory(): List<Reading<CloudGenus?>> = onIO {
@@ -362,52 +403,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val allClouds = getCloudHistory()
         val forecast = getForecast(history, allClouds)
         val last = history.lastOrNull()
-        var clouds = allClouds.lastOrNull()
-        val maxCloudTime = Duration.ofHours(4)
-        if (clouds == null || Duration.between(clouds.time, Instant.now()).abs() > maxCloudTime) {
-            clouds = null
-        }
+        val clouds = getLastCloud(allClouds)
 
-        val stormCloudsSeen = listOf<CloudGenus?>(
-            CloudGenus.Cumulonimbus,
-            CloudGenus.Nimbostratus
-        ).contains(clouds?.value)
+        val tendency = getTendency(forecast.second)
 
-        val tendency =
-            forecast.first().tendency ?: PressureTendency(PressureCharacteristic.Steady, 0f)
-
-        val currentConditions = forecast.first().conditions
-        val primaryCondition = WeatherPrediction(
-            currentConditions,
-            listOf(),
-            null,
-            HourlyArrivalTime.Now,
-            null
-        ).primaryHourly
-
-        val steadySystem =
-            tendency.characteristic == PressureCharacteristic.Steady && listOf(
-                WeatherCondition.Clear,
-                WeatherCondition.Overcast
-            ).contains(primaryCondition)
-
-        // TODO: Replace with hourly forecast
-        val arrival = when {
-            primaryCondition == null -> null
-            steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
-            primaryCondition == WeatherCondition.Storm || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
-            tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
-            else -> HourlyArrivalTime.Later
-        }
-
-        // TODO: Calculate min, max, and current instead of average
         val historicalTemperature = try {
-            val lastRawReading = last?.id?.let {
-                weatherRepo.get(it)
-            }
-            val location = lastRawReading?.value?.location ?: location.location
-            val elevation = lastRawReading?.value?.altitude?.let { Distance.meters(it) }
-                ?: this.location.elevation
+            val (location, elevation) = getLocationAndElevation(last?.id)
 
             val range = estimator.getDailyTemperatureRange(
                 location,
@@ -441,16 +442,86 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
         return CurrentWeather(
             WeatherPrediction(
-                forecast.first().conditions,
-                forecast.last().conditions,
-                forecast.first().front,
-                arrival,
+                forecast.second.first().conditions,
+                forecast.second.last().conditions,
+                forecast.second.first().front,
+                forecast.first,
                 historicalTemperature
             ),
             tendency.copy(amount = tendency.amount * 3),
             last,
             clouds
         )
+    }
+
+    private fun getTendency(forecast: List<WeatherForecast>): PressureTendency {
+        return forecast.firstOrNull()?.tendency ?: PressureTendency(
+            PressureCharacteristic.Steady,
+            0f
+        )
+    }
+
+    private suspend fun getLocationAndElevation(lastReadingId: Long? = null): Pair<Coordinate, Distance> {
+        val lastRawReading = lastReadingId?.let {
+            weatherRepo.get(it)
+        }
+        val location = lastRawReading?.value?.location ?: location.location
+        val elevation = lastRawReading?.value?.altitude?.let { Distance.meters(it) }
+            ?: this.location.elevation
+
+        return location to elevation
+    }
+
+    private fun getArrivalTime(
+        forecast: List<WeatherForecast>,
+        clouds: List<Reading<CloudGenus?>>
+    ): HourlyArrivalTime? {
+        val lastCloud = getLastCloud(clouds)
+        val tendency = getTendency(forecast)
+        val stormCloudsSeen = listOf<CloudGenus?>(
+            CloudGenus.Cumulonimbus,
+            CloudGenus.Nimbostratus
+        ).contains(lastCloud?.value)
+
+        val currentConditions = forecast.first().conditions
+        val primaryCondition = WeatherPrediction(
+            currentConditions,
+            listOf(),
+            null,
+            HourlyArrivalTime.Now,
+            null
+        ).primaryHourly
+
+        val steadySystem =
+            tendency.characteristic == PressureCharacteristic.Steady && listOf(
+                WeatherCondition.Clear,
+                WeatherCondition.Overcast
+            ).contains(primaryCondition)
+
+        // TODO: Replace with hourly forecast
+        return when {
+            primaryCondition == null -> null
+            steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
+            primaryCondition == WeatherCondition.Storm || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
+            tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
+            else -> HourlyArrivalTime.Later
+        }
+    }
+
+    private suspend fun getHighLowTemperature(
+        startTime: ZonedDateTime,
+        start: Duration,
+        duration: Duration,
+        location: Coordinate? = null,
+        elevation: Distance? = null
+    ): Range<Temperature> {
+        val forecast = getTemperatureForecast(
+            startTime.plus(start),
+            startTime.plus(start).plus(duration),
+            location,
+            elevation
+        )
+        return forecast.map { it.value }.range()!!
     }
 
     private fun resetWeatherService() {
