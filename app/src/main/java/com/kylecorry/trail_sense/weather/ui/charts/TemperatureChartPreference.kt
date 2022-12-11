@@ -24,7 +24,7 @@ class TemperatureChartPreference(context: Context, attributeSet: AttributeSet) :
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
 
-        chart = TemperatureChart(holder.findViewById(R.id.chart) as Chart)
+        chart = TemperatureChart(holder.findViewById(R.id.chart) as Chart, false)
         chart?.plot(data, raw)
     }
 
