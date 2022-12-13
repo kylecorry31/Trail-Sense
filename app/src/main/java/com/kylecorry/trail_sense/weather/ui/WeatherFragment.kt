@@ -25,8 +25,8 @@ import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.ui.charts.HumidityChart
@@ -155,7 +155,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (!isBound) return
         val weather = weather ?: return
 
-        val fields = listOf(
+        val fields = weather.prediction.alerts.map { AlertWeatherField(it) } + listOf(
             // Pressure
             PressureWeatherField(weather.observation?.pressure),
             PressureTendencyWeatherField(weather.pressureTendency),

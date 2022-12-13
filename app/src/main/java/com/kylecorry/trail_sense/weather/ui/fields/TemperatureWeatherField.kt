@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 
 // TODO: Build chart into this
 class TemperatureWeatherField(
@@ -27,10 +28,10 @@ class TemperatureWeatherField(
         )
 
         val color = when {
-            temperature.temperature <= 5f -> {
+            temperature.temperature <= WeatherSubsystem.COLD -> {
                 AppColor.Blue.color
             }
-            temperature.temperature >= 32.5f -> {
+            temperature.temperature >= WeatherSubsystem.HOT -> {
                 AppColor.Red.color
             }
             else -> {

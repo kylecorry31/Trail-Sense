@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 
 class HistoricTemperatureRangeWeatherField(
     private val low: Temperature?,
@@ -28,10 +29,10 @@ class HistoricTemperatureRangeWeatherField(
         )
 
         val color = when {
-            low.temperature <= 5f -> {
+            low.temperature <= WeatherSubsystem.COLD -> {
                 AppColor.Blue.color
             }
-            high.temperature >= 32.5f -> {
+            high.temperature >= WeatherSubsystem.HOT -> {
                 AppColor.Red.color
             }
             else -> {

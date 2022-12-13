@@ -466,9 +466,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private fun getTemperatureAlerts(temperatures: TemperaturePrediction?): List<WeatherAlert> {
         temperatures ?: return emptyList()
-        return if (temperatures.low.celsius().temperature <= 5f) {
+        return if (temperatures.low.celsius().temperature <= COLD) {
             listOf(WeatherAlert.Cold)
-        } else if (temperatures.high.celsius().temperature >= 32.5f) {
+        } else if (temperatures.high.celsius().temperature >= HOT) {
             listOf(WeatherAlert.Hot)
         } else {
             emptyList()
@@ -599,6 +599,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             }
             return instance!!
         }
+
+        const val COLD = 5f
+        const val HOT = 32.5f
 
     }
 
