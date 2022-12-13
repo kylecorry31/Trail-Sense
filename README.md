@@ -93,7 +93,6 @@ Location information gathered by this application does not leave your device (as
 # Debug features
 Only available on debug APKs / builds via Android Studio
 - Weather tool's barometer chart shows unsmoothed readings in background
-- Barometer calibration allows viewing the mean-calibrated "sea level" readings in the background
 - Weather history, elevation history, and path elevations are logged to the files/debug folder in Trail Sense data as CSV files
 
 # Contributing
