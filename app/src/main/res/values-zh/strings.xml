@@ -1065,4 +1065,6 @@
     <string name="source">源</string>
     <string name="now_value">当前：%s</string>
     <string name="for_historic_temperatures">出于历史气温原因</string>
+    <string name="hot">热</string>
+    <string name="cold">冷</string>
 </resources>

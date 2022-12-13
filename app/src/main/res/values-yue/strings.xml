@@ -100,4 +100,16 @@
     <string name="hide">隱藏</string>
     <string name="show">顯示</string>
     <string name="saving">儲存緊</string>
+    <string name="weight">重量</string>
+    <string name="seconds">秒鐘</string>
+    <string name="minutes">分鐘</string>
+    <string name="hours">時鐘</string>
+    <string name="days">日數</string>
+    <string name="milliseconds_format">%s 毫秒</string>
+    <string name="seconds_format">%s 秒</string>
+    <string name="minutes_format">%s 分</string>
+    <string name="hours_format">%s 時</string>
+    <string name="days_format">%s 日</string>
+    <string name="time">時間</string>
+    <string name="tool_battery_title">電池</string>
 </resources>
