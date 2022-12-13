@@ -4,24 +4,24 @@ import android.content.Context
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 
-class AlertWeatherField(private val alert: WeatherAlert) : WeatherField {
+class AlertWeatherField(private val alerts: List<WeatherAlert>) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
-        // TODO: Extract to format service
-        val title = when (alert) {
-            WeatherAlert.Storm -> context.getString(R.string.weather_storm)
-            WeatherAlert.Hot -> context.getString(R.string.heat_warning)
-            WeatherAlert.Cold -> context.getString(R.string.cold_warning)
+        if (alerts.isEmpty()) {
+            return null
         }
-        val color = AppColor.Red.color
-        val icon = R.drawable.ic_alert
+
+        val formatter = FormatService.getInstance(context)
+        val description = alerts.joinToString("\n") { formatter.formatWeatherAlert(it) }
 
         return ListItem(
-            6293 + alert.id,
-            title,
-            icon = ResourceListIcon(R.drawable.ic_alert, color)
+            6293,
+            context.getString(R.string.alerts),
+            icon = ResourceListIcon(R.drawable.ic_alert, AppColor.Yellow.color),
+            trailingText = description
         )
     }
 }

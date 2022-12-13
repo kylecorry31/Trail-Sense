@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
+import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -48,6 +49,14 @@ class FormatService(private val context: Context) {
             WeatherCondition.Rain -> R.drawable.light_rain
             WeatherCondition.Snow -> R.drawable.ic_precipitation_snow
             null -> R.drawable.steady
+        }
+    }
+
+    fun formatWeatherAlert(alert: WeatherAlert): String {
+        return when (alert) {
+            WeatherAlert.Storm -> context.getString(R.string.weather_storm)
+            WeatherAlert.Hot -> context.getString(R.string.hot)
+            WeatherAlert.Cold -> context.getString(R.string.cold)
         }
     }
 

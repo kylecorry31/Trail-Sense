@@ -155,7 +155,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         if (!isBound) return
         val weather = weather ?: return
 
-        val fields = weather.prediction.alerts.map { AlertWeatherField(it) } + listOf(
+        val fields = listOf(
+            // Alerts
+            AlertWeatherField(weather.prediction.alerts),
+
             // Pressure
             PressureWeatherField(weather.observation?.pressure),
             PressureTendencyWeatherField(weather.pressureTendency),

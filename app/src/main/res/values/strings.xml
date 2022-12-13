@@ -1245,8 +1245,8 @@
     <string name="now_value">Now: %s</string>
     <!--    This is used to provide context to why location not set is an error-->
     <string name="for_historic_temperatures">For historic temperatures</string>
-    <string name="heat_warning">Heat warning</string>
-    <string name="cold_warning">Cold warning</string>
+    <string name="hot">Hot</string>
+    <string name="cold">Cold</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
