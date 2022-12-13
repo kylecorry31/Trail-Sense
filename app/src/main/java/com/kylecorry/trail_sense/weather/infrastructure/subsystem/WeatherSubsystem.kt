@@ -524,7 +524,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return when {
             primaryCondition == null -> null
             steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
-            primaryCondition == WeatherCondition.Storm || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
+            currentConditions.contains(WeatherCondition.Storm) || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
             tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
             else -> HourlyArrivalTime.Later
         }
