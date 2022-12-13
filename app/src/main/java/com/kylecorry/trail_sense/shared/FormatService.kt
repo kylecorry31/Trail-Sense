@@ -60,6 +60,14 @@ class FormatService(private val context: Context) {
         }
     }
 
+    fun formatWeatherAlertDescription(alert: WeatherAlert): String {
+        return when (alert) {
+            WeatherAlert.Storm -> context.getString(R.string.weather_alert_storm_description)
+            WeatherAlert.Hot -> context.getString(R.string.weather_alert_hot_description)
+            WeatherAlert.Cold -> context.getString(R.string.weather_alert_cold_description)
+        }
+    }
+
     fun formatWeather(condition: WeatherCondition?): String {
         return when (condition) {
             WeatherCondition.Clear -> context.getString(R.string.weather_clear)
@@ -133,7 +141,10 @@ class FormatService(private val context: Context) {
         month: Month,
         short: Boolean = false
     ): String {
-        return month.getDisplayName(if (short) TextStyle.SHORT else TextStyle.FULL, Locale.getDefault())
+        return month.getDisplayName(
+            if (short) TextStyle.SHORT else TextStyle.FULL,
+            Locale.getDefault()
+        )
     }
 
     fun formatDate(
