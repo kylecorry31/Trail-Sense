@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
@@ -10,6 +9,7 @@ import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
 
@@ -22,7 +22,7 @@ class StormAlertCommand(
     override fun execute(weather: CurrentWeather) {
         val sentAlert = justShownFlag.get()
 
-        if (weather.prediction.hourly.contains(WeatherCondition.Storm)) {
+        if (weather.prediction.alerts.contains(WeatherAlert.Storm)) {
             val shouldSend = prefs.sendStormAlerts && prefs.shouldMonitorWeather
             if (shouldSend && !sentAlert) {
                 alerter.alert()

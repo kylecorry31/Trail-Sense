@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
-import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
+import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
+import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
@@ -34,7 +34,7 @@ internal class StormAlertCommandTest {
 
     @Test
     fun doesNotAlertIfNoStorm() {
-        command.execute(weather(WeatherCondition.Precipitation))
+        command.execute(weather(false))
         verify(flag, times(1)).set(false)
         verify(alerter, never()).alert()
         verify(alerter, times(1)).dismiss()
@@ -43,7 +43,7 @@ internal class StormAlertCommandTest {
     @Test
     fun doesNotAlertIfAlreadySent() {
         whenever(flag.get()).thenReturn(true)
-        command.execute(weather(WeatherCondition.Storm))
+        command.execute(weather(true))
         verify(flag, never()).set(any())
         verify(alerter, never()).alert()
         verify(alerter, never()).dismiss()
@@ -52,7 +52,7 @@ internal class StormAlertCommandTest {
     @Test
     fun doesNotAlertIfAlertsOff() {
         whenever(prefs.sendStormAlerts).thenReturn(false)
-        command.execute(weather(WeatherCondition.Storm))
+        command.execute(weather(true))
         verify(flag, never()).set(any())
         verify(alerter, never()).alert()
         verify(alerter, never()).dismiss()
@@ -61,7 +61,7 @@ internal class StormAlertCommandTest {
     @Test
     fun doesNotAlertIfMonitorOff() {
         whenever(prefs.shouldMonitorWeather).thenReturn(false)
-        command.execute(weather(WeatherCondition.Storm))
+        command.execute(weather(true))
         verify(flag, never()).set(any())
         verify(alerter, never()).alert()
         verify(alerter, never()).dismiss()
@@ -69,15 +69,22 @@ internal class StormAlertCommandTest {
 
     @Test
     fun alertsIfStorm() {
-        command.execute(weather(WeatherCondition.Storm))
+        command.execute(weather(true))
         verify(flag, times(1)).set(true)
         verify(alerter, times(1)).alert()
         verify(alerter, never()).dismiss()
     }
 
-    private fun weather(vararg conditions: WeatherCondition): CurrentWeather {
+    private fun weather(hasStorm: Boolean): CurrentWeather {
         return CurrentWeather(
-            WeatherPrediction(conditions.toList(), emptyList(), null, HourlyArrivalTime.Now, null),
+            WeatherPrediction(
+                emptyList(),
+                emptyList(),
+                null,
+                HourlyArrivalTime.Now,
+                null,
+                if (hasStorm) listOf(WeatherAlert.Storm) else emptyList()
+            ),
             PressureTendency(PressureCharacteristic.Steady, 0f),
             null,
             null

@@ -375,7 +375,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 location,
                 elevation
             )
-        
+
         return arrival to weatherService.getForecast(
             mapped,
             clouds,
@@ -446,12 +446,30 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 forecast.second.last().conditions,
                 forecast.second.first().front,
                 forecast.first,
-                historicalTemperature
+                historicalTemperature,
+                listOfNotNull(
+                    if (forecast.second.first().conditions.contains(WeatherCondition.Storm)) {
+                        WeatherAlert.Storm
+                    } else {
+                        null
+                    }
+                ) + getTemperatureAlerts(historicalTemperature)
             ),
             tendency.copy(amount = tendency.amount * 3),
             last,
             clouds
         )
+    }
+
+    private fun getTemperatureAlerts(temperatures: TemperaturePrediction?): List<WeatherAlert> {
+        temperatures ?: return emptyList()
+        return if (temperatures.low.celsius().temperature <= 5f) {
+            listOf(WeatherAlert.Cold)
+        } else if (temperatures.high.celsius().temperature >= 32.5f) {
+            listOf(WeatherAlert.Hot)
+        } else {
+            emptyList()
+        }
     }
 
     private fun getTendency(forecast: List<WeatherForecast>): PressureTendency {
@@ -486,10 +504,11 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val currentConditions = forecast.first().conditions
         val primaryCondition = WeatherPrediction(
             currentConditions,
-            listOf(),
+            emptyList(),
             null,
             HourlyArrivalTime.Now,
-            null
+            null,
+            emptyList()
         ).primaryHourly
 
         val steadySystem =
