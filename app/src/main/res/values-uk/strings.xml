@@ -1097,4 +1097,6 @@
     <string name="tool_climate_summary">Перегляд історичних температур</string>
     <string name="now_value">Зараз: %s</string>
     <string name="for_historic_temperatures">Для історичних температур</string>
+    <string name="hot">Гаряче</string>
+    <string name="cold">Холодно</string>
 </resources>
