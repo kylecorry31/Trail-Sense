@@ -1089,4 +1089,6 @@
     <string name="samples">Amostras</string>
     <string name="for_historic_temperatures">Para temperaturas históricas</string>
     <string name="now_value">Agora: %s</string>
+    <string name="hot">Quente</string>
+    <string name="cold">Frio</string>
 </resources>
