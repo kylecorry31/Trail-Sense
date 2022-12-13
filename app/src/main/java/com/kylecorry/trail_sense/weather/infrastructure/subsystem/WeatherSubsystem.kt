@@ -447,18 +447,21 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 forecast.second.first().front,
                 forecast.first,
                 historicalTemperature,
-                listOfNotNull(
-                    if (forecast.second.first().conditions.contains(WeatherCondition.Storm)) {
-                        WeatherAlert.Storm
-                    } else {
-                        null
-                    }
-                ) + getTemperatureAlerts(historicalTemperature)
+                getWeatherAlerts(forecast.second.first().conditions) +
+                        getTemperatureAlerts(historicalTemperature)
             ),
             tendency.copy(amount = tendency.amount * 3),
             last,
             clouds
         )
+    }
+
+    private fun getWeatherAlerts(conditions: List<WeatherCondition>): List<WeatherAlert> {
+        return if (conditions.contains(WeatherCondition.Storm)) {
+            listOf(WeatherAlert.Storm)
+        } else {
+            emptyList()
+        }
     }
 
     private fun getTemperatureAlerts(temperatures: TemperaturePrediction?): List<WeatherAlert> {
