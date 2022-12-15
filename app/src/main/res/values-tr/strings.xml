@@ -1079,4 +1079,7 @@
     <string name="for_historic_temperatures">Geçmiş sıcaklıklar için</string>
     <string name="hot">Sıcak</string>
     <string name="cold">Soğuk</string>
+    <string name="weather_alert_hot_description">Yüksek sıcaklıklara hazırlanın. Isı yorgunluğuna ve sıcak çarpmasına karşı ek önlemler alın.</string>
+    <string name="weather_alert_storm_description">Yüksek rüzgarlara ve şiddetli yağışlara hazırlanın.</string>
+    <string name="weather_alert_cold_description">Düşük sıcaklıklara hazırlanın. Hipotermi ve donmaya karşı ek önlemler alın.</string>
 </resources>
