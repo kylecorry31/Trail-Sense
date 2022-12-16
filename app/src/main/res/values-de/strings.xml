@@ -1072,4 +1072,11 @@
     <string name="historical_temperature_disclaimer">Geschätzt basierend auf historischen Temperaturen für Ihren Standort.</string>
     <string name="smoothing">Glättung</string>
     <string name="next_24_hours">Nächste 24 Stunden</string>
+    <string name="tool_climate">Klima</string>
+    <string name="tool_climate_summary">Temperaturverlauf anzeigen</string>
+    <string name="source">Quelle</string>
+    <string name="hot">Heiss</string>
+    <string name="cold">Kalt</string>
+    <string name="now_value">Aktuell: %s</string>
+    <string name="for_historic_temperatures">Für Temperaturverlauf</string>
 </resources>
