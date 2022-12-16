@@ -997,4 +997,6 @@
     <string name="source">Kilde</string>
     <string name="now_value">Nå: %s</string>
     <string name="for_historic_temperatures">For historiske temperaturer</string>
+    <string name="hot">Varmt</string>
+    <string name="cold">Kaldt</string>
 </resources>
