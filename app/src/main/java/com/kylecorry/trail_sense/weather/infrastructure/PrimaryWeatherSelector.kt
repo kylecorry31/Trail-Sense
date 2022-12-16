@@ -5,6 +5,7 @@ import com.kylecorry.sol.science.meteorology.WeatherCondition
 internal class PrimaryWeatherSelector {
 
     private val order = listOf(
+        WeatherCondition.Thunderstorm,
         WeatherCondition.Snow,
         WeatherCondition.Rain,
         WeatherCondition.Precipitation,

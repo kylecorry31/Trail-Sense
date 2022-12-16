@@ -1250,6 +1250,7 @@
     <string name="weather_alert_storm_description">Prepare for high winds and heavy precipitation.</string>
     <string name="weather_alert_hot_description">Prepare for hot temperatures. Take extra precautions against heat exhaustion and heat stroke.</string>
     <string name="weather_alert_cold_description">Prepare for cold temperatures. Take extra precautions against hypothermia and frostbite.</string>
+    <string name="weather_thunderstorm">Thunderstorm</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>

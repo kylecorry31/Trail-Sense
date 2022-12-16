@@ -48,6 +48,7 @@ class FormatService(private val context: Context) {
             WeatherCondition.Wind -> R.drawable.wind
             WeatherCondition.Rain -> R.drawable.light_rain
             WeatherCondition.Snow -> R.drawable.ic_precipitation_snow
+            WeatherCondition.Thunderstorm -> R.drawable.storm
             null -> R.drawable.steady
         }
     }
@@ -77,6 +78,7 @@ class FormatService(private val context: Context) {
             WeatherCondition.Wind -> context.getString(R.string.weather_wind)
             WeatherCondition.Rain -> context.getString(R.string.precipitation_rain)
             WeatherCondition.Snow -> context.getString(R.string.precipitation_snow)
+            WeatherCondition.Thunderstorm -> context.getString(R.string.weather_thunderstorm)
             null -> context.getString(R.string.weather_no_change)
         }
     }
