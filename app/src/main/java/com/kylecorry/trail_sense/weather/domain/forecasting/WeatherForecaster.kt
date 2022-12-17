@@ -121,6 +121,7 @@ internal class WeatherForecaster(
         return lastCloud
     }
 
+    // TODO: Extract this
     private fun getArrivalTime(
         forecast: List<WeatherForecast>,
         clouds: List<Reading<CloudGenus?>>
@@ -176,6 +177,7 @@ internal class WeatherForecaster(
         )
     }
 
+    // TODO: Extract alert generation
     private fun getWeatherAlerts(conditions: List<WeatherCondition>): List<WeatherAlert> {
         return if (conditions.contains(WeatherCondition.Storm)) {
             listOf(WeatherAlert.Storm)

@@ -53,6 +53,10 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
         }
     }
 
+    suspend fun getLast(): Reading<RawWeatherObservation>? = onIO {
+        pressureDao.getLast()?.toWeatherObservation()
+    }
+
     override suspend fun clean() {
         pressureDao.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION).toEpochMilli())
 

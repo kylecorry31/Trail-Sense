@@ -14,6 +14,9 @@ interface PressureReadingDao {
     @Query("SELECT * FROM pressures WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): PressureReadingEntity?
 
+    @Query("SELECT * FROM pressures ORDER BY _id DESC LIMIT 1")
+    suspend fun getLast(): PressureReadingEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(pressure: PressureReadingEntity): Long
 

@@ -223,8 +223,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val lookupLocation: Coordinate
         val lookupElevation: Distance
         if (location == null || elevation == null) {
-            // TODO: Do this without getting all history
-            val last = getRawHistory().lastOrNull()
+            val last = weatherRepo.getLast()
             lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
             lookupElevation =
                 last?.value?.altitude?.let { Distance.meters(it) }
@@ -261,7 +260,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     override suspend fun updateWeather(background: Boolean) {
         updateWeatherMutex.withLock {
-            val last = getRawHistory().lastOrNull()?.time
+            val last = weatherRepo.getLast()?.time
             val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
 
             if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
@@ -348,6 +347,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
+    // TODO: Extract this
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         val smoothing = prefs.thermometer.smoothing
 
@@ -360,6 +360,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
+    // TODO: Extract this
     private fun calibrateHumidity(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         if (!Sensors.hasHygrometer(context)) {
             return readings
