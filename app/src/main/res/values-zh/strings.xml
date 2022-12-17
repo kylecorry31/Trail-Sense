@@ -1070,4 +1070,5 @@
     <string name="weather_alert_storm_description">为强风和强降水做准备。</string>
     <string name="weather_alert_hot_description">为高温做准备。采取额外的预防措施防止热衰竭和中暑。</string>
     <string name="weather_alert_cold_description">为低温做准备。采取措施防止低体温症和冻伤。</string>
+    <string name="weather_thunderstorm">雷雨</string>
 </resources>
