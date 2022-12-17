@@ -25,6 +25,7 @@ internal class WeatherForecaster(
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
     private val arrivalCalculator = WeatherArrivalTimeCalculator()
+    private val alertGenerator = WeatherAlertGenerator()
 
     override suspend fun forecast(
         observations: List<WeatherObservation>,
@@ -50,7 +51,7 @@ internal class WeatherForecaster(
             lastCloud
         )
 
-        val alerts = WeatherAlertGenerator().getAlerts(weather)
+        val alerts = alertGenerator.getAlerts(weather)
 
         return weather.copy(prediction = weather.prediction.copy(alerts = alerts))
     }

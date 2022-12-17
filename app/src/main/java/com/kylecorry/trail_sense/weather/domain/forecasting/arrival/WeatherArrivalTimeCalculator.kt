@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.weather.domain.get3hTendency
 import com.kylecorry.trail_sense.weather.domain.getLastCloud
 import java.time.Duration
 
-class WeatherArrivalTimeCalculator: IWeatherArrivalTimeCalculator {
+internal class WeatherArrivalTimeCalculator: IWeatherArrivalTimeCalculator {
     override fun getArrivalTime(
         forecast: List<WeatherForecast>,
         clouds: List<Reading<CloudGenus?>>

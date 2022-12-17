@@ -5,7 +5,7 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
 
-interface IWeatherArrivalTimeCalculator {
+internal interface IWeatherArrivalTimeCalculator {
     fun getArrivalTime(
         forecast: List<WeatherForecast>,
         clouds: List<Reading<CloudGenus?>>
