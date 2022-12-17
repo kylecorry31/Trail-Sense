@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.weather.domain.forecasting
 
+import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureTendency
@@ -58,7 +59,13 @@ internal class WeatherForecaster(
         readings: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>
     ): Pair<HourlyArrivalTime?, List<WeatherForecast>> {
-        val mapped = readings.map { it.pressureReading() }
+        val range = readings.map { it.time }.rangeOrNull()
+        val mapped =
+            if (range == null || Duration.between(range.lower, range.upper).abs() < minDuration) {
+                emptyList()
+            } else {
+                readings.map { it.pressureReading() }
+            }
         // Gets the weather reading twice - first to get arrival time, second to determine precipitation type
         val original = getForecast(
             mapped,
@@ -119,5 +126,9 @@ internal class WeatherForecaster(
             startTime.plus(start),
             startTime.plus(start).plus(duration)
         )
+    }
+
+    companion object {
+        private val minDuration = Duration.ofMinutes(10)
     }
 }
