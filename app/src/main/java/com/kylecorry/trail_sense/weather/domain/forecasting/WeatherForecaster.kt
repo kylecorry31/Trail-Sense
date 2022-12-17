@@ -2,16 +2,18 @@ package com.kylecorry.trail_sense.weather.domain.forecasting
 
 import android.util.Log
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.science.meteorology.*
+import com.kylecorry.sol.science.meteorology.Meteorology
+import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.forecasting.alerts.WeatherAlertGenerator
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
-import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
@@ -22,18 +24,39 @@ internal class WeatherForecaster(
 
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
+    private val arrivalCalculator = WeatherArrivalTimeCalculator()
 
     override suspend fun forecast(
         observations: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>
     ): CurrentWeather {
-        val forecast = getForecast(observations, clouds)
+        val (arrival, forecast) = getForecast(observations, clouds)
         val last = observations.lastOrNull()
-        val lastCloud = getLastCloud(clouds)
+        val lastCloud = clouds.getLastCloud(Duration.ofHours(4))
 
-        val tendency = getTendency(forecast.second)
+        val tendency = getTendency(forecast)
 
-        val historicalTemperature = try {
+        val weather = CurrentWeather(
+            WeatherPrediction(
+                forecast.first().conditions,
+                forecast.last().conditions,
+                forecast.first().front,
+                arrival,
+                getTemperaturePrediction(),
+                emptyList()
+            ),
+            tendency,
+            last,
+            lastCloud
+        )
+
+        val alerts = WeatherAlertGenerator().getAlerts(weather)
+
+        return weather.copy(prediction = weather.prediction.copy(alerts = alerts))
+    }
+
+    private suspend fun getTemperaturePrediction(): TemperaturePrediction? {
+        return try {
             val range = temperatureService.getTemperatureRange(LocalDate.now())
             val low = range.start
             val high = range.end
@@ -41,24 +64,9 @@ internal class WeatherForecaster(
             val average = Temperature((low.temperature + high.temperature) / 2f, low.units)
             TemperaturePrediction(average, low, high, current)
         } catch (e: Exception) {
-            Log.e(javaClass.simpleName, "Unable to lookup average temperature", e)
+            Log.e(javaClass.simpleName, "Unable to lookup temperature", e)
             null
         }
-
-        return CurrentWeather(
-            WeatherPrediction(
-                forecast.second.first().conditions,
-                forecast.second.last().conditions,
-                forecast.second.first().front,
-                forecast.first,
-                historicalTemperature,
-                getWeatherAlerts(forecast.second.first().conditions) +
-                        getTemperatureAlerts(historicalTemperature)
-            ),
-            tendency.copy(amount = tendency.amount * 3),
-            last,
-            lastCloud
-        )
     }
 
     private suspend fun getForecast(
@@ -73,7 +81,7 @@ internal class WeatherForecaster(
             null
         )
 
-        val arrival = getArrivalTime(original, clouds)
+        val arrival = arrivalCalculator.getArrivalTime(original, clouds)
 
         val arrivesIn = when (arrival) {
             HourlyArrivalTime.Now, null -> Duration.ZERO
@@ -110,60 +118,11 @@ internal class WeatherForecaster(
         )
     }
 
-    private fun getLastCloud(clouds: List<Reading<CloudGenus?>>): Reading<CloudGenus?>? {
-        var lastCloud = clouds.lastOrNull()
-        val maxCloudTime = Duration.ofHours(4)
-        if (lastCloud == null || Duration.between(lastCloud.time, Instant.now())
-                .abs() > maxCloudTime
-        ) {
-            lastCloud = null
-        }
-        return lastCloud
-    }
-
-    // TODO: Extract this
-    private fun getArrivalTime(
-        forecast: List<WeatherForecast>,
-        clouds: List<Reading<CloudGenus?>>
-    ): HourlyArrivalTime? {
-        val lastCloud = getLastCloud(clouds)
-        val tendency = getTendency(forecast)
-        val stormCloudsSeen = listOf<CloudGenus?>(
-            CloudGenus.Cumulonimbus,
-            CloudGenus.Nimbostratus
-        ).contains(lastCloud?.value)
-
-        val currentConditions = forecast.first().conditions
-        val primaryCondition = WeatherPrediction(
-            currentConditions,
-            emptyList(),
-            null,
-            HourlyArrivalTime.Now,
-            null,
-            emptyList()
-        ).primaryHourly
-
-        val steadySystem =
-            tendency.characteristic == PressureCharacteristic.Steady && listOf(
-                WeatherCondition.Clear,
-                WeatherCondition.Overcast
-            ).contains(primaryCondition)
-
-        // TODO: Replace with hourly forecast
-        return when {
-            primaryCondition == null -> null
-            steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
-            currentConditions.contains(WeatherCondition.Storm) || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
-            tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
-            else -> HourlyArrivalTime.Later
-        }
-    }
-
+    /**
+     * Gets the 3h pressure tendency
+     */
     private fun getTendency(forecast: List<WeatherForecast>): PressureTendency {
-        return forecast.firstOrNull()?.tendency ?: PressureTendency(
-            PressureCharacteristic.Steady,
-            0f
-        )
+        return forecast.firstOrNull()?.get3hTendency() ?: PressureTendency.zero
     }
 
     private suspend fun getHighLowTemperature(
@@ -175,25 +134,5 @@ internal class WeatherForecaster(
             startTime.plus(start),
             startTime.plus(start).plus(duration)
         )
-    }
-
-    // TODO: Extract alert generation
-    private fun getWeatherAlerts(conditions: List<WeatherCondition>): List<WeatherAlert> {
-        return if (conditions.contains(WeatherCondition.Storm)) {
-            listOf(WeatherAlert.Storm)
-        } else {
-            emptyList()
-        }
-    }
-
-    private fun getTemperatureAlerts(temperatures: TemperaturePrediction?): List<WeatherAlert> {
-        temperatures ?: return emptyList()
-        return if (temperatures.low.celsius().temperature <= WeatherSubsystem.COLD) {
-            listOf(WeatherAlert.Cold)
-        } else if (temperatures.high.celsius().temperature >= WeatherSubsystem.HOT) {
-            listOf(WeatherAlert.Hot)
-        } else {
-            emptyList()
-        }
     }
 }
