@@ -2,14 +2,13 @@ package com.kylecorry.trail_sense.weather.domain.forecasting
 
 import android.util.Log
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.science.meteorology.PressureCharacteristic
-import com.kylecorry.sol.science.meteorology.PressureTendency
-import com.kylecorry.sol.science.meteorology.WeatherCondition
-import com.kylecorry.sol.science.meteorology.WeatherForecast
+import com.kylecorry.sol.science.meteorology.*
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
@@ -18,8 +17,12 @@ import java.time.ZonedDateTime
 
 internal class WeatherForecaster(
     private val temperatureService: ITemperatureService,
-    private val weatherService: WeatherService
+    prefs: IWeatherPreferences
 ) : IWeatherForecaster {
+
+    private val stormThreshold = prefs.stormAlertThreshold
+    private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
+
     override suspend fun forecast(
         observations: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>
@@ -64,7 +67,7 @@ internal class WeatherForecaster(
     ): Pair<HourlyArrivalTime?, List<WeatherForecast>> {
         val mapped = readings.map { it.pressureReading() }
         // Gets the weather reading twice - first to get arrival time, second to determine precipitation type
-        val original = weatherService.getForecast(
+        val original = getForecast(
             mapped,
             clouds,
             null
@@ -86,10 +89,24 @@ internal class WeatherForecaster(
                 Duration.ofHours(6)
             )
 
-        return arrival to weatherService.getForecast(
+        return arrival to getForecast(
             mapped,
             clouds,
             temperatures
+        )
+    }
+
+    private fun getForecast(
+        pressures: List<Reading<Pressure>>,
+        clouds: List<Reading<CloudGenus?>>,
+        temperatureRange: Range<Temperature>?
+    ): List<WeatherForecast> {
+        return Meteorology.forecast(
+            pressures,
+            clouds,
+            temperatureRange,
+            hourlyForecastChangeThreshold / 3f,
+            stormThreshold / 3f
         )
     }
 

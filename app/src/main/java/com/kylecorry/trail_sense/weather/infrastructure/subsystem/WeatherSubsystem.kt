@@ -53,8 +53,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val sharedPrefs by lazy { Preferences(context) }
     private val location by lazy { LocationSubsystem.getInstance(context) }
 
-    private lateinit var weatherService: WeatherService
-
     private var cachedValue = MemoryCachedValue<CurrentWeather>()
     private var validLock = Object()
     private var isValid = false
@@ -141,8 +139,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             invalidate()
             true
         }
-
-        resetWeatherService()
     }
 
     override suspend fun getWeather(): CurrentWeather = onIO {
@@ -296,7 +292,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
         val temperatureService = getTemperatureService(lookupLocation, lookupElevation)
-        return WeatherForecaster(temperatureService, weatherService)
+        return WeatherForecaster(temperatureService, prefs.weather)
     }
 
     private fun invalidate() {
@@ -309,7 +305,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private suspend fun refresh() {
         cachedValue.reset()
         delay(50)
-        resetWeatherService()
         synchronized(validLock) {
             isValid = true
         }
@@ -337,10 +332,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             ?: this.location.elevation
 
         return location to elevation
-    }
-
-    private fun resetWeatherService() {
-        weatherService = WeatherService(prefs.weather)
     }
 
     private fun calculateWeatherMonitorFrequency(): Duration {
