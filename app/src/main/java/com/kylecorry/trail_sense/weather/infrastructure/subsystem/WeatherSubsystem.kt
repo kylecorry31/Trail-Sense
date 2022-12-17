@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
@@ -24,16 +23,18 @@ import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.forecasting.HistoricTemperatureService
+import com.kylecorry.trail_sense.weather.domain.forecasting.ITemperatureService
+import com.kylecorry.trail_sense.weather.domain.forecasting.IWeatherForecaster
+import com.kylecorry.trail_sense.weather.domain.forecasting.WeatherForecaster
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.weather.infrastructure.temperatures.TemperatureEstimator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -51,7 +52,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { Preferences(context) }
     private val location by lazy { LocationSubsystem.getInstance(context) }
-    private val estimator by lazy { TemperatureEstimator(context) }
 
     private lateinit var weatherService: WeatherService
 
@@ -183,44 +183,23 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         combined
     }
 
-    override suspend fun getTemperatureForecast(
+    override suspend fun getTemperature(
         time: ZonedDateTime,
         location: Coordinate?,
         elevation: Distance?
     ): Reading<Temperature> = onDefault {
-        val resolved = resolveLocation(location, elevation)
-        val lookupLocation = resolved.first
-        val lookupElevation = resolved.second
-        val temperature = estimator.getTemperature(lookupLocation, time)
-        Reading(
-            Meteorology.getTemperatureAtElevation(
-                temperature,
-                Distance.meters(0f),
-                lookupElevation
-            ),
-            time.toInstant()
-        )
+        val service = getTemperatureService(location, elevation)
+        Reading(service.getTemperature(time), time.toInstant())
     }
 
-    override suspend fun getTemperatureForecast(
+    override suspend fun getTemperatures(
         start: ZonedDateTime,
         end: ZonedDateTime,
         location: Coordinate?,
         elevation: Distance?
     ): List<Reading<Temperature>> = onDefault {
-        val resolved = resolveLocation(location, elevation)
-        val lookupLocation = resolved.first
-        val lookupElevation = resolved.second
-        val temperatures = estimator.getTemperatures(start, end, lookupLocation)
-        temperatures.map {
-            it.copy(
-                value = Meteorology.getTemperatureAtElevation(
-                    it.value,
-                    Distance.meters(0f),
-                    lookupElevation
-                )
-            )
-        }
+        val service = getTemperatureService(location, elevation)
+        service.getTemperatures(start, end)
     }
 
     override suspend fun getTemperatureRange(
@@ -228,22 +207,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         location: Coordinate?,
         elevation: Distance?
     ): Range<Temperature> = onDefault {
-        val resolved = resolveLocation(location, elevation)
-        val lookupLocation = resolved.first
-        val lookupElevation = resolved.second
-        val temperatures = estimator.getDailyTemperatureRange(lookupLocation, date)
-        Range(
-            Meteorology.getTemperatureAtElevation(
-                temperatures.start,
-                Distance.meters(0f),
-                lookupElevation
-            ),
-            Meteorology.getTemperatureAtElevation(
-                temperatures.end,
-                Distance.meters(0f),
-                lookupElevation
-            )
-        )
+        val service = getTemperatureService(location, elevation)
+        service.getTemperatureRange(date)
     }
 
     override suspend fun getTemperatureRanges(
@@ -251,24 +216,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         location: Coordinate?,
         elevation: Distance?
     ): List<Pair<LocalDate, Range<Temperature>>> = onDefault {
-        val resolved = resolveLocation(location, elevation)
-        val lookupLocation = resolved.first
-        val lookupElevation = resolved.second
-        val temperatures = estimator.getYearlyTemperatures(year, lookupLocation)
-        temperatures.map {
-            it.first to Range(
-                Meteorology.getTemperatureAtElevation(
-                    it.second.start,
-                    Distance.meters(0f),
-                    lookupElevation
-                ),
-                Meteorology.getTemperatureAtElevation(
-                    it.second.end,
-                    Distance.meters(0f),
-                    lookupElevation
-                )
-            )
-        }
+        val service = getTemperatureService(location, elevation)
+        service.getTemperatureRanges(year)
     }
 
     private suspend fun resolveLocation(
@@ -278,6 +227,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val lookupLocation: Coordinate
         val lookupElevation: Distance
         if (location == null || elevation == null) {
+            // TODO: Do this without getting all history
             val last = getRawHistory().lastOrNull()
             lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
             lookupElevation =
@@ -328,6 +278,27 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
+    private suspend fun getTemperatureService(
+        location: Coordinate?,
+        elevation: Distance?
+    ): ITemperatureService {
+        val resolved = resolveLocation(location, elevation)
+        val lookupLocation = resolved.first
+        val lookupElevation = resolved.second
+        return HistoricTemperatureService(context, lookupLocation, lookupElevation)
+    }
+
+    private suspend fun getWeatherForecaster(
+        location: Coordinate?,
+        elevation: Distance?
+    ): IWeatherForecaster {
+        val resolved = resolveLocation(location, elevation)
+        val lookupLocation = resolved.first
+        val lookupElevation = resolved.second
+        val temperatureService = getTemperatureService(lookupLocation, lookupElevation)
+        return WeatherForecaster(temperatureService, weatherService)
+    }
+
     private fun invalidate() {
         synchronized(validLock) {
             isValid = false
@@ -344,56 +315,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
-    private suspend fun getForecast(
-        readings: List<WeatherObservation>,
-        clouds: List<Reading<CloudGenus?>>
-    ): Pair<HourlyArrivalTime?, List<WeatherForecast>> {
-        val mapped = readings.map { it.pressureReading() }
-        // Gets the weather reading twice - first to get arrival time, second to determine precipitation type
-        val original = weatherService.getForecast(
-            mapped,
-            clouds,
-            null
-        )
-
-        val last = readings.lastOrNull()
-        val (location, elevation) = getLocationAndElevation(last?.id)
-        val arrival = getArrivalTime(original, clouds)
-
-        val arrivesIn = when (arrival) {
-            HourlyArrivalTime.Now, null -> Duration.ZERO
-            HourlyArrivalTime.VerySoon -> Duration.ofHours(1)
-            HourlyArrivalTime.Soon -> Duration.ofHours(2)
-            HourlyArrivalTime.Later -> Duration.ofHours(8)
-        }
-
-        val temperatures =
-            getHighLowTemperature(
-                ZonedDateTime.now(),
-                arrivesIn,
-                Duration.ofHours(6),
-                location,
-                elevation
-            )
-
-        return arrival to weatherService.getForecast(
-            mapped,
-            clouds,
-            temperatures
-        )
-    }
-
-    private fun getLastCloud(clouds: List<Reading<CloudGenus?>>): Reading<CloudGenus?>? {
-        var lastCloud = clouds.lastOrNull()
-        val maxCloudTime = Duration.ofHours(4)
-        if (lastCloud == null || Duration.between(lastCloud.time, Instant.now())
-                .abs() > maxCloudTime
-        ) {
-            lastCloud = null
-        }
-        return lastCloud
-    }
-
     override suspend fun getCloudHistory(): List<Reading<CloudGenus?>> = onIO {
         cloudRepo.getAll().sortedBy { it.time }.map { Reading(it.value.genus, it.time) }
     }
@@ -401,85 +322,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private suspend fun populateCache(): CurrentWeather {
         val history = getHistory()
         val allClouds = getCloudHistory()
-        val forecast = getForecast(history, allClouds)
         val last = history.lastOrNull()
-        val clouds = getLastCloud(allClouds)
-
-        val tendency = getTendency(forecast.second)
-
-        val historicalTemperature = try {
-            val (location, elevation) = getLocationAndElevation(last?.id)
-
-            val range = estimator.getDailyTemperatureRange(
-                location,
-                LocalDate.now()
-            )
-            val currentRaw = estimator.getTemperature(location, ZonedDateTime.now())
-            val low = Meteorology.getTemperatureAtElevation(
-                range.start,
-                Distance.meters(0f),
-                elevation
-            )
-
-            val high = Meteorology.getTemperatureAtElevation(
-                range.end,
-                Distance.meters(0f),
-                elevation
-            )
-
-            val current = Meteorology.getTemperatureAtElevation(
-                currentRaw,
-                Distance.meters(0f),
-                elevation
-            )
-
-            val average = Temperature((low.temperature + high.temperature) / 2f, low.units)
-            TemperaturePrediction(average, low, high, current)
-        } catch (e: Exception) {
-            Log.e(javaClass.simpleName, "Unable to lookup average temperature", e)
-            null
-        }
-
-        return CurrentWeather(
-            WeatherPrediction(
-                forecast.second.first().conditions,
-                forecast.second.last().conditions,
-                forecast.second.first().front,
-                forecast.first,
-                historicalTemperature,
-                getWeatherAlerts(forecast.second.first().conditions) +
-                        getTemperatureAlerts(historicalTemperature)
-            ),
-            tendency.copy(amount = tendency.amount * 3),
-            last,
-            clouds
-        )
-    }
-
-    private fun getWeatherAlerts(conditions: List<WeatherCondition>): List<WeatherAlert> {
-        return if (conditions.contains(WeatherCondition.Storm)) {
-            listOf(WeatherAlert.Storm)
-        } else {
-            emptyList()
-        }
-    }
-
-    private fun getTemperatureAlerts(temperatures: TemperaturePrediction?): List<WeatherAlert> {
-        temperatures ?: return emptyList()
-        return if (temperatures.low.celsius().temperature <= COLD) {
-            listOf(WeatherAlert.Cold)
-        } else if (temperatures.high.celsius().temperature >= HOT) {
-            listOf(WeatherAlert.Hot)
-        } else {
-            emptyList()
-        }
-    }
-
-    private fun getTendency(forecast: List<WeatherForecast>): PressureTendency {
-        return forecast.firstOrNull()?.tendency ?: PressureTendency(
-            PressureCharacteristic.Steady,
-            0f
-        )
+        val (location, elevation) = getLocationAndElevation(last?.id)
+        val forecaster = getWeatherForecaster(location, elevation)
+        return forecaster.forecast(history, allClouds)
     }
 
     private suspend fun getLocationAndElevation(lastReadingId: Long? = null): Pair<Coordinate, Distance> {
@@ -491,59 +337,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             ?: this.location.elevation
 
         return location to elevation
-    }
-
-    private fun getArrivalTime(
-        forecast: List<WeatherForecast>,
-        clouds: List<Reading<CloudGenus?>>
-    ): HourlyArrivalTime? {
-        val lastCloud = getLastCloud(clouds)
-        val tendency = getTendency(forecast)
-        val stormCloudsSeen = listOf<CloudGenus?>(
-            CloudGenus.Cumulonimbus,
-            CloudGenus.Nimbostratus
-        ).contains(lastCloud?.value)
-
-        val currentConditions = forecast.first().conditions
-        val primaryCondition = WeatherPrediction(
-            currentConditions,
-            emptyList(),
-            null,
-            HourlyArrivalTime.Now,
-            null,
-            emptyList()
-        ).primaryHourly
-
-        val steadySystem =
-            tendency.characteristic == PressureCharacteristic.Steady && listOf(
-                WeatherCondition.Clear,
-                WeatherCondition.Overcast
-            ).contains(primaryCondition)
-
-        // TODO: Replace with hourly forecast
-        return when {
-            primaryCondition == null -> null
-            steadySystem || stormCloudsSeen -> HourlyArrivalTime.Now
-            currentConditions.contains(WeatherCondition.Storm) || tendency.characteristic.isRapid -> HourlyArrivalTime.VerySoon
-            tendency.characteristic != PressureCharacteristic.Steady -> HourlyArrivalTime.Soon
-            else -> HourlyArrivalTime.Later
-        }
-    }
-
-    private suspend fun getHighLowTemperature(
-        startTime: ZonedDateTime,
-        start: Duration,
-        duration: Duration,
-        location: Coordinate? = null,
-        elevation: Distance? = null
-    ): Range<Temperature> {
-        val forecast = getTemperatureForecast(
-            startTime.plus(start),
-            startTime.plus(start).plus(duration),
-            location,
-            elevation
-        )
-        return forecast.map { it.value }.range()!!
     }
 
     private fun resetWeatherService() {

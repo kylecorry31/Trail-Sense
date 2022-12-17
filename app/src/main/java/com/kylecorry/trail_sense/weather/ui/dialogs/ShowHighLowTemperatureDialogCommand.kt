@@ -27,7 +27,7 @@ class ShowHighLowTemperatureDialogCommand(
     override suspend fun execute() {
         val forecast =
             onIO {
-                weatherSubsystem.getTemperatureForecast(
+                weatherSubsystem.getTemperatures(
                     ZonedDateTime.now(),
                     ZonedDateTime.now().plusHours(24),
                     location,

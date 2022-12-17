@@ -26,7 +26,7 @@ class HistoricThermometer(
     override var hasValidReading: Boolean = false
 
     override suspend fun update() {
-        temperature = weather.getTemperatureForecast(
+        temperature = weather.getTemperature(
             ZonedDateTime.now(),
             location.location,
             location.elevation
