@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.weather.domain.forecasting
 
-import android.util.Log
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureTendency
@@ -14,7 +13,6 @@ import com.kylecorry.trail_sense.weather.domain.forecasting.alerts.WeatherAlertG
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import java.time.Duration
-import java.time.LocalDate
 import java.time.ZonedDateTime
 
 internal class WeatherForecaster(
@@ -43,7 +41,7 @@ internal class WeatherForecaster(
                 forecast.last().conditions,
                 forecast.first().front,
                 arrival,
-                getTemperaturePrediction(),
+                temperatureService.getTemperaturePrediction(ZonedDateTime.now()),
                 emptyList()
             ),
             tendency,
@@ -54,20 +52,6 @@ internal class WeatherForecaster(
         val alerts = alertGenerator.getAlerts(weather)
 
         return weather.copy(prediction = weather.prediction.copy(alerts = alerts))
-    }
-
-    private suspend fun getTemperaturePrediction(): TemperaturePrediction? {
-        return try {
-            val range = temperatureService.getTemperatureRange(LocalDate.now())
-            val low = range.start
-            val high = range.end
-            val current = temperatureService.getTemperature(ZonedDateTime.now())
-            val average = Temperature((low.temperature + high.temperature) / 2f, low.units)
-            TemperaturePrediction(average, low, high, current)
-        } catch (e: Exception) {
-            Log.e(javaClass.simpleName, "Unable to lookup temperature", e)
-            null
-        }
     }
 
     private suspend fun getForecast(
