@@ -4,6 +4,7 @@ import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureTendency
+import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.weather.domain.forecasting.alerts.WeatherAlertG
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import java.time.Duration
+import java.time.Instant
 import java.time.ZonedDateTime
 
 internal class WeatherForecaster(
@@ -82,6 +84,11 @@ internal class WeatherForecaster(
             HourlyArrivalTime.Later -> Duration.ofHours(8)
         }
 
+        // The temperatures are only used when there is precipitation, so short circuit if not needed
+        if (original.none { it.conditions.contains(WeatherCondition.Precipitation) }) {
+            return arrival to original
+        }
+
         val temperatures =
             getHighLowTemperature(
                 ZonedDateTime.now(),
@@ -99,15 +106,55 @@ internal class WeatherForecaster(
     private fun getForecast(
         pressures: List<Reading<Pressure>>,
         clouds: List<Reading<CloudGenus?>>,
-        temperatureRange: Range<Temperature>?
+        temperatureRange: Range<Temperature>?,
+        time: Instant = Instant.now(),
+        isRecursiveCall: Boolean = false
     ): List<WeatherForecast> {
-        return Meteorology.forecast(
+        val forecast = Meteorology.forecast(
             pressures,
             clouds,
             temperatureRange,
             hourlyForecastChangeThreshold / 3f,
-            stormThreshold / 3f
+            stormThreshold / 3f,
+            time
         )
+
+        // There are current conditions
+        if (forecast.first().conditions.isNotEmpty()) {
+            return forecast
+        }
+
+        // There are later conditions and this is the recursive call so that can be used
+        if (isRecursiveCall && forecast.last().conditions.isNotEmpty()) {
+            return forecast
+        }
+
+        // There are no readings prior to the time, so it will need to stay empty
+        if (pressures.none { it.time <= time } && clouds.none { it.time <= time }) {
+            return forecast
+        }
+
+        // Recursively try to populate the current condition
+        val previous = getForecast(
+            pressures,
+            clouds,
+            temperatureRange,
+            time.minus(noChangePopulationStep),
+            true
+        )
+
+
+        // Populate the current conditions, starting with the furthest out, settling for the current conditions
+        val current = previous.reversed().firstOrNull { it.conditions.isNotEmpty() }?.conditions
+            ?: emptyList()
+        return forecast.mapIndexed { index, value ->
+            if (index == 0) {
+                value.copy(conditions = current)
+            } else {
+                value
+            }
+        }
+
     }
 
     /**
@@ -130,5 +177,6 @@ internal class WeatherForecaster(
 
     companion object {
         private val minDuration = Duration.ofMinutes(10)
+        private val noChangePopulationStep = Duration.ofMinutes(15)
     }
 }
