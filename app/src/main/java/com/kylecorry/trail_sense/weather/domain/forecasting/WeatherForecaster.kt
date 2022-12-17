@@ -108,7 +108,7 @@ internal class WeatherForecaster(
         clouds: List<Reading<CloudGenus?>>,
         temperatureRange: Range<Temperature>?,
         time: Instant = Instant.now(),
-        isRecursiveCall: Boolean = false
+        recursionCount: Int = 0
     ): List<WeatherForecast> {
         val forecast = Meteorology.forecast(
             pressures,
@@ -119,13 +119,17 @@ internal class WeatherForecaster(
             time
         )
 
+        if (recursionCount > maxNoChangeRecursion){
+            return forecast
+        }
+
         // There are current conditions
         if (forecast.first().conditions.isNotEmpty()) {
             return forecast
         }
 
         // There are later conditions and this is the recursive call so that can be used
-        if (isRecursiveCall && forecast.last().conditions.isNotEmpty()) {
+        if (recursionCount > 0 && forecast.last().conditions.isNotEmpty()) {
             return forecast
         }
 
@@ -140,7 +144,7 @@ internal class WeatherForecaster(
             clouds,
             temperatureRange,
             time.minus(noChangePopulationStep),
-            true
+            recursionCount + 1
         )
 
 
@@ -178,5 +182,6 @@ internal class WeatherForecaster(
     companion object {
         private val minDuration = Duration.ofMinutes(10)
         private val noChangePopulationStep = Duration.ofMinutes(15)
+        private const val maxNoChangeRecursion = 30
     }
 }
