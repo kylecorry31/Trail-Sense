@@ -196,7 +196,7 @@ class PathService(
         }
 
         val points = getWaypoints(path).sortedBy { it.id }.toMutableList()
-        val toKeep = filter.filter(points)
+        val toKeep = filter.filter(points).toSet()
 
         val numDeleted = points.size - toKeep.size
 

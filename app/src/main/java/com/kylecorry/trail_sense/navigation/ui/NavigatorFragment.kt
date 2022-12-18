@@ -450,7 +450,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             if (isSunUp) {
                 references.add(MappableReferencePoint(1, R.drawable.ic_sun, Bearing(sunBearing)))
-            } else if (!isSunUp && showWhenDown) {
+            } else if (showWhenDown) {
                 references.add(
                     MappableReferencePoint(
                         1,
@@ -463,7 +463,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             if (isMoonUp) {
                 references.add(MappableReferencePoint(2, getMoonImage(), Bearing(moonBearing)))
-            } else if (!isMoonUp && showWhenDown) {
+            } else if (showWhenDown) {
                 references.add(
                     MappableReferencePoint(
                         2,

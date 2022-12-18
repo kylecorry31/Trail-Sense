@@ -70,7 +70,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        return getPixelCoordinate(coordinate, nullIfOffMap = false) ?: PixelCoordinate(0f, 0f)
+        return getPixelCoordinate(coordinate) ?: PixelCoordinate(0f, 0f)
     }
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
@@ -266,21 +266,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         requestScale((scale * multiple).coerceIn(minScale, maxScale))
     }
 
-    private fun getPixelCoordinate(
-        coordinate: Coordinate,
-        nullIfOffMap: Boolean = true
-    ): PixelCoordinate? {
-
+    private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
         val pixels = projection?.toPixels(coordinate) ?: return null
-
-        if (nullIfOffMap && (pixels.x < 0 || pixels.x > sWidth)) {
-            return null
-        }
-
-        if (nullIfOffMap && (pixels.y < 0 || pixels.y > sHeight)) {
-            return null
-        }
-
         val view = toView(pixels.x, pixels.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }

@@ -195,7 +195,7 @@ class DialSelectView : CanvasView {
             targetScrollPosition = scrollPosition
             val degPerOption = 360f / options.size
 
-            val nearestOption = options.mapIndexed { index, _ ->
+            val nearestOption = List(options.size) { index ->
                 val pos = degPerOption * index
                 index to deltaAngle(pos, scrollPosition).absoluteValue
             }.minByOrNull { it.second }?.first ?: 0

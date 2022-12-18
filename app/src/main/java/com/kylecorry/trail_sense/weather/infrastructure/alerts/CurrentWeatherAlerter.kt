@@ -128,7 +128,7 @@ class CurrentWeatherAlerter(
 
             return Notify.persistent(
                 context,
-                CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
+                WEATHER_CHANNEL_ID,
                 title,
                 title,
                 R.drawable.ic_weather,

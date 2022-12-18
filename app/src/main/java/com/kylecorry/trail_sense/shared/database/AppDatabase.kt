@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureRead
 /**
  * The Room database for this app
  */
+@Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class],
     version = 29,

@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared
 
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.trail_sense.shared.specifications.IsLargeUnitSpecification
 
 object DistanceUtils {
     fun Distance.toRelativeDistance(): Distance {
@@ -19,10 +18,6 @@ object DistanceUtils {
             if (metric) DistanceUnits.Meters else DistanceUnits.Feet
         }
         return this.convertTo(newUnits)
-    }
-
-    fun DistanceUnits.isLarge(): Boolean {
-        return IsLargeUnitSpecification().isSatisfiedBy(this)
     }
 
 }

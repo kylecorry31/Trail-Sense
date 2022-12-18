@@ -41,7 +41,7 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
                 !isRunning -> {
                     start()
                 }
-                isRunning -> {
+                else -> {
                     isRunning = false
                     estimator.stop(this::onStrideLengthChanged)
                 }

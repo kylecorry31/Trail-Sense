@@ -6,21 +6,17 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
@@ -28,10 +24,6 @@ import com.kylecorry.trail_sense.shared.database.Identifiable
 
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
-}
-
-fun Fragment.requireBottomNavigation(): BottomNavigationView {
-    return requireActivity().findViewById(R.id.bottom_navigation)
 }
 
 fun IGPS.getPathPoint(pathId: Long): PathPoint {
@@ -42,14 +34,6 @@ fun IGPS.getPathPoint(pathId: Long): PathPoint {
         altitude,
         time
     )
-}
-
-fun PixelCoordinate.toVector2(): Vector2 {
-    return Vector2(x, y)
-}
-
-fun Vector2.toPixel(): PixelCoordinate {
-    return PixelCoordinate(x, y)
 }
 
 fun <T : Identifiable> Array<T>.withId(id: Long): T? {

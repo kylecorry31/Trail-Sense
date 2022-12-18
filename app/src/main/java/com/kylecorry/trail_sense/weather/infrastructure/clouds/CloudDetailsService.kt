@@ -7,10 +7,6 @@ import com.kylecorry.trail_sense.R
 
 class CloudDetailsService(private val context: Context) {
 
-    fun getClouds(): List<CloudGenus> {
-        return CloudGenus.values().toList()
-    }
-
     fun getCloudDescription(type: CloudGenus?): String {
         return when (type) {
             CloudGenus.Cirrocumulus -> context.getString(R.string.cirrocumulus_desc)

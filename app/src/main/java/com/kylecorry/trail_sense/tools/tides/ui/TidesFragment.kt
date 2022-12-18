@@ -159,20 +159,20 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         inBackground {
             table = loadTideCommand.execute()
             onMain {
-                if (isBound) {
-                    binding.loading.isVisible = false
-                    if (table == null) {
-                        val cancelled = CoroutineAlerts.dialog(
-                            requireContext(),
-                            getString(R.string.no_tides),
-                            getString(R.string.calibrate_new_tide)
-                        )
-                        if (!cancelled) {
-                            findNavController().navigate(R.id.action_tides_to_tideList)
-                        }
-                    } else {
-                        onTideLoaded()
+                if (!isBound) return@onMain
+
+                binding.loading.isVisible = false
+                if (table == null) {
+                    val cancelled = CoroutineAlerts.dialog(
+                        requireContext(),
+                        getString(R.string.no_tides),
+                        getString(R.string.calibrate_new_tide)
+                    )
+                    if (!cancelled) {
+                        findNavController().navigate(R.id.action_tides_to_tideList)
                     }
+                } else {
+                    onTideLoaded()
                 }
             }
         }

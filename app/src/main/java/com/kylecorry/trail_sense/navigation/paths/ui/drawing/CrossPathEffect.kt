@@ -13,7 +13,7 @@ class CrossPathEffect(size: Float = 6f, advance: Float = 3 * size, phase: Float 
             val path = Path()
 
             val thickness = size / 8
-            val rotation = 0.70710678119f
+            val rotation = 0.70710677f
             val offset = thickness * rotation
 
             // Bottom to top

@@ -502,10 +502,5 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             BeaconAction.Share -> BeaconSender(this).send(beacon)
         }
     }
-
-    companion object {
-        private const val LOAD_DELAY = 400L
-    }
-
 }
 

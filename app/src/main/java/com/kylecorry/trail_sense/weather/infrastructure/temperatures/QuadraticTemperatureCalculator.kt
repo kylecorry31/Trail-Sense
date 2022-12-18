@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 
 class QuadraticTemperatureCalculator(
     private val low: Reading<Temperature>,
-    private val high: Reading<Temperature>
+    high: Reading<Temperature>
 ) : ITemperatureCalculator {
 
     private val b = low.value.celsius().temperature

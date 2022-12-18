@@ -1,12 +1,11 @@
 package com.kylecorry.trail_sense.navigation.paths.domain.factories
 
-import android.content.Context
 import android.graphics.Color
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
-import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
+import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
+import com.kylecorry.trail_sense.shared.scales.IColorScale
 
 class NonePointDisplayFactory : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {

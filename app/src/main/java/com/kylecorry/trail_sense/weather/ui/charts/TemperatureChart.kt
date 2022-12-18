@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatte
 import java.time.Instant
 
 
-class TemperatureChart(private val chart: Chart, private val showFreezing: Boolean = true) {
+class TemperatureChart(private val chart: Chart, showFreezing: Boolean = true) {
 
     private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
     private var startTime = Instant.now()

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.licenses
 
+@Suppress("SameParameterValue")
 object Licenses {
     val libraries = listOf(
         Library(

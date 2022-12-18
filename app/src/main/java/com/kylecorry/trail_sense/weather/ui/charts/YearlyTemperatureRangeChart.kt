@@ -60,10 +60,6 @@ class YearlyTemperatureRangeChart(
         highlight.data = listOfNotNull(low, high)
     }
 
-    fun removeHighlight() {
-        highlight.data = emptyList()
-    }
-
     fun plot(data: List<Pair<LocalDate, Range<Temperature>>>, units: TemperatureUnits) {
         val freezing = Temperature.celsius(0f).convertTo(units)
         val lows = data.map {

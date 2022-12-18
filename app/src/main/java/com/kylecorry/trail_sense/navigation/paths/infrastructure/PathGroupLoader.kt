@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
 
-class PathGroupLoader(private val pathService: IPathService) : ISearchableGroupLoader<IPath> {
+class PathGroupLoader(pathService: IPathService) : ISearchableGroupLoader<IPath> {
 
     private val loader = pathService.loader()
     private val filter = GroupFilter(loader)

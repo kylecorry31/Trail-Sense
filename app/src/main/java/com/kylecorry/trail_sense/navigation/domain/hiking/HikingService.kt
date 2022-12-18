@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.data.DataUtils
 import java.time.Duration
 import kotlin.math.sqrt
 
-class HikingService() : IHikingService {
+class HikingService : IHikingService {
 
     override fun getDistances(points: List<Coordinate>, minDistance: Float): List<Float> {
         if (points.isEmpty()) {
