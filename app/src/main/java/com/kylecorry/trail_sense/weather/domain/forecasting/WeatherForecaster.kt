@@ -181,7 +181,7 @@ internal class WeatherForecaster(
 
     companion object {
         private val minDuration = Duration.ofMinutes(10)
-        private val noChangePopulationStep = Duration.ofMinutes(15)
-        private const val maxNoChangeRecursion = 30
+        private val noChangePopulationStep = Duration.ofMinutes(10)
+        private const val maxNoChangeRecursion = 60
     }
 }
