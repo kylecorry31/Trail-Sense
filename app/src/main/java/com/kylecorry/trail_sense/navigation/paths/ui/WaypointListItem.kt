@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.paths.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import androidx.core.view.isVisible
@@ -36,6 +37,7 @@ class WaypointListItem(
 
             val slope = context.getString(R.string.slope_amount, formatService.formatPercentage(item.slope))
 
+            @SuppressLint("SetTextI18n")
             itemBinding.waypointCoordinates.text =
                 formatService.formatDistance(
                     elevation,

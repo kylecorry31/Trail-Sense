@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -632,10 +633,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
-        binding.navigationTitle.title.text =
-            formatService.formatDegrees(compass.bearing.value, replace360 = true)
-                .padStart(4, ' ') + "   " + formatService.formatDirection(compass.bearing.direction)
-                .padStart(2, ' ')
+        val azimuthText = formatService.formatDegrees(compass.bearing.value, replace360 = true)
+            .padStart(4, ' ')
+        val directionText = formatService.formatDirection(compass.bearing.direction)
+            .padStart(2, ' ')
+        @SuppressLint("SetTextI18n")
+        binding.navigationTitle.title.text = "$azimuthText   $directionText"
 
         // Compass
         updateCompassView()

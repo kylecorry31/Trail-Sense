@@ -67,14 +67,15 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             val chargingStatus = battery.chargingStatus
             val isCharging = chargingStatus == BatteryChargingStatus.Charging
 
-            if (chargingStatus != lastChargingStatus){
+            if (chargingStatus != lastChargingStatus) {
                 resetCurrentFilter()
             }
 
             lastChargingStatus = chargingStatus
 
             // If charging and current is negative, invert current
-            current = currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1)
+            current =
+                currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1)
             capacity = battery.capacity
             pct = battery.percent.roundToInt()
         }
@@ -87,14 +88,16 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             ListView(binding.runningServices, R.layout.list_item_service) { serviceView, service ->
                 val serviceBinding = ListItemServiceBinding.bind(serviceView)
                 serviceBinding.title.text = service.name
-                serviceBinding.description.text = if (service.frequency == Duration.ZERO) {
+                val frequency = if (service.frequency == Duration.ZERO) {
                     getString(R.string.always_on)
                 } else {
                     getString(
                         R.string.service_update_frequency,
                         formatService.formatDuration(service.frequency)
                     )
-                } + " - " + getBatteryUsage(service)
+                }
+                serviceBinding.description.text =
+                    getString(R.string.dash_separated_pair, frequency, getBatteryUsage(service))
                 serviceBinding.disableBtn.setOnClickListener {
                     service.disable()
                     updateServices()
@@ -117,7 +120,8 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         CustomUiUtils.setButtonState(binding.batteryTitle.rightButton, false)
 
         val settingsIntent = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-        binding.batteryTitle.rightButton.isVisible = Intents.hasReceiver(requireContext(), settingsIntent)
+        binding.batteryTitle.rightButton.isVisible =
+            Intents.hasReceiver(requireContext(), settingsIntent)
         binding.batteryTitle.rightButton.setOnClickListener {
             startActivity(settingsIntent)
         }
@@ -157,7 +161,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         observe(battery) { }
     }
 
-    private fun resetCurrentFilter(){
+    private fun resetCurrentFilter() {
         currentFilter = MedianFilter(currentFilterSize)
     }
 

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -124,13 +125,15 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         val current = current ?: return
         val daily = daily ?: return
 
-        binding.tideTitle.title.text =
-            getTideTypeName(current.type) + if (current.waterLevel != null) {
-                val height = Distance.meters(current.waterLevel).convertTo(units)
-                " (${formatService.formatDistance(height, 2, true)})"
-            } else {
-                ""
-            }
+        val name = getTideTypeName(current.type)
+        val waterLevel = if (current.waterLevel != null) {
+            val height = Distance.meters(current.waterLevel).convertTo(units)
+            " (${formatService.formatDistance(height, 2, true)})"
+        } else {
+            ""
+        }
+        @SuppressLint("SetTextI18n")
+        binding.tideTitle.title.text = name + waterLevel
         val currentLevel = daily.waterLevels.minByOrNull {
             Duration.between(Instant.now(), it.time).abs()
         }

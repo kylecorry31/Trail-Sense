@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.grouping.picker
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 
+@SuppressLint("ViewConstructor")
 class GroupableSelectView<T : Groupable>(
     context: Context,
     attrs: AttributeSet?,
