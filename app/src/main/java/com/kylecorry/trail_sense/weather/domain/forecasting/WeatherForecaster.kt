@@ -106,10 +106,9 @@ internal class WeatherForecaster(
     private fun getForecast(
         pressures: List<Reading<Pressure>>,
         clouds: List<Reading<CloudGenus?>>,
-        temperatureRange: Range<Temperature>?,
-        time: Instant = Instant.now(),
-        recursionCount: Int = 0
+        temperatureRange: Range<Temperature>?
     ): List<WeatherForecast> {
+        val time = Instant.now()
         val forecast = Meteorology.forecast(
             pressures,
             clouds,
@@ -119,46 +118,53 @@ internal class WeatherForecaster(
             time
         )
 
-        if (recursionCount > maxNoChangeRecursion){
-            return forecast
-        }
-
-        // There are current conditions
+        // There are current conditions, so just return the forecast
         if (forecast.first().conditions.isNotEmpty()) {
             return forecast
         }
 
-        // There are later conditions and this is the recursive call so that can be used
-        if (recursionCount > 0 && forecast.last().conditions.isNotEmpty()) {
-            return forecast
+        // Try to figure out what the current conditions are based on past predictions
+        var startTime = time.minus(noChangePopulationStep)
+        val maxTime = time.minus(noChangeMaxHistory)
+        while (startTime.isAfter(maxTime)) {
+            val hasReadings =
+                pressures.any { it.time <= startTime } || clouds.any { it.time <= startTime }
+            if (!hasReadings) {
+                return forecast
+            }
+
+            val previous = Meteorology.forecast(
+                pressures,
+                clouds,
+                temperatureRange,
+                hourlyForecastChangeThreshold / 3f,
+                stormThreshold / 3f,
+                startTime
+            )
+
+            // Get the conditions of the previous prediction, starting with the furthest out prediction
+            val conditions =
+                previous.reversed().firstOrNull { it.conditions.isNotEmpty() }?.conditions
+                    ?: emptyList()
+
+            if (conditions.isNotEmpty()) {
+                return forecast.withCurrentConditions(conditions)
+            }
+
+            startTime = startTime.minus(noChangePopulationStep)
         }
 
-        // There are no readings prior to the time, so it will need to stay empty
-        if (pressures.none { it.time <= time } && clouds.none { it.time <= time }) {
-            return forecast
-        }
+        return forecast
+    }
 
-        // Recursively try to populate the current condition
-        val previous = getForecast(
-            pressures,
-            clouds,
-            temperatureRange,
-            time.minus(noChangePopulationStep),
-            recursionCount + 1
-        )
-
-
-        // Populate the current conditions, starting with the furthest out, settling for the current conditions
-        val current = previous.reversed().firstOrNull { it.conditions.isNotEmpty() }?.conditions
-            ?: emptyList()
-        return forecast.mapIndexed { index, value ->
+    private fun List<WeatherForecast>.withCurrentConditions(conditions: List<WeatherCondition>): List<WeatherForecast> {
+        return mapIndexed { index, value ->
             if (index == 0) {
-                value.copy(conditions = current)
+                value.copy(conditions = conditions)
             } else {
                 value
             }
         }
-
     }
 
     /**
@@ -182,6 +188,6 @@ internal class WeatherForecaster(
     companion object {
         private val minDuration = Duration.ofMinutes(10)
         private val noChangePopulationStep = Duration.ofMinutes(10)
-        private const val maxNoChangeRecursion = 60
+        private val noChangeMaxHistory = Duration.ofHours(8)
     }
 }
