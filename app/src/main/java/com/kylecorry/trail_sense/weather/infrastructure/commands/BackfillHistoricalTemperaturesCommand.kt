@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 import android.content.Context
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.onDefault
@@ -26,7 +27,11 @@ class BackfillHistoricalTemperaturesCommand(
         val calibratedMax = prefs.maxActualTemperature
 
         val updated = readings.map {
-            val temperature = weather.getTemperature(it.time.toZonedDateTime())
+            val temperature = weather.getTemperature(
+                it.time.toZonedDateTime(),
+                it.value.location,
+                Distance.meters(it.value.altitude)
+            )
             val calibrated = SolMath.map(
                 temperature.value.celsius().temperature,
                 sensorMin,
