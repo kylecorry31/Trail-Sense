@@ -114,6 +114,12 @@
             app:title="@string/max_temp_calibrated"
             app:useSimpleSummaryProvider="true" />
 
+        <Preference
+            android:title="@string/pref_backfill_temperatures_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backfill_temperatures"
+            app:singleLineTitle="false" />
+
 
     </PreferenceCategory>
 

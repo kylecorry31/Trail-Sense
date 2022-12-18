@@ -28,4 +28,10 @@ interface PressureReadingDao {
 
     @Update
     suspend fun update(pressure: PressureReadingEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun bulkInsert(pressures: List<PressureReadingEntity>)
+
+    @Update
+    suspend fun bulkUpdate(pressures: List<PressureReadingEntity>)
 }

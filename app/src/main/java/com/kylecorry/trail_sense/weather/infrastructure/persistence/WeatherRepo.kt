@@ -57,6 +57,22 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
         pressureDao.getLast()?.toWeatherObservation()
     }
 
+    suspend fun addAll(value: List<Reading<RawWeatherObservation>>) = onIO {
+        val entities = value.map { PressureReadingEntity.from(it) }
+        val toAdd = entities.filter { it.id == 0L }
+        val toUpdate = entities.filter { it.id != 0L }
+
+        if (toAdd.isNotEmpty()) {
+            pressureDao.bulkInsert(toAdd)
+        }
+
+        if (toUpdate.isNotEmpty()) {
+            pressureDao.bulkUpdate(toUpdate)
+        }
+
+        _readingsChanged.publish()
+    }
+
     override suspend fun clean() {
         pressureDao.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION).toEpochMilli())
 

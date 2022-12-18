@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.IThermometer
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
 import com.kylecorry.trail_sense.diagnostics.GPSDiagnostic
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -28,6 +30,7 @@ import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.weather.infrastructure.commands.BackfillHistoricalTemperaturesCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChartPreference
 import java.time.Duration
@@ -53,6 +56,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     private var maxTempUncalibratedF: EditTextPreference? = null
     private var smoothingSeekBar: SeekBarPreference? = null
     private var chart: TemperatureChartPreference? = null
+    private var backfillPref: Preference? = null
 
     private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private var history: List<WeatherObservation> = emptyList()
@@ -76,6 +80,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         temperatureTxt = preference(R.string.pref_temperature_holder)
         smoothingSeekBar = seekBar(R.string.pref_temperature_smoothing)
         chart = findPreference(getString(R.string.pref_holder_temperature_chart))
+        backfillPref = preference(R.string.pref_backfill_temperatures)
 
         smoothingSeekBar?.summary =
             formatService.formatPercentage(prefs.thermometer.smoothing * 100)
@@ -143,6 +148,24 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
                 prefs.weather.maxBatteryTemperature =
                     Temperature(temp, TemperatureUnits.F).celsius().temperature
                 true
+            }
+        }
+
+        backfillPref?.isVisible = prefs.thermometer.source == ThermometerSource.Historic
+        onClick(backfillPref) {
+            dialog(
+                backfillPref?.title ?: "",
+                getString(R.string.pref_backfill_temperatures_description)
+            ) {
+                if (!it) {
+                    inBackground {
+                        val loading =
+                            AlertLoadingIndicator(requireContext(), getString(R.string.updating))
+                        loading.show()
+                        BackfillHistoricalTemperaturesCommand.create(requireContext()).execute()
+                        loading.hide()
+                    }
+                }
             }
         }
     }
@@ -216,11 +239,12 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             ThermometerSource.Historic -> setSmoothing(0f)
             ThermometerSource.Sensor -> setSmoothing(0.2f)
         }
+        backfillPref?.isVisible = source == ThermometerSource.Historic
         displayErrors(source)
         resetCalibration()
     }
 
-    private fun resetCalibration(){
+    private fun resetCalibration() {
         prefs.weather.resetThermometerCalibration()
         minTempCalibratedC?.text = DecimalFormatter.format(prefs.weather.minActualTemperature, 1)
         maxTempCalibratedC?.text = DecimalFormatter.format(prefs.weather.maxActualTemperature, 1)
@@ -228,8 +252,10 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         maxTempUncalibratedC?.text = DecimalFormatter.format(prefs.weather.maxBatteryTemperature, 1)
         minTempCalibratedF?.text = DecimalFormatter.format(prefs.weather.minActualTemperatureF, 1)
         maxTempCalibratedF?.text = DecimalFormatter.format(prefs.weather.maxActualTemperatureF, 1)
-        minTempUncalibratedF?.text = DecimalFormatter.format(prefs.weather.minBatteryTemperatureF, 1)
-        maxTempUncalibratedF?.text = DecimalFormatter.format(prefs.weather.maxBatteryTemperatureF, 1)
+        minTempUncalibratedF?.text =
+            DecimalFormatter.format(prefs.weather.minBatteryTemperatureF, 1)
+        maxTempUncalibratedF?.text =
+            DecimalFormatter.format(prefs.weather.maxBatteryTemperatureF, 1)
     }
 
     private fun setSmoothing(smoothing: Float) {
