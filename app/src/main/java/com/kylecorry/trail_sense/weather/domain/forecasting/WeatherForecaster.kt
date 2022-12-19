@@ -61,13 +61,13 @@ internal class WeatherForecaster(
         readings: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>
     ): Pair<HourlyArrivalTime?, List<WeatherForecast>> {
-        val range = readings.map { it.time }.rangeOrNull()
-        val mapped =
-            if (range == null || Duration.between(range.lower, range.upper).abs() < minDuration) {
-                emptyList()
-            } else {
-                readings.map { it.pressureReading() }
-            }
+        // If there aren't enough readings, don't use them
+        val mapped = if (!hasEnoughReadings(readings)) {
+            emptyList()
+        } else {
+            readings.map { it.pressureReading() }
+        }
+
         // Gets the weather reading twice - first to get arrival time, second to determine precipitation type
         val original = getForecast(
             mapped,
@@ -76,31 +76,38 @@ internal class WeatherForecaster(
         )
 
         val arrival = arrivalCalculator.getArrivalTime(original, clouds)
-
-        val arrivesIn = when (arrival) {
-            HourlyArrivalTime.Now, null -> Duration.ZERO
-            HourlyArrivalTime.VerySoon -> Duration.ofHours(1)
-            HourlyArrivalTime.Soon -> Duration.ofHours(2)
-            HourlyArrivalTime.Later -> Duration.ofHours(8)
-        }
+        val arrivesIn = getArrivalTime(arrival)
 
         // The temperatures are only used when there is precipitation, so short circuit if not needed
         if (original.none { it.conditions.contains(WeatherCondition.Precipitation) }) {
             return arrival to original
         }
 
-        val temperatures =
-            getHighLowTemperature(
-                ZonedDateTime.now(),
-                arrivesIn,
-                Duration.ofHours(6)
-            )
+        val temperatures = getHighLowTemperature(
+            ZonedDateTime.now(),
+            arrivesIn,
+            Duration.ofHours(6)
+        )
 
         return arrival to getForecast(
             mapped,
             clouds,
             temperatures
         )
+    }
+
+    private fun hasEnoughReadings(readings: List<WeatherObservation>): Boolean {
+        val range = readings.map { it.time }.rangeOrNull() ?: return false
+        return Duration.between(range.lower, range.upper) >= minDuration
+    }
+
+    private fun getArrivalTime(arrival: HourlyArrivalTime?): Duration {
+        return when (arrival) {
+            HourlyArrivalTime.Now, null -> Duration.ZERO
+            HourlyArrivalTime.VerySoon -> Duration.ofHours(1)
+            HourlyArrivalTime.Soon -> Duration.ofHours(2)
+            HourlyArrivalTime.Later -> Duration.ofHours(8)
+        }
     }
 
     private fun getForecast(
