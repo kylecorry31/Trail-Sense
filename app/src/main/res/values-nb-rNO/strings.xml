@@ -999,4 +999,8 @@
     <string name="for_historic_temperatures">For historiske temperaturer</string>
     <string name="hot">Varmt</string>
     <string name="cold">Kaldt</string>
+    <string name="weather_thunderstorm">Tordenvær</string>
+    <string name="weather_alert_storm_description">Forbered deg på sterk vind og kraftig nedbør.</string>
+    <string name="weather_alert_hot_description">Forbered deg på varme temperaturer. Ta ekstra forholdsregler mot varmeutmattelse og heteslag.</string>
+    <string name="weather_alert_cold_description">Forbered deg på kalde temperaturer. Ta ekstra forholdsregler mot hypotermi og frostskader.</string>
 </resources>

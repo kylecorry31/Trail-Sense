@@ -1099,4 +1099,11 @@
     <string name="weather_precipitation">Осадки</string>
     <string name="later">Позже</string>
     <string name="now">Сейчас</string>
+    <string name="weather_alert_cold_description">Будьте готовы к низким температурам. Примите дополнительные меры предосторожности против переохлаждения и обморожения.</string>
+    <string name="weather_thunderstorm">Гроза</string>
+    <string name="hot">Жаркая</string>
+    <string name="cold">Холодная</string>
+    <string name="weather_alert_storm_description">Будьте готовы к сильному ветру и обильным осадкам.</string>
+    <string name="now_value">Сейчас: %s</string>
+    <string name="weather_alert_hot_description">Будьте готовы к жарким температурам. Примите дополнительные меры предосторожности против теплового истощения и теплового удара.</string>
 </resources>
