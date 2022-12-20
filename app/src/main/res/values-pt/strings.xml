@@ -1095,4 +1095,7 @@
     <string name="weather_alert_storm_description">Prepare-se para ventos fortes e chuvas fortes.</string>
     <string name="weather_alert_hot_description">Prepare-se para altas temperaturas. Tome precauções extra contra exaustão pelo calor e insolação.</string>
     <string name="weather_alert_cold_description">Prepare-se para temperaturas frias. Tome precauções extras contra hipotermia e congelamento.</string>
+    <string name="updating">A atualizar</string>
+    <string name="pref_backfill_temperatures_title">Atualizar temperaturas registadas</string>
+    <string name="pref_backfill_temperatures_description">Todas as temperaturas registadas serão substituídas pela temperatura histórica calibrada.</string>
 </resources>
