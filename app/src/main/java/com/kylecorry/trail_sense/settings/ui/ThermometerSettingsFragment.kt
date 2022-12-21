@@ -98,25 +98,25 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             maxTempUncalibratedF?.isVisible = false
             minTempCalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.minActualTemperatureF =
+                prefs.thermometer.minActualTemperatureF =
                     Temperature(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).temperature
                 true
             }
             minTempUncalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.minBatteryTemperatureF =
+                prefs.thermometer.minBatteryTemperatureF =
                     Temperature(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).temperature
                 true
             }
             maxTempCalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.maxActualTemperatureF =
+                prefs.thermometer.maxActualTemperatureF =
                     Temperature(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).temperature
                 true
             }
             maxTempUncalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.maxBatteryTemperatureF =
+                prefs.thermometer.maxBatteryTemperatureF =
                     Temperature(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).temperature
                 true
             }
@@ -127,25 +127,25 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             maxTempUncalibratedC?.isVisible = false
             minTempCalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.minActualTemperature =
+                prefs.thermometer.minActualTemperature =
                     Temperature(temp, TemperatureUnits.F).celsius().temperature
                 true
             }
             minTempUncalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.minBatteryTemperature =
+                prefs.thermometer.minBatteryTemperature =
                     Temperature(temp, TemperatureUnits.F).celsius().temperature
                 true
             }
             maxTempCalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.maxActualTemperature =
+                prefs.thermometer.maxActualTemperature =
                     Temperature(temp, TemperatureUnits.F).celsius().temperature
                 true
             }
             maxTempUncalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
-                prefs.weather.maxBatteryTemperature =
+                prefs.thermometer.maxBatteryTemperature =
                     Temperature(temp, TemperatureUnits.F).celsius().temperature
                 true
             }
@@ -245,17 +245,17 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun resetCalibration() {
-        prefs.weather.resetThermometerCalibration()
-        minTempCalibratedC?.text = DecimalFormatter.format(prefs.weather.minActualTemperature, 1)
-        maxTempCalibratedC?.text = DecimalFormatter.format(prefs.weather.maxActualTemperature, 1)
-        minTempUncalibratedC?.text = DecimalFormatter.format(prefs.weather.minBatteryTemperature, 1)
-        maxTempUncalibratedC?.text = DecimalFormatter.format(prefs.weather.maxBatteryTemperature, 1)
-        minTempCalibratedF?.text = DecimalFormatter.format(prefs.weather.minActualTemperatureF, 1)
-        maxTempCalibratedF?.text = DecimalFormatter.format(prefs.weather.maxActualTemperatureF, 1)
+        prefs.thermometer.resetThermometerCalibration()
+        minTempCalibratedC?.text = DecimalFormatter.format(prefs.thermometer.minActualTemperature, 1)
+        maxTempCalibratedC?.text = DecimalFormatter.format(prefs.thermometer.maxActualTemperature, 1)
+        minTempUncalibratedC?.text = DecimalFormatter.format(prefs.thermometer.minBatteryTemperature, 1)
+        maxTempUncalibratedC?.text = DecimalFormatter.format(prefs.thermometer.maxBatteryTemperature, 1)
+        minTempCalibratedF?.text = DecimalFormatter.format(prefs.thermometer.minActualTemperatureF, 1)
+        maxTempCalibratedF?.text = DecimalFormatter.format(prefs.thermometer.maxActualTemperatureF, 1)
         minTempUncalibratedF?.text =
-            DecimalFormatter.format(prefs.weather.minBatteryTemperatureF, 1)
+            DecimalFormatter.format(prefs.thermometer.minBatteryTemperatureF, 1)
         maxTempUncalibratedF?.text =
-            DecimalFormatter.format(prefs.weather.maxBatteryTemperatureF, 1)
+            DecimalFormatter.format(prefs.thermometer.maxBatteryTemperatureF, 1)
     }
 
     private fun setSmoothing(smoothing: Float) {

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.domain
 
 import android.util.Log
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.weather.domain.forecasting.ITemperatureService
+import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.ITemperatureService
 import java.time.ZonedDateTime
 
 internal suspend fun ITemperatureService.getTemperaturePrediction(time: ZonedDateTime): TemperaturePrediction? {

@@ -167,7 +167,7 @@ internal class WeatherSubsystemTest {
         var total = 0
         var deltas = 0f
         for (i in locations.indices) {
-            val actual = subsystem.getTemperatureRanges(2022, locations[i], elevations[i])
+            val actual = subsystem.getTemperatureRanges(2022, locations[i], elevations[i], false)
                 .filter { it.first.dayOfMonth == 15 }
                 .map { it.second.start.temperature to it.second.end.temperature }
 

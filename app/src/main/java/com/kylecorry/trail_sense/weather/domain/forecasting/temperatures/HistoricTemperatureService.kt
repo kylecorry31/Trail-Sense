@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain.forecasting
+package com.kylecorry.trail_sense.weather.domain.forecasting.temperatures
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology

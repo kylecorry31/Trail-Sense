@@ -155,7 +155,7 @@ class PreferenceMigrator private constructor() {
             },
             PreferenceMigration(12, 13) { context, _ ->
                 val userPrefs = UserPreferences(context)
-                userPrefs.weather.resetThermometerCalibration()
+                userPrefs.thermometer.resetThermometerCalibration()
             }
         )
 

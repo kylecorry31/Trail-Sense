@@ -40,8 +40,8 @@ import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
+import com.kylecorry.trail_sense.shared.sensors.thermometer.CalibratedThermometerWrapper
 import com.kylecorry.trail_sense.shared.sensors.thermometer.HistoricThermometer
-import com.kylecorry.trail_sense.shared.sensors.thermometer.RangeCalibratedThermometerWrapper
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
@@ -198,12 +198,9 @@ class SensorService(ctx: Context) {
             ThermometerSource.Sensor -> getThermometerSensor()
         }
         return if (calibrated) {
-            RangeCalibratedThermometerWrapper(
+            CalibratedThermometerWrapper(
                 thermometer,
-                userPrefs.weather.minBatteryTemperature,
-                userPrefs.weather.maxBatteryTemperature,
-                userPrefs.weather.minActualTemperature,
-                userPrefs.weather.maxActualTemperature
+                userPrefs.thermometer.calibrator
             )
         } else {
             thermometer

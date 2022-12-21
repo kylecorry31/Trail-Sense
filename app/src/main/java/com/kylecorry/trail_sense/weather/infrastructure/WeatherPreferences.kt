@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
@@ -108,86 +107,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
             }
         }
 
-    override var minBatteryTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_c))
-            ?.toFloatCompat() ?: 0f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_min_uncalibrated_temp_c),
-                value.toString()
-            )
-        }
-
-    override var minActualTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_c))
-            ?.toFloatCompat() ?: 0f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_min_calibrated_temp_c),
-                value.toString()
-            )
-        }
-
-    override var maxBatteryTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_c))
-            ?.toFloatCompat() ?: 100f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_max_uncalibrated_temp_c),
-                value.toString()
-            )
-        }
-
-    override var maxActualTemperature: Float
-        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_c))
-            ?.toFloatCompat() ?: 100f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_max_calibrated_temp_c),
-                value.toString()
-            )
-        }
-
-    override var minBatteryTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_min_uncalibrated_temp_f))
-            ?.toFloatCompat() ?: 32f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_min_uncalibrated_temp_f),
-                value.toString()
-            )
-        }
-
-    override var minActualTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_min_calibrated_temp_f))
-            ?.toFloatCompat() ?: 32f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_min_calibrated_temp_f),
-                value.toString()
-            )
-        }
-
-    override var maxBatteryTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_max_uncalibrated_temp_f))
-            ?.toFloatCompat() ?: 212f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_max_uncalibrated_temp_f),
-                value.toString()
-            )
-        }
-
-    override var maxActualTemperatureF: Float
-        get() = cache.getString(context.getString(R.string.pref_max_calibrated_temp_f))
-            ?.toFloatCompat() ?: 212f
-        set(value) {
-            cache.putString(
-                context.getString(R.string.pref_max_calibrated_temp_f),
-                value.toString()
-            )
-        }
-
     override var dailyWeatherLastSent: LocalDate
         get() {
             val raw = (cache.getString("daily_weather_last_sent_date") ?: LocalDate.MIN.toString())
@@ -228,17 +147,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
-
-    override fun resetThermometerCalibration() {
-        minActualTemperature = 0f
-        minActualTemperatureF = 32f
-        maxActualTemperature = 100f
-        maxActualTemperatureF = 212f
-        minBatteryTemperature = 0f
-        minBatteryTemperatureF = 32f
-        maxBatteryTemperature = 100f
-        maxBatteryTemperatureF = 212f
-    }
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

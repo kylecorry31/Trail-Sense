@@ -25,10 +25,11 @@ import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.*
-import com.kylecorry.trail_sense.weather.domain.forecasting.HistoricTemperatureService
-import com.kylecorry.trail_sense.weather.domain.forecasting.ITemperatureService
 import com.kylecorry.trail_sense.weather.domain.forecasting.IWeatherForecaster
 import com.kylecorry.trail_sense.weather.domain.forecasting.WeatherForecaster
+import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.CalibratedTemperatureService
+import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.HistoricTemperatureService
+import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.ITemperatureService
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
@@ -184,9 +185,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     override suspend fun getTemperature(
         time: ZonedDateTime,
         location: Coordinate?,
-        elevation: Distance?
+        elevation: Distance?,
+        calibrated: Boolean
     ): Reading<Temperature> = onDefault {
-        val service = getTemperatureService(location, elevation)
+        val service = getTemperatureService(location, elevation, calibrated)
         Reading(service.getTemperature(time), time.toInstant())
     }
 
@@ -194,27 +196,30 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         start: ZonedDateTime,
         end: ZonedDateTime,
         location: Coordinate?,
-        elevation: Distance?
+        elevation: Distance?,
+        calibrated: Boolean
     ): List<Reading<Temperature>> = onDefault {
-        val service = getTemperatureService(location, elevation)
+        val service = getTemperatureService(location, elevation, calibrated)
         service.getTemperatures(start, end)
     }
 
     override suspend fun getTemperatureRange(
         date: LocalDate,
         location: Coordinate?,
-        elevation: Distance?
+        elevation: Distance?,
+        calibrated: Boolean
     ): Range<Temperature> = onDefault {
-        val service = getTemperatureService(location, elevation)
+        val service = getTemperatureService(location, elevation, calibrated)
         service.getTemperatureRange(date)
     }
 
     override suspend fun getTemperatureRanges(
         year: Int,
         location: Coordinate?,
-        elevation: Distance?
+        elevation: Distance?,
+        calibrated: Boolean
     ): List<Pair<LocalDate, Range<Temperature>>> = onDefault {
-        val service = getTemperatureService(location, elevation)
+        val service = getTemperatureService(location, elevation, calibrated)
         service.getTemperatureRanges(year)
     }
 
@@ -277,12 +282,19 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private suspend fun getTemperatureService(
         location: Coordinate?,
-        elevation: Distance?
+        elevation: Distance?,
+        calibrated: Boolean
     ): ITemperatureService {
         val resolved = resolveLocation(location, elevation)
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
-        return HistoricTemperatureService(temperatureRepo, lookupLocation, lookupElevation)
+        val service = HistoricTemperatureService(temperatureRepo, lookupLocation, lookupElevation)
+
+        if (calibrated) {
+            return CalibratedTemperatureService(service, prefs.thermometer.calibrator)
+        }
+
+        return service
     }
 
     private suspend fun getWeatherForecaster(
@@ -292,7 +304,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val resolved = resolveLocation(location, elevation)
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
-        val temperatureService = getTemperatureService(lookupLocation, lookupElevation)
+        val temperatureService = getTemperatureService(lookupLocation, lookupElevation, true)
         return WeatherForecaster(temperatureService, prefs.weather)
     }
 

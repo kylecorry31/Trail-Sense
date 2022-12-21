@@ -20,21 +20,10 @@ interface IWeatherPreferences {
     val dailyForecastChangeThreshold: Float
     val hourlyForecastChangeThreshold: Float
     val stormAlertThreshold: Float
-    var minBatteryTemperature: Float
-    var minActualTemperature: Float
-    var maxBatteryTemperature: Float
-    var maxActualTemperature: Float
-    var minBatteryTemperatureF: Float
-    var minActualTemperatureF: Float
-    var maxBatteryTemperatureF: Float
-    var maxActualTemperatureF: Float
     var dailyWeatherLastSent: LocalDate
     val dailyWeatherIsForTomorrow: Boolean
     var dailyForecastTime: LocalTime
     val leftButton: QuickActionType
     val rightButton: QuickActionType
     val showColoredNotificationIcon: Boolean
-
-    // TODO: Move into thermometer preferences
-    fun resetThermometerCalibration()
 }

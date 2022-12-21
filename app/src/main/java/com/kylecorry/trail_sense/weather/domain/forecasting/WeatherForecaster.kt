@@ -13,6 +13,7 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.forecasting.alerts.WeatherAlertGenerator
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
+import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.ITemperatureService
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import java.time.Duration
 import java.time.Instant

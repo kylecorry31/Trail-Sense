@@ -2,14 +2,11 @@ package com.kylecorry.trail_sense.shared.sensors.thermometer
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IThermometer
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.units.Temperature
 
-class RangeCalibratedThermometerWrapper(
+class CalibratedThermometerWrapper(
     private val thermometer: IThermometer,
-    private val sensorMin: Float,
-    private val sensorMax: Float,
-    private val calibratedMin: Float,
-    private val calibratedMax: Float
+    private val calibrator: ITemperatureCalibrator
 ) : IThermometer, AbstractSensor() {
     override val hasValidReading: Boolean
         get() = thermometer.hasValidReading
@@ -31,6 +28,6 @@ class RangeCalibratedThermometerWrapper(
     }
 
     private fun calibrate(temperature: Float): Float {
-        return SolMath.map(temperature, sensorMin, sensorMax, calibratedMin, calibratedMax)
+        return calibrator.calibrate(Temperature.celsius(temperature)).temperature
     }
 }

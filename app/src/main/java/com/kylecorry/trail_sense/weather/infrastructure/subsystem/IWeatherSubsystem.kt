@@ -8,8 +8,8 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 import java.time.Duration
 import java.time.LocalDate
@@ -30,26 +30,30 @@ interface IWeatherSubsystem {
     suspend fun getTemperature(
         time: ZonedDateTime,
         location: Coordinate? = null,
-        elevation: Distance? = null
+        elevation: Distance? = null,
+        calibrated: Boolean = true
     ): Reading<Temperature>
 
     suspend fun getTemperatures(
         start: ZonedDateTime,
         end: ZonedDateTime,
         location: Coordinate? = null,
-        elevation: Distance? = null
+        elevation: Distance? = null,
+        calibrated: Boolean = true
     ): List<Reading<Temperature>>
 
     suspend fun getTemperatureRange(
         date: LocalDate,
         location: Coordinate? = null,
-        elevation: Distance? = null
+        elevation: Distance? = null,
+        calibrated: Boolean = true
     ): Range<Temperature>
 
     suspend fun getTemperatureRanges(
         year: Int,
         location: Coordinate? = null,
-        elevation: Distance? = null
+        elevation: Distance? = null,
+        calibrated: Boolean = true
     ): List<Pair<LocalDate, Range<Temperature>>>
 
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
