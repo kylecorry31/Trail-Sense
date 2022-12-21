@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.temperatures
+package com.kylecorry.trail_sense.weather.infrastructure.temperatures.calculators
 
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.time.Time
@@ -15,7 +15,7 @@ internal class QuadraticTemperatureCalculator(
     private val b = low.value.celsius().temperature
     private val a = (high.value.celsius().temperature - b) / square(getX(high.time))
 
-    override fun calculate(time: ZonedDateTime): Temperature {
+    override suspend fun calculate(time: ZonedDateTime): Temperature {
         val x = getX(time.toInstant())
         return Temperature.celsius(a * square(x) + b)
     }

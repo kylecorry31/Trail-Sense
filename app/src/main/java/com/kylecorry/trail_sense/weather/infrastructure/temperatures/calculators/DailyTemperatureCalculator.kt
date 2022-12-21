@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.temperatures
+package com.kylecorry.trail_sense.weather.infrastructure.temperatures.calculators
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.astronomy.Astronomy
@@ -15,13 +15,13 @@ import java.time.ZonedDateTime
 
 internal class DailyTemperatureCalculator(
     private val location: Coordinate,
-    private val dailyTemperatureRangeProvider: (location: Coordinate, date: LocalDate) -> Range<Temperature>
+    private val dailyTemperatureRangeProvider: suspend (location: Coordinate, date: LocalDate) -> Range<Temperature>
 ) : ITemperatureCalculator {
 
     private val calculators = mutableListOf<Pair<Range<ZonedDateTime>, ITemperatureCalculator>>()
     private val offset = Duration.ofHours(3)
 
-    override fun calculate(time: ZonedDateTime): Temperature {
+    override suspend fun calculate(time: ZonedDateTime): Temperature {
         val existing = calculators.firstOrNull { it.first.contains(time) }
         val calculator = if (existing == null) {
             val newCalculator = createCalculator(time)
@@ -33,7 +33,7 @@ internal class DailyTemperatureCalculator(
         return calculator.calculate(time)
     }
 
-    private fun createCalculator(time: ZonedDateTime): Pair<Range<ZonedDateTime>, ITemperatureCalculator> {
+    private suspend fun createCalculator(time: ZonedDateTime): Pair<Range<ZonedDateTime>, ITemperatureCalculator> {
         val range = dailyTemperatureRangeProvider.invoke(location, time.toLocalDate())
         val nextHigh = getNextHighTime(time)
         val nextLow = getNextLowTime(time)

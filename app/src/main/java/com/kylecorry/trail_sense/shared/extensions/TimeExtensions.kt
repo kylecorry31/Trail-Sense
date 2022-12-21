@@ -21,7 +21,7 @@ fun <T> getReadings(
     )
 }
 
-fun <T> getReadings(
+inline fun <T> getReadings(
     start: ZonedDateTime,
     end: ZonedDateTime,
     step: Duration,

@@ -35,6 +35,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherC
 import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
+import com.kylecorry.trail_sense.weather.infrastructure.temperatures.HistoricTemperatureRepo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -48,6 +49,7 @@ import java.util.*
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
+    private val temperatureRepo by lazy { HistoricTemperatureRepo(context) }
     private val cloudRepo by lazy { CloudRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { Preferences(context) }
@@ -280,7 +282,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val resolved = resolveLocation(location, elevation)
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
-        return HistoricTemperatureService(context, lookupLocation, lookupElevation)
+        return HistoricTemperatureService(temperatureRepo, lookupLocation, lookupElevation)
     }
 
     private suspend fun getWeatherForecaster(

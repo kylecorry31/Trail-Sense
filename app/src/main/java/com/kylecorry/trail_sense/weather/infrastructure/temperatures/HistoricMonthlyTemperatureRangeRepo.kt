@@ -8,25 +8,27 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import java.time.Month
 import kotlin.math.roundToInt
 
-internal object HistoricTemperatureLookup {
+// TODO: Add a cache
+internal object HistoricMonthlyTemperatureRangeRepo {
 
     internal const val lonStep = 2
     internal const val minLat = -60
     internal const val maxLat = 84
 
-    fun getMonthlyTemperatureRange(
+    suspend fun getMonthlyTemperatureRange(
         context: Context,
         location: Coordinate,
         month: Month
-    ): Range<Temperature> {
+    ): Range<Temperature> = onIO {
         val lat = location.latitude.roundToInt().coerceIn(minLat, maxLat)
         val lon = location.longitude.roundToInt()
         val low = loadMinimum(context, lat, lon, month)
         val high = loadMaximum(context, lat, lon, month)
-        return Range(
+        Range(
             Temperature(low?.toFloat() ?: 0f, TemperatureUnits.F).celsius(),
             Temperature(high?.toFloat() ?: 0f, TemperatureUnits.F).celsius()
         )

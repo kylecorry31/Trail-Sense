@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.temperatures
+package com.kylecorry.trail_sense.weather.infrastructure.temperatures.calculators
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.analysis.Trigonometry
@@ -26,7 +26,7 @@ internal class SineTemperatureCalculator(
         )
     }
 
-    override fun calculate(time: ZonedDateTime): Temperature {
+    override suspend fun calculate(time: ZonedDateTime): Temperature {
         return Temperature.celsius(wave.calculate(getX(time.toInstant())))
     }
 

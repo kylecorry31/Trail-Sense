@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.extensions.getReadings
+import com.kylecorry.trail_sense.weather.infrastructure.temperatures.calculators.DailyTemperatureCalculator
 import java.time.Duration
 import java.time.LocalDate
 import java.time.Month
@@ -15,9 +16,9 @@ import java.time.ZonedDateTime
 import kotlin.math.ceil
 import kotlin.math.floor
 
-internal class TemperatureEstimator(private val context: Context) {
+internal class HistoricTemperatureRepo(private val context: Context) : ITemperatureRepo {
 
-    fun getYearlyTemperatures(
+    override suspend fun getYearlyTemperatures(
         year: Int,
         location: Coordinate
     ): List<Pair<LocalDate, Range<Temperature>>> {
@@ -53,8 +54,10 @@ internal class TemperatureEstimator(private val context: Context) {
             val start = byMonth[startDate.monthValue - 1]
             val end = byMonth[endDate.monthValue - 1]
 
-            val daysSinceStart = Duration.between(startDate.atStartOfDay(), date.atStartOfDay()).toDays()
-            val daysBetweenMonths = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays()
+            val daysSinceStart =
+                Duration.between(startDate.atStartOfDay(), date.atStartOfDay()).toDays()
+            val daysBetweenMonths =
+                Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays()
 
             val pct = daysSinceStart / daysBetweenMonths.toFloat()
 
@@ -66,14 +69,15 @@ internal class TemperatureEstimator(private val context: Context) {
         return readings
     }
 
-    fun getTemperatures(
+    override suspend fun getTemperatures(
+        location: Coordinate,
         start: ZonedDateTime,
-        end: ZonedDateTime,
-        location: Coordinate
+        end: ZonedDateTime
     ): List<Reading<Temperature>> {
         val calculator = DailyTemperatureCalculator(location) { location, date ->
             getDailyTemperatureRange(location, date)
         }
+
         return getReadings(
             start,
             end,
@@ -83,14 +87,17 @@ internal class TemperatureEstimator(private val context: Context) {
         }
     }
 
-    fun getTemperature(location: Coordinate, time: ZonedDateTime): Temperature {
+    override suspend fun getTemperature(location: Coordinate, time: ZonedDateTime): Temperature {
         val calculator = DailyTemperatureCalculator(location) { location, date ->
             getDailyTemperatureRange(location, date)
         }
         return calculator.calculate(time)
     }
 
-    fun getDailyTemperatureRange(location: Coordinate, date: LocalDate): Range<Temperature> {
+    override suspend fun getDailyTemperatureRange(
+        location: Coordinate,
+        date: LocalDate
+    ): Range<Temperature> {
         return if (date.dayOfMonth == 15) {
             getMonthlyTemperatureLongitudeLerp(location, date)
         } else if (date.dayOfMonth > 15) {
@@ -137,11 +144,12 @@ internal class TemperatureEstimator(private val context: Context) {
     }
 
     private fun getRegion(location: Coordinate): CoordinateBounds {
-        val idx = (floor(location.longitude).toInt() + 180) / HistoricTemperatureLookup.lonStep
+        val idx =
+            (floor(location.longitude).toInt() + 180) / HistoricMonthlyTemperatureRangeRepo.lonStep
         val minLon =
-            Coordinate.toLongitude(idx * HistoricTemperatureLookup.lonStep.toDouble() - 180)
+            Coordinate.toLongitude(idx * HistoricMonthlyTemperatureRangeRepo.lonStep.toDouble() - 180)
         val maxLon =
-            Coordinate.toLongitude((idx + 1) * HistoricTemperatureLookup.lonStep.toDouble() - 180)
+            Coordinate.toLongitude((idx + 1) * HistoricMonthlyTemperatureRangeRepo.lonStep.toDouble() - 180)
         val minLat = floor(location.latitude)
         val maxLat = ceil(location.latitude)
         return CoordinateBounds(maxLat, maxLon, minLat, minLon)
@@ -166,8 +174,10 @@ internal class TemperatureEstimator(private val context: Context) {
     private fun getRegionToEast(location: Coordinate): CoordinateBounds {
         val region = getRegion(location)
 
-        val eastern = Coordinate.toLongitude(region.east + HistoricTemperatureLookup.lonStep)
-        val western = Coordinate.toLongitude(region.west + HistoricTemperatureLookup.lonStep)
+        val eastern =
+            Coordinate.toLongitude(region.east + HistoricMonthlyTemperatureRangeRepo.lonStep)
+        val western =
+            Coordinate.toLongitude(region.west + HistoricMonthlyTemperatureRangeRepo.lonStep)
 
         return CoordinateBounds(region.north, eastern, region.south, western)
     }
@@ -175,13 +185,15 @@ internal class TemperatureEstimator(private val context: Context) {
     private fun getRegionToWest(location: Coordinate): CoordinateBounds {
         val region = getRegion(location)
 
-        val eastern = Coordinate.toLongitude(region.east - HistoricTemperatureLookup.lonStep)
-        val western = Coordinate.toLongitude(region.west - HistoricTemperatureLookup.lonStep)
+        val eastern =
+            Coordinate.toLongitude(region.east - HistoricMonthlyTemperatureRangeRepo.lonStep)
+        val western =
+            Coordinate.toLongitude(region.west - HistoricMonthlyTemperatureRangeRepo.lonStep)
 
         return CoordinateBounds(region.north, eastern, region.south, western)
     }
 
-    private fun getMonthlyTemperatureLongitudeLerp(
+    private suspend fun getMonthlyTemperatureLongitudeLerp(
         location: Coordinate,
         date: LocalDate
     ): Range<Temperature> {
@@ -203,12 +215,12 @@ internal class TemperatureEstimator(private val context: Context) {
         return lerp(distanceToPoint / distanceBetweenNeighbors, range, currentRange)
     }
 
-    private fun getMonthlyTemperatureLatitudeLerp(
+    private suspend fun getMonthlyTemperatureLatitudeLerp(
         location: Coordinate,
         date: LocalDate
     ): Range<Temperature> {
         val region = getRegion(location)
-        val currentRange = HistoricTemperatureLookup.getMonthlyTemperatureRange(
+        val currentRange = HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRange(
             context,
             region.center,
             date.month
@@ -219,7 +231,7 @@ internal class TemperatureEstimator(private val context: Context) {
             getRegionToSouth(location)
         } ?: return currentRange
 
-        val range = HistoricTemperatureLookup.getMonthlyTemperatureRange(
+        val range = HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRange(
             context,
             neighbor.center,
             date.month
