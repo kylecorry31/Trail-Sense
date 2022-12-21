@@ -8,7 +8,7 @@ import com.kylecorry.sol.units.Temperature
 import java.time.Instant
 import java.time.ZonedDateTime
 
-class SineTemperatureCalculator(
+internal class SineTemperatureCalculator(
     private val first: Reading<Temperature>,
     private val second: Reading<Temperature>
 ) : ITemperatureCalculator {

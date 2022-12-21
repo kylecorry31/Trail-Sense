@@ -7,7 +7,7 @@ import com.kylecorry.sol.units.Temperature
 import java.time.Instant
 import java.time.ZonedDateTime
 
-class QuadraticTemperatureCalculator(
+internal class QuadraticTemperatureCalculator(
     private val low: Reading<Temperature>,
     high: Reading<Temperature>
 ) : ITemperatureCalculator {

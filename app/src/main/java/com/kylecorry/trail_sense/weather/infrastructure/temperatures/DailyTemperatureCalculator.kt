@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZonedDateTime
 
-class DailyTemperatureCalculator(
+internal class DailyTemperatureCalculator(
     private val location: Coordinate,
     private val dailyTemperatureRangeProvider: (location: Coordinate, date: LocalDate) -> Range<Temperature>
 ) : ITemperatureCalculator {
