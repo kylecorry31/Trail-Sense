@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure
+package com.kylecorry.trail_sense.weather.domain.forecasting
 
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 
@@ -15,11 +15,6 @@ internal class PrimaryWeatherSelector {
     )
 
     fun getWeather(conditions: List<WeatherCondition>): WeatherCondition? {
-        for (condition in order) {
-            if (conditions.contains(condition)) {
-                return condition
-            }
-        }
-        return null
+        return order.firstOrNull { conditions.contains(it) }
     }
 }
