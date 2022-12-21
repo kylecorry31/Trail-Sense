@@ -1099,4 +1099,8 @@
     <string name="for_historic_temperatures">Для історичних температур</string>
     <string name="hot">Гаряче</string>
     <string name="cold">Холодно</string>
+    <string name="weather_thunderstorm">Гроза</string>
+    <string name="weather_alert_hot_description">Підготуйтеся до високих температур. Вживайте додаткових заходів для запобігання теплового виснаження та теплового удару.</string>
+    <string name="weather_alert_storm_description">Підготуйтеся до сильних вітрів і рясних опадів.</string>
+    <string name="weather_alert_cold_description">Підготуйтеся до холодних температур. Вживайте додаткових запобіжних заходів проти переохолодження і обмороження.</string>
 </resources>
