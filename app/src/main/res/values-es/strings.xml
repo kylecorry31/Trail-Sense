@@ -1095,4 +1095,7 @@
     <string name="pref_show_map_previews_title">Mostrar las vistas previas de los mapas</string>
     <string name="now_value">Ahora: %s</string>
     <string name="for_historic_temperatures">Temperaturas históricas</string>
+    <string name="pref_backfill_temperatures_title">Actualizar las temperaturas registradas</string>
+    <string name="pref_backfill_temperatures_description">Todas las temperaturas registradas se sustituirán por la temperatura histórica calibrada.</string>
+    <string name="updating">Actualizando</string>
 </resources>
