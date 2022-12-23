@@ -20,12 +20,17 @@ internal class WeatherAlertGenerator : IWeatherAlertGenerator {
 
     private fun getTemperatureAlerts(weather: CurrentWeather): List<WeatherAlert> {
         weather.prediction.temperature ?: return emptyList()
-        return if (weather.prediction.temperature.low.celsius().temperature <= WeatherSubsystem.COLD) {
-            listOf(WeatherAlert.Cold)
-        } else if (weather.prediction.temperature.high.celsius().temperature >= WeatherSubsystem.HOT) {
-            listOf(WeatherAlert.Hot)
-        } else {
-            emptyList()
+
+        val alerts = mutableListOf<WeatherAlert>()
+
+        if (weather.prediction.temperature.low.celsius().temperature <= WeatherSubsystem.COLD) {
+            alerts.add(WeatherAlert.Cold)
         }
+
+        if (weather.prediction.temperature.high.celsius().temperature >= WeatherSubsystem.HOT) {
+            alerts.add(WeatherAlert.Hot)
+        }
+
+        return alerts
     }
 }
