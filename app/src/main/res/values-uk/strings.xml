@@ -1103,4 +1103,7 @@
     <string name="weather_alert_hot_description">Підготуйтеся до високих температур. Вживайте додаткових заходів для запобігання теплового виснаження та теплового удару.</string>
     <string name="weather_alert_storm_description">Підготуйтеся до сильних вітрів і рясних опадів.</string>
     <string name="weather_alert_cold_description">Підготуйтеся до холодних температур. Вживайте додаткових запобіжних заходів проти переохолодження і обмороження.</string>
+    <string name="pref_backfill_temperatures_title">Оновлення записаних температур</string>
+    <string name="pref_backfill_temperatures_description">Усі записані температури буде замінено каліброваною історичною температурою.</string>
+    <string name="updating">Оновлення</string>
 </resources>

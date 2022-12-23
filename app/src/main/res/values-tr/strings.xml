@@ -1083,4 +1083,7 @@
     <string name="weather_alert_storm_description">Yüksek rüzgarlara ve şiddetli yağışlara hazırlanın.</string>
     <string name="weather_alert_cold_description">Düşük sıcaklıklara hazırlanın. Hipotermi ve donmaya karşı ek önlemler alın.</string>
     <string name="weather_thunderstorm">Fırtına</string>
+    <string name="pref_backfill_temperatures_title">Kaydedilen sıcaklıkları güncelle</string>
+    <string name="pref_backfill_temperatures_description">Kaydedilen tüm sıcaklıklar, kalibre edilmiş geçmiş sıcaklıkla değiştirilecektir.</string>
+    <string name="updating">Güncelleniyor</string>
 </resources>
