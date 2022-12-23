@@ -116,63 +116,14 @@ internal class WeatherForecaster(
         clouds: List<Reading<CloudGenus?>>,
         temperatureRange: Range<Temperature>?
     ): List<WeatherForecast> {
-        val time = Instant.now()
-        val forecast = Meteorology.forecast(
+        return Meteorology.forecast(
             pressures,
             clouds,
             temperatureRange,
             hourlyForecastChangeThreshold / 3f,
             stormThreshold / 3f,
-            time
+            Instant.now()
         )
-
-        // There are current conditions, so just return the forecast
-        if (forecast.first().conditions.isNotEmpty()) {
-            return forecast
-        }
-
-        // Try to figure out what the current conditions are based on past predictions
-        var startTime = time.minus(noChangePopulationStep)
-        val maxTime = time.minus(noChangeMaxHistory)
-        while (startTime.isAfter(maxTime)) {
-            val hasReadings =
-                pressures.any { it.time <= startTime } || clouds.any { it.time <= startTime }
-            if (!hasReadings) {
-                return forecast
-            }
-
-            val previous = Meteorology.forecast(
-                pressures,
-                clouds,
-                temperatureRange,
-                hourlyForecastChangeThreshold / 3f,
-                stormThreshold / 3f,
-                startTime
-            )
-
-            // Get the conditions of the previous prediction, starting with the furthest out prediction
-            val conditions =
-                previous.reversed().firstOrNull { it.conditions.isNotEmpty() }?.conditions
-                    ?: emptyList()
-
-            if (conditions.isNotEmpty()) {
-                return forecast.withCurrentConditions(conditions)
-            }
-
-            startTime = startTime.minus(noChangePopulationStep)
-        }
-
-        return forecast
-    }
-
-    private fun List<WeatherForecast>.withCurrentConditions(conditions: List<WeatherCondition>): List<WeatherForecast> {
-        return mapIndexed { index, value ->
-            if (index == 0) {
-                value.copy(conditions = conditions)
-            } else {
-                value
-            }
-        }
     }
 
     /**
@@ -195,7 +146,5 @@ internal class WeatherForecaster(
 
     companion object {
         private val minDuration = Duration.ofMinutes(10)
-        private val noChangePopulationStep = Duration.ofMinutes(10)
-        private val noChangeMaxHistory = Duration.ofHours(8)
     }
 }
