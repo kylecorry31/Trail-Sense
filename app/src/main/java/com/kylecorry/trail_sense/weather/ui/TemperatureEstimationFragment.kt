@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
@@ -116,7 +115,8 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
             readAll(
                 listOf(altimeter, thermometer),
-                Duration.ofSeconds(10)
+                Duration.ofSeconds(10),
+                forceStopOnCompletion = true
             )
 
             onMain {
@@ -130,17 +130,15 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private fun setFieldsFromSensors() {
-        if (altimeter.hasValidReading) {
+        if (altimeter.hasValidReading || altimeter.altitude != 0f) {
             val altitude = Distance.meters(altimeter.altitude).convertTo(baseUnits)
             binding.tempEstBaseElevation.value = altitude
         }
 
-        if (thermometer.hasValidReading) {
-            tryOrNothing {
-                val temp = Temperature.celsius(thermometer.temperature).convertTo(temperatureUnits)
-                binding.tempEstBaseTemperature.amount = temp.temperature.roundToInt()
-                binding.tempEstBaseTemperature.unit = temperatureUnits
-            }
+        if (thermometer.hasValidReading || thermometer.temperature != 0f) {
+            val temp = Temperature.celsius(thermometer.temperature).convertTo(temperatureUnits)
+            binding.tempEstBaseTemperature.amount = temp.temperature.roundToInt()
+            binding.tempEstBaseTemperature.unit = temperatureUnits
         }
     }
 
