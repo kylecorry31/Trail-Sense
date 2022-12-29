@@ -95,7 +95,6 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         )
     }
 
-    // TODO: Factor in refraction
     fun getLengthOfDay(
         location: Coordinate,
         sunTimesMode: SunTimesMode,
