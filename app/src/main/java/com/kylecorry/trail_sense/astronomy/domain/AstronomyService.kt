@@ -40,7 +40,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonTimes(location: Coordinate, date: LocalDate): RiseSetTransitTimes {
-        return Astronomy.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location)
+        return Astronomy.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location, true)
     }
 
     fun getCenteredMoonAltitudes(
@@ -77,7 +77,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun isMoonUp(location: Coordinate): Boolean {
-        return Astronomy.isMoonUp(ZonedDateTime.now(clock), location)
+        return Astronomy.isMoonUp(ZonedDateTime.now(clock), location, true)
     }
 
     // PUBLIC SUN METHODS
@@ -90,10 +90,12 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return Astronomy.getSunEvents(
             date.atStartOfDay().toZonedDateTime(),
             location,
-            sunTimesMode
+            sunTimesMode,
+            true
         )
     }
 
+    // TODO: Factor in refraction
     fun getLengthOfDay(
         location: Coordinate,
         sunTimesMode: SunTimesMode,
@@ -102,7 +104,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return Astronomy.getDaylightLength(
             date.atStartOfDay().toZonedDateTime(),
             location,
-            sunTimesMode
+            sunTimesMode,
+            true
         )
     }
 
@@ -139,18 +142,18 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }
     }
 
-    fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
-        return Astronomy.getNextSunset(ZonedDateTime.now(clock), location, sunTimesMode)
+    fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode, time: ZonedDateTime = ZonedDateTime.now(clock)): LocalDateTime? {
+        return Astronomy.getNextSunset(time, location, sunTimesMode, true)
             ?.toLocalDateTime()
     }
 
-    fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode): LocalDateTime? {
-        return Astronomy.getNextSunrise(ZonedDateTime.now(clock), location, sunTimesMode)
+    fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode, time: ZonedDateTime = ZonedDateTime.now(clock)): LocalDateTime? {
+        return Astronomy.getNextSunrise(time, location, sunTimesMode, true)
             ?.toLocalDateTime()
     }
 
     fun isSunUp(location: Coordinate): Boolean {
-        return Astronomy.isSunUp(ZonedDateTime.now(clock), location)
+        return Astronomy.isSunUp(ZonedDateTime.now(clock), location, true)
     }
 
     fun getSunAzimuth(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Bearing {

@@ -77,7 +77,7 @@ class SolarPanelService(
             dt.seconds * secondsToHours
         ) { hours ->
             val t = start.toLocalDateTime().plusHours(hours).toZonedDateTime()
-            Astronomy.getSolarRadiation(t, location, tilt, bearing)
+            Astronomy.getSolarRadiation(t, location, tilt, bearing, withRefraction = true)
         }
     }
 
