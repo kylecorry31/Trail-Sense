@@ -51,6 +51,24 @@
             app:dataPointIcon="@drawable/ic_temperature_range"
             app:layout_columnWeight="1" />
 
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_sunrise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/sunrise_label"
+            app:dataPointIcon="@drawable/ic_sunrise_notification"
+            app:layout_columnWeight="1" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_sunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/sunset_label"
+            app:dataPointIcon="@drawable/ic_sunset_notification"
+            app:layout_columnWeight="1" />
+
     </androidx.gridlayout.widget.GridLayout>
 
     <ScrollView

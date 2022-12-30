@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
@@ -19,6 +20,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -35,6 +37,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val gps by lazy { SensorService(requireContext()).getGPS(false) }
     private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }
+    private val astronomy = AstronomyService()
 
     private var beacon: Beacon? = null
     private var beaconId: Long? = null
@@ -53,6 +56,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
             onMain {
                 beacon?.apply {
                     updateBeaconTemperature(this)
+                    updateBeaconSunTimes(this)
 
                     binding.beaconTitle.title.text = this.name
                     binding.beaconTitle.subtitle.text =
@@ -123,6 +127,34 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                 }
             }
         }
+    }
+
+    private suspend fun updateBeaconSunTimes(beacon: Beacon) {
+        val times = onDefault {
+            astronomy.getSunTimes(
+                beacon.coordinate,
+                prefs.astronomy.sunTimesMode,
+                LocalDate.now()
+            )
+        }
+
+        val rise =
+            times.rise?.let { formatService.formatTime(it.toLocalTime(), includeSeconds = false) }
+        val set =
+            times.set?.let { formatService.formatTime(it.toLocalTime(), includeSeconds = false) }
+
+        if (rise != null) {
+            binding.beaconSunrise.title = rise
+        } else {
+            binding.beaconGrid.removeView(binding.beaconSunrise)
+        }
+
+        if (set != null) {
+            binding.beaconSunset.title = set
+        } else {
+            binding.beaconGrid.removeView(binding.beaconSunset)
+        }
+
     }
 
     private suspend fun updateBeaconTemperature(beacon: Beacon) {
