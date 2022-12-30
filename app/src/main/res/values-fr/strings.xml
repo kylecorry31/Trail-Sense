@@ -349,7 +349,11 @@
 \n
 \nUTM (ex. 03T 12345E 67890N)
 \n
-\nMGRS (ex. 27PXM 09601 05579)</string>
+\nMGRS (ex. 27PXM 09601 05579)
+\n
+\nUSNG (ex. 14S NJ 39521 41744)
+\n
+\nOSNG (OSGB36) (ex. TG 51409 13177)</string>
     <string name="location_input_help_title">Formats de localisation supportés</string>
     <string name="pref_backtrack_frequency_title">Fréquence d\'enregistrement</string>
     <string name="pref_backtrack_enabled_summary">Enregistrer l\'historique des positions</string>
@@ -677,7 +681,7 @@
     <string name="notifications_blocked">Notifications bloquées</string>
     <string name="no_resolution">Pas de résolution</string>
     <string name="grant_permission">Donner la permission %s</string>
-    <string name="get_gps_signal">Trouver un endroit avec une vue dégagée sur le ciel</string>
+    <string name="get_gps_signal">Trouver un endroit avec une vue dégagée sur le ciel.</string>
     <string name="lunar_eclipse">Éclipse lunaire</string>
     <string name="astro_dialog_rise_set">**Temps** : %s
 \n
@@ -841,7 +845,7 @@
         <item quantity="many">%d chemins</item>
         <item quantity="other">%d chemins</item>
     </plurals>
-    <string name="cloud_precipitation_forecast_hour_range">Peut indiquer des précipitations dans les %d à %d heures à venir</string>
+    <string name="cloud_precipitation_forecast_hour_range">Peut indiquer des précipitations dans les %d à %d heures à venir.</string>
     <string name="delete_path_group_message">%s et tous ses chemins seront supprimés.</string>
     <string name="cumulonimbus_desc">Nuages bas gonflés très grands. Ils ont généralement une forme d\'enclume et sont sombres.</string>
     <string name="onboarding_privacy">- Trail Sense respecte votre vie privée et les données de localisation ne quittent jamais votre appareil.
@@ -1036,7 +1040,7 @@
     <plurals name="tides_entered_count">
         <item quantity="one">%d marée</item>
         <item quantity="many">%d marées</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="altocumulus_forecast">Peut indiquer des précipitations ou orages dans les %d prochaines heures.</string>
     <string name="nimbostratus_forecast">Précipitations possibles dans les %d prochaines heures.</string>
@@ -1076,4 +1080,15 @@
     <string name="remove_battery_restrictions">Supprimer les restrictions de batterie \?</string>
     <string name="camera_capture">Capturer</string>
     <string name="file">Fichier</string>
+    <string name="updating">Actualisation</string>
+    <string name="hot">Chaud</string>
+    <string name="cold">Froid</string>
+    <string name="weather_thunderstorm">Orage</string>
+    <string name="weather_alert_cold_description">Préparez-vous à des températures froides. Prenez des précautions supplémentaires contre l\'hypothermie et les engelures.</string>
+    <string name="now_value">Maintenant : %s</string>
+    <string name="for_historic_temperatures">Pour les températures historiques</string>
+    <string name="weather_alert_hot_description">Préparez-vous à des températures chaudes. Prenez des précautions supplémentaires contre l\'épuisement dû à la chaleur et le coup de chaleur.</string>
+    <string name="weather_alert_storm_description">Préparez-vous à des vents forts et à de fortes précipitations.</string>
+    <string name="pref_backfill_temperatures_title">Mettre à jour les températures enregistrées</string>
+    <string name="pref_backfill_temperatures_description">Toutes les températures enregistrées seront remplacées avec la température historique calibrée.</string>
 </resources>
