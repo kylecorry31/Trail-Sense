@@ -39,7 +39,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             return@Timer
         }
         val temp = getEstimation()
-        binding.temperatureTitle.title.text = if (temp == null) {
+        binding.temperatureTitle.title.text = if (temp == null || temp.temperature.isNaN()) {
             getString(R.string.dash)
         } else {
             formatService.formatTemperature(temp.convertTo(temperatureUnits))
@@ -130,13 +130,16 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private fun setFieldsFromSensors() {
-        if (altimeter.hasValidReading || altimeter.altitude != 0f) {
-            val altitude = Distance.meters(altimeter.altitude).convertTo(baseUnits)
+        val sensorAltitude = altimeter.altitude
+        val sensorTemperature = thermometer.temperature
+
+        if ((altimeter.hasValidReading || sensorAltitude != 0f) && !sensorAltitude.isNaN()) {
+            val altitude = Distance.meters(sensorAltitude).convertTo(baseUnits)
             binding.tempEstBaseElevation.value = altitude
         }
 
-        if (thermometer.hasValidReading || thermometer.temperature != 0f) {
-            val temp = Temperature.celsius(thermometer.temperature).convertTo(temperatureUnits)
+        if ((thermometer.hasValidReading || sensorTemperature != 0f) && !sensorTemperature.isNaN()) {
+            val temp = Temperature.celsius(sensorTemperature).convertTo(temperatureUnits)
             binding.tempEstBaseTemperature.amount = temp.temperature.roundToInt()
             binding.tempEstBaseTemperature.unit = temperatureUnits
         }
