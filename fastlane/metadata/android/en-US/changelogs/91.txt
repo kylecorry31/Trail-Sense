@@ -1,0 +1,10 @@
+Weather
+- New weather types based on temperature: Rain, Snow, Thunderstorm
+- Show current temperature in weather notification
+- Show alerts on weather tool: Hot, Cold, Storm
+- Replace storm weather with precipitation type
+- Allow historical temperatures to be backfilled
+
+Astronomy
+- Factor in atmospheric refraction in sun/moon times (apparent times)
+- Show sunrise/sunset on beacon details
