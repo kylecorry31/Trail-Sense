@@ -239,7 +239,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 if (selected != null && waypoints.find { it.id == selected } == null) {
                     deselectPoint()
                 }
-                pointSheet?.setPoints(waypoints)
+                pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
             }
             updateElevationOverview()
             updateHikingStats()
