@@ -93,7 +93,7 @@ class FormatService(private val context: Context) {
                 RelativeArrivalTime.Soon -> context.getString(R.string.soon)
                 RelativeArrivalTime.Later -> context.getString(R.string.later)
                 null -> ""
-            }
+            }.lowercase()
         }
 
         // TODO: Consider today vs tomorrow
@@ -101,7 +101,7 @@ class FormatService(private val context: Context) {
         val duration = Duration.between(Instant.now(), time)
 
         if (duration < Duration.ofMinutes(1)) {
-            return context.getString(R.string.now)
+            return context.getString(R.string.now).lowercase()
         }
 
         val datetime = time.toZonedDateTime()

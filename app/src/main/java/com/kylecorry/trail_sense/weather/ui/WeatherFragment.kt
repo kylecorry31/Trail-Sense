@@ -260,7 +260,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 left = formatService.getWeatherImage(prediction.primaryHourly)
             )
             val arrival =
-                formatService.formatWeatherArrival(weather.prediction.hourlyArrival).lowercase()
+                formatService.formatWeatherArrival(weather.prediction.hourlyArrival)
             val then = getString(
                 R.string.then_weather,
                 formatService.formatWeather(prediction.primaryDaily).lowercase()

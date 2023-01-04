@@ -35,7 +35,7 @@ class CurrentWeatherAlerter(
         val lastTemperature = value.observation?.temperature?.convertTo(temperatureUnits)
         val icon = formatter.getWeatherImage(forecast.primaryHourly)
         val weather = formatter.formatWeather(forecast.primaryHourly)
-        val arrival = formatter.formatWeatherArrival(forecast.hourlyArrival).lowercase()
+        val arrival = formatter.formatWeatherArrival(forecast.hourlyArrival)
 
         val descriptionStringBuilder = StringBuilder()
         descriptionStringBuilder.append(weather)
