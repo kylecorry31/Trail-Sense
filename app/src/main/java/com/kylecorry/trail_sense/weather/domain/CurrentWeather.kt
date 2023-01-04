@@ -18,7 +18,7 @@ data class CurrentWeather(
     val clouds: Reading<CloudGenus?>?
 )
 
-enum class HourlyArrivalTime {
+enum class RelativeArrivalTime {
     Now,
     VerySoon,
     Soon,
@@ -36,7 +36,7 @@ data class WeatherPrediction(
     val hourly: List<WeatherCondition>,
     val daily: List<WeatherCondition>,
     val front: WeatherFront?,
-    val hourlyArrival: HourlyArrivalTime?,
+    val hourlyArrival: RelativeArrivalTime?,
     val temperature: TemperaturePrediction?,
     val alerts: List<WeatherAlert>
 ) {

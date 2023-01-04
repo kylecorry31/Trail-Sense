@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.forecasting.alerts.WeatherAlertGenerator
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
 import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.ITemperatureService
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
@@ -44,7 +45,7 @@ internal class WeatherForecaster(
                 forecast.first().conditions,
                 forecast.last().conditions,
                 forecast.first().front,
-                arrival,
+                arrival?.toRelative(Instant.now()), // TODO: Pass the arrival time forward
                 temperatureService.getTemperaturePrediction(ZonedDateTime.now()),
                 emptyList()
             ),
@@ -61,7 +62,7 @@ internal class WeatherForecaster(
     private suspend fun getForecast(
         readings: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>
-    ): Pair<HourlyArrivalTime?, List<WeatherForecast>> {
+    ): Pair<WeatherArrivalTime?, List<WeatherForecast>> {
         // If there aren't enough readings, don't use them
         val mapped = if (!hasEnoughReadings(readings)) {
             emptyList()
@@ -77,7 +78,7 @@ internal class WeatherForecaster(
         )
 
         val arrival = arrivalCalculator.getArrivalTime(original, clouds)
-        val arrivesIn = getArrivalTime(arrival)
+        val arrivesIn = arrival?.let { Duration.between(Instant.now(), it.time) } ?: Duration.ZERO
 
         // The temperatures are only used when there is precipitation, so short circuit if not needed
         if (original.none { it.conditions.contains(WeatherCondition.Precipitation) }) {
@@ -102,12 +103,12 @@ internal class WeatherForecaster(
         return Duration.between(range.lower, range.upper) >= minDuration
     }
 
-    private fun getArrivalTime(arrival: HourlyArrivalTime?): Duration {
+    private fun getArrivalTime(arrival: RelativeArrivalTime?): Duration {
         return when (arrival) {
-            HourlyArrivalTime.Now, null -> Duration.ZERO
-            HourlyArrivalTime.VerySoon -> Duration.ofHours(1)
-            HourlyArrivalTime.Soon -> Duration.ofHours(2)
-            HourlyArrivalTime.Later -> Duration.ofHours(8)
+            RelativeArrivalTime.Now, null -> Duration.ZERO
+            RelativeArrivalTime.VerySoon -> Duration.ofHours(1)
+            RelativeArrivalTime.Soon -> Duration.ofHours(2)
+            RelativeArrivalTime.Later -> Duration.ofHours(8)
         }
     }
 

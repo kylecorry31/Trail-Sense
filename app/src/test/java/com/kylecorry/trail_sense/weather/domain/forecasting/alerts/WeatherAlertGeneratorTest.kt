@@ -38,7 +38,7 @@ internal class WeatherAlertGeneratorTest {
                 conditions,
                 emptyList(),
                 null,
-                HourlyArrivalTime.Now,
+                RelativeArrivalTime.Now,
                 TemperaturePrediction(
                     Temperature.zero,
                     Temperature.celsius(high),

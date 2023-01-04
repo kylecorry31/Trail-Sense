@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
-import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
+import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -83,12 +83,12 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatWeatherArrival(speed: HourlyArrivalTime?): String {
+    fun formatWeatherArrival(speed: RelativeArrivalTime?): String {
         return when (speed) {
-            HourlyArrivalTime.Now -> context.getString(R.string.now)
-            HourlyArrivalTime.VerySoon -> context.getString(R.string.very_soon)
-            HourlyArrivalTime.Soon -> context.getString(R.string.soon)
-            HourlyArrivalTime.Later -> context.getString(R.string.later)
+            RelativeArrivalTime.Now -> context.getString(R.string.now)
+            RelativeArrivalTime.VerySoon -> context.getString(R.string.very_soon)
+            RelativeArrivalTime.Soon -> context.getString(R.string.soon)
+            RelativeArrivalTime.Later -> context.getString(R.string.later)
             null -> ""
         }
     }

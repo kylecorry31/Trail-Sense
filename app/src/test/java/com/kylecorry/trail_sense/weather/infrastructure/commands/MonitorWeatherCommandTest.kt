@@ -7,7 +7,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
-import com.kylecorry.trail_sense.weather.domain.HourlyArrivalTime
+import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.IWeatherSubsystem
@@ -40,7 +40,7 @@ internal class MonitorWeatherCommandTest {
     @Test
     fun canRecordWeather() = runBlocking {
         val weather = CurrentWeather(
-            WeatherPrediction(emptyList(), emptyList(), WeatherFront.Warm, HourlyArrivalTime.Now, null, emptyList()),
+            WeatherPrediction(emptyList(), emptyList(), WeatherFront.Warm, RelativeArrivalTime.Now, null, emptyList()),
             PressureTendency(PressureCharacteristic.Falling, -1f),
             null,
             null
