@@ -21,6 +21,7 @@ import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time.toEpochMillis
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
@@ -85,13 +86,30 @@ class FormatService(private val context: Context) {
     }
 
     fun formatWeatherArrival(arrival: WeatherArrivalTime?): String {
-        return when (arrival?.toRelative(Instant.now())) {
-            RelativeArrivalTime.Now -> context.getString(R.string.now)
-            RelativeArrivalTime.VerySoon -> context.getString(R.string.very_soon)
-            RelativeArrivalTime.Soon -> context.getString(R.string.soon)
-            RelativeArrivalTime.Later -> context.getString(R.string.later)
-            null -> ""
+        if (arrival?.isExact != true) {
+            return when (arrival?.toRelative(Instant.now())) {
+                RelativeArrivalTime.Now -> context.getString(R.string.now)
+                RelativeArrivalTime.VerySoon -> context.getString(R.string.very_soon)
+                RelativeArrivalTime.Soon -> context.getString(R.string.soon)
+                RelativeArrivalTime.Later -> context.getString(R.string.later)
+                null -> ""
+            }
         }
+
+        // TODO: Consider today vs tomorrow
+        val time = arrival.time
+        val duration = Duration.between(Instant.now(), time)
+
+        if (duration < Duration.ofMinutes(1)) {
+            return context.getString(R.string.now)
+        }
+
+        val datetime = time.toZonedDateTime()
+
+        return context.getString(
+            R.string.at_time,
+            formatTime(datetime.toLocalTime(), includeSeconds = false)
+        )
     }
 
     fun formatProbability(probability: Probability): String {

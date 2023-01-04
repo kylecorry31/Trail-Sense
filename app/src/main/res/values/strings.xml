@@ -1255,6 +1255,8 @@
     <string name="pref_backfill_temperatures_description">All recorded temperatures will be replaced with the calibrated historical temperature.</string>
     <string name="pref_backfill_temperatures" translatable="false">pref_backfill_temperatures</string>
     <string name="updating">Updating</string>
+    <!--  The time that something will occur at. Ex Rain at 1:00  -->
+    <string name="at_time">at %s</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
