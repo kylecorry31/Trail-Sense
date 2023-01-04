@@ -96,12 +96,15 @@ class FormatService(private val context: Context) {
             }.lowercase()
         }
 
-        // TODO: Consider today vs tomorrow
         val time = arrival.time
         val duration = Duration.between(Instant.now(), time)
 
         if (duration < Duration.ofMinutes(1)) {
             return context.getString(R.string.now).lowercase()
+        }
+
+        if (duration > Duration.ofHours(20)) {
+            return context.getString(R.string.later).lowercase()
         }
 
         val datetime = time.toZonedDateTime()

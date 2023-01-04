@@ -103,15 +103,6 @@ internal class WeatherForecaster(
         return Duration.between(range.lower, range.upper) >= minDuration
     }
 
-    private fun getArrivalTime(arrival: RelativeArrivalTime?): Duration {
-        return when (arrival) {
-            RelativeArrivalTime.Now, null -> Duration.ZERO
-            RelativeArrivalTime.VerySoon -> Duration.ofHours(1)
-            RelativeArrivalTime.Soon -> Duration.ofHours(2)
-            RelativeArrivalTime.Later -> Duration.ofHours(8)
-        }
-    }
-
     private fun getForecast(
         pressures: List<Reading<Pressure>>,
         clouds: List<Reading<CloudGenus?>>,
