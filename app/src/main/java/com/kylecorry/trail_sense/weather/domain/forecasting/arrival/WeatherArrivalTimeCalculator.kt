@@ -11,12 +11,17 @@ import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.weather.domain.get3hTendency
 import com.kylecorry.trail_sense.weather.domain.getLastCloud
 import java.time.Duration
+import java.time.Instant
 
-internal class WeatherArrivalTimeCalculator: IWeatherArrivalTimeCalculator {
+internal class WeatherArrivalTimeCalculator : IWeatherArrivalTimeCalculator {
     override fun getArrivalTime(
         forecast: List<WeatherForecast>,
         clouds: List<Reading<CloudGenus?>>
     ): HourlyArrivalTime? {
+
+        val timeUntilForecast = forecast.first().time?.let { Duration.between(Instant.now(), it) }
+        // TODO: Use time until forecast if available
+
         val lastCloud = clouds.getLastCloud(Duration.ofHours(4))
         val tendency = getTendency(forecast)
         val stormCloudsSeen = listOf<CloudGenus?>(
