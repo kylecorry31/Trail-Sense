@@ -4,12 +4,13 @@ import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
-import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
+import java.time.Instant
 
 internal class CurrentWeatherAlertCommandTest {
 
@@ -17,7 +18,7 @@ internal class CurrentWeatherAlertCommandTest {
     private lateinit var prefs: IWeatherPreferences
     private lateinit var alerter: IValueAlerter<CurrentWeather>
     private val weather = CurrentWeather(
-        WeatherPrediction(emptyList(), emptyList(), null, RelativeArrivalTime.Now, null, emptyList()),
+        WeatherPrediction(emptyList(), emptyList(), null, WeatherArrivalTime(Instant.now(), false), null, emptyList()),
         PressureTendency(PressureCharacteristic.Steady, 0f),
         null,
         null

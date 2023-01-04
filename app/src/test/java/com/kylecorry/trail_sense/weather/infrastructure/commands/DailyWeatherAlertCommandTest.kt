@@ -7,14 +7,12 @@ import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 
 internal class DailyWeatherAlertCommandTest {
 
@@ -27,7 +25,7 @@ internal class DailyWeatherAlertCommandTest {
     @BeforeEach
     fun setup() {
         weather = CurrentWeather(
-            WeatherPrediction(emptyList(), emptyList(), null, RelativeArrivalTime.Now, null, emptyList()),
+            WeatherPrediction(emptyList(), emptyList(), null, WeatherArrivalTime(Instant.now(), false), null, emptyList()),
             PressureTendency(PressureCharacteristic.Steady, 0f),
             null,
             null

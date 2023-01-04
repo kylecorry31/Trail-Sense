@@ -5,11 +5,13 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import java.time.Instant
 import java.util.stream.Stream
 
 internal class WeatherAlertGeneratorTest {
@@ -38,7 +40,7 @@ internal class WeatherAlertGeneratorTest {
                 conditions,
                 emptyList(),
                 null,
-                RelativeArrivalTime.Now,
+                WeatherArrivalTime(Instant.now(), false),
                 TemperaturePrediction(
                     Temperature.zero,
                     Temperature.celsius(high),

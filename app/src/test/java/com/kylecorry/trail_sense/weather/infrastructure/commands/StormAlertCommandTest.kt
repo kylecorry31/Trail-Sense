@@ -5,13 +5,14 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
-import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
+import java.time.Instant
 
 internal class StormAlertCommandTest {
     private lateinit var command: StormAlertCommand
@@ -81,7 +82,7 @@ internal class StormAlertCommandTest {
                 emptyList(),
                 emptyList(),
                 null,
-                RelativeArrivalTime.Now,
+                WeatherArrivalTime(Instant.now(), false),
                 null,
                 if (hasStorm) listOf(WeatherAlert.Storm) else emptyList()
             ),
