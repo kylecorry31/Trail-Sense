@@ -9,6 +9,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.database.Identifiable
 import com.kylecorry.trail_sense.weather.domain.forecasting.PrimaryWeatherSelector
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import java.time.Instant
 
 data class CurrentWeather(
@@ -36,7 +37,7 @@ data class WeatherPrediction(
     val hourly: List<WeatherCondition>,
     val daily: List<WeatherCondition>,
     val front: WeatherFront?,
-    val hourlyArrival: RelativeArrivalTime?,
+    val hourlyArrival: WeatherArrivalTime?,
     val temperature: TemperaturePrediction?,
     val alerts: List<WeatherAlert>
 ) {

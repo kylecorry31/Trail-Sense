@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.WeatherAlert
+import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -83,8 +84,8 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatWeatherArrival(speed: RelativeArrivalTime?): String {
-        return when (speed) {
+    fun formatWeatherArrival(arrival: WeatherArrivalTime?): String {
+        return when (arrival?.toRelative(Instant.now())) {
             RelativeArrivalTime.Now -> context.getString(R.string.now)
             RelativeArrivalTime.VerySoon -> context.getString(R.string.very_soon)
             RelativeArrivalTime.Soon -> context.getString(R.string.soon)

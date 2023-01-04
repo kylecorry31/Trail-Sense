@@ -45,7 +45,7 @@ internal class WeatherForecaster(
                 forecast.first().conditions,
                 forecast.last().conditions,
                 forecast.first().front,
-                arrival?.toRelative(Instant.now()), // TODO: Pass the arrival time forward
+                arrival,
                 temperatureService.getTemperaturePrediction(ZonedDateTime.now()),
                 emptyList()
             ),
