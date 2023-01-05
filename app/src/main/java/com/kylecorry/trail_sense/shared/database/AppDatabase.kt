@@ -29,18 +29,15 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDatabaseMigrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingDao
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
 
 /**
  * The Room database for this app
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class],
-    version = 29,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class],
+    version = 30,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -58,6 +55,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cloudDao(): CloudReadingDao
     abstract fun pathDao(): PathDao
     abstract fun pathGroupDao(): PathGroupDao
+    abstract fun lightningDao(): LightningStrikeDao
 
     companion object {
 
@@ -265,6 +263,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_29_30 = object : Migration(29, 30) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `lightning` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `distance` REAL NOT NULL)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -295,6 +299,7 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_26_27,
                     MIGRATION_27_28,
                     MIGRATION_28_29,
+                    MIGRATION_29_30,
                 )
                 .build()
         }
