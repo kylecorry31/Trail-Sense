@@ -41,4 +41,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loading_indicator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/capture_button"
+        app:layout_constraintEnd_toEndOf="@id/capture_button"
+        app:layout_constraintStart_toStartOf="@id/capture_button"
+        app:layout_constraintTop_toTopOf="@id/capture_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
