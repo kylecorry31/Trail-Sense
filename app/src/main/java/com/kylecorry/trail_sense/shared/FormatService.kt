@@ -149,6 +149,22 @@ class FormatService(private val context: Context) {
     }
 
     fun formatTime(
+        time: ZonedDateTime,
+        includeSeconds: Boolean = true,
+        includeMinutes: Boolean = true
+    ): String {
+        return formatTime(time.toLocalTime(), includeSeconds, includeMinutes)
+    }
+
+    fun formatTime(
+        time: Instant,
+        includeSeconds: Boolean = true,
+        includeMinutes: Boolean = true
+    ): String {
+        return formatTime(time.toZonedDateTime(), includeSeconds, includeMinutes)
+    }
+
+    fun formatTime(
         time: LocalTime,
         includeSeconds: Boolean = true,
         includeMinutes: Boolean = true

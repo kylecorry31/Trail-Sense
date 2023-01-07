@@ -34,18 +34,11 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     private lateinit var units: DistanceUnits
 
     private var lightningTime: Instant? = null
+    private var strike: Reading<LightningStrike>? = null
+    private var lastStrike: Reading<LightningStrike>? = null
 
     private val timer = Timer {
-        lightningTime?.let {
-            val d = getDistance(it)
-                .convertTo(units)
-                .toRelativeDistance()
-            binding.lightningTitle.title.text = formatService.formatDistance(
-                d, Units.getDecimalPlaces(d.units),
-                false
-            )
-            binding.lightningTitle.subtitle.isVisible = Meteorology.isLightningStrikeDangerous(d)
-        }
+        updateUI()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,6 +98,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         super.onResume()
         units = prefs.baseDistanceUnits
         reset(true)
+        loadLastStrike()
         timer.interval(20)
     }
 
@@ -113,10 +107,56 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         timer.stop()
     }
 
+    private fun loadLastStrike() {
+        inBackground {
+            lastStrike = repo.getLast()
+        }
+    }
+
+    private fun updateUI() {
+        // Distance of current strike
+        lightningTime?.let {
+            val d = getDistance(it)
+                .convertTo(units)
+                .toRelativeDistance()
+            binding.lightningTitle.title.text = formatService.formatDistance(
+                d, Units.getDecimalPlaces(d.units),
+                false
+            )
+            binding.lightningTitle.subtitle.isVisible = Meteorology.isLightningStrikeDangerous(d)
+        }
+
+        // Distance of previous strike
+        lastStrike?.let {
+            val distance = it.value.distance
+                .convertTo(units)
+                .toRelativeDistance()
+
+            val lastTime = getString(
+                R.string.last_lightning_strike_at, formatService.formatTime(
+                    it.time,
+                    includeSeconds = false
+                )
+            )
+
+            val lastDistance = formatService.formatDistance(
+                distance,
+                Units.getDecimalPlaces(distance.units),
+                false
+            )
+
+            binding.previousStrike.text =
+                getString(R.string.dash_separated_pair, lastTime, lastDistance)
+        }
+    }
+
     private fun record(lightning: Instant) {
         val distance = getDistance(lightning)
         inBackground {
-            repo.add(Reading(LightningStrike(0, distance), Instant.now()))
+            val currentStrike = Reading(LightningStrike(0, distance), Instant.now())
+            strike?.let { lastStrike = it }
+            strike = currentStrike
+            repo.add(currentStrike)
         }
     }
 

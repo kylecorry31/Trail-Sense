@@ -14,6 +14,9 @@ interface LightningStrikeDao {
     @Query("SELECT * FROM lightning WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): LightningStrikeEntity?
 
+    @Query("SELECT * FROM lightning ORDER BY _id DESC LIMIT 1")
+    suspend fun getLast(): LightningStrikeEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(strike: LightningStrikeEntity): Long
 

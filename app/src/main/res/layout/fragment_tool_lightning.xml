@@ -28,4 +28,14 @@
         app:tileText="@string/lightning"
         app:tileTextSize="24dp" />
 
+    <TextView
+        android:id="@+id/previous_strike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Moving away" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

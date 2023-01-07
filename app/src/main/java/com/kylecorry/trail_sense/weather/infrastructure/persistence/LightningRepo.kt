@@ -49,6 +49,10 @@ class LightningRepo private constructor(private val dao: LightningStrikeDao) :
         dao.get(id)?.toReading()
     }
 
+    suspend fun getLast(): Reading<LightningStrike>? = onIO {
+        dao.getLast()?.toReading()
+    }
+
     override suspend fun getAll(): List<Reading<LightningStrike>> = onIO {
         dao.getAllSync().map { it.toReading() }
     }
@@ -61,7 +65,7 @@ class LightningRepo private constructor(private val dao: LightningStrikeDao) :
 
     companion object {
 
-        private val LIGHTNING_HISTORY_DURATION = Duration.ofDays(1)
+        private val LIGHTNING_HISTORY_DURATION = Duration.ofHours(2)
 
         private var instance: LightningRepo? = null
 
