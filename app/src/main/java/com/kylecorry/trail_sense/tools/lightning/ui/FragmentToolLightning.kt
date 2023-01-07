@@ -86,6 +86,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         lightningTime = null
         if (clearDistance) {
             binding.lightningTitle.title.text = ""
+            binding.lightningTitle.subtitle.isVisible = false
         }
         binding.startBtn.setImageResource(R.drawable.ic_torch_on)
         binding.startBtn.setText(getString(R.string.lightning))
