@@ -64,13 +64,13 @@ class BeaconListItemMapper(
                     } else {
                         R.drawable.ic_not_visible
                     },
-                    Resources.androidTextColorSecondary(context)
+                    Resources.androidTextColorSecondary(context),
+                    onClick = {
+                        action(BeaconAction.ToggleVisibility)
+                    }
                 )
             } else {
                 null
-            },
-            trailingIconAction = {
-                action(BeaconAction.ToggleVisibility)
             },
             longClickAction = { action(BeaconAction.Navigate) },
             menu = getMenu(context, action)
