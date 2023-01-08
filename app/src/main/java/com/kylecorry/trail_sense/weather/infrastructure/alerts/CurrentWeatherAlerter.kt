@@ -44,7 +44,7 @@ class CurrentWeatherAlerter(
             descriptionStringBuilder.append(" $arrival")
         }
 
-        if (prefs.shouldShowPressureInNotification && lastTemperature != null) {
+        if (prefs.shouldShowTemperatureInNotification && lastTemperature != null) {
             descriptionStringBuilder.append(" ${context.getString(R.string.dot)} ")
             descriptionStringBuilder.append(formatter.formatTemperature(lastTemperature))
         }
