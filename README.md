@@ -64,7 +64,7 @@ See the need for a new feature? [Post it here!](https://github.com/kylecorry31/T
 
 ### Navigation
 
-The compass can be used to determine the direction to North, and when combined with the GPS it can be used to navigate to predefined locations. The predefined locations, known as beacons, can be created while at a location and at any point you can use the compass to navigate back to where the beacon was placed. You can also use Backtrack to record waypoints and retrace your steps.
+Trail Sense's compass helps you determine the direction of North and navigate to saved locations, known as beacons. In addition to navigating to beacons, you can also use the Backtrack feature to record waypoints and retrace your steps. This tool makes it easy to navigate and find your way in the great outdoors.
 
 Example beacons: home, work, trailhead, campsite
 
@@ -72,19 +72,19 @@ Example beacons: home, work, trailhead, campsite
 
 ### Weather
 
-The barometer can be used to determine if the weather will change soon and if a storm is likely to occur. The barometric pressure history (last 48 hours) is displayed as a graph and an interpretation of the current reading is shown. If the pressure suddenly drops, a storm alert notification is sent. Note, this feature is only available for phones which have a barometer.
+Trail Sense helps you stay informed about the weather, while completely offline. You can use it to predict if what the weather will be or be notified if a storm is likely to occur. It also displays the historical daily temperatures for your location, so you can be better prepared. This feature is only available on phones that have a barometer.
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="Weather Screenshot" height="500"/>
 
 ### Astronomy
 
-View the sun/moon rise and set times and see the current phase of the moon at your exact location.
+View reliable and accurate sunrise and sunset times for your location. In addition, you can stay informed about the phases of the moon, lunar eclipses, and meteor showers. These tools can help you plan your outdoor activities and ensure you have the necessary light for your endeavors.
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Astronomy Screenshot" height="500"/>
 
 # Privacy
 
-Location information gathered by this application does not leave your device (as a matter of fact, this app doesn't use the Internet at all). The altitude and pressure history for the last 48 hours is stored in local app storage - this is used to determine weather forecasts. The last known location is also stored in app preferences to allow faster load times and support app functionality when the GPS can not be reached. The beacons store their location in a local SQLite database. All of this information is cleared when you clear the app storage or delete it.
+Location information gathered by this application does not leave your device (as a matter of fact, this app doesn't use the Internet at all). The altitude and pressure history for the last 48 hours is stored in local app storage - this is used to determine weather forecasts. The last known location is also stored in app preferences to allow faster load times and support app functionality when the GPS can not be reached. The beacons and paths store their location information in a local SQLite database. All of this information is cleared when you clear the app storage or delete it.
 
 ## Permissions
 
