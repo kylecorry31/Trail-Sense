@@ -1067,7 +1067,7 @@
     <string name="sensor_summary">Pusula, GPS, yükseklikölçer, barometre vb.</string>
     <string name="sensor">Sensör</string>
     <string name="altimeter_cache">Yükseklikölçer önbelleği</string>
-    <string name="historical_temperature_disclaimer">Konumunuz için geçmiş sıcaklıklara göre tahmin edildi.</string>
+    <string name="historical_temperature_disclaimer">Konumunuz için 60 yıllık geçmiş sıcaklıklara göre tahmin edildi.</string>
     <string name="historic">Geçmiş</string>
     <string name="temperature_high_low">Yüksek / Düşük</string>
     <string name="next_24_hours">Sonraki 24 saat</string>
@@ -1085,4 +1085,7 @@
     <string name="pref_backfill_temperatures_title">Kaydedilen sıcaklıkları güncelle</string>
     <string name="pref_backfill_temperatures_description">Kaydedilen tüm sıcaklıklar, kalibre edilmiş geçmiş sıcaklıkla değiştirilecektir.</string>
     <string name="updating">Güncelleniyor</string>
+    <string name="last_lightning_strike_at">Son yıldırım: %s</string>
+    <string name="pref_show_temperature_in_notification_title">Bildirimde sıcaklığı göster</string>
+    <string name="at_time">%s\'de</string>
 </resources>
