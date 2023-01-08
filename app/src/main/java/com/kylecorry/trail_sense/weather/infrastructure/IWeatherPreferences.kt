@@ -13,6 +13,7 @@ interface IWeatherPreferences {
     val shouldShowDailyWeatherNotification: Boolean
     val shouldShowWeatherNotification: Boolean
     val shouldShowPressureInNotification: Boolean
+    val shouldShowTemperatureInNotification: Boolean
     val useSeaLevelPressure: Boolean
     val seaLevelFactorInTemp: Boolean
     val pressureHistory: Duration

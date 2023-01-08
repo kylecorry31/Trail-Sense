@@ -30,6 +30,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowDailyWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
+    private var prefShowTemperatureInNotification: SwitchPreferenceCompat? = null
     private var prefleftButton: ListPreference? = null
     private var prefrightButton: ListPreference? = null
     private var prefDailyWeatherTime: Preference? = null
@@ -44,6 +45,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefShowWeatherNotification = switch(R.string.pref_show_weather_notification)
         prefShowDailyWeatherNotification = switch(R.string.pref_daily_weather_notification)
         prefShowPressureInNotification = switch(R.string.pref_show_pressure_in_notification)
+        prefShowTemperatureInNotification = switch(R.string.pref_show_temperature_in_notification)
         prefStormAlerts = switch(R.string.pref_send_storm_alert)
         prefDailyWeatherTime = preference(R.string.pref_daily_weather_time_holder)
         prefleftButton = list(R.string.pref_weather_quick_action_left)
@@ -95,7 +97,13 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             }.execute()
             true
         }
+
         prefShowPressureInNotification?.setOnPreferenceClickListener {
+            restartWeatherMonitor()
+            true
+        }
+
+        prefShowTemperatureInNotification?.setOnPreferenceClickListener {
             restartWeatherMonitor()
             true
         }

@@ -268,6 +268,7 @@
 
     <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
+    <string name="pref_show_temperature_in_notification_title">Show temperature in notification</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
     <!--Settings - Astronomy-->
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
@@ -1227,7 +1228,7 @@
     <string name="samples">Samples</string>
     <!--    Examples of the sensors you can adjust settings for-->
     <string name="sensor_summary">Compass, GPS, altimeter, barometer, etc.</string>
-    <string name="historical_temperature_disclaimer">Estimated based on historical temperatures for your location.</string>
+    <string name="historical_temperature_disclaimer">Estimated based on 60 year historical temperatures for your location.</string>
     <!--    Used to indicate a value was derived from historic readings (ex. historic high/low temperature)-->
     <string name="historic">Historic</string>
     <string name="sensor">Sensor</string>
@@ -1259,6 +1260,7 @@
     <string name="at_time">at %s</string>
     <!-- The time that the last lightning strike occurred at. Ex. Last strike at 1:00 -->
     <string name="last_lightning_strike_at">Last strike at %s</string>
+    <string name="pref_show_temperature_in_notification" translatable="false">pref_show_temperature_in_notification</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
