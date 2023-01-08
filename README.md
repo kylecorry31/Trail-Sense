@@ -42,7 +42,7 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
 ## Feature Roadmap
 - [x] Q4 2022: Cloud scanner
-- [ ] Q1 2023: Improved weather forecasts
+- [x] Q1 2023: Improved weather forecasts
 - [ ] Q2 2023: Maps
 - [ ] Q3 2023: Path navigation
 
