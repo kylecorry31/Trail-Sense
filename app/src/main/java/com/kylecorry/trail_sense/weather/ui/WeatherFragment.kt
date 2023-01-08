@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
@@ -84,7 +83,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
             if (timeAgo == null || pressure == null) {
-                binding.pressureMarker.isInvisible = true
+                binding.pressureMarker.isVisible = false
             } else {
                 val formatted = formatService.formatPressure(
                     Pressure(pressure, units),
