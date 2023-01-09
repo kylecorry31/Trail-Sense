@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
@@ -21,7 +21,9 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
@@ -33,6 +35,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
@@ -52,6 +55,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
+    private val beaconService by lazy { BeaconService(requireContext()) }
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private var pathPoints: kotlin.collections.Map<Long, List<PathPoint>> = emptyMap()
     private var paths: List<Path> = emptyList()
@@ -173,7 +177,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 inBackground {
                     withContext(Dispatchers.IO) {
                         map?.let {
-                            val updated = mapRepo.getMap(it.id)!!.copy(calibrationPoints = it.calibrationPoints)
+                            val updated = mapRepo.getMap(it.id)!!
+                                .copy(calibrationPoints = it.calibrationPoints)
                             mapRepo.addMap(updated)
                             map = updated
                         }
@@ -215,19 +220,17 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         binding.map.onMapLongClick = {
-            val formatted = formatService.formatLocation(it)
-            // TODO: ask to create or navigate
-            Alerts.dialog(
+            // TODO: Replace this with a bottom sheet, and maybe draw the selected location on the screen
+            Pickers.item(
                 requireContext(),
-                getString(R.string.create_beacon),
-                getString(R.string.place_beacon_at, formatted),
-                okText = getString(R.string.beacon_create)
-            ) { cancelled ->
-                if (!cancelled) {
-                    val bundle = bundleOf(
-                        "initial_location" to GeoUri(it)
-                    )
-                    findNavController().navigate(R.id.place_beacon, bundle)
+                formatService.formatLocation(it),
+                listOf(getString(R.string.create_beacon), getString(R.string.navigate))
+            ) { selectedIndex ->
+                if (selectedIndex != null) {
+                    when (selectedIndex) {
+                        0 -> createBeacon(it)
+                        1 -> navigateTo(it)
+                    }
                 }
             }
         }
@@ -342,6 +345,33 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             compass.declination,
             true
         )
+    }
+
+    private fun createBeacon(location: Coordinate) {
+        val bundle = bundleOf(
+            "initial_location" to GeoUri(location)
+        )
+        findNavController().navigate(R.id.place_beacon, bundle)
+    }
+
+    private fun navigateTo(location: Coordinate) {
+        inBackground {
+            // Create a temporary beacon
+            val beacon = Beacon(
+                0L,
+                map?.name ?: "",
+                location,
+                visible = false,
+                temporary = true,
+                color = AppColor.Orange.color,
+                owner = BeaconOwner.Maps
+            )
+            val id = onIO {
+                beaconService.add(beacon)
+            }
+
+            navigateTo(beacon.copy(id = id))
+        }
     }
 
     private fun navigateTo(beacon: Beacon): Boolean {
