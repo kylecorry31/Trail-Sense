@@ -218,7 +218,6 @@
     <string name="temperature">Temperatura</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
-    <string name="offline_maps">Mapas off-line</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="maps">Mapas</string>
     <plurals name="beacon_group_summary">

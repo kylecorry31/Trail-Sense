@@ -327,7 +327,6 @@
     <string name="clinometer_rotate_device">Тримайте ваш телефон вертикально для вимірювання нахилу</string>
     <string name="tool_clinometer_summary">Оцінка ризику лавин і висоти об\'єктів</string>
     <string name="clinometer_title">Нахиломір</string>
-    <string name="offline_maps">Безмережеві мапи</string>
     <string name="moon_illumination">Місячне освітлення</string>
     <string name="moon_phase">Фаза Місяця</string>
     <string name="lunar_noon">Полуніч</string>

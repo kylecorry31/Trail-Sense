@@ -54,7 +54,6 @@
     <string name="maps">地圖</string>
     <string name="pressure_reading_time_ago">%s - %s之前</string>
     <string name="temp_f_short">°F</string>
-    <string name="offline_maps">離線地圖</string>
     <string name="pref_pressure_history_title">氣壓紀錄</string>
     <string name="pressure_24_hours">24 個鐘</string>
     <string name="update_150_minutes">2 個鐘零 30 分鐘</string>

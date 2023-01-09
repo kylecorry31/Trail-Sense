@@ -182,7 +182,6 @@
     <string name="compass_declination_override">Deklination festlegen</string>
     <string name="clinometer_rotate_device">Halten Sie Ihr Telefon vertikal um die Inklination zu messen</string>
     <string name="tool_clinometer_summary">Schätze Lawinengefahr und die Größe von Objekten</string>
-    <string name="offline_maps">Offlinekarten</string>
     <string name="sun_does_not_rise">geht nicht auf</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d Wegpunkt</item>

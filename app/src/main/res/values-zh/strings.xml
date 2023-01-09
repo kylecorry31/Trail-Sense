@@ -90,7 +90,6 @@
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
     <string name="clinometer_title">测斜仪</string>
-    <string name="offline_maps">离线地图</string>
     <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
     <string name="solar_noon">太阳达到白天最高点</string>

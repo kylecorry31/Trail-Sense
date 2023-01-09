@@ -148,7 +148,7 @@
     <string name="moon_phase">Moon phase</string>
     <string name="moon_illumination">Moon illumination</string>
     <!--Tools-->
-    <string name="offline_maps">Offline Maps</string>
+    <string name="photo_maps">Photo Maps</string>
     <!--Clinometer-->
     <string name="clinometer_title">Clinometer</string>
     <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>

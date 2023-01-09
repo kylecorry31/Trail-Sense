@@ -107,7 +107,6 @@
     <string name="clinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
     <string name="tool_clinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
     <string name="clinometer_title">Inclinometro</string>
-    <string name="offline_maps">Mappe Offline</string>
     <string name="moon_illumination">Illuminazione lunare</string>
     <string name="until_sun_time">Fino %s</string>
     <string name="sunset_alert_channel_title">Avviso di tramonto</string>

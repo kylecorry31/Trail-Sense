@@ -292,7 +292,6 @@
     <string name="clinometer_rotate_device">Segure o seu telemóvel na vertical para medir a inclinação</string>
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
-    <string name="offline_maps">Mapas off-line</string>
     <string name="moon_illumination">Iluminação da lua</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Meio-dia lunar</string>

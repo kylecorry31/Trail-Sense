@@ -195,7 +195,6 @@
     <string name="moon_illumination">Visibilité de la lune</string>
     <string name="pref_adjust_for_temperature_title">Se baser sur la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
-    <string name="offline_maps">Cartes hors-ligne</string>
     <string name="dialog_deny">Non merci</string>
     <string name="dialog_grant">Mettre à jour les paramètres</string>
     <string name="access_background_location_rationale">Trail Sense utilise vos données de position. Elles sont utilisées pour calibrer la pression atmosphérique au niveau de la mer et fournir des prévisions de lever de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>

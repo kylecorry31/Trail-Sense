@@ -29,7 +29,7 @@ object QuickActionUtils {
             QuickActionType.Clouds -> context.getString(R.string.clouds)
             QuickActionType.Temperature -> context.getString(R.string.tool_temperature_estimation_title)
             QuickActionType.Ruler -> context.getString(R.string.tool_ruler_title)
-            QuickActionType.Maps -> context.getString(R.string.offline_maps)
+            QuickActionType.Maps -> context.getString(R.string.photo_maps)
             QuickActionType.Whistle -> context.getString(R.string.tool_whistle_title)
             QuickActionType.WhiteNoise -> context.getString(R.string.tool_white_noise_title)
             QuickActionType.LowPowerMode -> context.getString(R.string.pref_low_power_mode_title)

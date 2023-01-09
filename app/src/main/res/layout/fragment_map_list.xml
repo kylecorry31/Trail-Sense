@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:rightButtonIcon="@drawable/ic_help"
         app:showSubtitle="false"
-        app:title="@string/offline_maps" />
+        app:title="@string/photo_maps" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/map_list"

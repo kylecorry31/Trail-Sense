@@ -168,7 +168,6 @@
     <string name="request_permission">Solicitar permiso</string>
     <string name="pref_auto_location_title">Autoajustar ubicación</string>
     <string name="location">Ubicación</string>
-    <string name="offline_maps">Mapas Offline</string>
     <string name="no_data">No hay datos</string>
     <string name="units_inhg_short">pulgadas</string>
     <string name="accuracy_distance_format">± %s</string>

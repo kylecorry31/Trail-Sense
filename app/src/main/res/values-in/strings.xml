@@ -211,7 +211,6 @@
     <string name="sunset_alerts">Peringatan matahari terbenam</string>
     <string name="moon_phase">Fase bulan</string>
     <string name="moon_illumination">Iluminasi bulan</string>
-    <string name="offline_maps">Peta Offline</string>
     <string name="contents">Konten</string>
     <string name="qr_code">Kode QR</string>
     <string name="beacon_qr_import_instructions">Pindai kode QR untuk impor</string>

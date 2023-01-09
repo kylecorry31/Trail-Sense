@@ -197,7 +197,6 @@
     <string name="clinometer_rotate_device">Pidä puhelintasi pystysuorassa kaltevuuden mittaamiseksi</string>
     <string name="tool_clinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
     <string name="clinometer_title">Kaltevuusmittari</string>
-    <string name="offline_maps">Offline kartat</string>
     <string name="moon_illumination">Kuun valaistus</string>
     <string name="moon_phase">Kuunvaihe</string>
     <string name="lunar_noon">Kuun keskipäivä</string>

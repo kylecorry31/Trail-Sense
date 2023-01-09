@@ -631,7 +631,6 @@
     <string name="done">Kész</string>
     <string name="descent">Ereszkedés</string>
     <string name="duration_second_format">%dmp</string>
-    <string name="offline_maps">Offline Térképek</string>
     <string name="advanced">Haladó</string>
     <string name="cumulus">Cumulus (gomolyfelhő)</string>
     <string name="cumulonimbus">Cumulonimbus (zivatarfelhő)</string>

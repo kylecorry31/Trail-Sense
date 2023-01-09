@@ -107,7 +107,6 @@
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="clinometer_title">Hellingsmeter</string>
-    <string name="offline_maps">Offline Kaarten</string>
     <string name="moon_illumination">Maanverlichting</string>
     <string name="moon_phase">Maanstand</string>
     <string name="lunar_noon">Maanmiddag</string>

@@ -231,7 +231,6 @@
     <string name="clinometer_rotate_device">Sostingui el telèfon verticalment per mesurar la inclinació</string>
     <string name="tool_clinometer_summary">Permet d\'estimar l\'alçada dels objectes i evaluar el risc d’allau</string>
     <string name="clinometer_title">Inclinòmetre</string>
-    <string name="offline_maps">Mapes Offline</string>
     <string name="moon_illumination">Iluminació de la lluna</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Migdia llunar</string>

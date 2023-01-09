@@ -110,7 +110,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             Alerts.dialog(
                 requireContext(),
                 getString(R.string.experimental),
-                "Offline Maps is an experimental feature, please only use this to test it out at this point. Feel free to share your feedback on this feature and note that there is still a lot to be done before this will be non-experimental.",
+                "Photo Maps is an experimental feature, please only use this to test it out at this point. Feel free to share your feedback on this feature and note that there is still a lot to be done before this will be non-experimental.",
                 okText = getString(R.string.tool_user_guide_title),
                 cancelText = getString(android.R.string.ok)
             ) { cancelled ->
