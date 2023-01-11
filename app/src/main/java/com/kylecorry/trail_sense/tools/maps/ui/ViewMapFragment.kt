@@ -75,6 +75,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val pathLayer = PathLayer()
     private val myLocationLayer = MyLocationLayer()
     private val navigationLayer = NavigationLayer()
+    private val selectedPointLayer = BeaconLayer()
 
     private var lastDistanceToast: Toast? = null
 
@@ -121,10 +122,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 pathLayer,
                 myLocationLayer,
                 tideLayer,
-                beaconLayer
+                beaconLayer,
+                selectedPointLayer
             )
         )
         beaconLayer.setOutlineColor(Color.WHITE)
+        selectedPointLayer.setOutlineColor(Color.WHITE)
         myLocationLayer.setColor(AppColor.Orange.color)
 
         observe(gps) {
@@ -228,12 +231,16 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         binding.map.onMapLongClick = {
+
+            selectLocation(it)
+
             lastDistanceToast?.cancel()
             Share.share(
                 this,
                 formatService.formatLocation(it),
                 listOf(ShareAction.CreateBeacon, ShareAction.Navigate, ShareAction.Measure)
             ) { action ->
+                selectLocation(null)
                 when (action) {
                     ShareAction.CreateBeacon -> createBeacon(it)
                     ShareAction.Navigate -> navigateTo(it)
@@ -352,6 +359,18 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             beacon,
             compass.declination,
             true
+        )
+    }
+
+    private fun selectLocation(location: Coordinate?) {
+        selectedPointLayer.setBeacons(
+            listOfNotNull(
+                if (location == null) {
+                    null
+                } else {
+                    Beacon(0, "", location)
+                }
+            )
         )
     }
 

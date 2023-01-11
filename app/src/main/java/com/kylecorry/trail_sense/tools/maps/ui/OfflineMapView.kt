@@ -303,6 +303,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
             val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
+            // TODO: Don't invoke if it is currently scaling (for one handed zoom)
             onMapLongClick?.invoke(coordinate)
         }
 
