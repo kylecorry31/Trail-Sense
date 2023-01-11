@@ -33,5 +33,8 @@ enum class ShareAction {
     QR,
     Maps,
     Send,
-    File
+    File,
+    Navigate,
+    CreateBeacon,
+    Measure
 }

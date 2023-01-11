@@ -5,19 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -33,10 +35,13 @@ import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sharing.Share
+import com.kylecorry.trail_sense.shared.sharing.ShareAction
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -63,12 +68,15 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val cache by lazy { Preferences(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val tideLayer = TideLayer()
     private val beaconLayer = BeaconLayer { navigateTo(it) }
     private val pathLayer = PathLayer()
     private val myLocationLayer = MyLocationLayer()
     private val navigationLayer = NavigationLayer()
+
+    private var lastDistanceToast: Toast? = null
 
     private var mapId = 0L
     private var map: Map? = null
@@ -220,17 +228,17 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         binding.map.onMapLongClick = {
-            // TODO: Replace this with a bottom sheet, and maybe draw the selected location on the screen
-            Pickers.item(
-                requireContext(),
+            lastDistanceToast?.cancel()
+            Share.share(
+                this,
                 formatService.formatLocation(it),
-                listOf(getString(R.string.create_beacon), getString(R.string.navigate))
-            ) { selectedIndex ->
-                if (selectedIndex != null) {
-                    when (selectedIndex) {
-                        0 -> createBeacon(it)
-                        1 -> navigateTo(it)
-                    }
+                listOf(ShareAction.CreateBeacon, ShareAction.Navigate, ShareAction.Measure)
+            ) { action ->
+                when (action) {
+                    ShareAction.CreateBeacon -> createBeacon(it)
+                    ShareAction.Navigate -> navigateTo(it)
+                    ShareAction.Measure -> showDistance(it)
+                    else -> {}
                 }
             }
         }
@@ -354,6 +362,15 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         findNavController().navigate(R.id.place_beacon, bundle)
     }
 
+    private fun showDistance(location: Coordinate) {
+        val distance = Distance.meters(gps.location.distanceTo(location))
+            .convertTo(prefs.baseDistanceUnits)
+            .toRelativeDistance()
+        val distanceString =
+            formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units))
+        lastDistanceToast = toast(distanceString, true)
+    }
+
     private fun navigateTo(location: Coordinate) {
         inBackground {
             // Create a temporary beacon
@@ -452,6 +469,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     override fun onPause() {
         super.onPause()
         tideTimer.stop()
+        lastDistanceToast?.cancel()
     }
 
     fun calibrateMap() {
