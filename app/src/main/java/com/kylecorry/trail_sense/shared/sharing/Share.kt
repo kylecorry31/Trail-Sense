@@ -29,7 +29,8 @@ object Share {
     fun actions(
         fragment: Fragment,
         title: String,
-        actions: List<ActionItem>
+        actions: List<ActionItem>,
+        noActionSelected: () -> Unit
     ) {
         var called = false
 
@@ -39,6 +40,8 @@ object Share {
                 if (action != null) {
                     sheet.dismiss()
                     action.action()
+                } else {
+                    noActionSelected()
                 }
             }
         }

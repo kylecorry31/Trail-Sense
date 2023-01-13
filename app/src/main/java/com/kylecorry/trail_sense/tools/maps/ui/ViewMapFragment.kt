@@ -252,7 +252,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                         selectLocation(null)
                     },
                 )
-            )
+            ){
+                selectLocation(null)
+            }
         }
 
         // TODO: Don't show if not calibrated or location not on map
