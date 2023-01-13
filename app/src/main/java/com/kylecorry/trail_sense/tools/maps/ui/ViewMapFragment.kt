@@ -241,12 +241,15 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 listOf(
                     ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
                         createBeacon(it)
+                        selectLocation(null)
                     },
                     ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
                         navigateTo(it)
+                        selectLocation(null)
                     },
                     ActionItem(getString(R.string.distance), R.drawable.ruler) {
                         showDistance(it)
+                        selectLocation(null)
                     },
                 )
             )
