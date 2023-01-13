@@ -1091,7 +1091,7 @@
     <string name="sensor_summary">Компас, GPS, висотомір, барометр тощо.</string>
     <string name="historic">Історичне</string>
     <string name="next_24_hours">Наступну добу</string>
-    <string name="historical_temperature_disclaimer">Розраховано на основі історичних температур у вашому місцеперебуванні.</string>
+    <string name="historical_temperature_disclaimer">Розраховано на основі 60 років історичних температур у вашому місцеперебуванні.</string>
     <string name="sensor">Датник</string>
     <string name="temperature_high_low">Висока / Низька</string>
     <string name="altimeter_cache">Кеш висотоміра</string>
@@ -1109,4 +1109,8 @@
     <string name="pref_backfill_temperatures_title">Оновлення записаних температур</string>
     <string name="pref_backfill_temperatures_description">Усі записані температури буде замінено каліброваною історичною температурою.</string>
     <string name="updating">Оновлення</string>
+    <string name="pref_show_temperature_in_notification_title">Показувати температуру в сповіщенні</string>
+    <string name="at_time">о %s</string>
+    <string name="last_lightning_strike_at">Останній удар о %s</string>
+    <string name="photo_maps">Фотомапи</string>
 </resources>
