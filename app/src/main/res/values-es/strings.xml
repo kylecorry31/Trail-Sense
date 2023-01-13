@@ -1100,4 +1100,5 @@
     <string name="last_lightning_strike_at">Último rayo hace %s</string>
     <string name="pref_show_temperature_in_notification_title">Mostrar la temperatura en las notificaciones</string>
     <string name="at_time">en %s</string>
+    <string name="photo_maps">Mapas de las fotos</string>
 </resources>
