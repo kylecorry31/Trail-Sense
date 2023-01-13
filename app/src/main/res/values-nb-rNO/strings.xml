@@ -990,7 +990,7 @@
     <string name="historic">Historisk</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">Høy / Lav</string>
-    <string name="historical_temperature_disclaimer">Beregnet basert på historiske temperaturer for ditt sted.</string>
+    <string name="historical_temperature_disclaimer">Beregnet basert på 60 års historiske temperaturer for ditt sted.</string>
     <string name="tool_climate">Klima</string>
     <string name="tool_climate_summary">Vis historiske temperaturer</string>
     <string name="source">Kilde</string>
@@ -1002,4 +1002,11 @@
     <string name="weather_alert_storm_description">Forbered deg på sterk vind og kraftig nedbør.</string>
     <string name="weather_alert_hot_description">Forbered deg på varme temperaturer. Ta ekstra forholdsregler mot varmeutmattelse og heteslag.</string>
     <string name="weather_alert_cold_description">Forbered deg på kalde temperaturer. Ta ekstra forholdsregler mot hypotermi og frostskader.</string>
+    <string name="last_lightning_strike_at">Siste lynnedslag: %s</string>
+    <string name="photo_maps">Fotokart</string>
+    <string name="updating">Oppdaterer</string>
+    <string name="pref_show_temperature_in_notification_title">Vis temperatur i varsel</string>
+    <string name="pref_backfill_temperatures_title">Oppdater registrerte temperaturer</string>
+    <string name="pref_backfill_temperatures_description">Alle registrerte temperaturer blir erstattet med den kalibrerte historiske temperaturen.</string>
+    <string name="at_time">%s</string>
 </resources>
