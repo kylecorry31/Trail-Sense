@@ -69,33 +69,6 @@
             app:tilePadding="@dimen/share_sheet_icon_padding"
             app:tileText="@string/export" />
 
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/share_sheet_navigate"
-            android:layout_width="@dimen/share_sheet_icon_size"
-            android:layout_height="@dimen/share_sheet_icon_size"
-            android:layout_margin="@dimen/share_sheet_icon_margin"
-            app:tileIcon="@drawable/ic_beacon"
-            app:tilePadding="@dimen/share_sheet_icon_padding"
-            app:tileText="@string/navigate" />
-
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/share_sheet_beacon"
-            android:layout_width="@dimen/share_sheet_icon_size"
-            android:layout_height="@dimen/share_sheet_icon_size"
-            android:layout_margin="@dimen/share_sheet_icon_margin"
-            app:tileIcon="@drawable/ic_location"
-            app:tilePadding="@dimen/share_sheet_icon_padding"
-            app:tileText="@string/beacon" />
-
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/share_sheet_measure"
-            android:layout_width="@dimen/share_sheet_icon_size"
-            android:layout_height="@dimen/share_sheet_icon_size"
-            android:layout_margin="@dimen/share_sheet_icon_margin"
-            app:tileIcon="@drawable/ruler"
-            app:tilePadding="@dimen/share_sheet_icon_padding"
-            app:tileText="@string/measure" />
-
     </com.google.android.flexbox.FlexboxLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

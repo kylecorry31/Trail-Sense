@@ -26,6 +26,26 @@ object Share {
         sheet.show(fragment)
     }
 
+    fun actions(
+        fragment: Fragment,
+        title: String,
+        actions: List<ActionItem>
+    ) {
+        var called = false
+
+        val customOnAction = { action: ActionItem?, sheet: ActionSheet ->
+            if (!called) {
+                called = true
+                if (action != null) {
+                    sheet.dismiss()
+                    action.action()
+                }
+            }
+        }
+        val sheet = ActionSheet(title, actions, customOnAction)
+        sheet.show(fragment)
+    }
+
 }
 
 enum class ShareAction {
@@ -33,8 +53,5 @@ enum class ShareAction {
     QR,
     Maps,
     Send,
-    File,
-    Navigate,
-    CreateBeacon,
-    Measure
+    File
 }

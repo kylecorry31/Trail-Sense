@@ -40,8 +40,8 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.shared.sharing.ShareAction
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -235,19 +235,21 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             selectLocation(it)
 
             lastDistanceToast?.cancel()
-            Share.share(
+            Share.actions(
                 this,
                 formatService.formatLocation(it),
-                listOf(ShareAction.CreateBeacon, ShareAction.Navigate, ShareAction.Measure)
-            ) { action ->
-                selectLocation(null)
-                when (action) {
-                    ShareAction.CreateBeacon -> createBeacon(it)
-                    ShareAction.Navigate -> navigateTo(it)
-                    ShareAction.Measure -> showDistance(it)
-                    else -> {}
-                }
-            }
+                listOf(
+                    ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
+                        createBeacon(it)
+                    },
+                    ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
+                        navigateTo(it)
+                    },
+                    ActionItem(getString(R.string.distance), R.drawable.ruler) {
+                        showDistance(it)
+                    },
+                )
+            )
         }
 
         // TODO: Don't show if not calibrated or location not on map

@@ -24,9 +24,6 @@ class ShareSheet(
         setAction(binding.shareSheetSend, ShareAction.Send)
         setAction(binding.shareSheetMaps, ShareAction.Maps)
         setAction(binding.shareSheetFile, ShareAction.File)
-        setAction(binding.shareSheetNavigate, ShareAction.Navigate)
-        setAction(binding.shareSheetBeacon, ShareAction.CreateBeacon)
-        setAction(binding.shareSheetMeasure, ShareAction.Measure)
     }
 
     private fun setAction(button: TileButton, action: ShareAction) {

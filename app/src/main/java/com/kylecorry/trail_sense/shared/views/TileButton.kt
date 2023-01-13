@@ -30,7 +30,7 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
         textView.text = a.getString(R.styleable.TileButton_tileText)
         a.recycle()
         if (padding != -1) {
-            icon.setPadding(padding)
+            setTilePadding(padding)
         }
         if (textSize != -1f) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
@@ -66,6 +66,10 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
 
     fun setText(text: String?) {
         textView.text = text
+    }
+
+    fun setTilePadding(padding: Int) {
+        icon.setPadding(padding)
     }
 
 
