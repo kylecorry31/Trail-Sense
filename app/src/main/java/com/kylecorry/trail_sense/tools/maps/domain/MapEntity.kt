@@ -21,7 +21,8 @@ data class MapEntity(
     @ColumnInfo(name = "warped") val warped: Boolean,
     @ColumnInfo(name = "rotated") val rotated: Boolean,
     @ColumnInfo(name = "projection") val projection: MapProjectionType = MapProjectionType.Mercator,
-    @ColumnInfo(name = "rotation") val rotation: Int = 0
+    @ColumnInfo(name = "rotation") val rotation: Int = 0,
+    @ColumnInfo(name = "parent") val parent: Long? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -57,7 +58,7 @@ data class MapEntity(
             projection = projection
         )
 
-        return Map(id, name, filename, calibration, metadata)
+        return Map(id, name, filename, calibration, metadata, parent)
     }
 
     companion object {
@@ -77,7 +78,8 @@ data class MapEntity(
                 calibration.warped,
                 calibration.rotated,
                 map.metadata.projection,
-                calibration.rotation
+                calibration.rotation,
+                map.parentId
             ).also {
                 it.id = map.id
             }

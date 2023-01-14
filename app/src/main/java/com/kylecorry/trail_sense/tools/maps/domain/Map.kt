@@ -4,15 +4,17 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.database.Identifiable
 
 data class Map(
     override val id: Long,
-    val name: String,
+    override val name: String,
     val filename: String,
     val calibration: MapCalibration,
-    val metadata: MapMetadata
-): Identifiable {
+    val metadata: MapMetadata,
+    override val parentId: Long? = null
+): IMap {
+    override val isGroup = false
+    override val count: Int? = null
 
     fun projection(width: Float, height: Float): IMapProjection {
         return CalibratedProjection(calibration.calibrationPoints.map {

@@ -83,31 +83,6 @@ class PathService(
         return pathRepo.get(id)
     }
 
-    override suspend fun getPaths(
-        groupId: Long?,
-        includeGroups: Boolean,
-        maxDepth: Int?,
-        includeRoot: Boolean
-    ): List<IPath> {
-        return onIO {
-
-            val root = listOfNotNull(
-                if (includeRoot) {
-                    loader.getGroup(groupId)
-                } else {
-                    null
-                }
-            )
-
-            val paths = root + loader.getChildren(groupId, maxDepth)
-            if (includeGroups) {
-                paths
-            } else {
-                paths.filterNot { it.isGroup }
-            }
-        }
-    }
-
     override suspend fun getGroup(id: Long?): PathGroup? {
         id ?: return null
         return pathRepo.getGroup(id)?.copy(count = counter.count(id))
