@@ -43,7 +43,7 @@ class TemperatureWeatherField(
             5,
             context.getString(R.string.temperature),
             subtitle = when (source) {
-                ThermometerSource.Historic -> context.getString(R.string.historic)
+                ThermometerSource.Historic -> context.getString(R.string.historic_temperature_years, 60)
                 ThermometerSource.Sensor -> context.getString(R.string.sensor)
             },
             icon = ResourceListIcon(R.drawable.thermometer, color),

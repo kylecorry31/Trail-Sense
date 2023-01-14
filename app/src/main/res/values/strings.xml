@@ -1228,9 +1228,10 @@
     <string name="samples">Samples</string>
     <!--    Examples of the sensors you can adjust settings for-->
     <string name="sensor_summary">Compass, GPS, altimeter, barometer, etc.</string>
-    <string name="historical_temperature_disclaimer">Estimated based on 60 year historical temperatures for your location.</string>
     <!--    Used to indicate a value was derived from historic readings (ex. historic high/low temperature)-->
     <string name="historic">Historic</string>
+    <!--    Used to indicate how many years of historical data was used. ex 60 year average-->
+    <string name="historic_temperature_years">Historic (%d year average)</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">High / Low</string>
     <string name="altimeter_cache">Altimeter cache</string>
@@ -1261,6 +1262,10 @@
     <!-- The time that the last lightning strike occurred at. Ex. Last strike at 1:00 -->
     <string name="last_lightning_strike_at">Last strike at %s</string>
     <string name="pref_show_temperature_in_notification" translatable="false">pref_show_temperature_in_notification</string>
+    <string name="historic_temperatures">Historic temperatures</string>
+    <!--    The %d is the number of years of data used to calculate the average.-->
+    <string name="historic_temperatures_full_disclaimer">Temperatures are based on a %d year average of historical data and may not reflect the current weather conditions.</string>
+    <string name="pref_historic_temperatures_disclaimer_shown" translatable="false">pref_historic_temperatures_disclaimer_shown</string>
 
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>

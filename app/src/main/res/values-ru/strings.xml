@@ -1080,7 +1080,6 @@
     <string name="next_24_hours">Следующие 24 часа</string>
     <string name="smoothing">Сглаживание</string>
     <string name="samples">Образцы</string>
-    <string name="historical_temperature_disclaimer">Предполагается на основе исторических температур для вашего местоположения.</string>
     <string name="historic">Исторический</string>
     <string name="temperature_high_low">Высокая / Низкая</string>
     <string name="altimeter_cache">Кэш высотомера</string>

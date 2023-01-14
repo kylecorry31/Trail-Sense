@@ -1052,7 +1052,6 @@
     <string name="now">Nu</string>
     <string name="pref_show_map_previews_title">Toon kaartvoorbeelden</string>
     <string name="sensor_summary">Kompas, GPS, hoogtemeter, barometer, enz.</string>
-    <string name="historical_temperature_disclaimer">Geschat op basis van historische temperaturen voor uw locatie.</string>
     <string name="historic">Historisch</string>
     <string name="samples">Monsters</string>
     <string name="temperature_high_low">Hoog / Laag</string>

@@ -990,7 +990,6 @@
     <string name="historic">Historisk</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">Høy / Lav</string>
-    <string name="historical_temperature_disclaimer">Beregnet basert på 60 års historiske temperaturer for ditt sted.</string>
     <string name="tool_climate">Klima</string>
     <string name="tool_climate_summary">Vis historiske temperaturer</string>
     <string name="source">Kilde</string>

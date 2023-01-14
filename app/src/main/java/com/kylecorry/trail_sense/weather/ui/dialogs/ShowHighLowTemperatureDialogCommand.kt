@@ -40,7 +40,7 @@ class ShowHighLowTemperatureDialogCommand(
         CustomUiUtils.showChart(
             fragment,
             fragment.getString(R.string.next_24_hours),
-            fragment.getString(R.string.historical_temperature_disclaimer) + "\n\n" + fragment.getString(
+            fragment.getString(R.string.historic_temperatures_full_disclaimer, 60) + "\n\n" + fragment.getString(
                 R.string.now_value,
                 now
             )

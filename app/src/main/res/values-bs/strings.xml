@@ -903,7 +903,6 @@
     <string name="weather_wind">Vjetar</string>
     <string name="pref_show_map_previews_title">Prikažite preglede karte</string>
     <string name="sensor_summary">Kompas, GPS, visinomjer, barometar itd.</string>
-    <string name="historical_temperature_disclaimer">Procijenjeno na osnovu istorijskih temperatura za vašu lokaciju.</string>
     <string name="historic">Istorijski</string>
     <string name="sensor">Senzor</string>
     <plurals name="tides_entered_count">

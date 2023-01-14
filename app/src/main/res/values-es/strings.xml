@@ -1035,7 +1035,6 @@
     <string name="tide_semidiurnal">Semidiurna</string>
     <string name="frequency">Frecuencia</string>
     <string name="permission_alarms_and_reminders">Alarmas y recordatorios</string>
-    <string name="historical_temperature_disclaimer">Estimación basada en las temperaturas históricas de los 60 años para su ubicación.</string>
     <string name="historic">Histórico</string>
     <string name="path_slope_moderate">Moderado</string>
     <string name="high_pressure_system_description">Se asocia con buen tiempo, cielos despejados y temperaturas más frescas.</string>

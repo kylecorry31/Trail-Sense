@@ -6,6 +6,7 @@ A general rule is that air pressure will drop as a storm moves in. Trail Sense u
 
 - Stay at the same elevation for 1 or more hours for Trail Sense to produce a more accurate forecast
 - Enable "sea level pressure" in the barometer settings
+- Supplement the weather monitor by logging cloud conditions over time
 - Use Trail Sense's prediction along with things you can sense to determine if a storm is moving in
 - Increasing winds, darkening skies, rapid temperature/humidity changes or abnormal animal behavior could indicate a storm
 
@@ -15,7 +16,7 @@ Trail Sense can be used to track clouds throughout the day. You can do this by o
 
 ## Estimating the temperature
 
-Trail Sense uses your phone's built in thermometer to get temperature (see the guide on how to calibrate your thermometer). You can also use Trail Sense to estimate the temperature at a different elevation. Do this by open the thermometer tool and clicking the elevation icon in the upper right. You can autofill your current elevation and temperature, or enter them all manually. The destination elevation field is the elevation where you want to estimate the temperature while the base elevation/temperature is at your current location (or location of the temperature reading). Once all three fields are entered, the estimated temperature at the destination will display.
+Trail Sense uses historical data from the past 60 years to estimate the temperature for your location and time of year. It can also be used to estimate the temperature at a different elevation. You can do this by opening the Temperature Estimation tool. Start by entering your current (base) elevation and temperature, either by manually entering them or using the Autofill button. Next, enter the destination elevation (ex. the top of a mountain) to see what the temperature will be at that elevation. Please note, that this is just an estimation and the actual temperature my vary based on current weather conditions.
 
 ## Use common sense
 

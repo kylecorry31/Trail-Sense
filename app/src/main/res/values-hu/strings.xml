@@ -1050,7 +1050,6 @@
     <string name="pref_show_map_previews_title">Térkép előnézetek mutatása</string>
     <string name="smoothing">Simítás</string>
     <string name="samples">Minták</string>
-    <string name="historical_temperature_disclaimer">Becsült érték a helyzeted történelmileg feljegyzett hőmérsékletei alapján.</string>
     <string name="sensor">Érzékelő</string>
     <string name="next_24_hours">Következő 24 óra</string>
     <string name="nimbostratus_forecast">Csapadéka lehet a következő %d óra folyamán.</string>

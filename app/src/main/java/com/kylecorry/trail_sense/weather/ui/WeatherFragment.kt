@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.weather.ui.charts.HumidityChart
 import com.kylecorry.trail_sense.weather.ui.charts.PressureChart
 import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChart
 import com.kylecorry.trail_sense.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
+import com.kylecorry.trail_sense.weather.ui.dialogs.ShowHistoricTemperatureDisclaimerCommand
 import com.kylecorry.trail_sense.weather.ui.fields.*
 import java.time.Duration
 import java.time.Instant
@@ -140,7 +141,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         logger.start()
         useSeaLevelPressure = prefs.weather.useSeaLevelPressure
         units = prefs.pressureUnits
-
+        ShowHistoricTemperatureDisclaimerCommand(requireContext()).execute()
         updateWeather()
     }
 

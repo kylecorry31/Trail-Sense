@@ -1067,7 +1067,6 @@
     <string name="sensor_summary">Pusula, GPS, yükseklikölçer, barometre vb.</string>
     <string name="sensor">Sensör</string>
     <string name="altimeter_cache">Yükseklikölçer önbelleği</string>
-    <string name="historical_temperature_disclaimer">Konumunuz için 60 yıllık geçmiş sıcaklıklara göre tahmin edildi.</string>
     <string name="historic">Geçmiş</string>
     <string name="temperature_high_low">Yüksek / Düşük</string>
     <string name="next_24_hours">Sonraki 24 saat</string>

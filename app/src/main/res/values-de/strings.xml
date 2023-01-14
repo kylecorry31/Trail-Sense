@@ -1068,7 +1068,6 @@
     <string name="samples">Proben</string>
     <string name="sensor_summary">Kompass, GPS, Höhenmesser, Barometer, usw.</string>
     <string name="temperature_high_low">Hoch / Niedrig</string>
-    <string name="historical_temperature_disclaimer">Geschätzt basierend auf historischen Temperaturen für Ihren Standort.</string>
     <string name="smoothing">Glättung</string>
     <string name="next_24_hours">Nächste 24 Stunden</string>
     <string name="tool_climate">Klima</string>

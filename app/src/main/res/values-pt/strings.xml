@@ -1067,7 +1067,6 @@
     <string name="weather_overcast">Nublado</string>
     <string name="pref_show_map_previews_title">Mostrar pré-visualizações no mapa</string>
     <string name="sensor_summary">Bússola, GPS, altímetro, barómetro, etc.</string>
-    <string name="historical_temperature_disclaimer">Estimado com base nas temperaturas históricas de 60 anos para a sua localização.</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">Alta / baixa</string>
     <string name="altimeter_cache">Cache de altímetro</string>

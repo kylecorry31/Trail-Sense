@@ -969,7 +969,6 @@
     <string name="high_pressure">Elevé</string>
     <string name="low_pressure_system_description">Associé au mauvais temps, au ciel couvert et aux températures plus chaudes.</string>
     <string name="weather_front">Front météorologique</string>
-    <string name="historical_temperature_disclaimer">Estimation fondée sur les températures historiques de votre emplacement.</string>
     <string name="sensor">Senseur</string>
     <string name="temperature_high_low">Elevé / Bas</string>
     <string name="altimeter_cache">Cache altimétrique</string>
