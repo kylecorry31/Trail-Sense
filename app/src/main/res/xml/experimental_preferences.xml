@@ -13,7 +13,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_experimental_maps"
             app:singleLineTitle="false"
-            app:title="@string/maps" />
+            app:title="@string/photo_maps" />
 
         <SwitchPreferenceCompat
             android:summary="@string/tool_metal_detector_title"

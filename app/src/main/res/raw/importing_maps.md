@@ -1,16 +1,14 @@
 ## How to create a map?
 
-To use maps in Trail Sense, you must enable the "Maps" setting in Trail Sense's "Experimental" settings. Note that maps is far from finished at this point, so don't make any decisions off of it, and email me at trailsense@protonmail.com with any crashes, bug reports, or feedback. I don't have a timeline for when maps will be ready for use.
+To use maps in Trail Sense, you must enable the "Photo Maps" setting in Trail Sense's "Experimental" settings. Note that the Photo Maps are not finished at this point, so don't use it for important decisions and always have a backup map. Email me at trailsense@protonmail.com with any crashes, bug reports, or feedback.
 
-From the 'Photo Maps' tool, tap the plus button in the bottom right and give your map a name. You will then be prompted to select an image of a map. At this time, the image must already exist on your phone, so you may need to have downloaded a map image or taken a picture already. After selecting a map you can open it from the list and calibrate it.
+From the "Photo Maps" tool, tap the plus button the the bottom right, and choose how you want to import your map. Give it a name, outline the map in the photo, and then rotate it so North is pointed up. Now the map is ready to be calibrated.
 
 CalTopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a Geospatial PDF and Trail Sense can automatically import it and calibrate.
 
 ## How to calibrate a map?
 
-Once you select a map, you can drag the corners of the bounding rectangle to the corners of the map, which will make it flat (aspect ratios are a work in progress). You can then rotate the map so it faces North.
-
-After the map image has been corrected, you can calibrate by selecting two known points and entering their real world location.
+Once a map is imported, you will need to calibrate it using two known points.
 
 ### With beacons
 
