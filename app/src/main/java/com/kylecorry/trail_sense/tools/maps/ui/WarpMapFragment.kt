@@ -77,7 +77,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
     private fun onMapLoad(map: Map) {
         this.map = map
-        binding.perspective.mapRotation = map.rotation.toFloat()
+        binding.perspective.mapRotation = map.calibration.rotation.toFloat()
         binding.perspective.setImage(map.filename)
         binding.nextButton.isInvisible = false
     }
@@ -108,7 +108,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
                     return@onIO
                 }
             }
-            mapRepo.addMap(map.copy(warped = true))
+            mapRepo.addMap(map.copy(calibration = map.calibration.copy(warped = true)))
         }
 
         onMain {

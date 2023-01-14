@@ -186,7 +186,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
             layers.forEach { it.invalidate() }
         }
 
-        if (map?.calibrationPoints?.size == 2) {
+        if (map?.calibration?.calibrationPoints?.size == 2) {
             maxScale = getScale(0.1f)
             layers.forEach { it.draw(drawer, this) }
         }
@@ -196,8 +196,8 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
     }
 
     fun showMap(map: Map) {
-        if (orientation != map.rotation) {
-            orientation = when (map.rotation) {
+        if (orientation != map.calibration.rotation) {
+            orientation = when (map.calibration.rotation) {
                 90 -> ORIENTATION_90
                 180 -> ORIENTATION_180
                 270 -> ORIENTATION_270
@@ -227,7 +227,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
 
     private fun drawCalibrationPoints() {
         if (!showCalibrationPoints) return
-        val calibrationPoints = map?.calibrationPoints ?: emptyList()
+        val calibrationPoints = map?.calibration?.calibrationPoints ?: emptyList()
         for (i in calibrationPoints.indices) {
             val point = calibrationPoints[i]
             val sourceCoord = point.imageLocation.toPixels(

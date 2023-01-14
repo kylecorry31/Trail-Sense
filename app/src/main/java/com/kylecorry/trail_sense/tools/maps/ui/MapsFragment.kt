@@ -190,7 +190,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         val fragmentManager = parentFragmentManager
         val transaction = fragmentManager.beginTransaction()
         val fragment = when {
-            !map.warped -> {
+            !map.calibration.warped -> {
                 WarpMapFragment().apply {
                     arguments = bundleOf("mapId" to mapId)
                 }.also {
@@ -201,7 +201,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     }
                 }
             }
-            !map.rotated -> {
+            !map.calibration.rotated -> {
                 RotateMapFragment().apply {
                     arguments = bundleOf("mapId" to mapId)
                 }.also {

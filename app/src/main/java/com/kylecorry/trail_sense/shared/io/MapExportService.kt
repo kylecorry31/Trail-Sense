@@ -33,8 +33,8 @@ class MapExportService(
 
             bitmap = files.bitmap(map.filename, Size(maxImageSize, maxImageSize))
 
-            if (map.rotation != 0) {
-                val rotated = bitmap.rotate(map.rotation.toFloat())
+            if (map.calibration.rotation != 0) {
+                val rotated = bitmap.rotate(map.calibration.rotation.toFloat())
                 bitmap.recycle()
                 bitmap = rotated
             }

@@ -67,7 +67,7 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
 
     private fun onMapLoad(map: Map) {
         this.map = map
-        binding.rotateView.angle = map.rotation.toFloat()
+        binding.rotateView.angle = map.calibration.rotation.toFloat()
         binding.rotateView.setImage(map.filename)
         binding.nextButton.isInvisible = false
     }
@@ -80,7 +80,14 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
         val map = map ?: return
         val rotation = binding.rotateView.angle
         withContext(Dispatchers.IO) {
-            mapRepo.addMap(map.copy(rotated = true, rotation = rotation.toInt()))
+            mapRepo.addMap(
+                map.copy(
+                    calibration = map.calibration.copy(
+                        rotated = true,
+                        rotation = rotation.toInt()
+                    )
+                )
+            )
         }
 
         withContext(Dispatchers.Main) {

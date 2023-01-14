@@ -5,10 +5,8 @@ import android.net.Uri
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.maps.domain.*
 import com.kylecorry.trail_sense.tools.maps.domain.Map
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 import java.io.IOException
 import java.util.*
@@ -56,10 +54,13 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
             0,
             defaultName,
             filename,
-            calibrationPoints,
-            warped = calibrationPoints.isNotEmpty(),
-            rotated = calibrationPoints.isNotEmpty(),
-            projection = projection
+            MapCalibration(
+                calibrationPoints.isNotEmpty(),
+                calibrationPoints.isNotEmpty(),
+                0,
+                calibrationPoints
+            ),
+            projection
         )
 
         val id = repo.addMap(map)

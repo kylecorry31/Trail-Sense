@@ -188,8 +188,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 inBackground {
                     withContext(Dispatchers.IO) {
                         map?.let {
-                            val updated = mapRepo.getMap(it.id)!!
-                                .copy(calibrationPoints = it.calibrationPoints)
+                            var updated = mapRepo.getMap(it.id)!!
+                            updated = updated.copy(
+                                calibration = updated.calibration.copy(calibrationPoints = it.calibration.calibrationPoints)
+                            )
                             mapRepo.addMap(updated)
                             map = updated
                         }
@@ -252,7 +254,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                         selectLocation(null)
                     },
                 )
-            ){
+            ) {
                 selectLocation(null)
             }
         }
@@ -463,7 +465,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun onMapLoad(map: Map) {
         this.map = map
         binding.map.showMap(map)
-        if (map.calibrationPoints.size < 2) {
+        if (map.calibration.calibrationPoints.size < 2) {
             calibrateMap()
         }
     }
@@ -488,7 +490,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             )
         }
 
-        map = map?.copy(calibrationPoints = points)
+        map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = points))
         binding.map.showMap(map!!)
     }
 
@@ -532,8 +534,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun loadCalibrationPointsFromMap() {
         map ?: return
-        val first = if (map!!.calibrationPoints.isNotEmpty()) map!!.calibrationPoints[0] else null
-        val second = if (map!!.calibrationPoints.size > 1) map!!.calibrationPoints[1] else null
+        val first = if (map!!.calibration.calibrationPoints.isNotEmpty()) map!!.calibration.calibrationPoints[0] else null
+        val second = if (map!!.calibration.calibrationPoints.size > 1) map!!.calibration.calibrationPoints[1] else null
         calibrationPoint1 = first?.location
         calibrationPoint2 = second?.location
         calibrationPoint1Percent = first?.imageLocation

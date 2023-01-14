@@ -47,26 +47,29 @@ data class MapEntity(
             )
         }
 
-        return Map(id, name, filename, points, warped, rotated, rotation, projection)
+        val calibration = MapCalibration(warped, rotated, rotation, points)
+
+        return Map(id, name, filename, calibration, projection)
     }
 
     companion object {
         fun from(map: Map): MapEntity {
+            val calibration = map.calibration
             return MapEntity(
                 map.name,
                 map.filename,
-                if (map.calibrationPoints.isNotEmpty()) map.calibrationPoints[0].location.latitude else null,
-                if (map.calibrationPoints.isNotEmpty()) map.calibrationPoints[0].location.longitude else null,
-                if (map.calibrationPoints.isNotEmpty()) map.calibrationPoints[0].imageLocation.x else null,
-                if (map.calibrationPoints.isNotEmpty()) map.calibrationPoints[0].imageLocation.y else null,
-                if (map.calibrationPoints.size > 1) map.calibrationPoints[1].location.latitude else null,
-                if (map.calibrationPoints.size > 1) map.calibrationPoints[1].location.longitude else null,
-                if (map.calibrationPoints.size > 1) map.calibrationPoints[1].imageLocation.x else null,
-                if (map.calibrationPoints.size > 1) map.calibrationPoints[1].imageLocation.y else null,
-                map.warped,
-                map.rotated,
+                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].location.latitude else null,
+                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].location.longitude else null,
+                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].imageLocation.x else null,
+                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].imageLocation.y else null,
+                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].location.latitude else null,
+                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].location.longitude else null,
+                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].imageLocation.x else null,
+                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].imageLocation.y else null,
+                calibration.warped,
+                calibration.rotated,
                 map.projection,
-                map.rotation
+                calibration.rotation
             ).also {
                 it.id = map.id
             }

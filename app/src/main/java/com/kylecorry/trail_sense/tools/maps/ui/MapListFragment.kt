@@ -218,12 +218,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             maps = it
             maps.forEach {
                 val size = files.imageSize(it.filename)
-                val width = if (it.rotation == 90 || it.rotation == 270) {
+                val width = if (it.calibration.rotation == 90 || it.calibration.rotation == 270) {
                     size.height
                 } else {
                     size.width
                 }
-                val height = if (it.rotation == 90 || it.rotation == 270) {
+                val height = if (it.calibration.rotation == 90 || it.calibration.rotation == 270) {
                     size.width
                 } else {
                     size.height
@@ -299,8 +299,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         }
 
-        if (map.rotation != 0) {
-            val rotated = bitmap.rotate(map.rotation.toFloat())
+        if (map.calibration.rotation != 0) {
+            val rotated = bitmap.rotate(map.calibration.rotation.toFloat())
             bitmap.recycle()
             return rotated
         }
@@ -338,7 +338,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 mapImportingIndicator.hide()
             }
 
-            if (map.calibrationPoints.isNotEmpty()) {
+            if (map.calibration.calibrationPoints.isNotEmpty()) {
                 toast(getString(R.string.map_auto_calibrated))
             }
 
