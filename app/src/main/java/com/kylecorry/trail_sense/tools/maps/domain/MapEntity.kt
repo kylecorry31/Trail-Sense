@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 
 @Entity(tableName = "maps")
@@ -20,7 +21,7 @@ data class MapEntity(
     @ColumnInfo(name = "warped") val warped: Boolean,
     @ColumnInfo(name = "rotated") val rotated: Boolean,
     @ColumnInfo(name = "projection") val projection: MapProjectionType = MapProjectionType.Mercator,
-    @ColumnInfo(name = "rotation") val rotation: Int = 0,
+    @ColumnInfo(name = "rotation") val rotation: Int = 0
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -49,7 +50,14 @@ data class MapEntity(
 
         val calibration = MapCalibration(warped, rotated, rotation, points)
 
-        return Map(id, name, filename, calibration, projection)
+        // This gets populated by the repo
+        val metadata = MapMetadata(
+            Size(0f, 0f),
+            0,
+            projection = projection
+        )
+
+        return Map(id, name, filename, calibration, metadata)
     }
 
     companion object {
@@ -68,20 +76,11 @@ data class MapEntity(
                 if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].imageLocation.y else null,
                 calibration.warped,
                 calibration.rotated,
-                map.projection,
+                map.metadata.projection,
                 calibration.rotation
             ).also {
                 it.id = map.id
             }
-        }
-
-        fun new(name: String, filename: String, projection: MapProjectionType): MapEntity {
-            return MapEntity(
-                name, filename, null, null, null, null, null, null, null, null,
-                warped = false,
-                rotated = false,
-                projection = projection
-            )
         }
     }
 

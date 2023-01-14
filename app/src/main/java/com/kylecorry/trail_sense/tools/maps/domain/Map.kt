@@ -11,13 +11,13 @@ data class Map(
     val name: String,
     val filename: String,
     val calibration: MapCalibration,
-    val projection: MapProjectionType = MapProjectionType.Mercator
+    val metadata: MapMetadata
 ): Identifiable {
 
     fun projection(width: Float, height: Float): IMapProjection {
         return CalibratedProjection(calibration.calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location
-        }, MapProjectionFactory().getProjection(projection))
+        }, MapProjectionFactory().getProjection(metadata.projection))
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {
@@ -40,6 +40,21 @@ data class Map(
         }
 
         return Distance.meters(meters / pixels)
+    }
+
+    fun boundary(): CoordinateBounds? {
+        val size = metadata.size
+        val width = if (calibration.rotation == 90 || calibration.rotation == 270) {
+            size.height
+        } else {
+            size.width
+        }
+        val height = if (calibration.rotation == 90 || calibration.rotation == 270) {
+            size.width
+        } else {
+            size.height
+        }
+        return boundary(width, height)
     }
 
     fun boundary(width: Float, height: Float): CoordinateBounds? {

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 import android.content.Context
 import android.net.Uri
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.*
@@ -50,6 +51,9 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
             return@onIO null
         }
 
+        val imageSize = files.imageSize(filename)
+        val fileSize = files.size(filename)
+
         val map = Map(
             0,
             defaultName,
@@ -60,7 +64,11 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
                 0,
                 calibrationPoints
             ),
-            projection
+            MapMetadata(
+                Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
+                fileSize,
+                projection = projection
+            )
         )
 
         val id = repo.addMap(map)

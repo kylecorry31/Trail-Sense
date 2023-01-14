@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 
 interface IMapRepo {
-    fun getMaps(): LiveData<List<Map>>
+    fun getMapsLive(): LiveData<List<Map>>
 
     suspend fun getMap(id: Long): Map?
 

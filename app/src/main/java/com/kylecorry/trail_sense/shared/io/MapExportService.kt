@@ -71,7 +71,7 @@ class MapExportService(
                     ),
                     0.0
                 ),
-                projections[map.projection] ?: ""
+                projections[map.metadata.projection] ?: ""
             )
 
             return listOf(

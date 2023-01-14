@@ -59,7 +59,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private var maps: List<Map> = listOf()
 
     private var boundMap = mutableMapOf<Long, CoordinateBounds>()
-    private var fileSizes = mutableMapOf<Long, Long>()
 
     private var mapName = ""
 
@@ -139,7 +138,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             } else {
                 mapItemBinding.mapImg.isVisible = false
             }
-            mapItemBinding.fileSize.text = formatService.formatFileSize(fileSizes[map.id] ?: 0)
+            mapItemBinding.fileSize.text = formatService.formatFileSize(map.metadata.fileSize)
             mapItemBinding.name.text = map.name
             mapItemBinding.description.text = if (onMap) getString(R.string.on_map) else ""
             mapItemBinding.description.isVisible = onMap
@@ -181,6 +180,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                         onMain {
                                             if (isBound) {
                                                 mapImportingIndicator.hide()
+                                                // TODO: Reload maps
                                             }
                                         }
                                     }
@@ -214,27 +214,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapList.addLineSeparator()
 
-        observe(mapRepo.getMaps()) {
+        observe(mapRepo.getMapsLive()) {
             maps = it
-            maps.forEach {
-                val size = files.imageSize(it.filename)
-                val width = if (it.calibration.rotation == 90 || it.calibration.rotation == 270) {
-                    size.height
-                } else {
-                    size.width
-                }
-                val height = if (it.calibration.rotation == 90 || it.calibration.rotation == 270) {
-                    size.width
-                } else {
-                    size.height
-                }
-                val bounds = it.boundary(width.toFloat(), height.toFloat())
-                if (bounds != null) {
-                    boundMap[it.id] = bounds
-                }
-
-                tryOrNothing {
-                    fileSizes[it.id] = files.size(it.filename)
+            maps.forEach { map ->
+                map.boundary()?.let { bounds ->
+                    boundMap[map.id] = bounds
                 }
             }
 

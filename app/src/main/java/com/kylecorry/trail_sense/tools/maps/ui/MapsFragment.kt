@@ -117,7 +117,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             requireContext(),
                             getString(R.string.change_map_projection),
                             projectionNames,
-                            projections.indexOf(map?.projection)
+                            projections.indexOf(map?.metadata?.projection)
                         ) {
                             if (it != null) {
                                 map?.let { m ->
@@ -125,8 +125,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                                     inBackground {
                                         withContext(Dispatchers.IO) {
                                             val updated = mapRepo.getMap(m.id)!!
-                                            mapService.setProjection(updated, newProjection)
-                                            map = updated.copy(projection = newProjection)
+                                            map = mapService.setProjection(updated, newProjection)
                                         }
                                         withContext(Dispatchers.Main) {
                                             val fragment = currentFragment
