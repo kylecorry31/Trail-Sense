@@ -28,6 +28,10 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
+import com.kylecorry.trail_sense.tools.maps.domain.sort.ClosestMapSortStrategy
+import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
+import com.kylecorry.trail_sense.tools.maps.domain.sort.MostRecentMapSortStrategy
+import com.kylecorry.trail_sense.tools.maps.domain.sort.NameMapSortStrategy
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupLoader
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
@@ -55,6 +59,10 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<IMap>
     private lateinit var mapper: IMapMapper
+
+    // TODO: Load from prefs
+    private var sort = MapSortMethod.Closest
+
 
     private var lastRoot: IMap? = null
 
@@ -154,17 +162,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         setupMapCreateMenu()
     }
 
-    private suspend fun sortMaps(maps: List<IMap>): List<IMap> {
-        // TODO: Delegate to a sort strategy and handle groups
-        return maps.sortedBy {
-            val bounds = if (it is Map) {
-                it.boundary()
-            } else {
-                null
-            } ?: return@sortedBy Float.MAX_VALUE
-            val onMap = bounds.contains(gps.location)
-            (if (onMap) 0f else 100000f) + gps.location.distanceTo(bounds.center)
+    private suspend fun sortMaps(maps: List<IMap>): List<IMap> = onDefault {
+        val strategy = when (sort) {
+            MapSortMethod.Closest -> ClosestMapSortStrategy(gps.location, mapService.loader)
+            MapSortMethod.MostRecent -> MostRecentMapSortStrategy(mapService.loader)
+            MapSortMethod.Name -> NameMapSortStrategy()
         }
+
+        strategy.sort(maps)
     }
 
     private fun onMapGroupAction(group: MapGroup, action: MapGroupAction) {
