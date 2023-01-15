@@ -19,10 +19,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.inBackground
-import com.kylecorry.trail_sense.shared.extensions.onBackPressed
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -129,6 +126,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         binding.mapListTitle.rightButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.importing_maps)
+        }
+
+        binding.searchbox.setOnQueryTextListener { _, _ ->
+            manager.search(binding.searchbox.query)
+            true
         }
 
         manager.onChange = { root, items, rootChanged ->
