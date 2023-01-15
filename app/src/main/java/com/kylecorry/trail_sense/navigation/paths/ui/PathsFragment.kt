@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
+import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.observe
@@ -86,6 +87,11 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
 
         sort = prefs.navigation.pathSort
+
+        binding.searchbox.setOnQueryTextListener { _, _ ->
+            manager.search(binding.searchbox.query)
+            true
+        }
 
         // TODO: See if it is possible to get notified of changes without loading all paths
         observe(pathService.getLivePaths()) {
