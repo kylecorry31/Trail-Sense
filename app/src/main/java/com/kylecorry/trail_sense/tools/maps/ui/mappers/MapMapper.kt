@@ -32,10 +32,9 @@ class MapMapper(
             AsyncListIcon(
                 lifecycleOwner,
                 { loadMapThumbnail(value) },
-                size = 48f
-            ) {
-                actionHandler(value, MapAction.View)
-            }
+                size = 48f,
+                clearOnPause = true
+            )
         } else {
             null
         }
@@ -70,7 +69,9 @@ class MapMapper(
                     actionHandler(value, MapAction.Delete)
                 },
             )
-        )
+        ){
+            actionHandler(value, MapAction.View)
+        }
     }
 
     private suspend fun loadMapThumbnail(map: Map): Bitmap = onIO {
