@@ -5,6 +5,6 @@ enum class MapAction {
     Delete,
     Export,
     Resize,
-     Rename
-    // Move
+     Rename,
+     Move
 }

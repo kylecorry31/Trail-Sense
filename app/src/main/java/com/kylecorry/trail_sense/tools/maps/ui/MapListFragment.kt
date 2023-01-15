@@ -41,6 +41,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapComm
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
+import com.kylecorry.trail_sense.tools.maps.ui.commands.MoveMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapAction
@@ -169,6 +170,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             MapGroupAction.View -> view(group)
             MapGroupAction.Delete -> delete(group)
             MapGroupAction.Rename -> rename(group)
+            MapGroupAction.Move -> move(group)
         }
     }
 
@@ -179,6 +181,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             MapAction.Export -> export(map)
             MapAction.Resize -> resize(map)
             MapAction.Rename -> rename(map)
+            MapAction.Move -> move(map)
         }
     }
 
@@ -223,6 +226,13 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private fun rename(map: IMap) {
         inBackground {
             RenameMapCommand(requireContext(), mapService).execute(map)
+            manager.refresh()
+        }
+    }
+
+    private fun move(map: IMap) {
+        inBackground {
+            MoveMapCommand(requireContext(), mapService).execute(map)
             manager.refresh()
         }
     }
