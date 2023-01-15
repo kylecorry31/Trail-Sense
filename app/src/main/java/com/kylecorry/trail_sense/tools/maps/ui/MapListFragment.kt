@@ -130,7 +130,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             UserGuideUtils.showGuide(this, R.raw.importing_maps)
         }
 
-
         manager.onChange = { root, items, rootChanged ->
             if (isBound) {
                 binding.mapList.setItems(items, mapper)
@@ -141,10 +140,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                     (root as MapGroup?)?.name ?: getString(R.string.photo_maps)
             }
         }
-
-//        observe(mapRepo.getMapsLive()) {
-//            manager.refresh()
-//        }
 
         onBackPressed {
             if (!manager.up()) {
