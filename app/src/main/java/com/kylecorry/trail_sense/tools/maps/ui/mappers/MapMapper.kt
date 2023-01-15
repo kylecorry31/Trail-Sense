@@ -36,7 +36,7 @@ class MapMapper(
                 clearOnPause = true
             )
         } else {
-            null
+            ResourceListIcon(R.drawable.maps, size = 48f, foregroundSize = 24f)
         }
 
         return ListItem(
