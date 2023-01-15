@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
@@ -61,8 +62,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private var lastRoot: IMap? = null
 
-    private var mapName = ""
-
     private val uriPicker = FragmentUriPicker(this)
     private val mapImportingIndicator by lazy {
         AlertLoadingIndicator(
@@ -101,25 +100,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
         arguments?.remove("map_intent_uri")
         if (mapIntentUri != null) {
-            Pickers.text(
-                requireContext(),
-                getString(R.string.create_map),
-                getString(R.string.create_map_description),
-                null,
-                hint = getString(R.string.name)
-            ) {
-                if (it != null) {
-                    mapName = it
-                    createMap(
-                        CreateMapFromUriCommand(
-                            requireContext(),
-                            mapRepo,
-                            mapIntentUri,
-                            mapImportingIndicator
-                        )
-                    )
-                }
-            }
+            createMap(
+                CreateMapFromUriCommand(
+                    requireContext(),
+                    mapRepo,
+                    mapIntentUri,
+                    mapImportingIndicator
+                )
+            )
         }
 
         if (cache.getBoolean("tool_maps_experimental_disclaimer_shown") != true) {
@@ -274,51 +262,38 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         binding.addMenu.fab = binding.addBtn
         binding.addMenu.hideOnMenuOptionSelected = true
         binding.addMenu.setOnMenuItemClickListener { menuItem ->
-
-            val isGroup = menuItem.itemId == R.id.action_create_map_group
-
-            // TODO: Change the text if it is a map group
-            Pickers.text(
-                requireContext(),
-                getString(R.string.create_map),
-                getString(R.string.create_map_description),
-                null,
-                hint = getString(R.string.name)
-            ) {
-                if (it != null) {
-                    mapName = it
-                    when (menuItem.itemId) {
-                        R.id.action_import_map_file -> {
-                            createMap(
-                                CreateMapFromFileCommand(
-                                    requireContext(),
-                                    uriPicker,
-                                    mapRepo,
-                                    mapImportingIndicator
-                                )
-                            )
-                        }
-                        R.id.action_import_map_camera -> {
-                            createMap(
-                                CreateMapFromCameraCommand(
-                                    this,
-                                    mapRepo,
-                                    mapImportingIndicator
-                                )
-                            )
-                        }
-                        R.id.action_create_map_group -> {
-                            createMapGroup(mapName)
-                        }
-                    }
+            when (menuItem.itemId) {
+                R.id.action_import_map_file -> {
+                    createMap(
+                        CreateMapFromFileCommand(
+                            requireContext(),
+                            uriPicker,
+                            mapRepo,
+                            mapImportingIndicator
+                        )
+                    )
+                }
+                R.id.action_import_map_camera -> {
+                    createMap(
+                        CreateMapFromCameraCommand(
+                            this,
+                            mapRepo,
+                            mapImportingIndicator
+                        )
+                    )
+                }
+                R.id.action_create_map_group -> {
+                    createMapGroup()
                 }
             }
             true
         }
     }
 
-    private fun createMapGroup(name: String) {
+    private fun createMapGroup() {
         inBackground {
+            val name = CoroutinePickers.text(requireContext(), getString(R.string.name))
+                ?: return@inBackground
             mapService.add(MapGroup(0, name, manager.root?.id))
             manager.refresh()
         }
@@ -338,9 +313,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private fun createMap(command: ICreateMapCommand) {
         inBackground {
+            val name = CoroutinePickers.text(requireContext(), getString(R.string.name))
+                ?: return@inBackground
+
             binding.addBtn.isEnabled = false
 
-            val map = command.execute()?.copy(name = mapName, parentId = manager.root?.id)
+            val map = command.execute()?.copy(name = name, parentId = manager.root?.id)
 
             if (map == null) {
                 toast(getString(R.string.error_importing_map))
@@ -348,7 +326,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 return@inBackground
             }
 
-            if (mapName.isNotBlank() || map.parentId != null) {
+            if (name.isNotBlank() || map.parentId != null) {
                 onIO {
                     mapRepo.addMap(map)
                 }
