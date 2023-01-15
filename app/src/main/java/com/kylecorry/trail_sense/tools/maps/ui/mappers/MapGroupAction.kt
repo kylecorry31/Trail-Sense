@@ -1,10 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.ui.mappers
 
-enum class MapAction {
+enum class MapGroupAction {
     View,
     Delete,
-    Export,
-    Resize,
-     Rename
-    // Move
+    Rename
 }

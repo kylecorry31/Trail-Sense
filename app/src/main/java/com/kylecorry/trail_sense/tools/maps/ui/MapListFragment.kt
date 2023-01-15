@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
@@ -30,7 +26,6 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
-import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
@@ -46,8 +41,10 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapComm
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
+import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapAction
-import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapMapper
+import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapGroupAction
 
 class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
@@ -60,7 +57,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapService by lazy { MapService(mapRepo) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<IMap>
-    private lateinit var mapper: MapMapper
+    private lateinit var mapper: IMapMapper
 
     private var lastRoot: IMap? = null
 
@@ -93,13 +90,13 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             this::sortMaps
         )
 
-        mapper = MapMapper(
+        mapper = IMapMapper(
             gps,
             requireContext(),
-            this
-        ) { map, action ->
-            onMapAction(map, action)
-        }
+            this,
+            this::onMapAction,
+            this::onMapGroupAction
+        )
 
         val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
         arguments?.remove("map_intent_uri")
@@ -147,7 +144,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         manager.onChange = { root, items, rootChanged ->
             if (isBound) {
-                binding.mapList.setItems(items.filterIsInstance<Map>(), mapper)
+                binding.mapList.setItems(items, mapper)
                 if (rootChanged) {
                     binding.mapList.scrollToPosition(0, false)
                 }
@@ -156,9 +153,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
         }
 
-        observe(mapRepo.getMapsLive()) {
-            manager.refresh()
-        }
+//        observe(mapRepo.getMapsLive()) {
+//            manager.refresh()
+//        }
 
         onBackPressed {
             if (!manager.up()) {
@@ -183,12 +180,21 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
     }
 
+    private fun onMapGroupAction(group: MapGroup, action: MapGroupAction) {
+        when (action) {
+            MapGroupAction.View -> view(group)
+            MapGroupAction.Delete -> delete(group)
+            MapGroupAction.Rename -> rename(group)
+        }
+    }
+
     private fun onMapAction(map: Map, action: MapAction) {
         when (action) {
             MapAction.View -> view(map)
             MapAction.Delete -> delete(map)
             MapAction.Export -> export(map)
             MapAction.Resize -> resize(map)
+            MapAction.Rename -> rename(map)
         }
     }
 
@@ -230,6 +236,13 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         exportService.export(map)
     }
 
+    private fun rename(map: IMap) {
+        inBackground {
+            RenameMapCommand(requireContext(), mapService).execute(map)
+            manager.refresh()
+        }
+    }
+
     private fun delete(map: IMap) {
         Alerts.dialog(
             requireContext(),
@@ -239,6 +252,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             if (!cancelled) {
                 inBackground {
                     mapService.delete(map)
+                    manager.refresh()
                 }
             }
         }
@@ -260,6 +274,10 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         binding.addMenu.fab = binding.addBtn
         binding.addMenu.hideOnMenuOptionSelected = true
         binding.addMenu.setOnMenuItemClickListener { menuItem ->
+
+            val isGroup = menuItem.itemId == R.id.action_create_map_group
+
+            // TODO: Change the text if it is a map group
             Pickers.text(
                 requireContext(),
                 getString(R.string.create_map),
@@ -289,6 +307,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                 )
                             )
                         }
+                        R.id.action_create_map_group -> {
+                            createMapGroup(mapName)
+                        }
                     }
                 }
             }
@@ -296,21 +317,16 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
     }
 
-    private fun loadMapThumbnail(map: Map): Bitmap {
-        val size = Resources.dp(requireContext(), 48f).toInt()
-        val bitmap = try {
-            files.bitmap(map.filename, Size(size, size))
-        } catch (e: Exception) {
-            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+    private fun createMapGroup(name: String) {
+        inBackground {
+            mapService.add(MapGroup(0, name, manager.root?.id))
+            manager.refresh()
         }
+    }
 
-        if (map.calibration.rotation != 0) {
-            val rotated = bitmap.rotate(map.calibration.rotation.toFloat())
-            bitmap.recycle()
-            return rotated
-        }
-
-        return bitmap
+    override fun onResume() {
+        super.onResume()
+        manager.refresh()
     }
 
     override fun onPause() {
@@ -324,7 +340,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         inBackground {
             binding.addBtn.isEnabled = false
 
-            val map = command.execute()?.copy(name = mapName)
+            val map = command.execute()?.copy(name = mapName, parentId = manager.root?.id)
 
             if (map == null) {
                 toast(getString(R.string.error_importing_map))
@@ -332,7 +348,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 return@inBackground
             }
 
-            if (mapName.isNotBlank()) {
+            if (mapName.isNotBlank() || map.parentId != null) {
                 onIO {
                     mapRepo.addMap(map)
                 }
@@ -350,6 +366,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
 
             binding.addBtn.isEnabled = true
+            manager.refresh(true)
             findNavController().navigate(
                 R.id.action_mapList_to_maps,
                 bundleOf("mapId" to map.id)

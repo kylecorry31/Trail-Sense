@@ -57,6 +57,9 @@ class MapMapper(
                 }
             ),
             menu = listOf(
+                ListMenuItem(context.getString(R.string.rename)) {
+                    actionHandler(value, MapAction.Rename)
+                },
                 ListMenuItem(context.getString(R.string.change_resolution)) {
                     actionHandler(value, MapAction.Resize)
                 },
