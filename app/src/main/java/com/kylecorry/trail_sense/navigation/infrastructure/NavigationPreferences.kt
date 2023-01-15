@@ -20,12 +20,14 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPa
 import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
+import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
-    IPathPreferences, IBeaconPreferences {
+    IPathPreferences, IBeaconPreferences, IMapPreferences {
 
     private val cache by lazy { Preferences(context) }
 
@@ -211,22 +213,29 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
-    val areMapsEnabled by BooleanPreference(
+    override val areMapsEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_experimental_maps),
         false
     )
 
-    val autoReduceMaps by BooleanPreference(
+    override val autoReduceMaps by BooleanPreference(
         cache,
         context.getString(R.string.pref_low_resolution_maps),
         true
     )
 
-    val showMapPreviews by BooleanPreference(
+    override val showMapPreviews by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_map_previews),
         true
+    )
+
+    override var mapSort: MapSortMethod by IntEnumPreference(
+        cache,
+        context.getString(R.string.pref_map_sort),
+        MapSortMethod.values().associateBy { it.id.toInt() },
+        MapSortMethod.MostRecent
     )
 
     enum class SpeedometerMode {

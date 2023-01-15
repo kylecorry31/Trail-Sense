@@ -1266,6 +1266,7 @@
     <!--    The %d is the number of years of data used to calculate the average.-->
     <string name="historic_temperatures_full_disclaimer">Temperatures are based on a %d year average of historical data and may not reflect the current weather conditions.</string>
     <string name="pref_historic_temperatures_disclaimer_shown" translatable="false">pref_historic_temperatures_disclaimer_shown</string>
+    <string name="pref_map_sort" translatable="false">pref_map_sort</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

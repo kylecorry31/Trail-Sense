@@ -132,8 +132,22 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         binding.mapList.emptyView = binding.mapEmptyText
 
-        binding.mapListTitle.rightButton.setOnClickListener {
+        binding.mapListTitle.leftButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.importing_maps)
+        }
+
+        sort = prefs.navigation.mapSort
+        binding.mapListTitle.rightButton.setOnClickListener {
+            Pickers.menu(
+                it, listOf(
+                    getString(R.string.sort_by, getSortString(sort))
+                )
+            ) { selected ->
+                when (selected) {
+                    0 -> changeSort()
+                }
+                true
+            }
         }
 
         binding.searchbox.setOnQueryTextListener { _, _ ->
@@ -160,6 +174,34 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
 
         setupMapCreateMenu()
+    }
+
+    private fun changeSort() {
+        val sortOptions = MapSortMethod.values()
+        Pickers.item(
+            requireContext(),
+            getString(R.string.sort),
+            sortOptions.map { getSortString(it) },
+            sortOptions.indexOf(prefs.navigation.mapSort)
+        ) { newSort ->
+            if (newSort != null) {
+                prefs.navigation.mapSort = sortOptions[newSort]
+                sort = sortOptions[newSort]
+                onSortChanged()
+            }
+        }
+    }
+
+    private fun getSortString(sortMethod: MapSortMethod): String {
+        return when (sortMethod) {
+            MapSortMethod.MostRecent -> getString(R.string.most_recent)
+            MapSortMethod.Closest -> getString(R.string.closest)
+            MapSortMethod.Name -> getString(R.string.name)
+        }
+    }
+
+    private fun onSortChanged() {
+        manager.refresh(true)
     }
 
     private suspend fun sortMaps(maps: List<IMap>): List<IMap> = onDefault {

@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.maps.domain.sort
 
-enum class MapSortMethod {
-    Closest,
-    MostRecent,
-    Name
+import com.kylecorry.trail_sense.shared.database.Identifiable
+
+enum class MapSortMethod(override val id: Long): Identifiable {
+    Closest(1),
+    MostRecent(2),
+    Name(3)
 }
