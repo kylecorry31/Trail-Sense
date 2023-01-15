@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.inBackground
@@ -52,7 +51,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val mapService by lazy { MapService(mapRepo) }
@@ -110,6 +108,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             )
         }
 
+        // TODO: Convert into disclaimer
         if (cache.getBoolean("tool_maps_experimental_disclaimer_shown") != true) {
             Alerts.dialog(
                 requireContext(),
@@ -124,6 +123,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
             }
         }
+
+        binding.mapList.emptyView = binding.mapEmptyText
 
         binding.mapListTitle.rightButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.importing_maps)
