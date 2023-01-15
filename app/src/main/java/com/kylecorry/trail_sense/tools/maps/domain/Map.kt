@@ -15,6 +15,8 @@ data class Map(
 ): IMap {
     override val isGroup = false
     override val count: Int? = null
+    
+    private var calculatedBounds: CoordinateBounds? = null
 
     fun projection(width: Float, height: Float): IMapProjection {
         return CalibratedProjection(calibration.calibrationPoints.map {
@@ -45,6 +47,9 @@ data class Map(
     }
 
     fun boundary(): CoordinateBounds? {
+        if (calculatedBounds != null) {
+            return calculatedBounds
+        }
         val size = metadata.size
         val width = if (calibration.rotation == 90 || calibration.rotation == 270) {
             size.height
@@ -56,7 +61,8 @@ data class Map(
         } else {
             size.height
         }
-        return boundary(width, height)
+        calculatedBounds = boundary(width, height)
+        return calculatedBounds
     }
 
     fun boundary(width: Float, height: Float): CoordinateBounds? {

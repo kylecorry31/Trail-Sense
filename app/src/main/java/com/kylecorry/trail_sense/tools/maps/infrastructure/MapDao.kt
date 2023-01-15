@@ -10,7 +10,7 @@ interface MapDao {
     fun getAll(): LiveData<List<MapEntity>>
 
     @Query("SELECT * FROM maps where parent IS :parent")
-    suspend fun getAllInGroup(parent: Long?): List<MapEntity>
+    suspend fun getAllWithParent(parent: Long?): List<MapEntity>
 
     @Query("SELECT * FROM maps WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): MapEntity?

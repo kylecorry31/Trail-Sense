@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroupEntity
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupDao
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
@@ -52,6 +53,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun beaconGroupDao(): BeaconGroupDao
     abstract fun noteDao(): NoteDao
     abstract fun mapDao(): MapDao
+    abstract fun mapGroupDao(): MapGroupDao
     abstract fun batteryDao(): BatteryDao
     abstract fun cloudDao(): CloudReadingDao
     abstract fun pathDao(): PathDao

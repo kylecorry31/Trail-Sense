@@ -10,14 +10,21 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
+import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
+import com.kylecorry.trail_sense.tools.maps.domain.MapGroupEntity
 
 class MapRepo private constructor(context: Context) : IMapRepo {
 
     private val mapDao = AppDatabase.getInstance(context).mapDao()
+    private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
     private val files = FileSubsystem.getInstance(context)
 
     override fun getMapsLive(): LiveData<List<Map>> {
         return Transformations.map(mapDao.getAll()) { it.map(this::convertToMap) }
+    }
+
+    override suspend fun getMapGroup(id: Long): MapGroup? = onIO {
+        mapGroupDao.get(id)?.toMapGroup()
     }
 
     override suspend fun getMap(id: Long): Map? = onIO {
@@ -29,6 +36,19 @@ class MapRepo private constructor(context: Context) : IMapRepo {
         mapDao.delete(MapEntity.from(map))
     }
 
+    override suspend fun deleteMapGroup(group: MapGroup) {
+        mapGroupDao.delete(MapGroupEntity.from(group))
+    }
+
+    override suspend fun addMapGroup(group: MapGroup): Long = onIO {
+        if (group.id != 0L) {
+            mapGroupDao.update(MapGroupEntity.from(group))
+            group.id
+        } else {
+            mapGroupDao.insert(MapGroupEntity.from(group))
+        }
+    }
+
     override suspend fun addMap(map: Map): Long = onIO {
         if (map.id == 0L) {
             mapDao.insert(MapEntity.from(map))
@@ -36,6 +56,14 @@ class MapRepo private constructor(context: Context) : IMapRepo {
             mapDao.update(MapEntity.from(map))
             map.id
         }
+    }
+
+    override suspend fun getMaps(parentId: Long?): List<Map> = onIO {
+        mapDao.getAllWithParent(parentId).map { convertToMap(it) }
+    }
+
+    override suspend fun getMapGroups(parentId: Long?): List<MapGroup> = onIO {
+        mapGroupDao.getAllWithParent(parentId).map { it.toMapGroup() }
     }
 
     private fun convertToMap(map: MapEntity): Map {

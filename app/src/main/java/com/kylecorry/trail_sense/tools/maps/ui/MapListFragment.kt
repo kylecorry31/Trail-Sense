@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
@@ -19,7 +20,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.databinding.ListItemMapBinding
@@ -27,15 +27,21 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.tools.maps.domain.IMap
 import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupLoader
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromCameraCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
@@ -54,11 +60,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val mapService by lazy { MapService(mapRepo) }
+    private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
+    private lateinit var manager: GroupListManager<IMap>
 
     private lateinit var mapList: ListView<Map>
-    private var maps: List<Map> = listOf()
-
-    private var boundMap = mutableMapOf<Long, CoordinateBounds>()
+    private var lastRoot: IMap? = null
 
     private var mapName = ""
 
@@ -81,6 +88,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        manager = GroupListManager(
+            lifecycleScope,
+            mapLoader,
+            lastRoot,
+            this::sortMaps
+        )
+
         val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
         arguments?.remove("map_intent_uri")
         if (mapIntentUri != null) {
@@ -127,7 +142,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         val showMapPreviews = prefs.navigation.showMapPreviews
         mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
             val mapItemBinding = ListItemMapBinding.bind(itemView)
-            val onMap = boundMap[map.id]?.contains(gps.location) ?: false
+            val onMap = map.boundary()?.contains(gps.location) ?: false
             if (showMapPreviews) {
                 tryOrNothing {
                     mapItemBinding.mapImg.isVisible = true
@@ -180,8 +195,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                                         onMain {
                                             if (isBound) {
                                                 mapImportingIndicator.hide()
-                                                // TODO: Reload maps
                                             }
+                                            manager.refresh()
                                         }
                                     }
                                 }
@@ -214,24 +229,42 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
         mapList.addLineSeparator()
 
-        observe(mapRepo.getMapsLive()) {
-            maps = it
-            maps.forEach { map ->
-                map.boundary()?.let { bounds ->
-                    boundMap[map.id] = bounds
+        manager.onChange = { root, items, rootChanged ->
+            if (isBound) {
+                mapList.setData(items.filterIsInstance<Map>())
+                if (rootChanged) {
+                    mapList.scrollToPosition(0, false)
                 }
+                binding.mapListTitle.title.text =
+                    (root as MapGroup?)?.name ?: getString(R.string.photo_maps)
             }
+        }
 
-            maps = maps.sortedBy {
-                val bounds = boundMap[it.id] ?: return@sortedBy Float.MAX_VALUE
-                val onMap = bounds.contains(gps.location)
-                (if (onMap) 0f else 100000f) + gps.location.distanceTo(bounds.center)
+        observe(mapRepo.getMapsLive()) {
+            manager.refresh(false)
+        }
+
+        onBackPressed {
+            if (!manager.up()) {
+                remove()
+                findNavController().navigateUp()
             }
-
-            mapList.setData(maps)
         }
 
         setupMapCreateMenu()
+    }
+
+    private suspend fun sortMaps(maps: List<IMap>): List<IMap>{
+        // TODO: Delegate to a sort strategy and handle groups
+        return maps.sortedBy {
+            val bounds = if (it is Map){
+                it.boundary()
+            } else {
+                null
+            } ?: return@sortedBy Float.MAX_VALUE
+            val onMap = bounds.contains(gps.location)
+            (if (onMap) 0f else 100000f) + gps.location.distanceTo(bounds.center)
+        }
     }
 
     private fun setupMapCreateMenu() {
@@ -292,9 +325,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         return bitmap
     }
 
-    override fun onResume() {
-        super.onResume()
-        mapList.setData(maps)
+    override fun onPause() {
+        super.onPause()
+        tryOrNothing {
+            lastRoot = manager.root
+        }
     }
 
     private fun createMap(command: ICreateMapCommand) {
