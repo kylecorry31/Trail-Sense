@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -17,12 +16,10 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
-import com.kylecorry.trail_sense.databinding.ListItemMapBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
@@ -49,8 +46,8 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapComm
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapAction
+import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapMapper
 
 class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
@@ -63,8 +60,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapService by lazy { MapService(mapRepo) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<IMap>
+    private lateinit var mapper: MapMapper
 
-    private lateinit var mapList: ListView<Map>
     private var lastRoot: IMap? = null
 
     private var mapName = ""
@@ -95,6 +92,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             lastRoot,
             this::sortMaps
         )
+
+        mapper = MapMapper(
+            gps,
+            requireContext(),
+            this
+        ) { map, action ->
+            onMapAction(map, action)
+        }
 
         val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
         arguments?.remove("map_intent_uri")
@@ -139,101 +144,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             UserGuideUtils.showGuide(this, R.raw.importing_maps)
         }
 
-        val showMapPreviews = prefs.navigation.showMapPreviews
-        mapList = ListView(binding.mapList, R.layout.list_item_map) { itemView: View, map: Map ->
-            val mapItemBinding = ListItemMapBinding.bind(itemView)
-            val onMap = map.boundary()?.contains(gps.location) ?: false
-            if (showMapPreviews) {
-                tryOrNothing {
-                    mapItemBinding.mapImg.isVisible = true
-                    mapItemBinding.mapImg.setImageBitmap(viewLifecycleOwner) {
-                        loadMapThumbnail(map)
-                    }
-                }
-            } else {
-                mapItemBinding.mapImg.isVisible = false
-            }
-            mapItemBinding.fileSize.text = formatService.formatFileSize(map.metadata.fileSize)
-            mapItemBinding.name.text = map.name
-            mapItemBinding.description.text = if (onMap) getString(R.string.on_map) else ""
-            mapItemBinding.description.isVisible = onMap
-            mapItemBinding.root.setOnClickListener {
-                tryOrNothing {
-                    findNavController().navigate(
-                        R.id.action_mapList_to_maps,
-                        bundleOf("mapId" to map.id)
-                    )
-                }
-            }
-            mapItemBinding.menuBtn.setOnClickListener {
-                Pickers.menu(it, R.menu.map_list_item_menu) {
-                    when (it) {
-                        R.id.action_map_resize -> {
-                            // TODO: Extract this to a command
-                            // TODO: Let the user know this is permanent
-                            // TODO: Don't say "Importing map"
-                            Pickers.item(
-                                requireContext(),
-                                getString(R.string.change_resolution),
-                                listOf(
-                                    getString(R.string.low),
-                                    getString(R.string.moderate),
-                                    getString(R.string.high)
-                                )
-                            ) {
-                                if (it != null) {
-                                    inBackground {
-                                        mapImportingIndicator.show()
-                                        onIO {
-                                            val reducer = when (it) {
-                                                0 -> LowQualityMapReducer(requireContext())
-                                                1 -> MediumQualityMapReducer(requireContext())
-                                                else -> HighQualityMapReducer(requireContext())
-                                            }
-                                            reducer.reduce(map)
-                                        }
-                                        onMain {
-                                            if (isBound) {
-                                                mapImportingIndicator.hide()
-                                            }
-                                            manager.refresh()
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                        R.id.action_map_export -> {
-                            exportService.export(map)
-                        }
-                        R.id.action_map_delete -> {
-                            Alerts.dialog(
-                                requireContext(),
-                                getString(R.string.delete_map),
-                                map.name
-                            ) { cancelled ->
-                                if (!cancelled) {
-                                    inBackground {
-                                        withContext(Dispatchers.IO) {
-                                            mapRepo.deleteMap(map)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    true
-                }
-            }
-        }
-
-        mapList.addLineSeparator()
 
         manager.onChange = { root, items, rootChanged ->
             if (isBound) {
-                mapList.setData(items.filterIsInstance<Map>())
+                binding.mapList.setItems(items.filterIsInstance<Map>(), mapper)
                 if (rootChanged) {
-                    mapList.scrollToPosition(0, false)
+                    binding.mapList.scrollToPosition(0, false)
                 }
                 binding.mapListTitle.title.text =
                     (root as MapGroup?)?.name ?: getString(R.string.photo_maps)
@@ -241,7 +157,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
 
         observe(mapRepo.getMapsLive()) {
-            manager.refresh(false)
+            manager.refresh()
         }
 
         onBackPressed {
@@ -254,16 +170,88 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         setupMapCreateMenu()
     }
 
-    private suspend fun sortMaps(maps: List<IMap>): List<IMap>{
+    private suspend fun sortMaps(maps: List<IMap>): List<IMap> {
         // TODO: Delegate to a sort strategy and handle groups
         return maps.sortedBy {
-            val bounds = if (it is Map){
+            val bounds = if (it is Map) {
                 it.boundary()
             } else {
                 null
             } ?: return@sortedBy Float.MAX_VALUE
             val onMap = bounds.contains(gps.location)
             (if (onMap) 0f else 100000f) + gps.location.distanceTo(bounds.center)
+        }
+    }
+
+    private fun onMapAction(map: Map, action: MapAction) {
+        when (action) {
+            MapAction.View -> view(map)
+            MapAction.Delete -> delete(map)
+            MapAction.Export -> export(map)
+            MapAction.Resize -> resize(map)
+        }
+    }
+
+    // TODO: Extract these to commands
+
+    private fun resize(map: Map) {
+        Pickers.item(
+            requireContext(),
+            getString(R.string.change_resolution),
+            listOf(
+                getString(R.string.low),
+                getString(R.string.moderate),
+                getString(R.string.high)
+            )
+        ) {
+            if (it != null) {
+                inBackground {
+                    mapImportingIndicator.show()
+                    onIO {
+                        val reducer = when (it) {
+                            0 -> LowQualityMapReducer(requireContext())
+                            1 -> MediumQualityMapReducer(requireContext())
+                            else -> HighQualityMapReducer(requireContext())
+                        }
+                        reducer.reduce(map)
+                    }
+                    onMain {
+                        if (isBound) {
+                            mapImportingIndicator.hide()
+                        }
+                        manager.refresh()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun export(map: Map) {
+        exportService.export(map)
+    }
+
+    private fun delete(map: IMap) {
+        Alerts.dialog(
+            requireContext(),
+            getString(R.string.delete_map),
+            map.name
+        ) { cancelled ->
+            if (!cancelled) {
+                inBackground {
+                    mapService.delete(map)
+                }
+            }
+        }
+    }
+
+    private fun view(map: IMap) {
+        if (map is MapGroup) {
+            manager.open(map.id)
+        } else {
+            findNavController().navigate(
+                R.id.action_mapList_to_maps,
+                bundleOf("mapId" to map.id)
+            )
         }
     }
 
