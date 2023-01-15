@@ -36,7 +36,7 @@ class MapMapper(
                 clearOnPause = true
             )
         } else {
-            ResourceListIcon(R.drawable.maps, size = 48f, foregroundSize = 24f)
+            ResourceListIcon(R.drawable.maps, AppColor.Gray.color, size = 48f, foregroundSize = 24f)
         }
 
         return ListItem(
@@ -72,7 +72,7 @@ class MapMapper(
                     actionHandler(value, MapAction.Delete)
                 },
             )
-        ){
+        ) {
             actionHandler(value, MapAction.View)
         }
     }

@@ -1231,7 +1231,7 @@
     <!--    Used to indicate a value was derived from historic readings (ex. historic high/low temperature)-->
     <string name="historic">Historic</string>
     <!--    Used to indicate how many years of historical data was used. ex 60 year average-->
-    <string name="historic_temperature_years">Historic (%d year average)</string>
+    <string name="historic_temperature_years">Historic (%d year)</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">High / Low</string>
     <string name="altimeter_cache">Altimeter cache</string>
