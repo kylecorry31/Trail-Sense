@@ -22,7 +22,7 @@ object MapPickers {
         scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
         filter: (List<MapGroup>) -> List<MapGroup> = { it }
     ): Pair<Boolean, MapGroup?> = suspendCoroutine { cont ->
-        val loader = MapGroupLoader(MapService(MapRepo.getInstance(context)).loader)
+        val loader = MapGroupLoader(MapService.getInstance(context).loader)
         val manager = GroupListManager(
             scope,
             loader,

@@ -36,10 +36,14 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeac
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.*
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onBackPressed
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -99,19 +103,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             this::sortBeacons
         )
 
-        binding.searchbox.setOnQueryTextListener { _, _ ->
-            manager.search(binding.searchbox.query)
-            true
-        }
-
-        manager.onChange = { root, items, rootChanged ->
-            if (isBound) {
-                binding.beaconRecycler.setItems(items, listMapper)
-                if (rootChanged) {
-                    binding.beaconRecycler.scrollToPosition(0, false)
-                }
-                binding.beaconTitle.title.text = root?.name ?: getString(R.string.beacons)
-            }
+        manager.bind(binding.searchbox)
+        manager.bind(binding.beaconRecycler, binding.beaconTitle.title, listMapper) {
+            it?.name ?: getString(R.string.beacons)
         }
 
         initialLocation?.let {

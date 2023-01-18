@@ -26,9 +26,9 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
-import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -75,23 +75,12 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             this::sortPaths
         )
 
-        manager.onChange = { root, items, rootChanged ->
-            if (isBound) {
-                binding.pathsList.setItems(items, listMapper)
-                if (rootChanged) {
-                    binding.pathsList.scrollToPosition(0, false)
-                }
-                binding.pathsTitle.title.text =
-                    (root as PathGroup?)?.name ?: getString(R.string.paths)
-            }
+        manager.bind(binding.searchbox)
+        manager.bind(binding.pathsList, binding.pathsTitle.title, listMapper) {
+            (it as PathGroup?)?.name ?: getString(R.string.paths)
         }
 
         sort = prefs.navigation.pathSort
-
-        binding.searchbox.setOnQueryTextListener { _, _ ->
-            manager.search(binding.searchbox.query)
-            true
-        }
 
         // TODO: See if it is possible to get notified of changes without loading all paths
         observe(pathService.getLivePaths()) {

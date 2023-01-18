@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure
 
+import android.annotation.SuppressLint
+import android.content.Context
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
@@ -8,7 +10,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 
-class MapService(private val repo: IMapRepo) {
+class MapService private constructor(private val repo: IMapRepo) {
 
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
@@ -55,6 +57,19 @@ class MapService(private val repo: IMapRepo) {
     suspend fun getGroup(id: Long?): MapGroup? {
         id ?: return null
         return repo.getMapGroup(id)?.copy(count = counter.count(id))
+    }
+
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        private var instance: MapService? = null
+
+        @Synchronized
+        fun getInstance(context: Context): MapService {
+            if (instance == null) {
+                instance = MapService(MapRepo.getInstance(context))
+            }
+            return instance!!
+        }
     }
 
 }

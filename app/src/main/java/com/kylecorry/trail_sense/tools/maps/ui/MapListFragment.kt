@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -18,11 +18,13 @@ import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.*
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onBackPressed
+import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
@@ -40,10 +42,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromF
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
-import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
-import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
-import com.kylecorry.trail_sense.tools.maps.ui.commands.MoveMapCommand
-import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.*
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapGroupAction
@@ -55,14 +54,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val cache by lazy { Preferences(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val mapService by lazy { MapService(mapRepo) }
+    private val mapService by lazy { MapService.getInstance(requireContext()) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<IMap>
     private lateinit var mapper: IMapMapper
 
-    // TODO: Load from prefs
     private var sort = MapSortMethod.Closest
-
 
     private var lastRoot: IMap? = null
 
@@ -74,7 +71,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         )
     }
     private val exportService by lazy { FragmentMapExportService(this) }
-    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -114,21 +110,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             )
         }
 
-        // TODO: Convert into disclaimer
-        if (cache.getBoolean("tool_maps_experimental_disclaimer_shown") != true) {
-            Alerts.dialog(
-                requireContext(),
-                getString(R.string.experimental),
-                "Photo Maps is an experimental feature, please only use this to test it out at this point. Feel free to share your feedback on this feature and note that there is still a lot to be done before this will be non-experimental.",
-                okText = getString(R.string.tool_user_guide_title),
-                cancelText = getString(android.R.string.ok)
-            ) { cancelled ->
-                cache.putBoolean("tool_maps_experimental_disclaimer_shown", true)
-                if (!cancelled) {
-                    UserGuideUtils.openGuide(this, R.raw.importing_maps)
-                }
-            }
-        }
+        ShowMapsDisclaimerCommand(this).execute()
 
         binding.mapList.emptyView = binding.mapEmptyText
 
@@ -150,20 +132,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             }
         }
 
-        binding.searchbox.setOnQueryTextListener { _, _ ->
-            manager.search(binding.searchbox.query)
-            true
-        }
-
-        manager.onChange = { root, items, rootChanged ->
-            if (isBound) {
-                binding.mapList.setItems(items, mapper)
-                if (rootChanged) {
-                    binding.mapList.scrollToPosition(0, false)
-                }
-                binding.mapListTitle.title.text =
-                    (root as MapGroup?)?.name ?: getString(R.string.photo_maps)
-            }
+        manager.bind(binding.searchbox)
+        manager.bind(binding.mapList, binding.mapListTitle.title, mapper) {
+            (it as MapGroup?)?.name ?: getString(R.string.photo_maps)
         }
 
         onBackPressed {
@@ -234,37 +205,10 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
     }
 
-    // TODO: Extract these to commands
-
     private fun resize(map: Map) {
-        Pickers.item(
-            requireContext(),
-            getString(R.string.change_resolution),
-            listOf(
-                getString(R.string.low),
-                getString(R.string.moderate),
-                getString(R.string.high)
-            )
-        ) {
-            if (it != null) {
-                inBackground {
-                    mapImportingIndicator.show()
-                    onIO {
-                        val reducer = when (it) {
-                            0 -> LowQualityMapReducer(requireContext())
-                            1 -> MediumQualityMapReducer(requireContext())
-                            else -> HighQualityMapReducer(requireContext())
-                        }
-                        reducer.reduce(map)
-                    }
-                    onMain {
-                        if (isBound) {
-                            mapImportingIndicator.hide()
-                        }
-                        manager.refresh()
-                    }
-                }
-            }
+        inBackground {
+            ResizeMapCommand(requireContext(), mapImportingIndicator).execute(map)
+            manager.refresh()
         }
     }
 
@@ -287,17 +231,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun delete(map: IMap) {
-        Alerts.dialog(
-            requireContext(),
-            getString(R.string.delete_map),
-            map.name
-        ) { cancelled ->
-            if (!cancelled) {
-                inBackground {
-                    mapService.delete(map)
-                    manager.refresh()
-                }
-            }
+        inBackground {
+            DeleteMapCommand(requireContext(), mapService).execute(map)
+            manager.refresh()
         }
     }
 
@@ -347,9 +283,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private fun createMapGroup() {
         inBackground {
-            val name = CoroutinePickers.text(requireContext(), getString(R.string.name))
-                ?: return@inBackground
-            mapService.add(MapGroup(0, name, manager.root?.id))
+            CreateMapGroupCommand(requireContext(), mapService).execute(manager.root?.id)
             manager.refresh()
         }
     }

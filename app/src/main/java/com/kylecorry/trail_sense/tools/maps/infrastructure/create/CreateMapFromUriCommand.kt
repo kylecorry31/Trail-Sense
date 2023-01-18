@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 
 import android.content.Context
 import android.net.Uri
-import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
+import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.maps.domain.Map
