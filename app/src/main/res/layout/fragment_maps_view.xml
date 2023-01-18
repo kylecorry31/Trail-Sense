@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.tools.maps.ui.OfflineMapView
+    <com.kylecorry.trail_sense.tools.maps.ui.PhotoMapView
         android:id="@+id/map"
         android:layout_width="0dp"
         android:layout_height="0dp"

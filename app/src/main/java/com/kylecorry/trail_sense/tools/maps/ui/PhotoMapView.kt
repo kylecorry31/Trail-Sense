@@ -33,7 +33,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-class OfflineMapView : SubsamplingScaleImageView, IMapView {
+class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     var onMapLongClick: ((coordinate: Coordinate) -> Unit)? = null
     var onMapClick: ((percent: PercentCoordinate) -> Unit)? = null
@@ -316,7 +316,7 @@ class OfflineMapView : SubsamplingScaleImageView, IMapView {
                 for (layer in layers.reversed()) {
                     if (layer.onClick(
                             drawer,
-                            this@OfflineMapView,
+                            this@PhotoMapView,
                             PixelCoordinate(viewNoRotation.x, viewNoRotation.y)
                         )
                     ) {
