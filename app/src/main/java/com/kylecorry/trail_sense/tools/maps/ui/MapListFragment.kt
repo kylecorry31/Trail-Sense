@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
@@ -302,12 +301,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private fun createMap(command: ICreateMapCommand) {
         inBackground {
-            val name = CoroutinePickers.text(requireContext(), getString(R.string.name))
-                ?: return@inBackground
-
             binding.addBtn.isEnabled = false
 
-            val map = command.execute()?.copy(name = name, parentId = manager.root?.id)
+            val map = command.execute()?.copy(parentId = manager.root?.id)
 
             if (map == null) {
                 toast(getString(R.string.error_importing_map))
@@ -315,7 +311,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 return@inBackground
             }
 
-            if (name.isNotBlank() || map.parentId != null) {
+            if (map.parentId != null) {
                 onIO {
                     mapRepo.addMap(map)
                 }

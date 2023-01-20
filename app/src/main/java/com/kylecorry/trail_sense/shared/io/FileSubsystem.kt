@@ -21,6 +21,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
 
+
 class FileSubsystem private constructor(private val context: Context) {
 
     private val external = ExternalFileSystem(context)
@@ -130,6 +131,18 @@ class FileSubsystem private constructor(private val context: Context) {
 
     fun getLocalPath(file: File): String {
         return local.getRelativePath(file)
+    }
+
+    fun getMimeType(uri: Uri): String? {
+        return external.getMimeType(uri)
+    }
+
+    fun getFileName(
+        uri: Uri,
+        withExtension: Boolean = true,
+        fallbackToPathName: Boolean = true
+    ): String? {
+        return external.getFileName(uri, withExtension, fallbackToPathName)
     }
 
     fun writeDebug(filename: String, text: String) {

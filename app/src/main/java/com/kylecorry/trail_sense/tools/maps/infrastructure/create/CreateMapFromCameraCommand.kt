@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 
+import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
@@ -19,13 +19,19 @@ class CreateMapFromCameraCommand(
         onMain {
             loadingIndicator.show()
         }
-        val map = CreateMapFromUriCommand(
-            fragment.requireContext(),
-            repo,
-            uri,
-            loadingIndicator
-        ).execute()
-        DeleteTempFilesCommand(fragment.requireContext()).execute()
-        map
+        try {
+            val map = CreateMapFromUriCommand(
+                fragment.requireContext(),
+                repo,
+                uri,
+                loadingIndicator
+            ).execute()
+            DeleteTempFilesCommand(fragment.requireContext()).execute()
+            map
+        } finally {
+            onMain {
+                loadingIndicator.hide()
+            }
+        }
     }
 }

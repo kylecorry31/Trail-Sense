@@ -13,12 +13,11 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapMetadata
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 
-class CreateMapFromImageCommand(private val context: Context, private val repo: IMapRepo) {
+class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, private val name: String) {
 
     private val files = FileSubsystem.getInstance(context)
 
     suspend fun execute(uri: Uri): Map? = onIO {
-        val defaultName = context.getString(android.R.string.untitled)
         val file = files.copyToLocal(uri, "maps") ?: return@onIO null
         var rotation = 0
         tryOrLog {
@@ -32,7 +31,7 @@ class CreateMapFromImageCommand(private val context: Context, private val repo: 
 
         val map = Map(
             0,
-            defaultName,
+            name,
             path,
             MapCalibration.uncalibrated().copy(rotation = rotation),
             MapMetadata(

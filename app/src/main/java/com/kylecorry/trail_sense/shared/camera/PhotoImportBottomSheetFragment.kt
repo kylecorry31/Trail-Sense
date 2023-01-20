@@ -8,6 +8,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.camera.core.ExperimentalZeroShutterLag
 import androidx.camera.core.ImageCapture
 import androidx.camera.view.PreviewView
 import androidx.core.net.toUri
@@ -33,7 +34,7 @@ class PhotoImportBottomSheetFragment(
 
         val volumeKeys = listOf(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP)
         dialog?.setOnKeyListener { _, keyCode, event ->
-            if (!volumeKeys.contains(keyCode) || event.action != KeyEvent.ACTION_DOWN){
+            if (!volumeKeys.contains(keyCode) || event.action != KeyEvent.ACTION_DOWN) {
                 return@setOnKeyListener false
             }
             takePhoto()
@@ -46,7 +47,13 @@ class PhotoImportBottomSheetFragment(
             resolution,
             lifecycleOwner = this,
             readFrames = false,
-            captureSettings = ImageCaptureSettings(captureMode = ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+            captureSettings = ImageCaptureSettings(
+                captureMode = if (resolution == null) {
+                    ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
+                } else {
+                    ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
+                }
+            )
         )
 
         binding.toolTitle.rightButton.setOnClickListener {
@@ -59,8 +66,8 @@ class PhotoImportBottomSheetFragment(
         }
     }
 
-    private fun takePhoto(){
-        if (isCapturing){
+    private fun takePhoto() {
+        if (isCapturing) {
             return
         }
         isCapturing = true
