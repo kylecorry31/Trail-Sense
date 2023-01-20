@@ -15,7 +15,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -34,6 +33,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
+import com.kylecorry.trail_sense.shared.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
@@ -98,7 +98,7 @@ class MainActivity : AndromedaActivity() {
 
         navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
-        bottomNavigation.setupWithNavController(navController)
+        bottomNavigation.setupWithNavController(navController, false)
 
         if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
             window.decorView.rootView.setBackgroundColor(Color.BLACK)
