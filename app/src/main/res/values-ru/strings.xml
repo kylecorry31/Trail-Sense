@@ -1104,4 +1104,5 @@
     <string name="now_value">Сейчас: %s</string>
     <string name="weather_alert_hot_description">Будьте готовы к жарким температурам. Примите дополнительные меры предосторожности против теплового истощения и теплового удара.</string>
     <string name="updating">Обновление</string>
+    <string name="pref_show_temperature_in_notification_title">Отображать температуру в уведомлении</string>
 </resources>
