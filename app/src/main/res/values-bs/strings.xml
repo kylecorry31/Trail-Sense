@@ -163,7 +163,6 @@
     <string name="coordinates_tab">Koordinati</string>
     <string name="distance">Razdaljina</string>
     <string name="convert">Pretvori</string>
-    <string name="delete_map">Izbriši kartu\?</string>
     <string name="pref_barometer_info_summary">Pritisak se može razlikovati od pritiska u obližnjim stanicama</string>
     <string name="battery_history">Istorija baterije - posljednja %s</string>
     <string name="dusk_type">Sumrak (%s)</string>

@@ -580,7 +580,6 @@
     <string name="pref_barometer_info_summary">Der Druck könnte von dem von benachbarten Stationen abweichen</string>
     <string name="battery_history">Batterienutzung - letzte %s</string>
     <string name="no_data">Keine Daten</string>
-    <string name="delete_map">Karte löschen\?</string>
     <string name="pref_barometer_pressure_smoothing_title">Druckglättung</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="moved_to">Nach %s verschoben</string>

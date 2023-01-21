@@ -788,7 +788,6 @@
     <string name="pref_show_nautical_times_title">זמנים ימיים</string>
     <string name="pref_show_astronomical_times_title">זמנים אסטרונומיים</string>
     <string name="pref_barometer_pressure_smoothing_title">החלקת לחץ</string>
-    <string name="delete_map">האם למחוק מפה\?</string>
     <string name="backtrack_battery_warning">מרווחים קטנים (מתחת ל-15 דקות) עלולים לגרום לריקון יתר של הסוללה</string>
     <string name="camera_permission_denied">הרשאת המצלמה נדחתה, לא ניתן להפעיל תכונות מצלמה. באפשרותך להפוך אותו לזמין בהגדרות.</string>
     <string name="last_signal_beacon_name">אות אחרון - %s (%s)</string>

@@ -378,7 +378,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="moved_to">Déplacé vers %s</string>
-    <string name="delete_map">Supprimer la carte \?</string>
     <string name="no_groups">Aucun groupe</string>
     <string name="coordinates_tab">Coordonnées</string>
     <string name="distance">Distance</string>

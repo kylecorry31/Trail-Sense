@@ -8,19 +8,19 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.inBackground
-import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -89,23 +89,12 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                         UserGuideUtils.openGuide(this, R.raw.importing_maps)
                     }
                     2 -> { // Rename
-                        Pickers.text(
-                            requireContext(),
-                            getString(R.string.create_map),
-                            getString(R.string.create_map_description),
-                            map?.name,
-                            hint = getString(R.string.name)
-                        ) { name ->
-                            if (name != null) {
-                                binding.mapName.text = name
-                                inBackground {
-                                    onIO {
-                                        map?.let {
-                                            val updated = mapRepo.getMap(it.id)!!.copy(name = name)
-                                            mapRepo.addMap(updated)
-                                            map = updated
-                                        }
-                                    }
+                        inBackground {
+                            map?.let {
+                                mapRepo.getMap(it.id)?.let { updated ->
+                                    RenameMapCommand(requireContext(), mapService).execute(updated)
+                                    map = mapRepo.getMap(updated.id)
+                                    binding.mapName.text = map?.name
                                 }
                             }
                         }
@@ -144,22 +133,10 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                         }
                     }
                     5 -> { // Delete
-                        Alerts.dialog(
-                            requireContext(),
-                            getString(R.string.delete_map),
-                            map?.name,
-                        ) { cancelled ->
-                            if (!cancelled) {
-                                inBackground {
-                                    withContext(Dispatchers.IO) {
-                                        map?.let {
-                                            mapRepo.deleteMap(it)
-                                        }
-                                    }
-                                    withContext(Dispatchers.Main) {
-                                        findNavController().popBackStack()
-                                    }
-                                }
+                        inBackground {
+                            map?.let {
+                                DeleteMapCommand(requireContext(), mapService).execute(it)
+                                findNavController().popBackStack()
                             }
                         }
                     }

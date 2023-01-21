@@ -602,7 +602,6 @@
     <string name="pref_nmea_elevation_title">Kompenzace nadmořské výšky NMEA</string>
     <string name="pref_nmea_elevation_summary">Používá kompenzace NMEA pro převod nadmořské výšky</string>
     <string name="pref_barometer_pressure_smoothing_title">Vyhlazení tlaku</string>
-    <string name="delete_map">Smazat mapu\?</string>
     <string name="convert">Převést</string>
     <string name="distance">Vzdálenost</string>
     <string name="move">Přesunout</string>

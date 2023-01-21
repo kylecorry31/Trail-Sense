@@ -458,7 +458,6 @@
     <string name="dotted">Bertitik-titik</string>
     <string name="battery_warning">Peringatan pengurasan baterai</string>
     <string name="whistle_signal_acknowledged">Diakui</string>
-    <string name="delete_map">Hapus peta\?</string>
     <string name="convert">Konversi</string>
     <string name="no_groups">Tidak ada grup</string>
     <string name="coordinates_tab">Koordinat</string>

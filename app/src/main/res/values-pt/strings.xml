@@ -618,7 +618,6 @@
     <string name="coordinates_tab">Coordenadas</string>
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
-    <string name="delete_map">Eliminar o mapa\?</string>
     <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
     <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>

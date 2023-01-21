@@ -651,7 +651,6 @@
     <string name="on">På</string>
     <string name="map_perspective_instructions">Omriss av kartet</string>
     <string name="preview">Forhåndsvis</string>
-    <string name="delete_map">Slett kart\?</string>
     <string name="error_importing_map">Feil ved importering av kart</string>
     <string name="importing_map">Importering av kart</string>
     <string name="next">Neste</string>

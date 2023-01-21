@@ -760,7 +760,6 @@
     <string name="pref_nmea_elevation_summary">Uses NMEA offsets for elevation conversion</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
     <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
-    <string name="delete_map">Delete map?</string>
     <string name="convert">Convert</string>
     <string name="distance">Distance</string>
     <string name="coordinates_tab">Coordinates</string>

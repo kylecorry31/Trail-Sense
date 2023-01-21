@@ -588,7 +588,6 @@
     <string name="weather_monitor">Відстеження погоди</string>
     <string name="dusk_type">Захід сонця (%s)</string>
     <string name="dawn_type">Схід сонця (%s)</string>
-    <string name="delete_map">Видалити мапу\?</string>
     <string name="pref_barometer_pressure_smoothing_title">Згладжування тиску</string>
     <string name="pref_nmea_elevation_summary">Використовує зсуви NMEA для перетворення висоти</string>
     <string name="pref_nmea_elevation_title">Зсуви висоти NMEA</string>

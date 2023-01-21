@@ -597,7 +597,6 @@
     <string name="points">Puntos</string>
     <string name="pref_barometer_pressure_smoothing_title">Suavizado de presión</string>
     <string name="gallon_format">%s gal</string>
-    <string name="delete_map">¿Eliminar mapa\?</string>
     <string name="import_map">Importar mapa</string>
     <string name="quart_format">%s qt</string>
     <string name="sort">Clasificar</string>

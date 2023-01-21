@@ -211,7 +211,6 @@
     <string name="battery_warning">Akkumerülési figyelmeztetés</string>
     <string name="activity_recognition_permission_denied">Testmozgáshoz való hozzáférés megtagadva, a lépésszámláló funkciókat nem lehet bekapcsolni. A beállításokban engedélyezheted.</string>
     <string name="pref_nmea_elevation_summary">NMEA eltéréseket használ a magasság átalakításához</string>
-    <string name="delete_map">Térkép törlése\?</string>
     <string name="no_groups">Nincsenek csoportok</string>
     <string name="move">Áthelyezés</string>
     <string name="map_perspective_instructions">Rajzold körbe a térképet</string>
