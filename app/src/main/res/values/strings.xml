@@ -364,6 +364,7 @@
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
     <string name="delete_path_group_message">%s and all its paths will be deleted.</string>
+    <string name="delete_map_group_message">%s and all its maps will be deleted.</string>
     <string name="beacon_create">Create</string>
     <string name="beacon_create_beacon">Beacon</string>
     <string name="group">Group</string>
