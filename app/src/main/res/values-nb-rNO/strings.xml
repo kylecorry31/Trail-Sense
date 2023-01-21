@@ -1008,4 +1008,11 @@
     <string name="pref_backfill_temperatures_title">Oppdater registrerte temperaturer</string>
     <string name="pref_backfill_temperatures_description">Alle registrerte temperaturer blir erstattet med den kalibrerte historiske temperaturen.</string>
     <string name="at_time">%s</string>
+    <string name="historic_temperatures_full_disclaimer">Temperaturene er basert på et %d års gjennomsnitt av historiske data og gjenspeiler kanskje ikke de gjeldende værforholdene.</string>
+    <string name="historic_temperature_years">Historisk (%d år)</string>
+    <string name="historic_temperatures">Historiske temperaturer</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d kart</item>
+        <item quantity="other">%d kart</item>
+    </plurals>
 </resources>

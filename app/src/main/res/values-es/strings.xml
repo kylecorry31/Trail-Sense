@@ -1100,4 +1100,12 @@
     <string name="pref_show_temperature_in_notification_title">Mostrar la temperatura en las notificaciones</string>
     <string name="at_time">en %s</string>
     <string name="photo_maps">Mapas de las fotos</string>
+    <string name="historic_temperature_years">Historial (%d año)</string>
+    <string name="historic_temperatures_full_disclaimer">Las temperaturas se basan en una media de %d años de datos históricos y pueden no reflejar las condiciones meteorológicas actuales.</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="many">%d mapas</item>
+        <item quantity="other">%d mapas</item>
+    </plurals>
+    <string name="historic_temperatures">Temperaturas históricas</string>
 </resources>
