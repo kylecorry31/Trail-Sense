@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure
 
-import androidx.lifecycle.LiveData
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
 
 interface IMapRepo {
-    fun getMapsLive(): LiveData<List<Map>>
+    suspend fun getAllMapFiles(): List<String>
 
     suspend fun getMapGroup(id: Long): MapGroup?
     suspend fun getMap(id: Long): Map?

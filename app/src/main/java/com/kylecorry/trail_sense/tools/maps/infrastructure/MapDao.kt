@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 
 @Dao
 interface MapDao {
-    @Query("SELECT * FROM maps")
-    fun getAll(): LiveData<List<MapEntity>>
+    @Query("SELECT filename FROM maps")
+    suspend fun getAllFilenames(): List<String>
 
     @Query("SELECT * FROM maps where parent IS :parent")
     suspend fun getAllWithParent(parent: Long?): List<MapEntity>

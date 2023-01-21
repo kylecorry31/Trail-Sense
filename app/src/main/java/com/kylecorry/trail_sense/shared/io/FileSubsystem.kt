@@ -39,6 +39,10 @@ class FileSubsystem private constructor(private val context: Context) {
         return local.getFile(path, create)
     }
 
+    fun list(path: String): List<File> {
+        return local.getDirectory(path).listFiles()?.toList() ?: emptyList()
+    }
+
     fun delete(path: String) {
         local.delete(path)
     }

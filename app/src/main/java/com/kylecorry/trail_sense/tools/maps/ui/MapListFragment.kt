@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.sort.NameMapSortStrategy
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupLoader
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.MapCleanupCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromCameraCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
@@ -290,6 +291,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     override fun onResume() {
         super.onResume()
         manager.refresh()
+        inBackground {
+            MapCleanupCommand(requireContext()).execute()
+        }
     }
 
     override fun onPause() {

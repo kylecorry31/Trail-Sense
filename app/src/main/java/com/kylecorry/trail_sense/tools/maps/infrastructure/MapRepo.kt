@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.extensions.onIO
@@ -19,8 +17,8 @@ class MapRepo private constructor(context: Context) : IMapRepo {
     private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
     private val files = FileSubsystem.getInstance(context)
 
-    override fun getMapsLive(): LiveData<List<Map>> {
-        return Transformations.map(mapDao.getAll()) { it.map(this::convertToMap) }
+    override suspend fun getAllMapFiles(): List<String> = onIO {
+        mapDao.getAllFilenames()
     }
 
     override suspend fun getMapGroup(id: Long): MapGroup? = onIO {

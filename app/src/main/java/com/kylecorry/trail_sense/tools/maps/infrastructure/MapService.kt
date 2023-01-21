@@ -59,6 +59,10 @@ class MapService private constructor(private val repo: IMapRepo) {
         return repo.getMapGroup(id)?.copy(count = counter.count(id))
     }
 
+    suspend fun getMapFilenames(): List<String> {
+        return repo.getAllMapFiles()
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: MapService? = null
