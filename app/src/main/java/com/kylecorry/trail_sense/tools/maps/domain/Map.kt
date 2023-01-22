@@ -18,6 +18,9 @@ data class Map(
     
     private var calculatedBounds: CoordinateBounds? = null
 
+    val isCalibrated: Boolean
+        get() = calibration.calibrationPoints.size >= 2
+
     fun projection(width: Float, height: Float): IMapProjection {
         return CalibratedProjection(calibration.calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location

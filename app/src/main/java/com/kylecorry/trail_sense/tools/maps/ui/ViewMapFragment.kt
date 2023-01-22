@@ -233,30 +233,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         binding.map.onMapLongClick = {
-
-            selectLocation(it)
-
-            lastDistanceToast?.cancel()
-            Share.actions(
-                this,
-                formatService.formatLocation(it),
-                listOf(
-                    ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
-                        createBeacon(it)
-                        selectLocation(null)
-                    },
-                    ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
-                        navigateTo(it)
-                        selectLocation(null)
-                    },
-                    ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                        showDistance(it)
-                        selectLocation(null)
-                    },
-                )
-            ) {
-                selectLocation(null)
-            }
+            onLongPress(it)
         }
 
         // TODO: Don't show if not calibrated or location not on map
@@ -320,6 +297,36 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     override fun onResume() {
         super.onResume()
         binding.map.setMyLocation(gps.location)
+    }
+
+    private fun onLongPress(location: Coordinate) {
+        if (map?.isCalibrated != true) {
+            return
+        }
+
+        selectLocation(location)
+
+        lastDistanceToast?.cancel()
+        Share.actions(
+            this,
+            formatService.formatLocation(location),
+            listOf(
+                ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
+                    createBeacon(location)
+                    selectLocation(null)
+                },
+                ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
+                    navigateTo(location)
+                    selectLocation(null)
+                },
+                ActionItem(getString(R.string.distance), R.drawable.ruler) {
+                    showDistance(location)
+                    selectLocation(null)
+                },
+            )
+        ) {
+            selectLocation(null)
+        }
     }
 
     fun reloadMap() {
@@ -534,8 +541,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun loadCalibrationPointsFromMap() {
         map ?: return
-        val first = if (map!!.calibration.calibrationPoints.isNotEmpty()) map!!.calibration.calibrationPoints[0] else null
-        val second = if (map!!.calibration.calibrationPoints.size > 1) map!!.calibration.calibrationPoints[1] else null
+        val first =
+            if (map!!.calibration.calibrationPoints.isNotEmpty()) map!!.calibration.calibrationPoints[0] else null
+        val second =
+            if (map!!.calibration.calibrationPoints.size > 1) map!!.calibration.calibrationPoints[1] else null
         calibrationPoint1 = first?.location
         calibrationPoint2 = second?.location
         calibrationPoint1Percent = first?.imageLocation
