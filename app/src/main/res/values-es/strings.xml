@@ -1107,4 +1107,5 @@
         <item quantity="other">%d mapas</item>
     </plurals>
     <string name="historic_temperatures">Temperaturas históricas</string>
+    <string name="delete_map_group_message">%s y todos tus mapas serán eliminados.</string>
 </resources>

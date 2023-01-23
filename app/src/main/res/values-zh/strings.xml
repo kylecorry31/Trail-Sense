@@ -1081,4 +1081,5 @@
     <plurals name="map_group_summary">
         <item quantity="other">%d 张地图</item>
     </plurals>
+    <string name="delete_map_group_message">将删除 %s 及其所有地图。</string>
 </resources>
