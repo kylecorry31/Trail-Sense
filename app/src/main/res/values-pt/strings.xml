@@ -1099,4 +1099,13 @@
     <string name="photo_maps">Mapas de fotografias</string>
     <string name="pref_show_temperature_in_notification_title">Mostrar temperatura na notificação</string>
     <string name="at_time">às %s</string>
+    <string name="delete_map_group_message">%s e todos os seus mapas serão eliminados.</string>
+    <string name="historic_temperature_years">Histórico (%d ano)</string>
+    <string name="historic_temperatures">Temperaturas históricas</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="many">%d mapas</item>
+        <item quantity="other">%d mapas</item>
+    </plurals>
+    <string name="historic_temperatures_full_disclaimer">As temperaturas são baseadas numa média anual de %d de dados históricos e podem não refletir as condições climáticas atuais.</string>
 </resources>
