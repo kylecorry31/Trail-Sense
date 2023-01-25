@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -49,6 +51,7 @@ object BacktrackScheduler {
         scheduler.cancel()
         BacktrackAlwaysOnService.stop(context)
         AllowForegroundWorkersCommand(context).execute()
+        Notify.cancel(context, BacktrackAlerter.NOTIFICATION_ID)
     }
 
     fun isOn(context: Context): Boolean {
