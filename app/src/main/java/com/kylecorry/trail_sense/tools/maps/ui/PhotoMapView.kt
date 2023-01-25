@@ -56,6 +56,8 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     private val files = FileSubsystem.getInstance(context)
 
+    private var shouldRecenter = true
+
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
     }
@@ -188,7 +190,13 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
         if (map?.calibration?.calibrationPoints?.size == 2) {
             maxScale = getScale(0.1f)
+            if (shouldRecenter && isImageLoaded) {
+                recenter()
+            }
             layers.forEach { it.draw(drawer, this) }
+        } else if (map != null) {
+            // Don't recenter if the map is not calibrated
+            shouldRecenter = false
         }
         drawer.pop()
 
@@ -217,6 +225,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     override fun onImageLoaded() {
         super.onImageLoaded()
         projection = map?.projection(realWidth.toFloat(), realHeight.toFloat())
+        shouldRecenter = true
         invalidate()
     }
 
@@ -250,6 +259,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     fun recenter() {
         resetScaleAndCenter()
+        shouldRecenter = false
     }
 
     fun showCalibrationPoints() {

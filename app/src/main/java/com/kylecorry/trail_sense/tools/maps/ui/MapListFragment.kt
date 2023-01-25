@@ -37,10 +37,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupLoader
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.MapCleanupCommand
-import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromCameraCommand
-import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
-import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
-import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.*
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.ui.commands.*
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.IMapMapper
@@ -275,6 +272,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
                 R.id.action_create_map_group -> {
                     createMapGroup()
+                }
+                R.id.action_create_blank_map -> {
+                    createMap(
+                        CreateBlankMapCommand(
+                            requireContext(),
+                            mapImportingIndicator
+                        )
+                    )
                 }
             }
             true
