@@ -1108,4 +1108,5 @@
         <item quantity="other">%d mapas</item>
     </plurals>
     <string name="historic_temperatures_full_disclaimer">As temperaturas são baseadas numa média anual de %d de dados históricos e podem não refletir as condições climáticas atuais.</string>
+    <string name="blank">Em branco</string>
 </resources>
