@@ -170,4 +170,70 @@
         <item quantity="other">%d 個地標</item>
     </plurals>
     <string name="tide_table">潮汐表</string>
+    <string name="updating_weather">更新緊天氣</string>
+    <string name="path_slope_flat">平坦</string>
+    <string name="path_slope_moderate">有斜路</string>
+    <string name="path_slope_steep">陡峭</string>
+    <string name="path_slope">斜坡</string>
+    <string name="camera_unavailable">相機用唔到</string>
+    <string name="clouds_clear">無雲</string>
+    <string name="manual">手動</string>
+    <string name="high_pressure">高壓</string>
+    <string name="low_pressure">低壓</string>
+    <string name="then_weather">隨後%s</string>
+    <string name="weather_clear">天晴</string>
+    <string name="weather_precipitation">降雨</string>
+    <string name="weather_wind">大風</string>
+    <string name="source">來源</string>
+    <string name="later">隨後出現</string>
+    <string name="now">現時出現</string>
+    <string name="pref_show_map_previews_title">顯示地圖預覽</string>
+    <string name="weather_alert_storm_description">準備好應對狂風、大雨。</string>
+    <string name="weather_alert_hot_description">準備好應對高溫天氣。採取額外預防措施，以免熱衰竭或中暑。</string>
+    <string name="weather_alert_cold_description">準備好應對低溫天氣。採取額外預防措施，以免失溫或凍傷。</string>
+    <string name="at_time">喺 %s</string>
+    <string name="last_lightning_strike_at">對上一次閃電喺 %s</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="other">刪除咗 %d 個中途點</item>
+    </plurals>
+    <plurals name="paths_imported">
+        <item quantity="other">匯入咗 %d 條路徑</item>
+    </plurals>
+    <string name="pref_backfill_temperatures_title">更新已紀錄嘅氣溫</string>
+    <string name="pref_backfill_temperatures_description">所有已紀錄嘅氣溫將會換成經校正嘅歷史氣溫。</string>
+    <string name="updating">更新緊</string>
+    <string name="hot">酷熱</string>
+    <string name="cold">寒冷</string>
+    <string name="weather_thunderstorm">雷暴</string>
+    <string name="historic_temperature_years">歷史 (%d 年)</string>
+    <string name="historic_temperatures">歷史氣溫</string>
+    <string name="historic_temperatures_full_disclaimer">氣溫乃基於過去 %d 年歷史數據嘅平均值，未必反映目前嘅天氣狀況。</string>
+    <plurals name="map_group_summary">
+        <item quantity="other">%d 幅地圖</item>
+    </plurals>
+    <string name="notification_storm_alert_text">一場風暴可能欲來</string>
+    <string name="weather_storm">風暴</string>
+    <string name="notification_monitoring_weather">幕後監測緊天氣</string>
+    <string name="very_soon">好快就到</string>
+    <string name="soon">就快嚟到</string>
+    <string name="alerts">警報</string>
+    <string name="storm_alerts">風暴警報</string>
+    <string name="notification_storm_alert_title">風暴警報</string>
+    <string name="next_24_hours">未來 24 個鐘</string>
+    <string name="sensor">感應器</string>
+    <string name="temperature_high_low">最高 / 最低</string>
+    <string name="tool_climate">氣候</string>
+    <string name="tool_climate_summary">睇下歷史氣溫</string>
+    <string name="samples">取樣數目</string>
+    <string name="now_value">現時：%s</string>
+    <string name="for_historic_temperatures">用於歷史氣溫</string>
+    <string name="altimeter_cache">高度錶快取</string>
+    <string name="smoothing">平滑化</string>
+    <string name="historic">歷史</string>
+    <string name="sensor_summary">羅經、GPS、高度錶、氣壓計等。</string>
+    <plurals name="tides_entered_count">
+        <item quantity="other">%d 個潮汐</item>
+    </plurals>
+    <string name="weather_overcast">密雲</string>
+    <string name="pressure_system">氣壓系統</string>
 </resources>
