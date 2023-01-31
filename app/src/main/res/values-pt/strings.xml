@@ -477,7 +477,7 @@
 \n
 \nUSNG (como 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (como TG 51409 13177)</string>
+\nOSGB (como TG 51409 13177)</string>
     <string name="location_input_help_title">Formatos de localização suportados</string>
     <string name="pref_backtrack_frequency_title">Intervalo do voltar para trás</string>
     <string name="pref_backtrack_enabled_summary">Registar histórico de localização</string>
@@ -729,7 +729,6 @@
     <string name="pack_sort_percent_high_to_low">Percentagem já na mochila (alta para baixa)</string>
     <string name="pack_sort_percent_low_to_high">Percentagem já na mochila (baixa para alta)</string>
     <string name="sort">Ordenar</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Eliminar itens na mochila\?</string>
     <string name="new_packing_list">Nova lista de itens na mochila</string>

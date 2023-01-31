@@ -490,7 +490,6 @@
     <string name="max_temp_uncalibrated">Maximale telefoontemperatuur (niet geijkt)</string>
     <string name="max_temp_calibrated">Maximale omgevingstemperatuur (geijkt)</string>
     <string name="pref_show_last_signal_beacon_title">Baken van het laatste signaal</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Pakket verwijderen\?</string>
     <string name="new_packing_list">Nieuwe paklijst</string>
@@ -678,7 +677,7 @@
 \n
 \nUSNG (vb. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (vb. TG 51409 13177)</string>
+\nOSGB (vb. TG 51409 13177)</string>
     <string name="action_inventory_clear_confirm">Alle verpakte bedragen wissen\?</string>
     <string name="elevation_history">Hoogtegeschiedenis</string>
     <string name="wgs84">WGS 84</string>

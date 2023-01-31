@@ -368,7 +368,7 @@
 \n
 \nUSNG (np. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (np. TG 51409 13177)</string>
+\nOSGB (np. TG 51409 13177)</string>
     <string name="create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
@@ -662,7 +662,6 @@
     <string name="pack_sort_weight_high_to_low">Waga (od najwyższej do najniższej)</string>
     <string name="pack_sort_weight_low_to_high">Waga (od najniższej do najwyższej)</string>
     <string name="sort">Sortuj</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="hygiene">Higiena</string>
     <string name="documents">Dokumenty</string>

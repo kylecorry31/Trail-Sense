@@ -531,7 +531,7 @@
 \n
 \nUSNG (örn. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (örn. TG 51409 13177)</string>
+\nOSGB (örn. TG 51409 13177)</string>
     <string name="location_input_help_title">Desteklenen konum biçimleri</string>
     <string name="pref_backtrack_enabled_summary">Konum geçmişini kaydet</string>
     <string name="last_signal_beacon_name">Son sinyal - %s (%s)</string>
@@ -687,7 +687,6 @@
     <string name="pack_sort_percent_high_to_low">Paketlenen yüzde (yüksekten düşüğe)</string>
     <string name="pack_sort_percent_low_to_high">Paketlenen yüzde (düşükten yükseğe)</string>
     <string name="sort">Sırala</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Paket silinsin mi\?</string>
     <string name="new_packing_list">Yeni paketleme listesi</string>

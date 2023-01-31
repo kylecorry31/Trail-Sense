@@ -83,15 +83,15 @@ dependencies {
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
-    implementation("com.google.android.material:material:1.7.0")
+    implementation("com.google.android.material:material:1.8.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.0")
     implementation("com.github.kylecorry31:subsampling-scale-image-view:v3.11.1")
 
     // Sol
-    implementation("com.github.kylecorry31:sol:6.3.2")
+    implementation("com.github.kylecorry31:sol:6.3.3")
 
     // Andromeda
-    val andromedaVersion = "5.0.0-beta29"
+    val andromedaVersion = "5.0.0-beta30"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")

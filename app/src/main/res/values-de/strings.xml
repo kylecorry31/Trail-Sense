@@ -355,7 +355,7 @@
 \n
 \nUSNG (z. B. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (z. B. TG 51409 13177)</string>
+\nOSGB (z. B. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%s, %s</string>
@@ -664,7 +664,6 @@
     <string name="destination_elevation">Zielhöhe</string>
     <string name="base_temperature">Basistemperatur</string>
     <string name="base_elevation">Basishöhe</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Packliste löschen\?</string>
     <string name="new_packing_list">Neue Packliste</string>

@@ -352,7 +352,7 @@
 \n
 \nUSNG (ex. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (ex. TG 51409 13177)</string>
+\nOSGB (ex. TG 51409 13177)</string>
     <string name="location_input_help_title">Formats de localisation supportés</string>
     <string name="pref_backtrack_frequency_title">Fréquence d\'enregistrement</string>
     <string name="pref_backtrack_enabled_summary">Enregistrer l\'historique des positions</string>
@@ -894,7 +894,6 @@
     <string name="pref_clinometer_baseline_distance_title">Distance de base</string>
     <string name="compass_unavailable">Boussole non disponible</string>
     <string name="gps_unavailable">GPS non disponible</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="path">Chemin</string>
     <string name="open">Ouvert</string>
     <string name="location_not_set">Localisation non définie</string>

@@ -562,7 +562,7 @@
 \n
 \nUSNG (mis. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (eks. TG 51409 13177)</string>
+\nOSGB (eks. TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">Lokasi tidak valid</string>
     <string name="pref_gps_override_title">Penggantian lokasi</string>
     <string name="delete_waypoint_prompt">Hapus titik jalan\?</string>
@@ -810,7 +810,6 @@
     <string name="default_pack_name">Paket bawaan</string>
     <string name="no_packing_lists">Tidak ada daftar kemasan</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="gps_unavailable_resolution">Aktifkan Lokasi atau ubah sumber lokasi Anda menjadi Hanya Perangkat atau Akurasi Tinggi</string>
     <string name="units_mmhg_short">mm</string>
     <string name="navigate">Navigasi</string>

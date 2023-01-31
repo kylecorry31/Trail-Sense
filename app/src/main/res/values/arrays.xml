@@ -126,7 +126,7 @@
         <item>@string/coordinate_format_utm</item>
         <item>@string/coordinate_format_mgrs</item>
         <item>@string/coordinate_format_usng</item>
-        <item>@string/coordinate_format_osng</item>
+        <item>@string/coordinate_format_osgb</item>
     </string-array>
 
     <string-array name="coordinate_format_values">

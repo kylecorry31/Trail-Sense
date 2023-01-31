@@ -546,7 +546,6 @@
     <string name="documents">Dokumentumok</string>
     <string name="percent_packed">%s becsomagolva</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="num_satellites">%d műhold</string>
     <string name="wgs84">WGS 84</string>
     <string name="elevation_history">Magasság előzmények</string>
@@ -926,7 +925,7 @@
 \n
 \nUSNG (pl. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (pl. TG 51409 13177)</string>
+\nOSGB (pl. TG 51409 13177)</string>
     <string name="pref_gps_override_title">Hely felülírása</string>
     <string name="stratus_desc">Alacsony felhő, mely beborítja az eget. Nincsenek éles árnyékok és ködös lehet az idő.</string>
     <string name="gps_stale">Elévült</string>

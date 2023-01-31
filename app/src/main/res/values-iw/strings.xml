@@ -618,7 +618,7 @@
 \n
 \nUSNG (לדוגמה: 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (לדוגמה TG 51409 13177)</string>
+\nOSGB (לדוגמה TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">מיקום לא חוקי</string>
     <string name="pref_require_satellites_title">דרוש תיקון לוויין</string>
     <string name="stratus_desc">ענן נמוך שמכסה את השמים. חפצים אינם מטילים צללים וייתכן שיהיה ערפילי.</string>
@@ -952,7 +952,6 @@
     <string name="milliseconds_format">%s אלפ\"ש</string>
     <string name="seconds_format">%s שנ</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="sort">מיון</string>
     <string name="no_compass_message">להתקן שלך אין חיישן מצפן</string>
     <string name="activity_recognition">זיהוי פעילות</string>

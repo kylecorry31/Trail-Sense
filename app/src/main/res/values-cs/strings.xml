@@ -389,7 +389,7 @@
 \n
 \nUSNG (ex. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (ex. TG 51409 13177)</string>
+\nOSGB (ex. TG 51409 13177)</string>
     <string name="battery_power_usb">USB</string>
     <string name="pref_low_power_mode_title">Úsporný režim</string>
     <string name="charging_wireless">Nabíjení (%s)</string>
@@ -723,7 +723,6 @@
     <string name="average_speed_backtrack">Průměrná rychlost (zpáteční navigace)</string>
     <string name="beacon_created">Maják vytvořen</string>
     <string name="camera">Fotoaparát</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="destination_elevation">Nadmořská výška cíle</string>
     <string name="distance_alert">Upozornění na vzdálenost</string>
     <string name="clinometer_measure_height_instructions">Pro změření výšky objektu vzdáleného %s:

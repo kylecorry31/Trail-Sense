@@ -442,7 +442,7 @@
 \n
 \nUSNG (ex. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (ex. TG 51409 13177)</string>
+\nOSGB (ex. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
     <string name="waypoint_time_format">%s, %s</string>
@@ -684,7 +684,6 @@
     <string name="pack_sort_percent_high_to_low">Porcentagem incluída (alta a baixa)</string>
     <string name="pack_sort_percent_low_to_high">Porcentagem incluída (baixa a alta)</string>
     <string name="sort">Ordenar</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Excluir o pacote\?</string>
     <string name="new_packing_list">Nova lista de conteúdo</string>

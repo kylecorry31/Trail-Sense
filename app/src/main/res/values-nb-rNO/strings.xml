@@ -330,7 +330,7 @@
 \n
 \nUSNG (eks. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (eks. TG 51409 13177)</string>
+\nOSGB (eks. TG 51409 13177)</string>
     <string name="location_input_help_title">Støttede posisjonsformater</string>
     <string name="battery_power_usb">USB</string>
     <string name="low_power_mode_on_message">Strømsparingsmodus på, noen funksjoner kan være deaktivert.</string>
@@ -529,7 +529,6 @@
     <string name="hygiene">Hygiene</string>
     <string name="documents">Dokumenter</string>
     <string name="electronics">Elektronikk</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="wgs84">WGS 84</string>
     <string name="elevation_history">Høydehistorikk</string>

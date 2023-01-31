@@ -366,7 +366,7 @@
 \n
 \nUSNG (如， 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (如， TG 51409 13177)</string>
+\nOSGB (如， TG 51409 13177)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="tool_thermometer_title">温度计</string>
     <string name="guide_thermometer_calibration_title">温度计校正</string>
@@ -658,7 +658,6 @@
     <string name="destination_elevation">目的地海拔</string>
     <string name="base_temperature">基础温度</string>
     <string name="base_elevation">基础海拔</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">删除包装？</string>
     <string name="new_packing_list">新包装清单</string>

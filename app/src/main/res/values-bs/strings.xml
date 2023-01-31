@@ -65,7 +65,6 @@
     <string name="access_background_location">Ažurirajte postavke lokacije</string>
     <string name="copied_to_clipboard_toast">Kopirano u međuspremnik</string>
     <string name="tools">Alati</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Izbrisati paket\?</string>
     <string name="new_packing_list">Nova lista za pakovanje</string>
@@ -609,7 +608,7 @@
 \n
 \nUSNG (npr. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (npr. TG 51409 13177)</string>
+\nOSGB (npr. TG 51409 13177)</string>
     <string name="location_input_help_title">Podržani formati za lokacije</string>
     <string name="pref_backtrack_frequency_title">Interval Izatraga</string>
     <string name="pref_backtrack_enabled_summary">Svinje lokacijsku historiju</string>

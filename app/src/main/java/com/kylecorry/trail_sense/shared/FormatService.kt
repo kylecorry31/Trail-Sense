@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDecimalDegrees
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDegreeDecimalMinutes
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDegreeMinutesSeconds
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toMGRS
-import com.kylecorry.andromeda.core.units.CoordinateExtensions.toOSNG
+import com.kylecorry.andromeda.core.units.CoordinateExtensions.toOSGB
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toUSNG
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toUTM
 import com.kylecorry.andromeda.core.units.CoordinateFormat
@@ -468,7 +468,7 @@ class FormatService(private val context: Context) {
             CoordinateFormat.UTM -> location.toUTM()
             CoordinateFormat.MGRS -> location.toMGRS()
             CoordinateFormat.USNG -> location.toUSNG()
-            CoordinateFormat.OSNG_OSGB36 -> location.toOSNG()
+            CoordinateFormat.OSGB -> location.toOSGB()
         }
         if (formatted == "?" && fallbackToDD) {
             return location.toDecimalDegrees()
@@ -484,7 +484,7 @@ class FormatService(private val context: Context) {
             CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
             CoordinateFormat.MGRS -> context.getString(R.string.coordinate_format_mgrs)
             CoordinateFormat.USNG -> context.getString(R.string.coordinate_format_usng)
-            CoordinateFormat.OSNG_OSGB36 -> context.getString(R.string.coordinate_format_osng)
+            CoordinateFormat.OSGB -> context.getString(R.string.coordinate_format_osgb)
         }
     }
 

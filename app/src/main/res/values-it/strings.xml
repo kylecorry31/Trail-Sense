@@ -413,7 +413,7 @@
 \n
 \nUSNG (es. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (es. TG 51409 13177)</string>
+\nOSGB (es. TG 51409 13177)</string>
     <string name="backtrack_disabled_low_power_toast">Ritorno è disabilitato in modalità risparmio energetico</string>
     <string name="pref_low_power_mode_summary">Disabilita alcune funzioni per risparmiare energia</string>
     <string name="cirrus">Cirro</string>

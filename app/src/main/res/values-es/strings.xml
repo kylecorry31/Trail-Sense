@@ -297,7 +297,7 @@
 \n
 \nUSNG (ej. 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (ej. TG 51409 13177)</string>
+\nOSGB (ej. TG 51409 13177)</string>
     <string name="current_format">%s mA</string>
     <string name="pref_low_power_mode_summary">Desactiva algunas funciones para ahorrar energía</string>
     <string name="pref_require_satellites_description">Requiere al menos 4 satélites, mejora la precisión</string>
@@ -747,7 +747,6 @@
     <string name="new_packing_list">Nueva lista de empacado</string>
     <string name="delete_pack">¿Eliminar paquete\?</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="pack_sort_percent_low_to_high">Porcentaje empacado (bajo a alto)</string>
     <string name="humidity">Humedad</string>
     <string name="elevation_history">Historial de altitud</string>

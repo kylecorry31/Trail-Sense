@@ -167,7 +167,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 "utm" -> CoordinateFormat.UTM
                 "mgrs" -> CoordinateFormat.MGRS
                 "usng" -> CoordinateFormat.USNG
-                "osng" -> CoordinateFormat.OSNG_OSGB36
+                "osng" -> CoordinateFormat.OSGB
                 else -> CoordinateFormat.DecimalDegrees
             }
         }

@@ -374,7 +374,7 @@
 \n
 \nUSNG: 14S NJ 39521 41744
 \n
-\nOSNG (OSGB36): TG 51409 13177</string>
+\nOSGB: TG 51409 13177</string>
     <string name="location_input_help_title">Поддерживаемые форматы местоположения</string>
     <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
     <string name="pref_backtrack_enabled_summary">Записывать историю местоположений</string>
@@ -633,7 +633,6 @@
     <string name="pack_sort_percent_low_to_high">Процент упаковки (по возрастанию)</string>
     <string name="pack_sort_percent_high_to_low">Процент упаковки (по убыванию)</string>
     <string name="sort">Сортировать</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Удалить пакет\?</string>
     <string name="new_packing_list">Новый список упаковки</string>

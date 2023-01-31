@@ -381,7 +381,7 @@
 \n
 \nUSNG (наприклад 14S NJ 39521 41744)
 \n
-\nOSNG (OSGB36) (наприклад TG 51409 13177)</string>
+\nOSGB (наприклад TG 51409 13177)</string>
     <string name="location_input_help_title">Підтримувані формати місцеперебування</string>
     <string name="pref_backtrack_frequency_title">Інтервал історії маршруту</string>
     <string name="pref_backtrack_enabled_summary">Записувати історію місцеперебувань</string>
@@ -684,7 +684,6 @@
     <string name="pack_sort_percent_high_to_low">Відсоток упакованого (від більшого до меншого)</string>
     <string name="pack_sort_percent_low_to_high">Відсоток упакованого (від меншого до більшого)</string>
     <string name="sort">Упорядкування</string>
-    <string name="coordinate_format_osng">OSNG (OSGB36)</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Видалити пакет\?</string>
     <string name="new_packing_list">Новий список упакування</string>
