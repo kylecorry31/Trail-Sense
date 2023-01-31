@@ -1110,4 +1110,15 @@
     <string name="at_time">о %s</string>
     <string name="last_lightning_strike_at">Останній удар о %s</string>
     <string name="photo_maps">Фотомапи</string>
+    <string name="historic_temperatures_full_disclaimer">Температурні показники базуються на середньорічних історичних даних %d і можуть не відображати поточні погодні умови.</string>
+    <string name="delete_map_group_message">%s і всі її мапи буде видалено.</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d мапа</item>
+        <item quantity="few">%d мапи</item>
+        <item quantity="many">%d мап</item>
+        <item quantity="other">%d мап</item>
+    </plurals>
+    <string name="blank">Пусто</string>
+    <string name="historic_temperature_years">Історична (%d рік)</string>
+    <string name="historic_temperatures">Історичні температури</string>
 </resources>

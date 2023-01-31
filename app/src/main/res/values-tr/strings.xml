@@ -1094,4 +1094,5 @@
         <item quantity="other">%d harita</item>
     </plurals>
     <string name="delete_map_group_message">%s ve tüm haritaları silinecek.</string>
+    <string name="blank">Boş</string>
 </resources>
