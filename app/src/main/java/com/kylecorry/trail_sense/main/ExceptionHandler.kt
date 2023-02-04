@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.main
 
+import android.util.Log
 import com.kylecorry.andromeda.exceptions.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.errors.DiagnosticsBugReportGenerator
@@ -20,7 +21,8 @@ object ExceptionHandler {
                     StackTraceBugReportGenerator()
                 )
             )
-        ) { context, _ ->
+        ) { context, log ->
+            Log.e("Trail Sense", log)
             BugReportEmailMessage(
                 context.getString(R.string.error_occurred),
                 context.getString(R.string.error_occurred_message),

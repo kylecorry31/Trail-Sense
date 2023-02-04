@@ -4,16 +4,26 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.view.View
 import androidx.core.net.toUri
+import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.shared.views.CoordinateInputView
+import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
@@ -27,12 +37,11 @@ class CreateBlankMapCommand(
 
     private val files = FileSubsystem.getInstance(context)
     private val location = LocationSubsystem.getInstance(context)
+    private val prefs = UserPreferences(context)
+    private val formatter = FormatService.getInstance(context)
 
     override suspend fun execute(): Map? = onIO {
-
-        val center = location.location
-        val distance = Distance.kilometers(2f)
-        val topLeft = center.plus(distance, Bearing.from(CompassDirection.NorthWest))
+        val calibration = getCalibration() ?: return@onIO null
 
         onMain {
             loadingIndicator.show()
@@ -55,17 +64,12 @@ class CreateBlankMapCommand(
             ).execute()
             DeleteTempFilesCommand(context).execute()
 
-            val calibrationPoints = listOf(
-                MapCalibrationPoint(center, PercentCoordinate(0.5f, 0.5f)),
-                MapCalibrationPoint(topLeft, PercentCoordinate(0f, 0f)),
-            )
-
             val calibrated = map?.copy(
                 calibration = MapCalibration(
                     true,
                     true,
                     0,
-                    calibrationPoints
+                    calibration
                 )
             )
 
@@ -78,4 +82,60 @@ class CreateBlankMapCommand(
             }
         }
     }
+
+    private suspend fun getCalibration(): List<MapCalibrationPoint>? {
+        val allUnits = formatter.sortDistanceUnits(
+            listOf(
+                DistanceUnits.Feet,
+                DistanceUnits.Yards,
+                DistanceUnits.Meters,
+                DistanceUnits.Miles,
+                DistanceUnits.Kilometers,
+                DistanceUnits.NauticalMiles
+            )
+        )
+        
+        val defaultDistance =
+            Distance.kilometers(2f).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        var distance = defaultDistance
+        var center = location.location
+
+        val cancelled = onMain {
+            val view = View.inflate(context, R.layout.fragment_blank_map_create_sheet, null)
+            val distanceInput = view.findViewById<DistanceInputView>(R.id.distance_input)
+            val coordinateInput = view.findViewById<CoordinateInputView>(R.id.coordinate_input)
+
+            coordinateInput.coordinate = center
+            coordinateInput.setOnCoordinateChangeListener {
+                center = it ?: location.location
+            }
+
+            distanceInput.units = allUnits
+            distanceInput.value = distance
+            distanceInput.setOnValueChangeListener {
+                distance = it ?: defaultDistance
+            }
+
+            try {
+                CoroutineAlerts.dialog(
+                    context,
+                    context.getString(R.string.create_blank_map),
+                    contentView = view
+                )
+            } finally {
+                tryOrNothing { coordinateInput.pause() }
+            }
+        }
+
+        if (cancelled) {
+            return null
+        }
+
+        val topLeft = center.plus(distance, Bearing.from(CompassDirection.NorthWest))
+        return listOf(
+            MapCalibrationPoint(center, PercentCoordinate(0.5f, 0.5f)),
+            MapCalibrationPoint(topLeft, PercentCoordinate(0f, 0f)),
+        )
+    }
+
 }
