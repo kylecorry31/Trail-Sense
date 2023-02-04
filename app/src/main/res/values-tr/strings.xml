@@ -1095,4 +1095,5 @@
     </plurals>
     <string name="delete_map_group_message">%s ve tüm haritaları silinecek.</string>
     <string name="blank">Boş</string>
+    <string name="coordinate_format_osgb">OSGB</string>
 </resources>
