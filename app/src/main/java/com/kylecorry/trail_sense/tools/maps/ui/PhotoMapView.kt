@@ -189,7 +189,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         }
 
         if (map?.calibration?.calibrationPoints?.size == 2) {
-            maxScale = getScale(0.1f)
+            maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
             if (shouldRecenter && isImageLoaded) {
                 recenter()
             }
@@ -273,7 +273,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     }
 
     fun zoomBy(multiple: Float) {
-        requestScale((scale * multiple).coerceIn(minScale, maxScale))
+        requestScale((scale * multiple).coerceIn(minScale, max(2 * minScale, maxScale)))
     }
 
     private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
