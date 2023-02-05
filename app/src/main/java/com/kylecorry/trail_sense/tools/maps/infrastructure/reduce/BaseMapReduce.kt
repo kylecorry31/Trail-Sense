@@ -5,7 +5,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import java.util.*
 
@@ -18,7 +18,7 @@ abstract class BaseMapReduce(
     private val mapRepo = MapRepo.getInstance(context)
     private val files = FileSubsystem.getInstance(context)
 
-    override suspend fun reduce(map: Map) = onIO {
+    override suspend fun reduce(map: PhotoMap) = onIO {
         val bmp = files.bitmap(map.filename, maxSize?.toAndroidSize())
         files.save(map.filename, bmp, quality, true)
         if (!map.filename.endsWith(".webp")) {

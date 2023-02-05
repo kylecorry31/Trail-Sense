@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
@@ -32,7 +32,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private val formatter by lazy { FormatService(requireContext()) }
 
     private var mapId = 0L
-    private var map: Map? = null
+    private var map: PhotoMap? = null
     private var currentFragment: Fragment? = null
 
     private val exportService by lazy { FragmentMapExportService(this) }
@@ -160,7 +160,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
     }
 
-    private fun onMapLoad(map: Map) {
+    private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.mapName.text = map.name
         val fragmentManager = parentFragmentManager

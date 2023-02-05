@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapMetadata
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
@@ -17,7 +17,7 @@ class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, pr
 
     private val files = FileSubsystem.getInstance(context)
 
-    suspend fun execute(uri: Uri): Map? = onIO {
+    suspend fun execute(uri: Uri): PhotoMap? = onIO {
         val file = files.copyToLocal(uri, "maps") ?: return@onIO null
         var rotation = 0
         tryOrLog {
@@ -29,7 +29,7 @@ class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, pr
         val imageSize = files.imageSize(path)
         val fileSize = files.size(path)
 
-        val map = Map(
+        val map = PhotoMap(
             0,
             name,
             path,

@@ -42,7 +42,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
@@ -80,7 +80,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var lastDistanceToast: Toast? = null
 
     private var mapId = 0L
-    private var map: Map? = null
+    private var map: PhotoMap? = null
     private var destination: Beacon? = null
 
     private var calibrationPoint1Percent: PercentCoordinate? = null
@@ -469,7 +469,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         hideNavigation()
     }
 
-    private fun onMapLoad(map: Map) {
+    private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.map.showMap(map)
         if (map.calibration.calibrationPoints.size < 2) {

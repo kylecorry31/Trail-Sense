@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.LowQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityMapReducer
@@ -15,8 +15,8 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.MediumQualityM
 class ResizeMapCommand(
     private val context: Context,
     private val loadingIndicator: ILoadingIndicator
-) : CoroutineCommand<Map> {
-    override suspend fun execute(value: Map) {
+) : CoroutineCommand<PhotoMap> {
+    override suspend fun execute(value: PhotoMap) {
         val resolution = onMain {
             CoroutinePickers.item(
                 context,

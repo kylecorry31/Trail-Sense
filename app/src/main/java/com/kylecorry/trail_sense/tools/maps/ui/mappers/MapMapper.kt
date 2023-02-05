@@ -14,19 +14,19 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapMapper(
     private val gps: IGPS,
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner,
-    private val actionHandler: (Map, MapAction) -> Unit
-) : ListItemMapper<Map> {
+    private val actionHandler: (PhotoMap, MapAction) -> Unit
+) : ListItemMapper<PhotoMap> {
 
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
 
-    override fun map(value: Map): ListItem {
+    override fun map(value: PhotoMap): ListItem {
         val onMap = value.boundary()?.contains(gps.location) ?: false
         val icon = if (prefs.navigation.showMapPreviews) {
             AsyncListIcon(
@@ -77,7 +77,7 @@ class MapMapper(
         }
     }
 
-    private suspend fun loadMapThumbnail(map: Map): Bitmap = onIO {
+    private suspend fun loadMapThumbnail(map: PhotoMap): Bitmap = onIO {
         val size = Resources.dp(context, 48f).toInt()
         val bitmap = try {
             FileSubsystem.getInstance(context).bitmap(map.filename, Size(size, size))

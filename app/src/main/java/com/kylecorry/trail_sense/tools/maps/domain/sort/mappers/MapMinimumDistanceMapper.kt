@@ -4,7 +4,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapMinimumDistanceMapper(
     override val loader: IGroupLoader<IMap>,
@@ -13,7 +13,7 @@ class MapMinimumDistanceMapper(
 ) : GroupMapper<IMap, Float, Float>() {
 
     override suspend fun getValue(item: IMap): Float {
-        val bounds = if (item is Map) {
+        val bounds = if (item is PhotoMap) {
             item.boundary()
         } else {
             null

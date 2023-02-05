@@ -5,14 +5,14 @@ import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.ExportService
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class ExportMapCommand(
-    private val exporter: ExportService<Map>,
+    private val exporter: ExportService<PhotoMap>,
     private val loading: ILoadingIndicator
 ) {
 
-    suspend fun execute(map: Map): Boolean = onIO {
+    suspend fun execute(map: PhotoMap): Boolean = onIO {
         onMain {
             loading.show()
         }

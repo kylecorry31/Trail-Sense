@@ -6,18 +6,18 @@ import android.util.Size
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.pdf.*
 import com.kylecorry.sol.science.geology.ReferenceEllipsoid
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 
 class MapExportService(
     context: Context,
     private val uriPicker: UriPicker,
     private val uriService: UriService
-) : ExportService<Map> {
+) : ExportService<PhotoMap> {
 
     private val files = FileSubsystem.getInstance(context)
 
-    override suspend fun export(data: Map, filename: String): Boolean {
+    override suspend fun export(data: PhotoMap, filename: String): Boolean {
         val pdf = getPDFData(data)
         val uri = uriPicker.create(filename, "application/pdf") ?: return false
         uriService.outputStream(uri)?.use {
@@ -26,7 +26,7 @@ class MapExportService(
         return true
     }
 
-    private fun getPDFData(map: Map): List<PDFObject> {
+    private fun getPDFData(map: PhotoMap): List<PDFObject> {
         var bitmap: Bitmap? = null
         try {
             val maxImageSize = 2048

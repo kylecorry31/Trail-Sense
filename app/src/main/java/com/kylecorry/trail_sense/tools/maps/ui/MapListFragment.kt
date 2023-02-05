@@ -27,8 +27,8 @@ import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.sort.ClosestMapSortStrategy
 import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.maps.domain.sort.MostRecentMapSortStrategy
@@ -191,7 +191,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
     }
 
-    private fun onMapAction(map: Map, action: MapAction) {
+    private fun onMapAction(map: PhotoMap, action: MapAction) {
         when (action) {
             MapAction.View -> view(map)
             MapAction.Delete -> delete(map)
@@ -202,14 +202,14 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         }
     }
 
-    private fun resize(map: Map) {
+    private fun resize(map: PhotoMap) {
         inBackground {
             ResizeMapCommand(requireContext(), mapImportingIndicator).execute(map)
             manager.refresh()
         }
     }
 
-    private fun export(map: Map) {
+    private fun export(map: PhotoMap) {
         exportService.export(map)
     }
 
@@ -295,9 +295,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onResume() {
         super.onResume()
-        manager.refresh()
         inBackground {
             MapCleanupCommand(requireContext()).execute()
+            manager.refresh()
         }
     }
 

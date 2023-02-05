@@ -28,7 +28,7 @@ data class MapEntity(
     @ColumnInfo(name = "_id")
     var id: Long = 0
 
-    fun toMap(): Map {
+    fun toMap(): PhotoMap {
         val points = mutableListOf<MapCalibrationPoint>()
 
         if (percentX1 != null && percentY1 != null && longitude1 != null && latitude1 != null) {
@@ -58,11 +58,11 @@ data class MapEntity(
             projection = projection
         )
 
-        return Map(id, name, filename, calibration, metadata, parent)
+        return PhotoMap(id, name, filename, calibration, metadata, parent)
     }
 
     companion object {
-        fun from(map: Map): MapEntity {
+        fun from(map: PhotoMap): MapEntity {
             val calibration = map.calibration
             return MapEntity(
                 map.name,

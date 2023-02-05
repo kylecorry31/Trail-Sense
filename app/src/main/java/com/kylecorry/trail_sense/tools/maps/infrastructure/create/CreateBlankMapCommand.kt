@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
@@ -40,7 +40,7 @@ class CreateBlankMapCommand(
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
 
-    override suspend fun execute(): Map? = onIO {
+    override suspend fun execute(): PhotoMap? = onIO {
         val calibration = getCalibration() ?: return@onIO null
 
         onMain {

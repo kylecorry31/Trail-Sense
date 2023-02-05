@@ -8,7 +8,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.*
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 import java.io.IOException
 import java.util.*
@@ -17,7 +17,7 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
 
     private val files = FileSubsystem.getInstance(context)
 
-    suspend fun execute(uri: Uri): Map? = onIO {
+    suspend fun execute(uri: Uri): PhotoMap? = onIO {
         val filename = "maps/" + UUID.randomUUID().toString() + ".webp"
         val calibrationPoints = mutableListOf<MapCalibrationPoint>()
         var projection = MapProjectionType.CylindricalEquidistant
@@ -54,7 +54,7 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         val imageSize = files.imageSize(filename)
         val fileSize = files.size(filename)
 
-        val map = Map(
+        val map = PhotoMap(
             0,
             name,
             filename,

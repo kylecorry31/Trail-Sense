@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapPickers
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
@@ -35,7 +35,7 @@ class MoveMapCommand(private val context: Context, private val service: MapServi
 
         if (value is MapGroup) {
             service.add(value.copy(parentId = results.second?.id))
-        } else if (value is Map) {
+        } else if (value is PhotoMap) {
             service.add(value.copy(parentId = results.second?.id))
         }
 

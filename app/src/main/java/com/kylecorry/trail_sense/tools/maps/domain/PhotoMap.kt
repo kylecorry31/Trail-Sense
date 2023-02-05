@@ -5,7 +5,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Distance
 
-data class Map(
+data class PhotoMap(
     override val id: Long,
     override val name: String,
     val filename: String,
@@ -19,7 +19,7 @@ data class Map(
     private var calculatedBounds: CoordinateBounds? = null
 
     val isCalibrated: Boolean
-        get() = calibration.calibrationPoints.size >= 2
+        get() = calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0
 
     fun projection(width: Float, height: Float): IMapProjection {
         return CalibratedProjection(calibration.calibrationPoints.map {
@@ -28,7 +28,7 @@ data class Map(
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {
-        if (calibration.calibrationPoints.size < 2) {
+        if (!isCalibrated) {
             // Or throw, not enough calibration points
             return null
         }
@@ -69,8 +69,7 @@ data class Map(
     }
 
     fun boundary(width: Float, height: Float): CoordinateBounds? {
-        if (calibration.calibrationPoints.isEmpty()) {
-            // Or throw, not enough calibration points
+        if (!isCalibrated) {
             return null
         }
 

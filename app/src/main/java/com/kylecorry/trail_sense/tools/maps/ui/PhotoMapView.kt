@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import kotlin.math.max
 import kotlin.math.min
@@ -41,7 +41,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     private lateinit var drawer: ICanvasDrawer
     private var isSetup = false
     private var myLocation: Coordinate? = null
-    private var map: Map? = null
+    private var map: PhotoMap? = null
     private val mapPath = Path()
     private var projection: IMapProjection? = null
     private val lookupMatrix = Matrix()
@@ -203,7 +203,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         drawCalibrationPoints()
     }
 
-    fun showMap(map: Map) {
+    fun showMap(map: PhotoMap) {
         if (orientation != map.calibration.rotation) {
             orientation = when (map.calibration.rotation) {
                 90 -> ORIENTATION_90

@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 
 class CreateMapFromCameraCommand(
@@ -14,7 +14,7 @@ class CreateMapFromCameraCommand(
     private val repo: IMapRepo,
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {
-    override suspend fun execute(): Map? = onIO {
+    override suspend fun execute(): PhotoMap? = onIO {
         val uri = CustomUiUtils.takePhoto(fragment) ?: return@onIO null
         onMain {
             loadingIndicator.show()

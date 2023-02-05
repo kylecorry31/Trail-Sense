@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +26,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     private var mapId = 0L
-    private var map: Map? = null
+    private var map: PhotoMap? = null
 
     private var onDone: () -> Unit = {}
 
@@ -75,7 +75,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     }
 
 
-    private fun onMapLoad(map: Map) {
+    private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.perspective.mapRotation = map.calibration.rotation.toFloat()
         binding.perspective.setImage(map.filename)

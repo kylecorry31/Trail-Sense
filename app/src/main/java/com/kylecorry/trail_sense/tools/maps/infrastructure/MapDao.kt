@@ -5,8 +5,8 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 
 @Dao
 interface MapDao {
-    @Query("SELECT filename FROM maps")
-    suspend fun getAllFilenames(): List<String>
+    @Query("SELECT * FROM maps")
+    suspend fun getAll(): List<MapEntity>
 
     @Query("SELECT * FROM maps where parent IS :parent")
     suspend fun getAllWithParent(parent: Long?): List<MapEntity>

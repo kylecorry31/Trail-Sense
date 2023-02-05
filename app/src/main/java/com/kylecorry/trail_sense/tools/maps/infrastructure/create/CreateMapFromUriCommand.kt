@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 
 class CreateMapFromUriCommand(
@@ -20,7 +20,7 @@ class CreateMapFromUriCommand(
 
     private val files = FileSubsystem.getInstance(context)
 
-    override suspend fun execute(): Map? = onIO {
+    override suspend fun execute(): PhotoMap? = onIO {
         val filename = files.getFileName(uri, withExtension = false, fallbackToPathName = false)
         val name = onMain {
             CoroutinePickers.text(context, context.getString(R.string.name), default = filename)

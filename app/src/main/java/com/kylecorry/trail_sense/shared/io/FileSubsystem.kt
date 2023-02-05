@@ -9,6 +9,7 @@ import android.util.Size
 import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.files.LocalFileSystem
@@ -90,13 +91,16 @@ class FileSubsystem private constructor(private val context: Context) {
     }
 
     fun imageSize(path: String): Size {
-        val file = get(path)
-        val size = BitmapUtils.getBitmapSize(file.path)
-        return Size(size.first, size.second)
+        return tryOrDefault(Size(0, 0)) {
+            val file = get(path)
+            val size = BitmapUtils.getBitmapSize(file.path)
+            Size(size.first, size.second)
+        }
+
     }
 
     fun size(path: String): Long {
-        return get(path).length()
+        return tryOrDefault(0L) { get(path).length() }
     }
 
     fun uri(path: String, create: Boolean = false): Uri {

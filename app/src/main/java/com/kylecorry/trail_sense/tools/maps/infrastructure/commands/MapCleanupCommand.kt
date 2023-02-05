@@ -13,11 +13,21 @@ class MapCleanupCommand(context: Context) : CoroutineCommand {
 
 
     override suspend fun execute() = onIO {
-        val mapFiles = service.getMapFilenames()
+        val maps = service.getAllMaps()
         val allFiles = files.list("maps").map { "maps/${it.name}" }
+
+        // Delete files without a map
+        val mapFiles = maps.map { it.filename }
         val orphanedFiles = allFiles.filter { !mapFiles.contains(it) }
         orphanedFiles.forEach {
             files.delete(it)
+        }
+
+        // Delete maps without a file
+        val toDelete = maps.filter { !allFiles.contains(it.filename) }
+
+        toDelete.forEach {
+            service.delete(it)
         }
     }
 }

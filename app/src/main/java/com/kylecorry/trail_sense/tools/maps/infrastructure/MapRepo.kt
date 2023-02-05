@@ -2,14 +2,15 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroupEntity
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapRepo private constructor(context: Context) : IMapRepo {
 
@@ -17,20 +18,20 @@ class MapRepo private constructor(context: Context) : IMapRepo {
     private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
     private val files = FileSubsystem.getInstance(context)
 
-    override suspend fun getAllMapFiles(): List<String> = onIO {
-        mapDao.getAllFilenames()
+    override suspend fun getAllMaps(): List<PhotoMap> = onIO {
+        mapDao.getAll().map { convertToMap(it) }
     }
 
     override suspend fun getMapGroup(id: Long): MapGroup? = onIO {
         mapGroupDao.get(id)?.toMapGroup()
     }
 
-    override suspend fun getMap(id: Long): Map? = onIO {
+    override suspend fun getMap(id: Long): PhotoMap? = onIO {
         mapDao.get(id)?.let { convertToMap(it) }
     }
 
-    override suspend fun deleteMap(map: Map) = onIO {
-        files.delete(map.filename)
+    override suspend fun deleteMap(map: PhotoMap) = onIO {
+        tryOrNothing { files.delete(map.filename) }
         mapDao.delete(MapEntity.from(map))
     }
 
@@ -47,7 +48,7 @@ class MapRepo private constructor(context: Context) : IMapRepo {
         }
     }
 
-    override suspend fun addMap(map: Map): Long = onIO {
+    override suspend fun addMap(map: PhotoMap): Long = onIO {
         if (map.id == 0L) {
             mapDao.insert(MapEntity.from(map))
         } else {
@@ -56,7 +57,7 @@ class MapRepo private constructor(context: Context) : IMapRepo {
         }
     }
 
-    override suspend fun getMaps(parentId: Long?): List<Map> = onIO {
+    override suspend fun getMaps(parentId: Long?): List<PhotoMap> = onIO {
         mapDao.getAllWithParent(parentId).map { convertToMap(it) }
     }
 
@@ -64,7 +65,7 @@ class MapRepo private constructor(context: Context) : IMapRepo {
         mapGroupDao.getAllWithParent(parentId).map { it.toMapGroup() }
     }
 
-    private fun convertToMap(map: MapEntity): Map {
+    private fun convertToMap(map: MapEntity): PhotoMap {
         val newMap = map.toMap()
         val size = files.imageSize(newMap.filename)
         val fileSize = files.size(newMap.filename)

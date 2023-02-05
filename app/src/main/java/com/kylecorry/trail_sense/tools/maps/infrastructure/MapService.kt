@@ -6,9 +6,9 @@ import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
-import com.kylecorry.trail_sense.tools.maps.domain.Map
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapService private constructor(private val repo: IMapRepo) {
 
@@ -18,7 +18,7 @@ class MapService private constructor(private val repo: IMapRepo) {
     private val deleter = object : GroupDeleter<IMap>(loader) {
         override suspend fun deleteItems(items: List<IMap>) {
             // TODO: Bulk delete
-            items.forEach { repo.deleteMap(it as Map) }
+            items.forEach { repo.deleteMap(it as PhotoMap) }
         }
 
         override suspend fun deleteGroup(group: IMap) {
@@ -30,7 +30,7 @@ class MapService private constructor(private val repo: IMapRepo) {
         return if (map.isGroup) {
             repo.addMapGroup(map as MapGroup)
         } else {
-            repo.addMap(map as Map)
+            repo.addMap(map as PhotoMap)
         }
     }
 
@@ -38,7 +38,7 @@ class MapService private constructor(private val repo: IMapRepo) {
         deleter.delete(map)
     }
 
-    suspend fun setProjection(map: Map, projection: MapProjectionType): Map {
+    suspend fun setProjection(map: PhotoMap, projection: MapProjectionType): PhotoMap {
         val newMap = map.copy(metadata = map.metadata.copy(projection = projection))
         repo.addMap(newMap)
         return newMap
@@ -59,8 +59,8 @@ class MapService private constructor(private val repo: IMapRepo) {
         return repo.getMapGroup(id)?.copy(count = counter.count(id))
     }
 
-    suspend fun getMapFilenames(): List<String> {
-        return repo.getAllMapFiles()
+    suspend fun getAllMaps(): List<PhotoMap> {
+        return repo.getAllMaps()
     }
 
     companion object {
