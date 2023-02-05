@@ -8,7 +8,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.core.ExperimentalZeroShutterLag
 import androidx.camera.core.ImageCapture
 import androidx.camera.view.PreviewView
 import androidx.core.net.toUri
@@ -40,6 +39,8 @@ class PhotoImportBottomSheetFragment(
             takePhoto()
             true
         }
+
+        dialog?.setOnCancelListener { onCapture(null) }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.clipToOutline = true
