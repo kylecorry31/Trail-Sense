@@ -62,7 +62,7 @@ android {
 
 dependencies {
     kapt("androidx.room:room-compiler:2.5.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10")
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
@@ -79,7 +79,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-service:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    val cameraxVersion = "1.2.0"
+    val cameraxVersion = "1.2.1"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
@@ -91,7 +91,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:6.3.3")
 
     // Andromeda
-    val andromedaVersion = "5.0.0-beta31"
+    val andromedaVersion = "5.0.0-beta32"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -140,5 +140,5 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
