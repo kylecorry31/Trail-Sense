@@ -1013,4 +1013,6 @@
         <item quantity="one">%d kart</item>
         <item quantity="other">%d kart</item>
     </plurals>
+    <string name="delete_map_group_message">%s og alle tilhørende kart blir slettet.</string>
+    <string name="blank">Blankt</string>
 </resources>
