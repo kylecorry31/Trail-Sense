@@ -295,9 +295,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     override fun onResume() {
         super.onResume()
+        manager.refresh()
         inBackground {
-            MapCleanupCommand(requireContext()).execute()
-            manager.refresh()
+            val mapsDeleted = MapCleanupCommand(requireContext()).execute()
+            if (mapsDeleted) {
+                manager.refresh()
+            }
         }
     }
 

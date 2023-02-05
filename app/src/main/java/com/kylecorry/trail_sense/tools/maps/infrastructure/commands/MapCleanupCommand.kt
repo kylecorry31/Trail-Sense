@@ -1,18 +1,18 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
+import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 
-class MapCleanupCommand(context: Context) : CoroutineCommand {
+class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
 
     private val service = MapService.getInstance(context)
     private val files = FileSubsystem.getInstance(context)
 
 
-    override suspend fun execute() = onIO {
+    override suspend fun execute(): Boolean = onIO {
         val maps = service.getAllMaps()
         val allFiles = files.list("maps").map { "maps/${it.name}" }
 
@@ -29,5 +29,7 @@ class MapCleanupCommand(context: Context) : CoroutineCommand {
         toDelete.forEach {
             service.delete(it)
         }
+
+        toDelete.isNotEmpty()
     }
 }
