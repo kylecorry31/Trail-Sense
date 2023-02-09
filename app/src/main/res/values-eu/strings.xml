@@ -11,9 +11,9 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
     <string name="flashlight_title">Linterna</string>
-    <string name="accuracy_info">"GPS: Atera kanpora zeruaren ikuspegi ez oztopatua izan arte.
+    <string name="accuracy_info">"GPS: Atera kanpora zeruaren ikuspegi garbia izan arte.
 \n    %s benetako kokapenetik
-\n    %s benetako altitudetik
+\n    %s benetako altueratik
 \n    %s satelite
 \n
 \nIparrorratza: Biratu mugikorra 8 formako patroi batean eta aldendu metaletatik."</string>
@@ -65,7 +65,7 @@
     <string name="stop">Gelditu</string>
     <string name="units_psi">PSI</string>
     <string name="units_mbar">mbar</string>
-    <string name="units_inhg_short">in</string>
+    <string name="units_inhg_short">hazbete</string>
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Oharrak (hautazkoa)</string>
@@ -126,7 +126,7 @@
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
-    <string name="precise_feet_format">%s ft</string>
+    <string name="precise_feet_format">%s oin</string>
     <string name="category_food">Janaria</string>
     <string name="other">Besteak</string>
     <string name="navigation_nearby_category">Hurbil</string>
@@ -355,4 +355,39 @@
     <string name="volume">Bolumena</string>
     <string name="hours">Orduak</string>
     <string name="grams">Gramoak</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="feet_miles">Oinak / Miliak</string>
+    <string name="pref_use_24_hour_title">24 orduko formatua erabili</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Graduak Hamartarrak Minutuak</string>
+    <string name="smoothing_summary">Balore handiek zarata gutxiagotu dezakete</string>
+    <string name="pref_use_legacy_compass_title">Iparrorratz legatua erabili</string>
+    <string name="pref_use_legacy_compass_summary">Iparrorratzaren akatsak zuzen ditzake</string>
+    <string name="photo_maps">Argazkien mapak</string>
+    <string name="pref_ruler_calibration_summary">Kalibrazio-protokoloa:
+\n- Balore honi 1 ezarri.
+\n- Trail Sense-eren erregelaren balioa neurtu, erregela fisiko baten unitate bati dagokiona.
+\n- Neurtutako balioa hemen jarri.</string>
+    <string name="charging_fast">Azkar kargatzen (%s)</string>
+    <string name="discharging_slow">Mantso deskargatzen (%s)</string>
+    <string name="units_mmhg">mmHg</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">Bide %d</item>
+        <item quantity="other">%d bide</item>
+    </plurals>
+    <string name="app_disclaimer_message_title">Erantzukizunaren salbuestea / Zerbitzuaren baldintzak</string>
+    <string name="clinometer_rotate_device">Eutsi zure mugikorra bertikalki</string>
+    <string name="set_inclination_instructions">Sakatu edo luze sakatu edozein lekuan blokeatzeko/desblokeatzeko</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Graduak Minutuak Segunduak</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="current_format">%s mA</string>
+    <string name="charging_slow">Mantso kargatzen (%s)</string>
+    <string name="discharging_fast">Azkar deskargatzen (%s)</string>
+    <string name="no_data">Daturik ez</string>
+    <string name="weather_storm">Ekaitza</string>
+    <string name="soon">Laster</string>
+    <string name="very_soon">Berehala</string>
+    <string name="tool_clinometer_summary">Elur-jausien arriskua eta objektuen altuera estimatu</string>
+    <string name="weather_no_change">Aldaketik gabe</string>
 </resources>

@@ -1096,4 +1096,7 @@
     <string name="delete_map_group_message">%s ve tüm haritaları silinecek.</string>
     <string name="blank">Boş</string>
     <string name="coordinate_format_osgb">OSGB</string>
+    <string name="create_blank_map">Boş Harita Oluştur</string>
+    <string name="center">Merkez</string>
+    <string name="size">Boyut</string>
 </resources>
