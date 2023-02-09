@@ -598,7 +598,7 @@
     <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
     <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
-    <string name="last_signal_beacon_name">Siste signal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Siste signal — %s (%s)</string>
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
     <string name="gps_signal_lost">GPS-signal mistet</string>
@@ -863,7 +863,7 @@
     <string name="estimate_stride_length">Beregn skrittlengde</string>
     <string name="current_speed_pedometer">Gjeldende fart (Skritteller)</string>
     <string name="current_speed_gps">Gjeldende fart (GPS)</string>
-    <string name="average_speed_backtrack">Gjennomsnittsfart (Tilbakesporing)</string>
+    <string name="average_speed_backtrack">Gjennomsnittsfart (tilbakesporing)</string>
     <string name="average_speed">Gjennomsnittsfart</string>
     <string name="average_speed_pedometer">Gjennomsnittsfart (Skritteller)</string>
     <string name="current_speed">Gjeldende fart</string>
@@ -976,7 +976,7 @@
     <string name="weather_overcast">Overskyet</string>
     <string name="weather_precipitation">Nedbør</string>
     <string name="weather_wind">Vind</string>
-    <string name="place_beacon_at">Plassere en navigeringsmarkør på %s\?</string>
+    <string name="place_beacon_at">Plasser en navigeringsmarkør på %s\?</string>
     <string name="map_auto_calibrated">Kart auto-kalibrert, kontroller nøyaktigheten</string>
     <string name="smoothing">Utjevning</string>
     <string name="half_tide">Middels</string>
@@ -1015,4 +1015,38 @@
     </plurals>
     <string name="delete_map_group_message">%s og alle tilhørende kart blir slettet.</string>
     <string name="blank">Blankt</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="capture">Registrer</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="activity_recognition">Aktivitetsgjenkjennelse</string>
+    <string name="background_location_permission">Posisjon (tillat hele tiden)</string>
+    <string name="location_override_resolution">Skru på auto-justering av posisjon i innstillingene.</string>
+    <string name="location_override_not_set_resolution">Sett posisjonsoverstyring i innstillingene</string>
+    <string name="notification_backtrack_update_title">Tilbakesporingsoppdatering</string>
+    <string name="cloud_photo_mask_toast">Trykk på bildet for å veksle maske</string>
+    <string name="auto">Automatisk</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="onboarding_explore">- Designet for fotturer, ryggsekkturer, telttur og geocaching
+\n
+\n- Plasser navigeringsmarkører og naviger til dem
+\n
+\n- Følg stier
+\n
+\n- Gå tilbake i tid med tilbakesporing
+\n
+\n- Planlegg hva du skal pakke
+\n
+\n- Bli varslet før solen går ned
+\n
+\n- Forutsi været
+\n
+\n- Bruk telefonen som lommelykt
+\n
+\n- Og mye mer!</string>
+    <string name="size">Størrelse</string>
+    <string name="center">Senter</string>
+    <string name="create_blank_map">Opprett tomt kart</string>
+    <string name="notification_backtrack_update_content">Registrerer posisjonen din</string>
+    <string name="unblock_notification_channel">Opphev %s-merknad for Trail Sense</string>
+    <string name="battery_restricted_resolution">Sett Trail Sense som «Ikke optimalisert»</string>
 </resources>
