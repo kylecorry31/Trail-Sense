@@ -27,8 +27,8 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.max
 import kotlin.math.min
 
@@ -312,8 +312,11 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
+
+            // Don't invoke if it is currently scaling
+            if (isZooming || isQuickScaling) return
+
             val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
-            // TODO: Don't invoke if it is currently scaling (for one handed zoom)
             onMapLongClick?.invoke(coordinate)
         }
 
