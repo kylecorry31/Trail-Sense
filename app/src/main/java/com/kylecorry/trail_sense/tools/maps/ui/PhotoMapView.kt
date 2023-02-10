@@ -162,6 +162,8 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         setPanLimit(PAN_LIMIT_OUTSIDE)
         maxScale = 6f
+        alwaysZoomDoubleTap = true
+        alwaysZoomDoubleTapZoomScale = 2f
     }
 
     fun draw() {
