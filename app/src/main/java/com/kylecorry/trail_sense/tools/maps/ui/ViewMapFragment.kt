@@ -42,9 +42,9 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
@@ -241,6 +241,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         compassLocked = false
         binding.map.mapRotation = 0f
         CustomUiUtils.setButtonState(binding.lockBtn, false)
+        CustomUiUtils.setButtonState(binding.zoomInBtn, false)
+        CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
         binding.lockBtn.setOnClickListener {
             // TODO: If user drags too far from location, don't follow their location or rotate with them
             if (!locationLocked && !compassLocked) {
