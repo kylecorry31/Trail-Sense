@@ -1,0 +1,8 @@
+Paths
+- Show notification when Backtrack is running
+- Show distance in Backtrack notification
+
+Photo Maps (Experimental)
+- Create a blank map
+- Improve zoom behavior
+- Bug fixes
