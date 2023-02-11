@@ -13,8 +13,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 33
-        versionCode = 94
-        versionName = "4.14.0"
+        versionCode = 95
+        versionName = "4.15.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations.addAll(listOf("en", "af", "ar", "bg", "bn", "bs", "ca", "cs", "da", "de", "es", "eu", "fa-rIR", "fi", "fr", "hi", "hu", "hy", "in", "it", "iw", "js", "nb-rNO", "ne", "nl", "ny", "pl", "pt", "pt-rBR", "ro", "ru", "sk", "tr", "uk", "vi", "yue", "zh", "zh-rTW"))
     }
