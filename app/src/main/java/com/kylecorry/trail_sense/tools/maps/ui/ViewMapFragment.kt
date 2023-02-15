@@ -62,7 +62,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val pathService by lazy { PathService.getInstance(requireContext()) }
-    private var pathPoints: kotlin.collections.Map<Long, List<PathPoint>> = emptyMap()
+    private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
     private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
     private val cache by lazy { Preferences(requireContext()) }
@@ -70,9 +70,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
+    // Map layers
     private val tideLayer = TideLayer()
     private val beaconLayer = BeaconLayer { navigateTo(it) }
     private val pathLayer = PathLayer()
+    private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val myLocationLayer = MyLocationLayer()
     private val navigationLayer = NavigationLayer()
     private val selectedPointLayer = BeaconLayer()
@@ -123,9 +125,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
-                selectedPointLayer
+                selectedPointLayer,
+                distanceLayer
             )
         )
+        distanceLayer.setOutlineColor(Color.WHITE)
+        distanceLayer.setPathColor(Color.BLACK)
+        distanceLayer.isEnabled = false
         beaconLayer.setOutlineColor(Color.WHITE)
         selectedPointLayer.setOutlineColor(Color.WHITE)
         myLocationLayer.setColor(AppColor.Orange.color)
@@ -322,7 +328,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     selectLocation(null)
                 },
                 ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                    showDistance(location)
+                    distanceLayer.isEnabled = true
+                    distanceLayer.clear()
+                    distanceLayer.add(gps.location)
+                    distanceLayer.add(location)
                     selectLocation(null)
                 },
             )
@@ -399,12 +408,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         findNavController().navigate(R.id.place_beacon, bundle)
     }
 
-    private fun showDistance(location: Coordinate) {
-        val distance = Distance.meters(gps.location.distanceTo(location))
+    private fun showDistance(distance: Distance) {
+        lastDistanceToast?.cancel()
+        val relative = distance
             .convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()
         val distanceString =
-            formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units))
+            formatService.formatDistance(relative, Units.getDecimalPlaces(relative.units))
         lastDistanceToast = toast(distanceString, true)
     }
 
@@ -426,6 +436,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
             navigateTo(beacon.copy(id = id))
         }
+    }
+
+    private fun onDistancePathChange(points: List<Coordinate>) {
+        // Display distance
+        val distance = Geology.getPathDistance(points)
+        showDistance(distance)
     }
 
     private fun navigateTo(beacon: Beacon): Boolean {

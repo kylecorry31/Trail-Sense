@@ -329,12 +329,12 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)
             if (viewNoRotation != null) {
                 for (layer in layers.reversed()) {
-                    if (layer.onClick(
-                            drawer,
-                            this@PhotoMapView,
-                            PixelCoordinate(viewNoRotation.x, viewNoRotation.y)
-                        )
-                    ) {
+                    val handled = layer.onClick(
+                        drawer,
+                        this@PhotoMapView,
+                        PixelCoordinate(viewNoRotation.x, viewNoRotation.y)
+                    )
+                    if (handled) {
                         break
                     }
                 }
