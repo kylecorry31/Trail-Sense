@@ -16,6 +16,7 @@ class MapDistanceSheet(context: Context, attrs: AttributeSet?) : FrameLayout(con
     private val formatter by lazy { FormatService.getInstance(context) }
 
     var cancelListener: (() -> Unit)? = null
+    var undoListener: (() -> Unit)? = null
 
     private val toolbar: CeresToolbar
 
@@ -24,6 +25,9 @@ class MapDistanceSheet(context: Context, attrs: AttributeSet?) : FrameLayout(con
         toolbar = findViewById(R.id.map_distance_title)
         toolbar.rightButton.setOnClickListener {
             cancelListener?.invoke()
+        }
+        toolbar.leftButton.setOnClickListener {
+            undoListener?.invoke()
         }
     }
 

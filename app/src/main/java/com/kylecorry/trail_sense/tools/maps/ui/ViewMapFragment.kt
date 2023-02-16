@@ -307,7 +307,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun onLongPress(location: Coordinate) {
-        if (map?.isCalibrated != true) {
+        if (map?.isCalibrated != true || distanceLayer.isEnabled) {
             return
         }
 
@@ -419,6 +419,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.distanceSheet.show()
         binding.distanceSheet.cancelListener = {
             stopDistanceMeasurement()
+        }
+        binding.distanceSheet.undoListener = {
+            distanceLayer.undo()
         }
     }
 
