@@ -599,7 +599,7 @@
         <item quantity="other">%d 天</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Backtrack 历史</string>
-    <string name="units">单元</string>
+    <string name="units">单位</string>
     <string name="pref_tiles_enabled_summary">有可能会阻止电池保护程序完全停止 Trail Sense</string>
     <string name="pref_tiles_enabled_title">系统瓷贴</string>
     <string name="location_not_mocked">使用实际位置</string>
