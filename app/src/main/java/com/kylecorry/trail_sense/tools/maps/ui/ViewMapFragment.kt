@@ -412,7 +412,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.distanceSheet.setDistance(relative)
     }
 
-    private fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
+    fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
         distanceLayer.isEnabled = true
         distanceLayer.clear()
         initialPoints.forEach { distanceLayer.add(it) }

@@ -15,8 +15,8 @@ import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
@@ -74,6 +74,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     getString(R.string.tool_user_guide_title),
                     getString(R.string.rename),
                     if (isMapView) getString(R.string.change_map_projection) else null,
+                    if (isMapView) getString(R.string.measure) else null,
                     if (isMapView) getString(R.string.export) else null,
                     getString(R.string.delete)
                 )
@@ -127,12 +128,18 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             }
                         }
                     }
-                    4 -> { // Export
+                    4 -> { // Measure
+                        val fragment = currentFragment
+                        if (fragment != null && fragment is ViewMapFragment) {
+                            fragment.startDistanceMeasurement()
+                        }
+                    }
+                    5 -> { // Export
                         map?.let {
                             exportService.export(it)
                         }
                     }
-                    5 -> { // Delete
+                    6 -> { // Delete
                         inBackground {
                             map?.let {
                                 DeleteMapCommand(requireContext(), mapService).execute(it)
