@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
@@ -328,10 +327,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     selectLocation(null)
                 },
                 ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                    distanceLayer.isEnabled = true
-                    distanceLayer.clear()
-                    distanceLayer.add(gps.location)
-                    distanceLayer.add(location)
+                    startDistanceMeasurement(gps.location, location)
                     selectLocation(null)
                 },
             )
@@ -413,9 +409,23 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         val relative = distance
             .convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()
-        val distanceString =
-            formatService.formatDistance(relative, Units.getDecimalPlaces(relative.units))
-        lastDistanceToast = toast(distanceString, true)
+        binding.distanceSheet.setDistance(relative)
+    }
+
+    private fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
+        distanceLayer.isEnabled = true
+        distanceLayer.clear()
+        initialPoints.forEach { distanceLayer.add(it) }
+        binding.distanceSheet.show()
+        binding.distanceSheet.cancelListener = {
+            stopDistanceMeasurement()
+        }
+    }
+
+    private fun stopDistanceMeasurement() {
+        distanceLayer.isEnabled = false
+        distanceLayer.clear()
+        binding.distanceSheet.hide()
     }
 
     private fun navigateTo(location: Coordinate) {
