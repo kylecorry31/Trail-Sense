@@ -41,6 +41,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     private lateinit var drawer: ICanvasDrawer
     private var isSetup = false
     private var myLocation: Coordinate? = null
+
     private var map: PhotoMap? = null
     private val mapPath = Path()
     private var projection: IMapProjection? = null
@@ -231,6 +232,11 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         invalidate()
     }
 
+    /**
+     * Set the location of the user and the accuracy of the location
+     * @param coordinate The location of the user
+     * @param accuracy The accuracy of the location
+     */
     fun setMyLocation(coordinate: Coordinate?) {
         myLocation = coordinate
         invalidate()
@@ -309,7 +315,6 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         lookupMatrix.mapPoints(point)
         return viewToSourceCoord(point[0], point[1])
     }
-
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onLongPress(e: MotionEvent) {
