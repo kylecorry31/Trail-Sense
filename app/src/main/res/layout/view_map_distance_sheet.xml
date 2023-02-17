@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:orientation="vertical">
+
+    <com.kylecorry.ceres.toolbar.CeresToolbar
+        android:id="@+id/map_distance_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flattenButtons="true"
+        app:leftButtonIcon="@drawable/ic_undo"
+        app:rightButtonIcon="@drawable/ic_cancel"
+        app:title="@string/distance" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
