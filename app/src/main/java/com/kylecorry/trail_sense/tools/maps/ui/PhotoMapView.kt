@@ -40,7 +40,6 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     private lateinit var drawer: ICanvasDrawer
     private var isSetup = false
-    private var myLocation: Coordinate? = null
 
     private var map: PhotoMap? = null
     private val mapPath = Path()
@@ -229,16 +228,6 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         super.onImageLoaded()
         projection = map?.projection(realWidth.toFloat(), realHeight.toFloat())
         shouldRecenter = true
-        invalidate()
-    }
-
-    /**
-     * Set the location of the user and the accuracy of the location
-     * @param coordinate The location of the user
-     * @param accuracy The accuracy of the location
-     */
-    fun setMyLocation(coordinate: Coordinate?) {
-        myLocation = coordinate
         invalidate()
     }
 

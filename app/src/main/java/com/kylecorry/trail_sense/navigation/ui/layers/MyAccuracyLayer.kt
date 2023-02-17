@@ -29,14 +29,14 @@ class MyAccuracyLayer : BaseLayer() {
     /**
      * The stroke color of the circle
      */
-    private var _strokeColor: Int = Color.WHITE
+    private var _strokeColor: Int = Color.TRANSPARENT
 
     /**
      * Sets the location and accuracy of the circle
      * @param location The location of the circle
      * @param accuracy The radius of the circle in meters
      */
-    fun setParameters(location: Coordinate?, accuracy: Float?) {
+    fun setLocation(location: Coordinate?, accuracy: Float?) {
         _location = location
         _accuracy = accuracy
         invalidate()
@@ -54,18 +54,27 @@ class MyAccuracyLayer : BaseLayer() {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        clearMarkers()
-        if (_accuracy == null || _location == null) return
+        updateMarker(drawer, map)
+        super.draw(drawer, map)
+    }
 
+    private fun updateMarker(drawer: ICanvasDrawer, map: IMapView){
+        val accuracy = _accuracy ?: return
+        val location = _location ?: return
+        if (map.metersPerPixel <= 0) return
+
+        val sizePixels = 2 * accuracy / map.metersPerPixel * map.layerScale
+        val sizeDp = sizePixels / drawer.dp(1f)
+
+        clearMarkers()
         addMarker(
             CircleMapMarker(
-                _location!!,
+                location,
                 _fillColor,
                 _strokeColor,
-                128,
-                (_accuracy!!) / map.metersPerPixel
+                50,
+                sizeDp
             )
         )
-        super.draw(drawer, map)
     }
 }
