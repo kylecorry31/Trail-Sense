@@ -72,6 +72,13 @@
             app:key="@string/pref_use_24_hour"
             app:singleLineTitle="false"
             app:title="@string/pref_use_24_hour_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_include_leading_zero"
+            app:singleLineTitle="false"
+            app:title="@string/pref_include_leading_zero_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

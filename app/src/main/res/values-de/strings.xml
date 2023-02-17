@@ -12,6 +12,7 @@
     <string name="general">Allgemein</string>
     <string name="pressure">Luftdruck</string>
     <string name="pref_use_24_hour_title">24-Stunden-Zählung verwenden</string>
+    <string name="pref_include_leading_zero_title">Führende Null der Zeit anfügen</string>
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="no_beacons">Keine Wegpunkte</string>
     <string name="continue_button">FORTSETZEN</string>
