@@ -1,11 +1,9 @@
-package com.kylecorry.trail_sense.tools.maps.ui
+package com.kylecorry.trail_sense.navigation.ui.layers
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.ui.layers.BaseLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.navigation.ui.markers.CircleMapMarker
 
 /**

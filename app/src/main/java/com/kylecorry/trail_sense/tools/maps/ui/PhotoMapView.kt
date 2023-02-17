@@ -3,10 +3,8 @@ package com.kylecorry.trail_sense.tools.maps.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
-import androidx.core.content.ContextCompat.getColor
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
