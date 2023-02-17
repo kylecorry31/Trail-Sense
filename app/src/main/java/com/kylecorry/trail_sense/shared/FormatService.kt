@@ -170,7 +170,7 @@ class FormatService(private val context: Context) {
         includeMinutes: Boolean = true
     ): String {
         val amPm = !prefs.use24HourTime
-        val lZero = prefs.addLeadingZero
+        val lZero = prefs.addLeadingZeroToTime
         return if (amPm) {
             time.format(DateTimeFormatter.ofPattern("${if (lZero) "h" else ""}h${if (includeMinutes) ":mm" else ""}${if (includeSeconds) ":ss" else ""} a"))
         } else {
