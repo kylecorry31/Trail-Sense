@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -75,6 +76,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val pathLayer = PathLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val myLocationLayer = MyLocationLayer()
+    private val myAccuracyLayer = MyAccuracyLayer()
     private val navigationLayer = NavigationLayer()
     private val selectedPointLayer = BeaconLayer()
 
@@ -121,6 +123,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             listOf(
                 navigationLayer,
                 pathLayer,
+                myAccuracyLayer,
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
@@ -134,10 +137,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         beaconLayer.setOutlineColor(Color.WHITE)
         selectedPointLayer.setOutlineColor(Color.WHITE)
         myLocationLayer.setColor(AppColor.Orange.color)
+        myAccuracyLayer.setColors(getColor(requireContext(),R.color.transparentWhite), getColor(requireContext(),R.color.white))
 
         observe(gps) {
             myLocationLayer.setLocation(gps.location)
-            binding.map.setMyLocation(gps.location, gps.horizontalAccuracy)
+            myAccuracyLayer.setParameters(gps.location, gps.horizontalAccuracy)
+            binding.map.setMyLocation(gps.location)
             navigationLayer.setStart(gps.location)
             displayPaths()
             updateDestination()
@@ -303,7 +308,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        binding.map.setMyLocation(gps.location, gps.horizontalAccuracy)
+        binding.map.setMyLocation(gps.location)
     }
 
     private fun onLongPress(location: Coordinate) {

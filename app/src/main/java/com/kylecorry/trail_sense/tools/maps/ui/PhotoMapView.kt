@@ -44,10 +44,6 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     private var isSetup = false
     private var myLocation: Coordinate? = null
 
-    /**
-     * The horizontal accuracy of the user's location in meters
-     */
-    private var myHorizontalAccuracy: Float? = null
     private var map: PhotoMap? = null
     private val mapPath = Path()
     private var projection: IMapProjection? = null
@@ -189,7 +185,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
                 Path.Direction.CW
             )
         }
-        drawAccuracyCircle()
+
         drawer.push()
         drawer.clip(mapPath)
         if (scale != lastScale) {
@@ -243,9 +239,8 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
      * @param coordinate The location of the user
      * @param accuracy The accuracy of the location
      */
-    fun setMyLocation(coordinate: Coordinate?, accuracy: Float?) {
+    fun setMyLocation(coordinate: Coordinate?) {
         myLocation = coordinate
-        myHorizontalAccuracy = accuracy
         invalidate()
     }
 
@@ -322,24 +317,6 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         lookupMatrix.mapPoints(point)
         return viewToSourceCoord(point[0], point[1])
     }
-
-    /**
-     * Draw a circle around the current location with the radius of the accuracy.
-     */
-    private fun drawAccuracyCircle() {
-        if (myHorizontalAccuracy == null || myLocation == null) return
-        val accuracy = myHorizontalAccuracy ?: return
-        val center = getPixelCoordinate(myLocation!!) ?: return
-        drawer.strokeWeight(drawer.dp(1f) / layerScale)
-        drawer.stroke(Color.WHITE)
-        drawer.fill(getColor(context, R.color.transparentWhite))
-        drawer.circle(
-            center.x,
-            center.y,
-            (accuracy / metersPerPixel) * 2
-        ) // accuracy is in meters, so we need to convert to pixels and double it to get the diameter
-    }
-
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onLongPress(e: MotionEvent) {
