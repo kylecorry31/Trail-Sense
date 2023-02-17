@@ -43,12 +43,12 @@ import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
-import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.*
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
@@ -67,7 +67,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val hikingService = HikingService()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
-    private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
 
     private var pointSheet: PathPointsListFragment? = null
 
@@ -98,6 +97,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
     private val myLocationLayer = MyLocationLayer()
+    private val myAccuracyLayer = MyAccuracyLayer()
 
     private val paceFactor = 1.75f
 
@@ -214,9 +214,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         observe(gps) {
-            // TODO: Only set declination after map supports it
-//            compass.declination = getDeclination()
             myLocationLayer.setLocation(gps.location)
+            myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             onPathChanged()
         }
 
@@ -225,10 +224,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             myLocationLayer.setAzimuth(compass.bearing)
         }
 
+        myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
         myLocationLayer.setColor(AppColor.Orange.color)
         waypointLayer.setOutlineColor(Color.TRANSPARENT)
         binding.pathImage.setLayers(
-            listOf(pathLayer, waypointLayer, myLocationLayer)
+            listOf(pathLayer, waypointLayer, myAccuracyLayer, myLocationLayer)
         )
 
         binding.pathLineStyle.setOnClickListener {
@@ -552,10 +552,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         container: ViewGroup?
     ): FragmentPathOverviewBinding {
         return FragmentPathOverviewBinding.inflate(layoutInflater, container, false)
-    }
-
-    private fun getDeclination(): Float {
-        return declination.getDeclination()
     }
 
     // Waypoints

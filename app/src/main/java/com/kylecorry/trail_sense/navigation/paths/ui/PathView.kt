@@ -208,6 +208,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun zoom(factor: Float) {
+        // TODO: Use same scale as map
         val newScale = (scale * factor).coerceIn(0.25f, 16f)
         val newFactor = newScale / scale
         scale *= newFactor
