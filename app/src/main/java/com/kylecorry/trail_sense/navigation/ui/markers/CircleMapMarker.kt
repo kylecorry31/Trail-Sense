@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui.markers
 
+import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -22,15 +23,17 @@ class CircleMapMarker(
     ) {
         val size = drawer.dp(this.size)
         drawer.noTint()
-        if (strokeColor != null) {
+        if (strokeColor != null && strokeColor != Color.TRANSPARENT) {
             drawer.stroke(strokeColor)
             drawer.strokeWeight(drawer.dp(strokeWeight) * scale)
         } else {
             drawer.noStroke()
         }
-        drawer.fill(color)
-        drawer.opacity(opacity)
-        drawer.circle(anchor.x, anchor.y, size * scale)
+        if (color != Color.TRANSPARENT) {
+            drawer.fill(color)
+            drawer.opacity(opacity)
+            drawer.circle(anchor.x, anchor.y, size * scale)
+        }
     }
 
     override fun onClick(): Boolean {

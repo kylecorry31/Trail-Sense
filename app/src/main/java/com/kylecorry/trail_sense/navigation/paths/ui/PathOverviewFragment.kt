@@ -19,6 +19,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
@@ -33,16 +34,19 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.beacon.IPathPointBeaconConverter
 import com.kylecorry.trail_sense.navigation.paths.domain.beacon.TemporaryPathPointBeaconConverter
-import com.kylecorry.trail_sense.navigation.paths.domain.factories.*
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.IPointDisplayFactory
 import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPathLineNavigator
 import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPathPointNavigator
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.DefaultPointColoringStrategy
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.SelectedPointDecorator
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
+import com.kylecorry.trail_sense.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.navigation.ui.MappablePath
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.*
@@ -78,6 +82,22 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var elevationRange: Range<Distance>? = null
     private var slopes: List<Triple<PathPoint, PathPoint, Float>> = emptyList()
     private var difficulty = HikingDifficulty.Easiest
+
+    private val pathLayer = PathLayer()
+    private val waypointLayer = BeaconLayer {
+        if (selectedPointId != null) {
+            deselectPoint()
+            return@BeaconLayer true
+        }
+        val point = waypoints.firstOrNull { point -> point.id == it.id }
+        if (point != null) {
+            viewWaypoint(point)
+            true
+        } else {
+            false
+        }
+    }
+    private val myLocationLayer = MyLocationLayer()
 
     private val paceFactor = 1.75f
 
@@ -194,13 +214,22 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         observe(gps) {
-            compass.declination = getDeclination()
+            // TODO: Only set declination after map supports it
+//            compass.declination = getDeclination()
+            myLocationLayer.setLocation(gps.location)
             onPathChanged()
         }
 
         observe(compass) {
             onPathChanged()
+            myLocationLayer.setAzimuth(compass.bearing)
         }
+
+        myLocationLayer.setColor(AppColor.Orange.color)
+        waypointLayer.setOutlineColor(Color.TRANSPARENT)
+        binding.pathImage.setLayers(
+            listOf(pathLayer, waypointLayer, myLocationLayer)
+        )
 
         binding.pathLineStyle.setOnClickListener {
             val path = path ?: return@setOnClickListener
@@ -380,9 +409,24 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         if (!isBound) {
             return
         }
-        binding.pathImage.pathColor = path.style.color
-        binding.pathImage.pathStyle = path.style.line
-        binding.pathImage.path = waypoints
+        binding.pathImage.bounds = Geology.getBounds(waypoints.map { it.coordinate })
+        pathLayer.setPaths(
+            listOf(
+                MappablePath(
+                    path.id,
+                    waypoints.map {
+                        MappableLocation(
+                            it.id,
+                            it.coordinate,
+                            path.style.color,
+                            null
+                        )
+                    },
+                    path.style.color,
+                    path.style.line
+                )
+            )
+        )
     }
 
     private fun onPathChanged() {
@@ -465,24 +509,17 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
 
-        binding.pathImage.location = gps.location
-        binding.pathImage.azimuth = compass.bearing.value
+        updateWaypoints()
+    }
 
-        val factory = getPointFactory()
-
-        val baseStrategy = factory.createColoringStrategy(waypoints)
-
-        val selected = selectedPointId
-
-        binding.pathImage.pointColoringStrategy = if (selected == null) {
-            baseStrategy
-        } else {
-            SelectedPointDecorator(
-                selected,
-                DefaultPointColoringStrategy(Color.WHITE),
-                NoDrawPointColoringStrategy()
+    private fun updateWaypoints() {
+        waypointLayer.setBeacons(
+            waypoints.asBeacons(
+                requireContext(),
+                path?.style?.point ?: PathPointColoringStyle.None,
+                selectedPointId
             )
-        }
+        )
     }
 
     private fun deselectPoint() {
@@ -610,12 +647,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun getPointFactory(): IPointDisplayFactory {
-        return when (path?.style?.point) {
-            PathPointColoringStyle.CellSignal -> CellSignalPointDisplayFactory(requireContext())
-            PathPointColoringStyle.Altitude -> AltitudePointDisplayFactory(requireContext())
-            PathPointColoringStyle.Time -> TimePointDisplayFactory(requireContext())
-            PathPointColoringStyle.Slope -> SlopePointDisplayFactory(requireContext())
-            else -> NonePointDisplayFactory()
-        }
+        return getPointFactory(requireContext(), path?.style?.point ?: PathPointColoringStyle.None)
     }
 }

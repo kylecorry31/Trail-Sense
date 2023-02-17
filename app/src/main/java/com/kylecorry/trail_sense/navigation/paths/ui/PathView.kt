@@ -10,67 +10,78 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.sol.math.SolMath.sinDegrees
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.wrap
-import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPathFactory
+import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import kotlin.math.atan2
 import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.sqrt
 
 
-class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
-
-    // TODO: Update this to use a mappable path
-    var pointColoringStrategy: IPointColoringStrategy = NoDrawPointColoringStrategy()
-        set(value) {
-            field = value
-            invalidate()
-        }
-
-    var path: List<PathPoint> = emptyList()
-        set(value) {
-            field = value
-            pathInitialized = false
-            invalidate()
-        }
-
+class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
+    IMapView {
     var isInteractive = false
 
-    private var pathInitialized = false
-    private var drawnPath = Path()
-
-    var location: Coordinate? = null
-        set(value) {
-            field = value
-            invalidate()
-        }
-
-    var azimuth: Float = 0f
-        set(value) {
-            field = value
-            invalidate()
-        }
-
     private var pointClickListener: (point: PathPoint) -> Unit = {}
-    private var pathCircles: List<Pair<PathPoint, PixelCircle>> = listOf()
 
-    var pathColor = Color.BLACK
-    var pathStyle = LineStyle.Dotted
-    private var metersPerPixel: Float = 1f
+    private val layers = mutableListOf<ILayer>()
+    var bounds: CoordinateBounds? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override fun addLayer(layer: ILayer) {
+        layers.add(layer)
+    }
+
+    override fun removeLayer(layer: ILayer) {
+        layers.remove(layer)
+    }
+
+    override fun setLayers(layers: List<ILayer>) {
+        this.layers.clear()
+        this.layers.addAll(layers)
+    }
+
+    override fun toPixel(coordinate: Coordinate): PixelCoordinate {
+        return getPixels(coordinate)
+    }
+
+    override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
+        return getCoordinate(pixel)
+    }
+
+    override var metersPerPixel: Float = 1f
+
+    override val layerScale: Float
+        get() = min(1f, max(scale, 0.9f))
+
+    override var mapCenter: Coordinate
+        get() = center
+        set(value) {
+            center = value
+        }
+
+    override var mapRotation: Float
+        get() = 0f
+        set(value) {}
+
     private var center: Coordinate = Coordinate.zero
 
     private var translateX = 0f
@@ -83,16 +94,17 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val formatService by lazy { FormatService(context) }
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
+    private var lastScale = 1f
 
     private val lookupMatrix = Matrix()
 
     init {
-        runEveryCycle = false
+        runEveryCycle = true
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        pathInitialized = false
+        layers.forEach { it.invalidate() }
     }
 
     override fun setup() {
@@ -105,8 +117,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         drawScale()
         translate(translateX, translateY)
         scale(scale, scale, width / 2f, height / 2f)
-        drawMap()
         pop()
+        drawMap()
     }
 
     fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {
@@ -114,7 +126,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun drawMap() {
-        val bounds = Geology.getBounds(path.map { it.coordinate })
+        val bounds = bounds ?: return
 
         distanceX = bounds.width().meters().distance
         val distanceY = bounds.height().meters().distance
@@ -129,74 +141,12 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         metersPerPixel = 1 / scale
         center = bounds.center
 
-        clear()
-        drawPaths()
-        drawWaypoints(path)
-        location?.let {
-            drawLocation(getPixels(it))
-        }
-    }
-
-    private fun drawWaypoints(points: List<PathPoint>) {
-        val scale = max(scale, 1f)
-        val pointDiameter = dp(5f) / scale
-        noPathEffect()
-        noStroke()
-        val circles = mutableListOf<Pair<PathPoint, PixelCircle>>()
-        for (point in points) {
-            val color = pointColoringStrategy.getColor(point) ?: continue
-            if (color == Color.TRANSPARENT) {
-                continue
-            }
-            fill(color)
-            val position = getPixels(point.coordinate)
-            circle(position.x, position.y, pointDiameter)
-            circles.add(
-                point to PixelCircle(
-                    PixelCoordinate(position.x, position.y),
-                    pointDiameter
-                )
-            )
+        if (this.scale != lastScale) {
+            lastScale = this.scale
+            layers.forEach { it.invalidate() }
         }
 
-        pathCircles = circles
-    }
-
-    private fun drawLocation(pixels: PixelCoordinate) {
-        val scale = max(scale, 1f)
-        stroke(Color.WHITE)
-        strokeWeight(dp(1f) / scale)
-        fill(Resources.color(context, R.color.orange_40))
-        push()
-        rotate(azimuth, pixels.x, pixels.y)
-        triangle(
-            pixels.x, pixels.y - dp(6f) / scale,
-            pixels.x - dp(5f) / scale, pixels.y + dp(6f) / scale,
-            pixels.x + dp(5f) / scale, pixels.y + dp(6f) / scale
-        )
-        pop()
-    }
-
-    private fun drawPaths() {
-        if (!pathInitialized) {
-            drawnPath.reset()
-            val factory = RenderedPathFactory(metersPerPixel, null, 0f, true)
-            factory.render(this.path.map {it.coordinate}, drawnPath)
-            pathInitialized = true
-        }
-
-        val lineDrawerFactory = PathLineDrawerFactory()
-        val drawer = lineDrawerFactory.create(pathStyle)
-        push()
-        val offset = getPixels(center)
-        translate(offset.x, offset.y)
-        drawer.draw(this, pathColor, scale) {
-            path(drawnPath)
-        }
-        noStroke()
-        fill(Color.WHITE)
-        noPathEffect()
-        pop()
+        layers.forEach { it.draw(this, this) }
     }
 
     private fun getPixels(
@@ -208,7 +158,17 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val pixelDistance = distance / metersPerPixel
         val xDiff = cosDegrees(angle.toDouble()).toFloat() * pixelDistance
         val yDiff = sinDegrees(angle.toDouble()).toFloat() * pixelDistance
-        return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
+        return toView(PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff))
+    }
+
+    private fun getCoordinate(
+        pixel: PixelCoordinate
+    ): Coordinate {
+        val xDiff = pixel.x - width / 2f
+        val yDiff = height / 2f - pixel.y
+        val distance = sqrt(xDiff * xDiff + yDiff * yDiff) * metersPerPixel
+        val angle = normalizeAngle(atan2(yDiff, xDiff).toDegrees())
+        return center.plus(Distance.meters(distance), Bearing(angle + 90))
     }
 
     private fun drawScale() {
@@ -276,13 +236,16 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val pixel = viewToSourceCoord(PixelCoordinate(e.x, e.y))
-
-            val tapRadius = dp(12f)
-            val closest = pathCircles.minByOrNull { it.second.center.distanceTo(pixel) }
-
-            if (closest != null && closest.second.center.distanceTo(pixel) < tapRadius) {
-                pointClickListener.invoke(closest.first)
+            val pixel = PixelCoordinate(e.x, e.y)
+            for (layer in layers.reversed()) {
+                val handled = layer.onClick(
+                    drawer,
+                    this@PathView,
+                    pixel
+                )
+                if (handled) {
+                    break
+                }
             }
 
             return super.onSingleTapConfirmed(e)
@@ -304,12 +267,20 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         if (isInteractive) {
             mScaleDetector.onTouchEvent(event)
             gestureDetector.onTouchEvent(event)
-            invalidate()
         }
         return true
     }
 
-    private fun viewToSourceCoord(screen: PixelCoordinate): PixelCoordinate {
+    private fun toView(source: PixelCoordinate): PixelCoordinate {
+        lookupMatrix.reset()
+        val point = floatArrayOf(source.x, source.y)
+        lookupMatrix.postScale(scale, scale, width / 2f, height / 2f)
+        lookupMatrix.postTranslate(translateX, translateY)
+        lookupMatrix.mapPoints(point)
+        return PixelCoordinate(point[0], point[1])
+    }
+
+    private fun toSource(screen: PixelCoordinate): PixelCoordinate {
         lookupMatrix.reset()
         val point = floatArrayOf(screen.x, screen.y)
         lookupMatrix.postScale(scale, scale, width / 2f, height / 2f)
