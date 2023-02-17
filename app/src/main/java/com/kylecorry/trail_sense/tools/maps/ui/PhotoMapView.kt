@@ -3,8 +3,10 @@ package com.kylecorry.trail_sense.tools.maps.ui
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import androidx.core.content.ContextCompat.getColor
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
@@ -41,6 +43,11 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     private lateinit var drawer: ICanvasDrawer
     private var isSetup = false
     private var myLocation: Coordinate? = null
+
+    /**
+     * The horizontal accuracy of the user's location in meters
+     */
+    private var myHorizontalAccuracy: Float? = null
     private var map: PhotoMap? = null
     private val mapPath = Path()
     private var projection: IMapProjection? = null
@@ -182,7 +189,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
                 Path.Direction.CW
             )
         }
-
+        drawAccuracyCircle()
         drawer.push()
         drawer.clip(mapPath)
         if (scale != lastScale) {
@@ -231,8 +238,14 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         invalidate()
     }
 
-    fun setMyLocation(coordinate: Coordinate?) {
+    /**
+     * Set the location of the user and the accuracy of the location
+     * @param coordinate The location of the user
+     * @param accuracy The accuracy of the location
+     */
+    fun setMyLocation(coordinate: Coordinate?, accuracy: Float?) {
         myLocation = coordinate
+        myHorizontalAccuracy = accuracy
         invalidate()
     }
 
@@ -308,6 +321,23 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         lookupMatrix.invert(lookupMatrix)
         lookupMatrix.mapPoints(point)
         return viewToSourceCoord(point[0], point[1])
+    }
+
+    /**
+     * Draw a circle around the current location with the radius of the accuracy.
+     */
+    private fun drawAccuracyCircle() {
+        if (myHorizontalAccuracy == null || myLocation == null) return
+        val accuracy = myHorizontalAccuracy ?: return
+        val center = getPixelCoordinate(myLocation!!) ?: return
+        drawer.strokeWeight(drawer.dp(1f) / layerScale)
+        drawer.stroke(Color.WHITE)
+        drawer.fill(getColor(context, R.color.transparentWhite))
+        drawer.circle(
+            center.x,
+            center.y,
+            (accuracy / metersPerPixel) * 2
+        ) // accuracy is in meters, so we need to convert to pixels and double it to get the diameter
     }
 
 

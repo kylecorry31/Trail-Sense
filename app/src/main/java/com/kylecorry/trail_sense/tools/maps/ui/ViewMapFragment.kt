@@ -137,7 +137,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         observe(gps) {
             myLocationLayer.setLocation(gps.location)
-            binding.map.setMyLocation(gps.location)
+            binding.map.setMyLocation(gps.location, gps.horizontalAccuracy)
             navigationLayer.setStart(gps.location)
             displayPaths()
             updateDestination()
@@ -303,7 +303,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        binding.map.setMyLocation(gps.location)
+        binding.map.setMyLocation(gps.location, gps.horizontalAccuracy)
     }
 
     private fun onLongPress(location: Coordinate) {
