@@ -90,6 +90,17 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
         }
 
+    val addLeadingZero: Boolean
+        get() {
+            val value = cache.getBoolean(context.getString(R.string.pref_include_leading_zero))
+            return if (value == null) {
+                cache.putBoolean(context.getString(R.string.pref_include_leading_zero), false)
+                false
+            } else {
+                value
+            }
+        }
+
     val theme: Theme
         get() {
             if (isLowPowerModeOn) {
