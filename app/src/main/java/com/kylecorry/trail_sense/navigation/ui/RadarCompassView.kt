@@ -360,10 +360,11 @@ class RadarCompassView : BaseCompassView, IMapView {
         TODO("Not yet implemented")
     }
 
-    // TODO: Save meters per pixel
     override var metersPerPixel: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = maxDistanceMeters.distance / (compassSize / 2f)
+        set(value) {
+            // Do nothing yet
+        }
 
     override val layerScale: Float = 1f
 

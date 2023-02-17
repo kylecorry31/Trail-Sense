@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,12 +52,10 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackSchedu
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
-import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.extensions.inBackground
@@ -143,6 +142,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
+    private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
 
     override fun onDestroyView() {
@@ -177,7 +177,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
-        binding.radarCompass.setLayers(listOf(pathLayer, myLocationLayer, tideLayer, beaconLayer))
+        myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
+        binding.radarCompass.setLayers(listOf(pathLayer, myAccuracyLayer, myLocationLayer, tideLayer, beaconLayer))
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
@@ -690,6 +691,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
 
         myLocationLayer.setLocation(gps.location)
+        myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
         beaconLayer.setBeacons((nearby + listOfNotNull(destination)).distinctBy { it.id })
         beaconLayer.highlight(destination)
 

@@ -32,6 +32,11 @@ class MyAccuracyLayer : BaseLayer() {
     private var _strokeColor: Int = Color.TRANSPARENT
 
     /**
+     * The opacity of the circle
+     */
+    private var _opacity: Int = 50
+
+    /**
      * Sets the location and accuracy of the circle
      * @param location The location of the circle
      * @param accuracy The radius of the circle in meters
@@ -46,10 +51,12 @@ class MyAccuracyLayer : BaseLayer() {
      * Sets the fill and stroke color of the circle
      * @param fillColor The fill color of the circle
      * @param strokeColor The stroke color of the circle
+     * @param opacity The opacity of the circle
      */
-    fun setColors(@ColorInt fillColor: Int, @ColorInt strokeColor: Int) {
+    fun setColors(@ColorInt fillColor: Int, @ColorInt strokeColor: Int, opacity: Int = 50) {
         _fillColor = fillColor
         _strokeColor = strokeColor
+        _opacity = opacity
         invalidate()
     }
 
@@ -72,7 +79,7 @@ class MyAccuracyLayer : BaseLayer() {
                 location,
                 _fillColor,
                 _strokeColor,
-                50,
+                _opacity,
                 sizeDp
             )
         )
