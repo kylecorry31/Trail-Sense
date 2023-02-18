@@ -50,9 +50,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             return initial / scale
         }
         set(value) {
-            val initial = getInitialScale() ?: return
-            val newScale = initial / value
-            zoom(newScale / scale)
+            zoomTo(getScale(value))
         }
 
     override val layerScale: Float
@@ -82,6 +80,9 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
     private var lastScale = 1f
+
+    private var minScale = 0.1f
+    private var maxScale = 1f
 
     init {
         runEveryCycle = true
@@ -119,6 +120,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     override fun draw() {
         clear()
+
+        maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
+        zoomTo(clampScale(scale))
+
         drawScale()
         drawLayers()
     }
@@ -201,19 +206,34 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         )
     }
 
+    private fun getScale(metersPerPixel: Float): Float {
+        val fullScale = getInitialScale() ?: 1f
+        return fullScale / metersPerPixel
+    }
+
     fun recenter() {
         translateX = 0f
         translateY = 0f
         scale = 1f
     }
 
+    fun zoomTo(newScale: Float){
+        if (newScale == scale){
+            return
+        }
+        zoom(newScale / scale)
+    }
+
     fun zoom(factor: Float) {
-        // TODO: Use same scale as map
-        val newScale = (scale * factor).coerceIn(0.25f, 16f)
+        val newScale = clampScale(scale * factor)
         val newFactor = newScale / scale
         scale *= newFactor
         translateX *= newFactor
         translateY *= newFactor
+    }
+
+    private fun clampScale(scale: Float): Float {
+        return scale.coerceIn(minScale, max(2 * minScale, maxScale))
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
