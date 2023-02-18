@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.navigation.paths.ui
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Matrix
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -43,6 +42,49 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             invalidate()
         }
 
+    override var metersPerPixel: Float
+        get() {
+            val initial = getInitialScale() ?: return 1f
+            return initial / scale
+        }
+        set(value) {
+            val initial = getInitialScale() ?: return
+            val newScale = initial / value
+            zoom(newScale / scale)
+        }
+
+    override val layerScale: Float
+        get() = min(1f, max(scale, 0.9f))
+
+    override var mapCenter: Coordinate
+        get() = center
+        set(value) {
+            center = value
+        }
+
+    override var mapRotation: Float
+        get() = 0f
+        set(_) {
+            // Do nothing
+        }
+
+    private var center: Coordinate = Coordinate.zero
+
+    private var translateX = 0f
+    private var translateY = 0f
+    private var scale = 1f
+
+    private val prefs by lazy { UserPreferences(context) }
+    private val units by lazy { prefs.baseDistanceUnits }
+    private val formatService by lazy { FormatService(context) }
+    private val scaleBar = Path()
+    private val distanceScale = DistanceScale()
+    private var lastScale = 1f
+
+    init {
+        runEveryCycle = true
+    }
+
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
     }
@@ -64,40 +106,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return getCoordinate(pixel)
     }
 
-    override var metersPerPixel: Float = 1f
-
-    override val layerScale: Float
-        get() = min(1f, max(scale, 0.9f))
-
-    override var mapCenter: Coordinate
-        get() = center
-        set(value) {
-            center = value
-        }
-
-    override var mapRotation: Float
-        get() = 0f
-        set(value) {}
-
-    private var center: Coordinate = Coordinate.zero
-
-    private var translateX = 0f
-    private var translateY = 0f
-    private var scale = 1f
-
-    private val prefs by lazy { UserPreferences(context) }
-    private val units by lazy { prefs.baseDistanceUnits }
-    private val formatService by lazy { FormatService(context) }
-    private val scaleBar = Path()
-    private val distanceScale = DistanceScale()
-    private var lastScale = 1f
-
-    private val lookupMatrix = Matrix()
-
-    init {
-        runEveryCycle = true
-    }
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         layers.forEach { it.invalidate() }
@@ -110,13 +118,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     override fun draw() {
         clear()
         drawScale()
-        drawMap()
+        drawLayers()
     }
 
-    private fun drawMap() {
+    private fun drawLayers() {
         val bounds = bounds ?: return
-        val initialScale = getInitialScale() ?: return
-        metersPerPixel = initialScale / scale
         center = bounds.center
 
         if (scale != lastScale) {
