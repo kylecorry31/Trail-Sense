@@ -1086,4 +1086,5 @@
     <string name="center">中心</string>
     <string name="size">尺寸</string>
     <string name="create_blank_map">创建空白地图</string>
+    <string name="pref_include_leading_zero_title">在表示时间的数字前添加 0</string>
 </resources>
