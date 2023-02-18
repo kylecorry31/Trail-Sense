@@ -34,6 +34,8 @@ import kotlin.math.sqrt
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
     IMapView {
     var isInteractive = false
+    var isPanEnabled = true
+    var isZoomEnabled = true
 
     private val layers = mutableListOf<ILayer>()
     var bounds: CoordinateBounds? = null
@@ -205,7 +207,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         scale = 1f
     }
 
-    private fun zoom(factor: Float) {
+    fun zoom(factor: Float) {
         // TODO: Use same scale as map
         val newScale = (scale * factor).coerceIn(0.25f, 16f)
         val newFactor = newScale / scale
@@ -223,15 +225,23 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             distanceY: Float
         ): Boolean {
             // TODO: Keep path on screen
-            translateX -= distanceX
-            translateY -= distanceY
+            if (isPanEnabled) {
+                translateX -= distanceX
+                translateY -= distanceY
+            }
             return true
         }
 
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            translateX += width / 2f - e.x
-            translateY += height / 2f - e.y
-            zoom(2F)
+            if (isPanEnabled) {
+                translateX += width / 2f - e.x
+                translateY += height / 2f - e.y
+            }
+
+            if (isZoomEnabled) {
+                zoom(2F)
+            }
+
             return super.onDoubleTap(e)
         }
 
@@ -255,7 +265,9 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            zoom(detector.scaleFactor)
+            if (isZoomEnabled) {
+                zoom(detector.scaleFactor)
+            }
             return true
         }
     }
