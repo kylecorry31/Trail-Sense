@@ -1099,4 +1099,5 @@
     <string name="create_blank_map">Boş Harita Oluştur</string>
     <string name="center">Merkez</string>
     <string name="size">Boyut</string>
+    <string name="pref_include_leading_zero_title">Zamanın önüne sıfır ekle</string>
 </resources>
