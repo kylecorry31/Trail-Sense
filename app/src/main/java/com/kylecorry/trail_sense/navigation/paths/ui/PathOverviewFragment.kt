@@ -159,10 +159,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             timer.once(Duration.ofMillis(30))
         }
 
-        binding.pathImage.setOnPointClickListener {
-            viewWaypoint(it)
-        }
-
         binding.addPointBtn.setOnClickListener {
             inBackground {
                 binding.addPointBtn.isEnabled = false

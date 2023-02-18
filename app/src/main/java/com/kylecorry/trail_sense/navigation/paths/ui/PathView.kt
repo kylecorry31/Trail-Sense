@@ -21,7 +21,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.FormatService
@@ -36,8 +35,6 @@ import kotlin.math.sqrt
 class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
     IMapView {
     var isInteractive = false
-
-    private var pointClickListener: (point: PathPoint) -> Unit = {}
 
     private val layers = mutableListOf<ILayer>()
     var bounds: CoordinateBounds? = null
@@ -87,7 +84,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private var translateX = 0f
     private var translateY = 0f
     private var scale = 1f
-    private var distanceX = 0f
 
     private val prefs by lazy { UserPreferences(context) }
     private val units by lazy { prefs.baseDistanceUnits }
@@ -113,40 +109,37 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     override fun draw() {
         clear()
-        push()
         drawScale()
-        translate(translateX, translateY)
-        scale(scale, scale, width / 2f, height / 2f)
-        pop()
         drawMap()
-    }
-
-    fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {
-        pointClickListener = listener
     }
 
     private fun drawMap() {
         val bounds = bounds ?: return
-
-        distanceX = bounds.width().meters().distance
-        val distanceY = bounds.height().meters().distance
-
-        if (distanceX == 0f || distanceY == 0f) {
-            return
-        }
-
-        val h = height.toFloat() - dp(32f)
-        val w = width.toFloat() - dp(32f)
-        val scale = SolMath.scaleToFit(distanceX, distanceY, w, h)
-        metersPerPixel = 1 / scale
+        val initialScale = getInitialScale() ?: return
+        metersPerPixel = initialScale / scale
         center = bounds.center
 
-        if (this.scale != lastScale) {
-            lastScale = this.scale
+        if (scale != lastScale) {
+            lastScale = scale
             layers.forEach { it.invalidate() }
         }
 
         layers.forEach { it.draw(this, this) }
+    }
+
+    private fun getInitialScale(): Float? {
+        val bounds = bounds ?: return null
+        val distanceX = bounds.width().meters().distance
+        val distanceY = bounds.height().meters().distance
+
+        if (distanceX == 0f || distanceY == 0f) {
+            return null
+        }
+
+        val h = height.toFloat() - dp(32f)
+        val w = width.toFloat() - dp(32f)
+
+        return 1 / SolMath.scaleToFit(distanceX, distanceY, w, h)
     }
 
     private fun getPixels(
@@ -176,7 +169,6 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         stroke(Color.WHITE)
         strokeWeight(4f)
 
-        val metersPerPixel = metersPerPixel / scale
         val scaleSize = distanceScale.getScaleDistance(units, width / 2f, metersPerPixel)
 
         scaleBar.reset()
@@ -231,7 +223,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         }
 
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            // TODO: Center place tapped before zooming
+            translateX += width / 2f - e.x
+            translateY += height / 2f - e.y
             zoom(2F)
             return super.onDoubleTap(e)
         }
@@ -273,22 +266,17 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     private fun toView(source: PixelCoordinate): PixelCoordinate {
-        lookupMatrix.reset()
-        val point = floatArrayOf(source.x, source.y)
-        lookupMatrix.postScale(scale, scale, width / 2f, height / 2f)
-        lookupMatrix.postTranslate(translateX, translateY)
-        lookupMatrix.mapPoints(point)
-        return PixelCoordinate(point[0], point[1])
+        return PixelCoordinate(
+            source.x + translateX,
+            source.y + translateY
+        )
     }
 
     private fun toSource(screen: PixelCoordinate): PixelCoordinate {
-        lookupMatrix.reset()
-        val point = floatArrayOf(screen.x, screen.y)
-        lookupMatrix.postScale(scale, scale, width / 2f, height / 2f)
-        lookupMatrix.postTranslate(translateX, translateY)
-        lookupMatrix.invert(lookupMatrix)
-        lookupMatrix.mapPoints(point)
-        return PixelCoordinate(point[0], point[1])
+        return PixelCoordinate(
+            screen.x - translateX,
+            screen.y - translateY
+        )
     }
 
 }
