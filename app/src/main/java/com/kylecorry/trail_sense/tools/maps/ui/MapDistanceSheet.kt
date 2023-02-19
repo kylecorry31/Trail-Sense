@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.Button
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.kylecorry.ceres.toolbar.CeresToolbar
@@ -17,6 +18,7 @@ class MapDistanceSheet(context: Context, attrs: AttributeSet?) : FrameLayout(con
 
     var cancelListener: (() -> Unit)? = null
     var undoListener: (() -> Unit)? = null
+    var createPathListener: (() -> Unit)? = null
 
     private val toolbar: CeresToolbar
 
@@ -29,6 +31,11 @@ class MapDistanceSheet(context: Context, attrs: AttributeSet?) : FrameLayout(con
         toolbar.leftButton.setOnClickListener {
             undoListener?.invoke()
         }
+
+        findViewById<Button>(R.id.create_path_btn).setOnClickListener {
+            createPathListener?.invoke()
+        }
+
     }
 
     fun setDistance(distance: Distance) {
@@ -36,11 +43,11 @@ class MapDistanceSheet(context: Context, attrs: AttributeSet?) : FrameLayout(con
             formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
     }
 
-    fun show(){
+    fun show() {
         isVisible = true
     }
 
-    fun hide(){
+    fun hide() {
         isVisible = false
     }
 }

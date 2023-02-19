@@ -15,4 +15,12 @@
         app:rightButtonIcon="@drawable/ic_cancel"
         app:title="@string/distance" />
 
+    <Button
+        android:id="@+id/create_path_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/create_path" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>

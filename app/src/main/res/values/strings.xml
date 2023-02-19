@@ -1275,6 +1275,7 @@
     <string name="center">Center</string>
     <string name="size">Size</string>
     <string name="create_blank_map">Create Blank Map</string>
+    <string name="create_path">Create path</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

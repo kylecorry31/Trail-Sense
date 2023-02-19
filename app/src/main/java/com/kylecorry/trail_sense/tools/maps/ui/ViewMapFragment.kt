@@ -38,6 +38,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -45,6 +46,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
@@ -420,6 +422,24 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.distanceSheet.show()
         binding.distanceSheet.cancelListener = {
             stopDistanceMeasurement()
+        }
+        binding.distanceSheet.createPathListener = {
+            runInBackground {
+                map?.let {
+                    val id = CreatePathCommand(
+                        pathService,
+                        prefs.navigation,
+                        it
+                    ).execute(distanceLayer.getPoints())
+
+                    onMain {
+                        findNavController().navigate(
+                            R.id.pathDetailsFragment,
+                            bundleOf("path_id" to id)
+                        )
+                    }
+                }
+            }
         }
         binding.distanceSheet.undoListener = {
             distanceLayer.undo()
