@@ -75,6 +75,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     getString(R.string.rename),
                     if (isMapView) getString(R.string.change_map_projection) else null,
                     if (isMapView) getString(R.string.measure) else null,
+                    if (isMapView) getString(R.string.create_path) else null,
                     if (isMapView) getString(R.string.export) else null,
                     getString(R.string.delete)
                 )
@@ -128,18 +129,18 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                             }
                         }
                     }
-                    4 -> { // Measure
+                    4, 5 -> { // Measure or create path
                         val fragment = currentFragment
                         if (fragment != null && fragment is ViewMapFragment) {
                             fragment.startDistanceMeasurement()
                         }
                     }
-                    5 -> { // Export
+                    6 -> { // Export
                         map?.let {
                             exportService.export(it)
                         }
                     }
-                    6 -> { // Delete
+                    7 -> { // Delete
                         inBackground {
                             map?.let {
                                 DeleteMapCommand(requireContext(), mapService).execute(it)
