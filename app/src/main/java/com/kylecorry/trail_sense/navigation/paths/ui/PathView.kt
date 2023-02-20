@@ -124,8 +124,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
         zoomTo(clampScale(scale))
 
-        drawScale()
         drawLayers()
+        drawScale()
     }
 
     private fun drawLayers() {

@@ -9,7 +9,10 @@ import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.navigation.ui.markers.CircleMapMarker
 
-class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { false }) :
+class BeaconLayer(
+    private val size: Float = 12f,
+    private val onBeaconClick: (beacon: Beacon) -> Boolean = { false }
+) :
     BaseLayer() {
 
     private val _beacons = mutableListOf<Beacon>()
@@ -30,7 +33,7 @@ class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { fal
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        if (_loader == null){
+        if (_loader == null) {
             _imageSize = drawer.dp(24f)
             _loader = DrawerBitmapLoader(drawer)
         }
@@ -65,15 +68,28 @@ class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { fal
             } else {
                 127
             }
-            addMarker(CircleMapMarker(it.coordinate, it.color, backgroundColor, opacity) {
-                onBeaconClick(it)
-            })
+            addMarker(
+                CircleMapMarker(
+                    it.coordinate,
+                    it.color,
+                    backgroundColor,
+                    opacity,
+                    this.size
+                ) {
+                    onBeaconClick(it)
+                })
             if (it.icon != null) {
                 val image = drawer.load(it.icon.icon, size)
                 val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
-                addMarker(BitmapMapMarker(it.coordinate, image, size = 8f, tint = color) {
-                    onBeaconClick(it)
-                })
+                addMarker(
+                    BitmapMapMarker(
+                        it.coordinate,
+                        image,
+                        size = this.size * 0.75f,
+                        tint = color
+                    ) {
+                        onBeaconClick(it)
+                    })
             }
         }
     }

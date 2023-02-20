@@ -83,7 +83,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var difficulty = HikingDifficulty.Easiest
 
     private val pathLayer = PathLayer()
-    private val waypointLayer = BeaconLayer {
+    private val waypointLayer = BeaconLayer(8f) {
         if (selectedPointId != null) {
             deselectPoint()
             return@BeaconLayer true
