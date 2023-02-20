@@ -434,7 +434,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
                     onMain {
                         findNavController().navigate(
-                            R.id.pathDetailsFragment,
+                            R.id.action_maps_to_path,
                             bundleOf("path_id" to id)
                         )
                     }
