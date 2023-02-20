@@ -16,7 +16,13 @@ import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :
     ILayer {
 
-    private val pointLayer = BeaconLayer()
+    private val pointLayer = BeaconLayer {
+        if (!isEnabled) {
+            return@BeaconLayer false
+        }
+        add(it.coordinate)
+        true
+    }
     private val pathLayer = PathLayer()
     private var points = mutableListOf<Coordinate>()
 
@@ -38,6 +44,9 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
     }
 
     fun add(location: Coordinate) {
+        if (location == points.lastOrNull()) {
+            return
+        }
         points.add(location)
         onPathChanged(points.toList())
         updateLayers()
@@ -79,6 +88,13 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
         if (!isEnabled) {
             return false
         }
+
+        val wasPointClicked = pointLayer.onClick(drawer, map, pixel)
+
+        if (wasPointClicked) {
+            return true
+        }
+
         add(map.toCoordinate(pixel))
         return true
     }
