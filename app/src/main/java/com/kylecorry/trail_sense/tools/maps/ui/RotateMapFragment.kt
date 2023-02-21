@@ -8,6 +8,8 @@ import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +34,13 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
         container: ViewGroup?
     ): FragmentMapsRotateBinding {
         return FragmentMapsRotateBinding.inflate(layoutInflater, container, false)
+    }
+
+    override fun onDestroyView() {
+        if (isBound){
+            binding.rotateView.clearImage()
+        }
+        super.onDestroyView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,7 +88,7 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
     private suspend fun next() {
         val map = map ?: return
         val rotation = binding.rotateView.angle
-        withContext(Dispatchers.IO) {
+        onIO {
             mapRepo.addMap(
                 map.copy(
                     calibration = map.calibration.copy(
@@ -90,7 +99,8 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
             )
         }
 
-        withContext(Dispatchers.Main) {
+        onMain {
+            binding.rotateView.clearImage()
             onDone.invoke()
         }
     }

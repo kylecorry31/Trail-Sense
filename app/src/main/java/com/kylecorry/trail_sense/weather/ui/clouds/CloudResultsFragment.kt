@@ -170,7 +170,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
     }
 
-    private suspend fun loadImage(uri: Uri): Bitmap = onIO {
+    private suspend fun loadImage(uri: Uri): Bitmap? = onIO {
         val file = uri.toFile()
         val path = file.path
         val rotation = tryOrDefault(0) {
@@ -181,7 +181,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
             path,
             SoftmaxCloudClassifier.IMAGE_SIZE,
             SoftmaxCloudClassifier.IMAGE_SIZE
-        )
+        ) ?: return@onIO null
         val bmp = full.resizeExact(
             SoftmaxCloudClassifier.IMAGE_SIZE,
             SoftmaxCloudClassifier.IMAGE_SIZE

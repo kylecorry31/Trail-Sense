@@ -16,8 +16,6 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
@@ -33,6 +31,13 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
+    }
+
+    override fun onDestroyView() {
+        if (isBound){
+            binding.perspective.clearImage()
+        }
+        super.onDestroyView()
     }
 
     override fun generateBinding(
@@ -63,10 +68,10 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
         binding.nextButton.isInvisible = true
         inBackground {
-            withContext(Dispatchers.IO) {
+            onIO {
                 map = mapRepo.getMap(mapId)
             }
-            withContext(Dispatchers.Main) {
+            onMain {
                 map?.let {
                     onMapLoad(it)
                 }
@@ -94,7 +99,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
         }
         onIO {
             if (binding.perspective.hasChanges) {
-                val bitmap = files.bitmap(map.filename)
+                val bitmap = files.bitmap(map.filename) ?: return@onIO
                 val bounds =
                     percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
                 val warped = bitmap.fixPerspective(bounds)
@@ -102,9 +107,6 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
                 try {
                     files.save(map.filename, warped, recycleOnSave = true)
                 } catch (e: IOException) {
-                    onMain {
-                        loading.dismiss()
-                    }
                     return@onIO
                 }
             }
@@ -113,6 +115,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
 
         onMain {
             loading.dismiss()
+            binding.perspective.clearImage()
             onDone.invoke()
         }
     }

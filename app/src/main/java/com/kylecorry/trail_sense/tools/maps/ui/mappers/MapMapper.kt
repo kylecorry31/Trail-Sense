@@ -25,6 +25,7 @@ class MapMapper(
 
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
+    private val files = FileSubsystem.getInstance(context)
 
     override fun map(value: PhotoMap): ListItem {
         val onMap = value.boundary()?.contains(gps.location) ?: false
@@ -80,9 +81,9 @@ class MapMapper(
     private suspend fun loadMapThumbnail(map: PhotoMap): Bitmap = onIO {
         val size = Resources.dp(context, 48f).toInt()
         val bitmap = try {
-            FileSubsystem.getInstance(context).bitmap(map.filename, Size(size, size))
+            files.bitmap(map.filename, Size(size, size)) ?: getDefaultMapThumbnail()
         } catch (e: Exception) {
-            Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+            getDefaultMapThumbnail()
         }
 
         if (map.calibration.rotation != 0) {
@@ -92,6 +93,11 @@ class MapMapper(
         }
 
         bitmap
+    }
+
+    private fun getDefaultMapThumbnail(): Bitmap {
+        val size = Resources.dp(context, 48f).toInt()
+        return Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
     }
 
 }

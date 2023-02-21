@@ -6,8 +6,8 @@ import android.util.Size
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.pdf.*
 import com.kylecorry.sol.science.geology.ReferenceEllipsoid
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapExportService(
     context: Context,
@@ -31,7 +31,8 @@ class MapExportService(
         try {
             val maxImageSize = 2048
 
-            bitmap = files.bitmap(map.filename, Size(maxImageSize, maxImageSize))
+            bitmap =
+                files.bitmap(map.filename, Size(maxImageSize, maxImageSize)) ?: return emptyList()
 
             if (map.calibration.rotation != 0) {
                 val rotated = bitmap.rotate(map.calibration.rotation.toFloat())

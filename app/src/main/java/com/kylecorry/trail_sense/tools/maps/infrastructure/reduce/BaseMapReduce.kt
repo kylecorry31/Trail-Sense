@@ -19,7 +19,7 @@ abstract class BaseMapReduce(
     private val files = FileSubsystem.getInstance(context)
 
     override suspend fun reduce(map: PhotoMap) = onIO {
-        val bmp = files.bitmap(map.filename, maxSize?.toAndroidSize())
+        val bmp = files.bitmap(map.filename, maxSize?.toAndroidSize()) ?: return@onIO
         files.save(map.filename, bmp, quality, true)
         if (!map.filename.endsWith(".webp")) {
             val newFileName = "maps/" + UUID.randomUUID().toString() + ".webp"

@@ -7,7 +7,6 @@ import android.graphics.Matrix
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
@@ -30,8 +29,6 @@ class PerspectiveCorrectionView : CanvasView {
     private var image: Bitmap? = null
     private var imagePath: String? = null
 
-    @DrawableRes
-    private var imageDrawable: Int? = null
     private var linesLoaded = false
     private var scale = 0.9f
     private var topLeft = PixelCoordinate(0f, 0f)
@@ -80,27 +77,7 @@ class PerspectiveCorrectionView : CanvasView {
 
     override fun draw() {
         if (image == null && imagePath != null) {
-            imagePath?.let {
-                val bitmap = files.bitmap(
-                    it,
-                    android.util.Size(
-                        width,
-                        height
-                    )
-                )
-                image = bitmap.resizeToFit(width, height)
-                if (image != bitmap) {
-                    bitmap.recycle()
-                }
-            }
-        } else if (image == null && imageDrawable != null) {
-            imageDrawable?.let {
-                val img = loadImage(it)
-                image = img.resizeToFit(width, height)
-                if (img != image) {
-                    img.recycle()
-                }
-            }
+            imagePath?.let { loadImage(it) }
         }
 
         val bitmap = image ?: return
@@ -109,8 +86,9 @@ class PerspectiveCorrectionView : CanvasView {
             resetLines()
         }
 
-        imageX = (width - bitmap.width * scale) / (2f)
-        imageY = (height - bitmap.height * scale) / (2f)
+        // Center the image
+        imageX = (width - bitmap.width * scale) / 2f
+        imageY = (height - bitmap.height * scale) / 2f
 
         push()
         rotate(mapRotation)
@@ -123,6 +101,14 @@ class PerspectiveCorrectionView : CanvasView {
             drawMagnify()
         }
         pop()
+    }
+
+    private fun loadImage(path: String) {
+        val bitmap = files.bitmap(path, width, height) ?: return
+        image = bitmap.resizeToFit(width, height)
+        if (image != bitmap) {
+            bitmap.recycle()
+        }
     }
 
     private fun drawMagnify() {
@@ -210,26 +196,18 @@ class PerspectiveCorrectionView : CanvasView {
         )
     }
 
-    fun setImage(bitmap: Bitmap) {
-        image = bitmap
-        imagePath = null
-        imageDrawable = null
-        linesLoaded = false
-        invalidate()
-    }
-
-    fun setImage(@DrawableRes id: Int) {
-        imageDrawable = id
-        imagePath = null
-        image = null
-        linesLoaded = false
-        invalidate()
-    }
-
     fun setImage(path: String) {
         imagePath = path
-        imageDrawable = null
         image = null
+        linesLoaded = false
+        invalidate()
+    }
+
+    fun clearImage() {
+        imagePath = null
+        val oldImage = image
+        image = null
+        oldImage?.recycle()
         linesLoaded = false
         invalidate()
     }

@@ -28,7 +28,11 @@ class FileSubsystem private constructor(private val context: Context) {
     private val external = ExternalFileSystem(context)
     private val local = LocalFileSystem(context)
 
-    fun bitmap(path: String, maxSize: Size? = null): Bitmap {
+    fun bitmap(path: String, maxWidth: Int, maxHeight: Int): Bitmap? {
+        return bitmap(path, Size(maxWidth, maxHeight))
+    }
+
+    fun bitmap(path: String, maxSize: Size? = null): Bitmap? {
         return if (maxSize != null) {
             BitmapUtils.decodeBitmapScaled(get(path).path, maxSize.width, maxSize.height)
         } else {
@@ -93,8 +97,7 @@ class FileSubsystem private constructor(private val context: Context) {
     fun imageSize(path: String): Size {
         return tryOrDefault(Size(0, 0)) {
             val file = get(path)
-            val size = BitmapUtils.getBitmapSize(file.path)
-            Size(size.first, size.second)
+            BitmapUtils.getBitmapSize(file.path) ?: Size(0, 0)
         }
 
     }

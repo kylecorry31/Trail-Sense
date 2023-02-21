@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
-import android.util.Size
-import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
@@ -15,8 +13,6 @@ class RotationCorrectionView : CanvasView {
     private var image: Bitmap? = null
     private var imagePath: String? = null
 
-    @DrawableRes
-    private var imageDrawable: Int? = null
     private var linesLoaded = false
     private var scale = 0.8f
 
@@ -48,26 +44,14 @@ class RotationCorrectionView : CanvasView {
 
     override fun draw() {
         if (image == null && imagePath != null) {
-            imagePath?.let {
-                val bitmap = files.bitmap(it, Size(width, height))
-                image = bitmap.resizeToFit(width, height)
-                if (image != bitmap) {
-                    bitmap.recycle()
-                }
-            }
-        } else if (image == null && imageDrawable != null) {
-            imageDrawable?.let {
-                val img = loadImage(it)
-                image = img.resizeToFit(width, height)
-                if (image != img) {
-                    img.recycle()
-                }
-            }
+            imagePath?.let { loadImage(it) }
         }
 
         val bitmap = image?.rotate(angle) ?: return
-        imageX = (width - bitmap.width * scale) / (2f)
-        imageY = (height - bitmap.height * scale) / (2f)
+
+        // Center the image
+        imageX = (width - bitmap.width * scale) / 2f
+        imageY = (height - bitmap.height * scale) / 2f
 
         push()
         translate(imageX, imageY)
@@ -79,27 +63,28 @@ class RotationCorrectionView : CanvasView {
         }
     }
 
-    fun setImage(bitmap: Bitmap) {
-        image = bitmap
-        imagePath = null
-        imageDrawable = null
-        linesLoaded = false
-        invalidate()
-    }
-
-    fun setImage(@DrawableRes id: Int) {
-        imageDrawable = id
-        imagePath = null
-        image = null
-        linesLoaded = false
-        invalidate()
+    private fun loadImage(path: String) {
+        val bitmap = files.bitmap(path, width, height) ?: return
+        image = bitmap.resizeToFit(width, height)
+        if (image != bitmap) {
+            bitmap.recycle()
+        }
     }
 
     fun setImage(path: String) {
         imagePath = path
-        imageDrawable = null
         image = null
         linesLoaded = false
         invalidate()
     }
+
+    fun clearImage() {
+        imagePath = null
+        val oldImage = image
+        image = null
+        oldImage?.recycle()
+        linesLoaded = false
+        invalidate()
+    }
+
 }
