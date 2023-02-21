@@ -236,7 +236,7 @@ class PerspectiveCorrectionView : CanvasView {
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                val radius = dp(10f)
+                val radius = dp(16f)
 
                 when {
                     topLeft.distanceTo(position) <= radius -> {
