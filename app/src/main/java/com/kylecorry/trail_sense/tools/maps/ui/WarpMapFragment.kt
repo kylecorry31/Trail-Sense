@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     }
 
     override fun onDestroyView() {
-        if (isBound){
+        if (isBound) {
             binding.perspective.clearImage()
         }
         super.onDestroyView()
@@ -102,8 +103,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
                 val bitmap = files.bitmap(map.filename) ?: return@onIO
                 val bounds =
                     percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
-                val warped = bitmap.fixPerspective(bounds)
-                bitmap.recycle()
+                val warped = bitmap.fixPerspective(bounds, true, Color.WHITE)
                 try {
                     files.save(map.filename, warped, recycleOnSave = true)
                 } catch (e: IOException) {

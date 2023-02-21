@@ -145,7 +145,7 @@ class PerspectiveCorrectionView : CanvasView {
 
     private fun drawPreviewCanvas() {
         val bitmap = image ?: return
-        val warped = bitmap.fixPerspective(getBounds())
+        val warped = bitmap.fixPerspective(getBounds(), false, Color.WHITE)
         image(warped, 0f, 0f)
         if (warped != bitmap) {
             warped.recycle()
