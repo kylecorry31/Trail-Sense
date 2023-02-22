@@ -16,8 +16,18 @@ class PathRenderer(private val mapper: (Coordinate) -> PixelCoordinate): IRender
             }
 
             val end = mapper(points[i])
-            path.lineTo(end.x - originPx.x, end.y - originPx.y)
+            drawLine(originPx, end, path)
         }
         return RenderedPath(origin, path)
+    }
+
+    private fun drawLine(origin: PixelCoordinate, end: PixelCoordinate, path: Path) {
+        val length = origin.distanceTo(end)
+        if (length > 20000){
+            // If the path is far from the origin, don't draw it - drawing it will cause poor performance
+            path.moveTo(end.x - origin.x, end.y - origin.y)
+        } else {
+            path.lineTo(end.x - origin.x, end.y - origin.y)
+        }
     }
 }
