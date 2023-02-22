@@ -109,8 +109,12 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         }
     override var mapRotation: Float = 0f
         set(value) {
+            val changed = field != value
             field = value
-            invalidate()
+            if (changed) {
+                refreshRequiredTiles(true)
+                invalidate()
+            }
         }
 
     var azimuth: Bearing = Bearing(0f)
@@ -222,6 +226,50 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
         this.map = map
         projection = map.projection(realWidth.toFloat(), realHeight.toFloat())
         invalidate()
+    }
+
+    override fun tileVisible(tile: Tile?): Boolean {
+        // No need to check if the map is not rotated
+        if (mapRotation == 0f){
+            return super.tileVisible(tile)
+        }
+
+        val rect = tile?.sRect ?: return false
+
+        // Calculate the bounds of the visible source area (factoring in rotation)
+        val topLeftSource = toSource(0f, 0f, true)
+        val topRightSource = toSource(width.toFloat(), 0f, true)
+        val bottomRightSource = toSource(width.toFloat(), height.toFloat(), true)
+        val bottomLeftSource = toSource(0f, height.toFloat(), true)
+
+        val sVisLeft = minOf(
+            topLeftSource?.x ?: 0f,
+            topRightSource?.x ?: 0f,
+            bottomRightSource?.x ?: 0f,
+            bottomLeftSource?.x ?: 0f
+        )
+        val sVisRight = maxOf(
+            topLeftSource?.x ?: 0f,
+            topRightSource?.x ?: 0f,
+            bottomRightSource?.x ?: 0f,
+            bottomLeftSource?.x ?: 0f
+        )
+        val sVisTop = minOf(
+            topLeftSource?.y ?: 0f,
+            topRightSource?.y ?: 0f,
+            bottomRightSource?.y ?: 0f,
+            bottomLeftSource?.y ?: 0f
+        )
+        val sVisBottom = maxOf(
+            topLeftSource?.y ?: 0f,
+            topRightSource?.y ?: 0f,
+            bottomRightSource?.y ?: 0f,
+            bottomLeftSource?.y ?: 0f
+        )
+
+        // Check to see if the tile is within the visible source area
+        return sVisLeft > rect.right || rect.left > sVisRight || sVisTop > rect.bottom || rect.top <= sVisBottom
+
     }
 
     override fun onImageLoaded() {
