@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 class RotationCorrectionView : CanvasView {
@@ -47,20 +46,18 @@ class RotationCorrectionView : CanvasView {
             imagePath?.let { loadImage(it) }
         }
 
-        val bitmap = image?.rotate(angle) ?: return
+        val image = image ?: return
 
         // Center the image
-        imageX = (width - bitmap.width * scale) / 2f
-        imageY = (height - bitmap.height * scale) / 2f
+        imageX = (width - image.width * scale) / 2f
+        imageY = (height - image.height * scale) / 2f
 
         push()
+        rotate(angle)
         translate(imageX, imageY)
         scale(scale)
-        image(bitmap, 0f, 0f)
+        image(image, 0f, 0f)
         pop()
-        if (bitmap != image) {
-            bitmap.recycle()
-        }
     }
 
     private fun loadImage(path: String) {

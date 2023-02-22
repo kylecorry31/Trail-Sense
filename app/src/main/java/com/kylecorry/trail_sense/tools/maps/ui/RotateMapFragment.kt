@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
@@ -87,7 +88,7 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
 
     private suspend fun next() {
         val map = map ?: return
-        val rotation = binding.rotateView.angle
+        val rotation = normalizeAngle(binding.rotateView.angle)
         onIO {
             mapRepo.addMap(
                 map.copy(
