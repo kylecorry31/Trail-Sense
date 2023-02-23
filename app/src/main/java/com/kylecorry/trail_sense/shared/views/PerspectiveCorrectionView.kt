@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
+import kotlin.math.max
 import kotlin.math.min
 
 
@@ -104,8 +105,23 @@ class PerspectiveCorrectionView : CanvasView {
     }
 
     private fun loadImage(path: String) {
-        val bitmap = files.bitmap(path, width, height) ?: return
-        image = bitmap.resizeToFit(width, height)
+
+        val border = dp(48f).toInt()
+
+        val w = if (mapRotation == 0f || mapRotation == 180f) {
+            width
+        } else {
+            height
+        } - border
+
+        val h = if (mapRotation == 0f || mapRotation == 180f) {
+            height
+        } else {
+            width
+        } - border
+
+        val bitmap = files.bitmap(path, w, h) ?: return
+        image = bitmap.resizeToFit(w, h)
         if (image != bitmap) {
             bitmap.recycle()
         }
@@ -233,11 +249,10 @@ class PerspectiveCorrectionView : CanvasView {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val position = toSource(PixelCoordinate(event.x, event.y))
+        val radius = dp(16f)
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                val radius = dp(16f)
-
                 when {
                     topLeft.distanceTo(position) <= radius -> {
                         movingCorner = Corner.TopLeft
@@ -256,19 +271,21 @@ class PerspectiveCorrectionView : CanvasView {
             MotionEvent.ACTION_MOVE -> {
                 when (movingCorner) {
                     Corner.TopLeft -> {
-                        topLeft = constrain(position, null, bottomLeft.y, null, topRight.x)
+                        topLeft = constrain(position, null, bottomLeft.y, null, topRight.x, radius)
                         hasChanges = true
                     }
                     Corner.TopRight -> {
-                        topRight = constrain(position, null, bottomRight.y, topLeft.x, null)
+                        topRight = constrain(position, null, bottomRight.y, topLeft.x, null, radius)
                         hasChanges = true
                     }
                     Corner.BottomLeft -> {
-                        bottomLeft = constrain(position, topLeft.y, null, null, bottomRight.x)
+                        bottomLeft =
+                            constrain(position, topLeft.y, null, null, bottomRight.x, radius)
                         hasChanges = true
                     }
                     Corner.BottomRight -> {
-                        bottomRight = constrain(position, topRight.y, null, bottomLeft.x, null)
+                        bottomRight =
+                            constrain(position, topRight.y, null, bottomLeft.x, null, radius)
                         hasChanges = true
                     }
                     null -> {}
@@ -287,7 +304,8 @@ class PerspectiveCorrectionView : CanvasView {
         top: Float?,
         bottom: Float?,
         left: Float?,
-        right: Float?
+        right: Float?,
+        radius: Float
     ): PixelCoordinate {
         var x = pixel.x
         var y = pixel.y
@@ -308,7 +326,15 @@ class PerspectiveCorrectionView : CanvasView {
             x = right
         }
 
-        return PixelCoordinate(x, y)
+        val start = toSource(PixelCoordinate(radius, radius))
+        val end = toSource(PixelCoordinate(width.toFloat() - radius, height.toFloat() - radius))
+
+        println(end)
+
+        return PixelCoordinate(
+            x.coerceIn(min(start.x, end.x), max(start.x, end.x)),
+            y.coerceIn(min(start.y, end.y), max(start.y, end.y))
+        )
     }
 
 
