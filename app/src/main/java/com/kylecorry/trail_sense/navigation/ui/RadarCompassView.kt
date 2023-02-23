@@ -76,6 +76,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var east = ""
     private var west = ""
 
+    private var distanceText: String? = null
+
     private lateinit var dial: CompassDial
 
     constructor(context: Context?) : super(context)
@@ -204,23 +206,27 @@ class RadarCompassView : BaseCompassView, IMapView {
         circle(width / 2f, height / 2f, compassSize / 4f)
 
         // Distance Text
-        val distance = maxDistanceBaseUnits.toRelativeDistance()
-        val distanceText = formatService.formatDistance(
-            distance,
-            Units.getDecimalPlaces(distance.units),
-            false
-        )
+        if (distanceText == null) {
+            val distance = maxDistanceBaseUnits.toRelativeDistance()
+            distanceText = formatService.formatDistance(
+                distance,
+                Units.getDecimalPlaces(distance.units),
+                false
+            )
+        }
 
         textSize(distanceSize)
         fill(textColor)
         noStroke()
         textMode(TextMode.Corner)
         opacity(200)
-        text(
-            distanceText,
-            (width - compassSize) / 2f + 16,
-            height - (height - compassSize) / 2f + 16
-        )
+        distanceText?.let {
+            text(
+                it,
+                (width - compassSize) / 2f + 16,
+                height - (height - compassSize) / 2f + 16
+            )
+        }
 
         // Directions
         pop()
@@ -287,6 +293,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         textColor = Resources.androidTextColorSecondary(context)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
+        distanceText = null
         north = context.getString(R.string.direction_north)
         south = context.getString(R.string.direction_south)
         east = context.getString(R.string.direction_east)
@@ -316,6 +323,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             prefs.navigation.maxBeaconDistance /= detector.scaleFactor
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
+            distanceText = null
             layers.forEach { it.invalidate() }
             return true
         }
