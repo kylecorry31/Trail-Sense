@@ -709,10 +709,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun updateCompassView() {
         val destBearing = getDestinationBearing()
         val destination = destination
-        val destColor = destination?.color ?: Resources.color(
-            requireContext(),
-            R.color.colorAccent
-        )
+        val destColor = destination?.color ?: AppColor.Blue.color
 
         val direction = destBearing?.let {
             MappableBearing(
@@ -750,6 +747,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun updateCompassPaths(reload: Boolean = false) {
         inBackground {
             loadPathRunner.joinPreviousOrRun {
+
+                if (!useRadarCompass){
+                    return@joinPreviousOrRun
+                }
+
                 val mappablePaths = withContext(Dispatchers.IO) {
                     val loadGeofence = Geofence(
                         gps.location,
@@ -887,19 +889,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     @ColorInt
     private fun getGPSColor(): Int {
         if (gps is OverrideGPS) {
-            return Resources.color(requireContext(), R.color.green)
+            return AppColor.Green.color
         }
 
         if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return Resources.color(requireContext(), R.color.red)
+            return AppColor.Red.color
         }
 
         if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
-            return Resources.color(requireContext(), R.color.yellow)
+            return AppColor.Yellow.color
         }
 
         if (!gps.hasValidReading || (requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
-            return Resources.color(requireContext(), R.color.yellow)
+            return AppColor.Yellow.color
         }
 
         return CustomUiUtils.getQualityColor(gps.quality)
