@@ -93,7 +93,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val speedometer by lazy { sensorService.getSpeedometer() }
-    private val declination by lazy { DeclinationFactory().getDeclinationStrategy(userPrefs, gps) }
+    private val declinationProvider by lazy {
+        DeclinationFactory().getDeclinationStrategy(
+            userPrefs,
+            gps
+        )
+    }
+    private var declination = 0f
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
 
@@ -525,7 +531,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destinationBearing = lastDestBearing
         }
 
-        compass.declination = getDeclination()
+        updateDeclination()
 
         binding.beaconBtn.show()
         binding.roundCompass.isInvisible = useRadarCompass
@@ -598,18 +604,23 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (useTrueNorth) {
             return bearing
         }
-        return DeclinationUtils.fromTrueNorthBearing(bearing, getDeclination())
+        return DeclinationUtils.fromTrueNorthBearing(bearing, declination)
     }
 
-    private fun getDeclination(): Float {
-        return declination.getDeclination()
+    private fun updateDeclination() {
+        inBackground {
+            onIO {
+                declination = declinationProvider.getDeclination()
+                compass.declination = declination
+            }
+        }
     }
 
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
         return navigationService.getFacingBeacon(
             getPosition(),
             nearby,
-            getDeclination(),
+            declination,
             useTrueNorth
         )
     }
@@ -626,7 +637,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationSheet.show(
                 getPosition(),
                 selectedBeacon,
-                getDeclination(),
+                declination,
                 useTrueNorth
             )
         } else {
@@ -710,7 +721,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         val references = getReferencePoints()
-        val declination = getDeclination()
         val nearby = nearbyBeacons.toList()
 
         // TODO: Only update the current compass
@@ -840,7 +850,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         updateNearbyBeacons()
-        compass.declination = getDeclination()
+        updateDeclination()
 
         if (sunBearing == 0f) {
             inBackground {
