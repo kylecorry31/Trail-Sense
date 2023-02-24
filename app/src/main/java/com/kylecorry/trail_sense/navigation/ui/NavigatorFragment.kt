@@ -157,7 +157,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
     private val isNearbyEnabled by lazy { userPrefs.navigation.showMultipleBeacons }
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
-    private val nearbyDistance by lazy { userPrefs.navigation.maxBeaconDistance }
+    private val nearbyDistance
+        get() = userPrefs.navigation.maxBeaconDistance
     private val showAstronomyOnCompass by lazy { userPrefs.astronomy.showOnCompass }
     private val showAstronomyOnCompassWhenDown by lazy { userPrefs.astronomy.showOnCompassWhenDown }
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
