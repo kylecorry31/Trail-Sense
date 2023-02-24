@@ -11,12 +11,10 @@ internal class OverrideDeclinationStrategyTest {
     @Test
     fun getDeclination() {
         val prefs = mock<IDeclinationPreferences>()
+        whenever(prefs.declinationOverride).thenReturn(1.0f)
+
         val strategy = OverrideDeclinationStrategy(prefs)
 
-        whenever(prefs.declinationOverride).thenReturn(1.0f)
         assertEquals(1.0f, strategy.getDeclination(), 0.0f)
-
-        whenever(prefs.declinationOverride).thenReturn(2.0f)
-        assertEquals(2.0f, strategy.getDeclination(), 0.0f)
     }
 }
