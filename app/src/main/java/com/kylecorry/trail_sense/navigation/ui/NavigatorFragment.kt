@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
@@ -116,7 +117,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var destination: Beacon? = null
     private var destinationBearing: Float? = null
-    private var useTrueNorth = false
 
     private var hasAstronomyData = false
     private var isMoonUp = true
@@ -132,6 +132,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val pathLoader by lazy { PathLoader(pathService) }
 
     private val loadPathRunner = ControlledRunner<Unit>()
+    private val loadBeaconsRunner = ControlledRunner<Unit>()
 
     private val astronomyIntervalometer = Timer {
         inBackground {
@@ -144,6 +145,21 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
+
+
+    // Cached preferences
+    private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
+    private val isNearbyEnabled by lazy { userPrefs.navigation.showMultipleBeacons }
+    private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
+    private val nearbyDistance by lazy { userPrefs.navigation.maxBeaconDistance }
+    private val showAstronomyOnCompass by lazy { userPrefs.astronomy.showOnCompass }
+    private val showAstronomyOnCompassWhenDown by lazy { userPrefs.astronomy.showOnCompassWhenDown }
+    private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
+    private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
+    private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation) }
+    private val useTrueNorth by lazy { userPrefs.navigation.useTrueNorth }
+    private val requiresSatellites by lazy { userPrefs.requiresSatellites }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -178,7 +194,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
         myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
-        binding.radarCompass.setLayers(listOf(pathLayer, myAccuracyLayer, myLocationLayer, tideLayer, beaconLayer))
+        binding.radarCompass.setLayers(
+            listOf(
+                pathLayer,
+                myAccuracyLayer,
+                myLocationLayer,
+                tideLayer,
+                beaconLayer
+            )
+        )
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
@@ -201,7 +225,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         observe(beaconRepo.getBeacons()) {
             beacons = it.map { it.toBeacon() }
-            nearbyBeacons = getNearbyBeacons()
+            updateNearbyBeacons()
             updateUI()
         }
 
@@ -372,7 +396,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun handleShowWhenLocked() {
         activity?.let {
             val shouldShow =
-                isBound && userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)
+                isBound && lockScreenPresence && (destination != null || destinationBearing != null)
             tryOrNothing {
                 Screen.setShowWhenLocked(it, shouldShow)
             }
@@ -389,14 +413,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             if (gpsHorizontalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
                 R.string.accuracy_distance_format,
                 formatService.formatDistance(
-                    Distance.meters(gpsHorizontalAccuracy).convertTo(userPrefs.baseDistanceUnits)
+                    Distance.meters(gpsHorizontalAccuracy).convertTo(baseDistanceUnits)
                 )
             )
         val gpsVAccuracyStr =
             if (gpsVerticalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
                 R.string.accuracy_distance_format,
                 formatService.formatDistance(
-                    Distance.meters(gpsVerticalAccuracy).convertTo(userPrefs.baseDistanceUnits)
+                    Distance.meters(gpsVerticalAccuracy).convertTo(baseDistanceUnits)
                 )
             )
 
@@ -446,8 +470,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun getReferencePoints(): List<IMappableReferencePoint> {
         val references = mutableListOf<IMappableReferencePoint>()
-        if (userPrefs.astronomy.showOnCompass && hasAstronomyData) {
-            val showWhenDown = userPrefs.astronomy.showOnCompassWhenDown
+        if (showAstronomyOnCompass && hasAstronomyData) {
+            val showWhenDown = showAstronomyOnCompassWhenDown
 
             if (isSunUp) {
                 references.add(MappableReferencePoint(1, R.drawable.ic_sun, Bearing(sunBearing)))
@@ -482,7 +506,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onResume()
         lastOrientation = null
         astronomyIntervalometer.interval(Duration.ofMinutes(1))
-        useTrueNorth = userPrefs.navigation.useTrueNorth
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
@@ -505,8 +528,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         compass.declination = getDeclination()
 
         binding.beaconBtn.show()
-        binding.roundCompass.isInvisible = userPrefs.navigation.useRadarCompass
-        binding.radarCompass.isInvisible = !userPrefs.navigation.useRadarCompass
+        binding.roundCompass.isInvisible = useRadarCompass
+        binding.radarCompass.isInvisible = !useRadarCompass
 
         // Update the UI
         updateNavigator()
@@ -515,6 +538,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onPause() {
         super.onPause()
         loadPathRunner.cancel()
+        loadBeaconsRunner.cancel()
         sightingCompass.stop()
         astronomyIntervalometer.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
@@ -522,19 +546,25 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         gpsErrorShown = false
     }
 
-    private fun getNearbyBeacons(): Collection<Beacon> {
+    private fun updateNearbyBeacons() {
+        inBackground {
+            onIO {
+                loadBeaconsRunner.joinPreviousOrRun {
+                    if (!isNearbyEnabled) {
+                        nearbyBeacons = emptyList()
+                        return@joinPreviousOrRun
+                    }
 
-        if (!userPrefs.navigation.showMultipleBeacons) {
-            return listOf()
+                    nearbyBeacons = navigationService.getNearbyBeacons(
+                        gps.location,
+                        beacons,
+                        nearbyCount,
+                        8f,
+                        nearbyDistance
+                    )
+                }
+            }
         }
-
-        return navigationService.getNearbyBeacons(
-            gps.location,
-            beacons,
-            userPrefs.navigation.numberOfVisibleBeacons,
-            8f,
-            userPrefs.navigation.maxBeaconDistance
-        )
     }
 
     private fun getSunBearing(): Float {
@@ -646,7 +676,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Altitude
         binding.altitude.title = formatService.formatDistance(
-            Distance.meters(altimeter.altitude).convertTo(userPrefs.baseDistanceUnits)
+            Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
         )
 
         // Location
@@ -655,7 +685,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
 
         // show on lock screen
-        if (userPrefs.navigation.lockScreenPresence && (destination != null || destinationBearing != null)) {
+        if (lockScreenPresence && (destination != null || destinationBearing != null)) {
             activity?.let {
                 tryOrNothing {
                     Screen.setShowWhenLocked(it, true)
@@ -712,7 +742,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 val mappablePaths = withContext(Dispatchers.IO) {
                     val loadGeofence = Geofence(
                         gps.location,
-                        Distance.meters(userPrefs.navigation.maxBeaconDistance + 10)
+                        Distance.meters(nearbyDistance + 10)
                     )
                     val load = CoordinateBounds.from(loadGeofence)
 
@@ -749,7 +779,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getPosition(): Position {
-        return Position(gps.location, altimeter.altitude, compass.bearing, speedometer.speed.speed)
+        return Position(
+            gps.location,
+            altimeter.altitude,
+            compass.bearing,
+            speedometer.speed.speed
+        )
     }
 
     private fun showCalibrationDialog() {
@@ -779,7 +814,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         lastOrientation = orientation.orientation
 
-        val style = CompassStyleChooser(userPrefs.navigation).getStyle(orientation.orientation)
+        val style = styleChooser.getStyle(orientation.orientation)
 
         binding.linearCompass.isInvisible = style != CompassStyle.Linear
         binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
@@ -804,7 +839,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
         }
 
-        nearbyBeacons = getNearbyBeacons()
+        updateNearbyBeacons()
         compass.declination = getDeclination()
 
         if (sunBearing == 0f) {
@@ -852,7 +887,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (!gps.hasValidReading || (requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
@@ -872,7 +907,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (userPrefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (!gps.hasValidReading || (requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
             return getString(R.string.gps_searching)
         }
 
