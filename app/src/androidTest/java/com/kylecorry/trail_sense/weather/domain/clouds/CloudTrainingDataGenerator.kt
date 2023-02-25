@@ -51,7 +51,7 @@ class CloudTrainingDataGenerator {
         var i = 0
         for (image in images) {
             val size = SoftmaxCloudClassifier.IMAGE_SIZE
-            val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size)
+            val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size) ?: continue
             val bitmap = original.resizeExact(size, size)
             original.recycle()
 
