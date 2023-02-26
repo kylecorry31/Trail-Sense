@@ -4,8 +4,8 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -16,7 +16,7 @@ class SightingCompassView(
 ) {
 
     private val prefs by lazy {
-        Preferences(camera.context)
+        PreferencesSubsystem.getInstance(camera.context).preferences
     }
 
     private var _isRunning = false
@@ -58,7 +58,7 @@ class SightingCompassView(
         _isRunning = false
         try {
             camera.stop()
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         camera.isVisible = false

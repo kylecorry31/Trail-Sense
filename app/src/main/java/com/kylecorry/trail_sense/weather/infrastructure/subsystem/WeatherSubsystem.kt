@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.*
@@ -23,6 +22,7 @@ import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.domain.*
 import com.kylecorry.trail_sense.weather.domain.forecasting.IWeatherForecaster
@@ -53,7 +53,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val temperatureRepo by lazy { HistoricTemperatureRepo(context) }
     private val cloudRepo by lazy { CloudRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
-    private val sharedPrefs by lazy { Preferences(context) }
+    private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val location by lazy { LocationSubsystem.getInstance(context) }
 
     private var cachedValue = MemoryCachedValue<CurrentWeather>()

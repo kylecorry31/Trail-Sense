@@ -3,16 +3,16 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.kylecorry.andromeda.preferences.FloatPreference
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import java.time.Instant
 
 class BatteryRepo private constructor(context: Context) : IBatteryRepo {
 
     private val batteryDao = AppDatabase.getInstance(context).batteryDao()
-    private val prefs = Preferences(context)
+    private val prefs = PreferencesSubsystem.getInstance(context).preferences
     private var maxCapacityPref by FloatPreference(prefs, "pref_max_battery_capacity", 0f)
 
     override fun get(): LiveData<List<BatteryReadingEntity>> {

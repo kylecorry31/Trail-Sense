@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -49,7 +48,6 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val cache by lazy { Preferences(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val mapService by lazy { MapService.getInstance(requireContext()) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }

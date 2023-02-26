@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
-import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.Geology
@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant
@@ -27,7 +28,7 @@ class PathService(
     private val pathRepo: IPathRepo,
     private val waypointRepo: IWaypointRepo,
     private val pathPreferences: IPathPreferences,
-    private val cache: Preferences,
+    private val cache: IPreferences,
     private val time: ITimeProvider = SystemTimeProvider()
 ) : IPathService {
 
@@ -308,7 +309,7 @@ class PathService(
                     PathRepo.getInstance(context),
                     WaypointRepo.getInstance(context),
                     NavigationPreferences(context),
-                    Preferences(context)
+                    PreferencesSubsystem.getInstance(context).preferences
                 )
             }
             return instance!!

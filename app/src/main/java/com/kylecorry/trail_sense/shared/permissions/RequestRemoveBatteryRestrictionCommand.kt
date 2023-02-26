@@ -2,15 +2,15 @@ package com.kylecorry.trail_sense.shared.permissions
 
 import android.content.Context
 import com.kylecorry.andromeda.core.specifications.Specification
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class RequestRemoveBatteryRestrictionCommand(
     private val context: Context,
-    private val flag: Flag = PreferencesFlag(Preferences(context), SHOWN_KEY),
+    private val flag: Flag = PreferencesFlag(PreferencesSubsystem.getInstance(context).preferences, SHOWN_KEY),
     private val alerter: IAlerter = RemoveBatteryRestrictionsAlerter(context),
     private val isRequired: Specification<Context> = IsBatteryExemptionRequired()
 ) : Command {

@@ -9,13 +9,13 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -40,7 +40,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private var selectedMode = FlashlightMode.Torch
 
-    private val cache by lazy { Preferences(requireContext()) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatter by lazy { FormatService(requireContext()) }
     private var maxBrightness = 1

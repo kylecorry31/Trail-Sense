@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.domain.DailyStepResetCommand
 import com.kylecorry.trail_sense.tools.pedometer.domain.DistanceAlertCommand
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculat
 class PedometerCommandFactory(private val context: Context) {
 
     private val prefs = UserPreferences(context)
-    private val counter = StepCounter(Preferences(context))
+    private val counter = StepCounter(PreferencesSubsystem.getInstance(context).preferences)
     private val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
 
     fun getDistanceAlert(): Command {

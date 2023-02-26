@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -23,13 +22,14 @@ import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreference
 import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
     IPathPreferences, IBeaconPreferences, IMapPreferences {
 
-    private val cache by lazy { Preferences(context) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
     var useTrueNorth: Boolean
         get() = (cache.getBoolean(

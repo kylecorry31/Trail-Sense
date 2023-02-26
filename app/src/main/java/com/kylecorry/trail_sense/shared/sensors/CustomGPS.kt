@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
@@ -15,6 +14,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.time.Instant
 
@@ -60,7 +60,7 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         get() = _isTimedOut
 
     private val baseGPS by lazy { GPS(context.applicationContext, frequency = frequency) }
-    private val cache by lazy { Preferences(context.applicationContext) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
 
     private val timeout = Timer {

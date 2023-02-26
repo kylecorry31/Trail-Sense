@@ -6,15 +6,15 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -164,7 +164,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     }
 
     private fun clearCache() {
-        val cache = Preferences(requireContext())
+        val cache = PreferencesSubsystem.getInstance(requireContext()).preferences
         cache.remove(CustomGPS.LAST_ALTITUDE)
         cache.remove(CustomGPS.LAST_UPDATE)
         cache.remove(CustomGPS.LAST_SPEED)

@@ -25,7 +25,6 @@ import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.ColorFilterConstraintLayout
@@ -37,6 +36,7 @@ import com.kylecorry.trail_sense.shared.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
@@ -54,7 +54,7 @@ class MainActivity : AndromedaActivity() {
     val errorBanner: ErrorBannerView by lazy { findViewById(R.id.error_banner) }
 
     private lateinit var userPrefs: UserPreferences
-    private val cache by lazy { Preferences(this) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
 
     private val permissions = mutableListOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -86,8 +86,6 @@ class MainActivity : AndromedaActivity() {
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
-
-        val cache = Preferences(this)
 
         setContentView(R.layout.activity_main)
 

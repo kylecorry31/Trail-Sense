@@ -6,7 +6,6 @@ import android.text.format.DateFormat
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntPreference
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
@@ -15,13 +14,14 @@ import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.*
 import com.kylecorry.trail_sense.shared.extensions.getDuration
 import com.kylecorry.trail_sense.shared.extensions.putDuration
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 
 class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
-    private val cache by lazy { Preferences(context) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
     val navigation by lazy { NavigationPreferences(context) }
     val weather by lazy { WeatherPreferences(context) }

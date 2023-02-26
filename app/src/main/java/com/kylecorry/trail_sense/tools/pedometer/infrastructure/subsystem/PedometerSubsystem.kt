@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
@@ -15,6 +14,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
@@ -24,7 +24,7 @@ import java.util.*
 
 class PedometerSubsystem private constructor(private val context: Context) : IPedometerSubsystem {
 
-    private val sharedPrefs by lazy { Preferences(context) }
+    private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val prefsChanged by lazy { sharedPrefs.onChange }
     private val prefs by lazy { UserPreferences(context) }
     private val stepCounter by lazy { StepCounter(sharedPrefs) }

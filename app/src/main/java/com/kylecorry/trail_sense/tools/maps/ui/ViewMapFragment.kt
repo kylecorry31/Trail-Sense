@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -39,6 +38,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -66,7 +66,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
     private var paths: List<Path> = emptyList()
     private var currentBacktrackPathId: Long? = null
-    private val cache by lazy { Preferences(requireContext()) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }

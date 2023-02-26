@@ -7,10 +7,10 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.AndromedaService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import java.time.Duration
 import java.time.Instant
@@ -18,7 +18,7 @@ import java.time.Instant
 class FlashlightService : AndromedaService() {
 
     private val flashlight by lazy { FlashlightSubsystem.getInstance(this) }
-    private val cache by lazy { Preferences(this) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
 
     private var strategy: IFlashlightStrategy? = null
 

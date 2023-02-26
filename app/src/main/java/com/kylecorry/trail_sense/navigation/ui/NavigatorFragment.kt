@@ -26,7 +26,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -63,6 +62,7 @@ import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -109,7 +109,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val cache by lazy { Preferences(requireContext()) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val throttle = Throttle(20)
 
     private val navigationService = NavigationService()

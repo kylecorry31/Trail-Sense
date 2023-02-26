@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.jobs.DailyWorker
 import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.time.LocalTime
 
@@ -13,7 +14,8 @@ import java.time.LocalTime
 class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWorker(
     context,
     params,
-    wakelockDuration = Duration.ofSeconds(15)
+    wakelockDuration = Duration.ofSeconds(15),
+    getPreferences = { PreferencesSubsystem.getInstance(context).preferences },
 ) {
 
     override fun isEnabled(context: Context): Boolean {

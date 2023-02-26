@@ -2,19 +2,19 @@ package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.extensions.getDuration
 import com.kylecorry.trail_sense.shared.extensions.putDuration
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 
 class WeatherPreferences(private val context: Context) : IWeatherPreferences {
 
-    private val cache = Preferences(context)
+    private val cache = PreferencesSubsystem.getInstance(context).preferences
 
     override val hasBarometer: Boolean
         get() = Sensors.hasBarometer(context)

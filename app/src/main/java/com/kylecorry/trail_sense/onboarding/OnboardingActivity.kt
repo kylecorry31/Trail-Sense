@@ -8,17 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private val cache by lazy { Preferences(this) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
     private val markdown by lazy { MarkdownService(this) }
     private val prefs by lazy { UserPreferences(this) }
 

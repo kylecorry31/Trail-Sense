@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 
     private val flashlight by lazy { ScreenTorch(requireActivity().window) }
-    private val cache by lazy { Preferences(requireContext()) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,

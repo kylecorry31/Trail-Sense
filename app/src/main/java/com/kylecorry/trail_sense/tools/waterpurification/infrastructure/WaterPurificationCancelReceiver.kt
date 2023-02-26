@@ -4,13 +4,13 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.waterpurification.ui.WaterPurificationFragment
 
 class WaterPurificationCancelReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
-        val cache = Preferences(context)
+        val cache = PreferencesSubsystem.getInstance(context).preferences
         cache.remove(WaterPurificationFragment.WATER_PURIFICATION_END_TIME_KEY)
         WaterPurificationTimerService.stop(context)
     }

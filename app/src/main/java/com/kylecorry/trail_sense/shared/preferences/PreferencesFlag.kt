@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.preferences
 
-import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.andromeda.preferences.IPreferences
 
 class PreferencesFlag(
-    private val prefs: Preferences,
+    private val prefs: IPreferences,
     private val key: String,
     private val defaultValue: Boolean = false
 ) : Flag {

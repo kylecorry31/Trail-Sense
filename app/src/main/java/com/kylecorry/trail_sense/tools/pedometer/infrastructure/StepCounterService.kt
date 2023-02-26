@@ -6,7 +6,6 @@ import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.sol.units.Distance
@@ -18,11 +17,12 @@ import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class StepCounterService : ForegroundService() {
 
     private val pedometer by lazy { Pedometer(this) }
-    private val counter by lazy { StepCounter(Preferences(this)) }
+    private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(this).preferences) }
     private val formatService by lazy { FormatService(this) }
     private val prefs by lazy { UserPreferences(this) }
     private val commandFactory by lazy { PedometerCommandFactory(this) }

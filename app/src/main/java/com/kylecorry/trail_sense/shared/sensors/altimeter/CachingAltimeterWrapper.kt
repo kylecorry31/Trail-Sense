@@ -4,13 +4,13 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.preferences.Preferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class CachingAltimeterWrapper(context: Context, override val altimeter: IAltimeter) :
     AbstractSensor(),
     AltimeterWrapper {
 
-    private val cache = Preferences(context)
+    private val cache = PreferencesSubsystem.getInstance(context).preferences
 
     override val altitudeAccuracy: Float?
         get() = if (altimeter is AltimeterWrapper) altimeter.altitudeAccuracy else null

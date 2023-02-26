@@ -5,19 +5,19 @@ import android.content.Context
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBacktrackCommand
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.util.*
 
 class BacktrackSubsystem private constructor(private val context: Context) {
 
-    private val sharedPrefs by lazy { Preferences(context) }
+    private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val prefs by lazy { UserPreferences(context) }
 
     private val _state = Topic(defaultValue = Optional.of(calculateBacktrackState()))

@@ -3,13 +3,13 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import java.time.Instant
 
@@ -38,7 +38,7 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
     override val mslAltitude: Float
         get() = altitude
 
-    private val cache by lazy { Preferences(context) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
     private val intervalometer = Timer { notifyListeners() }
 

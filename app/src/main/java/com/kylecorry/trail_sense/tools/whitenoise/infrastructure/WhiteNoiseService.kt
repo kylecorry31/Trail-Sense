@@ -6,17 +6,17 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.time.Instant
 
 class WhiteNoiseService : ForegroundService() {
 
     private var whiteNoise: ISoundPlayer? = null
-    private val cache by lazy { Preferences(this) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
 
     private val offTimer = Timer {
         stopSelf()
@@ -85,7 +85,7 @@ class WhiteNoiseService : ForegroundService() {
         }
 
         fun clearSleepTimer(context: Context) {
-            Preferences(context).remove(CACHE_KEY_OFF_TIME)
+            PreferencesSubsystem.getInstance(context).preferences.remove(CACHE_KEY_OFF_TIME)
         }
     }
 

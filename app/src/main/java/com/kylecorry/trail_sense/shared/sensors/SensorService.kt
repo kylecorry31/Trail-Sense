@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
@@ -35,6 +34,7 @@ import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.*
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -107,7 +107,7 @@ class SensorService(ctx: Context) {
             )
             NavigationPreferences.SpeedometerMode.AveragePace -> AveragePaceSpeedometer(
                 StepCounter(
-                    Preferences(context)
+                    PreferencesSubsystem.getInstance(context).preferences
                 ), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
             )
         }

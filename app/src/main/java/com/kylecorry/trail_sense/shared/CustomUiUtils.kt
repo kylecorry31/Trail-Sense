@@ -24,7 +24,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -33,6 +32,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.BeaconIconPickerView
 import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
@@ -254,7 +254,7 @@ object CustomUiUtils {
         shownValue: Boolean = true,
         onClose: (cancelled: Boolean, agreed: Boolean) -> Unit = { _, _ -> }
     ) {
-        val prefs = Preferences(context)
+        val prefs = PreferencesSubsystem.getInstance(context).preferences
         if (prefs.getBoolean(shownKey) != shownValue) {
             if (considerShownIfCancelled && cancelText == null) {
                 Alerts.dialog(context, title, message, okText = okText, cancelText = null) {

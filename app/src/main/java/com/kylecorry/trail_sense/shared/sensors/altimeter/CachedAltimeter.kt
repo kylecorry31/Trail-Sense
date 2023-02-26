@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L) : AbstractSensor(),
     IAltimeter {
@@ -14,7 +14,7 @@ class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L)
         get() = gotReading
     private var gotReading = true
 
-    private val cache by lazy { Preferences(context) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
     private val intervalometer = Timer { notifyListeners() }
 

@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
@@ -25,6 +24,7 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
@@ -179,15 +179,16 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             R.string.pref_min_uncalibrated_temp_c,
             R.string.pref_max_uncalibrated_temp_c
         ).map { getString(it) } + listOf(source)
-        Preferences(requireContext()).onChange.asLiveData().observe(viewLifecycleOwner) {
-            if (thermometerInvalidationKeys.contains(it)) {
-                reloadThermometer()
-            }
+        PreferencesSubsystem.getInstance(requireContext()).preferences.onChange.asLiveData()
+            .observe(viewLifecycleOwner) {
+                if (thermometerInvalidationKeys.contains(it)) {
+                    reloadThermometer()
+                }
 
-            if (it == source) {
-                onSourceChanged()
+                if (it == source) {
+                    onSourceChanged()
+                }
             }
-        }
 
         observe(weather.weatherChanged) {
             inBackground {
@@ -246,12 +247,18 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun resetCalibration() {
         prefs.thermometer.resetThermometerCalibration()
-        minTempCalibratedC?.text = DecimalFormatter.format(prefs.thermometer.minActualTemperature, 1)
-        maxTempCalibratedC?.text = DecimalFormatter.format(prefs.thermometer.maxActualTemperature, 1)
-        minTempUncalibratedC?.text = DecimalFormatter.format(prefs.thermometer.minBatteryTemperature, 1)
-        maxTempUncalibratedC?.text = DecimalFormatter.format(prefs.thermometer.maxBatteryTemperature, 1)
-        minTempCalibratedF?.text = DecimalFormatter.format(prefs.thermometer.minActualTemperatureF, 1)
-        maxTempCalibratedF?.text = DecimalFormatter.format(prefs.thermometer.maxActualTemperatureF, 1)
+        minTempCalibratedC?.text =
+            DecimalFormatter.format(prefs.thermometer.minActualTemperature, 1)
+        maxTempCalibratedC?.text =
+            DecimalFormatter.format(prefs.thermometer.maxActualTemperature, 1)
+        minTempUncalibratedC?.text =
+            DecimalFormatter.format(prefs.thermometer.minBatteryTemperature, 1)
+        maxTempUncalibratedC?.text =
+            DecimalFormatter.format(prefs.thermometer.maxBatteryTemperature, 1)
+        minTempCalibratedF?.text =
+            DecimalFormatter.format(prefs.thermometer.minActualTemperatureF, 1)
+        maxTempCalibratedF?.text =
+            DecimalFormatter.format(prefs.thermometer.maxActualTemperatureF, 1)
         minTempUncalibratedF?.text =
             DecimalFormatter.format(prefs.thermometer.minBatteryTemperatureF, 1)
         maxTempUncalibratedF?.text =

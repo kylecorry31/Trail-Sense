@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.sol.math.SolMath
@@ -15,6 +14,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import java.time.Duration
 import java.time.Instant
@@ -24,7 +24,7 @@ import java.util.*
 class FlashlightSubsystem private constructor(private val context: Context) : IFlashlightSubsystem {
 
     private val torchChanged = TorchStateChangedTopic(context)
-    private val cache by lazy { Preferences(context) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val prefs by lazy { UserPreferences(context) }
     private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
     private val torch by lazy { Torch(context) }

@@ -3,16 +3,16 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.LocalDate
 import java.time.LocalTime
 
 class AstronomyPreferences(private val context: Context) {
 
-    private val cache by lazy { Preferences(context) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
     val showMoonIllumination: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_moon_illumination)) ?: false

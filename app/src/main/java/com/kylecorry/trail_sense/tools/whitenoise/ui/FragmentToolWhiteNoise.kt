@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.preferences.Preferences
 import com.kylecorry.trail_sense.databinding.FragmentToolWhiteNoiseBinding
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import java.time.Duration
 import java.time.Instant
 
 class FragmentToolWhiteNoise : BoundFragment<FragmentToolWhiteNoiseBinding>() {
 
-    private val cache by lazy { Preferences(requireContext()) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
