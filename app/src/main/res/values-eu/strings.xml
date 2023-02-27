@@ -205,7 +205,7 @@
     <string name="gps_user">Erabiltzailea</string>
     <string name="import_btn">Inportatu</string>
     <string name="export">Esportatu</string>
-    <string name="unit_inches_abbreviation">in</string>
+    <string name="unit_inches_abbreviation">hazbete</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="cumulonimbus">Kumuloninbo</string>
     <string name="cumulus">Kumulu</string>
@@ -461,4 +461,31 @@
     <string name="pref_monitor_weather_summary">Bigarren planoan</string>
     <string name="compass_accuracy_improved">Iparrorratzaren zehaztasuna %s-(e)ra hobetu da</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometroa</string>
+    <string name="pip_button">Eguneratu sistemaren ordua</string>
+    <string name="min_temp_calibrated">Gutxieneko giro-tenperatura (kalibratua)</string>
+    <string name="pip_notification_scheduled">Jakinarazpena programatua %s-(e)rako</string>
+    <string name="pref_sunset_alert_time_title">Iluntzearen abisuaren ordua</string>
+    <string name="location_override_updated">Simulatutako kokapena eguneratua</string>
+    <string name="pref_backtrack_enabled_summary">Erregistratu kokapenaren historia</string>
+    <string name="metal_detector_disclaimer">Soilik metal magnetikoak detektatzen ditu (adibidez: burdina)</string>
+    <string name="clock_sync_time_settings">Ireki orduaren ezarpenak\?</string>
+    <string name="clock_sync_notification">Orduaren sinkronizazioa - %s</string>
+    <string name="max_temp_uncalibrated">Mugikorraren gehienezko tenperatura (kalibratu gabea)</string>
+    <string name="max_temp_calibrated">Gehienezko giro-tenperatura (kalibratua)</string>
+    <string name="create_at_distance">Sortu urrutikoa</string>
+    <string name="guide_location_no_gps_title">Zehaztu kokapena GPSrik gabe</string>
+    <string name="tool_white_noise_summary">Lo egiten laguntzen zaitu</string>
+    <string name="pref_include_leading_zero_title">Gehitu zero bat aurretik orduari</string>
+    <string name="strobe_warning_content">Kliskatze funtzioak argi keinukariak ditu, arriskutsuak izan daitezke erabiltzaile batzuentzako.</string>
+    <string name="tool_triangulate_summary">Zehaztu zure kokapena GPSrik gabe</string>
+    <string name="could_not_triangulate">Ezin izan da triangulatu</string>
+    <string name="notification_channel_clock_sync_description">Jakinarazpen bat zure erlojua GPSaren orduarekin sinkronizatzeko</string>
+    <string name="clock_sync_instructions">Jakinarazpena jasotzean ordu hau ezarri: %s</string>
+    <string name="update_gps_override">Eguneratu simulatutako GPSa</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="min_temp_uncalibrated">Mugikorraren gutxieneko tenperatura (kalibratu gabea)</string>
+    <string name="backtrack_notification_channel_description">Trazatu kokapenaren eguneraketak</string>
+    <string name="pref_backtrack_frequency_title">Trazaduraren bitarteak</string>
+    <string name="location_input_help_title">Eskuragarri dauden kokapenen formatuak</string>
 </resources>

@@ -1100,4 +1100,5 @@
     <string name="center">Merkez</string>
     <string name="size">Boyut</string>
     <string name="pref_include_leading_zero_title">Zamanın önüne sıfır ekle</string>
+    <string name="create_path">Yol oluştur</string>
 </resources>
