@@ -748,7 +748,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         inBackground {
             loadPathRunner.joinPreviousOrRun {
 
-                if (!useRadarCompass){
+                if (!useRadarCompass) {
                     return@joinPreviousOrRun
                 }
 
@@ -768,6 +768,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     val isTracking = BacktrackScheduler.isOn(requireContext())
                     val mappablePaths = mutableListOf<IMappablePath>()
                     val currentPathId = currentBacktrackPathId
+                    var i = 0L
                     for (points in pathLoader.points) {
                         val path = paths.firstOrNull { it.id == points.key } ?: continue
                         val pts = if (isTracking && currentPathId == path.id) {
@@ -775,6 +776,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                         } else {
                             points.value
                         }
+                        // TODO: Clip the path within the path loader, a wrapper around that, or within the path layer
+//                        val split = PathClipper().clip(pts.map { it.coordinate }, load)
+//                            .map { it.map { PathPoint(0, 0, it) } }
+//                        for (p in split) {
+//                            mappablePaths.add(p.asMappable(requireContext(), path.copy(id = i)))
+//                            i++
+//                        }
                         mappablePaths.add(pts.asMappable(requireContext(), path))
                     }
                     mappablePaths
