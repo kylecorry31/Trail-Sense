@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure
 
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.navigation.paths.domain.*
 
@@ -12,7 +13,7 @@ class PathLoader(private val pathService: IPathService) {
         load: CoordinateBounds,
         unload: CoordinateBounds,
         reload: Boolean = false
-    ) {
+    ) = onIO {
         val shouldLoad = ShouldLoadPathSpecification(load)
         val shouldUnload = ShouldUnloadPathSpecification(unload)
 
