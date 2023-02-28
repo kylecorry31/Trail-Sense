@@ -1105,4 +1105,12 @@
     <string name="updating">Обновление</string>
     <string name="pref_show_temperature_in_notification_title">Отображать температуру в уведомлении</string>
     <string name="delete_map_group_message">%s и все его карты будут удалены.</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d карта</item>
+        <item quantity="few">%d карты</item>
+        <item quantity="many">%d карт</item>
+        <item quantity="other">%d карт</item>
+    </plurals>
+    <string name="size">Размер</string>
+    <string name="create_blank_map">Создать пустую карту</string>
 </resources>
