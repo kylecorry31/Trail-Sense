@@ -10,10 +10,12 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
@@ -99,4 +101,8 @@ fun <T> Fragment.observe(
     listener: (T) -> Unit
 ) {
     observe(topic.asLiveData(), listener)
+}
+
+fun PixelCoordinate.toVector2(): Vector2 {
+    return Vector2(x, y)
 }

@@ -80,6 +80,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
     private var lastScale = 1f
+    private var lastTranslateX = 0f
+    private var lastTranslateY = 0f
 
     private var minScale = 0.1f
     private var maxScale = 1f
@@ -134,6 +136,12 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         if (scale != lastScale) {
             lastScale = scale
+            layers.forEach { it.invalidate() }
+        }
+
+        if (translateX != lastTranslateX || translateY != lastTranslateY) {
+            lastTranslateX = translateX
+            lastTranslateY = translateY
             layers.forEach { it.invalidate() }
         }
 

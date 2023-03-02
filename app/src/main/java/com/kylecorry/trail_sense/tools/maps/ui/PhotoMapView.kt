@@ -58,6 +58,9 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     private var shouldRecenter = true
 
+    private var lastTranslateX = 0f
+    private var lastTranslateY = 0f
+
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
     }
@@ -194,6 +197,15 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             layers.forEach { it.invalidate() }
         }
 
+        // TODO: Expose this property
+//        vTranslate?.let {
+//            if (it.x != lastTranslateX || it.y != lastTranslateY) {
+//                lastTranslateX = it.x
+//                lastTranslateY = it.y
+//                layers.forEach { it.invalidate() }
+//            }
+//        }
+
         if (map?.calibration?.calibrationPoints?.size == 2) {
             maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
             if (shouldRecenter && isImageLoaded) {
@@ -230,7 +242,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     override fun tileVisible(tile: Tile?): Boolean {
         // No need to check if the map is not rotated
-        if (mapRotation == 0f){
+        if (mapRotation == 0f) {
             return super.tileVisible(tile)
         }
 

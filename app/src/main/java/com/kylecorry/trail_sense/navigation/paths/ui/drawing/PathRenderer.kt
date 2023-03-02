@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 
-class PathRenderer(private val mapper: (Coordinate) -> PixelCoordinate): IRenderedPathFactory {
+class PathRenderer(private val mapper: (Coordinate) -> PixelCoordinate) : IRenderedPathFactory {
     override fun render(points: List<Coordinate>, path: Path): RenderedPath {
         val origin = CoordinateBounds.from(points).center
         val originPx = mapper(origin)
@@ -16,18 +16,8 @@ class PathRenderer(private val mapper: (Coordinate) -> PixelCoordinate): IRender
             }
 
             val end = mapper(points[i])
-            drawLine(originPx, end, path)
+            path.lineTo(end.x - originPx.x, end.y - originPx.y)
         }
         return RenderedPath(origin, path)
-    }
-
-    private fun drawLine(origin: PixelCoordinate, end: PixelCoordinate, path: Path) {
-        val length = origin.distanceTo(end)
-        if (length > 20000){
-            // If the path is far from the origin, don't draw it - drawing it will cause poor performance
-            path.moveTo(end.x - origin.x, end.y - origin.y)
-        } else {
-            path.lineTo(end.x - origin.x, end.y - origin.y)
-        }
     }
 }

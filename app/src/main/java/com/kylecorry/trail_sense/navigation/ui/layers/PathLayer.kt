@@ -5,10 +5,8 @@ import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
+import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.*
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 
 class PathLayer : ILayer {
@@ -18,6 +16,13 @@ class PathLayer : ILayer {
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private val _paths =
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
+
+    private var shouldClip = true
+
+    fun setShouldClip(shouldClip: Boolean) {
+        this.shouldClip = shouldClip
+        invalidate()
+    }
 
     fun setPaths(paths: List<IMappablePath>) {
         _paths.clear()
@@ -31,7 +36,20 @@ class PathLayer : ILayer {
             for (path in renderedPaths) {
                 pathPool.release(path.value.path)
             }
-            renderedPaths = generatePaths(_paths, PathRenderer(map::toPixel))
+            val renderer = if (shouldClip) {
+                ClippedPathRenderer(
+                    Rectangle(
+                        0f,
+                        drawer.canvas.height.toFloat(),
+                        drawer.canvas.width.toFloat(),
+                        0f,
+                    ),
+                    map::toPixel
+                )
+            } else {
+                PathRenderer(map::toPixel)
+            }
+            renderedPaths = generatePaths(_paths, renderer)
             pathsRendered = true
         }
 
@@ -42,6 +60,7 @@ class PathLayer : ILayer {
             val centerPixel = map.toPixel(rendered.origin)
             drawer.push()
             drawer.translate(centerPixel.x, centerPixel.y)
+
             pathDrawer.draw(drawer, path.color, strokeScale = scale) {
                 path(rendered.path)
             }
