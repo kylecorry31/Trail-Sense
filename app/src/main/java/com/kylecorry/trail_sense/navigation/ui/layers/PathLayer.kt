@@ -18,9 +18,15 @@ class PathLayer : ILayer {
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
 
     private var shouldClip = true
+    private var shouldRotateClip = true
 
     fun setShouldClip(shouldClip: Boolean) {
         this.shouldClip = shouldClip
+        invalidate()
+    }
+
+    fun setShouldRotateClip(shouldRotateClip: Boolean) {
+        this.shouldRotateClip = shouldRotateClip
         invalidate()
     }
 
@@ -37,13 +43,9 @@ class PathLayer : ILayer {
                 pathPool.release(path.value.path)
             }
             val renderer = if (shouldClip) {
+                val bounds = getBounds(drawer, map)
                 ClippedPathRenderer(
-                    Rectangle(
-                        0f,
-                        drawer.canvas.height.toFloat(),
-                        drawer.canvas.width.toFloat(),
-                        0f,
-                    ),
+                    bounds,
                     map::toPixel
                 )
             } else {
@@ -90,5 +92,22 @@ class PathLayer : ILayer {
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         return false
+    }
+
+    private fun getBounds(drawer: ICanvasDrawer, map: IMapView): Rectangle {
+        val rectangle = Rectangle(
+            0f,
+            drawer.canvas.height.toFloat(),
+            drawer.canvas.width.toFloat(),
+            0f,
+        )
+
+        if (shouldRotateClip && map.mapRotation % 360f != 0f) {
+            val rotation = map.mapRotation
+            val rotated = rectangle.rotate(rotation)
+            return Rectangle.boundingBox(rectangle.corners + rotated.corners)
+        }
+
+        return rectangle
     }
 }

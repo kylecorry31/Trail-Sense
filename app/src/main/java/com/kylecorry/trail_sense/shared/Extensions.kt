@@ -103,6 +103,10 @@ fun <T> Fragment.observe(
     observe(topic.asLiveData(), listener)
 }
 
-fun PixelCoordinate.toVector2(): Vector2 {
-    return Vector2(x, y)
+fun PixelCoordinate.toVector2(top: Float): Vector2 {
+    return Vector2(x, -(y - top))
+}
+
+fun Vector2.toPixelCoordinate(top: Float): PixelCoordinate {
+    return PixelCoordinate(x, -(y - top))
 }

@@ -2,11 +2,12 @@ package com.kylecorry.trail_sense.navigation.paths.ui.drawing
 
 import android.graphics.Path
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.toPixelCoordinate
+import com.kylecorry.trail_sense.shared.toVector2
 
 class ClippedPathRenderer(
     private val bounds: Rectangle,
@@ -27,10 +28,15 @@ class ClippedPathRenderer(
         return RenderedPath(origin, path)
     }
 
-    private fun drawLine(origin: PixelCoordinate, start: PixelCoordinate, end: PixelCoordinate, path: Path) {
+    private fun drawLine(
+        origin: PixelCoordinate,
+        start: PixelCoordinate,
+        end: PixelCoordinate,
+        path: Path
+    ) {
 
-        val a = Vector2(start.x, bounds.top - start.y)
-        val b = Vector2(end.x, bounds.top - end.y)
+        val a = start.toVector2(bounds.top)
+        val b = end.toVector2(bounds.top)
 
         // Both are in
         if (bounds.contains(a) && bounds.contains(b)) {
@@ -38,12 +44,13 @@ class ClippedPathRenderer(
             return
         }
 
-        val intersection = Geometry.getIntersection(a, b, bounds)
+        val intersection =
+            Geometry.getIntersection(a, b, bounds).map { it.toPixelCoordinate(bounds.top) }
 
         // A is in, B is not
         if (bounds.contains(a)) {
             if (intersection.any()) {
-                path.lineTo(intersection[0].x - origin.x, bounds.top - intersection[0].y - origin.y)
+                path.lineTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
             }
             path.moveTo(end.x - origin.x, end.y - origin.y)
             return
@@ -52,7 +59,7 @@ class ClippedPathRenderer(
         // B is in, A is not
         if (bounds.contains(b)) {
             if (intersection.any()) {
-                path.moveTo(intersection[0].x - origin.x, bounds.top - intersection[0].y - origin.y)
+                path.moveTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
             }
             path.lineTo(end.x - origin.x, end.y - origin.y)
             return
@@ -60,8 +67,8 @@ class ClippedPathRenderer(
 
         // Both are out, but may intersect
         if (intersection.size == 2) {
-            path.moveTo(intersection[0].x - origin.x, bounds.top - intersection[0].y - origin.y)
-            path.lineTo(intersection[1].x - origin.x, bounds.top - intersection[1].y - origin.y)
+            path.moveTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
+            path.lineTo(intersection[1].x - origin.x, intersection[1].y - origin.y)
         }
         path.moveTo(end.x - origin.x, end.y - origin.y)
     }
