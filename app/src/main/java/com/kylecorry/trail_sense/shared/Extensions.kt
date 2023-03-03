@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.asLiveData
@@ -16,6 +17,7 @@ import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
@@ -109,4 +111,19 @@ fun PixelCoordinate.toVector2(top: Float): Vector2 {
 
 fun Vector2.toPixelCoordinate(top: Float): PixelCoordinate {
     return PixelCoordinate(x, -(y - top))
+}
+
+fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
+    val rectangle = Rectangle(
+        0f,
+        canvas.height.toFloat(),
+        canvas.width.toFloat(),
+        0f,
+    )
+
+    if (rotation != 0f) {
+        return rectangle.rotate(rotation)
+    }
+
+    return rectangle
 }

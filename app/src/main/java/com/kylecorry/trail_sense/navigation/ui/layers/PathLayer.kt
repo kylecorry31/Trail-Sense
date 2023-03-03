@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.*
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.getBounds
 
 class PathLayer : ILayer {
 
@@ -43,7 +44,7 @@ class PathLayer : ILayer {
                 pathPool.release(path.value.path)
             }
             val renderer = if (shouldClip) {
-                val bounds = getBounds(drawer, map)
+                val bounds = getBounds(drawer)
                 ClippedPathRenderer(
                     bounds,
                     map::toPixel
@@ -94,20 +95,9 @@ class PathLayer : ILayer {
         return false
     }
 
-    private fun getBounds(drawer: ICanvasDrawer, map: IMapView): Rectangle {
-        val rectangle = Rectangle(
-            0f,
-            drawer.canvas.height.toFloat(),
-            drawer.canvas.width.toFloat(),
-            0f,
-        )
-
-        if (shouldRotateClip && map.mapRotation % 360f != 0f) {
-            val rotation = map.mapRotation
-            val rotated = rectangle.rotate(rotation)
-            return Rectangle.boundingBox(rectangle.corners + rotated.corners)
-        }
-
-        return rectangle
+    private fun getBounds(drawer: ICanvasDrawer): Rectangle {
+        // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
+        // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
+        return drawer.getBounds(if (shouldRotateClip) 45f else 0f)
     }
 }
