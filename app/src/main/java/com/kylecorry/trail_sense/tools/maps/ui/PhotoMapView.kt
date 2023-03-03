@@ -197,14 +197,13 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             layers.forEach { it.invalidate() }
         }
 
-        // TODO: Expose this property
-//        vTranslate?.let {
-//            if (it.x != lastTranslateX || it.y != lastTranslateY) {
-//                lastTranslateX = it.x
-//                lastTranslateY = it.y
-//                layers.forEach { it.invalidate() }
-//            }
-//        }
+        vTranslate?.let {
+            if (it.x != lastTranslateX || it.y != lastTranslateY) {
+                lastTranslateX = it.x
+                lastTranslateY = it.y
+                layers.forEach { it.invalidate() }
+            }
+        }
 
         if (map?.calibration?.calibrationPoints?.size == 2) {
             maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
