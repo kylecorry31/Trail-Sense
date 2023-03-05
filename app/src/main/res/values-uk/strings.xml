@@ -1087,7 +1087,7 @@
     <string name="smoothing">Згладжування</string>
     <string name="samples">Зразки</string>
     <string name="sensor_summary">Компас, GPS, висотомір, барометр тощо.</string>
-    <string name="historic">Історичне</string>
+    <string name="historic">Історичний</string>
     <string name="next_24_hours">Наступну добу</string>
     <string name="sensor">Датник</string>
     <string name="temperature_high_low">Висока / Низька</string>
@@ -1121,4 +1121,10 @@
     <string name="blank">Пусто</string>
     <string name="historic_temperature_years">Історична (%d рік)</string>
     <string name="historic_temperatures">Історичні температури</string>
+    <string name="pref_include_leading_zero_title">Додавати до часу нуль</string>
+    <string name="create_path">Створити шлях</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="center">Центр</string>
+    <string name="size">Розмір</string>
+    <string name="create_blank_map">Створити порожню мапу</string>
 </resources>
