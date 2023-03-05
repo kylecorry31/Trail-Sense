@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Indstillinger</string>
     <string name="dialog_deny">Nej tak</string>
     <string name="precise_miles_format">%s mil</string>
@@ -24,7 +24,7 @@
 \n    %s af den faktiske højde
 \n    %s satellitter
 \n
-\nKompas: Drej enheden i et 8-talsmønster eller i alle retninger, og hold dig væk fra metal."</string>
+\nKompas: Roter enheden i et 8-talsmønster eller i alle retninger, og hold dig væk fra metal."</string>
     <string name="flashlight_title">Lommelygte</string>
     <string name="tap_to_turn_off">Tryk for at slukke</string>
     <string name="no_beacons">Ingen fyrtårne</string>
@@ -168,9 +168,9 @@
     <string name="pref_use_legacy_compass_summary">Kan løse kompasproblemer</string>
     <string name="compass_accuracy_improved">Kompassets nøjagtighed forbedret til %s</string>
     <string name="calibrate_compass_dialog_title">Kalibrer kompas</string>
-    <string name="override_from_gps">Indstil tilsidesættelse fra GPS</string>
-    <string name="compass_declination_override">Tilsidesættelse af deklination</string>
-    <string name="declination_override_updated_toast">Tilsidesættelse af deklination opdateret</string>
+    <string name="override_from_gps">Indstil korrektion fra GPS</string>
+    <string name="compass_declination_override">Deklinationskorrektion</string>
+    <string name="declination_override_updated_toast">Deklinationskorrektion opdateret</string>
     <string name="compass_auto_declination">Automatisk justering af deklination</string>
     <string name="compass_azimuth">Azimut</string>
     <string name="compass_declination">Magnetisk deklination</string>
@@ -191,4 +191,913 @@
     <string name="pref_elevation_override_title">Højde tilsidesættelse</string>
     <string name="elevation_override_updated_toast">Højdetilsidesættelse opdateret</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Indtast tryk ved havniveau</string>
+    <string name="night">Nat</string>
+    <string name="supermoon">Supermåne</string>
+    <string name="sun">Sol</string>
+    <string name="path">Sti</string>
+    <string name="show">Vis</string>
+    <string name="point_style">Punktstil</string>
+    <string name="line_style">Linjestil</string>
+    <string name="change_map_projection">Skift projektion</string>
+    <string name="sun_moon_compass_when_up">Når over horisonten</string>
+    <string name="distance">Afstand</string>
+    <string name="coordinates_tab">Koordinater</string>
+    <string name="on">Aktiv</string>
+    <string name="pref_show_nearest_tide_title">Vis nærmeste tidevand</string>
+    <string name="stride_length_walk">Gå i en lige linje, tryk på stop når du er færdig</string>
+    <string name="navigating_to_nearest_path_point">Navigerer til nærmeste stipunkt</string>
+    <string name="done">Færdig</string>
+    <string name="descent">Nedstigning</string>
+    <string name="next_24_hours">Næste 24 timer</string>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d beacon exporteret</item>
+        <item quantity="other">%d beacons exporteret</item>
+    </plurals>
+    <string name="create_path">Opret sti</string>
+    <string name="beacon_create">Opret</string>
+    <string name="delete_beacon_group_message">%s og alle dens beacons vil blive slettet.</string>
+    <string name="start">Start</string>
+    <string name="cloud_fair_forecast_hours">Kan indikere pænt vejr i de næste %d timer.</string>
+    <string name="none">Ingen</string>
+    <string name="pref_show_last_signal_beacon_title">Sidste signalbeacon</string>
+    <string name="pref_flashlight_toggle_with_system_title">Skift med systemet</string>
+    <string name="moved_to">Flyttet til %s</string>
+    <string name="base_temperature">Udgangspunktets temperatur</string>
+    <string name="clear_cache">Ryd cache</string>
+    <string name="pref_map_url_source_title">Positionsdelingskort</string>
+    <string name="liter_format">%s l</string>
+    <string name="destination_elevation">Destinationshøjde</string>
+    <string name="grams">Gram</string>
+    <string name="pint_format">%s pt</string>
+    <string name="quart_format">%s qt</string>
+    <string name="gallon_format">%s gal</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="cup_format">%s c</string>
+    <string name="guide_packing_list">Opret pakkelister</string>
+    <string name="elevation_history">Højdehistorik</string>
+    <string name="qr_code">QR-kode</string>
+    <string name="beacon_qr_import_instructions">Scan en QR-kode for at importere</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="gps_signal_lost">GPS-signal mistet</string>
+    <string name="last_duration">Sidste %s</string>
+    <string name="elevation_history_length">Længde på højdehistorik</string>
+    <string name="quarter_moon">Halvmåne</string>
+    <string name="no_permission">Tilladelse ikke givet</string>
+    <string name="overridden">Korrigeret</string>
+    <string name="power_saving_mode_resolution">Deaktiver strømsparetilstand</string>
+    <string name="battery_restricted_resolution">Indstil Trail Sense som Ikke Optimeret</string>
+    <string name="astro_dialog_moon_phase">**Fase**: %s
+\n
+\n**Oplyst**: %s</string>
+    <string name="precipitation_snow">Sne</string>
+    <string name="precipitation_chance">Nedbørsrisiko: %s</string>
+    <string name="no_camera_access">Kan ikke få adgang til kameraet</string>
+    <string name="precipitation_none">Ingen nedbør</string>
+    <string name="paths">Stier</string>
+    <string name="saving">Gemmer</string>
+    <string name="simplify">Simplificer</string>
+    <string name="measure">Mål</string>
+    <string name="gps_unavailable">GPS ikke tilgængelig</string>
+    <string name="high_tide_letter">H</string>
+    <string name="explore">Udforsk</string>
+    <string name="note">Note</string>
+    <string name="remove_distance_alert">Fjern afstandsalarm (%s)\?</string>
+    <string name="tool_climate_summary">Se historiske temperaturer</string>
+    <string name="pref_backfill_temperatures_title">Opdater registrerede temperaturer</string>
+    <string name="sun_actual">Faktisk</string>
+    <string name="activity_recognition">Aktivitetsgenkendelse</string>
+    <string name="never">Aldrig</string>
+    <string name="pref_show_linear_compass_summary">Når mobilen er lodret</string>
+    <string name="pref_display_multi_beacons_summary">Vis nærmeste beacons på kompasset</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrer før navigation</string>
+    <string name="pref_show_linear_compass_title">Vis lineært kompas</string>
+    <string name="pref_pressure_history_title">Trykhistorie</string>
+    <string name="pref_forecast_sensitivity_title">Prognosefølsomhed</string>
+    <string name="sun_astronomical">Astronomisk</string>
+    <string name="update_30_minutes">30 minutter</string>
+    <string name="pref_category_about">Om</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Mens Trail Sense er åben</string>
+    <string name="pref_tiles_enabled_summary">Kan forhindre batterispareapps i at stoppe Trail Sense fuldstændigt</string>
+    <string name="low_amount">Lav (%s)</string>
+    <string name="sighting_compass">Sigtekompas</string>
+    <string name="medium_amount">Middel (%s)</string>
+    <string name="tilt">Inklination</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="precipitation_snow_grains">Snekorn</string>
+    <string name="notification_weather_update_content">Registrerer af trykket</string>
+    <string name="most_recent">Seneste</string>
+    <string name="elevation">Højde</string>
+    <string name="elevation_gain">Højdeforøgelse</string>
+    <string name="duration">Varighed</string>
+    <string name="simplifying">Simplificerer</string>
+    <string name="error_banners">Fejlbannere</string>
+    <string name="instructions">Instruktioner</string>
+    <string name="compass_unavailable">Kompas ikke tilgængelig</string>
+    <string name="qr_code_scanner">QR-kodescanner</string>
+    <string name="saved_to_note">Gemt til note</string>
+    <string name="compass_accuracy">Kompasnøjagtighed</string>
+    <string name="beacon">Beacon</string>
+    <string name="result_deleted">Resultat slettet</string>
+    <string name="tool_temperature_estimation_title">Temperaturestimering</string>
+    <string name="reset_distance_title">Nulstil distance\?</string>
+    <string name="average_speed_backtrack">Gennemsnitsfart (Backtrack)</string>
+    <string name="point_added">Punkt føjet til stien</string>
+    <string name="lowest_point_elevation">Laveste punkt</string>
+    <string name="cloud_stratus_forecast">Kan indikere pænt vejr de næste %d timer, hvis det er tåget, ellers kan det indikere nedbør snart.</string>
+    <string name="highest_point_elevation">Højeste punkt</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteorer / t</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="clear_amounts">Ryd mængder</string>
+    <string name="documents">Documenter</string>
+    <string name="packing_lists">Pakkelister</string>
+    <string name="delete_pack">Slet pakke\?</string>
+    <string name="lunar_eclipse_start">Måneformørkelse (start)</string>
+    <string name="disclaimer_estimated_tide_title">Estimeret tidevand</string>
+    <string name="lunar_noon">Månens maksimum over horisonten</string>
+    <string name="pref_sun_time_mode_title">Tider for solopgang/solnedgang</string>
+    <string name="pref_show_sun_moon_compass_title">Vis sol/måne på kompas</string>
+    <string name="pref_open_source_licenses_title">Licenser</string>
+    <string name="default_pack_name">Standardpakke</string>
+    <string name="seconds">Sekunder</string>
+    <string name="num_satellites">%d satellitter</string>
+    <string name="exporting_map">Eksporterer kort</string>
+    <string name="no_groups">Ingen grupper</string>
+    <string name="move">Flyt</string>
+    <string name="move_to">Flyt til</string>
+    <string name="pref_navigation_lock_screen_presence_title">Vis på låseskærmen, mens du navigerer</string>
+    <string name="notifications_blocked">Notifikationer blokeret</string>
+    <string name="diagnostics">Diagnostik</string>
+    <string name="precipitation_rain">Regn</string>
+    <string name="shortest">Korteste</string>
+    <string name="points">Punkter</string>
+    <string name="pref_auto_simplify_paths_title">Simplificer stier ved import</string>
+    <string name="navigation_guide_description">Brug af beacons og stier</string>
+    <string name="distance_alert">Afstandsalarm</string>
+    <string name="pref_only_navigate_path_points_title">Naviger kun til registrerede punkter</string>
+    <string name="average_speed_pedometer">Gennemsnitshastighed (skridttæller)</string>
+    <string name="map_export_error">Kan ikke eksportere kortet til den valgte fil</string>
+    <string name="second_symbol">s</string>
+    <string name="point">Punkt</string>
+    <string name="pressure_system">Tryksystem</string>
+    <string name="low_pressure_system_description">Forbundet med dårligt vejr, overskyet himmel og varmere temperaturer.</string>
+    <string name="weather_precipitation">Nedbør</string>
+    <string name="sensor_summary">Kompas, GPS, højdemåler, barometer mv.</string>
+    <string name="photo_maps">Fotokort</string>
+    <string name="updating">Opdaterer</string>
+    <string name="pref_backfill_temperatures_description">Alle registrerede temperaturer erstattes med den kalibrerede historiske temperatur.</string>
+    <string name="pref_cell_signal_refresh_cache_summary">Tvinger indlæsning af de seneste signalstyrker</string>
+    <string name="percent_packed">%s pakket</string>
+    <string name="gps_unavailable_resolution">Aktiver Placering, eller skift din placeringskilde til Kun Enhed eller Høj Nøjagtighed</string>
+    <string name="astronomy_alerts">Astronomivarsler</string>
+    <string name="astro_dialog_noon">**Tid**: %s
+\n
+\n**Højde**: %s</string>
+    <string name="map_projection_equidistant">Equidistant</string>
+    <string name="weather_monitor_disabled_resolution">Aktiver vejrovervågning i vejrindstillingerne</string>
+    <string name="view">Vis</string>
+    <string name="pref_flashlight_should_timeout_title">Sluk automatisk</string>
+    <string name="pref_flashlight_timeout_title">Sluk efter</string>
+    <string name="disclaimer_estimated_tide">Estimeret tidevand kan være unøjagtigt. Brug venligst en officiel tidevandstabel for de nøjagtige tidspunkter.</string>
+    <string name="warning">Advarsel</string>
+    <string name="map_exported">Kort eksporteret</string>
+    <string name="camera_capture">Brug kamera</string>
+    <string name="pref_show_pressure_in_notification_title">Vis tryk i notifikationen</string>
+    <string name="always">Altid</string>
+    <string name="update_90_minutes">1 time og 30 minutter</string>
+    <string name="update_120_minutes">2 timer</string>
+    <string name="error_occurred">En fejl opstod</string>
+    <string name="error_occurred_message">Trail Sense løb ind i en fejl. Send venligst en email til udvikleren for at få problemet løst.</string>
+    <string name="tool_user_guide_title">Brugervejledning</string>
+    <string name="beacon_create_beacon">Beacon</string>
+    <string name="delete_path_group_message">%s og alle dens stier vil blive slettet.</string>
+    <string name="group">Gruppe</string>
+    <string name="category_hydration">Hydrering</string>
+    <string name="category_shelter">Ly</string>
+    <string name="unit_nautical_miles">Sømil</string>
+    <string name="water_boil_timer_channel_description">Vandet koger</string>
+    <string name="pref_sensor_details_title">Sensordetaljer</string>
+    <string name="tool_clock_title">Ur</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="precise_centimeters_format">%s cm</string>
+    <string name="strobe_warning_content">Stroboskopfunktionen indeholder blinkende lys, hvilket kan være farligt for nogle brugere.</string>
+    <string name="tool_battery_title">Batteri</string>
+    <string name="battery_health_over_voltage">Overspænding</string>
+    <string name="clock_sync_time_settings">Åbn tidsindstillinger\?</string>
+    <string name="unit_centimeters">Centimeter</string>
+    <string name="unit_inches_abbreviation">tomme(r)</string>
+    <string name="unit_inches">Tommer</string>
+    <string name="unit_centimeters_abbreviation">cm</string>
+    <string name="tool_white_noise_summary">Hjælper dig med at falde i søvn</string>
+    <string name="map_scale_title">Kortskala</string>
+    <string name="guide_signaling_for_help_title">Signalerer efter hjælp</string>
+    <string name="create_map_description">Indtast navnet på kortet</string>
+    <string name="place_beacon_at">Placer et beacon ved %s\?</string>
+    <string name="map_auto_calibrated">Kortet er automatisk kalibreret. Bekræft venligst dets nøjagtighed</string>
+    <string name="minute_symbol">m</string>
+    <string name="hour_symbol">t</string>
+    <string name="sleep_timer">Sleep timer</string>
+    <string name="pref_weather_show_detailed_icon_title">Vis farvet notifikationsikon</string>
+    <string name="whistle_signal_come_here">Kom her</string>
+    <string name="weather_monitor">Vejrmonitor</string>
+    <string name="dawn_type">Daggry (%s)</string>
+    <string name="humidity_history">Fugtighedshistorik - sidste %s</string>
+    <string name="pref_nmea_elevation_summary">Bruger NMEA korrektioner til højdekonvertering</string>
+    <string name="pref_barometer_pressure_smoothing_title">Trykudjævning</string>
+    <string name="preview">Forhåndsvisning</string>
+    <string name="yards_format">%s yd</string>
+    <string name="pref_auto_low_power_title">Automatisk strømbesparelse</string>
+    <string name="hours">Timer</string>
+    <string name="days">Dage</string>
+    <string name="hours_format">%s t</string>
+    <string name="time">Tid</string>
+    <string name="minutes">Minutter</string>
+    <string name="new_packing_list">Ny pakkeliste</string>
+    <string name="no_packing_lists">Ingen pakkelister</string>
+    <string name="pack_sort_percent_high_to_low">Procent pakket (høj til lav)</string>
+    <string name="location_override_not_set_resolution">Indstil placeringskorrektionen i indstillinger</string>
+    <string name="autofill">Autoudfyld</string>
+    <string name="lightning_dangerously_close">Lyn faretruende tæt på</string>
+    <string name="auto">Automatisk</string>
+    <string name="total">Total</string>
+    <string name="lunar_eclipses">Måneformørkelser</string>
+    <string name="partial">Delvis (%s)</string>
+    <string name="lunar_eclipse_end">Måneformørkelse (slut)</string>
+    <string name="astro_dialog_day_length">**Dag**: %s
+\n
+\n**Nat**: %s
+\n
+\n**Årstid**: %s</string>
+    <string name="season_fall">Efterår</string>
+    <string name="weather_monitoring_disabled">Vejrovervågning deaktiveret</string>
+    <string name="enable">Slå til</string>
+    <string name="no_clouds">Ingen Skyer</string>
+    <string name="precipitation_snow_pellets">Snefnug</string>
+    <string name="precipitation_small_hail">Småhagl</string>
+    <string name="precipitation_hail">Hagl</string>
+    <string name="precipitation_ice_pellets">Iskorn</string>
+    <string name="notification_backtrack_update_content">Registrerer din lokation</string>
+    <string name="hide">Skjul</string>
+    <string name="importing">Importerer</string>
+    <string name="closest">Nærmeste</string>
+    <string name="hard">Hård</string>
+    <string name="difficulty">Sværhedsgrad</string>
+    <string name="simplification_quality">Simplificeringskvalitet</string>
+    <string name="pressure_tendency">Tendens</string>
+    <string name="steps">Skridt</string>
+    <string name="onboarding_explore">- Designet til vandreture, backpacking, camping og geocaching
+\n
+\n- Placer beacons og naviger til dem
+\n
+\n- Følg stier
+\n
+\n- Gå tilbage med backtrack
+\n
+\n- Planlæg hvad du skal pakke
+\n
+\n- Bliv advaret før solen går ned
+\n
+\n- Forudsig vejret
+\n
+\n- Brug din telefon som lommelygte
+\n
+\n- Og meget mere!</string>
+    <string name="save">Gem</string>
+    <string name="current_speed">Aktuel hastighed</string>
+    <string name="current_speed_pedometer">Aktuel hastighed (Skridttæller)</string>
+    <string name="frequency">Frekvens</string>
+    <string name="permission_alarms_and_reminders">Alarmer og påmindelser</string>
+    <string name="tide_semidiurnal">Halvdaglig</string>
+    <string name="weather_overcast">Overskyet</string>
+    <string name="then_weather">så %s</string>
+    <string name="weather_clear">Klart</string>
+    <string name="results">Resultater</string>
+    <string name="take_photo">Tag foto</string>
+    <string name="choose_photo">Vælg foto</string>
+    <string name="or">Eller</string>
+    <string name="notification_weather_update_title">Vejrovervågningsopdatering</string>
+    <string name="notification_backtrack_update_title">Backtrackopdatering</string>
+    <string name="distance_unset">Afstand ikke indstillet</string>
+    <string name="avalanche_risk">Lavinerisiko</string>
+    <string name="advanced">Avanceret</string>
+    <string name="category_food">Mad</string>
+    <string name="tool_boil_summary">Fortæl hvornår vandet kan drikkes</string>
+    <string name="lightning">Lyn</string>
+    <string name="thunder">Torden</string>
+    <string name="reset">Nulstil</string>
+    <string name="tool_ruler_title">Lineal</string>
+    <string name="tool_lightning_title">Afstand fra Lynnedslag</string>
+    <string name="precise_inches_format">%s tomme(r)</string>
+    <string name="water_purification_step_1">Filtrer vandet</string>
+    <string name="water_purification_step_3">Start timeren</string>
+    <string name="battery_health_dead">Dødt</string>
+    <string name="battery_health_overheat">Overophedet</string>
+    <string name="power">Strøm</string>
+    <string name="clock_sync_notification">Ursynkronisering - %s</string>
+    <string name="note_title_hint">Titel</string>
+    <string name="max_temp_calibrated">Maks. omgivende temperatur (kalibreret)</string>
+    <string name="create_beacon">Opret beacon</string>
+    <string name="pref_gps_override_title">Tilsidesættelse af placering</string>
+    <string name="delete_waypoint_prompt">Slet rutepunkt\?</string>
+    <string name="delete_tide_prompt">Slet tidevand\?</string>
+    <string name="tool_thermometer_title">Termometer</string>
+    <string name="backtrack_disabled_low_power_toast">Backtrack deaktiveres i strømsparetilstand</string>
+    <string name="cirrocumulus">Cirrocumulus</string>
+    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør i de næste %d til %d timer.</string>
+    <string name="cumulonimbus_forecast">Kan indikere et tordenvejr indenfor få minutter.</string>
+    <string name="screen_flashlight">Skærm</string>
+    <string name="speedometer">Speedometer</string>
+    <string name="menu">Menu</string>
+    <string name="no_tides">Ingen tidevand</string>
+    <string name="meteor_shower">Meteorsværm</string>
+    <string name="rename">Omdøb</string>
+    <string name="pref_meteor_showers_title">Meteorsværme</string>
+    <string name="guide_using_printed_maps">Brug af trykte kort</string>
+    <string name="no_maps">Ingen kort</string>
+    <string name="pref_odometer_reset_daily_title">Nulstil dagligt</string>
+    <string name="search">Søg</string>
+    <string name="solid">Ubrudt</string>
+    <string name="dotted">Prikket</string>
+    <string name="square">Kvadrat</string>
+    <string name="diamond">Diamant</string>
+    <string name="cross">Kors</string>
+    <string name="pref_default_path_style_title">Standard stistil</string>
+    <string name="pref_default_path_color_title">Standard stifarve</string>
+    <string name="arrow">Pil</string>
+    <string name="updates">Opdateringer</string>
+    <string name="backtrack_high_priority_notification">Placerer rutepunkt hver %s</string>
+    <string name="tool_whistle_title">Fløjte</string>
+    <string name="inventory_empty_text">Tom</string>
+    <string name="guide_recommended_apps">Anbefalede apps</string>
+    <string name="guide_recommended_apps_description">Nyttige apps til overlevelsessituationer</string>
+    <string name="pref_privacy_policy_title">Fortrolighedspolitik</string>
+    <string name="water_boil_timer_done_title">Vandet er kogt</string>
+    <string name="battery_health">Sundhed: %s</string>
+    <string name="update_gps_override">Opdater GPS-korrektion</string>
+    <string name="tool_notes_title">Noter</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="charging_wireless">Lader (%s)</string>
+    <string name="pref_require_satellites_description">Kræver mindst 4 satellitter, forbedrer nøjagtigheden</string>
+    <string name="pref_require_satellites_title">Kræv satellitfiksering</string>
+    <string name="stratus">Stratus</string>
+    <string name="cumulonimbus">Cumulonimbus</string>
+    <string name="stratocumulus">Stratocumulus</string>
+    <string name="altocumulus_desc">Puffede skyer i mellemhøjde, der ligner vatkugler. De er typisk hvide med mørkere pletter forneden og kan være adskilte eller arklignende.</string>
+    <string name="cirrus_desc">Høje pjuskede skyer, der ligner totter af hvidt hår.</string>
+    <string name="onboarding_user_guide">Lær hvordan du bruger Trail Senses funktioner med brugervejledningen. Tilgængelig nederst på fanen Værktøjer.
+\n
+\nFlere guider kommer snart.</string>
+    <string name="import_btn">Importer</string>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d beacon importeret</item>
+        <item quantity="other">%d beacons importeret</item>
+    </plurals>
+    <string name="us_ounces_volume">US Ounces</string>
+    <string name="us_gallons">US Gallons</string>
+    <string name="share_ellipsis">Del…</string>
+    <string name="average_speed">Gennemsnitsfart</string>
+    <string name="running_in_background">Kører i baggrunden</string>
+    <string name="pref_email_title">Email udvikler</string>
+    <string name="imperial_ounces_volume">Imperial Ounces</string>
+    <string name="camera">Kamera</string>
+    <string name="weather_thunderstorm">Tordenvejr</string>
+    <string name="pref_center_sun_and_moon_title">Hold sol/måne centreret</string>
+    <string name="update_180_minutes">3 timer</string>
+    <string name="category_clothing">Beklædning</string>
+    <string name="tool_triangulate_title">Trianguler Placering</string>
+    <string name="notes_empty_text">Ingen noter</string>
+    <string name="backtrack">Backtrack</string>
+    <string name="noon">Middag</string>
+    <string name="low_tide_letter">L</string>
+    <string name="gps_stale">Forældet</string>
+    <string name="gps_searching">Søger</string>
+    <string name="network_2g">2G</string>
+    <string name="network_3g">3G</string>
+    <string name="map_rotate_instructions">Drej indtil nord peger op</string>
+    <string name="map_perspective_instructions">Skitsér kortet</string>
+    <string name="pref_backtrack_history_days_title">Backtrack-historik</string>
+    <string name="sensor_gyroscope">Gyroskop</string>
+    <string name="units">Enheder</string>
+    <string name="pref_privacy_screenshot_protection_title">Bloker skærmbilleder</string>
+    <string name="pref_experimental_metal_direction_title">Vis metalretning</string>
+    <string name="pref_tiles_enabled_title">Systemfliser</string>
+    <string name="daylight">Dagslys</string>
+    <string name="find_next_occurrence">Find næste forekomst</string>
+    <string name="pounds">Pund</string>
+    <string name="ounces_weight">Ounces</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="seconds_format">%s s</string>
+    <string name="minutes_format">%s m</string>
+    <string name="days_format">%s d</string>
+    <string name="desired_amount">Ønsket mængde</string>
+    <string name="no_paths">Ingen stier</string>
+    <string name="path_exported">Sti eksporteret</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="old">Gammel</string>
+    <string name="new_text">Ny</string>
+    <string name="navigate">Naviger</string>
+    <string name="export_path_error">Kunne ikke eksportere sti</string>
+    <string name="duration_of_charge">Opladningens varighed</string>
+    <string name="slope_amount">%s hældning</string>
+    <string name="qr_text_too_long">Teksten er for lang, QR-koden er afkortet</string>
+    <string name="tide_table">Tidevandstabel</string>
+    <string name="tide_deleted">Tidevand slettet</string>
+    <string name="off">Fra</string>
+    <string name="tool_temperature_estimation_description">Forudsig temperaturen ved en anden højde</string>
+    <string name="distance_alert_distance_reached">Du har nået %s</string>
+    <string name="beacons">Beacons</string>
+    <string name="remove_battery_restrictions">Fjern batterirestriktioner\?</string>
+    <string name="file">Fil</string>
+    <string name="tide_diurnal">Dagligt</string>
+    <string name="tide_instructions">Brug en officiel tidevandstabel til at indtaste referencetidevand for varigheden af din tur.</string>
+    <string name="path_slope_steep">Stejl</string>
+    <string name="path_slope">Hældning</string>
+    <string name="clouds_clear">Klart</string>
+    <string name="weather_front">Vejrfront</string>
+    <string name="weather_warm_front">Varm</string>
+    <string name="weather_cold_front">Kold</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d sti</item>
+        <item quantity="other">%d stier</item>
+    </plurals>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d sekund til drikkeligt vand</item>
+        <item quantity="other">%d sekunder til drikkeligt vand</item>
+    </plurals>
+    <string name="pref_adjust_for_temperature_summary">Brug temperatur ved konvertering af havniveautryk</string>
+    <string name="other">Andet</string>
+    <string name="background_location_permission">Placering (tillad hele tiden)</string>
+    <string name="get_gps_signal">Gå udenfor med et uhindret udsyn til himlen.</string>
+    <string name="unblock_notification_channel">Fjern blokering af %s-notifikation for Trail Sense</string>
+    <string name="location_override_resolution">Aktiver autojustering af placering i indstillingerne.</string>
+    <string name="pick_file">Vælg fil</string>
+    <string name="pref_clinometer_baseline_distance_title">Grundlinjeafstand</string>
+    <string name="height">Højde</string>
+    <string name="clinometer_measure_distance_title">Målets højde</string>
+    <string name="pref_start_on_boot_title">Start ved opstart at mobilen</string>
+    <string name="bearing">Pejling</string>
+    <string name="pref_altimeter_calibration_mode_title">Auto-kalibrering</string>
+    <string name="pref_adjust_for_temperature_title">Tag højde for temperatur</string>
+    <string name="pref_display_multi_beacons_title">Vis beacons i nærheden</string>
+    <string name="pref_max_beacon_distance_title">Radius til nærliggende beacons</string>
+    <string name="pref_storm_alert_sensitivity_title">Stormfølsomhed</string>
+    <string name="pressure_24_hours">24 timer</string>
+    <string name="pressure_12_hours">12 timer</string>
+    <string name="pref_monitor_weather_summary">I baggrunden</string>
+    <string name="pref_monitor_weather_title">Overvåg vejret</string>
+    <string name="pref_show_weather_notification_title">Vis vejrnotifikation</string>
+    <string name="pref_show_temperature_in_notification_title">Vis temperatur i notifikation</string>
+    <string name="pref_weather_update_frequency_title">Vejropdateringsfrekvens</string>
+    <string name="sun_nautical">Nautisk</string>
+    <string name="update_150_minutes">2 timer 30 minutter</string>
+    <string name="update_60_minutes">1 time</string>
+    <string name="continue_button">FORTSÆT</string>
+    <string name="sun_civil">Almindelig</string>
+    <string name="delete_map_group_message">%s og alle dens kort vil blive slettet.</string>
+    <string name="no_group">Ingen gruppe</string>
+    <string name="tap_sun_moon_hint">Tryk på sol eller måne for positionsdetaljer</string>
+    <string name="forecasts_category">Prognoser</string>
+    <string name="navigation_nearby_category">Nærved</string>
+    <string name="guide_conserving_battery_title">Batteribesparelse</string>
+    <string name="guide_weather_prediction_title">Vejrprognose</string>
+    <string name="tool_bubble_level_title">Vaterpas</string>
+    <string name="tool_bubble_level_summary">Bestem om overflader er flade</string>
+    <string name="category_fire">Ild</string>
+    <string name="category_medical">Helbred</string>
+    <string name="category_safety">Sikkerhed</string>
+    <string name="toast_destination_bearing_set">Destination indstillet</string>
+    <string name="tool_cliff_height_title">Klippehøjde</string>
+    <string name="tool_cliff_height_description">Mål højden af en klippe eller et fald</string>
+    <string name="tool_cliff_height_disclaimer">Brug kun dette værktøj, når det er sikkert, og sørg for at undersøge, hvad der er under klippen for at undgå skader. Se brugervejledningen for instruktioner.</string>
+    <string name="cliff_height_guide">Anslå klippehøjde</string>
+    <string name="action_inventory_clear_confirm">Ryd alle pakkede mængder\?</string>
+    <string name="distance_from">Fra</string>
+    <string name="distance_to">Til</string>
+    <string name="unit_meters">Meter</string>
+    <string name="unit_kilometers">Kilometer</string>
+    <string name="unit_feet">Fod</string>
+    <string name="tool_solar_panel_summary">Placer solpaneler for optimal strømproduktion</string>
+    <string name="category_natural">Naturlig</string>
+    <string name="tool_solar_panel_title">Justering af Solpaneler</string>
+    <string name="water_boil_timer">Timer til Kogning af Vand</string>
+    <string name="water_boil_timer_title">Kogning af vand</string>
+    <string name="water_boil_timer_done_content">Dit vand kan nu drikkes</string>
+    <string name="tool_lightning_description">Mål afstanden fra et lynnedslag</string>
+    <string name="water_purification_step_2">Bring vand i kog</string>
+    <string name="clock_waiting_for_gps">Opdaterer tid fra GPS…</string>
+    <string name="strobe_warning_title">Blinkende lys</string>
+    <string name="battery_health_cold">Koldt</string>
+    <string name="tool_category_angles">Vinkler</string>
+    <string name="tool_category_signaling">Signalering</string>
+    <string name="could_not_triangulate">Kunne ikke triangulere</string>
+    <string name="pip_button">Opdater Systemtid</string>
+    <string name="notification_channel_clock_sync_description">En notifikation om at synkronisere dit ur til GPS-tid</string>
+    <string name="clock_sync_instructions">Indstil tiden til %s, når notifikationen ankommer</string>
+    <string name="threshold">Grænseværdi</string>
+    <string name="tool_metal_detector_title">Metaldetektor</string>
+    <string name="metal_detector_disclaimer">Detekterer kun magnetiske metaller (f.eks. jern)</string>
+    <string name="location_override_updated">Placeringskorrektion opdateret</string>
+    <string name="delete_note_title">Slet note\?</string>
+    <string name="map_distance">Kort: %s</string>
+    <string name="tool_white_noise_title">Hvid støj</string>
+    <string name="map_scale_ratio">Forhold</string>
+    <string name="max_temp_uncalibrated">Maks. telefontemperatur (ukalibreret)</string>
+    <string name="min_temp_uncalibrated">Min. telefontemperatur (ukalibreret)</string>
+    <string name="create_at_distance">Opret på afstand</string>
+    <string name="guide_location_no_gps_title">Bestem placering uden GPS</string>
+    <string name="pref_backtrack_enabled_summary">Noter placeringshistorik</string>
+    <string name="beacon_1">Beacon 1</string>
+    <string name="beacon_2">Beacon 2</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="map_scale_verbal">Verbal</string>
+    <string name="waypoint_time_format">%s, %s</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="bubble_level_angles">X: %s
+\nY: %s</string>
+    <string name="pref_backtrack_frequency_title">Backtrack interval</string>
+    <string name="location_input_help_title">Understøttede lokationsformater</string>
+    <string name="battery_power_ac">Vekselstrøm</string>
+    <string name="coordinate_input_invalid_location">Ugyldig placering</string>
+    <string name="guide_thermometer_calibration_title">Termometerkalibrering</string>
+    <string name="battery_power_wireless">Trådløs</string>
+    <string name="guide_barometer_calibration_title">Barometerkalibrering</string>
+    <string name="pref_low_power_mode_title">Strømsparetilstand</string>
+    <string name="unsaved_changes">Ugemte Ændringer</string>
+    <string name="unsaved_changes_message">Ændringer du har foretaget vil ikke blive gemt.</string>
+    <string name="dialog_leave">Forlad</string>
+    <string name="pref_low_power_mode_summary">Deaktiverer nogle funktioner for at spare strøm</string>
+    <string name="open_beacon_in_maps">Se på Kort</string>
+    <string name="compass_calibrate_toast">Kompasnøjagtighed %s, kalibrering anbefales</string>
+    <string name="how">hvordan</string>
+    <string name="clouds">Skyer</string>
+    <string name="cirrostratus_desc">En høj sky, der dækker himlen. Den er gennemsigtig og forårsager typisk, at der dannes en glorie omkring solen.</string>
+    <string name="altocumulus_forecast">Kan indikere nedbør eller tordenvejr indenfor de næste %d timer.</string>
+    <string name="altostratus_forecast">Kan indikere nedbør indenfor de næste %d timer.</string>
+    <string name="nimbostratus_desc">En sky i mellemhøjde, der er mørkegrå og dækker himlen. Hvis det ikke regner, kan det være en stratussky.</string>
+    <string name="nimbostratus_forecast">Der kan komme nedbør indenfor de næste %d timer.</string>
+    <string name="stratocumulus_desc">Lave skyer, der ligner et ark vatkugler med små mellemrum. Farven går fra hvid til mørkegrå.</string>
+    <string name="cumulus_desc">Lave puffede skyer, der ligner bomuldskugler. De er adskilt og er typisk hvide med mørkere pletter forneden.</string>
+    <string name="cumulonimbus_desc">Lavtliggende puffede skyer, der er meget høje. De har typisk en amboltform og er mørke.</string>
+    <string name="privacy_and_location">Privatliv og Placering</string>
+    <string name="export">Eksporter</string>
+    <string name="gps_user">Bruger</string>
+    <string name="unavailable">Utilgængelig</string>
+    <string name="quality_poor">Dårlig</string>
+    <string name="quality_good">God</string>
+    <string name="cirrus">Cirrus</string>
+    <string name="altocumulus">Altocumulus</string>
+    <string name="altostratus">Altostratus</string>
+    <string name="nimbostratus">Nimbostratus</string>
+    <string name="cumulus">Cumulus</string>
+    <string name="cirrostratus">Cirrostratus</string>
+    <string name="satellites">satellitter</string>
+    <string name="gravity">Tyngdekraft</string>
+    <string name="help">Hjælp</string>
+    <string name="beacon_export_error">Kunne ikke eksportere beacons</string>
+    <string name="distance_from_flashlight">Afstand fra telefon til lommelygte</string>
+    <string name="beam_distance">%s stråleafstand</string>
+    <string name="network_5g">5G</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="hygrometer">Hygrometer</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="magnetometer">Magnetometer</string>
+    <string name="lux_format">%s lx</string>
+    <string name="candela_format">%s cd</string>
+    <string name="location_not_set">Placering ikke indstillet</string>
+    <string name="set">Indstil</string>
+    <string name="location_disabled">Placering er deaktiveret</string>
+    <string name="guide_light_meter_title">Bestem lommelygtens effektivitet</string>
+    <string name="guide_light_meter_description">Hvordan stråleafstanden for lommelygter bestemmes</string>
+    <string name="todays_forecast">Dagens vejrudsigt</string>
+    <string name="tomorrows_forecast">Morgendagens vejrudsigt</string>
+    <string name="pref_daily_weather_notification_title">Daglig vejrmelding</string>
+    <string name="service_update_frequency">Opdaterer hver %s</string>
+    <string name="battery_usage">%s batteriforbrug</string>
+    <string name="high">Høj</string>
+    <string name="moderate">Moderat</string>
+    <string name="low">Lav</string>
+    <string name="left_quick_action">Venstre hurtighandling</string>
+    <string name="right_quick_action">Rigtig hurtighandling</string>
+    <string name="experimental">Eksperimentel</string>
+    <string name="tides">Tidevand</string>
+    <string name="high_tide">Høj</string>
+    <string name="low_tide">Lav</string>
+    <string name="half_tide">Halv</string>
+    <string name="time_not_set">Tid ikke indstillet</string>
+    <string name="since_time">siden %s</string>
+    <string name="odometer">Kilometertæller</string>
+    <string name="pref_stride_length_title">Skridtlængde</string>
+    <string name="pref_nearby_radar_title">Vis nærliggende radarkompas</string>
+    <string name="tomorrow_at">I morgen kl. %s</string>
+    <string name="on_map">På kort</string>
+    <string name="create_map">Opret kort</string>
+    <string name="guide_importing_maps_title">Importerer kort</string>
+    <string name="gps_cache">GPS Cache</string>
+    <string name="always_on">Altid til</string>
+    <string name="pref_backtrack_save_cell_title">Husk cellesignal</string>
+    <string name="privacy">Privatliv</string>
+    <string name="next">Næste</string>
+    <string name="time_until_full">før fuld</string>
+    <string name="time_until_empty">før tom</string>
+    <string name="importing_map">Importerer kort</string>
+    <string name="import_gpx">Importer GPX</string>
+    <string name="battery_warning">Advarsel om batteriafladning</string>
+    <string name="calibrate_new_tide">Kalibrer til et nyt tidevand\?</string>
+    <string name="water_boil_guide_title">Gør vand sikkert at drikke</string>
+    <string name="color">Farve</string>
+    <string name="icon">Ikon</string>
+    <string name="activity_recognition_permission_denied">Tilladelse til fysisk aktivitet nægtet, kan ikke aktivere skridttællerfunktion. Du kan aktivere det i indstillinger.</string>
+    <string name="last_signal_beacon_name">Sidste signal - %s (%s)</string>
+    <string name="pref_show_last_signal_beacon_summary">Opretter et beacon for den sidste cellesignalplacering</string>
+    <string name="fields">Felter</string>
+    <string name="pref_show_noon_summary">Solens og månens maksimum over horisonten</string>
+    <string name="for_sunrise_and_set">For solopgang og solnedgang</string>
+    <string name="pref_show_civil_times_title">Almindelig tid</string>
+    <string name="pref_show_nautical_times_title">Nautisk tid</string>
+    <string name="pref_show_civil_times_summary">Daggry og skumring</string>
+    <string name="whistle_signal_where_are_you">Hvor er du\?</string>
+    <string name="dusk_type">Skumring (%s)</string>
+    <string name="battery_history">Batterihistorik - sidste %s</string>
+    <string name="temperature_history">Temperaturhistorik - sidste %s</string>
+    <string name="pref_nmea_elevation_title">NMEA højdekorrektioner</string>
+    <string name="convert">Konverter</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Viser en meddelelse, når lommelygten tændes uden for Trail Sense</string>
+    <string name="pref_cell_signal_refresh_cache_title">Opdater signalcache</string>
+    <string name="import_map">Importer kort</string>
+    <plurals name="number_days">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dage</item>
+    </plurals>
+    <string name="location_not_mocked">Bruger den faktiske placering</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Skift med lydstyrkeknapperne</string>
+    <string name="base_elevation">Udgangspunktets højde</string>
+    <string name="liters">Liter</string>
+    <string name="milliliters">Milliliter</string>
+    <string name="location_mocked">Brug fingeret lokation</string>
+    <string name="volume">Volumen</string>
+    <string name="kilograms">Kilogram</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="weight">Vægt</string>
+    <string name="packed_amount">Pakket mængde</string>
+    <string name="electronics">Electronik</string>
+    <string name="hygiene">Hygiejne</string>
+    <string name="sort">Sorter</string>
+    <string name="pack_sort_percent_low_to_high">Procent pakket (lav til høj)</string>
+    <string name="pack_sort_weight_low_to_high">Vægt (lav til høj)</string>
+    <string name="pack_sort_weight_high_to_low">Vægt (høj til lav)</string>
+    <string name="unit_yards">Yards</string>
+    <string name="us_cups">US Cups</string>
+    <string name="us_pints">US Pints</string>
+    <string name="us_quarts">US Quarts</string>
+    <string name="imperial_cups">Imperial Cups</string>
+    <string name="imperial_pints">Imperial Pints</string>
+    <string name="imperial_quarts">Imperial Quarts</string>
+    <string name="imperial_gallons">Imperial Gallons</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="humidity">Fugtighed</string>
+    <string name="battery_usage_restricted">Batteriforbrug begrænset</string>
+    <string name="no_issues">Ingen problemer fundet</string>
+    <string name="astro_dialog_meteor_shower">**Maksimum**: %s
+\n
+\n**Maksimumhøjde**: %s
+\n
+\n**Maksimum retning**: %s
+\n
+\n**Rate**: %s</string>
+    <string name="no_resolution">Ingen opløsning</string>
+    <string name="elevation_override_resolution">Aktiver autokalibrering i indstillinger.</string>
+    <string name="delete_path">Slet sti\?</string>
+    <string name="high_amount">Høj (%s)</string>
+    <string name="lunar_eclipse">Måneformørkelse</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d rutepunkt bliver slettet</item>
+        <item quantity="other">%d rutepunkter bliver slettet</item>
+    </plurals>
+    <string name="astro_dialog_rise_set">**Tid**: %s
+\n
+\n**Retning**: %s</string>
+    <string name="season_winter">Vinter</string>
+    <string name="season_spring">Forår</string>
+    <string name="season_summer">Sommer</string>
+    <string name="up_to_amount">Op til %s</string>
+    <string name="pref_export_weather_csv_title">Eksporter vejrdata</string>
+    <string name="weather_exported">Vejrdata eksporteret</string>
+    <string name="sun_moon_position_template">### %s
+\n**Højde**: %s
+\n
+\n**Azimut**: %s</string>
+    <string name="moon">Måne</string>
+    <string name="precipitation_drizzle">Støvregn</string>
+    <string name="cloud_photo_mask_toast">Tryk på foto for at skifte maske</string>
+    <string name="keep_forever">Behold for evigt</string>
+    <string name="path_color">Stifarve</string>
+    <string name="temporary">Midlertidig</string>
+    <string name="longest">Længste</string>
+    <string name="elevation_loss">Højdetab</string>
+    <string name="easy">Let</string>
+    <string name="waypoint">Rutepunkt</string>
+    <string name="merging">Sammenlægger</string>
+    <string name="merge">Sammenlæg</string>
+    <string name="append_onto">Føj på</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="reduce_map_resolution">Reducer kortopløsning</string>
+    <string name="clinometer_measure_height_title">Afstand til mål</string>
+    <string name="errors">Fejl</string>
+    <string name="gps_timeouts">GPS-timeouts</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
+    <string name="saved">Gemt</string>
+    <string name="estimate_stride_length">Anslå skridtlængde</string>
+    <string name="stride_length_stand_still">Stå stille</string>
+    <string name="no_qr_code_found">Ingen QR-kode fundet</string>
+    <string name="undo">Fortryd</string>
+    <string name="estimated">Anslået</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="current_speed_gps">Aktuel hastighed (GPS)</string>
+    <string name="error">Fejl</string>
+    <string name="battery_usage_restricted_benefit">Fjernelse af batterirestriktioner for Trail Sense kan forbedre nøjagtigheden.
+\n
+\nPå de fleste enheder skal du klikke på \'OK\', derefter skifte til alle apps og slå batterioptimering fra for Trail Sense.
+\n
+\nBesøg [Don\'t kill my app](https://dontkillmyapp.com/) for enhedsspecifikke instruktioner.</string>
+    <string name="tide_diurnal_description">Højvande én gang om dagen - de fleste tidevand er ikke daglige</string>
+    <string name="tide_user_guide_recommendation">Hjemmesider med officielle tidevandstabeller kan findes i brugervejledningen.</string>
+    <string name="tide_frequency_description">Antal højvande pr. dag. De fleste tidevand er halvdaglige.</string>
+    <string name="change_resolution">Skift opløsning</string>
+    <string name="calibrate_map_point">Kalibrer punkt %d / %d</string>
+    <string name="ascent">Stigning</string>
+    <string name="updating_weather">Opdaterer vejret</string>
+    <string name="path_slope_flat">Flad</string>
+    <string name="path_slope_moderate">Moderat</string>
+    <string name="camera_unavailable">Kamera utilgængeligt</string>
+    <string name="manual">Manuelt</string>
+    <string name="high_pressure">Højt</string>
+    <string name="low_pressure">Lavt</string>
+    <string name="high_pressure_system_description">Forbundet med godt vejr, klar himmel og køligere temperaturer.</string>
+    <string name="weather_wind">Vind</string>
+    <string name="later">Senere</string>
+    <string name="now">Nu</string>
+    <string name="smoothing">Udjævning</string>
+    <string name="historic">Historisk</string>
+    <string name="sensor">Sensor</string>
+    <string name="temperature_high_low">Høj / Lav</string>
+    <string name="altimeter_cache">Højdemåler-cache</string>
+    <string name="source">Kilde</string>
+    <string name="now_value">Nu: %s</string>
+    <string name="for_historic_temperatures">Til historiske temperaturer</string>
+    <string name="hot">Varmt</string>
+    <string name="cold">Koldt</string>
+    <string name="weather_alert_storm_description">Forbered dig på hård vind og kraftig nedbør.</string>
+    <string name="weather_alert_cold_description">Forbered dig på lave temperaturer. Tag ekstra forholdsregler mod hypotermi og forfrysning.</string>
+    <string name="at_time">kl. %s</string>
+    <string name="last_lightning_strike_at">Seneste lyn kl. %s</string>
+    <string name="historic_temperatures">Historiske temperaturer</string>
+    <string name="blank">Blank</string>
+    <string name="center">Center</string>
+    <string name="size">Størrelse</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d tidevand</item>
+        <item quantity="other">%d tidevand</item>
+    </plurals>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d rutepunkt slettet</item>
+        <item quantity="other">%d rutepunker slettet</item>
+    </plurals>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d kort</item>
+        <item quantity="other">%d kort</item>
+    </plurals>
+    <string name="solar_noon">Solens maksimum over horisonten</string>
+    <string name="pref_include_leading_zero_title">Tilføj foranstillet nul til tid</string>
+    <string name="pref_elevation_override_sea_level_title">Brug af kendt havniveautryk</string>
+    <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
+    <string name="pref_use_sea_level_pressure_title">Tryk på havniveau</string>
+    <string name="pref_num_visible_beacons_title">Beacons i nærheden</string>
+    <string name="pressure_48_hours">48 timer</string>
+    <string name="pressure_4_hours">4 timer</string>
+    <string name="pref_sunset_alert_time_title">Alarmtid for solnedgang</string>
+    <string name="pref_app_version_title">Version</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="tool_user_guide_summary">En vejledning til brug af Trail Sense</string>
+    <string name="unit_miles">Mil</string>
+    <string name="solar_panel_instructions">Placer din telefon på forsiden af solpanelet for at begynde.</string>
+    <string name="tool_triangulate_summary">Bestem din placering uden GPS</string>
+    <string name="pip_notification_scheduled">Notifikation planlagt til %s</string>
+    <string name="notification_channel_clock_sync">Ursynkronisering</string>
+    <string name="contents">Indhold</string>
+    <string name="min_temp_calibrated">Min. omgivende temperatur (kalibreret)</string>
+    <string name="location_input_help">Decimalgrader (f.eks. 1,00, -2,00)
+\n
+\nGrader decimalminutter (f.eks. 1°23.12\'N, 3°12.1\'W)
+\n
+\nGrader minutter sekunder (f.eks. 1°23\'12.1\"N, 3°12\'1.2\"W)
+\n
+\nUTM (f.eks. 03T 12345E 67890N)
+\n
+\nMGRS (f.eks. 27PXM 09601 05579)
+\n
+\nUSNG (f.eks. 14S NJ 39521 41744)
+\n
+\nOSGB (f.eks. TG 51409 13177)</string>
+    <string name="low_power_mode_on_message">Strømsparetilstand aktiveret, nogle funktioner kan være deaktiveret.</string>
+    <string name="cirrocumulus_desc">Højtliggende skyer, der danner et bølget lag. Arket er sammensat af små prikker, som næsten ser todimensionelle ud.</string>
+    <string name="altostratus_desc">En sky i mellemhøjde, der dækker himlen. Solen kan næsten ikke ses som en lys plet.</string>
+    <string name="cumulus_forecast">Kan indikere godt vejr. Hvis den vokser sig højere, kan det indikere nedbør eller tordenvejr i de næste %d timer.</string>
+    <string name="stratus_desc">En lav sky, der dækker himlen. Objekter kaster ikke skygger, og det kan være tåget.</string>
+    <string name="no_gps_signal">Intet GPS-signal</string>
+    <string name="pref_daily_weather_time_title">Daglig vejrtid</string>
+    <string name="pedometer">Skridttæller</string>
+    <string name="time_ago">%s siden</string>
+    <string name="network_no_signal">Intet signal</string>
+    <string name="tool_light_meter_title">Lysmåler</string>
+    <string name="previous">Tidligere</string>
+    <string name="pedometer_disclaimer">Skridttællerens nøjagtighed og batteriforbrug afhænger af din enheds producent og den indtastede skridtlængde. Prøv det derhjemme et stykke tid for at kontrollere batteriets afladning og nøjagtighed, før du bruger det på stien.</string>
+    <string name="error_importing_map">Fejl ved import af kort</string>
+    <string name="actual_frequency_disclaimer">Den faktiske frekvens kan variere, da nogle enheder har baggrundsgrænser.</string>
+    <string name="camera_permission_denied">Kameratilladelse nægtet, kan ikke aktivere kamerafunktioner. Du kan aktivere det i indstillinger.</string>
+    <string name="pref_show_astronomical_times_title">Astronomisk tid</string>
+    <string name="whistle_signal_acknowledged">Bekræftet</string>
+    <string name="pref_barometer_info_summary">Trykket kan afvige fra trykket på nærliggende stationer</string>
+    <string name="pref_auto_low_power_summary">Når dit batteri er lavt</string>
+    <string name="beacon_created">Beacon oprettet</string>
+    <string name="network_4g">4G</string>
+    <string name="barometer">Barometer</string>
+    <string name="cell_signal">Mobilsignal</string>
+    <string name="dashed">Stiplet</string>
+    <string name="grams_format">%s g</string>
+    <string name="weight_per_item">Vægt pr enhed</string>
+    <string name="no_compass_message">Din enhed har ikke en kompassensor</string>
+    <string name="grant_permission">Giv %s-tilladelsen</string>
+    <string name="diagnostic_message_template">%s: %s
+\n
+\n### Berørte værktøjer
+\n%s
+\n
+\n### Løsning
+\n%s</string>
+    <string name="astro_dialog_lunar_eclipse">**Start**: %s
+\n
+\n**Maksimum**: %s
+\n
+\n**Slut**: %s
+\n
+\n**Varighed**: %s
+\n
+\n**Magnitude**: %s
+\n
+\n**Højde**: %s</string>
+    <string name="capture">Registrer</string>
+    <string name="sort_by">Sorter: %s</string>
+    <string name="clinometer_measure_height_instructions">Sådan måles højden af et mål, der er %s væk:
+\n
+\n1. Juster klinometeret til bunden af målet
+\n2. Tryk på skærmen og hold
+\n3. Juster klinometeret til toppen af målet
+\n4. Slip for at låse og se højden af målet</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Lås med volumenknapper</string>
+    <string name="clinometer_measure_distance_instructions">Sådan måles afstanden til et mål, der er %s højt:
+\n
+\n1. Juster klinometeret til bunden af målet
+\n2. Tryk på skærmen og hold
+\n3. Juster klinometeret til toppen af målet
+\n4. Slip for at låse og se afstanden til målet</string>
+    <string name="open">Åbn</string>
+    <string name="pref_backtrack_save_cell_summary">Gemmer info om cellesignal ved rutepunkt. Bruger ikke internettet.</string>
+    <string name="pref_show_map_previews_title">Vis kortforhåndsvisninger</string>
+    <string name="samples">Prøver</string>
+    <string name="historic_temperature_years">Historik (%d år)</string>
+    <string name="tool_climate">Klima</string>
+    <string name="weather_alert_hot_description">Forbered dig på høje temperaturer. Tag ekstra forholdsregler mod varmeudmattelse og hedeslag.</string>
+    <string name="historic_temperatures_full_disclaimer">Temperaturer baseres på %d års gennemsnit af historiske data og afspejler muligvis ikke de aktuelle vejrforhold.</string>
+    <string name="create_blank_map">Opret Tomt Kort</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d sti importeret</item>
+        <item quantity="other">%d stier importeret</item>
+    </plurals>
+    <string name="backtrack_notification_channel_description">Lokationsopdateringer for backtracking</string>
+    <string name="onboarding_privacy">- Trail Sense respekterer dit privatliv og placeringsdata forlader aldrig din enhed
+\n
+\n- Trail Sense vil aldrig kræve internettilladelse
+\n
+\n- Se [Fortrolighedspolitikken](https://kylecorry.com/Trail-Sense/privacy_policy.html) (åbner i din mobilbrowser)
+\n
+\n- Nogle funktioner i Trail Sense kræver adgang til din placering
+\n
+\n- Tildeling af placeringstilladelse aktiverer disse funktioner:
+\n
+\n- Navigation til beacons
+\n
+\n- Forbedret prognosenøjagtighed (kræver baggrundsplacering, ikke tilgængelig på alle enheder)
+\n
+\n- Backtrack (kræver baggrundsplacering)
+\n
+\n- Sol- og månetider for din nuværende placering
+\n
+\n- Hvis du vælger ikke at give placeringstilladelse, kan du manuelt indtaste placering i menuen Indstillinger &gt; GPS-kalibrering i Trail Sense.
+\n
+\n- Når du har klikket på Fortsæt, bliver du bedt om at give tilladelser til placering og baggrundsplacering. Hvis du afviser disse tilladelser, kan Trail Sense ikke få adgang til din placering, så manuel placeringsindtastning anbefales.</string>
+    <string name="backtrack_battery_warning">Små intervaller (under 15 min.) kan forårsage højt batteriforbrug</string>
 </resources>
