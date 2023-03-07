@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
@@ -416,6 +417,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
+        if (map?.isCalibrated != true) {
+            toast(getString(R.string.map_is_not_calibrated))
+            return
+        }
+
         distanceLayer.isEnabled = true
         distanceLayer.clear()
         initialPoints.forEach { distanceLayer.add(it) }
