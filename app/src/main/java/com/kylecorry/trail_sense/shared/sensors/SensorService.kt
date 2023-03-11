@@ -98,10 +98,10 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getSpeedometer(): ISpeedometer {
+    fun getSpeedometer(gps: IGPS? = null): ISpeedometer {
         return when (userPrefs.navigation.speedometerMode) {
             NavigationPreferences.SpeedometerMode.Backtrack -> BacktrackSpeedometer(context)
-            NavigationPreferences.SpeedometerMode.GPS -> getGPS(false)
+            NavigationPreferences.SpeedometerMode.GPS -> gps ?: getGPS(false)
             NavigationPreferences.SpeedometerMode.CurrentPace -> CurrentPaceSpeedometer(
                 getPedometer(), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
             )
@@ -113,7 +113,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    private fun getGPSAltimeter(background: Boolean = false): IAltimeter {
+    private fun getGPSAltimeter(background: Boolean = false, gps: IGPS? = null): IAltimeter {
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
@@ -123,15 +123,15 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            return getGPS(background)
+            return gps ?: getGPS(background)
         }
     }
 
-    fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false): IAltimeter {
+    fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false, gps: IGPS? = null): IAltimeter {
         if (preferGPS) {
             return CachingAltimeterWrapper(
                 context,
-                GaussianAltimeterWrapper(getGPSAltimeter(background), userPrefs.altimeterSamples)
+                GaussianAltimeterWrapper(getGPSAltimeter(background, gps), userPrefs.altimeterSamples)
             )
         }
 
@@ -152,7 +152,7 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val gps = getGPS(background)
+            val gps = gps ?: getGPS(background)
 
             return if (mode == UserPreferences.AltimeterMode.GPSBarometer && Sensors.hasBarometer(
                     context

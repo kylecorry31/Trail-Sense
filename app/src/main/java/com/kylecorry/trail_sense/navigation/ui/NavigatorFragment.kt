@@ -91,8 +91,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
     }
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
-    private val altimeter by lazy { sensorService.getAltimeter() }
-    private val speedometer by lazy { sensorService.getSpeedometer() }
+    private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
+    private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
     private val declinationProvider by lazy {
         DeclinationFactory().getDeclinationStrategy(
             userPrefs,
