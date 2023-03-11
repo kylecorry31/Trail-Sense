@@ -174,7 +174,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     }
 
     fun draw() {
-        map ?: return
+        val map = map ?: return
 
         // TODO: This only needs to be changed when the scale or translate changes
         mapPath.apply {
@@ -205,13 +205,16 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             }
         }
 
-        if (map?.calibration?.calibrationPoints?.size == 2) {
+        val isCalibrating = showCalibrationPoints
+        val hasCalibrationPoints = map.isCalibrated
+        val hasActualCalibration = map.calibration.calibrationPoints.all { it.location != Coordinate.zero }
+        if (hasCalibrationPoints && (!isCalibrating || hasActualCalibration)) {
             maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
             if (shouldRecenter && isImageLoaded) {
                 recenter()
             }
             layers.forEach { it.draw(drawer, this) }
-        } else if (map != null) {
+        } else {
             // Don't recenter if the map is not calibrated
             shouldRecenter = false
         }
