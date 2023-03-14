@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
@@ -48,7 +49,6 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
@@ -118,7 +118,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var beacons: Collection<Beacon> = listOf()
     private var paths: List<Path> = emptyList()
-    private var currentBacktrackPathId: Long? = null
     private var nearbyBeacons: Collection<Beacon> = listOf()
 
     private var destination: Beacon? = null
@@ -231,19 +230,24 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ).bind()
 
         observe(beaconRepo.getBeacons()) {
-            beacons = it.map { it.toBeacon() }
-            updateNearbyBeacons()
-            updateUI()
+            inBackground {
+                onDefault {
+                    beacons = it.map { it.toBeacon() }
+                }
+                updateNearbyBeacons()
+                onMain {
+                    updateUI()
+                }
+            }
         }
 
         observe(pathService.getLivePaths()) {
-            paths = it.filter { path -> path.style.visible }
             inBackground {
-                withContext(Dispatchers.IO) {
-                    currentBacktrackPathId = pathService.getBacktrackPathId()
+                onIO {
+                    paths = it.filter { path -> path.style.visible }
                     updateCompassPaths(true)
                 }
-                withContext(Dispatchers.Main) {
+                onMain {
                     updateUI()
                 }
             }
@@ -765,26 +769,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
                     pathLoader.update(paths, load, unload, reload)
 
-                    val isTracking = BacktrackScheduler.isOn(requireContext())
-                    val mappablePaths = mutableListOf<IMappablePath>()
-                    val currentPathId = currentBacktrackPathId
-                    var i = 0L
-                    for (points in pathLoader.points) {
-                        val path = paths.firstOrNull { it.id == points.key } ?: continue
-                        val pts = if (isTracking && currentPathId == path.id) {
-                            listOf(gps.getPathPoint(currentPathId)) + points.value
-                        } else {
-                            points.value
+                    val mappablePaths =
+                        pathLoader.getPointsWithBacktrack(requireContext()).mapNotNull {
+                            val path =
+                                paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
+                            it.value.asMappable(requireContext(), path)
                         }
-                        // TODO: Clip the path within the path loader, a wrapper around that, or within the path layer
-//                        val split = PathClipper().clip(pts.map { it.coordinate }, load)
-//                            .map { it.map { PathPoint(0, 0, it) } }
-//                        for (p in split) {
-//                            mappablePaths.add(p.asMappable(requireContext(), path.copy(id = i)))
-//                            i++
-//                        }
-                        mappablePaths.add(pts.asMappable(requireContext(), path))
-                    }
+
                     mappablePaths
                 }
 
