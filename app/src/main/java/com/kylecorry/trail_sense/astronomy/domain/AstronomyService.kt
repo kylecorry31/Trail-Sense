@@ -207,7 +207,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
-        return getEclipse(location, date, EclipseType.PartialSolar)
+        return getEclipse(location, date, EclipseType.Solar)
     }
 
     private fun getEclipse(
