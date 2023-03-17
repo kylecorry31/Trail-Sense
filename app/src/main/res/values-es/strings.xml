@@ -802,7 +802,7 @@
     <string name="astro_dialog_noon">** Tiempo **:%s
 \n
 \n** Altitud **:%s</string>
-    <string name="astro_dialog_lunar_eclipse">**Empieza**:%s
+    <string name="astro_dialog_eclipse">**Empieza**:%s
 \n
 \n** Pico **:%s
 \n

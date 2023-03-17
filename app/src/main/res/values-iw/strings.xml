@@ -150,7 +150,7 @@
     <string name="astro_dialog_noon">**זמן**: %s
 \n
 \n**גובה**: %s</string>
-    <string name="astro_dialog_lunar_eclipse">**התחלה**: %s
+    <string name="astro_dialog_eclipse">**התחלה**: %s
 \n
 \n**שיא**: %s
 \n

@@ -721,7 +721,7 @@
     <string name="elevation_history_length">Lengte hoogtegeschiedenis</string>
     <string name="last_duration">Afgelopen %s</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="astro_dialog_lunar_eclipse">**Begin**: %s
+    <string name="astro_dialog_eclipse">**Begin**: %s
 \n
 \n**Hoogtepunt**: %s
 \n

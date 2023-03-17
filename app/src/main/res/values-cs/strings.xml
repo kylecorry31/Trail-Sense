@@ -833,7 +833,7 @@
     <string name="last_duration">Poslední %s</string>
     <string name="lunar_eclipse_end">Zatmění Měsíce (konec)</string>
     <string name="lunar_eclipse">Zatmění Měsíce</string>
-    <string name="astro_dialog_lunar_eclipse">**Začátek**: %s
+    <string name="astro_dialog_eclipse">**Začátek**: %s
 \n
 \n**Špička**: %s
 \n

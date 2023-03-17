@@ -577,7 +577,7 @@
     <string name="astro_dialog_noon">**Időpont**: %s
 \n
 \n**Magasság**: %s</string>
-    <string name="astro_dialog_lunar_eclipse">**Kezdet**: %s
+    <string name="astro_dialog_eclipse">**Kezdet**: %s
 \n
 \n**Csúcs**: %s
 \n

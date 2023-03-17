@@ -93,6 +93,12 @@ class AstronomyPreferences(private val context: Context) {
         true
     )
 
+    val showSolarEclipses by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_solar_eclipses),
+        false
+    )
+
     val showCivilTimes: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_civil_times)) ?: true
 

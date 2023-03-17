@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.Eclipse
 import com.kylecorry.trail_sense.shared.FormatService
 
-class LunarEclipseField(
+class SolarEclipseField(
     private val eclipse: Eclipse,
     private val showStart: Boolean,
     private val altitude: Float
@@ -15,11 +15,9 @@ class LunarEclipseField(
     AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return if (showStart) {
-            context.getString(R.string.lunar_eclipse_start)
+            context.getString(R.string.solar_eclipse_start)
         } else {
-            context.getString(
-                R.string.lunar_eclipse_end
-            )
+            context.getString(R.string.solar_eclipse_end)
         }
     }
 
@@ -33,9 +31,9 @@ class LunarEclipseField(
 
     override fun getImage(context: Context): Int {
         return if (eclipse.isTotal) {
-            R.drawable.ic_moon_total_eclipse
+            R.drawable.ic_total_solar_eclipse
         } else {
-            R.drawable.ic_moon_partial_eclipse
+            R.drawable.ic_partial_solar_eclipse
         }
     }
 
@@ -57,7 +55,7 @@ class LunarEclipseField(
 
         Alerts.dialog(
             context,
-            context.getString(R.string.lunar_eclipse),
+            context.getString(R.string.solar_eclipse),
             markdownService.toMarkdown(text),
             cancelText = null
         )

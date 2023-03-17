@@ -697,7 +697,7 @@
     <string name="weather_monitoring_disabled">Værovervåking slått av</string>
     <string name="enable">Slå på</string>
     <string name="supermoon">Supermåne</string>
-    <string name="astro_dialog_lunar_eclipse">**Start**: %s
+    <string name="astro_dialog_eclipse">**Start**: %s
 \n
 \n**Maksimal**: %s
 \n

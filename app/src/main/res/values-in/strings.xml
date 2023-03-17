@@ -818,7 +818,7 @@
 \n**Malam**: %s
 \n
 \n**Musim**: %s</string>
-    <string name="astro_dialog_lunar_eclipse">**Mulai**: %s
+    <string name="astro_dialog_eclipse">**Mulai**: %s
 \n
 \n**Puncak**: %s
 \n

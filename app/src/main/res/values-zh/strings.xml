@@ -757,7 +757,7 @@
     <string name="astro_dialog_moon_phase">**月相**: %s
 \n
 \n**照度**: %s</string>
-    <string name="astro_dialog_lunar_eclipse">**开始**: %s
+    <string name="astro_dialog_eclipse">**开始**: %s
 \n
 \n**峰值**: %s
 \n

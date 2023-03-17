@@ -813,7 +813,7 @@
     <string name="astro_dialog_noon">**Vrijeme**: %s
 \n
 \n**Visina**: %s</string>
-    <string name="astro_dialog_lunar_eclipse">**Početak**: %s
+    <string name="astro_dialog_eclipse">**Početak**: %s
 \n
 \n**Vrhunac**: %s
 \n

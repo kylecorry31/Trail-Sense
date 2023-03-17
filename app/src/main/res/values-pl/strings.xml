@@ -744,7 +744,7 @@
     <string name="auto">Automatycznie</string>
     <string name="units_mmhg">mmHg</string>
     <string name="elevation_history_length">Długość historii wysokości</string>
-    <string name="astro_dialog_lunar_eclipse">**Początek**: %s
+    <string name="astro_dialog_eclipse">**Początek**: %s
 \n
 \n**Szczyt**: %s
 \n

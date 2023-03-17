@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.astronomy.domain
 import java.time.Duration
 import java.time.ZonedDateTime
 
-data class LunarEclipse(
+data class Eclipse(
     val start: ZonedDateTime,
     val end: ZonedDateTime,
     val peak: ZonedDateTime,

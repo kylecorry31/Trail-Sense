@@ -199,7 +199,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     fun getLunarEclipse(
         location: Coordinate,
         date: LocalDate = LocalDate.now()
-    ): LunarEclipse? {
+    ): Eclipse? {
         val nextEclipse = Astronomy.getNextEclipse(
             date.atStartOfDay(ZoneId.systemDefault()),
             location,
@@ -214,7 +214,28 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             return null
         }
 
-        return LunarEclipse(start, end, peak, nextEclipse.magnitude)
+        return Eclipse(start, end, peak, nextEclipse.magnitude)
+    }
+
+    fun getSolarEclipse(
+        location: Coordinate,
+        date: LocalDate = LocalDate.now()
+    ): Eclipse? {
+        val nextEclipse = Astronomy.getNextEclipse(
+            date.atStartOfDay(ZoneId.systemDefault()),
+            location,
+            EclipseType.PartialSolar
+        ) ?: return null
+
+        val start = nextEclipse.start.toZonedDateTime()
+        val end = nextEclipse.end.toZonedDateTime()
+        val peak = nextEclipse.maximum.toZonedDateTime()
+
+        if (start.toLocalDate() != date && end.toLocalDate() != date) {
+            return null
+        }
+
+        return Eclipse(start, end, peak, nextEclipse.magnitude)
     }
 
     fun findNextEvent(
@@ -240,6 +261,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                 start
             ) != null
             AstronomyEvent.Supermoon -> isSuperMoon(start)
+            AstronomyEvent.SolarEclipse -> getSolarEclipse(
+                location,
+                start
+            ) != null
         }
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())
@@ -260,6 +285,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                     date
                 ) != null
                 AstronomyEvent.Supermoon -> isSuperMoon(date)
+                AstronomyEvent.SolarEclipse -> getSolarEclipse(
+                    location,
+                    date
+                ) != null
             }
             if (hasEvent && !isInEvent) {
                 return date

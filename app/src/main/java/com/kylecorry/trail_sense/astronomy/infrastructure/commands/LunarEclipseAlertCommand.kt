@@ -7,7 +7,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.domain.LunarEclipse
+import com.kylecorry.trail_sense.astronomy.domain.Eclipse
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -55,7 +55,7 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
         Notify.send(context, 732094, notification)
     }
 
-    private fun getEclipseDescription(context: Context, eclipse: LunarEclipse): String {
+    private fun getEclipseDescription(context: Context, eclipse: Eclipse): String {
         val formatService = FormatService(context)
 
         val timeSpan = formatService.formatTimeSpan(

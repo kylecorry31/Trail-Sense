@@ -767,7 +767,7 @@
     <string name="astro_dialog_moon_phase">**Фаза**: %s
 \n
 \n**Освещение**: %s</string>
-    <string name="astro_dialog_lunar_eclipse">**Начало**: %s
+    <string name="astro_dialog_eclipse">**Начало**: %s
 \n
 \n**Пик**: %s
 \n

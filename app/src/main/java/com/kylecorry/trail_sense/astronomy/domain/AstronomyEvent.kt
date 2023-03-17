@@ -6,5 +6,6 @@ enum class AstronomyEvent {
     QuarterMoon,
     MeteorShower,
     LunarEclipse,
-    Supermoon
+    Supermoon,
+    SolarEclipse
 }

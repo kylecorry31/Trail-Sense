@@ -1037,7 +1037,7 @@
 \n
 \n### Løsning
 \n%s</string>
-    <string name="astro_dialog_lunar_eclipse">**Start**: %s
+    <string name="astro_dialog_eclipse">**Start**: %s
 \n
 \n**Maksimum**: %s
 \n

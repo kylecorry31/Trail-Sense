@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -116,23 +117,25 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         binding.displayDate.setOnCalendarLongPressListener {
-            val options = listOf(
+            val options = listOfNotNull(
                 AstronomyEvent.FullMoon,
                 AstronomyEvent.NewMoon,
                 AstronomyEvent.QuarterMoon,
                 AstronomyEvent.MeteorShower,
                 AstronomyEvent.LunarEclipse,
+                if (prefs.astronomy.showSolarEclipses) AstronomyEvent.SolarEclipse else null,
                 AstronomyEvent.Supermoon
             )
             Pickers.item(
                 requireContext(),
                 getString(R.string.find_next_occurrence),
-                listOf(
+                listOfNotNull(
                     getString(R.string.full_moon),
                     getString(R.string.new_moon),
                     getString(R.string.quarter_moon),
                     getString(R.string.meteor_shower),
                     getString(R.string.lunar_eclipse),
+                    if (prefs.astronomy.showSolarEclipses) getString(R.string.solar_eclipse) else null,
                     getString(R.string.supermoon)
                 ).map { it.capitalizeWords() },
                 options.indexOf(lastAstronomyEventSearch)
@@ -141,12 +144,22 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     val search = options[it]
                     lastAstronomyEventSearch = search
                     val currentDate = binding.displayDate.date
-                    binding.displayDate.date = astronomyService.findNextEvent(
-                        search,
-                        gps.location,
-                        currentDate
-                    ) ?: currentDate
-                    updateUI()
+                    runInBackground {
+                        val loading = AlertLoadingIndicator(requireContext(), getString(R.string.loading))
+                        loading.show()
+                        val nextEvent = onDefault {
+                            astronomyService.findNextEvent(
+                                search,
+                                gps.location,
+                                currentDate
+                            )
+                        }
+                        onMain {
+                            loading.hide()
+                            binding.displayDate.date = nextEvent ?: currentDate
+                            updateUI()
+                        }
+                    }
                 }
             }
         }
@@ -418,7 +431,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     Group(
                         MoonPhaseProvider(),
                         Conditional(MeteorShowerProvider()) { prefs.astronomy.showMeteorShowers },
-                        Conditional(LunarEclipseProvider()) { prefs.astronomy.showLunarEclipses }
+                        Conditional(LunarEclipseProvider()) { prefs.astronomy.showLunarEclipses },
+                        Conditional(SolarEclipseProvider()) { prefs.astronomy.showSolarEclipses },
                     )
                 )
             )
