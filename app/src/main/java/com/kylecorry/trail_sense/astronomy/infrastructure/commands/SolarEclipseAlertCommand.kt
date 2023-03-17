@@ -16,10 +16,10 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinate> {
+class SolarEclipseAlertCommand(private val context: Context) : Command<Coordinate> {
     override fun execute(location: Coordinate) {
         val prefs = UserPreferences(context)
-        val shouldSend = prefs.astronomy.sendLunarEclipseAlerts
+        val shouldSend = prefs.astronomy.sendSolarEclipseAlerts
 
         if (!shouldSend) {
             return
@@ -27,9 +27,9 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
 
         val astronomyService = AstronomyService()
         val today = LocalDate.now()
-        val todayEclipse = astronomyService.getLunarEclipse(location, today)
+        val todayEclipse = astronomyService.getSolarEclipse(location, today)
         val tomorrowEclipse =
-            astronomyService.getLunarEclipse(location, today.plusDays(1))
+            astronomyService.getSolarEclipse(location, today.plusDays(1))
 
         val eclipse = listOfNotNull(todayEclipse, tomorrowEclipse).firstOrNull {
             val timeUntilPeak = Duration.between(LocalDateTime.now(), it.peak)
@@ -37,14 +37,14 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
         }
 
         if (eclipse == null) {
-            Log.d(TAG, "No lunar eclipse found for $today")
+            Log.d(TAG, "No solar eclipse found for $today")
             return
         }
 
         val notification = Notify.status(
             context,
             NotificationChannels.CHANNEL_ASTRONOMY_ALERTS,
-            context.getString(R.string.lunar_eclipse),
+            context.getString(R.string.solar_eclipse),
             getEclipseDescription(context, eclipse),
             R.drawable.ic_astronomy,
             group = NotificationChannels.GROUP_ASTRONOMY_ALERTS,
@@ -52,7 +52,7 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
             autoCancel = true
         )
 
-        Notify.send(context, 7394232, notification)
+        Notify.send(context, 273942, notification)
     }
 
     private fun getEclipseDescription(context: Context, eclipse: Eclipse): String {
@@ -77,7 +77,7 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
     }
 
     companion object {
-        private const val TAG = "LunarEclipseAlertCommand"
+        private const val TAG = "SolarEclipseAlertCommand"
     }
 
 }

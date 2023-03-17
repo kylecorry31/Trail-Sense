@@ -94,6 +94,13 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
+            app:key="@string/pref_show_solar_eclipses"
+            app:singleLineTitle="false"
+            app:title="@string/solar_eclipses" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_meteor_showers"
             app:singleLineTitle="false"
             app:title="@string/pref_meteor_showers_title" />
@@ -136,6 +143,13 @@
             app:key="@string/pref_send_lunar_eclipse_alerts"
             app:singleLineTitle="false"
             app:title="@string/lunar_eclipses"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_send_solar_eclipse_alerts"
+            app:singleLineTitle="false"
+            app:title="@string/solar_eclipses"/>
 
     </PreferenceCategory>
 

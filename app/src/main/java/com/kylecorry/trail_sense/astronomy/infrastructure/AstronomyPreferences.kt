@@ -54,7 +54,7 @@ class AstronomyPreferences(private val context: Context) {
 
     val sendAstronomyAlerts: Boolean
         get() {
-            return sendLunarEclipseAlerts || sendMeteorShowerAlerts
+            return sendLunarEclipseAlerts || sendMeteorShowerAlerts || sendSolarEclipseAlerts
         }
 
     // TODO: Let the user set this
@@ -63,6 +63,12 @@ class AstronomyPreferences(private val context: Context) {
     val sendLunarEclipseAlerts by BooleanPreference(
         cache,
         context.getString(R.string.pref_send_lunar_eclipse_alerts),
+        false
+    )
+
+    val sendSolarEclipseAlerts by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_send_solar_eclipse_alerts),
         false
     )
 
@@ -96,7 +102,7 @@ class AstronomyPreferences(private val context: Context) {
     val showSolarEclipses by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_solar_eclipses),
-        false
+        true
     )
 
     val showCivilTimes: Boolean
