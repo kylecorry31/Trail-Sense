@@ -200,31 +200,26 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
-        val nextEclipse = Astronomy.getNextEclipse(
-            date.atStartOfDay(ZoneId.systemDefault()),
-            location,
-            EclipseType.PartialLunar
-        ) ?: return null
-
-        val start = nextEclipse.start.toZonedDateTime()
-        val end = nextEclipse.end.toZonedDateTime()
-        val peak = nextEclipse.maximum.toZonedDateTime()
-
-        if (start.toLocalDate() != date && end.toLocalDate() != date) {
-            return null
-        }
-
-        return Eclipse(start, end, peak, nextEclipse.magnitude)
+        return getEclipse(location, date, EclipseType.PartialLunar)
     }
 
     fun getSolarEclipse(
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
+        return getEclipse(location, date, EclipseType.PartialSolar)
+    }
+
+    private fun getEclipse(
+        location: Coordinate,
+        date: LocalDate,
+        eclipseType: EclipseType
+    ): Eclipse? {
         val nextEclipse = Astronomy.getNextEclipse(
             date.atStartOfDay(ZoneId.systemDefault()),
             location,
-            EclipseType.PartialSolar
+            eclipseType,
+            Duration.ofDays(2)
         ) ?: return null
 
         val start = nextEclipse.start.toZonedDateTime()
