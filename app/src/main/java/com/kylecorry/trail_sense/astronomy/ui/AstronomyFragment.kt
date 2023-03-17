@@ -145,7 +145,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     lastAstronomyEventSearch = search
                     val currentDate = binding.displayDate.date
                     runInBackground {
-                        val loading = AlertLoadingIndicator(requireContext(), getString(R.string.loading))
+                        val loading =
+                            AlertLoadingIndicator(requireContext(), getString(R.string.loading))
                         loading.show()
                         val nextEvent = onDefault {
                             astronomyService.findNextEvent(
@@ -417,7 +418,12 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
             val fieldProvider = Group(
                 SunMoonTimesProvider(prefs.astronomy.showNoon),
-                Section(DaylightProvider(sunTimesMode)),
+                Section(
+                    Group(
+                        DaylightProvider(sunTimesMode),
+                        DaylightSavingsProvider()
+                    )
+                ),
                 Conditional(Section(CivilTimesProvider())) {
                     prefs.astronomy.showCivilTimes
                 },
