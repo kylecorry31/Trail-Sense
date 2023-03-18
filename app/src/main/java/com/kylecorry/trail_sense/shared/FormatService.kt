@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.system.ResourceCache
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDecimalDegrees
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDegreeDecimalMinutes
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDegreeMinutesSeconds
@@ -27,7 +28,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
-import com.kylecorry.trail_sense.shared.extensions.StringCache
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
@@ -39,7 +39,7 @@ import java.util.*
 class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
-    private val strings by lazy { StringCache(context.resources) }
+    private val strings by lazy { ResourceCache(context.resources) }
 
     @DrawableRes
     fun getWeatherImage(condition: WeatherCondition?): Int {
