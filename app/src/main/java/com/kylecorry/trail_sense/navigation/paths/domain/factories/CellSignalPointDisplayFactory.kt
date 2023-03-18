@@ -26,7 +26,7 @@ class CellSignalPointDisplayFactory(private val context: Context) : IPointDispla
     }
 
     override fun createLabelMap(path: List<PathPoint>): Map<Float, String> {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         return mapOf(
             0.167f to formatService.formatQuality(Quality.Poor),
             0.5f to formatService.formatQuality(Quality.Moderate),

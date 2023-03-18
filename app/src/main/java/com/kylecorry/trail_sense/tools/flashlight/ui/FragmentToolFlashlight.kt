@@ -42,7 +42,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private var maxBrightness = 1
     private var hasBrightnessControl = false
 

@@ -30,7 +30,7 @@ class AltitudePointDisplayFactory(private val context: Context) : IPointDisplayF
     override fun createLabelMap(path: List<PathPoint>): Map<Float, String> {
         val range = getAltitudeRange(path)
         val units = UserPreferences(context).baseDistanceUnits
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val min = Distance.meters(range.lower).convertTo(units)
         val max = Distance.meters(range.upper).convertTo(units)
 

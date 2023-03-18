@@ -27,7 +27,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     private val timer = Timer {
         update()
     }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val gps by lazy { SensorService(requireContext()).getGPS(false) }
 

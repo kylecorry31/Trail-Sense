@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 
 class TideListItemMapper(private val context: Context) : ListItemMapper<Tide> {
 
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
     private val units = UserPreferences(context).baseDistanceUnits
 
     override fun map(value: Tide): ListItem {

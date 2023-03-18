@@ -41,7 +41,7 @@ class ClinometerView : CanvasView, IClinometerView {
             invalidate()
         }
 
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
     private var dialColor = Color.BLACK
     private val tickInterval = 10
     private var tickLength = 1f

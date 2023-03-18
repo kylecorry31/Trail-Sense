@@ -26,7 +26,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private lateinit var permissionPref: Preference
     private var enabledPref: SwitchPreferenceCompat? = null
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 

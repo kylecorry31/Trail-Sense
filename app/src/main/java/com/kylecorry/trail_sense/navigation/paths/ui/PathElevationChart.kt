@@ -23,7 +23,7 @@ import kotlin.math.absoluteValue
 class PathElevationChart(private val chart: Chart) {
 
     private val units = UserPreferences(chart.context).baseDistanceUnits
-    private val formatter = FormatService(chart.context)
+    private val formatter = FormatService.getInstance(chart.context)
 
     private var _path = emptyList<PathPoint>()
     private var _elevationIndex = emptyList<Int>()

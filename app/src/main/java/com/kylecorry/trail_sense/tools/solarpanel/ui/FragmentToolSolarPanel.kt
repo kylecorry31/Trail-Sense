@@ -36,7 +36,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { GravityOrientationSensor(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 

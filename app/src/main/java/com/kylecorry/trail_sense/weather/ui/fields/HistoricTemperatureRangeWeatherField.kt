@@ -19,7 +19,7 @@ class HistoricTemperatureRangeWeatherField(
     override fun getListItem(context: Context): ListItem? {
         low ?: return null
         high ?: return null
-        val formatter = FormatService(context)
+        val formatter = FormatService.getInstance(context)
         val units = UserPreferences(context).temperatureUnits
         val lowValue = formatter.formatTemperature(
             low.convertTo(units)

@@ -40,7 +40,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private val instantSpeedometer by lazy {
         CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
     }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     override fun generateBinding(

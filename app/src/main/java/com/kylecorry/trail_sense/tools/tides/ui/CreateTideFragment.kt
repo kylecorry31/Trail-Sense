@@ -37,7 +37,7 @@ import java.time.ZonedDateTime
 
 class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var editingId: Long = 0
     private var editingTide: TideTable? = null
 

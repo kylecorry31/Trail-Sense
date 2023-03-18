@@ -16,7 +16,7 @@ class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPoints
 
     private var points: List<PathPoint> = emptyList()
     private var list: ListView<PathPoint>? = null
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     var onCreateBeaconListener: (point: PathPoint) -> Unit = {}
     var onDeletePointListener: (point: PathPoint) -> Unit = {}
     var onNavigateToPointListener: (point: PathPoint) -> Unit = {}

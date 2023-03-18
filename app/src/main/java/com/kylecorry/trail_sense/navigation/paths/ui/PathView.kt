@@ -76,7 +76,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private val prefs by lazy { UserPreferences(context) }
     private val units by lazy { prefs.baseDistanceUnits }
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
     private var lastScale = 1f

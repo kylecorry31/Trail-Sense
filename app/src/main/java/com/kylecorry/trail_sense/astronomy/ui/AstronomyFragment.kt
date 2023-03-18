@@ -66,7 +66,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val astronomyService = AstronomyService()
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val markdownService by lazy { MarkdownService(requireContext()) }
 

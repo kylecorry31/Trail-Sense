@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 
 class WeightInputView(context: Context, attributeSet: AttributeSet? = null) : BaseUnitInputView<Weight, WeightUnits>(context, attributeSet) {
 
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
 
     init {
         hint = context.getString(R.string.weight)

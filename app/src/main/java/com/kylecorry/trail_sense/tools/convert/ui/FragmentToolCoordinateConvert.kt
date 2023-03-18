@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 
 class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private val formats = CoordinateFormat.values()
 

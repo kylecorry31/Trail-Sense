@@ -20,7 +20,7 @@ internal class CloudReadingListItemMapper(
     private val details = CloudDetailsService(context)
     private val detailsModal = CloudDetailsModal(context)
     private val imageModal = CloudImageModal(context)
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
 
     override fun map(value: Reading<CloudObservation>): ListItem {
         val cloud = value.value.genus

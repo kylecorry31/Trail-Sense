@@ -47,7 +47,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = listOf()
 
     private lateinit var units: PressureUnits
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
 

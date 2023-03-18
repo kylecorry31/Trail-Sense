@@ -58,7 +58,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private lateinit var navController: NavController
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
     private var sort = BeaconSortMethod.Closest

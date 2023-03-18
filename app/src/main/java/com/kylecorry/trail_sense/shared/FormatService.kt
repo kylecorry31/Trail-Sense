@@ -36,7 +36,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
 
-class FormatService(private val context: Context) {
+class FormatService private constructor(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
     private val strings by lazy { ResourceCache(context.resources) }

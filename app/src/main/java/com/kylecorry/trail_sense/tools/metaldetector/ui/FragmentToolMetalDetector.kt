@@ -29,7 +29,7 @@ import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding>() {
     private val magnetometer by lazy { Magnetometer(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val metalDetectionService = PhysicsService()
     private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
     private val orientation by lazy { SensorService(requireContext()).getGyroscope() }

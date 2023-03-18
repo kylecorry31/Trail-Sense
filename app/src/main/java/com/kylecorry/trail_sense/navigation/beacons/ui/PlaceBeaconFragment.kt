@@ -39,7 +39,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     private val altimeter by lazy { sensorService.getAltimeter() }
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val units by lazy { prefs.baseDistanceUnits }
 

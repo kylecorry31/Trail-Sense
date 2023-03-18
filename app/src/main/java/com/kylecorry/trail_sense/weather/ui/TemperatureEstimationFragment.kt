@@ -32,7 +32,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val temperatureUnits by lazy { prefs.temperatureUnits }
     private val baseUnits by lazy { prefs.baseDistanceUnits }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private val intervalometer = Timer {
         if (!isBound) {

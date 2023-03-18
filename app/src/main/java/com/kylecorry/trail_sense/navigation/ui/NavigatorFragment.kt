@@ -114,7 +114,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val navigationService = NavigationService()
     private val astronomyService = AstronomyService()
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
     private var paths: List<Path> = emptyList()

@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.tides.ui.mappers.TideTableListItemMapper
 
 class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }

@@ -44,7 +44,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
     private var selection: List<CloudSelection> = emptyList()
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private var time = Instant.now()
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val mapper by lazy {
         CloudSelectionListItemMapper(requireContext()) { genus, selected ->
             selection = selection.map {

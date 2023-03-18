@@ -28,7 +28,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private var prefleftButton: ListPreference? = null
     private var prefrightButton: ListPreference? = null
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private lateinit var prefs: UserPreferences
 

@@ -33,7 +33,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
     private var clearCacheBtn: Preference? = null
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private lateinit var gps: IGPS
     private lateinit var realGps: IGPS

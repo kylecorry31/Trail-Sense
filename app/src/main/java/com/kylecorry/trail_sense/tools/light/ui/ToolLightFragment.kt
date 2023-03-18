@@ -18,7 +18,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
 
     private val lightSensor by lazy { LightSensor(requireContext()) }
     private val lightService = PhysicsService()
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var maxLux = 0f
 
     override fun generateBinding(

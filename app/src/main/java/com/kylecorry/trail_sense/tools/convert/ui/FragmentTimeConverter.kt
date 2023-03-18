@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 
 class FragmentTimeConverter : SimpleConvertFragment<TimeUnits>(TimeUnits.Minutes, TimeUnits.Hours) {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override val units = listOf(
         TimeUnits.Seconds,

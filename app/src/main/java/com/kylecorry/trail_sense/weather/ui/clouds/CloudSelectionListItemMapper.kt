@@ -15,7 +15,7 @@ internal class CloudSelectionListItemMapper(
     private val onSelectionChanged: (CloudGenus?, Boolean) -> Unit
 ) : ListItemMapper<CloudSelection> {
     private val details = CloudDetailsService(context)
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
     private val imageModal = CloudImageModal(context)
     private val detailsModal = CloudDetailsModal(context)
 

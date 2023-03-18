@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 class FragmentTemperatureConverter :
     SimpleConvertFragment<TemperatureUnits>(TemperatureUnits.C, TemperatureUnits.F) {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override fun getUnitName(unit: TemperatureUnits): String {
         return when (unit) {

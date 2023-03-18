@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 class LocationCopy(private val context: Context) : ILocationSender {
 
     override fun send(location: Coordinate, format: CoordinateFormat?) {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val locString = formatService.formatLocation(location, format)
         Clipboard.copy(context, locString, context.getString(R.string.copied_to_clipboard_toast))
     }

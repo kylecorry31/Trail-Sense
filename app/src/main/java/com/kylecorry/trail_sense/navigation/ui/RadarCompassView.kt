@@ -44,7 +44,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     @ColorInt
     private var textColor: Int = Color.WHITE
 
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
 
     private var iconSize = 0
     private var radarSize = 0

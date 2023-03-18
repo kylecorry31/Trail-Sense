@@ -48,7 +48,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     private val prefs by lazy { UserPreferences(context) }
     private val units by lazy { prefs.baseDistanceUnits }
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
 

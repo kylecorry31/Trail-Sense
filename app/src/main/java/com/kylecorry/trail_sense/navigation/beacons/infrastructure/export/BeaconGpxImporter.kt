@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 class BeaconGpxImporter(private val context: Context) {
 
     private val service by lazy { BeaconService(context) }
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
 
     suspend fun import(gpx: GPXData, parent: Long? = null): Int {
         val waypoints = gpx.waypoints

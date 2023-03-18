@@ -7,7 +7,7 @@ import kotlin.math.absoluteValue
 
 class FragmentWeightConverter : SimpleConvertFragment<WeightUnits>(WeightUnits.Kilograms, WeightUnits.Pounds) {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override val units = WeightUnits.values().toList()
 

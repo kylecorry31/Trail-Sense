@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 class ClinometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.clinometer_preferences, rootKey)

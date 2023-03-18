@@ -35,7 +35,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefrightButton: ListPreference? = null
     private var prefDailyWeatherTime: Preference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private lateinit var prefs: UserPreferences
 

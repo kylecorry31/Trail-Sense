@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var scaleMode = MapScaleMode.Fractional

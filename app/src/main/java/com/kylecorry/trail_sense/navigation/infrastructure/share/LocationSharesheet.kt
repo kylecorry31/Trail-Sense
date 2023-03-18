@@ -14,7 +14,7 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
 
     private val mapService = MapSiteService()
     private val prefs by lazy { UserPreferences(context) }
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
 
     override fun send(location: Coordinate, format: CoordinateFormat?) {
         val intent = Intent().apply {

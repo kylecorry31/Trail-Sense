@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.Path
 
 class PathNameFactory(private val context: Context) {
 
-    private val formatService = FormatService(context)
+    private val formatService = FormatService.getInstance(context)
 
     fun getName(path: Path): String {
         val start = path.metadata.duration?.start

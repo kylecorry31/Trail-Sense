@@ -49,7 +49,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
     private val intervalometer = Timer { updateAltitude() }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var seaLevelPressure = SensorManager.PRESSURE_STANDARD_ATMOSPHERE
 

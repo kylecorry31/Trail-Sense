@@ -43,7 +43,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     private var calibratedThermometer: IThermometer? = null
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val temperatureUnits by lazy { prefs.temperatureUnits }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var temperatureTxt: Preference? = null
     private var minTempCalibratedC: EditTextPreference? = null

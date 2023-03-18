@@ -36,7 +36,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     private val mapper by lazy { CloudReadingListItemMapper(requireContext(), this::handleAction) }
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private val cloudDetailsService by lazy { CloudDetailsService(requireContext()) }
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

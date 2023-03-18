@@ -33,7 +33,7 @@ import java.time.LocalDate
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val gps by lazy { SensorService(requireContext()).getGPS(false) }
     private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }

@@ -28,7 +28,7 @@ import java.time.Duration
 class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
-    private val formatService by lazy { FormatService(getContext()) }
+    private val formatService by lazy { FormatService.getInstance(getContext()) }
     private val sensorService by lazy { SensorService(getContext()) }
     lateinit var gps: IGPS
 

@@ -13,7 +13,7 @@ class CloudDetailsModal(private val context: Context) {
 
     private val cloudService = CloudService()
     private val details = CloudDetailsService(context)
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
 
     fun show(cloud: CloudGenus?) {
         val precipitation = cloudService.getPrecipitation(cloud)

@@ -47,7 +47,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private lateinit var chart: PressureChart
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var history: List<WeatherObservation> = listOf()
     private var rawHistory: List<Reading<Pressure>> = listOf()

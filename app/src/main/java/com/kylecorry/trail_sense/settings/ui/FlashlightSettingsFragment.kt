@@ -12,7 +12,7 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.flashlight_preferences, rootKey)
 
-        val formatter = FormatService(requireContext())
+        val formatter = FormatService.getInstance(requireContext())
         val prefs = UserPreferences(requireContext()).flashlight
 
         val timeout = preference(R.string.pref_flashlight_timeout)

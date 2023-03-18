@@ -127,7 +127,7 @@ class SunsetAlarmService : CoroutineService() {
 
         userPrefs.astronomy.setSunsetAlertLastSentDate(LocalDate.now())
 
-        val formatService = FormatService(this)
+        val formatService = FormatService.getInstance(this)
         val formattedTime = formatService.formatTime(sunset.toLocalTime(), false)
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.action_astronomy)

@@ -44,7 +44,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val markdown by lazy { MarkdownService(requireContext()) }
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val feedback by lazy {
         HapticSubsystem.getInstance(requireContext()).dial()
     }

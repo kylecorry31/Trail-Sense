@@ -25,7 +25,7 @@ import kotlinx.coroutines.withContext
 class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var editingItem: PackItem? = null
 

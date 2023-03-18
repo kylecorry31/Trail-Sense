@@ -25,7 +25,7 @@ class PackItemListItemMapper(
     private val categoryTextMapper = ItemCategoryStringMapper(context)
     private val imgMapper = ItemCategoryIconMapper()
     private val colorMapper = ItemCategoryColorMapper()
-    private val formatService = FormatService(context)
+    private val formatService = FormatService.getInstance(context)
 
     override fun map(value: PackItem): ListItem {
         val currentAmount = formatAmount(value.amount)

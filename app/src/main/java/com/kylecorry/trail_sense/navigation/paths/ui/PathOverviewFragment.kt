@@ -59,7 +59,7 @@ import java.time.Duration
 class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val throttle = Throttle(20)
 
     private val sensorService by lazy { SensorService(requireContext()) }

@@ -19,7 +19,7 @@ class DestinationPanel(private val view: View) {
 
     private val binding = ViewBeaconDestinationBinding.bind(view)
     private val navigationService = NavigationService()
-    private val formatService = FormatService(view.context)
+    private val formatService = FormatService.getInstance(view.context)
     private val prefs = UserPreferences(view.context)
     private val context = view.context
     private var beacon: Beacon? = null

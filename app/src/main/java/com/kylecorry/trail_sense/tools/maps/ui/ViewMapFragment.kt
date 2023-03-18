@@ -64,7 +64,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     // Map layers

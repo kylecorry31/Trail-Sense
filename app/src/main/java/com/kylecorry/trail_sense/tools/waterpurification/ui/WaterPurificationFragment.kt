@@ -28,7 +28,7 @@ import java.time.Instant
 class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val altimeter by lazy { sensorService.getAltimeter(false) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private var duration: Duration? = null

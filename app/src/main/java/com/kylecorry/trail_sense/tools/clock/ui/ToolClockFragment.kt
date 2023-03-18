@@ -27,7 +27,7 @@ import java.time.temporal.ChronoUnit
 
 class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val prefs by lazy { UserPreferences(requireContext()) }

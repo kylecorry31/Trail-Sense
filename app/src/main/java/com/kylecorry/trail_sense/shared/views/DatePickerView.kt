@@ -22,7 +22,7 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
             }
         }
 
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
     private val calendar: ImageButton
     private val dateText: TextView
     private val next: ImageButton

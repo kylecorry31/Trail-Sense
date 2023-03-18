@@ -8,7 +8,7 @@ import kotlin.math.absoluteValue
 
 class FragmentVolumeConverter : SimpleConvertFragment<VolumeUnits>(VolumeUnits.Liters, VolumeUnits.USGallons) {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override val units = VolumeUnits.values().toList()
 

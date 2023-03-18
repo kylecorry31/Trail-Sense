@@ -33,7 +33,7 @@ class LinearCompassView : BaseCompassView {
         defStyleAttr
     )
 
-    private val formatService = FormatService(context)
+    private val formatService = FormatService.getInstance(context)
 
     private val north by lazy { formatService.formatDirection(CompassDirection.North) }
     private val south by lazy { formatService.formatDirection(CompassDirection.South) }

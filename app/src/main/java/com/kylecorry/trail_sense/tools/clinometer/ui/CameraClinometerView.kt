@@ -39,7 +39,7 @@ class CameraClinometerView : CanvasView {
             invalidate()
         }
 
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
     private val tickInterval = 10
     private var tickLength = 1f
     private val labelInterval = 30

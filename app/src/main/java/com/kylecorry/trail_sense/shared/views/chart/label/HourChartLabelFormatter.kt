@@ -13,7 +13,7 @@ class HourChartLabelFormatter(
     private val getStartTime: () -> Instant
 ) : ChartLabelFormatter {
 
-    private val formatter = FormatService(context)
+    private val formatter = FormatService.getInstance(context)
 
     override fun format(value: Float): String {
         val duration = Time.hours(value.toDouble())

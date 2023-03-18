@@ -23,7 +23,7 @@ class StepCounterService : ForegroundService() {
 
     private val pedometer by lazy { Pedometer(this) }
     private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(this).preferences) }
-    private val formatService by lazy { FormatService(this) }
+    private val formatService by lazy { FormatService.getInstance(this) }
     private val prefs by lazy { UserPreferences(this) }
     private val commandFactory by lazy { PedometerCommandFactory(this) }
     private val dailyResetCommand: Command by lazy { commandFactory.getDailyStepReset() }

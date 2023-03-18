@@ -44,7 +44,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private lateinit var sensorListView: ListView<SensorDetails>
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }

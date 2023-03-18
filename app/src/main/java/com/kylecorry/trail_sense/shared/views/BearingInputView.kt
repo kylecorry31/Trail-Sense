@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
-    private val formatter by lazy { FormatService(getContext()) }
+    private val formatter by lazy { FormatService.getInstance(getContext()) }
     private val compass by lazy { SensorService(getContext()).getCompass() }
 
     var bearing: Bearing?

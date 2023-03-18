@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
     private lateinit var prefs: UserPreferences
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private lateinit var sensorService: SensorService
     private val throttle = Throttle(20)
 

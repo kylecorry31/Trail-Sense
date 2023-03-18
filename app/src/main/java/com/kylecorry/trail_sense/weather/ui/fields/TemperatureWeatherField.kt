@@ -19,7 +19,7 @@ class TemperatureWeatherField(
 ) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
         temperature ?: return null
-        val formatter = FormatService(context)
+        val formatter = FormatService.getInstance(context)
         val prefs = UserPreferences(context)
         val units = prefs.temperatureUnits
         val source = prefs.thermometer.source

@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var direction1: Bearing? = null

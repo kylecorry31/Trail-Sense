@@ -19,7 +19,7 @@ class HumidityWeatherField(
             return null
         }
 
-        val formatter = FormatService(context)
+        val formatter = FormatService.getInstance(context)
         val value = formatter.formatPercentage(humidity)
 
         return ListItem(

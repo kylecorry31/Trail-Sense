@@ -25,7 +25,7 @@ class RoundCompassView : BaseCompassView {
     private var iconSize = 0
     private var compassSize = 0
 
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
     private val north by lazy { formatService.formatDirection(CompassDirection.North) }
     private val south by lazy { formatService.formatDirection(CompassDirection.South) }
     private val east by lazy { formatService.formatDirection(CompassDirection.East) }

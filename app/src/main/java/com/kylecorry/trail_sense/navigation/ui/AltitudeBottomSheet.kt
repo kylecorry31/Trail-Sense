@@ -37,7 +37,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private val pathService by lazy { PathService.getInstance(requireContext()) }
     private val weatherRepo by lazy { WeatherRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var units = DistanceUnits.Meters
     private var backtrackReadings = listOf<Reading<Float>>()
     private var weatherReadings = listOf<Reading<Float>>()

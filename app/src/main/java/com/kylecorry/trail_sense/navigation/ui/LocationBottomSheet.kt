@@ -31,7 +31,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
     var gps: IGPS? = null
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private var format = CoordinateFormat.DecimalDegrees
 

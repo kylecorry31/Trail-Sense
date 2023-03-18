@@ -15,7 +15,7 @@ import kotlin.math.atan2
 
 class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     // TODO: Eventually switch to the rotation sensors
     private val orientationSensor by lazy { GravityOrientationSensor(requireContext()) }
     private val throttle = Throttle(20)

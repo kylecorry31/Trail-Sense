@@ -40,7 +40,7 @@ class LunarEclipseField(
     }
 
     override fun onClick(context: Context) {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val markdownService = MarkdownService(context)
         val text = context.getString(
             R.string.astro_dialog_eclipse,
@@ -65,7 +65,7 @@ class LunarEclipseField(
 
 
     private fun getStartValue(context: Context, eclipse: Eclipse): String {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val eclipseAmount =
             if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
                 R.string.partial,
@@ -76,7 +76,7 @@ class LunarEclipseField(
     }
 
     private fun getEndValue(context: Context, eclipse: Eclipse): String {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val eclipseAmount =
             if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
                 R.string.partial,

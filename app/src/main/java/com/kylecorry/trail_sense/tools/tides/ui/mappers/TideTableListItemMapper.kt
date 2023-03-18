@@ -14,7 +14,7 @@ class TideTableListItemMapper(
     private val actionHandler: (tide: TideTable, action: TideTableAction) -> Unit
 ) : ListItemMapper<Pair<TideTable, TideType?>> {
 
-    private val formatter by lazy { FormatService(context) }
+    private val formatter by lazy { FormatService.getInstance(context) }
 
     override fun map(value: Pair<TideTable, TideType?>): ListItem {
         val table = value.first

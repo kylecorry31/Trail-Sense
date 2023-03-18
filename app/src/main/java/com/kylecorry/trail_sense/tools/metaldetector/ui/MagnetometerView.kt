@@ -20,7 +20,7 @@ class MagnetometerView : CanvasView {
     private var singlePole = false
     private var sensitivity = 1f
 
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
 
     private var lineColor = Color.WHITE
 

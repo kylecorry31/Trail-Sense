@@ -29,7 +29,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val mapService by lazy { MapService.getInstance(requireContext()) }
-    private val formatter by lazy { FormatService(requireContext()) }
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     private var mapId = 0L
     private var map: PhotoMap? = null

@@ -13,7 +13,7 @@ class LunarNoonAstroField(val time: LocalTime, val altitude: Float) : AstroField
     }
 
     override fun getValue(context: Context): String {
-        return FormatService(context).formatTime(time, includeSeconds = false)
+        return FormatService.getInstance(context).formatTime(time, includeSeconds = false)
     }
 
     override fun getImage(context: Context): Int {
@@ -21,7 +21,7 @@ class LunarNoonAstroField(val time: LocalTime, val altitude: Float) : AstroField
     }
 
     override fun onClick(context: Context) {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val markdownService = MarkdownService(context)
         val text = context.getString(
             R.string.astro_dialog_noon,

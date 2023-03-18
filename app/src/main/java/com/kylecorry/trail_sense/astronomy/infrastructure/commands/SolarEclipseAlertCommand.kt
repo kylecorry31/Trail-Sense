@@ -56,7 +56,7 @@ class SolarEclipseAlertCommand(private val context: Context) : Command<Coordinat
     }
 
     private fun getEclipseDescription(context: Context, eclipse: Eclipse): String {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
 
         val timeSpan = formatService.formatTimeSpan(
             eclipse.start,

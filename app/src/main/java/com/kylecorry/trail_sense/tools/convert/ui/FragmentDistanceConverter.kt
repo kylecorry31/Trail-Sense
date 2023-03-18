@@ -9,7 +9,7 @@ import kotlin.math.absoluteValue
 class FragmentDistanceConverter :
     SimpleConvertFragment<DistanceUnits>(DistanceUnits.Meters, DistanceUnits.Feet) {
 
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override val units = listOf(
         DistanceUnits.Centimeters,

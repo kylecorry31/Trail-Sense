@@ -11,7 +11,7 @@ import kotlin.math.floor
 class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
     BaseMultipartUnitInputView<Distance, DistanceUnits>(context, attrs) {
 
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
 
     var defaultHint: String = context.getString(R.string.distance)
 

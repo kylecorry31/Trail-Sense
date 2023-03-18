@@ -33,7 +33,7 @@ class MeteorShowerField(
     }
 
     override fun onClick(context: Context) {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val markdownService = MarkdownService(context)
         val text = context.getString(
             R.string.astro_dialog_meteor_shower,
@@ -56,7 +56,7 @@ class MeteorShowerField(
         today: LocalDate,
         meteorShower: MeteorShowerPeak
     ): String {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         return if (meteorShower.peak.toLocalDate() == today) {
             formatService.formatTime(meteorShower.peak.toLocalTime(), false)
         } else {

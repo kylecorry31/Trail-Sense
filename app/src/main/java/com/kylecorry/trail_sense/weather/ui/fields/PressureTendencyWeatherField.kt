@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.weather.ui.PressureCharacteristicImageMapper
 
 class PressureTendencyWeatherField(private val tendency: PressureTendency) : WeatherField {
     override fun getListItem(context: Context): ListItem {
-        val formatter = FormatService(context)
+        val formatter = FormatService.getInstance(context)
         val units = UserPreferences(context).pressureUnits
         val color = Resources.androidTextColorSecondary(context)
         val value = context.getString(

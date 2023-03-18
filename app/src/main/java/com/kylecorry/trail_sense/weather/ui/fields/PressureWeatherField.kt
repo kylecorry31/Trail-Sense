@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 class PressureWeatherField(private val pressure: Pressure?) : WeatherField {
     override fun getListItem(context: Context): ListItem? {
         pressure ?: return null
-        val formatter = FormatService(context)
+        val formatter = FormatService.getInstance(context)
         val units = UserPreferences(context).pressureUnits
         val color = Resources.androidTextColorSecondary(context)
         val value = formatter.formatPressure(

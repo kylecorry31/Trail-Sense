@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.sharing.MapSiteService
 class BeaconSharesheet(private val context: Context) : IBeaconSender {
 
     private val prefs by lazy { UserPreferences(context) }
-    private val formatService by lazy { FormatService(context) }
+    private val formatService by lazy { FormatService.getInstance(context) }
     private val mapService = MapSiteService()
 
     override fun send(beacon: Beacon) {

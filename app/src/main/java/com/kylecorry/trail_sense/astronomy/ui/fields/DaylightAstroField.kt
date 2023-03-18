@@ -14,7 +14,7 @@ class DaylightAstroField(val length: Duration, val season: Season) : AstroFieldT
     }
 
     override fun getValue(context: Context): String {
-        return FormatService(context).formatDuration(length, short = false)
+        return FormatService.getInstance(context).formatDuration(length, short = false)
     }
 
     override fun getImage(context: Context): Int {
@@ -22,7 +22,7 @@ class DaylightAstroField(val length: Duration, val season: Season) : AstroFieldT
     }
 
     override fun onClick(context: Context) {
-        val formatService = FormatService(context)
+        val formatService = FormatService.getInstance(context)
         val markdownService = MarkdownService(context)
         val text = context.getString(
             R.string.astro_dialog_day_length,

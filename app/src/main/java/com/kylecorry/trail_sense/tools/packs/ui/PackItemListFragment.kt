@@ -35,7 +35,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
     private lateinit var itemsLiveData: LiveData<List<PackItem>>
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val packService = PackService()
     private var items: List<PackItem> = listOf()
     private val prefs by lazy { UserPreferences(requireContext()) }

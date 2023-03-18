@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningRep
 import java.time.Instant
 
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
-    private val formatService by lazy { FormatService(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val repo by lazy { LightningRepo.getInstance(requireContext()) }
 
