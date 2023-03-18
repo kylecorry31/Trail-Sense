@@ -11,21 +11,31 @@ import com.kylecorry.trail_sense.shared.toVector2
 open class BaseLayer : ILayer {
 
     private val markers = mutableListOf<MapMarker>()
+    private val lock = Any()
 
     fun addMarker(marker: MapMarker) {
-        markers.add(marker)
+        synchronized(lock) {
+            markers.add(marker)
+        }
     }
 
     fun removeMarker(marker: MapMarker) {
-        markers.remove(marker)
+        synchronized(lock) {
+            markers.remove(marker)
+        }
     }
 
     fun clearMarkers() {
-        markers.clear()
+        synchronized(lock) {
+            markers.clear()
+        }
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         val bounds = getBounds(drawer)
+        val markers = synchronized(lock) {
+            markers.toList()
+        }
         markers.forEach {
             val anchor = map.toPixel(it.location)
             if (bounds.contains(anchor.toVector2(bounds.top))) {
@@ -40,6 +50,9 @@ open class BaseLayer : ILayer {
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         val clickSizeMultiplier = 2f
+        val markers = synchronized(lock) {
+            markers.toList()
+        }
         val clicked = markers.map {
             val anchor = map.toPixel(it.location)
             val radius = drawer.dp(it.size * map.layerScale * clickSizeMultiplier) / 2f
