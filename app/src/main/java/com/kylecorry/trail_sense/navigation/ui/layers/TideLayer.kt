@@ -16,15 +16,20 @@ class TideLayer : BaseLayer() {
     private var _lowTideImg: Bitmap? = null
     private var _halfTideImg: Bitmap? = null
 
+    private val lock = Any()
+
     fun setTides(tides: List<Pair<TideTable, TideType?>>) {
-        _tides.clear()
-        _tides.addAll(tides)
+        synchronized(lock) {
+            _tides.clear()
+            _tides.addAll(tides)
+        }
         invalidate()
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         clearMarkers()
-        _tides.forEach { tide ->
+        val tides = synchronized(lock) { _tides.toList() }
+        tides.forEach { tide ->
             tide.first.location ?: return@forEach
             val img = getImage(drawer, tide.second)
             addMarker(BitmapMapMarker(tide.first.location!!, img))
