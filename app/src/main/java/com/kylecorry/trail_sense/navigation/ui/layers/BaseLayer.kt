@@ -2,8 +2,11 @@ package com.kylecorry.trail_sense.navigation.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.navigation.ui.markers.MapMarker
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.getBounds
+import com.kylecorry.trail_sense.shared.toVector2
 
 open class BaseLayer : ILayer {
 
@@ -22,9 +25,12 @@ open class BaseLayer : ILayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        val bounds = getBounds(drawer)
         markers.forEach {
             val anchor = map.toPixel(it.location)
-            it.draw(drawer, anchor, map.layerScale, map.mapRotation)
+            if (bounds.contains(anchor.toVector2(bounds.top))) {
+                it.draw(drawer, anchor, map.layerScale, map.mapRotation)
+            }
         }
     }
 
@@ -49,5 +55,11 @@ open class BaseLayer : ILayer {
         }
 
         return false
+    }
+
+    private fun getBounds(drawer: ICanvasDrawer): Rectangle {
+        // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
+        // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
+        return drawer.getBounds(45f)
     }
 }

@@ -25,10 +25,14 @@ class BeaconLayer(
     @ColorInt
     private var backgroundColor = Color.TRANSPARENT
 
+    private val lock = Any()
+
     fun setBeacons(beacons: List<Beacon>) {
-        _beacons.clear()
-        _beacons.addAll(beacons)
-        _beaconUpToDate = false
+        synchronized(lock) {
+            _beacons.clear()
+            _beacons.addAll(beacons)
+            _beaconUpToDate = false
+        }
         updateMarkers()
     }
 
@@ -58,38 +62,40 @@ class BeaconLayer(
     }
 
     private fun updateMarkers() {
-        val drawer = _loader ?: return
-        val size = _imageSize.toInt()
-        _beaconUpToDate = true
-        clearMarkers()
-        _beacons.forEach {
-            val opacity = if (_highlighted == null || _highlighted?.id == it.id) {
-                255
-            } else {
-                127
-            }
-            addMarker(
-                CircleMapMarker(
-                    it.coordinate,
-                    it.color,
-                    backgroundColor,
-                    opacity,
-                    this.size
-                ) {
-                    onBeaconClick(it)
-                })
-            if (it.icon != null) {
-                val image = drawer.load(it.icon.icon, size)
-                val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
+        synchronized(lock) {
+            val drawer = _loader ?: return
+            val size = _imageSize.toInt()
+            _beaconUpToDate = true
+            clearMarkers()
+            _beacons.forEach {
+                val opacity = if (_highlighted == null || _highlighted?.id == it.id) {
+                    255
+                } else {
+                    127
+                }
                 addMarker(
-                    BitmapMapMarker(
+                    CircleMapMarker(
                         it.coordinate,
-                        image,
-                        size = this.size * 0.75f,
-                        tint = color
+                        it.color,
+                        backgroundColor,
+                        opacity,
+                        this.size
                     ) {
                         onBeaconClick(it)
                     })
+                if (it.icon != null) {
+                    val image = drawer.load(it.icon.icon, size)
+                    val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
+                    addMarker(
+                        BitmapMapMarker(
+                            it.coordinate,
+                            image,
+                            size = this.size * 0.75f,
+                            tint = color
+                        ) {
+                            onBeaconClick(it)
+                        })
+                }
             }
         }
     }

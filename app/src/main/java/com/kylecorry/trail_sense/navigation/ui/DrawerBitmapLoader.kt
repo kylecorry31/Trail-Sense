@@ -8,24 +8,29 @@ import com.kylecorry.andromeda.core.tryOrNothing
 class DrawerBitmapLoader(private val drawer: ICanvasDrawer) {
 
     private val icons = mutableMapOf<Int, Bitmap>()
+    private val lock = Any()
 
     fun load(@DrawableRes id: Int, size: Int): Bitmap {
-        val bitmap = if (icons.containsKey(id)) {
-            icons[id]
-        } else {
-            val bm = drawer.loadImage(id, size, size)
-            icons[id] = bm
-            icons[id]
+        return synchronized(lock) {
+            val bitmap = if (icons.containsKey(id)) {
+                icons[id]
+            } else {
+                val bm = drawer.loadImage(id, size, size)
+                icons[id] = bm
+                icons[id]
+            }
+            bitmap!!
         }
-        return bitmap!!
     }
 
     fun clear() {
         tryOrNothing {
-            for (icon in icons) {
-                icon.value.recycle()
+            synchronized(lock) {
+                for (icon in icons) {
+                    icon.value.recycle()
+                }
+                icons.clear()
             }
-            icons.clear()
         }
     }
 
