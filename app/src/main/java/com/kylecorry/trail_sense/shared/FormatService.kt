@@ -27,9 +27,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
+import com.kylecorry.trail_sense.shared.extensions.StringCache
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
-import com.kylecorry.trail_sense.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -39,6 +39,7 @@ import java.util.*
 class FormatService(private val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
+    private val strings by lazy { StringCache(context.resources) }
 
     @DrawableRes
     fun getWeatherImage(condition: WeatherCondition?): Int {
@@ -55,43 +56,27 @@ class FormatService(private val context: Context) {
         }
     }
 
-    fun formatWeatherAlert(alert: WeatherAlert): String {
-        return when (alert) {
-            WeatherAlert.Storm -> context.getString(R.string.weather_storm)
-            WeatherAlert.Hot -> context.getString(R.string.hot)
-            WeatherAlert.Cold -> context.getString(R.string.cold)
-        }
-    }
-
-    fun formatWeatherAlertDescription(alert: WeatherAlert): String {
-        return when (alert) {
-            WeatherAlert.Storm -> context.getString(R.string.weather_alert_storm_description)
-            WeatherAlert.Hot -> context.getString(R.string.weather_alert_hot_description)
-            WeatherAlert.Cold -> context.getString(R.string.weather_alert_cold_description)
-        }
-    }
-
     fun formatWeather(condition: WeatherCondition?): String {
         return when (condition) {
-            WeatherCondition.Clear -> context.getString(R.string.weather_clear)
-            WeatherCondition.Overcast -> context.getString(R.string.weather_overcast)
-            WeatherCondition.Precipitation -> context.getString(R.string.weather_precipitation)
-            WeatherCondition.Storm -> context.getString(R.string.weather_storm)
-            WeatherCondition.Wind -> context.getString(R.string.weather_wind)
-            WeatherCondition.Rain -> context.getString(R.string.precipitation_rain)
-            WeatherCondition.Snow -> context.getString(R.string.precipitation_snow)
-            WeatherCondition.Thunderstorm -> context.getString(R.string.weather_thunderstorm)
-            null -> context.getString(R.string.weather_no_change)
+            WeatherCondition.Clear -> strings.getString(R.string.weather_clear)
+            WeatherCondition.Overcast -> strings.getString(R.string.weather_overcast)
+            WeatherCondition.Precipitation -> strings.getString(R.string.weather_precipitation)
+            WeatherCondition.Storm -> strings.getString(R.string.weather_storm)
+            WeatherCondition.Wind -> strings.getString(R.string.weather_wind)
+            WeatherCondition.Rain -> strings.getString(R.string.precipitation_rain)
+            WeatherCondition.Snow -> strings.getString(R.string.precipitation_snow)
+            WeatherCondition.Thunderstorm -> strings.getString(R.string.weather_thunderstorm)
+            null -> strings.getString(R.string.weather_no_change)
         }
     }
 
     fun formatWeatherArrival(arrival: WeatherArrivalTime?): String {
         if (arrival?.isExact != true) {
             return when (arrival?.toRelative(Instant.now())) {
-                RelativeArrivalTime.Now -> context.getString(R.string.now)
-                RelativeArrivalTime.VerySoon -> context.getString(R.string.very_soon)
-                RelativeArrivalTime.Soon -> context.getString(R.string.soon)
-                RelativeArrivalTime.Later -> context.getString(R.string.later)
+                RelativeArrivalTime.Now -> strings.getString(R.string.now)
+                RelativeArrivalTime.VerySoon -> strings.getString(R.string.very_soon)
+                RelativeArrivalTime.Soon -> strings.getString(R.string.soon)
+                RelativeArrivalTime.Later -> strings.getString(R.string.later)
                 null -> ""
             }.lowercase()
         }
@@ -100,16 +85,16 @@ class FormatService(private val context: Context) {
         val duration = Duration.between(Instant.now(), time)
 
         if (duration < Duration.ofMinutes(1)) {
-            return context.getString(R.string.now).lowercase()
+            return strings.getString(R.string.now).lowercase()
         }
 
         if (duration > Duration.ofHours(20)) {
-            return context.getString(R.string.later).lowercase()
+            return strings.getString(R.string.later).lowercase()
         }
 
         val datetime = time.toZonedDateTime()
 
-        return context.getString(
+        return strings.getString(
             R.string.at_time,
             formatTime(datetime.toLocalTime(), includeSeconds = false)
         )
@@ -117,11 +102,11 @@ class FormatService(private val context: Context) {
 
     fun formatProbability(probability: Probability): String {
         return when (probability) {
-            Probability.Never -> context.getString(R.string.never)
-            Probability.Low -> context.getString(R.string.low)
-            Probability.Moderate -> context.getString(R.string.moderate)
-            Probability.High -> context.getString(R.string.high)
-            Probability.Always -> context.getString(R.string.always)
+            Probability.Never -> strings.getString(R.string.never)
+            Probability.Low -> strings.getString(R.string.low)
+            Probability.Moderate -> strings.getString(R.string.moderate)
+            Probability.High -> strings.getString(R.string.high)
+            Probability.Always -> strings.getString(R.string.always)
         }
     }
 
@@ -130,13 +115,13 @@ class FormatService(private val context: Context) {
 
         return when (date) {
             now -> {
-                context.getString(R.string.today)
+                strings.getString(R.string.today)
             }
             now.plusDays(1) -> {
-                context.getString(R.string.tomorrow)
+                strings.getString(R.string.tomorrow)
             }
             now.minusDays(1) -> {
-                context.getString(R.string.yesterday)
+                strings.getString(R.string.yesterday)
             }
             else -> {
                 DateUtils.formatDateTime(
@@ -233,7 +218,7 @@ class FormatService(private val context: Context) {
             }
 
         return if (start.toLocalDate() == end.toLocalDate()) {
-            context.getString(
+            strings.getString(
                 R.string.dash_separated_pair, "${dateFormatFn(start)} ${
                     formatTime(
                         startTime,
@@ -242,7 +227,7 @@ class FormatService(private val context: Context) {
                 }", formatTime(endTime, false)
             )
         } else {
-            context.getString(
+            strings.getString(
                 R.string.dash_separated_pair, "${dateFormatFn(start)} ${
                     formatTime(
                         startTime,
@@ -261,23 +246,23 @@ class FormatService(private val context: Context) {
     ): String {
         val formatted = DecimalFormatter.format(distance.distance, decimalPlaces, strict)
         return when (distance.units) {
-            DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, formatted)
-            DistanceUnits.Kilometers -> context.getString(
+            DistanceUnits.Meters -> strings.getString(R.string.precise_meters_format, formatted)
+            DistanceUnits.Kilometers -> strings.getString(
                 R.string.precise_kilometers_format,
                 formatted
             )
-            DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, formatted)
-            DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, formatted)
-            DistanceUnits.NauticalMiles -> context.getString(
+            DistanceUnits.Feet -> strings.getString(R.string.precise_feet_format, formatted)
+            DistanceUnits.Miles -> strings.getString(R.string.precise_miles_format, formatted)
+            DistanceUnits.NauticalMiles -> strings.getString(
                 R.string.precise_nautical_miles_format,
                 formatted
             )
-            DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, formatted)
-            DistanceUnits.Centimeters -> context.getString(
+            DistanceUnits.Inches -> strings.getString(R.string.precise_inches_format, formatted)
+            DistanceUnits.Centimeters -> strings.getString(
                 R.string.precise_centimeters_format,
                 formatted
             )
-            DistanceUnits.Yards -> context.getString(R.string.yards_format, formatted)
+            DistanceUnits.Yards -> strings.getString(R.string.yards_format, formatted)
         }
     }
 
@@ -289,62 +274,62 @@ class FormatService(private val context: Context) {
     ): String {
         val formatted = DecimalFormatter.format(amount, decimalPlaces, strict)
         return when (units) {
-            TimeUnits.Milliseconds -> context.getString(R.string.milliseconds_format, formatted)
-            TimeUnits.Seconds -> context.getString(R.string.seconds_format, formatted)
-            TimeUnits.Minutes -> context.getString(R.string.minutes_format, formatted)
-            TimeUnits.Hours -> context.getString(R.string.hours_format, formatted)
-            TimeUnits.Days -> context.getString(R.string.days_format, formatted)
+            TimeUnits.Milliseconds -> strings.getString(R.string.milliseconds_format, formatted)
+            TimeUnits.Seconds -> strings.getString(R.string.seconds_format, formatted)
+            TimeUnits.Minutes -> strings.getString(R.string.minutes_format, formatted)
+            TimeUnits.Hours -> strings.getString(R.string.hours_format, formatted)
+            TimeUnits.Days -> strings.getString(R.string.days_format, formatted)
         }
     }
 
     fun formatVolume(volume: Volume, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val formatted = DecimalFormatter.format(volume.volume, decimalPlaces, strict)
         return when (volume.units) {
-            VolumeUnits.Liters -> context.getString(R.string.liter_format, formatted)
-            VolumeUnits.Milliliter -> context.getString(R.string.milliliter_format, formatted)
-            VolumeUnits.USCups -> context.getString(R.string.cup_format, formatted)
-            VolumeUnits.USPints -> context.getString(R.string.pint_format, formatted)
-            VolumeUnits.USQuarts -> context.getString(R.string.quart_format, formatted)
-            VolumeUnits.USOunces -> context.getString(R.string.ounces_volume_format, formatted)
-            VolumeUnits.USGallons -> context.getString(R.string.gallon_format, formatted)
-            VolumeUnits.ImperialCups -> context.getString(R.string.cup_format, formatted)
-            VolumeUnits.ImperialPints -> context.getString(R.string.pint_format, formatted)
-            VolumeUnits.ImperialQuarts -> context.getString(R.string.quart_format, formatted)
-            VolumeUnits.ImperialOunces -> context.getString(
+            VolumeUnits.Liters -> strings.getString(R.string.liter_format, formatted)
+            VolumeUnits.Milliliter -> strings.getString(R.string.milliliter_format, formatted)
+            VolumeUnits.USCups -> strings.getString(R.string.cup_format, formatted)
+            VolumeUnits.USPints -> strings.getString(R.string.pint_format, formatted)
+            VolumeUnits.USQuarts -> strings.getString(R.string.quart_format, formatted)
+            VolumeUnits.USOunces -> strings.getString(R.string.ounces_volume_format, formatted)
+            VolumeUnits.USGallons -> strings.getString(R.string.gallon_format, formatted)
+            VolumeUnits.ImperialCups -> strings.getString(R.string.cup_format, formatted)
+            VolumeUnits.ImperialPints -> strings.getString(R.string.pint_format, formatted)
+            VolumeUnits.ImperialQuarts -> strings.getString(R.string.quart_format, formatted)
+            VolumeUnits.ImperialOunces -> strings.getString(
                 R.string.ounces_volume_format,
                 formatted
             )
-            VolumeUnits.ImperialGallons -> context.getString(R.string.gallon_format, formatted)
+            VolumeUnits.ImperialGallons -> strings.getString(R.string.gallon_format, formatted)
         }
     }
 
     fun formatWeight(weight: Weight, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val formatted = DecimalFormatter.format(weight.weight, decimalPlaces, strict)
         return when (weight.units) {
-            WeightUnits.Pounds -> context.getString(R.string.pounds_format, formatted)
-            WeightUnits.Ounces -> context.getString(R.string.ounces_weight_format, formatted)
-            WeightUnits.Kilograms -> context.getString(R.string.kilograms_format, formatted)
-            WeightUnits.Grams -> context.getString(R.string.grams_format, formatted)
+            WeightUnits.Pounds -> strings.getString(R.string.pounds_format, formatted)
+            WeightUnits.Ounces -> strings.getString(R.string.ounces_weight_format, formatted)
+            WeightUnits.Kilograms -> strings.getString(R.string.kilograms_format, formatted)
+            WeightUnits.Grams -> strings.getString(R.string.grams_format, formatted)
         }
     }
 
     fun formatDbm(dbm: Int): String {
-        return context.getString(R.string.dbm_format, dbm.toString())
+        return strings.getString(R.string.dbm_format, dbm.toString())
     }
 
     fun formatPercentage(percent: Float, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val formatted = DecimalFormatter.format(percent, decimalPlaces, strict)
-        return context.getString(R.string.precise_percent_format, formatted)
+        return strings.getString(R.string.precise_percent_format, formatted)
     }
 
     fun formatBatteryHealth(batteryHealth: BatteryHealth): String {
         return when (batteryHealth) {
-            BatteryHealth.Cold -> context.getString(R.string.battery_health_cold)
-            BatteryHealth.Dead -> context.getString(R.string.battery_health_dead)
-            BatteryHealth.Good -> context.getString(R.string.quality_good)
-            BatteryHealth.Overheat -> context.getString(R.string.battery_health_overheat)
-            BatteryHealth.OverVoltage -> context.getString(R.string.battery_health_over_voltage)
-            BatteryHealth.Unknown -> context.getString(R.string.unknown)
+            BatteryHealth.Cold -> strings.getString(R.string.battery_health_cold)
+            BatteryHealth.Dead -> strings.getString(R.string.battery_health_dead)
+            BatteryHealth.Good -> strings.getString(R.string.quality_good)
+            BatteryHealth.Overheat -> strings.getString(R.string.battery_health_overheat)
+            BatteryHealth.OverVoltage -> strings.getString(R.string.battery_health_over_voltage)
+            BatteryHealth.Unknown -> strings.getString(R.string.unknown)
         }
     }
 
@@ -355,8 +340,8 @@ class FormatService(private val context: Context) {
     ): String {
         val formatted = DecimalFormatter.format(temperature.temperature, decimalPlaces, strict)
         return when (temperature.units) {
-            TemperatureUnits.F -> context.getString(R.string.precise_temp_f_format, formatted)
-            TemperatureUnits.C -> context.getString(R.string.precise_temp_c_format, formatted)
+            TemperatureUnits.F -> strings.getString(R.string.precise_temp_f_format, formatted)
+            TemperatureUnits.C -> strings.getString(R.string.precise_temp_c_format, formatted)
         }
     }
 
@@ -367,19 +352,19 @@ class FormatService(private val context: Context) {
     ): String {
         val formatted = DecimalFormatter.format(degrees.toDouble(), decimalPlaces)
         val finalFormatted = if (replace360) formatted.replace("360", "0") else formatted
-        return context.getString(R.string.degree, finalFormatted)
+        return strings.getString(R.string.degree, finalFormatted)
     }
 
     fun formatDirection(direction: CompassDirection): String {
         return when (direction) {
-            CompassDirection.North -> context.getString(R.string.direction_north)
-            CompassDirection.South -> context.getString(R.string.direction_south)
-            CompassDirection.East -> context.getString(R.string.direction_east)
-            CompassDirection.West -> context.getString(R.string.direction_west)
-            CompassDirection.NorthEast -> context.getString(R.string.direction_north_east)
-            CompassDirection.SouthEast -> context.getString(R.string.direction_south_east)
-            CompassDirection.NorthWest -> context.getString(R.string.direction_north_west)
-            CompassDirection.SouthWest -> context.getString(R.string.direction_south_west)
+            CompassDirection.North -> strings.getString(R.string.direction_north)
+            CompassDirection.South -> strings.getString(R.string.direction_south)
+            CompassDirection.East -> strings.getString(R.string.direction_east)
+            CompassDirection.West -> strings.getString(R.string.direction_west)
+            CompassDirection.NorthEast -> strings.getString(R.string.direction_north_east)
+            CompassDirection.SouthEast -> strings.getString(R.string.direction_south_east)
+            CompassDirection.NorthWest -> strings.getString(R.string.direction_north_west)
+            CompassDirection.SouthWest -> strings.getString(R.string.direction_south_west)
         }
     }
 
@@ -396,9 +381,9 @@ class FormatService(private val context: Context) {
         val minutes = duration.toMinutes() % 60
         val seconds = duration.seconds % 60
 
-        val h = context.getString(R.string.duration_hour_format, hours)
-        val m = context.getString(R.string.duration_minute_format, minutes)
-        val s = context.getString(R.string.duration_second_format, seconds)
+        val h = strings.getString(R.string.duration_hour_format, hours)
+        val m = strings.getString(R.string.duration_minute_format, minutes)
+        val s = strings.getString(R.string.duration_second_format, seconds)
 
         val strs = mutableListOf<String>()
 
@@ -423,27 +408,27 @@ class FormatService(private val context: Context) {
 
     fun formatAcceleration(acceleration: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(acceleration.toDouble(), decimalPlaces)
-        return context.getString(R.string.acceleration_m_s2_format, formatted)
+        return strings.getString(R.string.acceleration_m_s2_format, formatted)
     }
 
     fun formatMagneticField(magneticField: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(magneticField.toDouble(), decimalPlaces)
-        return context.getString(R.string.magnetic_field_format_precise, formatted)
+        return strings.getString(R.string.magnetic_field_format_precise, formatted)
     }
 
     fun formatQuality(quality: Quality): String {
         return when (quality) {
-            Quality.Poor -> context.getString(R.string.quality_poor)
-            Quality.Moderate -> context.getString(R.string.moderate)
-            Quality.Good -> context.getString(R.string.quality_good)
-            else -> context.getString(R.string.unknown)
+            Quality.Poor -> strings.getString(R.string.quality_poor)
+            Quality.Moderate -> strings.getString(R.string.moderate)
+            Quality.Good -> strings.getString(R.string.quality_good)
+            else -> strings.getString(R.string.unknown)
         }
     }
 
     fun formatPressure(pressure: Pressure, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val symbol = getPressureUnitString(pressure.units)
         val amt = DecimalFormatter.format(pressure.pressure, decimalPlaces, strict)
-        return context.getString(R.string.pressure_format, amt, symbol)
+        return strings.getString(R.string.pressure_format, amt, symbol)
     }
 
     // TODO: Rewrite this
@@ -451,9 +436,9 @@ class FormatService(private val context: Context) {
         val distanceUnits = prefs.distanceUnits
         val convertedSpeed = LocationMath.convertToBaseSpeed(metersPerSecond, distanceUnits)
         return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-            context.getString(R.string.kilometers_per_hour_format, convertedSpeed)
+            strings.getString(R.string.kilometers_per_hour_format, convertedSpeed)
         } else {
-            context.getString(R.string.miles_per_hour_format, convertedSpeed)
+            strings.getString(R.string.miles_per_hour_format, convertedSpeed)
         }
     }
 
@@ -479,25 +464,25 @@ class FormatService(private val context: Context) {
 
     fun formatCoordinateType(type: CoordinateFormat): String {
         return when (type) {
-            CoordinateFormat.DecimalDegrees -> context.getString(R.string.coordinate_format_decimal_degrees)
-            CoordinateFormat.DegreesDecimalMinutes -> context.getString(R.string.coordinate_format_degrees_decimal_minutes)
-            CoordinateFormat.DegreesMinutesSeconds -> context.getString(R.string.coordinate_format_degrees_minutes_seconds)
-            CoordinateFormat.UTM -> context.getString(R.string.coordinate_format_utm)
-            CoordinateFormat.MGRS -> context.getString(R.string.coordinate_format_mgrs)
-            CoordinateFormat.USNG -> context.getString(R.string.coordinate_format_usng)
-            CoordinateFormat.OSGB -> context.getString(R.string.coordinate_format_osgb)
+            CoordinateFormat.DecimalDegrees -> strings.getString(R.string.coordinate_format_decimal_degrees)
+            CoordinateFormat.DegreesDecimalMinutes -> strings.getString(R.string.coordinate_format_degrees_decimal_minutes)
+            CoordinateFormat.DegreesMinutesSeconds -> strings.getString(R.string.coordinate_format_degrees_minutes_seconds)
+            CoordinateFormat.UTM -> strings.getString(R.string.coordinate_format_utm)
+            CoordinateFormat.MGRS -> strings.getString(R.string.coordinate_format_mgrs)
+            CoordinateFormat.USNG -> strings.getString(R.string.coordinate_format_usng)
+            CoordinateFormat.OSGB -> strings.getString(R.string.coordinate_format_osgb)
         }
     }
 
     fun formatElectricalCapacity(capacity: Float): String {
-        return context.getString(
+        return strings.getString(
             R.string.battery_capacity_format,
             DecimalFormatter.format(capacity, 0)
         )
     }
 
     fun formatCurrent(current: Float, decimalPlaces: Int = 0): String {
-        return context.getString(
+        return strings.getString(
             R.string.current_format,
             DecimalFormatter.format(current, decimalPlaces)
         )
@@ -505,17 +490,17 @@ class FormatService(private val context: Context) {
 
     fun formatLux(lux: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(lux.toDouble(), decimalPlaces)
-        return context.getString(R.string.lux_format, formatted)
+        return strings.getString(R.string.lux_format, formatted)
     }
 
     fun formatCandela(candela: Float, decimalPlaces: Int = 0): String {
         val formatted = DecimalFormatter.format(candela.toDouble(), decimalPlaces)
-        return context.getString(R.string.candela_format, formatted)
+        return strings.getString(R.string.candela_format, formatted)
     }
 
     fun formatSolarEnergy(energy: Float, decimalPlaces: Int = 1, strict: Boolean = false): String {
         val formatted = DecimalFormatter.format(energy, decimalPlaces, strict)
-        return context.getString(R.string.kwh_per_meter_squared_format, formatted)
+        return strings.getString(R.string.kwh_per_meter_squared_format, formatted)
     }
 
     fun formatFileSize(bytes: Long, short: Boolean = true): String {
@@ -561,30 +546,30 @@ class FormatService(private val context: Context) {
     fun getWeightUnitName(unit: WeightUnits, short: Boolean = false): String {
         if (short) {
             return when (unit) {
-                WeightUnits.Pounds -> context.getString(R.string.pounds_format, "")
-                WeightUnits.Ounces -> context.getString(R.string.ounces_weight_format, "")
-                WeightUnits.Kilograms -> context.getString(R.string.kilograms_format, "")
-                WeightUnits.Grams -> context.getString(R.string.grams_format, "")
+                WeightUnits.Pounds -> strings.getString(R.string.pounds_format, "")
+                WeightUnits.Ounces -> strings.getString(R.string.ounces_weight_format, "")
+                WeightUnits.Kilograms -> strings.getString(R.string.kilograms_format, "")
+                WeightUnits.Grams -> strings.getString(R.string.grams_format, "")
             }.replace(" ", "")
         }
         return when (unit) {
-            WeightUnits.Pounds -> context.getString(R.string.pounds)
-            WeightUnits.Ounces -> context.getString(R.string.ounces_weight)
-            WeightUnits.Kilograms -> context.getString(R.string.kilograms)
-            WeightUnits.Grams -> context.getString(R.string.grams)
+            WeightUnits.Pounds -> strings.getString(R.string.pounds)
+            WeightUnits.Ounces -> strings.getString(R.string.ounces_weight)
+            WeightUnits.Kilograms -> strings.getString(R.string.kilograms)
+            WeightUnits.Grams -> strings.getString(R.string.grams)
         }
     }
 
     fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
         return if (short) {
             when (unit) {
-                TemperatureUnits.F -> context.getString(R.string.temp_f_short)
-                TemperatureUnits.C -> context.getString(R.string.temp_c_short)
+                TemperatureUnits.F -> strings.getString(R.string.temp_f_short)
+                TemperatureUnits.C -> strings.getString(R.string.temp_c_short)
             }
         } else {
             when (unit) {
-                TemperatureUnits.F -> context.getString(R.string.fahrenheit)
-                TemperatureUnits.C -> context.getString(R.string.celsius)
+                TemperatureUnits.F -> strings.getString(R.string.fahrenheit)
+                TemperatureUnits.C -> strings.getString(R.string.celsius)
             }
         }
     }
@@ -592,49 +577,49 @@ class FormatService(private val context: Context) {
     fun getDistanceUnitName(unit: DistanceUnits, short: Boolean = false): String {
         if (short) {
             return when (unit) {
-                DistanceUnits.Meters -> context.getString(R.string.precise_meters_format, "")
-                DistanceUnits.Kilometers -> context.getString(
+                DistanceUnits.Meters -> strings.getString(R.string.precise_meters_format, "")
+                DistanceUnits.Kilometers -> strings.getString(
                     R.string.precise_kilometers_format,
                     ""
                 )
-                DistanceUnits.Feet -> context.getString(R.string.precise_feet_format, "")
-                DistanceUnits.Miles -> context.getString(R.string.precise_miles_format, "")
-                DistanceUnits.NauticalMiles -> context.getString(
+                DistanceUnits.Feet -> strings.getString(R.string.precise_feet_format, "")
+                DistanceUnits.Miles -> strings.getString(R.string.precise_miles_format, "")
+                DistanceUnits.NauticalMiles -> strings.getString(
                     R.string.precise_nautical_miles_format,
                     ""
                 )
-                DistanceUnits.Centimeters -> context.getString(
+                DistanceUnits.Centimeters -> strings.getString(
                     R.string.precise_centimeters_format,
                     ""
                 )
-                DistanceUnits.Inches -> context.getString(R.string.precise_inches_format, "")
-                DistanceUnits.Yards -> context.getString(R.string.yards_format, "")
+                DistanceUnits.Inches -> strings.getString(R.string.precise_inches_format, "")
+                DistanceUnits.Yards -> strings.getString(R.string.yards_format, "")
             }.replace(" ", "")
         }
         return when (unit) {
-            DistanceUnits.Meters -> context.getString(R.string.unit_meters)
-            DistanceUnits.Kilometers -> context.getString(R.string.unit_kilometers)
-            DistanceUnits.Feet -> context.getString(R.string.unit_feet)
-            DistanceUnits.Miles -> context.getString(R.string.unit_miles)
-            DistanceUnits.NauticalMiles -> context.getString(R.string.unit_nautical_miles)
-            DistanceUnits.Centimeters -> context.getString(R.string.unit_centimeters)
-            DistanceUnits.Inches -> context.getString(R.string.unit_inches)
-            DistanceUnits.Yards -> context.getString(R.string.unit_yards)
+            DistanceUnits.Meters -> strings.getString(R.string.unit_meters)
+            DistanceUnits.Kilometers -> strings.getString(R.string.unit_kilometers)
+            DistanceUnits.Feet -> strings.getString(R.string.unit_feet)
+            DistanceUnits.Miles -> strings.getString(R.string.unit_miles)
+            DistanceUnits.NauticalMiles -> strings.getString(R.string.unit_nautical_miles)
+            DistanceUnits.Centimeters -> strings.getString(R.string.unit_centimeters)
+            DistanceUnits.Inches -> strings.getString(R.string.unit_inches)
+            DistanceUnits.Yards -> strings.getString(R.string.unit_yards)
         }
     }
 
     fun formatCellNetwork(cellType: CellNetwork?): String {
         return when (cellType) {
-            CellNetwork.Nr -> context.getString(R.string.network_5g)
-            CellNetwork.Lte -> context.getString(R.string.network_4g)
-            CellNetwork.Cdma, CellNetwork.Gsm -> context.getString(R.string.network_2g)
-            CellNetwork.Wcdma -> context.getString(R.string.network_3g)
-            else -> context.getString(R.string.network_no_signal)
+            CellNetwork.Nr -> strings.getString(R.string.network_5g)
+            CellNetwork.Lte -> strings.getString(R.string.network_4g)
+            CellNetwork.Cdma, CellNetwork.Gsm -> strings.getString(R.string.network_2g)
+            CellNetwork.Wcdma -> strings.getString(R.string.network_3g)
+            else -> strings.getString(R.string.network_no_signal)
         }
     }
 
     fun formatMoonPhase(phase: MoonTruePhase): String {
-        return context.getString(
+        return strings.getString(
             when (phase) {
                 MoonTruePhase.FirstQuarter -> R.string.first_quarter
                 MoonTruePhase.Full -> R.string.full_moon
@@ -650,50 +635,50 @@ class FormatService(private val context: Context) {
 
     fun formatSeason(season: Season): String {
         return when (season) {
-            Season.Winter -> context.getString(R.string.season_winter)
-            Season.Spring -> context.getString(R.string.season_spring)
-            Season.Summer -> context.getString(R.string.season_summer)
-            Season.Fall -> context.getString(R.string.season_fall)
+            Season.Winter -> strings.getString(R.string.season_winter)
+            Season.Spring -> strings.getString(R.string.season_spring)
+            Season.Summer -> strings.getString(R.string.season_summer)
+            Season.Fall -> strings.getString(R.string.season_fall)
         }
     }
 
 
     private fun getPressureUnitString(unit: PressureUnits): String {
         return when (unit) {
-            PressureUnits.Hpa -> context.getString(R.string.units_hpa)
-            PressureUnits.Mbar -> context.getString(R.string.units_mbar)
-            PressureUnits.Inhg -> context.getString(R.string.units_inhg_short)
-            PressureUnits.Psi -> context.getString(R.string.units_psi)
-            PressureUnits.MmHg -> context.getString(R.string.units_mmhg_short)
+            PressureUnits.Hpa -> strings.getString(R.string.units_hpa)
+            PressureUnits.Mbar -> strings.getString(R.string.units_mbar)
+            PressureUnits.Inhg -> strings.getString(R.string.units_inhg_short)
+            PressureUnits.Psi -> strings.getString(R.string.units_psi)
+            PressureUnits.MmHg -> strings.getString(R.string.units_mmhg_short)
         }
     }
 
     fun formatPrecipitation(precipitation: Precipitation): String {
         return when (precipitation) {
-            Precipitation.Rain -> context.getString(R.string.precipitation_rain)
-            Precipitation.Drizzle -> context.getString(R.string.precipitation_drizzle)
-            Precipitation.Snow -> context.getString(R.string.precipitation_snow)
-            Precipitation.SnowPellets -> context.getString(R.string.precipitation_snow_pellets)
-            Precipitation.Hail -> context.getString(R.string.precipitation_hail)
-            Precipitation.SmallHail -> context.getString(R.string.precipitation_small_hail)
-            Precipitation.IcePellets -> context.getString(R.string.precipitation_ice_pellets)
-            Precipitation.SnowGrains -> context.getString(R.string.precipitation_snow_grains)
-            Precipitation.Lightning -> context.getString(R.string.lightning)
+            Precipitation.Rain -> strings.getString(R.string.precipitation_rain)
+            Precipitation.Drizzle -> strings.getString(R.string.precipitation_drizzle)
+            Precipitation.Snow -> strings.getString(R.string.precipitation_snow)
+            Precipitation.SnowPellets -> strings.getString(R.string.precipitation_snow_pellets)
+            Precipitation.Hail -> strings.getString(R.string.precipitation_hail)
+            Precipitation.SmallHail -> strings.getString(R.string.precipitation_small_hail)
+            Precipitation.IcePellets -> strings.getString(R.string.precipitation_ice_pellets)
+            Precipitation.SnowGrains -> strings.getString(R.string.precipitation_snow_grains)
+            Precipitation.Lightning -> strings.getString(R.string.lightning)
         }
     }
 
     fun formatHikingDifficulty(difficulty: HikingDifficulty): String {
         return when (difficulty) {
-            HikingDifficulty.Easiest -> context.getString(R.string.easy)
-            HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> context.getString(R.string.moderate)
-            else -> context.getString(R.string.hard)
+            HikingDifficulty.Easiest -> strings.getString(R.string.easy)
+            HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> strings.getString(R.string.moderate)
+            else -> strings.getString(R.string.hard)
         }
     }
 
     fun formatMapProjection(projection: MapProjectionType): String {
         return when (projection) {
-            MapProjectionType.Mercator -> context.getString(R.string.map_projection_mercator)
-            MapProjectionType.CylindricalEquidistant -> context.getString(R.string.map_projection_equidistant)
+            MapProjectionType.Mercator -> strings.getString(R.string.map_projection_mercator)
+            MapProjectionType.CylindricalEquidistant -> strings.getString(R.string.map_projection_equidistant)
         }
     }
 
