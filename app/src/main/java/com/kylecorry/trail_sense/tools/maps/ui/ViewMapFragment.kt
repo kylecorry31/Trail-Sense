@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
@@ -26,11 +27,9 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
-import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.*
@@ -63,10 +62,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
-    private val pathService by lazy { PathService.getInstance(requireContext()) }
-    private var pathPoints: Map<Long, List<PathPoint>> = emptyMap()
-    private var paths: List<Path> = emptyList()
-    private var currentBacktrackPathId: Long? = null
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService(requireContext()) }
@@ -81,6 +76,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val myAccuracyLayer = MyAccuracyLayer()
     private val navigationLayer = NavigationLayer()
     private val selectedPointLayer = BeaconLayer()
+
+    // Paths
+    private var paths: List<Path> = emptyList()
+    private val pathService by lazy { PathService.getInstance(requireContext()) }
+    private val pathLoader by lazy { PathLoader(pathService) }
 
     private var lastDistanceToast: Toast? = null
 
@@ -148,7 +148,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             myLocationLayer.setLocation(gps.location)
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             navigationLayer.setStart(gps.location)
-            displayPaths()
+            inBackground {
+                updatePaths()
+            }
             updateDestination()
             if (!tideTimer.isRunning()) {
                 tideTimer.interval(Duration.ofMinutes(1))
@@ -175,16 +177,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         observe(pathService.getLivePaths()) {
-            paths = it.filter { path -> path.style.visible }
             inBackground {
-                withContext(Dispatchers.IO) {
-                    currentBacktrackPathId = pathService.getBacktrackPathId()
-                    pathPoints = pathService.getWaypoints(paths.map { path -> path.id })
-                        .mapValues { it.value.sortedByDescending { it.id } }
+                onDefault {
+                    paths = it.filter { path -> path.style.visible }
                 }
-                withContext(Dispatchers.Main) {
-                    displayPaths()
-                }
+                updatePaths(true)
             }
         }
 
@@ -200,7 +197,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 binding.mapCalibrationBottomPanel.isVisible = false
                 binding.map.hideCalibrationPoints()
                 inBackground {
-                    withContext(Dispatchers.IO) {
+                    // Save the new calibration
+                    onIO {
                         map?.let {
                             var updated = mapRepo.getMap(it.id)!!
                             updated = updated.copy(
@@ -210,6 +208,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                             map = updated
                         }
                     }
+
+                    onCalibrationChanged()
                 }
             } else {
                 calibratePoint(++calibrationIndex)
@@ -358,19 +358,18 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         beaconLayer.setBeacons(all)
     }
 
-    private fun displayPaths() {
-        val isTracking = BacktrackScheduler.isOn(requireContext())
-        val mappablePaths = mutableListOf<IMappablePath>()
-        val currentPathId = currentBacktrackPathId
-        for (points in pathPoints) {
-            val path = paths.firstOrNull { it.id == points.key } ?: continue
-            val pts = if (isTracking && currentPathId == path.id) {
-                listOf(gps.getPathPoint(currentPathId)) + points.value
-            } else {
-                points.value
-            }
-            mappablePaths.add(pts.asMappable(requireContext(), path))
+    private suspend fun updatePaths(reload: Boolean = false) = onDefault {
+        if (reload) {
+            val bounds = map?.boundary() ?: return@onDefault
+            pathLoader.update(paths, bounds, bounds, true)
         }
+
+        val mappablePaths =
+            pathLoader.getPointsWithBacktrack(requireContext()).mapNotNull {
+                val path =
+                    paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
+                it.value.asMappable(requireContext(), path)
+            }
 
         pathLayer.setPaths(mappablePaths)
     }
@@ -607,6 +606,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         calibrationPoint2 = second?.location
         calibrationPoint1Percent = first?.imageLocation
         calibrationPoint2Percent = second?.imageLocation
+    }
+
+    private fun onCalibrationChanged() {
+        inBackground {
+            updatePaths(true)
+        }
     }
 
     private fun updateTides() = inBackground {

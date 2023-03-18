@@ -21,6 +21,8 @@ class PathLayer : ILayer {
     private var shouldClip = true
     private var shouldRotateClip = true
 
+    private val lock = Any()
+
     fun setShouldClip(shouldClip: Boolean) {
         this.shouldClip = shouldClip
         invalidate()
@@ -32,9 +34,11 @@ class PathLayer : ILayer {
     }
 
     fun setPaths(paths: List<IMappablePath>) {
-        _paths.clear()
-        _paths.addAll(paths)
-        invalidate()
+        synchronized(lock) {
+            _paths.clear()
+            _paths.addAll(paths)
+            invalidate()
+        }
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
@@ -57,17 +61,19 @@ class PathLayer : ILayer {
         }
 
         val factory = PathLineDrawerFactory()
-        for (path in _paths) {
-            val rendered = renderedPaths[path.id] ?: continue
-            val pathDrawer = factory.create(path.style)
-            val centerPixel = map.toPixel(rendered.origin)
-            drawer.push()
-            drawer.translate(centerPixel.x, centerPixel.y)
+        synchronized(lock) {
+            for (path in _paths) {
+                val rendered = renderedPaths[path.id] ?: continue
+                val pathDrawer = factory.create(path.style)
+                val centerPixel = map.toPixel(rendered.origin)
+                drawer.push()
+                drawer.translate(centerPixel.x, centerPixel.y)
 
-            pathDrawer.draw(drawer, path.color, strokeScale = scale) {
-                path(rendered.path)
+                pathDrawer.draw(drawer, path.color, strokeScale = scale) {
+                    path(rendered.path)
+                }
+                drawer.pop()
             }
-            drawer.pop()
         }
         drawer.noStroke()
         drawer.fill(Color.WHITE)
@@ -79,10 +85,12 @@ class PathLayer : ILayer {
         renderer: IRenderedPathFactory
     ): Map<Long, RenderedPath> {
         val map = mutableMapOf<Long, RenderedPath>()
-        for (path in paths) {
-            val pathObj = pathPool.get()
-            pathObj.reset()
-            map[path.id] = renderer.render(path.points.map { it.coordinate }, pathObj)
+        synchronized(lock) {
+            for (path in paths) {
+                val pathObj = pathPool.get()
+                pathObj.reset()
+                map[path.id] = renderer.render(path.points.map { it.coordinate }, pathObj)
+            }
         }
         return map
     }
