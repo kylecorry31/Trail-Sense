@@ -46,6 +46,7 @@ class BeaconLayer(
         if (_loader == null) {
             _imageSize = drawer.dp(24f)
             _loader = DrawerBitmapLoader(drawer)
+            updateMarkers()
         }
         super.draw(drawer, map)
     }
