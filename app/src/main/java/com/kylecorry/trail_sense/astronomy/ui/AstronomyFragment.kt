@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -126,18 +127,21 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 if (prefs.astronomy.showSolarEclipses) AstronomyEvent.SolarEclipse else null,
                 AstronomyEvent.Supermoon
             )
+
+            val optionNames = listOfNotNull(
+                getString(R.string.full_moon),
+                getString(R.string.new_moon),
+                getString(R.string.quarter_moon),
+                getString(R.string.meteor_shower),
+                getString(R.string.lunar_eclipse),
+                if (prefs.astronomy.showSolarEclipses) getString(R.string.solar_eclipse) else null,
+                getString(R.string.supermoon)
+            ).map { it.capitalizeWords() }
+
             Pickers.item(
                 requireContext(),
                 getString(R.string.find_next_occurrence),
-                listOfNotNull(
-                    getString(R.string.full_moon),
-                    getString(R.string.new_moon),
-                    getString(R.string.quarter_moon),
-                    getString(R.string.meteor_shower),
-                    getString(R.string.lunar_eclipse),
-                    if (prefs.astronomy.showSolarEclipses) getString(R.string.solar_eclipse) else null,
-                    getString(R.string.supermoon)
-                ).map { it.capitalizeWords() },
+                optionNames,
                 options.indexOf(lastAstronomyEventSearch)
             ) {
                 if (it != null) {
@@ -145,7 +149,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     lastAstronomyEventSearch = search
                     val currentDate = binding.displayDate.date
                     runInBackground {
-                        val loading = AlertLoadingIndicator(requireContext(), getString(R.string.loading))
+                        val loading =
+                            AlertLoadingIndicator(requireContext(), getString(R.string.loading))
                         loading.show()
                         val nextEvent = onDefault {
                             astronomyService.findNextEvent(
@@ -157,6 +162,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                         onMain {
                             loading.hide()
                             binding.displayDate.date = nextEvent ?: currentDate
+
+                            if (nextEvent == null) {
+                                toast(
+                                    getString(
+                                        R.string.unable_to_find_next_astronomy,
+                                        optionNames[it].lowercase()
+                                    )
+                                )
+                            }
+
                             updateUI()
                         }
                     }

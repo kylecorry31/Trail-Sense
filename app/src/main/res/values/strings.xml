@@ -1292,6 +1292,9 @@
     <string name="pref_show_solar_eclipses" translatable="false">pref_show_solar_eclipses</string>
     <string name="loading">Loading</string>
 
+    <!--    Unable to find the next astronomy event (ex. solar eclipse)-->
+    <string name="unable_to_find_next_astronomy">Unable to find next %s</string>
+
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
