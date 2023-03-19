@@ -1103,4 +1103,10 @@
     <string name="center">Centro</string>
     <string name="pref_include_leading_zero_title">Agregar un cero inicial al tiempo</string>
     <string name="create_path">Crear una ruta</string>
+    <string name="solar_eclipse_start">Eclipse solar (comienza)</string>
+    <string name="solar_eclipse_end">Eclipse solar (finaliza)</string>
+    <string name="solar_eclipses">Eclipses solares</string>
+    <string name="solar_eclipse">Eclipse solar</string>
+    <string name="map_is_not_calibrated">Mapa sin calibrar</string>
+    <string name="loading">Cargando</string>
 </resources>
