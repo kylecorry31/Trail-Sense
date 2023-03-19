@@ -610,7 +610,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun onCalibrationChanged() {
         inBackground {
-            updatePaths(true)
+            updatePaths()
         }
     }
 

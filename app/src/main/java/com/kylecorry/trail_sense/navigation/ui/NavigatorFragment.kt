@@ -860,8 +860,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
 
-        updateCompassPaths()
-
+        if (paths.any()) {
+            updateCompassPaths()
+        }
+        
         updateUI()
     }
 
