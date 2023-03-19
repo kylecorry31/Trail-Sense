@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.domain.Eclipse
+import com.kylecorry.trail_sense.astronomy.ui.format.EclipseFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -64,16 +65,9 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
             true
         )
 
-        val magnitude = if (eclipse.isTotal) {
-            context.getString(R.string.total)
-        } else {
-            context.getString(
-                R.string.partial,
-                formatService.formatPercentage(eclipse.magnitude * 100)
-            )
-        }
+        val eclipseAmount = EclipseFormatter.type(context, eclipse)
 
-        return "$timeSpan\n$magnitude"
+        return "$timeSpan\n$eclipseAmount"
     }
 
     companion object {

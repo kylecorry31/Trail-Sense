@@ -19,7 +19,7 @@ import java.time.*
  * The facade for astronomy related services
  */
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
-    
+
     // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
@@ -141,12 +141,20 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }
     }
 
-    fun getNextSunset(location: Coordinate, sunTimesMode: SunTimesMode, time: ZonedDateTime = ZonedDateTime.now(clock)): LocalDateTime? {
+    fun getNextSunset(
+        location: Coordinate,
+        sunTimesMode: SunTimesMode,
+        time: ZonedDateTime = ZonedDateTime.now(clock)
+    ): LocalDateTime? {
         return Astronomy.getNextSunset(time, location, sunTimesMode, true)
             ?.toLocalDateTime()
     }
 
-    fun getNextSunrise(location: Coordinate, sunTimesMode: SunTimesMode, time: ZonedDateTime = ZonedDateTime.now(clock)): LocalDateTime? {
+    fun getNextSunrise(
+        location: Coordinate,
+        sunTimesMode: SunTimesMode,
+        time: ZonedDateTime = ZonedDateTime.now(clock)
+    ): LocalDateTime? {
         return Astronomy.getNextSunrise(time, location, sunTimesMode, true)
             ?.toLocalDateTime()
     }
@@ -200,21 +208,26 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
-        return getEclipse(location, date, EclipseType.PartialLunar)
+        return getEclipse(location, date, EclipseType.PartialLunar){
+            getMoonAzimuth(location, it) to getMoonAltitude(location, it)
+        }
     }
 
     fun getSolarEclipse(
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
-        return getEclipse(location, date, EclipseType.Solar, 1)
+        return getEclipse(location, date, EclipseType.Solar, 1){
+            getSunAzimuth(location, it) to getSunAltitude(location, it)
+        }
     }
 
     private fun getEclipse(
         location: Coordinate,
         date: LocalDate,
         eclipseType: EclipseType,
-        days: Long = 2
+        days: Long = 2,
+        getPosition: (ZonedDateTime) -> Pair<Bearing, Float>
     ): Eclipse? {
         val nextEclipse = Astronomy.getNextEclipse(
             date.atStartOfDay(ZoneId.systemDefault()),
@@ -231,7 +244,17 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             return null
         }
 
-        return Eclipse(start, end, peak, nextEclipse.magnitude)
+        val position = getPosition(peak)
+
+        return Eclipse(
+            start,
+            end,
+            peak,
+            nextEclipse.magnitude,
+            nextEclipse.obscuration,
+            position.second,
+            position.first
+        )
     }
 
     fun findNextEvent(

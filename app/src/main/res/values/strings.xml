@@ -975,8 +975,15 @@
     <!--This is in markdown formatting-->
     <string name="astro_dialog_noon">**Time**: %s\n\n**Altitude**: %s</string>
 
-    <!--This is in markdown formatting-->
-    <string name="astro_dialog_eclipse">**Start**: %s\n\n**Peak**: %s\n\n**End**: %s\n\n**Duration**: %s\n\n**Magnitude**: %s\n\n**Altitude**: %s</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">End</string>
+    <string name="peak_time">Peak</string>
+    <string name="magnitude">Magnitude</string>
+    <string name="obscuration">Obscuration</string>
+
+    <!--  The astronomical altitude of the sun / moon in the sky  -->
+    <string name="astronomy_altitude_peak">Peak altitude</string>
+    <string name="astronomy_direction_peak">Peak direction</string>
 
     <!--This is in markdown formatting-->
     <string name="astro_dialog_moon_phase">**Phase**: %s\n\n**Illumination**: %s</string>

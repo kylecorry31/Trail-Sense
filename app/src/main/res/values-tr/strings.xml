@@ -758,17 +758,6 @@
     <string name="difficulty">Zorluk</string>
     <string name="sun">Güneş</string>
     <string name="precipitation_chance">Yağış ihtimali: %s</string>
-    <string name="astro_dialog_eclipse">**Başlangıç**: %s
-\n
-\n**Tepe**: %s
-\n
-\n**Bitiş**: %s
-\n
-\n**Süre**: %s
-\n
-\n**Büyüklük**: %s
-\n
-\n**Rakım**: %s</string>
     <string name="weather_monitoring_disabled">Hava durumu izleme devre dışı bırakıldı</string>
     <string name="enable">Etkinleştir</string>
     <string name="no_clouds">Bulut Yok</string>

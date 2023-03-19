@@ -721,17 +721,6 @@
     <string name="elevation_history_length">Lengte hoogtegeschiedenis</string>
     <string name="last_duration">Afgelopen %s</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="astro_dialog_eclipse">**Begin**: %s
-\n
-\n**Hoogtepunt**: %s
-\n
-\n**Einde**: %s
-\n
-\n**Tijdsduur**: %s
-\n
-\n**Magnitude**: %s
-\n
-\n**Hoogte**: %s</string>
     <string name="or">Of</string>
     <string name="notification_weather_update_title">Weermeting bijwerking</string>
     <string name="notification_weather_update_content">Luchtdruk opnemen</string>

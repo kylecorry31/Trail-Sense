@@ -802,17 +802,6 @@
     <string name="astro_dialog_noon">** Tiempo **:%s
 \n
 \n** Altitud **:%s</string>
-    <string name="astro_dialog_eclipse">**Empieza**:%s
-\n
-\n** Pico **:%s
-\n
-\n** Fin **:%s
-\n
-\n** Duración **:%s
-\n
-\n** Magnitud **:%s
-\n
-\n** Altitud **:%s</string>
     <string name="astro_dialog_moon_phase">**Etapas**:%s
 \n
 \n** Iluminación **:%s</string>

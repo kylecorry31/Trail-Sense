@@ -2,15 +2,14 @@ package com.kylecorry.trail_sense.astronomy.ui.fields
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.Eclipse
+import com.kylecorry.trail_sense.astronomy.ui.format.EclipseFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 
 class SolarEclipseField(
     private val eclipse: Eclipse,
-    private val showStart: Boolean,
-    private val altitude: Float
+    private val showStart: Boolean
 ) :
     AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
@@ -38,25 +37,10 @@ class SolarEclipseField(
     }
 
     override fun onClick(context: Context) {
-        val formatService = FormatService.getInstance(context)
-        val markdownService = MarkdownService(context)
-        val text = context.getString(
-            R.string.astro_dialog_eclipse,
-            formatService.formatDateTime(eclipse.start, true),
-            formatService.formatDateTime(eclipse.peak, true),
-            formatService.formatDateTime(eclipse.end, true),
-            formatService.formatDuration(eclipse.duration, short = false),
-            if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
-                R.string.partial,
-                formatService.formatPercentage(eclipse.magnitude * 100)
-            ),
-            formatService.formatDegrees(altitude)
-        )
-
         Alerts.dialog(
             context,
             context.getString(R.string.solar_eclipse),
-            markdownService.toMarkdown(text),
+            EclipseFormatter.details(context, eclipse),
             cancelText = null
         )
     }
@@ -64,22 +48,14 @@ class SolarEclipseField(
 
     private fun getStartValue(context: Context, eclipse: Eclipse): String {
         val formatService = FormatService.getInstance(context)
-        val eclipseAmount =
-            if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
-                R.string.partial,
-                formatService.formatPercentage(eclipse.magnitude * 100)
-            )
+        val eclipseAmount = EclipseFormatter.type(context, eclipse)
         val time = formatService.formatTime(eclipse.start.toLocalTime(), includeSeconds = false)
         return "$time\n$eclipseAmount"
     }
 
     private fun getEndValue(context: Context, eclipse: Eclipse): String {
         val formatService = FormatService.getInstance(context)
-        val eclipseAmount =
-            if (eclipse.isTotal) context.getString(R.string.total) else context.getString(
-                R.string.partial,
-                formatService.formatPercentage(eclipse.magnitude * 100)
-            )
+        val eclipseAmount = EclipseFormatter.type(context, eclipse)
         val time = formatService.formatTime(eclipse.end.toLocalTime(), includeSeconds = false)
         return "$time\n$eclipseAmount"
     }

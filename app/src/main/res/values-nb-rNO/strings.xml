@@ -697,17 +697,6 @@
     <string name="weather_monitoring_disabled">Værovervåking slått av</string>
     <string name="enable">Slå på</string>
     <string name="supermoon">Supermåne</string>
-    <string name="astro_dialog_eclipse">**Start**: %s
-\n
-\n**Maksimal**: %s
-\n
-\n**Slutt**: %s
-\n
-\n**Varighet**: %s
-\n
-\n**Magnitude**: %s
-\n
-\n**Høyde**: %s</string>
     <string name="weather_exported">Værdata eksportert</string>
     <string name="duration_of_charge">Ladevarighet</string>
     <string name="precipitation_rain">Regn</string>

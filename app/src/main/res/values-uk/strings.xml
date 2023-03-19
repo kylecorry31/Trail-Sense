@@ -781,17 +781,6 @@
     <string name="astro_dialog_moon_phase">**Фаза**: %s
 \n
 \n**Освітлення**: %s</string>
-    <string name="astro_dialog_eclipse">**Початок**: %s
-\n
-\n**Пік**: %s
-\n
-\n**Кінець**: %s
-\n
-\n**Тривалість**: %s
-\n
-\n**Величина**: %s
-\n
-\n**Висота**: %s</string>
     <string name="astro_dialog_noon">**Час**: %s
 \n
 \n**Висота**: %s</string>

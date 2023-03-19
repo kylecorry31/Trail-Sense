@@ -577,17 +577,6 @@
     <string name="astro_dialog_noon">**Időpont**: %s
 \n
 \n**Magasság**: %s</string>
-    <string name="astro_dialog_eclipse">**Kezdet**: %s
-\n
-\n**Csúcs**: %s
-\n
-\n**Vég**: %s
-\n
-\n**Időtartam**: %s
-\n
-\n**Kiterjedés**: %s
-\n
-\n**Magasság**: %s</string>
     <string name="tilt">Dőlés</string>
     <string name="pref_export_weather_csv_title">Időjárási adatok exportálása</string>
     <string name="precipitation_small_hail">Apró jégeső</string>

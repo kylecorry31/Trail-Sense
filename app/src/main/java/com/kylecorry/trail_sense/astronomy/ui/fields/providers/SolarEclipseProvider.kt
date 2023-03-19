@@ -15,14 +15,12 @@ class SolarEclipseProvider : AstroFieldProvider {
 
         val fields = mutableListOf<AstroField>()
 
-        val altitude = astronomyService.getSunAltitude(location, eclipse.peak)
-
         if (start == date) {
-            fields.add(SolarEclipseField(eclipse, true, altitude))
+            fields.add(SolarEclipseField(eclipse, true))
         }
 
         if (end == date) {
-            fields.add(SolarEclipseField(eclipse, false, altitude))
+            fields.add(SolarEclipseField(eclipse, false))
         }
 
         return fields

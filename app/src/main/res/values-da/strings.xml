@@ -1037,17 +1037,6 @@
 \n
 \n### Løsning
 \n%s</string>
-    <string name="astro_dialog_eclipse">**Start**: %s
-\n
-\n**Maksimum**: %s
-\n
-\n**Slut**: %s
-\n
-\n**Varighed**: %s
-\n
-\n**Magnitude**: %s
-\n
-\n**Højde**: %s</string>
     <string name="capture">Registrer</string>
     <string name="sort_by">Sorter: %s</string>
     <string name="clinometer_measure_height_instructions">Sådan måles højden af et mål, der er %s væk:

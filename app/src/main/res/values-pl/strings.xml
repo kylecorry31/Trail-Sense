@@ -744,17 +744,6 @@
     <string name="auto">Automatycznie</string>
     <string name="units_mmhg">mmHg</string>
     <string name="elevation_history_length">Długość historii wysokości</string>
-    <string name="astro_dialog_eclipse">**Początek**: %s
-\n
-\n**Szczyt**: %s
-\n
-\n**Koniec**: %s
-\n
-\n**Czas trwania**: %s
-\n
-\n**Magnituda**: %s
-\n
-\n**Wysokość**: %s</string>
     <string name="astro_dialog_noon">**Czas**: %s
 \n
 \n**Wysokość**: %s</string>

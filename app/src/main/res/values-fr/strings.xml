@@ -744,17 +744,6 @@
     <string name="unblock_notification_channel">Débloquer les notifications %s pour Trail Sense</string>
     <string name="path_exported">Chemins exportés</string>
     <string name="lunar_eclipse_end">Éclipse lunaire (fin)</string>
-    <string name="astro_dialog_eclipse">**Début** : %s
-\n
-\n**Pic** : %s
-\n
-\n**Fin** : %s
-\n
-\n**Durée** : %s
-\n
-\n**Magnitude** : %s
-\n
-\n**Altitude** : %s</string>
     <string name="season_spring">Printemps</string>
     <string name="total">Totale</string>
     <string name="supermoon">Super Lune</string>
