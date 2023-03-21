@@ -1077,4 +1077,10 @@
     <string name="create_blank_map">创建空白地图</string>
     <string name="pref_include_leading_zero_title">在表示时间的数字前添加 0</string>
     <string name="create_path">创建路径</string>
+    <string name="solar_eclipse_start">日食（开始）</string>
+    <string name="solar_eclipse_end">日食（结束）</string>
+    <string name="solar_eclipse">日食</string>
+    <string name="map_is_not_calibrated">未校准地图</string>
+    <string name="loading">加载中</string>
+    <string name="solar_eclipses">日食</string>
 </resources>
