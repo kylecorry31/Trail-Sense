@@ -1083,4 +1083,11 @@
     <string name="map_is_not_calibrated">未校准地图</string>
     <string name="loading">加载中</string>
     <string name="solar_eclipses">日食</string>
+    <string name="start_time">开始</string>
+    <string name="end_time">结束</string>
+    <string name="peak_time">高潮</string>
+    <string name="obscuration">掩星</string>
+    <string name="astronomy_altitude_peak">最高高度</string>
+    <string name="magnitude">等级</string>
+    <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
 </resources>
