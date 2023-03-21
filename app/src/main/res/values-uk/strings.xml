@@ -1116,4 +1116,18 @@
     <string name="center">Центр</string>
     <string name="size">Розмір</string>
     <string name="create_blank_map">Створити порожню мапу</string>
+    <string name="solar_eclipses">Сонячні затемнення</string>
+    <string name="solar_eclipse_start">Сонячне затемнення (початок)</string>
+    <string name="solar_eclipse_end">Сонячне затемнення (кінець)</string>
+    <string name="solar_eclipse">Сонячне затемнення</string>
+    <string name="start_time">Початок</string>
+    <string name="peak_time">Пік</string>
+    <string name="magnitude">Величина</string>
+    <string name="obscuration">Покриття</string>
+    <string name="astronomy_altitude_peak">Пікова висота</string>
+    <string name="astronomy_direction_peak">Піковий напрямок</string>
+    <string name="unable_to_find_next_astronomy">Не вийшло знайти наступний %s</string>
+    <string name="end_time">Кінець</string>
+    <string name="map_is_not_calibrated">Мапа не калібрована</string>
+    <string name="loading">Завантаження</string>
 </resources>
