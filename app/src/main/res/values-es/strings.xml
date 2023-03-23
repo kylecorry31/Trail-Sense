@@ -1109,4 +1109,12 @@
     <string name="solar_eclipse">Eclipse solar</string>
     <string name="map_is_not_calibrated">Mapa sin calibrar</string>
     <string name="loading">Cargando</string>
+    <string name="end_time">Fin</string>
+    <string name="peak_time">Pico</string>
+    <string name="magnitude">Magnitud</string>
+    <string name="obscuration">Oscurecimiento</string>
+    <string name="unable_to_find_next_astronomy">Imposible encontrar el siguiente %s</string>
+    <string name="start_time">Iniciar</string>
+    <string name="astronomy_direction_peak">Dirección máxima</string>
+    <string name="astronomy_altitude_peak">Altitud máxima</string>
 </resources>
