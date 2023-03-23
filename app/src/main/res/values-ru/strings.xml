@@ -482,7 +482,7 @@
     <string name="pref_backtrack_save_cell_summary">Записывает сотовую связь в путевой точке. Интернет не используется.</string>
     <string name="tool_light_meter_title">Измеритель света</string>
     <string name="location_disabled">Местоположение отключено</string>
-    <string name="set">Установить</string>
+    <string name="set">Задать</string>
     <string name="location_not_set">Местоположение не установлено</string>
     <string name="low">Низкий</string>
     <string name="moderate">Умеренный</string>
@@ -1102,4 +1102,5 @@
     </plurals>
     <string name="size">Размер</string>
     <string name="create_blank_map">Создать пустую карту</string>
+    <string name="photo_maps">Фотографии карт</string>
 </resources>

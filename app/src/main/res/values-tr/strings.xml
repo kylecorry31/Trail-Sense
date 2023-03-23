@@ -1096,4 +1096,12 @@
     <string name="loading">Yükleniyor</string>
     <string name="solar_eclipse_end">Güneş tutulması (bitiş)</string>
     <string name="map_is_not_calibrated">Harita kalibre edilmedi</string>
+    <string name="start_time">Başlangıç</string>
+    <string name="end_time">Bitiş</string>
+    <string name="peak_time">Zirve</string>
+    <string name="obscuration">Karartma</string>
+    <string name="astronomy_altitude_peak">Tepe yüksekliği</string>
+    <string name="magnitude">Büyüklük</string>
+    <string name="unable_to_find_next_astronomy">Sonraki %s bulunamadı</string>
+    <string name="astronomy_direction_peak">Tepe yönü</string>
 </resources>
