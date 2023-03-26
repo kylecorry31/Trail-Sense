@@ -1103,4 +1103,18 @@
     <string name="create_blank_map">Criar um mapa em branco</string>
     <string name="pref_include_leading_zero_title">Adicionar zero à esquerda no tempo</string>
     <string name="create_path">Criar percurso</string>
+    <string name="solar_eclipses">Eclipses solares</string>
+    <string name="solar_eclipse_start">Eclipse solar (começa)</string>
+    <string name="solar_eclipse_end">Eclipse solar (termina)</string>
+    <string name="solar_eclipse">Eclipse solar</string>
+    <string name="map_is_not_calibrated">O mapa não está calibrado</string>
+    <string name="end_time">Fim</string>
+    <string name="start_time">Início</string>
+    <string name="peak_time">Pico</string>
+    <string name="obscuration">Obscurecimento</string>
+    <string name="astronomy_altitude_peak">Pico máximo</string>
+    <string name="astronomy_direction_peak">Direção do pico</string>
+    <string name="loading">A carregar</string>
+    <string name="magnitude">Magnitude</string>
+    <string name="unable_to_find_next_astronomy">Não foi possível encontrar o próximo %s</string>
 </resources>
