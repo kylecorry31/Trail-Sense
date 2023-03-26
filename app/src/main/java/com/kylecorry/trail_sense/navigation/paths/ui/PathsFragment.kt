@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
@@ -24,7 +25,6 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.Backt
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
@@ -222,7 +222,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private fun simplifyPath(path: Path) {
-        val command = SimplifyPathCommand(requireContext(), lifecycleScope, pathService)
+        val command = SimplifyPathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
@@ -238,17 +238,17 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private fun togglePathVisibility(path: Path) {
-        val command = TogglePathVisibilityCommand(requireContext(), lifecycleScope, pathService)
+        val command = TogglePathVisibilityCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
     private fun renamePath(path: Path) {
-        val command = RenamePathCommand(requireContext(), lifecycleScope, pathService)
+        val command = RenamePathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
     private fun keepPath(path: Path) {
-        val command = KeepPathCommand(requireContext(), lifecycleScope, pathService)
+        val command = KeepPathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
@@ -265,7 +265,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     private fun importPaths() {
         val command = ImportPathsCommand(
             requireContext(),
-            lifecycleScope,
+            this,
             gpxService,
             pathService,
             prefs.navigation
@@ -274,17 +274,17 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private fun exportPath(path: Path) {
-        val command = ExportPathCommand(requireContext(), lifecycleScope, gpxService, pathService)
+        val command = ExportPathCommand(requireContext(), this, gpxService, pathService)
         command.execute(path)
     }
 
     private fun deletePath(path: Path) {
-        val command = DeletePathCommand(requireContext(), lifecycleScope, pathService)
+        val command = DeletePathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
     private fun merge(path: Path) {
-        val command = MergePathCommand(requireContext(), lifecycleScope, pathService)
+        val command = MergePathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 

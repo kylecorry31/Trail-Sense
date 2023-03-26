@@ -233,19 +233,19 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathLineStyle.setOnClickListener {
             val path = path ?: return@setOnClickListener
-            val command = ChangePathLineStyleCommand(requireContext(), lifecycleScope)
+            val command = ChangePathLineStyleCommand(requireContext(), this)
             command.execute(path)
         }
 
         binding.pathColor.setOnClickListener {
             val path = path ?: return@setOnClickListener
-            val command = ChangePathColorCommand(requireContext(), lifecycleScope)
+            val command = ChangePathColorCommand(requireContext(), this)
             command.execute(path)
         }
 
         binding.pathPointStyle.setOnClickListener {
             val path = path ?: return@setOnClickListener
-            val command = ChangePointStyleCommand(requireContext(), lifecycleScope)
+            val command = ChangePointStyleCommand(requireContext(), this)
             command.execute(path)
         }
     }
@@ -375,14 +375,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun simplifyPath(path: Path) {
-        val command = SimplifyPathCommand(requireContext(), lifecycleScope, pathService)
+        val command = SimplifyPathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
     private fun exportPath(path: Path) {
         val command = ExportPathCommand(
             requireContext(),
-            lifecycleScope,
+            this,
             IOFactory().createGpxService(this),
             pathService
         )
@@ -390,17 +390,17 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun togglePathVisibility(path: Path) {
-        val command = TogglePathVisibilityCommand(requireContext(), lifecycleScope, pathService)
+        val command = TogglePathVisibilityCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
     private fun renamePath(path: Path) {
-        val command = RenamePathCommand(requireContext(), lifecycleScope, pathService)
+        val command = RenamePathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
     private fun keepPath(path: Path) {
-        val command = KeepPathCommand(requireContext(), lifecycleScope, pathService)
+        val command = KeepPathCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
@@ -604,7 +604,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun navigateToWaypoint(point: PathPoint) {
         val path = path ?: return
         val command = NavigateToPointCommand(
-            lifecycleScope,
+            this,
             converter,
             beaconNavigator
         )
@@ -632,7 +632,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun deleteWaypoint(point: PathPoint) {
         val path = path ?: return
-        val command = DeletePointCommand(requireContext(), lifecycleScope)
+        val command = DeletePointCommand(requireContext(), this)
         command.execute(path, point)
     }
 

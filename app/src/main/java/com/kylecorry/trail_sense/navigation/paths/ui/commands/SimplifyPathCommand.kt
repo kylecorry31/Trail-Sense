@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.commands
 
 import android.content.Context
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class SimplifyPathCommand(
     private val context: Context,
-    private val lifecycleScope: LifecycleCoroutineScope,
+    private val lifecycleOwner: LifecycleOwner,
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathCommand {
 
@@ -33,7 +34,7 @@ class SimplifyPathCommand(
                     PathSimplificationQuality.Medium,
                     PathSimplificationQuality.Low
                 )[it]
-                lifecycleScope.launchWhenResumed {
+                lifecycleOwner.inBackground {
                     val loading = withContext(Dispatchers.Main) {
                         Alerts.loading(context, context.getString(R.string.simplifying))
                     }

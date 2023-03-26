@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.commands
 
 import android.content.Context
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
@@ -14,18 +15,18 @@ import kotlinx.coroutines.withContext
 
 class MergePathCommand(
     private val context: Context,
-    private val lifecycleScope: LifecycleCoroutineScope,
+    private val lifecycleOwner: LifecycleOwner,
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathCommand {
 
     override fun execute(path: Path) {
-        lifecycleScope.launchWhenResumed {
+        lifecycleOwner.inBackground {
             val other = PathPickers.pickPath(
                 context,
                 context.getString(R.string.append_onto),
-                scope = lifecycleScope,
+                scope = this,
                 filter = { it.filter { it !is Path || it.id != path.id } }
-            ) ?: return@launchWhenResumed
+            ) ?: return@inBackground
 
             val loading = withContext(Dispatchers.Main) {
                 Alerts.loading(context, context.getString(R.string.merging))

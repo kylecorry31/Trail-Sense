@@ -1,9 +1,10 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.commands
 
 import android.content.Context
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.filterIndices
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
@@ -18,15 +19,15 @@ import kotlinx.coroutines.withContext
 
 class ImportPathsCommand(
     private val context: Context,
-    private val lifecycleScope: LifecycleCoroutineScope,
+    private val lifecycleOwner: LifecycleOwner,
     private val gpxService: ImportService<GPXData>,
     private val pathService: IPathService = PathService.getInstance(context),
     private val prefs: IPathPreferences = UserPreferences(context).navigation
 ) {
 
     fun execute(parentId: Long?) {
-        lifecycleScope.launchWhenResumed {
-            val gpx = gpxService.import() ?: return@launchWhenResumed
+        lifecycleOwner.inBackground {
+            val gpx = gpxService.import() ?: return@inBackground
             val style = prefs.defaultPathStyle
             val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
             for (track in gpx.tracks) {
@@ -51,7 +52,7 @@ class ImportPathsCommand(
                     List(paths.size) { it }
                 ) {
                     if (it != null) {
-                        lifecycleScope.launchWhenResumed {
+                        lifecycleOwner.inBackground {
                             val loading = withContext(Dispatchers.Main) {
                                 Alerts.loading(context, context.getString(R.string.importing))
                             }

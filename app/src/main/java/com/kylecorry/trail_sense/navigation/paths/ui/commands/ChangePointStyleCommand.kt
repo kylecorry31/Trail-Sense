@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.commands
 
 import android.content.Context
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 
 class ChangePointStyleCommand(
     private val context: Context,
-    private val lifecycleScope: LifecycleCoroutineScope,
+    private val lifecycleOwner: LifecycleOwner,
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathCommand {
 
@@ -33,7 +34,7 @@ class ChangePointStyleCommand(
                 val pointStyle =
                     PathPointColoringStyle.values().find { style -> style.ordinal == it }
                         ?: PathPointColoringStyle.None
-                lifecycleScope.launchWhenResumed {
+                lifecycleOwner.inBackground {
                     withContext(Dispatchers.IO) {
                         pathService.addPath(path.copy(style = path.style.copy(point = pointStyle)))
                     }

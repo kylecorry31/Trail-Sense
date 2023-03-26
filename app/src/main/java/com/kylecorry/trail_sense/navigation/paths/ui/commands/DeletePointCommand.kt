@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.commands
 
 import android.content.Context
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 
 class DeletePointCommand(
     private val context: Context,
-    private val lifecycleScope: LifecycleCoroutineScope,
+    private val lifecycleOwner: LifecycleOwner,
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathPointCommand {
 
@@ -24,7 +25,7 @@ class DeletePointCommand(
             context.getString(R.string.delete_waypoint_prompt)
         ) { cancelled ->
             if (!cancelled) {
-                lifecycleScope.launchWhenResumed {
+                lifecycleOwner.inBackground {
                     withContext(Dispatchers.IO) {
                         pathService.deleteWaypoint(point)
                     }
