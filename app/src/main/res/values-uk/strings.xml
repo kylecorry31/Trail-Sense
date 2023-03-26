@@ -995,7 +995,7 @@
     <string name="beacons">Маячки</string>
     <string name="pref_start_on_boot_title">Запуск під час увімкнення</string>
     <string name="move_to">Перейти до</string>
-    <string name="bearing">Підшипник</string>
+    <string name="bearing">Азимут</string>
     <string name="square">Квадрат</string>
     <string name="diamond">Діамант</string>
     <string name="pref_only_navigate_path_points_title">Перехід лише до записаних точок</string>
@@ -1077,7 +1077,7 @@
     <string name="samples">Зразки</string>
     <string name="sensor_summary">Компас, GPS, висотомір, барометр тощо.</string>
     <string name="historic">Історичний</string>
-    <string name="next_24_hours">Наступну добу</string>
+    <string name="next_24_hours">Наступні 24 години</string>
     <string name="sensor">Датник</string>
     <string name="temperature_high_low">Висока / Низька</string>
     <string name="altimeter_cache">Кеш висотоміра</string>
