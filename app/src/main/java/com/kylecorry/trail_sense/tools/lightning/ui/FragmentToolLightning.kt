@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.weather.domain.lightning.LightningStrike
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningRepo
 import java.time.Instant

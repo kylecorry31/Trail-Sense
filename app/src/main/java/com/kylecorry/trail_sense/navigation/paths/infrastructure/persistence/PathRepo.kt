@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
 import com.kylecorry.trail_sense.shared.database.AppDatabase
@@ -30,7 +30,7 @@ class PathRepo private constructor(context: Context) : IPathRepo {
     }
 
     override fun getLive(id: Long): LiveData<Path?> {
-        return Transformations.map(pathDao.getLive(id)) { it?.toPath() }
+        return pathDao.getLive(id).map { it?.toPath() }
     }
 
     override suspend fun getAll(): List<Path> {
@@ -38,9 +38,7 @@ class PathRepo private constructor(context: Context) : IPathRepo {
     }
 
     override fun getAllLive(): LiveData<List<Path>> {
-        return Transformations.map(pathDao.getAll()) {
-            it.map { path -> path.toPath() }
-        }
+        return pathDao.getAll().map { it.map { path -> path.toPath() } }
     }
 
     override suspend fun getPathsWithParent(parent: Long?): List<Path> {

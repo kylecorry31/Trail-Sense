@@ -8,7 +8,7 @@ import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
-import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap

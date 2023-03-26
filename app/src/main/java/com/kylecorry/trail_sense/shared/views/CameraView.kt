@@ -12,7 +12,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
@@ -44,7 +44,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         readFrames: Boolean = true,
         onImage: ((Bitmap) -> Unit)? = null
     ) {
-        val owner = lifecycleOwner ?: ViewTreeLifecycleOwner.get(this) ?: return
+        val owner = lifecycleOwner ?: this.findViewTreeLifecycleOwner() ?: return
         if (owner.lifecycle.currentState == Lifecycle.State.DESTROYED) {
             return
         }

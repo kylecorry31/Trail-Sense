@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
@@ -17,13 +17,13 @@ class PackRepo private constructor(context: Context) : IPackRepo {
         inventoryItemDao.getFromPackAsync(packId).map { mapper.mapToPackItem(it) }
 
     override fun getItemsFromPack(packId: Long): LiveData<List<PackItem>> {
-        return Transformations.map(inventoryItemDao.getFromPack(packId)) {
+        return inventoryItemDao.getFromPack(packId).map {
             it.map { item -> mapper.mapToPackItem(item) }
         }
     }
 
     override fun getPacks(): LiveData<List<Pack>> {
-        return Transformations.map(packDao.getAll()) { it.map { mapper.mapToPack(it) } }
+        return packDao.getAll().map { it.map { mapper.mapToPack(it) } }
     }
 
     override suspend fun getPacksAsync(): List<Pack> =

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.WaypointEntity
 import com.kylecorry.trail_sense.shared.database.AppDatabase
@@ -60,11 +60,13 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
     }
 
     override fun getAllLive(since: Instant?): LiveData<List<PathPoint>> {
-        return Transformations.map(
-            if (since == null) waypointDao.getAll() else waypointDao.getAllSince(
+        return if (since == null) {
+            waypointDao.getAll()
+        } else {
+            waypointDao.getAllSince(
                 since.toEpochMilli()
             )
-        ) {
+        }.map {
             it.map { waypoint -> waypoint.toPathPoint() }
         }
     }
@@ -78,7 +80,7 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
     }
 
     override fun getAllInPathLive(pathId: Long): LiveData<List<PathPoint>> {
-        return Transformations.map(waypointDao.getAllInPath(pathId)) {
+        return waypointDao.getAllInPath(pathId).map {
             it.map { waypoint -> waypoint.toPathPoint() }
         }
     }

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
@@ -233,7 +233,7 @@ class PathService(
 
     override fun getRecentAltitudesLive(since: Instant): LiveData<List<Reading<Float>>> {
         val recent = waypointRepo.getAllLive(since)
-        return Transformations.map(recent) {
+        return recent.map {
             it.filter { point -> point.elevation != null && point.time != null }
                 .map { point -> Reading(point.elevation!!, point.time!!) }
         }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
-import com.kylecorry.trail_sense.shared.extensions.inBackground
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -76,7 +76,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
 
         binding.chart.plot(elevationLine)
 
-         observe(getBacktrackReadings()) {
+        observe(getBacktrackReadings()) {
             backtrackReadings = it
             updateChart()
         }
@@ -155,8 +155,8 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     }
 
     private fun getWeatherReadings(): LiveData<List<Reading<Float>>> {
-        return Transformations.map(weatherRepo.getAllLive()) {
-            it.mapNotNull { reading ->
+        return weatherRepo.getAllLive().map { readings ->
+            readings.mapNotNull { reading ->
                 if (reading.value.altitude == 0f) {
                     return@mapNotNull null
                 }

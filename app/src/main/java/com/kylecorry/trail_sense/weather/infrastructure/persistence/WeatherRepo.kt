@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.weather.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.sol.units.Reading
@@ -48,8 +48,8 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
     }
 
     override fun getAllLive(): LiveData<List<Reading<RawWeatherObservation>>> {
-        return Transformations.map(pressureDao.getAll()) {
-            it.map { it.toWeatherObservation() }
+        return pressureDao.getAll().map {
+            it.map { reading -> reading.toWeatherObservation() }
         }
     }
 
