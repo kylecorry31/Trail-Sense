@@ -12,11 +12,11 @@ import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupLoader
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.MapCleanupCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.create.*
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.maps.ui.commands.*
@@ -194,6 +195,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             MapAction.View -> view(map)
             MapAction.Delete -> delete(map)
             MapAction.Export -> export(map)
+            MapAction.Print -> print(map)
             MapAction.Resize -> resize(map)
             MapAction.Rename -> rename(map)
             MapAction.Move -> move(map)
@@ -204,6 +206,12 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         inBackground {
             ResizeMapCommand(requireContext(), mapImportingIndicator).execute(map)
             manager.refresh()
+        }
+    }
+
+    private fun print(map: PhotoMap) {
+        inBackground {
+            PrintMapCommand(requireContext()).execute(map)
         }
     }
 

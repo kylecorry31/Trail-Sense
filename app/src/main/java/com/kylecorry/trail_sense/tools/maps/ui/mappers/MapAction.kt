@@ -4,7 +4,8 @@ enum class MapAction {
     View,
     Delete,
     Export,
+    Print,
     Resize,
-     Rename,
-     Move
+    Rename,
+    Move
 }

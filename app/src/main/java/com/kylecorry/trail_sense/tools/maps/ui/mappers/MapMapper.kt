@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.ceres.list.*
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -56,7 +57,7 @@ class MapMapper(
                     null
                 }
             ),
-            menu = listOf(
+            menu = listOfNotNull(
                 ListMenuItem(context.getString(R.string.rename)) {
                     actionHandler(value, MapAction.Rename)
                 },
@@ -68,6 +69,13 @@ class MapMapper(
                 },
                 ListMenuItem(context.getString(R.string.export)) {
                     actionHandler(value, MapAction.Export)
+                },
+                if (!Printer.canPrint()) {
+                    null
+                } else {
+                    ListMenuItem(context.getString(R.string.print)) {
+                        actionHandler(value, MapAction.Print)
+                    }
                 },
                 ListMenuItem(context.getString(R.string.delete)) {
                     actionHandler(value, MapAction.Delete)

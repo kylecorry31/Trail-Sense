@@ -9,16 +9,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
 import kotlinx.coroutines.Dispatchers
@@ -68,93 +70,121 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         binding.menuBtn.setOnClickListener {
             val fragment = currentFragment
             val isMapView = fragment != null && fragment is ViewMapFragment
+
+            val actions = listOf(
+                MapContextualAction.Calibrate to if (isMapView) getString(R.string.calibrate) else null,
+                MapContextualAction.Guide to getString(R.string.tool_user_guide_title),
+                MapContextualAction.Rename to getString(R.string.rename),
+                MapContextualAction.ChangeProjection to if (isMapView) getString(R.string.change_map_projection) else null,
+                MapContextualAction.Measure to if (isMapView) getString(R.string.measure) else null,
+                MapContextualAction.CreatePath to if (isMapView) getString(R.string.create_path) else null,
+                MapContextualAction.Export to if (isMapView) getString(R.string.export) else null,
+                MapContextualAction.Print to if (isMapView && Printer.canPrint()) getString(R.string.print) else null,
+                MapContextualAction.Delete to getString(R.string.delete)
+            )
+
+
             Pickers.menu(
-                it, listOf(
-                    if (isMapView) getString(R.string.calibrate) else null,
-                    getString(R.string.tool_user_guide_title),
-                    getString(R.string.rename),
-                    if (isMapView) getString(R.string.change_map_projection) else null,
-                    if (isMapView) getString(R.string.measure) else null,
-                    if (isMapView) getString(R.string.create_path) else null,
-                    if (isMapView) getString(R.string.export) else null,
-                    getString(R.string.delete)
-                )
+                it,
+                actions.map { action -> action.second }
             ) {
-                when (it) {
-                    0 -> { // Calibrate
-                        val fragment = currentFragment
-                        if (fragment != null && fragment is ViewMapFragment) {
-                            fragment.calibrateMap()
-                        }
-                    }
-                    1 -> { // Guide
-                        UserGuideUtils.openGuide(this, R.raw.importing_maps)
-                    }
-                    2 -> { // Rename
-                        inBackground {
-                            map?.let {
-                                mapRepo.getMap(it.id)?.let { updated ->
-                                    RenameMapCommand(requireContext(), mapService).execute(updated)
-                                    map = mapRepo.getMap(updated.id)
-                                    binding.mapName.text = map?.name
-                                }
-                            }
-                        }
-                    }
-                    3 -> { // Change projection
-                        val projections = MapProjectionType.values()
-                        val projectionNames = projections.map { formatter.formatMapProjection(it) }
-                        Pickers.item(
-                            requireContext(),
-                            getString(R.string.change_map_projection),
-                            projectionNames,
-                            projections.indexOf(map?.metadata?.projection)
-                        ) {
-                            if (it != null) {
-                                map?.let { m ->
-                                    val newProjection = projections[it]
-                                    inBackground {
-                                        withContext(Dispatchers.IO) {
-                                            val updated = mapRepo.getMap(m.id)!!
-                                            map = mapService.setProjection(updated, newProjection)
-                                        }
-                                        withContext(Dispatchers.Main) {
-                                            val fragment = currentFragment
-                                            if (fragment != null && fragment is ViewMapFragment) {
-                                                fragment.reloadMap()
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    4, 5 -> { // Measure or create path
-                        val fragment = currentFragment
-                        if (fragment != null && fragment is ViewMapFragment) {
-                            fragment.startDistanceMeasurement()
-                        }
-                    }
-                    6 -> { // Export
-                        map?.let {
-                            exportService.export(it)
-                        }
-                    }
-                    7 -> { // Delete
-                        inBackground {
-                            map?.let {
-                                DeleteMapCommand(requireContext(), mapService).execute(it)
-                                findNavController().popBackStack()
-                            }
-                        }
-                    }
-                    else -> {
-                    }
+                when (actions[it].first) {
+                    MapContextualAction.Calibrate -> calibrate()
+                    MapContextualAction.Guide -> openGuide()
+                    MapContextualAction.Rename -> rename()
+                    MapContextualAction.ChangeProjection -> changeProjection()
+                    MapContextualAction.Measure, MapContextualAction.CreatePath -> measure()
+                    MapContextualAction.Export -> export()
+                    MapContextualAction.Print -> print()
+                    MapContextualAction.Delete -> delete()
                 }
                 true
             }
         }
 
+    }
+
+    private fun openGuide() {
+        UserGuideUtils.openGuide(this, R.raw.importing_maps)
+    }
+
+    private fun calibrate() {
+        val fragment = currentFragment
+        if (fragment != null && fragment is ViewMapFragment) {
+            fragment.calibrateMap()
+        }
+    }
+
+    private fun delete() {
+        inBackground {
+            map?.let {
+                DeleteMapCommand(requireContext(), mapService).execute(it)
+                findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun print() {
+        val command = PrintMapCommand(requireContext())
+        inBackground {
+            map?.let {
+                command.execute(it)
+            }
+        }
+    }
+
+    private fun export() {
+        map?.let {
+            exportService.export(it)
+        }
+    }
+
+    private fun measure() {
+        val fragment = currentFragment
+        if (fragment != null && fragment is ViewMapFragment) {
+            fragment.startDistanceMeasurement()
+        }
+    }
+
+    private fun rename() {
+        inBackground {
+            map?.let {
+                mapRepo.getMap(it.id)?.let { updated ->
+                    RenameMapCommand(requireContext(), mapService).execute(updated)
+                    map = mapRepo.getMap(updated.id)
+                    binding.mapName.text = map?.name
+                }
+            }
+        }
+    }
+
+    private fun changeProjection() {
+        val projections = MapProjectionType.values()
+        val projectionNames = projections.map { formatter.formatMapProjection(it) }
+        Pickers.item(
+            requireContext(),
+            getString(R.string.change_map_projection),
+            projectionNames,
+            projections.indexOf(map?.metadata?.projection)
+        ) {
+            if (it != null) {
+                map?.let { m ->
+                    val newProjection = projections[it]
+                    inBackground {
+                        withContext(Dispatchers.IO) {
+                            val updated = mapRepo.getMap(m.id)!!
+                            map = mapService.setProjection(updated, newProjection)
+                        }
+                        withContext(Dispatchers.Main) {
+                            val fragment = currentFragment
+                            if (fragment != null && fragment is ViewMapFragment) {
+                                fragment.reloadMap()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private suspend fun loadMap() {

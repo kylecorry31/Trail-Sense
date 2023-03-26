@@ -1294,6 +1294,8 @@
 
     <!--    Unable to find the next astronomy event (ex. solar eclipse)-->
     <string name="unable_to_find_next_astronomy">Unable to find next %s</string>
+    <!--    The action of printing a document/map-->
+    <string name="print">Print</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
