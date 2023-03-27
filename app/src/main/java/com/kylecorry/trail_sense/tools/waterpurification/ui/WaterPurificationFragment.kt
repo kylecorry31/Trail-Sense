@@ -168,8 +168,8 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private fun getRemainingTime(): Duration? {
         val lastEndTime =
-            cache.getLong(WATER_PURIFICATION_END_TIME_KEY) ?: return null
-        val oldDuration = Duration.between(Instant.now(), Instant.ofEpochMilli(lastEndTime))
+            cache.getInstant(WATER_PURIFICATION_END_TIME_KEY) ?: return null
+        val oldDuration = Duration.between(Instant.now(), lastEndTime)
         return if (!oldDuration.isNegative && !oldDuration.isZero) {
             oldDuration
         } else {
