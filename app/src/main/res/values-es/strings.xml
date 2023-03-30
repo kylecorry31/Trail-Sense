@@ -1117,4 +1117,5 @@
     <string name="start_time">Iniciar</string>
     <string name="astronomy_direction_peak">Dirección máxima</string>
     <string name="astronomy_altitude_peak">Altitud máxima</string>
+    <string name="print">Imprimir</string>
 </resources>
