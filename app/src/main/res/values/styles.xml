@@ -27,7 +27,9 @@
         <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
-        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall</item>
+        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
+        </item>
+        <item name="searchViewStyle">@style/SearchViewTheme</item>
     </style>
 
     <!--Override this for other Android versions-->
@@ -83,6 +85,15 @@
 
     <style name="Widget.App.FloatingActionButtonSmall" parent="Widget.Material3.FloatingActionButton.Small.Primary">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView">
+        <item name="android:background">@drawable/rounded_rectangle</item>
+        <item name="android:backgroundTint">?attr/colorSurface</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:elevation">2dp</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="iconifiedByDefault">false</item>
     </style>
 
     <style name="ThemeOverlay.App.FloatingActionButton" parent="">

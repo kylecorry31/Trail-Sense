@@ -21,8 +21,8 @@
         android:id="@+id/searchbox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/beacon_title"
@@ -30,10 +30,10 @@
 
     <com.kylecorry.ceres.list.CeresListView
         android:id="@+id/beacon_recycler"
+        style="@style/AppTheme.ListViewWithFab"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        style="@style/AppTheme.ListViewWithFab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
