@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.ruler.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.isMetric
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
@@ -23,18 +25,20 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private var scaleMode = MapScaleMode.Fractional
     private var currentDistance = Distance(0f, DistanceUnits.Centimeters)
 
-    private lateinit var ruler: Ruler
     private lateinit var units: UserPreferences.DistanceUnits
 
     private var rulerUnits = DistanceUnits.Centimeters
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rulerUnits =
             if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches
-        ruler = Ruler(binding.ruler, rulerUnits)
-        ruler.onTap = this::onRulerTap
-        ruler.show()
+        binding.ruler.metric = rulerUnits.isMetric()
+        binding.ruler.setOnTouchListener { distance ->
+            binding.ruler.highlight = distance
+            onRulerTap(distance)
+        }
         binding.fractionalMapFrom.setText("1")
 
         CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
@@ -51,7 +55,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             binding.rulerUnitBtn.text = getUnitText(rulerUnits)
             val displayDistance = currentDistance.convertTo(rulerUnits)
             binding.measurement.text = formatService.formatDistance(displayDistance, precision, false)
-            ruler.setUnits(rulerUnits)
+            binding.ruler.metric = rulerUnits.isMetric()
             calculateMapDistance()
         }
 
@@ -107,13 +111,13 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
 
     override fun onResume() {
         super.onResume()
-        ruler.clearTap()
+        binding.ruler.highlight = null
         units = prefs.distanceUnits
         binding.measurement.text = ""
     }
 
-    private fun onRulerTap(centimeters: Float) {
-        currentDistance = Distance(centimeters, DistanceUnits.Centimeters)
+    private fun onRulerTap(distance: Distance) {
+        currentDistance = distance.convertTo(DistanceUnits.Centimeters)
         val displayDistance = currentDistance.convertTo(rulerUnits)
         binding.measurement.text = formatService.formatDistance(displayDistance, precision, false)
         calculateMapDistance()

@@ -100,9 +100,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/round_compass" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.kylecorry.trail_sense.tools.ruler.ui.RulerView
         android:id="@+id/ruler"
-        android:layout_width="60dp"
+        android:layout_width="80dp"
         android:layout_height="0dp"
         android:background="?android:colorBackgroundFloating"
         android:elevation="4dp"
@@ -111,10 +111,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.kylecorry.trail_sense.tools.ruler.ui.RulerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sighting_compass_btn"
+        style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -124,7 +125,6 @@
         android:tint="?android:textColorSecondary"
         android:visibility="invisible"
         app:backgroundTint="?android:colorBackgroundFloating"
-        style="?attr/floatingActionButtonSmallStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear_compass"
         app:srcCompat="@drawable/ic_camera" />

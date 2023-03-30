@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/measurement"
         tools:text="Map: 1km" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.kylecorry.trail_sense.tools.ruler.ui.RulerView
         android:id="@+id/ruler"
         android:layout_width="80dp"
         android:layout_height="0dp"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.kylecorry.trail_sense.tools.ruler.ui.RulerView>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
