@@ -36,7 +36,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
@@ -111,7 +110,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
     private val navigationService = NavigationService()
-    private val astronomyService = AstronomyService()
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
