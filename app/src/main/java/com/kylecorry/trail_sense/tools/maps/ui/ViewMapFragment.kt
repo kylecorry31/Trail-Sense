@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -31,11 +32,11 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -47,9 +48,6 @@ import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
-import com.kylecorry.trail_sense.tools.tides.domain.TideService
-import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
-import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -101,6 +99,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val throttle = Throttle(20)
 
     private var beacons: List<Beacon> = emptyList()
+
+    private val updateTideLayerCommand by lazy { UpdateTideLayerCommand(requireContext(), tideLayer) }
 
     private val tideTimer = Timer {
         updateTides()
@@ -615,14 +615,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun updateTides() = inBackground {
-        val context = context ?: return@inBackground
-        // TODO: Limit to nearby tides
-        val tables = LoadAllTideTablesCommand(context).execute()
-        val currentTideCommand = CurrentTideTypeCommand(TideService())
-        val tides = tables.filter { it.location != null && it.isVisible }.map {
-            it to currentTideCommand.execute(it)
-        }
-        tideLayer.setTides(tides)
+        updateTideLayerCommand.execute()
     }
 
 }
