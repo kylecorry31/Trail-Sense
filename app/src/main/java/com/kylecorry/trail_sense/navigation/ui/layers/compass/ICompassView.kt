@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui.layers.compass
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.ui.IMappableBearing
 import com.kylecorry.trail_sense.navigation.ui.IMappableReferencePoint
 
 interface ICompassView {
@@ -15,4 +16,6 @@ interface ICompassView {
 
     // TODO: Replace mappable reference point with a compass marker
     fun draw(reference: IMappableReferencePoint, size: Int? = null)
+
+    fun draw(bearing: IMappableBearing)
 }

@@ -94,42 +94,7 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private fun drawDestination() {
         val destination = _destination ?: return
-        val color = destination.color
-        push()
-        fill(color)
-
-        // To end of compass
-        opacity(if (_highlightedLocation != null) 25 else 100)
-        val dp2 = dp(2f)
-        arc(
-            iconSize.toFloat() + dp2,
-            iconSize.toFloat() + dp2,
-            compassSize.toFloat(),
-            compassSize.toFloat(),
-            azimuth.value - 90,
-            azimuth.value - 90 + deltaAngle(azimuth.value, destination.bearing.value),
-            ArcMode.Pie
-        )
-
-        // To highlighted location
-        _highlightedLocation?.let {
-            val pixel = toPixel(it.coordinate)
-            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
-            opacity(75)
-            arc(
-                centerPixel.x - size / 2f,
-                centerPixel.y - size / 2f,
-                size,
-                size,
-                azimuth.value - 90,
-                azimuth.value - 90 + deltaAngle(azimuth.value, destination.bearing.value),
-                ArcMode.Pie
-            )
-        }
-
-
-        opacity(255)
-        pop()
+        draw(destination)
         drawReferencePoint(
             MappableReferencePoint(
                 0,
@@ -320,6 +285,45 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
         drawReferencePoint(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
+    }
+
+    // TODO: Make distance configurable
+    override fun draw(bearing: IMappableBearing) {
+        push()
+        fill(bearing.color)
+
+        // To end of compass
+        opacity(if (_highlightedLocation != null) 25 else 100)
+        val dp2 = dp(2f)
+        arc(
+            iconSize.toFloat() + dp2,
+            iconSize.toFloat() + dp2,
+            compassSize.toFloat(),
+            compassSize.toFloat(),
+            azimuth.value - 90,
+            azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+            ArcMode.Pie
+        )
+
+        // To highlighted location
+        _highlightedLocation?.let {
+            val pixel = toPixel(it.coordinate)
+            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
+            opacity(75)
+            arc(
+                centerPixel.x - size / 2f,
+                centerPixel.y - size / 2f,
+                size,
+                size,
+                azimuth.value - 90,
+                azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+                ArcMode.Pie
+            )
+        }
+
+
+        opacity(255)
+        pop()
     }
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {

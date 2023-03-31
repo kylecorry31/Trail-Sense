@@ -42,23 +42,7 @@ class RoundCompassView : BaseCompassView {
     )
 
     private fun drawDestination() {
-        val d = _destination
-        d ?: return
-        push()
-        fill(d.color)
-        opacity(100)
-        val dp2 = dp(2f)
-        arc(
-            iconSize.toFloat() + dp2,
-            iconSize.toFloat() + dp2,
-            compassSize.toFloat(),
-            compassSize.toFloat(),
-            azimuth.value - 90,
-            azimuth.value - 90 + deltaAngle(azimuth.value, d.bearing.value),
-            ArcMode.Pie
-        )
-        opacity(255)
-        pop()
+        _destination?.let { draw(it) }
     }
 
     private fun drawAzimuth() {
@@ -192,5 +176,23 @@ class RoundCompassView : BaseCompassView {
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
         drawReference(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
+    }
+
+    override fun draw(bearing: IMappableBearing) {
+        push()
+        fill(bearing.color)
+        opacity(100)
+        val dp2 = dp(2f)
+        arc(
+            iconSize.toFloat() + dp2,
+            iconSize.toFloat() + dp2,
+            compassSize.toFloat(),
+            compassSize.toFloat(),
+            azimuth.value - 90,
+            azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+            ArcMode.Pie
+        )
+        opacity(255)
+        pop()
     }
 }

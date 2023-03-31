@@ -161,19 +161,9 @@ class LinearCompassView : BaseCompassView {
     }
 
     private fun drawDestination() {
-        val d = _destination
-        d ?: return
-        val delta = deltaAngle(
-            azimuth.value.roundToInt().toFloat(),
-            d.bearing.value.roundToInt().toFloat()
-        )
-
-        val pixelsPerDegree = width / range
-        fill(d.color)
-        opacity(100)
-        rect(width / 2f, height - 0.5f * height, delta * pixelsPerDegree, height * 0.5f)
-        opacity(255)
-        drawReference(MappableReferencePoint(-1, R.drawable.ic_arrow_target, d.bearing, d.color))
+        val destination = _destination ?: return
+        draw(destination)
+        drawReference(MappableReferencePoint(-1, R.drawable.ic_arrow_target, destination.bearing, destination.color))
     }
 
     override fun setup() {
@@ -198,5 +188,18 @@ class LinearCompassView : BaseCompassView {
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
         drawReference(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
+    }
+
+    override fun draw(bearing: IMappableBearing) {
+        val delta = deltaAngle(
+            azimuth.value.roundToInt().toFloat(),
+            bearing.bearing.value.roundToInt().toFloat()
+        )
+
+        val pixelsPerDegree = width / range
+        fill(bearing.color)
+        opacity(100)
+        rect(width / 2f, height - 0.5f * height, delta * pixelsPerDegree, height * 0.5f)
+        opacity(255)
     }
 }

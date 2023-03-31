@@ -746,6 +746,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         myLocationLayer.setLocation(gps.location)
         myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
+
+        // Update beacon layers
         val allBeacons = (nearby + listOfNotNull(destination)).distinctBy { it.id }
         beaconLayer.setBeacons(allBeacons)
         beaconCompassLayer.setBeacons(allBeacons)

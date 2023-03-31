@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.navigation.ui.layers.compass
 
 import android.graphics.Color
-import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.ui.Colors
@@ -16,13 +15,12 @@ import kotlinx.coroutines.launch
 
 class BeaconCompassLayer(
     private val size: Float = 24f
-) : CompassMarkerLayer() {
+) : ICompassLayer {
+
+    private val markerLayer = CompassMarkerLayer()
 
     private val _beacons = mutableListOf<Beacon>()
     private var _highlighted: Beacon? = null
-
-    @ColorInt
-    private var backgroundColor = Color.TRANSPARENT
 
     private val lock = Any()
 
@@ -51,12 +49,11 @@ class BeaconCompassLayer(
             updateMarkers(compass)
         }
 
-        super.draw(drawer, compass)
+        markerLayer.draw(drawer, compass)
     }
 
-    fun setOutlineColor(@ColorInt color: Int) {
-        backgroundColor = color
-        _compass?.let { updateMarkers(it) }
+    override fun invalidate() {
+
     }
 
     fun highlight(beacon: Beacon?) {
@@ -69,9 +66,9 @@ class BeaconCompassLayer(
             runner.cancelPreviousThenRun {
                 synchronized(lock) {
                     val markers = convertToMarkers(_beacons, compass)
-                    clearMarkers()
+                    markerLayer.clearMarkers()
                     for (marker in markers) {
-                        addMarker(marker.first, marker.second)
+                        markerLayer.addMarker(marker.first, marker.second)
                     }
                 }
             }
@@ -83,7 +80,6 @@ class BeaconCompassLayer(
         beacons: List<Beacon>,
         compass: ICompassView
     ): List<Pair<IMappableReferencePoint, Int?>> {
-//        val loader = _loader ?: return emptyList()
         val markers = mutableListOf<Pair<IMappableReferencePoint, Int?>>()
         beacons.forEach {
 
@@ -125,21 +121,6 @@ class BeaconCompassLayer(
                     ) to (size * 0.35f).toInt()
                 )
             }
-            // Create the icon for the marker
-//            if (it.icon != null) {
-//                val image = loader.load(it.icon.icon, size)
-//                val color =
-//                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
-//                markers.add(
-//                    BitmapMapMarker(
-//                        it.coordinate,
-//                        image,
-//                        size = this.size * 0.75f,
-//                        tint = color
-//                    ) {
-//                        onBeaconClick(it)
-//                    })
-//            }
         }
         return markers
     }
