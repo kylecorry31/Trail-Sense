@@ -28,6 +28,7 @@ import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
@@ -51,6 +52,9 @@ import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
+import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyData
+import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyDataCommand
+import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
@@ -66,9 +70,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.tides.domain.TideService
-import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
-import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -120,11 +121,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var destination: Beacon? = null
     private var destinationBearing: Float? = null
 
-    private var hasAstronomyData = false
-    private var isMoonUp = true
-    private var isSunUp = true
-    private var moonBearing = 0f
-    private var sunBearing = 0f
+    // Data commands
+    private val astronomyDataCommand by lazy { NavAstronomyDataCommand(gps) }
+    private val updateTideLayerCommand by lazy {
+        UpdateTideLayerCommand(
+            requireContext(),
+            tideLayer
+        )
+    }
+
+
+    private var astronomyData: NavAstronomyData? = null
 
     private var gpsErrorShown = false
     private var gpsTimeoutShown = false
@@ -136,10 +143,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val loadPathRunner = ControlledRunner<Unit>()
     private val loadBeaconsRunner = ControlledRunner<Unit>()
 
-    private val astronomyIntervalometer = Timer {
-        inBackground {
-            updateAstronomyData()
-        }
+    private val astronomyTimer = Timer {
+        updateAstronomyData()
     }
 
     private val pathLayer = PathLayer()
@@ -446,58 +451,58 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
     }
 
-    private suspend fun updateAstronomyData() {
-        if (gps.location == Coordinate.zero) {
-            return
-        }
+    private fun updateAstronomyData() {
+        inBackground {
+            if (gps.location == Coordinate.zero) {
+                return@inBackground
+            }
 
-        updateTides()
-
-        onDefault {
-            hasAstronomyData = true
-            isMoonUp = astronomyService.isMoonUp(gps.location)
-            isSunUp = astronomyService.isSunUp(gps.location)
-            sunBearing = getSunBearing()
-            moonBearing = getMoonBearing()
+            updateTideLayerCommand.execute()
+            astronomyData = astronomyDataCommand.execute()
         }
-    }
-
-    private suspend fun updateTides() {
-        // TODO: Limit to nearby tides
-        val tables = LoadAllTideTablesCommand(requireContext()).execute()
-        val currentTideCommand = CurrentTideTypeCommand(TideService())
-        val tides = tables.filter { it.location != null && it.isVisible }.map {
-            it to currentTideCommand.execute(it)
-        }
-        tideLayer.setTides(tides)
     }
 
     private fun getReferencePoints(): List<IMappableReferencePoint> {
         val references = mutableListOf<IMappableReferencePoint>()
-        if (showAstronomyOnCompass && hasAstronomyData) {
+
+        val astro = astronomyData ?: return references
+
+        if (showAstronomyOnCompass) {
             val showWhenDown = showAstronomyOnCompassWhenDown
 
-            if (isSunUp) {
-                references.add(MappableReferencePoint(1, R.drawable.ic_sun, Bearing(sunBearing)))
+            if (astro.isSunUp) {
+                references.add(
+                    MappableReferencePoint(
+                        1,
+                        R.drawable.ic_sun,
+                        Bearing(fromTrueNorth(astro.sunBearing.value))
+                    )
+                )
             } else if (showWhenDown) {
                 references.add(
                     MappableReferencePoint(
                         1,
                         R.drawable.ic_sun,
-                        Bearing(sunBearing),
+                        Bearing(fromTrueNorth(astro.sunBearing.value)),
                         opacity = 0.5f
                     )
                 )
             }
 
-            if (isMoonUp) {
-                references.add(MappableReferencePoint(2, getMoonImage(), Bearing(moonBearing)))
+            if (astro.isMoonUp) {
+                references.add(
+                    MappableReferencePoint(
+                        2,
+                        getMoonImage(),
+                        Bearing(fromTrueNorth(astro.moonBearing.value))
+                    )
+                )
             } else if (showWhenDown) {
                 references.add(
                     MappableReferencePoint(
                         2,
                         getMoonImage(),
-                        Bearing(moonBearing),
+                        Bearing(fromTrueNorth(astro.moonBearing.value)),
                         opacity = 0.5f
                     )
                 )
@@ -509,7 +514,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
         lastOrientation = null
-        astronomyIntervalometer.interval(Duration.ofMinutes(1))
+        astronomyTimer.interval(Duration.ofMinutes(1))
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
@@ -544,7 +549,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadPathRunner.cancel()
         loadBeaconsRunner.cancel()
         sightingCompass.stop()
-        astronomyIntervalometer.stop()
+        astronomyTimer.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
         gpsErrorShown = false
@@ -569,14 +574,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 }
             }
         }
-    }
-
-    private fun getSunBearing(): Float {
-        return fromTrueNorth(astronomyService.getSunAzimuth(gps.location).value)
-    }
-
-    private fun getMoonBearing(): Float {
-        return fromTrueNorth(astronomyService.getMoonAzimuth(gps.location).value)
     }
 
     private fun getDestinationBearing(): Float? {
@@ -847,10 +844,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNearbyBeacons()
         updateDeclination()
 
-        if (sunBearing == 0f) {
-            inBackground {
-                updateAstronomyData()
-            }
+        if (astronomyData == null) {
+            updateAstronomyData()
         }
 
         if (paths.any()) {
@@ -955,7 +950,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     @DrawableRes
     private fun getMoonImage(): Int {
-        return MoonPhaseImageMapper().getPhaseImage(astronomyService.getCurrentMoonPhase().phase)
+        return MoonPhaseImageMapper().getPhaseImage(astronomyData?.moonPhase ?: MoonTruePhase.Full)
     }
 
     companion object {
