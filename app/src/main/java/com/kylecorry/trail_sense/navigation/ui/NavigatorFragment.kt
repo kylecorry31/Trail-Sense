@@ -15,15 +15,14 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
-import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.pickers.Pickers
@@ -58,7 +57,6 @@ import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -110,7 +108,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
-    private val throttle = Throttle(20)
 
     private val navigationService = NavigationService()
     private val astronomyService = AstronomyService()
@@ -235,9 +232,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     beacons = it.map { it.toBeacon() }
                 }
                 updateNearbyBeacons()
-                onMain {
-                    updateUI()
-                }
             }
         }
 
@@ -247,20 +241,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     paths = it.filter { path -> path.style.visible }
                     updateCompassPaths(true)
                 }
-                onMain {
-                    updateUI()
-                }
             }
 
         }
 
         navController = findNavController()
 
-        observe(compass) { updateUI() }
+        observe(compass) { }
         observe(orientation) { onOrientationUpdate() }
-        observe(altimeter) { updateUI() }
+        observe(altimeter) { }
         observe(gps) { onLocationUpdate() }
-        observe(speedometer) { updateUI() }
+        observe(speedometer) { }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
             // TODO: Show custom share sheet instead
@@ -340,6 +331,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.linearCompass.setOnClickListener {
             toggleDestinationBearing()
         }
+
+        scheduleUpdates(INTERVAL_60_FPS)
     }
 
     private fun setSightingCompassStatus(isOn: Boolean) {
@@ -630,9 +623,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
     }
 
-    private fun updateUI() {
+    override fun onUpdate() {
+        super.onUpdate()
 
-        if (throttle.isThrottled() || !isBound) {
+        if (!isBound) {
             return
         }
 
@@ -840,13 +834,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         } else {
             disableSightingCompass()
         }
-        updateUI()
         return true
     }
 
     private fun onLocationUpdate() {
 
-        if (gps is CustomGPS && !(gps as CustomGPS).isTimedOut) {
+        if (gpsTimeoutShown && gps is CustomGPS && !(gps as CustomGPS).isTimedOut) {
             gpsTimeoutShown = false
             requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
         }
@@ -863,8 +856,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (paths.any()) {
             updateCompassPaths()
         }
-        
-        updateUI()
     }
 
 
