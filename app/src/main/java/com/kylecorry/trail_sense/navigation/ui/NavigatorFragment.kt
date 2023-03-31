@@ -55,6 +55,7 @@ import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyData
 import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyDataCommand
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -151,6 +152,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
 
+    // Compass layers
+    private val beaconCompassLayer = BeaconCompassLayer()
+
 
     // Cached preferences
     private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
@@ -209,6 +213,25 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 beaconLayer
             )
         )
+
+        binding.roundCompass.setCompassLayers(
+            listOf(
+                beaconCompassLayer
+            )
+        )
+
+        binding.linearCompass.setCompassLayers(
+            listOf(
+                beaconCompassLayer
+            )
+        )
+
+        binding.radarCompass.setCompassLayers(
+            listOf(
+
+            )
+        )
+
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
@@ -723,14 +746,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         myLocationLayer.setLocation(gps.location)
         myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
-        beaconLayer.setBeacons((nearby + listOfNotNull(destination)).distinctBy { it.id })
+        val allBeacons = (nearby + listOfNotNull(destination)).distinctBy { it.id }
+        beaconLayer.setBeacons(allBeacons)
+        beaconCompassLayer.setBeacons(allBeacons)
+        beaconCompassLayer.highlight(destination)
         beaconLayer.highlight(destination)
+
+
 
         compasses.forEach {
             it.azimuth = compass.bearing
             it.setDeclination(declination)
             it.setLocation(gps.location)
-            it.showLocations(nearby)
             it.showReferences(references)
             it.showDirection(direction)
             it.highlightLocation(destination)

@@ -312,9 +312,14 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(-azimuth.value)
         drawCompass()
         drawLayers()
+        drawCompassLayers()
         drawReferencePoints()
         drawDestination()
         pop()
+    }
+
+    override fun draw(reference: IMappableReferencePoint, size: Int?) {
+        drawReferencePoint(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
     }
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {

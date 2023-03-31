@@ -10,16 +10,9 @@ interface INearbyCompassView {
     var azimuth: Bearing
     fun setLocation(location: Coordinate)
     fun setDeclination(declination: Float)
-    fun showLocations(locations: List<IMappableLocation>) // Remove these
     fun highlightLocation(location: IMappableLocation?) // Remove these
     fun showReferences(references: List<IMappableReferencePoint>) // Use this to show beacons on non-radar compass
     fun showDirection(bearing: IMappableBearing?)
-}
-
-interface ICompassView {
-    fun setAzimuth(azimuth: Bearing)
-    fun setReferences(references: List<IMappableReferencePoint>)
-    fun setBearing(bearing: IMappableBearing?)
 }
 
 interface IMappableBearing {
