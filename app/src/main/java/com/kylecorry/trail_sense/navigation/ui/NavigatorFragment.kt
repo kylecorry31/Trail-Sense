@@ -56,6 +56,8 @@ import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyDataCommand
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.DestinationCompassLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -154,6 +156,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     // Compass layers
     private val beaconCompassLayer = BeaconCompassLayer()
+    private val astronomyCompassLayer = MarkerCompassLayer()
+    private val destinationCompassLayer = DestinationCompassLayer()
 
 
     // Cached preferences
@@ -216,19 +220,24 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.roundCompass.setCompassLayers(
             listOf(
-                beaconCompassLayer
+                astronomyCompassLayer,
+                beaconCompassLayer,
+                destinationCompassLayer
             )
         )
 
         binding.linearCompass.setCompassLayers(
             listOf(
-                beaconCompassLayer
+                astronomyCompassLayer,
+                beaconCompassLayer,
+                destinationCompassLayer
             )
         )
 
         binding.radarCompass.setCompassLayers(
             listOf(
-
+                astronomyCompassLayer,
+                destinationCompassLayer
             )
         )
 
@@ -754,15 +763,25 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         beaconCompassLayer.highlight(destination)
         beaconLayer.highlight(destination)
 
+        // Destination
+        if (destination != null) {
+            destinationCompassLayer.setDestination(destination)
+        } else if (direction != null){
+            destinationCompassLayer.setDestination(direction)
+        } else {
+            destinationCompassLayer.setDestination(null as MappableBearing?)
+        }
 
+        // Astronomy
+        astronomyCompassLayer.clearMarkers()
+        references.forEach {
+            astronomyCompassLayer.addMarker(it)
+        }
 
         compasses.forEach {
             it.azimuth = compass.bearing
             it.setDeclination(declination)
             it.setLocation(gps.location)
-            it.showReferences(references)
-            it.showDirection(direction)
-            it.highlightLocation(destination)
         }
     }
 

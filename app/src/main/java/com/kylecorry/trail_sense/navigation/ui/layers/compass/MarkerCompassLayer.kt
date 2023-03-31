@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.ui.layers.compass
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.trail_sense.navigation.ui.IMappableReferencePoint
 
-open class CompassMarkerLayer : ICompassLayer {
+open class MarkerCompassLayer : ICompassLayer {
 
     private val markers = mutableListOf<Pair<IMappableReferencePoint, Int?>>()
     private val lock = Any()

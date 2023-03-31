@@ -41,10 +41,6 @@ class RoundCompassView : BaseCompassView {
         defStyleAttr
     )
 
-    private fun drawDestination() {
-        _destination?.let { draw(it) }
-    }
-
     private fun drawAzimuth() {
         tint(Resources.androidTextColorPrimary(context))
         imageMode(ImageMode.Corner)
@@ -119,30 +115,6 @@ class RoundCompassView : BaseCompassView {
         noStroke()
     }
 
-    private fun drawReferences() {
-        for (reference in _references) {
-            drawReference(reference)
-        }
-    }
-
-    private fun drawReference(reference: IMappableReferencePoint, size: Int = iconSize) {
-        val tint = reference.tint
-        if (tint != null) {
-            tint(tint)
-        } else {
-            noTint()
-        }
-        opacity((255 * reference.opacity).toInt())
-        push()
-        rotate(reference.bearing.value)
-        val bitmap = getBitmap(reference.drawableId, size)
-        imageMode(ImageMode.Corner)
-        image(bitmap, width / 2f - size / 2f, (iconSize - size) * 0.6f)
-        pop()
-        noTint()
-        opacity(255)
-    }
-
     override fun setup() {
         super.setup()
         iconSize = dp(24f).toInt()
@@ -169,13 +141,26 @@ class RoundCompassView : BaseCompassView {
         rotate(-azimuth.value)
         drawCompass()
         drawCompassLayers()
-        drawReferences()
-        drawDestination()
         pop()
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
-        drawReference(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
+        val sizeDp = size?.let { dp(it.toFloat()).toInt() } ?: iconSize
+        val tint = reference.tint
+        if (tint != null) {
+            tint(tint)
+        } else {
+            noTint()
+        }
+        opacity((255 * reference.opacity).toInt())
+        push()
+        rotate(reference.bearing.value)
+        val bitmap = getBitmap(reference.drawableId, sizeDp)
+        imageMode(ImageMode.Corner)
+        image(bitmap, width / 2f - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)
+        pop()
+        noTint()
+        opacity(255)
     }
 
     override fun draw(bearing: IMappableBearing) {

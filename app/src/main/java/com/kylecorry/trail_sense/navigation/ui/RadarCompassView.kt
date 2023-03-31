@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
@@ -92,64 +91,12 @@ class RadarCompassView : BaseCompassView, IMapView {
         singleTapAction = action
     }
 
-    private fun drawDestination() {
-        val destination = _destination ?: return
-        draw(destination)
-        drawReferencePoint(
-            MappableReferencePoint(
-                0,
-                R.drawable.ic_arrow_target,
-                destination.bearing,
-                destination.color
-            )
-        )
-
-        _highlightedLocation?.let { location ->
-            location.icon?.let { icon ->
-                drawReferencePoint(
-                    MappableReferencePoint(
-                        location.id,
-                        icon.icon,
-                        destination.bearing,
-                        Colors.mostContrastingColor(Color.WHITE, Color.BLACK, destination.color)
-                    ),
-                    (iconSize * 0.35f).toInt()
-                )
-            }
-        }
-    }
-
     private fun drawLayers() {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
         layers.forEach { it.draw(this, this) }
         pop()
-    }
-
-    private fun drawReferencePoints() {
-        _references.forEach { drawReferencePoint(it) }
-    }
-
-    private fun drawReferencePoint(reference: IMappableReferencePoint, size: Int = iconSize) {
-        if (reference.opacity == 0f) {
-            return
-        }
-        val tint = reference.tint
-        if (tint != null) {
-            tint(tint)
-        } else {
-            noTint()
-        }
-        opacity((255 * reference.opacity).toInt())
-        push()
-        rotate(reference.bearing.value)
-        val bitmap = getBitmap(reference.drawableId, size)
-        image(bitmap, width / 2f - size / 2f, (iconSize - size) * 0.6f)
-        pop()
-        noTint()
-        opacity(255)
-        noStroke()
     }
 
     private fun drawCompass() {
@@ -163,9 +110,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         strokeWeight(3f)
         push()
         rotate(azimuth.value)
-        if (_destination == null) {
-            line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
-        }
+        line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
@@ -278,13 +223,30 @@ class RadarCompassView : BaseCompassView, IMapView {
         drawCompass()
         drawLayers()
         drawCompassLayers()
-        drawReferencePoints()
-        drawDestination()
         pop()
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
-        drawReferencePoint(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
+        val sizeDp = size?.let { dp(it.toFloat()).toInt() } ?: iconSize
+
+        if (reference.opacity == 0f) {
+            return
+        }
+        val tint = reference.tint
+        if (tint != null) {
+            tint(tint)
+        } else {
+            noTint()
+        }
+        opacity((255 * reference.opacity).toInt())
+        push()
+        rotate(reference.bearing.value)
+        val bitmap = getBitmap(reference.drawableId, sizeDp)
+        image(bitmap, width / 2f - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)
+        pop()
+        noTint()
+        opacity(255)
+        noStroke()
     }
 
     // TODO: Make distance configurable
@@ -293,7 +255,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         fill(bearing.color)
 
         // To end of compass
-        opacity(if (_highlightedLocation != null) 25 else 100)
+//        opacity(if (_highlightedLocation != null) 25 else 100)
+        opacity(100)
         val dp2 = dp(2f)
         arc(
             iconSize.toFloat() + dp2,
@@ -306,20 +269,20 @@ class RadarCompassView : BaseCompassView, IMapView {
         )
 
         // To highlighted location
-        _highlightedLocation?.let {
-            val pixel = toPixel(it.coordinate)
-            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
-            opacity(75)
-            arc(
-                centerPixel.x - size / 2f,
-                centerPixel.y - size / 2f,
-                size,
-                size,
-                azimuth.value - 90,
-                azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
-                ArcMode.Pie
-            )
-        }
+//        _highlightedLocation?.let {
+//            val pixel = toPixel(it.coordinate)
+//            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
+//            opacity(75)
+//            arc(
+//                centerPixel.x - size / 2f,
+//                centerPixel.y - size / 2f,
+//                size,
+//                size,
+//                azimuth.value - 90,
+//                azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+//                ArcMode.Pie
+//            )
+//        }
 
 
         opacity(255)

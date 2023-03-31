@@ -17,7 +17,7 @@ class BeaconCompassLayer(
     private val size: Float = 24f
 ) : ICompassLayer {
 
-    private val markerLayer = CompassMarkerLayer()
+    private val markerLayer = MarkerCompassLayer()
 
     private val _beacons = mutableListOf<Beacon>()
     private var _highlighted: Beacon? = null

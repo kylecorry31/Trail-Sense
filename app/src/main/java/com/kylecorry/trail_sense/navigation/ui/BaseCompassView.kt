@@ -14,9 +14,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 abstract class BaseCompassView : CanvasView, INearbyCompassView, ICompassView {
 
     private val bitmapLoader by lazy { BitmapLoader(context) }
-    protected var _destination: IMappableBearing? = null
-    protected var _highlightedLocation: IMappableLocation? = null
-    protected var _references: List<IMappableReferencePoint> = emptyList()
     protected var _location = Coordinate.zero
     protected var _useTrueNorth = false
     protected var _declination: Float = 0f
@@ -59,21 +56,6 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView, ICompassView {
 
     override fun setDeclination(declination: Float) {
         _declination = declination
-        invalidate()
-    }
-
-    override fun showReferences(references: List<IMappableReferencePoint>) {
-        _references = references
-        invalidate()
-    }
-
-    override fun showDirection(bearing: IMappableBearing?) {
-        _destination = bearing
-        invalidate()
-    }
-
-    override fun highlightLocation(location: IMappableLocation?) {
-        _highlightedLocation = location
         invalidate()
     }
 

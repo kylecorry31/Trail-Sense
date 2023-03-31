@@ -53,51 +53,6 @@ class LinearCompassView : BaseCompassView {
         noTint()
     }
 
-    private fun drawReferences() {
-        for (reference in _references) {
-            drawReference(reference)
-        }
-    }
-
-    private fun drawReference(reference: IMappableReferencePoint, size: Int = iconSize) {
-        val minDegrees = (azimuth.value - range / 2).roundToInt()
-        val maxDegrees = (azimuth.value + range / 2).roundToInt()
-        val tint = reference.tint
-        if (tint != null) {
-            tint(tint)
-        } else {
-            noTint()
-        }
-        val delta = deltaAngle(
-            azimuth.value.roundToInt().toFloat(),
-            reference.bearing.value.roundToInt().toFloat()
-        )
-        val centerPixel = when {
-            delta < -range / 2f -> {
-                0f // TODO: Display indicator that is off screen
-            }
-            delta > range / 2f -> {
-                width.toFloat() // TODO: Display indicator that is off screen
-            }
-            else -> {
-                val deltaMin = deltaAngle(
-                    reference.bearing.value,
-                    minDegrees.toFloat()
-                ).absoluteValue / (maxDegrees - minDegrees).toFloat()
-                deltaMin * width
-            }
-        }
-        opacity((255 * reference.opacity).toInt())
-        val bitmap = getBitmap(reference.drawableId, size)
-        imageMode(ImageMode.Corner)
-        image(
-            bitmap, centerPixel - size / 2f,
-            (iconSize - size) * 0.6f
-        )
-        noTint()
-        opacity(255)
-    }
-
 
     private fun drawCompass() {
         val pixDeg = width / range
@@ -160,12 +115,6 @@ class LinearCompassView : BaseCompassView {
         noStroke()
     }
 
-    private fun drawDestination() {
-        val destination = _destination ?: return
-        draw(destination)
-        drawReference(MappableReferencePoint(-1, R.drawable.ic_arrow_target, destination.bearing, destination.color))
-    }
-
     override fun setup() {
         super.setup()
         textAlign(TextAlign.Center)
@@ -182,12 +131,48 @@ class LinearCompassView : BaseCompassView {
         drawAzimuth()
         drawCompass()
         drawCompassLayers()
-        drawReferences()
-        drawDestination()
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
-        drawReference(reference, size?.let { dp(it.toFloat()).toInt() } ?: iconSize)
+        val sizeDp = size?.let { dp(it.toFloat()).toInt() } ?: iconSize
+
+        val minDegrees = (azimuth.value - range / 2).roundToInt()
+        val maxDegrees = (azimuth.value + range / 2).roundToInt()
+        val tint = reference.tint
+        if (tint != null) {
+            tint(tint)
+        } else {
+            noTint()
+        }
+        val delta = deltaAngle(
+            azimuth.value.roundToInt().toFloat(),
+            reference.bearing.value.roundToInt().toFloat()
+        )
+        val centerPixel = when {
+            delta < -range / 2f -> {
+                0f // TODO: Display indicator that is off screen
+            }
+            delta > range / 2f -> {
+                width.toFloat() // TODO: Display indicator that is off screen
+            }
+            else -> {
+                val deltaMin = deltaAngle(
+                    reference.bearing.value,
+                    minDegrees.toFloat()
+                ).absoluteValue / (maxDegrees - minDegrees).toFloat()
+                deltaMin * width
+            }
+        }
+        opacity((255 * reference.opacity).toInt())
+        val bitmap = getBitmap(reference.drawableId, sizeDp)
+        imageMode(ImageMode.Corner)
+        image(
+            bitmap, centerPixel - sizeDp / 2f,
+            (iconSize - sizeDp) * 0.6f
+        )
+        noTint()
+        opacity(255)
+
     }
 
     override fun draw(bearing: IMappableBearing) {
