@@ -1104,4 +1104,5 @@
     <string name="magnitude">Büyüklük</string>
     <string name="unable_to_find_next_astronomy">Sonraki %s bulunamadı</string>
     <string name="astronomy_direction_peak">Tepe yönü</string>
+    <string name="print">Yazdır</string>
 </resources>

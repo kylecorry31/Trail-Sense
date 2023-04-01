@@ -1090,4 +1090,5 @@
     <string name="astronomy_altitude_peak">最高高度</string>
     <string name="magnitude">等级</string>
     <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
+    <string name="print">打印</string>
 </resources>
