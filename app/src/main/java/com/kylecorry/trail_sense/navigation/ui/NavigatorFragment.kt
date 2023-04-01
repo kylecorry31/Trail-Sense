@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.navigation.NavController
@@ -23,7 +22,6 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
@@ -36,6 +34,9 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
+import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
+import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.CompassStyle
@@ -52,14 +53,15 @@ import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -118,6 +120,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var destination: Beacon? = null
     private var destinationBearing: Float? = null
 
+    // Status badges
+    private val gpsStatusBadgeProvider by lazy { GpsStatusBadgeProvider(gps, requireContext()) }
+    private val compassStatusBadgeProvider by lazy {
+        SensorStatusBadgeProvider(
+            compass,
+            requireContext(),
+            R.drawable.ic_compass_icon
+        )
+    }
+    private var gpsStatusBadge: StatusBadge? = null
+    private var compassStatusBadge: StatusBadge? = null
+
     // Data commands
     private val updateTideLayerCommand by lazy {
         UpdateTideLayerCommand(
@@ -152,6 +166,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val layerTimer = Timer {
         updateCompassLayers()
+    }
+
+    private val statusTimer = Timer {
+        updateSensorStatus()
     }
 
     private val pathLayer = PathLayer()
@@ -502,6 +520,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         lastOrientation = null
         astronomyTimer.interval(Duration.ofMinutes(1))
         layerTimer.interval(Duration.ofMillis(100))
+        statusTimer.interval(INTERVAL_1_FPS)
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
@@ -537,6 +556,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadBeaconsRunner.cancel()
         sightingCompass.stop()
         astronomyTimer.stop()
+        statusTimer.stop()
         layerTimer.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
@@ -628,31 +648,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationSheet.hide()
         }
 
-        detectAndShowGPSError()
-        binding.gpsStatus.setStatusText(getGPSStatus())
-        binding.gpsStatus.setBackgroundTint(getGPSColor())
-        binding.compassStatus.setStatusText(formatService.formatQuality(compass.quality))
-        binding.compassStatus.setBackgroundTint(getCompassColor())
+        gpsStatusBadge?.let {
+            binding.gpsStatus.setStatusText(it.name)
+            binding.gpsStatus.setBackgroundTint(it.color)
+        }
 
-        if ((compass.quality == Quality.Poor) && !shownAccuracyToast) {
-            val banner = requireMainActivity().errorBanner
-            banner.report(
-                UserError(
-                    ErrorBannerReason.CompassPoor,
-                    getString(
-                        R.string.compass_calibrate_toast, formatService.formatQuality(
-                            compass.quality
-                        ).lowercase(Locale.getDefault())
-                    ),
-                    R.drawable.ic_compass_icon,
-                    getString(R.string.how)
-                ) {
-                    displayAccuracyTips()
-                    banner.hide()
-                })
-            shownAccuracyToast = true
-        } else if (compass.quality == Quality.Good || compass.quality == Quality.Moderate) {
-            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
+        compassStatusBadge?.let {
+            binding.compassStatus.setStatusText(it.name)
+            binding.compassStatus.setBackgroundTint(it.color)
         }
 
         // Speed
@@ -847,6 +850,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
+    private fun updateSensorStatus(){
+        inBackground {
+            compassStatusBadge = compassStatusBadgeProvider.getBadge()
+            gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
+
+            onMain {
+                detectAndShowGPSError()
+                detectAndShowCompassError()
+            }
+
+        }
+    }
+
 
     private fun updateNavigationButton() {
         if (destination != null) {
@@ -862,50 +878,27 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
     }
 
-    @ColorInt
-    private fun getCompassColor(): Int {
-        return CustomUiUtils.getQualityColor(compass.quality)
-    }
-
-    @ColorInt
-    private fun getGPSColor(): Int {
-        if (gps is OverrideGPS) {
-            return AppColor.Green.color
+    private fun detectAndShowCompassError(){
+        if ((compass.quality == Quality.Poor) && !shownAccuracyToast) {
+            val banner = requireMainActivity().errorBanner
+            banner.report(
+                UserError(
+                    ErrorBannerReason.CompassPoor,
+                    getString(
+                        R.string.compass_calibrate_toast, formatService.formatQuality(
+                            compass.quality
+                        ).lowercase(Locale.getDefault())
+                    ),
+                    R.drawable.ic_compass_icon,
+                    getString(R.string.how)
+                ) {
+                    displayAccuracyTips()
+                    banner.hide()
+                })
+            shownAccuracyToast = true
+        } else if (compass.quality == Quality.Good || compass.quality == Quality.Moderate) {
+            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         }
-
-        if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return AppColor.Red.color
-        }
-
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
-            return AppColor.Yellow.color
-        }
-
-        if (!gps.hasValidReading || (requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
-            return AppColor.Yellow.color
-        }
-
-        return CustomUiUtils.getQualityColor(gps.quality)
-    }
-
-    private fun getGPSStatus(): String {
-        if (gps is OverrideGPS) {
-            return getString(R.string.gps_user)
-        }
-
-        if (gps is CachedGPS || !GPS.isAvailable(requireContext())) {
-            return getString(R.string.unavailable)
-        }
-
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
-            return getString(R.string.gps_stale)
-        }
-
-        if (!gps.hasValidReading || (requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
-            return getString(R.string.gps_searching)
-        }
-
-        return formatService.formatQuality(gps.quality)
     }
 
     private fun detectAndShowGPSError() {
