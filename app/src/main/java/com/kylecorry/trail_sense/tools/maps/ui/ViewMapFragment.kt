@@ -429,7 +429,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             stopDistanceMeasurement()
         }
         binding.distanceSheet.createPathListener = {
-            runInBackground {
+            inBackground {
                 map?.let {
                     val id = CreatePathCommand(
                         pathService,

@@ -684,49 +684,48 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateCompassView() {
-        val destBearing = getDestinationBearing()
-        val destination = destination
-        val destColor = destination?.color ?: AppColor.Blue.color
+        inBackground {
+            val destBearing = getDestinationBearing()
+            val destination = destination
+            val destColor = destination?.color ?: AppColor.Blue.color
 
-        val direction = destBearing?.let {
-            MappableBearing(
-                Bearing(it),
-                destColor
-            )
-        }
+            val direction = destBearing?.let {
+                MappableBearing(
+                    Bearing(it),
+                    destColor
+                )
+            }
 
-        val nearby = nearbyBeacons.toList()
+            val nearby = nearbyBeacons.toList()
 
-        // TODO: Only update the current compass
-        val compasses = listOf<INearbyCompassView>(
-            binding.roundCompass,
-            binding.radarCompass,
-            binding.linearCompass
-        )
+            myLocationLayer.setLocation(gps.location)
+            myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
 
-        myLocationLayer.setLocation(gps.location)
-        myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
+            // Update beacon layers
+            val allBeacons = (nearby + listOfNotNull(destination)).distinctBy { it.id }
+            beaconLayer.setBeacons(allBeacons)
+            beaconCompassLayer.setBeacons(allBeacons)
+            beaconCompassLayer.highlight(destination)
+            beaconLayer.highlight(destination)
 
-        // Update beacon layers
-        val allBeacons = (nearby + listOfNotNull(destination)).distinctBy { it.id }
-        beaconLayer.setBeacons(allBeacons)
-        beaconCompassLayer.setBeacons(allBeacons)
-        beaconCompassLayer.highlight(destination)
-        beaconLayer.highlight(destination)
+            // Destination
+            if (destination != null) {
+                navigationCompassLayer.setDestination(destination)
+            } else if (direction != null) {
+                navigationCompassLayer.setDestination(direction)
+            } else {
+                navigationCompassLayer.setDestination(null as MappableBearing?)
+            }
 
-        // Destination
-        if (destination != null) {
-            navigationCompassLayer.setDestination(destination)
-        } else if (direction != null) {
-            navigationCompassLayer.setDestination(direction)
-        } else {
-            navigationCompassLayer.setDestination(null as MappableBearing?)
-        }
-
-        compasses.forEach {
-            it.azimuth = compass.bearing
-            it.setDeclination(declination)
-            it.setLocation(gps.location)
+            listOf<INearbyCompassView>(
+                binding.roundCompass,
+                binding.radarCompass,
+                binding.linearCompass
+            ).forEach {
+                it.azimuth = compass.bearing
+                it.setDeclination(declination)
+                it.setLocation(gps.location)
+            }
         }
     }
 
