@@ -114,7 +114,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var beacons: Collection<Beacon> = listOf()
     private var paths: List<Path> = emptyList()
-    private var nearbyBeacons: Collection<Beacon> = listOf()
+    private var nearbyBeacons: List<Beacon> = listOf()
 
     private var destination: Beacon? = null
     private var destinationBearing: Float? = null
@@ -562,17 +562,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             onIO {
                 loadBeaconsRunner.joinPreviousOrRun {
                     if (!isNearbyEnabled) {
-                        nearbyBeacons = emptyList()
+                        nearbyBeacons = listOfNotNull(destination)
                         return@joinPreviousOrRun
                     }
 
-                    nearbyBeacons = navigationService.getNearbyBeacons(
+                    nearbyBeacons = (navigationService.getNearbyBeacons(
                         gps.location,
                         beacons,
                         nearbyCount,
                         8f,
                         nearbyDistance
-                    )
+                    ) + listOfNotNull(destination)).distinctBy { it.id }
                 }
             }
         }
@@ -707,15 +707,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 )
             }
 
-            val nearby = nearbyBeacons.toList()
-
             myLocationLayer.setLocation(gps.location)
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
 
             // Update beacon layers
-            val allBeacons = (nearby + listOfNotNull(destination)).distinctBy { it.id }
-            beaconLayer.setBeacons(allBeacons)
-            beaconCompassLayer.setBeacons(allBeacons)
+            beaconLayer.setBeacons(nearbyBeacons)
+            beaconCompassLayer.setBeacons(nearbyBeacons)
             beaconCompassLayer.highlight(destination)
             beaconLayer.highlight(destination)
 
