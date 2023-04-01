@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
@@ -175,7 +176,7 @@ class LinearCompassView : BaseCompassView {
 
     }
 
-    override fun draw(bearing: IMappableBearing) {
+    override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
         val delta = deltaAngle(
             azimuth.value.roundToInt().toFloat(),
             bearing.bearing.value.roundToInt().toFloat()

@@ -249,14 +249,12 @@ class RadarCompassView : BaseCompassView, IMapView {
         noStroke()
     }
 
-    // TODO: Make distance configurable
-    override fun draw(bearing: IMappableBearing) {
+    override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
         push()
         fill(bearing.color)
 
         // To end of compass
-//        opacity(if (_highlightedLocation != null) 25 else 100)
-        opacity(100)
+        opacity(if (stopAt != null) 25 else 100)
         val dp2 = dp(2f)
         arc(
             iconSize.toFloat() + dp2,
@@ -269,21 +267,20 @@ class RadarCompassView : BaseCompassView, IMapView {
         )
 
         // To highlighted location
-//        _highlightedLocation?.let {
-//            val pixel = toPixel(it.coordinate)
-//            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
-//            opacity(75)
-//            arc(
-//                centerPixel.x - size / 2f,
-//                centerPixel.y - size / 2f,
-//                size,
-//                size,
-//                azimuth.value - 90,
-//                azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
-//                ArcMode.Pie
-//            )
-//        }
-
+        stopAt?.let {
+            val pixel = toPixel(it)
+            val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
+            opacity(75)
+            arc(
+                centerPixel.x - size / 2f,
+                centerPixel.y - size / 2f,
+                size,
+                size,
+                azimuth.value - 90,
+                azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+                ArcMode.Pie
+            )
+        }
 
         opacity(255)
         pop()

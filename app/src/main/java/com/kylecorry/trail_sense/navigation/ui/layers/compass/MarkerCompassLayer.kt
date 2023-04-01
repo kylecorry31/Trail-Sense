@@ -8,6 +8,13 @@ open class MarkerCompassLayer : ICompassLayer {
     private val markers = mutableListOf<Pair<IMappableReferencePoint, Int?>>()
     private val lock = Any()
 
+    fun setMarkers(markers: List<IMappableReferencePoint>) {
+        synchronized(lock) {
+            this.markers.clear()
+            this.markers.addAll(markers.map { it to null })
+        }
+    }
+
     fun addMarker(marker: IMappableReferencePoint, size: Int? = null) {
         synchronized(lock) {
             markers.add(marker to size)

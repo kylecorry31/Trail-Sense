@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.navigation.NavController
@@ -28,7 +27,6 @@ import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
-import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
@@ -36,7 +34,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -51,12 +48,11 @@ import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
-import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyData
-import com.kylecorry.trail_sense.navigation.ui.data.NavAstronomyDataCommand
+import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.compass.DestinationCompassLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
@@ -123,16 +119,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var destinationBearing: Float? = null
 
     // Data commands
-    private val astronomyDataCommand by lazy { NavAstronomyDataCommand(gps) }
     private val updateTideLayerCommand by lazy {
         UpdateTideLayerCommand(
             requireContext(),
             tideLayer
         )
     }
+    private val updateAstronomyLayerCommand by lazy {
+        UpdateAstronomyLayerCommand(
+            astronomyCompassLayer,
+            userPrefs,
+            gps
+        ) { declination }
+    }
 
 
-    private var astronomyData: NavAstronomyData? = null
+    private var astronomyDataLoaded = false
 
     private var gpsErrorShown = false
     private var gpsTimeoutShown = false
@@ -157,7 +159,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     // Compass layers
     private val beaconCompassLayer = BeaconCompassLayer()
     private val astronomyCompassLayer = MarkerCompassLayer()
-    private val destinationCompassLayer = DestinationCompassLayer()
+    private val navigationCompassLayer = NavigationCompassLayer()
 
 
     // Cached preferences
@@ -166,8 +168,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
-    private val showAstronomyOnCompass by lazy { userPrefs.astronomy.showOnCompass }
-    private val showAstronomyOnCompassWhenDown by lazy { userPrefs.astronomy.showOnCompassWhenDown }
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation) }
@@ -222,7 +222,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             listOf(
                 astronomyCompassLayer,
                 beaconCompassLayer,
-                destinationCompassLayer
+                navigationCompassLayer
             )
         )
 
@@ -230,14 +230,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             listOf(
                 astronomyCompassLayer,
                 beaconCompassLayer,
-                destinationCompassLayer
+                navigationCompassLayer
             )
         )
 
         binding.radarCompass.setCompassLayers(
             listOf(
                 astronomyCompassLayer,
-                destinationCompassLayer
+                navigationCompassLayer
             )
         )
 
@@ -488,57 +488,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
 
             updateTideLayerCommand.execute()
-            astronomyData = astronomyDataCommand.execute()
+            updateAstronomyLayerCommand.execute()
+            astronomyDataLoaded = true
         }
-    }
-
-    private fun getReferencePoints(): List<IMappableReferencePoint> {
-        val references = mutableListOf<IMappableReferencePoint>()
-
-        val astro = astronomyData ?: return references
-
-        if (showAstronomyOnCompass) {
-            val showWhenDown = showAstronomyOnCompassWhenDown
-
-            if (astro.isSunUp) {
-                references.add(
-                    MappableReferencePoint(
-                        1,
-                        R.drawable.ic_sun,
-                        Bearing(fromTrueNorth(astro.sunBearing.value))
-                    )
-                )
-            } else if (showWhenDown) {
-                references.add(
-                    MappableReferencePoint(
-                        1,
-                        R.drawable.ic_sun,
-                        Bearing(fromTrueNorth(astro.sunBearing.value)),
-                        opacity = 0.5f
-                    )
-                )
-            }
-
-            if (astro.isMoonUp) {
-                references.add(
-                    MappableReferencePoint(
-                        2,
-                        getMoonImage(),
-                        Bearing(fromTrueNorth(astro.moonBearing.value))
-                    )
-                )
-            } else if (showWhenDown) {
-                references.add(
-                    MappableReferencePoint(
-                        2,
-                        getMoonImage(),
-                        Bearing(fromTrueNorth(astro.moonBearing.value)),
-                        opacity = 0.5f
-                    )
-                )
-            }
-        }
-        return references
     }
 
     override fun onResume() {
@@ -743,7 +695,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             )
         }
 
-        val references = getReferencePoints()
         val nearby = nearbyBeacons.toList()
 
         // TODO: Only update the current compass
@@ -765,17 +716,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Destination
         if (destination != null) {
-            destinationCompassLayer.setDestination(destination)
-        } else if (direction != null){
-            destinationCompassLayer.setDestination(direction)
+            navigationCompassLayer.setDestination(destination)
+        } else if (direction != null) {
+            navigationCompassLayer.setDestination(direction)
         } else {
-            destinationCompassLayer.setDestination(null as MappableBearing?)
-        }
-
-        // Astronomy
-        astronomyCompassLayer.clearMarkers()
-        references.forEach {
-            astronomyCompassLayer.addMarker(it)
+            navigationCompassLayer.setDestination(null as MappableBearing?)
         }
 
         compasses.forEach {
@@ -890,7 +835,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNearbyBeacons()
         updateDeclination()
 
-        if (astronomyData == null) {
+        if (!astronomyDataLoaded) {
             updateAstronomyData()
         }
 
@@ -992,11 +937,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             requireMainActivity().errorBanner.report(error)
             gpsTimeoutShown = true
         }
-    }
-
-    @DrawableRes
-    private fun getMoonImage(): Int {
-        return MoonPhaseImageMapper().getPhaseImage(astronomyData?.moonPhase ?: MoonTruePhase.Full)
     }
 
     companion object {

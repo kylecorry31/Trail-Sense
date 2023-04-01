@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.min
@@ -163,7 +164,7 @@ class RoundCompassView : BaseCompassView {
         opacity(255)
     }
 
-    override fun draw(bearing: IMappableBearing) {
+    override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
         push()
         fill(bearing.color)
         opacity(100)
