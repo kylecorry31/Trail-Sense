@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -160,18 +159,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val loadPathRunner = ControlledRunner<Unit>()
     private val loadBeaconsRunner = ControlledRunner<Unit>()
 
-    private val astronomyTimer = Timer {
-        updateAstronomyData()
-    }
-
-    private val layerTimer = Timer {
-        updateCompassLayers()
-    }
-
-    private val statusTimer = Timer {
-        updateSensorStatus()
-    }
-
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
@@ -194,8 +181,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation) }
     private val useTrueNorth by lazy { userPrefs.navigation.useTrueNorth }
-    private val requiresSatellites by lazy { userPrefs.requiresSatellites }
 
+    private val timers = TimerPool()
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -227,6 +214,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Register timers
+        timers.add(Duration.ofMinutes(1)){
+            updateAstronomyData()
+        }
+
+        timers.add(Duration.ofMillis(100)){
+            updateCompassLayers()
+        }
+
+        timers.add(Duration.ofSeconds(1)){
+            updateSensorStatus()
+        }
 
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
         myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
@@ -518,9 +518,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
         lastOrientation = null
-        astronomyTimer.interval(Duration.ofMinutes(1))
-        layerTimer.interval(Duration.ofMillis(100))
-        statusTimer.interval(INTERVAL_1_FPS)
+        timers.start()
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
@@ -555,9 +553,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadPathRunner.cancel()
         loadBeaconsRunner.cancel()
         sightingCompass.stop()
-        astronomyTimer.stop()
-        statusTimer.stop()
-        layerTimer.stop()
+        timers.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
         gpsErrorShown = false
