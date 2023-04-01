@@ -182,8 +182,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation) }
     private val useTrueNorth by lazy { userPrefs.navigation.useTrueNorth }
 
-    private val timers = TimerPool()
-
     override fun onDestroyView() {
         super.onDestroyView()
         activity?.let {
@@ -216,18 +214,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         // Register timers
-        timers.add(Duration.ofMinutes(1)){
+        interval(Duration.ofMinutes(1)){
             updateAstronomyData()
         }
 
-        timers.add(Duration.ofMillis(100)){
+        interval(100){
             updateCompassLayers()
         }
 
-        timers.add(Duration.ofSeconds(1)){
+        interval(Duration.ofSeconds(1)){
             updateSensorStatus()
         }
 
+
+        // Initialize layers
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
         myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
         binding.radarCompass.setLayers(
@@ -518,7 +518,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
         lastOrientation = null
-        timers.start()
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
@@ -553,7 +552,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadPathRunner.cancel()
         loadBeaconsRunner.cancel()
         sightingCompass.stop()
-        timers.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
         gpsErrorShown = false
