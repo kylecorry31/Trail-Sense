@@ -7,19 +7,28 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-abstract class BaseCompassView : CanvasView, INearbyCompassView {
+abstract class BaseCompassView : CanvasView, INearbyCompassView, ICompassView {
 
     private val bitmapLoader by lazy { BitmapLoader(context) }
-    protected var _destination: IMappableBearing? = null
-    protected var _locations: List<IMappableLocation> = emptyList()
-    protected var _highlightedLocation: IMappableLocation? = null
-    protected var _references: List<IMappableReferencePoint> = emptyList()
     protected var _location = Coordinate.zero
     protected var _useTrueNorth = false
     protected var _declination: Float = 0f
     protected val prefs by lazy { UserPreferences(context) }
+
+    override val compassCenter: Coordinate
+        get() = _location
+
+    override val useTrueNorth: Boolean
+        get() = _useTrueNorth
+
+    override val declination: Float
+        get() = _declination
+
+    private val compassLayers = mutableListOf<ICompassLayer>()
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -50,26 +59,6 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
         invalidate()
     }
 
-    override fun showLocations(locations: List<IMappableLocation>) {
-        _locations = locations
-        invalidate()
-    }
-
-    override fun showReferences(references: List<IMappableReferencePoint>) {
-        _references = references
-        invalidate()
-    }
-
-    override fun showDirection(bearing: IMappableBearing?) {
-        _destination = bearing
-        invalidate()
-    }
-
-    override fun highlightLocation(location: IMappableLocation?) {
-        _highlightedLocation = location
-        invalidate()
-    }
-
     protected open fun finalize() {
         bitmapLoader.clear()
     }
@@ -78,7 +67,28 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView {
         return bitmapLoader.load(id, size)
     }
 
+    protected fun drawCompassLayers() {
+        compassLayers.forEach { it.draw(this, this) }
+    }
+
+    protected fun invalidateCompassLayers() {
+        compassLayers.forEach { it.invalidate() }
+    }
+
     override fun setup() {
         _useTrueNorth = prefs.navigation.useTrueNorth
+    }
+
+    override fun addCompassLayer(layer: ICompassLayer) {
+        compassLayers.add(layer)
+    }
+
+    override fun removeCompassLayer(layer: ICompassLayer) {
+        compassLayers.remove(layer)
+    }
+
+    override fun setCompassLayers(layers: List<ICompassLayer>) {
+        compassLayers.clear()
+        compassLayers.addAll(layers)
     }
 }

@@ -86,7 +86,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
                 abbreviateMonth = true
             )
         binding.cloudTitle.subtitle.setOnClickListener {
-            runInBackground {
+            inBackground {
                 val current = time.toZonedDateTime().toLocalDateTime()
                 val newTime = CoroutinePickers.datetime(
                     requireContext(),

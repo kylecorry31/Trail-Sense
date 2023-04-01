@@ -148,7 +148,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     val search = options[it]
                     lastAstronomyEventSearch = search
                     val currentDate = binding.displayDate.date
-                    runInBackground {
+                    inBackground {
                         val loading =
                             AlertLoadingIndicator(requireContext(), getString(R.string.loading))
                         loading.show()
