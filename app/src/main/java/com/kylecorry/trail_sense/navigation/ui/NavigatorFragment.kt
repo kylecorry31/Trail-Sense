@@ -150,6 +150,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateAstronomyData()
     }
 
+    private val layerTimer = Timer {
+        updateCompassLayers()
+    }
+
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
@@ -497,6 +501,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onResume()
         lastOrientation = null
         astronomyTimer.interval(Duration.ofMinutes(1))
+        layerTimer.interval(Duration.ofMillis(100))
 
         // Resume navigation
         val lastBeaconId = cache.getLong(LAST_BEACON_ID)
@@ -532,6 +537,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadBeaconsRunner.cancel()
         sightingCompass.stop()
         astronomyTimer.stop()
+        layerTimer.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
         shownAccuracyToast = false
         gpsErrorShown = false
@@ -660,13 +666,21 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         @SuppressLint("SetTextI18n")
         binding.navigationTitle.title.text = "$azimuthText   $directionText"
 
-        // Compass
-        updateCompassView()
-
         // Altitude
         binding.altitude.title = formatService.formatDistance(
             Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
         )
+
+        // Compass
+        listOf<INearbyCompassView>(
+            binding.roundCompass,
+            binding.radarCompass,
+            binding.linearCompass
+        ).forEach {
+            it.azimuth = compass.bearing
+            it.setDeclination(declination)
+            it.setLocation(gps.location)
+        }
 
         // Location
         binding.navigationTitle.subtitle.text = formatService.formatLocation(gps.location)
@@ -683,7 +697,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun updateCompassView() {
+    private fun updateCompassLayers() {
         inBackground {
             val destBearing = getDestinationBearing()
             val destination = destination
@@ -715,16 +729,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 navigationCompassLayer.setDestination(direction)
             } else {
                 navigationCompassLayer.setDestination(null as MappableBearing?)
-            }
-
-            listOf<INearbyCompassView>(
-                binding.roundCompass,
-                binding.radarCompass,
-                binding.linearCompass
-            ).forEach {
-                it.azimuth = compass.bearing
-                it.setDeclination(declination)
-                it.setLocation(gps.location)
             }
         }
     }
