@@ -214,15 +214,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         // Register timers
-        interval(Duration.ofMinutes(1)){
+        interval(Duration.ofMinutes(1)) {
             updateAstronomyData()
         }
 
-        interval(100){
+        interval(100) {
             updateCompassLayers()
         }
 
-        interval(Duration.ofSeconds(1)){
+        interval(Duration.ofSeconds(1)) {
             updateSensorStatus()
         }
 
@@ -365,8 +365,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 val bundle = bundleOf(
                     "initial_location" to GeoUri(
                         gps.location,
-                        null,
-                        mapOf("ele" to (if (altimeter.hasValidReading) altimeter.altitude else gps.altitude).toString())
+                        if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
                     )
                 )
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment, bundle)
@@ -841,7 +840,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun updateSensorStatus(){
+    private fun updateSensorStatus() {
         inBackground {
             compassStatusBadge = compassStatusBadgeProvider.getBadge()
             gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
@@ -869,7 +868,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
     }
 
-    private fun detectAndShowCompassError(){
+    private fun detectAndShowCompassError() {
         if ((compass.quality == Quality.Poor) && !shownAccuracyToast) {
             val banner = requireMainActivity().errorBanner
             banner.report(
