@@ -7,8 +7,11 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.math.statistics.GaussianDistribution
 import com.kylecorry.sol.math.statistics.Statistics
+import com.kylecorry.trail_sense.shared.extensions.positive
+import com.kylecorry.trail_sense.shared.extensions.real
 
-class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int = 4) : AbstractSensor(),
+class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int = 4) :
+    AbstractSensor(),
     AltimeterWrapper {
 
     // TODO: Add this to IAltimeter
@@ -18,6 +21,8 @@ class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int 
     private val buffer = RingBuffer<GaussianDistribution>(samples)
 
     private var lastDistribution: GaussianDistribution? = null
+
+    private val defaultVariance = 10f
 
     override fun startImpl() {
         buffer.clear()
@@ -39,9 +44,20 @@ class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int 
         get() = altimeter.quality
 
     private fun onReading(): Boolean {
+
+        // Always populate the variance
+        val variance = if (altimeter is IGPS) {
+            altimeter.verticalAccuracy
+                ?.real(defaultVariance)
+                ?.positive(defaultVariance)
+                ?: defaultVariance
+        } else {
+            defaultVariance
+        }
+
         val distribution = GaussianDistribution(
             altimeter.altitude,
-            if (altimeter is IGPS) altimeter.verticalAccuracy ?: 10f else 10f
+            variance
         )
 
         // A new elevation reading was not received

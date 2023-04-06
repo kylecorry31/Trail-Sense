@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.real
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.readAll
@@ -53,9 +54,9 @@ internal class WeatherObserver(
         Reading(
             RawWeatherObservation(
                 0,
-                barometer.pressure,
-                altimeter.altitude,
-                if (thermometer.temperature.isNaN()) 16f else thermometer.temperature,
+                barometer.pressure.real(1013f),
+                altimeter.altitude.real(),
+                thermometer.temperature.real(16f),
                 if (altimeter is AltimeterWrapper) (altimeter as AltimeterWrapper).altitudeAccuracy else 0f,
                 hygrometer.humidity,
                 gps.location
