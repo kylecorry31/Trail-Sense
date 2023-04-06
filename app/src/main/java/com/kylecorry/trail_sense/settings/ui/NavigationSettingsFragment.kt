@@ -86,10 +86,15 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         prefNearbyRadius?.setOnPreferenceClickListener {
             CustomUiUtils.pickDistance(
                 requireContext(),
-                if (distanceUnits == UserPreferences.DistanceUnits.Meters) listOf(
-                    DistanceUnits.Meters,
-                    DistanceUnits.Kilometers
-                ) else listOf(DistanceUnits.Feet, DistanceUnits.Miles, DistanceUnits.NauticalMiles),
+                formatService.sortDistanceUnits(
+                    listOf(
+                        DistanceUnits.Meters,
+                        DistanceUnits.Kilometers,
+                        DistanceUnits.Feet,
+                        DistanceUnits.Miles,
+                        DistanceUnits.NauticalMiles
+                    ), distanceUnits == UserPreferences.DistanceUnits.Meters
+                ),
                 Distance.meters(userPrefs.navigation.maxBeaconDistance)
                     .convertTo(userPrefs.baseDistanceUnits).toRelativeDistance(),
                 it.title.toString()
