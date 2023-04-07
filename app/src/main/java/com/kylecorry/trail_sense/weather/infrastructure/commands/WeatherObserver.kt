@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
-import com.kylecorry.trail_sense.shared.extensions.real
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.readAll
@@ -57,7 +57,7 @@ internal class WeatherObserver(
                 barometer.pressure.real(1013f),
                 altimeter.altitude.real(),
                 thermometer.temperature.real(16f),
-                if (altimeter is AltimeterWrapper) (altimeter as AltimeterWrapper).altitudeAccuracy else 0f,
+                if (altimeter is AltimeterWrapper) (altimeter as AltimeterWrapper).altitudeAccuracy else null,
                 hygrometer.humidity,
                 gps.location
             ),
