@@ -14,8 +14,6 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.positive
-import com.kylecorry.trail_sense.shared.extensions.real
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.time.Instant
@@ -93,8 +91,6 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         _location = baseGPS.location
         _speed = baseGPS.speed
         _verticalAccuracy = baseGPS.verticalAccuracy
-            ?.real(DEFAULT_VERTICAL_ACCURACY)
-            ?.positive(DEFAULT_VERTICAL_ACCURACY)
         _time = baseGPS.time
         _horizontalAccuracy = baseGPS.horizontalAccuracy
         _quality = baseGPS.quality
@@ -236,7 +232,6 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         const val LAST_ALTITUDE = "last_altitude"
         const val LAST_SPEED = "last_speed"
         const val LAST_UPDATE = "last_update"
-        private const val DEFAULT_VERTICAL_ACCURACY = 10f
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
     }
 }
