@@ -1089,4 +1089,17 @@
     <string name="weather_alert_storm_description">Bereiten sie sich auf starke Winde und Niederschlag vor.</string>
     <string name="weather_alert_cold_description">Bereite dich auf kalte Temperaturen vor. Vorsichtsmaßnahmen gegen Unterkühlung und Erfrieren sind empfohlen.</string>
     <string name="weather_alert_hot_description">Bereite dich auf heiße Temperaturen vor. Vorbereitungsmaßnahmen gegen Hitzeerschöpfung und Hitzschlag sind empfohlen.</string>
+    <string name="create_path">Pfad erstellen</string>
+    <string name="solar_eclipses">Sonnenfinsternisse</string>
+    <string name="solar_eclipse_start">Sonnenfinsternis (Beginn)</string>
+    <string name="solar_eclipse_end">Sonnenfinsternis (Ende)</string>
+    <string name="solar_eclipse">Sonnenfinsternis</string>
+    <string name="start_time">Beginn</string>
+    <string name="end_time">Ende</string>
+    <string name="peak_time">Spitze</string>
+    <string name="obscuration">Verdunkelung</string>
+    <string name="map_is_not_calibrated">Karte ist nicht kalibriert</string>
+    <string name="loading">Wird geladen</string>
+    <string name="unable_to_find_next_astronomy">Nächste %s kann nicht gefunden werden</string>
+    <string name="print">Drucken</string>
 </resources>

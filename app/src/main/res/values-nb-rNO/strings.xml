@@ -1040,4 +1040,19 @@
     <string name="battery_restricted_resolution">Sett Trail Sense som «Ikke optimalisert»</string>
     <string name="loading">Laster inn …</string>
     <string name="unable_to_find_next_astronomy">Finner ikke neste %s</string>
+    <string name="create_path">Opprett sti</string>
+    <string name="solar_eclipses">Solformørkelser</string>
+    <string name="solar_eclipse_start">Solformørkelse (start)</string>
+    <string name="solar_eclipse_end">Solformørkelse (slutt)</string>
+    <string name="solar_eclipse">Solformørkelse</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">Slutt</string>
+    <string name="peak_time">Maksimum</string>
+    <string name="magnitude">Magnitude</string>
+    <string name="obscuration">Formørkelse</string>
+    <string name="astronomy_altitude_peak">Maksimum høyde</string>
+    <string name="astronomy_direction_peak">Retning maksimum</string>
+    <string name="map_is_not_calibrated">Kart er ikke kalibrert</string>
+    <string name="print">Skriv ut</string>
+    <string name="pref_include_leading_zero_title">Legg til ledende null i klokkeslett</string>
 </resources>
