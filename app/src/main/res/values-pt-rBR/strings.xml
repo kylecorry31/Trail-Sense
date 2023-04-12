@@ -1033,4 +1033,22 @@
     <string name="weather_precipitation">Precipitação</string>
     <string name="pref_show_temperature_in_notification_title">Mostrar temperatura na notificação</string>
     <string name="camera_unavailable">Câmara indisponível</string>
+    <string name="weather_cold_front">Fria</string>
+    <string name="photo_maps">Mapas de fotografias</string>
+    <string name="start_time">Início</string>
+    <string name="magnitude">Magnitude</string>
+    <string name="peak_time">Pico</string>
+    <string name="end_time">Fim</string>
+    <string name="highest_point_elevation">Ponto mais alto</string>
+    <string name="high_pressure_system_description">Associado a tempo bom, céu limpo e temperaturas mais baixas.</string>
+    <string name="pressure_system">Sistema de pressão</string>
+    <string name="manual">Manual</string>
+    <string name="weather_warm_front">Quente</string>
+    <string name="weather_clear">Limpo</string>
+    <string name="weather_overcast">Nublado</string>
+    <string name="later">Mais tarde</string>
+    <string name="now">Agora</string>
+    <string name="historic">Histórico</string>
+    <string name="temperature_high_low">Alta / baixa</string>
+    <string name="sensor">Sensor</string>
 </resources>
