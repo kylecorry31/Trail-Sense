@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.math.SolMath.normalizeAngle
-import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.sol.math.SolMath.normalizeAngle
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.FragmentMapsRotateBinding
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -46,6 +47,8 @@ class RotateMapFragment : BoundFragment<FragmentMapsRotateBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.stepProgression.text = getString(R.string.step_progression, 2, 3)
 
         binding.rotateClockwise.setOnClickListener {
             binding.rotateView.angle += 90

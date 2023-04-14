@@ -18,9 +18,9 @@
         android:id="@+id/perspective"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/gesture_zone"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="@dimen/gesture_zone"
-        android:layout_marginStart="@dimen/gesture_zone"
         app:layout_constraintBottom_toTopOf="@id/instructions_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,11 +37,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/map_perspective_instructions" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/map_perspective_instructions" />
+
+            <TextView
+                android:id="@+id/step_progression"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/next_button"
