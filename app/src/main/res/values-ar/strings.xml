@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">التنقل</string>
     <string name="weather">طقس</string>
@@ -6,8 +7,6 @@
     <string name="astronomy">الفلك</string>
     <string name="sunrise_label">شروق الشمس</string>
     <string name="sunset_label">غروب الشمس</string>
-
-
     <string name="true_north">الشمال الحقيقي</string>
     <string name="pref_use_sea_level_pressure_title">ضغط مستوى البحر</string>
     <string name="general">جنرال لواء</string>
@@ -28,7 +27,6 @@
     <string name="pref_show_sun_moon_compass_title">عرض الشمس /القمر على البوصلة</string>
     <string name="pref_show_linear_compass_title">إظهار البوصلة الخطية</string>
     <string name="pref_show_linear_compass_summary">عندما يكون الهاتف عموديًا</string>
-
     <plurals name="last_hours">
         <item quantity="one">الاخير %d ساعة</item>
         <item quantity="other">الاخير %d ساعات</item>
@@ -46,20 +44,16 @@
         <item quantity="two">الاخير %d الدقائق</item>
         <item quantity="zero">آخر 0 دقيقة</item>
     </plurals>
-
     <string name="feet_miles">قدم /ميل</string>
     <string name="units_hpa">هبا</string>
     <string name="units_inhg">زئبق</string>
     <string name="units_mbar">مبار</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">ضوء</string>
     <string name="theme_dark">داكن</string>
     <string name="theme_black">أسود</string>
     <string name="theme_system">النظام</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">الوقت الفعلي</string>
     <string name="sun_civil">الشفق المدني</string>
     <string name="sun_nautical">الشفق البحري</string>
@@ -67,11 +61,43 @@
     <string name="today">اليوم</string>
     <string name="tomorrow">غدا</string>
     <string name="yesterday">في الامس</string>
-
     <string name="pressure_48_hours">48 ساعة</string>
     <string name="pressure_24_hours">24 ساعة</string>
     <string name="pressure_12_hours">12 ساعة</string>
     <string name="pressure_4_hours">4 ساعات</string>
     <string name="pref_pressure_history_title">تاريخ الضغط</string>
     <string name="pref_monitor_weather_title">مراقبة الطقس</string>
+    <string name="app_disclaimer_message_title">تنبيه / شروط الاستخدام</string>
+    <string name="direction_west">غ</string>
+    <string name="direction_north_east">شش</string>
+    <string name="direction_south_east">جش</string>
+    <string name="tools">ادوات</string>
+    <string name="disclaimer_message_title">تنبيه</string>
+    <string name="copied_to_clipboard_toast">تم النسخ إلى الحافظة</string>
+    <string name="degree">%s°</string>
+    <string name="increase">+</string>
+    <string name="precise_nautical_miles_format">%s نانومتر</string>
+    <string name="precise_meters_format">%s م</string>
+    <string name="precise_kilometers_format">%s كم</string>
+    <string name="kilometers_per_hour_format">%.1f كم/س</string>
+    <string name="miles_per_hour_format">%.1f ميل/س</string>
+    <string name="duration_hour_format">%d س</string>
+    <string name="duration_minute_format">%d د</string>
+    <string name="access_background_location">حدث إعدادات الموقع</string>
+    <string name="access_background_location_rationale">‬هذا التطبيق يستخدم بيانات الموقع في الخلفية. انه يستعملها لمعايرة الضغط الجوي عند مستوى سطح البحر في اداة معاينة الطقس وللحصول على تحذيرات غروب اكثر دقة.[سياسة الخصوصية](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="dialog_grant">حدث الإعدادات</string>
+    <string name="dialog_deny">لا شكراً</string>
+    <string name="precise_feet_format">%s قدم</string>
+    <string name="precise_miles_format">%s ميل</string>
+    <string name="elevation_diff_format">%s%s</string>
+    <string name="direction_east">ش</string>
+    <string name="battery_capacity_format">%s ملي امبير/ ساعة</string>
+    <string name="current_format">%s ملي امبير</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="duration_second_format">%dث</string>
+    <string name="direction_north">ش</string>
+    <string name="direction_south">ج</string>
+    <string name="direction_north_west">شغ</string>
+    <string name="direction_south_west">جغ</string>
 </resources>
