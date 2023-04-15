@@ -1,0 +1,7 @@
+Photo Maps (Experimental)
+- Print a map
+
+Misc
+- Monochrome icon support
+- Bug fixes
+- Performance improvements
