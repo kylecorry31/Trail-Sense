@@ -9,13 +9,14 @@ import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -99,7 +100,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     }
 
     private fun addFromFile() {
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             val uri =
                 FragmentUriPicker(this@CloudFragment).open(listOf("image/*"))
             val temp = uri?.let { onIO { files.copyToTemp(it) }?.toUri() }

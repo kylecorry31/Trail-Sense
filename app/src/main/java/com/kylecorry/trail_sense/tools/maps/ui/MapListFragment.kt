@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -37,9 +38,18 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.MapCleanupCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.PrintMapCommand
-import com.kylecorry.trail_sense.tools.maps.infrastructure.create.*
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateBlankMapCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromCameraCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromFileCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.CreateMapFromUriCommand
+import com.kylecorry.trail_sense.tools.maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.maps.infrastructure.reduce.HighQualityMapReducer
-import com.kylecorry.trail_sense.tools.maps.ui.commands.*
+import com.kylecorry.trail_sense.tools.maps.ui.commands.CreateMapGroupCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.MoveMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.ResizeMapCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.ShowMapsDisclaimerCommand
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapGroupAction
@@ -318,7 +328,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun createMap(command: ICreateMapCommand) {
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             binding.addBtn.isEnabled = false
 
             val map = command.execute()?.copy(parentId = manager.root?.id)

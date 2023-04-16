@@ -5,15 +5,20 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.QuickActionUtils
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
@@ -193,7 +198,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private fun exportWeatherData() {
         val exporter = IOFactory().createCsvService(requireMainActivity())
         val repo = WeatherRepo.getInstance(requireContext())
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             val exported = withContext(Dispatchers.IO) {
                 val readings = repo.getAll().sortedByDescending { it.time }
                 val csv = WeatherCsvConverter().toCSV(readings)

@@ -11,10 +11,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
@@ -22,7 +24,11 @@ import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.*
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.CreateBeaconGroupCommand
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.DeleteBeaconCommand
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.MoveBeaconCommand
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.MoveBeaconGroupCommand
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.commands.RenameBeaconGroupCommand
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxConverter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.export.BeaconGpxImporter
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
@@ -35,7 +41,6 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeac
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -287,7 +292,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun export(gpx: GPXData) {
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
             val success = gpxService.export(gpx, exportFile)
             onMain {
@@ -310,7 +315,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun importBeacons() {
         val importer = BeaconGpxImporter(requireContext())
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             val gpx = gpxService.import()
             val waypoints = gpx?.waypoints ?: emptyList()
             onMain {

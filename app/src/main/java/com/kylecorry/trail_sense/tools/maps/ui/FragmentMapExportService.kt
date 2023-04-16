@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.io.MapExportService
@@ -26,7 +27,7 @@ class FragmentMapExportService(private val fragment: AndromedaFragment) {
     private val command = ExportMapCommand(exporter, loading)
 
     fun export(map: PhotoMap) {
-        fragment.inBackground {
+        fragment.inBackground(BackgroundMinimumState.Created) {
             val success = command.execute(map)
             if (success) {
                 fragment.toast(fragment.getString(R.string.map_exported))

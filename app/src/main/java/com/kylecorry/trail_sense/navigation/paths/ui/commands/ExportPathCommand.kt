@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.ui.commands
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.trail_sense.R
@@ -24,7 +25,7 @@ class ExportPathCommand(
 ) : IPathCommand {
 
     override fun execute(path: Path) {
-        lifecycleOwner.inBackground {
+        lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             val waypoints = pathService.getWaypoints(path.id)
             val gpx = PathGPXConverter().toGPX(path.name, waypoints)
             val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"

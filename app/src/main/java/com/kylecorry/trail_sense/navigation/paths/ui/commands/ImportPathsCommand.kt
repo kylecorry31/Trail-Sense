@@ -3,12 +3,17 @@ package com.kylecorry.trail_sense.navigation.paths.ui.commands
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.paths.domain.*
+import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathSimplificationQuality
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -26,7 +31,7 @@ class ImportPathsCommand(
 ) {
 
     fun execute(parentId: Long?) {
-        lifecycleOwner.inBackground {
+        lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             val gpx = gpxService.import() ?: return@inBackground
             val style = prefs.defaultPathStyle
             val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
