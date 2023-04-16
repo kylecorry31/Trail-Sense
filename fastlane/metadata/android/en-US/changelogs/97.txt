@@ -1,8 +1,8 @@
-Photo Maps (Experimental)
-- Print a map
+Astronomy
+- Add solar eclipse prediction
+- Add solar eclipse alerts
+- Add magnitude of eclipses
+- Add compass direction of eclipses
 
 Misc
-- Monochrome icon support
-- Increase GPS speed availability
-- Bug fixes
 - Performance improvements
