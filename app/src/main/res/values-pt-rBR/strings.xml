@@ -986,7 +986,11 @@
     <string name="disclaimer_estimated_tide_title">Maré prevista</string>
     <string name="estimated">Previsto</string>
     <string name="running_in_background">Executado em segundo plano</string>
-    <string name="battery_usage_restricted_benefit">Ao remover as restrições da bateria no Trail Sense você pode melhorar a precisão.</string>
+    <string name="battery_usage_restricted_benefit">A remoção de restrições de bateria para o Trail Sense pode melhorar a precisão.
+\n
+\nNa maioria dos dispositivos, clique em \'OK\', depois mude para todas as aplicações, e desligue a otimização da bateria para o Trail Sense.
+\n
+\nVisite [Don\'t kill my app](https://dontkillmyapp.com/) para instruções específicas do seu dispositivo.</string>
     <string name="error">Erro</string>
     <string name="warning">Aviso</string>
     <string name="square">Quadrado</string>
@@ -1051,4 +1055,28 @@
     <string name="historic">Histórico</string>
     <string name="temperature_high_low">Alta / baixa</string>
     <string name="sensor">Sensor</string>
+    <string name="solar_eclipses">Eclipses solares</string>
+    <string name="solar_eclipse_start">Eclipse solar (começa)</string>
+    <string name="solar_eclipse_end">Eclipse solar (termina)</string>
+    <string name="solar_eclipse">Eclipse solar</string>
+    <string name="updating_weather">Atualizando previsão</string>
+    <string name="now_value">Agora: %s</string>
+    <string name="smoothing">Suavização</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="astronomy_altitude_peak">Pico máximo</string>
+    <string name="astronomy_direction_peak">Direção do pico</string>
+    <string name="lowest_point_elevation">Ponto mais baixo</string>
+    <string name="source">Fonte</string>
+    <string name="hot">Quente</string>
+    <string name="cold">Frio</string>
+    <string name="weather_thunderstorm">Tempestade</string>
+    <string name="updating">Atualizando</string>
+    <string name="delete_map_group_message">%s e todos os seus mapas serão eliminados.</string>
+    <string name="cumulonimbus_forecast">Pode indicar uma tempestade em alguns minutos.</string>
+    <string name="nimbostratus_forecast">Pode haver precipitação nas próximas %d horas.</string>
+    <string name="icon">Ícone</string>
+    <string name="altocumulus_forecast">Pode indicar precipitação ou uma trovoada nas próximas %d horas.</string>
+    <string name="altostratus_forecast">Pode indicar precipitação nas próximas %d horas.</string>
+    <string name="cloud_fair_forecast_hours">Pode indicar tempo bom para as próximas %d horas.</string>
+    <string name="pref_show_map_previews_title">Mostrar pré-visualizações no mapa</string>
 </resources>
