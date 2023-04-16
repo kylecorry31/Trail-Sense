@@ -1118,4 +1118,5 @@
     <string name="astronomy_direction_peak">Dirección máxima</string>
     <string name="astronomy_altitude_peak">Altitud máxima</string>
     <string name="print">Imprimir</string>
+    <string name="step_progression">Paso %d / %d</string>
 </resources>
