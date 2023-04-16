@@ -7,19 +7,27 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.math.RingBuffer
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import java.time.Duration
 import java.time.Instant
 
 
-class CustomGPS(private val context: Context, private val frequency: Duration = Duration.ofMillis(20)) : AbstractSensor(), IGPS {
+class CustomGPS(
+    private val context: Context,
+    private val frequency: Duration = Duration.ofMillis(20)
+) : AbstractSensor(), IGPS {
 
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
@@ -37,8 +45,8 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         get() = _verticalAccuracy
 
     override val location: Coordinate
-        get(){
-            if (cacheHasNewerReading()){
+        get() {
+            if (cacheHasNewerReading()) {
                 updateFromCache()
             }
             return _location
@@ -79,15 +87,17 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
     private var _isTimedOut = false
     private var mslOffset = 0f
 
+    private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
+
     init {
-        if (baseGPS.hasValidReading){
+        if (baseGPS.hasValidReading) {
             updateFromBase()
         } else {
             updateFromCache()
         }
     }
 
-    private fun updateFromBase(){
+    private fun updateFromBase() {
         _location = baseGPS.location
         _speed = baseGPS.speed
         _verticalAccuracy = baseGPS.verticalAccuracy
@@ -97,17 +107,51 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         _satellites = baseGPS.satellites
         _mslAltitude = baseGPS.mslAltitude
         val newMSLOffset = baseGPS.altitude - (baseGPS.mslAltitude ?: baseGPS.altitude)
-        if (newMSLOffset != 0f){
+        if (newMSLOffset != 0f) {
             mslOffset = newMSLOffset
         }
 
         _altitude = baseGPS.altitude - getGeoidOffset(_location)
 
+
+        updateSpeed()
+
         updateCache()
     }
 
+    private fun updateSpeed() {
+        val locations = locationHistory.toList()
+
+        val oldestLocation = locations.firstOrNull()
+
+        // If the speed is zero, estimate the speed
+        if (_speed.speed == 0f && oldestLocation != null) {
+            val currentLocation = ApproximateCoordinate.from(
+                _location,
+                Distance.meters(_horizontalAccuracy?.real(10f) ?: 10f)
+            )
+
+            _speed = SpeedEstimator.calculate(
+                oldestLocation.first,
+                currentLocation,
+                oldestLocation.second,
+                _time
+            )
+        }
+
+        // Add to location history every second
+        if (locations.isEmpty() || Duration.between(locations.last().second, _time).seconds >= 1) {
+            locationHistory.add(
+                ApproximateCoordinate.from(
+                    _location,
+                    Distance.meters(_horizontalAccuracy?.real(10f) ?: 10f)
+                ) to _time
+            )
+        }
+    }
+
     private fun getGeoidOffset(location: Coordinate): Float {
-        if (userPrefs.useNMEA && mslOffset != 0f){
+        if (userPrefs.useNMEA && mslOffset != 0f) {
             return mslOffset
         }
         return AltitudeCorrection.getOffset(location, context)
@@ -118,7 +162,7 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         return cacheTime > time && cacheTime.isInPast()
     }
 
-    private fun updateFromCache(){
+    private fun updateFromCache() {
         _location = Coordinate(
             cache.getDouble(LAST_LATITUDE) ?: 0.0,
             cache.getDouble(LAST_LONGITUDE) ?: 0.0
@@ -144,12 +188,12 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
     }
 
     private fun onLocationUpdate(): Boolean {
-        if (!baseGPS.hasValidReading){
+        if (!baseGPS.hasValidReading) {
             return true
         }
 
         // Determine if the new location should be used, if not, return the old location
-        if (!shouldUpdateReading()){
+        if (!shouldUpdateReading()) {
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
             _isTimedOut = false
@@ -160,7 +204,7 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         var shouldNotify = true
 
         // Verify satellite requirement for notification
-        if (userPrefs.requiresSatellites && baseGPS.satellites < 4){
+        if (userPrefs.requiresSatellites && baseGPS.satellites < 4) {
             shouldNotify = false
         } else {
             // Reset the timeout, there's a valid reading
@@ -170,14 +214,14 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
 
         updateFromBase()
 
-        if (shouldNotify && location != Coordinate.zero){
+        if (shouldNotify && location != Coordinate.zero) {
             notifyListeners()
         }
 
         return true
     }
 
-    private fun updateCache(){
+    private fun updateCache() {
         cache.putFloat(LAST_ALTITUDE, altitude)
         cache.putLong(LAST_UPDATE, time.toEpochMilli())
         cache.putFloat(LAST_SPEED, speed.speed)
@@ -185,7 +229,7 @@ class CustomGPS(private val context: Context, private val frequency: Duration = 
         cache.putDouble(LAST_LATITUDE, location.latitude)
     }
 
-    private fun onTimeout(){
+    private fun onTimeout() {
         _isTimedOut = true
         notifyListeners()
         timeout.once(TIMEOUT_DURATION)
