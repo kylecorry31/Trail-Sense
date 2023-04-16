@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -126,7 +127,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun print() {
         val command = PrintMapCommand(requireContext())
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             map?.let {
                 command.execute(it)
             }

@@ -220,7 +220,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     }
 
     private fun print(map: PhotoMap) {
-        inBackground {
+        inBackground(BackgroundMinimumState.Created) {
             PrintMapCommand(requireContext()).execute(map)
         }
     }
