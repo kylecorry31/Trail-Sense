@@ -5,7 +5,7 @@
 ![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
 ![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)
 
-Trail Sense is a tool, and like any tool you would bring into the wilderness, be sure to have backup equipment and skills.
+Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
 
 As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
