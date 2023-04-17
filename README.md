@@ -57,10 +57,12 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
 ## Features
 
-- Compass navigation
-- Flashlight and SOS
-- Barometer forecasting
+- Navigation
+- Weather
 - Astronomy
+- Tides
+- Clinometer
+- And many more tools
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/59)
 
