@@ -1091,4 +1091,6 @@
     <string name="magnitude">等级</string>
     <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
     <string name="print">打印</string>
+    <string name="step_progression">步骤 %d / %d</string>
+    <string name="astronomy_direction_peak">峰值方向</string>
 </resources>

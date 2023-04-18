@@ -1079,4 +1079,9 @@
     <string name="altostratus_forecast">Pode indicar precipitação nas próximas %d horas.</string>
     <string name="cloud_fair_forecast_hours">Pode indicar tempo bom para as próximas %d horas.</string>
     <string name="pref_show_map_previews_title">Mostrar pré-visualizações no mapa</string>
+    <string name="path_slope_steep">Íngreme</string>
+    <string name="next_24_hours">Próximas 24 horas</string>
+    <string name="tool_climate_summary">Ver temperaturas históricas</string>
+    <string name="for_historic_temperatures">Para temperaturas históricas</string>
+    <string name="weather_front">Frente meteorológica</string>
 </resources>
