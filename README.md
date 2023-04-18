@@ -5,6 +5,8 @@
 ![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
 ![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)
 
+Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
+
 As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
 <table>
@@ -43,10 +45,9 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 ## Feature Roadmap
 - [x] Q4 2022: Cloud scanner
 - [x] Q1 2023: Improved weather forecasts
-- [ ] Q2 2023: Maps
-- [ ] Q2 2023: Data export
+- [ ] Q2 2023: Photo Maps
 - [ ] Q3 2023: Path navigation
-- [ ] Q4 2023: Tide harmonics (experimental)
+- [ ] Q4 2023: Tidal harmonics (experimental)
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
@@ -57,10 +58,12 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
 ## Features
 
-- Compass navigation
-- Flashlight and SOS
-- Barometer forecasting
+- Navigation
+- Weather
 - Astronomy
+- Tides
+- Clinometer
+- And many more tools
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/59)
 

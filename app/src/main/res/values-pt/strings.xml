@@ -1118,4 +1118,5 @@
     <string name="magnitude">Magnitude</string>
     <string name="unable_to_find_next_astronomy">Não foi possível encontrar o próximo %s</string>
     <string name="print">Imprimir</string>
+    <string name="step_progression">Passo %d / %d</string>
 </resources>
