@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBinding
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.readAll
@@ -56,12 +56,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val distanceUnits = formatService.sortDistanceUnits(
-            listOf(
-                DistanceUnits.Feet,
-                DistanceUnits.Meters
-            )
-        )
+        val distanceUnits = formatService.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
 
         val temps = if (temperatureUnits == TemperatureUnits.C) {
             listOf(TemperatureUnits.C, TemperatureUnits.F)

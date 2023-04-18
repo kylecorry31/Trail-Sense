@@ -13,6 +13,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -80,18 +81,9 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
         binding.verbalMapScaleFrom.hint = getString(R.string.distance_from)
         binding.verbalMapScaleTo.hint = getString(R.string.distance_to)
 
-        binding.verbalMapScaleFrom.units = formatService.sortDistanceUnits(listOf(
-            DistanceUnits.Centimeters,
-            DistanceUnits.Inches
-        ))
+        binding.verbalMapScaleFrom.units = formatService.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
 
-        binding.verbalMapScaleTo.units = formatService.sortDistanceUnits(listOf(
-            DistanceUnits.Kilometers,
-            DistanceUnits.Miles,
-            DistanceUnits.NauticalMiles,
-            DistanceUnits.Meters,
-            DistanceUnits.Feet
-        ))
+        binding.verbalMapScaleTo.units = formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
 
         binding.verbalMapScaleFrom.setOnValueChangeListener {
             calculateMapDistance()

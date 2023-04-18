@@ -12,8 +12,8 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -24,10 +24,10 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 
 class CreateBlankMapCommand(
@@ -84,16 +84,7 @@ class CreateBlankMapCommand(
     }
 
     private suspend fun getCalibration(): List<MapCalibrationPoint>? {
-        val allUnits = formatter.sortDistanceUnits(
-            listOf(
-                DistanceUnits.Feet,
-                DistanceUnits.Yards,
-                DistanceUnits.Meters,
-                DistanceUnits.Miles,
-                DistanceUnits.Kilometers,
-                DistanceUnits.NauticalMiles
-            )
-        )
+        val allUnits = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
         
         val defaultDistance =
             Distance.kilometers(2f).convertTo(prefs.baseDistanceUnits).toRelativeDistance()

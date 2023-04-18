@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.sol.science.physics.PhysicsService
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.observe
 import kotlin.math.max
@@ -47,7 +47,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
         }
 
         binding.beamDistance.units =
-            formatService.sortDistanceUnits(listOf(DistanceUnits.Feet, DistanceUnits.Meters))
+            formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
     }
 
     private fun updateLight() {

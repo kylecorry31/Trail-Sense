@@ -13,12 +13,17 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FeatureState
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.observe
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -71,15 +76,10 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         binding.pedometerTitle.rightButton.setOnClickListener {
             val alertDistance = prefs.pedometer.alertDistance
             if (alertDistance == null) {
-                val units = listOf(
-                    DistanceUnits.Meters,
-                    DistanceUnits.Kilometers,
-                    DistanceUnits.Feet,
-                    DistanceUnits.Miles
-                )
+                val units = formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
                 CustomUiUtils.pickDistance(
                     requireContext(),
-                    formatService.sortDistanceUnits(units),
+                    units,
                     title = getString(R.string.distance_alert),
                 ) { distance, _ ->
                     if (distance != null) {

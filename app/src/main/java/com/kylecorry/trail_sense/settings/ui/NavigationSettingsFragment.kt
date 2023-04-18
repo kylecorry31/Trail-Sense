@@ -8,11 +8,11 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionUtils
@@ -81,20 +81,12 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        val distanceUnits = prefs.distanceUnits
-
         prefNearbyRadius?.setOnPreferenceClickListener {
+            val units = formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
+
             CustomUiUtils.pickDistance(
                 requireContext(),
-                formatService.sortDistanceUnits(
-                    listOf(
-                        DistanceUnits.Meters,
-                        DistanceUnits.Kilometers,
-                        DistanceUnits.Feet,
-                        DistanceUnits.Miles,
-                        DistanceUnits.NauticalMiles
-                    ), distanceUnits == UserPreferences.DistanceUnits.Meters
-                ),
+                units,
                 Distance.meters(userPrefs.navigation.maxBeaconDistance)
                     .convertTo(userPrefs.baseDistanceUnits).toRelativeDistance(),
                 it.title.toString()

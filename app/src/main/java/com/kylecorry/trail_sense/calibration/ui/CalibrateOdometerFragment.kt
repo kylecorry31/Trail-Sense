@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
@@ -70,9 +71,10 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
         }
 
         strideLengthPref.setOnPreferenceClickListener {
+            val units = formatService.sortDistanceUnits(DistanceUtils.humanDistanceUnits)
             CustomUiUtils.pickDistance(
                 requireContext(),
-                listOf(userPrefs.baseDistanceUnits),
+                units,
                 userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits),
                 getString(R.string.pref_stride_length_title),
                 showFeetAndInches = true

@@ -12,18 +12,18 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateTideBinding
 import com.kylecorry.trail_sense.databinding.ListItemTideEntryBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.flatten
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -169,14 +169,10 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             }
 
             itemBinding.tideHeight.setOnClickListener {
+                val units = formatService.sortDistanceUnits(DistanceUtils.humanDistanceUnits)
                 CustomUiUtils.pickDistance(
                     requireContext(),
-                    formatService.sortDistanceUnits(
-                        listOf(
-                            DistanceUnits.Meters,
-                            DistanceUnits.Feet
-                        )
-                    ),
+                    units,
                     tide.height,
                     getString(R.string.height)
                 ) { distance, cancelled ->

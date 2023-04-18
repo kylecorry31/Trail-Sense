@@ -20,4 +20,43 @@ object DistanceUtils {
         return this.convertTo(newUnits)
     }
 
+    /**
+     * The distances used to describe a hike
+     */
+    val hikingDistanceUnits = listOf(
+        DistanceUnits.Feet,
+        DistanceUnits.Yards,
+        DistanceUnits.Miles,
+        DistanceUnits.NauticalMiles,
+        DistanceUnits.Meters,
+        DistanceUnits.Kilometers
+    )
+
+    /**
+     * The distances used to describe an elevation
+     */
+    val elevationDistanceUnits = listOf(
+        DistanceUnits.Feet,
+        DistanceUnits.Meters
+    )
+
+
+    /**
+     * The distances for human scale objects
+     */
+    val humanDistanceUnits = listOf(
+        DistanceUnits.Feet,
+        DistanceUnits.Inches,
+        DistanceUnits.Meters,
+        DistanceUnits.Centimeters
+    )
+
+    /**
+     * The distances on a ruler
+     */
+    val rulerDistanceUnits = listOf(
+        DistanceUnits.Inches,
+        DistanceUnits.Centimeters
+    )
+
 }

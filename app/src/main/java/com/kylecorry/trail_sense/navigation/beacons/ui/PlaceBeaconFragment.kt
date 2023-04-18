@@ -12,8 +12,8 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -24,9 +24,9 @@ import com.kylecorry.trail_sense.navigation.beacons.ui.form.CreateBeaconForm
 import com.kylecorry.trail_sense.navigation.beacons.ui.form.DoesBeaconFormDataHaveChanges
 import com.kylecorry.trail_sense.navigation.beacons.ui.form.IsBeaconFormDataComplete
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
@@ -182,15 +182,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
         binding.createBeaconTitle.rightButton.setOnClickListener { onSubmit() }
 
-        binding.distanceAway.units = formatter.sortDistanceUnits(
-            listOf(
-                DistanceUnits.Meters,
-                DistanceUnits.Kilometers,
-                DistanceUnits.Feet,
-                DistanceUnits.Miles,
-                DistanceUnits.NauticalMiles
-            )
-        )
+        binding.distanceAway.units = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
     }
 
     override fun onResume() {
@@ -273,7 +265,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private fun updateElevationUnits() {
         binding.beaconElevation.units =
-            formatter.sortDistanceUnits(listOf(DistanceUnits.Meters, DistanceUnits.Feet))
+            formatter.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
     }
 
     private fun onSubmit() {

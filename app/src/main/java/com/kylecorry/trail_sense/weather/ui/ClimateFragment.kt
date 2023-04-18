@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClimateBinding
+import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
@@ -133,7 +133,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
 
     private fun updateElevationUnits() {
         binding.elevation.units =
-            formatter.sortDistanceUnits(listOf(DistanceUnits.Meters, DistanceUnits.Feet))
+            formatter.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
     }
 
 }

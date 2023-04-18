@@ -22,7 +22,6 @@ import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
@@ -191,9 +190,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun measureHeightPrompt() {
+        val units = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
         CustomUiUtils.pickDistance(
             requireContext(),
-            getUnits(),
+            units,
             distanceAway,
             getString(R.string.clinometer_measure_height_title)
         ) { distance, _ ->
@@ -220,9 +220,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun measureDistancePrompt() {
+        val units = formatter.sortDistanceUnits(DistanceUtils.humanDistanceUnits)
+
         CustomUiUtils.pickDistance(
             requireContext(),
-            getUnits(),
+            units,
             knownHeight,
             getString(R.string.clinometer_measure_distance_title),
             hint = getString(R.string.height),
@@ -247,14 +249,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     }
                 }
             }
-        }
-    }
-
-    private fun getUnits(): List<DistanceUnits> {
-        return if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
-            listOf(DistanceUnits.Meters, DistanceUnits.Feet)
-        } else {
-            listOf(DistanceUnits.Feet, DistanceUnits.Meters)
         }
     }
 
