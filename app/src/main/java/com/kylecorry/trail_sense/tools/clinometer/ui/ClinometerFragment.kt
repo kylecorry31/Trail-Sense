@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -366,7 +367,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                         distanceAway,
                         min(startIncline, incline),
                         max(startIncline, incline)
-                    ),
+                    ).toRelativeDistance(),
                     1, false
                 )
             }
@@ -377,7 +378,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                         knownHeight,
                         min(startIncline, incline),
                         max(startIncline, incline)
-                    ),
+                    ).toRelativeDistance(),
                     1, false
                 )
             }
