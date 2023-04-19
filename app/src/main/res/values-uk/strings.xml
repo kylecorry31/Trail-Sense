@@ -1130,4 +1130,6 @@
     <string name="end_time">Кінець</string>
     <string name="map_is_not_calibrated">Мапа не калібрована</string>
     <string name="loading">Завантаження</string>
+    <string name="print">Друк</string>
+    <string name="step_progression">Крок %d з %d</string>
 </resources>
