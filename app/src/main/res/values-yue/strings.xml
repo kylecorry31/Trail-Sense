@@ -146,10 +146,10 @@
 \n呢項警報，有得喺 app 設定入面停用。</string>
     <string name="request_permission">攞權限</string>
     <string name="pref_altimeter_calibration_title">高度錶</string>
-    <string name="elevation_from_pressure">按照氣壓計設定覆寫</string>
-    <string name="pref_elevation_override_title">海拔覆寫</string>
-    <string name="elevation_override_updated_toast">更新咗海拔覆寫</string>
-    <string name="never">從來沒有</string>
+    <string name="elevation_from_pressure">按照氣壓計設定推翻</string>
+    <string name="pref_elevation_override_title">海拔推翻</string>
+    <string name="elevation_override_updated_toast">更新咗海拔推翻</string>
+    <string name="never">從來都冇</string>
     <string name="pref_altimeter_calibration_mode_title">自動校正</string>
     <string name="pref_adjust_for_temperature_title">一併考慮氣溫</string>
     <string name="pref_num_visible_beacons_title">就近嘅地標</string>
@@ -491,8 +491,8 @@
     <string name="water_purification_step_2">將水煲滾至滔滔沸騰</string>
     <string name="water_purification_step_3">開始計時器</string>
     <string name="clock_waiting_for_gps">用 GPS 更新緊時間…</string>
-    <string name="update_gps_override">更新 GPS 覆寫</string>
-    <string name="location_override_updated">更新咗位置覆寫</string>
+    <string name="update_gps_override">更新 GPS 推翻</string>
+    <string name="location_override_updated">更新咗位置推翻</string>
     <string name="notes_empty_text">未有備註</string>
     <string name="delete_note_title">係咪要刪除備註？</string>
     <string name="tool_notes_title">備註</string>
@@ -559,7 +559,7 @@
     <string name="activity_recognition">活動辨識</string>
     <string name="unblock_notification_channel">解除封鎖 Trail Sense 嘅%s通知</string>
     <string name="elevation_override_resolution">喺設定入面啟用自動校正。</string>
-    <string name="location_override_not_set_resolution">喺設定入面設定位置覆寫</string>
+    <string name="location_override_not_set_resolution">喺設定入面設定位置推翻</string>
     <string name="power_saving_mode_resolution">停用慳電模式</string>
     <string name="photo_maps">相片地圖</string>
     <string name="end_time">結束</string>
@@ -615,7 +615,7 @@
     <string name="gps_unavailable_resolution">啟用定位，又或者將您嘅位置來源改做「淨係部機」或「高準確性」</string>
     <string name="diagnostic_message_template">%s：%s
 \n
-\n### 受影響嘅架生
+\n### 影響嘅架生
 \n%s
 \n
 \n### 解救
@@ -652,4 +652,57 @@
     <string name="quarter_moon">弦月</string>
     <string name="notifications_blocked">封鎖咗通知</string>
     <string name="on">開</string>
+    <string name="pref_show_temperature_in_notification_title">喺通知度顯示埋氣溫</string>
+    <string name="time_not_set">時間未設定</string>
+    <string name="bearing">方位</string>
+    <string name="compass_declination_override">磁偏角推翻</string>
+    <string name="override_from_gps">按照 GPS 設定推翻</string>
+    <string name="compass_declination">磁偏角</string>
+    <string name="pref_show_linear_compass_title">以線性表示羅經</string>
+    <string name="toast_destination_bearing_set">目標方位設定好</string>
+    <string name="distance_from_flashlight">由部機去到閃光燈嘅距離</string>
+    <string name="guide_signaling_for_help_title">發求救訊號</string>
+    <string name="dialog_leave">算罷啦</string>
+    <string name="hygrometer">濕度計</string>
+    <string name="gravity">重力</string>
+    <string name="magnetometer">磁強計</string>
+    <string name="candela_format">%s 坎德拉</string>
+    <string name="lux_format">%s 勒克司</string>
+    <string name="tool_light_meter_title">光度計</string>
+    <string name="left_quick_action">左手邊快速動作</string>
+    <string name="right_quick_action">右手邊快速動作</string>
+    <string name="screen_flashlight">螢幕</string>
+    <string name="odometer">里程錶</string>
+    <string name="pedometer">步程計</string>
+    <string name="search">搵嘢</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">輸入海平面氣壓</string>
+    <string name="compass_azimuth">方位角</string>
+    <string name="pref_use_sea_level_pressure_title">海平面氣壓</string>
+    <string name="pref_adjust_for_temperature_summary">海平面氣壓換算時計入氣溫</string>
+    <string name="pref_show_linear_compass_summary">當部機打直拎起時</string>
+    <string name="always">幾時都係</string>
+    <string name="beacon_create_beacon">地標</string>
+    <string name="coordinate_input_invalid_location">位置無效</string>
+    <string name="guide_thermometer_calibration_title">溫度計校正</string>
+    <string name="tool_thermometer_title">溫度計</string>
+    <string name="guide_barometer_calibration_title">氣壓計校正</string>
+    <string name="unsaved_changes">未儲存更改</string>
+    <string name="open_beacon_in_maps">喺地圖度睇過</string>
+    <string name="privacy_and_location">私隱與定位</string>
+    <string name="always_on">幾時都用</string>
+    <string name="pref_nmea_elevation_summary">海拔換算時計入 NMEA 偏差</string>
+    <string name="compass_auto_declination">自動調整磁偏角</string>
+    <string name="pref_show_weather_notification_title">顯示氣象通知</string>
+    <string name="pref_show_pressure_in_notification_title">喺通知度顯示埋氣壓</string>
+    <string name="pref_monitor_weather_title">監測氣象</string>
+    <string name="overridden">已推翻</string>
+    <string name="declination_override_updated_toast">更新咗磁偏角推翻</string>
+    <string name="pref_elevation_override_sea_level_title">用返個已知嘅海平面氣壓</string>
+    <string name="pref_gps_override_title">位置推翻</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">輸入目前海平面嘅氣壓 (百帕斯卡)</string>
+    <string name="waypoint_time_format">%s %s</string>
+    <string name="unsaved_changes_message">您改動過嗰啲嘢，就唔會儲存個囉噃。</string>
+    <string name="pref_daily_weather_time_title">每日氣象時間</string>
+    <string name="since_time">自 %s 起</string>
+    <string name="speedometer">速度計</string>
 </resources>
