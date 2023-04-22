@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
@@ -24,7 +25,6 @@ import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -197,7 +197,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     override fun onResume() {
         super.onResume()
-        updateHistoryList()
+        updateHistoryList(true)
         if (Camera.isAvailable(requireContext())) {
             startCamera()
         }
@@ -241,10 +241,10 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
             history.removeLast()
         }
 
-        updateHistoryList()
+        updateHistoryList(true)
     }
 
-    private fun updateHistoryList(scrollToTop: Boolean = true) {
+    private fun updateHistoryList(scrollToTop: Boolean) {
         qrHistoryList.setData(if (history.isEmpty()) listOf("") else history)
         if (scrollToTop) {
             qrHistoryList.scrollToPosition(0, true)

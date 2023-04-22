@@ -74,7 +74,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         }
     }
 
-    private fun off(bySystem: Boolean = false) = synchronized(modeLock) {
+    private fun off(bySystem: Boolean) = synchronized(modeLock) {
         clearTimeout()
         if (!bySystem) {
             isTransitioning = true
@@ -90,7 +90,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     override fun toggle() {
         if (getMode() == FlashlightMode.Torch) {
-            off()
+            off(false)
         } else {
             set(FlashlightMode.Torch)
         }
@@ -99,7 +99,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     override fun set(mode: FlashlightMode) {
         when (mode) {
-            FlashlightMode.Off -> off()
+            FlashlightMode.Off -> off(false)
             else -> on(mode)
         }
     }
