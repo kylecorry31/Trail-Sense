@@ -1,9 +1,4 @@
-<!-- drawable/sleep.xml -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?android:textColorSecondary">
-    <path android:fillColor="#fff" android:pathData="M23,12H17V10L20.39,6H17V4H23V6L19.62,10H23V12M15,16H9V14L12.39,10H9V8H15V10L11.62,14H15V16M7,20H1V18L4.39,14H1V12H7V14L3.62,18H7V20Z" />
+<!--drawable/sleep.xml-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24" android:tint="?android:textColorSecondary">
+    <path android:fillColor="#fff" android:pathData="M23 12h-6v-2l3.39-4H17V4h6v2l-3.38 4H23v2m-8 4H9v-2l3.39-4H9V8h6v2l-3.38 4H15v2m-8 4H1v-2l3.39-4H1v-2h6v2l-3.38 4H7v2z"/>
 </vector>

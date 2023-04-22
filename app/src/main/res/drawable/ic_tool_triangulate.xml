@@ -1,9 +1,4 @@
-<!-- drawable/vector_triangle.xml -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?android:textColorSecondary">
-    <path android:fillColor="#fff" android:pathData="M9,3V9H9.73L5.79,16H2V22H8V20H16V22H22V16H18.21L14.27,9H15V3M11,5H13V7H11M12,9.04L16,16.15V18H8V16.15M4,18H6V20H4M18,18H20V20H18" />
+<!--drawable/vector_triangle.xml-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24" android:tint="?android:textColorSecondary">
+    <path android:fillColor="#fff" android:pathData="M9 3v6h0.73l-3.94 7H2v6h6v-2h8v2h6v-6h-3.79l-3.94-7H15V3m-4 2h2v2h-2m1 2.04l4 7.11V18H8v-1.85M4 18h2v2H4m14-2h2v2h-2"/>
 </vector>

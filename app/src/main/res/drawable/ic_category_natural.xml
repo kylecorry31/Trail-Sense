@@ -1,8 +1,4 @@
-<!-- drawable/leaf.xml -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="#fff" android:pathData="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+<!--drawable/leaf.xml-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#fff" android:pathData="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l0.95-2.3C7.14 19.87 7.64 20 8 20 19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
 </vector>

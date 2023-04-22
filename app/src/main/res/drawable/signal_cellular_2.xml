@@ -1,8 +1,4 @@
-<!-- drawable/signal_cellular_2.xml -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="#000" android:pathData="M19.5,5.5V18.5H17.5V5.5H19.5M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" />
+<!--drawable/signal_cellular_2.xml-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#000" android:pathData="M19.5 5.5v13h-2v-13h2M21 4h-5v16h5V4m-7 5H9v11h5V9m-7 5H2v6h5v-6z"/>
 </vector>

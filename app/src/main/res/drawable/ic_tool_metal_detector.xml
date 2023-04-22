@@ -1,11 +1,4 @@
-<!-- drawable/magnet.xml -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:tint="?android:textColorSecondary"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="#fff"
-        android:pathData="M3,7V13A9,9 0 0,0 12,22A9,9 0 0,0 21,13V7H17V13A5,5 0 0,1 12,18A5,5 0 0,1 7,13V7M17,5H21V2H17M3,5H7V2H3" />
+<!--drawable/magnet.xml-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:tint="?android:textColorSecondary" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#fff" android:pathData="M3 7v6a9 9 0 0 0 9 9 9 9 0 0 0 9-9V7h-4v6a5 5 0 0 1-5 5 5 5 0 0 1-5-5V7m10-2h4V2h-4M3 5h4V2H3"/>
 </vector>

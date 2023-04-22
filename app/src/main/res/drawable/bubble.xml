@@ -1,8 +1,4 @@
-<!-- drawable/moon_full.xml -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="#fff" android:pathData="M12 2A10 10 0 1 1 2 12A10 10 0 0 1 12 2Z" />
+<!--drawable/moon_full.xml-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#fff" android:pathData="M12 2A10 10 0 1 1 2 12 10 10 0 0 1 12 2z"/>
 </vector>
