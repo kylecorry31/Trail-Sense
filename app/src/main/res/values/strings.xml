@@ -556,23 +556,23 @@
     <string name="cirrocumulus_desc">High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.</string>
     <string name="cirrostratus_desc">A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.</string>
     <!--%d is an hour, ex. 10 to 15-->
-    <string name="cloud_precipitation_forecast_hour_range">May indicate precipitation in the next %d to %d hours.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">May indicate precipitation in the next %d to %d hours.</string>
     <string name="altocumulus_desc">Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.</string>
     <!--%d is an hour, ex. 12-->
-    <string name="altocumulus_forecast">May indicate precipitation or a thunderstorm in the next %d hours.</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">May indicate precipitation or a thunderstorm in the next %d hours.</string>
     <string name="altostratus_desc">A mid level cloud that covers the sky. The sun can barely be seen as a bright patch.</string>
     <!--%d is an hour, ex. 8-->
-    <string name="altostratus_forecast">May indicate precipitation in the next %d hours.</string>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">May indicate precipitation in the next %d hours.</string>
     <string name="nimbostratus_desc">A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud.</string>
     <!--%d is an hour, ex. 4-->
-    <string name="nimbostratus_forecast">May have precipitation for the next %d hours.</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">May have precipitation for the next %d hours.</string>
     <string name="stratus_desc">A low cloud that covers the sky. Objects don\'t cast shadows and it may be foggy.</string>
     <string name="stratocumulus_desc">Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray.</string>
     <!--%d is an hour, ex. 3-->
-    <string name="cloud_fair_forecast_hours">May indicate fair weather for the next %d hours.</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">May indicate fair weather for the next %d hours.</string>
     <string name="cumulus_desc">Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.</string>
     <!--%d is an hour, ex. 3-->
-    <string name="cumulus_forecast">May indicate fair weather. If growing taller, may indicate precipitation or a thunderstorm in the next %d hours.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">May indicate fair weather. If growing taller, may indicate precipitation or a thunderstorm in the next %d hours.</string>
     <string name="cumulonimbus_desc">Low puffy clouds that are very tall. They typically have an anvil shape and are dark.</string>
     <string name="cumulonimbus_forecast">May indicate a thunderstorm in a few minutes.</string>
     <string name="cirrus_desc">High wispy clouds that look like tufts of white hair.</string>
@@ -1221,7 +1221,7 @@
     <string name="weather_warm_front">Warm</string>
     <string name="weather_cold_front">Cold</string>
     <!--%d is an hour, ex. 3-->
-    <string name="cloud_stratus_forecast">May indicate fair weather for the next %d hours if it is foggy, otherwise it may indicate precipitation soon.</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">May indicate fair weather for the next %d hours if it is foggy, otherwise it may indicate precipitation soon.</string>
     <!--Indicates the next weather to occur, ex then clear or then overcast-->
     <string name="then_weather">then %s</string>
     <!--Clear weather, lack of clouds-->
@@ -1245,7 +1245,7 @@
     <!--    Used to indicate a value was derived from historic readings (ex. historic high/low temperature)-->
     <string name="historic">Historic</string>
     <!--    Used to indicate how many years of historical data was used. ex 60 year average-->
-    <string name="historic_temperature_years">Historic (%d year)</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historic (%d year)</string>
     <string name="sensor">Sensor</string>
     <string name="temperature_high_low">High / Low</string>
     <string name="altimeter_cache">Altimeter cache</string>
@@ -1278,7 +1278,7 @@
     <string name="pref_show_temperature_in_notification" translatable="false">pref_show_temperature_in_notification</string>
     <string name="historic_temperatures">Historic temperatures</string>
     <!--    The %d is the number of years of data used to calculate the average.-->
-    <string name="historic_temperatures_full_disclaimer">Temperatures are based on a %d year average of historical data and may not reflect the current weather conditions.</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperatures are based on a %d year average of historical data and may not reflect the current weather conditions.</string>
     <string name="pref_historic_temperatures_disclaimer_shown" translatable="false">pref_historic_temperatures_disclaimer_shown</string>
     <string name="pref_map_sort" translatable="false">pref_map_sort</string>
     <string name="blank">Blank</string>

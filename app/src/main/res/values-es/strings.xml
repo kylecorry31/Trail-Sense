@@ -30,12 +30,10 @@
     <string name="pref_show_linear_compass_summary">Cuando el teléfono está en vertical</string>
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
-        <item quantity="many">Últimas %d horas</item>
         <item quantity="other">Últimas %d horas</item>
     </plurals>
     <plurals name="last_minutes">
         <item quantity="one">Último %d minuto</item>
-        <item quantity="many">Últimos %d minutos</item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
     <string name="feet_miles">Pies / Millas</string>
@@ -116,7 +114,6 @@
     <string name="notification_monitoring_weather">Monitoreo del clima en segundo plano</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d baliza</item>
-        <item quantity="many">%d balizas</item>
         <item quantity="other">%d balizas</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -334,7 +331,6 @@
 \n- Después de hacer clic en Continuar, se te pedirá que otorgues los permisos de ubicación y ubicación en segundo plano. Denegar esos permisos evitará que Trail Sense acceda a tu ubicación, por lo que se recomienda una introducción de ubicación manual.</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d baliza exportada</item>
-        <item quantity="many">%d balizas exportadas</item>
         <item quantity="other">%d balizas exportadas</item>
     </plurals>
     <string name="gps_searching">Buscando</string>
@@ -353,7 +349,7 @@
     <string name="backtrack_battery_warning">Pequeños intervalos (menos de 15 minutos) pueden causar un agotamiento excesivo de la batería</string>
     <string name="hour_symbol">h</string>
     <string name="map_auto_calibrated">Mapa autocalibrado, verifique su precisión</string>
-    <string name="noon">Medio dia</string>
+    <string name="noon">Mediodía</string>
     <string name="pref_show_civil_times_summary">Amanecer y anochecer</string>
     <string name="color">Color</string>
     <string name="camera_permission_denied">Permiso de la cámara denegado, no se pueden activar las funciones de la cámara. Puede habilitarlo en la configuración.</string>
@@ -375,7 +371,6 @@
     <string name="action_inventory_clear_confirm">¿Borrar todas las cantidades empaquetadas\?</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo hasta que sea potable</item>
-        <item quantity="many">%d segundos hasta que sea potable</item>
         <item quantity="other">%d segundos hasta que sea potable</item>
     </plurals>
     <string name="tool_clock_title">Reloj</string>
@@ -406,9 +401,9 @@
     <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrada)</string>
     <string name="min_temp_uncalibrated">Temperatura mínima del teléfono (sin calibrar)</string>
     <string name="create_at_distance">Crear a distancia</string>
-    <string name="guide_location_no_gps_title">Determinar ubicacion sin GPS</string>
+    <string name="guide_location_no_gps_title">Determinar ubicación sin GPS</string>
     <string name="backtrack">Retractarse</string>
-    <string name="backtrack_notification_channel_description">Retractar actualizaciones de ubicacion</string>
+    <string name="backtrack_notification_channel_description">Retractar actualizaciones de ubicación</string>
     <string name="create_beacon">Crear Faro</string>
     <string name="low">Bajo</string>
     <string name="speedometer">Velocímetro</string>
@@ -475,7 +470,6 @@
     <string name="export">Exportar</string>
     <plurals name="beacons_imported">
         <item quantity="one">%d baliza importada</item>
-        <item quantity="many">%d balizas importadas</item>
         <item quantity="other">%d balizas importadas</item>
     </plurals>
     <string name="gps_user">Usuario</string>
@@ -604,7 +598,7 @@
     <string name="pref_cell_signal_refresh_cache_summary">Fuerzas cargando las últimas intensidades de señal</string>
     <string name="location_not_mocked">Usando la ubicación real</string>
     <string name="yards_format">%s yd</string>
-    <string name="pref_map_url_source_title">Mapa compartido de la ubicacion</string>
+    <string name="pref_map_url_source_title">Mapa compartido de la ubicación</string>
     <string name="pint_format">%s pt</string>
     <string name="milliliters">Mililitros</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Mientras Trail Sense está abierto</string>
@@ -648,7 +642,7 @@
     <string name="us_quarts">US Quarts</string>
     <string name="us_ounces_volume">US Ounces</string>
     <string name="hours_format">%s horas</string>
-    <string name="last_duration">Ultimo %s</string>
+    <string name="last_duration">Último %s</string>
     <string name="elevation_history_length">Longitud del historial de altitud</string>
     <string name="gps_signal_lost">Señal GPS perdida</string>
     <string name="old">Viejo</string>
@@ -660,7 +654,7 @@
     <string name="wgs84">WGS 84</string>
     <string name="hours">Horas</string>
     <string name="point_style">Estilo de punto</string>
-    <string name="line_style">Estilo de linea</string>
+    <string name="line_style">Estilo de línea</string>
     <string name="path_color">Color de ruta</string>
     <string name="sun_moon_position_template">### %s
 \n** Altitud **:%s
@@ -689,7 +683,6 @@
     <string name="pref_backtrack_history_days_title">Historia de retroceso</string>
     <plurals name="number_days">
         <item quantity="one">día %d</item>
-        <item quantity="many">días %d</item>
         <item quantity="other">días %d</item>
     </plurals>
     <string name="pref_privacy_screenshot_protection_title">Evitar capturas de pantalla</string>
@@ -701,7 +694,7 @@
     <string name="pref_flashlight_toggle_with_volume_title">Alternar con botones de volumen</string>
     <string name="pref_auto_low_power_summary">Cuando tu batería está baja</string>
     <string name="pref_auto_low_power_title">Ahorro de energía automático</string>
-    <string name="daylight">Luz de dia</string>
+    <string name="daylight">Luz de día</string>
     <string name="find_next_occurrence">Encontrar la siguiente ocurrencia</string>
     <string name="base_temperature">Temperatura base</string>
     <string name="base_elevation">Elevación Base</string>
@@ -728,11 +721,11 @@
     <string name="grams_format">%s gramos</string>
     <string name="weight">Peso</string>
     <string name="seconds">Segundos</string>
-    <string name="days">Dias</string>
+    <string name="days">Días</string>
     <string name="milliseconds_format">%s ms</string>
     <string name="seconds_format">%s segundos</string>
     <string name="minutes_format">%s minutos</string>
-    <string name="days_format">%s dias</string>
+    <string name="days_format">%s días</string>
     <string name="time">Tiempo</string>
     <string name="default_pack_name">Paquete predeterminado</string>
     <string name="packed_amount">Cantidad empaquetada</string>
@@ -788,9 +781,8 @@
     <string name="lunar_eclipse_end">Eclipse Lunar (final)</string>
     <string name="astronomy_alerts">Alertas de astronomía</string>
     <plurals name="waypoints_to_be_deleted">
-        <item quantity="one">%d Punto de referencia sera eliminado</item>
-        <item quantity="many">%d Puntos de referencia seran eliminados</item>
-        <item quantity="other">%d Puntos de referencia seran eliminados</item>
+        <item quantity="one">%d Punto de referencia será eliminado</item>
+        <item quantity="other">%d Puntos de referencia serán eliminados</item>
     </plurals>
     <string name="astro_dialog_meteor_shower">** Pico **:%s
 \n
@@ -805,7 +797,7 @@
     <string name="astro_dialog_moon_phase">**Etapas**:%s
 \n
 \n** Iluminación **:%s</string>
-    <string name="astro_dialog_day_length">**Dias**:%s
+    <string name="astro_dialog_day_length">**Días**:%s
 \n
 \n** Noche **:%s
 \n
@@ -842,8 +834,8 @@
     <string name="elevation">Elevacion</string>
     <string name="elevation_gain">Desnivel</string>
     <string name="elevation_loss">Pérdida de elevación</string>
-    <string name="easy">Facil</string>
-    <string name="hard">Dificil</string>
+    <string name="easy">Fácil</string>
+    <string name="hard">Difícil</string>
     <string name="merging">Fusión</string>
     <string name="merge">Unir</string>
     <string name="append_onto">Anexar en</string>
@@ -854,16 +846,14 @@
     <string name="navigation_guide_description">Usando balizas y caminos</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">Punto de referencia eliminados %d</item>
-        <item quantity="many">Puntos de referencias eliminados %d</item>
         <item quantity="other">Puntos de referencias eliminados %d</item>
     </plurals>
     <plurals name="paths_imported">
         <item quantity="one">Ruta importada %d</item>
-        <item quantity="many">Rutas importadas %d</item>
         <item quantity="other">Rutas importadas %d</item>
     </plurals>
     <string name="roll_pitch_yaw">Giro:%s, Paso:%s, Guiñada:%s</string>
-    <string name="camera">Camara</string>
+    <string name="camera">Cámara</string>
     <string name="lunar_eclipse">Eclipse Lunar</string>
     <string name="supermoon">Super Luna</string>
     <string name="paths">Rutas</string>
@@ -896,7 +886,6 @@
     <string name="tool_temperature_estimation_description">Predecir la temperatura a una elevación diferente</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d marea</item>
-        <item quantity="many">%d mareas</item>
         <item quantity="other">%d mareas</item>
     </plurals>
     <string name="errors">Errores</string>
@@ -1010,7 +999,6 @@
     <string name="tide_diurnal">Diurno</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d ruta</item>
-        <item quantity="many">%d rutas</item>
         <item quantity="other">%d rutas</item>
     </plurals>
     <string name="delete_path_group_message">%s y todas sus rutas se eliminarán.</string>
@@ -1091,7 +1079,6 @@
     <string name="historic_temperatures_full_disclaimer">Las temperaturas se basan en una media de %d años de datos históricos y pueden no reflejar las condiciones meteorológicas actuales.</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d mapa</item>
-        <item quantity="many">%d mapas</item>
         <item quantity="other">%d mapas</item>
     </plurals>
     <string name="historic_temperatures">Temperaturas históricas</string>
