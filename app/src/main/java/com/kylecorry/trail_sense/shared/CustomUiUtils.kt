@@ -9,7 +9,11 @@ import android.net.Uri
 import android.util.Size
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
@@ -310,15 +314,14 @@ object CustomUiUtils {
         action: String? = null,
         onAction: () -> Unit = {}
     ): Snackbar {
-        return Snackbar.make(fragment.requireView(), text, duration).also {
-            if (action != null) {
-                it.setAction(action) {
-                    onAction()
-                }
-            }
-            it.setAnchorView(R.id.bottom_navigation)
-            it.show()
-        }
+        return Alerts.snackbar(
+            fragment,
+            R.id.bottom_navigation,
+            text,
+            duration,
+            action,
+            onAction
+        )
     }
 
     fun showQR(
