@@ -1,18 +1,13 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.net.Uri
 import android.util.Size
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.annotation.MenuRes
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,6 +16,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.setState
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
@@ -46,45 +42,12 @@ import kotlin.coroutines.suspendCoroutine
 
 object CustomUiUtils {
 
-    fun getMenuItems(context: Context, @MenuRes id: Int): List<MenuItem> {
-        val items = mutableListOf<MenuItem>()
-        val p = PopupMenu(context, null)
-        p.menuInflater.inflate(id, p.menu)
-        val menu = p.menu
-        for (i in 0 until menu.size()) {
-            items.add(menu[i])
-        }
-        return items
-    }
-
     fun setButtonState(button: ImageButton, state: Boolean) {
-        setButtonState(
-            button,
+        button.setState(
             state,
             Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary),
             Resources.color(button.context, R.color.colorSecondary)
         )
-    }
-
-    private fun setButtonState(
-        button: ImageButton,
-        isOn: Boolean,
-        @ColorInt primaryColor: Int,
-        @ColorInt secondaryColor: Int
-    ) {
-        if (isOn) {
-            button.drawable?.let { Colors.setImageColor(it, secondaryColor) }
-            button.backgroundTintList = ColorStateList.valueOf(primaryColor)
-        } else {
-            button.drawable?.let {
-                Colors.setImageColor(
-                    it,
-                    Resources.androidTextColorSecondary(button.context)
-                )
-            }
-            button.backgroundTintList =
-                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
-        }
     }
 
 
@@ -92,18 +55,11 @@ object CustomUiUtils {
         button: Button,
         isOn: Boolean
     ) {
-        if (isOn) {
-            button.setTextColor(
-                Resources.color(button.context, R.color.colorSecondary)
-            )
-            button.backgroundTintList = ColorStateList.valueOf(
-                Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary)
-            )
-        } else {
-            button.setTextColor(Resources.androidTextColorSecondary(button.context))
-            button.backgroundTintList =
-                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
-        }
+        button.setState(
+            isOn,
+            Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary),
+            Resources.color(button.context, R.color.colorSecondary)
+        )
     }
 
     @ColorInt

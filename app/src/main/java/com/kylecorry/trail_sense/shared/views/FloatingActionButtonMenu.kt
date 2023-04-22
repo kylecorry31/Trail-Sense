@@ -9,8 +9,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLayout(
     context,
@@ -44,7 +44,7 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
         }
 
         if (menuId != -1) {
-            val items = CustomUiUtils.getMenuItems(context, menuId)
+            val items = Resources.menuItems(context, menuId)
             for (menuItem in items) {
                 val text = menuItem.title
                 val icon = menuItem.icon
