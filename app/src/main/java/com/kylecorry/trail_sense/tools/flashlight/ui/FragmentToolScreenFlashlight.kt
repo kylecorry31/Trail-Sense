@@ -11,7 +11,7 @@ import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
+import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
 

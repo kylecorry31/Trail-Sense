@@ -3,12 +3,10 @@ package com.kylecorry.trail_sense.shared
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.widget.ImageButton
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.observe
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Timer
@@ -52,21 +50,6 @@ fun <T : Identifiable> Array<T>.withId(id: Long): T? {
 
 fun <T : Identifiable> Collection<T>.withId(id: Long): T? {
     return firstOrNull { it.id == id }
-}
-
-fun SeekBar.setOnProgressChangeListener(listener: (progress: Int, fromUser: Boolean) -> Unit) {
-    setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            listener(progress, fromUser)
-        }
-
-        override fun onStartTrackingTouch(seekBar: SeekBar?) {
-        }
-
-        override fun onStopTrackingTouch(seekBar: SeekBar?) {
-        }
-
-    })
 }
 
 fun GeoUri.Companion.from(beacon: Beacon): GeoUri {

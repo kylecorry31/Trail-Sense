@@ -20,7 +20,7 @@ import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
+import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import java.io.File
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {

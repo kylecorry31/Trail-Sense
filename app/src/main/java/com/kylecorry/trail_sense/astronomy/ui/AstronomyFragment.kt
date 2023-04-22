@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
@@ -30,7 +31,18 @@ import com.kylecorry.trail_sense.astronomy.ui.commands.AstroChartData
 import com.kylecorry.trail_sense.astronomy.ui.commands.CenteredAstroChartDataProvider
 import com.kylecorry.trail_sense.astronomy.ui.commands.DailyAstroChartDataProvider
 import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.*
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.AstronomicalSunTimesProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.CivilTimesProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.Conditional
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.DaylightProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.Group
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.LunarEclipseProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.MeteorShowerProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.MoonPhaseProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.NauticalTimesProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.Section
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.SolarEclipseProvider
+import com.kylecorry.trail_sense.astronomy.ui.fields.providers.SunMoonTimesProvider
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
 import com.kylecorry.trail_sense.main.MainActivity
@@ -45,7 +57,6 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.shared.setOnProgressChangeListener
 import com.kylecorry.trail_sense.shared.views.UserError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
