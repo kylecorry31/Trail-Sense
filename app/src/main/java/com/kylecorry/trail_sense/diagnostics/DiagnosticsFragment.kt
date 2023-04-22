@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
@@ -42,7 +43,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 itemBinding.title.text = titleLookup.getTitle(code)
                 itemBinding.description.text = descriptionLookup.getDescription(code)
                 itemBinding.icon.setImageResource(R.drawable.ic_alert)
-                CustomUiUtils.setImageColor(itemBinding.icon, getStatusTint(code.severity))
+                Colors.setImageColor(itemBinding.icon, getStatusTint(code.severity))
                 itemBinding.root.setOnClickListener {
                     val alerter = DiagnosticAlertService(
                         requireContext(),

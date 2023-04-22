@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
@@ -45,7 +46,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                 toolBinding.icon.isVisible = true
                 toolBinding.description.isVisible = tool.description != null
                 toolBinding.icon.setImageResource(tool.icon)
-                CustomUiUtils.setImageColor(toolBinding.icon, Resources.androidTextColorSecondary(requireContext()))
+                Colors.setImageColor(toolBinding.icon, Resources.androidTextColorSecondary(requireContext()))
                 toolBinding.root.setOnClickListener {
                     tryOrNothing {
                         findNavController().navigate(tool.action)

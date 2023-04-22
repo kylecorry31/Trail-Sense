@@ -7,9 +7,9 @@ import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewDataPointBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 class DataPointView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -51,7 +51,7 @@ class DataPointView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
     fun setImageResource(@DrawableRes res: Int?) {
         if (res != null) {
             binding.dataPointImage.setImageResource(res)
-            CustomUiUtils.setImageColor(
+            Colors.setImageColor(
                 binding.dataPointImage,
                 if (tint == -1) Resources.androidTextColorPrimary(context) else tint
             )

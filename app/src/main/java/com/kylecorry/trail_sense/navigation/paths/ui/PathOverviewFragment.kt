@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
@@ -507,7 +508,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 false
             )
 
-        CustomUiUtils.setImageColor(binding.pathColor, path.style.color)
+        Colors.setImageColor(binding.pathColor, path.style.color)
 
         updateWaypoints()
     }

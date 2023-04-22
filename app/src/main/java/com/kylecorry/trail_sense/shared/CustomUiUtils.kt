@@ -2,16 +2,12 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Size
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -24,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
@@ -76,11 +73,11 @@ object CustomUiUtils {
         @ColorInt secondaryColor: Int
     ) {
         if (isOn) {
-            button.drawable?.let { setImageColor(it, secondaryColor) }
+            button.drawable?.let { Colors.setImageColor(it, secondaryColor) }
             button.backgroundTintList = ColorStateList.valueOf(primaryColor)
         } else {
             button.drawable?.let {
-                setImageColor(
+                Colors.setImageColor(
                     it,
                     Resources.androidTextColorSecondary(button.context)
                 )
@@ -284,25 +281,9 @@ object CustomUiUtils {
         }
     }
 
-    fun setImageColor(view: ImageView, @ColorInt color: Int?) {
-        if (color == null) {
-            view.clearColorFilter()
-            return
-        }
-        view.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
-    }
-
-    fun setImageColor(drawable: Drawable, @ColorInt color: Int?) {
-        if (color == null) {
-            drawable.clearColorFilter()
-            return
-        }
-        drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
-    }
-
     fun setImageColor(textView: TextView, @ColorInt color: Int?) {
         textView.compoundDrawables.forEach {
-            it?.let { setImageColor(it, color) }
+            it?.let { Colors.setImageColor(it, color) }
         }
     }
 

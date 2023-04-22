@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.trail_sense.databinding.ListItemAstronomyDetailBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 abstract class AstroFieldTemplate : AstroField {
     override fun display(binding: ListItemAstronomyDetailBinding) {
         val context = binding.root.context
         binding.astronomyDetailIcon.isVisible = true
-        CustomUiUtils.setImageColor(binding.astronomyDetailIcon, getImageTint(context))
+        Colors.setImageColor(binding.astronomyDetailIcon, getImageTint(context))
         binding.astronomyDetailIcon.setImageResource(getImage(context))
 
         binding.astronomyDetailName.isVisible = true
