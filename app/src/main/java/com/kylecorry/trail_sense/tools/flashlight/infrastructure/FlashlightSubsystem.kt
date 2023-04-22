@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.generic.ITopic
@@ -174,6 +175,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var instance: FlashlightSubsystem? = null
         fun getInstance(context: Context): FlashlightSubsystem {
             if (instance == null) {

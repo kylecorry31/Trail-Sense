@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.format.DateUtils
 import android.text.format.Formatter
@@ -683,6 +684,7 @@ class FormatService private constructor(private val context: Context) {
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var instance: FormatService? = null
 
         @Synchronized
