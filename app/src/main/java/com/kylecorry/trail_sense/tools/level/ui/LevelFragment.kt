@@ -3,13 +3,19 @@ package com.kylecorry.trail_sense.tools.level.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.ui.HorizontalConstraint
+import com.kylecorry.andromeda.core.ui.HorizontalConstraintType
+import com.kylecorry.andromeda.core.ui.VerticalConstraint
+import com.kylecorry.andromeda.core.ui.VerticalConstraintType
+import com.kylecorry.andromeda.core.ui.align
+import com.kylecorry.andromeda.core.ui.alignToVector
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.abs
 import kotlin.math.atan2
 
@@ -43,8 +49,7 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
             else -> -(180 + euler.roll)
         }
         val y = euler.pitch
-        align(
-            binding.bubbleX,
+        binding.bubbleX.align(
             null,
             HorizontalConstraint(binding.bubbleXBackground, HorizontalConstraintType.Left),
             null,
@@ -52,8 +57,7 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
             0f,
             (x + 90) / 180f
         )
-        align(
-            binding.bubbleY,
+        binding.bubbleY.align(
             VerticalConstraint(binding.bubbleYBackground, VerticalConstraintType.Top),
             null,
             VerticalConstraint(binding.bubbleYBackground, VerticalConstraintType.Bottom),
@@ -62,9 +66,8 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
             0f
         )
 
-        alignToVector(
+        binding.bubble.alignToVector(
             binding.crosshairs,
-            binding.bubble,
             180f * Vector3(x / 90f, y / 90f, 0f).magnitude(),
             atan2(y, x).toDegrees() + 180
         )
