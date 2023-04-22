@@ -11,6 +11,7 @@ import androidx.core.text.buildSpannedString
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.ui.flatten
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
@@ -25,7 +26,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
-import com.kylecorry.trail_sense.shared.flatten
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification

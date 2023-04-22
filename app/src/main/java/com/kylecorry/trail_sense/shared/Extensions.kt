@@ -1,8 +1,5 @@
 package com.kylecorry.trail_sense.shared
 
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -61,11 +58,6 @@ fun GeoUri.Companion.from(beacon: Beacon): GeoUri {
     }
 
     return GeoUri(beacon.coordinate, null, params)
-}
-
-fun ImageButton.flatten() {
-    backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
-    elevation = 0f
 }
 
 val ZERO_SPEED = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
