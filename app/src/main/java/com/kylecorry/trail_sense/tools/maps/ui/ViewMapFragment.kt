@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -33,9 +34,17 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
-import com.kylecorry.trail_sense.navigation.ui.layers.*
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.NavigationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain

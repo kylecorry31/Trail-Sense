@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.observe
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelService
 import kotlinx.coroutines.Dispatchers

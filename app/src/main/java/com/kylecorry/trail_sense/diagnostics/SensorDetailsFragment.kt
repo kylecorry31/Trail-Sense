@@ -13,15 +13,25 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.barometer.Barometer
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.Temperature
+import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.NullBarometer
@@ -36,7 +46,7 @@ import java.time.Instant
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.time.format.TextStyle
-import java.util.*
+import java.util.Locale
 
 class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 

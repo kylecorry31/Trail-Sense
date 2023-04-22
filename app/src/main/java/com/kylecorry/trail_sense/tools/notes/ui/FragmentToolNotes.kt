@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.observe
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder

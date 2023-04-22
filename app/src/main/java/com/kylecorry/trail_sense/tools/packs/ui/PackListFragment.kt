@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.observe
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackAction
