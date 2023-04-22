@@ -21,6 +21,7 @@
     <locale android:name="in" />
     <locale android:name="it" />
     <locale android:name="iw" />
+    <locale android:name="ja"/>
     <locale android:name="js" />
     <locale android:name="nb-rNO" />
     <locale android:name="ne" />
@@ -35,6 +36,7 @@
     <locale android:name="tr" />
     <locale android:name="uk" />
     <locale android:name="vi" />
+    <locale android:name="yue"/>
     <locale android:name="zh" />
     <locale android:name="zh-rTW" />
 </locale-config>
