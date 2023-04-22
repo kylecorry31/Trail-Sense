@@ -147,10 +147,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     }
                     setCreateMenuVisibility(false)
                 }
+
                 R.id.action_import_gpx_beacons -> {
                     importBeacons()
                     setCreateMenuVisibility(false)
                 }
+
                 R.id.action_create_beacon_group -> {
                     val command =
                         CreateBeaconGroupCommand(requireContext(), lifecycleScope, beaconService) {
@@ -159,6 +161,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     command.execute(manager.root?.id)
                     setCreateMenuVisibility(false)
                 }
+
                 R.id.action_create_beacon -> {
                     setCreateMenuVisibility(false)
                     createBeacon(group = manager.root?.id)
@@ -183,6 +186,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 isCreateMenuOpen() -> {
                     setCreateMenuVisibility(false)
                 }
+
                 else -> {
                     if (!manager.up()) {
                         remove()
@@ -402,7 +406,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun navigate(beacon: Beacon) {
-        PreferencesSubsystem.getInstance(requireContext()).preferences.putLong("last_beacon_id_long", beacon.id)
+        PreferencesSubsystem.getInstance(requireContext()).preferences.putLong(
+            "last_beacon_id_long",
+            beacon.id
+        )
         // TODO: Confirm it is always navigate up that gets there
         navController.navigateUp()
     }
@@ -484,6 +491,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             BeaconGroupAction.Open -> {
                 manager.open(group.id)
             }
+
             BeaconGroupAction.Edit -> rename(group)
             BeaconGroupAction.Delete -> delete(group)
             BeaconGroupAction.Move -> move(group)
