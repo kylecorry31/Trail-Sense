@@ -11,10 +11,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalDate
 
 class MeteorShowerField(
-    val date: LocalDate,
-    val shower: MeteorShowerPeak,
-    val azimuth: Bearing,
-    val altitude: Float
+    private val date: LocalDate,
+    private val shower: MeteorShowerPeak,
+    private val azimuth: Bearing,
+    private val altitude: Float
 ) : AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return context.getString(R.string.meteor_shower)

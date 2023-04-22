@@ -18,9 +18,9 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
+import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
-import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import java.io.File
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
@@ -100,6 +100,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         return success
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun setTorch(isOn: Boolean) {
         isTorchOn = isOn
         torchBtn.setImageResource(if (isOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
@@ -119,6 +120,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         camera?.setZoomRatio(SolMath.map(zoom, 0f, 1f, min, max))
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun setZoomRatio(ratio: Float){
         val state = camera?.zoom
         val min = state?.ratioRange?.start ?: 1f

@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
 import com.kylecorry.trail_sense.astronomy.ui.fields.DaylightAstroField
 import java.time.LocalDate
 
-class DaylightProvider(val sunTimesMode: SunTimesMode) : AstroFieldProvider {
+class DaylightProvider(private val sunTimesMode: SunTimesMode) : AstroFieldProvider {
     override fun getFields(date: LocalDate, location: Coordinate): List<AstroField> {
         val astronomyService = AstronomyService()
         val daylight = astronomyService.getLengthOfDay(location, sunTimesMode, date)

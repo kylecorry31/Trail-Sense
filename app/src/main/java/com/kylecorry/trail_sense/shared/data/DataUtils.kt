@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.kylecorry.trail_sense.shared.data
 
 import com.kylecorry.sol.math.SolMath.cosDegrees

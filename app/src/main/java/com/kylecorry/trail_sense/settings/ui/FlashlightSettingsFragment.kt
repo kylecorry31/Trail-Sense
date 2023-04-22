@@ -16,10 +16,11 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
         val prefs = UserPreferences(requireContext()).flashlight
 
         val timeout = preference(R.string.pref_flashlight_timeout)
-        timeout?.summary = formatter.formatDuration(prefs.timeout, short = false, includeSeconds = true)
+        timeout?.summary =
+            formatter.formatDuration(prefs.timeout, short = false, includeSeconds = true)
 
-        timeout?.setOnPreferenceClickListener {
-            val title = it.title.toString()
+        timeout?.setOnPreferenceClickListener { pref ->
+            val title = pref.title.toString()
             CustomUiUtils.pickDuration(
                 requireContext(),
                 prefs.timeout,
@@ -27,7 +28,8 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
             ) {
                 if (it != null && !it.isZero) {
                     prefs.timeout = it
-                    timeout.summary = formatter.formatDuration(it, short = false, includeSeconds = true)
+                    timeout.summary =
+                        formatter.formatDuration(it, short = false, includeSeconds = true)
                 }
             }
             true

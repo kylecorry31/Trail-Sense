@@ -33,6 +33,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
             }
         }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     var trueNorth: Boolean
         get() = trueNorthSwitch.isChecked
         set(value) {

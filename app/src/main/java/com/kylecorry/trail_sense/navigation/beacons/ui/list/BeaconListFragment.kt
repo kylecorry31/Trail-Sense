@@ -224,7 +224,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     gpx.waypoints.map { it.name ?: formatService.formatLocation(it.coordinate) },
                     List(gpx.waypoints.size) { it },
                 ) {
-                    if (it != null && it.isNotEmpty()) {
+                    if (!it.isNullOrEmpty()) {
                         val selectedWaypoints = gpx.waypoints.filterIndices(it)
                         export(gpx.copy(waypoints = selectedWaypoints))
                     }

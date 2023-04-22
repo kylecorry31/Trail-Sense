@@ -66,7 +66,7 @@ class UnitInputView<Units : Enum<*>>(
             amountEditHolder.hint = value
         }
 
-    var unitPickerTitle: CharSequence = ""
+    private var unitPickerTitle: CharSequence = ""
 
 
     var onChange: ((amount: Number?, unit: Units?) -> Unit)? = null

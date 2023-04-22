@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
@@ -21,7 +22,6 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
@@ -45,8 +45,8 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
         observe(repo.getAllLive()) {
             val since = Instant.now().minus(Duration.ofHours(48))
-            binding.cloudList.setItems(it.sortedByDescending { it.time }
-                .filter { it.time >= since }, mapper)
+            binding.cloudList.setItems(it.sortedByDescending { cloud -> cloud.time }
+                .filter { cloud -> cloud.time >= since }, mapper)
         }
 
         binding.cloudListTitle.rightButton.setOnClickListener {

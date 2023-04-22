@@ -26,6 +26,7 @@ class MapExportService(
         return true
     }
 
+    @Suppress("FoldInitializerAndIfToElvis")
     private fun getPDFData(map: PhotoMap): List<PDFObject> {
         var bitmap: Bitmap? = null
         try {

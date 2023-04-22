@@ -225,6 +225,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         scale = 1f
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun zoomTo(newScale: Float){
         if (newScale == scale){
             return

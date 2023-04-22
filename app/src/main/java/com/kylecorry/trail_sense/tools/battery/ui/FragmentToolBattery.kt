@@ -145,17 +145,18 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             }
         }
 
-        observe(batteryRepo.get()) {
-            readings = it.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
-                if (battery.hasValidReading)
-                    BatteryReading(
-                        Instant.now(),
-                        battery.percent,
-                        battery.capacity,
-                        battery.chargingStatus == BatteryChargingStatus.Charging
-                    )
-                else null
-            )
+        observe(batteryRepo.get()) { allReadings ->
+            readings =
+                allReadings.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
+                    if (battery.hasValidReading)
+                        BatteryReading(
+                            Instant.now(),
+                            battery.percent,
+                            battery.capacity,
+                            battery.chargingStatus == BatteryChargingStatus.Charging
+                        )
+                    else null
+                )
 
             binding.batteryTitle.leftButton.isVisible = readings.size >= 2
 
@@ -190,9 +191,11 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             service.frequency < Duration.ofMinutes(15) -> {
                 getString(R.string.high)
             }
+
             service.frequency <= Duration.ofMinutes(25) -> {
                 getString(R.string.moderate)
             }
+
             else -> {
                 getString(R.string.low)
             }
@@ -262,14 +265,17 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                     R.string.charging_fast,
                     getString(R.string.battery_power_ac)
                 )
+
                 isCharging && chargeMethod == BatteryChargingMethod.USB -> getString(
                     R.string.charging_slow,
                     getString(R.string.battery_power_usb)
                 )
+
                 isCharging && chargeMethod == BatteryChargingMethod.Wireless -> getString(
                     R.string.charging_wireless,
                     getString(R.string.battery_power_wireless)
                 )
+
                 else -> ""
             }
         }

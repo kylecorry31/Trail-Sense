@@ -95,7 +95,7 @@ class MultipartUnitInputView<Units : Enum<*>>(
             secondaryAmountEditHolder.isVisible = value
         }
 
-    var unitPickerTitle: CharSequence = ""
+    private var unitPickerTitle: CharSequence = ""
 
 
     var onChange: ((amount: Number?, secondaryAmount: Number?, unit: Units?) -> Unit)? = null

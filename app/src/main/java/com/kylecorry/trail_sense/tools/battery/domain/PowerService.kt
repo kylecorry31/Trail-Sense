@@ -55,7 +55,7 @@ class PowerService {
 
     }
 
-    fun getRate(
+    private fun getRate(
         first: BatteryReading,
         second: BatteryReading,
         hasCapacity: Boolean = first.capacity != 0f

@@ -66,10 +66,10 @@ class CreateBlankMapCommand(
 
             val calibrated = map?.copy(
                 calibration = MapCalibration(
-                    true,
-                    true,
-                    0,
-                    calibration
+                    warped = true,
+                    rotated = true,
+                    rotation = 0,
+                    calibrationPoints = calibration
                 )
             )
 

@@ -16,8 +16,8 @@ import kotlin.math.roundToInt
 internal object HistoricMonthlyTemperatureRangeRepo {
 
     internal const val lonStep = 2
-    internal const val minLat = -60
-    internal const val maxLat = 84
+    private const val minLat = -60
+    private const val maxLat = 84
 
     suspend fun getMonthlyTemperatureRange(
         context: Context,

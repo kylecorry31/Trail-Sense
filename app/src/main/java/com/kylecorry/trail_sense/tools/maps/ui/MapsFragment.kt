@@ -88,8 +88,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
             Pickers.menu(
                 it,
                 actions.map { action -> action.second }
-            ) {
-                when (actions[it].first) {
+            ) { index ->
+                when (actions[index].first) {
                     MapContextualAction.Calibrate -> calibrate()
                     MapContextualAction.Guide -> openGuide()
                     MapContextualAction.Rename -> rename()

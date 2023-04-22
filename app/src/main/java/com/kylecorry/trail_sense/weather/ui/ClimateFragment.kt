@@ -56,8 +56,8 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         }
 
         binding.location.setOnBeaconSelectedListener {
-            it.elevation?.let {
-                binding.elevation.value = Distance.meters(it).convertTo(distanceUnits)
+            it.elevation?.let { elevation ->
+                binding.elevation.value = Distance.meters(elevation).convertTo(distanceUnits)
             }
             reloadTemperatures()
         }

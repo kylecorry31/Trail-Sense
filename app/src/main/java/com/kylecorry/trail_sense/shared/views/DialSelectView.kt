@@ -8,6 +8,7 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -72,13 +73,14 @@ class DialSelectView : CanvasView {
             invalidate()
         }
 
-    var selectedColor = AppColor.Orange.color
+    @ColorInt
+    var selectedColor: Int = AppColor.Orange.color
         set(value) {
             field = value
             invalidate()
         }
 
-    var alignToTop = false
+    var alignToTop: Boolean = false
         set(value) {
             field = value
             invalidate()
@@ -231,6 +233,7 @@ class DialSelectView : CanvasView {
         return map(delta, -range / 2, range / 2, 0f, width.toFloat())
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun scrollToOption(optionIdx: Int) {
         targetScrollPosition = optionIdx * 360f / options.size
     }

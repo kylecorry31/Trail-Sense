@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.Duration
 
-class DaylightAstroField(val length: Duration, val season: Season) : AstroFieldTemplate() {
+class DaylightAstroField(private val length: Duration, private val season: Season) : AstroFieldTemplate() {
     override fun getTitle(context: Context): String {
         return context.getString(R.string.daylight)
     }

@@ -287,7 +287,7 @@ object CustomUiUtils {
             }
         }
 
-    fun takePhoto(
+    private fun takePhoto(
         fragment: AndromedaFragment,
         size: Size? = null,
         onCapture: (uri: Uri?) -> Unit
@@ -298,8 +298,8 @@ object CustomUiUtils {
                 return@requestCamera
             }
 
-            val sheet = PhotoImportBottomSheetFragment(size) {
-                onCapture(it)
+            val sheet = PhotoImportBottomSheetFragment(size) { uri ->
+                onCapture(uri)
             }
 
             sheet.show(fragment)
