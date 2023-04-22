@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -40,7 +40,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
         super.onViewCreated(view, savedInstanceState)
         binding.boilButton.setOnClickListener {
             if (isRunning()) {
-                stop(true)
+                stop()
             } else {
                 start()
             }
@@ -100,7 +100,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
     }
 
     private fun start() {
-        stop(false)
+        stop(updateUI = false)
         inBackground {
             val duration = duration ?: getSelectedDuration()
             onIO {
@@ -115,7 +115,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
         }
     }
 
-    private fun stop(updateUI: Boolean) {
+    private fun stop(updateUI: Boolean = true) {
         cache.remove(WATER_PURIFICATION_END_TIME_KEY)
         WaterPurificationTimerService.stop(requireContext())
         if (updateUI) {

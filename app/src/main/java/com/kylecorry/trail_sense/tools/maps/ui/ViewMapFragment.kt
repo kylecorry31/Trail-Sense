@@ -158,7 +158,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             navigationLayer.setStart(gps.location)
             inBackground {
-                updatePaths(false)
+                updatePaths()
             }
             updateDestination()
             if (!tideTimer.isRunning()) {
@@ -367,7 +367,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         beaconLayer.setBeacons(all)
     }
 
-    private suspend fun updatePaths(reload: Boolean) = onDefault {
+    private suspend fun updatePaths(reload: Boolean = false) = onDefault {
         if (reload) {
             val bounds = map?.boundary() ?: return@onDefault
             pathLoader.update(paths, bounds, bounds, true)
@@ -619,7 +619,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun onCalibrationChanged() {
         inBackground {
-            updatePaths(false)
+            updatePaths()
         }
     }
 

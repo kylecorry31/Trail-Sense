@@ -729,7 +729,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun updateCompassPaths(reload: Boolean) {
+    private fun updateCompassPaths(reload: Boolean = false) {
         inBackground {
             loadPathRunner.joinPreviousOrRun {
 
@@ -839,7 +839,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         if (paths.any()) {
-            updateCompassPaths(false)
+            updateCompassPaths()
         }
     }
 
