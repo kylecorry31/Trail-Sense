@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.commands
 
-import com.kylecorry.trail_sense.shared.Slugify.slugify
+import com.kylecorry.andromeda.core.text.slugify
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
