@@ -91,7 +91,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                 }
 
                 onMain {
-                    beacon?.let { it ->
+                    beacon?.let {
                         setEditingBeaconValues(it)
                     }
                 }

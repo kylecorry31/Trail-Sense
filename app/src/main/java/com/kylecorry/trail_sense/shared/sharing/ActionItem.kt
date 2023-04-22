@@ -4,5 +4,4 @@ data class ActionItem(
     val name: String,
     val icon: Int,
     val action: () -> Unit
-) {
-}
+)

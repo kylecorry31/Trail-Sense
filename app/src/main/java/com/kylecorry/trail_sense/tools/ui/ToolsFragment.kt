@@ -18,7 +18,6 @@ import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 
 class ToolsFragment : BoundFragment<FragmentToolsBinding>() {

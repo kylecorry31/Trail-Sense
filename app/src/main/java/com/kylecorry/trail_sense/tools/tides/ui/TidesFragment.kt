@@ -10,17 +10,17 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
@@ -159,8 +159,6 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         inBackground {
             table = loadTideCommand.execute()
             onMain {
-                if (!isBound) return@onMain
-
                 binding.loading.isVisible = false
                 if (table == null) {
                     val cancelled = CoroutineAlerts.dialog(

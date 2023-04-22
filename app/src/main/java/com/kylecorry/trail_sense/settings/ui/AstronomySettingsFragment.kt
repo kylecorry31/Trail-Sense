@@ -20,8 +20,8 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
 
-        list(R.string.pref_sunset_alert_time)?.setOnPreferenceClickListener { _ ->
-                context?.apply {
+        list(R.string.pref_sunset_alert_time)?.setOnPreferenceClickListener {
+            context?.apply {
                     SunsetAlarmReceiver.start(this)
                 }
                 true

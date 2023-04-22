@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.core.toDoubleCompat
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 
-open class UnitInputView<Units : Enum<*>>(
+class UnitInputView<Units : Enum<*>>(
     context: Context,
     attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
