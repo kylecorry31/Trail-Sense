@@ -25,7 +25,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission

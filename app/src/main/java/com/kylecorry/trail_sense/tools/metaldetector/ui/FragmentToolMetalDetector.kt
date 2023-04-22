@@ -19,7 +19,7 @@ import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem

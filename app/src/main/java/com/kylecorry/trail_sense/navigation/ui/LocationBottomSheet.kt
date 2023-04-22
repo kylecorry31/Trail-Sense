@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.location.IGPS
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSend
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationQRSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sharing.Share

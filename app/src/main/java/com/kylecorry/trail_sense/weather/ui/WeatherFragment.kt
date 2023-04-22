@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
 import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.*
-import com.kylecorry.trail_sense.shared.CustomUiUtils.setCompoundDrawables
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
