@@ -11,22 +11,28 @@ import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-abstract class BaseCompassView : CanvasView, INearbyCompassView, ICompassView {
+abstract class BaseCompassView : CanvasView, ICompassView {
 
     private val bitmapLoader by lazy { BitmapLoader(context) }
-    protected var _location = Coordinate.zero
-    protected var _useTrueNorth = false
-    protected var _declination: Float = 0f
     protected val prefs by lazy { UserPreferences(context) }
 
-    override val compassCenter: Coordinate
-        get() = _location
+    override var compassCenter: Coordinate = Coordinate.zero
+        set(value) {
+            field = value
+            invalidate()
+        }
 
-    override val useTrueNorth: Boolean
-        get() = _useTrueNorth
+    override var useTrueNorth: Boolean = false
+        set(value) {
+            field = value
+            invalidate()
+        }
 
-    override val declination: Float
-        get() = _declination
+    override var declination: Float = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     private val compassLayers = mutableListOf<ICompassLayer>()
 
@@ -49,16 +55,6 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView, ICompassView {
             invalidate()
         }
 
-    override fun setLocation(location: Coordinate) {
-        _location = location
-        invalidate()
-    }
-
-    override fun setDeclination(declination: Float) {
-        _declination = declination
-        invalidate()
-    }
-
     protected open fun finalize() {
         bitmapLoader.clear()
     }
@@ -71,12 +67,8 @@ abstract class BaseCompassView : CanvasView, INearbyCompassView, ICompassView {
         compassLayers.forEach { it.draw(this, this) }
     }
 
-    protected fun invalidateCompassLayers() {
-        compassLayers.forEach { it.invalidate() }
-    }
-
     override fun setup() {
-        _useTrueNorth = prefs.navigation.useTrueNorth
+        useTrueNorth = prefs.navigation.useTrueNorth
     }
 
     override fun addCompassLayer(layer: ICompassLayer) {

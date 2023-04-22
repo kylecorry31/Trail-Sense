@@ -60,9 +60,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         get() {
             return RadarCompassCoordinateToPixelStrategy(
                 Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f),
-                Geofence(_location, maxDistanceMeters),
-                _useTrueNorth,
-                _declination
+                Geofence(compassCenter, maxDistanceMeters),
+                useTrueNorth,
+                declination
             )
         }
 
@@ -339,16 +339,16 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     override var metersPerPixel: Float
         get() = maxDistanceMeters.distance / (compassSize / 2f)
-        set(value) {
+        set(_) {
             // Do nothing yet
         }
 
     override val layerScale: Float = 1f
 
     override var mapCenter: Coordinate
-        get() = _location
+        get() = compassCenter
         set(value) {
-            setLocation(value)
+            compassCenter = value
         }
     override var mapRotation: Float
         get() = azimuth.value

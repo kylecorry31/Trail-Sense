@@ -6,12 +6,6 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
-interface INearbyCompassView {
-    var azimuth: Bearing
-    fun setLocation(location: Coordinate)
-    fun setDeclination(declination: Float)
-}
-
 interface IMappableBearing {
     val bearing: Bearing
     val color: Int

@@ -54,6 +54,7 @@ import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
@@ -670,14 +671,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
 
         // Compass
-        listOf<INearbyCompassView>(
+        listOf<ICompassView>(
             binding.roundCompass,
             binding.radarCompass,
             binding.linearCompass
         ).forEach {
             it.azimuth = compass.bearing
-            it.setDeclination(declination)
-            it.setLocation(gps.location)
+            it.declination = declination
+            it.compassCenter = gps.location
         }
 
         // Location
