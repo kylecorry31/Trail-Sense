@@ -82,6 +82,7 @@
         <item quantity="one">%d maják</item>
         <item quantity="few">%d majáky</item>
         <item quantity="other">%d majáků</item>
+        <item quantity="many">%d majáků</item>
     </plurals>
     <string name="no_beacons">Žádné majáky</string>
     <string name="sos">SOS</string>
@@ -173,11 +174,13 @@
         <item quantity="one">Poslední %d minuta</item>
         <item quantity="few">Poslední %d minuty</item>
         <item quantity="other">Posledních %d minut</item>
+        <item quantity="many">Posledních %d minut</item>
     </plurals>
     <plurals name="last_hours">
         <item quantity="one">Poslední %d hodina</item>
         <item quantity="few">Poslední %d hodiny</item>
         <item quantity="other">Posledních %d hodin</item>
+        <item quantity="many">Posledních %d hodin</item>
     </plurals>
     <string name="notification_monitoring_weather">Sledování počasí na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha před bouří</string>
@@ -358,6 +361,7 @@
         <item quantity="one">%d maják importován</item>
         <item quantity="few">%d majáky importovány</item>
         <item quantity="other">%d majáků importováno</item>
+        <item quantity="many">%d majáků importováno</item>
     </plurals>
     <string name="notes_empty_text">Žádné poznámky</string>
     <string name="map_scale_title">Měřítko mapy</string>
@@ -423,6 +427,7 @@
         <item quantity="one">%d sekunda do pitné vody</item>
         <item quantity="few">%d sekundy do pitné vody</item>
         <item quantity="other">%d sekund do pitné vody</item>
+        <item quantity="many">%d sekund do pitné vody</item>
     </plurals>
     <string name="water_purification_step_1">Vyfiltrujte vodu</string>
     <string name="clock_waiting_for_gps">Aktualizace času z GPS…</string>
@@ -494,6 +499,7 @@
         <item quantity="one">%d maják exportován</item>
         <item quantity="few">%d majáky exportovány</item>
         <item quantity="other">%d majáků exportováno</item>
+        <item quantity="many">%d majáků exportováno</item>
     </plurals>
     <string name="dbm_format">%s dBm</string>
     <string name="quality_poor">Špatná</string>
@@ -629,6 +635,7 @@
         <item quantity="one">%d cesta</item>
         <item quantity="few">%d cesty</item>
         <item quantity="other">%d cest</item>
+        <item quantity="many">%d cest</item>
     </plurals>
     <string name="delete_path_group_message">%s a všechny jeho cesty budou smazány.</string>
     <string name="pref_cell_signal_refresh_cache_title">Aktualizovat mezipaměť signálu</string>
@@ -746,6 +753,7 @@
         <item quantity="one">%d den</item>
         <item quantity="few">%d dny</item>
         <item quantity="other">%d dní</item>
+        <item quantity="many">%d dní</item>
     </plurals>
     <string name="pref_tiles_enabled_summary">Může zabránit aplikacím spořiče baterie v úplném zastavení Trail Sense</string>
     <string name="kilograms">Kilogramy</string>
@@ -849,6 +857,7 @@
         <item quantity="one">%d cesta importována</item>
         <item quantity="few">%d cesty importovány</item>
         <item quantity="other">%d cest importováno</item>
+        <item quantity="many">%d cest importováno</item>
     </plurals>
     <string name="battery_usage_restricted_benefit">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.
 \n
@@ -862,6 +871,7 @@
         <item quantity="one">%d navigační bod bude smazán</item>
         <item quantity="few">%d navigační body budou smazány</item>
         <item quantity="other">%d navigačních bodů bude smazáno</item>
+        <item quantity="many">%d navigačních bodů bude smazáno</item>
     </plurals>
     <string name="weather_exported">Údaje o počasí exportovány</string>
     <string name="pref_export_weather_csv_title">Exportovat údaje o počasí</string>
@@ -1012,6 +1022,7 @@
         <item quantity="one">%d navigační bod odstraněn</item>
         <item quantity="few">%d navigační body odstraněny</item>
         <item quantity="other">%d navigačních bod: odstraněno</item>
+        <item quantity="many">%d navigačních bod: odstraněno</item>
     </plurals>
     <string name="tide_instructions">Použijte oficiální tabulku přílivů a odlivů k zadání referenčních přílivů/odlivů pro délku vaší cesty.</string>
     <string name="tide_user_guide_recommendation">Oficiální webové stránky tabulky přílivů a odlivů najdete v uživatelské příručce.</string>
@@ -1023,6 +1034,7 @@
         <item quantity="one">%d příliv/odliv</item>
         <item quantity="few">%d přílivy/odlivy</item>
         <item quantity="other">%d přílivů/odlivů</item>
+        <item quantity="many">%d přílivů/odlivů</item>
     </plurals>
     <string name="cloud_precipitation_forecast_hour_range">Mohou znamenat srážky v příštích %d až %d hodinách</string>
     <string name="lowest_point_elevation">Nejnižší bod</string>

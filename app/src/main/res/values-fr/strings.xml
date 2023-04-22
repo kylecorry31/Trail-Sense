@@ -35,6 +35,7 @@
     <plurals name="last_minutes">
         <item quantity="one">Dernière %d minute</item>
         <item quantity="other">Dernières %d minutes</item>
+        <item quantity="many">Dernières %d minutes</item>
     </plurals>
     <string name="feet_miles">Pieds / Miles</string>
     <string name="units_hpa">hPa</string>
@@ -209,6 +210,7 @@
     <plurals name="beacon_group_summary">
         <item quantity="one">%d repère</item>
         <item quantity="other">%d repères</item>
+        <item quantity="many">%d repères</item>
     </plurals>
     <string name="guide_conserving_battery_title">Préserver la batterie</string>
     <string name="navigation_nearby_category">À proximité</string>
@@ -274,6 +276,7 @@
     <plurals name="water_boil_timer_content">
         <item quantity="one">encore %d seconde pour que l\'eau soit potable</item>
         <item quantity="other">encore %d secondes pour que l\'eau soit potable</item>
+        <item quantity="many">encore %d secondes pour que l\'eau soit potable</item>
     </plurals>
     <string name="water_boil_timer_done_content">Votre eau est maintenant potable</string>
     <string name="water_boil_timer_channel_description">L\'eau est en train de bouillir</string>
@@ -408,10 +411,12 @@
     <plurals name="beacons_exported">
         <item quantity="one">%d repère exporté</item>
         <item quantity="other">%d repères exportés</item>
+        <item quantity="many">%d repères exportés</item>
     </plurals>
     <plurals name="beacons_imported">
         <item quantity="one">%d repère importé</item>
         <item quantity="other">%d repères importés</item>
+        <item quantity="many">%d repères importés</item>
     </plurals>
     <string name="export">Exporter</string>
     <string name="altocumulus_desc">Nuage cotonneux de moyenne altitude. Généralement blanc ponctué de tâches sombres et pouvant être espacés ou sous la forme d’un voile.</string>
@@ -652,6 +657,7 @@
     <plurals name="number_days">
         <item quantity="one">%d jour</item>
         <item quantity="other">%d jours</item>
+        <item quantity="many">%d jours</item>
     </plurals>
     <string name="pref_privacy_screenshot_protection_title">Bloquer les captures d’écran</string>
     <string name="privacy">Vie privée</string>
@@ -754,6 +760,7 @@
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d balise sera supprimée</item>
         <item quantity="other">%d balises seront supprimées</item>
+        <item quantity="many">%d balises seront supprimées</item>
     </plurals>
     <string name="stratus_desc">Nuage bas couvrant le ciel. Les objets n’ont pas d’ombre et il peut y avoir du brouillard.</string>
     <string name="precipitation_snow">Neige</string>
