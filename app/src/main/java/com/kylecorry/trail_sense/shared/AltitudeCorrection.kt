@@ -40,7 +40,7 @@ object AltitudeCorrection {
     private fun loadOffset(context: Context, key: Pair<Int, Int>): Byte? {
         val input = context.resources.openRawResource(R.raw.geoids)
         val line = ((90 + key.first) * 361 + (180 + key.second))
-        return CompressionUtils.getBytes(input, line, 1)?.get(0)
+        return CompressionUtils.getByte(input, line)
     }
 
 }
