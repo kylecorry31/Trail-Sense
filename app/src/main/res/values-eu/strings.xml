@@ -236,10 +236,10 @@
     <string name="pref_pressure_history_title">Presio historia</string>
     <string name="pref_storm_alert_sensitivity_title">Ekaitz sentsibilitatea</string>
     <string name="pref_num_visible_beacons_title">Hurbileko balizak</string>
-    <string name="pref_elevation_override_title">Altitudea baliogabetu</string>
+    <string name="pref_elevation_override_title">Altueraren ordezkapena</string>
     <string name="request_permission">Baimena eskatu</string>
     <string name="calibrate_compass_dialog_title">Iparrorratza kalibratu</string>
-    <string name="compass_declination_override">Deklinazioa baliogabetu</string>
+    <string name="compass_declination_override">Deklinazioa ordezkatu</string>
     <string name="none">Bat ere ez</string>
     <string name="satellites">sateliteak</string>
     <string name="gps_stale">Zaharkituta</string>
@@ -409,7 +409,7 @@
 \n
 \nAbisu hau ken daiteke aplikazioaren ezarpenetan.</string>
     <string name="pref_auto_location_title">Automatikoki doitu kokapena</string>
-    <string name="elevation_override_updated_toast">Altuera eguneratua</string>
+    <string name="elevation_override_updated_toast">Altueraren ordezkapena eguneratua</string>
     <string name="pref_adjust_for_temperature_summary">Erabili tenperatura presio atmosferikoaren bihurketetan</string>
     <string name="pref_display_multi_beacons_title">Erakutsi gertuko balizak</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibratu nabigatu baino lehen</string>
@@ -418,7 +418,7 @@
     <string name="pref_weather_update_frequency_title">Eguraldiaren eguneraketaren maiztasuna</string>
     <string name="pref_sun_time_mode_title">Egunsentia / ilunabarra</string>
     <string name="pref_display_multi_beacons_summary">Erakutsi gertuko balizak iparrorratzean</string>
-    <string name="elevation_from_pressure">Ordezkatu barometroarekin</string>
+    <string name="elevation_from_pressure">Ordezkatu barometroa erabilita</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Sartu presio atmosferikoa</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Oraingo presio atmosferikoa sartu hPa-etan</string>
     <string name="pref_elevation_override_sea_level_title">Ezaguna den presio atmosferikoa erabiltzen</string>
@@ -427,7 +427,7 @@
     <string name="tap_sun_moon_hint">Sakatu eguzki edo ilargian posizioaren xehetasunetarako</string>
     <string name="action_inventory_clear_confirm">Gordetako kopuru guztiak ezabatu\?</string>
     <string name="clock_waiting_for_gps">GPS bidez ordua eguneratzen…</string>
-    <string name="declination_override_updated_toast">Deklinazioa eguneratua</string>
+    <string name="declination_override_updated_toast">Deklinazioaren ordezkapena eguneratua</string>
     <string name="pref_auto_declination_summary">Zure oraingo kokapenean oinarritua</string>
     <string name="pref_adjust_for_temperature_title">Tenperatura-faktorea</string>
     <string name="pref_use_sea_level_pressure_title">Presio atmosferikoa</string>
@@ -465,7 +465,7 @@
     <string name="min_temp_calibrated">Gutxieneko giro-tenperatura (kalibratua)</string>
     <string name="pip_notification_scheduled">Jakinarazpena programatua %s-(e)rako</string>
     <string name="pref_sunset_alert_time_title">Iluntzearen abisuaren ordua</string>
-    <string name="location_override_updated">Simulatutako kokapena eguneratua</string>
+    <string name="location_override_updated">Kokapenaren ordezkapena eguneratua</string>
     <string name="pref_backtrack_enabled_summary">Erregistratu kokapenaren historia</string>
     <string name="metal_detector_disclaimer">Soilik metal magnetikoak detektatzen ditu (adibidez: burdina)</string>
     <string name="clock_sync_time_settings">Ireki orduaren ezarpenak\?</string>
@@ -481,11 +481,28 @@
     <string name="could_not_triangulate">Ezin izan da triangulatu</string>
     <string name="notification_channel_clock_sync_description">Jakinarazpen bat zure erlojua GPSaren orduarekin sinkronizatzeko</string>
     <string name="clock_sync_instructions">Jakinarazpena jasotzean ordu hau ezarri: %s</string>
-    <string name="update_gps_override">Eguneratu simulatutako GPSa</string>
+    <string name="update_gps_override">Eguneratu GPSaren ordezkapena</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="min_temp_uncalibrated">Mugikorraren gutxieneko tenperatura (kalibratu gabea)</string>
     <string name="backtrack_notification_channel_description">Trazatu kokapenaren eguneraketak</string>
     <string name="pref_backtrack_frequency_title">Trazaduraren bitarteak</string>
     <string name="location_input_help_title">Eskuragarri dauden kokapenen formatuak</string>
+    <string name="elevation_override_resolution">Gaitu autokalibrazioa ezarpenetan.</string>
+    <string name="pref_gps_override_title">Kokapenaren ordezkapena</string>
+    <string name="location_input_help">Gradu dezimalak (adb. 1.00, -2.00)
+\n
+\nGraduak minutu dezimaletan (adb. 1°23.12\'N, 3°12.1\'W)
+\n
+\nGraduak minutu segundutan (adb. 1°23\'12.1\"N, 3°12\'1.2\"W)
+\n
+\nUTM (adb. 03T 12345E 67890N)
+\n
+\nMGRS (adb. 27PXM 09601 05579)
+\n
+\nUSNG (adb. 14S NJ 39521 41744)
+\n
+\nOSGB (adb. TG 51409 13177)</string>
+    <string name="location_override_resolution">Gaitu kokapenaren ezarpen automatikoa ezarpenetan.</string>
+    <string name="location_override_not_set_resolution">Ezarri kokapenaren ordezkapena ezarpenetan</string>
 </resources>
