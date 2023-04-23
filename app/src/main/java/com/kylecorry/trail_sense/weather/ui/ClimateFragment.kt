@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClimateBinding
-import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -42,11 +43,11 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Populate the initial location and elevation
         binding.location.coordinate = location.location
-        updateElevationUnits()
-        binding.elevation.value = location.elevation.convertTo(distanceUnits)
-        binding.elevation.hint = getString(R.string.elevation)
-        binding.elevation.defaultHint = getString(R.string.elevation)
+        val elevation = location.elevation.convertTo(distanceUnits)
+        val roundedElevation = elevation.copy(distance = elevation.distance.roundPlaces(Units.getDecimalPlaces(distanceUnits)))
+        binding.elevation.elevation = roundedElevation
 
         reloadTemperatures()
 
@@ -57,12 +58,24 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
 
         binding.location.setOnBeaconSelectedListener {
             it.elevation?.let { elevation ->
-                binding.elevation.value = Distance.meters(elevation).convertTo(distanceUnits)
+                binding.elevation.elevation = Distance.meters(elevation).convertTo(distanceUnits)
             }
             reloadTemperatures()
         }
 
-        binding.elevation.setOnValueChangeListener {
+        binding.location.setOnAutoLocationClickListener {
+            if (binding.elevation.elevation == null) {
+                binding.elevation.autofill()
+            }
+        }
+
+        binding.elevation.setOnAutoElevationClickListener {
+            if (binding.location.coordinate == null) {
+                binding.location.autofill()
+            }
+        }
+
+        binding.elevation.setOnElevationChangeListener {
             reloadTemperatures()
         }
 
@@ -74,6 +87,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     override fun onPause() {
         super.onPause()
         binding.location.pause()
+        binding.elevation.pause()
     }
 
     override fun generateBinding(
@@ -87,7 +101,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         loadTemperatures(
             binding.displayDate.date,
             binding.location.coordinate ?: location.location,
-            binding.elevation.value ?: Distance.meters(0f),
+            binding.elevation.elevation ?: Distance.meters(0f),
             recalculate
         )
     }
@@ -129,11 +143,6 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     private fun plotTemperatures(data: List<Pair<LocalDate, Range<Temperature>>>) {
         chart.plot(data, temperatureUnits)
         chart.highlight(binding.displayDate.date)
-    }
-
-    private fun updateElevationUnits() {
-        binding.elevation.units =
-            formatter.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
     }
 
 }

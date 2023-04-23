@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.Timer
@@ -98,11 +99,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
 
             gpsBtn.setOnClickListener {
                 autofillListener?.invoke()
-                gpsBtn.visibility = View.GONE
-                gpsLoadingIndicator.visibility = View.VISIBLE
-                beaconBtn.isEnabled = false
-                locationEdit.isEnabled = false
-                gps.start(this::onGPSUpdate)
+                autofill()
             }
         }
     }
@@ -134,6 +131,15 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
         gpsLoadingIndicator.visibility = View.GONE
         locationEdit.isEnabled = true
         errorHandler.stop()
+    }
+
+    fun autofill() {
+        if (!gpsBtn.isVisible) return
+        gpsBtn.visibility = View.GONE
+        gpsLoadingIndicator.visibility = View.VISIBLE
+        beaconBtn.isEnabled = false
+        locationEdit.isEnabled = false
+        gps.start(this::onGPSUpdate)
     }
 
     fun setOnAutoLocationClickListener(listener: (() -> Unit)?) {

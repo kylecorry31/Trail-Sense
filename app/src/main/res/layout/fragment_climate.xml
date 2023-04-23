@@ -43,15 +43,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp" />
 
-            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+            <com.kylecorry.trail_sense.shared.views.ElevationInputView
                 android:id="@+id/elevation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="@dimen/default_bottom_margin"
-                app:hint="@string/elevation" />
+                android:layout_marginBottom="@dimen/default_bottom_margin" />
 
         </LinearLayout>
 
