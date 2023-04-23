@@ -1,14 +1,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_moon" />
+    <item android:drawable="@drawable/ic_moon"/>
     <item>
-        <vector
-            android:width="24dp"
-            android:height="24dp"
-            android:viewportWidth="551.1"
-            android:viewportHeight="551.1">
-            <path
-                android:fillColor="#000000"
-                android:pathData="M275.55 105.55c-30.63 47.71-61.25 95.43-91.88 143.14h48.57v196.86h86.62V248.69h48.57c-30.63-47.71-61.25-95.43-91.88-143.14z" />
+        <vector android:width="24dp" android:height="24dp" android:viewportWidth="551.1" android:viewportHeight="551.1">
+            <path android:fillColor="#000000" android:pathData="M275.55 105.55c-30.63 47.71-61.25 95.43-91.88 143.14h48.57v196.86h86.62V248.69h48.57c-30.63-47.71-61.25-95.43-91.88-143.14z"/>
         </vector>
     </item>
 </layer-list>
