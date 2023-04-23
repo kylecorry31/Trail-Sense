@@ -705,4 +705,22 @@
     <string name="pref_daily_weather_time_title">每日氣象時間</string>
     <string name="since_time">自 %s 起</string>
     <string name="speedometer">速度計</string>
+    <string name="weather_exported">氣象已匯出</string>
+    <string name="weather_monitoring_disabled">氣象監測已停用</string>
+    <string name="pref_export_weather_csv_title">匯出氣象讀數</string>
+    <string name="astro_dialog_day_length">**白晝**: %s
+\n
+\n**夜晚**: %s
+\n
+\n**季節**: %s</string>
+    <string name="beacons">地標</string>
+    <string name="weather_cold_front">冷鋒</string>
+    <string name="weather_warm_front">暖鋒</string>
+    <string name="map_is_not_calibrated">地圖未校正</string>
+    <string name="print">列印</string>
+    <string name="dialog_deny">係噉先啦</string>
+    <string name="notification_weather_update_title">氣象監測更新</string>
+    <string name="notification_weather_update_content">紀錄緊氣壓</string>
+    <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，用嚟喺氣象監測入面做海平面氣壓校正，同埋挺日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="tide_user_guide_recommendation">使用指南載有提供官方潮汐表嘅網站。</string>
 </resources>
