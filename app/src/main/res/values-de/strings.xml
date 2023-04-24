@@ -1102,4 +1102,5 @@
     <string name="loading">Wird geladen</string>
     <string name="unable_to_find_next_astronomy">Nächste %s kann nicht gefunden werden</string>
     <string name="print">Drucken</string>
+    <string name="step_progression">Schritt %d / %d</string>
 </resources>

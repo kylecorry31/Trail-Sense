@@ -77,7 +77,7 @@
     <string name="degree">%s°</string>
     <string name="increase">+</string>
     <string name="precise_nautical_miles_format">%s نانومتر</string>
-    <string name="precise_meters_format">%s م</string>
+    <string name="precise_meters_format">%s ملي امبير</string>
     <string name="precise_kilometers_format">%s كم</string>
     <string name="kilometers_per_hour_format">%.1f كم/س</string>
     <string name="miles_per_hour_format">%.1f ميل/س</string>
@@ -87,7 +87,7 @@
     <string name="access_background_location_rationale">‬هذا التطبيق يستخدم بيانات الموقع في الخلفية. انه يستعملها لمعايرة الضغط الجوي عند مستوى سطح البحر في اداة معاينة الطقس وللحصول على تحذيرات غروب اكثر دقة.[سياسة الخصوصية](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_grant">حدث الإعدادات</string>
     <string name="dialog_deny">لا شكراً</string>
-    <string name="precise_feet_format">%s قدم</string>
+    <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s ميل</string>
     <string name="elevation_diff_format">%s%s</string>
     <string name="direction_east">ش</string>
