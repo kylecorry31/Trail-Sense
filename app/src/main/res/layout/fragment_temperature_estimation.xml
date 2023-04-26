@@ -32,12 +32,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+            <com.kylecorry.trail_sense.shared.views.ElevationInputView
                 android:id="@+id/temp_est_base_elevation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+            <com.kylecorry.trail_sense.shared.views.ElevationInputView
                 android:id="@+id/temp_est_dest_elevation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

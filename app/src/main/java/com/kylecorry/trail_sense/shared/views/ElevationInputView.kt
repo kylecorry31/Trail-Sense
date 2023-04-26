@@ -45,6 +45,15 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
             elevationInput.value = value
         }
 
+    /**
+     * The hint for the elevation input
+     */
+    var hint: CharSequence?
+        get() = elevationInput.hint
+        set(value) {
+            elevationInput.hint = value
+        }
+
     private var changeListener: ((elevation: Distance?) -> Unit)? = null
     private var autofillListener: (() -> Unit)? = null
 

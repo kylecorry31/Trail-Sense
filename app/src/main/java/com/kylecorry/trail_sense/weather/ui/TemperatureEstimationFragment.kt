@@ -8,16 +8,18 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBinding
-import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.readAll
 import com.kylecorry.trail_sense.shared.views.UnitInputView
@@ -27,11 +29,10 @@ import kotlin.math.roundToInt
 class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimationBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val altimeter by lazy { sensorService.getAltimeter(false) }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val temperatureUnits by lazy { prefs.temperatureUnits }
-    private val baseUnits by lazy { prefs.baseDistanceUnits }
+    private val location by lazy { LocationSubsystem.getInstance(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private val intervalometer = Timer {
@@ -56,8 +57,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val distanceUnits = formatService.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
-
         val temps = if (temperatureUnits == TemperatureUnits.C) {
             listOf(TemperatureUnits.C, TemperatureUnits.F)
         } else {
@@ -70,12 +69,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             )
         }
 
-        binding.tempEstBaseElevation.units = distanceUnits
-        binding.tempEstBaseElevation.unit = baseUnits
         binding.tempEstBaseElevation.hint = getString(R.string.base_elevation)
-
-        binding.tempEstDestElevation.units = distanceUnits
-        binding.tempEstDestElevation.unit = baseUnits
         binding.tempEstDestElevation.hint = getString(R.string.destination_elevation)
 
         binding.tempEstBaseTemperature.units = temps
@@ -86,7 +80,16 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             autofill()
         }
 
-        setFieldsFromSensors()
+        setThermometerFieldFromSensor()
+
+        // Set the initial elevation
+        val elevation = location.elevation.convertTo(prefs.baseDistanceUnits)
+        val roundedElevation = elevation.copy(
+            distance = elevation.distance.roundPlaces(
+                Units.getDecimalPlaces(elevation.units)
+            )
+        )
+        binding.tempEstBaseElevation.elevation = roundedElevation
     }
 
     override fun onResume() {
@@ -97,6 +100,8 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     override fun onPause() {
         super.onPause()
         intervalometer.stop()
+        binding.tempEstBaseElevation.pause()
+        binding.tempEstDestElevation.pause()
     }
 
     private fun autofill() {
@@ -105,33 +110,26 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
                 binding.tempEstAutofill.isVisible = false
                 binding.tempEstLoading.isVisible = true
                 binding.tempEstBaseTemperature.isEnabled = false
-                binding.tempEstBaseElevation.isEnabled = false
+                binding.tempEstBaseElevation.autofill()
             }
 
             readAll(
-                listOf(altimeter, thermometer),
+                listOf(thermometer),
                 Duration.ofSeconds(10),
                 forceStopOnCompletion = true
             )
 
             onMain {
-                setFieldsFromSensors()
+                setThermometerFieldFromSensor()
                 binding.tempEstAutofill.isVisible = true
                 binding.tempEstLoading.isVisible = false
                 binding.tempEstBaseTemperature.isEnabled = true
-                binding.tempEstBaseElevation.isEnabled = true
             }
         }
     }
 
-    private fun setFieldsFromSensors() {
-        val sensorAltitude = altimeter.altitude
+    private fun setThermometerFieldFromSensor() {
         val sensorTemperature = thermometer.temperature
-
-        if ((altimeter.hasValidReading || sensorAltitude != 0f) && !sensorAltitude.isNaN()) {
-            val altitude = Distance.meters(sensorAltitude).convertTo(baseUnits)
-            binding.tempEstBaseElevation.value = altitude
-        }
 
         if ((thermometer.hasValidReading || sensorTemperature != 0f) && !sensorTemperature.isNaN()) {
             val temp = Temperature.celsius(sensorTemperature).convertTo(temperatureUnits)
@@ -160,12 +158,12 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     }
 
     private fun getBaseElevation(): Distance? {
-        val distance = binding.tempEstBaseElevation.value ?: return null
+        val distance = binding.tempEstBaseElevation.elevation ?: return null
         return distance.meters()
     }
 
     private fun getDestElevation(): Distance? {
-        val distance = binding.tempEstDestElevation.value ?: return null
+        val distance = binding.tempEstDestElevation.elevation ?: return null
         return distance.meters()
     }
 
