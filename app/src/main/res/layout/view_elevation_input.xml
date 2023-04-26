@@ -30,18 +30,18 @@
         android:visibility="invisible"
         tools:visibility="visible" />
 
-    <ImageButton
-        android:id="@+id/beacon_btn"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="@color/orange_40"
-        android:elevation="4dp"
-        android:padding="8dp"
-        app:srcCompat="@drawable/ic_location"
-        app:tint="@color/black" />
+<!--    <ImageButton-->
+<!--        android:id="@+id/beacon_btn"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:background="@drawable/rounded_rectangle"-->
+<!--        android:backgroundTint="@color/orange_40"-->
+<!--        android:elevation="4dp"-->
+<!--        android:padding="8dp"-->
+<!--        app:srcCompat="@drawable/ic_location"-->
+<!--        app:tint="@color/black" />-->
 
     <com.kylecorry.trail_sense.shared.views.DistanceInputView
         android:id="@+id/elevation_input"

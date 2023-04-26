@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -59,7 +60,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
 
     private lateinit var elevationInput: DistanceInputView
     private lateinit var gpsBtn: ImageButton
-    private lateinit var beaconBtn: ImageButton
+
     private lateinit var gpsLoadingIndicator: ProgressBar
 
     init {
@@ -69,7 +70,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
             elevationInput = findViewById(R.id.elevation_input)
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             gpsBtn = findViewById(R.id.gps_btn)
-            beaconBtn = findViewById(R.id.beacon_btn)
 
             // Set up elevation input
             elevationInput.defaultHint = it.getString(R.string.elevation)
@@ -84,24 +84,44 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
             gpsBtn.isVisible = true
             gpsLoadingIndicator.isVisible = false
 
-            beaconBtn.setOnClickListener {
-                CoroutineScope(Dispatchers.Main).launch {
-                    val beacon = BeaconPickers.pickBeacon(
-                        context,
-                        sort = ClosestBeaconSort(BeaconService(context), location::location)
-                    ) { beacons ->
-                        beacons.filter { beacon ->
-                            beacon is BeaconGroup || (beacon is Beacon && beacon.elevation != null)
-                        }
-                    } ?: return@launch
-                    changeElevation(beacon.elevation?.let { ele -> Distance.meters(ele) })
-                }
+            gpsBtn.setOnLongClickListener {
+                autofillWithAltimeter()
+                true
             }
 
             gpsBtn.setOnClickListener {
-                autofillListener?.invoke()
-                autofill()
+                Pickers.item(
+                    getContext(), getContext().getString(R.string.autofill_source), listOf(
+                        getContext().getString(R.string.pref_altimeter_calibration_title),
+                        getContext().getString(R.string.beacon)
+                    ), 0
+                ) {
+                    when (it) {
+                        0 -> autofillWithAltimeter()
+                        1 -> autofillWithBeacon()
+                    }
+                }
             }
+        }
+    }
+
+    private fun autofillWithAltimeter() {
+        autofillListener?.invoke()
+        autofill()
+    }
+
+    private fun autofillWithBeacon() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val beacon = BeaconPickers.pickBeacon(
+                context, sort = ClosestBeaconSort(
+                    BeaconService(context), location::location
+                )
+            ) { beacons ->
+                beacons.filter { beacon ->
+                    beacon is BeaconGroup || (beacon is Beacon && beacon.elevation != null)
+                }
+            } ?: return@launch
+            changeElevation(beacon.elevation?.let { ele -> Distance.meters(ele) })
         }
     }
 
@@ -117,7 +137,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
         changeElevation(Distance.meters(altimeter.altitude))
         gpsBtn.visibility = View.VISIBLE
         gpsLoadingIndicator.visibility = View.GONE
-        beaconBtn.isEnabled = true
         elevationInput.isEnabled = true
         return false
     }
@@ -129,7 +148,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
         if (!gpsBtn.isVisible) return
         gpsBtn.isVisible = false
         gpsLoadingIndicator.isVisible = true
-        beaconBtn.isEnabled = false
         elevationInput.isEnabled = false
         altimeter.start(this::onAltimeterUpdate)
     }
