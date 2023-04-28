@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
@@ -30,15 +29,11 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private val beaconService by lazy { BeaconService(requireContext()) }
 
-    private val altimeter by lazy { sensorService.getAltimeter() }
-
-    private val sensorService by lazy { SensorService(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val units by lazy { prefs.baseDistanceUnits }
@@ -102,8 +97,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bind(binding)
-        binding.beaconElevation.defaultHint = getString(R.string.elevation)
-        binding.beaconElevation.hint = getString(R.string.elevation)
         CustomUiUtils.setButtonState(binding.createBeaconTitle.rightButton, true)
         binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
@@ -112,7 +105,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         updateColor()
         updateBeaconGroupName()
         loadExistingBeacon()
-        updateElevationUnits()
 
         // Fill in the initial location information
         initialLocation?.let {
@@ -130,8 +122,15 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         binding.beaconLocation.setOnAutoLocationClickListener {
-            binding.beaconElevation.isEnabled = false
-            altimeter.start(this::setElevationFromAltimeter)
+            if (binding.beaconElevation.elevation == null) {
+                binding.beaconElevation.autofill()
+            }
+        }
+
+        binding.beaconLocation.setOnBeaconSelectedListener {
+            if (binding.beaconElevation.elevation == null) {
+                binding.beaconElevation.autofill()
+            }
         }
 
         form.setOnDataChangeListener {
@@ -191,19 +190,10 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     override fun onPause() {
-        altimeter.stop(this::setElevationFromAltimeter)
-        binding.beaconElevation.isEnabled = true
+        binding.beaconElevation.pause()
         binding.beaconLocation.pause()
         binding.bearingTo.stop()
         super.onPause()
-    }
-
-    private fun setElevationFromAltimeter(): Boolean {
-        binding.beaconElevation.isEnabled = true
-        val elevation =
-            Distance.meters(altimeter.altitude).convertTo(units)
-        binding.beaconElevation.value = elevation
-        return false
     }
 
     private fun updateSubmitButton() {
@@ -255,17 +245,11 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         form.updateData(data)
         binding.beaconName.setText(data.name)
         binding.beaconLocation.coordinate = data.coordinate
-        binding.beaconElevation.value = data.elevation?.convertTo(units)
-        updateElevationUnits()
+        binding.beaconElevation.elevation = data.elevation?.convertTo(units)
         binding.comment.setText(data.notes)
         updateBeaconGroupName()
         updateColor()
         updateIcon()
-    }
-
-    private fun updateElevationUnits() {
-        binding.beaconElevation.units =
-            formatter.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
     }
 
     private fun onSubmit() {

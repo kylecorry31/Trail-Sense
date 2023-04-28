@@ -31,7 +31,7 @@ class CreateBeaconForm {
 
     fun bind(binding: FragmentCreateBeaconBinding) {
         binding.beaconName.addTextChangedListener { updateData(data.copy(name = getName(binding))) }
-        binding.beaconElevation.setOnValueChangeListener {
+        binding.beaconElevation.setOnElevationChangeListener {
             updateData(data.copy(elevation = it))
         }
         binding.beaconLocation.setOnCoordinateChangeListener { updateData(data.copy(coordinate = it)) }

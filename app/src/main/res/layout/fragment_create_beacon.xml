@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp" />
 
-            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+            <com.kylecorry.trail_sense.shared.views.ElevationInputView
                 android:id="@+id/beacon_elevation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
