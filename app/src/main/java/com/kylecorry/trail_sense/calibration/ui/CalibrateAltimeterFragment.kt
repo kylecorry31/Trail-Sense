@@ -20,7 +20,6 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -106,15 +105,13 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         }
 
         altitudeOverridePref.setOnPreferenceClickListener {
-            val units = formatService.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
-            CustomUiUtils.pickDistance(
+            CustomUiUtils.pickElevation(
                 requireContext(),
-                units,
                 Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits),
                 it.title.toString()
-            ) { distance, _ ->
-                if (distance != null) {
-                    prefs.altitudeOverride = distance.meters().distance
+            ) { elevation, _ ->
+                if (elevation != null) {
+                    prefs.altitudeOverride = elevation.meters().distance
                     updateAltitude()
                 }
             }

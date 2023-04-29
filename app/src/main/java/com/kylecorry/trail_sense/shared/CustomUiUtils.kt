@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.shared.views.BeaconIconPickerView
 import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
+import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
@@ -104,6 +105,36 @@ object CustomUiUtils {
                 onDistancePick.invoke(null, true)
             } else {
                 onDistancePick.invoke(distance, false)
+            }
+        }
+    }
+
+    fun pickElevation(
+        context: Context,
+        default: Distance? = null,
+        title: String,
+        hint: String = context.getString(R.string.elevation),
+        onElevationPick: (distance: Distance?, cancelled: Boolean) -> Unit
+    ) {
+        val view = View.inflate(context, R.layout.view_elevation_entry_prompt, null)
+        var elevation: Distance? = default
+        val elevationInputView = view.findViewById<ElevationInputView>(R.id.prompt_elevation)
+        elevationInputView?.hint = hint
+        elevationInputView?.setOnElevationChangeListener {
+            elevation = it
+        }
+        elevationInputView?.elevation = default
+
+        Alerts.dialog(
+            context,
+            title,
+            contentView = view
+        ) { cancelled ->
+            if (cancelled) {
+                onElevationPick.invoke(null, true)
+                elevationInputView.pause()
+            } else {
+                onElevationPick.invoke(elevation, false)
             }
         }
     }
