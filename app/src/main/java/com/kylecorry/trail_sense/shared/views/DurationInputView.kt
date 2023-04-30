@@ -52,7 +52,7 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             inflate(it, R.layout.view_duration_input, this)
             input = findViewById(R.id.duration)
             inputHolder = findViewById(R.id.duration_holder)
-            
+
             inputHolder.setEndIconOnClickListener {
                 // Clear
                 durationText = "000000"
