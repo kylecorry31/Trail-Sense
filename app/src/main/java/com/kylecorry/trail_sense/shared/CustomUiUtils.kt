@@ -199,6 +199,7 @@ object CustomUiUtils {
         default: Duration? = null,
         title: String,
         message: String? = null,
+        hint: String? = null,
         showSeconds: Boolean = false,
         onDurationPick: (duration: Duration?) -> Unit
     ) {
@@ -211,6 +212,10 @@ object CustomUiUtils {
         durationMessage.text = message
 
         durationInput.showSeconds = showSeconds
+
+        if (!hint.isNullOrBlank()) {
+            durationInput.hint = hint
+        }
 
         durationInput?.setOnDurationChangeListener {
             duration = it

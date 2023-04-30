@@ -20,7 +20,8 @@ class ChangeWeatherFrequencyCommand(
             context,
             prefs.weather.weatherUpdateFrequency,
             title,
-            context.getString(R.string.actual_frequency_disclaimer)
+            context.getString(R.string.actual_frequency_disclaimer),
+            hint = context.getString(R.string.frequency)
         ) {
             if (it != null && !it.isZero) {
                 prefs.weather.weatherUpdateFrequency = it

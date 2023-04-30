@@ -21,6 +21,7 @@ class ChangeBacktrackFrequencyCommand(
             prefs.backtrackRecordFrequency,
             title,
             context.getString(R.string.actual_frequency_disclaimer),
+            hint = context.getString(R.string.frequency),
             showSeconds = true
         ) {
             if (it != null && !it.isZero) {
