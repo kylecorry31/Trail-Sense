@@ -48,6 +48,12 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             input = findViewById(R.id.duration)
             inputHolder = findViewById(R.id.duration_holder)
 
+            inputHolder.setEndIconOnClickListener {
+                // Clear
+                durationText = "000000"
+                onDurationTextChanged()
+            }
+
             hint = context.getString(R.string.duration)
 
             input.setOnKeyListener { _, keyCode, event ->
