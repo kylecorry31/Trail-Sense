@@ -4,8 +4,13 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.widget.LinearLayout
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import androidx.core.text.scale
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.R
 import java.time.Duration
 
@@ -47,7 +52,7 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             inflate(it, R.layout.view_duration_input, this)
             input = findViewById(R.id.duration)
             inputHolder = findViewById(R.id.duration_holder)
-
+            
             inputHolder.setEndIconOnClickListener {
                 // Clear
                 durationText = "000000"
@@ -121,18 +126,43 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         val m = durationText.substring(2, 4).toInt()
         val s = durationText.substring(4, 6).toInt()
 
-        val hours =
-            context.getString(R.string.hours_format, h.toString().padStart(2, '0')).replace(" ", "")
-        val minutes = context.getString(R.string.minutes_format, m.toString().padStart(2, '0'))
-            .replace(" ", "")
-        val seconds = context.getString(R.string.seconds_format, s.toString().padStart(2, '0'))
-            .replace(" ", "")
+        val hoursSymbol = context.getString(R.string.hours_format, "").trim()
+        val minutesSymbol = context.getString(R.string.minutes_format, "").trim()
+        val secondsSymbol = context.getString(R.string.seconds_format, "").trim()
 
-        if (showSeconds) {
-            input.setText("$hours $minutes $seconds")
-        } else {
-            input.setText("$hours $minutes")
+        val setColor = Resources.androidTextColorPrimary(context)
+        val unsetColor = setColor.withAlpha(50)
+        val numberScale = 1.5f
+
+        val text = buildSpannedString {
+            color(if (h > 0) setColor else unsetColor) {
+                scale(numberScale) {
+                    append(h.toString().padStart(2, '0'))
+                }
+                append(hoursSymbol)
+            }
+
+            append(" ")
+
+            color(if (h > 0 || m > 0 || !showSeconds) setColor else unsetColor) {
+                scale(numberScale) {
+                    append(m.toString().padStart(2, '0'))
+                }
+                append(minutesSymbol)
+            }
+
+            if (showSeconds) {
+                append(" ")
+                color(setColor) {
+                    scale(numberScale) {
+                        append(s.toString().padStart(2, '0'))
+                    }
+                    append(secondsSymbol)
+                }
+            }
         }
+
+        input.setText(text)
     }
 
     fun updateDuration(duration: Duration?) {
