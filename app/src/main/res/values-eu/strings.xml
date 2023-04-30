@@ -505,4 +505,14 @@
 \nOSGB (adb. TG 51409 13177)</string>
     <string name="location_override_resolution">Gaitu kokapenaren ezarpen automatikoa ezarpenetan.</string>
     <string name="location_override_not_set_resolution">Ezarri kokapenaren ordezkapena ezarpenetan</string>
+    <string name="backtrack_disabled_low_power_toast">Atzera-egitea desgaituta dago energia aurrezteko moduan</string>
+    <string name="pref_low_power_mode_title">Energia aurrezteko modua</string>
+    <string name="pref_require_satellites_title">Satelitea zuzentzea behar da</string>
+    <string name="delete_tide_prompt">Ezabatu marea\?</string>
+    <string name="low_power_mode_on_message">Energia aurrezteko modua gaituta, ezaugarri batzuk desgaituta egon daitezke.</string>
+    <string name="unsaved_changes_message">Egin dituzun aldaketak ez dira gordeko.</string>
+    <string name="pref_low_power_mode_summary">Ezaugarri batzuk desgaitzen ditu energia aurrezteko</string>
+    <string name="open_beacon_in_maps">Ikusi mapan</string>
+    <string name="compass_calibrate_toast">Iparrorratzaren zehaztasuna %s, kalibratzea gomendatzen da</string>
+    <string name="pref_require_satellites_description">Gutxienez 4 satelite behar dira, zehaztasuna hobetzen du</string>
 </resources>
