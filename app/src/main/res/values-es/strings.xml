@@ -1106,4 +1106,5 @@
     <string name="astronomy_altitude_peak">Altitud máxima</string>
     <string name="print">Imprimir</string>
     <string name="step_progression">Paso %d / %d</string>
+    <string name="autofill_source">Autocompletar las fuentes</string>
 </resources>
