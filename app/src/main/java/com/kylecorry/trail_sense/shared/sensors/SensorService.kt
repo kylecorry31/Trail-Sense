@@ -105,6 +105,7 @@ class SensorService(ctx: Context) {
             NavigationPreferences.SpeedometerMode.CurrentPace -> CurrentPaceSpeedometer(
                 getPedometer(), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
             )
+
             NavigationPreferences.SpeedometerMode.AveragePace -> AveragePaceSpeedometer(
                 StepCounter(
                     PreferencesSubsystem.getInstance(context).preferences
@@ -127,11 +128,18 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getAltimeter(background: Boolean = false, preferGPS: Boolean = false, gps: IGPS? = null): IAltimeter {
+    fun getAltimeter(
+        background: Boolean = false,
+        preferGPS: Boolean = false,
+        gps: IGPS? = null
+    ): IAltimeter {
         if (preferGPS) {
             return CachingAltimeterWrapper(
                 context,
-                GaussianAltimeterWrapper(getGPSAltimeter(background, gps), userPrefs.altimeterSamples)
+                GaussianAltimeterWrapper(
+                    getGPSAltimeter(background, gps),
+                    userPrefs.altimeterSamples
+                )
             )
         }
 
@@ -174,13 +182,17 @@ class SensorService(ctx: Context) {
     fun getCompass(): ICompass {
         val smoothing = userPrefs.navigation.compassSmoothing
         val useTrueNorth = userPrefs.navigation.useTrueNorth
+        val useHighAccuracy = userPrefs.compass.useHighAccuracy
 
         return if (userPrefs.navigation.useLegacyCompass) LegacyCompass(
             context,
             useTrueNorth,
             MovingAverageFilter(max(1, smoothing * 2))
         ) else GravityCompensatedCompass(
-            context, useTrueNorth, MovingAverageFilter(max(1, smoothing * 4))
+            context,
+            useTrueNorth,
+            MovingAverageFilter(max(1, smoothing * 4)),
+            useRotationMatrix = useHighAccuracy
         )
     }
 

@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CellSignalPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ClinometerPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ErrorPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.settings.infrastructure.IDeclinationPreferences
@@ -46,6 +47,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val errors by lazy { ErrorPreferences(context) }
     val pedometer by lazy { PedometerPreferences(context) }
     val thermometer by lazy { ThermometerPreferences(context) }
+    val compass by lazy { CompassPreferences(context) }
 
     var hapticsEnabled = false
 

@@ -24,6 +24,15 @@
             app:singleLineTitle="false"
             app:title="@string/pref_experimental_metal_direction_title" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/high_accuracy_compass"
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_high_accuracy_compass"
+            app:singleLineTitle="false"
+            app:title="@string/pref_high_accuracy_compass_summary" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
