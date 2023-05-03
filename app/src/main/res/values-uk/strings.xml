@@ -1132,4 +1132,5 @@
     <string name="loading">Завантаження</string>
     <string name="print">Друк</string>
     <string name="step_progression">Крок %d з %d</string>
+    <string name="autofill_source">Джерело автозаповнення</string>
 </resources>
