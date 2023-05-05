@@ -135,8 +135,12 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun export() {
-        map?.let {
-            exportService.export(it)
+        inBackground {
+            map?.let {
+                mapRepo.getMap(it.id)?.let { updated ->
+                    exportService.export(updated)
+                }
+            }
         }
     }
 
@@ -216,6 +220,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     }
                 }
             }
+
             !map.calibration.rotated -> {
                 RotateMapFragment().apply {
                     arguments = bundleOf("mapId" to mapId)
@@ -227,6 +232,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     }
                 }
             }
+
             else -> {
                 binding.recenterBtn.isVisible = true
                 ViewMapFragment().apply {

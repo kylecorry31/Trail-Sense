@@ -77,7 +77,7 @@ class PerspectiveCorrectionView : CanvasView {
     }
 
     override fun draw() {
-        if (image == null && imagePath != null) {
+        if (image == null && imagePath != null && width > 0 && height > 0) {
             imagePath?.let { loadImage(it) }
         }
 

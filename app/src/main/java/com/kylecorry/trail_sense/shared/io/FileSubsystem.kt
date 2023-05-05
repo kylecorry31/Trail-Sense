@@ -34,6 +34,9 @@ class FileSubsystem private constructor(private val context: Context) {
 
     fun bitmap(path: String, maxSize: Size? = null): Bitmap? {
         return if (maxSize != null) {
+            if (maxSize.width <= 0 || maxSize.height <= 0) {
+                return null
+            }
             BitmapUtils.decodeBitmapScaled(get(path).path, maxSize.width, maxSize.height)
         } else {
             BitmapFactory.decodeFile(get(path).path)
