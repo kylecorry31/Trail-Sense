@@ -6,6 +6,8 @@ import android.graphics.Matrix
 import android.graphics.Path
 import android.graphics.PointF
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
@@ -108,7 +110,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         // Do nothing
     }
 
-    protected open fun drawOverlay(){
+    protected open fun drawOverlay() {
         // Do nothing
     }
 
@@ -254,5 +256,36 @@ open class EnhancedImageView : SubsamplingScaleImageView {
                 sHeight
             }
         }
+
+    protected open fun onLongPress(e: MotionEvent) {
+        // Do nothing
+    }
+
+    protected open fun onSinglePress(e: MotionEvent) {
+        // Do nothing
+    }
+
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onLongPress(e: MotionEvent) {
+            super.onLongPress(e)
+
+            // Don't invoke if it is currently scaling
+            if (isZooming || isQuickScaling) return
+
+            this@EnhancedImageView.onLongPress(e)
+        }
+
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            this@EnhancedImageView.onSinglePress(e)
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
+    private val gestureDetector = GestureDetector(context, gestureListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val consumed = gestureDetector.onTouchEvent(event)
+        return consumed || super.onTouchEvent(event)
+    }
 
 }

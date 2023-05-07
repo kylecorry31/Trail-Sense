@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Path
 import android.graphics.PointF
 import android.util.AttributeSet
-import android.view.GestureDetector
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
@@ -101,6 +100,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
             val changed = field != value
             field = value
             if (changed) {
+                imageRotation = value
                 refreshRequiredTiles(true)
                 invalidate()
             }
@@ -115,10 +115,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
     override val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
 
-    private var lastScale = 1f
     private var showCalibrationPoints = false
-
-    private var lastImage: String? = null
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -170,6 +167,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
             maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
             if (shouldRecenter && isImageLoaded) {
                 recenter()
+                shouldRecenter = false
             }
             layers.forEach { it.draw(drawer, this) }
         } else {
@@ -205,51 +203,37 @@ class PhotoMapView : EnhancedImageView, IMapView {
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }
 
-    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onLongPress(e: MotionEvent) {
-            super.onLongPress(e)
-
-            // Don't invoke if it is currently scaling
-            if (isZooming || isQuickScaling) return
-
-            val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
-            onMapLongClick?.invoke(coordinate)
-        }
-
-        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val pixel = toSource(e.x, e.y, true)
-            val viewNoRotation = pixel?.let { toView(pixel.x, pixel.y, false) }
-
-            // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)
-            if (viewNoRotation != null) {
-                for (layer in layers.reversed()) {
-                    val handled = layer.onClick(
-                        drawer,
-                        this@PhotoMapView,
-                        PixelCoordinate(viewNoRotation.x, viewNoRotation.y)
-                    )
-                    if (handled) {
-                        break
-                    }
-                }
-            }
-
-            pixel?.let {
-                val percentX = it.x / imageWidth
-                val percentY = it.y / imageHeight
-                val percent = PercentCoordinate(percentX, percentY)
-                onMapClick?.invoke(percent)
-            }
-            return super.onSingleTapConfirmed(e)
-        }
+    override fun onLongPress(e: MotionEvent) {
+        super.onLongPress(e)
+        val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
+        onMapLongClick?.invoke(coordinate)
     }
 
-    private val gestureDetector = GestureDetector(context, gestureListener)
+    override fun onSinglePress(e: MotionEvent) {
+        super.onSinglePress(e)
+        val pixel = toSource(e.x, e.y, true)
+        val viewNoRotation = pixel?.let { toView(pixel.x, pixel.y, false) }
 
+        // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)
+        if (viewNoRotation != null) {
+            for (layer in layers.reversed()) {
+                val handled = layer.onClick(
+                    drawer,
+                    this@PhotoMapView,
+                    PixelCoordinate(viewNoRotation.x, viewNoRotation.y)
+                )
+                if (handled) {
+                    break
+                }
+            }
+        }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        val consumed = gestureDetector.onTouchEvent(event)
-        return consumed || super.onTouchEvent(event)
+        pixel?.let {
+            val percentX = it.x / imageWidth
+            val percentY = it.y / imageHeight
+            val percent = PercentCoordinate(percentX, percentY)
+            onMapClick?.invoke(percent)
+        }
     }
 
     // TODO: Extract this (same way as scale)
