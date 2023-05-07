@@ -22,6 +22,11 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     private var isSetup = false
 
     protected var imageRotation = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     private val imageClipPath = Path()
     private val lookupMatrix = Matrix()
     private val files = FileSubsystem.getInstance(context)
