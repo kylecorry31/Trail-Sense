@@ -1,18 +1,15 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.Path
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.davemorrissey.labs.subscaleview.ImageSource
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.kylecorry.andromeda.canvas.CanvasDrawer
-import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
@@ -26,25 +23,19 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.max
 import kotlin.math.min
 
 
-class PhotoMapView : SubsamplingScaleImageView, IMapView {
+class PhotoMapView : EnhancedImageView, IMapView {
 
     var onMapLongClick: ((coordinate: Coordinate) -> Unit)? = null
     var onMapClick: ((percent: PercentCoordinate) -> Unit)? = null
 
-    private lateinit var drawer: ICanvasDrawer
-    private var isSetup = false
-
     private var map: PhotoMap? = null
-    private val mapPath = Path()
     private var projection: IMapProjection? = null
-    private val lookupMatrix = Matrix()
 
     private val prefs by lazy { UserPreferences(context) }
     private val units by lazy { prefs.baseDistanceUnits }
@@ -54,12 +45,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     private val layers = mutableListOf<ILayer>()
 
-    private val files = FileSubsystem.getInstance(context)
-
     private var shouldRecenter = true
-
-    private var lastTranslateX = 0f
-    private var lastTranslateY = 0f
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -88,7 +74,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     }
 
     override var metersPerPixel: Float
-        get() = map?.distancePerPixel(realWidth * scale, realHeight * scale)?.meters()?.distance
+        get() = map?.distancePerPixel(imageWidth * scale, imageHeight * scale)?.meters()?.distance
             ?: 1f
         set(value) {
             requestScale(getScale(value))
@@ -96,7 +82,7 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
 
     private fun getScale(metersPerPixel: Float): Float {
         val fullScale =
-            map?.distancePerPixel(realWidth.toFloat(), realHeight.toFloat())?.meters()?.distance
+            map?.distancePerPixel(imageWidth.toFloat(), imageHeight.toFloat())?.meters()?.distance
                 ?: 1f
         return fullScale / metersPerPixel
     }
@@ -137,77 +123,49 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
-    override fun onDraw(canvas: Canvas?) {
-        if (isSetup && canvas != null) {
-            drawer.canvas = canvas
-            drawer.push()
-            drawer.rotate(-mapRotation)
-        }
-
-        super.onDraw(canvas)
-        if (!isReady || canvas == null) {
-            return
-        }
-
-        if (!isSetup) {
-            drawer = CanvasDrawer(context, canvas)
-            setup()
-            isSetup = true
-        }
-
-        draw()
-        // TODO: Use a flag instead
-        tryOrNothing {
-            drawer.pop()
-        }
-
+    override fun drawOverlay() {
+        super.drawOverlay()
         drawScale()
         drawCompass()
     }
 
-    fun setup() {
+    override fun setup() {
+        super.setup()
         setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-        setPanLimit(PAN_LIMIT_OUTSIDE)
-        maxScale = 6f
-        alwaysZoomDoubleTap = true
-        alwaysZoomDoubleTapZoomScale = 2f
     }
 
-    fun draw() {
+    override fun onScaleChanged(oldScale: Float, newScale: Float) {
+        super.onScaleChanged(oldScale, newScale)
+        layers.forEach { it.invalidate() }
+    }
+
+    override fun onTranslateChanged(
+        oldTranslateX: Float,
+        oldTranslateY: Float,
+        newTranslateX: Float,
+        newTranslateY: Float
+    ) {
+        super.onTranslateChanged(oldTranslateX, oldTranslateY, newTranslateX, newTranslateY)
+        layers.forEach { it.invalidate() }
+    }
+
+    override fun draw() {
+        super.draw()
         val map = map ?: return
 
-        // TODO: This only needs to be changed when the scale or translate changes
-        mapPath.apply {
-            rewind()
-            val topLeft = toView(0f, 0f)!!
-            val bottomRight = toView(realWidth.toFloat(), realHeight.toFloat())!!
-            addRect(
-                topLeft.x,
-                topLeft.y,
-                bottomRight.x,
-                bottomRight.y,
-                Path.Direction.CW
-            )
-        }
-
-        drawer.push()
-        drawer.clip(mapPath)
-        if (scale != lastScale) {
-            lastScale = scale
-            layers.forEach { it.invalidate() }
-        }
-
-        vTranslate?.let {
-            if (it.x != lastTranslateX || it.y != lastTranslateY) {
-                lastTranslateX = it.x
-                lastTranslateY = it.y
-                layers.forEach { it.invalidate() }
-            }
-        }
+//        if (!map.isCalibrated) {
+//            return
+//        }
+//        maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
+//        if (shouldRecenter && isImageLoaded) {
+//            recenter()
+//            shouldRecenter = false
+//        }
 
         val isCalibrating = showCalibrationPoints
         val hasCalibrationPoints = map.isCalibrated
-        val hasActualCalibration = map.calibration.calibrationPoints.all { it.location != Coordinate.zero }
+        val hasActualCalibration =
+            map.calibration.calibrationPoints.all { it.location != Coordinate.zero }
         if (hasCalibrationPoints && (!isCalibrating || hasActualCalibration)) {
             maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
             if (shouldRecenter && isImageLoaded) {
@@ -218,153 +176,33 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             // Don't recenter if the map is not calibrated
             shouldRecenter = false
         }
-        drawer.pop()
 
+        layers.forEach { it.draw(drawer, this) }
+    }
+
+    override fun postDraw() {
+        super.postDraw()
         drawCalibrationPoints()
     }
 
+
     fun showMap(map: PhotoMap) {
-        if (orientation != map.calibration.rotation) {
-            orientation = when (map.calibration.rotation) {
-                90 -> ORIENTATION_90
-                180 -> ORIENTATION_180
-                270 -> ORIENTATION_270
-                else -> ORIENTATION_0
-            }
-        }
-        if (lastImage != map.filename) {
-            val uri = files.uri(map.filename)
-            setImage(ImageSource.uri(uri))
-            lastImage = map.filename
-        }
         this.map = map
-        projection = map.projection(realWidth.toFloat(), realHeight.toFloat())
-        invalidate()
-    }
-
-    override fun tileVisible(tile: Tile?): Boolean {
-        // No need to check if the map is not rotated
-        if (mapRotation == 0f) {
-            return super.tileVisible(tile)
-        }
-
-        val rect = tile?.sRect ?: return false
-
-        // Calculate the bounds of the visible source area (factoring in rotation)
-        val topLeftSource = toSource(0f, 0f, true)
-        val topRightSource = toSource(width.toFloat(), 0f, true)
-        val bottomRightSource = toSource(width.toFloat(), height.toFloat(), true)
-        val bottomLeftSource = toSource(0f, height.toFloat(), true)
-
-        val sVisLeft = minOf(
-            topLeftSource?.x ?: 0f,
-            topRightSource?.x ?: 0f,
-            bottomRightSource?.x ?: 0f,
-            bottomLeftSource?.x ?: 0f
-        )
-        val sVisRight = maxOf(
-            topLeftSource?.x ?: 0f,
-            topRightSource?.x ?: 0f,
-            bottomRightSource?.x ?: 0f,
-            bottomLeftSource?.x ?: 0f
-        )
-        val sVisTop = minOf(
-            topLeftSource?.y ?: 0f,
-            topRightSource?.y ?: 0f,
-            bottomRightSource?.y ?: 0f,
-            bottomLeftSource?.y ?: 0f
-        )
-        val sVisBottom = maxOf(
-            topLeftSource?.y ?: 0f,
-            topRightSource?.y ?: 0f,
-            bottomRightSource?.y ?: 0f,
-            bottomLeftSource?.y ?: 0f
-        )
-
-        // Check to see if the tile is within the visible source area
-        return sVisLeft > rect.right || rect.left > sVisRight || sVisTop > rect.bottom || rect.top <= sVisBottom
-
+        projection = map.projection(imageWidth.toFloat(), imageHeight.toFloat())
+        setImage(map.filename, map.calibration.rotation)
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        projection = map?.projection(realWidth.toFloat(), realHeight.toFloat())
+        projection = map?.projection(imageWidth.toFloat(), imageHeight.toFloat())
         shouldRecenter = true
         invalidate()
-    }
-
-    private fun drawCalibrationPoints() {
-        if (!showCalibrationPoints) return
-        val calibrationPoints = map?.calibration?.calibrationPoints ?: emptyList()
-        for (i in calibrationPoints.indices) {
-            val point = calibrationPoints[i]
-            val sourceCoord = point.imageLocation.toPixels(
-                realWidth.toFloat(),
-                realHeight.toFloat()
-            )
-            val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
-            drawer.stroke(Color.WHITE)
-            drawer.strokeWeight(drawer.dp(1f) / layerScale)
-            drawer.fill(Color.BLACK)
-            drawer.circle(coord.x, coord.y, drawer.dp(8f) / layerScale)
-
-            drawer.textMode(TextMode.Center)
-            drawer.fill(Color.WHITE)
-            drawer.noStroke()
-            drawer.textSize(drawer.dp(5f) / layerScale)
-            drawer.text((i + 1).toString(), coord.x, coord.y)
-        }
-    }
-
-    fun recenter() {
-        resetScaleAndCenter()
-        shouldRecenter = false
-    }
-
-    fun showCalibrationPoints() {
-        showCalibrationPoints = true
-        invalidate()
-    }
-
-    fun hideCalibrationPoints() {
-        showCalibrationPoints = false
-        invalidate()
-    }
-
-    fun zoomBy(multiple: Float) {
-        requestScale((scale * multiple).coerceIn(minScale, max(2 * minScale, maxScale)))
     }
 
     private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
         val pixels = projection?.toPixels(coordinate) ?: return null
         val view = toView(pixels.x, pixels.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
-    }
-
-    private fun toView(sourceX: Float, sourceY: Float, withRotation: Boolean = false): PointF? {
-        val view = sourceToViewCoord(sourceX, sourceY)
-        if (!withRotation) {
-            return view
-        }
-        val point = floatArrayOf(view?.x ?: 0f, view?.y ?: 0f)
-        lookupMatrix.reset()
-        lookupMatrix.postRotate(-mapRotation, width / 2f, height / 2f)
-        lookupMatrix.mapPoints(point)
-        view?.x = point[0]
-        view?.y = point[1]
-        return view
-    }
-
-    private fun toSource(viewX: Float, viewY: Float, withRotation: Boolean = false): PointF? {
-        if (!withRotation) {
-            return viewToSourceCoord(viewX, viewY)
-        }
-        val point = floatArrayOf(viewX, viewY)
-        lookupMatrix.reset()
-        lookupMatrix.postRotate(-mapRotation, width / 2f, height / 2f)
-        lookupMatrix.invert(lookupMatrix)
-        lookupMatrix.mapPoints(point)
-        return viewToSourceCoord(point[0], point[1])
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
@@ -397,32 +235,14 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             }
 
             pixel?.let {
-                val percentX = it.x / realWidth
-                val percentY = it.y / realHeight
+                val percentX = it.x / imageWidth
+                val percentY = it.y / imageHeight
                 val percent = PercentCoordinate(percentX, percentY)
                 onMapClick?.invoke(percent)
             }
             return super.onSingleTapConfirmed(e)
         }
     }
-
-    private val realWidth: Int
-        get() {
-            return if (orientation == 90 || orientation == 270) {
-                sHeight
-            } else {
-                sWidth
-            }
-        }
-
-    private val realHeight: Int
-        get() {
-            return if (orientation == 90 || orientation == 270) {
-                sWidth
-            } else {
-                sHeight
-            }
-        }
 
     private val gestureDetector = GestureDetector(context, gestureListener)
 
@@ -508,6 +328,39 @@ class PhotoMapView : SubsamplingScaleImageView, IMapView {
             start - drawer.textWidth(scaleText) - drawer.dp(4f),
             y + drawer.textHeight(scaleText) / 2
         )
+    }
+
+    fun showCalibrationPoints() {
+        showCalibrationPoints = true
+        invalidate()
+    }
+
+    fun hideCalibrationPoints() {
+        showCalibrationPoints = false
+        invalidate()
+    }
+
+    private fun drawCalibrationPoints() {
+        if (!showCalibrationPoints) return
+        val calibrationPoints = map?.calibration?.calibrationPoints ?: emptyList()
+        for (i in calibrationPoints.indices) {
+            val point = calibrationPoints[i]
+            val sourceCoord = point.imageLocation.toPixels(
+                imageWidth.toFloat(),
+                imageHeight.toFloat()
+            )
+            val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
+            drawer.stroke(Color.WHITE)
+            drawer.strokeWeight(drawer.dp(1f) / layerScale)
+            drawer.fill(Color.BLACK)
+            drawer.circle(coord.x, coord.y, drawer.dp(8f) / layerScale)
+
+            drawer.textMode(TextMode.Center)
+            drawer.fill(Color.WHITE)
+            drawer.noStroke()
+            drawer.textSize(drawer.dp(5f) / layerScale)
+            drawer.text((i + 1).toString(), coord.x, coord.y)
+        }
     }
 
 }
