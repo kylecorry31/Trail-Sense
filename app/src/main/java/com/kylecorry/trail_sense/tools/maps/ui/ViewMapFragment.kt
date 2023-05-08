@@ -204,7 +204,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     navigateTo(destination!!)
                 }
                 binding.mapCalibrationBottomPanel.isVisible = false
-                binding.map.hideCalibrationPoints()
+                binding.map.isVisible = true
+                binding.calibrationMap.isVisible = false
                 inBackground {
                     // Save the new calibration
                     onIO {
@@ -239,11 +240,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 }
 
                 updateMapCalibration()
-                binding.map.showCalibrationPoints()
+                binding.map.isVisible = false
+                binding.calibrationMap.isVisible = true
             }
         }
 
-        binding.map.onMapClick = {
+        binding.calibrationMap.onMapClick = {
             if (isCalibrating) {
                 if (calibrationIndex == 0) {
                     calibrationPoint1Percent = it
@@ -251,7 +253,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     calibrationPoint2Percent = it
                 }
                 updateMapCalibration()
-                binding.map.showCalibrationPoints()
+                binding.map.isVisible = false
+                binding.calibrationMap.isVisible = true
             }
         }
 
@@ -538,6 +541,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.map.showMap(map)
+        binding.calibrationMap.showMap(map)
         if (map.calibration.calibrationPoints.size < 2) {
             calibrateMap()
         }
@@ -565,6 +569,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = points))
         binding.map.showMap(map!!)
+        binding.calibrationMap.showMap(map!!)
     }
 
     override fun onPause() {
@@ -587,11 +592,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         calibratePoint(calibrationIndex)
-        binding.map.showCalibrationPoints()
+        binding.map.isVisible = false
+        binding.calibrationMap.isVisible = true
     }
 
     fun recenter() {
         binding.map.recenter()
+        binding.calibrationMap.recenter()
     }
 
     private fun calibratePoint(index: Int) {

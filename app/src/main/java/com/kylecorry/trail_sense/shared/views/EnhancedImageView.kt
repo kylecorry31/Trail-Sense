@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.maps.ui
+package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.graphics.Canvas

@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.max
 import kotlin.math.min
@@ -31,7 +31,6 @@ import kotlin.math.min
 class PhotoMapView : EnhancedImageView, IMapView {
 
     var onMapLongClick: ((coordinate: Coordinate) -> Unit)? = null
-    var onMapClick: ((percent: PercentCoordinate) -> Unit)? = null
 
     private var map: PhotoMap? = null
     private var projection: IMapProjection? = null
@@ -115,8 +114,6 @@ class PhotoMapView : EnhancedImageView, IMapView {
     override val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
 
-    private var showCalibrationPoints = false
-
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
@@ -150,39 +147,17 @@ class PhotoMapView : EnhancedImageView, IMapView {
         super.draw()
         val map = map ?: return
 
-//        if (!map.isCalibrated) {
-//            return
-//        }
-//        maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
-//        if (shouldRecenter && isImageLoaded) {
-//            recenter()
-//            shouldRecenter = false
-//        }
-
-        val isCalibrating = showCalibrationPoints
-        val hasCalibrationPoints = map.isCalibrated
-        val hasActualCalibration =
-            map.calibration.calibrationPoints.all { it.location != Coordinate.zero }
-        if (hasCalibrationPoints && (!isCalibrating || hasActualCalibration)) {
-            maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
-            if (shouldRecenter && isImageLoaded) {
-                recenter()
-                shouldRecenter = false
-            }
-            layers.forEach { it.draw(drawer, this) }
-        } else {
-            // Don't recenter if the map is not calibrated
+        if (!map.isCalibrated) {
+            return
+        }
+        maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
+        if (shouldRecenter && isImageLoaded) {
+            recenter()
             shouldRecenter = false
         }
 
         layers.forEach { it.draw(drawer, this) }
     }
-
-    override fun postDraw() {
-        super.postDraw()
-        drawCalibrationPoints()
-    }
-
 
     fun showMap(map: PhotoMap) {
         this.map = map
@@ -226,13 +201,6 @@ class PhotoMapView : EnhancedImageView, IMapView {
                     break
                 }
             }
-        }
-
-        pixel?.let {
-            val percentX = it.x / imageWidth
-            val percentY = it.y / imageHeight
-            val percent = PercentCoordinate(percentX, percentY)
-            onMapClick?.invoke(percent)
         }
     }
 
@@ -312,39 +280,6 @@ class PhotoMapView : EnhancedImageView, IMapView {
             start - drawer.textWidth(scaleText) - drawer.dp(4f),
             y + drawer.textHeight(scaleText) / 2
         )
-    }
-
-    fun showCalibrationPoints() {
-        showCalibrationPoints = true
-        invalidate()
-    }
-
-    fun hideCalibrationPoints() {
-        showCalibrationPoints = false
-        invalidate()
-    }
-
-    private fun drawCalibrationPoints() {
-        if (!showCalibrationPoints) return
-        val calibrationPoints = map?.calibration?.calibrationPoints ?: emptyList()
-        for (i in calibrationPoints.indices) {
-            val point = calibrationPoints[i]
-            val sourceCoord = point.imageLocation.toPixels(
-                imageWidth.toFloat(),
-                imageHeight.toFloat()
-            )
-            val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
-            drawer.stroke(Color.WHITE)
-            drawer.strokeWeight(drawer.dp(1f) / layerScale)
-            drawer.fill(Color.BLACK)
-            drawer.circle(coord.x, coord.y, drawer.dp(8f) / layerScale)
-
-            drawer.textMode(TextMode.Center)
-            drawer.fill(Color.WHITE)
-            drawer.noStroke()
-            drawer.textSize(drawer.dp(5f) / layerScale)
-            drawer.text((i + 1).toString(), coord.x, coord.y)
-        }
     }
 
 }
