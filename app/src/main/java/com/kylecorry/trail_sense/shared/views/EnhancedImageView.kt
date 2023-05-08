@@ -210,8 +210,12 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         // Do nothing
     }
 
-    open fun recenter() {
+    fun recenter() {
         resetScaleAndCenter()
+    }
+
+    fun moveTo(x: Float, y: Float) {
+        setScaleAndCenter(scale, PointF(x, y))
     }
 
     fun zoomBy(multiple: Float) {

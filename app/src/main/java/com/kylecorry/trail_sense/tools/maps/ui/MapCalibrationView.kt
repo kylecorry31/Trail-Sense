@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -19,6 +20,17 @@ class MapCalibrationView : EnhancedImageView {
     private var map: PhotoMap? = null
     private val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
+
+    var highlightedIndex: Int = 0
+        set(value) {
+            if (field != value){
+                movePending = true
+            }
+            field = value
+            invalidate()
+        }
+
+    private var movePending = true
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -56,20 +68,29 @@ class MapCalibrationView : EnhancedImageView {
         val calibrationPoints = map?.calibration?.calibrationPoints ?: emptyList()
         for (i in calibrationPoints.indices) {
             val point = calibrationPoints[i]
-            val sourceCoord = point.imageLocation.toPixels(
-                imageWidth.toFloat(),
-                imageHeight.toFloat()
-            )
+            val sourceCoord = point.imageLocation.toPixels(imageWidth, imageHeight)
+            if (movePending && i == highlightedIndex) {
+                moveTo(sourceCoord.x, sourceCoord.y)
+                movePending = false
+            }
             val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
             drawer.stroke(Color.WHITE)
+            if (i == highlightedIndex) {
+                drawer.fill(AppColor.Orange.color)
+            } else {
+                drawer.fill(Color.BLACK)
+            }
             drawer.strokeWeight(drawer.dp(1f) / layerScale)
-            drawer.fill(Color.BLACK)
-            drawer.circle(coord.x, coord.y, drawer.dp(8f) / layerScale)
+            drawer.circle(coord.x, coord.y, drawer.dp(12f) / layerScale)
 
             drawer.textMode(TextMode.Center)
-            drawer.fill(Color.WHITE)
+            if (i == highlightedIndex) {
+                drawer.fill(Color.BLACK)
+            } else {
+                drawer.fill(Color.WHITE)
+            }
             drawer.noStroke()
-            drawer.textSize(drawer.dp(5f) / layerScale)
+            drawer.textSize(drawer.dp(10f) / layerScale)
             drawer.text((i + 1).toString(), coord.x, coord.y)
         }
     }

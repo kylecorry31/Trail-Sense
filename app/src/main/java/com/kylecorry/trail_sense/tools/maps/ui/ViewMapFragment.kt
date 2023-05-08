@@ -570,6 +570,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = points))
         binding.map.showMap(map!!)
         binding.calibrationMap.showMap(map!!)
+        binding.calibrationMap.highlightedIndex = calibrationIndex
     }
 
     override fun onPause() {
