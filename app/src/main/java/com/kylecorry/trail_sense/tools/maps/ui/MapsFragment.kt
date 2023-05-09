@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -24,8 +25,6 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 class MapsFragment : BoundFragment<FragmentMapsBinding>() {
@@ -62,10 +61,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         }
 
         binding.recenterBtn.setOnClickListener {
-            val fragment = currentFragment
-            if (fragment != null && fragment is ViewMapFragment) {
-                fragment.recenter()
-            }
+            recenter()
         }
 
         binding.menuBtn.setOnClickListener {
@@ -110,10 +106,13 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun calibrate() {
-        val fragment = currentFragment
-        if (fragment != null && fragment is ViewMapFragment) {
-            fragment.calibrateMap()
+        binding.recenterBtn.isVisible = true
+        val fragment = MapCalibrationFragment.create(mapId){
+            inBackground {
+                loadMap()
+            }
         }
+        setFragment(fragment)
     }
 
     private fun delete() {
@@ -172,74 +171,100 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
             projectionNames,
             projections.indexOf(map?.metadata?.projection)
         ) {
-            if (it != null) {
-                map?.let { m ->
-                    val newProjection = projections[it]
-                    inBackground {
-                        withContext(Dispatchers.IO) {
-                            val updated = mapRepo.getMap(m.id)!!
-                            map = mapService.setProjection(updated, newProjection)
-                        }
-                        withContext(Dispatchers.Main) {
-                            val fragment = currentFragment
-                            if (fragment != null && fragment is ViewMapFragment) {
-                                fragment.reloadMap()
-                            }
-                        }
+            it ?: return@item
+            map?.let { m ->
+                val newProjection = projections[it]
+                inBackground {
+                    val updated = mapRepo.getMap(m.id) ?: return@inBackground
+                    map = mapService.setProjection(updated, newProjection)
+                    onMain {
+                        reload()
                     }
                 }
             }
         }
     }
 
-    private suspend fun loadMap() {
-        withContext(Dispatchers.IO) {
-            map = mapRepo.getMap(mapId)
+    private fun recenter(){
+        val fragment = currentFragment
+        if (fragment != null && fragment is ViewMapFragment) {
+            fragment.recenter()
         }
-        withContext(Dispatchers.Main) {
-            map?.let {
-                onMapLoad(it)
-            }
+
+        if (fragment != null && fragment is MapCalibrationFragment) {
+            fragment.recenter()
+        }
+    }
+
+    private fun reload(){
+        val fragment = currentFragment
+        if (fragment != null && fragment is ViewMapFragment) {
+            fragment.reloadMap()
+        }
+
+        if (fragment != null && fragment is MapCalibrationFragment) {
+            fragment.reloadMap()
+        }
+    }
+
+    private suspend fun loadMap() {
+        map = mapRepo.getMap(mapId)
+        onMain {
+            map?.let(::onMapLoad)
         }
     }
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.mapName.text = map.name
-        val fragmentManager = parentFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        val fragment = when {
-            !map.calibration.warped -> {
-                WarpMapFragment().apply {
-                    arguments = bundleOf("mapId" to mapId)
-                }.also {
-                    it.setOnCompleteListener {
-                        inBackground {
-                            loadMap()
-                        }
-                    }
-                }
-            }
+        when {
+            !map.calibration.warped -> warp()
+            !map.calibration.rotated -> rotate()
+            !map.isCalibrated -> calibrate()
+            else -> view()
+        }
+    }
 
-            !map.calibration.rotated -> {
-                RotateMapFragment().apply {
-                    arguments = bundleOf("mapId" to mapId)
-                }.also {
-                    it.setOnCompleteListener {
-                        inBackground {
-                            loadMap()
-                        }
-                    }
-                }
-            }
-
-            else -> {
-                binding.recenterBtn.isVisible = true
-                ViewMapFragment().apply {
-                    arguments = bundleOf("mapId" to mapId)
+    private fun warp(){
+        val fragment = WarpMapFragment().apply {
+            arguments = bundleOf("mapId" to mapId)
+        }.also {
+            binding.recenterBtn.isVisible = false
+            it.setOnCompleteListener {
+                inBackground {
+                    loadMap()
                 }
             }
         }
+
+        setFragment(fragment)
+    }
+
+    private fun rotate(){
+        val fragment = RotateMapFragment().apply {
+            arguments = bundleOf("mapId" to mapId)
+        }.also {
+            binding.recenterBtn.isVisible = false
+            it.setOnCompleteListener {
+                inBackground {
+                    loadMap()
+                }
+            }
+        }
+
+        setFragment(fragment)
+    }
+
+
+    private fun view() {
+        binding.recenterBtn.isVisible = true
+        val fragment = ViewMapFragment.create(mapId)
+        setFragment(fragment)
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        val fragmentManager = parentFragmentManager
+        val transaction = fragmentManager.beginTransaction()
         currentFragment = fragment
         transaction.replace(binding.mapFragment.id, fragment)
             .addToBackStack(null).commit()

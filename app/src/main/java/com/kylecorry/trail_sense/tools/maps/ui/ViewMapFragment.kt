@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -52,8 +51,6 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
@@ -95,13 +92,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var map: PhotoMap? = null
     private var destination: Beacon? = null
 
-    private var calibrationPoint1Percent: PercentCoordinate? = null
-    private var calibrationPoint2Percent: PercentCoordinate? = null
-    private var calibrationPoint1: Coordinate? = null
-    private var calibrationPoint2: Coordinate? = null
-    private var calibrationIndex = 0
-    private var isCalibrating = false
-
     private var locationLocked = false
     private var compassLocked = false
 
@@ -109,7 +99,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private var beacons: List<Beacon> = emptyList()
 
-    private val updateTideLayerCommand by lazy { UpdateTideLayerCommand(requireContext(), tideLayer) }
+    private val updateTideLayerCommand by lazy {
+        UpdateTideLayerCommand(
+            requireContext(),
+            tideLayer
+        )
+    }
 
     private val tideTimer = Timer {
         updateTides()
@@ -195,68 +190,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
 
         reloadMap()
-
-        binding.calibrationNext.setOnClickListener {
-            if (calibrationIndex == 1) {
-                isCalibrating = false
-                showZoomBtns()
-                if (destination != null) {
-                    navigateTo(destination!!)
-                }
-                binding.mapCalibrationBottomPanel.isVisible = false
-                binding.map.isVisible = true
-                binding.calibrationMap.isVisible = false
-                inBackground {
-                    // Save the new calibration
-                    onIO {
-                        map?.let {
-                            var updated = mapRepo.getMap(it.id)!!
-                            updated = updated.copy(
-                                calibration = updated.calibration.copy(calibrationPoints = it.calibration.calibrationPoints)
-                            )
-                            mapRepo.addMap(updated)
-                            map = updated
-                        }
-                    }
-
-                    onCalibrationChanged()
-                }
-            } else {
-                calibratePoint(++calibrationIndex)
-            }
-        }
-
-        binding.calibrationPrev.setOnClickListener {
-            calibratePoint(--calibrationIndex)
-        }
-
-
-        binding.mapCalibrationCoordinate.setOnCoordinateChangeListener {
-            if (isCalibrating) {
-                if (calibrationIndex == 0) {
-                    calibrationPoint1 = it
-                } else {
-                    calibrationPoint2 = it
-                }
-
-                updateMapCalibration()
-                binding.map.isVisible = false
-                binding.calibrationMap.isVisible = true
-            }
-        }
-
-        binding.calibrationMap.onMapClick = {
-            if (isCalibrating) {
-                if (calibrationIndex == 0) {
-                    calibrationPoint1Percent = it
-                } else {
-                    calibrationPoint2Percent = it
-                }
-                updateMapCalibration()
-                binding.map.isVisible = false
-                binding.calibrationMap.isVisible = true
-            }
-        }
 
         binding.map.onMapLongClick = {
             onLongPress(it)
@@ -387,7 +320,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun updateDestination() {
-        if (throttle.isThrottled() || isCalibrating) {
+        if (throttle.isThrottled()) {
             return
         }
 
@@ -496,9 +429,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun navigateTo(beacon: Beacon): Boolean {
-        if (isCalibrating) {
-            return false
-        }
         cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
         destination = beacon
         val colorWithAlpha = beacon.color.withAlpha(127)
@@ -541,36 +471,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.map.showMap(map)
-        binding.calibrationMap.showMap(map)
-        if (map.calibration.calibrationPoints.size < 2) {
-            calibrateMap()
-        }
-    }
-
-    private fun updateMapCalibration() {
-        val points = mutableListOf<MapCalibrationPoint>()
-        if (calibrationPoint1Percent != null) {
-            points.add(
-                MapCalibrationPoint(
-                    calibrationPoint1 ?: Coordinate.zero,
-                    calibrationPoint1Percent!!
-                )
-            )
-        }
-
-        if (calibrationPoint2Percent != null) {
-            points.add(
-                MapCalibrationPoint(
-                    calibrationPoint2 ?: Coordinate.zero,
-                    calibrationPoint2Percent!!
-                )
-            )
-        }
-
-        map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = points))
-        binding.map.showMap(map!!)
-        binding.calibrationMap.showMap(map!!)
-        binding.calibrationMap.highlightedIndex = calibrationIndex
     }
 
     override fun onPause() {
@@ -579,60 +479,20 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         lastDistanceToast?.cancel()
     }
 
-    fun calibrateMap() {
-        map ?: return
-        isCalibrating = true
-        hideNavigation()
-        hideZoomBtns()
-        loadCalibrationPointsFromMap()
-
-        calibrationIndex = if (calibrationPoint1 == null || calibrationPoint1Percent == null) {
-            0
-        } else {
-            1
-        }
-
-        calibratePoint(calibrationIndex)
-        binding.map.isVisible = false
-        binding.calibrationMap.isVisible = true
-    }
-
     fun recenter() {
         binding.map.recenter()
-        binding.calibrationMap.recenter()
-    }
-
-    private fun calibratePoint(index: Int) {
-        loadCalibrationPointsFromMap()
-        binding.mapCalibrationTitle.text = getString(R.string.calibrate_map_point, index + 1, 2)
-        binding.mapCalibrationCoordinate.coordinate =
-            if (index == 0) calibrationPoint1 else calibrationPoint2
-        binding.mapCalibrationBottomPanel.isVisible = true
-        binding.calibrationNext.text =
-            if (index == 0) getString(R.string.next) else getString(R.string.done)
-        binding.calibrationPrev.isEnabled = index == 1
-    }
-
-    private fun loadCalibrationPointsFromMap() {
-        map ?: return
-        val first =
-            if (map!!.calibration.calibrationPoints.isNotEmpty()) map!!.calibration.calibrationPoints[0] else null
-        val second =
-            if (map!!.calibration.calibrationPoints.size > 1) map!!.calibration.calibrationPoints[1] else null
-        calibrationPoint1 = first?.location
-        calibrationPoint2 = second?.location
-        calibrationPoint1Percent = first?.imageLocation
-        calibrationPoint2Percent = second?.imageLocation
-    }
-
-    private fun onCalibrationChanged() {
-        inBackground {
-            updatePaths()
-        }
     }
 
     private fun updateTides() = inBackground {
         updateTideLayerCommand.execute()
+    }
+
+    companion object {
+        fun create(mapId: Long): ViewMapFragment {
+            return ViewMapFragment().apply {
+                arguments = bundleOf("mapId" to mapId)
+            }
+        }
     }
 
 }
