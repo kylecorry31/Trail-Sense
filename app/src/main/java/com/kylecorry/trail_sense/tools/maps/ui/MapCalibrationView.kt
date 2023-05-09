@@ -65,9 +65,14 @@ class MapCalibrationView : EnhancedImageView {
     // TODO: Support dragging the coordinates
 
     private fun drawCalibrationPoints() {
-        val calibrationPoints = map?.calibration?.calibrationPoints ?: emptyList()
-        for (i in calibrationPoints.indices) {
-            val point = calibrationPoints[i]
+        var calibrationPoints = (map?.calibration?.calibrationPoints ?: emptyList()).mapIndexed { index, point ->
+            index to point
+        }
+
+        // Sort highlighted last
+        calibrationPoints = calibrationPoints.sortedBy { it.first == highlightedIndex }
+
+        for ((i, point) in calibrationPoints) {
             val sourceCoord = point.imageLocation.toPixels(imageWidth, imageHeight)
             if (movePending && i == highlightedIndex) {
                 moveTo(sourceCoord.x, sourceCoord.y)
