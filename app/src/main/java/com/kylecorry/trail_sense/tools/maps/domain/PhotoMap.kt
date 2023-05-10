@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.normalizeAngle
+import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Distance
-import kotlin.math.absoluteValue
 
 data class PhotoMap(
     override val id: Long,
@@ -74,15 +74,7 @@ data class PhotoMap(
     }
 
     fun baseRotation(): Int {
-        for (i in 0..3) {
-            val rotation = 90 * i
-            val delta = SolMath.deltaAngle(rotation.toFloat(), calibration.rotation.toFloat())
-            if (delta.absoluteValue < 45) {
-                return rotation
-            }
-        }
-
-        return 0
+        return normalizeAngle(calibration.rotation.toFloat()).toInt().roundNearest(90)
     }
 
     fun calibratedSize(): Size {

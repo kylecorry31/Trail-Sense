@@ -14,8 +14,9 @@ import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.normalizeAngle
+import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import kotlin.math.absoluteValue
 import kotlin.math.max
 
 // TODO: Fix panning and zooming while rotated
@@ -159,15 +160,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     private fun getBaseRotation(rotation: Int): Int {
-        for (i in 0..3){
-            val newRotation = 90 * i
-            val delta = SolMath.deltaAngle(rotation.toFloat(), newRotation.toFloat())
-            if (delta.absoluteValue < 45){
-                return newRotation
-            }
-        }
-
-        return 0
+        return normalizeAngle(rotation.toFloat()).toInt().roundNearest(90)
     }
 
     override fun tileVisible(tile: Tile?): Boolean {
