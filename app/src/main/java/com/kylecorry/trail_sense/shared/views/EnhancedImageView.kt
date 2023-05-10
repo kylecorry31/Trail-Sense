@@ -13,11 +13,12 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlin.math.absoluteValue
 import kotlin.math.max
 
 // TODO: Fix panning and zooming while rotated
-// TODO: Add support for image rotation offset (supplied via setImage)
 open class EnhancedImageView : SubsamplingScaleImageView {
 
     protected lateinit var drawer: ICanvasDrawer
@@ -26,6 +27,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     protected var imageRotation = 0f
         set(value) {
             field = value
+            refreshRequiredTiles(true)
             invalidate()
         }
 
@@ -36,6 +38,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     private var lastScale = 1f
     private var lastTranslateX = 0f
     private var lastTranslateY = 0f
+    private var rotationOffset = 0f
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -45,7 +48,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
-            drawer.rotate(-imageRotation)
+            drawer.rotate(-(imageRotation - rotationOffset))
         }
 
         super.onDraw(canvas)
@@ -134,20 +137,37 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     fun setImage(filename: String, rotation: Int = 0) {
-        if (orientation != rotation) {
-            orientation = when (rotation) {
+        val baseRotation = getBaseRotation(rotation)
+        if (orientation != baseRotation) {
+            orientation = when (baseRotation) {
                 90 -> ORIENTATION_90
                 180 -> ORIENTATION_180
                 270 -> ORIENTATION_270
                 else -> ORIENTATION_0
             }
         }
+        rotationOffset = SolMath.deltaAngle(
+            baseRotation.toFloat(),
+            rotation.toFloat()
+        )
         if (lastImage != filename) {
             val uri = files.uri(filename)
             setImage(ImageSource.uri(uri))
             lastImage = filename
         }
         invalidate()
+    }
+
+    private fun getBaseRotation(rotation: Int): Int {
+        for (i in 0..3){
+            val newRotation = 90 * i
+            val delta = SolMath.deltaAngle(rotation.toFloat(), newRotation.toFloat())
+            if (delta.absoluteValue < 45){
+                return newRotation
+            }
+        }
+
+        return 0
     }
 
     override fun tileVisible(tile: Tile?): Boolean {
