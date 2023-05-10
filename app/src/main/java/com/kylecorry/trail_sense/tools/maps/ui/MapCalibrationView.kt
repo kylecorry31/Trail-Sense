@@ -47,8 +47,8 @@ class MapCalibrationView : EnhancedImageView {
 
     fun showMap(map: PhotoMap) {
         this.map = map
-        // TODO: Determine what rotation it was calibrated at (ex. originalRotation) - or record the calibration points against the original width / height
-        setImage(map.filename, 0)
+        // TODO: Record the calibration points against the original width / height - allowing the rotation to be the base rotation
+        setImage(map.filename, map.baseRotation())
     }
 
     override fun onSinglePress(e: MotionEvent) {
@@ -59,7 +59,7 @@ class MapCalibrationView : EnhancedImageView {
             val percentX = it.x / imageWidth
             val percentY = it.y / imageHeight
             val percent = PercentCoordinate(percentX, percentY)
-            onMapClick?.invoke(percent)
+            onMapClick?.invoke(percent.rotate(-orientation))
         }
     }
 
@@ -75,7 +75,7 @@ class MapCalibrationView : EnhancedImageView {
         calibrationPoints = calibrationPoints.sortedBy { it.first == highlightedIndex }
 
         for ((i, point) in calibrationPoints) {
-            val sourceCoord = point.imageLocation.toPixels(imageWidth, imageHeight)
+            val sourceCoord = point.imageLocation.rotate(orientation).toPixels(imageWidth, imageHeight)
             if (movePending && i == highlightedIndex) {
                 moveTo(sourceCoord.x, sourceCoord.y)
                 movePending = false

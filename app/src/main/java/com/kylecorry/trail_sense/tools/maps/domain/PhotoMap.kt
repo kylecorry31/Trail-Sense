@@ -15,17 +15,27 @@ data class PhotoMap(
     val calibration: MapCalibration,
     val metadata: MapMetadata,
     override val parentId: Long? = null
-): IMap {
+) : IMap {
     override val isGroup = false
     override val count: Int? = null
-    
+
     private var calculatedBounds: CoordinateBounds? = null
 
     val isCalibrated: Boolean
         get() = calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0
 
+    private fun getRotatedPoints(): List<MapCalibrationPoint> {
+        val rotation = baseRotation()
+        return calibration.calibrationPoints.map {
+            MapCalibrationPoint(
+                it.location, it.imageLocation.rotate(rotation)
+            )
+        }
+    }
+
     fun projection(width: Float, height: Float): IMapProjection {
-        return CalibratedProjection(calibration.calibrationPoints.map {
+        val calibrationPoints = getRotatedPoints()
+        return CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location
         }, MapProjectionFactory().getProjection(metadata.projection))
     }
@@ -36,8 +46,10 @@ data class PhotoMap(
             return null
         }
 
-        val first = calibration.calibrationPoints[0]
-        val second = calibration.calibrationPoints[1]
+        val calibrationPoints = getRotatedPoints()
+
+        val first = calibrationPoints[0]
+        val second = calibrationPoints[1]
         val firstPixels = first.imageLocation.toPixels(width, height)
         val secondPixels = second.imageLocation.toPixels(width, height)
 
@@ -62,10 +74,10 @@ data class PhotoMap(
     }
 
     fun baseRotation(): Int {
-        for (i in 0..3){
+        for (i in 0..3) {
             val rotation = 90 * i
             val delta = SolMath.deltaAngle(rotation.toFloat(), calibration.rotation.toFloat())
-            if (delta.absoluteValue < 45){
+            if (delta.absoluteValue < 45) {
                 return rotation
             }
         }

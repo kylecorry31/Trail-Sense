@@ -14,22 +14,19 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.print.Printer
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.maps.infrastructure.calibration.MapRotationCalculator
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
-import kotlin.math.atan2
 
 
 class MapsFragment : BoundFragment<FragmentMapsBinding>() {
@@ -276,9 +273,10 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private suspend fun autoRotate() {
         val updatedMap = mapRepo.getMap(mapId) ?: return
+        val newRotation = MapRotationCalculator().calculate(updatedMap)
         map = updatedMap.copy(
             calibration = updatedMap.calibration.copy(
-                rotation = calculateRotation(updatedMap),
+                rotation = newRotation,
                 rotated = true
             )
         )
@@ -286,28 +284,6 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         map?.let {
             mapRepo.addMap(it)
         }
-    }
-
-    private fun calculateRotation(map: PhotoMap): Int {
-        val size = map.calibratedSize()
-        val pixels = map.calibration.calibrationPoints.map {
-            it.imageLocation.toPixels(
-                size.width,
-                size.height
-            ).toVector2(size.height)
-        }
-        val locations = map.calibration.calibrationPoints.map { it.location }
-
-        val pixelAngle = SolMath.normalizeAngle(
-            -atan2(
-                pixels[1].y - pixels[0].y,
-                pixels[1].x - pixels[0].x
-            ).toDegrees()
-        ) + 90f
-
-        val bearing = locations[0].bearingTo(locations[1])
-
-        return map.baseRotation() + SolMath.deltaAngle(pixelAngle, bearing.value).toInt()
     }
 
 

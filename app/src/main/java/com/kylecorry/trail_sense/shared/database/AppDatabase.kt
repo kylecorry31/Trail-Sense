@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroupEntity
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupDao
+import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.RebaseMapCalibrationWorker
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
@@ -39,7 +40,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class],
-    version = 31,
+    version = 32,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -279,6 +280,14 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_31_32 = object : Migration(31, 32) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    val request =
+                        OneTimeWorkRequestBuilder<RebaseMapCalibrationWorker>().build()
+                    WorkManager.getInstance(context).enqueue(request)
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -310,7 +319,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_27_28,
                     MIGRATION_28_29,
                     MIGRATION_29_30,
-                    MIGRATION_30_31
+                    MIGRATION_30_31,
+                    MIGRATION_31_32
                 )
                 .build()
         }
