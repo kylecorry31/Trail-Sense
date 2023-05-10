@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
@@ -40,6 +41,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
     private val formatService by lazy { FormatService.getInstance(context) }
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
+    private var rotationOffset = 0f
 
     private val layers = mutableListOf<ILayer>()
 
@@ -99,8 +101,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
             val changed = field != value
             field = value
             if (changed) {
-                imageRotation = value
-                refreshRequiredTiles(true)
+                updateImageRotation()
                 invalidate()
             }
         }
@@ -162,13 +163,15 @@ class PhotoMapView : EnhancedImageView, IMapView {
     fun showMap(map: PhotoMap) {
         this.map = map
         projection = map.projection(imageWidth.toFloat(), imageHeight.toFloat())
-        setImage(map.filename, map.calibration.rotation)
+        setImage(map.filename, map.baseRotation())
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
         projection = map?.projection(imageWidth.toFloat(), imageHeight.toFloat())
         shouldRecenter = true
+        rotationOffset = deltaAngle(map?.baseRotation()?.toFloat() ?: 0f, map?.calibration?.rotation?.toFloat() ?: 0f)
+        updateImageRotation()
         invalidate()
     }
 
@@ -280,6 +283,11 @@ class PhotoMapView : EnhancedImageView, IMapView {
             start - drawer.textWidth(scaleText) - drawer.dp(4f),
             y + drawer.textHeight(scaleText) / 2
         )
+    }
+
+    private fun updateImageRotation(){
+        imageRotation = mapRotation - rotationOffset
+        refreshRequiredTiles(true)
     }
 
 }

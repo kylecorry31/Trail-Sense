@@ -1300,6 +1300,8 @@
     <string name="autofill_source">Autofill source</string>
     <string name="high_accuracy_compass">High accuracy compass</string>
     <string name="pref_high_accuracy_compass" translatable="false">pref_high_accuracy_compass</string>
+    <string name="pref_map_auto_rotate" translatable="false">pref_map_auto_rotate</string>
+    <string name="pref_map_auto_rotate_title">Auto rotate map</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

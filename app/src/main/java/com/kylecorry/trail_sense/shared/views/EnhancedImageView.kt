@@ -16,6 +16,8 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlin.math.max
 
+// TODO: Fix panning and zooming while rotated
+// TODO: Add support for image rotation offset (supplied via setImage)
 open class EnhancedImageView : SubsamplingScaleImageView {
 
     protected lateinit var drawer: ICanvasDrawer

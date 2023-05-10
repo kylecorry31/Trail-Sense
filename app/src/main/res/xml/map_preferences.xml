@@ -19,6 +19,13 @@
             app:singleLineTitle="false"
             app:title="@string/pref_show_map_previews_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_map_auto_rotate"
+            app:singleLineTitle="false"
+            app:title="@string/pref_map_auto_rotate_title" />
+
 
     </PreferenceCategory>
 </PreferenceScreen>

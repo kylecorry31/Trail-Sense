@@ -329,8 +329,6 @@ class PerspectiveCorrectionView : CanvasView {
         val start = toSource(PixelCoordinate(radius, radius))
         val end = toSource(PixelCoordinate(width.toFloat() - radius, height.toFloat() - radius))
 
-        println(end)
-
         return PixelCoordinate(
             x.coerceIn(min(start.x, end.x), max(start.x, end.x)),
             y.coerceIn(min(start.y, end.y), max(start.y, end.y))

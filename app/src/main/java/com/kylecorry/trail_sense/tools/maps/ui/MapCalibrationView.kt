@@ -47,7 +47,7 @@ class MapCalibrationView : EnhancedImageView {
 
     fun showMap(map: PhotoMap) {
         this.map = map
-        setImage(map.filename, map.calibration.rotation)
+        setImage(map.filename, map.baseRotation())
     }
 
     override fun onSinglePress(e: MotionEvent) {
