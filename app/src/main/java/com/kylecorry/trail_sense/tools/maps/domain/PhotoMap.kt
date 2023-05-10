@@ -75,6 +75,12 @@ data class PhotoMap(
 
     fun calibratedSize(): Size {
         // TODO: Handle non right angle rotation
+//        val original = Vector2(metadata.size.width / 2f, metadata.size.height / 2f)
+//        val rotated = original.rotate(calibration.rotation.toFloat())
+//        val width = rotated.x * 2
+//        val height = rotated.y * 2
+//        return Size(width, height)
+
         val rightRotation = baseRotation()
         val size = metadata.size
         val width = if (rightRotation == 90 || rightRotation == 270) {

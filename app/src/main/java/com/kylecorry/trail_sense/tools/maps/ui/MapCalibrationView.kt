@@ -23,7 +23,7 @@ class MapCalibrationView : EnhancedImageView {
 
     var highlightedIndex: Int = 0
         set(value) {
-            if (field != value){
+            if (field != value) {
                 movePending = true
             }
             field = value
@@ -47,7 +47,8 @@ class MapCalibrationView : EnhancedImageView {
 
     fun showMap(map: PhotoMap) {
         this.map = map
-        setImage(map.filename, map.baseRotation())
+        // TODO: Determine what rotation it was calibrated at (ex. originalRotation) - or record the calibration points against the original width / height
+        setImage(map.filename, 0)
     }
 
     override fun onSinglePress(e: MotionEvent) {
@@ -65,9 +66,10 @@ class MapCalibrationView : EnhancedImageView {
     // TODO: Support dragging the coordinates
 
     private fun drawCalibrationPoints() {
-        var calibrationPoints = (map?.calibration?.calibrationPoints ?: emptyList()).mapIndexed { index, point ->
-            index to point
-        }
+        var calibrationPoints =
+            (map?.calibration?.calibrationPoints ?: emptyList()).mapIndexed { index, point ->
+                index to point
+            }
 
         // Sort highlighted last
         calibrationPoints = calibrationPoints.sortedBy { it.first == highlightedIndex }
