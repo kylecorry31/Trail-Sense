@@ -51,7 +51,7 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.stepProgression.text = getString(R.string.step_progression, 1, 3)
+        binding.stepProgression.text = getString(R.string.step_progression, 1, 2)
 
         binding.perspectiveToggleBtn.setOnClickListener {
             binding.perspective.isPreview = !binding.perspective.isPreview
