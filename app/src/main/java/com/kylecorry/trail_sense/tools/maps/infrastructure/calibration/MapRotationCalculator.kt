@@ -2,16 +2,28 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.calibration
 
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
-import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.absoluteValue
-import kotlin.math.atan2
 
+/**
+ * A class that calculates the rotation of a map based on the calibration points
+ */
 class MapRotationCalculator {
 
+    /**
+     * Calculates the ideal rotation of the map
+     * @param map: The map to calculate the rotation for
+     * @return The rotation in degrees
+     */
     fun calculate(map: PhotoMap): Int {
+        if (!map.isCalibrated){
+            return 0
+        }
+
+
         // If the map is large, only allow it to be flipped vertically
         val bounds = CoordinateBounds.from(map.calibration.calibrationPoints.map { it.location })
         val east = bounds.east
@@ -38,12 +50,11 @@ class MapRotationCalculator {
         }
         val locations = map.calibration.calibrationPoints.map { it.location }
 
-        val pixelAngle = SolMath.normalizeAngle(
-            -atan2(
-                pixels[1].y - pixels[0].y,
-                pixels[1].x - pixels[0].x
-            ).toDegrees()
-        ) + 90f
+        val pixelAngle = Trigonometry.remapUnitAngle(
+            pixels[0].angleBetween(pixels[1]),
+            90f,
+            false
+        )
 
         val bearing = locations[0].bearingTo(locations[1])
 
