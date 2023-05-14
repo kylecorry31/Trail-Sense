@@ -231,12 +231,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         true
     )
 
-    override val autoRotateMaps by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_map_auto_rotate),
-        false
-    )
-
     override val showMapPreviews by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_map_previews),

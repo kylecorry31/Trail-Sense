@@ -112,9 +112,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         binding.recenterBtn.isVisible = true
         val fragment = MapCalibrationFragment.create(mapId) {
             inBackground {
-                if (prefs.navigation.autoRotateMaps){
-                    autoRotate()
-                }
+                autoRotate()
                 loadMap()
             }
         }
@@ -225,7 +223,6 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         binding.mapName.text = map.name
         when {
             !map.calibration.warped -> warp()
-            !map.calibration.rotated && !prefs.navigation.autoRotateMaps -> rotate()
             !map.isCalibrated -> calibrate()
             else -> view()
         }
@@ -233,31 +230,6 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun warp() {
         val fragment = WarpMapFragment().apply {
-            arguments = bundleOf("mapId" to mapId)
-        }.also {
-            binding.recenterBtn.isVisible = false
-            it.setOnCompleteListener {
-                inBackground {
-                    loadMap()
-                }
-            }
-        }
-
-        setFragment(fragment)
-    }
-
-    private fun rotate() {
-
-        if (prefs.navigation.autoRotateMaps) {
-            inBackground {
-                autoRotate()
-                loadMap()
-            }
-            return
-        }
-
-
-        val fragment = RotateMapFragment().apply {
             arguments = bundleOf("mapId" to mapId)
         }.also {
             binding.recenterBtn.isVisible = false
