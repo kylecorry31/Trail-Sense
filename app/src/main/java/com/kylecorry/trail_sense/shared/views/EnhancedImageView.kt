@@ -14,8 +14,7 @@ import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.normalizeAngle
-import com.kylecorry.sol.math.SolMath.roundNearest
+import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlin.math.max
 
@@ -160,7 +159,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     private fun getBaseRotation(rotation: Int): Int {
-        return normalizeAngle(rotation.toFloat()).toInt().roundNearest(90)
+        return rotation.toFloat().roundNearestAngle(90f).toInt()
     }
 
     override fun tileVisible(tile: Tile?): Boolean {

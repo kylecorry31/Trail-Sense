@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.calibration
 
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundNearest
+import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.toVector2
@@ -48,7 +48,7 @@ class MapRotationCalculator {
         val bearing = locations[0].bearingTo(locations[1])
 
         // TODO: Once infrastructure is ready, remove the rounding
-        return SolMath.deltaAngle(pixelAngle, bearing.value).roundNearest(90f).toInt()
+        return SolMath.deltaAngle(pixelAngle, bearing.value).roundNearestAngle(90f).toInt()
     }
 
 }

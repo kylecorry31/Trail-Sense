@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.sol.math.SolMath.normalizeAngle
-import com.kylecorry.sol.math.SolMath.roundNearest
+import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -74,7 +73,7 @@ data class PhotoMap(
     }
 
     fun baseRotation(): Int {
-        return normalizeAngle(calibration.rotation.toFloat()).toInt().roundNearest(90)
+        return calibration.rotation.toFloat().roundNearestAngle(90f).toInt()
     }
 
     fun calibratedSize(): Size {
