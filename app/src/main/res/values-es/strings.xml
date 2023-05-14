@@ -1108,4 +1108,5 @@
     <string name="step_progression">Paso %d / %d</string>
     <string name="autofill_source">Autocompletar las fuentes</string>
     <string name="high_accuracy_compass">Brújula de alta precisión</string>
+    <string name="pref_map_auto_rotate_title">Rotación automática del mapa</string>
 </resources>
