@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.grouping.picker
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.kylecorry.ceres.list.ListItemMapper
 import com.kylecorry.trail_sense.R
@@ -22,7 +22,7 @@ class GroupableSelectView<T : Groupable>(
     emptyText: String,
     initialGroup: Long? = null,
     searchEnabled: Boolean = true
-) : ConstraintLayout(context, attrs) {
+) : LinearLayout(context, attrs) {
 
     private val binding: ViewGroupableSelectorBinding
 
