@@ -1104,5 +1104,4 @@
     <string name="print">Drucken</string>
     <string name="step_progression">Schritt %d / %d</string>
     <string name="autofill_source">Quelle automatisch ausfüllen</string>
-    <string name="high_accuracy_compass">Hochgenauer Kompass</string>
 </resources>

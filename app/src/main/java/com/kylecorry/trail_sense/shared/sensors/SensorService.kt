@@ -182,7 +182,6 @@ class SensorService(ctx: Context) {
     fun getCompass(): ICompass {
         val smoothing = userPrefs.navigation.compassSmoothing
         val useTrueNorth = userPrefs.navigation.useTrueNorth
-        val useHighAccuracy = userPrefs.compass.useHighAccuracy
 
         return if (userPrefs.navigation.useLegacyCompass) LegacyCompass(
             context,
@@ -191,8 +190,7 @@ class SensorService(ctx: Context) {
         ) else GravityCompensatedCompass(
             context,
             useTrueNorth,
-            MovingAverageFilter(max(1, smoothing * 4)),
-            useRotationMatrix = useHighAccuracy
+            MovingAverageFilter(max(1, smoothing * 4))
         )
     }
 

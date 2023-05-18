@@ -1133,5 +1133,4 @@
     <string name="print">Друк</string>
     <string name="step_progression">Крок %d з %d</string>
     <string name="autofill_source">Джерело автозаповнення</string>
-    <string name="high_accuracy_compass">Високоточний компас</string>
 </resources>

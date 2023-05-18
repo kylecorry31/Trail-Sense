@@ -1107,5 +1107,4 @@
     <string name="print">Yazdır</string>
     <string name="step_progression">Adım %d / %d</string>
     <string name="autofill_source">Otomatik doldurma kaynağı</string>
-    <string name="high_accuracy_compass">Yüksek hassasiyetli pusula</string>
 </resources>

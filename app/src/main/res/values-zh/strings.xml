@@ -1094,5 +1094,4 @@
     <string name="step_progression">步骤 %d / %d</string>
     <string name="astronomy_direction_peak">峰值方向</string>
     <string name="autofill_source">自动填充源</string>
-    <string name="high_accuracy_compass">高精度指南针</string>
 </resources>
