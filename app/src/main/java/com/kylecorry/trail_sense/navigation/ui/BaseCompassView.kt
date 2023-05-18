@@ -68,7 +68,7 @@ abstract class BaseCompassView : CanvasView, ICompassView {
     }
 
     override fun setup() {
-        useTrueNorth = prefs.navigation.useTrueNorth
+        useTrueNorth = prefs.compass.useTrueNorth
     }
 
     override fun addCompassLayer(layer: ICompassLayer) {

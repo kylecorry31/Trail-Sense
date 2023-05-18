@@ -11,6 +11,8 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.units.Bearing
@@ -20,8 +22,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.solarpanel.domain.SolarPanelService
 import kotlinx.coroutines.Dispatchers
@@ -139,7 +139,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
 
         val solarPosition = position ?: return
 
-        if (prefs.navigation.useTrueNorth) {
+        if (prefs.compass.useTrueNorth) {
             compass.declination = getDeclination()
         } else {
             compass.declination = 0f
@@ -147,7 +147,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
 
         binding.solarContent.isVisible = true
         binding.solarLoading.isVisible = false
-        val declinationOffset = if (prefs.navigation.useTrueNorth) {
+        val declinationOffset = if (prefs.compass.useTrueNorth) {
             0f
         } else {
             -getDeclination()

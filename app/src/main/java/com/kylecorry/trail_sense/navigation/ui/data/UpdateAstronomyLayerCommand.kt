@@ -68,7 +68,7 @@ class UpdateAstronomyLayerCommand(
     }
 
     private fun fromTrueNorth(bearing: Bearing): Bearing {
-        return if (prefs.navigation.useTrueNorth) {
+        return if (prefs.compass.useTrueNorth) {
             bearing
         } else {
             DeclinationUtils.fromTrueNorthBearing(bearing, declination())

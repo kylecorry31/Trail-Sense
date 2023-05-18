@@ -180,10 +180,10 @@ class SensorService(ctx: Context) {
     }
 
     fun getCompass(): ICompass {
-        val smoothing = userPrefs.navigation.compassSmoothing
-        val useTrueNorth = userPrefs.navigation.useTrueNorth
+        val smoothing = userPrefs.compass.compassSmoothing
+        val useTrueNorth = userPrefs.compass.useTrueNorth
 
-        return if (userPrefs.navigation.useLegacyCompass) LegacyCompass(
+        return if (userPrefs.compass.useLegacyCompass) LegacyCompass(
             context,
             useTrueNorth,
             MovingAverageFilter(max(1, smoothing * 2))

@@ -183,7 +183,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation) }
-    private val useTrueNorth by lazy { userPrefs.navigation.useTrueNorth }
+    private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
 
     override fun onDestroyView() {
         super.onDestroyView()

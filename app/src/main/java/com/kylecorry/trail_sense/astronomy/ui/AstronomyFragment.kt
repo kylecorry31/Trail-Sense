@@ -278,7 +278,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             astronomyService.getSunAltitude(gps.location, time)
 
         val declination =
-            if (!prefs.navigation.useTrueNorth) getDeclination() else 0f
+            if (!prefs.compass.useTrueNorth) getDeclination() else 0f
 
         val sunAzimuth =
             astronomyService.getSunAzimuth(gps.location, time).withDeclination(-declination).value
