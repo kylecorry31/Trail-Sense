@@ -1047,7 +1047,6 @@
     <string name="cold">Frío</string>
     <string name="altocumulus_forecast">Puede indicar precipitaciones o tormentas en las próximas %d horas.</string>
     <string name="cumulonimbus_forecast">Puede indicar una tormenta en pocos minutos.</string>
-    <string name="calibrate_map_point">Calibrar el punto %d / %d</string>
     <string name="descent">Descenso</string>
     <string name="clouds_clear">Despejado</string>
     <string name="weather_thunderstorm">Tormenta eléctrica</string>

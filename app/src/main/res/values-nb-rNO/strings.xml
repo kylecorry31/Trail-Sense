@@ -905,7 +905,6 @@
     <string name="map_exported">Kart eksportert</string>
     <string name="exporting_map">Eksporterer kart</string>
     <string name="done">Ferdig</string>
-    <string name="calibrate_map_point">Kalibrer punkt %d / %d</string>
     <string name="updating_weather">Oppdaterer været</string>
     <string name="path_slope_flat">Flat</string>
     <string name="path_slope_moderate">Moderat</string>

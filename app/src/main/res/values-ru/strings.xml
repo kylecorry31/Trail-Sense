@@ -1058,7 +1058,6 @@
     <string name="altostratus_forecast">Может указывать на осадки в ближайшие %d часов.</string>
     <string name="altocumulus_forecast">Может указывать на осадки или грозу в ближайшие %d часов.</string>
     <string name="done">Готово</string>
-    <string name="calibrate_map_point">Точка калибровки %d / %d</string>
     <string name="clouds_clear">Ясно</string>
     <string name="manual">Вручную</string>
     <string name="weather_warm_front">Теплый</string>

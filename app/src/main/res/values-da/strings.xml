@@ -926,7 +926,6 @@
     <string name="tide_user_guide_recommendation">Hjemmesider med officielle tidevandstabeller kan findes i brugervejledningen.</string>
     <string name="tide_frequency_description">Antal højvande pr. dag. De fleste tidevand er halvdaglige.</string>
     <string name="change_resolution">Skift opløsning</string>
-    <string name="calibrate_map_point">Kalibrer punkt %d / %d</string>
     <string name="ascent">Stigning</string>
     <string name="updating_weather">Opdaterer vejret</string>
     <string name="path_slope_flat">Flad</string>

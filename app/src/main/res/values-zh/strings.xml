@@ -999,7 +999,6 @@
     <string name="permission_alarms_and_reminders">闹铃和提醒</string>
     <string name="change_resolution">更改分辨率</string>
     <string name="done">完毕</string>
-    <string name="calibrate_map_point">校准点 %d/%d</string>
     <string name="cloud_precipitation_forecast_hour_range">可能预示未来 %d 至 %d 小时内发生降水。</string>
     <string name="ascent">上坡</string>
     <string name="lowest_point_elevation">最低点</string>

@@ -765,7 +765,6 @@
     <string name="precipitation_snow_grains">Motsneeuw</string>
     <string name="result_deleted">Bevinding verwijderd</string>
     <string name="done">Voltooid</string>
-    <string name="calibrate_map_point">IJk punt %d / %d</string>
     <string name="diamond">Ruit</string>
     <string name="square">Vierkant</string>
     <string name="humidity_history">Geschiedenis van de vochtigheid - laatst %s</string>

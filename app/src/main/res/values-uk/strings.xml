@@ -1035,7 +1035,6 @@
     <string name="tide_user_guide_recommendation">Офіційні вебсайти таблиці припливів можна знайти в посібнику користувача.</string>
     <string name="change_resolution">Змінити роздільність</string>
     <string name="done">Готово</string>
-    <string name="calibrate_map_point">Точка калібрування %d / %d</string>
     <string name="cloud_precipitation_forecast_hour_range">Можливі опади протягом наступних %d-%d годин.</string>
     <string name="descent">Спуск</string>
     <string name="ascent">Підйом</string>

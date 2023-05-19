@@ -909,7 +909,6 @@
     <string name="point">Točka</string>
     <string name="point_added">Točka je dodata u putanju</string>
     <string name="tide_diurnal">Diurnal</string>
-    <string name="calibrate_map_point">Kalibrirajte tačku %d / %d</string>
     <string name="weather_cold_front">Hladni</string>
     <string name="weather_clear">Vedro</string>
     <string name="path_slope">Nagib</string>

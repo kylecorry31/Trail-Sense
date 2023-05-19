@@ -56,7 +56,11 @@
             android:id="@+id/map_calibration_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Calibration point 1" />
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            app:drawableStartCompat="@drawable/ic_info"
+            app:drawableTint="?android:textColorSecondary"
+            tools:text="Calibrate with known locations (1 / 2)" />
 
         <com.kylecorry.trail_sense.shared.views.CoordinateInputView
             android:id="@+id/map_calibration_coordinate"

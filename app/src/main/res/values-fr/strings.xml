@@ -993,7 +993,6 @@
     <string name="navigating_to_nearest_path_point">Navigation jusqu’au point de cheminement le plus proche</string>
     <string name="estimate_stride_length">Estimer la longueur de foulée</string>
     <string name="tide_semidiurnal">Semi diurne</string>
-    <string name="calibrate_map_point">Point de calibration %d / %d</string>
     <string name="ascent">Ascension</string>
     <string name="lowest_point_elevation">Point le plus bas</string>
     <string name="pressure_system">Système de pression</string>

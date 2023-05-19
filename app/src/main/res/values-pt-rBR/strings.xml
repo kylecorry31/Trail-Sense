@@ -1019,7 +1019,6 @@
     <string name="tide_instructions">Use uma tabela oficial de marés para anotar marés de referência para o período da sua viagem.</string>
     <string name="change_resolution">Alteração da resolução</string>
     <string name="cloud_precipitation_forecast_hour_range">Pode indicar precipitação em %d a %d horas</string>
-    <string name="calibrate_map_point">Calibrar ponto %d / %d</string>
     <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
     <string name="done">Concluído</string>
     <string name="tide_semidiurnal">Semi-diurno</string>

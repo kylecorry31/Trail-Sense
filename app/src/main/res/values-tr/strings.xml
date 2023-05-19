@@ -1011,7 +1011,6 @@
     <string name="permission_alarms_and_reminders">Alarmlar ve hatırlatıcılar</string>
     <string name="change_resolution">Çözünürlüğü değiştir</string>
     <string name="done">Bitti</string>
-    <string name="calibrate_map_point">%d / %d noktayı kalibre et</string>
     <string name="cloud_precipitation_forecast_hour_range">Sonraki %d ila %d saat içinde yağışa işaret edebilir.</string>
     <string name="ascent">Çıkış</string>
     <string name="highest_point_elevation">En yüksek nokta</string>

@@ -1193,7 +1193,7 @@
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>
     <string name="change_resolution">Change resolution</string>
     <string name="done">Done</string>
-    <string name="calibrate_map_point">Calibrate point %d / %d</string>
+    <string name="calibrate_map_point">Calibrate with known locations (%d / %d)</string>
     <string name="descent">Descent</string>
     <string name="ascent">Ascent</string>
     <string name="lowest_point_elevation">Lowest point</string>
@@ -1298,6 +1298,9 @@
     <string name="print">Print</string>
     <string name="step_progression">Step %d / %d</string>
     <string name="autofill_source">Autofill source</string>
+    <string name="map_calibration">Map calibration</string>
+    <string name="map_calibration_instructions">Tap a known location on the map, then enter the real-world coordinates. You can save the calibration by clicking the “Done” button.\n\nExamples of good calibration points are a parking lot, a signage point, a landmark, or a junction along a trail.</string>
+    <string name="map_calibration_shown" translatable="false">map_calibration_shown</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

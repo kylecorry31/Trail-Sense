@@ -1042,7 +1042,6 @@
     <string name="nimbostratus_forecast">Csapadéka lehet a következő %d óra folyamán.</string>
     <string name="cloud_fair_forecast_hours">Jó időt jelezhet a következő %d órára.</string>
     <string name="low_pressure_system_description">Rossz időhöz, borult éghez és enyhébb hőmérsékletekhez társul.</string>
-    <string name="calibrate_map_point">%d / %d pont kalibrálása</string>
     <string name="low_pressure">Alacsony</string>
     <string name="weather_precipitation">Csapadék</string>
     <string name="tool_climate">Klíma</string>

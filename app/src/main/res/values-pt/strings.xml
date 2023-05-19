@@ -1011,7 +1011,6 @@
     <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
     <string name="change_resolution">Alterar resolução</string>
     <string name="done">Feito</string>
-    <string name="calibrate_map_point">Calibrar ponto %d / %d</string>
     <string name="cloud_precipitation_forecast_hour_range">Pode ser indicação de precipitação nas próximas %d a %d horas.</string>
     <string name="descent">Descida</string>
     <string name="ascent">Subida</string>

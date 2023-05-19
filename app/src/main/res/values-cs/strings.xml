@@ -989,7 +989,6 @@
     <string name="point_added">Bod přidán do cesty</string>
     <string name="tide_diurnal">Denní</string>
     <string name="done">Hotovo</string>
-    <string name="calibrate_map_point">Kalibrovat bod %d / %d</string>
     <string name="elevation">Nadmořská výška</string>
     <string name="elevation_gain">Převýšení</string>
     <string name="elevation_loss">Ztráta nadmořské výšky</string>

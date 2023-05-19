@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.units.Coordinate
@@ -45,6 +46,22 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.map_calibration),
+            getString(R.string.map_calibration_instructions),
+            getString(R.string.map_calibration_shown),
+            cancelText = null
+        )
+
+        binding.mapCalibrationTitle.setOnClickListener {
+            dialog(
+                getString(R.string.map_calibration),
+                getString(R.string.map_calibration_instructions),
+                cancelText = null
+            )
+        }
 
         fillCalibrationPoints()
         reloadMap()
@@ -137,7 +154,6 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     }
 
     private fun calibratePoint(index: Int) {
-//        loadCalibrationPointsFromMap()
         binding.mapCalibrationTitle.text =
             getString(R.string.calibrate_map_point, index + 1, maxPoints)
         binding.mapCalibrationCoordinate.coordinate = if (calibratedPoints.contains(index)) {

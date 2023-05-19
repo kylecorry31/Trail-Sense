@@ -897,7 +897,6 @@
     <string name="current_speed_gps">Kecepatan saat ini (GPS)</string>
     <string name="average_speed_pedometer">Kecepatan rata-rata (Pedometer)</string>
     <string name="permission_alarms_and_reminders">Alarm dan pengingat</string>
-    <string name="calibrate_map_point">Titik kalibrasi %d / %d</string>
     <string name="path_slope">Lereng</string>
     <string name="remove_distance_alert">Hapus peringatan jarak (%s)\?</string>
     <string name="battery_usage_restricted_benefit">Menghapus pembatasan baterai untuk Trail Sense dapat meningkatkan akurasi.
