@@ -25,9 +25,10 @@ import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.andromeda.sense.orientation.GameRotationSensor
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
-import com.kylecorry.andromeda.sense.orientation.IGyroscope
+import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
 import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
@@ -286,9 +287,12 @@ class SensorService(ctx: Context) {
         return Magnetometer(context)
     }
 
-    fun getGyroscope(): IGyroscope {
+    fun getGyroscope(): IOrientationSensor {
         if (!Sensors.hasGyroscope(context)) {
             return NullGyroscope()
+        }
+        if (Sensors.hasSensor(context, Sensor.TYPE_GAME_ROTATION_VECTOR)) {
+            return GameRotationSensor(context)
         }
         return Gyroscope(context)
     }
