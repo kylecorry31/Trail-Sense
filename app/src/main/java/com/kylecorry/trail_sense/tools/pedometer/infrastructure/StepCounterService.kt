@@ -18,10 +18,11 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class StepCounterService : ForegroundService() {
 
-    private val pedometer by lazy { Pedometer(this) }
+    private val pedometer by lazy { Pedometer(this, SensorService.ENVIRONMENT_SENSOR_DELAY) }
     private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(this).preferences) }
     private val formatService by lazy { FormatService.getInstance(this) }
     private val prefs by lazy { UserPreferences(this) }

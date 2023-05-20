@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
@@ -19,7 +20,6 @@ import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
@@ -28,12 +28,12 @@ import java.time.Duration
 import kotlin.math.roundToInt
 
 class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding>() {
-    private val magnetometer by lazy { Magnetometer(requireContext()) }
+    private val magnetometer by lazy { Magnetometer(requireContext(), SensorService.MOTION_SENSOR_DELAY) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val metalDetectionService = PhysicsService()
-    private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext()) }
+    private val lowPassMagnetometer by lazy { LowPassMagnetometer(requireContext(), SensorService.MOTION_SENSOR_DELAY) }
     private val orientation by lazy { SensorService(requireContext()).getGyroscope() }
-    private val gravity by lazy { GravitySensor(requireContext()) }
+    private val gravity by lazy { GravitySensor(requireContext(), SensorService.MOTION_SENSOR_DELAY) }
 
     private val filter = LowPassFilter(0.2f, 0f)
 

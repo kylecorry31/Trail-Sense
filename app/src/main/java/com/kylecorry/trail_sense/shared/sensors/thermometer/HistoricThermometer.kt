@@ -10,7 +10,7 @@ import java.time.ZonedDateTime
 
 class HistoricThermometer(
     context: Context,
-    frequency: Duration = Duration.ofMillis(20)
+    frequency: Duration = Duration.ofSeconds(1)
 ) :
     CoroutineIntervalSensor(frequency), IThermometer {
 

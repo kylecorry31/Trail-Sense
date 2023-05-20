@@ -23,9 +23,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"
-        tools:ignore="HighSamplingRate" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <!--Force remove this permission from androidx-->

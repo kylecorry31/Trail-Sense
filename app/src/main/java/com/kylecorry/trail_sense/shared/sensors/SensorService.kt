@@ -159,7 +159,11 @@ class SensorService(ctx: Context) {
         ) {
             return CachingAltimeterWrapper(
                 context,
-                Barometer(context, seaLevelPressure = userPrefs.seaLevelPressureOverride)
+                Barometer(
+                    context,
+                    ENVIRONMENT_SENSOR_DELAY,
+                    seaLevelPressure = userPrefs.seaLevelPressureOverride
+                )
             )
         } else {
             if (!GPS.isAvailable(context)) {
@@ -199,19 +203,19 @@ class SensorService(ctx: Context) {
 
         val compass = when (source) {
             CompassPreferences.CompassSource.RotationVector -> {
-                RotationSensor(context, useTrueNorth)
+                RotationSensor(context, useTrueNorth, MOTION_SENSOR_DELAY)
             }
 
             CompassPreferences.CompassSource.GeomagneticRotationVector -> {
-                GeomagneticRotationSensor(context, useTrueNorth)
+                GeomagneticRotationSensor(context, useTrueNorth, MOTION_SENSOR_DELAY)
             }
 
             CompassPreferences.CompassSource.CustomMagnetometer -> {
-                GravityCompensatedCompass(context, useTrueNorth)
+                GravityCompensatedCompass(context, useTrueNorth, MOTION_SENSOR_DELAY)
             }
 
             CompassPreferences.CompassSource.Orientation -> {
-                LegacyCompass(context, useTrueNorth)
+                LegacyCompass(context, useTrueNorth, MOTION_SENSOR_DELAY)
             }
         }
 
@@ -225,11 +229,15 @@ class SensorService(ctx: Context) {
     }
 
     fun getDeviceOrientationSensor(): DeviceOrientation {
-        return DeviceOrientation(context)
+        // While not technically an environment sensor, it doesn't need to update often - and can match their rate
+        return DeviceOrientation(context, ENVIRONMENT_SENSOR_DELAY)
     }
 
     fun getBarometer(): IBarometer {
-        return if (userPrefs.weather.hasBarometer) Barometer(context) else NullBarometer()
+        return if (userPrefs.weather.hasBarometer) Barometer(
+            context,
+            ENVIRONMENT_SENSOR_DELAY
+        ) else NullBarometer()
     }
 
     fun getThermometer(calibrated: Boolean = true): IThermometer {
@@ -250,11 +258,11 @@ class SensorService(ctx: Context) {
     @Suppress("DEPRECATION")
     private fun getThermometerSensor(): IThermometer {
         if (Sensors.hasSensor(context, Sensor.TYPE_AMBIENT_TEMPERATURE)) {
-            return AmbientThermometer(context)
+            return AmbientThermometer(context, ENVIRONMENT_SENSOR_DELAY)
         }
 
         if (Sensors.hasSensor(context, Sensor.TYPE_TEMPERATURE)) {
-            return Thermometer(context)
+            return Thermometer(context, ENVIRONMENT_SENSOR_DELAY)
         }
 
         return Battery(context)
@@ -262,7 +270,7 @@ class SensorService(ctx: Context) {
 
     fun getHygrometer(): IHygrometer {
         if (Sensors.hasHygrometer(context)) {
-            return Hygrometer(context)
+            return Hygrometer(context, ENVIRONMENT_SENSOR_DELAY)
         }
 
         return NullHygrometer()
@@ -277,14 +285,14 @@ class SensorService(ctx: Context) {
 
     fun getGravity(): IAccelerometer {
         return if (Sensors.hasSensor(context, Sensor.TYPE_GRAVITY)) {
-            GravitySensor(context)
+            GravitySensor(context, MOTION_SENSOR_DELAY)
         } else {
-            LowPassAccelerometer(context)
+            LowPassAccelerometer(context, MOTION_SENSOR_DELAY)
         }
     }
 
     fun getMagnetometer(): IMagnetometer {
-        return Magnetometer(context)
+        return Magnetometer(context, MOTION_SENSOR_DELAY)
     }
 
     fun getGyroscope(): IOrientationSensor {
@@ -292,9 +300,14 @@ class SensorService(ctx: Context) {
             return NullGyroscope()
         }
         if (Sensors.hasSensor(context, Sensor.TYPE_GAME_ROTATION_VECTOR)) {
-            return GameRotationSensor(context)
+            return GameRotationSensor(context, MOTION_SENSOR_DELAY)
         }
-        return Gyroscope(context)
+        return Gyroscope(context, MOTION_SENSOR_DELAY)
+    }
+
+    companion object {
+        const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
+        const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
     }
 
 }
