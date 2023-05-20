@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
@@ -238,12 +239,11 @@ class MainActivity : AndromedaActivity() {
 
     private fun sunriseSunsetTheme(): ColorTheme {
         val astronomyService = AstronomyService()
-        val sensorService by lazy { SensorService(applicationContext) }
-        val gps by lazy { sensorService.getGPS() }
-        if (gps.location == Coordinate.zero) {
+        val location = LocationSubsystem.getInstance(this).location
+        if (location == Coordinate.zero) {
             return ColorTheme.System
         }
-        val isSunUp = astronomyService.isSunUp(gps.location)
+        val isSunUp = astronomyService.isSunUp(location)
         return if (isSunUp) {
             ColorTheme.Light
         } else {
