@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -57,21 +58,25 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
+    // Hardware sensors
+    private val accelerometer by lazy { Accelerometer(requireContext()) }
+    private val magnetometer by lazy { sensorService.getMagnetometer() }
+    private val barometer by lazy { sensorService.getBarometer() }
+    private val hygrometer by lazy { sensorService.getHygrometer() }
+    private val battery by lazy { Battery(requireContext()) }
+    private val gyroscope by lazy { sensorService.getGyroscope() }
+    private val thermometer by lazy { sensorService.getThermometer() }
+    private val cellSignal by lazy { sensorService.getCellSignal() }
+    private val gps by lazy { sensorService.getGPS() }
+
+    // Virtual sensors
+    private val gravity by lazy { sensorService.getGravity() }
+    private val compass by lazy { sensorService.getCompass() }
+    private val altimeter by lazy { sensorService.getAltimeter() }
+
+    // Cache
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
     private val cachedAltimeter by lazy { CachedAltimeter(requireContext(), 500) }
-    private val gps by lazy { sensorService.getGPS() }
-    private val altimeter by lazy { sensorService.getAltimeter() }
-    private val compass by lazy { sensorService.getCompass() }
-    private val cellSignal by lazy { sensorService.getCellSignal() }
-    private val barometer by lazy { sensorService.getBarometer() }
-    private val thermometer by lazy { sensorService.getThermometer() }
-    private val hygrometer by lazy { sensorService.getHygrometer() }
-    private val gravity by lazy { sensorService.getGravity() }
-    private val magnetometer by lazy { sensorService.getMagnetometer() }
-    private val gyroscope by lazy {
-        sensorService.getGyroscope()
-    }
-    private val battery by lazy { Battery(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -104,6 +109,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         observe(thermometer) { updateThermometer() }
         observe(hygrometer) { updateHygrometer() }
         observe(gravity) { updateGravity() }
+        observe(accelerometer) { updateAccelerometer() }
         observe(cellSignal) { updateCellSignal() }
         observe(magnetometer) { updateMagnetometer() }
         observe(battery) { updateBattery() }
@@ -289,6 +295,16 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             formatService.formatAcceleration(gravity.acceleration.magnitude(), 2),
             formatService.formatQuality(gravity.quality),
             CustomUiUtils.getQualityColor(gravity.quality),
+            R.drawable.ic_tool_cliff_height
+        )
+    }
+
+    private fun updateAccelerometer() {
+        sensorDetailsMap["accelerometer"] = SensorDetails(
+            getString(R.string.accelerometer),
+            formatService.formatAcceleration(accelerometer.acceleration.magnitude(), 2),
+            formatService.formatQuality(accelerometer.quality),
+            CustomUiUtils.getQualityColor(accelerometer.quality),
             R.drawable.ic_tool_cliff_height
         )
     }

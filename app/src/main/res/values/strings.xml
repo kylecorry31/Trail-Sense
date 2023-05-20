@@ -1301,6 +1301,7 @@
     <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>
     <string name="compass_source_legacy_ts">Legacy (Trail Sense)</string>
     <string name="compass_source_legacy_android">Legacy (Android)</string>
+    <string name="accelerometer">Accelerometer</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
