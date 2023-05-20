@@ -95,7 +95,7 @@ class SensorService(ctx: Context) {
 
     fun getPedometer(): IPedometer {
         return if (Permissions.canRecognizeActivity(context)) {
-            Pedometer(context)
+            Pedometer(context, ENVIRONMENT_SENSOR_DELAY)
         } else {
             NullPedometer()
         }
