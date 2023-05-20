@@ -245,6 +245,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private suspend fun autoRotate() {
         val updatedMap = mapRepo.getMap(mapId) ?: return
+        if (!updatedMap.isCalibrated) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
         map = updatedMap.copy(
             calibration = updatedMap.calibration.copy(

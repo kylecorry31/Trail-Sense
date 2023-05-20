@@ -8,11 +8,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationManager
@@ -133,9 +137,14 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     }
 
     private fun updateMapCalibration() {
-        map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = manager.getCalibration(false)))
+        map = map?.copy(
+            calibration = map!!.calibration.copy(
+                calibrationPoints = manager.getCalibration(false)
+            )
+        )
         binding.calibrationMap.showMap(map!!)
         binding.calibrationMap.highlightedIndex = calibrationIndex
+        updateCompletionState()
     }
 
 
@@ -165,6 +174,28 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         binding.calibrationNext.text =
             if (index == (maxPoints - 1)) getString(R.string.done) else getString(R.string.next)
         binding.calibrationPrev.isVisible = index == 1
+
+        updateCompletionState()
+    }
+
+    private fun updateCompletionState(){
+        // If it is calibrated, replace the info icon with a green checkmark
+        if (manager.isCalibrated(calibrationIndex)) {
+            binding.mapCalibrationTitle.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                left = R.drawable.ic_check_outline
+            )
+            Colors.setImageColor(binding.mapCalibrationTitle, AppColor.Green.color)
+        } else {
+            binding.mapCalibrationTitle.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                left = R.drawable.ic_info
+            )
+            Colors.setImageColor(
+                binding.mapCalibrationTitle,
+                Resources.androidTextColorSecondary(requireContext())
+            )
+        }
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
