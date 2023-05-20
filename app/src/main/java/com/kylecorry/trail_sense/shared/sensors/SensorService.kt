@@ -49,6 +49,10 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeed
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
 
+// Maybe use the concept of a use case
+// Ex. SensorPurpose.Background, SensorPurpose.Calibration, SensorPurpose.Diagnostics
+// Using those, it can adjust settings to be more appropriate for the use case
+
 class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext

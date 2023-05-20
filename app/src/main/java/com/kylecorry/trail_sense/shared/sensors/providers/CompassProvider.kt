@@ -19,12 +19,6 @@ import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
-    // Maybe use the concept of a use case
-    // Ex. LowBattery, Diagnostic, Background, Calibration, etc
-    // Using those, it can adjust settings to be more appropriate for the use case
-
-    // Maybe also allow source overrides? Or can that be handled with the use cases
-
     fun get(): ICompass {
         val smoothing = prefs.compassSmoothing
         val useTrueNorth = prefs.useTrueNorth
