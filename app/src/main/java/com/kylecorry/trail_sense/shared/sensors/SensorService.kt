@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper
 import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
@@ -211,7 +212,7 @@ class SensorService(ctx: Context) {
             }
         }
 
-        return FilteredCompass(
+        return FilterCompassWrapper(
             compass,
             MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
         )
