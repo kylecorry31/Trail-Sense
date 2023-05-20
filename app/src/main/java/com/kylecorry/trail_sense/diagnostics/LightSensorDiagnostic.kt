@@ -2,16 +2,17 @@ package com.kylecorry.trail_sense.diagnostics
 
 import android.content.Context
 import android.hardware.Sensor
+import android.hardware.SensorManager
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.andromeda.sense.light.ILightSensor
+import com.kylecorry.andromeda.sense.light.LightSensor
 
 class LightSensorDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
-    BaseSensorQualityDiagnostic<IMagnetometer>(
+    BaseSensorQualityDiagnostic<ILightSensor>(
         context,
         lifecycleOwner,
-        SensorService(context).getMagnetometer()
+        LightSensor(context, SensorManager.SENSOR_DELAY_NORMAL)
     ) {
 
     override fun scan(): List<DiagnosticCode> {
