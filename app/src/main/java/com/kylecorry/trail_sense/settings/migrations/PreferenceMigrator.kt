@@ -4,11 +4,12 @@ import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
-import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
 
@@ -162,8 +163,8 @@ class PreferenceMigrator private constructor() {
                 val userPrefs = UserPreferences(context)
                 val wasLegacyCompass = prefs.getBoolean("pref_use_legacy_compass_2") ?: false
                 if (wasLegacyCompass) {
-                    userPrefs.compass.source = CompassPreferences.CompassSource.Orientation
-                } else if (userPrefs.compass.getAvailableSources().contains(CompassPreferences.CompassSource.RotationVector)) {
+                    userPrefs.compass.source = CompassSource.Orientation
+                } else if (CompassProvider.getAvailableSources(context).contains(CompassSource.RotationVector)) {
                     // The rotation vector is accurate, no need for smoothing
                     userPrefs.compass.compassSmoothing = 1
                 }

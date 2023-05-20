@@ -18,12 +18,13 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 
 
 class CalibrateCompassFragment : AndromedaPreferenceFragment() {
@@ -97,12 +98,12 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         }
 
         // Set the compass source options
-        val availableSources = prefs.compass.getAvailableSources()
+        val availableSources = CompassProvider.getAvailableSources(requireContext())
         val names = mapOf(
-            CompassPreferences.CompassSource.RotationVector to getString(R.string.compass_source_mag_gyro),
-            CompassPreferences.CompassSource.GeomagneticRotationVector to getString(R.string.magnetometer),
-            CompassPreferences.CompassSource.CustomMagnetometer to getString(R.string.compass_source_legacy_ts),
-            CompassPreferences.CompassSource.Orientation to getString(R.string.compass_source_legacy_android)
+            CompassSource.RotationVector to getString(R.string.compass_source_mag_gyro),
+            CompassSource.GeomagneticRotationVector to getString(R.string.magnetometer),
+            CompassSource.CustomMagnetometer to getString(R.string.compass_source_legacy_ts),
+            CompassSource.Orientation to getString(R.string.compass_source_legacy_android)
         ).filter { availableSources.contains(it.key) }
         val ids = names.map { it.key.id }
 

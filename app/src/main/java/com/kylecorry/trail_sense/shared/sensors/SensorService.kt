@@ -16,36 +16,29 @@ import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.sense.barometer.IBarometer
-import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper
-import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass
 import com.kylecorry.andromeda.sense.compass.ICompass
-import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.andromeda.sense.orientation.GameRotationSensor
-import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
-import com.kylecorry.andromeda.sense.orientation.RotationSensor
 import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
 import com.kylecorry.andromeda.sense.temperature.Thermometer
 import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
-import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.*
-import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.shared.sensors.speedometer.BacktrackSpeedometer
 import com.kylecorry.trail_sense.shared.sensors.thermometer.CalibratedThermometerWrapper
 import com.kylecorry.trail_sense.shared.sensors.thermometer.HistoricThermometer
@@ -190,42 +183,7 @@ class SensorService(ctx: Context) {
     }
 
     fun getCompass(): ICompass {
-        val smoothing = userPrefs.compass.compassSmoothing
-        val useTrueNorth = userPrefs.compass.useTrueNorth
-
-        var source = userPrefs.compass.source
-
-        // Handle if the available sources have changed (not likely)
-        val allSources = userPrefs.compass.getAvailableSources()
-        if (!allSources.contains(source)) {
-            source = allSources.firstOrNull() ?: CompassPreferences.CompassSource.CustomMagnetometer
-        }
-
-        val compass = when (source) {
-            CompassPreferences.CompassSource.RotationVector -> {
-                RotationSensor(context, useTrueNorth, MOTION_SENSOR_DELAY)
-            }
-
-            CompassPreferences.CompassSource.GeomagneticRotationVector -> {
-                GeomagneticRotationSensor(context, useTrueNorth, MOTION_SENSOR_DELAY)
-            }
-
-            CompassPreferences.CompassSource.CustomMagnetometer -> {
-                GravityCompensatedCompass(context, useTrueNorth, MOTION_SENSOR_DELAY)
-            }
-
-            CompassPreferences.CompassSource.Orientation -> {
-                LegacyCompass(context, useTrueNorth, MOTION_SENSOR_DELAY)
-            }
-        }
-
-        return MagQualityCompassWrapper(
-            FilterCompassWrapper(
-                compass,
-                MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
-            ),
-            Magnetometer(context, SensorManager.SENSOR_DELAY_UI)
-        )
+        return CompassProvider(context, userPrefs.compass).get()
     }
 
     fun getDeviceOrientationSensor(): DeviceOrientation {
