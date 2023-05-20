@@ -54,7 +54,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
                 compass,
                 MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
             ),
-            Magnetometer(context, SensorManager.SENSOR_DELAY_UI)
+            Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
         )
     }
 
