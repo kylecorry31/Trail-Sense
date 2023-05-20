@@ -10,14 +10,12 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
-import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 
@@ -28,14 +26,15 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private var mapId = 0L
     private var map: PhotoMap? = null
 
-    private var points = mutableListOf<MapCalibrationPoint>()
-    private var originalPoints = listOf<MapCalibrationPoint>()
-    private var calibratedPoints = mutableSetOf<Int>()
     private var calibrationIndex = 0
     private var maxPoints = 2
     private var onDone: () -> Unit = {}
 
     private lateinit var backCallback: OnBackPressedCallback
+
+    private val manager = MapCalibrationManager(maxPoints) {
+        updateMapCalibration()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,13 +67,13 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
             )
         }
 
-        fillCalibrationPoints()
         reloadMap()
 
         binding.calibrationNext.setOnClickListener {
             if (calibrationIndex == (maxPoints - 1)) {
                 inBackground {
                     map = map?.let { save(it) }
+                    manager.reset(map?.calibration?.calibrationPoints ?: emptyList())
                     backCallback.remove()
                     onDone()
                 }
@@ -91,19 +90,11 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
 
         binding.mapCalibrationCoordinate.setOnCoordinateChangeListener {
-            points[calibrationIndex] =
-                MapCalibrationPoint(it ?: Coordinate.zero, points[calibrationIndex].imageLocation)
-            if (it == null) {
-                calibratedPoints.remove(calibrationIndex)
-            } else {
-                calibratedPoints.add(calibrationIndex)
-            }
-            updateMapCalibration()
+            manager.calibrate(calibrationIndex, it)
         }
 
         binding.calibrationMap.onMapClick = {
-            points[calibrationIndex] = MapCalibrationPoint(points[calibrationIndex].location, it)
-            updateMapCalibration()
+            manager.calibrate(calibrationIndex, it)
         }
 
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
@@ -142,7 +133,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     }
 
     private fun updateMapCalibration() {
-        map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = points))
+        map = map?.copy(calibration = map!!.calibration.copy(calibrationPoints = manager.getCalibration(false)))
         binding.calibrationMap.showMap(map!!)
         binding.calibrationMap.highlightedIndex = calibrationIndex
     }
@@ -153,8 +144,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         loadCalibrationPointsFromMap()
 
         // Find the first uncalibrated point
-        calibrationIndex =
-            points.indexOfFirst { !calibratedPoints.contains(points.indexOf(it)) }.coerceAtLeast(0)
+        calibrationIndex = manager.getNextUncalibratedIndex().coerceAtLeast(0)
 
         selectPoint(calibrationIndex)
     }
@@ -166,8 +156,8 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private fun selectPoint(index: Int) {
         binding.mapCalibrationTitle.text =
             getString(R.string.calibrate_map_point, index + 1, maxPoints)
-        binding.mapCalibrationCoordinate.coordinate = if (calibratedPoints.contains(index)) {
-            points[index].location
+        binding.mapCalibrationCoordinate.coordinate = if (manager.isCalibrated(index)) {
+            manager.getCalibrationPoint(index).location
         } else {
             null
         }
@@ -180,36 +170,18 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private suspend fun save(map: PhotoMap): PhotoMap {
         var updated = mapRepo.getMap(map.id) ?: return map
         updated =
-            updated.copy(calibration = updated.calibration.copy(calibrationPoints = getUpdatedCalibrationPoints()))
+            updated.copy(calibration = updated.calibration.copy(calibrationPoints = manager.getCalibration()))
         mapRepo.addMap(updated)
-        originalPoints = updated.calibration.calibrationPoints
         return updated
-    }
-
-    private fun getUpdatedCalibrationPoints(): List<MapCalibrationPoint> {
-        return map?.calibration?.calibrationPoints?.filterIndexed { index, _ ->
-            calibratedPoints.contains(index)
-        } ?: emptyList()
     }
 
     private fun loadCalibrationPointsFromMap() {
         val map = map ?: return
-        originalPoints = map.calibration.calibrationPoints
-        points = map.calibration.calibrationPoints.toMutableList()
-        calibratedPoints.clear()
-        calibratedPoints.addAll(points.indices)
-        fillCalibrationPoints()
-    }
-
-    private fun fillCalibrationPoints() {
-        while (points.size < maxPoints) {
-            points.add(MapCalibrationPoint(Coordinate.zero, PercentCoordinate(0.5f, 0.5f)))
-        }
+        manager.reset(map.calibration.calibrationPoints)
     }
 
     private fun hasChanges(): Boolean {
-        val updated = getUpdatedCalibrationPoints()
-        return updated != originalPoints
+        return manager.hasChanges()
     }
 
     companion object {
