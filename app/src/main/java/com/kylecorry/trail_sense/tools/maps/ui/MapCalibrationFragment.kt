@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -27,10 +29,13 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private var map: PhotoMap? = null
 
     private var points = mutableListOf<MapCalibrationPoint>()
+    private var originalPoints = listOf<MapCalibrationPoint>()
     private var calibratedPoints = mutableSetOf<Int>()
     private var calibrationIndex = 0
     private var maxPoints = 2
     private var onDone: () -> Unit = {}
+
+    private lateinit var backCallback: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,17 +75,18 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
             if (calibrationIndex == (maxPoints - 1)) {
                 inBackground {
                     map = map?.let { save(it) }
+                    backCallback.remove()
                     onDone()
                 }
             } else {
                 calibrationIndex++
-                calibratePoint(calibrationIndex)
+                selectPoint(calibrationIndex)
             }
         }
 
         binding.calibrationPrev.setOnClickListener {
             calibrationIndex--
-            calibratePoint(calibrationIndex)
+            selectPoint(calibrationIndex)
         }
 
 
@@ -109,6 +115,10 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
         binding.zoomInBtn.setOnClickListener {
             binding.calibrationMap.zoomBy(2f)
+        }
+
+        backCallback = promptIfUnsavedChanges {
+            hasChanges()
         }
     }
 
@@ -146,14 +156,14 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         calibrationIndex =
             points.indexOfFirst { !calibratedPoints.contains(points.indexOf(it)) }.coerceAtLeast(0)
 
-        calibratePoint(calibrationIndex)
+        selectPoint(calibrationIndex)
     }
 
     fun recenter() {
         binding.calibrationMap.recenter()
     }
 
-    private fun calibratePoint(index: Int) {
+    private fun selectPoint(index: Int) {
         binding.mapCalibrationTitle.text =
             getString(R.string.calibrate_map_point, index + 1, maxPoints)
         binding.mapCalibrationCoordinate.coordinate = if (calibratedPoints.contains(index)) {
@@ -169,17 +179,22 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
     private suspend fun save(map: PhotoMap): PhotoMap {
         var updated = mapRepo.getMap(map.id) ?: return map
-        val newPoints = map.calibration.calibrationPoints.filterIndexed { index, _ ->
-            calibratedPoints.contains(index)
-        }
         updated =
-            updated.copy(calibration = updated.calibration.copy(calibrationPoints = newPoints))
+            updated.copy(calibration = updated.calibration.copy(calibrationPoints = getUpdatedCalibrationPoints()))
         mapRepo.addMap(updated)
+        originalPoints = updated.calibration.calibrationPoints
         return updated
+    }
+
+    private fun getUpdatedCalibrationPoints(): List<MapCalibrationPoint> {
+        return map?.calibration?.calibrationPoints?.filterIndexed { index, _ ->
+            calibratedPoints.contains(index)
+        } ?: emptyList()
     }
 
     private fun loadCalibrationPointsFromMap() {
         val map = map ?: return
+        originalPoints = map.calibration.calibrationPoints
         points = map.calibration.calibrationPoints.toMutableList()
         calibratedPoints.clear()
         calibratedPoints.addAll(points.indices)
@@ -190,6 +205,11 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         while (points.size < maxPoints) {
             points.add(MapCalibrationPoint(Coordinate.zero, PercentCoordinate(0.5f, 0.5f)))
         }
+    }
+
+    private fun hasChanges(): Boolean {
+        val updated = getUpdatedCalibrationPoints()
+        return updated != originalPoints
     }
 
     companion object {
