@@ -185,7 +185,6 @@
     <string name="cliff_height_guide">Anslå høyden på en klippe</string>
     <string name="tool_cliff_height_disclaimer">Bruk bare dette verktøyet når det er trygt å gjøre det, og sørg for å sjekke hva som er under klippen for å unngå skade. Se brukerveiledningen for instruksjoner.</string>
     <string name="tool_cliff_height_description">Mål høyden på en klippe eller på et fall</string>
-    <string name="pref_use_legacy_compass_summary">Kan fikse kompassproblemer</string>
     <string name="pref_privacy_policy_title">Personvernspraksis</string>
     <string name="unit_miles">Engelsk mil</string>
     <string name="unit_feet">Fot</string>
@@ -234,7 +233,6 @@
     <string name="tool_bubble_level_summary">Bestem om overflater er flate</string>
     <string name="tool_bubble_level_title">Vater</string>
     <string name="pref_center_sun_and_moon_title">Sentrer solen/månen på grafen</string>
-    <string name="pref_use_legacy_compass_title">Bruk eldre kompassensor</string>
     <string name="pref_sensor_details_title">Sensordetaljer</string>
     <string name="declination_override_updated_toast">Misvisningsverdi oppdatert</string>
     <string name="compass_declination_override">Angi misvisningsverdien manuelt</string>

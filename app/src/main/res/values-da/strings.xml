@@ -164,8 +164,6 @@
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="true_north">Det sande nord</string>
     <string name="smoothing_summary">Høje værdier kan reducere støj</string>
-    <string name="pref_use_legacy_compass_title">Brug ældre kompas</string>
-    <string name="pref_use_legacy_compass_summary">Kan løse kompasproblemer</string>
     <string name="compass_accuracy_improved">Kompassets nøjagtighed forbedret til %s</string>
     <string name="calibrate_compass_dialog_title">Kalibrer kompas</string>
     <string name="override_from_gps">Indstil korrektion fra GPS</string>

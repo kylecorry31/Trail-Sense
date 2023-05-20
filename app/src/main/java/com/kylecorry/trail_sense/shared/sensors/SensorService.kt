@@ -23,8 +23,10 @@ import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
 import com.kylecorry.andromeda.sense.orientation.IGyroscope
+import com.kylecorry.andromeda.sense.orientation.RotationSensor
 import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
@@ -33,6 +35,7 @@ import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.*
@@ -48,7 +51,6 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeed
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
-import kotlin.math.max
 
 class SensorService(ctx: Context) {
 
@@ -183,14 +185,35 @@ class SensorService(ctx: Context) {
         val smoothing = userPrefs.compass.compassSmoothing
         val useTrueNorth = userPrefs.compass.useTrueNorth
 
-        return if (userPrefs.compass.useLegacyCompass) LegacyCompass(
-            context,
-            useTrueNorth,
-            MovingAverageFilter(max(1, smoothing * 2))
-        ) else GravityCompensatedCompass(
-            context,
-            useTrueNorth,
-            MovingAverageFilter(max(1, smoothing * 4))
+        var source = userPrefs.compass.source
+
+        // Handle if the available sources have changed (not likely)
+        val allSources = userPrefs.compass.getAvailableSources()
+        if (!allSources.contains(source)) {
+            source = allSources.firstOrNull() ?: CompassPreferences.CompassSource.CustomMagnetometer
+        }
+
+        val compass = when (source) {
+            CompassPreferences.CompassSource.RotationVector -> {
+                RotationSensor(context, useTrueNorth)
+            }
+
+            CompassPreferences.CompassSource.GeomagneticRotationVector -> {
+                GeomagneticRotationSensor(context, useTrueNorth)
+            }
+
+            CompassPreferences.CompassSource.CustomMagnetometer -> {
+                GravityCompensatedCompass(context, useTrueNorth)
+            }
+
+            CompassPreferences.CompassSource.Orientation -> {
+                LegacyCompass(context, useTrueNorth)
+            }
+        }
+
+        return FilteredCompass(
+            compass,
+            MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
         )
     }
 

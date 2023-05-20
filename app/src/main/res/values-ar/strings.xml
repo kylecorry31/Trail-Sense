@@ -20,8 +20,6 @@
     <string name="stop">قف</string>
     <string name="smoothing_summary">قد تؤدي القيم العالية إلى تقليل الضوضاء</string>
     <string name="pref_theme_title">موضوع</string>
-    <string name="pref_use_legacy_compass_title">استخدم بوصلة قديمة</string>
-    <string name="pref_use_legacy_compass_summary">قد إصلاح مشاكل البوصلة</string>
     <string name="pref_display_multi_beacons_title">عرض منارات قريبة</string>
     <string name="pref_storm_alert_sensitivity_title">حساسية تنبيه العاصفة</string>
     <string name="pref_show_sun_moon_compass_title">عرض الشمس /القمر على البوصلة</string>

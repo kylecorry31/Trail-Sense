@@ -197,9 +197,6 @@
     <string name="pref_compass_sensor_title">Compass</string>
     <string name="true_north">True North</string>
     <string name="smoothing_summary">High values may reduce noise</string>
-    <!--    A legacy compass sensor - Google recommends not using it, but it may work better on some devices.-->
-    <string name="pref_use_legacy_compass_title">Use legacy compass</string>
-    <string name="pref_use_legacy_compass_summary">May fix compass issues</string>
     <!--Button text which will use your current location to set the declination override-->
     <string name="override_from_gps">Set override from GPS</string>
     <!--    The title of the declination override for the compass (edit text field)-->
@@ -317,7 +314,6 @@
     <string name="pref_monitor_weather" translatable="false">pref_monitor_weather</string>
     <string name="pref_ruler_calibration" translatable="false">pref_ruler_calibration</string>
     <string name="pref_num_visible_beacons" translatable="false">pref_num_visible_beacons</string>
-    <string name="pref_use_legacy_compass" translatable="false">pref_use_legacy_compass_2</string>
     <string name="pref_center_sun_and_moon" translatable="false">pref_center_sun_and_moon</string>
     <string name="pref_forecast_sensitivity" translatable="false">pref_forecast_sensitivity</string>
     <string name="pref_coordinate_format" translatable="false">pref_coordinate_format</string>
@@ -1301,6 +1297,10 @@
     <string name="map_calibration">Map calibration</string>
     <string name="map_calibration_instructions">Tap a known location on the map, then enter the real-world coordinates. You can save the calibration by clicking the “Done” button.\n\nExamples of good calibration points are a parking lot, a signage point, a landmark, or a junction along a trail.</string>
     <string name="map_calibration_shown" translatable="false">map_calibration_shown</string>
+    <string name="pref_compass_source" translatable="false">pref_compass_source</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>
+    <string name="compass_source_legacy_ts">Legacy (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Legacy (Android)</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

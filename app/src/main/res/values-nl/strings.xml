@@ -20,8 +20,6 @@
     <string name="stop">Stop</string>
     <string name="smoothing_summary">Hoge waarden kunnen het lawaai verminderen</string>
     <string name="pref_theme_title">Thema</string>
-    <string name="pref_use_legacy_compass_title">Verouderd kompas gebruiken</string>
-    <string name="pref_use_legacy_compass_summary">Kan kompasproblemen oplossen</string>
     <string name="pref_display_multi_beacons_title">Bakens in de buurt tonen</string>
     <string name="pref_storm_alert_sensitivity_title">Stormgevoeligheid</string>
     <string name="pref_show_sun_moon_compass_title">Toon zon/maan op kompas</string>

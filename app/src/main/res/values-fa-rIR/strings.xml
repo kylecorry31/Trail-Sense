@@ -23,8 +23,6 @@
     <string name="stop">متوقف کردن</string>
     <string name="smoothing_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
     <string name="pref_theme_title">تم</string>
-    <string name="pref_use_legacy_compass_title">از قطب نما قدیمی استفاده کنید</string>
-    <string name="pref_use_legacy_compass_summary">ممکن است مشکلات قطب نما را برطرف کند</string>
     <string name="pref_display_multi_beacons_title">نمایش مکان</string>
     <string name="pref_storm_alert_sensitivity_title">حساسیت هشدار طوفان</string>
     <string name="pref_show_sun_moon_compass_title">خورشید / ماه را در قطب نما نشان دهید</string>

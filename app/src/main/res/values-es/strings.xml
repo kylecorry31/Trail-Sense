@@ -21,8 +21,6 @@
     <string name="stop">Detener</string>
     <string name="smoothing_summary">Los valores altos pueden reducir el ruido</string>
     <string name="pref_theme_title">Tema</string>
-    <string name="pref_use_legacy_compass_title">Usar brújula heredada</string>
-    <string name="pref_use_legacy_compass_summary">Puede solucionar problemas de brújula</string>
     <string name="pref_display_multi_beacons_title">Mostrar balizas cercanas</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilidad de tormentas</string>
     <string name="pref_show_sun_moon_compass_title">Mostrar sol / luna en la brújula</string>

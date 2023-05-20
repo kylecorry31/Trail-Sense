@@ -19,13 +19,15 @@
             app:key="@string/pref_calibrate_compass_btn"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_use_legacy_compass_summary"
-            app:defaultValue="false"
+        <ListPreference
+            app:defaultValue="rotation_vector"
+            app:entries="@array/thermometer_source_entries"
+            app:entryValues="@array/thermometer_source_values"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_use_legacy_compass"
+            app:key="@string/pref_compass_source"
             app:singleLineTitle="false"
-            app:title="@string/pref_use_legacy_compass_title" />
+            app:title="@string/source"
+            app:useSimpleSummaryProvider="true" />
 
         <SeekBarPreference
             android:defaultValue="1"

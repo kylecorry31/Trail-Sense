@@ -20,8 +20,6 @@
     <string name="stop">Stop</string>
     <string name="smoothing_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
     <string name="pref_theme_title">Motyw</string>
-    <string name="pref_use_legacy_compass_title">Używaj starszej implementacji kompasu</string>
-    <string name="pref_use_legacy_compass_summary">Może naprawić problemy z kompasem</string>
     <string name="pref_display_multi_beacons_title">Pokazuj pobliskie punkty nawigacyjne</string>
     <string name="pref_storm_alert_sensitivity_title">Wrażliwość na burzę</string>
     <string name="pref_show_sun_moon_compass_title">Pokaż słońce/księżyc na kompasie</string>

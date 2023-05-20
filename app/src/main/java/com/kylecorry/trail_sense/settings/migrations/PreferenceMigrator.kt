@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -36,7 +37,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 13
+        private const val version = 14
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -156,6 +157,17 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(12, 13) { context, _ ->
                 val userPrefs = UserPreferences(context)
                 userPrefs.thermometer.resetThermometerCalibration()
+            },
+            PreferenceMigration(13, 14) { context, prefs ->
+                val userPrefs = UserPreferences(context)
+                val wasLegacyCompass = prefs.getBoolean("pref_use_legacy_compass_2") ?: false
+                if (wasLegacyCompass) {
+                    userPrefs.compass.source = CompassPreferences.CompassSource.Orientation
+                } else if (userPrefs.compass.getAvailableSources().contains(CompassPreferences.CompassSource.RotationVector)) {
+                    // The rotation vector is accurate, no need for smoothing
+                    userPrefs.compass.compassSmoothing = 1
+                }
+                prefs.remove("pref_use_legacy_compass_2")
             }
         )
 

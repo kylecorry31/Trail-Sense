@@ -20,8 +20,6 @@
     <string name="stop">Ferma</string>
     <string name="smoothing_summary">Valori elevati possono ridurre il rumore</string>
     <string name="pref_theme_title">Tema</string>
-    <string name="pref_use_legacy_compass_title">Utilizzare la bussola ereditata</string>
-    <string name="pref_use_legacy_compass_summary">Può risolvere i problemi della bussola</string>
     <string name="pref_display_multi_beacons_title">Visualizza i Segnaposto vicini</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilità allarme temporale</string>
     <string name="pref_show_sun_moon_compass_title">Mostra sole/luna sulla bussola</string>

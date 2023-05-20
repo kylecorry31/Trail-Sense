@@ -361,8 +361,6 @@
     <string name="pref_use_24_hour_title">24 orduko formatua erabili</string>
     <string name="coordinate_format_degrees_decimal_minutes">Graduak Hamartarrak Minutuak</string>
     <string name="smoothing_summary">Balore handiek zarata gutxiagotu dezakete</string>
-    <string name="pref_use_legacy_compass_title">Iparrorratz legatua erabili</string>
-    <string name="pref_use_legacy_compass_summary">Iparrorratzaren akatsak zuzen ditzake</string>
     <string name="photo_maps">Argazkien mapak</string>
     <string name="pref_ruler_calibration_summary">Kalibrazio-protokoloa:
 \n- Balore honi 1 ezarri.

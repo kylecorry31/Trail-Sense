@@ -20,8 +20,6 @@
     <string name="stop">Стоп</string>
     <string name="smoothing_summary">Высокие значения могут увеличить плавность</string>
     <string name="pref_theme_title">Тема</string>
-    <string name="pref_use_legacy_compass_title">Использовать старое API компаса</string>
-    <string name="pref_use_legacy_compass_summary">Может исправить проблемы с компасом</string>
     <string name="pref_display_multi_beacons_title">Показывать ближайшие маячки</string>
     <string name="pref_storm_alert_sensitivity_title">Чувствительность шторма</string>
     <string name="pref_show_sun_moon_compass_title">Показать Солнце/Луну на компасе</string>

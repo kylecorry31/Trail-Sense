@@ -21,8 +21,6 @@
     <string name="stop">Imani</string>
     <string name="smoothing_summary">Mitengo yapamwamba imatha kuchepetsa phokoso</string>
     <string name="pref_theme_title">Mutu</string>
-    <string name="pref_use_legacy_compass_title">Gwiritsani ntchito kampasi ya cholowa</string>
-    <string name="pref_use_legacy_compass_summary">Mukhoza kukonza zovuta</string>
     <string name="pref_display_multi_beacons_title">Onetsani ma beac pafupi</string>
     <string name="pref_storm_alert_sensitivity_title">Kuzindikira kwamkuntho</string>
     <string name="pref_show_sun_moon_compass_title">Onetsani dzuwa /mwezi pa Kampasi</string>

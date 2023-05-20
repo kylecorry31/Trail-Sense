@@ -20,8 +20,6 @@
     <string name="stop">Arrêter</string>
     <string name="smoothing_summary">Une valeur élevée peur permettre de réduire l\'impact de parasites</string>
     <string name="pref_theme_title">Thème</string>
-    <string name="pref_use_legacy_compass_title">Utiliser la boussole basique</string>
-    <string name="pref_use_legacy_compass_summary">Peut résoudre les problèmes de boussole</string>
     <string name="pref_display_multi_beacons_title">Afficher les balises à proximité</string>
     <string name="pref_storm_alert_sensitivity_title">Sensibilité pour l\'apparition des notifications de tempête</string>
     <string name="pref_show_sun_moon_compass_title">Afficher les astres sur la boussole</string>

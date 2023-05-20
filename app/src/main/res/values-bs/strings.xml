@@ -20,8 +20,6 @@
     <string name="stop">Stani</string>
     <string name="smoothing_summary">Visoke vrijednosti mogu umanjiti buku</string>
     <string name="pref_theme_title">Izgled</string>
-    <string name="pref_use_legacy_compass_title">Koristite stari kompas</string>
-    <string name="pref_use_legacy_compass_summary">Može riješiti probleme s kompasom</string>
     <string name="pref_display_multi_beacons_title">Prikažite svjetionike u blizini</string>
     <string name="pref_storm_alert_sensitivity_title">Osjetljivost oluje</string>
     <string name="pref_show_sun_moon_compass_title">Pokažite sunce / mjesec na kompasu</string>

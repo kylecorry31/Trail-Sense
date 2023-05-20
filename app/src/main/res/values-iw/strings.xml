@@ -414,7 +414,6 @@
     <string name="declination_override_updated_toast">עקיפת הפחתה עודכנה</string>
     <string name="calibrate_compass_dialog_title">כיול מצפן</string>
     <string name="calibrate_compass_dialog_content">יש לסובב את הטלפון בתבנית איור 8 או בכל הכיוונים מספר פעמים, וללחוץ על %s בסיום.</string>
-    <string name="pref_use_legacy_compass_summary">עשוי לתקן בעיות מצפן</string>
     <string name="request_permission">בקשת הרשאה</string>
     <string name="update_150_minutes">שעתיים וחצי</string>
     <string name="update_30_minutes">30 דקות</string>
@@ -431,7 +430,6 @@
     <string name="map_scale_title">קנה מידה של מפה</string>
     <string name="map_scale_ratio">יחס</string>
     <string name="smoothing_summary">ערכים גבוהים עשויים להפחית את הרעש</string>
-    <string name="pref_use_legacy_compass_title">שימוש במצפן מדור קודם</string>
     <string name="compass_auto_declination">הפחתה של התאמה אוטומטית</string>
     <string name="pref_auto_declination_summary">בהתבסס על מיקומך הנוכחי</string>
     <string name="compass_accuracy_improved">דיוק המצפן השתפר ל-%s</string>

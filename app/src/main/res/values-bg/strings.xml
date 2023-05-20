@@ -21,8 +21,6 @@
     <string name="stop">Спри се</string>
     <string name="smoothing_summary">Високите стойности могат да намалят шума</string>
     <string name="pref_theme_title">тема</string>
-    <string name="pref_use_legacy_compass_title">Използвайте наследен компас</string>
-    <string name="pref_use_legacy_compass_summary">Може да коригира проблеми с компаса</string>
     <string name="pref_display_multi_beacons_title">Показване на близки маяци</string>
     <string name="pref_storm_alert_sensitivity_title">Чувствителност към буря</string>
     <string name="pref_show_sun_moon_compass_title">Покажете слънце /луна на компас</string>

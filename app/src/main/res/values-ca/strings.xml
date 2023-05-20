@@ -189,8 +189,6 @@
     <string name="compass_auto_declination">Autoajustar la declinació</string>
     <string name="compass_declination_override">Sobrescriure la declinació</string>
     <string name="override_from_gps">Utilitzar el valor del GPS</string>
-    <string name="pref_use_legacy_compass_summary">Pot solucionar problemes amb la brúixola</string>
-    <string name="pref_use_legacy_compass_title">Utilitzar la brúixola bàsica</string>
     <string name="smoothing_summary">Valors alts poden reduir el soroll</string>
     <string name="pref_compass_sensor_title">Brúixola</string>
     <string name="true_north">Nord veritable</string>

@@ -7,7 +7,6 @@
     <string name="gps">GPS</string>
     <string name="calibrate_compass_dialog_title">Kalibrovat kompas</string>
     <string name="calibrate">Kalibrovat</string>
-    <string name="pref_use_legacy_compass_summary">Může opravit problémy s kompasem</string>
     <string name="smoothing_summary">Vysoké hodnoty mohou omezit šum</string>
     <string name="true_north">Pravý sever</string>
     <string name="pref_compass_sensor_title">Kompas</string>
@@ -158,7 +157,6 @@
     <string name="compass_auto_declination">Automaticky upravit deklinaci</string>
     <string name="compass_declination_override">Přepis deklinace</string>
     <string name="override_from_gps">Nastavit přepsání z GPS</string>
-    <string name="pref_use_legacy_compass_title">Využívat starší API senzoru kompasu</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>

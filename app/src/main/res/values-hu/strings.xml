@@ -360,7 +360,6 @@
     <string name="calibrate_compass_dialog_title">Iránytű kalibrálása</string>
     <string name="theme_light">Világos</string>
     <string name="second_symbol">mp</string>
-    <string name="pref_use_legacy_compass_title">Régebbi iránytű használata</string>
     <string name="location">Hely</string>
     <string name="pref_auto_location_title">Hely automatikus állítása</string>
     <string name="elevation_override_updated_toast">Magasság-felülírás frissítve</string>
@@ -451,7 +450,6 @@
     <string name="fahrenheit">Fahrenheit</string>
     <string name="celsius">Celsius</string>
     <string name="temperature">Hőmérséklet</string>
-    <string name="pref_use_legacy_compass_summary">Megoldhatja az iránytű hibáit</string>
     <string name="override_from_gps">Felülírás beállítása GPS-ből</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Forgasd a készüléket 8-as alakban vagy minden irányba néhányszor, nyomd meg a(z) %s-t ha végeztél.
 \n

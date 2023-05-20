@@ -158,8 +158,6 @@
     <string name="compass_auto_declination">Säädä automaattinen eranto</string>
     <string name="compass_declination_override">Ohita eranto</string>
     <string name="override_from_gps">Aseta ohitus GPS:stä</string>
-    <string name="pref_use_legacy_compass_summary">Saattaa korjata kompassiongelmia</string>
-    <string name="pref_use_legacy_compass_title">Käytä vanhaa kompassia</string>
     <string name="smoothing_summary">Korkeat arvot voivat vähentää kohinaa</string>
     <string name="true_north">Todellinen pohjoinen</string>
     <string name="pref_compass_sensor_title">Kompassi</string>

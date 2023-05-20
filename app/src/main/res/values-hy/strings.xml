@@ -21,8 +21,6 @@
     <string name="stop">Դադարեցրեք</string>
     <string name="smoothing_summary">Բարձր արժեքները կարող են նվազեցնել աղմուկը</string>
     <string name="pref_theme_title">Թեման</string>
-    <string name="pref_use_legacy_compass_title">Օգտագործեք ժառանգական կողմնացույց</string>
-    <string name="pref_use_legacy_compass_summary">Կարող է շտկել կողմնացույցի խնդիրները</string>
     <string name="pref_display_multi_beacons_title">Nearbyուցադրել մոտակա փնջերը</string>
     <string name="pref_storm_alert_sensitivity_title">Փոթորիկ ազդանշանային զգայունություն</string>
     <string name="pref_show_sun_moon_compass_title">Sunուցադրել արևը /լուսինը կողմնացույցի վրա</string>

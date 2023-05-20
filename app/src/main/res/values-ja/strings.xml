@@ -20,8 +20,6 @@
     <string name="stop">停止</string>
     <string name="smoothing_summary">高い値はノイズを減らす可能性があります</string>
     <string name="pref_theme_title">テーマ</string>
-    <string name="pref_use_legacy_compass_title">従来のコンパスを使用する</string>
-    <string name="pref_use_legacy_compass_summary">コンパスの問題を修正する場合があります</string>
     <string name="pref_display_multi_beacons_title">ビーコンを表示</string>
     <string name="pref_storm_alert_sensitivity_title">暴風雨アラートの感度</string>
     <string name="pref_show_sun_moon_compass_title">コンパスに太陽/月を表示</string>
