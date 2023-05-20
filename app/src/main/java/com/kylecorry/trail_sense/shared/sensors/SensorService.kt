@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.content.Context
 import android.hardware.Sensor
+import android.hardware.SensorManager
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
@@ -40,6 +41,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.*
+import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -212,9 +214,12 @@ class SensorService(ctx: Context) {
             }
         }
 
-        return FilterCompassWrapper(
-            compass,
-            MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
+        return MagQualityCompassWrapper(
+            FilterCompassWrapper(
+                compass,
+                MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
+            ),
+            Magnetometer(context, SensorManager.SENSOR_DELAY_UI)
         )
     }
 
