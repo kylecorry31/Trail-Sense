@@ -162,12 +162,14 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(13, 14) { context, prefs ->
                 val userPrefs = UserPreferences(context)
                 val wasLegacyCompass = prefs.getBoolean("pref_use_legacy_compass_2") ?: false
+                val sources = CompassProvider.getAvailableSources(context)
                 if (wasLegacyCompass) {
                     userPrefs.compass.source = CompassSource.Orientation
-                } else if (CompassProvider.getAvailableSources(context).contains(CompassSource.RotationVector)) {
+                } else if (sources.contains(CompassSource.RotationVector)) {
                     // The rotation vector is accurate, no need for smoothing
                     userPrefs.compass.compassSmoothing = 1
                 }
+                userPrefs.compass.source = sources.firstOrNull() ?: CompassSource.CustomMagnetometer
                 prefs.remove("pref_use_legacy_compass_2")
             }
         )
