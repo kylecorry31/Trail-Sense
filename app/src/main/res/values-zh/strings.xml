@@ -126,6 +126,7 @@
     <string name="tap_to_turn_off">轻触以关闭</string>
     <string name="flashlight_title">手电筒</string>
     <string name="accuracy_info">"GPS：到室外天空未被遮挡的地方。
+\n
 \n    %s 的实际位置
 \n    %s 的实际高度
 \n    %s 颗卫星
@@ -1091,4 +1092,13 @@
     <string name="step_progression">步骤 %d / %d</string>
     <string name="astronomy_direction_peak">峰值方向</string>
     <string name="autofill_source">自动填充源</string>
+    <string name="calibrate_map_point">用已知位置校准 (%d / %d)</string>
+    <string name="map_calibration">地图校准</string>
+    <string name="map_calibration_instructions">轻按地图上的已知位置，然后输入真实世界的坐标。 您可以通过单击“完成”按钮来保存校准。
+\n
+\n良好校准点的示例包括停车场、标志点、地标或小径沿线的交叉点。</string>
+    <string name="compass_source_mag_gyro">磁力计+陀螺仪</string>
+    <string name="compass_source_legacy_ts">旧版（Trail Sense）</string>
+    <string name="compass_source_legacy_android">旧版（Android）</string>
+    <string name="accelerometer">加速度计</string>
 </resources>
