@@ -75,7 +75,9 @@ abstract class BaseMultipartUnitInputView<T, Units : Enum<*>>(
         set(value) {
             unitInput.amount = if (value == null) null else getAmount(value)
             unitInput.secondaryAmount = if (value == null) null else getSecondaryAmount(value)
-            unitInput.unit = if (value == null) null else getUnit(value)
+            if (value != null){
+                unitInput.unit = getUnit(value)
+            }
         }
 
     private var changeListener: ((value: T?) -> Unit)? = null
