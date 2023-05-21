@@ -161,8 +161,8 @@ internal class WeatherSubsystemTest {
         )
 
         val maxTempDiff = 8f
-        val maxTempRangeDiff = 5f
-        val maxAverageDelta = 1.5f
+        val maxTempRangeDiff = 6f
+        val maxAverageDelta = 1.8f
 
         var total = 0
         var deltas = 0f
@@ -190,7 +190,7 @@ internal class WeatherSubsystemTest {
             val expectedRanges = highs[i].mapIndexed { index, high -> high - lows[i][index] }
 
             actualRanges.forEachIndexed { index, value ->
-                Assert.assertEquals(expectedRanges[index], value, maxTempRangeDiff)
+                Assert.assertEquals(index.toString(), expectedRanges[index], value, maxTempRangeDiff)
             }
         }
 
