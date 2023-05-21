@@ -43,7 +43,7 @@ class HistoricTemperatureRangeWeatherField(
         return ListItem(
             9,
             context.getString(R.string.temperature_high_low),
-            subtitle = context.getString(R.string.historic_temperature_years, 60),
+            subtitle = context.getString(R.string.historic_temperature_years, 30),
             icon = ResourceListIcon(R.drawable.ic_temperature_range, color),
             trailingText = context.getString(R.string.slash_separated_pair, highValue, lowValue)
         ) {

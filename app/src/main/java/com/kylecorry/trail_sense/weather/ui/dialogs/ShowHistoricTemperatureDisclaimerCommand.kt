@@ -10,7 +10,7 @@ class ShowHistoricTemperatureDisclaimerCommand(private val context: Context) : C
         CustomUiUtils.disclaimer(
             context,
             context.getString(R.string.historic_temperatures),
-            context.getString(R.string.historic_temperatures_full_disclaimer, 60),
+            context.getString(R.string.historic_temperatures_full_disclaimer, 30),
             context.getString(R.string.pref_historic_temperatures_disclaimer_shown),
             considerShownIfCancelled = true,
             cancelText = null,

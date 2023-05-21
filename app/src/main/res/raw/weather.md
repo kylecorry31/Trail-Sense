@@ -16,7 +16,7 @@ Trail Sense can help you track the clouds throughout the day. To use it, you can
 
 ## Estimating the temperature
 
-Trail Sense uses historical data from the past 60 years to estimate the temperature for your location and time of year. It can also be used to see what the temperature will be at a different elevation. To do this, you open the Temperature Estimation tool and enter your current location's elevation and temperature. You can type it in or use the Autofill button. Then you enter the elevation of the place you want to know the temperature at (like the top of a mountain) and it will give you an estimate. Keep in mind that this is just an estimate and the actual temperature might be different because of the current weather.
+Trail Sense uses modified historical data from 1970 - 2000 to estimate the temperature for your location and time of year. It can also be used to see what the temperature will be at a different elevation. To do this, you open the Temperature Estimation tool and enter your current location's elevation and temperature. You can type it in or use the Autofill button. Then you enter the elevation of the place you want to know the temperature at (like the top of a mountain) and it will give you an estimate. Keep in mind that this is just an estimate and the actual temperature might be different because of the current weather.
 
 ## Use common sense
 
