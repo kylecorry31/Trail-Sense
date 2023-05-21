@@ -35,11 +35,11 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     }
 
     private fun loadMinimum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
-        return loadMonthly(context, latitude, longitude, month, R.raw.low_temperatures_global)
+        return loadMonthly(context, latitude, longitude, month, R.raw.tmn)
     }
 
     private fun loadMaximum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
-        return loadMonthly(context, latitude, longitude, month, R.raw.high_temperatures_global)
+        return loadMonthly(context, latitude, longitude, month, R.raw.tmx)
     }
 
     private fun loadMonthly(
