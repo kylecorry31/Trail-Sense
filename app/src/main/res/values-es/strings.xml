@@ -1104,4 +1104,13 @@
     <string name="print">Imprimir</string>
     <string name="step_progression">Paso %d / %d</string>
     <string name="autofill_source">Autocompletar las fuentes</string>
+    <string name="calibrate_map_point">Calibrar con ubicaciones conocidas (%d / %d)</string>
+    <string name="map_calibration">Calibración del mapa</string>
+    <string name="accelerometer">Acelerómetro</string>
+    <string name="map_calibration_instructions">Toca una ubicación conocida en el mapa y, a continuación, introduce las coordenadas reales. Puedes guardar la calibración pulsando el botón \"Hecho\".
+\n
+\nEjemplos de buenos puntos de calibración son un aparcamiento, un punto de señalización, un punto de referencia o un cruce a lo largo de un sendero.</string>
+    <string name="compass_source_mag_gyro">Magnetómetro + Giroscopio</string>
+    <string name="compass_source_legacy_android">Legado (Android)</string>
+    <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>
 </resources>
