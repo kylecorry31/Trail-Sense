@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.BitmapRegionDecoder
 import android.graphics.Rect
@@ -14,6 +15,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import java.io.InputStream
 import java.time.Month
 
 // TODO: Add a cache
@@ -26,8 +28,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     ): Range<Temperature> = onIO {
         val lowOffset = 61
         val highOffset = 48
-        val low = loadMonthly(context, location, month, "tmn") ?: 0f
-        val high = loadMonthly(context, location, month, "tmx") ?: 0f
+        val low = loadMonthly(context, location, month, "tmn")
+        val high = loadMonthly(context, location, month, "tmx")
         Range(
             Temperature(low - lowOffset, TemperatureUnits.F).celsius(),
             Temperature(high - highOffset, TemperatureUnits.F).celsius()
@@ -39,7 +41,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         location: Coordinate,
         month: Month,
         type: String
-    ): Float? {
+    ): Float {
         val fileSystem = AssetFileSystem(context)
         val monthRange = when (month) {
             in Month.JANUARY..Month.MARCH -> "1-3"
@@ -59,8 +61,10 @@ internal object HistoricMonthlyTemperatureRangeRepo {
 
         val file = "temperatures/$type-$monthRange.webp"
 
-        val decoder = BitmapRegionDecoder.newInstance(fileSystem.stream(file), false) ?: return null
-        val bitmap = decoder.decodeRegion(getRegion(x, y), BitmapFactory.Options())
+        val bitmap = fileSystem.stream(file).use {
+            decodeAssetRegion(it, x, y)
+        } ?: return 0f
+
 
         var sum = 0
         var count = 0
@@ -70,12 +74,12 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                     0 -> bitmap[i, j].red
                     1 -> bitmap[i, j].green
                     2 -> bitmap[i, j].blue
-                    else -> return null
+                    else -> return 0f
                 }
 
                 if (pixel > 0) {
-                    sum += pixel
-                    count++
+                    sum += pixel * if (i == x && j == y) 2 else 1 // Weight the current pixel more (it's the center
+                    count += if (i == x && j == y) 2 else 1
                 }
             }
         }
@@ -88,6 +92,16 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         } else {
             sum / count.toFloat()
         }
+    }
+
+    private suspend fun decodeAssetRegion(stream: InputStream, x: Int, y: Int): Bitmap? = onIO {
+        val decoder = if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.R) {
+            BitmapRegionDecoder.newInstance(stream)
+        } else {
+            @Suppress("DEPRECATION")
+            BitmapRegionDecoder.newInstance(stream, false)
+        } ?: return@onIO null
+        decoder.decodeRegion(getRegion(x, y), BitmapFactory.Options())
     }
 
     private fun getRegion(x: Int, y: Int): Rect {
