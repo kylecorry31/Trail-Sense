@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.temperatures
+package com.kylecorry.trail_sense.shared.io
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

@@ -11,6 +11,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.io.ImageDataSource
 import java.time.Month
 
 // TODO: Add a cache
