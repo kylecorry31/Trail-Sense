@@ -14,7 +14,6 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.ImageDataSource
 import java.time.Month
 
-// TODO: Add a cache
 internal object HistoricMonthlyTemperatureRangeRepo {
 
     private val imageDataSource = ImageDataSource(
@@ -23,24 +22,55 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         2
     ) { it.red > 0 }
 
+    private const val pixelsPerDegree = 2
+
+    private var cachedPixel: Pair<Int, Int>? = null
+    private var cachedData: Map<Month, Range<Temperature>>? = null
+
     suspend fun getMonthlyTemperatureRange(
         context: Context,
         location: Coordinate,
         month: Month
     ): Range<Temperature> = onIO {
-        val lowOffset = 61
-        val highOffset = 48
-        val low = loadMonthly(context, location, month, "tmn")
-        val high = loadMonthly(context, location, month, "tmx")
-        Range(
-            Temperature(low - lowOffset, TemperatureUnits.F).celsius(),
-            Temperature(high - highOffset, TemperatureUnits.F).celsius()
+        getMonthlyTemperatureRanges(context, location)[month] ?: Range(
+            Temperature.zero,
+            Temperature.zero
         )
+    }
+
+    suspend fun getMonthlyTemperatureRanges(
+        context: Context,
+        location: Coordinate
+    ): Map<Month, Range<Temperature>> = onIO {
+        // TODO: Pixel contains 3 months, use that
+        val pixel = getPixel(location)
+
+        if (cachedPixel != pixel) {
+            cachedPixel = pixel
+            cachedData = Month.values().associateWith {
+                val lowOffset = 61
+                val highOffset = 48
+                val low = loadMonthly(context, pixel, it, "tmn")
+                val high = loadMonthly(context, pixel, it, "tmx")
+                Range(
+                    Temperature(low - lowOffset, TemperatureUnits.F).celsius(),
+                    Temperature(high - highOffset, TemperatureUnits.F).celsius()
+                )
+            }
+        }
+
+        cachedData!!
+    }
+
+    private fun getPixel(location: Coordinate): Pair<Int, Int> {
+        val x = ((location.longitude + 180) * pixelsPerDegree).toInt() - 1
+        val y = ((180 - (location.latitude + 90)) * pixelsPerDegree).toInt() - 1
+        return x to y
     }
 
     private suspend fun loadMonthly(
         context: Context,
-        location: Coordinate,
+        pixel: Pair<Int, Int>,
         month: Month,
         type: String
     ): Float {
@@ -58,14 +88,13 @@ internal object HistoricMonthlyTemperatureRangeRepo {
             Month.MARCH, Month.JUNE, Month.SEPTEMBER, Month.DECEMBER -> ColorChannel.Blue
         }
 
-        val y = ((180 - (location.latitude + 90)) * 2).toInt() - 1
-        val x = ((location.longitude + 180) * 2).toInt() - 1
-
         val file = "temperatures/$type-$monthRange.webp"
 
-        val pixel = imageDataSource.getPixel(fileSystem.stream(file), x, y, true) ?: return 0f
+        val value =
+            imageDataSource.getPixel(fileSystem.stream(file), pixel.first, pixel.second, true)
+                ?: return 0f
 
-        return pixel.getChannel(channel).toFloat()
+        return value.getChannel(channel).toFloat()
     }
 
 }
