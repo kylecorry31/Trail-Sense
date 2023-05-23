@@ -98,6 +98,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         return if (date.dayOfMonth == 15) {
             getMonthlyTemp(location, date)
         } else if (date.dayOfMonth > 15) {
+            // TODO: Expose a method on the HistoricMonthlyTemperatureRangeRepo to get multiple months / full year
             // Load this month and next
             val thisMonth = getMonthlyTemp(
                 location,
