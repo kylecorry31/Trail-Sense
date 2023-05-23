@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
 import androidx.annotation.RawRes
-import com.kylecorry.andromeda.compression.CompressionUtils
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import java.io.InputStream
 import java.time.Month
 import kotlin.math.roundToInt
 
@@ -16,8 +16,8 @@ import kotlin.math.roundToInt
 internal object HistoricMonthlyTemperatureRangeRepo {
 
     internal const val lonStep = 2
-    private const val minLat = -60
-    private const val maxLat = 84
+    private const val minLat = -56
+    private const val maxLat = 83
 
     suspend fun getMonthlyTemperatureRange(
         context: Context,
@@ -26,20 +26,21 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     ): Range<Temperature> = onIO {
         val lat = location.latitude.roundToInt().coerceIn(minLat, maxLat)
         val lon = location.longitude.roundToInt()
+        val lowOffset = 52
         val low = loadMinimum(context, lat, lon, month)
-        val high = loadMaximum(context, lat, lon, month)
+        val delta = loadDelta(context, lat, lon, month)
         Range(
-            Temperature(low?.toFloat() ?: 0f, TemperatureUnits.F).celsius(),
-            Temperature(high?.toFloat() ?: 0f, TemperatureUnits.F).celsius()
+            Temperature((low?.toFloat() ?: 0f) - lowOffset, TemperatureUnits.C),
+            Temperature((low?.toFloat() ?: 0f) + (delta?.toFloat() ?: 0f) - lowOffset, TemperatureUnits.C)
         )
     }
 
     private fun loadMinimum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
-        return loadMonthly(context, latitude, longitude, month, R.raw.tmn)
+        return loadMonthly(context, latitude, longitude, month, R.raw.tmn, 7)
     }
 
-    private fun loadMaximum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
-        return loadMonthly(context, latitude, longitude, month, R.raw.tmx)
+    private fun loadDelta(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
+        return loadMonthly(context, latitude, longitude, month, R.raw.tdelta, 5)
     }
 
     private fun loadMonthly(
@@ -47,7 +48,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         latitude: Int,
         longitude: Int,
         month: Month,
-        @RawRes file: Int
+        @RawRes file: Int,
+        bits: Int = 8
     ): Byte? {
         val input = context.resources.openRawResource(file)
         val lonIdx = (longitude + 180) / lonStep + 1
@@ -61,7 +63,12 @@ internal object HistoricMonthlyTemperatureRangeRepo {
 
         val line = (monthIdx * valuesPerMonth + latIdx * valuesPerLat + lonIdx)
 //        println("$latitude, $longitude, $month, $line, $latIdx, $lonIdx")
-        return CompressionUtils.getBytes(input, line, 1)?.get(0)
+        return getValue(input, line, bits)
     }
+
+    private fun getValue(input: InputStream, line: Int, bits: Int): Byte? {
+        return CompressionUtils.getByte(input, line, bits)
+    }
+
 
 }
