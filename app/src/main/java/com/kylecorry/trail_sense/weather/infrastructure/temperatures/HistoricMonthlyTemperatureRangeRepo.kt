@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
 import android.util.Size
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
 import androidx.core.graphics.red
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.getChannel
-import com.kylecorry.andromeda.core.bitmap.ColorChannel
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
@@ -12,20 +12,32 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.ImageDataSource
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.time.Month
 
 internal object HistoricMonthlyTemperatureRangeRepo {
 
+    // Cache
+    private var cachedPixel: Pair<Int, Int>? = null
+    private var cachedData: Map<Month, Range<Temperature>>? = null
+    private var mutex = Mutex()
+
+    // Image data source
     private val imageDataSource = ImageDataSource(
         Size(720, 360),
         3,
         2
     ) { it.red > 0 }
-
     private const val pixelsPerDegree = 2
-
-    private var cachedPixel: Pair<Int, Int>? = null
-    private var cachedData: Map<Month, Range<Temperature>>? = null
+    private const val lowOffset = 61
+    private const val highOffset = 48
+    private val extensionMap = mapOf(
+        "1-3" to Triple(Month.JANUARY, Month.FEBRUARY, Month.MARCH),
+        "4-6" to Triple(Month.APRIL, Month.MAY, Month.JUNE),
+        "7-9" to Triple(Month.JULY, Month.AUGUST, Month.SEPTEMBER),
+        "10-12" to Triple(Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER)
+    )
 
     suspend fun getMonthlyTemperatureRange(
         context: Context,
@@ -42,24 +54,29 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         context: Context,
         location: Coordinate
     ): Map<Month, Range<Temperature>> = onIO {
-        // TODO: Pixel contains 3 months, use that
-        val pixel = getPixel(location)
+        mutex.withLock {
+            val pixel = getPixel(location)
 
-        if (cachedPixel != pixel) {
-            cachedPixel = pixel
-            cachedData = Month.values().associateWith {
-                val lowOffset = 61
-                val highOffset = 48
-                val low = loadMonthly(context, pixel, it, "tmn")
-                val high = loadMonthly(context, pixel, it, "tmx")
-                Range(
-                    Temperature(low - lowOffset, TemperatureUnits.F).celsius(),
-                    Temperature(high - highOffset, TemperatureUnits.F).celsius()
-                )
+            if (cachedPixel != pixel) {
+                cachedPixel = pixel
+                val lows = load(context, pixel, "tmn") ?: emptyMap()
+                val highs = load(context, pixel, "tmx") ?: emptyMap()
+
+                val allZeros = lows.values.all { it == 0 } && highs.values.all { it == 0 }
+
+                // TODO: If values are all zeros, estimate the temperature range based on the latitude and month
+                cachedData = Month.values().associateWith {
+                    val low = if (allZeros) 32f else (lows[it] ?: 0) - lowOffset
+                    val high = if (allZeros) 33f else (highs[it] ?: 0) - highOffset
+                    Range(
+                        Temperature(low.toFloat(), TemperatureUnits.F).celsius(),
+                        Temperature(high.toFloat(), TemperatureUnits.F).celsius()
+                    )
+                }
             }
-        }
 
-        cachedData!!
+            cachedData!!
+        }
     }
 
     private fun getPixel(location: Coordinate): Pair<Int, Int> {
@@ -68,33 +85,26 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         return x to y
     }
 
-    private suspend fun loadMonthly(
+    private suspend fun load(
         context: Context,
         pixel: Pair<Int, Int>,
-        month: Month,
         type: String
-    ): Float {
+    ): Map<Month, Int>? = onIO {
         val fileSystem = AssetFileSystem(context)
-        val monthRange = when (month) {
-            in Month.JANUARY..Month.MARCH -> "1-3"
-            in Month.APRIL..Month.JUNE -> "4-6"
-            in Month.JULY..Month.SEPTEMBER -> "7-9"
-            else -> "10-12"
+
+        val loaded = mutableMapOf<Month, Int>()
+
+        for ((extension, months) in extensionMap) {
+            val file = "temperatures/$type-${extension}.webp"
+            val data =
+                imageDataSource.getPixel(fileSystem.stream(file), pixel.first, pixel.second, true)
+                    ?: return@onIO null
+            loaded[months.first] = data.red
+            loaded[months.second] = data.green
+            loaded[months.third] = data.blue
         }
 
-        val channel = when (month) {
-            Month.JANUARY, Month.APRIL, Month.JULY, Month.OCTOBER -> ColorChannel.Red
-            Month.FEBRUARY, Month.MAY, Month.AUGUST, Month.NOVEMBER -> ColorChannel.Green
-            Month.MARCH, Month.JUNE, Month.SEPTEMBER, Month.DECEMBER -> ColorChannel.Blue
-        }
-
-        val file = "temperatures/$type-$monthRange.webp"
-
-        val value =
-            imageDataSource.getPixel(fileSystem.stream(file), pixel.first, pixel.second, true)
-                ?: return 0f
-
-        return value.getChannel(channel).toFloat()
+        loaded
     }
 
 }
