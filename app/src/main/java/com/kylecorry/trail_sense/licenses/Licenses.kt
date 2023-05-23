@@ -241,9 +241,9 @@ E. Binding Authority: By accepting and using the Subject Software under this Agr
 F. Point of Contact: Any Recipient contact with Government Agency is to be directed to the designated representative as follows: Patrick.Hogan@nasa.gov"""
         ),
         Library(
-            "Climatic Research Unit (University of East Anglia) and Met Office",
-            "https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.07/",
-            """Open Government License: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"""
+            "Global Modeling and Assimilation Office",
+            "https://disc.gsfc.nasa.gov/datasets/M2SMNXSLV_5.12.4/summary?keywords=statM_2d_slv_Nx",
+            """Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 statM_2d_slv_Nx: 2d,Monthly,Aggregated Statistics,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: 2023-05-22, 10.5067/KVIMOMCUO83U"""
         )
     )
 
