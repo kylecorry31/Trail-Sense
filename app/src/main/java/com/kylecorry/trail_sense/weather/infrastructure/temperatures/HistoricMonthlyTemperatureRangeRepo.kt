@@ -105,15 +105,14 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     }
 
     private fun getRegion(x: Int, y: Int): Rect {
-        // TODO: Verify dimension
         // X and Y are at the center of the square with length "size"
         val width = 720
         val height = 360
 
-        val left = x// - 1
-        val top = y //- 1
-        val bottom = y + 1// + 2
-        val right = x + 1// + 2
+        val left = x - 1
+        val top = y - 1
+        val bottom = y + 2
+        val right = x + 2
 
         return Rect(
             left.coerceIn(0, width),
