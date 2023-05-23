@@ -29,15 +29,18 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         3,
         2
     ) { it.red > 0 }
-    private const val pixelsPerDegree = 2
-    private const val lowOffset = 61
-    private const val highOffset = 48
+    private const val latitudePixelsPerDegree = 2.0
+    private const val longitudePixelsPerDegree = 1.6
+    private const val lowOffset = 92
+    private const val highOffset = 83
     private val extensionMap = mapOf(
         "1-3" to Triple(Month.JANUARY, Month.FEBRUARY, Month.MARCH),
         "4-6" to Triple(Month.APRIL, Month.MAY, Month.JUNE),
         "7-9" to Triple(Month.JULY, Month.AUGUST, Month.SEPTEMBER),
         "10-12" to Triple(Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER)
     )
+    private val lowType = "T2MMIN"
+    private val highType = "T2MMAX"
 
     suspend fun getMonthlyTemperatureRange(
         context: Context,
@@ -59,8 +62,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
 
             if (cachedPixel != pixel) {
                 cachedPixel = pixel
-                val lows = load(context, pixel, "tmn") ?: emptyMap()
-                val highs = load(context, pixel, "tmx") ?: emptyMap()
+                val lows = load(context, pixel, lowType) ?: emptyMap()
+                val highs = load(context, pixel, highType) ?: emptyMap()
 
                 val allZeros = lows.values.all { it == 0 } && highs.values.all { it == 0 }
 
@@ -80,8 +83,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     }
 
     private fun getPixel(location: Coordinate): Pair<Int, Int> {
-        val x = ((location.longitude + 180) * pixelsPerDegree).toInt() - 1
-        val y = ((180 - (location.latitude + 90)) * pixelsPerDegree).toInt() - 1
+        val x = ((location.longitude + 180) * longitudePixelsPerDegree).toInt() - 1
+        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree).toInt() - 1
         return x to y
     }
 
