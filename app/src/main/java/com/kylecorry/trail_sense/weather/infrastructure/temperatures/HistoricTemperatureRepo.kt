@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -13,8 +12,6 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.Month
 import java.time.ZonedDateTime
-import kotlin.math.ceil
-import kotlin.math.floor
 
 internal class HistoricTemperatureRepo(private val context: Context) : ITemperatureRepo {
 
@@ -99,14 +96,14 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         date: LocalDate
     ): Range<Temperature> {
         return if (date.dayOfMonth == 15) {
-            getMonthlyTemperatureLongitudeLerp(location, date)
+            getMonthlyTemp(location, date)
         } else if (date.dayOfMonth > 15) {
             // Load this month and next
-            val thisMonth = getMonthlyTemperatureLongitudeLerp(
+            val thisMonth = getMonthlyTemp(
                 location,
                 date
             )
-            val nextMonth = getMonthlyTemperatureLongitudeLerp(
+            val nextMonth = getMonthlyTemp(
                 location,
                 date.plusMonths(1)
             )
@@ -122,11 +119,11 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
             lerp(pct.toFloat(), thisMonth, nextMonth)
         } else {
             // Load this month and previous
-            val thisMonth = getMonthlyTemperatureLongitudeLerp(
+            val thisMonth = getMonthlyTemp(
                 location,
                 date
             )
-            val prevMonth = getMonthlyTemperatureLongitudeLerp(
+            val prevMonth = getMonthlyTemp(
                 location,
                 date.minusMonths(1)
             )
@@ -143,103 +140,15 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         }
     }
 
-    private fun getRegion(location: Coordinate): CoordinateBounds {
-        val idx =
-            (floor(location.longitude).toInt() + 180) / HistoricMonthlyTemperatureRangeRepo.lonStep
-        val minLon =
-            Coordinate.toLongitude(idx * HistoricMonthlyTemperatureRangeRepo.lonStep.toDouble() - 180)
-        val maxLon =
-            Coordinate.toLongitude((idx + 1) * HistoricMonthlyTemperatureRangeRepo.lonStep.toDouble() - 180)
-        val minLat = floor(location.latitude)
-        val maxLat = ceil(location.latitude)
-        return CoordinateBounds(maxLat, maxLon, minLat, minLon)
-    }
-
-    private fun getRegionToNorth(location: Coordinate): CoordinateBounds? {
-        val region = getRegion(location)
-        if (region.north == 90.0) {
-            return null
-        }
-        return CoordinateBounds(region.north + 1, region.east, region.south + 1, region.west)
-    }
-
-    private fun getRegionToSouth(location: Coordinate): CoordinateBounds? {
-        val region = getRegion(location)
-        if (region.south == -90.0) {
-            return null
-        }
-        return CoordinateBounds(region.north - 1, region.east, region.south - 1, region.west)
-    }
-
-    private fun getRegionToEast(location: Coordinate): CoordinateBounds {
-        val region = getRegion(location)
-
-        val eastern =
-            Coordinate.toLongitude(region.east + HistoricMonthlyTemperatureRangeRepo.lonStep)
-        val western =
-            Coordinate.toLongitude(region.west + HistoricMonthlyTemperatureRangeRepo.lonStep)
-
-        return CoordinateBounds(region.north, eastern, region.south, western)
-    }
-
-    private fun getRegionToWest(location: Coordinate): CoordinateBounds {
-        val region = getRegion(location)
-
-        val eastern =
-            Coordinate.toLongitude(region.east - HistoricMonthlyTemperatureRangeRepo.lonStep)
-        val western =
-            Coordinate.toLongitude(region.west - HistoricMonthlyTemperatureRangeRepo.lonStep)
-
-        return CoordinateBounds(region.north, eastern, region.south, western)
-    }
-
-    private suspend fun getMonthlyTemperatureLongitudeLerp(
+    private suspend fun getMonthlyTemp(
         location: Coordinate,
         date: LocalDate
     ): Range<Temperature> {
-        val region = getRegion(location)
-        val western =
-            CoordinateBounds(region.north, region.center.longitude, region.south, region.west)
-        val currentRange = getMonthlyTemperatureLatitudeLerp(region.center, date)
-
-        val neighbor = if (western.contains(location)) {
-            getRegionToWest(location)
-        } else {
-            getRegionToEast(location)
-        }
-
-        val range = getMonthlyTemperatureLatitudeLerp(neighbor.center, date)
-        val distanceBetweenNeighbors = neighbor.center.distanceTo(region.center)
-        val distanceToPoint =
-            neighbor.center.distanceTo(location.copy(latitude = neighbor.center.latitude))
-        return lerp(distanceToPoint / distanceBetweenNeighbors, range, currentRange)
-    }
-
-    private suspend fun getMonthlyTemperatureLatitudeLerp(
-        location: Coordinate,
-        date: LocalDate
-    ): Range<Temperature> {
-        val region = getRegion(location)
-        val currentRange = HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRange(
+        return HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRange(
             context,
-            region.center,
+            location,
             date.month
         )
-        val neighbor = if (location.latitude >= region.center.latitude) {
-            getRegionToNorth(location)
-        } else {
-            getRegionToSouth(location)
-        } ?: return currentRange
-
-        val range = HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRange(
-            context,
-            neighbor.center,
-            date.month
-        )
-        val distanceBetweenNeighbors = neighbor.center.distanceTo(region.center)
-        val distanceToPoint =
-            neighbor.center.distanceTo(location.copy(longitude = neighbor.center.longitude))
-        return lerp(distanceToPoint / distanceBetweenNeighbors, range, currentRange)
     }
 
     private fun lerp(

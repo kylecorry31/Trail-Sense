@@ -1,73 +1,113 @@
 package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
-import androidx.annotation.RawRes
+import android.graphics.BitmapFactory
+import android.graphics.BitmapRegionDecoder
+import android.graphics.Rect
+import androidx.core.graphics.blue
+import androidx.core.graphics.get
+import androidx.core.graphics.green
+import androidx.core.graphics.red
+import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.onIO
-import java.io.InputStream
 import java.time.Month
-import kotlin.math.roundToInt
 
 // TODO: Add a cache
 internal object HistoricMonthlyTemperatureRangeRepo {
-
-    internal const val lonStep = 2
-    private const val minLat = -56
-    private const val maxLat = 83
 
     suspend fun getMonthlyTemperatureRange(
         context: Context,
         location: Coordinate,
         month: Month
     ): Range<Temperature> = onIO {
-        val lat = location.latitude.roundToInt().coerceIn(minLat, maxLat)
-        val lon = location.longitude.roundToInt()
-        val lowOffset = 52
-        val low = loadMinimum(context, lat, lon, month)
-        val delta = loadDelta(context, lat, lon, month)
+        val lowOffset = 61
+        val highOffset = 48
+        val low = loadMonthly(context, location, month, "tmn") ?: 0f
+        val high = loadMonthly(context, location, month, "tmx") ?: 0f
         Range(
-            Temperature((low?.toFloat() ?: 0f) - lowOffset, TemperatureUnits.C),
-            Temperature((low?.toFloat() ?: 0f) + (delta?.toFloat() ?: 0f) - lowOffset, TemperatureUnits.C)
+            Temperature(low - lowOffset, TemperatureUnits.F).celsius(),
+            Temperature(high - highOffset, TemperatureUnits.F).celsius()
         )
     }
 
-    private fun loadMinimum(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
-        return loadMonthly(context, latitude, longitude, month, R.raw.tmn, 7)
-    }
-
-    private fun loadDelta(context: Context, latitude: Int, longitude: Int, month: Month): Byte? {
-        return loadMonthly(context, latitude, longitude, month, R.raw.tdelta, 5)
-    }
-
-    private fun loadMonthly(
+    private suspend fun loadMonthly(
         context: Context,
-        latitude: Int,
-        longitude: Int,
+        location: Coordinate,
         month: Month,
-        @RawRes file: Int,
-        bits: Int = 8
-    ): Byte? {
-        val input = context.resources.openRawResource(file)
-        val lonIdx = (longitude + 180) / lonStep + 1
-        val latitudes = maxLat - minLat + 1
+        type: String
+    ): Float? {
+        val fileSystem = AssetFileSystem(context)
+        val monthRange = when (month) {
+            in Month.JANUARY..Month.MARCH -> "1-3"
+            in Month.APRIL..Month.JUNE -> "4-6"
+            in Month.JULY..Month.SEPTEMBER -> "7-9"
+            else -> "10-12"
+        }
 
-        val valuesPerLat = 360 / lonStep + 1
-        val valuesPerMonth = latitudes * valuesPerLat
-        val monthIdx = month.value - 1
+        val channel = when (month) {
+            Month.JANUARY, Month.APRIL, Month.JULY, Month.OCTOBER -> 0
+            Month.FEBRUARY, Month.MAY, Month.AUGUST, Month.NOVEMBER -> 1
+            Month.MARCH, Month.JUNE, Month.SEPTEMBER, Month.DECEMBER -> 2
+        }
 
-        val latIdx = latitude - minLat
+        val y = ((180 - (location.latitude + 90)) * 2).toInt() - 1
+        val x = ((location.longitude + 180) * 2).toInt() - 1
 
-        val line = (monthIdx * valuesPerMonth + latIdx * valuesPerLat + lonIdx)
-//        println("$latitude, $longitude, $month, $line, $latIdx, $lonIdx")
-        return getValue(input, line, bits)
+        val file = "temperatures/$type-$monthRange.webp"
+
+        val decoder = BitmapRegionDecoder.newInstance(fileSystem.stream(file), false) ?: return null
+        val bitmap = decoder.decodeRegion(getRegion(x, y), BitmapFactory.Options())
+
+        var sum = 0
+        var count = 0
+        for (i in 0 until bitmap.width) {
+            for (j in 0 until bitmap.height) {
+                val pixel = when (channel) {
+                    0 -> bitmap[i, j].red
+                    1 -> bitmap[i, j].green
+                    2 -> bitmap[i, j].blue
+                    else -> return null
+                }
+
+                if (pixel > 0) {
+                    sum += pixel
+                    count++
+                }
+            }
+        }
+
+        bitmap.recycle()
+
+
+        return if (count == 0) {
+            0f
+        } else {
+            sum / count.toFloat()
+        }
     }
 
-    private fun getValue(input: InputStream, line: Int, bits: Int): Byte? {
-        return CompressionUtils.getByte(input, line, bits)
+    private fun getRegion(x: Int, y: Int): Rect {
+        // TODO: Verify dimension
+        // X and Y are at the center of the square with length "size"
+        val width = 720
+        val height = 360
+
+        val left = x// - 1
+        val top = y //- 1
+        val bottom = y + 1// + 2
+        val right = x + 1// + 2
+
+        return Rect(
+            left.coerceIn(0, width),
+            top.coerceIn(0, height),
+            right.coerceIn(0, width),
+            bottom.coerceIn(0, height)
+        )
+
     }
 
 
