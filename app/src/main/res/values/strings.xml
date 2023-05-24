@@ -1303,6 +1303,9 @@
     <string name="compass_source_legacy_android">Legacy (Android)</string>
     <string name="accelerometer">Accelerometer</string>
 
+    <!-- Indicates the source of the data -->
+    <string name="data_source">Source: %s</string>
+
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
