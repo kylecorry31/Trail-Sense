@@ -38,6 +38,11 @@ class ImageDataSource(
             var sumB = 0
             var sumA = 0
             var count = 0
+
+            // TODO: This won't work correctly at the edges
+            val centerX = bitmap.width / 2
+            val centerY = bitmap.height / 2
+
             for (i in 0 until bitmap.width) {
                 for (j in 0 until bitmap.height) {
                     val pixel = bitmap[i, j]
@@ -47,7 +52,7 @@ class ImageDataSource(
                     val alpha = pixel.alpha
 
                     if (samplingPixelFilter(pixel)) {
-                        val weight = if (i == x && j == y) samplingCenterWeight else 1
+                        val weight = if (i == centerX && j == centerY) samplingCenterWeight else 1
                         sumR += red * weight
                         sumG += green * weight
                         sumB += blue * weight

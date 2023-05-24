@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import java.time.Instant
 
@@ -75,6 +76,10 @@ class CustomGPS(
         onTimeout()
     }
 
+    private val geoidTimer = Timer {
+        geoidOffset = AltitudeCorrection.getGeoid(context, location)
+    }
+
     private var _altitude = 0f
     private var _time = Instant.now()
     private var _quality = Quality.Unknown
@@ -86,6 +91,7 @@ class CustomGPS(
     private var _mslAltitude: Float? = null
     private var _isTimedOut = false
     private var mslOffset = 0f
+    private var geoidOffset = 0f
 
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
 
@@ -154,7 +160,14 @@ class CustomGPS(
         if (userPrefs.useNMEA && mslOffset != 0f) {
             return mslOffset
         }
-        return AltitudeCorrection.getOffset(location, context)
+
+        if (geoidOffset != 0f) {
+            return geoidOffset
+        }
+
+        // This is not ideal, but an offset is needed (and this service caches it)
+        geoidOffset = runBlocking { AltitudeCorrection.getGeoid(context, location) }
+        return geoidOffset
     }
 
     private fun cacheHasNewerReading(): Boolean {
@@ -180,11 +193,13 @@ class CustomGPS(
 
         baseGPS.start(this::onLocationUpdate)
         timeout.once(TIMEOUT_DURATION)
+        geoidTimer.interval(Duration.ofMillis(200))
     }
 
     override fun stopImpl() {
         baseGPS.stop(this::onLocationUpdate)
         timeout.stop()
+        geoidTimer.stop()
     }
 
     private fun onLocationUpdate(): Boolean {

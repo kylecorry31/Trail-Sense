@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.shared.io.ImageDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Month
+import kotlin.math.roundToInt
 
 internal object HistoricMonthlyTemperatureRangeRepo {
 
@@ -25,7 +26,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
 
     // Image data source
     private val imageDataSource = ImageDataSource(
-        Size(720, 360),
+        Size(576, 361),
         3,
         2
     ) { it.red > 0 }
@@ -83,8 +84,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     }
 
     private fun getPixel(location: Coordinate): Pair<Int, Int> {
-        val x = ((location.longitude + 180) * longitudePixelsPerDegree).toInt() - 1
-        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree).toInt() - 1
+        val x = ((location.longitude + 180) * longitudePixelsPerDegree).roundToInt()
+        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree).roundToInt()
         return x to y
     }
 

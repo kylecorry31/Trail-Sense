@@ -1,9 +1,14 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import com.kylecorry.andromeda.compression.CompressionUtils
+import android.util.Size
+import androidx.core.graphics.red
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.io.ImageDataSource
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlin.math.roundToInt
 
 /*
@@ -11,36 +16,45 @@ import kotlin.math.roundToInt
  */
 object AltitudeCorrection {
 
-    private val table = mutableMapOf<Pair<Int, Int>, Byte>()
-    private val lock = Object()
+    // Cache
+    private var cachedPixel: Pair<Int, Int>? = null
+    private var cachedData: Float? = null
+    private var mutex = Mutex()
 
-    fun getOffset(location: Coordinate?, context: Context?): Float {
-        if (location == null || context == null) {
-            return 0f
-        }
+    // Image data source
+    private val imageDataSource = ImageDataSource(
+        Size(361, 181),
+        3,
+        2
+    ) { it.red > 0 }
+    private const val latitudePixelsPerDegree = 1.0
+    private const val longitudePixelsPerDegree = 1.0
+    private const val offset = 106
 
-        val loc = Pair(location.latitude.roundToInt(), location.longitude.roundToInt())
-
-
-        if (table.containsKey(loc)) {
-            return table[loc]?.toFloat() ?: 0f
-        }
-
-        synchronized(lock) {
-            val offset = loadOffset(context, loc)
-            if (offset != null) {
-                table[loc] = offset
+    suspend fun getGeoid(context: Context, location: Coordinate): Float = onIO {
+        mutex.withLock {
+            val fileSystem = AssetFileSystem(context)
+            val file = "geoids.webp"
+            val pixel = getPixel(location)
+            if (pixel == cachedPixel) {
+                return@onIO cachedData ?: 0f
             }
+
+            val data =
+                imageDataSource.getPixel(fileSystem.stream(file), pixel.first, pixel.second, true)
+                    ?: return@onIO 0f
+
+            cachedPixel = pixel
+            cachedData = data.red.toFloat() - offset
+            cachedData!!
         }
-
-        return table[loc]?.toFloat() ?: 0f
     }
 
-
-    private fun loadOffset(context: Context, key: Pair<Int, Int>): Byte? {
-        val input = context.resources.openRawResource(R.raw.geoids)
-        val line = ((90 + key.first) * 361 + (180 + key.second))
-        return CompressionUtils.getByte(input, line)
+    private fun getPixel(location: Coordinate): Pair<Int, Int> {
+        val x = ((location.longitude + 180) * longitudePixelsPerDegree).roundToInt()
+        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree).roundToInt()
+        return x to y
     }
+
 
 }
