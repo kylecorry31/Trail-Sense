@@ -4,12 +4,13 @@ import android.content.Context
 import android.util.Size
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.io.ImageDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.math.roundToInt
 
 /*
  *  The geoids.csv is from https://github.com/vectorstofinal/geoid_heights licensed under MIT
@@ -17,18 +18,18 @@ import kotlin.math.roundToInt
 object AltitudeCorrection {
 
     // Cache
-    private var cachedPixel: Pair<Int, Int>? = null
+    private var cachedPixel: PixelCoordinate? = null
     private var cachedData: Float? = null
     private var mutex = Mutex()
 
     // Image data source
+    private const val latitudePixelsPerDegree = 1.0
+    private const val longitudePixelsPerDegree = 1.0
     private val imageDataSource = ImageDataSource(
         Size(361, 181),
         3,
-        2
-    ) { it.red > 0 }
-    private const val latitudePixelsPerDegree = 1.0
-    private const val longitudePixelsPerDegree = 1.0
+        ImageDataSource.geographicSampler()
+    )
     private const val offset = 106
 
     suspend fun getGeoid(context: Context, location: Coordinate): Float = onIO {
@@ -41,7 +42,7 @@ object AltitudeCorrection {
             }
 
             val data =
-                imageDataSource.getPixel(fileSystem.stream(file), pixel.first, pixel.second, true)
+                imageDataSource.getPixel(fileSystem.stream(file), pixel, true)
                     ?: return@onIO 0f
 
             cachedPixel = pixel
@@ -50,10 +51,11 @@ object AltitudeCorrection {
         }
     }
 
-    private fun getPixel(location: Coordinate): Pair<Int, Int> {
-        val x = ((location.longitude + 180) * longitudePixelsPerDegree).roundToInt()
-        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree).roundToInt()
-        return x to y
+    private fun getPixel(location: Coordinate): PixelCoordinate {
+        val places = 2
+        val x = (location.longitude + 180) * longitudePixelsPerDegree
+        val y = (180 - (location.latitude + 90)) * latitudePixelsPerDegree
+        return PixelCoordinate(x.roundPlaces(places).toFloat(), y.roundPlaces(places).toFloat())
     }
 
 

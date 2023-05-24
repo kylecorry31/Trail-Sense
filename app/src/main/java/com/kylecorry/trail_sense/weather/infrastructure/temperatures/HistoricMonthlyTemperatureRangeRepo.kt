@@ -5,8 +5,10 @@ import android.util.Size
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
@@ -15,23 +17,22 @@ import com.kylecorry.trail_sense.shared.io.ImageDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Month
-import kotlin.math.roundToInt
 
 internal object HistoricMonthlyTemperatureRangeRepo {
 
     // Cache
-    private var cachedPixel: Pair<Int, Int>? = null
+    private var cachedPixel: PixelCoordinate? = null
     private var cachedData: Map<Month, Range<Temperature>>? = null
     private var mutex = Mutex()
 
     // Image data source
+    private const val latitudePixelsPerDegree = 2.0
+    private const val longitudePixelsPerDegree = 1.6
     private val imageDataSource = ImageDataSource(
         Size(576, 361),
         3,
-        2
-    ) { it.red > 0 }
-    private const val latitudePixelsPerDegree = 2.0
-    private const val longitudePixelsPerDegree = 1.6
+        ImageDataSource.geographicSampler(0.25f, 1f)
+    )
     private const val lowOffset = 92
     private const val highOffset = 83
     private val extensionMap = mapOf(
@@ -83,15 +84,16 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         }
     }
 
-    private fun getPixel(location: Coordinate): Pair<Int, Int> {
-        val x = ((location.longitude + 180) * longitudePixelsPerDegree).roundToInt()
-        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree).roundToInt()
-        return x to y
+    private fun getPixel(location: Coordinate): PixelCoordinate {
+        val places = 2
+        val x = ((location.longitude + 180) * longitudePixelsPerDegree)
+        val y = ((180 - (location.latitude + 90)) * latitudePixelsPerDegree)
+        return PixelCoordinate(x.roundPlaces(places).toFloat(), y.roundPlaces(places).toFloat())
     }
 
     private suspend fun load(
         context: Context,
-        pixel: Pair<Int, Int>,
+        pixel: PixelCoordinate,
         type: String
     ): Map<Month, Int>? = onIO {
         val fileSystem = AssetFileSystem(context)
@@ -101,7 +103,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         for ((extension, months) in extensionMap) {
             val file = "temperatures/$type-${extension}.webp"
             val data =
-                imageDataSource.getPixel(fileSystem.stream(file), pixel.first, pixel.second, true)
+                imageDataSource.getPixel(fileSystem.stream(file), pixel, true)
                     ?: return@onIO null
             loaded[months.first] = data.red
             loaded[months.second] = data.green
