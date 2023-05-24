@@ -21,7 +21,7 @@ import kotlin.math.sqrt
  * A data source backed by an image
  * @param imageSize The size of the image
  * @param samplingSize The size of the sampling area
- * @param sampler A function that determines the weight of a pixel in the sampling area. The first parameter is position being looked up, the second is current pixel position for sampling, and the third is the pixel color.
+ * @param sampler Determines how to weight each pixel in the sampling area
  */
 class ImageDataSource(
     private val imageSize: Size,
@@ -152,8 +152,6 @@ class ImageDataSource(
                     (current.y - position.y) * if (latitudeBias == 0f) 0f else 1 / latitudeBias
 
                 val distance = sqrt(xDistance * xDistance + yDistance * yDistance)
-
-                println(1 / (1 + distance))
 
                 1 / (1 + distance)
             }
