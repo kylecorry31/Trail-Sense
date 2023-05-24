@@ -25,11 +25,7 @@ object AltitudeCorrection {
     // Image data source
     private const val latitudePixelsPerDegree = 1.0
     private const val longitudePixelsPerDegree = 1.0
-    private val imageDataSource = ImageDataSource(
-        Size(361, 181),
-        3,
-        ImageDataSource.geographicSampler()
-    )
+    private val imageDataSource = ImageDataSource(Size(361, 181))
     private const val offset = 106
 
     suspend fun getGeoid(context: Context, location: Coordinate): Float = onIO {

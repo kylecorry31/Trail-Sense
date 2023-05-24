@@ -17,6 +17,8 @@ import com.kylecorry.trail_sense.shared.io.ImageDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Month
+import kotlin.math.max
+import kotlin.math.min
 
 internal object HistoricMonthlyTemperatureRangeRepo {
 
@@ -28,11 +30,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     // Image data source
     private const val latitudePixelsPerDegree = 2.0
     private const val longitudePixelsPerDegree = 1.6
-    private val imageDataSource = ImageDataSource(
-        Size(576, 361),
-        3,
-        ImageDataSource.geographicSampler(0.25f, 1f)
-    )
+    private val imageDataSource = ImageDataSource(Size(576, 361))
     private const val lowOffset = 92
     private const val highOffset = 83
     private val extensionMap = mapOf(
@@ -67,15 +65,12 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 val lows = load(context, pixel, lowType) ?: emptyMap()
                 val highs = load(context, pixel, highType) ?: emptyMap()
 
-                val allZeros = lows.values.all { it == 0 } && highs.values.all { it == 0 }
-
-                // TODO: If values are all zeros, estimate the temperature range based on the latitude and month
                 cachedData = Month.values().associateWith {
-                    val low = if (allZeros) 32f else (lows[it] ?: 0) - lowOffset
-                    val high = if (allZeros) 33f else (highs[it] ?: 0) - highOffset
+                    val low = (lows[it] ?: 0).toFloat() - lowOffset
+                    val high = (highs[it] ?: 0).toFloat() - highOffset
                     Range(
-                        Temperature(low.toFloat(), TemperatureUnits.F).celsius(),
-                        Temperature(high.toFloat(), TemperatureUnits.F).celsius()
+                        Temperature(min(low, high), TemperatureUnits.F).celsius(),
+                        Temperature(max(low, high), TemperatureUnits.F).celsius()
                     )
                 }
             }
