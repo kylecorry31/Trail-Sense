@@ -41,7 +41,15 @@ class ImageDataSource(
                 position.y - rect.top
             )
 
-            return@onIO if (!interpolate) {
+            val isInBounds = recenteredPosition.x.toInt() >= 0 &&
+                        recenteredPosition.y.toInt() >= 0 &&
+                        recenteredPosition.x.toInt() + 1 < bitmap.width &&
+                        recenteredPosition.y.toInt() + 1 < bitmap.height
+
+            return@onIO if (!isInBounds){
+                // If the pixel is out of bounds, return the center pixel of the bitmap
+                bitmap[bitmap.width / 2, bitmap.height / 2]
+            } else if (!interpolate) {
                 bitmap[recenteredPosition.x.roundToInt(), recenteredPosition.y.roundToInt()]
             } else {
                 bilinearInterpolation(recenteredPosition, bitmap)
@@ -100,10 +108,14 @@ class ImageDataSource(
         val x2y1Weight = (x - x1) * (y2 - y)
         val x2y2Weight = (x - x1) * (y - y1)
 
-        val red = x1y1.red * x1y1Weight + x1y2.red * x1y2Weight + x2y1.red * x2y1Weight + x2y2.red * x2y2Weight
-        val green = x1y1.green * x1y1Weight + x1y2.green * x1y2Weight + x2y1.green * x2y1Weight + x2y2.green * x2y2Weight
-        val blue = x1y1.blue * x1y1Weight + x1y2.blue * x1y2Weight + x2y1.blue * x2y1Weight + x2y2.blue * x2y2Weight
-        val alpha = x1y1.alpha * x1y1Weight + x1y2.alpha * x1y2Weight + x2y1.alpha * x2y1Weight + x2y2.alpha * x2y2Weight
+        val red =
+            x1y1.red * x1y1Weight + x1y2.red * x1y2Weight + x2y1.red * x2y1Weight + x2y2.red * x2y2Weight
+        val green =
+            x1y1.green * x1y1Weight + x1y2.green * x1y2Weight + x2y1.green * x2y1Weight + x2y2.green * x2y2Weight
+        val blue =
+            x1y1.blue * x1y1Weight + x1y2.blue * x1y2Weight + x2y1.blue * x2y1Weight + x2y2.blue * x2y2Weight
+        val alpha =
+            x1y1.alpha * x1y1Weight + x1y2.alpha * x1y2Weight + x2y1.alpha * x2y1Weight + x2y2.alpha * x2y2Weight
 
         return Color.argb(alpha.toInt(), red.toInt(), green.toInt(), blue.toInt())
     }
