@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.weather.infrastructure.temperatures
 
 import android.content.Context
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.interpolation.NewtonInterpolator
+import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.daysUntil
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -17,6 +20,9 @@ import kotlin.math.min
 
 internal class HistoricTemperatureRepo(private val context: Context) : ITemperatureRepo {
 
+    private val highInterpolator = NewtonInterpolator()
+    private val lowInterpolator = NewtonInterpolator()
+
     override suspend fun getYearlyTemperatures(
         year: Int,
         location: Coordinate
@@ -24,7 +30,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         val monthly =
             HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(context, location)
 
-        getYearlyValues(year){
+        Time.getYearlyValues(year) {
             getDailyRange(location, it, monthly)
         }
     }
@@ -68,7 +74,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         val start = lookupMonths.first()
 
         val xs = lookupMonths.map {
-            daysBetween(start, it).toFloat()
+            start.daysUntil(it).toFloat()
         }
 
         val lows = lookupMonths.map {
@@ -79,30 +85,12 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
             months[it.month]?.end?.temperature ?: 0f
         }
 
-        val x = daysBetween(start, date).toFloat()
+        val x = start.daysUntil(date).toFloat()
 
-        val low = cubicInterpolation(
-            x, xs[0], lows[0], xs[1], lows[1], xs[2], lows[2], xs[3], lows[3]
-        )
-        val high = cubicInterpolation(
-            x, xs[0], highs[0], xs[1], highs[1], xs[2], highs[2], xs[3], highs[3]
-        )
+        val low = highInterpolator.interpolate(x, xs, lows)
+        val high = lowInterpolator.interpolate(x, xs, highs)
 
         Range(Temperature.celsius(min(low, high)), Temperature.celsius(max(low, high)))
-    }
-
-    // TODO: Extract these methods to Sol
-
-    private inline fun <T> getYearlyValues(year: Int, valueProvider: (date: LocalDate) -> T): List<Pair<LocalDate, T>> {
-        val values = mutableListOf<Pair<LocalDate, T>>()
-        var date = LocalDate.of(year, Month.JANUARY, 1)
-
-        while (date.year == year) {
-            values.add(date to valueProvider(date))
-            date = date.plusDays(1)
-        }
-
-        return values
     }
 
     private fun getSurroundingMonths(date: LocalDate): List<LocalDate> {
@@ -125,33 +113,5 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
             )
         }
     }
-
-    private fun daysBetween(start: LocalDate, end: LocalDate): Int {
-        return Duration.between(start.atStartOfDay(), end.atStartOfDay()).toDays().toInt()
-    }
-
-    fun cubicInterpolation(
-        x: Float,
-        x0: Float,
-        y0: Float,
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        x3: Float,
-        y3: Float
-    ): Float {
-        val t = (x - x1) / (x2 - x1)
-        val t2 = t * t
-        val t3 = t2 * t
-
-        val c0 = y1
-        val c1 = 0.5f * (y2 - y0)
-        val c2 = y0 - 2.5f * y1 + 2.0f * y2 - 0.5f * y3
-        val c3 = 0.5f * (y3 - y0) + 1.5f * (y1 - y2)
-
-        return c0 + c1 * t + c2 * t2 + c3 * t3
-    }
-
 
 }
