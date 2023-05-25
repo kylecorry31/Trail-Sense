@@ -241,6 +241,11 @@ E. Binding Authority: By accepting and using the Subject Software under this Agr
 F. Point of Contact: Any Recipient contact with Government Agency is to be directed to the designated representative as follows: Patrick.Hogan@nasa.gov"""
         ),
         Library(
+            "WorldClim",
+            "https://www.worldclim.org/",
+            """Fick, S.E. and R.J. Hijmans, 2017. WorldClim 2: new 1km spatial resolution climate surfaces for global land areas. International Journal of Climatology 37 (12): 4302-4315."""
+        ),
+        Library(
             "Global Modeling and Assimilation Office",
             "https://disc.gsfc.nasa.gov/datasets/M2SMNXSLV_5.12.4/summary?keywords=statM_2d_slv_Nx",
             """Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 statM_2d_slv_Nx: 2d,Monthly,Aggregated Statistics,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: 2023-05-22, 10.5067/KVIMOMCUO83U"""
