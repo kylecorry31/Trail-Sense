@@ -128,9 +128,9 @@
     <string name="beacon_comment">Notater (valgfritt)</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: Gå ut med fri sikt mot himmelen.
-\n    %s av faktisk posisjon
-\n    %s av faktisk høyde
-\n    %s satellitter
+\n         %s av faktisk posisjon
+\n         %s av faktisk høyde
+\n         %s satellitter
 \n
 \nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
@@ -381,8 +381,11 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="pref_show_linear_compass_title">Vis lineært kompass</string>
     <string name="pref_ruler_calibration_summary">Kalibreringsprotokoll:
+\n
 \n- Sett denne verdien til 1.
+\n
 \n- Mål Trail Sense-linjalverdien tilsvarerende en enhet på en fysisk linjal.
+\n
 \n- Rapporter den målte verdien her.</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="unavailable">Utilgjengelig</string>
@@ -1052,4 +1055,13 @@
     <string name="map_is_not_calibrated">Kart er ikke kalibrert</string>
     <string name="print">Skriv ut</string>
     <string name="pref_include_leading_zero_title">Legg til ledende null i klokkeslett</string>
+    <string name="autofill_source">Auto-utfyll kilde</string>
+    <string name="gps_unavailable_resolution">Aktiver Posisjon eller endre posisjonskilde til Bare telefon eller Høy nøyaktighet</string>
+    <string name="step_progression">Trinn %d / %d</string>
+    <string name="calibrate_map_point">Kalibrer med kjente steder (%d / %d)</string>
+    <string name="map_calibration">Kartkalibrering</string>
+    <string name="map_calibration_instructions">Trykk på et kjent sted på kartet, deretter angi de virkelige koordinatene. Lagre kalibreringen ved å trykke knappen “Ferdig”.
+\n
+\nEksempler på gode kalibreringspunkter er en parkeringsplass, et skiltpunkt, et landemerke eller et stikryss.</string>
+    <string name="accelerometer">Akselerometer</string>
 </resources>
