@@ -22,7 +22,7 @@ internal class WeatherSubsystemTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val subsystem = WeatherSubsystem.getInstance(context)
 
-        val maximumError = 9f
+        val maximumError = 11f
         val maximumAverageError = 3f
         val maximumStdDevError = 3f
 

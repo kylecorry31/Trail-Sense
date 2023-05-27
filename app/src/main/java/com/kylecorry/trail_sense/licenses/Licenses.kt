@@ -241,14 +241,22 @@ E. Binding Authority: By accepting and using the Subject Software under this Agr
 F. Point of Contact: Any Recipient contact with Government Agency is to be directed to the designated representative as follows: Patrick.Hogan@nasa.gov"""
         ),
         Library(
-            "WorldClim",
-            "https://www.worldclim.org/",
-            """Fick, S.E. and R.J. Hijmans, 2017. WorldClim 2: new 1km spatial resolution climate surfaces for global land areas. International Journal of Climatology 37 (12): 4302-4315."""
+            "Natural Earth",
+            "https://www.naturalearthdata.com/",
+            """Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com."""
         ),
         Library(
-            "Global Modeling and Assimilation Office",
+            "MERRA-2",
             "https://disc.gsfc.nasa.gov/datasets/M2SMNXSLV_5.12.4/summary?keywords=statM_2d_slv_Nx",
             """Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 statM_2d_slv_Nx: 2d,Monthly,Aggregated Statistics,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: 2023-05-22, 10.5067/KVIMOMCUO83U"""
+        ),
+        Library(
+            "ETOPO 2022",
+            "https://doi.org/10.25921/fd45-gt74",
+            """NOAA National Centers for Environmental Information. 2022: ETOPO 2022 15 Arc-Second
+Global Relief Model. NOAA National Centers for Environmental Information.
+https://doi.org/10.25921/fd45-gt74 . Accessed 2023-05-26.
+ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
         )
     )
 
