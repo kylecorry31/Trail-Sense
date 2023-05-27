@@ -109,11 +109,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE."""
             apache2("year", "Google", "")
         ),
         Library(
-            "geoid_heights",
-            "https://github.com/vectorstofinal/geoid_heights",
-            mit("2015", "vectorstofinal")
-        ),
-        Library(
             "Android Jetpack", "https://github.com/androidx/androidx", apache2("year", "owner", "")
         ),
         Library(
