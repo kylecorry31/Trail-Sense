@@ -1101,4 +1101,5 @@
     <string name="compass_source_legacy_ts">旧版（Trail Sense）</string>
     <string name="compass_source_legacy_android">旧版（Android）</string>
     <string name="accelerometer">加速度计</string>
+    <string name="data_source">来源：%s</string>
 </resources>
