@@ -14,8 +14,12 @@ import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.math.SolMath.sinDegrees
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlin.math.abs
 import kotlin.math.max
 
 // TODO: Fix panning and zooming while rotated
@@ -237,14 +241,35 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     protected fun toView(sourceX: Float, sourceY: Float, withRotation: Boolean = false): PointF? {
-        val view = sourceToViewCoord(sourceX, sourceY)
+        var realSourceX = sourceX
+        var realSourceY = sourceY
+        if (rotationOffset != 0f) {
+            val newWidth = abs(imageWidth * cosDegrees(rotationOffset)) + abs(
+                imageHeight * sinDegrees(rotationOffset)
+            )
+            val newHeight = abs(imageWidth * sinDegrees(rotationOffset)) + abs(
+                imageHeight * cosDegrees(rotationOffset)
+            )
+            val unrotatedSource = Vector2(sourceX, sourceY)
+                .minus(Vector2(newWidth / 2f, newHeight / 2f))
+                .rotate(-rotationOffset)
+                .plus(Vector2(imageWidth / 2f, imageHeight / 2f))
+
+            realSourceX = unrotatedSource.x
+            realSourceY = unrotatedSource.y
+        }
+
+        val view = sourceToViewCoord(realSourceX, realSourceY)
+
         if (!withRotation) {
-            return view
+            return PointF(view?.x ?: 0f, view?.y ?: 0f)
         }
         val point = floatArrayOf(view?.x ?: 0f, view?.y ?: 0f)
-        lookupMatrix.reset()
-        lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
-        lookupMatrix.mapPoints(point)
+        synchronized(lookupMatrix) {
+            lookupMatrix.reset()
+            lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
+            lookupMatrix.mapPoints(point)
+        }
         view?.x = point[0]
         view?.y = point[1]
         return view
@@ -255,10 +280,12 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             return viewToSourceCoord(viewX, viewY)
         }
         val point = floatArrayOf(viewX, viewY)
-        lookupMatrix.reset()
-        lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
-        lookupMatrix.invert(lookupMatrix)
-        lookupMatrix.mapPoints(point)
+        synchronized(lookupMatrix) {
+            lookupMatrix.reset()
+            lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
+            lookupMatrix.invert(lookupMatrix)
+            lookupMatrix.mapPoints(point)
+        }
         return viewToSourceCoord(point[0], point[1])
     }
 
