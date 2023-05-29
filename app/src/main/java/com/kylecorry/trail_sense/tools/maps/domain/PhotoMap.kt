@@ -28,11 +28,21 @@ data class PhotoMap(
         return rotationService.getCalibrationPoints()
     }
 
+    fun projection(): IMapProjection {
+        val calibratedSize = calibratedSize()
+        return projection(calibratedSize.width, calibratedSize.height)
+    }
+
     fun projection(width: Float, height: Float): IMapProjection {
         val calibrationPoints = getRotatedPoints()
         return CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location
         }, MapProjectionFactory().getProjection(metadata.projection))
+    }
+
+    fun distancePerPixel(): Distance? {
+        val calibratedSize = calibratedSize()
+        return distancePerPixel(calibratedSize.width, calibratedSize.height)
     }
 
     fun distancePerPixel(width: Float, height: Float): Distance? {

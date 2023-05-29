@@ -72,18 +72,13 @@ class PhotoMapView : EnhancedImageView, IMapView {
     }
 
     override var metersPerPixel: Float
-        // TODO: Factor in rotation
-        get() = map?.distancePerPixel(imageWidth * scale, imageHeight * scale)?.meters()?.distance
-            ?: 1f
+        get() = (map?.distancePerPixel()?.meters()?.distance ?: 1f) * scale
         set(value) {
             requestScale(getScale(value))
         }
 
     private fun getScale(metersPerPixel: Float): Float {
-        // TODO: Factor in rotation
-        val fullScale =
-            map?.distancePerPixel(imageWidth.toFloat(), imageHeight.toFloat())?.meters()?.distance
-                ?: 1f
+        val fullScale = map?.distancePerPixel()?.meters()?.distance ?: 1f
         return fullScale / metersPerPixel
     }
 
@@ -162,13 +157,13 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     fun showMap(map: PhotoMap) {
         this.map = map
-        projection = map.projection(imageWidth.toFloat(), imageHeight.toFloat())
+        projection = map.projection()
         setImage(map.filename, map.calibration.rotation)
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        projection = map?.projection(imageWidth.toFloat(), imageHeight.toFloat())
+        projection = map?.projection()
         shouldRecenter = true
         invalidate()
     }
