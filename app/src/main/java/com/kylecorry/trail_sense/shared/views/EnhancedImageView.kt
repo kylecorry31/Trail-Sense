@@ -243,8 +243,10 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         var realSourceX = sourceX
         var realSourceY = sourceY
         if (rotationOffset != 0f) {
+            val rotatedSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
             val unrotated = PixelCoordinate(sourceX, sourceY).rotateInRect(
                 -rotationOffset,
+                rotatedSize,
                 Size(imageWidth.toFloat(), imageHeight.toFloat())
             )
 

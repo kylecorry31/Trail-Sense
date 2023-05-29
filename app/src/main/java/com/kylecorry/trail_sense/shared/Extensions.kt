@@ -68,8 +68,8 @@ fun Vector2.toPixelCoordinate(top: Float): PixelCoordinate {
     return PixelCoordinate(x, -(y - top))
 }
 
-fun PixelCoordinate.rotateInRect(angle: Float, currentSize: Size): PixelCoordinate {
-    val newSize = currentSize.rotate(angle)
+fun PixelCoordinate.rotateInRect(angle: Float, currentSize: Size, newSizeOverride: Size? = null): PixelCoordinate {
+    val newSize = newSizeOverride ?: currentSize.rotate(angle)
     val vec = Vector2(x, y)
         .minus(Vector2(currentSize.width / 2f, currentSize.height / 2f))
         .rotate(angle)
