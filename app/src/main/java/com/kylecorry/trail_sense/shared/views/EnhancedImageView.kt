@@ -299,8 +299,18 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             }
             viewToSourceCoord(point[0], point[1])
         }
-        println("toSource: $viewX, $viewY -> $source")
-        println("toView: $source -> ${toView(source?.x ?: 0f, source?.y ?: 0f, withRotation)}")
+
+        if (rotationOffset != 0f) {
+            val rotatedSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
+            val rotated = PixelCoordinate(source?.x ?: 0f, source?.y ?: 0f).rotateInRect(
+                rotationOffset,
+                Size(imageWidth.toFloat(), imageHeight.toFloat()),
+                rotatedSize
+            )
+            source?.x = rotated.x
+            source?.y = rotated.y
+        }
+
         return source
     }
 
