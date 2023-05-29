@@ -83,7 +83,7 @@ data class PhotoMap(
     }
 
     fun calibratedSize(): Size {
-        return rotationService.getSize()
+        return metadata.size.rotate(calibration.rotation.toFloat())
     }
 
     // TODO: Boundary doesn't consider full rotation

@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
@@ -65,6 +66,15 @@ fun PixelCoordinate.toVector2(top: Float): Vector2 {
 
 fun Vector2.toPixelCoordinate(top: Float): PixelCoordinate {
     return PixelCoordinate(x, -(y - top))
+}
+
+fun PixelCoordinate.rotateInRect(angle: Float, currentSize: Size): PixelCoordinate {
+    val newSize = currentSize.rotate(angle)
+    val vec = Vector2(x, y)
+        .minus(Vector2(currentSize.width / 2f, currentSize.height / 2f))
+        .rotate(angle)
+        .plus(Vector2(newSize.width / 2f, newSize.height / 2f))
+    return PixelCoordinate(vec.x, vec.y)
 }
 
 fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
