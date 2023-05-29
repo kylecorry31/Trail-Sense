@@ -72,6 +72,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
     }
 
     override var metersPerPixel: Float
+        // TODO: Factor in rotation
         get() = map?.distancePerPixel(imageWidth * scale, imageHeight * scale)?.meters()?.distance
             ?: 1f
         set(value) {
@@ -79,6 +80,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
         }
 
     private fun getScale(metersPerPixel: Float): Float {
+        // TODO: Factor in rotation
         val fullScale =
             map?.distancePerPixel(imageWidth.toFloat(), imageHeight.toFloat())?.meters()?.distance
                 ?: 1f

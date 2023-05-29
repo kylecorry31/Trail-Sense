@@ -19,17 +19,13 @@ data class PhotoMap(
     override val count: Int? = null
 
     private var calculatedBounds: CoordinateBounds? = null
+    private val rotationService = PhotoMapRotationService(this)
 
     val isCalibrated: Boolean
         get() = calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0
 
     private fun getRotatedPoints(): List<MapCalibrationPoint> {
-        val rotation = baseRotation()
-        return calibration.calibrationPoints.map {
-            MapCalibrationPoint(
-                it.location, it.imageLocation.rotate(rotation)
-            )
-        }
+        return rotationService.getCalibrationPoints()
     }
 
     fun projection(width: Float, height: Float): IMapProjection {
@@ -77,20 +73,7 @@ data class PhotoMap(
     }
 
     fun calibratedSize(): Size {
-        val rightRotation = baseRotation()
-        val size = metadata.size
-        val width = if (rightRotation == 90 || rightRotation == 270) {
-            size.height
-        } else {
-            size.width
-        }
-        val height = if (rightRotation == 90 || rightRotation == 270) {
-            size.width
-        } else {
-            size.height
-        }
-
-        return Size(width, height)
+        return rotationService.getSize()
     }
 
     // TODO: Boundary doesn't consider full rotation
