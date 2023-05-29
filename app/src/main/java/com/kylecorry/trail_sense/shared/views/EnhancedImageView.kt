@@ -287,17 +287,21 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     protected fun toSource(viewX: Float, viewY: Float, withRotation: Boolean = false): PointF? {
-        if (!withRotation) {
-            return viewToSourceCoord(viewX, viewY)
+        val source = if (!withRotation) {
+            viewToSourceCoord(viewX, viewY)
+        } else {
+            val point = floatArrayOf(viewX, viewY)
+            synchronized(lookupMatrix) {
+                lookupMatrix.reset()
+                lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
+                lookupMatrix.invert(lookupMatrix)
+                lookupMatrix.mapPoints(point)
+            }
+            viewToSourceCoord(point[0], point[1])
         }
-        val point = floatArrayOf(viewX, viewY)
-        synchronized(lookupMatrix) {
-            lookupMatrix.reset()
-            lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
-            lookupMatrix.invert(lookupMatrix)
-            lookupMatrix.mapPoints(point)
-        }
-        return viewToSourceCoord(point[0], point[1])
+        println("toSource: $viewX, $viewY -> $source")
+        println("toView: $source -> ${toView(source?.x ?: 0f, source?.y ?: 0f, withRotation)}")
+        return source
     }
 
     val imageWidth: Int
