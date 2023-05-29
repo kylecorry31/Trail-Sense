@@ -42,16 +42,20 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     private var lastTranslateX = 0f
     private var lastTranslateY = 0f
     private var rotationOffset = 0f
+    private var rotatedImageSize = Size(0f, 0f)
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
 
     override fun onDraw(canvas: Canvas?) {
+        var isRotated = false
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
-            drawer.rotate(-(imageRotation - rotationOffset))
+            drawer.rotate(rotationOffset, imageWidth / 2f, imageHeight / 2f)
+            drawer.rotate(-imageRotation)
+            isRotated = true
         }
 
         super.onDraw(canvas)
@@ -64,6 +68,10 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             mySetup()
             isSetup = true
         }
+
+//        if (isRotated){
+//            drawer.rotate(-rotationOffset, imageWidth / 2f, imageHeight / 2f)
+//        }
 
         myDraw()
         // TODO: Use a flag instead
@@ -153,6 +161,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             baseRotation.toFloat(),
             rotation.toFloat()
         )
+
         if (lastImage != filename) {
             val uri = files.uri(filename)
             setImage(ImageSource.uri(uri))
@@ -211,6 +220,13 @@ open class EnhancedImageView : SubsamplingScaleImageView {
 
     override fun onImageLoaded() {
         super.onImageLoaded()
+        rotatedImageSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
+        val percentIncrease = max(
+            rotatedImageSize.width / imageWidth,
+            rotatedImageSize.height / imageHeight
+        )
+        setMinimumScaleType(SCALE_TYPE_CUSTOM)
+        minScale /= percentIncrease
         invalidate()
     }
 
