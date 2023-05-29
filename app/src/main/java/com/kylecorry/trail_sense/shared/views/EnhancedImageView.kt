@@ -13,13 +13,12 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
-import com.kylecorry.sol.math.SolMath.sinDegrees
-import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import kotlin.math.abs
+import com.kylecorry.trail_sense.shared.rotateInRect
 import kotlin.math.max
 
 // TODO: Fix panning and zooming while rotated
@@ -244,19 +243,13 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         var realSourceX = sourceX
         var realSourceY = sourceY
         if (rotationOffset != 0f) {
-            val newWidth = abs(imageWidth * cosDegrees(rotationOffset)) + abs(
-                imageHeight * sinDegrees(rotationOffset)
+            val unrotated = PixelCoordinate(sourceX, sourceY).rotateInRect(
+                -rotationOffset,
+                Size(imageWidth.toFloat(), imageHeight.toFloat())
             )
-            val newHeight = abs(imageWidth * sinDegrees(rotationOffset)) + abs(
-                imageHeight * cosDegrees(rotationOffset)
-            )
-            val unrotatedSource = Vector2(sourceX, sourceY)
-                .minus(Vector2(newWidth / 2f, newHeight / 2f))
-                .rotate(-rotationOffset)
-                .plus(Vector2(imageWidth / 2f, imageHeight / 2f))
 
-            realSourceX = unrotatedSource.x
-            realSourceY = unrotatedSource.y
+            realSourceX = unrotated.x
+            realSourceY = unrotated.y
         }
 
         val view = sourceToViewCoord(realSourceX, realSourceY)
