@@ -706,11 +706,11 @@
     <string name="weather_exported">氣象已匯出</string>
     <string name="weather_monitoring_disabled">氣象監測已停用</string>
     <string name="pref_export_weather_csv_title">匯出氣象讀數</string>
-    <string name="astro_dialog_day_length">**白晝**: %s
+    <string name="astro_dialog_day_length">**白晝**：%s
 \n
-\n**夜晚**: %s
+\n**夜晚**：%s
 \n
-\n**季節**: %s</string>
+\n**季節**：%s</string>
     <string name="beacons">地標</string>
     <string name="weather_cold_front">冷鋒</string>
     <string name="weather_warm_front">暖鋒</string>
@@ -723,4 +723,73 @@
     <string name="tide_user_guide_recommendation">使用指南載有提供官方潮汐表嘅網站。</string>
     <string name="kilometers_per_hour_format">時速 %.1f 公里</string>
     <string name="miles_per_hour_format">時速 %.1f 英里</string>
+    <string name="current_speed">目前速度</string>
+    <string name="current_speed_pedometer">目前速度 (步程計)</string>
+    <string name="current_speed_gps">目前速度 (GPS)</string>
+    <string name="tool_bubble_level_title">平水尺</string>
+    <string name="pref_meteor_showers_title">流星雨</string>
+    <string name="pref_show_noon_summary">日、月上中天</string>
+    <string name="roll_pitch_yaw">俯仰：%s、滾轉：%s、偏擺：%s</string>
+    <string name="daylight">日光</string>
+    <string name="lightning_dangerously_close">閃電殺到埋身喇</string>
+    <string name="astro_dialog_moon_phase">**月相**：%s
+\n
+\n**亮面**：%s</string>
+    <string name="average_speed_pedometer">平均速度 (步程計)</string>
+    <string name="astro_dialog_rise_set">**時間**：%s
+\n
+\n**方位**：%s</string>
+    <string name="sun_moon_position_template">### %s
+\n**海拔**：%s
+\n
+\n**方位角**：%s</string>
+    <string name="tap_sun_moon_hint">撳一下日月有得睇位置詳細</string>
+    <string name="noon">中天</string>
+    <string name="fields">埋欄</string>
+    <string name="pref_show_nautical_times_title">航海時</string>
+    <string name="pref_show_astronomical_times_title">天文時</string>
+    <string name="pref_show_civil_times_title">民用時</string>
+    <string name="dawn_type">%s拂曉</string>
+    <string name="whistle_signal_acknowledged">收到</string>
+    <string name="whistle_signal_come_here">過嚟吖</string>
+    <string name="weather_monitor">氣象監測</string>
+    <string name="battery_history">電量紀錄：過去嗰 %s</string>
+    <string name="pref_barometer_pressure_smoothing_title">氣壓平滑化</string>
+    <string name="guide_conserving_battery_title">慳電</string>
+    <string name="tool_bubble_level_summary">睇下個面係咪平</string>
+    <string name="bubble_level_angles">橫：%s
+\n縱：%s</string>
+    <string name="humidity">濕度</string>
+    <string name="elevation_history">海拔紀錄</string>
+    <string name="elevation_history_length">海拔紀錄幾耐</string>
+    <string name="diagnostics">三寶殿</string>
+    <string name="pref_center_sun_and_moon_title">日/月時刻坐正</string>
+    <string name="sun_actual">實際</string>
+    <string name="sun_civil">民用</string>
+    <string name="sun_nautical">航海</string>
+    <string name="sun_astronomical">天文</string>
+    <string name="battery_power_ac">濕電</string>
+    <string name="for_sunrise_and_set">表示日出、日落時間</string>
+    <string name="whistle_signal_where_are_you">您喺邊呀？</string>
+    <string name="humidity_history">濕度紀錄：過去嗰 %s</string>
+    <string name="temperature_history">溫度紀錄：過去嗰 %s</string>
+    <string name="meteor_shower">流星雨</string>
+    <string name="tomorrow_at">聽日 %s</string>
+    <string name="pref_show_civil_times_summary">拂曉與薄暮</string>
+    <string name="dusk_type">%s薄暮</string>
+    <string name="pref_nmea_elevation_title">NMEA 海拔偏差</string>
+    <string name="pick_file">揀個檔案</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="astro_dialog_noon">**時間**：%s
+\n
+\n**海拔**：%s</string>
+    <string name="no_camera_access">相機用唔到</string>
+    <string name="average_speed">平均速度</string>
+    <string name="map_calibration">地圖校正</string>
+    <string name="compass_source_legacy_ts">舊版 (Trail Sense)</string>
+    <string name="compass_source_legacy_android">舊版 (Android)</string>
+    <string name="compass_source_mag_gyro">磁強計 + 陀螺儀</string>
+    <string name="accelerometer">加速度計</string>
+    <string name="data_source">來源：%s</string>
 </resources>
