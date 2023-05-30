@@ -43,19 +43,22 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     private var lastTranslateY = 0f
     private var rotationOffset = 0f
     private var rotatedImageSize = Size(0f, 0f)
+    private val imageSize: Size
+        get() = Size(imageWidth.toFloat(), imageHeight.toFloat())
+    private val rotationOffsetCenter = PointF(0f, 0f)
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
 
     override fun onDraw(canvas: Canvas?) {
-        var isRotated = false
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
-            drawer.rotate(rotationOffset, imageWidth / 2f, imageHeight / 2f)
+            rotationOffsetCenter.x = imageWidth / 2f
+            rotationOffsetCenter.y = imageHeight / 2f
+            drawer.rotate(rotationOffset, rotationOffsetCenter.x, rotationOffsetCenter.y)
             drawer.rotate(-imageRotation)
-            isRotated = true
         }
 
         super.onDraw(canvas)
@@ -68,10 +71,6 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             mySetup()
             isSetup = true
         }
-
-//        if (isRotated){
-//            drawer.rotate(-rotationOffset, imageWidth / 2f, imageHeight / 2f)
-//        }
 
         myDraw()
         // TODO: Use a flag instead
@@ -244,6 +243,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     fun recenter() {
+        // TODO: Center the rotated image
         resetScaleAndCenter()
     }
 
@@ -255,60 +255,76 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         requestScale((scale * multiple).coerceIn(minScale, max(2 * minScale, maxScale)))
     }
 
-    protected fun toView(sourceX: Float, sourceY: Float, withRotation: Boolean = false): PointF? {
-        var realSourceX = sourceX
-        var realSourceY = sourceY
-        if (rotationOffset != 0f) {
-            val rotatedSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
+    protected fun toView(
+        sourceX: Float,
+        sourceY: Float,
+        withRotation: Boolean = false,
+        isRotationOffsetApplied: Boolean = false
+    ): PointF? {
+        val source = PointF(sourceX, sourceY)
+
+        // Remove the rotation offset
+        if (rotationOffset != 0f && isRotationOffsetApplied) {
+            val rotatedSize =
+                Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
             val unrotated = PixelCoordinate(sourceX, sourceY).rotateInRect(
                 -rotationOffset,
                 rotatedSize,
                 Size(imageWidth.toFloat(), imageHeight.toFloat())
             )
 
-            realSourceX = unrotated.x
-            realSourceY = unrotated.y
+            source.x = unrotated.x
+            source.y = unrotated.y
         }
 
-        val view = sourceToViewCoord(realSourceX, realSourceY)
+        // Apply the scale and translate
+        val view = sourceToViewCoord(source.x, source.y) ?: return null
 
-        if (!withRotation) {
-            return PointF(view?.x ?: 0f, view?.y ?: 0f)
+        // Apply the rotation
+        if (withRotation){
+            transform(view, inPlace = true){
+                postRotate(-imageRotation, width / 2f, height / 2f)
+            }
         }
-        val point = floatArrayOf(view?.x ?: 0f, view?.y ?: 0f)
-        synchronized(lookupMatrix) {
-            lookupMatrix.reset()
-            lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
-            lookupMatrix.mapPoints(point)
-        }
-        view?.x = point[0]
-        view?.y = point[1]
+
         return view
     }
 
-    protected fun toSource(viewX: Float, viewY: Float, withRotation: Boolean = false): PointF? {
-        val source = if (!withRotation) {
-            viewToSourceCoord(viewX, viewY)
-        } else {
-            val point = floatArrayOf(viewX, viewY)
-            synchronized(lookupMatrix) {
-                lookupMatrix.reset()
-                lookupMatrix.postRotate(-imageRotation, width / 2f, height / 2f)
-                lookupMatrix.invert(lookupMatrix)
-                lookupMatrix.mapPoints(point)
+    protected fun toSource(
+        viewX: Float,
+        viewY: Float,
+        withRotation: Boolean = false,
+        isRotationOffsetApplied: Boolean = false,
+        shouldApplyRotationOffset: Boolean = false
+    ): PointF? {
+        val view = PointF(viewX, viewY)
+
+        // Remove the rotation offset
+        if (rotationOffset != 0f && isRotationOffsetApplied) {
+            transform(view, invert = true, inPlace = true){
+                postRotate(rotationOffset, rotationOffsetCenter.x, rotationOffsetCenter.y)
             }
-            viewToSourceCoord(point[0], point[1])
         }
 
-        if (rotationOffset != 0f) {
-            val rotatedSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
-            val rotated = PixelCoordinate(source?.x ?: 0f, source?.y ?: 0f).rotateInRect(
+        // Remove the rotation
+        if (withRotation){
+            transform(view, invert = true, inPlace = true) {
+                postRotate(-imageRotation, width / 2f, height / 2f)
+            }
+        }
+
+        // Remove the scale and translate
+        val source = viewToSourceCoord(view.x, view.y) ?: return null
+
+        // Apply the rotation offset
+        if (rotationOffset != 0f && shouldApplyRotationOffset) {
+            val rotated = PixelCoordinate(source.x, source.y).rotateInRect(
                 rotationOffset,
-                Size(imageWidth.toFloat(), imageHeight.toFloat()),
-                rotatedSize
+                imageSize,
+                rotatedImageSize
             )
-            source?.x = rotated.x
-            source?.y = rotated.y
+            source.x = rotated.x
+            source.y = rotated.y
         }
 
         return source
@@ -361,6 +377,31 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val consumed = gestureDetector.onTouchEvent(event)
         return consumed || super.onTouchEvent(event)
+    }
+
+    private fun transform(
+        point: PointF,
+        invert: Boolean = false,
+        inPlace: Boolean = false,
+        actions: Matrix.() -> Unit
+    ): PointF {
+        synchronized(lookupMatrix) {
+            lookupMatrix.reset()
+            actions(lookupMatrix)
+            if (invert) {
+                lookupMatrix.invert(lookupMatrix)
+            }
+            val pointArray = floatArrayOf(point.x, point.y)
+            lookupMatrix.mapPoints(pointArray)
+
+            if (inPlace) {
+                point.x = pointArray[0]
+                point.y = pointArray[1]
+                return point
+            }
+
+            return PointF(pointArray[0], pointArray[1])
+        }
     }
 
 }

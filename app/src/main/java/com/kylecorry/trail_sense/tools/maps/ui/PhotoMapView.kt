@@ -63,7 +63,9 @@ class PhotoMapView : EnhancedImageView, IMapView {
     }
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        val source = toSource(pixel.x, pixel.y, true) ?: return Coordinate.zero
+        // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
+        val source = toSource(pixel.x, pixel.y, true, shouldApplyRotationOffset = true)
+            ?: return Coordinate.zero
         return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
     }
 
@@ -170,20 +172,27 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
         val pixels = projection?.toPixels(coordinate) ?: return null
-        val view = toView(pixels.x, pixels.y)
+        // Convert to view - the projection applies the rotation offset, but the resulting view will not have it applied
+        val view = toView(pixels.x, pixels.y, isRotationOffsetApplied = true)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }
 
     override fun onLongPress(e: MotionEvent) {
         super.onLongPress(e)
-        val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
+        // Convert to source WITHOUT the rotation offset applied
+        val source = toSource(e.x, e.y, true, isRotationOffsetApplied = true)
+        // Convert to view with rotation - this does not have the rotation offset applied
+        val view = source?.let { toView(source.x, source.y, true) } ?: return
+        val coordinate = toCoordinate(PixelCoordinate(view.x, view.y))
         onMapLongClick?.invoke(coordinate)
     }
 
     override fun onSinglePress(e: MotionEvent) {
         super.onSinglePress(e)
-        val pixel = toSource(e.x, e.y, true)
-        val viewNoRotation = pixel?.let { toView(pixel.x, pixel.y, false) }
+        // Convert to source WITHOUT the rotation offset applied
+        val source = toSource(e.x, e.y, true, isRotationOffsetApplied = true)
+        // Convert to view without rotation - this does not have the rotation offset applied
+        val viewNoRotation = source?.let { toView(source.x, source.y, false) }
 
         // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)
         if (viewNoRotation != null) {
