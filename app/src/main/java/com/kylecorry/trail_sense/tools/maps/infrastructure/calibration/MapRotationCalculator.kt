@@ -57,7 +57,7 @@ class MapRotationCalculator {
 
         val bearing = locations[0].bearingTo(locations[1])
 
-        return SolMath.deltaAngle(pixelAngle, bearing.value).toInt()
+        return SolMath.normalizeAngle(SolMath.deltaAngle(pixelAngle, bearing.value)).toInt()
     }
 
 }
