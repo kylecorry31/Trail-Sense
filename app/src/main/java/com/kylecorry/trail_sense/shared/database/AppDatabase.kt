@@ -290,7 +290,7 @@ abstract class AppDatabase : RoomDatabase() {
 
             val MIGRATION_32_33 = object : Migration(32, 33) {
                 override fun migrate(database: SupportSQLiteDatabase) {
-                    // Multiply the maps rotation column by 10
+                    // Multiply the maps rotation column by 10 (adds a decimal place precision since the type can't be changed)
                     database.execSQL("UPDATE `maps` SET `rotation` = `rotation` * 10")
                 }
             }
