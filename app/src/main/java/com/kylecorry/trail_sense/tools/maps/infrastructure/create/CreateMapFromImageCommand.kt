@@ -8,9 +8,9 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapMetadata
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 
 class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, private val name: String) {
@@ -33,7 +33,7 @@ class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, pr
             0,
             name,
             path,
-            MapCalibration.uncalibrated().copy(rotation = rotation),
+            MapCalibration.uncalibrated().copy(rotation = rotation.toFloat()),
             MapMetadata(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 fileSize

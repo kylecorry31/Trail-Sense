@@ -68,7 +68,7 @@ class CreateBlankMapCommand(
                 calibration = MapCalibration(
                     warped = true,
                     rotated = true,
-                    rotation = 0,
+                    rotation = 0f,
                     calibrationPoints = calibration
                 )
             )

@@ -40,7 +40,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class],
-    version = 32,
+    version = 33,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -288,6 +288,13 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_32_33 = object : Migration(32, 33) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    // Multiply the maps rotation column by 10
+                    database.execSQL("UPDATE `maps` SET `rotation` = `rotation` * 10")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -320,7 +327,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_28_29,
                     MIGRATION_29_30,
                     MIGRATION_30_31,
-                    MIGRATION_31_32
+                    MIGRATION_31_32,
+                    MIGRATION_32_33
                 )
                 .build()
         }

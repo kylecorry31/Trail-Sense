@@ -146,7 +146,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
 
     }
 
-    fun setImage(filename: String, rotation: Int = 0) {
+    fun setImage(filename: String, rotation: Float = 0f) {
         val baseRotation = getBaseRotation(rotation)
         if (orientation != baseRotation) {
             orientation = when (baseRotation) {
@@ -158,7 +158,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         }
         rotationOffset = SolMath.deltaAngle(
             baseRotation.toFloat(),
-            rotation.toFloat()
+            rotation
         )
 
         if (lastImage != filename) {
@@ -169,8 +169,8 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         invalidate()
     }
 
-    private fun getBaseRotation(rotation: Int): Int {
-        return rotation.toFloat().roundNearestAngle(90f).toInt()
+    private fun getBaseRotation(rotation: Float): Int {
+        return rotation.roundNearestAngle(90f).toInt()
     }
 
     override fun tileVisible(tile: Tile?): Boolean {

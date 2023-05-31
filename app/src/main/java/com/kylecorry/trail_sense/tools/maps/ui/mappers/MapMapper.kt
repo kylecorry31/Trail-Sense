@@ -8,7 +8,12 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.print.Printer
-import com.kylecorry.ceres.list.*
+import com.kylecorry.ceres.list.AsyncListIcon
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ListItemTag
+import com.kylecorry.ceres.list.ListMenuItem
+import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -94,8 +99,8 @@ class MapMapper(
             getDefaultMapThumbnail()
         }
 
-        if (map.calibration.rotation != 0) {
-            val rotated = bitmap.rotate(map.calibration.rotation.toFloat())
+        if (map.calibration.rotation != 0f) {
+            val rotated = bitmap.rotate(map.calibration.rotation)
             bitmap.recycle()
             return@onIO rotated
         }

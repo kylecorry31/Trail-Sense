@@ -49,7 +49,7 @@ data class MapEntity(
             )
         }
 
-        val calibration = MapCalibration(warped, rotated, rotation, points)
+        val calibration = MapCalibration(warped, rotated, rotation / 10f, points)
 
         // This gets populated by the repo
         val metadata = MapMetadata(
@@ -78,7 +78,7 @@ data class MapEntity(
                 calibration.warped,
                 calibration.rotated,
                 map.metadata.projection,
-                calibration.rotation,
+                (calibration.rotation * 10).toInt(),
                 map.parentId
             ).also {
                 it.id = map.id

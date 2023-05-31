@@ -10,7 +10,7 @@ internal class PhotoMapRotationService(private val map: PhotoMap) {
             // Convert to pixels
             val pixel = it.imageLocation.toPixels(map.metadata.size.width, map.metadata.size.height)
             // Rotate it around the center of the image
-            val rotated = pixel.rotateInRect(map.calibration.rotation.toFloat(), map.metadata.size)
+            val rotated = pixel.rotateInRect(map.calibration.rotation, map.metadata.size)
             // Convert back to percent
             val percent = PercentCoordinate(rotated.x / newSize.width, rotated.y / newSize.height)
             MapCalibrationPoint(it.location, percent)

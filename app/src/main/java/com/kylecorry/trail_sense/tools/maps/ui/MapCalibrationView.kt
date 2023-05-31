@@ -48,7 +48,7 @@ class MapCalibrationView : EnhancedImageView {
     fun showMap(map: PhotoMap) {
         this.map = map
         // TODO: Record the calibration points against the original width / height - allowing the rotation to be the base rotation
-        setImage(map.filename, map.baseRotation())
+        setImage(map.filename, map.baseRotation().toFloat())
     }
 
     override fun onSinglePress(e: MotionEvent) {

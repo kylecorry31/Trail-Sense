@@ -17,9 +17,9 @@ class MapRotationCalculator {
      * @param map: The map to calculate the rotation for
      * @return The rotation in degrees
      */
-    fun calculate(map: PhotoMap): Int {
+    fun calculate(map: PhotoMap): Float {
         if (!map.isCalibrated){
-            return 0
+            return 0f
         }
 
 
@@ -33,10 +33,10 @@ class MapRotationCalculator {
             val bottom = map.calibration.calibrationPoints.maxBy { it.imageLocation.y }.location
 
             if (top.latitude < bottom.latitude){
-                return 180
+                return 180f
             }
 
-            return 0
+            return 0f
         }
 
 
@@ -57,7 +57,7 @@ class MapRotationCalculator {
 
         val bearing = locations[0].bearingTo(locations[1])
 
-        return SolMath.normalizeAngle(SolMath.deltaAngle(pixelAngle, bearing.value)).toInt()
+        return SolMath.normalizeAngle(SolMath.deltaAngle(pixelAngle, bearing.value))
     }
 
 }

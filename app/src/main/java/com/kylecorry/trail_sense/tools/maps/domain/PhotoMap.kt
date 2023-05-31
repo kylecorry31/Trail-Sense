@@ -79,11 +79,11 @@ data class PhotoMap(
     }
 
     fun baseRotation(): Int {
-        return calibration.rotation.toFloat().roundNearestAngle(90f).toInt()
+        return calibration.rotation.roundNearestAngle(90f).toInt()
     }
 
     fun calibratedSize(): Size {
-        return metadata.size.rotate(calibration.rotation.toFloat())
+        return metadata.size.rotate(calibration.rotation)
     }
 
     // TODO: Boundary doesn't consider full rotation

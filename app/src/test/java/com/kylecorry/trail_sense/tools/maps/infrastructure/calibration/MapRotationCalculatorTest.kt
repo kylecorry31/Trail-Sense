@@ -55,7 +55,7 @@ internal class MapRotationCalculatorTest {
         y1: Float,
         x2: Float,
         y2: Float,
-        expected: Int
+        expected: Float
     ) {
 
         val calibrationPoints = listOf(
@@ -73,12 +73,12 @@ internal class MapRotationCalculatorTest {
             1,
             "",
             "",
-            MapCalibration(true, false, 0, calibrationPoints),
+            MapCalibration(true, false, 0f, calibrationPoints),
             MapMetadata(Size(400f, 200f), 100, MapProjectionType.Mercator)
         )
 
         val rotation = MapRotationCalculator().calculate(map)
 
-        assertEquals(expected, rotation)
+        assertEquals(expected, rotation, 0.01f)
     }
 }
