@@ -7,6 +7,12 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Distance
 
+// Projection: Onto base rotation image
+// Distance per pixel: On exact rotation image
+// Calibration points: On exact rotation image
+// Boundary: On exact rotation image
+
+
 data class PhotoMap(
     override val id: Long,
     override val name: String,
@@ -28,12 +34,13 @@ data class PhotoMap(
         return rotationService.getCalibrationPoints()
     }
 
+    // This should always return the rotated projection
     fun projection(): IMapProjection {
         val calibratedSize = calibratedSize()
         return projection(calibratedSize.width, calibratedSize.height)
     }
 
-    fun projection(width: Float, height: Float): IMapProjection {
+    private fun projection(width: Float, height: Float): IMapProjection {
         val calibrationPoints = getRotatedPoints()
         return CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location
@@ -45,7 +52,7 @@ data class PhotoMap(
         return distancePerPixel(calibratedSize.width, calibratedSize.height)
     }
 
-    fun distancePerPixel(width: Float, height: Float): Distance? {
+    private fun distancePerPixel(width: Float, height: Float): Distance? {
         if (!isCalibrated) {
             // Or throw, not enough calibration points
             return null
@@ -82,16 +89,17 @@ data class PhotoMap(
         return calibration.rotation.roundNearestAngle(90f).toInt()
     }
 
+    // TODO: This should only be base rotation, anything needing exact rotation should do it themselves
     fun calibratedSize(): Size {
         return metadata.size.rotate(calibration.rotation)
     }
 
-    // TODO: Boundary doesn't consider full rotation
     fun boundary(width: Float, height: Float): CoordinateBounds? {
         if (!isCalibrated) {
             return null
         }
 
+        // TODO: This projection needs to stay unrotated (maybe?)
         val projection = projection(width, height)
 
         val topLeft = projection.toCoordinate(Vector2(0f, 0f))

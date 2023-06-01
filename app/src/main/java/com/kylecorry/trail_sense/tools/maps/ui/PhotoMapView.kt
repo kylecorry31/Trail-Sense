@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.maps.domain.RotatedProjection
 import kotlin.math.max
 import kotlin.math.min
 
@@ -64,7 +65,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
         // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
-        val source = toSource(pixel.x, pixel.y, true, shouldApplyRotationOffset = true)
+        val source = toSource(pixel.x, pixel.y, true)
             ?: return Coordinate.zero
         return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
     }
@@ -159,39 +160,36 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     fun showMap(map: PhotoMap) {
         this.map = map
-        projection = map.projection()
         setImage(map.filename, map.calibration.rotation)
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        projection = map?.projection()
+
+        map?.projection()?.let {
+            // TODO: Should this rotated wrapper be moved to the map?
+            projection = RotatedProjection(it, imageSize, rotationOffset)
+        }
+
         shouldRecenter = true
         invalidate()
     }
 
     private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
-        val pixels = projection?.toPixels(coordinate) ?: return null
-        // Convert to view - the projection applies the rotation offset, but the resulting view will not have it applied
-        val view = toView(pixels.x, pixels.y, isRotationOffsetApplied = true)
+        val source = projection?.toPixels(coordinate) ?: return null
+        val view = toView(source.x, source.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }
 
     override fun onLongPress(e: MotionEvent) {
         super.onLongPress(e)
-        // Convert to source WITHOUT the rotation offset applied
-        val source = toSource(e.x, e.y, true, isRotationOffsetApplied = true)
-        // Convert to view with rotation - this does not have the rotation offset applied
-        val view = source?.let { toView(source.x, source.y, true) } ?: return
-        val coordinate = toCoordinate(PixelCoordinate(view.x, view.y))
+        val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
         onMapLongClick?.invoke(coordinate)
     }
 
     override fun onSinglePress(e: MotionEvent) {
         super.onSinglePress(e)
-        // Convert to source WITHOUT the rotation offset applied
-        val source = toSource(e.x, e.y, true, isRotationOffsetApplied = true)
-        // Convert to view without rotation - this does not have the rotation offset applied
+        val source = toSource(e.x, e.y, true)
         val viewNoRotation = source?.let { toView(source.x, source.y, false) }
 
         // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)

@@ -13,12 +13,10 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.rotateInRect
 import kotlin.math.max
 
 // TODO: Fix panning and zooming while rotated
@@ -41,11 +39,9 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     private var lastScale = 1f
     private var lastTranslateX = 0f
     private var lastTranslateY = 0f
-    private var rotationOffset = 0f
-    private var rotatedImageSize = Size(0f, 0f)
-    private val imageSize: Size
+    protected var rotationOffset = 0f
+    protected val imageSize: Size
         get() = Size(imageWidth.toFloat(), imageHeight.toFloat())
-    private val rotationOffsetCenter = PointF(0f, 0f)
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -55,10 +51,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         if (isSetup && canvas != null) {
             drawer.canvas = canvas
             drawer.push()
-            rotationOffsetCenter.x = imageWidth / 2f
-            rotationOffsetCenter.y = imageHeight / 2f
-            drawer.rotate(rotationOffset, rotationOffsetCenter.x, rotationOffsetCenter.y)
-            drawer.rotate(-imageRotation)
+            drawer.rotate(-imageRotation + rotationOffset)
         }
 
         super.onDraw(canvas)
@@ -175,7 +168,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
 
     override fun tileVisible(tile: Tile?): Boolean {
         // No need to check if the image is not rotated
-        if (imageRotation == 0f) {
+        if (imageRotation == 0f && rotationOffset == 0f) {
             return super.tileVisible(tile)
         }
 
@@ -219,7 +212,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        rotatedImageSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
+        val rotatedImageSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
         val percentIncrease = max(
             rotatedImageSize.width / imageWidth,
             rotatedImageSize.height / imageHeight
@@ -258,24 +251,9 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     protected fun toView(
         sourceX: Float,
         sourceY: Float,
-        withRotation: Boolean = false,
-        isRotationOffsetApplied: Boolean = false
+        withRotation: Boolean = false
     ): PointF? {
         val source = PointF(sourceX, sourceY)
-
-        // Remove the rotation offset
-        if (rotationOffset != 0f && isRotationOffsetApplied) {
-            val rotatedSize =
-                Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
-            val unrotated = PixelCoordinate(sourceX, sourceY).rotateInRect(
-                -rotationOffset,
-                rotatedSize,
-                Size(imageWidth.toFloat(), imageHeight.toFloat())
-            )
-
-            source.x = unrotated.x
-            source.y = unrotated.y
-        }
 
         // Apply the scale and translate
         val view = sourceToViewCoord(source.x, source.y) ?: return null
@@ -283,7 +261,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         // Apply the rotation
         if (withRotation){
             transform(view, inPlace = true){
-                postRotate(-imageRotation, width / 2f, height / 2f)
+                postRotate(-imageRotation + rotationOffset, width / 2f, height / 2f)
             }
         }
 
@@ -293,39 +271,19 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     protected fun toSource(
         viewX: Float,
         viewY: Float,
-        withRotation: Boolean = false,
-        isRotationOffsetApplied: Boolean = false,
-        shouldApplyRotationOffset: Boolean = false
+        withRotation: Boolean = false
     ): PointF? {
         val view = PointF(viewX, viewY)
-
-        // Remove the rotation offset
-        if (rotationOffset != 0f && isRotationOffsetApplied) {
-            transform(view, invert = true, inPlace = true){
-                postRotate(rotationOffset, rotationOffsetCenter.x, rotationOffsetCenter.y)
-            }
-        }
 
         // Remove the rotation
         if (withRotation){
             transform(view, invert = true, inPlace = true) {
-                postRotate(-imageRotation, width / 2f, height / 2f)
+                postRotate(-imageRotation + rotationOffset, width / 2f, height / 2f)
             }
         }
 
         // Remove the scale and translate
         val source = viewToSourceCoord(view.x, view.y) ?: return null
-
-        // Apply the rotation offset
-        if (rotationOffset != 0f && shouldApplyRotationOffset) {
-            val rotated = PixelCoordinate(source.x, source.y).rotateInRect(
-                rotationOffset,
-                imageSize,
-                rotatedImageSize
-            )
-            source.x = rotated.x
-            source.y = rotated.y
-        }
 
         return source
     }

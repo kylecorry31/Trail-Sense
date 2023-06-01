@@ -42,7 +42,7 @@ internal class PhotoMapRotationServiceTest {
     fun getCalibrationPoints(
         x: Float,
         y: Float,
-        rotation: Int,
+        rotation: Float,
         expectedX: Float,
         expectedY: Float
     ) {
