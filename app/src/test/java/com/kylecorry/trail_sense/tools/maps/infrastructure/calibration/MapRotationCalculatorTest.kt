@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.calibration
 
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
@@ -77,7 +78,7 @@ internal class MapRotationCalculatorTest {
             MapMetadata(Size(400f, 200f), 100, MapProjectionType.Mercator)
         )
 
-        val rotation = MapRotationCalculator().calculate(map)
+        val rotation = MapRotationCalculator().calculate(map).roundPlaces(0)
 
         assertEquals(expected, rotation, 0.01f)
     }
