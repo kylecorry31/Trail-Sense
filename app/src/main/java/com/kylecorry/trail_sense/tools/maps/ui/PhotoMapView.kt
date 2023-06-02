@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
@@ -24,7 +25,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
-import com.kylecorry.trail_sense.tools.maps.domain.RotatedProjection
 import kotlin.math.max
 import kotlin.math.min
 
@@ -45,6 +45,8 @@ class PhotoMapView : EnhancedImageView, IMapView {
     private val layers = mutableListOf<ILayer>()
 
     private var shouldRecenter = true
+
+    private var rotationOffset = 0f
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -158,19 +160,23 @@ class PhotoMapView : EnhancedImageView, IMapView {
         layers.forEach { it.draw(drawer, this) }
     }
 
-    fun showMap(map: PhotoMap) {
+    fun showMap(map: PhotoMap, rotateNorthUp: Boolean = true) {
         this.map = map
-        setImage(map.filename, map.calibration.rotation)
+        // TODO: When rotateNorthUp, icons don't properly rotate to face up
+        // TODO: When not rotateNorthUp, my location doesn't properly rotate to face north
+        // Maybe the map view needs a second rotation offset?
+        val rotation = if (rotateNorthUp){
+            map.calibration.rotation
+        } else {
+            map.baseRotation().toFloat()
+        }
+        rotationOffset = SolMath.deltaAngle(rotation, map.calibration.rotation)
+        setImage(map.filename, rotation)
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-
-        map?.projection()?.let {
-            // TODO: Should this rotated wrapper be moved to the map?
-            projection = RotatedProjection(it, imageSize, rotationOffset)
-        }
-
+        projection = map?.projection()
         shouldRecenter = true
         invalidate()
     }
@@ -218,7 +224,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
             drawer.dp(16f) + compassSize / 2f
         )
         drawer.push()
-        drawer.rotate(-mapRotation, location.x, location.y)
+        drawer.rotate(-mapRotation + rotationOffset, location.x, location.y)
         drawer.noTint()
         drawer.fill(Resources.color(context, R.color.colorSecondary))
         drawer.stroke(Color.WHITE)

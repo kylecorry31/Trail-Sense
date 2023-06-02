@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
@@ -34,7 +35,9 @@ data class PhotoMap(
         return rotationService.getCalibrationPoints()
     }
 
-    // This should always return the rotated projection
+    /**
+     * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270)
+     */
     fun projection(): IMapProjection {
         val calibratedSize = calibratedSize()
         return projection(calibratedSize.width, calibratedSize.height)
@@ -42,9 +45,15 @@ data class PhotoMap(
 
     private fun projection(width: Float, height: Float): IMapProjection {
         val calibrationPoints = getRotatedPoints()
-        return CalibratedProjection(calibrationPoints.map {
+        val projection = CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(width, height) to it.location
         }, MapProjectionFactory().getProjection(metadata.projection))
+        val size = baseSize()
+        return RotatedProjection(
+            projection,
+            size,
+            SolMath.deltaAngle(baseRotation().toFloat(), calibration.rotation)
+        )
     }
 
     fun distancePerPixel(): Distance? {
@@ -89,9 +98,18 @@ data class PhotoMap(
         return calibration.rotation.roundNearestAngle(90f).toInt()
     }
 
-    // TODO: This should only be base rotation, anything needing exact rotation should do it themselves
+    /**
+     * The size of the image with exact rotation applied
+     */
     fun calibratedSize(): Size {
         return metadata.size.rotate(calibration.rotation)
+    }
+
+    /**
+     * The size of the image with base rotation applied (ex. 0, 90, 180, 270)
+     */
+    fun baseSize(): Size {
+        return metadata.size.rotate(baseRotation().toFloat())
     }
 
     fun boundary(width: Float, height: Float): CoordinateBounds? {

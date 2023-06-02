@@ -39,7 +39,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     private var lastScale = 1f
     private var lastTranslateX = 0f
     private var lastTranslateY = 0f
-    protected var rotationOffset = 0f
+    private var rotationOffset = 0f
     protected val imageSize: Size
         get() = Size(imageWidth.toFloat(), imageHeight.toFloat())
 
