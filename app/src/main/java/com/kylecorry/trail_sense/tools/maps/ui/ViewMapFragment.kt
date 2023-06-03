@@ -457,7 +457,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        binding.map.showMap(map, true)
+        binding.map.showMap(map)
     }
 
     override fun onPause() {

@@ -45,7 +45,6 @@ class PhotoMapView : EnhancedImageView, IMapView {
     private val layers = mutableListOf<ILayer>()
 
     private var shouldRecenter = true
-    private var mapRotationOffset = 0f
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -97,7 +96,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
         }
     override var mapAzimuth: Float = 0f
         set(value) {
-            val updatedValue = value + mapRotationOffset - mapRotation
+            val updatedValue = value
             val changed = field != updatedValue
             field = updatedValue
             if (changed) {
@@ -165,18 +164,11 @@ class PhotoMapView : EnhancedImageView, IMapView {
         layers.forEach { it.draw(drawer, this) }
     }
 
-    fun showMap(map: PhotoMap, rotateNorthUp: Boolean = true) {
+    fun showMap(map: PhotoMap) {
         this.map = map
         // TODO: When not rotateNorthUp, my location / map doesn't properly rotate to face north
-        val rotation = if (rotateNorthUp){
-            map.calibration.rotation
-        } else {
-            map.baseRotation().toFloat()
-        }
-        mapRotation = SolMath.deltaAngle(map.calibration.rotation, map.baseRotation().toFloat())
-        mapRotationOffset = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
-        // Recalculate map azimuth now that rotation is set
-        mapAzimuth = mapAzimuth
+        val rotation = map.calibration.rotation
+        mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
         setImage(map.filename, rotation)
     }
 
