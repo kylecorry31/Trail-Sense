@@ -687,6 +687,7 @@
     <string name="time_until_empty">until empty</string>
     <string name="time_until_full">until full</string>
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
+    <string name="map_auto_rotated">Map rotation adjusted with calibration</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="minute_symbol">m</string>
     <string name="hour_symbol">h</string>

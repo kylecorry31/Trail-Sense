@@ -8,12 +8,14 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.print.Printer
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -27,6 +29,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.calibration.MapRotati
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
+import kotlin.math.absoluteValue
 
 
 class MapsFragment : BoundFragment<FragmentMapsBinding>() {
@@ -247,6 +250,12 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         val updatedMap = mapRepo.getMap(mapId) ?: return
         if (!updatedMap.isCalibrated) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
+
+        val delta = SolMath.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
+        if (delta > 1f){
+            toast(getString(R.string.map_auto_rotated))
+        }
+
         map = updatedMap.copy(
             calibration = updatedMap.calibration.copy(
                 rotation = newRotation,
