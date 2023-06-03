@@ -709,6 +709,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 )
             }
 
+            myLocationLayer.setAzimuth(compass.bearing)
             myLocationLayer.setLocation(gps.location)
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
 

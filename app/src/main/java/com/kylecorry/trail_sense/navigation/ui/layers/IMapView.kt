@@ -28,7 +28,12 @@ interface IMapView {
     var mapCenter: Coordinate
 
     /**
-     * The rotation of the map around the center (i.e. the direction the "top" of the map is pointing)
+     * The azimuth of the MapView
      */
-    var mapRotation: Float
+    var mapAzimuth: Float
+
+    /**
+     * The rotation of the map from azimuth. Ex. the top of the map doesn't point north
+     */
+    val mapRotation: Float
 }

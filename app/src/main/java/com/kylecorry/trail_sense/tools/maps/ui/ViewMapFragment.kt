@@ -18,7 +18,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -170,8 +169,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             binding.map.azimuth = bearing
             myLocationLayer.setAzimuth(bearing)
             if (compassLocked) {
-                myLocationLayer.setAzimuth(Bearing(0f)) // TODO: Not sure why this is needed - it shouldn't be
-                binding.map.mapRotation = bearing.value
+                myLocationLayer.setAzimuth(bearing) // TODO: Not sure why this is needed - it shouldn't be
+                binding.map.mapAzimuth = bearing.value
             }
             updateDestination()
         }
@@ -198,7 +197,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         // TODO: Don't show if not calibrated or location not on map
         locationLocked = false
         compassLocked = false
-        binding.map.mapRotation = 0f
+        binding.map.mapAzimuth = 0f
         CustomUiUtils.setButtonState(binding.lockBtn, false)
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
         CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
@@ -214,14 +213,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 locationLocked = true
             } else if (locationLocked && !compassLocked) {
                 compassLocked = true
-                binding.map.mapRotation = -compass.rawBearing
+                binding.map.mapAzimuth = -compass.rawBearing
                 binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)
             } else {
                 binding.map.isPanEnabled = true
                 locationLocked = false
                 compassLocked = false
-                binding.map.mapRotation = 0f
+                binding.map.mapAzimuth = 0f
                 // TODO: Make this the GPS icon (unlocked)
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, false)
@@ -450,18 +449,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         updateBeacons()
     }
 
-    private fun hideZoomBtns() {
-        binding.zoomInBtn.hide()
-        binding.zoomOutBtn.hide()
-        binding.lockBtn.hide()
-    }
-
-    private fun showZoomBtns() {
-        binding.zoomInBtn.show()
-        binding.zoomOutBtn.show()
-        binding.lockBtn.show()
-    }
-
     private fun cancelNavigation() {
         cache.remove(NavigatorFragment.LAST_BEACON_ID)
         destination = null
@@ -470,7 +457,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        binding.map.showMap(map)
+        binding.map.showMap(map, true)
     }
 
     override fun onPause() {

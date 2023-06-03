@@ -350,9 +350,11 @@ class RadarCompassView : BaseCompassView, IMapView {
         set(value) {
             compassCenter = value
         }
-    override var mapRotation: Float
+    override var mapAzimuth: Float
         get() = azimuth.value
         set(value) {
             azimuth = Bearing(value)
         }
+
+    override val mapRotation: Float = 0f
 }

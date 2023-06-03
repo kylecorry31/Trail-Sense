@@ -41,16 +41,31 @@ import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPat
 import com.kylecorry.trail_sense.navigation.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangePathColorCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangePathLineStyleCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangePointStyleCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.CreateBeaconFromPointCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.DeletePointCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ExportPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.KeepPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.MoveIPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.NavigateToPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.NavigateToPointCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.RenamePathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.SimplifyPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.TogglePathVisibilityCommand
 import com.kylecorry.trail_sense.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -58,6 +73,7 @@ import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.toRelativeDistance
 import java.time.Duration
 
 
@@ -70,6 +86,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(false) }
     private val compass by lazy { sensorService.getCompass() }
+    private val declinationProvider by lazy {
+        DeclinationFactory().getDeclinationStrategy(
+            prefs,
+            gps
+        )
+    }
+    private var declination = 0f
     private val hikingService = HikingService()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
@@ -215,6 +238,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         observe(gps) {
+            updateDeclination()
             myLocationLayer.setLocation(gps.location)
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             onPathChanged()
@@ -521,6 +545,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 selectedPointId
             )
         )
+    }
+
+    private fun updateDeclination() {
+        inBackground {
+            onIO {
+                declination = declinationProvider.getDeclination()
+                compass.declination = declination
+            }
+        }
     }
 
     private fun deselectPoint() {

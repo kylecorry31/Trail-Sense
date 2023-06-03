@@ -45,8 +45,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
     private val layers = mutableListOf<ILayer>()
 
     private var shouldRecenter = true
-
-    private var rotationOffset = 0f
+    private var mapRotationOffset = 0f
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -96,14 +95,20 @@ class PhotoMapView : EnhancedImageView, IMapView {
             val pixel = toPixel(value)
             requestCenter(toSource(pixel.x, pixel.y))
         }
-    override var mapRotation: Float = 0f
+    override var mapAzimuth: Float = 0f
         set(value) {
-            val changed = field != value
-            field = value
+            val updatedValue = value + mapRotationOffset - mapRotation
+            val changed = field != updatedValue
+            field = updatedValue
             if (changed) {
                 imageRotation = value
                 invalidate()
             }
+        }
+    override var mapRotation: Float = 0f
+        private set(value){
+            field = value
+            invalidate()
         }
 
     var azimuth: Bearing = Bearing(0f)
@@ -162,15 +167,16 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     fun showMap(map: PhotoMap, rotateNorthUp: Boolean = true) {
         this.map = map
-        // TODO: When rotateNorthUp, icons don't properly rotate to face up
-        // TODO: When not rotateNorthUp, my location doesn't properly rotate to face north
-        // Maybe the map view needs a second rotation offset?
+        // TODO: When not rotateNorthUp, my location / map doesn't properly rotate to face north
         val rotation = if (rotateNorthUp){
             map.calibration.rotation
         } else {
             map.baseRotation().toFloat()
         }
-        rotationOffset = SolMath.deltaAngle(rotation, map.calibration.rotation)
+        mapRotation = SolMath.deltaAngle(map.calibration.rotation, map.baseRotation().toFloat())
+        mapRotationOffset = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
+        // Recalculate map azimuth now that rotation is set
+        mapAzimuth = mapAzimuth
         setImage(map.filename, rotation)
     }
 
@@ -224,7 +230,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
             drawer.dp(16f) + compassSize / 2f
         )
         drawer.push()
-        drawer.rotate(-mapRotation + rotationOffset, location.x, location.y)
+        drawer.rotate(-mapAzimuth, location.x, location.y)
         drawer.noTint()
         drawer.fill(Resources.color(context, R.color.colorSecondary))
         drawer.stroke(Color.WHITE)

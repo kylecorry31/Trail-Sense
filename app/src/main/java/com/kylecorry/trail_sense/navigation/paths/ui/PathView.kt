@@ -62,11 +62,12 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             center = value
         }
 
-    override var mapRotation: Float
+    override var mapAzimuth: Float
         get() = 0f
         set(_) {
             // Do nothing
         }
+    override val mapRotation: Float = 0f
 
     private var center: Coordinate = Coordinate.zero
 
