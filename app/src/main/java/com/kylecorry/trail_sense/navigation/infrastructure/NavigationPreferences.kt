@@ -219,6 +219,10 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         MapSortMethod.MostRecent
     )
 
+    // TODO: Make this a setting
+    override val keepMapFacingUp: Boolean
+        get() = true
+
     enum class SpeedometerMode {
         Backtrack,
         GPS,

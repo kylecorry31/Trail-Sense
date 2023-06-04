@@ -96,14 +96,31 @@ class PhotoMapView : EnhancedImageView, IMapView {
         }
     override var mapAzimuth: Float = 0f
         set(value) {
-            val updatedValue = value
-            val changed = field != updatedValue
-            field = updatedValue
+            val newValue = if (keepMapUp) {
+                -mapRotation
+            } else {
+                value
+            }
+            val changed = field != newValue
+            field = newValue
             if (changed) {
-                imageRotation = value
+                imageRotation = newValue
                 invalidate()
             }
         }
+
+    /**
+     * Determines if the map should be kept with its top parallel to the top of the screen
+     */
+    var keepMapUp: Boolean = false
+        set(value) {
+            field = value
+            if (value) {
+                mapAzimuth = 0f
+            }
+            invalidate()
+        }
+
     override var mapRotation: Float = 0f
         private set(value){
             field = value
@@ -170,6 +187,9 @@ class PhotoMapView : EnhancedImageView, IMapView {
         val rotation = map.calibration.rotation
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
         fullMetersPerPixel = map.distancePerPixel()?.meters()?.distance ?: 1f
+        if (keepMapUp){
+            mapAzimuth = 0f
+        }
         setImage(map.filename, rotation)
     }
 

@@ -194,16 +194,19 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             onLongPress(it)
         }
 
-        // TODO: Don't show if not calibrated or location not on map
+        val keepMapUp = prefs.navigation.keepMapFacingUp
+
+        // TODO: Don't show if location not on map
         locationLocked = false
         compassLocked = false
         binding.map.mapAzimuth = 0f
+        binding.map.keepMapUp = keepMapUp
         CustomUiUtils.setButtonState(binding.lockBtn, false)
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
         CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
         binding.lockBtn.setOnClickListener {
             // TODO: If user drags too far from location, don't follow their location or rotate with them
-            if (!locationLocked && !compassLocked) {
+            if (!locationLocked && !compassLocked) { // Location mode
                 binding.map.isPanEnabled = false
                 binding.map.metersPerPixel = 0.5f
                 binding.map.mapCenter = gps.location
@@ -211,16 +214,18 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)
                 locationLocked = true
-            } else if (locationLocked && !compassLocked) {
+            } else if (locationLocked && !compassLocked) { // Compass mode
                 compassLocked = true
+                binding.map.keepMapUp = false
                 binding.map.mapAzimuth = -compass.rawBearing
                 binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)
-            } else {
+            } else { // Free mode
                 binding.map.isPanEnabled = true
                 locationLocked = false
                 compassLocked = false
                 binding.map.mapAzimuth = 0f
+                binding.map.keepMapUp = keepMapUp
                 // TODO: Make this the GPS icon (unlocked)
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, false)

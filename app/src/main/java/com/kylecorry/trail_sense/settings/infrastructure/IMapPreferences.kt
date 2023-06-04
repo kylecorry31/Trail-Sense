@@ -7,4 +7,5 @@ interface IMapPreferences {
     val autoReduceMaps: Boolean
     val showMapPreviews: Boolean
     var mapSort: MapSortMethod
+    val keepMapFacingUp: Boolean
 }
