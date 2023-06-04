@@ -35,6 +35,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     private var map: PhotoMap? = null
     private var projection: IMapProjection? = null
+    private var fullMetersPerPixel = 1f
 
     private val prefs by lazy { UserPreferences(context) }
     private val units by lazy { prefs.baseDistanceUnits }
@@ -75,14 +76,13 @@ class PhotoMapView : EnhancedImageView, IMapView {
     }
 
     override var metersPerPixel: Float
-        get() = (map?.distancePerPixel()?.meters()?.distance ?: 1f) * scale
+        get() = fullMetersPerPixel / scale
         set(value) {
             requestScale(getScale(value))
         }
 
     private fun getScale(metersPerPixel: Float): Float {
-        val fullScale = map?.distancePerPixel()?.meters()?.distance ?: 1f
-        return fullScale / metersPerPixel
+        return fullMetersPerPixel / metersPerPixel
     }
 
     override var mapCenter: Coordinate
@@ -169,12 +169,13 @@ class PhotoMapView : EnhancedImageView, IMapView {
         // TODO: When not rotateNorthUp, my location / map doesn't properly rotate to face north
         val rotation = map.calibration.rotation
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
+        fullMetersPerPixel = map.distancePerPixel()?.meters()?.distance ?: 1f
         setImage(map.filename, rotation)
     }
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        projection = map?.projection()
+        projection = map?.projection
         shouldRecenter = true
         invalidate()
     }

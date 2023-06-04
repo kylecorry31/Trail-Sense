@@ -1,18 +1,13 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Distance
-
-// Projection: Onto base rotation image
-// Distance per pixel: On exact rotation image
-// Calibration points: On exact rotation image
-// Boundary: On exact rotation image
-
+import com.kylecorry.trail_sense.tools.maps.domain.projections.PhotoMapProjection
+import com.kylecorry.trail_sense.tools.maps.domain.projections.distancePerPixel
 
 data class PhotoMap(
     override val id: Long,
@@ -26,74 +21,49 @@ data class PhotoMap(
     override val count: Int? = null
 
     private var calculatedBounds: CoordinateBounds? = null
-    private val rotationService = PhotoMapRotationService(this)
+    private val boundsLock = Any()
 
-    val isCalibrated: Boolean
-        get() = calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0
-
-    private fun getRotatedPoints(): List<MapCalibrationPoint> {
-        return rotationService.getCalibrationPoints()
-    }
+    private var cachedDistancePerPixel: Distance? = null
+    private val distancePerPixelLock = Any()
 
     /**
      * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270)
      */
-    fun projection(): IMapProjection {
-        val calibratedSize = calibratedSize()
-        return projection(calibratedSize.width, calibratedSize.height)
-    }
+    val projection: IMapProjection by lazy { PhotoMapProjection(this) }
 
-    private fun projection(width: Float, height: Float): IMapProjection {
-        val calibrationPoints = getRotatedPoints()
-        val projection = CalibratedProjection(calibrationPoints.map {
-            it.imageLocation.toPixels(width, height) to it.location
-        }, MapProjectionFactory().getProjection(metadata.projection))
-        val size = baseSize()
-        return RotatedProjection(
-            projection,
-            size,
-            SolMath.deltaAngle(baseRotation().toFloat(), calibration.rotation)
-        )
-    }
+    /**
+     * Determines if the map is calibrated
+     */
+    val isCalibrated: Boolean
+        get() = calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0
 
+    /**
+     * The distance per pixel of the image
+     * @return the distance per pixel or null if the map is not calibrated
+     */
     fun distancePerPixel(): Distance? {
-        val calibratedSize = calibratedSize()
-        return distancePerPixel(calibratedSize.width, calibratedSize.height)
-    }
 
-    private fun distancePerPixel(width: Float, height: Float): Distance? {
         if (!isCalibrated) {
-            // Or throw, not enough calibration points
             return null
         }
 
-        val calibrationPoints = getRotatedPoints()
+        synchronized(distancePerPixelLock) {
+            if (cachedDistancePerPixel != null) {
+                return cachedDistancePerPixel
+            }
 
-        val first = calibrationPoints[0]
-        val second = calibrationPoints[1]
-        val firstPixels = first.imageLocation.toPixels(width, height)
-        val secondPixels = second.imageLocation.toPixels(width, height)
+            cachedDistancePerPixel = projection.distancePerPixel(
+                calibration.calibrationPoints[0].location,
+                calibration.calibrationPoints[1].location
+            )
 
-        val meters = first.location.distanceTo(second.location)
-        val pixels = firstPixels.distanceTo(secondPixels)
-
-        if (meters == 0f || pixels == 0f) {
-            // Or throw, calibration points are the same
-            return null
+            return cachedDistancePerPixel
         }
-
-        return Distance.meters(meters / pixels)
     }
 
-    fun boundary(): CoordinateBounds? {
-        if (calculatedBounds != null) {
-            return calculatedBounds
-        }
-        val size = calibratedSize()
-        calculatedBounds = boundary(size.width, size.height)
-        return calculatedBounds
-    }
-
+    /**
+     * The rotation of the image to the nearest 90 degrees
+     */
     fun baseRotation(): Int {
         return calibration.rotation.roundNearestAngle(90f).toInt()
     }
@@ -112,20 +82,31 @@ data class PhotoMap(
         return metadata.size.rotate(baseRotation().toFloat())
     }
 
-    fun boundary(width: Float, height: Float): CoordinateBounds? {
+    /**
+     * The boundary of the image
+     * @return the boundary or null if the map is not calibrated
+     */
+    fun boundary(): CoordinateBounds? {
         if (!isCalibrated) {
             return null
         }
 
-        // TODO: This projection needs to stay unrotated (maybe?)
-        val projection = projection(width, height)
+        synchronized(boundsLock) {
+            if (calculatedBounds != null) {
+                return calculatedBounds
+            }
 
-        val topLeft = projection.toCoordinate(Vector2(0f, 0f))
-        val bottomLeft = projection.toCoordinate(Vector2(0f, height))
-        val topRight = projection.toCoordinate(Vector2(width, 0f))
-        val bottomRight = projection.toCoordinate(Vector2(width, height))
+            val size = baseSize()
 
-        return CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
+            val topLeft = projection.toCoordinate(Vector2(0f, 0f))
+            val bottomLeft = projection.toCoordinate(Vector2(0f, size.height))
+            val topRight = projection.toCoordinate(Vector2(size.width, 0f))
+            val bottomRight = projection.toCoordinate(Vector2(size.width, size.height))
+
+            calculatedBounds =
+                CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
+            return calculatedBounds
+        }
     }
 
 }

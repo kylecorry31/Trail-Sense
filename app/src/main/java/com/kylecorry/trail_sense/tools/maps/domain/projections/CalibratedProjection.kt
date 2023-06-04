@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.maps.domain
+package com.kylecorry.trail_sense.tools.maps.domain.projections
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.map

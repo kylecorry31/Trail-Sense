@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.maps.domain
+package com.kylecorry.trail_sense.tools.maps.domain.projections
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
