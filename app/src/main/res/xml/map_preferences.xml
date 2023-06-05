@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
@@ -18,6 +19,14 @@
             app:key="@string/pref_show_map_previews"
             app:singleLineTitle="false"
             app:title="@string/pref_show_map_previews_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_keep_map_facing_up"
+            app:singleLineTitle="false"
+            app:title="@string/pref_keep_map_facing_up_title"
+            android:summary="@string/pref_keep_map_facing_up_summary"/>
 
     </PreferenceCategory>
 </PreferenceScreen>
