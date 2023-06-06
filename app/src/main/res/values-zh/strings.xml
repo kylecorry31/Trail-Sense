@@ -748,27 +748,6 @@
     <string name="season_spring">春季</string>
     <string name="season_winter">冬季</string>
     <string name="supermoon">超级月亮</string>
-    <string name="astro_dialog_day_length">**日长**: %s
-\n
-\n**夜长**: %s
-\n
-\n**季节**: %s</string>
-    <string name="astro_dialog_moon_phase">**月相**: %s
-\n
-\n**照度**: %s</string>
-    <string name="astro_dialog_noon">**时间**: %s
-\n
-\n**高度**: %s</string>
-    <string name="astro_dialog_rise_set">**时间**: %s
-\n
-\n**方向**: %s</string>
-    <string name="astro_dialog_meteor_shower">**峰值**: %s
-\n
-\n**峰高**: %s
-\n
-\n**峰的方向**: %s
-\n
-\n**速率**: %s</string>
     <string name="duration_of_charge">充电时间</string>
     <string name="tilt">倾斜度</string>
     <string name="kwh_per_meter_squared_format">%s 千瓦时 / 平方米</string>

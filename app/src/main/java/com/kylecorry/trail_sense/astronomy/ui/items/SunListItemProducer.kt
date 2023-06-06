@@ -31,6 +31,7 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
             astronomyService.getSunAltitude(location, it)
         }
         val night = Duration.ofDays(1) - daylight
+        val season = astronomyService.getSeason(location, date)
 
         listItem(
             1,
@@ -75,7 +76,11 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
 
                     // Peak
                     context.getString(R.string.noon) to time(actual.transit),
-                    context.getString(R.string.astronomy_altitude_peak) to peak?.let { formatter.formatDegrees(it) },
+                    context.getString(R.string.astronomy_altitude_peak) to peak?.let {
+                        formatter.formatDegrees(
+                            it
+                        )
+                    },
 
                     // Light
                     context.getString(R.string.daylight) to formatter.formatDuration(
@@ -85,7 +90,8 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
                     context.getString(R.string.night) to formatter.formatDuration(
                         night,
                         false
-                    )
+                    ),
+                    context.getString(R.string.season) to formatter.formatSeason(season)
                 ),
                 cancelText = null
             )

@@ -614,9 +614,6 @@
     <string name="get_gps_signal">Salga con una vista despejada del cielo.</string>
     <string name="location_override_resolution">Habilite la ubicación de ajuste automático en la configuración.</string>
     <string name="medium_amount">Mediano (%s)</string>
-    <string name="astro_dialog_rise_set">** Tiempo **:%s
-\n
-\n**Direcciones**:%s</string>
     <string name="season_spring">Primavera</string>
     <string name="duration_of_charge">Duración de la carga</string>
     <string name="pref_export_weather_csv_title">Exportar lecturas meteorológicas</string>
@@ -782,24 +779,6 @@
         <item quantity="one">%d Punto de referencia será eliminado</item>
         <item quantity="other">%d Puntos de referencia serán eliminados</item>
     </plurals>
-    <string name="astro_dialog_meteor_shower">** Pico **:%s
-\n
-\n** Altitud máxima **:%s
-\n
-\n** Dirección de pico **:%s
-\n
-\n** Tasa **:%s</string>
-    <string name="astro_dialog_noon">** Tiempo **:%s
-\n
-\n** Altitud **:%s</string>
-    <string name="astro_dialog_moon_phase">**Etapas**:%s
-\n
-\n** Iluminación **:%s</string>
-    <string name="astro_dialog_day_length">**Días**:%s
-\n
-\n** Noche **:%s
-\n
-\n**Estaciones**:%s</string>
     <string name="season_winter">Invierno</string>
     <string name="season_summer">Verano</string>
     <string name="season_fall">Otoño</string>

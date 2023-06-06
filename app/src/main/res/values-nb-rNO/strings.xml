@@ -664,31 +664,10 @@
     <string name="solar_panel_instructions">Plasser telefonen din på overflaten av solcellepanelet for å begynne.</string>
     <string name="tool_solar_panel_title">Solcellepaneljustering</string>
     <string name="tool_solar_panel_summary">Juster solcellepaneler for optimal strømproduksjon</string>
-    <string name="astro_dialog_rise_set">**Tid**: %s
-\n
-\n**Retning**: %s</string>
-    <string name="astro_dialog_meteor_shower">**Maksimum**: %s
-\n
-\n**Maksimum - høyde**: %s
-\n
-\n**Maksimum - retning**: %s
-\n
-\n**Rate**: %s</string>
     <string name="season_winter">Vinter</string>
     <string name="season_spring">Vår</string>
     <string name="season_summer">Sommer</string>
     <string name="season_fall">Høst</string>
-    <string name="astro_dialog_moon_phase">**Fase**: %s
-\n
-\n**Opplyst**: %s</string>
-    <string name="astro_dialog_day_length">**Dag**: %s
-\n
-\n**Natt**: %s
-\n
-\n**Årstid**: %s</string>
-    <string name="astro_dialog_noon">**Tid**: %s
-\n
-\n**Høyde**: %s</string>
     <string name="pref_export_weather_csv_title">Eksporter væravlesninger</string>
     <string name="find_next_occurrence">Finn neste hendelse</string>
     <string name="sun_moon_position_template">### %s

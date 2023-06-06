@@ -795,27 +795,12 @@
     <string name="supermoon">Supermjesec</string>
     <string name="duration_of_charge">Trajanje punjenja</string>
     <string name="astronomy_alerts">Astronomska upozorenja</string>
-    <string name="astro_dialog_meteor_shower">**Vrh**: %s
-\n
-\n**Vršna visina**: %s
-\n
-\n**Vršni pravac**: %s
-\n
-\n**Rata**: %s</string>
     <string name="up_to_amount">Do %s</string>
     <string name="weather_exported">Vrijeme izvezeno</string>
     <string name="sun_moon_position_template">### %s
 \n**Visina**: %s
 \n
 \n**Azimut**: %s</string>
-    <string name="astro_dialog_noon">**Vrijeme**: %s
-\n
-\n**Visina**: %s</string>
-    <string name="astro_dialog_day_length">**Dan**: %s
-\n
-\n**Noć**: %s
-\n
-\n**Sezona**: %s</string>
     <string name="season_spring">Proljeće</string>
     <string name="season_summer">Ljeto</string>
     <string name="season_fall">Jesen</string>
@@ -933,9 +918,6 @@
     <string name="steps">Koraci</string>
     <string name="last_duration">Posljednjih %s</string>
     <string name="background_location_permission">Lokacija (dopustite za uvijek)</string>
-    <string name="astro_dialog_rise_set">**Vrijeme**: %s
-\n
-\n**Smjer**: %s</string>
     <string name="take_photo">Uslikajte</string>
     <string name="low_tide_letter">N</string>
     <string name="off">Isključeno</string>
@@ -984,9 +966,6 @@
     <string name="location_override_resolution">Omogućite automatsko podešavanje lokacije u postavkama.</string>
     <string name="location_override_not_set_resolution">Postavite premošćivanje lokacije u postavkama</string>
     <string name="partial">Djelomično (%s)</string>
-    <string name="astro_dialog_moon_phase">**Faza**: %s
-\n
-\n**Osvjetljenje**: %s</string>
     <string name="or">Ili</string>
     <string name="show">Pokaži</string>
     <string name="path_color">Boja putanje</string>

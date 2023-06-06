@@ -963,14 +963,6 @@
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>
     </plurals>
-    <!--This is in markdown formatting-->
-    <string name="astro_dialog_meteor_shower">**Peak**: %s\n\n**Peak altitude**: %s\n\n**Peak direction**: %s\n\n**Rate**: %s</string>
-
-    <!--This is in markdown formatting-->
-    <string name="astro_dialog_rise_set">**Time**: %s\n\n**Direction**: %s</string>
-
-    <!--This is in markdown formatting-->
-    <string name="astro_dialog_noon">**Time**: %s\n\n**Altitude**: %s</string>
 
     <string name="start_time">Start</string>
     <string name="end_time">End</string>
@@ -981,12 +973,6 @@
     <!--  The astronomical altitude of the sun / moon in the sky  -->
     <string name="astronomy_altitude_peak">Peak altitude</string>
     <string name="astronomy_direction_peak">Peak direction</string>
-
-    <!--This is in markdown formatting-->
-    <string name="astro_dialog_moon_phase">**Phase**: %s\n\n**Illumination**: %s</string>
-
-    <!--This is in markdown formatting-->
-    <string name="astro_dialog_day_length">**Day**: %s\n\n**Night**: %s\n\n**Season**: %s</string>
 
     <string name="supermoon">Supermoon</string>
     <string name="season_winter">Winter</string>
@@ -1314,6 +1300,9 @@
     <string name="times">Times</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+<!--    Rate of occurrence / frequency-->
+    <string name="rate">Rate</string>
+    <string name="season">Season</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

@@ -706,11 +706,6 @@
     <string name="weather_exported">氣象已匯出</string>
     <string name="weather_monitoring_disabled">氣象監測已停用</string>
     <string name="pref_export_weather_csv_title">匯出氣象讀數</string>
-    <string name="astro_dialog_day_length">**白晝**：%s
-\n
-\n**夜晚**：%s
-\n
-\n**季節**：%s</string>
     <string name="beacons">地標</string>
     <string name="weather_cold_front">冷鋒</string>
     <string name="weather_warm_front">暖鋒</string>
@@ -732,13 +727,7 @@
     <string name="roll_pitch_yaw">俯仰：%s、滾轉：%s、偏擺：%s</string>
     <string name="daylight">日光</string>
     <string name="lightning_dangerously_close">閃電殺到埋身喇</string>
-    <string name="astro_dialog_moon_phase">**月相**：%s
-\n
-\n**亮面**：%s</string>
     <string name="average_speed_pedometer">平均速度 (步程計)</string>
-    <string name="astro_dialog_rise_set">**時間**：%s
-\n
-\n**方位**：%s</string>
     <string name="sun_moon_position_template">### %s
 \n**海拔**：%s
 \n
@@ -781,9 +770,6 @@
     <string name="pick_file">揀個檔案</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="coordinate_format_osgb">OSGB</string>
-    <string name="astro_dialog_noon">**時間**：%s
-\n
-\n**海拔**：%s</string>
     <string name="no_camera_access">相機用唔到</string>
     <string name="average_speed">平均速度</string>
     <string name="map_calibration">地圖校正</string>

@@ -250,16 +250,6 @@
     <string name="grant_permission">Add meg a %s hozzáférést</string>
     <string name="background_location_permission">Hely (Mindig engedélyezett)</string>
     <string name="power_saving_mode_resolution">Kapcsold ki az energiatakarékos módot</string>
-    <string name="astro_dialog_meteor_shower">**Csúcs**: %s
-\n
-\n**Csúcs magassága**: %s
-\n
-\n**Csúcs iránya**: %s
-\n
-\n**Intenzitás**: %s</string>
-    <string name="astro_dialog_rise_set">**Időpont**: %s
-\n
-\n**Irány**: %s</string>
     <string name="season_summer">Nyár</string>
     <string name="season_fall">Ősz</string>
     <string name="up_to_amount">Legfeljebb %s</string>
@@ -333,9 +323,6 @@
     <string name="color">Szín</string>
     <string name="electronics">Elektronika</string>
     <string name="auto">Auto</string>
-    <string name="astro_dialog_moon_phase">**Fázis**: %s
-\n
-\n**Megvilágítottság**: %s</string>
     <string name="sun">Nap</string>
     <string name="path">Ösvény</string>
     <string name="temporary">Ideiglenes</string>
@@ -572,9 +559,6 @@
     <string name="medium_amount">Közepes (%s)</string>
     <string name="lunar_eclipse">Holdfogyatkozás</string>
     <string name="astronomy_alerts">Csillagászati figyelmeztetések</string>
-    <string name="astro_dialog_noon">**Időpont**: %s
-\n
-\n**Magasság**: %s</string>
     <string name="tilt">Dőlés</string>
     <string name="pref_export_weather_csv_title">Időjárási adatok exportálása</string>
     <string name="precipitation_small_hail">Apró jégeső</string>
@@ -1002,11 +986,6 @@
     <string name="weather_exported">Időjárás exportálva</string>
     <string name="duration_of_charge">Termelés időtartama</string>
     <string name="precipitation_snow_pellets">Hódara</string>
-    <string name="astro_dialog_day_length">**Nappal**: %s
-\n
-\n**Éjszaka**: %s
-\n
-\n**Évszak**: %s</string>
     <string name="season_spring">Tavasz</string>
     <string name="enable">Engedélyezés</string>
     <string name="no_clouds">Nincsenek Felhők</string>

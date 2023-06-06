@@ -755,27 +755,6 @@
     <string name="season_spring">Primavera</string>
     <string name="season_winter">Inverno</string>
     <string name="supermoon">Superlua</string>
-    <string name="astro_dialog_day_length">**Dia**: %s
-\n
-\n**Noite**: %s
-\n
-\n**Estação**: %s</string>
-    <string name="astro_dialog_moon_phase">**Fase**: %s
-\n
-\n**Iluminação**: %s</string>
-    <string name="astro_dialog_noon">**Hora**: %s
-\n
-\n**Altitude**: %s</string>
-    <string name="astro_dialog_rise_set">**Hora**: %s
-\n
-\n**Direção**: %s</string>
-    <string name="astro_dialog_meteor_shower">**Auge**: %s
-\n
-\n**Altitude do auge**: %s
-\n
-\n**Direção do auge**: %s
-\n
-\n**Proporção**: %s</string>
     <string name="duration_of_charge">Duração da carga</string>
     <string name="tilt">Inclinação</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>

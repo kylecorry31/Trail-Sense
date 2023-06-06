@@ -770,9 +770,6 @@
     <string name="old">Oud</string>
     <string name="no_paths">Geen paden</string>
     <string name="new_text">Nieuw</string>
-    <string name="astro_dialog_moon_phase">**Fase**: %s
-\n
-\n**Verlichting**: %s</string>
     <string name="clinometer_measure_height_instructions">Om de hoogte van een voorwerp op %s afstand te meten:
 \n
 \n1. Richt de hellingsmeter naar de voet van het doel
@@ -859,22 +856,7 @@
     <string name="lunar_eclipse_start">Maansverduistering (begin)</string>
     <string name="lunar_eclipse_end">Maansverduistering (einde)</string>
     <string name="lunar_eclipse">Maansverduistering</string>
-    <string name="astro_dialog_meteor_shower">**Hoogtepunt**: %s
-\n
-\n**Hoogte op hoogtepunt**: %s
-\n
-\n**Richting op hoogtepunt**: %s
-\n
-\n**Dichtheid**: %s</string>
-    <string name="astro_dialog_rise_set">**Tijd**: %s
-\n
-\n**Richting**: %s</string>
     <string name="supermoon">Supermaan</string>
-    <string name="astro_dialog_day_length">**Dag**: %s
-\n
-\n**Nacht**: %s
-\n
-\n**Jaargetijde**: %s</string>
     <string name="season_winter">Winter</string>
     <string name="weather_monitoring_disabled">Weermeting uitgeschakeld</string>
     <string name="enable">Inschakelen</string>
@@ -962,9 +944,6 @@
     <string name="night">Nacht</string>
     <string name="pref_flashlight_timeout_title">Uitschakelen na</string>
     <string name="steps">Stappen</string>
-    <string name="astro_dialog_noon">**Tijd**: %s
-\n
-\n**Hoogte**: %s</string>
     <string name="astronomy_alerts">Sterrenhemel meldingen</string>
     <string name="duration_second_format">%ds</string>
     <string name="activity_recognition_permission_denied">Toestemming tot fysieke sensors afgewezen, niet in staat om stappenteller in te schakelen. U kunt dit inschakelen in de instellingen.</string>

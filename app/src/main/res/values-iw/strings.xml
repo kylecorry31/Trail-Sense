@@ -126,9 +126,6 @@
     <string name="precipitation_rain">גשם</string>
     <string name="precipitation_drizzle">טיפטוף</string>
     <string name="no_paths">אין נתיבים</string>
-    <string name="astro_dialog_moon_phase">**שלב**: %s
-\n
-\n**תאורה**: %s</string>
     <string name="pick_file">בחר קובץ</string>
     <string name="medium_amount">בינוני (%s)</string>
     <string name="lunar_eclipses">ליקוי ירח</string>
@@ -136,25 +133,7 @@
     <string name="partial">חלקי (%s)</string>
     <string name="lunar_eclipse_end">ליקוי ירח (סוף)</string>
     <string name="astronomy_alerts">התראות אסטרונומיה</string>
-    <string name="astro_dialog_rise_set">**זמן**: %s
-\n
-\n**כיוון**: %s</string>
     <string name="lunar_eclipse">ליקוי ירח</string>
-    <string name="astro_dialog_meteor_shower">**שיא**: %s
-\n
-\n**שיא הגובה**: %s
-\n
-\n**כיוון שיא**: %s
-\n
-\n**קצב**: %s</string>
-    <string name="astro_dialog_noon">**זמן**: %s
-\n
-\n**גובה**: %s</string>
-    <string name="astro_dialog_day_length">**יום**: %s
-\n
-\n**לילה**: %s
-\n
-\n**עונה**: %s</string>
     <string name="supermoon">ירח על</string>
     <string name="season_winter">חורף</string>
     <string name="season_spring">אביב</string>

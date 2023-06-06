@@ -244,9 +244,6 @@
     <string name="overridden">Korrigeret</string>
     <string name="power_saving_mode_resolution">Deaktiver strømsparetilstand</string>
     <string name="battery_restricted_resolution">Indstil Trail Sense som Ikke Optimeret</string>
-    <string name="astro_dialog_moon_phase">**Fase**: %s
-\n
-\n**Oplyst**: %s</string>
     <string name="precipitation_snow">Sne</string>
     <string name="precipitation_chance">Nedbørsrisiko: %s</string>
     <string name="no_camera_access">Kan ikke få adgang til kameraet</string>
@@ -348,9 +345,6 @@
     <string name="percent_packed">%s pakket</string>
     <string name="gps_unavailable_resolution">Aktiver Placering, eller skift din placeringskilde til Kun Enhed eller Høj Nøjagtighed</string>
     <string name="astronomy_alerts">Astronomivarsler</string>
-    <string name="astro_dialog_noon">**Tid**: %s
-\n
-\n**Højde**: %s</string>
     <string name="map_projection_equidistant">Equidistant</string>
     <string name="weather_monitor_disabled_resolution">Aktiver vejrovervågning i vejrindstillingerne</string>
     <string name="view">Vis</string>
@@ -423,11 +417,6 @@
     <string name="lunar_eclipses">Måneformørkelser</string>
     <string name="partial">Delvis (%s)</string>
     <string name="lunar_eclipse_end">Måneformørkelse (slut)</string>
-    <string name="astro_dialog_day_length">**Dag**: %s
-\n
-\n**Nat**: %s
-\n
-\n**Årstid**: %s</string>
     <string name="season_fall">Efterår</string>
     <string name="weather_monitoring_disabled">Vejrovervågning deaktiveret</string>
     <string name="enable">Slå til</string>
@@ -858,13 +847,6 @@
     <string name="humidity">Fugtighed</string>
     <string name="battery_usage_restricted">Batteriforbrug begrænset</string>
     <string name="no_issues">Ingen problemer fundet</string>
-    <string name="astro_dialog_meteor_shower">**Maksimum**: %s
-\n
-\n**Maksimumhøjde**: %s
-\n
-\n**Maksimum retning**: %s
-\n
-\n**Rate**: %s</string>
     <string name="no_resolution">Ingen opløsning</string>
     <string name="elevation_override_resolution">Aktiver autokalibrering i indstillinger.</string>
     <string name="delete_path">Slet sti\?</string>
@@ -874,9 +856,6 @@
         <item quantity="one">%d rutepunkt bliver slettet</item>
         <item quantity="other">%d rutepunkter bliver slettet</item>
     </plurals>
-    <string name="astro_dialog_rise_set">**Tid**: %s
-\n
-\n**Retning**: %s</string>
     <string name="season_winter">Vinter</string>
     <string name="season_spring">Forår</string>
     <string name="season_summer">Sommer</string>

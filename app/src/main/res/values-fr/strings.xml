@@ -503,9 +503,6 @@
     <string name="pref_cell_signal_refresh_cache_title">Actualiser le cache du signal</string>
     <string name="pref_cell_signal_refresh_cache_summary">Force le chargement de la qualité du réseau</string>
     <string name="pack_sort_weight_high_to_low">Masse (décroissant)</string>
-    <string name="astro_dialog_moon_phase">**Phase** : %s
-\n
-\n**Illumination** : %s</string>
     <string name="pref_backtrack_history_days_title">Historique Backtrack</string>
     <string name="daylight">Lumière du jour</string>
     <string name="elevation_history_length">Longueur de l’historique d’altitude</string>
@@ -608,26 +605,11 @@
     <string name="low_amount">Faible (%s)</string>
     <string name="partial">Partielle (%s)</string>
     <string name="lunar_eclipse_start">Éclipse lunaire (début)</string>
-    <string name="astro_dialog_noon">**Temps** : %s
-\n
-\n**Altitude** : %s</string>
     <string name="season_fall">Automne</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
-    <string name="astro_dialog_day_length">**Jour** : %s
-\n
-\n**Nuit** : %s
-\n
-\n**Saison** : %s</string>
     <string name="season_summer">Été</string>
     <string name="up_to_amount">Jusqu’à %s</string>
     <string name="place_beacon_at">Placer un marqueur en %s \?</string>
-    <string name="astro_dialog_meteor_shower">**Sommet** : %s
-\n
-\n**Altitude du sommet** : %s
-\n
-\n** Direction du sommet** : %s
-\n
-\n**Niveau** : %s</string>
     <string name="units">Unités</string>
     <string name="map_perspective_instructions">Entourer la carte</string>
     <string name="half_tide">Demie</string>
@@ -685,9 +667,6 @@
     <string name="grant_permission">Donner la permission %s</string>
     <string name="get_gps_signal">Trouver un endroit avec une vue dégagée sur le ciel.</string>
     <string name="lunar_eclipse">Éclipse lunaire</string>
-    <string name="astro_dialog_rise_set">**Temps** : %s
-\n
-\n**Direction** : %s</string>
     <string name="season_winter">Hiver</string>
     <string name="overridden">Écrasé</string>
     <string name="on">Activé</string>

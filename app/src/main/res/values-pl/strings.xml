@@ -742,23 +742,9 @@
     <string name="auto">Automatycznie</string>
     <string name="units_mmhg">mmHg</string>
     <string name="elevation_history_length">Długość historii wysokości</string>
-    <string name="astro_dialog_noon">**Czas**: %s
-\n
-\n**Wysokość**: %s</string>
-    <string name="astro_dialog_rise_set">**Czas**: %s
-\n
-\n**Kierunek**: %s</string>
     <string name="delete_pack">Usunąć plecak\?</string>
     <string name="default_pack_name">Plecak domyślny</string>
-    <string name="astro_dialog_day_length">**Dzień**: %s
-\n
-\n**Noc**: %s
-\n
-\n**Pora roku**: %s</string>
     <string name="path_exported">Ślad wyeksportowany</string>
-    <string name="astro_dialog_moon_phase">**Faza**: %s
-\n
-\n**Oświetlenie**: %s</string>
     <string name="diagnostic_message_template">%s: %s
 \n
 \n### Narzędzia, których dotyczy problem

@@ -771,27 +771,6 @@
     <string name="season_spring">Весна</string>
     <string name="season_winter">Зима</string>
     <string name="supermoon">Надмісяць</string>
-    <string name="astro_dialog_day_length">**День**: %s
-\n
-\n**Ніч**: %s
-\n
-\n**Пора року**: %s</string>
-    <string name="astro_dialog_moon_phase">**Фаза**: %s
-\n
-\n**Освітлення**: %s</string>
-    <string name="astro_dialog_noon">**Час**: %s
-\n
-\n**Висота**: %s</string>
-    <string name="astro_dialog_rise_set">**Час**: %s
-\n
-\n**Напрямок**: %s</string>
-    <string name="astro_dialog_meteor_shower">**Пік**: %s
-\n
-\n**Пікова висота**: %s
-\n
-\n**Піковий напрямок**: %s
-\n
-\n**Швидкість**: %s</string>
     <string name="duration_of_charge">Тривалість заряду</string>
     <string name="tilt">Нахил</string>
     <string name="kwh_per_meter_squared_format">%s кВт-год / м²</string>

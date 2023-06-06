@@ -739,15 +739,7 @@
     <string name="season_spring">İlkbahar</string>
     <string name="season_winter">Kış</string>
     <string name="supermoon">Süper ay</string>
-    <string name="astro_dialog_day_length">**Gündüz**: %s
-\n
-\n**Gece**: %s
-\n
-\n**Mevsim**: %s</string>
     <string name="humidity">Nem</string>
-    <string name="astro_dialog_moon_phase">**Aşama**: %s
-\n
-\n**Aydınlatma**: %s</string>
     <string name="elevation">Yükseklik</string>
     <string name="elevation_gain">Yükseklik kazancı</string>
     <string name="elevation_loss">Yükseklik kaybı</string>
@@ -782,12 +774,6 @@
     <string name="pref_export_weather_csv_title">Hava durumu okumalarını dışa aktar</string>
     <string name="weather_exported">Hava durumu dışa aktarıldı</string>
     <string name="pref_show_nearest_tide_title">En yakın gelgiti göster</string>
-    <string name="astro_dialog_rise_set">**Zaman**: %s
-\n
-\n**Yön**: %s</string>
-    <string name="astro_dialog_noon">**Zaman**: %s
-\n
-\n**Rakım**: %s</string>
     <string name="duration_of_charge">Şarj süresi</string>
     <string name="sun_moon_position_template">### %s
 \n**Rakım**: %s
@@ -827,13 +813,6 @@
     <string name="up_to_amount">%s\'e kadar</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="notification_weather_update_title">Hava Durumu İzleme Güncellemesi</string>
-    <string name="astro_dialog_meteor_shower">**Tepe**: %s
-\n
-\n**Tepe rakımı**: %s
-\n
-\n**Tepe yönü**: %s
-\n
-\n**Oran**: %s</string>
     <string name="paths">Yollar</string>
     <string name="keep_forever">Sonsuza kadar sakla</string>
     <string name="slope_amount">%s eğim</string>

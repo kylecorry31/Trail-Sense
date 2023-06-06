@@ -787,19 +787,6 @@
     <string name="lunar_eclipse_start">Gerhana bulan (mulai)</string>
     <string name="lunar_eclipse_end">Gerhana bulan (akhir)</string>
     <string name="lunar_eclipse">Gerhana bulan</string>
-    <string name="astro_dialog_meteor_shower">**Puncak**: %s
-\n
-\n** Ketinggian puncak **: %s
-\n
-\n** Arah puncak **: %s
-\n
-\n**Tingkat**: %s</string>
-    <string name="astro_dialog_rise_set">**Waktu**: %s
-\n
-\n**Arah**: %s</string>
-    <string name="astro_dialog_noon">**Waktu**: %s
-\n
-\n**Ketinggian**: %s</string>
     <string name="notification_weather_update_content">Merekam tekanan</string>
     <string name="weight_per_item">Berat per item</string>
     <string name="on">Aktif</string>
@@ -811,11 +798,6 @@
     <string name="gps_unavailable_resolution">Aktifkan Lokasi atau ubah sumber lokasi Anda menjadi Hanya Perangkat atau Akurasi Tinggi</string>
     <string name="units_mmhg_short">mm</string>
     <string name="navigate">Navigasi</string>
-    <string name="astro_dialog_day_length">**Hari**: %s
-\n
-\n**Malam**: %s
-\n
-\n**Musim**: %s</string>
     <string name="clear_amounts">Kosongkan bawaan</string>
     <string name="low_amount">Rendah (%s)</string>
     <string name="weather_monitoring_disabled">Pemantauan cuaca dinonaktifkan</string>
@@ -866,9 +848,6 @@
         <item quantity="other">Titik jalan %d akan dihapus</item>
     </plurals>
     <string name="lunar_eclipses">Gerhana bulan</string>
-    <string name="astro_dialog_moon_phase">**Fase**: %s
-\n
-\n**Iluminasi**: %s</string>
     <string name="highest_point_elevation">Titik tertinggi</string>
     <string name="simplifying">Menyederhanakan</string>
     <string name="error_banners">Spanduk kesalahan</string>

@@ -669,11 +669,6 @@
     <string name="get_gps_signal">Vyjděte ven s ničím nerušeným výhledem na oblohu.</string>
     <string name="unblock_notification_channel">Odblokovat oznámení %s pro Trail Sense</string>
     <string name="location_override_resolution">Povolte automatickou úpravu polohy v nastavení.</string>
-    <string name="astro_dialog_day_length">**Den**: %s
-\n
-\n**Noc**: %s
-\n
-\n**Roční období**: %s</string>
     <string name="auto">Auto</string>
     <string name="autofill">Automatické vyplňování</string>
     <string name="lightning_dangerously_close">Blesk byl nebezpečně blízko</string>
@@ -692,13 +687,6 @@
     <string name="background_location_permission">Poloha (povolit vždy)</string>
     <string name="activity_recognition">Rozpoznávání aktivit</string>
     <string name="elevation_override_resolution">Povolte automatickou kalibraci v nastavení.</string>
-    <string name="astro_dialog_meteor_shower">**Špička**: %s
-\n
-\n**Nadmořská výška špičky**: %s
-\n
-\n**Směr špičky**: %s
-\n
-\n**Rychlost**: %s</string>
     <string name="closest">Nejbližší</string>
     <string name="duration">Doba trvání</string>
     <string name="change_map_projection">Změnit projekci</string>
@@ -839,15 +827,6 @@
     <string name="last_duration">Poslední %s</string>
     <string name="lunar_eclipse_end">Zatmění Měsíce (konec)</string>
     <string name="lunar_eclipse">Zatmění Měsíce</string>
-    <string name="astro_dialog_moon_phase">**Fáze**: %s
-\n
-\n**Osvětlení**: %s</string>
-    <string name="astro_dialog_noon">**Čas**: %s
-\n
-\n**Nadmořská výška**: %s</string>
-    <string name="astro_dialog_rise_set">**Čas**: %s
-\n
-\n**Směr**: %s</string>
     <string name="astronomy_alerts">Astronomická upozornění</string>
     <string name="cloud_photo_mask_toast">Klepnutím na fotografii přepnete masku</string>
     <string name="beacons">Majáky</string>
