@@ -1,9 +1,12 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
+import android.text.Layout
+import android.text.style.AlignmentSpan
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
+import androidx.core.text.inSpans
 import androidx.core.text.scale
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
@@ -127,33 +130,84 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     protected fun riseSetData(rise: ZonedDateTime?, set: ZonedDateTime?): List<ListItemData> {
         val setBeforeRise = set != null && rise != null && set.isBefore(rise)
 
-        val first = if (setBeforeRise){
-            datapoint(time(set), context.getString(R.string.astronomy_set), R.drawable.ic_arrow_down)
+        val first = if (setBeforeRise) {
+            datapoint(
+                time(set),
+                context.getString(R.string.astronomy_set)
+            )
         } else {
-            datapoint(time(rise), context.getString(R.string.astronomy_rise), R.drawable.ic_arrow_up)
+            datapoint(
+                time(rise),
+                context.getString(R.string.astronomy_rise)
+            )
         }
 
-        val second = if (setBeforeRise){
-            datapoint(time(rise), context.getString(R.string.astronomy_rise), R.drawable.ic_arrow_up)
+        val second = if (setBeforeRise) {
+            datapoint(
+                time(rise),
+                context.getString(R.string.astronomy_rise)
+            )
         } else {
-            datapoint(time(set), context.getString(R.string.astronomy_set), R.drawable.ic_arrow_down)
+            datapoint(
+                time(set),
+                context.getString(R.string.astronomy_set)
+            )
         }
 
-        return listOf(first, second)
+        return listOf(first, datapoint("-"), second)
+    }
+
+    protected fun timeRangeData(
+        start: ZonedDateTime?,
+        end: ZonedDateTime?,
+        displayDate: LocalDate? = start?.toLocalDate()
+    ): List<ListItemData> {
+        val startLabel = if (start != null && end != null && start.toLocalDate() != displayDate) {
+            formatter.formatRelativeDate(start.toLocalDate(), true)
+        } else {
+            null
+        }
+
+        val endLabel = if (start != null && end != null && end.toLocalDate() != displayDate) {
+            formatter.formatRelativeDate(end.toLocalDate(), true)
+        } else {
+            null
+        }
+
+        return listOf(
+            datapoint(time(start), startLabel),
+            datapoint("-"),
+            datapoint(time(end), endLabel)
+        )
+    }
+
+    protected fun timeData(
+        time: ZonedDateTime?,
+        displayDate: LocalDate? = time?.toLocalDate()
+    ): ListItemData {
+        val label = if (time != null && time.toLocalDate() != displayDate) {
+            formatter.formatRelativeDate(time.toLocalDate(), true)
+        } else {
+            null
+        }
+        return datapoint(time(time), label)
     }
 
     protected fun datapoint(
         value: CharSequence,
-        label: CharSequence,
-        icon: Int? = null
+        label: CharSequence? = null
     ): ListItemData {
         return ListItemData(
             buildSpannedString {
-                bold { scale(textScale) { append(value) } }
-                append("\n")
-                append(label)
+                inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER)) {
+                    bold { scale(textScale) { append(value) } }
+                    if (label != null) {
+                        append("\n")
+                        append(label)
+                    }
+                }
             },
-            icon?.let { ResourceListIcon(it, secondaryColor) }
+            null
         )
     }
 

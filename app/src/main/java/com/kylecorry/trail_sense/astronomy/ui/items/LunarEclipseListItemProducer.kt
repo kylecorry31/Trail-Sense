@@ -27,14 +27,16 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
             4,
             context.getString(R.string.lunar_eclipse),
             EclipseFormatter.type(context, eclipse),
-            timeRange(eclipse.start, eclipse.end, date),
+//            timeRange(eclipse.start, eclipse.end, date),
+            null,
             ResourceListIcon(
                 if (eclipse.isTotal) {
                     R.drawable.ic_moon_total_eclipse
                 } else {
                     R.drawable.ic_moon_partial_eclipse
                 }
-            )
+            ),
+            data = timeRangeData(eclipse.start, eclipse.end, date)
         ) {
             Alerts.dialog(
                 context,

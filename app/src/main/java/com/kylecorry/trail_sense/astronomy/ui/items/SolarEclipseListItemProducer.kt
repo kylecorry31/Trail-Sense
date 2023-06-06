@@ -27,14 +27,15 @@ class SolarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
             5,
             context.getString(R.string.solar_eclipse),
             EclipseFormatter.type(context, eclipse),
-            timeRange(eclipse.start, eclipse.end, date),
+            null,
             ResourceListIcon(
                 if (eclipse.isTotal) {
                     R.drawable.ic_total_solar_eclipse
                 } else {
                     R.drawable.ic_partial_solar_eclipse
                 }
-            )
+            ),
+            data = timeRangeData(eclipse.start, eclipse.end, date)
         ) {
             Alerts.dialog(
                 context,
