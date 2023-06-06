@@ -8,6 +8,8 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.text.inSpans
 import androidx.core.text.scale
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.JustifyContent
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.list.ListIcon
@@ -154,7 +156,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             )
         }
 
-        return listOf(first, datapoint("-"), second)
+        return listOf(first, arrow(), second)
     }
 
     protected fun timeRangeData(
@@ -176,7 +178,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
 
         return listOf(
             datapoint(time(start), startLabel),
-            datapoint("-"),
+            arrow(),
             datapoint(time(end), endLabel)
         )
     }
@@ -230,10 +232,16 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             body?.let { body(it) },
             icon = icon,
             trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right),
-            data = data
+            data = data,
+            dataHorizontalAlignment = JustifyContent.SPACE_BETWEEN,
+            dataVerticalAlignment = AlignItems.CENTER
         ) {
             onClick()
         }
+    }
+
+    protected fun arrow(): ListItemData {
+        return ListItemData("", ResourceListIcon(R.drawable.ic_arrow_right, secondaryColor))
     }
 
     protected fun fields(
