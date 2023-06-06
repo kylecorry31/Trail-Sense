@@ -48,8 +48,8 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
                     ),
 
                     // Moon phase
-                    context.getString(R.string.moon_phase) to percent(
-                        formatter.formatMoonPhase(phase.phase),
+                    context.getString(R.string.moon_phase) to formatter.formatMoonPhase(phase.phase),
+                    context.getString(R.string.moon_illumination) to formatter.formatPercentage(
                         phase.illumination
                     ),
 
