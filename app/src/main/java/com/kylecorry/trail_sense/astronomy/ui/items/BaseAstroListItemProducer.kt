@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.list.ListIcon
 import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemData
 import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -123,6 +124,39 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         }
     }
 
+    protected fun riseSetData(rise: ZonedDateTime?, set: ZonedDateTime?): List<ListItemData> {
+        val setBeforeRise = set != null && rise != null && set.isBefore(rise)
+
+        val first = if (setBeforeRise){
+            datapoint(time(set), context.getString(R.string.astronomy_set), R.drawable.ic_arrow_down)
+        } else {
+            datapoint(time(rise), context.getString(R.string.astronomy_rise), R.drawable.ic_arrow_up)
+        }
+
+        val second = if (setBeforeRise){
+            datapoint(time(rise), context.getString(R.string.astronomy_rise), R.drawable.ic_arrow_up)
+        } else {
+            datapoint(time(set), context.getString(R.string.astronomy_set), R.drawable.ic_arrow_down)
+        }
+
+        return listOf(first, second)
+    }
+
+    protected fun datapoint(
+        value: CharSequence,
+        label: CharSequence,
+        icon: Int? = null
+    ): ListItemData {
+        return ListItemData(
+            buildSpannedString {
+                bold { scale(textScale) { append(value) } }
+                append("\n")
+                append(label)
+            },
+            icon?.let { ResourceListIcon(it, secondaryColor) }
+        )
+    }
+
     protected fun percent(label: String, percent: Float): CharSequence {
         return "$label (${formatter.formatPercentage(percent)})"
     }
@@ -131,16 +165,18 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         id: Long,
         title: CharSequence,
         subtitle: CharSequence,
-        body: CharSequence,
+        body: CharSequence?,
         icon: ListIcon,
+        data: List<ListItemData> = listOf(),
         onClick: () -> Unit
     ): ListItem {
         return ListItem(
             id,
             title(title, subtitle),
-            body(body),
+            body?.let { body(it) },
             icon = icon,
-            trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right)
+            trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right),
+            data = data
         ) {
             onClick()
         }

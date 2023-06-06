@@ -40,11 +40,9 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
                 R.string.daylight_duration,
                 formatter.formatDuration(daylight, false)
             ),
-            riseSet(
-                times.rise,
-                times.set
-            ),
+            null,
             ResourceListIcon(R.drawable.circle, AppColor.Yellow.color),
+            data = riseSetData(times.rise, times.set)
         ) {
             Alerts.dialog(
                 context,

@@ -1291,6 +1291,10 @@
     <string name="until_sunset">until sunset</string>
     <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunrise-->
     <string name="until_sunrise">until sunrise</string>
+    <!--    as in sun / moon set-->
+    <string name="astronomy_set">Set</string>
+    <!--    as in sun / moon rise-->
+    <string name="astronomy_rise">Rise</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
