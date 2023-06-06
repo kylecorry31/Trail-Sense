@@ -287,7 +287,6 @@
     <string name="clinometer_rotate_device">Segure o seu telemóvel na vertical para medir a inclinação</string>
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
-    <string name="moon_illumination">Iluminação da lua</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Meio-dia lunar</string>
     <string name="solar_noon">Meio-dia solar</string>
@@ -621,12 +620,6 @@
     <string name="whistle_signal_come_here">Venha aqui</string>
     <string name="whistle_signal_acknowledged">Recebido</string>
     <string name="whistle_signal_where_are_you">Onde está\?</string>
-    <string name="pref_show_civil_times_summary">Amanhecer e anoitecer</string>
-    <string name="pref_show_civil_times_title">Tempo civil</string>
-    <string name="pref_show_astronomical_times_title">Tempos astronómicos</string>
-    <string name="pref_show_nautical_times_title">Tempos náuticos</string>
-    <string name="for_sunrise_and_set">Para o nascer e o pôr do sol</string>
-    <string name="pref_show_noon_summary">Meio-dia solar e lunar</string>
     <string name="noon">Meio-dia</string>
     <string name="fields">Áreas</string>
     <string name="pref_show_last_signal_beacon_summary">Cria um alfinete na localização do último sinal de antena do telemóvel</string>

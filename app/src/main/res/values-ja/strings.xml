@@ -116,7 +116,6 @@
     <string name="clinometer_rotate_device">携帯電話を垂直に保ってください</string>
     <string name="tool_clinometer_summary">雪崩の危険性と物体の高さを推定します</string>
     <string name="clinometer_title">傾斜計</string>
-    <string name="moon_illumination">月の輝度</string>
     <string name="moon_phase">月相</string>
     <string name="lunar_noon">月の南中</string>
     <string name="solar_noon">太陽の南中</string>

@@ -14,9 +14,6 @@ class AstronomyPreferences(private val context: Context) {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
-    val showMoonIllumination: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_moon_illumination)) ?: false
-
     val sunTimesMode: SunTimesMode
         get() {
             return when (cache.getString(context.getString(R.string.pref_sun_time_mode))) {
@@ -89,33 +86,6 @@ class AstronomyPreferences(private val context: Context) {
             val raw = (cache.getString("sunset_alert_last_sent_date") ?: LocalDate.MIN.toString())
             return LocalDate.parse(raw)
         }
-
-    val showMeteorShowers: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_meteor_showers)) ?: true
-
-    val showLunarEclipses by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_show_lunar_eclipses),
-        true
-    )
-
-    val showSolarEclipses by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_show_solar_eclipses),
-        true
-    )
-
-    val showCivilTimes: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_civil_times)) ?: true
-
-    val showNauticalTimes: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_nautical_times)) ?: false
-
-    val showAstronomicalTimes: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_astronomical_times)) ?: false
-
-    val showNoon: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_noon)) ?: true
 
     fun setSunsetAlertLastSentDate(date: LocalDate) {
         cache.putString("sunset_alert_last_sent_date", date.toString())

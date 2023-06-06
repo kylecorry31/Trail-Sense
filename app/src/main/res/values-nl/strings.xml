@@ -105,7 +105,6 @@
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="clinometer_title">Hellingsmeter</string>
-    <string name="moon_illumination">Maanverlichting</string>
     <string name="moon_phase">Maanstand</string>
     <string name="lunar_noon">Maanmiddag</string>
     <string name="solar_noon">Zonnemiddag</string>
@@ -591,12 +590,6 @@
     <string name="whistle_signal_come_here">Kom hier</string>
     <string name="whistle_signal_acknowledged">Erkend</string>
     <string name="whistle_signal_where_are_you">Waar bent u\?</string>
-    <string name="pref_show_civil_times_summary">Dageraad en schemering</string>
-    <string name="pref_show_civil_times_title">Burgerlijke tijden</string>
-    <string name="pref_show_astronomical_times_title">Astronomische tijden</string>
-    <string name="pref_show_nautical_times_title">Nautische tijden</string>
-    <string name="for_sunrise_and_set">Voor zonsopgang en zonsondergang</string>
-    <string name="pref_show_noon_summary">Zonne- en maanmiddag</string>
     <string name="noon">Middag</string>
     <string name="fields">Velden</string>
     <string name="pref_show_last_signal_beacon_summary">Creëert een baken op de plek waar er voor het laatst een mobiel signaal gemeten werd</string>

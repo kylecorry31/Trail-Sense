@@ -131,7 +131,6 @@
     <string name="full_moon">Fuldmåne</string>
     <string name="sunset_alert_notification_title">Solen går snart ned</string>
     <string name="sunset_alerts">Solnedgangsalarmer</string>
-    <string name="moon_illumination">Månebelysning</string>
     <string name="clinometer_title">Klinometer</string>
     <string name="moon_phase">Månefase</string>
     <string name="category">Kategori</string>
@@ -799,11 +798,6 @@
     <string name="last_signal_beacon_name">Sidste signal - %s (%s)</string>
     <string name="pref_show_last_signal_beacon_summary">Opretter et beacon for den sidste cellesignalplacering</string>
     <string name="fields">Felter</string>
-    <string name="pref_show_noon_summary">Solens og månens maksimum over horisonten</string>
-    <string name="for_sunrise_and_set">For solopgang og solnedgang</string>
-    <string name="pref_show_civil_times_title">Almindelig tid</string>
-    <string name="pref_show_nautical_times_title">Nautisk tid</string>
-    <string name="pref_show_civil_times_summary">Daggry og skumring</string>
     <string name="whistle_signal_where_are_you">Hvor er du\?</string>
     <string name="dusk_type">Skumring (%s)</string>
     <string name="battery_history">Batterihistorik - sidste %s</string>
@@ -993,7 +987,6 @@
     <string name="error_importing_map">Fejl ved import af kort</string>
     <string name="actual_frequency_disclaimer">Den faktiske frekvens kan variere, da nogle enheder har baggrundsgrænser.</string>
     <string name="camera_permission_denied">Kameratilladelse nægtet, kan ikke aktivere kamerafunktioner. Du kan aktivere det i indstillinger.</string>
-    <string name="pref_show_astronomical_times_title">Astronomisk tid</string>
     <string name="whistle_signal_acknowledged">Bekræftet</string>
     <string name="pref_barometer_info_summary">Trykket kan afvige fra trykket på nærliggende stationer</string>
     <string name="pref_auto_low_power_summary">Når dit batteri er lavt</string>

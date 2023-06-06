@@ -168,12 +168,6 @@
     <string name="whistle_signal_come_here">Dođi ovamo</string>
     <string name="whistle_signal_acknowledged">Priznato</string>
     <string name="whistle_signal_where_are_you">Gdje ste vi\?</string>
-    <string name="pref_show_civil_times_summary">Zora i sumrak</string>
-    <string name="pref_show_civil_times_title">Civilna vremena</string>
-    <string name="pref_show_astronomical_times_title">Astronomska vremena</string>
-    <string name="pref_show_nautical_times_title">Nautička vremena</string>
-    <string name="for_sunrise_and_set">Za izlazak i zalazak sunca</string>
-    <string name="pref_show_noon_summary">Solarno i lunarno podne</string>
     <string name="noon">Podne</string>
     <string name="fields">Polja</string>
     <string name="pref_show_last_signal_beacon_title">Svjetiljka posljednjeg signala</string>
@@ -679,7 +673,6 @@
     <string name="clinometer_rotate_device">Držite telefon okomito da izmjerite nagib</string>
     <string name="tool_clinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
     <string name="clinometer_title">Inklinometar</string>
-    <string name="moon_illumination">Mjesečevo osvjetljenje</string>
     <string name="moon_phase">Mjesečeva faza</string>
     <string name="lunar_noon">Lunarno podne</string>
     <string name="solar_noon">Solarno podne</string>

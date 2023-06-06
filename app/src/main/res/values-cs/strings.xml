@@ -35,7 +35,6 @@
     <string name="clinometer_rotate_device">Držte svůj telefon svisle na změření sklonu</string>
     <string name="tool_clinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
     <string name="clinometer_title">Sklonoměr</string>
-    <string name="moon_illumination">Osvětlení Měsíce</string>
     <string name="moon_phase">Měsíční fáze</string>
     <string name="lunar_noon">Měsíční poledne</string>
     <string name="solar_noon">Sluneční poledne</string>
@@ -592,14 +591,11 @@
     <string name="pref_show_last_signal_beacon_title">Maják posledního signálu</string>
     <string name="pref_show_last_signal_beacon_summary">Vytvoří maják pro poslední lokaci signálu</string>
     <string name="noon">Poledne</string>
-    <string name="pref_show_astronomical_times_title">Astronomické časy</string>
-    <string name="pref_show_civil_times_title">Civilní časy</string>
     <string name="whistle_signal_where_are_you">Kde jste\?</string>
     <string name="whistle_signal_acknowledged">Potvrzený</string>
     <string name="dawn_type">Svítání (%s)</string>
     <string name="preview">Náhled</string>
     <string name="activity_recognition_permission_denied">Povolení k pohybové aktivitě bylo zamítnuto, nelze zapnout funkce, které používají krokoměr. Můžete je povolit v nastavení.</string>
-    <string name="pref_show_civil_times_summary">Svítání a soumrak</string>
     <string name="whistle_signal_come_here">Pojďte sem</string>
     <string name="dusk_type">Soumrak (%s)</string>
     <string name="pref_barometer_info_summary">Tlak se může lišit od tlaku okolních stanic</string>
@@ -620,9 +616,6 @@
     <string name="weather_monitor">Monitor počasí</string>
     <string name="coordinates_tab">Souřadnice</string>
     <string name="pref_navigation_lock_screen_presence_title">Zobrazit na uzamčené obrazovce při navigaci</string>
-    <string name="for_sunrise_and_set">Pro východ a západ slunce</string>
-    <string name="pref_show_nautical_times_title">Námořní časy</string>
-    <string name="pref_show_noon_summary">Sluneční a měsíční poledne</string>
     <string name="battery_history">Historie baterie - poslední %s</string>
     <string name="fields">Pole</string>
     <string name="map_perspective_instructions">Načrtněte mapu</string>

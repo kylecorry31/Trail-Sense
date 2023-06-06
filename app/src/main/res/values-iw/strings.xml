@@ -363,7 +363,6 @@
     <string name="clinometer_rotate_device">יש להחזיק את הטלפון אנכית</string>
     <string name="sunset_alerts">התראות שקיעה</string>
     <string name="moon_phase">שלב הירח</string>
-    <string name="moon_illumination">תאורת ירח</string>
     <string name="delete">מחיקה</string>
     <string name="category">קטגוריה</string>
     <string name="tool_clinometer_summary">הערכת סיכוני מפולת שלגים וגובה אובייקטים</string>
@@ -751,15 +750,10 @@
     <string name="color">צבע</string>
     <string name="pref_show_last_signal_beacon_summary">יצירת משואה עבור מיקום אות התא האחרון</string>
     <string name="fields">שדות</string>
-    <string name="pref_show_nautical_times_title">זמנים ימיים</string>
-    <string name="pref_show_astronomical_times_title">זמנים אסטרונומיים</string>
     <string name="pref_barometer_pressure_smoothing_title">החלקת לחץ</string>
     <string name="backtrack_battery_warning">מרווחים קטנים (מתחת ל-15 דקות) עלולים לגרום לריקון יתר של הסוללה</string>
     <string name="camera_permission_denied">הרשאת המצלמה נדחתה, לא ניתן להפעיל תכונות מצלמה. באפשרותך להפוך אותו לזמין בהגדרות.</string>
     <string name="last_signal_beacon_name">אות אחרון - %s (%s)</string>
-    <string name="for_sunrise_and_set">לזריחה ושקיעה</string>
-    <string name="pref_show_civil_times_title">זמנים אזרחיים</string>
-    <string name="pref_show_civil_times_summary">שחר וחשיכה</string>
     <string name="whistle_signal_where_are_you">איפה אתה\?</string>
     <string name="whistle_signal_acknowledged">הוכר</string>
     <string name="weather_monitor">צג מזג האוויר</string>
@@ -880,7 +874,6 @@
     <string name="clouds">עננים</string>
     <string name="quality_good">טוב</string>
     <string name="actual_frequency_disclaimer">התדירות בפועל עשויה להשתנות מכיוון שלהתקנים מסוימים יש מגבלות רקע.</string>
-    <string name="pref_show_noon_summary">שמש וירח בצהריים</string>
     <string name="precipitation_hail">ברד</string>
     <string name="precipitation_small_hail">ברד קטן</string>
     <string name="or">או</string>

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_show_civil_times_summary">Şafak ve alacakaranlık</string>
-    <string name="pref_show_civil_times_title">Günlük zamanlar</string>
-    <string name="pref_show_astronomical_times_title">Astronomik zamanlar</string>
-    <string name="pref_show_nautical_times_title">Bahri zamanlar</string>
-    <string name="for_sunrise_and_set">Gün doğumu ve gün batımı için</string>
     <string name="noon">Öğle vakti</string>
     <string name="fields">Alanlar</string>
     <string name="pref_show_last_signal_beacon_summary">Son telefon sinyali konumu için işaret oluşturur</string>
@@ -203,7 +198,6 @@
     <string name="distance_to">Buraya kadar</string>
     <string name="distance_from">Buradan</string>
     <string name="lunar_noon">Gece ortası</string>
-    <string name="pref_show_noon_summary">Öğle ve gece ortası</string>
     <string name="delete_tide_prompt">Gelgiti sil\?</string>
     <string name="toast_destination_bearing_set">Hedef kerterizi belirlendi</string>
     <string name="weather_monitor">Hava Durumu Monitörü</string>
@@ -375,7 +369,6 @@
     <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
     <string name="tool_clinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
     <string name="clinometer_title">Eğim ölçer</string>
-    <string name="moon_illumination">Ayın aydınlığı</string>
     <string name="moon_phase">Ayın evresi</string>
     <string name="solar_noon">Öğle</string>
     <string name="sunset_alert_channel_title">Gün batımı alarmı</string>

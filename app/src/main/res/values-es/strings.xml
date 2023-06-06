@@ -97,7 +97,6 @@
     <string name="clinometer_rotate_device">Sostenga su teléfono verticalmente para medir la inclinación</string>
     <string name="tool_clinometer_summary">Estimar los riesgos de avalanchas y la altura de los objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
-    <string name="moon_illumination">Iluminación de la luna</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Mediodía lunar</string>
     <string name="solar_noon">Mediodía solar</string>
@@ -348,10 +347,8 @@
     <string name="hour_symbol">h</string>
     <string name="map_auto_calibrated">Mapa autocalibrado, verifique su precisión</string>
     <string name="noon">Mediodía</string>
-    <string name="pref_show_civil_times_summary">Amanecer y anochecer</string>
     <string name="color">Color</string>
     <string name="camera_permission_denied">Permiso de la cámara denegado, no se pueden activar las funciones de la cámara. Puede habilitarlo en la configuración.</string>
-    <string name="pref_show_civil_times_title">Tiempos civiles</string>
     <string name="coordinate_input_invalid_location">Ubicación inválida</string>
     <string name="open_beacon_in_maps">Ver en mapa</string>
     <string name="cumulonimbus_desc">Nubes bajas e hinchadas que son muy altas. Por lo general, tienen forma de yunque y son oscuras.</string>
@@ -550,10 +547,6 @@
     <string name="pref_show_last_signal_beacon_title">Baliza de última señal</string>
     <string name="pref_show_last_signal_beacon_summary">Crea una baliza para la ubicación de la última señal de celular</string>
     <string name="fields">Campos</string>
-    <string name="pref_show_noon_summary">Mediodía solar y lunar</string>
-    <string name="for_sunrise_and_set">Para el amanecer y el atardecer</string>
-    <string name="pref_show_nautical_times_title">Tiempos náuticos</string>
-    <string name="pref_show_astronomical_times_title">Tiempos astronómicos</string>
     <string name="whistle_signal_where_are_you">¿Dónde estás\?</string>
     <string name="whistle_signal_acknowledged">Admitido</string>
     <string name="whistle_signal_come_here">Ven aquí</string>

@@ -157,7 +157,6 @@
     <string name="add">Legg til</string>
     <string name="lunar_noon">Månens kulminasjon</string>
     <string name="solar_noon">Solens kulminasjon</string>
-    <string name="moon_illumination">Månen: opplyst del</string>
     <string name="tool_cliff_height_title">Høyden på en klippe</string>
     <string name="category_food">Mat</string>
     <string name="pref_sunset_alert_time_title">Tid for solnedgangsvarsel</string>
@@ -444,8 +443,6 @@
     <string name="meteor_shower">Meteorsverm</string>
     <string name="speedometer">Speedometer</string>
     <string name="whistle_signal_where_are_you">Hvor er du\?</string>
-    <string name="pref_show_civil_times_summary">Demring og skumring</string>
-    <string name="for_sunrise_and_set">For soloppgang og solnedgang</string>
     <string name="color">Farge</string>
     <string name="arrow">Pil</string>
     <string name="pref_weather_show_detailed_icon_title">Vis farget varslingsikon</string>
@@ -454,7 +451,6 @@
     <string name="minute_symbol">m</string>
     <string name="theme_sunset_sunrise">Soloppgang/solnedgang</string>
     <string name="camera_permission_denied">Kameratillatelse avslått, kan ikke slå på kamerafunksjoner. Du kan aktivere tillatelse i innstillinger.</string>
-    <string name="pref_show_noon_summary">Solens og månens kulminasjon</string>
     <string name="dusk_type">Solnedgang (%s)</string>
     <string name="dawn_type">Soloppgang (%s)</string>
     <string name="weather_monitor">Værovervåking</string>
@@ -464,9 +460,6 @@
     <string name="convert">Omregning</string>
     <string name="whistle_signal_come_here">Kom hit</string>
     <string name="whistle_signal_acknowledged">Mottatt</string>
-    <string name="pref_show_civil_times_title">Alminnelig tid</string>
-    <string name="pref_show_astronomical_times_title">Astronomisk tid</string>
-    <string name="pref_show_nautical_times_title">Nautisk tid</string>
     <string name="noon">Kulminasjon</string>
     <string name="fields">Felter</string>
     <string name="dotted">Prikket</string>

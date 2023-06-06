@@ -136,7 +136,6 @@
     <string name="solar_noon">Meio-dia solar</string>
     <string name="lunar_noon">Meio-dia lunar</string>
     <string name="moon_phase">Fase lunar</string>
-    <string name="moon_illumination">Iluminação da lua</string>
     <string name="degree_format">%.0f°</string>
     <string name="pref_show_weather_notification_title">Mostrar notificação meteorológica</string>
     <string name="alerts">Alertas</string>
@@ -565,12 +564,6 @@
     <string name="whistle_signal_come_here">Venha aqui</string>
     <string name="whistle_signal_acknowledged">Referenciado</string>
     <string name="whistle_signal_where_are_you">Onde você está\?</string>
-    <string name="pref_show_civil_times_summary">Madrugada e anoitecer</string>
-    <string name="pref_show_civil_times_title">Tempo civil</string>
-    <string name="pref_show_astronomical_times_title">Tempos astronômicos</string>
-    <string name="pref_show_nautical_times_title">Tempos náuticos</string>
-    <string name="for_sunrise_and_set">Para o nascer e o pôr do sol</string>
-    <string name="pref_show_noon_summary">Meio-dia solar e lunar</string>
     <string name="noon">Meio-dia</string>
     <string name="fields">Áreas</string>
     <string name="last_signal_beacon_name">Último sinal - %s (%s)</string>

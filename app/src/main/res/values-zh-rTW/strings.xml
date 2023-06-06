@@ -241,7 +241,6 @@
     <string name="pref_auto_declination_summary">根據您現在位置</string>
     <string name="override_from_gps">設定自GPS覆寫</string>
     <string name="sensors">感測器</string>
-    <string name="moon_illumination">月球亮部</string>
     <string name="sun_down_no_set">太陽落下</string>
     <string name="sun_up_no_set">太陽升起</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -267,7 +266,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="daylight">日光時間</string>
-    <string name="pref_show_civil_times_summary">黎明與黃昏</string>
     <string name="dawn_type">黎明 (%s)</string>
     <string name="dusk_type">黃昏 (%s)</string>
     <string name="tool_thermometer_title">溫度計</string>

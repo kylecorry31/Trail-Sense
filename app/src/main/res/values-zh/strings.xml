@@ -88,7 +88,6 @@
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
     <string name="clinometer_title">测斜仪</string>
-    <string name="moon_illumination">月光亮度</string>
     <string name="moon_phase">月相</string>
     <string name="solar_noon">太阳达到白天最高点</string>
     <string name="sunset_alert_channel_title">日落提醒</string>
@@ -559,12 +558,6 @@
     <string name="whistle_signal_come_here">来这里</string>
     <string name="whistle_signal_acknowledged">已承认</string>
     <string name="whistle_signal_where_are_you">你在哪里？</string>
-    <string name="pref_show_civil_times_summary">昏晓</string>
-    <string name="pref_show_civil_times_title">民用时</string>
-    <string name="pref_show_astronomical_times_title">天文时间</string>
-    <string name="pref_show_nautical_times_title">航海时</string>
-    <string name="for_sunrise_and_set">日出和日落</string>
-    <string name="pref_show_noon_summary">太阳和月亮中午</string>
     <string name="noon">正午</string>
     <string name="fields">视野</string>
     <string name="weather_monitor">天气监控器</string>

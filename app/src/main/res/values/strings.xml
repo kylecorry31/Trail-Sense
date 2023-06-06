@@ -146,7 +146,8 @@
     <string name="solar_noon">Solar noon</string>
     <string name="lunar_noon">Lunar noon</string>
     <string name="moon_phase">Moon phase</string>
-    <string name="moon_illumination">Moon illumination</string>
+    <!--    The percent of the moon that is illuminated-->
+    <string name="illumination">Illumination</string>
     <!--Tools-->
     <string name="photo_maps">Photo Maps</string>
     <!--Clinometer-->
@@ -615,7 +616,6 @@
     <string name="candela_format">%s cd</string>
     <string name="beam_distance">%s beam distance</string>
     <string name="tool_light_meter_title">Light Meter</string>
-    <string name="pref_show_moon_illumination" translatable="false">pref_show_moon_illumination</string>
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
@@ -670,7 +670,6 @@
     <string name="meteor_shower">Meteor shower</string>
     <string name="tomorrow_at">Tomorrow at %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteors / h</string>
-    <string name="pref_meteor_showers" translatable="false">pref_meteor_showers</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
     <string name="guide_signaling_for_help_title">Signaling for help</string>
     <string name="guide_using_printed_maps">Using printed maps</string>
@@ -733,16 +732,6 @@
     <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
     <string name="fields">Fields</string>
     <string name="noon">Noon</string>
-    <string name="pref_show_noon" translatable="false">pref_show_noon</string>
-    <string name="pref_show_noon_summary">Solar and lunar noon</string>
-    <string name="pref_show_astronomical_times" translatable="false">pref_show_astronomical_times</string>
-    <string name="for_sunrise_and_set">For sunrise and sunset</string>
-    <string name="pref_show_nautical_times" translatable="false">pref_show_nautical_times</string>
-    <string name="pref_show_nautical_times_title">Nautical times</string>
-    <string name="pref_show_astronomical_times_title">Astronomical times</string>
-    <string name="pref_show_civil_times" translatable="false">pref_show_civil_times</string>
-    <string name="pref_show_civil_times_title">Civil times</string>
-    <string name="pref_show_civil_times_summary">Dawn and dusk</string>
     <string name="whistle_signal_where_are_you">Where are you?</string>
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
@@ -944,7 +933,6 @@
     <string name="low_amount">Low (%s)</string>
     <string name="medium_amount">Medium (%s)</string>
     <string name="high_amount">High (%s)</string>
-    <string name="pref_show_lunar_eclipses" translatable="false">pref_show_lunar_eclipses</string>
     <string name="lunar_eclipses">Lunar eclipses</string>
     <string name="total">Total</string>
     <string name="partial">Partial (%s)</string>
@@ -1272,7 +1260,6 @@
     <string name="create_blank_map">Create Blank Map</string>
     <string name="create_path">Create path</string>
     <string name="map_is_not_calibrated">Map is not calibrated</string>
-    <string name="pref_show_solar_eclipses" translatable="false">pref_show_solar_eclipses</string>
     <string name="loading">Loading</string>
 
     <!--    Unable to find the next astronomy event (ex. solar eclipse)-->
@@ -1303,10 +1290,10 @@
     <!--    Rate of occurrence / frequency-->
     <string name="rate">Rate</string>
     <string name="season">Season</string>
-    <!--  Relating to day/night -->
-    <string name="until_dark">Until dark</string>
-    <!--  Relating to day/night -->
-    <string name="until_light">Until light</string>
+    <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunset-->
+    <string name="until_sunset">until sunset</string>
+    <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunrise-->
+    <string name="until_sunrise">until sunrise</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

@@ -210,7 +210,6 @@
     <string name="sunset_alert_notification_text">Matahari akan terbenam pada %s</string>
     <string name="sunset_alerts">Peringatan matahari terbenam</string>
     <string name="moon_phase">Fase bulan</string>
-    <string name="moon_illumination">Iluminasi bulan</string>
     <string name="contents">Konten</string>
     <string name="qr_code">Kode QR</string>
     <string name="beacon_qr_import_instructions">Pindai kode QR untuk impor</string>
@@ -483,7 +482,6 @@
     <string name="quality_good">Bagus</string>
     <string name="pref_backtrack_save_cell_summary">Merekan sinyal seluler di titik jalan. Tidak menggunakan Internet.</string>
     <string name="gps_cache">GPS Cache</string>
-    <string name="for_sunrise_and_set">Untuk matahari terbit dan terbenam</string>
     <string name="unavailable">Tidak tersedia</string>
     <string name="magnetometer">Magnetometer</string>
     <string name="beacon_export_error">Tidak dapat mengekspor suar</string>
@@ -499,7 +497,6 @@
     <string name="battery_history">Riwayat baterai - terakhir %s</string>
     <string name="pref_flashlight_toggle_with_system_title">Beralih dengan sistem</string>
     <string name="actual_frequency_disclaimer">Frekuensi sebenarnya dapat bervariasi karena beberapa perangkat memiliki batasan latar belakang.</string>
-    <string name="pref_show_civil_times_title">Waktu sipil</string>
     <string name="weather_monitor">Pemantau Cuaca</string>
     <string name="activity_recognition_permission_denied">Izin aktivitas fisik ditolak, tidak dapat mengaktifkan fitur pedometer. Anda dapat mengaktifkannya di pengaturan.</string>
     <string name="dusk_type">Senja (%s)</string>
@@ -530,9 +527,6 @@
     <string name="pref_cell_signal_refresh_cache_title">Segarkan cache sinyal</string>
     <string name="start">Mulai</string>
     <string name="unsaved_changes">Perubahan yang belum disimpan</string>
-    <string name="pref_show_nautical_times_title">Waktu bahari</string>
-    <string name="pref_show_astronomical_times_title">Waktu astronomi</string>
-    <string name="pref_show_civil_times_summary">Fajar dan senja</string>
     <string name="humidity_history">Riwayat kelembaban - terakhir %s</string>
     <string name="temperature_history">Riwayat suhu - terakhir %s</string>
     <plurals name="path_group_summary">
@@ -655,7 +649,6 @@
     <string name="camera_permission_denied">Izin kamera ditolak, tidak dapat mengaktifkan fitur kamera. Anda dapat mengaktifkannya di pengaturan.</string>
     <string name="last_signal_beacon_name">Sinyal terakhir - %s (%s)</string>
     <string name="pref_show_last_signal_beacon_summary">Membuat beacon untuk lokasi sinyal seluler terakhir</string>
-    <string name="pref_show_noon_summary">Matahari dan bulan siang hari</string>
     <string name="whistle_signal_where_are_you">Di mana Anda\?</string>
     <string name="dawn_type">Fajar (%s)</string>
     <string name="pref_nmea_elevation_summary">Menggunakan offset NMEA untuk konversi ketinggian</string>

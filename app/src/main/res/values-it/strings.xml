@@ -105,7 +105,6 @@
     <string name="clinometer_rotate_device">Tieni il telefono in posizione verticale per misurare l\'inclinazione</string>
     <string name="tool_clinometer_summary">Stima del rischio valanghe e dell\'altezza degli oggetti</string>
     <string name="clinometer_title">Inclinometro</string>
-    <string name="moon_illumination">Illuminazione lunare</string>
     <string name="until_sun_time">Fino %s</string>
     <string name="sunset_alert_channel_title">Avviso di tramonto</string>
     <string name="sunset_alerts">Avvisi di tramonto</string>
@@ -566,5 +565,4 @@
     <string name="water_boil_guide_title">Rendere l\'acqua sicura da bere</string>
     <string name="last_signal_beacon_name">Ultimo segnale - %s (%s)</string>
     <string name="noon">Mezzogiorno</string>
-    <string name="for_sunrise_and_set">Per alba e tramonto</string>
 </resources>

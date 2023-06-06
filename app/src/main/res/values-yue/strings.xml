@@ -538,7 +538,6 @@
     <string name="solar_noon">日上中天</string>
     <string name="lunar_noon">月上中天</string>
     <string name="moon_phase">月相</string>
-    <string name="moon_illumination">照亮嘅月面</string>
     <string name="clinometer_title">傾角儀</string>
     <string name="add">加</string>
     <string name="subtract">減</string>
@@ -723,7 +722,6 @@
     <string name="current_speed_gps">目前速度 (GPS)</string>
     <string name="tool_bubble_level_title">平水尺</string>
     <string name="pref_meteor_showers_title">流星雨</string>
-    <string name="pref_show_noon_summary">日、月上中天</string>
     <string name="roll_pitch_yaw">俯仰：%s、滾轉：%s、偏擺：%s</string>
     <string name="daylight">日光</string>
     <string name="lightning_dangerously_close">閃電殺到埋身喇</string>
@@ -735,9 +733,6 @@
     <string name="tap_sun_moon_hint">撳一下日月有得睇位置詳細</string>
     <string name="noon">中天</string>
     <string name="fields">埋欄</string>
-    <string name="pref_show_nautical_times_title">航海時</string>
-    <string name="pref_show_astronomical_times_title">天文時</string>
-    <string name="pref_show_civil_times_title">民用時</string>
     <string name="dawn_type">%s拂曉</string>
     <string name="whistle_signal_acknowledged">收到</string>
     <string name="whistle_signal_come_here">過嚟吖</string>
@@ -758,13 +753,11 @@
     <string name="sun_nautical">航海</string>
     <string name="sun_astronomical">天文</string>
     <string name="battery_power_ac">濕電</string>
-    <string name="for_sunrise_and_set">表示日出、日落時間</string>
     <string name="whistle_signal_where_are_you">您喺邊呀？</string>
     <string name="humidity_history">濕度紀錄：過去嗰 %s</string>
     <string name="temperature_history">溫度紀錄：過去嗰 %s</string>
     <string name="meteor_shower">流星雨</string>
     <string name="tomorrow_at">聽日 %s</string>
-    <string name="pref_show_civil_times_summary">拂曉與薄暮</string>
     <string name="dusk_type">%s薄暮</string>
     <string name="pref_nmea_elevation_title">NMEA 海拔偏差</string>
     <string name="pick_file">揀個檔案</string>

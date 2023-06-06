@@ -177,7 +177,6 @@
     <string name="set_inclination_instructions">Нажмите или удерживайте в любом месте для блокировки/разблокировки</string>
     <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
     <string name="tool_clinometer_summary">Оценка риска лавин и высоты объектов</string>
-    <string name="moon_illumination">Освещённость Луны</string>
     <string name="lunar_noon">Луна в зените</string>
     <string name="solar_noon">Солнце в зените</string>
     <string name="sunset_alert_channel_title">Солнце скоро зайдет</string>
@@ -568,12 +567,6 @@
     <string name="whistle_signal_come_here">Идите сюда</string>
     <string name="whistle_signal_acknowledged">Подтверждено</string>
     <string name="whistle_signal_where_are_you">Где вы\?</string>
-    <string name="pref_show_civil_times_summary">Рассвет и закат</string>
-    <string name="pref_show_civil_times_title">Гражданское время</string>
-    <string name="pref_show_astronomical_times_title">Астрономическое время</string>
-    <string name="pref_show_nautical_times_title">Морское время</string>
-    <string name="for_sunrise_and_set">Для восхода и заката</string>
-    <string name="pref_show_noon_summary">Полдень и полночь</string>
     <string name="noon">Полдень</string>
     <string name="arrow">Стрелками</string>
     <string name="fields">Поля</string>

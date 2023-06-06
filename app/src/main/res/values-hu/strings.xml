@@ -646,7 +646,6 @@
     <string name="waxing_gibbous">Növő Domború</string>
     <string name="full_moon">Telihold</string>
     <string name="waning_gibbous">Fogyó Domború</string>
-    <string name="moon_illumination">Hold megvilágítottsága</string>
     <string name="clinometer_title">Dőlésmérő</string>
     <string name="tool_clinometer_summary">Lavinaveszély és tárgyak magasságának becslése</string>
     <string name="set_inclination_instructions">Nyomj bárhova a zároláshoz/feloldáshoz</string>
@@ -776,17 +775,11 @@
     <string name="pref_show_last_signal_beacon_summary">Létrehoz egy jelzőpontot azon a helyen, ahol utoljára volt térerő</string>
     <string name="pref_default_path_color_title">Alapértelmezett ösvény szín</string>
     <string name="updates">Frissítések</string>
-    <string name="pref_show_noon_summary">Nap és Hold delelése</string>
-    <string name="for_sunrise_and_set">Napkeltéhez és napnyugtához</string>
-    <string name="pref_show_nautical_times_title">Tengeri időpontok</string>
-    <string name="pref_show_astronomical_times_title">Csillagászati időpontok</string>
     <string name="dawn_type">Hajnal (%s)</string>
     <string name="dusk_type">Alkonyat (%s)</string>
     <string name="battery_history">Akkuelőzmények - elmúlt %s</string>
-    <string name="pref_show_civil_times_title">Polgári időpontok</string>
     <string name="temperature_history">Hőmérséklet előzmények - elmúlt %s</string>
     <string name="weather_monitor">Időjárás Figyelő</string>
-    <string name="pref_show_civil_times_summary">Hajnal és alkony</string>
     <string name="pref_barometer_pressure_smoothing_title">Nyomásértékek simítása</string>
     <string name="convert">Átalakítás</string>
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>

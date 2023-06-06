@@ -85,7 +85,6 @@
     <string name="sunset_alerts">Sonnenuntergangsalarme</string>
     <string name="sunset_alert_channel_title">Sonnenuntergangsalarm</string>
     <string name="pref_sunset_alert_time_title">Sonnenuntergang: Alarmzeit</string>
-    <string name="moon_illumination">Mond: beleuchteter Anteil</string>
     <string name="moon_phase">Mondphase</string>
     <string name="lunar_noon">Mondkulmination</string>
     <string name="solar_noon">Sonnenkulmination</string>
@@ -563,12 +562,6 @@
     <string name="whistle_signal_come_here">Komm her</string>
     <string name="whistle_signal_acknowledged">Angenommen</string>
     <string name="whistle_signal_where_are_you">Wo bist du\?</string>
-    <string name="pref_show_civil_times_summary">Dämmerung</string>
-    <string name="pref_show_civil_times_title">Bürgerliche Zeiten</string>
-    <string name="pref_show_astronomical_times_title">Astronomische Zeiten</string>
-    <string name="pref_show_nautical_times_title">Nautische Zeiten</string>
-    <string name="for_sunrise_and_set">Für Sonnenaufgang und Sonnenuntergang</string>
-    <string name="pref_show_noon_summary">Sonnen- und Mondmittag</string>
     <string name="noon">Mittag</string>
     <string name="fields">Felder</string>
     <string name="dusk_type">Sonnenuntergang (%s)</string>

@@ -124,7 +124,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 AstronomyEvent.QuarterMoon,
                 AstronomyEvent.MeteorShower,
                 AstronomyEvent.LunarEclipse,
-                if (prefs.astronomy.showSolarEclipses) AstronomyEvent.SolarEclipse else null,
+                AstronomyEvent.SolarEclipse,
                 AstronomyEvent.Supermoon
             )
 
@@ -134,7 +134,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 getString(R.string.quarter_moon),
                 getString(R.string.meteor_shower),
                 getString(R.string.lunar_eclipse),
-                if (prefs.astronomy.showSolarEclipses) getString(R.string.solar_eclipse) else null,
+                getString(R.string.solar_eclipse),
                 getString(R.string.supermoon)
             ).map { it.capitalizeWords() }
 
@@ -441,11 +441,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             if (nextSunrise != null && (nextSunset == null || nextSunrise?.isBefore(nextSunset) == true)) {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunrise))
-                binding.astronomyTitle.subtitle.text = getString(R.string.until_light)
+                binding.astronomyTitle.subtitle.text = getString(R.string.until_sunrise)
             } else if (nextSunset != null) {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunset))
-                binding.astronomyTitle.subtitle.text = getString(R.string.until_dark)
+                binding.astronomyTitle.subtitle.text = getString(R.string.until_sunset)
             } else if (astronomyService.isSunUp(gps.location)) {
                 binding.astronomyTitle.title.text = getString(R.string.sun_up_no_set)
                 binding.astronomyTitle.subtitle.text = getString(R.string.sun_does_not_set)

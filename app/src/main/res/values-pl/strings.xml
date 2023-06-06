@@ -192,7 +192,6 @@
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
     <string name="clinometer_title">Inklinometr</string>
-    <string name="moon_illumination">Oświetlenie Księżyca</string>
     <string name="waning_gibbous">Garbaty Księżyc</string>
     <string name="waxing_gibbous">Poszerzony Księżyc</string>
     <string name="sunset_alert_notification_text">Słońce zajdzie o %s</string>
@@ -552,15 +551,9 @@
     <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %s (%s)</string>
     <string name="color">Kolor</string>
-    <string name="pref_show_civil_times_summary">Świt i zmierzch</string>
-    <string name="pref_show_civil_times_title">Czasy cywilne</string>
-    <string name="pref_show_astronomical_times_title">Czasy astronomiczne</string>
-    <string name="pref_show_nautical_times_title">Czasy żeglarskie</string>
-    <string name="pref_show_noon_summary">Południe słoneczne i księżycowe</string>
     <string name="noon">Południe</string>
     <string name="time_until_full">pozostało do naładowania</string>
     <string name="time_until_empty">pozostało do rozładowania</string>
-    <string name="for_sunrise_and_set">Dla wschodu i zachodu słońca</string>
     <string name="fields">Pola</string>
     <string name="whistle_signal_come_here">Chodź tu</string>
     <string name="whistle_signal_acknowledged">Potwierdzony</string>
