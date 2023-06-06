@@ -46,7 +46,6 @@
     <string name="sunset_alert_notification_title">Solen går snart ned</string>
     <string name="full_moon">Fullmåne</string>
     <string name="new_moon">Nymåne</string>
-    <string name="until_sun_time">til %s</string>
     <string name="sunset_label">Solnedgang</string>
     <string name="sunrise_label">Soloppgang</string>
     <string name="yesterday">I går</string>
@@ -176,8 +175,6 @@
     <string name="waning_gibbous">Minkende måne (ne)</string>
     <string name="third_quarter">Halvmåne (ne)</string>
     <string name="waning_crescent">Månesigd (ne)</string>
-    <string name="moon_set">Månenedgang</string>
-    <string name="moon_rise">Måneoppgang</string>
     <string name="tap_sun_moon_hint">Trykk på solen eller månen for posisjonsdetaljer</string>
     <string name="pref_storm_alert_sensitivity_title">Uværfølsomhet</string>
     <string name="pref_forecast_sensitivity_title">Værvarselfølsomhet</string>

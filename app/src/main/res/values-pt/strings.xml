@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Nascer do sol / pôr do sol</string>
     <string name="no_beacons">Sem alfinetes</string>
     <string name="continue_button">CONTINUAR</string>
-    <string name="moon_rise">Nascer da lua</string>
-    <string name="moon_set">Pôr da lua</string>
     <string name="stop">Parar</string>
     <string name="smoothing_summary">Valores elevados podem reduzir o ruído</string>
     <string name="pref_theme_title">Tema</string>
@@ -302,7 +300,6 @@
     <string name="third_quarter">Quarto minguante</string>
     <string name="waning_crescent">Lua minguante</string>
     <string name="new_moon">Lua nova</string>
-    <string name="until_sun_time">até %s</string>
     <string name="sun_down_no_set">O sol pôs-se</string>
     <string name="sun_up_no_set">O sol nasceu</string>
     <string name="sun_does_not_rise">não nasce</string>

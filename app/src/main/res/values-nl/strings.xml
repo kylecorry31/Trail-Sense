@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Zonsopgang / zonsondergang tijden</string>
     <string name="no_beacons">Geen bakens</string>
     <string name="continue_button">DOORGAAN</string>
-    <string name="moon_rise">Maansopkomst</string>
-    <string name="moon_set">Maanondergang</string>
     <string name="stop">Stop</string>
     <string name="smoothing_summary">Hoge waarden kunnen het lawaai verminderen</string>
     <string name="pref_theme_title">Thema</string>
@@ -120,7 +118,6 @@
     <string name="waning_crescent">Afnemende sikkelvormige maan</string>
     <string name="third_quarter">Derde kwartier</string>
     <string name="new_moon">Nieuwe maan</string>
-    <string name="until_sun_time">tot %s</string>
     <string name="sun_down_no_set">Zon is ondergegaan</string>
     <string name="sun_up_no_set">Zon is opgekomen</string>
     <string name="sun_does_not_rise">komt niet op</string>

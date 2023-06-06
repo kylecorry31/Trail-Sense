@@ -384,9 +384,6 @@
     <string name="third_quarter">Üçüncü Dördün</string>
     <string name="waning_crescent">Küçülen Hilal</string>
     <string name="new_moon">Yeni Ay</string>
-    <string name="until_sun_time">%s kaldı</string>
-    <string name="moon_rise">Ay doğumu</string>
-    <string name="moon_set">Ay batımı</string>
     <string name="sunset_label">Gün batımı</string>
     <string name="sunrise_label">Gün doğumu</string>
     <string name="yesterday">Dün</string>

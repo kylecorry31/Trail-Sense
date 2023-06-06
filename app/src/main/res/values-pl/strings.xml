@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Czas wschodu/zachodu słońca</string>
     <string name="no_beacons">Brak punktów nawigacyjnych</string>
     <string name="continue_button">KONTYNUUJ</string>
-    <string name="moon_rise">Wschód Księżyca</string>
-    <string name="moon_set">Zachód Księżyca</string>
     <string name="stop">Stop</string>
     <string name="smoothing_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
     <string name="pref_theme_title">Motyw</string>
@@ -129,7 +127,6 @@
     <string name="access_background_location_rationale">Trail Sense używa w tle danych o lokalizacji. Służy to do kalibracji ciśnienia na poziomie morza w monitorowaniu pogody i do zapewniania dokładniejszych alertów o zachodzie słońca. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
-    <string name="until_sun_time">do %s</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
     <string name="alerts">Alerty</string>
     <string name="units_inhg_short">in</string>

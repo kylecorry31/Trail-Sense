@@ -65,9 +65,6 @@
     <string name="yesterday">I går</string>
     <string name="sunrise_label">Solopgang</string>
     <string name="sunset_label">Solnedgang</string>
-    <string name="moon_rise">Måneopgang</string>
-    <string name="moon_set">Månenedgang</string>
-    <string name="until_sun_time">indtil %s</string>
     <string name="new_moon">Nymåne</string>
     <string name="waning_crescent">Aftagende halvmåne</string>
     <string name="waxing_gibbous">Stigende gibbous</string>

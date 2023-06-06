@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">日出/日落时间</string>
     <string name="no_beacons">没有信标</string>
     <string name="continue_button">继续</string>
-    <string name="moon_rise">月出</string>
-    <string name="moon_set">月落</string>
     <string name="stop">停止</string>
     <string name="smoothing_summary">值越大可能可以减少干扰</string>
     <string name="pref_theme_title">主题</string>
@@ -102,7 +100,6 @@
     <string name="waning_gibbous">亏凸月</string>
     <string name="third_quarter">下弦月</string>
     <string name="new_moon">新月</string>
-    <string name="until_sun_time">直到 %s</string>
     <string name="sun_up_no_set">已日出</string>
     <string name="sun_down_no_set">已日落</string>
     <string name="sun_does_not_rise">还未升起</string>

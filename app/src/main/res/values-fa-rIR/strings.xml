@@ -18,8 +18,6 @@
     <string name="no_beacons">مکان راهنمایی وجود ندارد</string>
 
     <string name="continue_button">ادامه</string>
-    <string name="moon_rise">طلوع ماه</string>
-    <string name="moon_set">غروب ماه</string>
     <string name="stop">متوقف کردن</string>
     <string name="smoothing_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
     <string name="pref_theme_title">تم</string>
@@ -75,7 +73,6 @@
     <string name="sun_does_not_rise">طلوع نمی کند</string>
     <string name="sun_up_no_set">آفتاب طلوع کرده</string>
     <string name="sun_down_no_set">آفتاب غروب کرده</string>
-    <string name="until_sun_time">تا %s</string>
     <string name="new_moon">ماه جدید</string>
     <string name="waning_crescent">Waning crescent</string>
     <string name="third_quarter">ربع سوم</string>

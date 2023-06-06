@@ -244,9 +244,6 @@
     <string name="third_quarter">Quart Minvant</string>
     <string name="waning_crescent">Lluna Minvant</string>
     <string name="new_moon">Lluna Nova</string>
-    <string name="until_sun_time">fins %s</string>
-    <string name="moon_set">Posta de la lluna</string>
-    <string name="moon_rise">Sortida de la lluna</string>
     <string name="sunset_label">Ocàs</string>
     <string name="sunrise_label">Albada</string>
     <string name="yesterday">Ahir</string>

@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">أوقات شروق /غروب الشمس</string>
     <string name="no_beacons">لا توجد منارات</string>
     <string name="continue_button">استمر</string>
-    <string name="moon_rise">طلوع القمر</string>
-    <string name="moon_set">القمر</string>
     <string name="stop">قف</string>
     <string name="smoothing_summary">قد تؤدي القيم العالية إلى تقليل الضوضاء</string>
     <string name="pref_theme_title">موضوع</string>

@@ -340,9 +340,6 @@
     <string name="third_quarter">Третя чверть</string>
     <string name="waning_crescent">Остання чверть</string>
     <string name="new_moon">Новий місяць</string>
-    <string name="until_sun_time">до %s</string>
-    <string name="moon_set">Захід Місяця</string>
-    <string name="moon_rise">Схід Місяця</string>
     <string name="sunset_label">Захід сонця</string>
     <string name="sunrise_label">Схід сонця</string>
     <string name="yesterday">Учора</string>

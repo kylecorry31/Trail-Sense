@@ -44,9 +44,6 @@
     <string name="first_quarter">První čtvrť</string>
     <string name="full_moon">Úplněk</string>
     <string name="new_moon">Nov</string>
-    <string name="until_sun_time">do %s</string>
-    <string name="moon_rise">Východ měsíce</string>
-    <string name="moon_set">Západ měsíce</string>
     <string name="sunset_label">Západ slunce</string>
     <string name="sunrise_label">Svítání</string>
     <string name="yesterday">Včera</string>

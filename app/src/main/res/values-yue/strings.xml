@@ -417,7 +417,6 @@
     <plurals name="path_group_summary">
         <item quantity="other">%d 條路徑</item>
     </plurals>
-    <string name="until_sun_time">直到%s</string>
     <string name="high">高</string>
     <string name="second_symbol">秒</string>
     <string name="imperial_gallons">英制加侖</string>
@@ -632,8 +631,6 @@
     <string name="sun_down_no_set">太陽已經落山</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
-    <string name="moon_rise">月出</string>
-    <string name="moon_set">月落</string>
     <string name="new_moon">新月</string>
     <string name="units_hpa">百帕斯卡</string>
     <string name="sun_does_not_rise">仲未升起</string>

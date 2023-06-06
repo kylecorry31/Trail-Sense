@@ -55,9 +55,6 @@
     <string name="third_quarter">下弦月</string>
     <string name="waning_crescent">殘月</string>
     <string name="new_moon">新月</string>
-    <string name="until_sun_time">直至 %s</string>
-    <string name="moon_set">月落</string>
-    <string name="moon_rise">月出</string>
     <string name="sunset_label">日落</string>
     <string name="sunrise_label">日出</string>
     <string name="yesterday">昨日</string>

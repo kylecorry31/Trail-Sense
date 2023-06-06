@@ -16,8 +16,6 @@
     <string name="pref_sun_time_mode_title">Sonnenaufgangs-/Sonnenuntergangszeiten</string>
     <string name="no_beacons">Keine Wegpunkte</string>
     <string name="continue_button">FORTSETZEN</string>
-    <string name="moon_rise">Mondaufgang</string>
-    <string name="moon_set">Monduntergang</string>
     <string name="stop">Stopp</string>
     <string name="smoothing_summary">Hohe Werte können Signalrauschen reduzieren</string>
     <string name="pref_theme_title">Design</string>
@@ -70,7 +68,6 @@
     <string name="waxing_gibbous">zunehmender Dreiviertelmond</string>
     <string name="first_quarter">Erstes Viertel</string>
     <string name="waxing_crescent">zunehmender Sichelmond</string>
-    <string name="until_sun_time">bis %s</string>
     <string name="pref_monitor_weather_title">Wettermonitor</string>
     <string name="pref_monitor_weather_summary">im Hintergrund</string>
     <string name="pref_forecast_sensitivity_title">Vorhersagegenauigkeit</string>

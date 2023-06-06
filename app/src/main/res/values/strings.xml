@@ -128,9 +128,6 @@
     <string name="yesterday">Yesterday</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
-    <string name="moon_rise">Moonrise</string>
-    <string name="moon_set">Moonset</string>
-    <string name="until_sun_time">until %s</string>
     <string name="new_moon">New Moon</string>
     <string name="waning_crescent">Waning Crescent</string>
     <string name="third_quarter">Third Quarter</string>

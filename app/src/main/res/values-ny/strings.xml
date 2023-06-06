@@ -16,8 +16,6 @@
     <string name="pref_sun_time_mode_title">Kutuluka kwa dzuwa /nthawi zamadzulo</string>
     <string name="no_beacons">Palibe ma beacon</string>
     <string name="continue_button">Pitilizani</string>
-    <string name="moon_rise">Kutuluka kwa mwezi</string>
-    <string name="moon_set">Moonset</string>
     <string name="stop">Imani</string>
     <string name="smoothing_summary">Mitengo yapamwamba imatha kuchepetsa phokoso</string>
     <string name="pref_theme_title">Mutu</string>

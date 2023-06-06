@@ -12,9 +12,6 @@
     <string name="third_quarter">Al treilea pătrar</string>
     <string name="waning_crescent">Semilună în descreștere</string>
     <string name="new_moon">Lună nouă</string>
-    <string name="until_sun_time">până la %s</string>
-    <string name="moon_set">Apus de Lună</string>
-    <string name="moon_rise">Răsărit de lună</string>
     <string name="sunset_label">Apus</string>
     <string name="sunrise_label">Răsărit</string>
     <string name="yesterday">Ieri</string>

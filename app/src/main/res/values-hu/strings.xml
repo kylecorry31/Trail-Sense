@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="new_moon">Újhold</string>
-    <string name="moon_set">Holdnyugta</string>
-    <string name="moon_rise">Holdkelte</string>
     <string name="sunset_label">Napnyugta</string>
     <string name="sunrise_label">Napkelte</string>
     <string name="yesterday">Tegnap</string>
@@ -77,7 +75,6 @@
     <string name="settings">Beállítások</string>
     <string name="weather">Időjárás</string>
     <string name="navigation">Navigáció</string>
-    <string name="until_sun_time">múlva lesz %s</string>
     <string name="unit_nautical_miles">Tengeri mérföld</string>
     <string name="unit_miles">Mérföld</string>
     <string name="feet_miles">Láb / Mérföld</string>

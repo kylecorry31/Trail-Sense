@@ -7,7 +7,6 @@
     <string name="astronomy">Astronomía</string>
     <string name="sunrise_label">Amanecer</string>
     <string name="sunset_label">Anochecer</string>
-    <string name="until_sun_time">hasta %s</string>
     <string name="true_north">Norte verdadero</string>
     <string name="pref_use_sea_level_pressure_title">Presión al nivel del mar</string>
     <string name="general">General</string>
@@ -16,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Amanecer / atardecer</string>
     <string name="no_beacons">Sin balizas</string>
     <string name="continue_button">SEGUIR</string>
-    <string name="moon_rise">Salida de la luna</string>
-    <string name="moon_set">Puesta de la luna</string>
     <string name="stop">Detener</string>
     <string name="smoothing_summary">Los valores altos pueden reducir el ruido</string>
     <string name="pref_theme_title">Tema</string>

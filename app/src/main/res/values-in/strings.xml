@@ -122,16 +122,13 @@
     <string name="celsius">Celsius</string>
     <string name="temperature">Temperatur</string>
     <string name="soon">Segera</string>
-    <string name="moon_set">Bulan terbenam</string>
     <string name="general">Umum</string>
     <string name="tomorrow">Besok</string>
     <string name="yesterday">Kemarin</string>
     <string name="sunrise_label">Matahari terbit</string>
-    <string name="moon_rise">Bulan terbit</string>
     <string name="new_moon">Bulan Baru</string>
     <string name="pref_use_24_hour_title">Gunakan format 24 jam</string>
     <string name="sunset_label">Matahari terbenam</string>
-    <string name="until_sun_time">sampai %s</string>
     <string name="dialog_item_amount">Jumlah</string>
     <string name="create_item_title">Buat Item</string>
     <string name="edit_item_title">Ubah Item</string>

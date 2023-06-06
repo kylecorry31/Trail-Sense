@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Время восхода/захода Солнца</string>
     <string name="no_beacons">Нет маячков</string>
     <string name="continue_button">ДАЛЕЕ</string>
-    <string name="moon_rise">Восход Луны</string>
-    <string name="moon_set">Закат Луны</string>
     <string name="stop">Стоп</string>
     <string name="smoothing_summary">Высокие значения могут увеличить плавность</string>
     <string name="pref_theme_title">Тема</string>
@@ -188,7 +186,6 @@
     <string name="waning_gibbous">Убывающая луна</string>
     <string name="waning_crescent">Последняя четверть</string>
     <string name="first_quarter">Первая четверть</string>
-    <string name="until_sun_time">до %s</string>
     <string name="sun_down_no_set">Солнце зашло</string>
     <string name="sun_up_no_set">Солнце взошло</string>
     <string name="sun_does_not_rise">не восходит</string>

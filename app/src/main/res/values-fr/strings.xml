@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Heures de lever / coucher du soleil</string>
     <string name="no_beacons">Pas de repères</string>
     <string name="continue_button">CONTINUER</string>
-    <string name="moon_rise">Lever de la lune</string>
-    <string name="moon_set">Coucher de la lune</string>
     <string name="stop">Arrêter</string>
     <string name="smoothing_summary">Une valeur élevée peur permettre de réduire l\'impact de parasites</string>
     <string name="pref_theme_title">Thème</string>
@@ -151,7 +149,6 @@
     <string name="third_quarter">Dernier quartier</string>
     <string name="waning_crescent">Dernier croissant</string>
     <string name="new_moon">Nouvelle lune</string>
-    <string name="until_sun_time">jusqu\'au %s</string>
     <string name="notification_monitoring_weather">Suivi des données météo en arrière plan</string>
     <string name="notification_storm_alert_title">Alerte tempête</string>
     <string name="notification_storm_alert_text">Une tempête est peut-être imminente</string>

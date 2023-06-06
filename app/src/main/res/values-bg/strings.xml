@@ -16,8 +16,6 @@
     <string name="pref_sun_time_mode_title">Време за изгрев /залез</string>
     <string name="no_beacons">Без маяци</string>
     <string name="continue_button">ПРОДЪЛЖИ</string>
-    <string name="moon_rise">Moonrise</string>
-    <string name="moon_set">Залез на Луната</string>
     <string name="stop">Спри се</string>
     <string name="smoothing_summary">Високите стойности могат да намалят шума</string>
     <string name="pref_theme_title">тема</string>

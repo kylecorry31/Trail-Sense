@@ -15,8 +15,6 @@
     <string name="pref_sun_time_mode_title">Vrijeme izlaska i zalaska sunca</string>
     <string name="no_beacons">Nema svjetionika</string>
     <string name="continue_button">NASTAVAK</string>
-    <string name="moon_rise">Izlazak mjeseca</string>
-    <string name="moon_set">Zalazak mjeseca</string>
     <string name="stop">Stani</string>
     <string name="smoothing_summary">Visoke vrijednosti mogu umanjiti buku</string>
     <string name="pref_theme_title">Izgled</string>
@@ -504,7 +502,6 @@
     <string name="new_moon">Mlađak</string>
     <string name="waning_gibbous">Opadajući Gibus</string>
     <string name="waning_crescent">Opadajući Srpek</string>
-    <string name="until_sun_time">do %s</string>
     <string name="sun_down_no_set">Sunce je zašlo</string>
     <string name="sun_up_no_set">Sunce je izašlo</string>
     <string name="sun_does_not_rise">ne diže se</string>

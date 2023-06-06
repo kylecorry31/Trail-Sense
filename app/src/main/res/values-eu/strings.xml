@@ -112,7 +112,6 @@
     <string name="third_quarter">Hirugarren laurdena</string>
     <string name="waning_crescent">Ilbehera</string>
     <string name="new_moon">Ilberria</string>
-    <string name="until_sun_time">%s arte</string>
     <string name="sunset_label">Ilunabarra</string>
     <string name="sunrise_label">Egunsentia</string>
     <string name="yesterday">Atzo</string>
@@ -135,8 +134,6 @@
     <string name="group">Taldea</string>
     <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Sortu</string>
-    <string name="moon_set">Ilargia sartzea</string>
-    <string name="moon_rise">Ilargia ateratzea</string>
     <string name="category_safety">Segurtasuna</string>
     <string name="category_shelter">Babeslekua</string>
     <string name="category_fire">Sua</string>

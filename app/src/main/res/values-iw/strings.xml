@@ -956,9 +956,6 @@
     <string name="yesterday">אתמול</string>
     <string name="sunrise_label">זריחה</string>
     <string name="sunset_label">שקיעה</string>
-    <string name="moon_rise">זריחת ירח</string>
-    <string name="moon_set">שקיעת ירח</string>
-    <string name="until_sun_time">עד %s</string>
     <string name="new_moon">ירח חדש</string>
     <string name="waning_crescent">סהר דועך</string>
     <string name="solar_noon">שמש בצהריים</string>
