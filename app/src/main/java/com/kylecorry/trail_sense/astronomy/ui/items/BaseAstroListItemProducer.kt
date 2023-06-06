@@ -140,4 +140,21 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         }
     }
 
+    protected fun fields(
+        vararg fields: Pair<CharSequence, CharSequence?>
+    ): CharSequence {
+        return buildSpannedString {
+            fields.forEachIndexed { index, (title, value) ->
+                bold {
+                    append(title)
+                    append("\n")
+                }
+                append(value ?: "-")
+                if (index != fields.lastIndex) {
+                    append("\n\n")
+                }
+            }
+        }
+    }
+
 }

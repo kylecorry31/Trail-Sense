@@ -682,6 +682,10 @@ class FormatService private constructor(private val context: Context) {
             MapProjectionType.CylindricalEquidistant -> strings.getString(R.string.map_projection_equidistant)
         }
     }
+    
+    fun formatBooleanYesNo(value: Boolean): String {
+        return if (value) context.getString(R.string.yes) else context.getString(R.string.no)
+    }
 
     companion object {
         @SuppressLint("StaticFieldLeak")
