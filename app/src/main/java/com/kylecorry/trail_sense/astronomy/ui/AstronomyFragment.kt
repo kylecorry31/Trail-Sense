@@ -441,15 +441,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             if (nextSunrise != null && (nextSunset == null || nextSunrise?.isBefore(nextSunset) == true)) {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunrise))
-                binding.astronomyTitle.subtitle.text = getString(
-                    R.string.until_sun_time, getSunriseWording()
-                )
+                binding.astronomyTitle.subtitle.text = getString(R.string.until_light)
             } else if (nextSunset != null) {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunset))
-                binding.astronomyTitle.subtitle.text = getString(
-                    R.string.until_sun_time, getSunsetWording()
-                )
+                binding.astronomyTitle.subtitle.text = getString(R.string.until_dark)
             } else if (astronomyService.isSunUp(gps.location)) {
                 binding.astronomyTitle.title.text = getString(R.string.sun_up_no_set)
                 binding.astronomyTitle.subtitle.text = getString(R.string.sun_does_not_set)
@@ -458,14 +454,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 binding.astronomyTitle.subtitle.text = getString(R.string.sun_does_not_rise)
             }
         }
-    }
-
-    private fun getSunsetWording(): String {
-        return "dark"
-    }
-
-    private fun getSunriseWording(): String {
-        return "light"
     }
 
     private fun detectAndShowGPSError() {

@@ -1296,13 +1296,17 @@
     <string name="pref_keep_map_facing_up_title">Keep map facing up</string>
     <string name="pref_keep_map_facing_up_summary">The map will align with the top of the screen instead of True North.</string>
     <string name="daylight_duration">%s daylight</string>
-<!--    As in times of day, ex. 12:00 PM - also used for rise / set times of the moon-->
+    <!--    As in times of day, ex. 12:00 PM - also used for rise / set times of the moon-->
     <string name="times">Times</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-<!--    Rate of occurrence / frequency-->
+    <!--    Rate of occurrence / frequency-->
     <string name="rate">Rate</string>
     <string name="season">Season</string>
+    <!--  Relating to day/night -->
+    <string name="until_dark">Until dark</string>
+    <!--  Relating to day/night -->
+    <string name="until_light">Until light</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
