@@ -1,8 +1,15 @@
 package com.kylecorry.trail_sense.shared
 
+import android.content.Context
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ImageSpan
+import androidx.annotation.ColorInt
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
@@ -97,4 +104,25 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
     }
 
     return rectangle
+}
+
+inline fun SpannableStringBuilder.appendImage(
+    context: Context,
+    drawableRes: Int,
+    width: Int,
+    height: Int = width,
+    @ColorInt tint: Int? = null,
+    flags: Int = ImageSpan.ALIGN_BASELINE
+): SpannableStringBuilder {
+    val drawable = AppCompatResources.getDrawable(context, drawableRes)
+    drawable?.let {
+        it.setBounds(0, 0, width, height)
+        tint?.let { tint ->
+            Colors.setImageColor(it, tint)
+        }
+        val imageSpan = ImageSpan(it, flags)
+        append(" ")
+        setSpan(imageSpan, length - 1, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+    return this
 }
