@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.bold
-import androidx.core.text.buildSpannedString
-import androidx.core.text.scale
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -21,8 +17,6 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -35,27 +29,17 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.astronomy.ui.commands.AstroChartData
 import com.kylecorry.trail_sense.astronomy.ui.commands.CenteredAstroChartDataProvider
 import com.kylecorry.trail_sense.astronomy.ui.commands.DailyAstroChartDataProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.AstroField
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.AstronomicalSunTimesProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.CivilTimesProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.Conditional
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.DaylightProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.Group
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.LunarEclipseProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.MeteorShowerProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.MoonPhaseProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.NauticalTimesProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.Section
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.SolarEclipseProvider
-import com.kylecorry.trail_sense.astronomy.ui.fields.providers.SunMoonTimesProvider
+import com.kylecorry.trail_sense.astronomy.ui.items.LunarEclipseListItemProducer
+import com.kylecorry.trail_sense.astronomy.ui.items.MeteorShowerListItemProducer
+import com.kylecorry.trail_sense.astronomy.ui.items.MoonListItemProducer
+import com.kylecorry.trail_sense.astronomy.ui.items.SolarEclipseListItemProducer
+import com.kylecorry.trail_sense.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.quickactions.AstronomyQuickActionBinder
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.appendImage
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -75,7 +59,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private lateinit var gps: IGPS
 
-    //    private lateinit var detailList: ListView<AstroField>
     private lateinit var chart: AstroChart
 
     private lateinit var sunTimesMode: SunTimesMode
@@ -111,118 +94,22 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private var data = AstroChartData(emptyList(), emptyList())
 
+    private val producers by lazy {
+        listOf(
+            SunListItemProducer(requireContext()),
+            MoonListItemProducer(requireContext()),
+            MeteorShowerListItemProducer(requireContext()),
+            LunarEclipseListItemProducer(requireContext()),
+            SolarEclipseListItemProducer(requireContext())
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         AstronomyQuickActionBinder(
-            this,
-            binding,
-            prefs.astronomy
+            this, binding, prefs.astronomy
         ).bind()
-
-        val subtitleScale = 0.7f
-        val textScale = 1.2f
-        val imageSize = Resources.sp(requireContext(), 12f * textScale).toInt()
-        val secondaryColor = Resources.androidTextColorSecondary(requireContext())
-
-        binding.astronomyDetailList.setItems(
-            listOf(
-                ListItem(
-                    1,
-                    buildSpannedString {
-                        bold { append("Sun") }
-                        append("\n")
-                        scale(subtitleScale) { append("15h daylight") }
-                    },
-                    buildSpannedString {
-                        scale(textScale) {
-                            appendImage(
-                                requireContext(),
-                                R.drawable.ic_arrow_up,
-                                imageSize,
-                                tint = secondaryColor
-                            )
-                            append(" 6:00 AM    ")
-                            appendImage(
-                                requireContext(),
-                                R.drawable.ic_arrow_down,
-                                imageSize,
-                                tint = secondaryColor
-                            )
-                            append(" 7:00 PM")
-                        }
-                    },
-                    icon = ResourceListIcon(R.drawable.circle, AppColor.Yellow.color),
-                    trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right)
-                ),
-                ListItem(
-                    1,
-                    buildSpannedString {
-                        bold { append("Moon") }
-                        append("\n")
-                        scale(subtitleScale) { append("Full (98%)") }
-                    },
-                    buildSpannedString {
-                        scale(textScale) {
-                            appendImage(
-                                requireContext(),
-                                R.drawable.ic_arrow_up,
-                                imageSize,
-                                tint = secondaryColor
-                            )
-                            append(" 6:00 AM    ")
-                            appendImage(
-                                requireContext(),
-                                R.drawable.ic_arrow_down,
-                                imageSize,
-                                tint = secondaryColor
-                            )
-                            append(" 7:00 PM")
-                        }
-                    },
-                    icon = ResourceListIcon(R.drawable.ic_moon),
-                    trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right)
-                ),
-                ListItem(
-                    1,
-                    buildSpannedString {
-                        bold { append("Meteor Shower") }
-                        append("\n")
-                        scale(subtitleScale) { append("120 / hour") }
-                    },
-                    buildSpannedString {
-                        scale(textScale) {
-                            append("1:50AM")
-                        }
-                    },
-                    icon = ResourceListIcon(R.drawable.ic_meteor),
-                    trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right)
-                ),
-                ListItem(
-                    1,
-                    buildSpannedString {
-                        bold { append("Lunar Eclipse") }
-                        append("\n")
-                        scale(subtitleScale) { append("Partial (87%)") }
-                    },
-                    buildSpannedString {
-                        scale(textScale) {
-                            append("11:50PM - 12:50AM (Tomorrow)")
-                        }
-                    },
-                    icon = ResourceListIcon(R.drawable.ic_moon_partial_eclipse),
-                    trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right)
-                )
-            )
-        )
-
-//        val recyclerView = binding.astronomyDetailList
-//        detailList =
-//            ListView(recyclerView, R.layout.list_item_astronomy_detail) { itemView, field ->
-//                val itemBinding = ListItemAstronomyDetailBinding.bind(itemView)
-//                field.display(itemBinding)
-//            }
-
 
         chart = AstroChart(binding.sunMoonChart, this::showTimeSeeker)
 
@@ -267,9 +154,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                         loading.show()
                         val nextEvent = onDefault {
                             astronomyService.findNextEvent(
-                                search,
-                                gps.location,
-                                currentDate
+                                search, gps.location, currentDate
                             )
                         }
                         onMain {
@@ -300,15 +185,12 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         binding.timeSeeker.setOnProgressChangeListener { progress, _ ->
             val seconds = (Duration.between(
-                minChartTime,
-                maxChartTime
+                minChartTime, maxChartTime
             ).seconds * progress / maxProgress.toFloat()).toLong()
             currentSeekChartTime = minChartTime.plusSeconds(seconds)
-            binding.seekTime.text =
-                formatService.formatTime(
-                    currentSeekChartTime.toLocalTime(),
-                    includeSeconds = false
-                )
+            binding.seekTime.text = formatService.formatTime(
+                currentSeekChartTime.toLocalTime(), includeSeconds = false
+            )
             plotMoonImage(data.moon, currentSeekChartTime)
             plotSunImage(data.sun, currentSeekChartTime)
             updateSeekPositions()
@@ -374,25 +256,18 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
 
     private fun getSunMoonPositions(time: ZonedDateTime): AstroPositions {
-        val moonAltitude =
-            astronomyService.getMoonAltitude(gps.location, time)
-        val sunAltitude =
-            astronomyService.getSunAltitude(gps.location, time)
+        val moonAltitude = astronomyService.getMoonAltitude(gps.location, time)
+        val sunAltitude = astronomyService.getSunAltitude(gps.location, time)
 
-        val declination =
-            if (!prefs.compass.useTrueNorth) getDeclination() else 0f
+        val declination = if (!prefs.compass.useTrueNorth) getDeclination() else 0f
 
         val sunAzimuth =
             astronomyService.getSunAzimuth(gps.location, time).withDeclination(-declination).value
         val moonAzimuth =
-            astronomyService.getMoonAzimuth(gps.location, time)
-                .withDeclination(-declination).value
+            astronomyService.getMoonAzimuth(gps.location, time).withDeclination(-declination).value
 
         return AstroPositions(
-            moonAltitude,
-            sunAltitude,
-            moonAzimuth,
-            sunAzimuth
+            moonAltitude, sunAltitude, moonAzimuth, sunAzimuth
         )
     }
 
@@ -502,8 +377,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
 
     private fun plotSunImage(
-        altitudes: List<Reading<Float>>,
-        time: ZonedDateTime = ZonedDateTime.now()
+        altitudes: List<Reading<Float>>, time: ZonedDateTime = ZonedDateTime.now()
     ) {
         val instant = time.toInstant()
         val current = altitudes.minByOrNull {
@@ -513,8 +387,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun plotMoonImage(
-        altitudes: List<Reading<Float>>,
-        time: ZonedDateTime = ZonedDateTime.now()
+        altitudes: List<Reading<Float>>, time: ZonedDateTime = ZonedDateTime.now()
     ) {
         val instant = time.toInstant()
         val current = altitudes.minByOrNull {
@@ -537,41 +410,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             return
         }
 
-        val fields = mutableListOf<AstroField>()
-
         val displayDate = binding.displayDate.date
 
-        withContext(Dispatchers.Default) {
+        onDefault {
+            val items = producers.map { it.getListItem(displayDate, gps.location) }
 
-            val fieldProvider = Group(
-                SunMoonTimesProvider(prefs.astronomy.showNoon),
-                Section(DaylightProvider(sunTimesMode)),
-                Conditional(Section(CivilTimesProvider())) {
-                    prefs.astronomy.showCivilTimes
-                },
-                Conditional(Section(NauticalTimesProvider())) {
-                    prefs.astronomy.showNauticalTimes
-                },
-                Conditional(Section(AstronomicalSunTimesProvider())) {
-                    prefs.astronomy.showAstronomicalTimes
-                },
-                Section(
-                    Group(
-                        MoonPhaseProvider(),
-                        Conditional(MeteorShowerProvider()) { prefs.astronomy.showMeteorShowers },
-                        Conditional(LunarEclipseProvider()) { prefs.astronomy.showLunarEclipses },
-                        Conditional(SolarEclipseProvider()) { prefs.astronomy.showSolarEclipses },
-                    )
-                )
-            )
+            onMain {
+                binding.astronomyDetailList.setItems(items.filterNotNull())
+            }
 
-            fields.addAll(fieldProvider.getFields(displayDate, gps.location))
         }
-
-//        withContext(Dispatchers.Main) {
-//            detailList.setData(fields)
-//        }
-
     }
 
 
@@ -641,9 +489,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             gpsErrorShown = true
         } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
             val error = UserError(
-                ErrorBannerReason.NoGPS,
-                getString(R.string.location_disabled),
-                R.drawable.satellite
+                ErrorBannerReason.NoGPS, getString(R.string.location_disabled), R.drawable.satellite
             )
             (requireActivity() as MainActivity).errorBanner.report(error)
             gpsErrorShown = true
@@ -651,8 +497,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
+        layoutInflater: LayoutInflater, container: ViewGroup?
     ): ActivityAstronomyBinding {
         return ActivityAstronomyBinding.inflate(layoutInflater, container, false)
     }
