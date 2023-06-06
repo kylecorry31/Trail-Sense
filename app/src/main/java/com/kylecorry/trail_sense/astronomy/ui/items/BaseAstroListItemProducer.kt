@@ -72,21 +72,48 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     }
 
     protected fun riseSet(rise: ZonedDateTime?, set: ZonedDateTime?): CharSequence {
+
+        val setBeforeRise = set != null && rise != null && set.isBefore(rise)
+
+        val firstIcon = if (setBeforeRise) {
+            R.drawable.ic_arrow_down
+        } else {
+            R.drawable.ic_arrow_up
+        }
+
+        val firstTime = if (setBeforeRise) {
+            set
+        } else {
+            rise
+        }
+
+        val secondIcon = if (setBeforeRise) {
+            R.drawable.ic_arrow_up
+        } else {
+            R.drawable.ic_arrow_down
+        }
+
+        val secondTime = if (setBeforeRise) {
+            rise
+        } else {
+            set
+        }
+
         return buildSpannedString {
             appendImage(
                 context,
-                R.drawable.ic_arrow_up,
+                firstIcon,
                 imageSize,
                 tint = secondaryColor
             )
-            append(" ${time(rise)}    ")
+            append(" ${time(firstTime)}    ")
             appendImage(
                 context,
-                R.drawable.ic_arrow_down,
+                secondIcon,
                 imageSize,
                 tint = secondaryColor
             )
-            append(" ${time(set)}")
+            append(" ${time(secondTime)}")
         }
     }
 
