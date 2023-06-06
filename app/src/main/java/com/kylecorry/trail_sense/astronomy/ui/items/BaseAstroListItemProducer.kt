@@ -3,8 +3,10 @@ package com.kylecorry.trail_sense.astronomy.ui.items
 import android.content.Context
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
+import androidx.core.text.color
 import androidx.core.text.scale
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.list.ListIcon
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ResourceListIcon
@@ -30,18 +32,22 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
 
     private fun title(title: CharSequence, subtitle: CharSequence): CharSequence {
         return buildSpannedString {
-            bold { append(title) }
-            append("\n")
-            scale(subtitleScale) {
-                append(subtitle)
+            append(title)
+            color(secondaryColor.withAlpha(220)) {
+                scale(subtitleScale) {
+                    append("  •  ")
+                    append(subtitle)
+                }
             }
         }
     }
 
     private fun body(text: CharSequence): CharSequence {
         return buildSpannedString {
-            scale(textScale) {
-                append(text)
+            bold {
+                scale(textScale) {
+                    append(text)
+                }
             }
         }
     }
