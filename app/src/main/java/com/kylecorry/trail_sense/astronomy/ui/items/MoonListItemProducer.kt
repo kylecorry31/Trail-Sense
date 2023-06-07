@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ResourceListIcon
@@ -27,36 +26,21 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
         // Advanced
         val isSuperMoon = astronomyService.isSuperMoon(date)
 
-        listItem(
+        list(
             2,
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
             ResourceListIcon(MoonPhaseImageMapper().getPhaseImage(phase.phase)),
-            data = riseSetData(times.rise, times.set)
+            data = riseSet(times.rise, times.set)
         ) {
-            Alerts.dialog(
-                context,
-                context.getString(R.string.moon),
-                fields(
-                    // Moon rise/set
-                    context.getString(R.string.times) to riseSet(
-                        times.rise,
-                        times.set
-                    ),
-
-                    // Moon phase
-                    context.getString(R.string.moon_phase) to formatter.formatMoonPhase(phase.phase),
-                    context.getString(R.string.illumination) to formatter.formatPercentage(
-                        phase.illumination
-                    ),
-
-                    // Super moon
-                    context.getString(R.string.supermoon) to formatter.formatBooleanYesNo(
-                        isSuperMoon
-                    )
-                ),
-                cancelText = null
+            val advancedData = listOf(
+                context.getString(R.string.times) to riseSet(times.rise, times.set),
+                context.getString(R.string.moon_phase) to data(formatter.formatMoonPhase(phase.phase)),
+                context.getString(R.string.illumination) to percent(phase.illumination),
+                context.getString(R.string.supermoon) to data(formatter.formatBooleanYesNo(isSuperMoon))
             )
+
+            showAdvancedData(context.getString(R.string.moon), advancedData)
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.core.text.inSpans
 import androidx.core.text.scale
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.JustifyContent
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.list.ListIcon
@@ -16,11 +17,13 @@ import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemData
 import com.kylecorry.ceres.list.ListItemDataAlignment
 import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.appendImage
+import java.time.Duration
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
@@ -37,156 +40,30 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     protected val prefs = UserPreferences(context)
 
 
-    private fun title(title: CharSequence, subtitle: CharSequence): CharSequence {
+    private fun title(title: CharSequence, subtitle: CharSequence?): CharSequence {
         return buildSpannedString {
             append(title)
-            color(secondaryColor.withAlpha(220)) {
-                scale(subtitleScale) {
-                    append("  •  ")
-                    append(subtitle)
+            if (subtitle != null) {
+                color(secondaryColor.withAlpha(220)) {
+                    scale(subtitleScale) {
+                        append("  •  ")
+                        append(subtitle)
+                    }
                 }
             }
         }
     }
 
-    protected fun time(
-        time: ZonedDateTime?,
-        displayDate: LocalDate? = time?.toLocalDate()
-    ): String {
+    private fun formatTime(time: ZonedDateTime?): String {
         if (time == null) {
             return "--:--"
         }
-        return formatter.formatTime(time, false) + if (time.toLocalDate() != displayDate) {
-            " (${formatter.formatRelativeDate(time.toLocalDate(), true)})"
-        } else {
-            ""
-        }
+        return formatter.formatTime(time, false)
     }
 
-    protected fun timeRange(
-        start: ZonedDateTime?,
-        end: ZonedDateTime?,
-        displayDate: LocalDate? = start?.toLocalDate()
-    ): String {
-        if (start == null || end == null) {
-            return "--:--"
-        }
-        return "${time(start, displayDate)} - ${time(end, displayDate)}"
-    }
 
-    protected fun riseSet(rise: ZonedDateTime?, set: ZonedDateTime?): CharSequence {
 
-        val setBeforeRise = set != null && rise != null && set.isBefore(rise)
-
-        val firstIcon = if (setBeforeRise) {
-            R.drawable.ic_arrow_down
-        } else {
-            R.drawable.ic_arrow_up
-        }
-
-        val firstTime = if (setBeforeRise) {
-            set
-        } else {
-            rise
-        }
-
-        val secondIcon = if (setBeforeRise) {
-            R.drawable.ic_arrow_up
-        } else {
-            R.drawable.ic_arrow_down
-        }
-
-        val secondTime = if (setBeforeRise) {
-            rise
-        } else {
-            set
-        }
-
-        return buildSpannedString {
-            appendImage(
-                context,
-                firstIcon,
-                imageSize,
-                tint = secondaryColor
-            )
-            append(" ${time(firstTime)}    ")
-            appendImage(
-                context,
-                secondIcon,
-                imageSize,
-                tint = secondaryColor
-            )
-            append(" ${time(secondTime)}")
-        }
-    }
-
-    protected fun riseSetData(rise: ZonedDateTime?, set: ZonedDateTime?): List<ListItemData> {
-        val setBeforeRise = set != null && rise != null && set.isBefore(rise)
-
-        val first = if (setBeforeRise) {
-            datapoint(
-                time(set),
-                context.getString(R.string.astronomy_set)
-            )
-        } else {
-            datapoint(
-                time(rise),
-                context.getString(R.string.astronomy_rise)
-            )
-        }
-
-        val second = if (setBeforeRise) {
-            datapoint(
-                time(rise),
-                context.getString(R.string.astronomy_rise)
-            )
-        } else {
-            datapoint(
-                time(set),
-                context.getString(R.string.astronomy_set)
-            )
-        }
-
-        return listOf(first, second)
-    }
-
-    protected fun timeRangeData(
-        start: ZonedDateTime?,
-        end: ZonedDateTime?,
-        displayDate: LocalDate? = start?.toLocalDate()
-    ): List<ListItemData> {
-        val startLabel = if (start != null && end != null && start.toLocalDate() != displayDate) {
-            formatter.formatRelativeDate(start.toLocalDate(), true)
-        } else {
-            context.getString(R.string.start_time)
-        }
-
-        val endLabel = if (start != null && end != null && end.toLocalDate() != displayDate) {
-            formatter.formatRelativeDate(end.toLocalDate(), true)
-        } else {
-            context.getString(R.string.end_time)
-        }
-
-        return listOf(
-            datapoint(time(start), startLabel),
-            datapoint(time(end), endLabel)
-        )
-    }
-
-    protected fun timeData(
-        time: ZonedDateTime?,
-        displayDate: LocalDate? = time?.toLocalDate(),
-        todayLabel: CharSequence? = null
-    ): ListItemData {
-        val label = if (time != null && time.toLocalDate() != displayDate) {
-            formatter.formatRelativeDate(time.toLocalDate(), true)
-        } else {
-            todayLabel
-        }
-        return datapoint(time(time), label)
-    }
-
-    protected fun datapoint(
+    private fun datapoint(
         value: CharSequence,
         label: CharSequence? = null
     ): ListItemData {
@@ -201,11 +78,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
                     append("\n")
                     append(label)
                 }
-            },
-            null,
-            basisPercentage = 0f,
-            shrink = 1f,
-            grow = 1f
+            }, null, basisPercentage = 0f, shrink = 1f, grow = 1f
         )
     }
 
@@ -213,44 +86,108 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         return "$label (${formatter.formatPercentage(percent)})"
     }
 
-    protected fun listItem(
+    protected fun list(
         id: Long,
         title: CharSequence,
-        subtitle: CharSequence,
-        icon: ListIcon,
+        subtitle: CharSequence? = null,
+        icon: ListIcon? = null,
         data: List<ListItemData> = listOf(),
-        onClick: () -> Unit
+        onClick: (() -> Unit)? = null
     ): ListItem {
         return ListItem(
             id,
             title(title, subtitle),
             null,
             icon = icon,
-            trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right),
+            trailingIcon = onClick?.let { ResourceListIcon(R.drawable.ic_keyboard_arrow_right) },
             data = data,
             dataAlignment = ListItemDataAlignment(
-                justifyContent = JustifyContent.SPACE_BETWEEN,
-                alignItems = AlignItems.CENTER
+                justifyContent = JustifyContent.SPACE_BETWEEN, alignItems = AlignItems.CENTER
             )
         ) {
-            onClick()
+            onClick?.invoke()
         }
     }
 
-    protected fun fields(
-        vararg fields: Pair<CharSequence, CharSequence?>
-    ): CharSequence {
-        return buildSpannedString {
-            fields.forEachIndexed { index, (title, value) ->
-                bold {
-                    append(title)
-                    append("\n")
-                }
-                append(value ?: "-")
-                if (index != fields.lastIndex) {
-                    append("\n\n")
-                }
+    protected fun showAdvancedData(
+        title: String,
+        advancedData: List<Pair<CharSequence, List<ListItemData>?>>
+    ) {
+        CustomUiUtils.showList(
+            context,
+            title,
+            advancedData.filter { it.second != null }.mapIndexed { index, (title, data) ->
+                list(index.toLong(), title, data = data ?: emptyList())
             }
+        )
+    }
+
+    // COMMON DATA POINT FIELDS
+    protected fun data(value: CharSequence, label: CharSequence? = null): List<ListItemData> {
+        return listOf(datapoint(value, label))
+    }
+
+    protected fun degrees(value: Float): List<ListItemData> {
+        return data(formatter.formatDegrees(value))
+    }
+
+    protected fun direction(bearing: Bearing): List<ListItemData> {
+        return data(formatter.formatDirection(bearing.direction))
+    }
+
+    protected fun decimal(value: Float, places: Int): List<ListItemData> {
+        return data(DecimalFormatter.format(value, places))
+    }
+
+    protected fun percent(value: Float): List<ListItemData> {
+        return data(formatter.formatPercentage(value))
+    }
+
+    protected fun duration(value: Duration): List<ListItemData> {
+        return data(formatter.formatDuration(value, false))
+    }
+
+    protected fun riseSet(rise: ZonedDateTime?, set: ZonedDateTime?): List<ListItemData> {
+        return listOf(
+            context.getString(R.string.astronomy_rise) to rise,
+            context.getString(R.string.astronomy_set) to set
+        ).sortedBy { it.second }.map {
+            datapoint(formatTime(it.second), it.first)
         }
     }
+
+    protected fun times(
+        start: ZonedDateTime?, end: ZonedDateTime?, displayDate: LocalDate? = start?.toLocalDate()
+    ): List<ListItemData> {
+        val startLabel = if (start != null && end != null && start.toLocalDate() != displayDate) {
+            formatter.formatRelativeDate(start.toLocalDate(), true)
+        } else {
+            context.getString(R.string.start_time)
+        }
+
+        val endLabel = if (start != null && end != null && end.toLocalDate() != displayDate) {
+            formatter.formatRelativeDate(end.toLocalDate(), true)
+        } else {
+            context.getString(R.string.end_time)
+        }
+
+        return listOf(
+            datapoint(formatTime(start), startLabel), datapoint(formatTime(end), endLabel)
+        )
+    }
+
+    protected fun time(
+        time: ZonedDateTime?,
+        displayDate: LocalDate? = time?.toLocalDate(),
+        todayLabel: CharSequence? = null
+    ): List<ListItemData> {
+        val label = if (time != null && time.toLocalDate() != displayDate) {
+            formatter.formatRelativeDate(time.toLocalDate(), true)
+        } else {
+            todayLabel
+        }
+        return listOf(datapoint(formatTime(time), label))
+    }
+
+
 }

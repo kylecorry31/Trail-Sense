@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ResourceListIcon
@@ -33,7 +32,7 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
         val night = Duration.ofDays(1) - daylight
         val season = astronomyService.getSeason(location, date)
 
-        listItem(
+        list(
             1,
             context.getString(R.string.sun),
             context.getString(
@@ -41,57 +40,21 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
                 formatter.formatDuration(daylight, false)
             ),
             ResourceListIcon(R.drawable.circle, AppColor.Yellow.color),
-            data = riseSetData(times.rise, times.set)
+            data = riseSet(times.rise, times.set)
         ) {
-            Alerts.dialog(
-                context,
-                context.getString(R.string.sun),
-                fields(
-                    // Actual
-                    context.getString(R.string.sun_actual) to riseSet(
-                        actual.rise,
-                        actual.set
-                    ),
+            val advancedData = listOf(
+                context.getString(R.string.sun_actual) to riseSet(actual.rise, actual.set),
+                context.getString(R.string.sun_civil) to riseSet(civil.rise, civil.set),
+                context.getString(R.string.sun_nautical) to riseSet(nautical.rise, nautical.set),
+                context.getString(R.string.sun_astronomical) to riseSet(astronomical.rise, astronomical.set),
+                context.getString(R.string.noon) to time(actual.transit),
+                context.getString(R.string.astronomy_altitude_peak) to peak?.let { degrees(it) },
+                context.getString(R.string.daylight) to duration(daylight),
+                context.getString(R.string.night) to duration(night),
+                context.getString(R.string.season) to data(formatter.formatSeason(season))
+            ).filter { it.second != null }
 
-                    // Civil
-                    context.getString(R.string.sun_civil) to riseSet(
-                        civil.rise,
-                        civil.set
-                    ),
-
-                    // Nautical
-                    context.getString(R.string.sun_nautical) to riseSet(
-                        nautical.rise,
-                        nautical.set
-                    ),
-
-                    // Astronomical
-                    context.getString(R.string.sun_astronomical) to riseSet(
-                        astronomical.rise,
-                        astronomical.set
-                    ),
-
-                    // Peak
-                    context.getString(R.string.noon) to time(actual.transit),
-                    context.getString(R.string.astronomy_altitude_peak) to peak?.let {
-                        formatter.formatDegrees(
-                            it
-                        )
-                    },
-
-                    // Light
-                    context.getString(R.string.daylight) to formatter.formatDuration(
-                        daylight,
-                        false
-                    ),
-                    context.getString(R.string.night) to formatter.formatDuration(
-                        night,
-                        false
-                    ),
-                    context.getString(R.string.season) to formatter.formatSeason(season)
-                ),
-                cancelText = null
-            )
+            showAdvancedData(context.getString(R.string.sun), advancedData)
         }
     }
 
