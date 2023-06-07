@@ -25,7 +25,6 @@ class MeteorShowerListItemProducer(context: Context) : BaseAstroListItemProducer
             3,
             context.getString(R.string.meteor_shower),
             context.getString(R.string.meteors_per_hour, shower.shower.rate),
-            null,
             ResourceListIcon(R.drawable.ic_meteor, secondaryColor),
             data = listOf(timeData(shower.peak, date))
         ) {

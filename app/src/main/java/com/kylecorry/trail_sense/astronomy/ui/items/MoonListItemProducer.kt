@@ -31,7 +31,6 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             2,
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
-            null,
             ResourceListIcon(MoonPhaseImageMapper().getPhaseImage(phase.phase)),
             data = riseSetData(times.rise, times.set)
         ) {

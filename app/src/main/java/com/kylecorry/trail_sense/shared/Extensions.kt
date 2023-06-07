@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.text.Layout
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.style.AlignmentSpan
 import android.text.style.ImageSpan
 import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.text.inSpans
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -105,6 +108,15 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
 
     return rectangle
 }
+
+inline fun SpannableStringBuilder.center(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder =
+    inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), builderAction)
+
+inline fun SpannableStringBuilder.left(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder =
+    inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_NORMAL), builderAction)
+
+inline fun SpannableStringBuilder.right(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder =
+    inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), builderAction)
 
 inline fun SpannableStringBuilder.appendImage(
     context: Context,

@@ -1,12 +1,9 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
-import android.text.Layout
-import android.text.style.AlignmentSpan
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
-import androidx.core.text.inSpans
 import androidx.core.text.scale
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.JustifyContent
@@ -21,6 +18,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.appendImage
+import com.kylecorry.trail_sense.shared.center
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
@@ -201,7 +199,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     ): ListItemData {
         return ListItemData(
             buildSpannedString {
-                inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER)) {
+                center {
                     bold { scale(textScale) { append(value) } }
                     if (label != null) {
                         append("\n")
@@ -221,7 +219,6 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         id: Long,
         title: CharSequence,
         subtitle: CharSequence,
-        body: CharSequence?,
         icon: ListIcon,
         data: List<ListItemData> = listOf(),
         onClick: () -> Unit
@@ -229,7 +226,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         return ListItem(
             id,
             title(title, subtitle),
-            body?.let { body(it) },
+            null,
             icon = icon,
             trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right),
             data = data,
