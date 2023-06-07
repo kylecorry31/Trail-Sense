@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
-import android.text.Layout
+import android.text.style.AbsoluteSizeSpan
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
+import androidx.core.text.inSpans
 import androidx.core.text.scale
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.JustifyContent
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.align
 import com.kylecorry.trail_sense.shared.appendImage
 import java.time.LocalDate
 import java.time.ZonedDateTime
@@ -31,6 +31,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     private val textScale = 1.2f
     protected val imageSize = Resources.sp(context, 12f * textScale).toInt()
     protected val secondaryColor = Resources.androidTextColorSecondary(context)
+    private val textSize = Resources.sp(context, 14f).toInt()
     protected val formatter = FormatService.getInstance(context)
     protected val astronomyService = AstronomyService()
     protected val prefs = UserPreferences(context)
@@ -137,18 +138,16 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         val second = if (setBeforeRise) {
             datapoint(
                 time(rise),
-                context.getString(R.string.astronomy_rise),
-                alignment = Layout.Alignment.ALIGN_OPPOSITE
+                context.getString(R.string.astronomy_rise)
             )
         } else {
             datapoint(
                 time(set),
-                context.getString(R.string.astronomy_set),
-                alignment = Layout.Alignment.ALIGN_OPPOSITE
+                context.getString(R.string.astronomy_set)
             )
         }
 
-        return listOf(first, arrow(), second)
+        return listOf(first, second)
     }
 
     protected fun timeRangeData(
@@ -159,51 +158,51 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         val startLabel = if (start != null && end != null && start.toLocalDate() != displayDate) {
             formatter.formatRelativeDate(start.toLocalDate(), true)
         } else {
-            null
+            context.getString(R.string.start_time)
         }
 
         val endLabel = if (start != null && end != null && end.toLocalDate() != displayDate) {
             formatter.formatRelativeDate(end.toLocalDate(), true)
         } else {
-            null
+            context.getString(R.string.end_time)
         }
 
         return listOf(
             datapoint(time(start), startLabel),
-            arrow(),
-            datapoint(time(end), endLabel, alignment = Layout.Alignment.ALIGN_OPPOSITE)
+            datapoint(time(end), endLabel)
         )
     }
 
     protected fun timeData(
         time: ZonedDateTime?,
-        displayDate: LocalDate? = time?.toLocalDate()
+        displayDate: LocalDate? = time?.toLocalDate(),
+        todayLabel: CharSequence? = null
     ): ListItemData {
         val label = if (time != null && time.toLocalDate() != displayDate) {
             formatter.formatRelativeDate(time.toLocalDate(), true)
         } else {
-            null
+            todayLabel
         }
         return datapoint(time(time), label)
     }
 
     protected fun datapoint(
         value: CharSequence,
-        label: CharSequence? = null,
-        icon: Int? = null,
-        alignment: Layout.Alignment = Layout.Alignment.ALIGN_NORMAL
+        label: CharSequence? = null
     ): ListItemData {
         return ListItemData(
             buildSpannedString {
-                align(alignment) {
-                    bold { scale(textScale) { append(value) } }
-                    if (label != null) {
-                        append("\n")
-                        append(label)
+                bold {
+                    inSpans(AbsoluteSizeSpan(textSize)) {
+                        append(value)
                     }
                 }
+                if (label != null) {
+                    append("\n")
+                    append(label)
+                }
             },
-            icon?.let { ResourceListIcon(it, secondaryColor) },
+            null,
             basisPercentage = 0f,
             shrink = 1f,
             grow = 1f
@@ -236,20 +235,6 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         ) {
             onClick()
         }
-    }
-
-    protected fun arrow(): ListItemData {
-        val text = buildSpannedString {
-            appendImage(
-                context,
-                R.drawable.ic_arrow_right,
-                imageSize,
-                tint = secondaryColor,
-                flags = 2
-            )
-        }
-
-        return datapoint(text, alignment = Layout.Alignment.ALIGN_CENTER)
     }
 
     protected fun fields(
