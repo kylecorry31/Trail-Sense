@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.list.ListIcon
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemData
+import com.kylecorry.ceres.list.ListItemDataAlignment
 import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -133,24 +134,28 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         val first = if (setBeforeRise) {
             datapoint(
                 time(set),
-                context.getString(R.string.astronomy_set)
+                context.getString(R.string.astronomy_set),
+                shouldGrow = true
             )
         } else {
             datapoint(
                 time(rise),
-                context.getString(R.string.astronomy_rise)
+                context.getString(R.string.astronomy_rise),
+                shouldGrow = true
             )
         }
 
         val second = if (setBeforeRise) {
             datapoint(
                 time(rise),
-                context.getString(R.string.astronomy_rise)
+                context.getString(R.string.astronomy_rise),
+                shouldGrow = true
             )
         } else {
             datapoint(
                 time(set),
-                context.getString(R.string.astronomy_set)
+                context.getString(R.string.astronomy_set),
+                shouldGrow = true
             )
         }
 
@@ -175,9 +180,9 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         }
 
         return listOf(
-            datapoint(time(start), startLabel),
+            datapoint(time(start), startLabel, shouldGrow = true),
             arrow(),
-            datapoint(time(end), endLabel)
+            datapoint(time(end), endLabel, shouldGrow = true)
         )
     }
 
@@ -190,12 +195,14 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         } else {
             null
         }
-        return datapoint(time(time), label)
+        return datapoint(time(time), label, shouldGrow = true)
     }
 
     protected fun datapoint(
         value: CharSequence,
-        label: CharSequence? = null
+        label: CharSequence? = null,
+        icon: Int? = null,
+        shouldGrow: Boolean = false
     ): ListItemData {
         return ListItemData(
             buildSpannedString {
@@ -207,7 +214,10 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
                     }
                 }
             },
-            null
+            icon?.let { ResourceListIcon(it, secondaryColor) },
+            basisPercentage = if (shouldGrow) 0f else -1f,
+            shrink = 0f,
+            grow = if (shouldGrow) 1f else 0f
         )
     }
 
@@ -230,15 +240,17 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             icon = icon,
             trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right),
             data = data,
-            dataHorizontalAlignment = JustifyContent.SPACE_BETWEEN,
-            dataVerticalAlignment = AlignItems.CENTER
+            dataAlignment = ListItemDataAlignment(
+                horizontalSpacing = JustifyContent.SPACE_BETWEEN,
+                verticalAlignment = AlignItems.CENTER
+            )
         ) {
             onClick()
         }
     }
 
     protected fun arrow(): ListItemData {
-        return ListItemData("", ResourceListIcon(R.drawable.ic_arrow_right, secondaryColor))
+        return datapoint("", icon = R.drawable.ic_arrow_right)
     }
 
     protected fun fields(
