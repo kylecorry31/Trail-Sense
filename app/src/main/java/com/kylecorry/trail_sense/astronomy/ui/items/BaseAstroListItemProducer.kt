@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
+import android.text.Layout
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
@@ -18,8 +19,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.align
 import com.kylecorry.trail_sense.shared.appendImage
-import com.kylecorry.trail_sense.shared.center
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
@@ -42,16 +43,6 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
                 scale(subtitleScale) {
                     append("  •  ")
                     append(subtitle)
-                }
-            }
-        }
-    }
-
-    private fun body(text: CharSequence): CharSequence {
-        return buildSpannedString {
-            bold {
-                scale(textScale) {
-                    append(text)
                 }
             }
         }
@@ -134,14 +125,12 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         val first = if (setBeforeRise) {
             datapoint(
                 time(set),
-                context.getString(R.string.astronomy_set),
-                shouldGrow = true
+                context.getString(R.string.astronomy_set)
             )
         } else {
             datapoint(
                 time(rise),
-                context.getString(R.string.astronomy_rise),
-                shouldGrow = true
+                context.getString(R.string.astronomy_rise)
             )
         }
 
@@ -149,13 +138,13 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             datapoint(
                 time(rise),
                 context.getString(R.string.astronomy_rise),
-                shouldGrow = true
+                alignment = Layout.Alignment.ALIGN_OPPOSITE
             )
         } else {
             datapoint(
                 time(set),
                 context.getString(R.string.astronomy_set),
-                shouldGrow = true
+                alignment = Layout.Alignment.ALIGN_OPPOSITE
             )
         }
 
@@ -180,9 +169,9 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         }
 
         return listOf(
-            datapoint(time(start), startLabel, shouldGrow = true),
+            datapoint(time(start), startLabel),
             arrow(),
-            datapoint(time(end), endLabel, shouldGrow = true)
+            datapoint(time(end), endLabel, alignment = Layout.Alignment.ALIGN_OPPOSITE)
         )
     }
 
@@ -195,18 +184,18 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         } else {
             null
         }
-        return datapoint(time(time), label, shouldGrow = true)
+        return datapoint(time(time), label)
     }
 
     protected fun datapoint(
         value: CharSequence,
         label: CharSequence? = null,
         icon: Int? = null,
-        shouldGrow: Boolean = false
+        alignment: Layout.Alignment = Layout.Alignment.ALIGN_NORMAL
     ): ListItemData {
         return ListItemData(
             buildSpannedString {
-                center {
+                align(alignment) {
                     bold { scale(textScale) { append(value) } }
                     if (label != null) {
                         append("\n")
@@ -215,9 +204,9 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
                 }
             },
             icon?.let { ResourceListIcon(it, secondaryColor) },
-            basisPercentage = if (shouldGrow) 0f else -1f,
-            shrink = 0f,
-            grow = if (shouldGrow) 1f else 0f
+            basisPercentage = 0f,
+            shrink = 1f,
+            grow = 1f
         )
     }
 
@@ -241,8 +230,8 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             trailingIcon = ResourceListIcon(R.drawable.ic_keyboard_arrow_right),
             data = data,
             dataAlignment = ListItemDataAlignment(
-                horizontalSpacing = JustifyContent.SPACE_BETWEEN,
-                verticalAlignment = AlignItems.CENTER
+                justifyContent = JustifyContent.SPACE_BETWEEN,
+                alignItems = AlignItems.CENTER
             )
         ) {
             onClick()
@@ -250,7 +239,17 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     }
 
     protected fun arrow(): ListItemData {
-        return datapoint("", icon = R.drawable.ic_arrow_right)
+        val text = buildSpannedString {
+            appendImage(
+                context,
+                R.drawable.ic_arrow_right,
+                imageSize,
+                tint = secondaryColor,
+                flags = 2
+            )
+        }
+
+        return datapoint(text, alignment = Layout.Alignment.ALIGN_CENTER)
     }
 
     protected fun fields(
@@ -269,5 +268,4 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             }
         }
     }
-
 }

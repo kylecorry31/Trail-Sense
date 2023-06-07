@@ -109,14 +109,26 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
     return rectangle
 }
 
-inline fun SpannableStringBuilder.center(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder =
-    inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), builderAction)
+inline fun SpannableStringBuilder.align(
+    alignment: Layout.Alignment,
+    builderAction: SpannableStringBuilder.() -> Unit
+): SpannableStringBuilder =
+    inSpans(AlignmentSpan.Standard(alignment), builderAction)
 
-inline fun SpannableStringBuilder.left(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder =
-    inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_NORMAL), builderAction)
+inline fun SpannableStringBuilder.center(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder = align(
+    Layout.Alignment.ALIGN_CENTER,
+    builderAction
+)
 
-inline fun SpannableStringBuilder.right(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder =
-    inSpans(AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), builderAction)
+inline fun SpannableStringBuilder.left(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder = align(
+    Layout.Alignment.ALIGN_NORMAL,
+    builderAction
+)
+
+inline fun SpannableStringBuilder.right(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder = align(
+    Layout.Alignment.ALIGN_OPPOSITE,
+    builderAction
+)
 
 inline fun SpannableStringBuilder.appendImage(
     context: Context,
