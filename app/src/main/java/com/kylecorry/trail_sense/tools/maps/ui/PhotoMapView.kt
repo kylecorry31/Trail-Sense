@@ -187,6 +187,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
         val rotation = map.calibration.rotation
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
         fullMetersPerPixel = map.distancePerPixel()?.meters()?.distance ?: 1f
+        projection = map.projection
         if (keepMapUp){
             mapAzimuth = 0f
         }
@@ -195,7 +196,6 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        projection = map?.projection
         shouldRecenter = true
         invalidate()
     }
