@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.Duration
 import java.time.LocalDate
 
@@ -39,7 +39,7 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
                 R.string.daylight_duration,
                 formatter.formatDuration(daylight, false)
             ),
-            ResourceListIcon(R.drawable.circle, AppColor.Yellow.color),
+            ResourceListIcon(R.drawable.circle, Resources.color(context, R.color.sun)),
             data = riseSet(times.rise, times.set)
         ) {
             val advancedData = listOf(

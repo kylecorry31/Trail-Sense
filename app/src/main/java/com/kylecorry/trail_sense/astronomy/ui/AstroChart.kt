@@ -24,12 +24,14 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
     private val sunLine = LineChartLayer(
         emptyList(),
-        Resources.androidTextColorSecondary(chart.context),
+        Resources.color(chart.context, R.color.sun),
+//        Resources.androidTextColorSecondary(chart.context),
         2.5f
     )
 
     private val moonLine = LineChartLayer(
         emptyList(),
+//        AppColor.Blue.color,
         Resources.androidTextColorSecondary(chart.context).withAlpha(100),
         1f
     )
@@ -51,7 +53,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
     private val sunImage = BitmapChartLayer(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_sun, imageSize.toInt()),
-        16f
+        16f,
     ) {
         onImageClick()
         true
