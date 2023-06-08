@@ -25,13 +25,11 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
     private val sunLine = LineChartLayer(
         emptyList(),
         Resources.color(chart.context, R.color.sun),
-//        Resources.androidTextColorSecondary(chart.context),
         2.5f
     )
 
     private val moonLine = LineChartLayer(
         emptyList(),
-//        AppColor.Blue.color,
         Resources.androidTextColorSecondary(chart.context).withAlpha(100),
         1f
     )
