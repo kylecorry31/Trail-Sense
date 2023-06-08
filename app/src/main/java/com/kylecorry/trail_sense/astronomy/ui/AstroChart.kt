@@ -7,6 +7,7 @@ import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.BitmapChartLayer
 import com.kylecorry.ceres.chart.data.FullAreaChartLayer
 import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.ui.BitmapLoader
@@ -39,6 +40,15 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         0f,
         Resources.color(chart.context, R.color.colorSecondary).withAlpha(100),
         2f
+    )
+
+    private val horizonLabel = TextChartLayer(
+        chart.context.getString(R.string.horizon),
+        Vector2(0f, 5f),
+        Resources.androidTextColorSecondary(chart.context).withAlpha(100),
+        10f,
+        TextChartLayer.TextVerticalPosition.Bottom,
+        TextChartLayer.TextHorizontalPosition.Right
     )
 
     private val night = FullAreaChartLayer(
@@ -83,13 +93,15 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
         chart.emptyText = chart.context.getString(R.string.no_data)
 
-        chart.plot(horizon, moonLine, sunLine, moonImage, sunImage, night)
+        chart.plot(horizon, horizonLabel, moonLine, sunLine, moonImage, sunImage, night)
     }
 
     fun plot(sun: List<Reading<Float>>, moon: List<Reading<Float>>) {
         startTime = sun.firstOrNull()?.time ?: Instant.now()
         sunLine.data = Chart.getDataFromReadings(sun, startTime) { it }
         moonLine.data = Chart.getDataFromReadings(moon, startTime) { it }
+        val endX = sunLine.data.lastOrNull()?.x ?: 0f
+        horizonLabel.position = horizonLabel.position.copy(x = endX - 0.1f)
     }
 
     fun moveSun(position: Reading<Float>?) {

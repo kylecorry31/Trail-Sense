@@ -1295,6 +1295,7 @@
     <string name="astronomy_set">Set</string>
     <!--    as in sun / moon rise-->
     <string name="astronomy_rise">Rise</string>
+    <string name="horizon">Horizon</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
