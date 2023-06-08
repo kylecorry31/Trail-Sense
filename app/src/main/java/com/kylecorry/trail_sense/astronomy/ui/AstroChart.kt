@@ -21,7 +21,8 @@ import java.time.Instant
 class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
     // TODO: Experiment with this, if it isn't needed, remove it
-    private val fillArea = true
+    private val fillSunArea = true
+    private val fillMoonArea = true
 
     private var startTime = Instant.now()
 
@@ -46,6 +47,13 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         emptyList(),
         Resources.androidTextColorSecondary(chart.context).withAlpha(100),
         1f
+    )
+
+    private val moonArea = AreaChartLayer(
+        emptyList(),
+        Color.TRANSPARENT,
+        Resources.androidTextColorSecondary(chart.context).withAlpha(10),
+        0f
     )
 
     private val horizon = HorizontalLineChartLayer(
@@ -109,7 +117,8 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
             listOfNotNull(
                 horizon,
                 horizonLabel,
-                if (fillArea) sunArea else null,
+                if (fillMoonArea) moonArea else null,
+                if (fillSunArea) sunArea else null,
                 moonLine,
                 sunLine,
                 moonImage,
@@ -126,6 +135,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         val endX = sunLine.data.lastOrNull()?.x ?: 0f
         horizonLabel.position = horizonLabel.position.copy(x = endX - 0.1f)
         updateSunArea()
+        updateMoonArea()
     }
 
     fun moveSun(position: Reading<Float>?) {
@@ -151,10 +161,11 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         } else {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
         }
+        updateMoonArea()
     }
 
     private fun updateSunArea(){
-        if (!fillArea){
+        if (!fillSunArea){
             return
         }
         val position = sunImage.data.firstOrNull()
@@ -162,6 +173,18 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
             sunArea.data = emptyList()
         } else {
             sunArea.data = sunLine.data.filter { it.x <= position.x } + position
+        }
+    }
+
+    private fun updateMoonArea(){
+        if (!fillMoonArea){
+            return
+        }
+        val position = moonImage.data.firstOrNull()
+        if (position == null){
+            moonArea.data = emptyList()
+        } else {
+            moonArea.data = moonLine.data.filter { it.x <= position.x } + position
         }
     }
 
