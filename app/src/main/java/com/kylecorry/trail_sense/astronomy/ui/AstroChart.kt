@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
-import android.graphics.Color
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.BitmapChartLayer
 import com.kylecorry.ceres.chart.data.FullAreaChartLayer
@@ -10,7 +10,6 @@ import com.kylecorry.ceres.chart.data.LineChartLayer
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.ui.BitmapLoader
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 
@@ -25,18 +24,26 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
     private val sunLine = LineChartLayer(
         emptyList(),
-        Resources.color(chart.context, R.color.sun)
+        Resources.androidTextColorSecondary(chart.context),
+        2.5f
     )
 
     private val moonLine = LineChartLayer(
         emptyList(),
-        Color.WHITE
+        Resources.androidTextColorSecondary(chart.context).withAlpha(100),
+        1f
+    )
+
+    private val horizon = HorizontalLineChartLayer(
+        0f,
+        Resources.color(chart.context, R.color.colorSecondary).withAlpha(100),
+        2f
     )
 
     private val night = FullAreaChartLayer(
         0f,
         -100f,
-        Resources.color(chart.context, R.color.colorSecondary)
+        Resources.androidBackgroundColorPrimary(chart.context).withAlpha(180)
     )
 
     private val imageSize = Resources.dp(chart.context, 24f)
@@ -44,7 +51,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
     private val sunImage = BitmapChartLayer(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_sun, imageSize.toInt()),
-        24f
+        16f
     ) {
         onImageClick()
         true
@@ -53,20 +60,18 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
     private val moonImage = BitmapChartLayer(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_moon, imageSize.toInt()),
-        24f
+        16f
     ) {
         onImageClick()
         true
     }
 
     init {
-        chart.setChartBackground(AppColor.Blue.color)
-
         chart.configureYAxis(
             labelCount = 0,
             drawGridLines = false,
             minimum = -100f,
-            maximum = 100f,
+            maximum = 100f
         )
 
         chart.configureXAxis(
@@ -77,7 +82,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
         chart.emptyText = chart.context.getString(R.string.no_data)
 
-        chart.plot(night, moonLine, sunLine, moonImage, sunImage)
+        chart.plot(horizon, moonLine, sunLine, moonImage, sunImage, night)
     }
 
     fun plot(sun: List<Reading<Float>>, moon: List<Reading<Float>>) {
