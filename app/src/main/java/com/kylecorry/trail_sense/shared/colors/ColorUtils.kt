@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.shared.colors
 
+import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.trail_sense.shared.UserPreferences
 import kotlin.math.max
 import kotlin.math.min
 
@@ -40,6 +43,14 @@ object ColorUtils {
         val green = Color.green(value)
 
         return (red + blue + green) / 3f
+    }
+
+    fun backgroundColor(context: Context): Int {
+        val theme = UserPreferences(context).theme
+        if (theme == UserPreferences.Theme.Black || theme == UserPreferences.Theme.Night) {
+            return Color.BLACK
+        }
+        return Resources.androidBackgroundColorPrimary(context)
     }
 
 }

@@ -10,6 +10,7 @@ import com.kylecorry.ceres.chart.data.LineChartLayer
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.ui.BitmapLoader
+import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 
@@ -43,7 +44,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
     private val night = FullAreaChartLayer(
         0f,
         -100f,
-        Resources.androidBackgroundColorPrimary(chart.context).withAlpha(180)
+        ColorUtils.backgroundColor(chart.context).withAlpha(180)
     )
 
     private val imageSize = Resources.dp(chart.context, 24f)
