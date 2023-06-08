@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.astronomy.ui
 
+import android.graphics.Color
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.ceres.chart.data.BitmapChartLayer
 import com.kylecorry.ceres.chart.data.FullAreaChartLayer
 import com.kylecorry.ceres.chart.data.LineChartLayer
@@ -18,6 +20,9 @@ import java.time.Instant
 
 class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
+    // TODO: Experiment with this, if it isn't needed, remove it
+    private val fillArea = true
+
     private var startTime = Instant.now()
 
     private val bitmapLoader = BitmapLoader(chart.context)
@@ -28,6 +33,13 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         emptyList(),
         Resources.color(chart.context, R.color.sun),
         2.5f
+    )
+
+    private val sunArea = AreaChartLayer(
+        emptyList(),
+        Color.TRANSPARENT,
+        Resources.color(chart.context, R.color.sun).withAlpha(50),
+        0f
     )
 
     private val moonLine = LineChartLayer(
@@ -93,7 +105,18 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
         chart.emptyText = chart.context.getString(R.string.no_data)
 
-        chart.plot(horizon, horizonLabel, moonLine, sunLine, moonImage, sunImage, night)
+        chart.plot(
+            listOfNotNull(
+                horizon,
+                horizonLabel,
+                if (fillArea) sunArea else null,
+                moonLine,
+                sunLine,
+                moonImage,
+                sunImage,
+                night
+            )
+        )
     }
 
     fun plot(sun: List<Reading<Float>>, moon: List<Reading<Float>>) {
@@ -102,6 +125,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         moonLine.data = Chart.getDataFromReadings(moon, startTime) { it }
         val endX = sunLine.data.lastOrNull()?.x ?: 0f
         horizonLabel.position = horizonLabel.position.copy(x = endX - 0.1f)
+        updateSunArea()
     }
 
     fun moveSun(position: Reading<Float>?) {
@@ -110,6 +134,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         } else {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
         }
+        updateSunArea()
     }
 
     fun setMoonImage(@DrawableRes icon: Int) {
@@ -125,6 +150,18 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
             emptyList()
         } else {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
+        }
+    }
+
+    private fun updateSunArea(){
+        if (!fillArea){
+            return
+        }
+        val position = sunImage.data.firstOrNull()
+        if (position == null){
+            sunArea.data = emptyList()
+        } else {
+            sunArea.data = sunLine.data.filter { it.x <= position.x } + position
         }
     }
 
