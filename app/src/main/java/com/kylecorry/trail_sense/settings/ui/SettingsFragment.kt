@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class SettingsFragment : AndromedaPreferenceFragment() {
 
@@ -37,6 +38,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     )
 
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -76,11 +78,20 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     override fun onResume() {
         super.onResume()
         preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
+
+        if (cache.getBoolean("pref_theme_just_changed") == true) {
+            refresh(false)
+        }
+    }
+
+    private fun refresh(recordChange: Boolean) {
+        cache.putBoolean("pref_theme_just_changed", recordChange)
+        activity?.recreate()
     }
 
     private fun refreshOnChange(pref: Preference?) {
         pref?.setOnPreferenceChangeListener { _, _ ->
-            activity?.recreate()
+            refresh(true)
             true
         }
     }
