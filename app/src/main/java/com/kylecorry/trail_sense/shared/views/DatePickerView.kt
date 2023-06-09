@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -22,8 +23,15 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
             }
         }
 
+    var searchEnabled: Boolean = false
+        set(value) {
+            field = value
+            search.isVisible = value
+        }
+
     private val formatter = FormatService.getInstance(context)
     private val calendar: ImageButton
+    private val search: ImageButton
     private val dateText: TextView
     private val next: ImageButton
     private val previous: ImageButton
@@ -31,10 +39,12 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
     private var onCalendarLongPress: () -> Unit = {
         date = LocalDate.now()
     }
+    private var onSearch: () -> Unit = {}
 
     init {
         inflate(context, R.layout.view_date_picker, this)
         calendar = findViewById(R.id.date_btn)
+        search = findViewById(R.id.search_btn)
         dateText = findViewById(R.id.date)
         next = findViewById(R.id.next_date)
         previous = findViewById(R.id.prev_date)
@@ -62,6 +72,10 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
             date = date.minusDays(1)
         }
 
+        search.setOnClickListener {
+            onSearch()
+        }
+
     }
 
     fun setOnDateChangeListener(listener: (LocalDate) -> Unit) {
@@ -70,6 +84,10 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
 
     fun setOnCalendarLongPressListener(listener: () -> Unit) {
         onCalendarLongPress = listener
+    }
+
+    fun setOnSearchListener(listener: () -> Unit) {
+        onSearch = listener
     }
 
 }

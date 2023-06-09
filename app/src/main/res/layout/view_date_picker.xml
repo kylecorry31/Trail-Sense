@@ -36,6 +36,17 @@
         app:srcCompat="@drawable/ic_date"
         app:tint="?android:textColorSecondary" />
 
+    <ImageButton
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_search"
+        app:tint="?android:textColorSecondary"
+        tools:visibility="visible" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="match_parent"

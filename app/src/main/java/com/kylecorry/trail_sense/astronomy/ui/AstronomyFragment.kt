@@ -117,7 +117,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             updateUI()
         }
 
-        binding.displayDate.setOnCalendarLongPressListener {
+        binding.displayDate.searchEnabled = true
+        binding.displayDate.setOnSearchListener {
             val options = listOfNotNull(
                 AstronomyEvent.FullMoon,
                 AstronomyEvent.NewMoon,
