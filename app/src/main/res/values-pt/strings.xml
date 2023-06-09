@@ -25,10 +25,12 @@
     <string name="pref_show_linear_compass_summary">Quando o telemóvel está na vertical</string>
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
+        <item quantity="many"></item>
         <item quantity="other">Últimas %d horas</item>
     </plurals>
     <plurals name="last_minutes">
         <item quantity="one">Último %d minuto</item>
+        <item quantity="many"></item>
         <item quantity="other">Últimos %d minutos</item>
     </plurals>
     <string name="feet_miles">Pés / milhas</string>
@@ -150,6 +152,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
+        <item quantity="many"></item>
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -259,8 +262,11 @@
     <string name="override_from_gps">Substituir pelo GPS</string>
     <string name="pref_compass_sensor_title">Bússola</string>
     <string name="pref_ruler_calibration_summary">Protocolo de calibração:
+\n
 \n- Aplique o valor 1.
+\n
 \n- Meça o valor da régua do Trail Sense correspondente a uma unidade de uma régua física.
+\n
 \n- Introduza aqui o valor medido.</string>
     <string name="pref_ruler_calibration_title">Escala de régua</string>
     <string name="sensors">Sensores</string>
@@ -321,6 +327,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
+        <item quantity="many"></item>
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -853,6 +860,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
+        <item quantity="many"></item>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>
@@ -1072,4 +1080,15 @@
     <string name="unable_to_find_next_astronomy">Não foi possível encontrar o próximo %s</string>
     <string name="print">Imprimir</string>
     <string name="step_progression">Passo %d / %d</string>
+    <string name="autofill_source">Fonte do preenchimento automático</string>
+    <string name="data_source">Fonte: %s</string>
+    <string name="map_calibration_instructions">Toque num local conhecido no mapa e insira as coordenadas do mundo real. Pode guardar a calibração clicando no botão \"Feito\".
+\n
+\nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um ponto de referência ou um cruzamento ao longo de um trilho.</string>
+    <string name="calibrate_map_point">Calibrar com localizações conhecidas (%d / %d)</string>
+    <string name="map_calibration">Calibração do mapa</string>
+    <string name="compass_source_mag_gyro">Magnetómetro + Giroscópio</string>
+    <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Legado (Android)</string>
+    <string name="accelerometer">Acelerómetro</string>
 </resources>
