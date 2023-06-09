@@ -1077,4 +1077,13 @@
     <string name="illumination">照度</string>
     <string name="map_auto_rotated">已通过校准调整了地图旋转</string>
     <string name="pref_keep_map_facing_up_title">保持地图正面朝上</string>
+    <string name="yes">是</string>
+    <string name="rate">率</string>
+    <string name="season">季节</string>
+    <string name="until_sunset">直到日落</string>
+    <string name="until_sunrise">直到日出</string>
+    <string name="astronomy_set">落下</string>
+    <string name="astronomy_rise">升起</string>
+    <string name="horizon">水平</string>
+    <string name="no">否</string>
 </resources>
