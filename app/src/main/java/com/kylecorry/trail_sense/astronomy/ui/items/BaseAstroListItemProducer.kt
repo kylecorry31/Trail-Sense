@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
-import android.text.style.AbsoluteSizeSpan
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
-import androidx.core.text.inSpans
 import androidx.core.text.scale
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.JustifyContent
@@ -17,6 +15,7 @@ import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemData
 import com.kylecorry.ceres.list.ListItemDataAlignment
 import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -34,7 +33,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     private val textScale = 1.2f
     protected val imageSize = Resources.sp(context, 12f * textScale).toInt()
     protected val secondaryColor = Resources.androidTextColorSecondary(context)
-    private val textSize = Resources.sp(context, 14f).toInt()
+    private val textSize = Resources.sp(context, 12f).toInt()
     protected val formatter = FormatService.getInstance(context)
     protected val astronomyService = AstronomyService()
     protected val prefs = UserPreferences(context)
@@ -62,7 +61,6 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     }
 
 
-
     private fun datapoint(
         value: CharSequence,
         label: CharSequence? = null
@@ -70,9 +68,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         return ListItemData(
             buildSpannedString {
                 bold {
-                    inSpans(AbsoluteSizeSpan(textSize)) {
-                        append(value)
-                    }
+                    append(value)
                 }
                 if (label != null) {
                     append("\n")
@@ -147,33 +143,29 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         return data(formatter.formatDuration(value, false))
     }
 
-    protected fun riseSet(rise: ZonedDateTime?, set: ZonedDateTime?): List<ListItemData> {
+    protected fun riseSetTransit(times: RiseSetTransitTimes): List<ListItemData> {
         return listOf(
-            context.getString(R.string.astronomy_rise) to rise,
-            context.getString(R.string.astronomy_set) to set
-        ).sortedBy { it.second }.map {
+            context.getString(R.string.astronomy_rise) to times.rise,
+            context.getString(R.string.noon) to times.transit,
+            context.getString(R.string.astronomy_set) to times.set
+        ).map {
             datapoint(formatTime(it.second), it.first)
         }
     }
 
     protected fun times(
-        start: ZonedDateTime?, end: ZonedDateTime?, displayDate: LocalDate? = start?.toLocalDate()
+        start: ZonedDateTime?,
+        peak: ZonedDateTime?,
+        end: ZonedDateTime?,
+        displayDate: LocalDate? = start?.toLocalDate()
     ): List<ListItemData> {
-        val startLabel = if (start != null && end != null && start.toLocalDate() != displayDate) {
-            formatter.formatRelativeDate(start.toLocalDate(), true)
-        } else {
-            context.getString(R.string.start_time)
-        }
-
-        val endLabel = if (start != null && end != null && end.toLocalDate() != displayDate) {
-            formatter.formatRelativeDate(end.toLocalDate(), true)
-        } else {
-            context.getString(R.string.end_time)
-        }
-
         return listOf(
-            datapoint(formatTime(start), startLabel), datapoint(formatTime(end), endLabel)
-        )
+            context.getString(R.string.start_time) to start,
+            context.getString(R.string.peak_time) to peak,
+            context.getString(R.string.end_time) to end
+        ).flatMap {
+            time(it.second, displayDate, it.first)
+        }
     }
 
     protected fun time(

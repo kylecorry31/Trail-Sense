@@ -39,14 +39,13 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
                 formatter.formatDuration(daylight, false)
             ),
             ResourceListIcon(R.drawable.ic_sun),
-            data = riseSet(times.rise, times.set)
+            data = riseSetTransit(times)
         ) {
             val advancedData = listOf(
-                context.getString(R.string.sun_actual) to riseSet(actual.rise, actual.set),
-                context.getString(R.string.sun_civil) to riseSet(civil.rise, civil.set),
-                context.getString(R.string.sun_nautical) to riseSet(nautical.rise, nautical.set),
-                context.getString(R.string.sun_astronomical) to riseSet(astronomical.rise, astronomical.set),
-                context.getString(R.string.noon) to time(actual.transit),
+                context.getString(R.string.sun_actual) to riseSetTransit(actual),
+                context.getString(R.string.sun_civil) to riseSetTransit(civil),
+                context.getString(R.string.sun_nautical) to riseSetTransit(nautical),
+                context.getString(R.string.sun_astronomical) to riseSetTransit(astronomical),
                 context.getString(R.string.astronomy_altitude_peak) to peak?.let { degrees(it) },
                 context.getString(R.string.daylight) to duration(daylight),
                 context.getString(R.string.night) to duration(night),

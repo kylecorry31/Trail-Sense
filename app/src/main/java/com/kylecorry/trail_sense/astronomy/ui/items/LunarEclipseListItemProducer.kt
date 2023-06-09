@@ -33,11 +33,12 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
                     R.drawable.ic_moon_partial_eclipse
                 }
             ),
-            data = times(eclipse.start, eclipse.end, date)
+            data = times(eclipse.start, eclipse.peak, eclipse.end, date)
         ) {
             val advancedData = listOf(
                 context.getString(R.string.times) to times(
                     eclipse.start,
+                    eclipse.peak,
                     eclipse.end,
                     date
                 ),
@@ -59,7 +60,6 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
                         2
                     )
                 ),
-                context.getString(R.string.peak_time) to time(eclipse.peak, date),
                 context.getString(R.string.astronomy_altitude_peak) to data(
                     formatter.formatDegrees(
                         peakAltitude

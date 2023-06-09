@@ -32,14 +32,13 @@ class SolarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
                     R.drawable.ic_partial_solar_eclipse
                 }
             ),
-            data = times(eclipse.start, eclipse.end, date)
+            data = times(eclipse.start, eclipse.peak, eclipse.end, date)
         ) {
             val advancedData = listOf(
-                context.getString(R.string.times) to times(eclipse.start, eclipse.end, date),
+                context.getString(R.string.times) to times(eclipse.start, eclipse.peak, eclipse.end, date),
                 context.getString(R.string.duration) to duration(eclipse.duration),
                 context.getString(R.string.obscuration) to data(EclipseFormatter.type(context, eclipse)),
                 context.getString(R.string.magnitude) to decimal(eclipse.magnitude, 2),
-                context.getString(R.string.peak_time) to time(eclipse.peak, date),
                 context.getString(R.string.astronomy_altitude_peak) to degrees(peakAltitude),
                 context.getString(R.string.astronomy_direction_peak) to direction(peakAzimuth)
             )

@@ -31,11 +31,10 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
             ResourceListIcon(MoonPhaseImageMapper().getPhaseImage(phase.phase)),
-            data = riseSet(times.rise, times.set)
+            data = riseSetTransit(times)
         ) {
             val advancedData = listOf(
-                context.getString(R.string.times) to riseSet(times.rise, times.set),
-                context.getString(R.string.lunar_noon) to time(times.transit),
+                context.getString(R.string.times) to riseSetTransit(times),
                 context.getString(R.string.moon_phase) to data(formatter.formatMoonPhase(phase.phase)),
                 context.getString(R.string.illumination) to percent(phase.illumination),
                 context.getString(R.string.supermoon) to data(formatter.formatBooleanYesNo(isSuperMoon))
