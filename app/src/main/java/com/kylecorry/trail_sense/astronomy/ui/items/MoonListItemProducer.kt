@@ -25,6 +25,7 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
 
         // Advanced
         val isSuperMoon = astronomyService.isSuperMoon(date)
+        val peak = times.transit?.let { astronomyService.getMoonAltitude(location, it) }
 
         list(
             2,
@@ -37,6 +38,7 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
                 context.getString(R.string.times) to riseSetTransit(times),
                 context.getString(R.string.moon_phase) to data(formatter.formatMoonPhase(phase.phase)),
                 context.getString(R.string.illumination) to percent(phase.illumination),
+                context.getString(R.string.astronomy_altitude_peak) to peak?.let { degrees(it) },
                 context.getString(R.string.supermoon) to data(formatter.formatBooleanYesNo(isSuperMoon))
             )
 
