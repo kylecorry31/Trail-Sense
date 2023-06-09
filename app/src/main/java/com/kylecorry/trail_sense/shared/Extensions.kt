@@ -109,48 +109,6 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
     return rectangle
 }
 
-inline fun SpannableStringBuilder.align(
-    alignment: Layout.Alignment,
-    builderAction: SpannableStringBuilder.() -> Unit
-): SpannableStringBuilder =
-    inSpans(AlignmentSpan.Standard(alignment), builderAction)
-
-inline fun SpannableStringBuilder.center(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder = align(
-    Layout.Alignment.ALIGN_CENTER,
-    builderAction
-)
-
-inline fun SpannableStringBuilder.left(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder = align(
-    Layout.Alignment.ALIGN_NORMAL,
-    builderAction
-)
-
-inline fun SpannableStringBuilder.right(builderAction: SpannableStringBuilder.() -> Unit): SpannableStringBuilder = align(
-    Layout.Alignment.ALIGN_OPPOSITE,
-    builderAction
-)
-
-inline fun SpannableStringBuilder.appendImage(
-    context: Context,
-    drawableRes: Int,
-    width: Int,
-    height: Int = width,
-    @ColorInt tint: Int? = null,
-    flags: Int = ImageSpan.ALIGN_BASELINE
-): SpannableStringBuilder {
-    val drawable = AppCompatResources.getDrawable(context, drawableRes)
-    drawable?.let {
-        it.setBounds(0, 0, width, height)
-        tint?.let { tint ->
-            Colors.setImageColor(it, tint)
-        }
-        val imageSpan = ImageSpan(it, flags)
-        append(" ")
-        setSpan(imageSpan, length - 1, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    }
-    return this
-}
-
 inline fun Enum<*>.readableName(): String {
     return name.map { if (it.isUpperCase()) " $it" else it }
         .joinToString("").trim()

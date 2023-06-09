@@ -13,8 +13,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 33
-        versionCode = 99
-        versionName = "4.18.0"
+        versionCode = 100
+        versionName = "4.19.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations.addAll(listOf("en", "af", "ar", "bg", "bn", "bs", "ca", "cs", "da", "de", "es", "eu", "fa-rIR", "fi", "fr", "hi", "hu", "hy", "in", "it", "iw", "js", "nb-rNO", "ne", "nl", "ny", "pl", "pt", "pt-rBR", "ro", "ru", "sk", "tr", "uk", "vi", "yue", "zh", "zh-rTW"))
     }
@@ -91,7 +91,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:6.7.0")
 
     // Andromeda
-    val andromedaVersion = "5.5.0"
+    val andromedaVersion = "5.6.0"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -126,7 +126,7 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:print:$andromedaVersion")
 
     // Ceres
-    val ceresVersion = "20272af6e7"
+    val ceresVersion = "0.3.5"
     implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")

@@ -8,7 +8,9 @@ import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.ceres.chart.data.BitmapChartLayer
 import com.kylecorry.ceres.chart.data.FullAreaChartLayer
+import com.kylecorry.ceres.chart.data.HorizontalLineChartLayer
 import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.ceres.chart.data.TextChartLayer
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
