@@ -26,15 +26,15 @@ class MeteorShowerListItemProducer(context: Context) : BaseAstroListItemProducer
             context.getString(R.string.meteor_shower),
             context.getString(R.string.meteors_per_hour, shower.shower.rate),
             ResourceListIcon(R.drawable.ic_meteor, secondaryColor),
-            data = time(shower.peak, date, context.getString(R.string.peak_time))
+            data = times(shower.start, shower.peak, shower.end, date)
         ) {
 
             val advancedData = listOf(
+                context.getString(R.string.times) to times(shower.start, shower.peak, shower.end, date),
                 context.getString(R.string.name) to data(shower.shower.readableName()),
                 context.getString(R.string.rate) to data(
                     context.getString(R.string.meteors_per_hour, shower.shower.rate)
                 ),
-                context.getString(R.string.peak_time) to time(shower.peak, date),
                 context.getString(R.string.astronomy_altitude_peak) to degrees(peakAltitude),
                 context.getString(R.string.astronomy_direction_peak) to direction(peakAzimuth)
             )
