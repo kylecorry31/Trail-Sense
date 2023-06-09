@@ -148,7 +148,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             context.getString(R.string.astronomy_rise) to times.rise,
             context.getString(R.string.noon) to times.transit,
             context.getString(R.string.astronomy_set) to times.set
-        ).map {
+        ).sortedBy { it.second }.map {
             datapoint(formatTime(it.second), it.first)
         }
     }
