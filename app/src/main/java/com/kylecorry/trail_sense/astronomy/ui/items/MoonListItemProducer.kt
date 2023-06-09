@@ -35,6 +35,7 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
         ) {
             val advancedData = listOf(
                 context.getString(R.string.times) to riseSet(times.rise, times.set),
+                context.getString(R.string.lunar_noon) to time(times.transit),
                 context.getString(R.string.moon_phase) to data(formatter.formatMoonPhase(phase.phase)),
                 context.getString(R.string.illumination) to percent(phase.illumination),
                 context.getString(R.string.supermoon) to data(formatter.formatBooleanYesNo(isSuperMoon))
