@@ -95,7 +95,7 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
             title(title, subtitle),
             null,
             icon = icon,
-            trailingIcon = onClick?.let { ResourceListIcon(R.drawable.ic_keyboard_arrow_right) },
+            trailingIcon = onClick?.let { ResourceListIcon(R.drawable.ic_keyboard_arrow_right){ onClick() } },
             data = data,
             dataAlignment = ListItemDataAlignment(
                 justifyContent = JustifyContent.SPACE_BETWEEN, alignItems = AlignItems.CENTER
