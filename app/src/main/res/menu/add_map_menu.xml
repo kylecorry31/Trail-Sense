@@ -7,7 +7,7 @@
     <item
         android:id="@+id/action_import_map_file"
         android:icon="@drawable/ic_file"
-        android:title="@string/file" />
+        android:title="@string/map_file" />
     <item
         android:id="@+id/action_import_map_camera"
         android:icon="@drawable/ic_camera"

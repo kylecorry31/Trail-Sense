@@ -1145,6 +1145,7 @@
     <string name="map_exported">Map exported</string>
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
+    <string name="map_file">File (JPG, PNG, PDF)</string>
     <string name="map_export_error">Unable to export map to the chosen file</string>
     <string name="second_symbol">s</string>
     <string name="point">Point</string>
