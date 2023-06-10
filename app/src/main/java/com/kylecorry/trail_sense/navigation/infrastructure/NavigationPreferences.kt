@@ -194,12 +194,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
-    override val areMapsEnabled by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_experimental_maps),
-        false
-    )
-
     override val autoReduceMaps by BooleanPreference(
         cache,
         context.getString(R.string.pref_low_resolution_maps),

@@ -374,11 +374,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             binding.pathTitle.rightButton, listOf(
                 getString(R.string.rename),
                 if (path.temporary) getString(R.string.keep_forever) else null,
-                if (prefs.navigation.useRadarCompass || prefs.navigation.areMapsEnabled) {
-                    if (path.style.visible) getString(R.string.hide) else getString(
-                        R.string.show
-                    )
-                } else null,
+                if (path.style.visible) getString(R.string.hide) else getString(
+                    R.string.show
+                ),
                 getString(R.string.export),
                 getString(R.string.simplify),
                 getString(R.string.points)

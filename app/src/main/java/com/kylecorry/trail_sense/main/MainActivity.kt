@@ -106,7 +106,7 @@ class MainActivity : AndromedaActivity() {
         Package.setComponentEnabled(
             this,
             "com.kylecorry.trail_sense.AliasMainActivity",
-            userPrefs.navigation.areMapsEnabled
+            true
         )
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
@@ -159,7 +159,7 @@ class MainActivity : AndromedaActivity() {
                     bundle
                 )
             }
-        } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true) && userPrefs.navigation.areMapsEnabled) {
+        } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true)) {
             bottomNavigation.selectedItemId = R.id.action_experimental_tools
             val intentUri = intent.clipData?.getItemAt(0)?.uri
             val bundle = bundleOf("map_intent_uri" to intentUri)

@@ -42,11 +42,6 @@ class PreferenceMigrator private constructor() {
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
-                    val isExperimental = prefs.getBoolean("pref_enable_experimental") ?: false
-                    prefs.putBoolean(
-                        context.getString(R.string.pref_experimental_maps),
-                        isExperimental
-                    )
                     prefs.remove("pref_enable_experimental")
                     prefs.remove("pref_use_camera_features")
                 }

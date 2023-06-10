@@ -7,7 +7,11 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.ceres.list.*
+import com.kylecorry.ceres.list.ListIcon
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ListMenuItem
+import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -29,14 +33,13 @@ class BeaconListItemMapper(
 ) : ListItemMapper<Beacon> {
 
     private val prefs by lazy { UserPreferences(context) }
-    private val showVisibilityToggle by lazy { prefs.navigation.showMultipleBeacons || prefs.navigation.areMapsEnabled }
 
     override fun map(value: Beacon): ListItem {
         return value.toListItem(
             context,
             prefs.baseDistanceUnits,
             gps.location,
-            showVisibilityToggle
+            true
         ) {
             actionHandler(value, it)
         }

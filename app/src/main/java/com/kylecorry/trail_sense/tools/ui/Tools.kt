@@ -58,12 +58,12 @@ object Tools {
 
         val location = ToolGroup(
             context.getString(R.string.location), listOfNotNull(
-                if (prefs.navigation.areMapsEnabled) Tool(
+                Tool(
                     context.getString(R.string.photo_maps),
                     R.drawable.maps,
                     R.id.action_tools_to_maps_list,
                     context.getString(R.string.experimental)
-                ) else null,
+                ),
                 Tool(
                     context.getString(R.string.paths),
                     R.drawable.ic_tool_backtrack,

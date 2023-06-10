@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Package
-import com.kylecorry.trail_sense.shared.UserPreferences
 
 class PackageReplacedReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -13,7 +12,7 @@ class PackageReplacedReceiver : BroadcastReceiver() {
             Package.setComponentEnabled(
                 context,
                 "com.kylecorry.trail_sense.AliasMainActivity",
-                UserPreferences(context).navigation.areMapsEnabled
+                true
             )
         }
     }

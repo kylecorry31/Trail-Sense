@@ -47,7 +47,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             navigateOnClick(preference(nav.key), nav.value)
         }
 
-        preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
         preference(R.string.pref_weather_category)?.isVisible = Sensors.hasBarometer(requireContext())
 
         preference(R.string.pref_flashlight_settings)?.isVisible = FlashlightSubsystem.getInstance(requireContext()).isAvailable()
@@ -76,8 +75,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
-        preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
-
         if (cache.getBoolean("pref_theme_just_changed") == true) {
             refresh(false)
         }

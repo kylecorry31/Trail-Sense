@@ -8,14 +8,6 @@
         app:title="@string/experimental">
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_experimental_maps"
-            app:singleLineTitle="false"
-            app:title="@string/photo_maps" />
-
-        <SwitchPreferenceCompat
             android:summary="@string/tool_metal_detector_title"
             app:defaultValue="false"
             app:disableDependentsState="true"

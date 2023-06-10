@@ -45,12 +45,8 @@ object QuickActionUtils {
             if (FlashlightSubsystem.getInstance(context).isAvailable()) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.Ruler,
-            QuickActionType.LowPowerMode
-        )
-
-        if (UserPreferences(context).navigation.areMapsEnabled) {
-            list.add(QuickActionType.Maps)
-        }
+            QuickActionType.LowPowerMode,
+            QuickActionType.Maps)
 
         return list.filterNotNull()
     }
