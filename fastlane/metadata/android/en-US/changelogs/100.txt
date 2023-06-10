@@ -1,0 +1,15 @@
+Astronomy
+- Redesigned astronomy for easier at a glance usage
+- Show start and end times of meteor showers
+- Show eclipse peak time
+- Add search button to find next astronomical event
+- Click on sun / moon list items to see advanced details
+
+Weather / Climate
+- Improve historical temperature accuracy
+
+Photo Maps (Experimental)
+- Handle maps which don't point to True North
+
+Misc
+- Bug fixes
