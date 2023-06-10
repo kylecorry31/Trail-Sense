@@ -57,8 +57,7 @@
             app:icon="@drawable/maps"
             app:key="@string/pref_maps_header_key"
             app:singleLineTitle="false"
-            app:summary="@string/experimental"
-            app:title="@string/maps" />
+            app:title="@string/photo_maps" />
 
         <Preference
             app:icon="@drawable/cloud"
