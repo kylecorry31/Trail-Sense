@@ -8,10 +8,10 @@ import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class SettingsFragment : AndromedaPreferenceFragment() {
 
@@ -50,8 +50,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_maps_header_key)?.isVisible = prefs.navigation.areMapsEnabled
         preference(R.string.pref_weather_category)?.isVisible = Sensors.hasBarometer(requireContext())
 
-        preference(R.string.pref_flashlight_settings)?.isVisible =
-            Torch.isAvailable(requireContext())
+        preference(R.string.pref_flashlight_settings)?.isVisible = FlashlightSubsystem.getInstance(requireContext()).isAvailable()
 
         refreshOnChange(list(R.string.pref_theme))
 

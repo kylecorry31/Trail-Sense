@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 enum class QuickActionType(val id: Int) {
     None(-1),
@@ -42,7 +42,7 @@ object QuickActionUtils {
         val list = mutableListOf(
             QuickActionType.None,
             QuickActionType.Backtrack,
-            if (Torch.isAvailable(context)) QuickActionType.Flashlight else null,
+            if (FlashlightSubsystem.getInstance(context).isAvailable()) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.Ruler,
             QuickActionType.LowPowerMode
@@ -58,7 +58,7 @@ object QuickActionUtils {
     fun weather(context: Context): List<QuickActionType> {
         return listOfNotNull(
             QuickActionType.None,
-            if (Torch.isAvailable(context)) QuickActionType.Flashlight else null,
+            if (FlashlightSubsystem.getInstance(context).isAvailable()) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.Clouds,
             QuickActionType.Temperature,
@@ -71,7 +71,7 @@ object QuickActionUtils {
     fun astronomy(context: Context): List<QuickActionType> {
         return listOfNotNull(
             QuickActionType.None,
-            if (Torch.isAvailable(context)) QuickActionType.Flashlight else null,
+            if (FlashlightSubsystem.getInstance(context).isAvailable()) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.WhiteNoise,
             QuickActionType.LowPowerMode
