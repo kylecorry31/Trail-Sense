@@ -14,7 +14,7 @@ object Share {
     ) {
 
         val titles = mapOf(
-            ShareAction.Copy to fragment.getString(R.string.copy),
+            ShareAction.Copy to fragment.getString(androidx.preference.R.string.copy),
             ShareAction.QR to fragment.getString(R.string.qr_code),
             ShareAction.Send to fragment.getString(R.string.share_action_send),
             ShareAction.Maps to fragment.getString(R.string.maps),

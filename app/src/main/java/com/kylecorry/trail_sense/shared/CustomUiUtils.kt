@@ -48,7 +48,7 @@ object CustomUiUtils {
     fun setButtonState(button: ImageButton, state: Boolean) {
         button.setState(
             state,
-            Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary),
+            Resources.getAndroidColorAttr(button.context, androidx.appcompat.R.attr.colorPrimary),
             Resources.color(button.context, R.color.colorSecondary)
         )
     }
@@ -60,7 +60,7 @@ object CustomUiUtils {
     ) {
         button.setState(
             isOn,
-            Resources.getAndroidColorAttr(button.context, R.attr.colorPrimary),
+            Resources.getAndroidColorAttr(button.context, androidx.appcompat.R.attr.colorPrimary),
             Resources.color(button.context, R.color.colorSecondary)
         )
     }

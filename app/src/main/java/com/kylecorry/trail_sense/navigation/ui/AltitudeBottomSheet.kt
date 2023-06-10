@@ -50,7 +50,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private var historyDuration = maxHistoryDuration
 
     private val elevationLine by lazy {
-        val color = Resources.getAndroidColorAttr(requireContext(), R.attr.colorPrimary)
+        val color = Resources.getAndroidColorAttr(requireContext(), androidx.appcompat.R.attr.colorPrimary)
         AreaChartLayer(
             emptyList(),
             color,

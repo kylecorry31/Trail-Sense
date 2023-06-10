@@ -36,7 +36,7 @@ class PackListItemMapper(
                         PackAction.Rename
                     )
                 },
-                ListMenuItem(context.getString(R.string.copy)) {
+                ListMenuItem(context.getString(androidx.preference.R.string.copy)) {
                     actionHandler(
                         value,
                         PackAction.Copy

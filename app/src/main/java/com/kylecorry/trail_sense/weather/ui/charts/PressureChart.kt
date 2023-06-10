@@ -31,7 +31,7 @@ class PressureChart(
     private var margin = 1f
     private var clickable = selectionListener != null
 
-    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
+    private val color = Resources.getAndroidColorAttr(chart.context, androidx.appcompat.R.attr.colorPrimary)
 
     private val rawLine = LineChartLayer(
         emptyList(),

@@ -16,7 +16,7 @@ import java.time.Instant
 
 class TemperatureChart(private val chart: Chart, showFreezing: Boolean = true) {
 
-    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
+    private val color = Resources.getAndroidColorAttr(chart.context, androidx.appcompat.R.attr.colorPrimary)
     private var startTime = Instant.now()
 
     private val rawLine = LineChartLayer(

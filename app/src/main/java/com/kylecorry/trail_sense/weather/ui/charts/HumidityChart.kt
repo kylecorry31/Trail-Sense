@@ -10,7 +10,7 @@ import java.time.Instant
 
 class HumidityChart(private val chart: Chart) {
 
-    private val color = Resources.getAndroidColorAttr(chart.context, R.attr.colorPrimary)
+    private val color = Resources.getAndroidColorAttr(chart.context, androidx.appcompat.R.attr.colorPrimary)
     private var startTime = Instant.now()
 
     init {
