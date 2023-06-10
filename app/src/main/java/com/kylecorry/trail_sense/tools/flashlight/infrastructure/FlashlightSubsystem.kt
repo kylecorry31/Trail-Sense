@@ -43,7 +43,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     override val brightnessLevels: Int
         get() = (torch?.brightnessLevels ?: 1) - 1
 
-    private var isAvailable: Boolean = Torch.isAvailable(context)
+    private var isAvailable: Boolean = Torch.isAvailable(context, true)
 
     private var isTransitioning = false
     private val transitionTimer = Timer {
@@ -63,6 +63,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
             torchChanged.subscribe(this@FlashlightSubsystem::onTorchStateChanged)
             brightness = prefs.flashlight.brightness
             torch = Torch(context)
+            isAvailable = Torch.isAvailable(context)
         }
     }
 
