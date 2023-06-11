@@ -109,7 +109,7 @@
     <string name="notification_storm_alert_text">一场暴风雨可能正在逼近</string>
     <string name="storm_alerts">暴风雨警报</string>
     <string name="alerts">警报</string>
-    <string name="units_inhg_short">英寸汞柱</string>
+    <string name="units_inhg_short">英寸</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="beacon_comment">备注（可选）</string>
     <string name="beacon_invalid_name">无效的名称</string>
@@ -785,7 +785,7 @@
     <string name="temporary">临时的</string>
     <string name="longest">最长</string>
     <string name="shortest">最短</string>
-    <string name="closest">最近</string>
+    <string name="closest">距离最近</string>
     <plurals name="paths_imported">
         <item quantity="other">导入了 %d 条路径</item>
     </plurals>
@@ -1086,4 +1086,5 @@
     <string name="astronomy_rise">升起</string>
     <string name="horizon">水平</string>
     <string name="no">否</string>
+    <string name="map_file">文件（JPG, PNG, PDF）</string>
 </resources>
