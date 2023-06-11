@@ -107,18 +107,19 @@
     <string name="new_moon">Luna nueva</string>
     <string name="notification_monitoring_weather">Monitoreo del clima en segundo plano</string>
     <plurals name="beacon_group_summary">
-        <item quantity="one">%d baliza</item>
-        <item quantity="other">%d balizas</item>
+        <item quantity="one">baliza %d</item>
+        <item quantity="many">balizas %d</item>
+        <item quantity="other">balizas %d</item>
     </plurals>
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>
     <string name="tap_to_turn_off">Toca para apagar</string>
-    <string name="accuracy_info">"GPS: Salga al exterior con una vista despejada del cielo.
-\n     %s de la ubicación real
-\n     %s de elevación real
-\n     %s satélites
+    <string name="accuracy_info">"GPS: Sal al exterior con una vista despejada del cielo.
+\n    %s de ubicación real
+\n    %s de elevación real
+\n    %s de satélites
 \n
-\n Brújula: Gire el dispositivo en un patrón de 8 (o en todas las direcciones) y aléjese del metal."</string>
+\nBrújula: Gira el dispositivo en forma de un 8 o en todas direcciones y aléjate del metal."</string>
     <string name="accuracy_info_title">Consejos para mejorar la precisión de los datos de los sensores</string>
     <string name="discharging_fast">Descargando rápido (%s)</string>
     <string name="discharging_slow">Descargando lento (%s)</string>
@@ -965,8 +966,9 @@
     <string name="tide_diurnal_description">Marea alta una vez al día - la mayoría de las mareas no son diurnas</string>
     <string name="tide_diurnal">Diurno</string>
     <plurals name="path_group_summary">
-        <item quantity="one">%d ruta</item>
-        <item quantity="other">%d rutas</item>
+        <item quantity="one">ruta %d</item>
+        <item quantity="many">rutas %d</item>
+        <item quantity="other">rutas %d</item>
     </plurals>
     <string name="delete_path_group_message">%s y todas sus rutas se eliminarán.</string>
     <string name="path">Ruta</string>
@@ -1083,4 +1085,19 @@
     <string name="compass_source_legacy_android">Legado (Android)</string>
     <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>
     <string name="data_source">Fuente: %s</string>
+    <string name="illumination">Iluminación</string>
+    <string name="map_auto_rotated">La rotación del mapa ha sido ajustada por calibración</string>
+    <string name="pref_keep_map_facing_up_title">Mantener el mapa hacia arriba</string>
+    <string name="pref_keep_map_facing_up_summary">El mapa se alineará con la parte superior de la pantalla en lugar de con el Norte verdadero.</string>
+    <string name="daylight_duration">%s luz diurna</string>
+    <string name="times">Horas</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="rate">Tarifa</string>
+    <string name="season">Estación</string>
+    <string name="until_sunset">hasta el atardecer</string>
+    <string name="until_sunrise">hasta el amanecer</string>
+    <string name="astronomy_set">Establecer</string>
+    <string name="astronomy_rise">Subir</string>
+    <string name="horizon">Horizonte</string>
 </resources>
