@@ -1127,4 +1127,5 @@
 \nПрикладами хороших точок калібрування є автостоянка, точка вказівника, орієнтир або перехрестя на стежці.</string>
     <string name="map_auto_rotated">Обертання мапи відрегульовано за допомогою калібрування</string>
     <string name="data_source">Джерело: %s</string>
+    <string name="map_file">Файл (JPG, PNG, PDF)</string>
 </resources>
