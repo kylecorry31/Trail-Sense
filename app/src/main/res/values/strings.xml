@@ -1297,6 +1297,13 @@
     <string name="astronomy_rise">Rise</string>
     <string name="horizon">Horizon</string>
 
+    <string name="photo_map_summary">Use a photo as a map</string>
+    <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.</string>
+    <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown</string>
+    <string name="beta">Beta</string>
+    <!-- The %s is the email address for Trail Sense-->
+    <string name="beta_disclaimer">This tool is currently in beta, so please report any issues or feedback at %s.</string>
+
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

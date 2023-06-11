@@ -1,31 +1,35 @@
-## How to create a map?
+The Photo Map feature allows you to use a photo as a map in Trail Sense. Always carry a physical map for backup and verify the accuracy of Trail Sense.
 
-To use maps in Trail Sense, you must enable the "Photo Maps" setting in Trail Sense's "Experimental" settings. Note that the Photo Maps are not finished at this point, so don't use it for important decisions and always have a backup map. Email me at trailsense@protonmail.com with any crashes, bug reports, or feedback.
+This tool is currently in beta, so please report any issues or feedback at trailsense@protonmail.com.
 
-From the "Photo Maps" tool, tap the plus button the the bottom right, and choose how you want to import your map. Give it a name, outline the map in the photo, and then rotate it so North is pointed up. Now the map is ready to be calibrated.
+## How to create a photo map?
 
-CalTopo is a great source for downloading high quality trail maps, which are easy to calibrate in Trail Sense. Just 'print' the map to a Geospatial PDF and Trail Sense can automatically import it and calibrate.
+1. On the Tools tab, click Photo Maps
+2. Tap the plus button on the bottom right and choose how you want to import your map
+    a. Camera - Take a picture of your map, making sure to include the entire map in the picture
+    b. File - Select a file from your device (JPG, PNG, or PDF)
+    c. Blank - Create a blank map given a location and the size of the map - useful if you have paths or beacons created
+3. Crop the photo to the map bounds
+4. Calibrate the map using 2 known locations:
+    a. Enter the real-world location in the input field. For example, a trail sign, fork, or point of interest.
+    b. Tap the map where the location is
+    c. Use Previous/Next to switch between calibration points.
+    d. You can click Next + Done to save the calibration at any time.
+5. Tap Done to save the calibration and use the map
 
-## How to calibrate a map?
+**Note**: If you choose to use a blank map or Geospatial PDF, your map will automatically be calibrated. A good source for Geospatial PDFs is [CalTopo](https://caltopo.com).
 
-Once a map is imported, you will need to calibrate it using two known points.
+## Calibration point tips
 
-### With beacons
-
-If you have entered beacons within the bounds of the map, you can tap the map where your beacon is, then select the beacon using the coordinate input field.
-
-### On the trail
-
-You can use distinct features on the trail to identify your location on the map, such as river crossings, trail intersections, or trail maps (with the 'you are here' marker). Once you have located your current position on the map, tap it and use the coordinate input field to select your current GPS location.
-
-If you took a picture of the trail sign and are using that, you can mark you current location (if the 'you are here' marker is present), then walk to the next trail intersection or feature along your way and mark that, which will then plot your position onto the map.
+### Calibrating while hiking
+- Point 1: This point should the trail sign where you took the photo of the map or the trailhead.
+- Point 2: This point should be the first trail fork you encounter. If you don't encounter a trail fork, use a point of interest on the map (ex. a lake, peak, or other landmark).
 
 ### From the map grid
-
-If you took a picture of a printed map or downloaded a map online (ex. CalTopo), you can use the grid lines on the map to calculate the location of several features, and enter them into Trail Sense by tapping on them on the map and entering their grid coordinates. See the 'Using printed maps' guide for how to get coordinates from a map.
+If your map has gridlines, you can follow the 'Using printed maps' guid to get the coordinates of several features on the map and enter them into Trail Sense.
 
 The intersection points between gridlines are the easiest to calibrate off of.
 
 ### From an online source
 
-If you have Internet access, you can look up the coordinates of map feature and tap them in Trail Sense and enter the coordinates.
+If you have Internet access, you can look up the coordinates of a map feature and tap them in Trail Sense and enter the coordinates.
