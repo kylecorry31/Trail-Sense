@@ -183,9 +183,12 @@
     <string name="calibrate_compass_dialog_title">Калібрувати компас</string>
     <string name="calibrate">Калібрувати</string>
     <string name="pref_ruler_calibration_summary">Порядок калібрування:
-\n- Установіть значення 1.
-\n- Виміряйте значення однієї одиниці віртуальної лінійки.
-\n- Уведіть це значення сюди.</string>
+\n
+\n- Встановіть це значення на 1.
+\n
+\n- Виміряйте значення лінійки Trail Sense, що відповідає одній одиниці фізичної лінійки.
+\n
+\n- Повідомте виміряне значення тут.</string>
     <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
     <string name="elevation_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
@@ -1099,4 +1102,29 @@
     <string name="print">Друк</string>
     <string name="step_progression">Крок %d з %d</string>
     <string name="autofill_source">Джерело автозаповнення</string>
+    <string name="calibrate_map_point">Відкалібруйте за відомими місцями (%d / %d)</string>
+    <string name="illumination">Освітлення</string>
+    <string name="map_calibration">Калібрування мапи</string>
+    <string name="compass_source_legacy_android">Старе (Android)</string>
+    <string name="accelerometer">Акселерометр</string>
+    <string name="compass_source_mag_gyro">Магнітометр + Гіроскоп</string>
+    <string name="compass_source_legacy_ts">Старе (Trail Sense)</string>
+    <string name="pref_keep_map_facing_up_title">Тримайте мапу лицьовою стороною догори</string>
+    <string name="pref_keep_map_facing_up_summary">Мапа буде вирівняна по верхній частині екрана, а не по істинній півночі.</string>
+    <string name="daylight_duration">%s денного світла</string>
+    <string name="times">Часи</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="rate">Рівень</string>
+    <string name="season">Сезон</string>
+    <string name="until_sunset">до заходу сонця</string>
+    <string name="until_sunrise">до сходу сонця</string>
+    <string name="astronomy_set">Захід</string>
+    <string name="astronomy_rise">Схід</string>
+    <string name="horizon">Горизонт</string>
+    <string name="map_calibration_instructions">Торкніться відомого місця на мапі, а потім введіть реальні координати. Ви можете зберегти калібрування, натиснувши кнопку \"Готово\".
+\n
+\nПрикладами хороших точок калібрування є автостоянка, точка вказівника, орієнтир або перехрестя на стежці.</string>
+    <string name="map_auto_rotated">Обертання мапи відрегульовано за допомогою калібрування</string>
+    <string name="data_source">Джерело: %s</string>
 </resources>
