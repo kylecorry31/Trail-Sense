@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         app:endIconMode="clear_text">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.kylecorry.trail_sense.shared.views.EndOnlyEditText
             android:id="@+id/duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

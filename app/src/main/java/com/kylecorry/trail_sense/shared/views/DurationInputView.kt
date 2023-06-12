@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.text.scale
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.core.system.Resources
@@ -28,6 +28,8 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     private val PLACES_HOURS = 1
     private val PLACES_MINUTES = 3
     private val PLACES_SECONDS = 5
+
+    private var lastDurationText: CharSequence? = null
 
     var hint: CharSequence?
         get() = inputHolder.hint
@@ -61,24 +63,21 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
 
             hint = context.getString(R.string.duration)
 
-            input.setOnKeyListener { _, keyCode, event ->
+            input.addTextChangedListener {
+                it ?: return@addTextChangedListener
 
-                // Only handle key press
-                if (event.action != KeyEvent.ACTION_DOWN) {
-                    return@setOnKeyListener true
-                }
+                val oldText = lastDurationText ?: return@addTextChangedListener
+                val newText = it.toString()
 
-                // Remove digit when backspace is pressed
-                if (keyCode == 67) {
+                if (newText.length < oldText.length){
                     removeDigit(if (showSeconds) PLACES_SECONDS else PLACES_MINUTES)
+                } else if (newText.length > oldText.length){
+                    val digit = newText.last().toString().toIntOrNull() ?: return@addTextChangedListener
+                    appendDigit(digit, if (showSeconds) PLACES_SECONDS else PLACES_MINUTES)
                 }
 
-                // Add digit if a number is pressed
-                if (keyCode in 7..16) {
-                    appendDigit(keyCode - 7, if (showSeconds) PLACES_SECONDS else PLACES_MINUTES)
-                }
-
-                true
+                // Move selection to the end
+                input.setSelection(input.text?.length ?: 0)
             }
 
             updateDuration(null)
@@ -96,6 +95,7 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     private fun appendDigit(digit: Int, place: Int = PLACES_SECONDS) {
         // Only apply if the leftmost digit is 0
         if (durationText[0] != '0') {
+            updateTextView()
             return
         }
 
@@ -121,7 +121,7 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         changeListener = listener
     }
 
-    private fun updateTextView() {
+    private fun createDurationText(): CharSequence {
         val h = durationText.substring(0, 2).toInt()
         val m = durationText.substring(2, 4).toInt()
         val s = durationText.substring(4, 6).toInt()
@@ -161,7 +161,12 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
                 }
             }
         }
+        return text
+    }
 
+    private fun updateTextView() {
+        val text = createDurationText()
+        lastDurationText = text
         input.setText(text)
     }
 
