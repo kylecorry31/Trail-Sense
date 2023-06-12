@@ -18,3 +18,4 @@
 app/src/data/output/
 app/src/androidTest/assets/clouds/
 .idea/androidTestResultsUserPreferences.xml
+build-cache/
