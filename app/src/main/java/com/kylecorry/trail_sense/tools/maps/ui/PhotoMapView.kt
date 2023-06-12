@@ -66,8 +66,7 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
         // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
-        val source = toSource(pixel.x, pixel.y, true)
-            ?: return Coordinate.zero
+        val source = toSource(pixel.x, pixel.y) ?: return Coordinate.zero
         return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
     }
 
@@ -86,10 +85,10 @@ class PhotoMapView : EnhancedImageView, IMapView {
     }
 
     override var mapCenter: Coordinate
-        get() = toCoordinate(center?.let { toPixel(it) } ?: PixelCoordinate(
-            width / 2f,
-            height / 2f
-        ))
+        get(){
+            val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f)) ?: return Coordinate.zero
+            return toCoordinate(toPixel(viewNoRotation))
+        }
         set(value) {
             val pixel = toPixel(value)
             requestCenter(toSource(pixel.x, pixel.y))
@@ -208,14 +207,22 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     override fun onLongPress(e: MotionEvent) {
         super.onLongPress(e)
-        val coordinate = toCoordinate(PixelCoordinate(e.x, e.y))
+        val viewNoRotation = toViewNoRotation(PointF(e.x, e.y)) ?: return
+        val coordinate = toCoordinate(toPixel(viewNoRotation))
         onMapLongClick?.invoke(coordinate)
+    }
+
+    /**
+     * Convert from view with rotation to view without rotation
+     */
+    private fun toViewNoRotation(view: PointF): PointF? {
+        val source = toSource(view.x, view.y, true) ?: return null
+        return toView(source.x, source.y, false)
     }
 
     override fun onSinglePress(e: MotionEvent) {
         super.onSinglePress(e)
-        val source = toSource(e.x, e.y, true)
-        val viewNoRotation = source?.let { toView(source.x, source.y, false) }
+        val viewNoRotation = toViewNoRotation(PointF(e.x, e.y))
 
         // TODO: Pass in a coordinate rather than a pixel (convert radius to meters)
         if (viewNoRotation != null) {
