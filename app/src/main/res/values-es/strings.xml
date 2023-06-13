@@ -1100,4 +1100,5 @@
     <string name="astronomy_set">Establecer</string>
     <string name="astronomy_rise">Subir</string>
     <string name="horizon">Horizonte</string>
+    <string name="map_file">Archivo (JPG, PNG, PDF)</string>
 </resources>
