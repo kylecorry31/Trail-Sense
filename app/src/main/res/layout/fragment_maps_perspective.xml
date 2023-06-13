@@ -37,24 +37,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/instructions_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/map_perspective_instructions" />
-
-            <TextView
-                android:id="@+id/step_progression"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/map_perspective_instructions"
+            app:drawableStartCompat="@drawable/ic_info"
+            app:drawableTint="?android:textColorSecondary" />
 
         <Button
             android:id="@+id/next_button"

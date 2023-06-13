@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
@@ -51,7 +52,13 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.stepProgression.text = getString(R.string.step_progression, 1, 2)
+        binding.instructionsText.setOnClickListener {
+            dialog(
+                getString(R.string.map_perspective_instructions),
+                getString(R.string.crop_map_instructions_long),
+                cancelText = null
+            )
+        }
 
         binding.perspectiveToggleBtn.setOnClickListener {
             binding.perspective.isPreview = !binding.perspective.isPreview
