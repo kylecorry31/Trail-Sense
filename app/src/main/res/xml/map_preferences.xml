@@ -11,7 +11,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_low_resolution_maps"
             app:singleLineTitle="false"
-            app:title="@string/reduce_map_resolution" />
+            app:title="@string/reduce_map_resolution"/>
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
