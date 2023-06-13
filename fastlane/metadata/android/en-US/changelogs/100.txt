@@ -1,3 +1,7 @@
+Photo Maps (Beta)
+- The Photo Maps tools is available for everyone in beta, use a photo as a map
+- Handle maps which don't point to True North
+
 Astronomy
 - Redesigned astronomy for easier at a glance usage
 - Show start and end times of meteor showers
@@ -7,9 +11,6 @@ Astronomy
 
 Weather / Climate
 - Improve historical temperature accuracy
-
-Photo Maps (Experimental)
-- Handle maps which don't point to True North
 
 Misc
 - Bug fixes
