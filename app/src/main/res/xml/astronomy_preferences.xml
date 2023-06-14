@@ -46,7 +46,7 @@
         app:title="@string/alerts">
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alerts"
             app:singleLineTitle="false"
