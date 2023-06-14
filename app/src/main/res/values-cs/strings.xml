@@ -120,10 +120,13 @@
     <string name="settings">Nastavení</string>
     <string name="weather">Počasí</string>
     <string name="pref_altimeter_calibration_title">Výškoměr</string>
-    <string name="pref_ruler_calibration_summary">Jak kalibrovat:
-\n- Nastavte tuto hodnotu na 1.
-\n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
-\n- Zadejte naměřenou hodnotu zde.</string>
+    <string name="pref_ruler_calibration_summary">"Jak kalibrovat:
+\n
+\n-  Nastavte tuto hodnotu na 1.
+\n
+\n-  Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
+\n
+\n-  Zadejte naměřenou hodnotu zde."</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
     <string name="sunset_alerts">Upozornění na západ slunce</string>
     <string name="waxing_crescent">Dorůstající srpek</string>
@@ -966,7 +969,7 @@
     <string name="errors">Chyby</string>
     <string name="gps_timeouts">Časové limity GPS</string>
     <string name="qr_code_scanner">Skener QR kódů</string>
-    <string name="no_qr_code_found">Nebyl detekován žádn7 QR kód</string>
+    <string name="no_qr_code_found">Nebyl detekován jakýkoliv QR kód</string>
     <string name="saved_to_note">Uloženo do poznámky</string>
     <string name="open">Otevřít</string>
     <string name="tool_temperature_estimation_title">Odhad teploty</string>
@@ -1002,7 +1005,7 @@
         <item quantity="other">%d přílivů/odlivů</item>
         <item quantity="many">%d přílivů/odlivů</item>
     </plurals>
-    <string name="cloud_precipitation_forecast_hour_range">Mohou znamenat srážky v příštích %d až %d hodinách</string>
+    <string name="cloud_precipitation_forecast_hour_range">Mohou znamenat srážky v příštích %d až %d hodinách.</string>
     <string name="lowest_point_elevation">Nejnižší bod</string>
     <string name="highest_point_elevation">Nejvyšší bod</string>
     <string name="path_slope_flat">Vodorovný</string>
@@ -1073,4 +1076,50 @@
     <string name="now_value">Aktuálně: %s</string>
     <string name="for_historic_temperatures">Pro historické teploty</string>
     <string name="cold">Chladno</string>
+    <string name="illumination">Osvícení</string>
+    <string name="pref_backfill_temperatures_title">Aktualizovat zaznamenané teploty</string>
+    <string name="pref_backfill_temperatures_description">Všechny zaznamenané teploty budou nahrazeny kalibrovanymi historickými teplotami.</string>
+    <string name="at_time">v %s</string>
+    <string name="historic_temperatures">Historické teploty</string>
+    <string name="last_lightning_strike_at">Poslední blesk v %s</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Teploty jsou založeny na %dletém průměru historických dat a nemusí odrážet současné podnebné podmínky.</string>
+    <string name="map_is_not_calibrated">Mapa není zkalibrovaná</string>
+    <string name="loading">Načítání</string>
+    <string name="unable_to_find_next_astronomy">Nelze najít další %s</string>
+    <string name="step_progression">Krok %d / %d</string>
+    <string name="autofill_source">Zdroj automatického vyplnění</string>
+    <string name="map_calibration">Kalibrace mapy</string>
+    <string name="compass_source_mag_gyro">Magnetometr + gyroskop</string>
+    <string name="compass_source_legacy_ts">Zastaralý (Trail Sense)</string>
+    <string name="yes">Ano</string>
+    <string name="pref_keep_map_facing_up_title">Směrovat mapu nahoru</string>
+    <string name="pref_keep_map_facing_up_summary">Mapa bude zarovnaná s vrchem obrazovky místo pravého severu.</string>
+    <string name="daylight_duration">%s denního světla</string>
+    <string name="no">Ne</string>
+    <string name="season">Období</string>
+    <string name="until_sunset">do soumraku</string>
+    <string name="until_sunrise">do svítání</string>
+    <string name="astronomy_set">Západ</string>
+    <string name="astronomy_rise">Východ</string>
+    <string name="photo_map_disclaimer">Vždy s sebou noste fyzickou mapu jako zálohu a ověřujte přesnost Trail Sense.</string>
+    <string name="photo_map_summary">Použít fotku jako mapu</string>
+    <string name="weather_alert_cold_description">Připravte se na chladné teploty. Učiňte značné preventivní opatření proti podchlazení a omrzlinám.</string>
+    <string name="print">Tisknout</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="few">%d mapy</item>
+        <item quantity="other">%d mapy</item>
+    </plurals>
+    <string name="updating">Aktualizování</string>
+    <string name="beta_disclaimer">Tento nástroj je ve fázi testování, prosíme nahlašujte jakékoliv problémy nebo zpětnou vazbu na %s.</string>
+    <string name="beta">Ve fázi testování</string>
+    <string name="center">Střed</string>
+    <string name="size">Velikost</string>
+    <string name="create_blank_map">Vytvořit prázdnou mapu</string>
+    <string name="create_path">Vytvořit cestu</string>
+    <string name="blank">Prázdná</string>
+    <string name="accelerometer">Akcelerometr</string>
+    <string name="compass_source_legacy_android">Zastaralý (Android)</string>
+    <string name="map_file">Soubor (JPG, PNG, PDF)</string>
+    <string name="data_source">Zdroj: %s</string>
 </resources>
