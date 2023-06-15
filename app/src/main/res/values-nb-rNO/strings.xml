@@ -1033,4 +1033,15 @@
 \n
 \nEksempler på gode kalibreringspunkter er en parkeringsplass, et skiltpunkt, et landemerke eller et stikryss.</string>
     <string name="accelerometer">Akselerometer</string>
+    <string name="yes">Ja</string>
+    <string name="times">Tider</string>
+    <string name="astronomy_rise">Oppgang</string>
+    <string name="daylight_duration">%s dagslys</string>
+    <string name="until_sunrise">til soloppgang</string>
+    <string name="until_sunset">til solnedgang</string>
+    <string name="no">Nei</string>
+    <string name="map_file">Fil (JPG, PNG, PDF)</string>
+    <string name="data_source">Kilde: %s</string>
+    <string name="horizon">Horisont</string>
+    <string name="astronomy_set">Nedgang</string>
 </resources>
