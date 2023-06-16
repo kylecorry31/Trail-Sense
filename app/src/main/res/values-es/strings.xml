@@ -1105,4 +1105,6 @@
     <string name="beta_disclaimer">Esta herramienta se encuentra actualmente en versión beta, así que informe de cualquier problema o comentario a %s.</string>
     <string name="photo_map_summary">Usar una foto como mapa</string>
     <string name="beta">Beta</string>
+    <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear.</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Recortar el mapa seguirá reduciendo la resolución. Si necesitas recortar el mapa a alta resolución, utiliza una aplicación de edición fotográfica. Hay planes para solucionar este problema en el futuro.</string>
 </resources>
