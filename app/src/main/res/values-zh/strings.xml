@@ -1087,4 +1087,8 @@
     <string name="horizon">水平</string>
     <string name="no">否</string>
     <string name="map_file">文件（JPG, PNG, PDF）</string>
+    <string name="photo_map_disclaimer">始终携带一份纸质地图作为备份并验证 Trail Sense 的精确度。</string>
+    <string name="beta">测试</string>
+    <string name="beta_disclaimer">此工具目前处于测试中，请将问题或反馈报告至 %s。</string>
+    <string name="photo_map_summary">使用照片作为地图</string>
 </resources>

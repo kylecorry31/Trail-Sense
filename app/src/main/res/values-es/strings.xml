@@ -1101,4 +1101,8 @@
     <string name="astronomy_rise">Subir</string>
     <string name="horizon">Horizonte</string>
     <string name="map_file">Archivo (JPG, PNG, PDF)</string>
+    <string name="photo_map_disclaimer">Lleva siempre un mapa físico como respaldo y verifica la precisión de Trail Sense.</string>
+    <string name="beta_disclaimer">Esta herramienta se encuentra actualmente en versión beta, así que informe de cualquier problema o comentario a %s.</string>
+    <string name="photo_map_summary">Usar una foto como mapa</string>
+    <string name="beta">Beta</string>
 </resources>

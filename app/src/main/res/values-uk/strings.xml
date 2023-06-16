@@ -1128,4 +1128,8 @@
     <string name="map_auto_rotated">Обертання мапи відрегульовано за допомогою калібрування</string>
     <string name="data_source">Джерело: %s</string>
     <string name="map_file">Файл (JPG, PNG, PDF)</string>
+    <string name="photo_map_disclaimer">Завжди майте при собі фізичну мапу для резервного копіювання та перевіряйте точність Trail Sense.</string>
+    <string name="beta">Бета</string>
+    <string name="beta_disclaimer">Наразі цей засіб в стадії бетаверсії, тому, будь ласка, повідомляйте про будь-які проблеми або відгуки на %s.</string>
+    <string name="photo_map_summary">Використовувати світлину як мапу</string>
 </resources>
