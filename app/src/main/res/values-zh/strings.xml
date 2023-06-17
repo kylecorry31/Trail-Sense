@@ -1091,4 +1091,6 @@
     <string name="beta">测试</string>
     <string name="beta_disclaimer">此工具目前处于测试中，请将问题或反馈报告至 %s。</string>
     <string name="photo_map_summary">使用照片作为地图</string>
+    <string name="reduce_map_resolution_crop_disclaimer">裁剪地图会降低分辨率。如果你需要以高分辨率裁剪地图，请使用照片编辑器应用。我们计划将来修复此问题。</string>
+    <string name="crop_map_instructions_long">将方框的角拖动到地图的角上来绘制轮廓。</string>
 </resources>
