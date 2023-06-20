@@ -5,6 +5,8 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.time.Time.roundNearestMinute
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.weather.domain.get3hTendency
@@ -19,7 +21,8 @@ internal class WeatherArrivalTimeCalculator : IWeatherArrivalTimeCalculator {
         val forecastedTime = forecast.first().time
 
         if (forecastedTime != null) {
-            return WeatherArrivalTime(forecastedTime, true)
+            val rounded = forecastedTime.toZonedDateTime().roundNearestMinute(15).toInstant()
+            return WeatherArrivalTime(rounded, true)
         }
 
         val tendency = getTendency(forecast)
