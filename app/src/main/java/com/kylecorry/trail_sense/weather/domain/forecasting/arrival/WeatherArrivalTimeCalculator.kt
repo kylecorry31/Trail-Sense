@@ -21,6 +21,10 @@ internal class WeatherArrivalTimeCalculator : IWeatherArrivalTimeCalculator {
         val forecastedTime = forecast.first().time
 
         if (forecastedTime != null) {
+            // This handles the case when the forecasted time is in the past, therefore the weather is now
+            if (forecastedTime < Instant.now()){
+                return WeatherArrivalTime(forecastedTime, true)
+            }
             val rounded = forecastedTime.toZonedDateTime().roundNearestMinute(15).toInstant()
             return WeatherArrivalTime(rounded, true)
         }
