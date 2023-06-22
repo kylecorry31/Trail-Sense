@@ -100,7 +100,6 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:location:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:camera:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:gpx:$andromedaVersion")
-    implementation("com.github.kylecorry31.andromeda:json:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:sound:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:sense:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:signal:$andromedaVersion")

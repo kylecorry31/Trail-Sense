@@ -35,19 +35,31 @@ The MIT license applies to all non-font and non-icon files."""
             apache2("year", "Google", "")
         ),
         Library(
-            "Android Jetpack", "https://github.com/androidx/androidx", apache2("year", "owner", "")
+            "Material Components for Android",
+            "https://github.com/material-components/material-components-android",
+            apache2("[yyyy]", "[name of copyright owner]", "")
+        ),
+        Library(
+            "Android Jetpack",
+            "https://github.com/androidx/androidx",
+            apache2("", "", "")
+        ),
+        Library(
+            "RenderScript Intrinsics Replacement Toolkit",
+            "https://github.com/android/renderscript-intrinsics-replacement-toolkit",
+            apache2("[yyyy]", "[name of copyright owner]", "")
         ),
         Library(
             "Markwon",
             "https://github.com/noties/Markwon",
-            apache2("2019", "Dimitry Ivanov (legal@noties.io)", "")
+            apache2("{yyyy}", "{name of copyright owner}", "")
         ),
         Library(
             "ZXing",
             "https://github.com/zxing/zxing",
             apache2(
-                "year",
-                "zxing",
+                "[yyyy]",
+                "[name of copyright owner]",
                 ""
             )
         ),
@@ -55,8 +67,8 @@ The MIT license applies to all non-font and non-icon files."""
             "CompassView",
             "https://github.com/kix2902/CompassView",
             apache2(
-                "year",
-                "kix2902",
+                "\${year}",
+                "\${owner}",
                 "Modifications made by Kyle Corry: Ported to Kotlin, changed styling."
             )
         ),
@@ -64,9 +76,18 @@ The MIT license applies to all non-font and non-icon files."""
             "osgb",
             "https://github.com/dstl/osgb",
             apache2(
-                "year",
-                "Defence Science and Technology Laboratory, UK",
+                "[yyyy]",
+                "[name of copyright owner]",
                 "Modifications made by Kyle Corry: Fixed WGS84 conversion bug"
+            )
+        ),
+        Library(
+            "kotlinx.coroutines",
+            "https://github.com/Kotlin/kotlinx.coroutines",
+            apache2(
+                "2000-2020",
+                "JetBrains s.r.o. and Kotlin Programming Language contributors.",
+                ""
             )
         ),
         Library(
