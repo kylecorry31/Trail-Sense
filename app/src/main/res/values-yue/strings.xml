@@ -410,9 +410,9 @@
     <string name="grams">克</string>
     <string name="no_gps_signal">無 GPS 訊號</string>
     <string name="pref_weather_show_detailed_icon_title">通知公仔有色水</string>
-    <string name="time_until_empty">直到冇晒電</string>
+    <string name="time_until_empty">就會冇晒電</string>
     <string name="previous">上一頁</string>
-    <string name="time_until_full">直到叉滿電</string>
+    <string name="time_until_full">就會叉滿電</string>
     <string name="guide_importing_maps_title">匯入地圖</string>
     <plurals name="path_group_summary">
         <item quantity="other">%d 條路徑</item>
@@ -768,4 +768,23 @@
     <string name="compass_source_mag_gyro">磁強計 + 陀螺儀</string>
     <string name="accelerometer">加速度計</string>
     <string name="data_source">來源：%s</string>
+    <string name="daylight_duration">%s日光</string>
+    <string name="times">時間</string>
+    <string name="yes">係</string>
+    <string name="no">唔係</string>
+    <string name="season">季節</string>
+    <string name="until_sunset">就會日落</string>
+    <string name="until_sunrise">就會日出</string>
+    <string name="astronomy_set">落山</string>
+    <string name="astronomy_rise">上山</string>
+    <string name="horizon">地平線</string>
+    <string name="illumination">亮面</string>
+    <string name="photo_map_summary">用幅相做地圖</string>
+    <string name="beta">試住先</string>
+    <string name="accuracy_info">"GPS：出走一處抬頭望向天空一覽無遺嘅地方。
+\n    %s 實際位置誤差
+\n    %s 實際海拔誤差
+\n    %s 枚衛星
+\n
+\n羅經：將部機打 8 字或朝四方八面兜轉，同時遠離金屬。"</string>
 </resources>
