@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -164,7 +165,10 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         } else {
             map.baseRotation().toFloat()
         }
-        showRotation(SolMath.deltaAngle(map.baseRotation().toFloat(), rotation))
+
+        val baseRotation = rotation.roundNearestAngle(90f)
+
+        showRotation(SolMath.deltaAngle(baseRotation, rotation))
     }
 
 

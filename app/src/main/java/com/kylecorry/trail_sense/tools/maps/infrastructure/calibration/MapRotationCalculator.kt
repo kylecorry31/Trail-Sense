@@ -4,6 +4,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.toVector2
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.absoluteValue
 
@@ -47,7 +48,12 @@ class MapRotationCalculator {
                 size.height
             ).toVector2(size.height)
         }
-        val locations = map.calibration.calibrationPoints.map { it.location }
+
+        val baseProjection = MapProjectionFactory().getProjection(map.metadata.projection)
+
+        val projectedPixels = map.calibration.calibrationPoints.map {
+            baseProjection.toPixels(it.location)
+        }
 
         val pixelAngle = Trigonometry.remapUnitAngle(
             pixels[0].angleBetween(pixels[1]),
@@ -55,9 +61,13 @@ class MapRotationCalculator {
             false
         )
 
-        val bearing = locations[0].bearingTo(locations[1])
+        val locationAngle = Trigonometry.remapUnitAngle(
+            projectedPixels[0].angleBetween(projectedPixels[1]),
+            90f,
+            false
+        )
 
-        return SolMath.normalizeAngle(SolMath.deltaAngle(pixelAngle, bearing.value))
+        return SolMath.normalizeAngle(SolMath.deltaAngle(pixelAngle, locationAngle))
     }
 
 }

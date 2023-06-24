@@ -45,7 +45,7 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
         }
 
         val projectionName = metadata?.projection?.projection
-        if (projectionName != null && projectionName.contains("mercator", true)) {
+        if (projectionName == null || projectionName.contains("mercator", true)) {
             projection = MapProjectionType.Mercator
         }
 

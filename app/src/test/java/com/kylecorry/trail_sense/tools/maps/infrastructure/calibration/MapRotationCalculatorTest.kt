@@ -78,7 +78,7 @@ internal class MapRotationCalculatorTest {
             MapMetadata(Size(400f, 200f), 100, MapProjectionType.Mercator)
         )
 
-        val rotation = MapRotationCalculator().calculate(map).roundPlaces(0)
+        val rotation = MapRotationCalculator().calculate(map).roundPlaces(0) % 360f
 
         assertEquals(expected, rotation, 0.01f)
     }
