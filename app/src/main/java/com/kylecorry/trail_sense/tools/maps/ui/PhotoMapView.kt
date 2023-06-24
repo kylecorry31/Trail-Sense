@@ -7,7 +7,6 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
@@ -241,43 +240,46 @@ class PhotoMapView : EnhancedImageView, IMapView {
 
     // TODO: Extract this (same way as scale)
     private fun drawCompass() {
-        val compassSize = drawer.dp(36f)
-        val arrowSize = drawer.dp(4f)
-        val textSize = drawer.sp(8f)
-        val text = context.getString(R.string.direction_north)
+        val compassSize = drawer.dp(24f)
+        val arrowWidth = drawer.dp(5f)
+        val arrowMargin = drawer.dp(3f)
         val location = PixelCoordinate(
-            width - drawer.dp(16f) - compassSize / 2f,
-            drawer.dp(16f) + compassSize / 2f
+            width - drawer.dp(32f),
+            drawer.dp(32f)
         )
         drawer.push()
         drawer.rotate(-mapAzimuth, location.x, location.y)
+
+        // Background circle
         drawer.noTint()
         drawer.fill(Resources.color(context, R.color.colorSecondary))
         drawer.stroke(Color.WHITE)
         drawer.strokeWeight(drawer.dp(1f))
-        drawer.circle(location.x, location.y, drawer.dp(24f))
+        drawer.circle(location.x, location.y, compassSize)
 
-        drawer.fill(Color.WHITE)
-        drawer.textMode(TextMode.Center)
-        drawer.textSize(textSize)
-        drawer.textStyle(TextStyle.Bold)
+        // Top triangle
         drawer.noStroke()
-        val textWidth = drawer.textWidth(text) // Not sure why this is needed to align the text
-        drawer.text(text, location.x - textWidth / 8f, location.y)
-
-        val arrowBtm = location.y - drawer.textHeight(text) / 2f - drawer.dp(2f)
-
         drawer.fill(AppColor.Orange.color)
         drawer.triangle(
-            location.x - arrowSize / 2f,
-            arrowBtm,
-            location.x + arrowSize / 2f,
-            arrowBtm,
             location.x,
-            arrowBtm - arrowSize
+            location.y - compassSize / 2f + arrowMargin,
+            location.x - arrowWidth / 2f,
+            location.y,
+            location.x + arrowWidth / 2f,
+            location.y
         )
 
-        drawer.textStyle(TextStyle.Normal)
+        // Bottom triangle
+        drawer.fill(Color.WHITE)
+        drawer.triangle(
+            location.x,
+            location.y + compassSize / 2f - arrowMargin,
+            location.x - arrowWidth / 2f,
+            location.y,
+            location.x + arrowWidth / 2f,
+            location.y
+        )
+
         drawer.pop()
     }
 
