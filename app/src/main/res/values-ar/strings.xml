@@ -85,7 +85,7 @@
     <string name="dialog_deny">لا شكراً</string>
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s ميل</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="direction_east">ش</string>
     <string name="battery_capacity_format">%s ملي امبير/ ساعة</string>
     <string name="current_format">%s ملي امبير</string>

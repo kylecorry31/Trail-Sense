@@ -237,7 +237,7 @@
     <string name="override_from_gps">Направляти компас на Справжню Північ, використовуючи поточне місцеперебування GPS</string>
     <string name="pref_show_last_signal_beacon_summary">Створює маячок для визначення місцеперебування останнього сигналу стільника</string>
     <string name="pref_show_last_signal_beacon_title">Останній сигнал маячка</string>
-    <string name="last_signal_beacon_name">Останній сигнал - %s (%s)</string>
+    <string name="last_signal_beacon_name">Останній сигнал - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Відмовлено в дозволі на камеру, дозвольте, щоб увімкнути функції камери. Ви можете надати дозвіл у налаштуваннях.</string>
     <string name="update_120_minutes">2 години</string>
     <string name="update_90_minutes">1 годину 30 хвилин</string>
@@ -382,7 +382,7 @@
     <string name="location_input_help_title">Підтримувані формати місцеперебування</string>
     <string name="pref_backtrack_frequency_title">Інтервал історії маршруту</string>
     <string name="pref_backtrack_enabled_summary">Записувати історію місцеперебувань</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Створити маячок</string>
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack">Історія маршруту</string>
@@ -403,8 +403,8 @@
     <string name="unit_inches_abbreviation">дюйм</string>
     <string name="unit_centimeters_abbreviation">см</string>
     <string name="unit_centimeters">Сантиметри</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="note_title_hint">Заголовок</string>
     <string name="tool_notes_title">Примітки</string>
     <string name="delete_note_title">Видалити примітку\?</string>
@@ -499,8 +499,8 @@
     <string name="notification_storm_alert_text">Можливо, наближається шторм</string>
     <string name="storm_alerts">Штормові попередження</string>
     <string name="alerts">Попередження</string>
-    <string name="pressure_reading_time_ago">%s - %s тому</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s тому</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3 год</string>
     <string name="stop">Зупин</string>
     <string name="units_psi">фт-сила/дюйм²</string>
@@ -524,9 +524,9 @@
     <string name="tap_to_turn_off">Торкніться, щоб вимкнути</string>
     <string name="flashlight_title">Ліхтарик</string>
     <string name="accuracy_info">"GPS: Вийдіть на відкритий простір з безперепонним видом на небо.
-\n    %s на поточному місці
-\n    %s на поточній висоті
-\n    %s супутників
+\n    %1$s на поточному місці
+\n    %2$s на поточній висоті
+\n    %3$s супутників
 \n
 \nКомпас: Повертайте пристрій за траєкторією вісімки чи за всіма іншими напрямами й постарайтеся знаходитися якомога далі від великих металоконструкцій."</string>
     <string name="accuracy_info_title">Поради щодо уточнення датників</string>
@@ -542,7 +542,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">ПдЗх</string>
     <string name="direction_north_west">ПнЗх</string>
@@ -600,7 +600,7 @@
     <string name="import_map">Імпортувати мапу</string>
     <string name="pref_cell_signal_refresh_cache_summary">Змушує завантажувати останні сили сигналу</string>
     <string name="pref_cell_signal_refresh_cache_title">Оновити кеш сигналу</string>
-    <string name="roll_pitch_yaw">Поздовж. вісь: %s, Попереч. вісь: %s, Вертик. вісь: %s</string>
+    <string name="roll_pitch_yaw">Поздовж. вісь: %1$s, Попереч. вісь: %2$s, Вертик. вісь: %3$s</string>
     <string name="sensor_gyroscope">Гіроскоп</string>
     <string name="days">Днів</string>
     <plurals name="number_days">
@@ -700,13 +700,13 @@
     <string name="gps_signal_lost">Сигнал GPS втрачено</string>
     <string name="elevation_history_length">Довжина історії висот</string>
     <string name="last_duration">Остання %s</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Залучені засоби
-\n%s
+\n%3$s
 \n
 \n### Дозвіл
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">Увімкніть \"Місцезнаходження\" або змініть джерело місцезнаходження на \"Лише пристрій\" або \"Висока точність\"</string>
     <string name="battery_restricted_resolution">Установіть Trail Sense як Не оптимізований</string>
     <string name="power_saving_mode_resolution">Вимкніть режим енергоощадження</string>
@@ -773,10 +773,10 @@
     <string name="pref_show_nearest_tide_title">Показати найближчий приплив</string>
     <string name="moon">Місяць</string>
     <string name="sun">Сонце</string>
-    <string name="sun_moon_position_template">### %s
-\n**Висота**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Висота**: %2$s
 \n
-\n**Азимут**: %s</string>
+\n**Азимут**: %3$s</string>
     <string name="enable">Увімкнути</string>
     <string name="weather_monitoring_disabled">Відстеження погоди вимкнено</string>
     <string name="no_clouds">Хмар немає</string>
@@ -1005,7 +1005,7 @@
     <string name="tide_user_guide_recommendation">Офіційні вебсайти таблиці припливів можна знайти в посібнику користувача.</string>
     <string name="change_resolution">Змінити роздільність</string>
     <string name="done">Готово</string>
-    <string name="cloud_precipitation_forecast_hour_range">Можливі опади протягом наступних %d-%d годин.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Можливі опади протягом наступних %1$d-%2$d годин.</string>
     <string name="descent">Спуск</string>
     <string name="ascent">Підйом</string>
     <string name="lowest_point_elevation">Найнижча точка</string>
@@ -1100,9 +1100,9 @@
     <string name="map_is_not_calibrated">Мапа не калібрована</string>
     <string name="loading">Завантаження</string>
     <string name="print">Друк</string>
-    <string name="step_progression">Крок %d з %d</string>
+    <string name="step_progression">Крок %1$d з %2$d</string>
     <string name="autofill_source">Джерело автозаповнення</string>
-    <string name="calibrate_map_point">Відкалібруйте за відомими місцями (%d / %d)</string>
+    <string name="calibrate_map_point">Відкалібруйте за відомими місцями (%1$d / %2$d)</string>
     <string name="illumination">Освітлення</string>
     <string name="map_calibration">Калібрування мапи</string>
     <string name="compass_source_legacy_android">Старе (Android)</string>

@@ -7,7 +7,7 @@
     <string name="notification_storm_alert_text">Možno sa blíži búrka</string>
     <string name="storm_alerts">Výstrahy pred búrkami</string>
     <string name="alerts">Výstrahy</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop">Zastaviť</string>
     <string name="units_psi">PSI</string>
@@ -32,7 +32,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">JZ</string>
     <string name="direction_north_west">SZ</string>

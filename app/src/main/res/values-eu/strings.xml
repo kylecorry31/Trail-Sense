@@ -12,9 +12,9 @@
     <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
     <string name="flashlight_title">Linterna</string>
     <string name="accuracy_info">"GPS: Atera kanpora zeruaren ikuspegi garbia izan arte.
-\n    %s benetako kokapenetik
-\n    %s benetako altueratik
-\n    %s satelite
+\n    %1$s benetako kokapenetik
+\n    %2$s benetako altueratik
+\n    %3$s satelite
 \n
 \nIparrorratza: Biratu mugikorra 8 formako patroi batean eta aldendu metaletatik."</string>
     <string name="accuracy_info_title">Sentsoreen datuen zehaztasuna hobetzeko aholkuak</string>
@@ -23,7 +23,7 @@
     <string name="unknown">Ezezaguna</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">HM</string>
     <string name="direction_north_west">IM</string>
@@ -59,8 +59,8 @@
     <string name="notification_storm_alert_text">Ekaitz bat hurbiltzen egon liteke</string>
     <string name="storm_alerts">Ekaitz abisuak</string>
     <string name="alerts">Abisuak</string>
-    <string name="pressure_reading_time_ago">Orain dela %s - %s</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">Orain dela %1$s - %2$s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3o</string>
     <string name="stop">Gelditu</string>
     <string name="units_psi">PSI</string>
@@ -283,7 +283,7 @@
     <string name="tool_cliff_height_title">Labarraren altuera</string>
     <string name="tool_bubble_level_title">Nibela</string>
     <string name="coordinate_input_invalid_location">Kokapen ez balioduna</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="notification_channel_clock_sync">Erlojuaren sinkronizazioa</string>
     <string name="color">Kolorea</string>
     <string name="arrow">Gezia</string>
@@ -476,8 +476,8 @@
     <string name="notification_channel_clock_sync_description">Jakinarazpen bat zure erlojua GPSaren orduarekin sinkronizatzeko</string>
     <string name="clock_sync_instructions">Jakinarazpena jasotzean ordu hau ezarri: %s</string>
     <string name="update_gps_override">Eguneratu GPSaren ordezkapena</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="min_temp_uncalibrated">Mugikorraren gutxieneko tenperatura (kalibratu gabea)</string>
     <string name="backtrack_notification_channel_description">Trazatu kokapenaren eguneraketak</string>
     <string name="pref_backtrack_frequency_title">Trazaduraren bitarteak</string>

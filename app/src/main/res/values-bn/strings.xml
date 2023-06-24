@@ -66,6 +66,6 @@
     <string name="direction_north">উ</string>
     <string name="duration_minute_format">%dমি</string>
     <string name="duration_hour_format">%dঘ</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / ৩ঘ</string>
 </resources>

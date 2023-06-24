@@ -26,9 +26,9 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Dicas para melhorar a precisão de dados dos sensores</string>
     <string name="accuracy_info">"GPS: vá para fora e encontre um lugar ao ar livre desobstruído.
-\n    %s da localização atual
-\n    %s da elevação atual
-\n    %s satélites
+\n    %1$s da localização atual
+\n    %2$s da elevação atual
+\n    %3$s satélites
 \n
 \nBússola: Rotacione o dispositivo num padrão de número 8 ou em todas as direções e afaste-se de metais."</string>
     <!--Navigation Tab - Destination Panel-->
@@ -46,8 +46,8 @@
     <string name="units_inhg_short">in</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-    <string name="pressure_format">%s %s</string>
-    <string name="pressure_reading_time_ago">%s - há %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
+    <string name="pressure_reading_time_ago">%1$s - há %2$s</string>
     <!--Weather Tab - Forecasts-->
     <plurals name="last_hours">
         <item quantity="one">Última %d hora</item>
@@ -177,7 +177,7 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
     <string name="dash">-</string>
     <string name="increase">+</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="clinometer_title">Inclinômetro</string>
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
@@ -439,15 +439,15 @@
 \nOSGB (ex. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="backtrack_notification_channel_description">Atualizações de localização do recuo</string>
     <string name="backtrack">Recuar</string>
     <string name="create_at_distance">Criar à distância</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="location_override_updated">Local simulado atualizado</string>
     <string name="update_gps_override">Atualizar GPS simulado</string>
     <string name="coordinate_format_mgrs">MGRS</string>
@@ -534,7 +534,7 @@
         <item quantity="one">%d dia</item>
         <item quantity="other">%d dias</item>
     </plurals>
-    <string name="roll_pitch_yaw">Rotação: %s, Inclinação: %s, Guinada: %s</string>
+    <string name="roll_pitch_yaw">Rotação: %1$s, Inclinação: %2$s, Guinada: %3$s</string>
     <string name="sensor_gyroscope">Giroscópio</string>
     <string name="import_map">Importar mapa</string>
     <string name="pref_cell_signal_refresh_cache_title">Atualizar o cache de sinal</string>
@@ -563,7 +563,7 @@
     <string name="whistle_signal_where_are_you">Onde você está\?</string>
     <string name="noon">Meio-dia</string>
     <string name="fields">Áreas</string>
-    <string name="last_signal_beacon_name">Último sinal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Último sinal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Permissão da câmera negada, não foi possível ativar os recursos da câmera. Você pode ativá-los em configurações.</string>
     <string name="color">Cor</string>
     <string name="water_boil_guide_title">Tornar a água segura para beber</string>
@@ -694,13 +694,13 @@
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
     <string name="autofill">Preenchimento automático</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Ferramentas afetadas
-\n%s
+\n%3$s
 \n
 \n### Resolução
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"Somente dispositivo\" ou \"Alta precisão\"</string>
     <string name="battery_restricted_resolution">Definir o Trail Sense como \"Não otimizado\"</string>
     <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
@@ -765,10 +765,10 @@
     <string name="tilt">Inclinação</string>
     <string name="moon">Lua</string>
     <string name="sun">Sol</string>
-    <string name="sun_moon_position_template">### %s
-\n**Altitude**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Altitude**: %2$s
 \n
-\n**Azimute**: %s</string>
+\n**Azimute**: %3$s</string>
     <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
     <string name="sort_by">Ordenar: %s</string>
     <string name="longest">Mais longo</string>
@@ -985,7 +985,7 @@
     <string name="map_export_error">Não foi possível exportar o mapa ao arquivo escolhido</string>
     <string name="tide_instructions">Use uma tabela oficial de marés para anotar marés de referência para o período da sua viagem.</string>
     <string name="change_resolution">Alteração da resolução</string>
-    <string name="cloud_precipitation_forecast_hour_range">Pode indicar precipitação em %d a %d horas</string>
+    <string name="cloud_precipitation_forecast_hour_range">Pode indicar precipitação em %1$d a %2$d horas</string>
     <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
     <string name="done">Concluído</string>
     <string name="tide_semidiurnal">Semi-diurno</string>

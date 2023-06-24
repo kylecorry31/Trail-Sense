@@ -22,9 +22,9 @@
     <string name="duration_hour_format">%djam</string>
     <string name="degree">%s°</string>
     <string name="accuracy_info">"GPS: Pergi ke luar dengan penglihatan langit tak terhalang.
-\n    %s lokasi pasti
-\n    %s ketinggian pasti
-\n    %s satelit
+\n    %1$s lokasi pasti
+\n    %2$s ketinggian pasti
+\n    %3$s satelit
 \n
 \nKompas: Putar perangkat dalam pola 8 atau ke semua arah dan menjauh dari logam."</string>
     <plurals name="last_hours">
@@ -65,7 +65,7 @@
     <string name="direction_north_west">BL</string>
     <string name="direction_south_west">BD</string>
     <string name="increase">+</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="degree_format">%.0f°</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="current_format">%s mA</string>
@@ -90,8 +90,8 @@
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
     <string name="stop">Berhenti</string>
-    <string name="pressure_format">%s %s</string>
-    <string name="pressure_reading_time_ago">%s - %s yang lalu</string>
+    <string name="pressure_format">%1$s %2$s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s yang lalu</string>
     <string name="alerts">Peringatan</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
@@ -178,8 +178,8 @@
     <string name="tool_metal_detector_title">Detektor Logam</string>
     <string name="metal_detector_disclaimer">Hanya mendeteksi logam magnetik (mis. besi)</string>
     <string name="tool_notes_title">Catatan</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="unit_centimeters">Sentimeter</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">in</string>
@@ -535,7 +535,7 @@
     <string name="backtrack">Mundur</string>
     <string name="backtrack_notification_channel_description">Backtrack lokasi diperbarui</string>
     <string name="create_beacon">Buat suar</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">Rekam riwayat lokasi</string>
     <string name="pref_backtrack_frequency_title">Interval mundur</string>
     <string name="location_input_help_title">Format lokasi yang didukung</string>
@@ -644,7 +644,7 @@
     <string name="water_boil_guide_title">Membuat air aman untuk diminum</string>
     <string name="color">Warna</string>
     <string name="camera_permission_denied">Izin kamera ditolak, tidak dapat mengaktifkan fitur kamera. Anda dapat mengaktifkannya di pengaturan.</string>
-    <string name="last_signal_beacon_name">Sinyal terakhir - %s (%s)</string>
+    <string name="last_signal_beacon_name">Sinyal terakhir - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_summary">Membuat beacon untuk lokasi sinyal seluler terakhir</string>
     <string name="whistle_signal_where_are_you">Di mana Anda\?</string>
     <string name="dawn_type">Fajar (%s)</string>
@@ -739,7 +739,7 @@
     <string name="unit_yards">Yard</string>
     <string name="pref_map_url_source_title">Peta pembagian lokasi</string>
     <string name="us_ounces_volume">Ons AS</string>
-    <string name="cloud_precipitation_forecast_hour_range">Dapat mengindikasikan curah hujan dalam %d hingga %d jam ke depan.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Dapat mengindikasikan curah hujan dalam %1$d hingga %2$d jam ke depan.</string>
     <string name="cloud_fair_forecast_hours">Dapat mengindikasikan cuaca cerah untuk %d jam berikutnya.</string>
     <string name="icon">Ikon</string>
     <string name="cup_format">%s c</string>
@@ -803,13 +803,13 @@
     <string name="guide_packing_list">Buat daftar pengemasan</string>
     <string name="humidity">Kelembaban</string>
     <string name="elevation_history_length">Panjang riwayat ketinggian</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Alat yang terpengaruh
-\n%s
+\n%3$s
 \n
 \n### Resolusi
-\n%s</string>
+\n%4$s</string>
     <string name="activity_recognition">Pengenalan aktivitas</string>
     <string name="battery_restricted_resolution">Atur Trail Sense sebagai Tidak Dioptimalkan</string>
     <string name="lightning_dangerously_close">Petir sangat dekat</string>
@@ -826,10 +826,10 @@
     <string name="high_amount">Tinggi (%s)</string>
     <string name="duration_of_charge">Durasi pengisian</string>
     <string name="pref_export_weather_csv_title">Ekspor pembacaan cuaca</string>
-    <string name="sun_moon_position_template">### %s
-\n**Ketinggian**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Ketinggian**: %2$s
 \n
-\n**Azimuth**: %s</string>
+\n**Azimuth**: %3$s</string>
     <string name="precipitation_drizzle">Gerimis</string>
     <string name="precipitation_snow_pellets">Pelet salju</string>
     <string name="precipitation_hail">Hujan es</string>

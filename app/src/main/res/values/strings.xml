@@ -40,7 +40,7 @@
     <string name="direction_north_west">NW</string>
     <string name="direction_south_west">SW</string>
     <string name="increase">+</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="degree_format">%.0f°</string>
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>
@@ -56,7 +56,7 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
-    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%s of actual location\n\u0020\u0020\u0020\u0020%s of actual elevation\n\u0020\u0020\u0020\u0020%s satellites\n\nCompass: Rotate device in a figure 8 pattern or in all directions and move away from metal.</string>
+    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%1$s of actual location\n\u0020\u0020\u0020\u0020%2$s of actual elevation\n\u0020\u0020\u0020\u0020%3$s satellites\n\nCompass: Rotate device in a figure 8 pattern or in all directions and move away from metal.</string>
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
@@ -93,8 +93,8 @@
     <string name="units_psi">PSI</string>
     <string name="stop">Stop</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_format">%s %s</string>
-    <string name="pressure_reading_time_ago">%s - %s ago</string>
+    <string name="pressure_format">%1$s %2$s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s ago</string>
     <string name="alerts">Alerts</string>
     <string name="storm_alerts">Storm alerts</string>
     <string name="notification_storm_alert_text">A storm might be approaching</string>
@@ -472,7 +472,7 @@
     <string name="tool_notes_title">Notes</string>
     <string name="note_title_hint">Title</string>
     <string name="contents">Contents</string>
-    <string name="bubble_level_angles">X: %s\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
     <string name="unit_centimeters">Centimeters</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">in</string>
@@ -502,7 +502,7 @@
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="create_beacon">Create beacon</string>
     <string name="pref_backtrack_enabled" translatable="false">pref_backtrack_enabled</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency_seconds</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
@@ -550,7 +550,7 @@
     <string name="cirrocumulus_desc">High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.</string>
     <string name="cirrostratus_desc">A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.</string>
     <!--%d is an hour, ex. 10 to 15-->
-    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">May indicate precipitation in the next %d to %d hours.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">May indicate precipitation in the next %1$d to %2$d hours.</string>
     <string name="altocumulus_desc">Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.</string>
     <!--%d is an hour, ex. 12-->
     <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">May indicate precipitation or a thunderstorm in the next %d hours.</string>
@@ -723,7 +723,7 @@
     <string name="icon">Icon</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>
     <string name="activity_recognition_permission_denied">Physical activity permission denied, unable to turn on pedometer features. You can enable it in settings.</string>
-    <string name="last_signal_beacon_name">Last signal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Last signal - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
     <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
     <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
@@ -768,7 +768,7 @@
     <string name="pref_cell_signal_settings" translatable="false">pref_cell_signal_settings</string>
     <string name="import_map">Import map</string>
     <string name="sensor_gyroscope">Gyroscope</string>
-    <string name="roll_pitch_yaw">Roll: %s, Pitch: %s, Yaw: %s</string>
+    <string name="roll_pitch_yaw">Roll: %1$s, Pitch: %2$s, Yaw: %3$s</string>
     <string name="pref_backtrack_history_days" translatable="false">pref_backtrack_history_days</string>
     <string name="pref_backtrack_history_days_title">Backtrack history</string>
     <plurals name="number_days">
@@ -907,15 +907,15 @@
     <string name="battery_restricted_resolution">Set Trail Sense as Not Optimized</string>
     <string name="gps_unavailable_resolution">Enable Location or change your location source to Device Only or High Accuracy</string>
     <!--Severity: Title   Affected tools (list of tools)  Resolution (text)-->
-    <string name="diagnostic_message_template">%s: %s\n\n### Affected tools\n%s\n\n### Resolution\n%s</string>
+    <string name="diagnostic_message_template">%1$s: %2$s\n\n### Affected tools\n%3$s\n\n### Resolution\n%4$s</string>
     <string name="pref_main_disclaimer_shown_key" translatable="false">pref_show_disclaimer_message_4_2021</string>
     <string name="autofill">Autofill</string>
     <string name="lightning_dangerously_close">Lightning dangerously close</string>
     <string name="auto">Auto</string>
-    <string name="dash_separated_pair" translatable="false">%s - %s</string>
-    <string name="dot_separated_pair" translatable="false">%s • %s</string>
+    <string name="dash_separated_pair" translatable="false">%1$s - %2$s</string>
+    <string name="dot_separated_pair" translatable="false">%1$s • %2$s</string>
     <string name="dot" translatable="false">•</string>
-    <string name="slash_separated_pair" translatable="false">%s / %s</string>
+    <string name="slash_separated_pair" translatable="false">%1$s / %2$s</string>
     <string name="delete_path">Delete path?</string>
     <!--    This will always be in mm-->
     <string name="units_mmhg_short">mm</string>
@@ -977,7 +977,7 @@
     <string name="pref_tide_settings" translatable="false">pref_tide_settings</string>
 
     <!--This is in markdown formatting - the first %s is either Sun or Moon-->
-    <string name="sun_moon_position_template">### %s\n**Altitude**: %s\n\n**Azimuth**: %s</string>
+    <string name="sun_moon_position_template">### %1$s\n**Altitude**: %2$s\n\n**Azimuth**: %3$s</string>
     <string name="sun">Sun</string>
     <string name="moon">Moon</string>
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
@@ -1161,7 +1161,7 @@
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>
     <string name="change_resolution">Change resolution</string>
     <string name="done">Done</string>
-    <string name="calibrate_map_point">Calibrate with known locations (%d / %d)</string>
+    <string name="calibrate_map_point">Calibrate with known locations (%1$d / %2$d)</string>
     <string name="descent">Descent</string>
     <string name="ascent">Ascent</string>
     <string name="lowest_point_elevation">Lowest point</string>
@@ -1263,7 +1263,7 @@
     <string name="unable_to_find_next_astronomy">Unable to find next %s</string>
     <!--    The action of printing a document/map-->
     <string name="print">Print</string>
-    <string name="step_progression">Step %d / %d</string>
+    <string name="step_progression">Step %1$d / %2$d</string>
     <string name="autofill_source">Autofill source</string>
     <string name="map_calibration">Map calibration</string>
     <string name="map_calibration_instructions">Tap a known location on the map, then enter the real-world coordinates. You can save the calibration by clicking the “Done” button.\n\nExamples of good calibration points are a parking lot, a signage point, a landmark, or a junction along a trail.</string>

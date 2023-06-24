@@ -23,7 +23,7 @@
     <string name="direction_north_west">西北</string>
     <string name="direction_south_west">西南</string>
     <string name="increase">+</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="degree_format">%.0f°</string>
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>
@@ -33,7 +33,7 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="stop">停止</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <plurals name="last_hours">
         <item quantity="other">過去 %d 個鐘</item>
     </plurals>
@@ -52,7 +52,7 @@
     <string name="precise_feet_format">%s 英尺</string>
     <string name="battery_capacity_format">%s 毫安時</string>
     <string name="maps">地圖</string>
-    <string name="pressure_reading_time_ago">%s - %s之前</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s之前</string>
     <string name="temp_f_short">°F</string>
     <string name="pref_pressure_history_title">氣壓紀錄</string>
     <string name="pressure_24_hours">24 個鐘</string>
@@ -609,13 +609,13 @@
     <string name="grant_permission">畀%s權限</string>
     <string name="units_mmhg_short">毫米汞</string>
     <string name="gps_unavailable_resolution">啟用定位，又或者將您嘅位置來源改做「淨係部機」或「高準確性」</string>
-    <string name="diagnostic_message_template">%s：%s
+    <string name="diagnostic_message_template">%1$s：%2$s
 \n
 \n### 影響嘅架生
-\n%s
+\n%3$s
 \n
 \n### 解救
-\n%s</string>
+\n%4$s</string>
     <string name="battery_restricted_resolution">將 Trail Sense 設定為「未優化」</string>
     <string name="precipitation_none">未有降水</string>
     <string name="precipitation_drizzle">毛毛雨</string>
@@ -694,7 +694,7 @@
     <string name="pref_elevation_override_sea_level_title">用返個已知嘅海平面氣壓</string>
     <string name="pref_gps_override_title">位置推翻</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">輸入目前海平面嘅氣壓 (百帕斯卡)</string>
-    <string name="waypoint_time_format">%s %s</string>
+    <string name="waypoint_time_format">%1$s %2$s</string>
     <string name="unsaved_changes_message">您改動過嗰啲嘢，就唔會儲存個囉噃。</string>
     <string name="pref_daily_weather_time_title">每日氣象時間</string>
     <string name="since_time">自 %s 起</string>
@@ -719,14 +719,14 @@
     <string name="current_speed_gps">目前速度 (GPS)</string>
     <string name="tool_bubble_level_title">平水尺</string>
     <string name="pref_meteor_showers_title">流星雨</string>
-    <string name="roll_pitch_yaw">俯仰：%s、滾轉：%s、偏擺：%s</string>
+    <string name="roll_pitch_yaw">俯仰：%1$s、滾轉：%2$s、偏擺：%3$s</string>
     <string name="daylight">日光</string>
     <string name="lightning_dangerously_close">閃電殺到埋身喇</string>
     <string name="average_speed_pedometer">平均速度 (步程計)</string>
-    <string name="sun_moon_position_template">### %s
-\n**海拔**：%s
+    <string name="sun_moon_position_template">### %1$s
+\n**海拔**：%2$s
 \n
-\n**方位角**：%s</string>
+\n**方位角**：%3$s</string>
     <string name="tap_sun_moon_hint">撳一下日月有得睇位置詳細</string>
     <string name="noon">中天</string>
     <string name="fields">埋欄</string>
@@ -738,8 +738,8 @@
     <string name="pref_barometer_pressure_smoothing_title">氣壓平滑化</string>
     <string name="guide_conserving_battery_title">慳電</string>
     <string name="tool_bubble_level_summary">睇下個面係咪平</string>
-    <string name="bubble_level_angles">橫：%s
-\n縱：%s</string>
+    <string name="bubble_level_angles">橫：%1$s
+\n縱：%2$s</string>
     <string name="humidity">濕度</string>
     <string name="elevation_history">海拔紀錄</string>
     <string name="elevation_history_length">海拔紀錄幾耐</string>
@@ -782,9 +782,9 @@
     <string name="photo_map_summary">用幅相做地圖</string>
     <string name="beta">試住先</string>
     <string name="accuracy_info">"GPS：出走一處抬頭望向天空一覽無遺嘅地方。
-\n    %s 實際位置誤差
-\n    %s 實際海拔誤差
-\n    %s 枚衛星
+\n    %1$s 實際位置誤差
+\n    %2$s 實際海拔誤差
+\n    %3$s 枚衛星
 \n
 \n羅經：將部機打 8 字或朝四方八面兜轉，同時遠離金屬。"</string>
 </resources>

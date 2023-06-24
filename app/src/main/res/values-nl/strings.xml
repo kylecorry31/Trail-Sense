@@ -129,8 +129,8 @@
     <string name="notification_storm_alert_text">Er komt misschien een storm aan</string>
     <string name="storm_alerts">Stormwaarschuwingen</string>
     <string name="alerts">Waarschuwingen</string>
-    <string name="pressure_reading_time_ago">%s - %s geleden</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s geleden</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3u</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">Notities (Optioneel)</string>
@@ -146,9 +146,9 @@
     <string name="tap_to_turn_off">Tik om uit te schakelen</string>
     <string name="flashlight_title">Zaklamp</string>
     <string name="accuracy_info">"GPS: Ga naar buiten met een vrij zicht op de hemel.
-\n    %s van werkelijke locatie
-\n    %s van werkelijke hoogte
-\n    %s satellieten
+\n    %1$s van werkelijke locatie
+\n    %2$s van werkelijke hoogte
+\n    %3$s satellieten
 \n
 \nKompas: Draai het apparaat in een 8-vormige figuur of in alle richtingen en ga weg van metalen."</string>
     <string name="accuracy_info_title">Tips voor het verbeteren van de juistheid van de sensorgegevens</string>
@@ -163,7 +163,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">ZW</string>
     <string name="direction_north_west">NW</string>
@@ -355,8 +355,8 @@
     <string name="map_distance">Kaart: %s</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="contents">Inhoud</string>
     <string name="note_title_hint">Titel</string>
     <string name="tool_notes_title">Notities</string>
@@ -475,7 +475,7 @@
     <string name="unit_meters">Meter</string>
     <string name="distance_to">Naar</string>
     <string name="distance_from">Van</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Baken maken</string>
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="create_at_distance">Op afstand maken</string>
@@ -559,7 +559,7 @@
         <item quantity="one">%d dag</item>
         <item quantity="other">%d dagen</item>
     </plurals>
-    <string name="roll_pitch_yaw">Rol: %s, Pitch: %s, Yaw: %s</string>
+    <string name="roll_pitch_yaw">Rol: %1$s, Pitch: %2$s, Yaw: %3$s</string>
     <string name="sensor_gyroscope">Gyroscoop</string>
     <string name="import_map">Kaart importeren</string>
     <string name="pref_cell_signal_refresh_cache_summary">Forceert het laden van de nieuwste signaalsterktes</string>
@@ -590,7 +590,7 @@
     <string name="noon">Middag</string>
     <string name="fields">Velden</string>
     <string name="pref_show_last_signal_beacon_summary">Creëert een baken op de plek waar er voor het laatst een mobiel signaal gemeten werd</string>
-    <string name="last_signal_beacon_name">Laatste signaal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Laatste signaal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Cameratoestemming geweigerd, kan camerafuncties niet inschakelen. Je kunt het inschakelen in de instellingen.</string>
     <string name="color">Kleur</string>
     <string name="water_boil_guide_title">Maak water veilig om te drinken</string>
@@ -794,13 +794,13 @@
     <string name="very_soon">Zeer spoedig</string>
     <string name="weather_storm">Storm</string>
     <string name="soon">Spoedig</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Getroffen gereedschappen
-\n%s
+\n%3$s
 \n
 \n### Oplossing
-\n%s</string>
+\n%4$s</string>
     <string name="pick_file">Kies bestand</string>
     <string name="no_clouds">Geen wolken</string>
     <plurals name="waypoints_to_be_deleted">
@@ -915,10 +915,10 @@
     <string name="errors">Fouten</string>
     <string name="tide_diurnal">Dagelijks</string>
     <string name="tide_diurnal_description">Hoogtij dagelijks - meeste getijden zijn niet dagelijks</string>
-    <string name="sun_moon_position_template">### %s
-\n**Hoogte**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Hoogte**: %2$s
 \n
-\n**Azimuth**: %s</string>
+\n**Azimuth**: %3$s</string>
     <string name="sun">Zon</string>
     <string name="moon">Maan</string>
     <string name="humidity">Luchtvochtigheid</string>
@@ -1019,7 +1019,7 @@
     <string name="lowest_point_elevation">Laagste punt</string>
     <string name="highest_point_elevation">Hoogste punt</string>
     <string name="ascent">Opstijging</string>
-    <string name="cloud_precipitation_forecast_hour_range">Kan duiden op neerslag in de komende %d tot %d uur.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Kan duiden op neerslag in de komende %1$d tot %2$d uur.</string>
     <string name="altocumulus_forecast">Kan duiden op neerslag of onweer in de komende %d uren.</string>
     <string name="weather_front">Weerfront</string>
 </resources>

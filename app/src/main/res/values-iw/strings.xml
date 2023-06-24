@@ -37,7 +37,7 @@
     <string name="miles_per_hour_format">%.1f מייל לשעה</string>
     <string name="duration_hour_format">%dש</string>
     <string name="duration_minute_format">%d דק</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="charging_fast">טעינה מהירה (%s)</string>
     <string name="duration_second_format">%dשנ</string>
@@ -107,13 +107,13 @@
     <string name="battery_restricted_resolution">הגדר את Trail Sense כלא ממוטבת</string>
     <string name="explore">חקור</string>
     <string name="gps_unavailable_resolution">הפעל מיקום או שנה את מקור המיקום שלך להתקן בלבד או לדיוק גבוה</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### כלים מושפעים
-\n%s
+\n%3$s
 \n
 \n### פתרון הבעיה
-\n%s</string>
+\n%4$s</string>
     <string name="autofill">מילוי אוטומטי</string>
     <string name="low_amount">נמוך (%s)</string>
     <string name="units_mmhg_short">מ\"מ</string>
@@ -143,10 +143,10 @@
     <string name="tilt">להטות</string>
     <string name="weather_exported">מזג האוויר מיוצא</string>
     <string name="pref_show_nearest_tide_title">הצג את הגאות הקרובה ביותר</string>
-    <string name="sun_moon_position_template">### %s
-\n**גובה**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**גובה**: %2$s
 \n
-\n**אזימוט**: %s</string>
+\n**אזימוט**: %3$s</string>
     <string name="sun">שמש</string>
     <string name="no_clouds">ללא עננים</string>
     <string name="moon">ירח</string>
@@ -313,12 +313,12 @@
     <string name="turn_off">כיבוי</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: צאו החוצה עם נוף ושמים ללא הפרעה.
-\n    %s של המיקום בפועל
-\n    %s מהגובה בפועל
-\n    %s לוויינים
+\n    %1$s של המיקום בפועל
+\n    %2$s מהגובה בפועל
+\n    %3$s לוויינים
 \n
 \nמצפן: יש לסובב את המכשיר בתבנית 8 או לכל הכיוונים ולהתרחק ממתכת."</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">הזנת הלחץ הנוכחי בגובה פני הים ב-hPa</string>
     <string name="sun_nautical">ימי</string>
     <string name="name">שם</string>
@@ -335,7 +335,7 @@
     <string name="weather_storm">סערה</string>
     <string name="units_inhg_short">in</string>
     <string name="pressure_tendency_format_2">%s / 3ש</string>
-    <string name="pressure_reading_time_ago">לפני %s - %s</string>
+    <string name="pressure_reading_time_ago">לפני %1$s - %2$s</string>
     <string name="notification_storm_alert_title">התראת סערה</string>
     <string name="notification_monitoring_weather">ניטור מזג האוויר ברקע</string>
     <string name="temp_f_short">°F</string>
@@ -402,8 +402,8 @@
     <string name="tool_lightning_title">מרחק מכת ברק</string>
     <string name="tool_battery_title">סוללה</string>
     <string name="clock_sync_instructions">הגדר את השעה ל- %s כאשר ההודעה מגיעה</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="unit_centimeters_abbreviation">ס\"מ</string>
     <string name="map_scale_title">קנה מידה של מפה</string>
     <string name="map_scale_ratio">יחס</string>
@@ -548,7 +548,7 @@
     <string name="pref_sensor_details_title">פרטי חיישן</string>
     <string name="tool_clock_title">שעון</string>
     <string name="thunder">רעם</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">רשום היסטוריית מיקומים</string>
     <string name="tap_sun_moon_hint">הקש על שמש או ירח לקבלת פרטי מיקום</string>
     <string name="advanced">מתקדם</string>
@@ -753,7 +753,7 @@
     <string name="pref_barometer_pressure_smoothing_title">החלקת לחץ</string>
     <string name="backtrack_battery_warning">מרווחים קטנים (מתחת ל-15 דקות) עלולים לגרום לריקון יתר של הסוללה</string>
     <string name="camera_permission_denied">הרשאת המצלמה נדחתה, לא ניתן להפעיל תכונות מצלמה. באפשרותך להפוך אותו לזמין בהגדרות.</string>
-    <string name="last_signal_beacon_name">אות אחרון - %s (%s)</string>
+    <string name="last_signal_beacon_name">אות אחרון - %1$s (%2$s)</string>
     <string name="whistle_signal_where_are_you">איפה אתה\?</string>
     <string name="whistle_signal_acknowledged">הוכר</string>
     <string name="weather_monitor">צג מזג האוויר</string>
@@ -766,7 +766,7 @@
     <string name="pref_flashlight_toggle_with_system_summary">הצגת הודעה כאשר הפנס מופעל מחוץ ל-Trail Sense</string>
     <string name="pref_navigation_lock_screen_presence_title">הצג במסך הנעילה בזמן הניווט</string>
     <string name="pref_cell_signal_refresh_cache_summary">מאלץ טעינת עוצמת האות העדכנית ביותר</string>
-    <string name="roll_pitch_yaw">גליל: %s, גובה: %s, פיתול: %s</string>
+    <string name="roll_pitch_yaw">גליל: %1$s, גובה: %2$s, פיתול: %3$s</string>
     <string name="location_not_mocked">שימוש במיקום בפועל</string>
     <string name="pref_flashlight_toggle_with_volume_summary">בזמן ש-Trail Sense פתוח</string>
     <string name="pref_flashlight_toggle_with_volume_title">החלף עם לחצני עוצמת הקול</string>

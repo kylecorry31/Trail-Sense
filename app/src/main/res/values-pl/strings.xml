@@ -94,8 +94,8 @@
     <string name="notification_storm_alert_title">Alarmy burzowe</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
     <string name="storm_alerts">Alarmy burzowe</string>
-    <string name="pressure_reading_time_ago">%s - %s temu</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s temu</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3g</string>
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
     <string name="maps">Mapy</string>
@@ -108,7 +108,7 @@
     <string name="unknown">Nieznana</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SW</string>
     <string name="direction_north_west">NW</string>
@@ -280,8 +280,8 @@
     <string name="notes_empty_text">Brak notatek</string>
     <string name="delete_note_title">Usunąć notatkę\?</string>
     <string name="tool_notes_title">Notatki</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="unit_centimeters">Centymetry</string>
     <string name="unit_inches">Cale</string>
     <string name="map_distance">Mapa: %s</string>
@@ -306,7 +306,7 @@
     <string name="battery_health">Stan zdrowia baterii: %s</string>
     <string name="battery_health_dead">Wyładowana</string>
     <string name="pref_backtrack_enabled_summary">Rejestruj historię lokalizacji</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="guide_location_no_gps_title">Określ lokalizację bez GPS</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefonu (nieskalibrowana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura otoczenia (skalibrowana)</string>
@@ -341,9 +341,9 @@
     <string name="coordinate_format_utm">UTM</string>
     <string name="set_inclination_instructions">Dotknij lub przytrzymaj w dowolnym miejscu, aby zablokować/odblokować</string>
     <string name="accuracy_info">"GPS: Wyjdź na zewnątrz, w miejsce z niezakłóconym widokiem nieba.
-\n    %s rzeczywistej lokalizacji
-\n    %s rzeczywistej wysokości
-\n    %s satelity
+\n    %1$s rzeczywistej lokalizacji
+\n    %2$s rzeczywistej wysokości
+\n    %3$s satelity
 \n
 \nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 lub we wszystkie kierunki oraz odejdź od metalu."</string>
     <string name="create_at_distance">Utwórz w odległości</string>
@@ -546,7 +546,7 @@
     <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
     <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania z usługi</string>
     <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
-    <string name="last_signal_beacon_name">Ostatni sygnał - %s (%s)</string>
+    <string name="last_signal_beacon_name">Ostatni sygnał - %1$s (%2$s)</string>
     <string name="color">Kolor</string>
     <string name="noon">Południe</string>
     <string name="time_until_full">pozostało do naładowania</string>
@@ -590,7 +590,7 @@
     <string name="pref_privacy_screenshot_protection_title">Zapobiegaj zrzutom ekranu</string>
     <string name="map_perspective_instructions">Obramowanie mapy</string>
     <string name="location_not_mocked">Korzystanie z rzeczywistej lokalizacji</string>
-    <string name="roll_pitch_yaw">Przechylenie: %s, Nachylenie: %s, Odchylenie: %s</string>
+    <string name="roll_pitch_yaw">Przechylenie: %1$s, Nachylenie: %2$s, Odchylenie: %3$s</string>
     <string name="sleep_timer">Minutnik</string>
     <string name="pref_experimental_metal_direction_title">Pokaż kierunek metalu</string>
     <string name="pref_backtrack_history_days_title">Historia śladu powrotnego</string>
@@ -735,13 +735,13 @@
     <string name="delete_pack">Usunąć plecak\?</string>
     <string name="default_pack_name">Plecak domyślny</string>
     <string name="path_exported">Ślad wyeksportowany</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Narzędzia, których dotyczy problem
-\n%s
+\n%3$s
 \n
 \n### Rozwiązanie
-\n%s</string>
+\n%4$s</string>
     <string name="supermoon">Superksiężyc</string>
     <string name="season_fall">Jesień</string>
     <string name="season_summer">Lato</string>
@@ -751,10 +751,10 @@
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="moon">Księżyc</string>
     <string name="sun">Słońce</string>
-    <string name="sun_moon_position_template">### %s
-\n**Wysokość**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Wysokość**: %2$s
 \n
-\n**Azymut**: %s</string>
+\n**Azymut**: %3$s</string>
     <string name="pref_show_nearest_tide_title">Pokaż najbliższy przypływ</string>
     <string name="weather_exported">Dane pogodowe wyeksportowane</string>
     <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>

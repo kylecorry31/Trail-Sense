@@ -20,9 +20,9 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips til forbedring af sensordatas nøjagtighed</string>
     <string name="accuracy_info">"GPS: Gå udenfor med frit udsyn til himlen.
-\n    %s af den faktiske placering
-\n    %s af den faktiske højde
-\n    %s satellitter
+\n    %1$s af den faktiske placering
+\n    %2$s af den faktiske højde
+\n    %3$s satellitter
 \n
 \nKompas: Roter enheden i et 8-talsmønster eller i alle retninger, og hold dig væk fra metal."</string>
     <string name="flashlight_title">Lommelygte</string>
@@ -42,7 +42,7 @@
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
     <string name="pressure_tendency_format_2">%s / 3 timer</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <plurals name="last_hours">
         <item quantity="one">Seneste %d time</item>
         <item quantity="other">Seneste %d timer</item>
@@ -94,7 +94,7 @@
     <string name="direction_west">V</string>
     <string name="direction_north_west">NV</string>
     <string name="increase">+</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="degree">%s°</string>
     <string name="current_format">%s mA</string>
     <string name="charging_fast">Oplader hurtigt (%s)</string>
@@ -110,7 +110,7 @@
     <string name="name">Navn</string>
     <string name="beacon_comment">Bemærkninger (valgfrit)</string>
     <string name="beacon_invalid_name">Ugyldigt navn</string>
-    <string name="pressure_reading_time_ago">%s - %s siden</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s siden</string>
     <string name="alerts">Advarsler</string>
     <string name="notification_storm_alert_text">En storm kan være på vej</string>
     <string name="notification_monitoring_weather">Overvåger vejret i baggrunden</string>
@@ -488,7 +488,7 @@
     <string name="tool_thermometer_title">Termometer</string>
     <string name="backtrack_disabled_low_power_toast">Backtrack deaktiveres i strømsparetilstand</string>
     <string name="cirrocumulus">Cirrocumulus</string>
-    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør i de næste %d til %d timer.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør i de næste %1$d til %2$d timer.</string>
     <string name="cumulonimbus_forecast">Kan indikere et tordenvejr indenfor få minutter.</string>
     <string name="screen_flashlight">Skærm</string>
     <string name="speedometer">Speedometer</string>
@@ -695,10 +695,10 @@
     <string name="beacon_2">Beacon 2</string>
     <string name="map_fractional_separator">:</string>
     <string name="map_scale_verbal">Verbal</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
     <string name="location_input_help_title">Understøttede lokationsformater</string>
     <string name="battery_power_ac">Vekselstrøm</string>
@@ -792,7 +792,7 @@
     <string name="color">Farve</string>
     <string name="icon">Ikon</string>
     <string name="activity_recognition_permission_denied">Tilladelse til fysisk aktivitet nægtet, kan ikke aktivere skridttællerfunktion. Du kan aktivere det i indstillinger.</string>
-    <string name="last_signal_beacon_name">Sidste signal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Sidste signal - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_summary">Opretter et beacon for den sidste cellesignalplacering</string>
     <string name="fields">Felter</string>
     <string name="whistle_signal_where_are_you">Hvor er du\?</string>
@@ -853,10 +853,10 @@
     <string name="up_to_amount">Op til %s</string>
     <string name="pref_export_weather_csv_title">Eksporter vejrdata</string>
     <string name="weather_exported">Vejrdata eksporteret</string>
-    <string name="sun_moon_position_template">### %s
-\n**Højde**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Højde**: %2$s
 \n
-\n**Azimut**: %s</string>
+\n**Azimut**: %3$s</string>
     <string name="moon">Måne</string>
     <string name="precipitation_drizzle">Støvregn</string>
     <string name="cloud_photo_mask_toast">Tryk på foto for at skifte maske</string>
@@ -996,13 +996,13 @@
     <string name="weight_per_item">Vægt pr enhed</string>
     <string name="no_compass_message">Din enhed har ikke en kompassensor</string>
     <string name="grant_permission">Giv %s-tilladelsen</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Berørte værktøjer
-\n%s
+\n%3$s
 \n
 \n### Løsning
-\n%s</string>
+\n%4$s</string>
     <string name="capture">Registrer</string>
     <string name="sort_by">Sorter: %s</string>
     <string name="clinometer_measure_height_instructions">Sådan måles højden af et mål, der er %s væk:

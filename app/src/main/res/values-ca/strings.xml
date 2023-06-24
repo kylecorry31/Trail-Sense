@@ -87,8 +87,8 @@
     <string name="notification_storm_alert_text">Una tempesta podria estar apropant-se</string>
     <string name="storm_alerts">Alertes de tempesta</string>
     <string name="alerts">Alertes</string>
-    <string name="pressure_reading_time_ago">fa %s - %s</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">fa %1$s - %2$s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop">Aturar</string>
     <string name="units_psi">PSI</string>
@@ -112,9 +112,9 @@
     <string name="tap_to_turn_off">Toca per apagar</string>
     <string name="flashlight_title">Llanterna</string>
     <string name="accuracy_info">"GPS: Surti a l\'exterior amb una visibilitat clara cap al cel.
-\n     %s de la ubicació real
-\n     %s de la altitut real
-\n     %s satèlits
+\n     %1$s de la ubicació real
+\n     %2$s de la altitut real
+\n     %3$s satèlits
 \n
 \nBrújula: Giri el dispositiu en un patró de 8 (o en totes les direccions) i lluny de objectes metàlics."</string>
     <string name="accuracy_info_title">Consells per millorar la precisió de les dades del sensor</string>
@@ -131,7 +131,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="direction_south_west">SO</string>
     <string name="direction_north_west">NO</string>
     <string name="direction_west">O</string>
@@ -312,8 +312,8 @@
     <string name="metal_detector_disclaimer">Només detecta metalls magnètics (ex. ferro)</string>
     <string name="notes_empty_text">Sense notes</string>
     <string name="contents">Contingut</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="distance_to">Fins a</string>
 
     <string name="cliff_height_guide">Estimació de l\'alçada del penya-segat</string>

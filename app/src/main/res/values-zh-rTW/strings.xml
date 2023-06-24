@@ -66,7 +66,7 @@
     <string name="notification_storm_alert_text">暴風雨可能正在接近</string>
     <string name="storm_alerts">暴風雨警報</string>
     <string name="alerts">警告</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="stop">停止</string>
     <string name="units_psi">磅每平方吋(PSI)</string>
     <string name="units_mbar">毫巴(mbar)</string>
@@ -91,7 +91,7 @@
     <string name="charging_slow">慢速充電中 (%s)</string>
     <string name="charging_fast">快速充電中 (%s)</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">西南</string>
     <string name="direction_north_west">西北</string>
@@ -199,8 +199,8 @@
     <string name="map_scale_ratio">比例</string>
     <string name="tool_white_noise_summary">幫助您入睡</string>
     <string name="tool_white_noise_title">白噪聲</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="delete_note_title">刪除筆記？</string>
     <string name="notes_empty_text">無筆記</string>
     <string name="metal_detector_disclaimer">僅探測可磁化金屬(例: 鐵)</string>
@@ -246,15 +246,15 @@
         <item quantity="other">%d 分鐘之前</item>
     </plurals>
     <string name="notification_storm_alert_title">暴風雨警報</string>
-    <string name="pressure_reading_time_ago">%s - %s 之前</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s 之前</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="share_action_send">寄送</string>
     <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下
-\n    實際位置的 %s  
+\n    實際位置的 %1$s  
 \n
-\n    實際高度的 %s  
+\n    實際高度的 %2$s  
 \n
-\n    %s 個衛星
+\n    %3$s 個衛星
 \n
 \n電子羅盤校正: 以8字旋轉裝置或是於各方向旋轉並且遠離金屬"</string>
     <string name="accuracy_info_title">提升感測器資料精確度的訣竅</string>

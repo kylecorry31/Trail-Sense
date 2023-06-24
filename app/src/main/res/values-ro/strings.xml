@@ -39,8 +39,8 @@
     <string name="notification_storm_alert_text">S-ar putea să se apropie o furtună</string>
     <string name="storm_alerts">Alerte de furtună</string>
     <string name="alerts">Alerte</string>
-    <string name="pressure_reading_time_ago">%s - %s în urmă</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s în urmă</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop">Oprire</string>
     <string name="units_psi">PSI</string>
@@ -65,9 +65,9 @@
     <string name="tap_to_turn_off">Atingeți pentru a dezactiva</string>
     <string name="flashlight_title">Lanternă</string>
     <string name="accuracy_info">"GPS: ieșiți afară cu o vedere neobstrucționată a cerului.
-\n    %s a locației reale
-\n    %s a altitudinii reale
-\n    %s sateliți
+\n    %1$s a locației reale
+\n    %2$s a altitudinii reale
+\n    %3$s sateliți
 \n
 \nBusolă: rotiți dispozitivul într-un model din figura 8 sau în toate direcțiile și îndepărtați-vă de metal."</string>
     <string name="accuracy_info_title">Sfaturi pentru îmbunătățirea preciziei datelor senzorilor</string>
@@ -84,7 +84,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SV</string>
     <string name="direction_north_west">NV</string>

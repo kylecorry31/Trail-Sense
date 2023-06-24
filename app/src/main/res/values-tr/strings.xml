@@ -122,7 +122,7 @@
     <string name="battery_power_ac">AC</string>
     <string name="pref_backtrack_frequency_title">Geri iz sürme aralığı</string>
     <string name="delete_waypoint_prompt">Ara noktayı silmek istediğinizden emin misiniz\?</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">İşaret oluştur</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack">Geri iz sürme</string>
@@ -143,8 +143,8 @@
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_centimeters">Santimetre</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="contents">İçerikler</string>
     <string name="note_title_hint">Başlık</string>
     <string name="tool_notes_title">Notlar</string>
@@ -408,8 +408,8 @@
     <string name="notification_storm_alert_text">Fırtına yaklaşıyor olabilir</string>
     <string name="storm_alerts">Fırtına uyarıları</string>
     <string name="alerts">Uyarılar</string>
-    <string name="pressure_reading_time_ago">%s - %s önce</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s önce</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3 sa</string>
     <string name="stop">Dur</string>
     <string name="units_psi">PSI</string>
@@ -432,9 +432,9 @@
     <string name="tap_to_turn_off">Kapatmak için dokun</string>
     <string name="flashlight_title">El feneri</string>
     <string name="accuracy_info">"GPS: Gökyüzünün görüşünün engellenmediği bir yere çıkın.
-\n    %s mevcut konum
-\n    %s mevcut rakım
-\n    %s uydular
+\n    %1$s mevcut konum
+\n    %2$s mevcut rakım
+\n    %3$s uydular
 \n
 \nPusula: Aygıtınızı havada 8 çizecek şekilde veya tüm yönlerde döndürün ve metal nesnelerden uzaklaşın."</string>
     <string name="accuracy_info_title">Sensör verilerinin doğruluğunu arttırmak için öneriler</string>
@@ -450,7 +450,7 @@
     <string name="precise_percent_format">%%%s</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SW</string>
     <string name="tool_bubble_level_summary">yüzeylerin düz olup olmadığını belirle</string>
@@ -522,7 +522,7 @@
 \nOSGB (örn. TG 51409 13177)</string>
     <string name="location_input_help_title">Desteklenen konum biçimleri</string>
     <string name="pref_backtrack_enabled_summary">Konum geçmişini kaydet</string>
-    <string name="last_signal_beacon_name">Son sinyal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Son sinyal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Kamera izni reddedildi, kamera özellikleri açılamıyor. Ayarlardan etkinleştirebilirsiniz.</string>
     <string name="color">Renk</string>
     <string name="map_auto_calibrated">Harita otomatik olarak kalibre edildi, lütfen doğruluğunu onaylayın</string>
@@ -592,7 +592,7 @@
         <item quantity="other">%d gün</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Geri iz sürme geçmişi</string>
-    <string name="roll_pitch_yaw">Boylamsal: %s, Yatay: %s, Dikey: %s</string>
+    <string name="roll_pitch_yaw">Boylamsal: %1$s, Yatay: %2$s, Dikey: %3$s</string>
     <string name="sensor_gyroscope">Jiroskop</string>
     <string name="pref_tiles_enabled_summary">Şarj koruma uygulamalarının Trail Sense\'i durdurmasını önleyebilir</string>
     <string name="location_not_mocked">Gerçek konum kullanılıyor</string>
@@ -632,13 +632,13 @@
     <string name="auto">Otomatik</string>
     <string name="lightning_dangerously_close">Yıldırım tehlikeli bir şekilde yakın</string>
     <string name="autofill">Otomatik doldur</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Etkilenen araçlar
-\n%s
+\n%3$s
 \n
 \n### Çözünürlük
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">Konumu etkinleştirin veya konum kaynağınızı Yalnızca Aygıt ya da Yüksek Doğruluk olarak değiştirin</string>
     <string name="power_saving_mode_resolution">Güç tasarrufu modunu devre dışı bırak</string>
     <string name="location_override_not_set_resolution">Ayarlarda konumu geçersiz kılmayı ayarla</string>
@@ -765,10 +765,10 @@
     <string name="weather_exported">Hava durumu dışa aktarıldı</string>
     <string name="pref_show_nearest_tide_title">En yakın gelgiti göster</string>
     <string name="duration_of_charge">Şarj süresi</string>
-    <string name="sun_moon_position_template">### %s
-\n**Rakım**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Rakım**: %2$s
 \n
-\n**Azimut**: %s</string>
+\n**Azimut**: %3$s</string>
     <string name="moon">Ay</string>
     <string name="precipitation_none">Yağış yok</string>
     <string name="precipitation_rain">Yağmur</string>
@@ -978,7 +978,7 @@
     <string name="permission_alarms_and_reminders">Alarmlar ve hatırlatıcılar</string>
     <string name="change_resolution">Çözünürlüğü değiştir</string>
     <string name="done">Bitti</string>
-    <string name="cloud_precipitation_forecast_hour_range">Sonraki %d ila %d saat içinde yağışa işaret edebilir.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Sonraki %1$d ila %2$d saat içinde yağışa işaret edebilir.</string>
     <string name="ascent">Çıkış</string>
     <string name="highest_point_elevation">En yüksek nokta</string>
     <string name="descent">İniş</string>
@@ -1071,6 +1071,6 @@
     <string name="unable_to_find_next_astronomy">Sonraki %s bulunamadı</string>
     <string name="astronomy_direction_peak">Tepe yönü</string>
     <string name="print">Yazdır</string>
-    <string name="step_progression">Adım %d / %d</string>
+    <string name="step_progression">Adım %1$d / %2$d</string>
     <string name="autofill_source">Otomatik doldurma kaynağı</string>
 </resources>

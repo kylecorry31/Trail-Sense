@@ -95,8 +95,8 @@
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_centimeters">Centímetros</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="contents">Conteúdos</string>
     <string name="note_title_hint">Título</string>
     <string name="tool_notes_title">Anotações</string>
@@ -317,8 +317,8 @@
     <string name="notification_storm_alert_text">Pode estar a aproximar-se uma tempestade</string>
     <string name="storm_alerts">Alertas de tempestade</string>
     <string name="alerts">Alertas</string>
-    <string name="pressure_reading_time_ago">%s - há %s</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - há %2$s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">polegadas</string>
     <string name="beacon_comment">Notas (opcional)</string>
@@ -334,9 +334,9 @@
     <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>
     <string name="accuracy_info">"GPS: vá para um espaço exterior sem obstáculos em redor que interfiram entre si e o céu
-\n    %s da localização atual
-\n    %s da elevação atual
-\n    %s satélites
+\n    %1$s da localização atual
+\n    %2$s da elevação atual
+\n    %3$s satélites
 \n
 \nBússola: rode o aparelho no ar em movimentos do número 8 ou em todas as direções e afaste-se de metais em redor."</string>
     <string name="accuracy_info_title">Dicas para melhorar a precisão dos dados dos sensores</string>
@@ -351,7 +351,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SO</string>
     <string name="direction_north_west">NO</string>
@@ -478,7 +478,7 @@
     <string name="location_input_help_title">Formatos de localização suportados</string>
     <string name="pref_backtrack_frequency_title">Intervalo do voltar para trás</string>
     <string name="pref_backtrack_enabled_summary">Registar histórico de localização</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Criar alfinete</string>
     <string name="backtrack_notification_channel_description">Atualização das localizações de voltar para trás</string>
     <string name="backtrack">Voltar para trás</string>
@@ -506,13 +506,13 @@
     <string name="auto">Automático</string>
     <string name="lightning_dangerously_close">Perigo: o relâmpago está muito perto</string>
     <string name="autofill">Preenchimento automático</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Ferramentas afetadas
-\n%s
+\n%3$s
 \n
 \n### Resolução
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"apenas aparelho\" ou \"alta precisão\"</string>
     <string name="battery_restricted_resolution">Definir o Trail Sense como \"não otimizado\"</string>
     <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
@@ -597,7 +597,7 @@
         <item quantity="other">%d dias</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">Histórico do voltar para trás</string>
-    <string name="roll_pitch_yaw">Rotação: %s, inclinação: %s, guinada: %s</string>
+    <string name="roll_pitch_yaw">Rotação: %1$s, inclinação: %2$s, guinada: %3$s</string>
     <string name="sensor_gyroscope">Giroscópio</string>
     <string name="import_map">Importar mapa</string>
     <string name="pref_cell_signal_refresh_cache_summary">Força o carregamento dos últimos níveis de sinal de antena do telemóvel</string>
@@ -628,7 +628,7 @@
     <string name="fields">Áreas</string>
     <string name="pref_show_last_signal_beacon_summary">Cria um alfinete na localização do último sinal de antena do telemóvel</string>
     <string name="pref_show_last_signal_beacon_title">Último sinal do alfinete</string>
-    <string name="last_signal_beacon_name">Último sinal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Último sinal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Permissão da câmara negada, não foi possível ativar os recursos da câmara. Tem de fornecer permissão nas configurações do telemóvel.</string>
     <string name="color">Cor</string>
     <string name="water_boil_guide_title">Tornar a água segura para beber</string>
@@ -761,10 +761,10 @@
     <string name="pref_show_nearest_tide_title">Mostrar maré mais próxima</string>
     <string name="moon">Lua</string>
     <string name="sun">Sol</string>
-    <string name="sun_moon_position_template">### %s
-\n**Altitude**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Altitude**: %2$s
 \n
-\n**Azimute**: %s</string>
+\n**Azimute**: %3$s</string>
     <string name="enable">Ativar</string>
     <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
     <string name="no_clouds">Sem nuvens</string>
@@ -986,7 +986,7 @@
     <string name="tide_frequency_description">O número de marés altas por dia. A maioria das marés são semi-diurnas.</string>
     <string name="change_resolution">Alterar resolução</string>
     <string name="done">Feito</string>
-    <string name="cloud_precipitation_forecast_hour_range">Pode ser indicação de precipitação nas próximas %d a %d horas.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Pode ser indicação de precipitação nas próximas %1$d a %2$d horas.</string>
     <string name="descent">Descida</string>
     <string name="ascent">Subida</string>
     <string name="lowest_point_elevation">Ponto mais baixo</string>
@@ -1079,13 +1079,13 @@
     <string name="magnitude">Magnitude</string>
     <string name="unable_to_find_next_astronomy">Não foi possível encontrar o próximo %s</string>
     <string name="print">Imprimir</string>
-    <string name="step_progression">Passo %d / %d</string>
+    <string name="step_progression">Passo %1$d / %2$d</string>
     <string name="autofill_source">Fonte do preenchimento automático</string>
     <string name="data_source">Fonte: %s</string>
     <string name="map_calibration_instructions">Toque num local conhecido no mapa e insira as coordenadas do mundo real. Pode guardar a calibração clicando no botão \"Feito\".
 \n
 \nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um ponto de referência ou um cruzamento ao longo de um trilho.</string>
-    <string name="calibrate_map_point">Calibrar com localizações conhecidas (%d / %d)</string>
+    <string name="calibrate_map_point">Calibrar com localizações conhecidas (%1$d / %2$d)</string>
     <string name="map_calibration">Calibração do mapa</string>
     <string name="compass_source_mag_gyro">Magnetómetro + Giroscópio</string>
     <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>

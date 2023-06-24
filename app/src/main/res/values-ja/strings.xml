@@ -59,7 +59,7 @@
 \n- この値を 1 に設定する。
 \n- Trail Sense のものさしの長さを実際のものさしで測る。
 \n- ここに計測された長さを入力する。</string>
-    <string name="pressure_reading_time_ago">%s - %s ago</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s ago</string>
     <string name="degree_format">%.0f°</string>
     <string name="pref_email_title">Email developer</string>
     <string name="pref_github_title">GitHub</string>
@@ -138,15 +138,15 @@
     <string name="notification_storm_alert_text">暴風雨が近づいている可能性があります</string>
     <string name="storm_alerts">暴風雨アラート</string>
     <string name="alerts">アラート</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="units_inhg_short">in</string>
     <string name="beacon_comment">ノート (オプション)</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="share_action_send">送信</string>
     <string name="accuracy_info">"GPS: 屋外の視界の開けた場所に移動してください.
-\n    現在地との誤差%s
-\n    現在の高度との誤差%s
-\n    衛星の数%s
+\n    現在地との誤差%1$s
+\n    現在の高度との誤差%2$s
+\n    衛星の数%3$s
 \n
 \nコンパス: デバイスを金属から離し、8の字に回してください。"</string>
     <string name="accuracy_info_title">精度を改善するためのヒント</string>
@@ -154,7 +154,7 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">不明</string>
     <string name="dash">-</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">南西</string>
     <string name="direction_north_west">北西</string>

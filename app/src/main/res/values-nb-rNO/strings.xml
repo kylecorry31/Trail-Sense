@@ -75,7 +75,7 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ukjent</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SV</string>
     <string name="direction_north_west">NV</string>
@@ -91,7 +91,7 @@
     <string name="settings">Innstillinger</string>
     <string name="weather">Vær</string>
     <string name="navigation">Navigasjon</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="dialog_deny">Nei takk</string>
     <string name="dialog_grant">Oppdater innstillinger</string>
     <string name="navigation_nearby_category">I nærheten</string>
@@ -121,15 +121,15 @@
     <string name="sun_up_no_set">Sola er oppe</string>
     <string name="sun_does_not_rise">kommer ikke opp</string>
     <string name="sun_does_not_set">gå ikke ned</string>
-    <string name="pressure_reading_time_ago">%s - %s siden</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s siden</string>
     <string name="units_inhg">inHg</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: Gå ut med fri sikt mot himmelen.
-\n         %s av faktisk posisjon
-\n         %s av faktisk høyde
-\n         %s satellitter
+\n         %1$s av faktisk posisjon
+\n         %2$s av faktisk høyde
+\n         %3$s satellitter
 \n
 \nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
@@ -291,8 +291,8 @@
     <string name="notes_empty_text">Ingen notater</string>
     <string name="delete_note_title">Slette notat\?</string>
     <string name="unit_centimeters">Centimeter</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="contents">Innhold</string>
     <string name="note_title_hint">Tittel</string>
     <string name="tool_notes_title">Notater</string>
@@ -581,7 +581,7 @@
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
     <string name="delete_waypoint_prompt">Slette rutepunkt\?</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_at_distance">Opprett på avstand</string>
     <string name="current_format">%s mA</string>
     <string name="battery_capacity_format">%s mAh</string>
@@ -589,7 +589,7 @@
     <string name="disclaimer_message_title">Ansvarsfraskrivelse</string>
     <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
-    <string name="last_signal_beacon_name">Siste signal — %s (%s)</string>
+    <string name="last_signal_beacon_name">Siste signal — %1$s (%2$s)</string>
     <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
     <string name="pref_barometer_pressure_smoothing_title">Trykkutjevning</string>
     <string name="gps_signal_lost">GPS-signal mistet</string>
@@ -660,10 +660,10 @@
     <string name="season_fall">Høst</string>
     <string name="pref_export_weather_csv_title">Eksporter væravlesninger</string>
     <string name="find_next_occurrence">Finn neste hendelse</string>
-    <string name="sun_moon_position_template">### %s
-\n**Høyde**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Høyde**: %2$s
 \n
-\n**Asimut**: %s</string>
+\n**Asimut**: %3$s</string>
     <string name="weather_monitoring_disabled">Værovervåking slått av</string>
     <string name="enable">Slå på</string>
     <string name="supermoon">Supermåne</string>
@@ -767,13 +767,13 @@
     <string name="medium_amount">Middels (%s)</string>
     <string name="high_amount">Høy (%s)</string>
     <string name="or">eller</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Påvirkede verktøy
-\n%s
+\n%3$s
 \n
 \n### Løsning
-\n%s</string>
+\n%4$s</string>
     <string name="units_mmhg_short">mm</string>
     <string name="merge">Flett</string>
     <string name="merging">Fletting</string>
@@ -881,7 +881,7 @@
     <string name="path_slope_steep">Bratt</string>
     <string name="path_slope">Helling</string>
     <string name="camera_unavailable">Kamera utilgjengelig</string>
-    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør de neste %d til %d timene.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Kan indikere nedbør de neste %1$d til %2$d timene.</string>
     <string name="descent">Nedstigning</string>
     <string name="ascent">Stigning</string>
     <string name="highest_point_elevation">Høyeste punkt</string>
@@ -918,7 +918,7 @@
     <string name="ounces_volume_format">%s oz</string>
     <string name="camera_capture">Knips bilde</string>
     <string name="delete_path_group_message">%s og alle dens stier vil bli slettet.</string>
-    <string name="roll_pitch_yaw">Slingring/rulling: %s stamping: %s, giring: %s</string>
+    <string name="roll_pitch_yaw">Slingring/rulling: %1$s stamping: %2$s, giring: %3$s</string>
     <string name="clouds_clear">Klart</string>
     <string name="pref_tiles_enabled_summary">Kan hindre batterisparingsapper fra å stoppe Trail Sense helt</string>
     <string name="path">Sti</string>
@@ -1026,8 +1026,8 @@
     <string name="pref_include_leading_zero_title">Legg til ledende null i klokkeslett</string>
     <string name="autofill_source">Auto-utfyll kilde</string>
     <string name="gps_unavailable_resolution">Aktiver Posisjon eller endre posisjonskilde til Bare telefon eller Høy nøyaktighet</string>
-    <string name="step_progression">Trinn %d / %d</string>
-    <string name="calibrate_map_point">Kalibrer med kjente steder (%d / %d)</string>
+    <string name="step_progression">Trinn %1$d / %2$d</string>
+    <string name="calibrate_map_point">Kalibrer med kjente steder (%1$d / %2$d)</string>
     <string name="map_calibration">Kartkalibrering</string>
     <string name="map_calibration_instructions">Trykk på et kjent sted på kartet, deretter angi de virkelige koordinatene. Lagre kalibreringen ved å trykke knappen “Ferdig”.
 \n

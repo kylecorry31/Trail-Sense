@@ -119,14 +119,14 @@
     <string name="first_quarter">Primo quarto</string>
     <string name="moon_phase">Fase lunare</string>
     <string name="copied_to_clipboard_toast">Copiato negli appunti</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3 h</string>
     <string name="units_inhg_short">in</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: Recarsi all\'aperto con una visione libera del cielo
-\n    %s di posizione reale
-\n    %s di altitudine reale
-\n    %s satelliti
+\n    %1$s di posizione reale
+\n    %2$s di altitudine reale
+\n    %3$s satelliti
 \n
 \nBussola: Ruotare il dispositivo formando un 8  lontano da oggetti di metallo."</string>
     <string name="accuracy_info_title">Suggerimenti per migliorare l\'accuratezza dei sensori</string>
@@ -141,7 +141,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SO</string>
     <string name="direction_north_west">NO</string>
@@ -202,7 +202,7 @@
     <string name="notification_storm_alert_text">Potrebbe essere in arriv un temporale</string>
     <string name="storm_alerts">Allarme temporali</string>
     <string name="alerts">Allarmi</string>
-    <string name="pressure_reading_time_ago">%s - %s fa</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s fa</string>
     <string name="quality_good">Buono</string>
     <string name="quality_poor">Debole</string>
     <string name="unavailable">Non disponibile</string>
@@ -510,9 +510,9 @@
     <string name="current_format">%s mA</string>
     <string name="pref_privacy_policy_title">Informativa sulla privacy</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="battery_power_ac">AC</string>
     <string name="battery_power_wireless">Senza fili</string>
     <string name="delete_waypoint_prompt">Cancellare segnaposto\?</string>
@@ -556,7 +556,7 @@
     <string name="battery_warning">Avviso consumo batteria</string>
     <string name="calibrate_new_tide">Calibrare su una nuova marea\?</string>
     <string name="water_boil_guide_title">Rendere l\'acqua sicura da bere</string>
-    <string name="last_signal_beacon_name">Ultimo segnale - %s (%s)</string>
+    <string name="last_signal_beacon_name">Ultimo segnale - %1$s (%2$s)</string>
     <string name="noon">Mezzogiorno</string>
     <string name="delete_path_group_message">%s e tutti i suoi percorsi verranno eliminati.</string>
     <string name="update_gps_override">Aggiorna l\'override GPS</string>

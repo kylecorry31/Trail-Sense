@@ -123,9 +123,9 @@
     <string name="flashlight_title">手电筒</string>
     <string name="accuracy_info">"GPS：到室外天空未被遮挡的地方。
 \n
-\n    %s 的实际位置
-\n    %s 的实际高度
-\n    %s 颗卫星
+\n    %1$s 的实际位置
+\n    %2$s 的实际高度
+\n    %3$s 颗卫星
 \n
 \n指南针：以8字形或全方位旋转设备，并使其远离金属物体。"</string>
     <string name="accuracy_info_title">提高传感器精确度的小提示</string>
@@ -292,8 +292,8 @@
     <string name="subtract">减去</string>
     <string name="add">添加</string>
     <string name="lunar_noon">月亮升到晚上的最高点</string>
-    <string name="pressure_reading_time_ago">%s - %s 前</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s 前</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="dash">-</string>
     <string name="discharging_fast">快速放电 (%s)</string>
@@ -301,7 +301,7 @@
     <string name="charging_slow">缓慢充电 (%s)</string>
     <string name="charging_fast">快速充电 (%s)</string>
     <string name="battery_capacity_format">%s 毫安时</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="miles_per_hour_format">%.1f 英里/小时</string>
     <string name="precise_kilometers_format">%s 公里</string>
@@ -322,8 +322,8 @@
     <string name="map_distance">地图：%s</string>
     <string name="unit_inches">英寸</string>
     <string name="unit_centimeters">厘米</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="contents">内容</string>
     <string name="note_title_hint">标题</string>
     <string name="tool_notes_title">附注</string>
@@ -335,7 +335,7 @@
     <string name="backtrack">依照记录的位置历史返回先前位置 （Backtrack）</string>
     <string name="pref_backtrack_frequency_title">Backtrack 间隔</string>
     <string name="pref_backtrack_enabled_summary">记录位置历史</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">创建信标</string>
     <string name="backtrack_notification_channel_description">Backtrack 位置更新</string>
     <string name="guide_location_no_gps_title">不用 GPS 进行定位</string>
@@ -547,7 +547,7 @@
     <string name="time_until_full">距离充满剩</string>
     <string name="pref_show_last_signal_beacon_summary">为上一个手机信号位置创建一个信标</string>
     <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
-    <string name="last_signal_beacon_name">上个信号 - %s (%s)</string>
+    <string name="last_signal_beacon_name">上个信号 - %1$s (%2$s)</string>
     <string name="camera_permission_denied">相机权限被拒绝，无法打开相机功能。 你可以在设置中启用它。</string>
     <string name="color">颜色</string>
     <string name="water_boil_guide_title">使水可以安全饮用</string>
@@ -581,7 +581,7 @@
     <string name="import_map">导入地图</string>
     <string name="pref_cell_signal_refresh_cache_summary">强制加载最新信号强度</string>
     <string name="pref_cell_signal_refresh_cache_title">刷新信号缓存</string>
-    <string name="roll_pitch_yaw">横滚角：%s，俯仰角：%s，偏航角：%s</string>
+    <string name="roll_pitch_yaw">横滚角：%1$s，俯仰角：%2$s，偏航角：%3$s</string>
     <string name="sensor_gyroscope">陀螺仪</string>
     <string name="days">天数</string>
     <plurals name="number_days">
@@ -678,13 +678,13 @@
     <string name="last_duration">持续时长 %s</string>
     <string name="gps_signal_lost">GPS 信号丢失</string>
     <string name="elevation_history_length">海拔历史长度</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### 受影响工具
-\n%s
+\n%3$s
 \n
 \n### 解决方案
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">启用位置或将您的位置源更改为仅设备或高精度</string>
     <string name="battery_restricted_resolution">将 Trail Sense 设置为未优化</string>
     <string name="power_saving_mode_resolution">禁用省电模式</string>
@@ -746,10 +746,10 @@
     <string name="weather_exported">已导出气温</string>
     <string name="pref_show_nearest_tide_title">显示最近的潮汐</string>
     <string name="sun">太阳</string>
-    <string name="sun_moon_position_template">### %s
-\n**高度**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**高度**: %2$s
 \n
-\n**方位角**: %s</string>
+\n**方位角**: %3$s</string>
     <string name="moon">月亮</string>
     <string name="enable">启用</string>
     <string name="weather_monitoring_disabled">已禁用天气检测</string>
@@ -967,7 +967,7 @@
     <string name="permission_alarms_and_reminders">闹铃和提醒</string>
     <string name="change_resolution">更改分辨率</string>
     <string name="done">完毕</string>
-    <string name="cloud_precipitation_forecast_hour_range">可能预示未来 %d 至 %d 小时内发生降水。</string>
+    <string name="cloud_precipitation_forecast_hour_range">可能预示未来 %1$d 至 %2$d 小时内发生降水。</string>
     <string name="ascent">上坡</string>
     <string name="lowest_point_elevation">最低点</string>
     <string name="descent">下坡</string>
@@ -1058,10 +1058,10 @@
     <string name="magnitude">等级</string>
     <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
     <string name="print">打印</string>
-    <string name="step_progression">步骤 %d / %d</string>
+    <string name="step_progression">步骤 %1$d / %2$d</string>
     <string name="astronomy_direction_peak">峰值方向</string>
     <string name="autofill_source">自动填充源</string>
-    <string name="calibrate_map_point">用已知位置校准 (%d / %d)</string>
+    <string name="calibrate_map_point">用已知位置校准 (%1$d / %2$d)</string>
     <string name="map_calibration">地图校准</string>
     <string name="map_calibration_instructions">轻按地图上的已知位置，然后输入真实世界的坐标。 您可以通过单击“完成”按钮来保存校准。
 \n

@@ -112,12 +112,12 @@
     <string name="sos">SOS</string>
     <string name="beacon_comment">Anmerkungen (optional)</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="pressure_format">%s %s</string>
-    <string name="pressure_reading_time_ago">vor %s - %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
+    <string name="pressure_reading_time_ago">vor %1$s - %2$s</string>
     <string name="accuracy_info">"GPS: Gehe nach draußen mit freiem Blick auf den Himmel.
-\n    %s der aktuellen Position
-\n    %s der aktuellen Höhe
-\n    %s Satelliten
+\n    %1$s der aktuellen Position
+\n    %2$s der aktuellen Höhe
+\n    %3$s Satelliten
 \n
 \nKompass: Entferne dich von Metallgegenständen und bewege das Gerät in Form einer 8 oder in alle Richtungen."</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
@@ -147,7 +147,7 @@
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="sun_does_not_set">geht nicht unter</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Version</string>
     <string name="pref_category_about">Über</string>
@@ -353,7 +353,7 @@
 \nOSGB (z.B. TG 51409 13177)</string>
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="clock_sync_notification">Zeit-Synchronisation - %s</string>
     <string name="could_not_triangulate">Triangulation fehlgeschlagen</string>
     <string name="strobe_warning_title">Blitzlicht</string>
@@ -361,8 +361,8 @@
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="create_beacon">Wegpunkt anlegen</string>
     <string name="charging_wireless">Wird geladen (%s)</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -551,7 +551,7 @@
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
     <string name="pref_show_last_signal_beacon_summary">Erstellt einen Wegpunkt am Ort der letzten verfügbaren Mobilfunkverbindung</string>
     <string name="pref_show_last_signal_beacon_title">Wegpunkt am letzten Signal</string>
-    <string name="last_signal_beacon_name">Letztes Signal - %s (%s)</string>
+    <string name="last_signal_beacon_name">Letztes Signal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Kameraberechtigung verweigert, kann Kamera-Features nicht aktivieren. Du kannst sie in den Einstellungen erteilen.</string>
     <string name="color">Farbe</string>
     <string name="water_boil_guide_title">Wasser zum Trinken aufbereiten</string>
@@ -586,7 +586,7 @@
     <string name="import_map">Karte importieren</string>
     <string name="pref_cell_signal_refresh_cache_summary">Erzwingt das Laden der letzten Signalstärken</string>
     <string name="pref_cell_signal_refresh_cache_title">Signalcache erneuern</string>
-    <string name="roll_pitch_yaw">Roll: %s, Nick: %s, Gier: %s</string>
+    <string name="roll_pitch_yaw">Roll: %1$s, Nick: %2$s, Gier: %3$s</string>
     <string name="sensor_gyroscope">Gyroskop</string>
     <string name="days">Tage</string>
     <plurals name="number_days">
@@ -700,13 +700,13 @@
     <string name="no_permission">Berechtigung nicht gegeben</string>
     <string name="camera">Kamera</string>
     <string name="quarter_moon">Viertelmond</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Betroffene Tools
-\n%s
+\n%3$s
 \n
 \n### Lösungen
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">Standort aktivieren oder änder deine Standortquelle zu Nur Gerät oder Hohe Genauigkeit</string>
     <string name="background_location_permission">Standort (Immer zulassen)</string>
     <string name="battery_restricted_resolution">Trail Sense auf Uneingeschränkt setzen</string>
@@ -754,10 +754,10 @@
     <string name="pref_export_weather_csv_title">Wetterdaten exportieren</string>
     <string name="moon">Mond</string>
     <string name="sun">Sonne</string>
-    <string name="sun_moon_position_template">### %s
-\n**Höhe**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Höhe**: %2$s
 \n
-\n**Azimut**: %s</string>
+\n**Azimut**: %3$s</string>
     <string name="pref_show_nearest_tide_title">Nächste Gezeit anzeigen</string>
     <string name="enable">Aktivieren</string>
     <string name="weather_monitoring_disabled">Wettermonitor deaktiviert</string>
@@ -979,7 +979,7 @@
     <string name="tide_frequency_description">Die Anzahl an Gezeiten pro Tag. Die meisten Gezeiten sind halbtäglich.</string>
     <string name="change_resolution">Auflösung ändern</string>
     <string name="done">Fertig</string>
-    <string name="cloud_precipitation_forecast_hour_range">Könnte Niederschlag in den nächsten %d bis %d Stunden bedeuten.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Könnte Niederschlag in den nächsten %1$d bis %2$d Stunden bedeuten.</string>
     <string name="descent">Abstieg</string>
     <string name="ascent">Anstieg</string>
     <string name="lowest_point_elevation">Niedrigster Punkt</string>
@@ -1068,6 +1068,6 @@
     <string name="loading">Wird geladen</string>
     <string name="unable_to_find_next_astronomy">Nächste %s kann nicht gefunden werden</string>
     <string name="print">Drucken</string>
-    <string name="step_progression">Schritt %d / %d</string>
+    <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Quelle automatisch ausfüllen</string>
 </resources>

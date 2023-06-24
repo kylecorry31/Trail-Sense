@@ -19,8 +19,8 @@
     <string name="notification_storm_alert_text">Vihar közeledhet</string>
     <string name="storm_alerts">Vihar riasztások</string>
     <string name="alerts">Riasztások</string>
-    <string name="pressure_reading_time_ago">%s - %s óta</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s óta</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3ó</string>
     <string name="stop">Stop</string>
     <string name="units_psi">PSI</string>
@@ -42,9 +42,9 @@
     <string name="tap_to_turn_off">Érintse meg a kikapcsoláshoz</string>
     <string name="flashlight_title">Zseblámpa</string>
     <string name="accuracy_info">"GPS: Menj a szabadba, ahol semmi nem takarja az eget.
-\n    %s az aktuális helytől
-\n    %s az aktuális magasságtól
-\n    %s műhold
+\n    %1$s az aktuális helytől
+\n    %2$s az aktuális magasságtól
+\n    %3$s műhold
 \n
 \nIránytű: Forgasd az eszközt 8-as alakban vagy minden irányban, és tarts távolságot fémektől"</string>
     <string name="accuracy_info_title">Tippek a szenzor adatainak pontosításához</string>
@@ -53,7 +53,7 @@
     <string name="unknown">Ismeretlen</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">DNy</string>
     <string name="direction_north_west">ÉNy</string>
@@ -251,10 +251,10 @@
     <string name="season_fall">Ősz</string>
     <string name="up_to_amount">Legfeljebb %s</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
-    <string name="sun_moon_position_template">### %s
-\n**Magasság**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Magasság**: %2$s
 \n
-\n**Azimut**: %s</string>
+\n**Azimut**: %3$s</string>
     <string name="weather_monitoring_disabled">Időjárás figyelése letiltva</string>
     <string name="precipitation_none">Nincs csapadék</string>
     <string name="precipitation_drizzle">Szitálás</string>
@@ -408,7 +408,7 @@
     <string name="tool_battery_title">Akkumulátor</string>
     <string name="backtrack">Visszakövetés</string>
     <string name="backtrack_notification_channel_description">Visszakövetési helyzet frissül</string>
-    <string name="waypoint_time_format">%s,%s</string>
+    <string name="waypoint_time_format">%1$s,%2$s</string>
     <string name="pref_backtrack_enabled_summary">Helyelőzmények mentése</string>
     <string name="create_beacon">Jelzőpont létrehozása</string>
     <string name="time_not_set">Nincs beállítva idő</string>
@@ -487,7 +487,7 @@
     <string name="stratus">Stratus (rétegfelhő)</string>
     <string name="stratocumulus">Stratocumulus (gomolyos rétegfelhő)</string>
     <string name="cirrocumulus_desc">Magas szinti felhők, melyek hullámos leplet alkotnak. A leplet kis, síkszerűnek tűnő pontok alkotják.</string>
-    <string name="cloud_precipitation_forecast_hour_range">Csapadékot jelezhet a következő %d - %d órában.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Csapadékot jelezhet a következő %1$d - %2$d órában.</string>
     <string name="altostratus_desc">Középszintű felhő, mely beborítja a teljes eget. A nap csak egy világos foltként látszik.</string>
     <string name="nimbostratus_desc">Középszintű, sötétszürke felhő, mely beborítja az eget. Ha nem esik belőle, elképzelhető, hogy rétegfelhő.</string>
     <string name="gps_searching">Keresés</string>
@@ -540,13 +540,13 @@
     <string name="get_gps_signal">Menj kültérre, ahol semmi nem takarja az eget.</string>
     <string name="unblock_notification_channel">Oldd fel a Trail Sense %s értesítésének blokkolását</string>
     <string name="location_override_not_set_resolution">Állítsd be a hely felülírást a beállításokban</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Érintett eszközök
-\n%s
+\n%3$s
 \n
 \n### Megoldás
-\n%s</string>
+\n%4$s</string>
     <string name="delete_path">Ösvény törlése\?</string>
     <string name="units_mmhg_short">mm</string>
     <string name="old">Régi</string>
@@ -714,8 +714,8 @@
     <string name="threshold">Határérték</string>
     <string name="tool_metal_detector_title">Fémérzékelő</string>
     <string name="contents">Tartalom</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="unit_inches">Inch</string>
     <string name="metal_detector_disclaimer">Csak mágneses fémeket érzékel (pl. vas)</string>
     <string name="update_gps_override">GPS felülírás frissítése</string>
@@ -767,7 +767,7 @@
     <string name="cross">Kereszt</string>
     <string name="pref_default_path_style_title">Alapértelmezett ösvény stílus</string>
     <string name="arrow">Nyíl</string>
-    <string name="last_signal_beacon_name">Utolsó vétel - %s (%s)</string>
+    <string name="last_signal_beacon_name">Utolsó vétel - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_title">Utolsó vételi jelzőpont</string>
     <string name="pref_show_last_signal_beacon_summary">Létrehoz egy jelzőpontot azon a helyen, ahol utoljára volt térerő</string>
     <string name="pref_default_path_color_title">Alapértelmezett ösvény szín</string>
@@ -785,7 +785,7 @@
     <string name="pref_flashlight_toggle_with_system_title">Kapcsolás a rendszerrel</string>
     <string name="pref_navigation_lock_screen_presence_title">Mutatás a zárolt képernyőn navigálás közben</string>
     <string name="pref_cell_signal_refresh_cache_summary">Kényszeríti a legfrissebb térerőadat betöltését</string>
-    <string name="roll_pitch_yaw">Vízszintes dőlés: %s, Függőleges dőlés: %s, Elfordulás: %s</string>
+    <string name="roll_pitch_yaw">Vízszintes dőlés: %1$s, Függőleges dőlés: %2$s, Elfordulás: %3$s</string>
     <string name="privacy">Biztonság</string>
     <plurals name="number_days">
         <item quantity="one">%d nap</item>

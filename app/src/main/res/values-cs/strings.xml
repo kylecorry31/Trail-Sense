@@ -53,7 +53,7 @@
     <string name="sun_does_not_rise">nesvítá</string>
     <string name="sun_does_not_set">nezapadá</string>
     <string name="notification_storm_alert_text">Bouře se může blížit</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="stop">Zastavit</string>
     <string name="units_psi">PSI</string>
@@ -83,9 +83,9 @@
     <string name="sos">SOS</string>
     <string name="flashlight_title">Svítilna</string>
     <string name="accuracy_info">"GPS: Vyjděte ven, kde budete mít nerušený výhled na oblohu.
-\n    %s od skutečné polohy
-\n    %s od skutečného převýšení
-\n    %s satelitů
+\n    %1$s od skutečné polohy
+\n    %2$s od skutečného převýšení
+\n    %3$s satelitů
 \n
 \nKompas: Otáčejte zařízením ve tvaru osmičky nebo všemi směry a vzdalte se od kovových předmětů."</string>
     <string name="accuracy_info_title">Tipy na zlepšení přesnosti dat ze senzorů</string>
@@ -94,7 +94,7 @@
     <string name="unknown">Neznámá</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">JZ</string>
     <string name="direction_north_west">SZ</string>
@@ -183,7 +183,7 @@
     <string name="notification_storm_alert_title">Výstraha před bouří</string>
     <string name="storm_alerts">Výstrahy před bouřemi</string>
     <string name="alerts">Výstrahy</string>
-    <string name="pressure_reading_time_ago">před %s - %s</string>
+    <string name="pressure_reading_time_ago">před %1$s - %2$s</string>
     <string name="turn_off">Vypnout</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
@@ -374,7 +374,7 @@
     <string name="todays_forecast">Dnešní předpověď</string>
     <string name="network_4g">4G</string>
     <string name="backtrack_notification_channel_description">Aktualizace polohy zpětné navigace</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="coordinate_input_invalid_location">Neplatná poloha</string>
     <string name="pref_backtrack_frequency_title">Interval zpětné navigace</string>
     <string name="location_input_help_title">Podporované formáty polohy</string>
@@ -458,8 +458,8 @@
     <string name="map_scale_ratio">Poměr</string>
     <string name="min_temp_uncalibrated">Minimální teplota telefonu (nekalibrovaná)</string>
     <string name="note_title_hint">Titulek</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="unit_centimeters">Centimetry</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">in</string>
@@ -587,7 +587,7 @@
     <string name="actual_frequency_disclaimer">Skutečná frekvence se může lišit, protože některá zařízení mají nastavené limity na pozadí.</string>
     <string name="rename">Přejmenovat</string>
     <string name="pref_nearby_radar_title">Zobrazit radarový kompas v okolí</string>
-    <string name="last_signal_beacon_name">Poslední signál - %s (%s)</string>
+    <string name="last_signal_beacon_name">Poslední signál - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_title">Maják posledního signálu</string>
     <string name="pref_show_last_signal_beacon_summary">Vytvoří maják pro poslední lokaci signálu</string>
     <string name="noon">Poledne</string>
@@ -671,7 +671,7 @@
     <string name="distance_alert_distance_reached">Dosáhli jste %s</string>
     <string name="current_speed">Aktuální rychlost</string>
     <string name="camera_capture">Zachytit</string>
-    <string name="roll_pitch_yaw">Náklon: %s, Stoupání: %s, Vybočení: %s</string>
+    <string name="roll_pitch_yaw">Náklon: %1$s, Stoupání: %2$s, Vybočení: %3$s</string>
     <string name="pref_backtrack_history_days_title">Historie zpětné navigace</string>
     <string name="pref_privacy_screenshot_protection_title">Zabránit vytváření snímků obrazovky</string>
     <string name="hours">Hodiny</string>
@@ -720,13 +720,13 @@
     <string name="current_speed_pedometer">Aktuální rychlost (krokoměr)</string>
     <string name="days_format">%s d</string>
     <string name="default_pack_name">Výchozí balíček</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Ovlivněné nástroje
-\n%s
+\n%3$s
 \n
 \n### Řešení
-\n%s</string>
+\n%4$s</string>
     <string name="disclaimer_estimated_tide">Odhadované přílivy a odlivy mohou být nepřesné. Přesné časy najdete v oficiální tabulce přílivů a odlivů.</string>
     <plurals name="number_days">
         <item quantity="one">%d den</item>
@@ -866,10 +866,10 @@
     <string name="sun">Slunce</string>
     <string name="moon">Měsíc</string>
     <string name="notification_weather_update_title">Aktualizace monitorování počasí</string>
-    <string name="sun_moon_position_template">### %s
-\n**Nadmořská výška**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Nadmořská výška**: %2$s
 \n
-\n**Azimut**: %s</string>
+\n**Azimut**: %3$s</string>
     <string name="enable">Povolit</string>
     <string name="weather_monitoring_disabled">Monitorování počasí zakázáno</string>
     <string name="notification_backtrack_update_content">Zaznamenávání vaší polohy</string>
@@ -1005,7 +1005,7 @@
         <item quantity="other">%d přílivů/odlivů</item>
         <item quantity="many">%d přílivů/odlivů</item>
     </plurals>
-    <string name="cloud_precipitation_forecast_hour_range">Mohou znamenat srážky v příštích %d až %d hodinách.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Mohou znamenat srážky v příštích %1$d až %2$d hodinách.</string>
     <string name="lowest_point_elevation">Nejnižší bod</string>
     <string name="highest_point_elevation">Nejvyšší bod</string>
     <string name="path_slope_flat">Vodorovný</string>
@@ -1071,7 +1071,7 @@
     <string name="peak_time">Špička</string>
     <string name="magnitude">Velikost</string>
     <string name="weather_alert_hot_description">Připravte se na vysoké teploty. Dodržujte zvláštní opatření proti vyčerpání z horka a úpalu.</string>
-    <string name="calibrate_map_point">Kalibrovat se známými lokalitami (%d / %d)</string>
+    <string name="calibrate_map_point">Kalibrovat se známými lokalitami (%1$d / %2$d)</string>
     <string name="source">Zdroj</string>
     <string name="now_value">Aktuálně: %s</string>
     <string name="for_historic_temperatures">Pro historické teploty</string>
@@ -1086,7 +1086,7 @@
     <string name="map_is_not_calibrated">Mapa není zkalibrovaná</string>
     <string name="loading">Načítání</string>
     <string name="unable_to_find_next_astronomy">Nelze najít další %s</string>
-    <string name="step_progression">Krok %d / %d</string>
+    <string name="step_progression">Krok %1$d / %2$d</string>
     <string name="autofill_source">Zdroj automatického vyplnění</string>
     <string name="map_calibration">Kalibrace mapy</string>
     <string name="compass_source_mag_gyro">Magnetometr + gyroskop</string>

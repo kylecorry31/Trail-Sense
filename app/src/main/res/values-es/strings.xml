@@ -71,8 +71,8 @@
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
     <string name="storm_alerts">Alertas de tormenta</string>
     <string name="alerts">Alertas</string>
-    <string name="pressure_reading_time_ago">%s - hace %s</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - hace %2$s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="beacon_comment">Notas (opcional)</string>
     <string name="beacon_invalid_name">Nombre inválido</string>
@@ -115,9 +115,9 @@
     <string name="turn_off">Apagar</string>
     <string name="tap_to_turn_off">Toca para apagar</string>
     <string name="accuracy_info">"GPS: Sal al exterior con una vista despejada del cielo.
-\n    %s de ubicación real
-\n    %s de elevación real
-\n    %s de satélites
+\n    %1$s de ubicación real
+\n    %2$s de elevación real
+\n    %3$s de satélites
 \n
 \nBrújula: Gira el dispositivo en forma de un 8 o en todas direcciones y aléjate del metal."</string>
     <string name="accuracy_info_title">Consejos para mejorar la precisión de los datos de los sensores</string>
@@ -156,7 +156,7 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="request_permission">Solicitar permiso</string>
     <string name="pref_auto_location_title">Autoajustar ubicación</string>
     <string name="location">Ubicación</string>
@@ -383,8 +383,8 @@
     <string name="notes_empty_text">Sin notas</string>
     <string name="delete_note_title">¿Eliminar nota\?</string>
     <string name="tool_notes_title">Notas</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="tool_white_noise_title">Ruido Blanco</string>
     <string name="tool_white_noise_summary">Te ayuda a dormir</string>
     <string name="map_scale_ratio">Proporción</string>
@@ -406,7 +406,7 @@
     <string name="guide_using_printed_maps">Usando mapas impresos</string>
     <string name="pedometer_disclaimer">La precisión y el uso de la batería del podómetro dependen del fabricante de su dispositivo y de la longitud de paso ingresada. Pruébelo en casa por un tiempo para verificar el agotamiento de la batería y la precisión antes de usarlo en el camino.</string>
     <string name="rename">Renombrar</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">Grabar historial de ubicación</string>
     <string name="pref_backtrack_frequency_title">Intervalo de retroceso</string>
     <string name="elevation_override_updated_toast">Anulación de altitud actualizada</string>
@@ -541,7 +541,7 @@
     <string name="battery_warning">Advertencia de descarga de batería</string>
     <string name="calibrate_new_tide">¿Calibrar a una nueva marea\?</string>
     <string name="water_boil_guide_title">Hacer que el agua sea segura para beber</string>
-    <string name="last_signal_beacon_name">Última señal -%s (%s)</string>
+    <string name="last_signal_beacon_name">Última señal -%1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_title">Baliza de última señal</string>
     <string name="pref_show_last_signal_beacon_summary">Crea una baliza para la ubicación de la última señal de celular</string>
     <string name="fields">Campos</string>
@@ -642,10 +642,10 @@
     <string name="point_style">Estilo de punto</string>
     <string name="line_style">Estilo de línea</string>
     <string name="path_color">Color de ruta</string>
-    <string name="sun_moon_position_template">### %s
-\n** Altitud **:%s
+    <string name="sun_moon_position_template">### %1$s
+\n** Altitud **:%2$s
 \n
-\n** Acimut **:%s</string>
+\n** Acimut **:%3$s</string>
     <string name="hide">Ocultar</string>
     <string name="show">Mostrar</string>
     <string name="sensor_gyroscope">Giroscopio</string>
@@ -746,13 +746,13 @@
     <string name="power_saving_mode_resolution">Desactivar el modo de ahorro de energía</string>
     <string name="battery_restricted_resolution">Establecer Trail Sense como no optimizado</string>
     <string name="gps_unavailable_resolution">Habilite la ubicación o cambie su fuente de ubicación a Solo dispositivo o Alta precisión</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Herramientas afectadas
-\n%s
+\n%3$s
 \n
 \n### Resolución
-\n%s</string>
+\n%4$s</string>
     <string name="lightning_dangerously_close">Rayo peligrosamente cerca</string>
     <string name="auto">Automatico</string>
     <string name="delete_path">¿Eliminar ruta\?</string>
@@ -820,7 +820,7 @@
         <item quantity="one">Ruta importada %d</item>
         <item quantity="other">Rutas importadas %d</item>
     </plurals>
-    <string name="roll_pitch_yaw">Giro:%s, Paso:%s, Guiñada:%s</string>
+    <string name="roll_pitch_yaw">Giro:%1$s, Paso:%2$s, Guiñada:%3$s</string>
     <string name="camera">Cámara</string>
     <string name="lunar_eclipse">Eclipse Lunar</string>
     <string name="supermoon">Super Luna</string>
@@ -1009,7 +1009,7 @@
     <string name="tool_climate">Clima</string>
     <string name="tool_climate_summary">Ver las temperaturas históricas</string>
     <string name="source">Fuente</string>
-    <string name="cloud_precipitation_forecast_hour_range">Puede indicar las precipitaciones en las próximas %d a %d horas.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Puede indicar las precipitaciones en las próximas %1$d a %2$d horas.</string>
     <string name="cloud_stratus_forecast">Puede indicar buen tiempo para las próximas %d horas si hay niebla, de lo contrario puede indicar precipitaciones en breve.</string>
     <string name="updating_weather">Actualizando el tiempo</string>
     <string name="hot">Caliente</string>
@@ -1073,9 +1073,9 @@
     <string name="astronomy_direction_peak">Dirección máxima</string>
     <string name="astronomy_altitude_peak">Altitud máxima</string>
     <string name="print">Imprimir</string>
-    <string name="step_progression">Paso %d / %d</string>
+    <string name="step_progression">Paso %1$d / %2$d</string>
     <string name="autofill_source">Autocompletar las fuentes</string>
-    <string name="calibrate_map_point">Calibrar con ubicaciones conocidas (%d / %d)</string>
+    <string name="calibrate_map_point">Calibrar con ubicaciones conocidas (%1$d / %2$d)</string>
     <string name="map_calibration">Calibración del mapa</string>
     <string name="accelerometer">Acelerómetro</string>
     <string name="map_calibration_instructions">Toca una ubicación conocida en el mapa y, a continuación, introduce las coordenadas reales. Puedes guardar la calibración pulsando el botón \"Hecho\".

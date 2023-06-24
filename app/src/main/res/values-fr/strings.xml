@@ -100,13 +100,13 @@
     <string name="pref_auto_declination_summary">Se base sur votre localisation actuelle</string>
     <string name="compass_declination">Déclinaison magnétique</string>
     <string name="compass_azimuth">Azimuth</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">in</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">S-O</string>
     <string name="direction_west">O</string>
@@ -160,9 +160,9 @@
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
     <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
-\n\tIncertitude sur la localisation : %s
-\n\tIncertitude sur l\'élévation : %s
-\n\tNombre de satellites : %s
+\n\tIncertitude sur la localisation : %1$s
+\n\tIncertitude sur l\'élévation : %2$s
+\n\tNombre de satellites : %3$s
 \n
 \nBoussole : Déplacez votre téléphone selon une trajectoire décrivant un « 8 » de manière répétitive, tout en prenant soin de vous éloigner d\'objets métalliques.</string>
     <string name="accuracy_info_title">Conseils pour améliorer la précision des données issues des capteurs</string>
@@ -173,7 +173,7 @@
     <string name="full_moon">Pleine lune</string>
     <string name="copied_to_clipboard_toast">Copié dans le presse-papier</string>
     <string name="lunar_noon">Midi lunaire</string>
-    <string name="pressure_reading_time_ago">il y a %s - %s</string>
+    <string name="pressure_reading_time_ago">il y a %1$s - %2$s</string>
     <string name="maps">Cartes</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
     <string name="pref_sunset_alert_time_title">Heure de la notification de coucher de soleil</string>
@@ -297,8 +297,8 @@
     <string name="water_boil_timer_done_title">L\'eau ne bout plus</string>
     <string name="unit_inches">Pouces</string>
     <string name="unit_centimeters">Centimètres</string>
-    <string name="bubble_level_angles">X : %s
-\nY : %s</string>
+    <string name="bubble_level_angles">X : %1$s
+\nY : %2$s</string>
     <string name="contents">Contenu</string>
     <string name="note_title_hint">Titre</string>
     <string name="tool_notes_title">Notes</string>
@@ -353,7 +353,7 @@
     <string name="location_input_help_title">Formats de localisation supportés</string>
     <string name="pref_backtrack_frequency_title">Fréquence d\'enregistrement</string>
     <string name="pref_backtrack_enabled_summary">Enregistrer l\'historique des positions</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Ajouter un repère</string>
     <string name="backtrack">Historique de l\'itinéraire</string>
     <string name="guide_location_no_gps_title">Déterminer sa position sans GPS</string>
@@ -481,7 +481,7 @@
     <string name="water_boil_guide_title">Rend l’eau potable</string>
     <string name="camera_permission_denied">Accès à la caméra refusé, peut être activé dans les paramètres.</string>
     <string name="activity_recognition_permission_denied">Accès aux activités physiques refusé, peut être activé dans les paramètres.</string>
-    <string name="last_signal_beacon_name">Dernier signal – %s (%s)</string>
+    <string name="last_signal_beacon_name">Dernier signal – %1$s (%2$s)</string>
     <string name="whistle_signal_where_are_you">Où êtes vous \?</string>
     <string name="whistle_signal_acknowledged">Reçu</string>
     <string name="whistle_signal_come_here">Par ici</string>
@@ -550,7 +550,7 @@
     <string name="temperature_history">Historique de température – dernières %s</string>
     <string name="pref_barometer_info_summary">La pression peut différer des stations alentours</string>
     <string name="import_map">Importer une carte</string>
-    <string name="roll_pitch_yaw">Roulis : %s, Tangage : %s, Lacet : %s</string>
+    <string name="roll_pitch_yaw">Roulis : %1$s, Tangage : %2$s, Lacet : %3$s</string>
     <string name="pref_experimental_metal_direction_title">Afficher la direction du métal</string>
     <string name="location_not_mocked">Utilise la position réelle</string>
     <string name="pref_tiles_enabled_title">Tuiles système</string>
@@ -615,13 +615,13 @@
     <string name="clear_amounts">Effacer les quantités</string>
     <string name="electronics">Électronique</string>
     <string name="documents">Documents</string>
-    <string name="diagnostic_message_template">%s : %s
+    <string name="diagnostic_message_template">%1$s : %2$s
 \n
 \n### Outils affictées
-\n%s
+\n%3$s
 \n
 \n### Résolution
-\n%s</string>
+\n%4$s</string>
     <string name="autofill">Remplissage automatique</string>
     <string name="auto">Automatique</string>
     <string name="lightning_dangerously_close">Orage dangereux à proximité</string>
@@ -789,10 +789,10 @@
     <string name="avalanche_risk">Risque d’avalanche</string>
     <string name="pref_export_weather_csv_title">Exporter les données météo</string>
     <string name="sun">Soleil</string>
-    <string name="sun_moon_position_template">### %s
-\n**Altitude** : %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Altitude** : %2$s
 \n
-\n**Azimuth** : %s</string>
+\n**Azimuth** : %3$s</string>
     <string name="enable">Activer</string>
     <string name="weather_monitoring_disabled">Moniteur météo désactivé</string>
     <string name="no_clouds">Pas de nuages</string>
@@ -806,7 +806,7 @@
         <item quantity="many">%d chemins</item>
         <item quantity="other">%d chemins</item>
     </plurals>
-    <string name="cloud_precipitation_forecast_hour_range">Peut indiquer des précipitations dans les %d à %d heures à venir.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Peut indiquer des précipitations dans les %1$d à %2$d heures à venir.</string>
     <string name="delete_path_group_message">%s et tous ses chemins seront supprimés.</string>
     <string name="cumulonimbus_desc">Nuages bas gonflés très grands. Ils ont généralement une forme d\'enclume et sont sombres.</string>
     <string name="onboarding_privacy">- Trail Sense respecte votre vie privée et les données de localisation ne quittent jamais votre appareil.

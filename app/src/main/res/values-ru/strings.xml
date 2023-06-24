@@ -104,7 +104,7 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Неизвестная</string>
     <string name="dash">-</string>
-    <string name="elevation_diff_format">%s%s</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
     <string name="direction_south_west">ЮЗ</string>
     <string name="direction_north_west">СЗ</string>
@@ -120,8 +120,8 @@
     <string name="access_background_location">Обновить настройки местоположения</string>
     <string name="copied_to_clipboard_toast">Скопировано в буфер обмена</string>
     <string name="tools">Инструменты</string>
-    <string name="pressure_reading_time_ago">%s - %s тому назад</string>
-    <string name="pressure_format">%s %s</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s тому назад</string>
+    <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3ч</string>
     <string name="pref_show_pressure_in_notification_title">Показывать давление в уведомлении</string>
     <string name="pref_show_weather_notification_title">Показывать уведомление с информацией о погоде</string>
@@ -193,9 +193,9 @@
     <string name="notification_monitoring_weather">Сбор данных о погоде в фоне</string>
     <string name="notification_storm_alert_title">Штормовое предупреждение</string>
     <string name="accuracy_info">"GPS: Выйдите на открытое пространство с беспрепятственным видом на небо.
-\n    %s на текущем месте
-\n    %s на текущей высоте
-\n    %s спутников
+\n    %1$s на текущем месте
+\n    %2$s на текущей высоте
+\n    %3$s спутников
 \n
 \nКомпас: Вращайте устройство по траектории восьмерки или во всех направлениях и постарайтесь находиться подальше от крупных металлоконструкций."</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
@@ -336,8 +336,8 @@
     <string name="map_distance">Карта: %s</string>
     <string name="unit_inches">Дюймы</string>
     <string name="unit_centimeters">Сантиметры</string>
-    <string name="bubble_level_angles">X: %s
-\nY: %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
     <string name="contents">Содержание</string>
     <string name="note_title_hint">Название</string>
     <string name="tool_notes_title">Заметки</string>
@@ -372,7 +372,7 @@
     <string name="location_input_help_title">Поддерживаемые форматы местоположения</string>
     <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
     <string name="pref_backtrack_enabled_summary">Записывать историю местоположений</string>
-    <string name="waypoint_time_format">%s, %s</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Создать маячок</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack">История маршрута</string>
@@ -569,7 +569,7 @@
     <string name="fields">Поля</string>
     <string name="pref_show_last_signal_beacon_summary">Создает маячок для определения местоположения последнего сигнала сети</string>
     <string name="pref_show_last_signal_beacon_title">Маячок последнего сигнала</string>
-    <string name="last_signal_beacon_name">Последний сигнал - %s (%s)</string>
+    <string name="last_signal_beacon_name">Последний сигнал - %1$s (%2$s)</string>
     <string name="camera_permission_denied">В разрешении камеры отказано, невозможно включить функции камеры. Вы можете включить его в настройках.</string>
     <string name="color">Цвет</string>
     <string name="water_boil_guide_title">Сделать воду безопасной для питья</string>
@@ -582,7 +582,7 @@
         <item quantity="other">%d дней</item>
     </plurals>
     <string name="pref_backtrack_history_days_title">История местоположения</string>
-    <string name="roll_pitch_yaw">Крен: %s, Тангаж: %s, Рыскание: %s</string>
+    <string name="roll_pitch_yaw">Крен: %1$s, Тангаж: %2$s, Рыскание: %3$s</string>
     <string name="sensor_gyroscope">Гироскоп</string>
     <string name="import_map">Импортировать карту</string>
     <string name="pref_cell_signal_refresh_cache_summary">Заставляет загружать последние уровни сигнала</string>
@@ -699,13 +699,13 @@
     <string name="last_duration">Последняя %s</string>
     <string name="overridden">Переопределено</string>
     <string name="autofill">Автозаполнение</string>
-    <string name="diagnostic_message_template">%s: %s
+    <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Затронутые инструменты
-\n%s
+\n%3$s
 \n
 \n### Разрешение
-\n%s</string>
+\n%4$s</string>
     <string name="gps_unavailable_resolution">Включите определение местоположения или измените источник местоположения на \"Только устройство\" или \"Высокая точность\"</string>
     <string name="battery_restricted_resolution">Установите Trail Sense как НЕ оптимизированный</string>
     <string name="power_saving_mode_resolution">Отключите режим энергосбережения</string>
@@ -731,10 +731,10 @@
     <string name="weather_monitoring_disabled">Мониторинг погоды отключен</string>
     <string name="moon">Луна</string>
     <string name="sun">Солнце</string>
-    <string name="sun_moon_position_template">### %s
-\n**Высота**: %s
+    <string name="sun_moon_position_template">### %1$s
+\n**Высота**: %2$s
 \n
-\n**Азимут**: %s</string>
+\n**Азимут**: %3$s</string>
     <string name="pref_show_nearest_tide_title">Показать ближайший прилив</string>
     <string name="weather_exported">Погода экспортирована</string>
     <string name="pref_export_weather_csv_title">Экспорт показаний погоды</string>
@@ -1021,7 +1021,7 @@
     <string name="icon">Значок</string>
     <string name="high_pressure_system_description">Ассоциируется с хорошей погодой, ясным небом и прохладной температурой.</string>
     <string name="low_pressure_system_description">Ассоциируется с плохой погодой, пасмурным небом и теплыми температурами.</string>
-    <string name="cloud_precipitation_forecast_hour_range">Может указывать на осадки в ближайшие %d - %d часов.</string>
+    <string name="cloud_precipitation_forecast_hour_range">Может указывать на осадки в ближайшие %1$d - %2$d часов.</string>
     <string name="altostratus_forecast">Может указывать на осадки в ближайшие %d часов.</string>
     <string name="altocumulus_forecast">Может указывать на осадки или грозу в ближайшие %d часов.</string>
     <string name="done">Готово</string>
