@@ -124,9 +124,9 @@
 \n
 \n-  Nastavte tuto hodnotu na 1.
 \n
-\n-  Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
+\n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
 \n
-\n-  Zadejte naměřenou hodnotu zde."</string>
+\n- Zadejte naměřenou hodnotu zde."</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
     <string name="sunset_alerts">Upozornění na západ slunce</string>
     <string name="waxing_crescent">Dorůstající srpek</string>
@@ -181,7 +181,7 @@
     </plurals>
     <string name="notification_monitoring_weather">Sledování počasí na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha před bouří</string>
-    <string name="storm_alerts">Výstrahy před bouřkami</string>
+    <string name="storm_alerts">Výstrahy před bouřemi</string>
     <string name="alerts">Výstrahy</string>
     <string name="pressure_reading_time_ago">před %s - %s</string>
     <string name="turn_off">Vypnout</string>
@@ -200,7 +200,7 @@
     <string name="temp_c_short">°C</string>
     <string name="no_data">Žádná data</string>
     <string name="weather_no_change">Neměnící se</string>
-    <string name="weather_storm">Bouřka</string>
+    <string name="weather_storm">Bouře</string>
     <string name="very_soon">Velmi brzy</string>
     <string name="soon">Brzy</string>
     <string name="theme_sunset_sunrise">Východ/západ</string>
@@ -212,7 +212,7 @@
     <string name="pref_show_linear_compass_summary">Když je telefon na výšku</string>
     <string name="pref_display_multi_beacons_summary">Ukazovat nejbližší maják na kompasu</string>
     <string name="pref_max_beacon_distance_title">Poloměr blízkých majáků</string>
-    <string name="pref_storm_alert_sensitivity_title">Citlivost na bouřky</string>
+    <string name="pref_storm_alert_sensitivity_title">Citlivost na bouře</string>
     <string name="pressure_48_hours">48 hodin</string>
     <string name="pref_monitor_weather_title">Monitorovat počasí</string>
     <string name="pref_show_weather_notification_title">Ukazovat oznámení počasí</string>
@@ -243,7 +243,7 @@
     <string name="navigation_nearby_category">Poblíž</string>
     <string name="guide_conserving_battery_title">Úspora baterie</string>
     <string name="guide_weather_prediction_title">Předpověď počasí</string>
-    <string name="other">Další</string>
+    <string name="other">Ostatní</string>
     <string name="category_food">Potraviny</string>
     <string name="category_hydration">Hydratace</string>
     <string name="category_fire">Oheň</string>
@@ -319,7 +319,7 @@
     <string name="export">Exportovat</string>
     <string name="help">Pomoc</string>
     <string name="category_medical">Léky</string>
-    <string name="water_boil_timer_title">Voda se vaří</string>
+    <string name="water_boil_timer_title">Vaření vody</string>
     <string name="water_boil_timer_done_title">Voda se dovařila</string>
     <string name="water_boil_timer_done_content">Vaše voda je teď pitná</string>
     <string name="tool_boil_summary">Zjistěte, kdy je voda pitná</string>
@@ -457,7 +457,7 @@
     <string name="tool_white_noise_summary">Pomáhá vám usnout</string>
     <string name="map_scale_ratio">Poměr</string>
     <string name="min_temp_uncalibrated">Minimální teplota telefonu (nekalibrovaná)</string>
-    <string name="note_title_hint">Název</string>
+    <string name="note_title_hint">Titulek</string>
     <string name="bubble_level_angles">X: %s
 \nY: %s</string>
     <string name="unit_centimeters">Centimetry</string>
@@ -874,7 +874,7 @@
     <string name="weather_monitoring_disabled">Monitorování počasí zakázáno</string>
     <string name="notification_backtrack_update_content">Zaznamenávání vaší polohy</string>
     <string name="hide">Skrýt</string>
-    <string name="show">Zobrazit</string>
+    <string name="show">Ukázat</string>
     <string name="notification_weather_update_content">Zaznamenávání tlaku</string>
     <string name="notification_backtrack_update_title">Aktualizace zpětné navigace</string>
     <string name="pref_show_nearest_tide_title">Zobrazit nejbližší příliv/odliv</string>
@@ -938,7 +938,7 @@
     <string name="view">Zobrazit</string>
     <string name="pref_flashlight_timeout_title">Vypnout po</string>
     <string name="pressure_tendency">Tendence</string>
-    <string name="onboarding_explore">- Určeno pro pěší turistiku, turistiku s batohem, kempování a geocaching.
+    <string name="onboarding_explore">- Určeno pro turistiku pěší, s batohem, kempování a geocaching.
 \n
 \n- Umístěte majáky a navigujte k nim
 \n
@@ -1063,12 +1063,12 @@
     <string name="solar_eclipse">Zatmění Slunce</string>
     <string name="hot">Horko</string>
     <string name="obscuration">Zastínění</string>
-    <string name="astronomy_altitude_peak">Horní výška</string>
+    <string name="astronomy_altitude_peak">Špičková výška</string>
     <string name="weather_alert_storm_description">Připravte se na prudký vítr a silné srážky.</string>
     <string name="tool_climate_summary">Zobrazit historické teploty</string>
     <string name="start_time">Start</string>
     <string name="end_time">Konec</string>
-    <string name="peak_time">Vrchol</string>
+    <string name="peak_time">Špička</string>
     <string name="magnitude">Velikost</string>
     <string name="weather_alert_hot_description">Připravte se na vysoké teploty. Dodržujte zvláštní opatření proti vyčerpání z horka a úpalu.</string>
     <string name="calibrate_map_point">Kalibrovat se známými lokalitami (%d / %d)</string>
@@ -1122,4 +1122,15 @@
     <string name="compass_source_legacy_android">Zastaralý (Android)</string>
     <string name="map_file">Soubor (JPG, PNG, PDF)</string>
     <string name="data_source">Zdroj: %s</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Oříznutí mapy sníží rozlišení. Pokud potřebujete oříznout mapu ve vysokém rozlišení, použijte program na úpravu obrázků. Tuto chybu plánujeme v budoucnu vyřešit.</string>
+    <string name="crop_map_instructions_long">Posuňte rohy výběru na obrysy mapy.</string>
+    <string name="map_auto_rotated">Otáčení mapy upraveno kalibrací</string>
+    <string name="times">Časy</string>
+    <string name="rate">Četnost</string>
+    <string name="horizon">Horizont</string>
+    <string name="weather_thunderstorm">Bouřka</string>
+    <string name="astronomy_direction_peak">Špičkový směr</string>
+    <string name="map_calibration_instructions">Klepněte na známou pozici na mapě a poté zadejte její skutečné souřadnice. Kalibraci můžete uložit klepnutím na tlačítko „Hotovo“.
+\n
+\nPříklady dobrých bodů kalibrace: parkoviště, bod značení, orientační bod nebo křižovatka podél stezky.</string>
 </resources>
