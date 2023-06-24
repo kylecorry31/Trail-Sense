@@ -1,58 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/map_name"
-        android:layout_width="0dp"
+    <com.kylecorry.ceres.toolbar.CeresToolbar
+        android:id="@+id/map_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@id/recenter_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Map Name" />
-
-    <ImageButton
-        android:id="@+id/recenter_btn"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:alpha="0.86"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/menu"
-        app:tint="?android:textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@id/map_name"
-        app:layout_constraintEnd_toStartOf="@id/menu_btn"
-        app:layout_constraintTop_toTopOf="@id/map_name"
-        app:srcCompat="@drawable/ic_recenter" />
-
-    <ImageButton
-        android:id="@+id/menu_btn"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:alpha="0.86"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/menu"
-        app:tint="?android:textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@id/map_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/map_name"
-        app:srcCompat="@drawable/ic_menu_dots" />
+        app:flattenButtons="true"
+        app:leftButtonIcon="@drawable/ic_recenter"
+        app:rightButtonIcon="@drawable/ic_menu_dots"
+        app:showSubtitle="false"
+        tools:title="Map Name" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map_fragment"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/map_name" />
+        android:layout_weight="1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

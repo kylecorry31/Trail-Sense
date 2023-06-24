@@ -1306,6 +1306,7 @@
     <string name="reduce_map_resolution_crop_disclaimer">Cropping the map will still reduce resolution. If you need to crop the map at a high resolution, please use a photo editor app. There are plans to fix this in the future.</string>
     <string name="reduce_map_resolution_crop_disclaimer_shown" translatable="false">reduce_map_resolution_crop_disclaimer_shown</string>
     <string name="crop_map_instructions_long">Drag the corners of the box to the corners of the map to outline.</string>
+    <string name="rotation_amount">Rotation: %s</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

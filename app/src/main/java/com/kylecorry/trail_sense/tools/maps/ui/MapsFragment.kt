@@ -19,7 +19,6 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -37,7 +36,6 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val mapService by lazy { MapService.getInstance(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
     private var map: PhotoMap? = null
@@ -60,17 +58,17 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recenterBtn.isVisible = false
+        binding.mapTitle.leftButton.isVisible = false
 
         inBackground {
             loadMap()
         }
 
-        binding.recenterBtn.setOnClickListener {
+        binding.mapTitle.leftButton.setOnClickListener {
             recenter()
         }
 
-        binding.menuBtn.setOnClickListener {
+        binding.mapTitle.rightButton.setOnClickListener {
             val fragment = currentFragment
             val isMapView = fragment != null && fragment is ViewMapFragment
 
@@ -112,14 +110,23 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun calibrate() {
-        binding.recenterBtn.isVisible = true
-        val fragment = MapCalibrationFragment.create(mapId) {
+        binding.mapTitle.leftButton.isVisible = true
+        val fragment = MapCalibrationFragment.create(mapId, this::showRotation) {
             inBackground {
                 autoRotate()
                 loadMap()
             }
         }
         setFragment(fragment)
+    }
+
+    private fun showRotation(rotation: Float) {
+        binding.mapTitle.subtitle.isVisible = true
+        binding.mapTitle.subtitle.text = getString(R.string.rotation_amount, formatter.formatDegrees(rotation))
+    }
+
+    private fun hideRotation(){
+        binding.mapTitle.subtitle.isVisible = false
     }
 
     private fun delete() {
@@ -163,7 +170,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                 mapRepo.getMap(it.id)?.let { updated ->
                     RenameMapCommand(requireContext(), mapService).execute(updated)
                     map = mapRepo.getMap(updated.id)
-                    binding.mapName.text = map?.name
+                    binding.mapTitle.title.text = map?.name
                 }
             }
         }
@@ -223,7 +230,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        binding.mapName.text = map.name
+        binding.mapTitle.title.text = map.name
         when {
             !map.calibration.warped -> warp()
             !map.isCalibrated -> calibrate()
@@ -232,10 +239,11 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun warp() {
+        hideRotation()
         val fragment = WarpMapFragment().apply {
             arguments = bundleOf("mapId" to mapId)
         }.also {
-            binding.recenterBtn.isVisible = false
+            binding.mapTitle.leftButton.isVisible = false
             it.setOnCompleteListener {
                 inBackground {
                     loadMap()
@@ -270,7 +278,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
 
     private fun view() {
-        binding.recenterBtn.isVisible = true
+        hideRotation()
+        binding.mapTitle.leftButton.isVisible = true
         val fragment = ViewMapFragment.create(mapId)
         setFragment(fragment)
     }

@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -22,6 +23,7 @@ import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.calibration.MapRotationCalculator
 
 class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
@@ -33,6 +35,8 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private var calibrationIndex = 0
     private var maxPoints = 2
     private var onDone: () -> Unit = {}
+    private var showRotation: (Float) -> Unit = {}
+    private val rotationCalculator = MapRotationCalculator()
 
     private lateinit var backCallback: OnBackPressedCallback
 
@@ -121,6 +125,10 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         onDone = listener
     }
 
+    fun setOnRotationListener(listener: (Float) -> Unit) {
+        showRotation = listener
+    }
+
     fun reloadMap() {
         inBackground {
             map = mapRepo.getMap(mapId)
@@ -142,9 +150,21 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
                 calibrationPoints = manager.getCalibration(false)
             )
         )
-        binding.calibrationMap.showMap(map!!)
+        val map = map ?: return
+        binding.calibrationMap.showMap(map)
         binding.calibrationMap.highlightedIndex = calibrationIndex
         updateCompletionState()
+        updateRotation()
+    }
+
+    private fun updateRotation() {
+        val map = map ?: return
+        val rotation = if (map.isCalibrated) {
+            rotationCalculator.calculate(map)
+        } else {
+            map.baseRotation().toFloat()
+        }
+        showRotation(SolMath.deltaAngle(map.baseRotation().toFloat(), rotation))
     }
 
 
@@ -178,7 +198,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         updateCompletionState()
     }
 
-    private fun updateCompletionState(){
+    private fun updateCompletionState() {
         // If it is calibrated, replace the info icon with a green checkmark
         if (manager.isCalibrated(calibrationIndex)) {
             binding.mapCalibrationTitle.setCompoundDrawables(
@@ -216,9 +236,14 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     }
 
     companion object {
-        fun create(mapId: Long, onComplete: () -> Unit = {}): MapCalibrationFragment {
+        fun create(
+            mapId: Long,
+            showRotation: (rotation: Float) -> Unit = {},
+            onComplete: () -> Unit = {}
+        ): MapCalibrationFragment {
             return MapCalibrationFragment().apply {
                 arguments = bundleOf("mapId" to mapId)
+                setOnRotationListener(showRotation)
                 setOnCompleteListener(onComplete)
             }
         }
