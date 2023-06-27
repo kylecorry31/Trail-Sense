@@ -120,13 +120,13 @@
     <string name="settings">Nastavení</string>
     <string name="weather">Počasí</string>
     <string name="pref_altimeter_calibration_title">Výškoměr</string>
-    <string name="pref_ruler_calibration_summary">"Jak kalibrovat:
+    <string name="pref_ruler_calibration_summary">"Postup kalibrace:
 \n
 \n-  Nastavte tuto hodnotu na 1.
 \n
-\n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce hmotného pravítka.
+\n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce fyzického pravítka.
 \n
-\n- Zadejte naměřenou hodnotu zde."</string>
+\n- Zadejte sem naměřenou hodnotu."</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
     <string name="sunset_alerts">Upozornění na západ slunce</string>
     <string name="waxing_crescent">Dorůstající srpek</string>
@@ -1069,7 +1069,7 @@
     <string name="start_time">Start</string>
     <string name="end_time">Konec</string>
     <string name="peak_time">Špička</string>
-    <string name="magnitude">Velikost</string>
+    <string name="magnitude">Rozsah</string>
     <string name="weather_alert_hot_description">Připravte se na vysoké teploty. Dodržujte zvláštní opatření proti vyčerpání z horka a úpalu.</string>
     <string name="calibrate_map_point">Kalibrovat se známými lokalitami (%1$d / %2$d)</string>
     <string name="source">Zdroj</string>

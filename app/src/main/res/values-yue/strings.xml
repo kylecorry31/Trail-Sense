@@ -724,7 +724,7 @@
     <string name="lightning_dangerously_close">閃電殺到埋身喇</string>
     <string name="average_speed_pedometer">平均速度 (步程計)</string>
     <string name="sun_moon_position_template">### %1$s
-\n**海拔**：%2$s
+\n**仰角**：%2$s
 \n
 \n**方位角**：%3$s</string>
     <string name="tap_sun_moon_hint">撳一下日月有得睇位置詳細</string>
@@ -787,4 +787,11 @@
 \n    %3$s 枚衛星
 \n
 \n羅經：將部機打 8 字或朝四方八面兜轉，同時遠離金屬。"</string>
+    <string name="map_file">檔案 (JPG、PNG、PDF)</string>
+    <string name="peak_time">高峰</string>
+    <string name="tool_clinometer_summary">估計雪崩風險同埋物件嘅高度</string>
+    <string name="astronomy_direction_peak">高峰方位</string>
+    <string name="cliff_height_guide">估計懸崖高度</string>
+    <string name="units_psi">每平方吋磅</string>
+    <string name="astronomy_altitude_peak">高峰仰角</string>
 </resources>
