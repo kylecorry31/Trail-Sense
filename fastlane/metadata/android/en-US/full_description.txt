@@ -24,3 +24,4 @@
 
 <p>Privacy policy: https://kylecorry.com/Trail-Sense/#privacy</p>
 <p>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</p>
+<p>Trail Sense is available under the MIT License: https://opensource.org/license/mit/</p>

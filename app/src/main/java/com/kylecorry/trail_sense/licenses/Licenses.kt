@@ -441,7 +441,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."""
    $modifications"""
     }
 
-    private fun mit(year: String, owner: String): String {
+    fun mit(year: String, owner: String): String {
         return """The MIT License (MIT)
 
 Copyright (c) $year $owner
