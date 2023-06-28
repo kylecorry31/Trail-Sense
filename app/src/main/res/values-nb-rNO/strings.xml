@@ -1044,4 +1044,9 @@
     <string name="data_source">Kilde: %s</string>
     <string name="horizon">Horisont</string>
     <string name="astronomy_set">Nedgang</string>
+    <string name="rotation_amount">Rotasjon: %s</string>
+    <string name="illumination">Opplyst</string>
+    <string name="map_auto_rotated">Kartrotasjon justert med kalibrering</string>
+    <string name="season">Årstid</string>
+    <string name="rate">Rate</string>
 </resources>
