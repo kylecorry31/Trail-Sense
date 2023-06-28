@@ -1134,4 +1134,6 @@
     <string name="photo_map_summary">Використовувати світлину як мапу</string>
     <string name="reduce_map_resolution_crop_disclaimer">Обрізання мапи призведе до зменшення роздільної здатності. Якщо вам потрібно обрізати мапу з високою роздільною здатністю, скористайтеся застосунком для редагування зображень. У майбутньому це планується виправити.</string>
     <string name="crop_map_instructions_long">Перетягніть кути рамки до кутів мапи, щоб створити контур.</string>
+    <string name="rotation_amount">Обертання: %s</string>
+    <string name="i_agree">Я згоден</string>
 </resources>
