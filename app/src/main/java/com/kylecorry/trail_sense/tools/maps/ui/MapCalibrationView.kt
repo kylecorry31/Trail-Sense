@@ -5,21 +5,13 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
-import kotlin.math.max
-import kotlin.math.min
 
-class MapCalibrationView : EnhancedImageView {
+class MapCalibrationView : BasePhotoMapView {
 
     var onMapClick: ((percent: PercentCoordinate) -> Unit)? = null
-    private var map: PhotoMap? = null
-    private val layerScale: Float
-        get() = min(1f, max(scale, 0.9f))
 
     var highlightedIndex: Int = 0
         set(value) {
@@ -35,20 +27,14 @@ class MapCalibrationView : EnhancedImageView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
-    override fun setup() {
-        super.setup()
-        setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-    }
-
     override fun postDraw() {
         super.postDraw()
         drawCalibrationPoints()
     }
 
-    fun showMap(map: PhotoMap) {
-        this.map = map
-        // TODO: Record the calibration points against the original width / height - allowing the rotation to be the base rotation
-        setImage(map.filename, map.baseRotation().toFloat())
+    override fun showMap(map: PhotoMap) {
+        // TODO: Maybe force rotation to remain the same?
+        super.showMap(map.copy(calibration = map.calibration.copy(rotation = map.baseRotation().toFloat())))
     }
 
     override fun onSinglePress(e: MotionEvent) {

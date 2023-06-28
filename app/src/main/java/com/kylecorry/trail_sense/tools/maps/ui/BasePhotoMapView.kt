@@ -21,7 +21,7 @@ import kotlin.math.min
 
 abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
-    private var map: PhotoMap? = null
+    protected var map: PhotoMap? = null
     private var projection: IMapProjection? = null
     private var fullMetersPerPixel = 1f
     protected val layers = mutableListOf<ILayer>()
@@ -155,7 +155,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         layers.forEach { it.draw(drawer, this) }
     }
 
-    fun showMap(map: PhotoMap) {
+    open fun showMap(map: PhotoMap) {
         this.map = map
         val rotation = map.calibration.rotation
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
