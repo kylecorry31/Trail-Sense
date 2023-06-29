@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.settings.ui
 import android.os.Bundle
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PrivacySettingsFragment : AndromedaPreferenceFragment() {
 
@@ -36,7 +36,7 @@ class PrivacySettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun isLocationMocked(): Boolean {
-        return !prefs.useAutoLocation || !Permissions.canGetFineLocation(requireContext())
+        return !prefs.useAutoLocation || !SensorService(requireContext()).hasLocationPermission()
     }
 
 }

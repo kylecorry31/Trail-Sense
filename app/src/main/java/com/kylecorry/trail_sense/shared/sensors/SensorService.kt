@@ -85,7 +85,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    private fun hasLocationPermission(background: Boolean): Boolean {
+    fun hasLocationPermission(background: Boolean = false): Boolean {
         return if (background) {
             Permissions.isBackgroundLocationEnabled(context)
         } else {

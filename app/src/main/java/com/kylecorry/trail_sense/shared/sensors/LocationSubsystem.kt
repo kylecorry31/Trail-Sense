@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -12,8 +11,8 @@ import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
+import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
@@ -21,6 +20,7 @@ import java.time.Instant
 
 class LocationSubsystem private constructor(private val context: Context) {
 
+    private val sensorService by lazy { SensorService(context) }
     private val gpsCache by lazy { CachedGPS(context) }
     private val gpsOverride by lazy { OverrideGPS(context) }
     private val altimeterCache by lazy { CachedAltimeter(context) }
@@ -88,7 +88,7 @@ class LocationSubsystem private constructor(private val context: Context) {
         val usesOverride = mode == UserPreferences.AltimeterMode.Override
         val usesGPS =
             mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.GPS
-        if (usesOverride || (usesGPS && !Permissions.canGetFineLocation(context))) {
+        if (usesOverride || (usesGPS && !sensorService.hasLocationPermission())) {
             return true
         }
 
@@ -96,7 +96,7 @@ class LocationSubsystem private constructor(private val context: Context) {
     }
 
     private fun isGPSOverridden(): Boolean {
-        if (!userPrefs.useAutoLocation || !Permissions.canGetFineLocation(context)) {
+        if (!userPrefs.useAutoLocation || !sensorService.hasLocationPermission()) {
             return true
         }
 

@@ -5,7 +5,6 @@ import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -21,23 +20,24 @@ class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     override fun scan(): List<DiagnosticCode> {
         val issues = mutableListOf<DiagnosticCode>()
         val prefs = UserPreferences(context)
+        val sensorService = SensorService(context)
 
-        if (!Permissions.canGetFineLocation(context)) {
+        if (!sensorService.hasLocationPermission()) {
             issues.add(DiagnosticCode.LocationNoPermission)
         }
 
-        if (!Permissions.isBackgroundLocationEnabled(context)) {
+        if (!sensorService.hasLocationPermission(true)) {
             issues.add(DiagnosticCode.BackgroundLocationNoPermission)
         }
 
-        if (!prefs.useAutoLocation || !Permissions.canGetFineLocation(context)) {
+        if (!prefs.useAutoLocation || !sensorService.hasLocationPermission()) {
             issues.add(DiagnosticCode.LocationOverridden)
             if (prefs.locationOverride == Coordinate.zero) {
                 issues.add(DiagnosticCode.LocationUnset)
             }
         }
 
-        if (Permissions.canGetFineLocation(context) && !GPS.isAvailable(context)) {
+        if (sensorService.hasLocationPermission() && !GPS.isAvailable(context)) {
             issues.add(DiagnosticCode.GPSUnavailable)
         }
 

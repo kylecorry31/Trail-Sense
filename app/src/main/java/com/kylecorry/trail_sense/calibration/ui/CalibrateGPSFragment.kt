@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -150,12 +149,12 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun isAutoGPSPreferenceEnabled(): Boolean {
         // Only disable when GPS permission is denied
-        return Permissions.canGetFineLocation(requireContext())
+        return sensorService.hasLocationPermission()
     }
 
     private fun shouldUseCachedGPS(): Boolean {
         // Permission is granted, but GPS is disabled
-        return Permissions.canGetFineLocation(requireContext()) && !GPS.isAvailable(requireContext())
+        return sensorService.hasLocationPermission() && !GPS.isAvailable(requireContext())
     }
 
     private fun shouldUseRealGPS(): Boolean {
