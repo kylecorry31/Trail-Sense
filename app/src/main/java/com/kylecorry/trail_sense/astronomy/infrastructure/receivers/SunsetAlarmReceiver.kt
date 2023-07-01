@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.shared.UserPreferences
 

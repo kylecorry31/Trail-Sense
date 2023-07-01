@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.content.Context
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
-import com.kylecorry.andromeda.jobs.IntervalWorker
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.background.IntervalWorker
+import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.BatteryLogCommand
 import java.time.Duration
 

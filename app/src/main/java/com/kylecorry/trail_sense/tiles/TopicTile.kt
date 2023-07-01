@@ -5,7 +5,7 @@ import android.service.quicksettings.Tile
 import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.services.AndromedaTileService
+import com.kylecorry.andromeda.background.services.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FeatureState
 
 @RequiresApi(Build.VERSION_CODES.N)

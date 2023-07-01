@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService

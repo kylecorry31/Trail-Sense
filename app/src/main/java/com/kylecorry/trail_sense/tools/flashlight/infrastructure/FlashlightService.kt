@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.AndromedaService
+import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

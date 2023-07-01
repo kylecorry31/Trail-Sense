@@ -5,9 +5,9 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.IOneTimeTaskScheduler
-import com.kylecorry.andromeda.jobs.IntervalWorker
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
+import com.kylecorry.andromeda.background.IntervalWorker
+import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R

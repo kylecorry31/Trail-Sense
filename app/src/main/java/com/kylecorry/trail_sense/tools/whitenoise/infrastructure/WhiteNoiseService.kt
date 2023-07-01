@@ -1,19 +1,19 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
-import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import com.kylecorry.andromeda.background.services.AndromedaService
+import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.time.Instant
 
-class WhiteNoiseService : ForegroundService() {
+class WhiteNoiseService : AndromedaService() {
 
     private var whiteNoise: ISoundPlayer? = null
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
@@ -22,8 +22,9 @@ class WhiteNoiseService : ForegroundService() {
         stopSelf()
     }
 
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
-        acquireWakelock("WhiteNoiseService")
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
+        acquireWakelock()
         isRunning = true
         val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
         if (stopAt != null && Instant.now() < stopAt) {
@@ -35,8 +36,8 @@ class WhiteNoiseService : ForegroundService() {
         return START_STICKY_COMPATIBILITY
     }
 
-    override fun getForegroundNotification(): Notification {
-        return Notify.persistent(
+    override fun getForegroundInfo(): ForegroundInfo {
+        val notification = Notify.persistent(
             this,
             NOTIFICATION_CHANNEL_ID,
             getString(R.string.tool_white_noise_title),
@@ -45,18 +46,16 @@ class WhiteNoiseService : ForegroundService() {
             intent = WhiteNoiseOffReceiver.pendingIntent(this),
             showForegroundImmediate = true
         )
+        return ForegroundInfo(NOTIFICATION_ID, notification)
     }
 
-    override val foregroundNotificationId: Int
-        get() = NOTIFICATION_ID
-
     override fun onDestroy() {
+        releaseWakelock()
         offTimer.stop()
         isRunning = false
         whiteNoise?.fadeOff(true)
         stopService(true)
         clearSleepTimer(this)
-        // super.onDestroy will release the wakelock
         super.onDestroy()
     }
 

@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.shared.database
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.IPeriodicTaskScheduler
-import com.kylecorry.andromeda.jobs.PeriodicTaskSchedulerFactory
+import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
+import com.kylecorry.andromeda.background.PeriodicTaskSchedulerFactory
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo

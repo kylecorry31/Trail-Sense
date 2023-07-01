@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.CoroutineService
+import com.kylecorry.andromeda.background.services.CoroutineService
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate

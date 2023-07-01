@@ -3,11 +3,12 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.background.services.AndromedaService
+import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
-import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
@@ -20,7 +21,7 @@ import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class StepCounterService : ForegroundService() {
+class StepCounterService : AndromedaService() {
 
     private val pedometer by lazy { Pedometer(this, SensorService.ENVIRONMENT_SENSOR_DELAY) }
     private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(this).preferences) }
@@ -32,13 +33,14 @@ class StepCounterService : ForegroundService() {
 
     private var lastSteps = -1
 
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
         pedometer.start(this::onPedometer)
         return START_STICKY_COMPATIBILITY
     }
 
-    override fun getForegroundNotification(): Notification {
-        return getNotification()
+    override fun getForegroundInfo(): ForegroundInfo? {
+        return ForegroundInfo(NOTIFICATION_ID, getNotification())
     }
 
     private fun onPedometer(): Boolean {
@@ -62,8 +64,6 @@ class StepCounterService : ForegroundService() {
         stopService(true)
         super.onDestroy()
     }
-
-    override val foregroundNotificationId: Int = NOTIFICATION_ID
 
     private fun getNotification(): Notification {
         val steps = counter.steps

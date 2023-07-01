@@ -91,12 +91,12 @@ dependencies {
     implementation("com.github.kylecorry31:sol:afb5dddd29")
 
     // Andromeda
-    val andromedaVersion = "7a1b206d15"
+    val andromedaVersion = "3db277b866"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:csv:$andromedaVersion")
-    implementation("com.github.kylecorry31.andromeda:jobs:$andromedaVersion")
+    implementation("com.github.kylecorry31.andromeda:background:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:location:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:camera:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:gpx:$andromedaVersion")
@@ -105,7 +105,6 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:signal:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:preferences:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:permissions:$andromedaVersion")
-    implementation("com.github.kylecorry31.andromeda:services:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:canvas:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:files:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:notify:$andromedaVersion")

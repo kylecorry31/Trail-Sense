@@ -3,22 +3,21 @@ package com.kylecorry.trail_sense.main
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.background.services.AndromedaService
+import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
 import com.kylecorry.trail_sense.receivers.StopAllReceiver
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 
-class BackgroundWorkerService : ForegroundService() {
-    override val foregroundNotificationId: Int
-        get() = NOTIFICATION_ID
+class BackgroundWorkerService : AndromedaService() {
 
-    override fun getForegroundNotification(): Notification {
-        return createNotification(applicationContext)
+    override fun getForegroundInfo(): ForegroundInfo? {
+        return ForegroundInfo(NOTIFICATION_ID, createNotification(applicationContext))
     }
 
     private val timer = Timer {
@@ -26,7 +25,7 @@ class BackgroundWorkerService : ForegroundService() {
         if (contents != null) {
             Notify.send(
                 applicationContext,
-                foregroundNotificationId,
+                NOTIFICATION_ID,
                 createNotification(this, contents)
             )
         } else {
@@ -34,7 +33,8 @@ class BackgroundWorkerService : ForegroundService() {
         }
     }
 
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
         timer.once(1000)
         return START_STICKY
     }

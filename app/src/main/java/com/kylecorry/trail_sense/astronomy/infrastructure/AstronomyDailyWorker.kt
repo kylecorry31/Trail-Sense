@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 
 import android.content.Context
 import androidx.work.WorkerParameters
-import com.kylecorry.andromeda.jobs.DailyWorker
-import com.kylecorry.andromeda.jobs.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.background.DailyWorker
+import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

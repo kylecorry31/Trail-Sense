@@ -4,15 +4,16 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
+import com.kylecorry.andromeda.background.services.AndromedaService
+import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.ForegroundService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import kotlin.math.roundToInt
 
-class WaterPurificationTimerService : ForegroundService() {
+class WaterPurificationTimerService : AndromedaService() {
 
     private var timer: CountDownTimer? = null
     private var done = false
@@ -36,7 +37,9 @@ class WaterPurificationTimerService : ForegroundService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
-        return super.onStartCommand(intent, flags, startId)
+        super.onStartCommand(intent, flags, startId)
+        startTimer(seconds)
+        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {
@@ -49,18 +52,9 @@ class WaterPurificationTimerService : ForegroundService() {
 
     }
 
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
-        startTimer(seconds)
-        return START_NOT_STICKY
+    override fun getForegroundInfo(): ForegroundInfo {
+        return ForegroundInfo(NOTIFICATION_ID, getNotification(seconds.toInt()))
     }
-
-    override val foregroundNotificationId: Int
-        get() = NOTIFICATION_ID
-
-    override fun getForegroundNotification(): Notification {
-        return getNotification(seconds.toInt())
-    }
-
 
     private fun startTimer(seconds: Long) {
         timer = object : CountDownTimer(seconds * ONE_SECOND, ONE_SECOND) {
