@@ -111,16 +111,19 @@
             android:exported="false"
             android:foregroundServiceType="location" />
 
+        <!-- TODO: Replace this or make it use the "location" foreground service type -->
         <service
             android:name=".main.BackgroundWorkerService"
             android:enabled="true"
             android:exported="false" />
 
+        <!-- TODO: Make this "health" foreground service type -->
         <service
             android:name=".tools.pedometer.infrastructure.StepCounterService"
             android:enabled="true"
             android:exported="false" />
 
+        <!-- TODO: Remove this if possible -->
         <service
             android:name="androidx.work.impl.foreground.SystemForegroundService"
             android:foregroundServiceType="location"
@@ -139,7 +142,8 @@
             android:icon="@drawable/ic_tool_backtrack"
             android:label="@string/backtrack"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -152,7 +156,8 @@
             android:icon="@drawable/cloud"
             android:label="@string/weather_monitor"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -165,7 +170,8 @@
             android:icon="@drawable/steps"
             android:label="@string/pedometer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
