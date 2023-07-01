@@ -97,8 +97,7 @@
         <service
             android:name=".astronomy.infrastructure.SunsetAlarmService"
             android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location" />
+            android:exported="false" />
 
         <service
             android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService"
