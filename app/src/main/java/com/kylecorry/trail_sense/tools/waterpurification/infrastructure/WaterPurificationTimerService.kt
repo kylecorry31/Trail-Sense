@@ -6,13 +6,13 @@ import android.content.Intent
 import android.os.CountDownTimer
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.services.ForegroundService
+import com.kylecorry.andromeda.services.AndromedaService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import kotlin.math.roundToInt
 
-class WaterPurificationTimerService : ForegroundService() {
+class WaterPurificationTimerService : AndromedaService() {
 
     private var timer: CountDownTimer? = null
     private var done = false
@@ -36,7 +36,9 @@ class WaterPurificationTimerService : ForegroundService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
-        return super.onStartCommand(intent, flags, startId)
+        Notify.send(this, NOTIFICATION_ID, getNotification(seconds.toInt()))
+        startTimer(seconds)
+        return START_STICKY_COMPATIBILITY
     }
 
     override fun onDestroy() {
@@ -44,23 +46,9 @@ class WaterPurificationTimerService : ForegroundService() {
         if (!done) {
             Notify.cancel(this, NOTIFICATION_ID)
         }
-        stopService(false)
         super.onDestroy()
 
     }
-
-    override fun onServiceStarted(intent: Intent?, flags: Int, startId: Int): Int {
-        startTimer(seconds)
-        return START_NOT_STICKY
-    }
-
-    override val foregroundNotificationId: Int
-        get() = NOTIFICATION_ID
-
-    override fun getForegroundNotification(): Notification {
-        return getNotification(seconds.toInt())
-    }
-
 
     private fun startTimer(seconds: Long) {
         timer = object : CountDownTimer(seconds * ONE_SECOND, ONE_SECOND) {
@@ -85,7 +73,6 @@ class WaterPurificationTimerService : ForegroundService() {
                 )
                 Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
                 done = true
-                stopService(false)
             }
 
         }.start()
@@ -117,14 +104,14 @@ class WaterPurificationTimerService : ForegroundService() {
         private const val KEY_SECONDS = "seconds"
         private const val DEFAULT_SECONDS = 60L
 
-        fun intent(context: Context, seconds: Long = DEFAULT_SECONDS): Intent {
+        private fun intent(context: Context, seconds: Long = DEFAULT_SECONDS): Intent {
             val i = Intent(context, WaterPurificationTimerService::class.java)
             i.putExtra(KEY_SECONDS, seconds)
             return i
         }
 
         fun start(context: Context, seconds: Long) {
-            Intents.startService(context, intent(context, seconds), true)
+            Intents.startService(context, intent(context, seconds))
         }
 
         fun stop(context: Context) {
