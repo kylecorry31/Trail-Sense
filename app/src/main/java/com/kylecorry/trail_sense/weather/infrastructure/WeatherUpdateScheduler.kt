@@ -1,11 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
-import java.time.Duration
 
 object WeatherUpdateScheduler {
 
@@ -21,30 +17,12 @@ object WeatherUpdateScheduler {
             return
         }
 
-        AllowForegroundWorkersCommand(context).execute()
-
-        val scheduler = getScheduler(context)
-        val prefs = UserPreferences(context)
-
-        if (prefs.weather.weatherUpdateFrequency >= Duration.ofMinutes(15)) {
-            WeatherMonitorAlwaysOnService.stop(context)
-            scheduler.start()
-        } else {
-            WeatherMonitorAlwaysOnService.start(context)
-            scheduler.cancel()
-        }
+        WeatherMonitorAlwaysOnService.start(context)
     }
 
     fun stop(context: Context) {
         WeatherMonitorAlwaysOnService.stop(context)
         Notify.cancel(context, WEATHER_NOTIFICATION_ID)
-        val scheduler = getScheduler(context)
-        scheduler.cancel()
-        AllowForegroundWorkersCommand(context).execute()
-    }
-
-    private fun getScheduler(context: Context): IOneTimeTaskScheduler {
-        return WeatherUpdateWorker.scheduler(context)
     }
 
     const val WEATHER_NOTIFICATION_ID = 1

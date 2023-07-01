@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.AllowForegroundWorkersCommand
 import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
@@ -16,12 +15,11 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 object TrailSenseServiceUtils {
 
     fun restartServices(context: Context) {
-        AllowForegroundWorkersCommand(context).execute()
         startWeatherMonitoring(context)
-        startSunsetAlarm(context)
-        startAstronomyAlerts(context)
         startBacktrack(context)
         startPedometer(context)
+        startSunsetAlarm(context)
+        startAstronomyAlerts(context)
         BatteryLogWorker.scheduler(context).start()
         TileManager().setTilesEnabled(
             context,
