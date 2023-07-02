@@ -2,8 +2,8 @@
 
 > Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for entirely offline use.
 
-![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)
-![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)
+[![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)](https://github.com/kylecorry31/Trail-Sense/actions/workflows/android.yml)
+[![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
 
 Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
 
