@@ -111,23 +111,11 @@
             android:exported="false"
             android:foregroundServiceType="location" />
 
-        <!-- TODO: Replace this or make it use the "location" foreground service type -->
-        <service
-            android:name=".main.BackgroundWorkerService"
-            android:enabled="true"
-            android:exported="false" />
-
         <!-- TODO: Make this "health" foreground service type -->
         <service
             android:name=".tools.pedometer.infrastructure.StepCounterService"
             android:enabled="true"
             android:exported="false" />
-
-        <!-- TODO: Remove this if possible -->
-        <service
-            android:name="androidx.work.impl.foreground.SystemForegroundService"
-            android:foregroundServiceType="location"
-            tools:node="merge" />
 
         <service
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
