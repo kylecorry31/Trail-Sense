@@ -17,11 +17,11 @@ object WeatherUpdateScheduler {
             return
         }
 
-        WeatherMonitorAlwaysOnService.start(context)
+        WeatherMonitorService.start(context)
     }
 
     fun stop(context: Context) {
-        WeatherMonitorAlwaysOnService.stop(context)
+        WeatherMonitorService.stop(context)
         Notify.cancel(context, WEATHER_NOTIFICATION_ID)
     }
 

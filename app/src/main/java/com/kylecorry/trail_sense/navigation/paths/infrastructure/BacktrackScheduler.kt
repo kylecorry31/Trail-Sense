@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import kotlinx.coroutines.runBlocking
 
@@ -29,11 +29,11 @@ object BacktrackScheduler {
             return
         }
 
-        BacktrackAlwaysOnService.start(context)
+        BacktrackService.start(context)
     }
 
     fun stop(context: Context) {
-        BacktrackAlwaysOnService.stop(context)
+        BacktrackService.stop(context)
         Notify.cancel(context, BacktrackAlerter.NOTIFICATION_ID)
     }
 

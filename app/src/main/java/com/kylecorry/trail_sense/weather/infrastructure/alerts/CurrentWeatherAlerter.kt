@@ -125,13 +125,14 @@ class CurrentWeatherAlerter(
             )
 
             val title = context.getString(R.string.weather)
+            val subtitle = context.getString(R.string.updating_weather)
 
             return Notify.persistent(
                 context,
                 WEATHER_CHANNEL_ID,
                 title,
-                title,
-                R.drawable.ic_weather,
+                subtitle,
+                R.drawable.cloud,
                 group = NotificationChannels.GROUP_WEATHER,
                 intent = openIntent,
                 actions = listOf(stopAction),

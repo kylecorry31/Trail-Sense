@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.receivers.StopBacktrackReceiver
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 
@@ -35,7 +35,7 @@ class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
 
             return Notify.persistent(
                 context,
-                BacktrackAlwaysOnService.FOREGROUND_CHANNEL_ID,
+                BacktrackService.FOREGROUND_CHANNEL_ID,
                 context.getString(R.string.backtrack),
                 formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units), false),
                 R.drawable.ic_tool_backtrack,

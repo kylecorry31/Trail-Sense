@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
@@ -45,7 +45,7 @@ object NotificationChannels {
         // Backtrack
         Notify.createChannel(
             context,
-            BacktrackAlwaysOnService.FOREGROUND_CHANNEL_ID,
+            BacktrackService.FOREGROUND_CHANNEL_ID,
             context.getString(R.string.backtrack),
             context.getString(R.string.backtrack_notification_channel_description),
             Notify.CHANNEL_IMPORTANCE_LOW,

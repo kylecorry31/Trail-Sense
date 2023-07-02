@@ -100,13 +100,13 @@
             android:exported="false" />
 
         <service
-            android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackAlwaysOnService"
+            android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
 
         <service
-            android:name=".weather.infrastructure.WeatherMonitorAlwaysOnService"
+            android:name=".weather.infrastructure.WeatherMonitorService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />

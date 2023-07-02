@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.Backtr
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 
-class BacktrackAlwaysOnService : IntervalService(wakelockDuration = Duration.ofSeconds(30)) {
+class BacktrackService : IntervalService(wakelockDuration = Duration.ofSeconds(30)) {
     private val prefs by lazy { UserPreferences(applicationContext) }
 
     private val backtrackCommand by lazy {
@@ -60,7 +60,10 @@ class BacktrackAlwaysOnService : IntervalService(wakelockDuration = Duration.ofS
         }
 
         fun scheduler(context: Context): IAlwaysOnTaskScheduler {
-            return TaskSchedulerFactory(context).alwaysOn(BacktrackAlwaysOnService::class.java)
+            return TaskSchedulerFactory(context).alwaysOn(
+                BacktrackService::class.java,
+                foreground = true
+            )
         }
 
     }

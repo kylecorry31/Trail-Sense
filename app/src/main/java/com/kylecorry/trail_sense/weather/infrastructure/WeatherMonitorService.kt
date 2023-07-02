@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAle
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 
-class WeatherMonitorAlwaysOnService : IntervalService(wakelockDuration = Duration.ofSeconds(30)) {
+class WeatherMonitorService : IntervalService(wakelockDuration = Duration.ofSeconds(30)) {
 
     private val prefs by lazy { UserPreferences(applicationContext) }
 
@@ -46,7 +46,10 @@ class WeatherMonitorAlwaysOnService : IntervalService(wakelockDuration = Duratio
         }
 
         fun scheduler(context: Context): IAlwaysOnTaskScheduler {
-            return TaskSchedulerFactory(context).alwaysOn(WeatherMonitorAlwaysOnService::class.java)
+            return TaskSchedulerFactory(context).alwaysOn(
+                WeatherMonitorService::class.java,
+                foreground = true
+            )
         }
 
     }
