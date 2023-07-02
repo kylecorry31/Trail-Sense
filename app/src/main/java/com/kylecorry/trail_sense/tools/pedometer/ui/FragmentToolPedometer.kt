@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
@@ -23,7 +24,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -69,7 +69,11 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             when (pedometer.state.getOrNull()) {
                 FeatureState.On -> pedometer.disable()
                 FeatureState.Off -> startStepCounter()
-                else -> {}
+                else -> {
+                    if (pedometer.isDisabledDueToPermissions()){
+                        startStepCounter()
+                    }
+                }
             }
         }
 

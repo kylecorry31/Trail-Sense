@@ -113,6 +113,10 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
         }
     }
 
+    fun isDisabledDueToPermissions(): Boolean {
+        return !Permissions.canRecognizeActivity(context) && !prefs.isLowPowerModeOn
+    }
+
     private fun isDisabled(): Boolean {
         val hasPermission = Permissions.canRecognizeActivity(context)
         return !Sensors.hasSensor(
