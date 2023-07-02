@@ -35,6 +35,7 @@ class StepCounterService : AndromedaService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
+        isRunning = true
         pedometer.start(this::onPedometer)
         return START_STICKY_COMPATIBILITY
     }
@@ -60,6 +61,7 @@ class StepCounterService : AndromedaService() {
     }
 
     override fun onDestroy() {
+        isRunning = false
         pedometer.stop(this::onPedometer)
         stopService(true)
         super.onDestroy()
@@ -93,6 +95,9 @@ class StepCounterService : AndromedaService() {
         const val CHANNEL_ID = "pedometer"
         const val NOTIFICATION_ID = 1279812
 
+        var isRunning = false
+            private set
+
         fun intent(context: Context): Intent {
             return Intent(context, StepCounterService::class.java)
         }
@@ -101,8 +106,8 @@ class StepCounterService : AndromedaService() {
             context.stopService(intent(context))
         }
 
-        fun isOn(context: Context): Boolean {
-            return Notify.isActive(context, NOTIFICATION_ID)
+        fun isOn(): Boolean {
+            return isRunning
         }
 
         fun start(context: Context) {
@@ -114,7 +119,7 @@ class StepCounterService : AndromedaService() {
                 return
             }
 
-            if (isOn(context)) {
+            if (isOn()) {
                 return
             }
 

@@ -43,6 +43,7 @@ import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.volumeactions.VolumeAction
@@ -291,6 +292,12 @@ class MainActivity : AndromedaActivity() {
         if (excluded.contains(navController.currentDestination?.id)) {
             return false
         }
+
+        // If the white noise service is running, don't override the volume buttons so the user can adjust the volume
+        if (WhiteNoiseService.isRunning){
+            return false
+        }
+
         return true
     }
 

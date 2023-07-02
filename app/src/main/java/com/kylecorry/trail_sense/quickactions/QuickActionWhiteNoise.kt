@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.quickactions
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.time.Timer
-import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
@@ -17,7 +16,7 @@ class QuickActionWhiteNoise(btn: ImageButton, fragment: Fragment) :
     }
 
     private fun isOn(): Boolean {
-        return Notify.isActive(context, WhiteNoiseService.NOTIFICATION_ID)
+        return WhiteNoiseService.isRunning
     }
 
     override fun onCreate() {
