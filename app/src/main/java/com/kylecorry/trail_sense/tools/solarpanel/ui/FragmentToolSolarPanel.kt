@@ -33,7 +33,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
 
     private val solarPanelService = SolarPanelService()
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS(false) }
+    private val gps by lazy { sensorService.getGPS() }
     private val compass by lazy { sensorService.getCompass() }
     private val orientation by lazy { GravityOrientationSensor(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }

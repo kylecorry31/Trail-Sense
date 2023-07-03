@@ -14,7 +14,7 @@ class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IGPS>(
         context,
         lifecycleOwner,
-        SensorService(context).getGPS(false)
+        SensorService(context).getGPS()
     ) {
 
     override fun scan(): List<DiagnosticCode> {

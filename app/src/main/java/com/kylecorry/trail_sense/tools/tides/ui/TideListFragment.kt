@@ -30,7 +30,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS(false) }
+    private val gps by lazy { sensorService.getGPS() }
     private val mapper by lazy { TideTableListItemMapper(requireContext(), this::onTideTableAction) }
     private val tideTypeCommand by lazy { CurrentTideTypeCommand(TideService()) }
 

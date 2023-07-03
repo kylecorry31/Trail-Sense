@@ -58,7 +58,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         sensorService = SensorService(requireContext())
 
         compass = sensorService.getCompass()
-        gps = sensorService.getGPS(false)
+        gps = sensorService.getGPS()
         bindPreferences()
     }
 

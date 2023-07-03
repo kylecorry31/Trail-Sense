@@ -60,7 +60,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     }
 
     private val gps by lazy {
-        SensorService(requireContext()).getGPS(false)
+        SensorService(requireContext()).getGPS()
     }
 
     private val gpxService by lazy {

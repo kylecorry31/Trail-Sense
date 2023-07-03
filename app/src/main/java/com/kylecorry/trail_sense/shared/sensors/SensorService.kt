@@ -58,15 +58,15 @@ class SensorService(ctx: Context) {
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
-    fun getGPS(background: Boolean = false, frequency: Duration = Duration.ofMillis(20)): IGPS {
+    fun getGPS(frequency: Duration = Duration.ofMillis(20)): IGPS {
 
-        val hasForegroundPermission = hasLocationPermission(false)
+        val hasPermission = hasLocationPermission()
 
-        if (!userPrefs.useAutoLocation || !hasForegroundPermission) {
+        if (!userPrefs.useAutoLocation || !hasPermission) {
             return OverrideGPS(context, frequency.toMillis())
         }
 
-        if (hasLocationPermission(background) && GPS.isAvailable(context)) {
+        if (GPS.isAvailable(context)) {
             return CustomGPS(context, frequency)
         }
 
@@ -104,7 +104,7 @@ class SensorService(ctx: Context) {
     fun getSpeedometer(gps: IGPS? = null): ISpeedometer {
         return when (userPrefs.navigation.speedometerMode) {
             NavigationPreferences.SpeedometerMode.Backtrack -> BacktrackSpeedometer(context)
-            NavigationPreferences.SpeedometerMode.GPS -> gps ?: getGPS(false)
+            NavigationPreferences.SpeedometerMode.GPS -> gps ?: getGPS()
             NavigationPreferences.SpeedometerMode.CurrentPace -> CurrentPaceSpeedometer(
                 getPedometer(), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
             )
@@ -127,7 +127,7 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            return gps ?: getGPS(background)
+            return gps ?: getGPS()
         }
     }
 
@@ -167,7 +167,7 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val gps = gps ?: getGPS(background)
+            val gps = gps ?: getGPS()
 
             return if (mode == UserPreferences.AltimeterMode.GPSBarometer && Sensors.hasBarometer(
                     context

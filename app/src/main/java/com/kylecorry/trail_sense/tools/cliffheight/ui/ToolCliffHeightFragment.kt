@@ -29,7 +29,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val gps by lazy { SensorService(requireContext()).getGPS(false) }
+    private val gps by lazy { SensorService(requireContext()).getGPS() }
 
     private lateinit var units: DistanceUnits
     private var startTime: Instant? = null

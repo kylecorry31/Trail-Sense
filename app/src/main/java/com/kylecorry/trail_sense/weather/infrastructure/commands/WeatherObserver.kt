@@ -23,7 +23,7 @@ internal class WeatherObserver(
     private val altimeter by lazy { sensorService.getAltimeter(background, preferGPS = true) }
     private val altimeterAsGPS by lazy { sensorService.getGPSFromAltimeter(altimeter) }
     private val gps: IGPS by lazy {
-        altimeterAsGPS ?: sensorService.getGPS(background)
+        altimeterAsGPS ?: sensorService.getGPS()
     }
     private val barometer by lazy { sensorService.getBarometer() }
     private val thermometer by lazy { sensorService.getThermometer() }

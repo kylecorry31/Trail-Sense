@@ -16,7 +16,7 @@ class TideLoaderFactory {
         val strategy = if (prefs.showNearestTide) {
             FallbackTideSelectionStrategy(
                 LastTideSelectionStrategy(prefs, true),
-                NearestTideSelectionStrategy(SensorService(context).getGPS(false))
+                NearestTideSelectionStrategy(SensorService(context).getGPS())
             )
         } else {
             LastTideSelectionStrategy(prefs, false)
