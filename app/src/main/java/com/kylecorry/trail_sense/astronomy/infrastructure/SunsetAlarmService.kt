@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.background.services.CoroutineService
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
@@ -14,17 +14,15 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmR
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.withTimeoutOrNull
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class SunsetAlarmService : CoroutineService() {
 
-    private val gps by lazy { SensorService(this).getGPS(true) }
+    private val location by lazy { LocationSubsystem.getInstance(this) }
     private val userPrefs by lazy { UserPreferences(this) }
     private val astronomyService = AstronomyService()
 
@@ -32,21 +30,9 @@ class SunsetAlarmService : CoroutineService() {
         acquireWakelock(TAG, Duration.ofSeconds(30))
         Log.i(TAG, "Started")
 
-        try {
-            onIO {
-                withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
-                    if (!gps.hasValidReading) {
-                        gps.read()
-                    }
-                }
-            }
-        } finally {
-            gps.stop(null)
-        }
-
         val now = LocalDateTime.now()
 
-        if (gps.location == Coordinate.zero) {
+        if (location.location == Coordinate.zero) {
             setAlarm(now.plusDays(1))
             stopSelf()
             return
@@ -58,12 +44,12 @@ class SunsetAlarmService : CoroutineService() {
 
         val todaySunset =
             astronomyService.getTodaySunTimes(
-                gps.location,
+                location.location,
                 SunTimesMode.Actual
             ).set?.toLocalDateTime()
         val tomorrowSunset =
             astronomyService.getTomorrowSunTimes(
-                gps.location,
+                location.location,
                 SunTimesMode.Actual
             ).set?.toLocalDateTime()
 

@@ -12,8 +12,6 @@ import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
@@ -21,8 +19,6 @@ import java.time.Instant
 class LocationSubsystem private constructor(private val context: Context) {
 
     private val sensorService by lazy { SensorService(context) }
-    private val gpsCache by lazy { CachedGPS(context) }
-    private val gpsOverride by lazy { OverrideGPS(context) }
     private val altimeterCache by lazy { CachedAltimeter(context) }
     private val altimeterOverride by lazy { OverrideAltimeter(context) }
     private val weather by lazy { WeatherSubsystem.getInstance(context) }
@@ -32,7 +28,7 @@ class LocationSubsystem private constructor(private val context: Context) {
     private val maxElevationFilterHistoryDuration = maxElevationHistoryDuration.plusHours(6)
 
     val location: Coordinate
-        get() = if (isGPSOverridden()) gpsOverride.location else gpsCache.location
+        get() = sensorService.getGPS().location
 
     val elevation: Distance
         get() = Distance.meters(if (isAltimeterOverridden()) altimeterOverride.altitude else altimeterCache.altitude)
