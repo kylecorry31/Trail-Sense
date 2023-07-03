@@ -265,7 +265,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         WeatherUpdateScheduler.stop(context)
     }
 
-    override suspend fun updateWeather(background: Boolean) {
+    override suspend fun updateWeather() {
         updateWeatherMutex.withLock {
             val last = weatherRepo.getLast()?.time
             val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
@@ -276,7 +276,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 return
             }
 
-            MonitorWeatherCommand.create(context, background).execute()
+            MonitorWeatherCommand.create(context).execute()
         }
     }
 

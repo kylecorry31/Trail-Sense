@@ -28,7 +28,7 @@ class WeatherMonitorService : IntervalService(wakelockDuration = Duration.ofSeco
         get() = prefs.weather.weatherUpdateFrequency
 
     override suspend fun doWork() {
-        WeatherSubsystem.getInstance(applicationContext).updateWeather(true)
+        WeatherSubsystem.getInstance(applicationContext).updateWeather()
     }
 
     override fun onDestroy() {

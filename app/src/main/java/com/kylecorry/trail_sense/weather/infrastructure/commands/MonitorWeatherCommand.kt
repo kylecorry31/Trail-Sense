@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.database.IReadingRepo
-import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.IWeatherSubsystem
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
@@ -34,10 +34,10 @@ internal class MonitorWeatherCommand(
     }
 
     companion object {
-        fun create(context: Context, background: Boolean): MonitorWeatherCommand {
+        fun create(context: Context): MonitorWeatherCommand {
             return MonitorWeatherCommand(
                 WeatherRepo.getInstance(context),
-                WeatherObserver(context, background, Duration.ofSeconds(10)),
+                WeatherObserver(context, Duration.ofSeconds(10)),
                 WeatherSubsystem.getInstance(context),
                 SendWeatherAlertsCommand(context)
             )

@@ -24,7 +24,7 @@ class WeatherLogger(
         scope.launch {
             runner.joinPreviousOrRun {
                 onMain { loadingIndicator.show() }
-                weather.updateWeather(false)
+                weather.updateWeather()
                 onMain { loadingIndicator.hide() }
             }
         }

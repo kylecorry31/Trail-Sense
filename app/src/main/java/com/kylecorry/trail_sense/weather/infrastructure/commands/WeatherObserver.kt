@@ -15,12 +15,11 @@ import java.time.Instant
 
 internal class WeatherObserver(
     private val context: Context,
-    private val background: Boolean = true,
     private val timeout: Duration = Duration.ofSeconds(10)
 ) : IWeatherObserver {
 
     private val sensorService by lazy { SensorService(context) }
-    private val altimeter by lazy { sensorService.getAltimeter(background, preferGPS = true) }
+    private val altimeter by lazy { sensorService.getAltimeter(preferGPS = true) }
     private val altimeterAsGPS by lazy { sensorService.getGPSFromAltimeter(altimeter) }
     private val gps: IGPS by lazy {
         altimeterAsGPS ?: sensorService.getGPS()

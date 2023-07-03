@@ -62,5 +62,5 @@ interface IWeatherSubsystem {
     // Weather monitor
     fun enableMonitor()
     fun disableMonitor()
-    suspend fun updateWeather(background: Boolean)
+    suspend fun updateWeather()
 }
