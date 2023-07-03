@@ -62,7 +62,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             val backtrack = BacktrackSubsystem.getInstance(requireContext())
             if (prefs.backtrackEnabled) {
                 backtrack.enable(true)
-                RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
+                RequestRemoveBatteryRestrictionCommand(this).execute()
             } else {
                 backtrack.disable()
             }

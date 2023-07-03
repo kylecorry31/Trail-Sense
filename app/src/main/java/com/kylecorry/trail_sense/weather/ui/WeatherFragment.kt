@@ -138,7 +138,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 FeatureState.On -> weatherSubsystem.disableMonitor()
                 FeatureState.Off -> {
                     weatherSubsystem.enableMonitor()
-                    RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
+                    RequestRemoveBatteryRestrictionCommand(this).execute()
                 }
                 null -> {}
             }

@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
+import com.kylecorry.trail_sense.shared.views.PlayBarView
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
@@ -288,9 +289,14 @@ object CustomUiUtils {
         action: String? = null,
         onAction: () -> Unit = {}
     ): Snackbar {
+
+        val playBar = fragment.view?.findViewWithTag<PlayBarView>(fragment.getString(R.string.tag_play_bar))
+
+        val id = playBar?.id ?: R.id.bottom_navigation
+
         return Alerts.snackbar(
             fragment,
-            R.id.bottom_navigation,
+            id,
             text,
             duration,
             action,

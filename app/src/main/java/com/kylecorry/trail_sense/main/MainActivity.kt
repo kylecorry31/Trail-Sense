@@ -137,9 +137,12 @@ class MainActivity : AndromedaActivity() {
         ComposedCommand(
             ShowDisclaimerCommand(this),
             PowerSavingModeAlertCommand(this),
-            RequestRemoveBatteryRestrictionCommand(this),
             RestartServicesCommand(this),
         ).execute()
+
+        getFragment()?.let {
+            RequestRemoveBatteryRestrictionCommand(it).execute()
+        }
 
         if (!Sensors.hasBarometer(this)) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)

@@ -12,24 +12,42 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
 import com.kylecorry.trail_sense.navigation.paths.domain.IPath
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
-import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.*
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.ClosestPathSortStrategy
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.LongestPathSortStrategy
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.MostRecentPathSortStrategy
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.NamePathSortStrategy
+import com.kylecorry.trail_sense.navigation.paths.domain.pathsort.ShortestPathSortStrategy
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
-import com.kylecorry.trail_sense.navigation.paths.ui.commands.*
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangeBacktrackFrequencyCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.CreatePathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.CreatePathGroupCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.DeletePathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.DeletePathGroupGroupCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ExportPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ImportPathsCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.KeepPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.MergePathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.MoveIPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.RenamePathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.RenamePathGroupGroupCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.SimplifyPathCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.TogglePathVisibilityCommand
+import com.kylecorry.trail_sense.navigation.paths.ui.commands.ViewPathCommand
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.bind
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
@@ -122,7 +140,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 FeatureState.On -> backtrack.disable()
                 FeatureState.Off -> {
                     backtrack.enable(true)
-                    RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
+                    RequestRemoveBatteryRestrictionCommand(this).execute()
                 }
                 FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
             }

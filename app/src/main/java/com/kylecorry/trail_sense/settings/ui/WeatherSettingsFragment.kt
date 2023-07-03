@@ -79,7 +79,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
-                RequestRemoveBatteryRestrictionCommand(requireContext()).execute()
+                RequestRemoveBatteryRestrictionCommand(this).execute()
             } else {
                 WeatherUpdateScheduler.stop(requireContext())
             }

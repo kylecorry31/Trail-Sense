@@ -42,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:tag="@string/tag_play_bar"
         app:playBarIcon="@drawable/ic_weather"
         app:playBarTitle="@string/weather_monitor" />
 
