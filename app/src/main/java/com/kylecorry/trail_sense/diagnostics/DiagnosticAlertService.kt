@@ -116,10 +116,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.CameraNoPermission -> listOf(navigation, sightingCompass)
             DiagnosticCode.LocationNoPermission -> locationAffectedTools
             DiagnosticCode.BackgroundLocationNoPermission -> listOf(
-                backtrack,
-                astronomy,
-                speedometer,
-                pedometer
+                astronomy
             )
             DiagnosticCode.PedometerNoPermission -> listOf(pedometer)
             DiagnosticCode.BarometerPoor -> listOf(weather)

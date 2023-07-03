@@ -117,7 +117,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    private fun getGPSAltimeter(background: Boolean = false, gps: IGPS? = null): IAltimeter {
+    private fun getGPSAltimeter(gps: IGPS? = null): IAltimeter {
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
@@ -132,7 +132,6 @@ class SensorService(ctx: Context) {
     }
 
     fun getAltimeter(
-        background: Boolean = false,
         preferGPS: Boolean = false,
         gps: IGPS? = null
     ): IAltimeter {
@@ -140,7 +139,7 @@ class SensorService(ctx: Context) {
             return CachingAltimeterWrapper(
                 context,
                 GaussianAltimeterWrapper(
-                    getGPSAltimeter(background, gps),
+                    getGPSAltimeter(gps),
                     userPrefs.altimeterSamples
                 )
             )
@@ -238,8 +237,8 @@ class SensorService(ctx: Context) {
         return NullHygrometer()
     }
 
-    fun getCellSignal(background: Boolean = false): ICellSignalSensor {
-        if (!hasLocationPermission(background)) {
+    fun getCellSignal(): ICellSignalSensor {
+        if (!hasLocationPermission()) {
             return NullCellSignalSensor()
         }
         return CellSignalSensor(context, userPrefs.cellSignal.populateCache)
