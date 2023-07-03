@@ -91,14 +91,6 @@ class LocationSubsystem private constructor(private val context: Context) {
         return false
     }
 
-    private fun isGPSOverridden(): Boolean {
-        if (!userPrefs.useAutoLocation || !sensorService.hasLocationPermission()) {
-            return true
-        }
-
-        return false
-    }
-
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: LocationSubsystem? = null
