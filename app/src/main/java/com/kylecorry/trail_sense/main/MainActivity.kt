@@ -35,7 +35,6 @@ import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
-import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -139,10 +138,6 @@ class MainActivity : AndromedaActivity() {
             PowerSavingModeAlertCommand(this),
             RestartServicesCommand(this),
         ).execute()
-
-        getFragment()?.let {
-            RequestRemoveBatteryRestrictionCommand(it).execute()
-        }
 
         if (!Sensors.hasBarometer(this)) {
             val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)

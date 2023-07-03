@@ -64,6 +64,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -390,6 +391,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.linearCompass.setOnClickListener {
             toggleDestinationBearing()
         }
+
+        // Calling this here since it is the first place the user goes to after the app starts
+        RequestRemoveBatteryRestrictionCommand(this).execute()
 
         scheduleUpdates(INTERVAL_60_FPS)
     }

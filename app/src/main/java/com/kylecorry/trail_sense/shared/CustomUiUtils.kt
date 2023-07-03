@@ -292,11 +292,11 @@ object CustomUiUtils {
 
         val playBar = fragment.view?.findViewWithTag<PlayBarView>(fragment.getString(R.string.tag_play_bar))
 
-        val id = playBar?.id ?: R.id.bottom_navigation
+        val view = playBar ?: fragment.requireActivity().findViewById(R.id.bottom_navigation)
 
         return Alerts.snackbar(
             fragment,
-            id,
+            view,
             text,
             duration,
             action,
