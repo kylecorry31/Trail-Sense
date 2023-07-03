@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
-import com.kylecorry.trail_sense.shared.alerts.SnackbarLoadingIndicator
+import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.extensions.onIO
@@ -73,11 +73,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private var weather: CurrentWeather? = null
     private val loadingIndicator by lazy {
         ResettableLoadingIndicator(
-            SnackbarLoadingIndicator(
-                this,
-                binding.weatherPlayBar,
-                getString(R.string.updating_weather)
-            )
+            ViewLoadingIndicator(binding.weatherUpdating)
         )
     }
 

@@ -37,6 +37,22 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1" />
 
+    <TextView
+        android:id="@+id/weather_updating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:text="@string/updating_weather"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:visibility="gone"
+        app:drawableSize="12dp"
+        app:drawableStartCompat="@drawable/ic_update"
+        app:drawableTint="?android:textColorSecondary"
+        tools:visibility="visible" />
+
     <com.kylecorry.trail_sense.shared.views.PlayBarView
         android:id="@+id/weather_play_bar"
         android:layout_width="match_parent"
