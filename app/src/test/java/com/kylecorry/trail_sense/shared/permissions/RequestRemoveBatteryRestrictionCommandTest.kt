@@ -24,6 +24,7 @@ internal class RequestRemoveBatteryRestrictionCommandTest {
     fun setup() {
         // Mock fragment
         val fragment = mock<Fragment>()
+        whenever(fragment.requireContext()).thenReturn(mock())
         flag = mock()
         alerter = mock()
         isRequired = mock()
