@@ -5,8 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.kylecorry.andromeda.background.services.CoroutineService
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.sol.science.astronomy.SunTimesMode
-import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -18,7 +17,7 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import java.time.Duration
 import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 class SunsetAlarmService : CoroutineService() {
 
@@ -26,11 +25,14 @@ class SunsetAlarmService : CoroutineService() {
     private val userPrefs by lazy { UserPreferences(this) }
     private val astronomyService = AstronomyService()
 
+    // The window centered around the alert time that the alert can be sent
+    private val alertWindow = Duration.ofMinutes(20)
+
     override suspend fun doWork() {
         acquireWakelock(TAG, Duration.ofSeconds(30))
         Log.i(TAG, "Started")
 
-        val now = LocalDateTime.now()
+        val now = ZonedDateTime.now()
 
         if (location.location == Coordinate.zero) {
             setAlarm(now.plusDays(1))
@@ -38,47 +40,43 @@ class SunsetAlarmService : CoroutineService() {
             return
         }
 
-        val alertMinutes = userPrefs.astronomy.sunsetAlertMinutesBefore
-        val nextAlertMinutes = alertMinutes - 1
+        val alertDuration = Duration.ofMinutes(userPrefs.astronomy.sunsetAlertMinutesBefore)
+        val suntimesMode = userPrefs.astronomy.sunTimesMode
 
 
-        val todaySunset =
-            astronomyService.getTodaySunTimes(
-                location.location,
-                SunTimesMode.Actual
-            ).set?.toLocalDateTime()
+        val todaySunset = astronomyService.getTodaySunTimes(location.location, suntimesMode).set
+
         val tomorrowSunset =
-            astronomyService.getTomorrowSunTimes(
-                location.location,
-                SunTimesMode.Actual
-            ).set?.toLocalDateTime()
+            astronomyService.getTomorrowSunTimes(location.location, suntimesMode).set
 
         onMain {
             if (todaySunset != null) {
                 when {
-                    withinAlertWindow(todaySunset, alertMinutes) -> {
+                    isPastSunset(todaySunset) -> {
+                        // Missed the sunset, schedule the alarm for tomorrow
+                        setAlarm(
+                            tomorrowSunset?.minus(alertDuration)
+                                ?: todaySunset.plusDays(1)
+                        )
+                    }
+
+                    withinAlertWindow(todaySunset, alertDuration) -> {
                         // Send alert, schedule alarm for tomorrow's sunset or else at some point tomorrow
                         sendNotification(todaySunset)
                         setAlarm(
-                            tomorrowSunset?.minusMinutes(nextAlertMinutes)
+                            tomorrowSunset?.minus(alertDuration)
                                 ?: todaySunset.plusDays(1)
                         )
                     }
-                    isPastSunset(todaySunset) -> {
-                        // Missed the sunset, schedule the alarm for tomorrow or else at some point tomorrow
-                        setAlarm(
-                            tomorrowSunset?.minusMinutes(nextAlertMinutes)
-                                ?: todaySunset.plusDays(1)
-                        )
-                    }
+
                     else -> { // Before the alert window
                         // Schedule alarm for sunset
-                        setAlarm(todaySunset.minusMinutes(nextAlertMinutes))
+                        setAlarm(todaySunset.minus(alertDuration))
                     }
                 }
             } else {
-                // There isn't a sunset today, schedule it for tomorrow's sunset or else the same time tomorrow
-                setAlarm(tomorrowSunset?.minusMinutes(nextAlertMinutes) ?: now.plusDays(1))
+                // There isn't a sunset today, schedule it for tomorrow
+                setAlarm(tomorrowSunset?.minus(alertDuration) ?: now.plusDays(1))
             }
 
             stopSelf()
@@ -92,19 +90,19 @@ class SunsetAlarmService : CoroutineService() {
     }
 
 
-    private fun isPastSunset(sunset: LocalDateTime): Boolean {
-        return LocalDateTime.now().isAfter(sunset)
+    private fun isPastSunset(sunset: ZonedDateTime): Boolean {
+        return ZonedDateTime.now().isAfter(sunset)
     }
 
-    private fun withinAlertWindow(sunset: LocalDateTime, alertMinutes: Long): Boolean {
-        if (isPastSunset(sunset)) {
-            return false
-        }
-        val timeUntilSunset = Duration.between(LocalDateTime.now(), sunset)
-        return timeUntilSunset <= Duration.ofMinutes(alertMinutes)
+    private fun withinAlertWindow(sunset: ZonedDateTime, alertDuration: Duration): Boolean {
+        val alertTime = sunset.minus(alertDuration)
+        val minAlertTime = alertTime.minus(alertWindow.dividedBy(2))
+        val maxAlertTime = alertTime.plus(alertWindow.dividedBy(2))
+        val alertRange = Range(minAlertTime, maxAlertTime)
+        return alertRange.contains(ZonedDateTime.now())
     }
 
-    private fun sendNotification(sunset: LocalDateTime) {
+    private fun sendNotification(sunset: ZonedDateTime) {
 
         val lastSentDate = userPrefs.astronomy.sunsetAlertLastSent
         if (LocalDate.now() == lastSentDate) {
@@ -134,10 +132,10 @@ class SunsetAlarmService : CoroutineService() {
         Notify.send(this, NOTIFICATION_ID, notification)
     }
 
-    private fun setAlarm(time: LocalDateTime) {
+    private fun setAlarm(time: ZonedDateTime) {
         val scheduler = SunsetAlarmReceiver.scheduler(this)
         scheduler.cancel()
-        scheduler.once(time.toZonedDateTime().toInstant())
+        scheduler.once(time.toInstant())
         Log.i(TAG, "Scheduled next run at $time")
     }
 
