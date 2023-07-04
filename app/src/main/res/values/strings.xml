@@ -1310,7 +1310,7 @@
     <string name="i_agree">I Agree</string>
     <string name="tag_play_bar" translatable="false">play_bar</string>
     <!--    This appears as a snackbar message when the user enables backtrack or weather monitor and has battery usage restrictions enabled.-->
-    <string name="battery_settings_limit_accuracy">Battery settings limit accuracy.</string>
+    <string name="battery_settings_limit_accuracy">Battery settings limit accuracy</string>
     <string name="learn_more">Learn more</string>
     <string name="battery_usage_allowed">Battery usage allowed</string>
 
