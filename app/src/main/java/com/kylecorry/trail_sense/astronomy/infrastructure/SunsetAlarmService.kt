@@ -25,7 +25,7 @@ class SunsetAlarmService : CoroutineService() {
     private val userPrefs by lazy { UserPreferences(this) }
     private val astronomyService = AstronomyService()
 
-    // The window centered around the alert time that the alert can be sent
+    // The window prior the alert time that the alert can be sent
     private val alertWindow = Duration.ofMinutes(20)
 
     override suspend fun doWork() {
@@ -96,9 +96,8 @@ class SunsetAlarmService : CoroutineService() {
 
     private fun withinAlertWindow(sunset: ZonedDateTime, alertDuration: Duration): Boolean {
         val alertTime = sunset.minus(alertDuration)
-        val minAlertTime = alertTime.minus(alertWindow.dividedBy(2))
-        val maxAlertTime = alertTime.plus(alertWindow.dividedBy(2))
-        val alertRange = Range(minAlertTime, maxAlertTime)
+        val minAlertTime = alertTime.minus(alertWindow)
+        val alertRange = Range(minAlertTime, sunset)
         return alertRange.contains(ZonedDateTime.now())
     }
 
