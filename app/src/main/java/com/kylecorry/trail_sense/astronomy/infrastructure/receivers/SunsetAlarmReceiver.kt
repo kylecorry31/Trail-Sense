@@ -39,7 +39,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         }
 
         fun start(context: Context) {
-            scheduler(context).start()
+            context.sendBroadcast(Intent(context, SunsetAlarmReceiver::class.java))
         }
     }
 }
