@@ -46,8 +46,8 @@ As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 - [x] Q4 2022: Cloud scanner
 - [x] Q1 2023: Improved weather forecasts
 - [ ] Q2 2023: Photo Maps
-- [ ] Q3 2023: Usability (at a glance, tutorials, data export)
-- [ ] Q4 2023: Path navigation
+- [ ] Q3-Q4 2023: Usability (at a glance, tutorials, data export)
+- [ ] Q1 2024: Path navigation
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
@@ -128,7 +128,7 @@ Only available on debug APKs / builds via Android Studio
 
 If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
 
-Issues marked with the help-wanted label are open for community contribution at any time (just submit a PR to main and I will review it), or leave a comment on the story to say you are working on it / ask for more details. Please leave a comment on any other issue before you work on them because they might not have all the details, I may not want it implemented yet, or I may have to implement it myself - for fun :)
+Issues marked with the help-wanted label are open for community contribution at any time (just submit a PR to main and I will review it), or leave a comment on the story to say you are working on it / ask for more details. Please leave a comment on any other issue before you work on them because they might not have all the details, I may not want it implemented yet, or I may have to implement it myself - for fun.
 
 If an issue has a milestone and you would like to work on it, please leave a comment before working on it or creating a pull request. If you do not have the feature completed within 4 days of when I plan to release, I will implement it.
 
@@ -166,9 +166,9 @@ The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/
 
 # Open Source Credits
 
-- Icons: [Austin Andrews](https://materialdesignicons.com/contributor/Austin-Andrews) and [Michael Irigoyen](https://materialdesignicons.com/contributor/Michael-Irigoyen)
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 - Thanks to @qwerty287 and @Portagoras for implementing several features and bugfixes
+- Please see the in app licenses for all open source licenses
 
 # License
 

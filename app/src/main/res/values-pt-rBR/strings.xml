@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Tabs-->
     <string name="navigation">Navegação</string>
     <string name="weather">Tempo</string>
@@ -391,7 +391,7 @@
     <string name="cirrocumulus_desc">Nuvens de alto nível que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
     <string name="stratocumulus_desc">Nuvens baixas que parecem uma folha de bolas de algodão com pequenas aberturas. A cor varia do branco ao cinza escuro.</string>
     <string name="stratus_desc">Uma nuvem baixa que cobre o céu. Os objetos não projetam sombras e podem ser nebulosos.</string>
-    <string name="nimbostratus_desc">Uma nuvem de nível médio que é cinza escuro e cobre o céu. Pode estar chovendo.</string>
+    <string name="nimbostratus_desc">Uma nuvem de nível médio que é cinza escuro e cobre o céu. Se não está chovendo, pode ser uma nuvem stratus.</string>
     <string name="altostratus_desc">Uma nuvem de nível médio que cobre o céu. O sol mal pode ser visto como uma mancha brilhante.</string>
     <string name="altocumulus_desc">Nuvens fofas de nível médio que parecem bolas de algodão. São tipicamente brancas com manchas mais escuras abaixo e podem ser espaçadas ou semelhantes a folhas.</string>
     <string name="cirrostratus_desc">Uma nuvem alta que cobre o céu. É transparente e normalmente causa a formação de um halo ao redor do sol.</string>
@@ -776,6 +776,7 @@
     <string name="closest">Mais próximo</string>
     <plurals name="paths_imported">
         <item quantity="one">%d caminho importado</item>
+        <item quantity="many">%d caminhos importados</item>
         <item quantity="other">%d caminhos importados</item>
     </plurals>
     <string name="most_recent">Mais recente</string>
@@ -818,6 +819,7 @@
     <string name="weather_storm">Tempestade</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d ponto do caminho excluído</item>
+        <item quantity="many">%d pontos do caminho excluídos</item>
         <item quantity="other">%d pontos do caminho excluídos</item>
     </plurals>
     <string name="reset_distance_title">Resetar a distância\?</string>
@@ -835,6 +837,7 @@
     <string name="pressure_tendency">Tendência</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d maré</item>
+        <item quantity="many">%d marés</item>
         <item quantity="other">%d marés</item>
     </plurals>
     <string name="temp_f_short">°F</string>
@@ -1050,4 +1053,37 @@
     <string name="tool_climate_summary">Ver temperaturas históricas</string>
     <string name="for_historic_temperatures">Para temperaturas históricas</string>
     <string name="weather_front">Frente meteorológica</string>
+    <string name="path_slope">Declive</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Pode indicar tempo bom nas próximas %d horas se estiver nebuloso, caso contrário, pode indicar precipitação em breve.</string>
+    <string name="pref_backfill_temperatures_title">Atualizar as temperaturas registradas</string>
+    <string name="pref_backfill_temperatures_description">Todas as temperaturas registradas serão substituídas pela temperatura histórica calibrada.</string>
+    <string name="i_agree">Eu concordo</string>
+    <string name="samples">Amostras</string>
+    <string name="sensor_summary">Bússola, GPS, altímetro, barômetro etc.</string>
+    <string name="calibrate_map_point">Calibrar com localizações conhecidas (%1$d / %2$d)</string>
+    <string name="low_pressure_system_description">Associado a mau tempo, céu nublado e temperaturas mais quentes.</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="many">%d mapas</item>
+        <item quantity="other">%d mapas</item>
+    </plurals>
+    <string name="illumination">Iluminação</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Pode indicar tempo bom. Se crescer em altura, pode indicar precipitação ou trovoadas nas próximas %d horas.</string>
+    <string name="map_auto_rotated">Rotação do mapa ajustada com calibração</string>
+    <string name="then_weather">em seguida %s</string>
+    <string name="weather_alert_hot_description">Prepare-se para altas temperaturas. Tome precauções adicionais contra exaustão de calor e insolação.</string>
+    <string name="weather_alert_cold_description">Prepare-se para temperaturas frias. Tome precauções adicionais contra hipotermia e congelamento.</string>
+    <string name="unable_to_find_next_astronomy">Incapaz de encontrar o próximo %s</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Histórico (%d anos)</string>
+    <string name="historic_temperatures">Temperaturas históricas</string>
+    <string name="tool_climate">Clima</string>
+    <string name="map_file">Arquivo (JPG, PNG, PDF)</string>
+    <string name="obscuration">Obscuração</string>
+    <string name="weather_alert_storm_description">Prepare-se para ventos fortes e precipitação pesada.</string>
+    <string name="loading">Carregando</string>
+    <string name="compass_source_mag_gyro">Magnetômetro + Giroscópio</string>
+    <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Legado (Android)</string>
+    <string name="accelerometer">Acelerômetro</string>
+    <string name="data_source">Origem: %s</string>
 </resources>
