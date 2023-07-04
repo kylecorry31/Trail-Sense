@@ -392,9 +392,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             toggleDestinationBearing()
         }
 
-        // Calling this here since it is the first place the user goes to after the app starts
-        RequestRemoveBatteryRestrictionCommand(this).execute()
-
         scheduleUpdates(INTERVAL_60_FPS)
     }
 
