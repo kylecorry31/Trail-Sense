@@ -9,7 +9,6 @@
     <string name="backtrack_battery_warning">Kısa aralıklar (15 dakikanın altında) aşırı pil tüketimine neden olabilir</string>
     <string name="battery_warning">Pil tüketimi uyarısı</string>
     <string name="backtrack_high_priority_notification">Her %s\'de ara nokta konuluyor</string>
-    <string name="updates">Güncellemeler</string>
     <string name="arrow">Ok şekli</string>
     <string name="dotted">Benekli</string>
     <string name="solid">Düz / dolu</string>
@@ -947,7 +946,6 @@
     <string name="pref_only_navigate_path_points_title">Yalnızca kayıtlı noktalara git</string>
     <string name="warning">Uyarı</string>
     <string name="error">Hata</string>
-    <string name="running_in_background">Arka planda çalış</string>
     <string name="allow_ignore_battery_restrictions_instructions">Trail Sense için pil kısıtlamalarının kaldırılması doğruluğu artırabilir.
 \n
 \nÇoğu aygıtta \'%s\' düğmesine tıklayın, ardından tüm uygulamalara geçin ve Trail Sense için pil iyileştirmesini kapatın.

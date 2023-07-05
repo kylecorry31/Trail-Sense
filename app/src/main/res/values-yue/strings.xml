@@ -281,7 +281,6 @@
     <string name="errors">錯誤</string>
     <string name="error">錯誤</string>
     <string name="warning">警告</string>
-    <string name="running_in_background">幕後執行緊</string>
     <string name="remove_battery_restrictions">係咪要移除電量限制？</string>
     <string name="exporting_map">匯出緊地圖</string>
     <string name="map_exported">匯出咗個地圖</string>
@@ -396,7 +395,6 @@
     <string name="import_gpx">匯入 GPX</string>
     <string name="map_auto_calibrated">地圖已自動校正，請查驗準繩</string>
     <string name="actual_frequency_disclaimer">一啲機幕後執行設限，故實際頻率可能有異。</string>
-    <string name="updates">更新</string>
     <string name="backtrack_high_priority_notification">每 %s 就放置一個中途點</string>
     <string name="calibrate_new_tide">係咪要校正去新嘅潮汐？</string>
     <string name="color">色水</string>

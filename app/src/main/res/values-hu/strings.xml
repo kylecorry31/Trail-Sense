@@ -282,7 +282,6 @@
 \nA legtöbb eszközön nyomd meg az \'%s\'-t, válts át minden alkalmazásra, majd kapcsold ki az akkuoptimalizálást a Trail Sense-nél.
 \n
 \nEszközspecifikus útmutatóért látogass el a [Don\'t kill my app] (https://dontkillmyapp.com/) oldalra.</string>
-    <string name="running_in_background">Fut a háttérben</string>
     <string name="kilograms_format">%s kg</string>
     <string name="on">Be</string>
     <string name="no_issues">Nem észleltünk hibát</string>
@@ -771,7 +770,6 @@
     <string name="pref_show_last_signal_beacon_title">Utolsó vételi jelzőpont</string>
     <string name="pref_show_last_signal_beacon_summary">Létrehoz egy jelzőpontot azon a helyen, ahol utoljára volt térerő</string>
     <string name="pref_default_path_color_title">Alapértelmezett ösvény szín</string>
-    <string name="updates">Frissítések</string>
     <string name="dawn_type">Hajnal (%s)</string>
     <string name="dusk_type">Alkonyat (%s)</string>
     <string name="battery_history">Akkuelőzmények - elmúlt %s</string>

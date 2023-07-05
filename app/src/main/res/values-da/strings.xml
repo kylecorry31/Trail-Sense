@@ -509,7 +509,6 @@
     <string name="pref_default_path_style_title">Standard stistil</string>
     <string name="pref_default_path_color_title">Standard stifarve</string>
     <string name="arrow">Pil</string>
-    <string name="updates">Opdateringer</string>
     <string name="backtrack_high_priority_notification">Placerer rutepunkt hver %s</string>
     <string name="tool_whistle_title">Fløjte</string>
     <string name="inventory_empty_text">Tom</string>
@@ -541,7 +540,6 @@
     <string name="us_gallons">US Gallons</string>
     <string name="share_ellipsis">Del…</string>
     <string name="average_speed">Gennemsnitsfart</string>
-    <string name="running_in_background">Kører i baggrunden</string>
     <string name="pref_email_title">Email udvikler</string>
     <string name="imperial_ounces_volume">Imperial Ounces</string>
     <string name="camera">Kamera</string>

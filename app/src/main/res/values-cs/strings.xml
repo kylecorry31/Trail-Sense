@@ -548,7 +548,6 @@
     <string name="cross">Kříž</string>
     <string name="pref_default_path_color_title">Výchozí barva cesty</string>
     <string name="error_importing_map">Chyba při importu mapy</string>
-    <string name="updates">Aktualizace</string>
     <string name="import_gpx">Import GPX</string>
     <string name="diamond">Diamant</string>
     <string name="camera_permission_denied">Povolení používání fotoaparátu bylo zamítnuto, nelze zapnout funkce, které používající fotoaparát. Můžete je povolit v nastavení.</string>
@@ -905,7 +904,6 @@
     <string name="save">Uložit</string>
     <string name="estimate_stride_length">Odhad délky kroku</string>
     <string name="warning">Varování</string>
-    <string name="running_in_background">Běží na pozadí</string>
     <string name="exporting_map">Exportuji mapu</string>
     <string name="map_exported">Mapa exportována</string>
     <string name="file">Soubor</string>

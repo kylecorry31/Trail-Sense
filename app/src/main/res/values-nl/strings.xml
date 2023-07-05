@@ -596,7 +596,6 @@
     <string name="water_boil_guide_title">Maak water veilig om te drinken</string>
     <string name="calibrate_new_tide">Kalibreren voor een nieuw tij\?</string>
     <string name="battery_warning">Waarschuwing batterij leeg</string>
-    <string name="updates">Updates</string>
     <string name="arrow">Pijl</string>
     <string name="dotted">Gestippeld</string>
     <string name="solid">Vast</string>
@@ -739,7 +738,6 @@
     <string name="tool_temperature_estimation_title">Geschatte temperatuur</string>
     <string name="explore">Verkennen</string>
     <string name="save">Opslaan</string>
-    <string name="running_in_background">In achtergrond draaiend</string>
     <string name="remove_battery_restrictions">Batterijbesparing uitschakelen\?</string>
     <string name="exporting_map">Kaart verzenden</string>
     <string name="map_exported">Kaart verzonden</string>

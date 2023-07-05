@@ -553,7 +553,6 @@
     <string name="backtrack_battery_warning">Небольшие интервалы (менее 15 минут) могут привести к чрезмерному разряду батареи</string>
     <string name="battery_warning">Предупреждение о разряде батареи</string>
     <string name="backtrack_high_priority_notification">Размещение путевой точки каждые %s</string>
-    <string name="updates">Обновления</string>
     <string name="dotted">Пунктиром</string>
     <string name="solid">Сплошной</string>
     <string name="pref_weather_show_detailed_icon_title">Показать цветной значок уведомления</string>
@@ -971,7 +970,6 @@
     <string name="bearing">Подшипник</string>
     <string name="exporting_map">Экспорт карты</string>
     <string name="map_exported">Карта экспортирована</string>
-    <string name="running_in_background">Работа в фоновом режиме</string>
     <string name="remove_battery_restrictions">Снять ограничения на использование батареи\?</string>
     <string name="allow_ignore_battery_restrictions_instructions">Снятие ограничений на использование батареи для Trail Sense может повысить точность.
 \n

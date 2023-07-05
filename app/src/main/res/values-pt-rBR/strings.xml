@@ -570,7 +570,6 @@
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
     <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) pode causar um consumo excessivo da bateria</string>
     <string name="backtrack_high_priority_notification">Colocando um ponto de caminho a cada %s</string>
-    <string name="updates">Atualizações</string>
     <string name="arrow">Seta</string>
     <string name="dotted">Pontilhada</string>
     <string name="solid">Sólido</string>
@@ -955,7 +954,6 @@
     <string name="disclaimer_estimated_tide">As marés previstas podem ser imprecisas. Por favor, use uma tabela oficial de marés para os horários exatos.</string>
     <string name="disclaimer_estimated_tide_title">Maré prevista</string>
     <string name="estimated">Previsto</string>
-    <string name="running_in_background">Executado em segundo plano</string>
     <string name="allow_ignore_battery_restrictions_instructions">A remoção de restrições de bateria para o Trail Sense pode melhorar a precisão.
 \n
 \nNa maioria dos dispositivos, clique em \'%s\', depois mude para todas as aplicações, e desligue a otimização da bateria para o Trail Sense.

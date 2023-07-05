@@ -536,7 +536,6 @@
     <string name="arrow">Flecha</string>
     <string name="pref_default_path_style_title">Estilo de ruta predeterminado</string>
     <string name="pref_default_path_color_title">Color de ruta predeterminado</string>
-    <string name="updates">Actualizaciones</string>
     <string name="backtrack_high_priority_notification">Colocando un punto de referencia cada %s</string>
     <string name="battery_warning">Advertencia de descarga de batería</string>
     <string name="calibrate_new_tide">¿Calibrar a una nueva marea\?</string>
@@ -950,7 +949,6 @@
     <string name="average_speed_backtrack">Velocidad media (Backtrack)</string>
     <string name="navigating_to_nearest_path_point">Navegando al punto más cercano de la ruta</string>
     <string name="average_speed">Velocidad media</string>
-    <string name="running_in_background">Ejecutando en segundo plano</string>
     <string name="remove_battery_restrictions">¿Eliminar limitaciones de batería\?</string>
     <string name="allow_ignore_battery_restrictions_instructions">Eliminar las restricciones de batería para Trail Sense puede mejorar la precisión.
 \n

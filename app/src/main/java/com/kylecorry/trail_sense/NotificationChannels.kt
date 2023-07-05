@@ -27,8 +27,10 @@ object NotificationChannels {
     const val GROUP_WATER = "trail_sense_water"
     const val GROUP_CLOCK = "trail_sense_clock"
 
-    const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
     const val CHANNEL_ASTRONOMY_ALERTS = "astronomy_alerts"
+
+    // Legacy (intended for deletion)
+    const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
     const val CHANNEL_BACKGROUND_LAUNCHER = "background_launcher"
 
     fun createChannels(context: Context) {
@@ -48,16 +50,6 @@ object NotificationChannels {
             BacktrackService.FOREGROUND_CHANNEL_ID,
             context.getString(R.string.backtrack),
             context.getString(R.string.backtrack_notification_channel_description),
-            Notify.CHANNEL_IMPORTANCE_LOW,
-            muteSound = true
-        )
-
-        // Background updates
-        Notify.createChannel(
-            context,
-            CHANNEL_BACKGROUND_UPDATES,
-            context.getString(R.string.updates),
-            context.getString(R.string.updates),
             Notify.CHANNEL_IMPORTANCE_LOW,
             muteSound = true
         )
@@ -95,7 +87,7 @@ object NotificationChannels {
         Notify.createChannel(
             context,
             StormAlerter.STORM_CHANNEL_ID,
-            context.getString(R.string.alerts),
+            context.getString(R.string.storm_alerts),
             context.getString(R.string.storm_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH
         )
@@ -157,16 +149,10 @@ object NotificationChannels {
             false
         )
 
-        // Background
-        Notify.createChannel(
-            context,
-            CHANNEL_BACKGROUND_LAUNCHER,
-            context.getString(R.string.running_in_background),
-            context.getString(R.string.running_in_background),
-            Notify.CHANNEL_IMPORTANCE_LOW,
-            true,
-            showBadge = false
-        )
+
+        // CHANNEL CLEANUP SECTION
+        Notify.deleteChannel(context, CHANNEL_BACKGROUND_UPDATES)
+        Notify.deleteChannel(context, CHANNEL_BACKGROUND_LAUNCHER)
     }
 
 }

@@ -680,7 +680,6 @@
     <string name="notification_weather_update_title">Værovervåkingsoppdatering</string>
     <string name="precipitation_none">Ingen nedbør</string>
     <string name="precipitation_snow">Snø</string>
-    <string name="updates">Oppdateringer</string>
     <string name="no_tides">Ingen tidevann</string>
     <string name="humidity">Luftfuktighet</string>
     <string name="no_issues">Ingen problemer oppdaget</string>
@@ -849,7 +848,6 @@
 \nPå de fleste enheter, trykk \'%s\', så skift til alle apper, og slå av batterioptimalisering for Trail Sense.
 \n
 \nBesøk [Don\'t kill my app](https://dontkillmyapp.com/) for enhetsspesifikke instruksjoner.</string>
-    <string name="running_in_background">Kjører i bakgrunn</string>
     <string name="estimated">Beregnet</string>
     <string name="view">Vis</string>
     <string name="high_tide_letter">H</string>

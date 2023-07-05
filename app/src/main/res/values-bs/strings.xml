@@ -176,7 +176,6 @@
     <string name="backtrack_battery_warning">Mali intervali (ispod 15 minuta) mogu prouzrokovati prekomjerno pražnjenje baterije</string>
     <string name="battery_warning">Upozorenje o pražnjenju baterije</string>
     <string name="backtrack_high_priority_notification">Postavljanje međutočke svakih %s</string>
-    <string name="updates">Ažuriranja</string>
     <string name="arrow">Strijelica</string>
     <string name="dotted">Tačkasta</string>
     <string name="solid">Solidna</string>
@@ -871,7 +870,6 @@
         <item quantity="other">%d plima</item>
     </plurals>
     <string name="altimeter_cache">Keš visinomjera</string>
-    <string name="running_in_background">Radi u pozadini</string>
     <string name="allow_ignore_battery_restrictions_instructions">Uklanjanje ograničenja baterije za Trail Sense može poboljšati preciznost.
 \n
 \nNa većini uređaja kliknite na \'%s\', zatim se prebacite na sve aplikacije i isključite optimizaciju baterije za Trail Sense.

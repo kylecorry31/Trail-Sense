@@ -276,7 +276,6 @@
     <string name="map_exported">מפה יוצאה</string>
     <string name="file">קובץ</string>
     <string name="exporting_map">מייצא מפה</string>
-    <string name="running_in_background">פועל ברקע</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">נקודת ציון נמחקה</item>
         <item quantity="two">%d נקודות ציון נמחקו</item>
@@ -722,7 +721,6 @@
     <string name="meteor_shower">מטר מטאורים</string>
     <string name="create_map">יצירת מפה</string>
     <string name="pref_odometer_reset_daily_title">איפוס יומי</string>
-    <string name="updates">עדכונים</string>
     <string name="previous">קודם</string>
     <string name="time_until_empty">עד לריקון</string>
     <string name="time_until_full">עד למילוי</string>

@@ -526,7 +526,6 @@
     <string name="calibrate_new_tide">Skalibrować do nowego przypływu\?</string>
     <string name="backtrack_battery_warning">Małe odstępy czasu (poniżej 15 minut) mogą powodować nadmierne rozładowanie baterii</string>
     <string name="battery_warning">Ostrzeżenie o nadmiernym rozładowaniu baterii</string>
-    <string name="updates">Aktualizacje</string>
     <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>
     <string name="search">Wyszukaj</string>
     <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
@@ -914,7 +913,6 @@
     <string name="file">Plik</string>
     <string name="exporting_map">Eksportowanie mapy</string>
     <string name="map_exported">Mapa została wyeksportowana</string>
-    <string name="running_in_background">Działanie w tle</string>
     <string name="change_resolution">Zmiana rozdzielczości</string>
     <string name="done">Gotowe</string>
     <string name="explore">Poznaj</string>

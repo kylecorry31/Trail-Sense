@@ -639,7 +639,6 @@
     <string name="arrow">Anak panah</string>
     <string name="pref_default_path_style_title">Gaya jalur standar</string>
     <string name="pref_default_path_color_title">Warna jalur standar</string>
-    <string name="updates">Pembaruan</string>
     <string name="backtrack_battery_warning">Interval kecil (di bawah 15 menit) dapat menyebabkan baterai terkuras secara berlebihan</string>
     <string name="water_boil_guide_title">Membuat air aman untuk diminum</string>
     <string name="color">Warna</string>
@@ -849,7 +848,6 @@
     <string name="saved">Tersimpan</string>
     <string name="stride_length_walk">Berjalan dalam garis lurus, tekan berhenti ketika Anda selesai</string>
     <string name="reset_distance_title">Atur ulang jarak\?</string>
-    <string name="running_in_background">Berjalan di latar belakang</string>
     <string name="tide_diurnal">Harian</string>
     <string name="path_slope_steep">Curam</string>
     <string name="done">Selesai</string>

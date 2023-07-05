@@ -6,7 +6,6 @@
     <string name="backtrack_battery_warning">Невеликі інтервали (менш як 15 хвилин) можуть призвести до надмірного розряджання батареї</string>
     <string name="battery_warning">Попередження про розряджання акумулятора</string>
     <string name="backtrack_high_priority_notification">Розміщення шляхової точки кожні %s</string>
-    <string name="updates">Оновлення</string>
     <string name="arrow">Стрілка</string>
     <string name="dotted">Крапкований</string>
     <string name="solid">Суцільний</string>
@@ -973,7 +972,6 @@
     <string name="error">Помилка</string>
     <string name="warning">Увага</string>
     <string name="remove_battery_restrictions">Зняти обмеження на акумулятор\?</string>
-    <string name="running_in_background">Запуск у тлі</string>
     <string name="allow_ignore_battery_restrictions_instructions">Зняття обмежень на заряд акумулятора для Trail Sense може підвищити точність.
 \n
 \nНа більшості пристроїв натисніть «%s», потім перецдіть на всі застосунки та вимкніть оптимізацію акумулятора для Trail Sense.

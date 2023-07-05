@@ -610,7 +610,6 @@
     <string name="no_tides">Pas de marées</string>
     <string name="search">Recherche</string>
     <string name="pref_default_path_color_title">Couleur de chemin par défaut</string>
-    <string name="updates">Mises à jour</string>
     <string name="desired_amount">Quantité désirée</string>
     <string name="clear_amounts">Effacer les quantités</string>
     <string name="electronics">Électronique</string>
@@ -922,7 +921,6 @@
     <string name="distance_alert_distance_reached">Vous avez atteint %s</string>
     <string name="reset_distance_title">Réinitialisation de la distance \?</string>
     <string name="bearing">Palier</string>
-    <string name="running_in_background">Fonctionner en arrière-plan</string>
     <string name="tide_diurnal_description">Marée haute une fois par jour - la plupart des marées ne sont pas diurnes</string>
     <string name="highest_point_elevation">Point le plus haut</string>
     <string name="updating_weather">Actualiser la météo</string>

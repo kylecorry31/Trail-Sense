@@ -713,7 +713,6 @@
     <string name="arrow">Arrow</string>
     <string name="pref_default_path_style_title">Default path style</string>
     <string name="pref_default_path_color_title">Default path color</string>
-    <string name="updates">Updates</string>
     <string name="backtrack_high_priority_notification">Placing a waypoint every %s</string>
     <string name="battery_warning">Battery drain warning</string>
     <string name="backtrack_battery_warning">Small intervals (under 15 minutes) may cause excess battery drain</string>
@@ -1137,7 +1136,6 @@
     <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>
-    <string name="running_in_background">Running in background</string>
     <!--The OK string is what is seen as a button in the dialog containing this message. Don't kill my app is the name of the website - it is formatted as a Markdown URL.-->
     <string name="allow_ignore_battery_restrictions_instructions">Removing battery restrictions for Trail Sense may improve accuracy.\n\nOn most devices, click \'%s\', then switch to all apps, and switch off battery optimization for Trail Sense.\n\nVisit [Don\'t kill my app](https://dontkillmyapp.com/) for device specific instructions.</string>
     <string name="remove_battery_restrictions">Remove battery restrictions?</string>

@@ -636,7 +636,6 @@
     <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) podem causar um consumo excessivo da bateria</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="backtrack_high_priority_notification">A adicionar um ponto de passagem a cada %s</string>
-    <string name="updates">Atualizações</string>
     <string name="arrow">Seta</string>
     <string name="dotted">Pontilhado</string>
     <string name="solid">Sólido</string>
@@ -975,7 +974,6 @@
 \n- Use o telemóvel como lanterna com várias funcionalidades
 \n
 \n- E muito mais!</string>
-    <string name="running_in_background">Execução em segundo plano</string>
     <string name="allow_ignore_battery_restrictions_instructions">A remoção de restrições de bateria para o Trail Sense pode melhorar a precisão.
 \n
 \nNa maioria dos dispositivos, clique em \'%s\', depois mude para todas as aplicações, e desligue a otimização da bateria para o Trail Sense.

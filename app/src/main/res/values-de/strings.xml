@@ -545,7 +545,6 @@
     <string name="backtrack_battery_warning">Kleine Intervalle (unter 15 Minuten) könnten hohe Batterieentladung verursachen</string>
     <string name="battery_warning">Batterieentladungswarnung</string>
     <string name="backtrack_high_priority_notification">Platziere einen Wegpunkt alle %s</string>
-    <string name="updates">Aktualisierungen</string>
     <string name="dotted">Gepunktet</string>
     <string name="time_until_full">bis voll</string>
     <string name="theme_sunset_sunrise">Sonnenaufgang/Sonnenuntergang</string>
@@ -953,7 +952,6 @@
 \nAuf den meisten Geräten, klicke „%s“, dann gehe zu allen Apps und deaktiviere Akkuoptimierung für Trail Sense.
 \n
 \nBesuche [Don\'t kill my app](https://dontkillmyapp.com/) für gerätespezifische Anleitungen.</string>
-    <string name="running_in_background">Läuft im Hintergrund</string>
     <string name="remove_battery_restrictions">Batterieoptimierung ausschalten\?</string>
     <string name="exporting_map">Exportiere Karte</string>
     <string name="map_exported">Karte exportiert</string>

@@ -487,7 +487,6 @@
         <item quantity="other">%d beacons importati</item>
     </plurals>
     <string name="create_map">Crea una mapap</string>
-    <string name="updates">Aggiornamenti</string>
     <string name="one">1</string>
     <string name="cirrus_desc">Nuvole alte e sottili che sembrano ciuffi di capelli bianchi.</string>
     <string name="tomorrow_at">Domani alle %s</string>

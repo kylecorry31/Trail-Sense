@@ -539,7 +539,6 @@
     <string name="backtrack_battery_warning">间隔时间过短(15分钟以下)可能导致电池过度消耗</string>
     <string name="battery_warning">电量即将耗完警告</string>
     <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>
-    <string name="updates">更新</string>
     <string name="dotted">点线</string>
     <string name="solid">实线</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
@@ -943,7 +942,6 @@
 \n
 \n访问 [Don\'t kill my app](https://dontkillmyapp.com/) 了解不同设备操作指南。</string>
     <string name="remove_battery_restrictions">去除电池限制？</string>
-    <string name="running_in_background">在后台运行</string>
     <string name="exporting_map">导出地图</string>
     <string name="map_exported">已导出地图</string>
     <string name="camera_capture">拍摄</string>
