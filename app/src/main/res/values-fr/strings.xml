@@ -899,9 +899,9 @@
     <string name="samples">Exemples</string>
     <string name="historic">Historique</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
-    <string name="battery_usage_restricted_benefit">La suppression des restrictions de batterie pour Trail Sense peut améliorer la précision.
+    <string name="allow_ignore_battery_restrictions_instructions">La suppression des restrictions de batterie pour Trail Sense peut améliorer la précision.
 \n
-\nSur la plupart des appareils, cliquez sur \'OK\', puis passez à toutes les applications, et désactivez l’optimisation de la batterie pour Trail Sense.
+\nSur la plupart des appareils, cliquez sur \'%s\', puis passez à toutes les applications, et désactivez l’optimisation de la batterie pour Trail Sense.
 \n
 \nVisitez [Don’t kill my app] (https://dontkillmyapp.com/) pour obtenir des instructions spécifiques à l’appareil.</string>
     <plurals name="waypoints_deleted">

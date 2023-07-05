@@ -825,9 +825,9 @@
 \n- Gebruik uw telefoon als zaklamp
 \n
 \n- En nog veel meer!</string>
-    <string name="battery_usage_restricted_benefit">Het opheffen van de batterijbeperkingen voor Trail Sense kan de nauwkeurigheid verbeteren.
+    <string name="allow_ignore_battery_restrictions_instructions">Het opheffen van de batterijbeperkingen voor Trail Sense kan de nauwkeurigheid verbeteren.
 \n
-\nKlik op de meeste apparaten op \'OK\', schakel vervolgens naar alle apps en schakel de batterijoptimalisatie voor Trail Sense uit.
+\nKlik op de meeste apparaten op \'%s\', schakel vervolgens naar alle apps en schakel de batterijoptimalisatie voor Trail Sense uit.
 \n
 \nGa naar [Don\'t kill my app](https://dontkillmyapp.com/) voor apparaatspecifieke instructies.</string>
     <string name="tide_instructions">Gebruik een officiële getijdentabel om een verwijzingskader te hebben voor de lengte van uw tocht.</string>

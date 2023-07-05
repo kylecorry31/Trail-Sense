@@ -866,9 +866,9 @@
     <string name="permission_alarms_and_reminders">Alarm dan pengingat</string>
     <string name="path_slope">Lereng</string>
     <string name="remove_distance_alert">Hapus peringatan jarak (%s)\?</string>
-    <string name="battery_usage_restricted_benefit">Menghapus pembatasan baterai untuk Trail Sense dapat meningkatkan akurasi.
+    <string name="allow_ignore_battery_restrictions_instructions">Menghapus pembatasan baterai untuk Trail Sense dapat meningkatkan akurasi.
 \n
-\nPada sebagian besar perangkat, klik \'OK\', lalu beralih ke semua aplikasi, dan matikan pengoptimalan baterai untuk Trail Sense.
+\nPada sebagian besar perangkat, klik \'%s\', lalu beralih ke semua aplikasi, dan matikan pengoptimalan baterai untuk Trail Sense.
 \n
 \nKunjungi [Don\'t kill my app](https://dontkillmyapp.com/) untuk instruksi perangkat secara spesifik.</string>
     <string name="error">Kesalahan</string>

@@ -1139,7 +1139,7 @@
     <string name="warning">Warning</string>
     <string name="running_in_background">Running in background</string>
     <!--The OK string is what is seen as a button in the dialog containing this message. Don't kill my app is the name of the website - it is formatted as a Markdown URL.-->
-    <string name="battery_usage_restricted_benefit">Removing battery restrictions for Trail Sense may improve accuracy.\n\nOn most devices, click \'OK\', then switch to all apps, and switch off battery optimization for Trail Sense.\n\nVisit [Don\'t kill my app](https://dontkillmyapp.com/) for device specific instructions.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">Removing battery restrictions for Trail Sense may improve accuracy.\n\nOn most devices, click \'%s\', then switch to all apps, and switch off battery optimization for Trail Sense.\n\nVisit [Don\'t kill my app](https://dontkillmyapp.com/) for device specific instructions.</string>
     <string name="remove_battery_restrictions">Remove battery restrictions?</string>
     <string name="exporting_map">Exporting map</string>
     <string name="map_exported">Map exported</string>
@@ -1310,9 +1310,13 @@
     <string name="i_agree">I Agree</string>
     <string name="tag_play_bar" translatable="false">play_bar</string>
     <!--    This appears as a snackbar message when the user enables backtrack or weather monitor and has battery usage restrictions enabled.-->
-    <string name="battery_settings_limit_accuracy">Battery settings limit accuracy</string>
+    <string name="battery_settings_limit_accuracy">Battery restrictions may reduce accuracy</string>
     <string name="learn_more">Learn more</string>
     <string name="battery_usage_allowed">Battery usage allowed</string>
+    <string name="allow_ignore_battery_restrictions">Allow %s to ignore battery restrictions</string>
+    <string name="allow_schedule_exact_alarms">Allow %s to set alarms and reminders</string>
+    <string name="allow_schedule_exact_alarms_instructions">This allows %1$s to set exact alarms and reminders, such as sunset alerts. Without this, alarms may not trigger at the correct time.\n\nTo allow, click ‘%2$s’ and enable the setting for allowing alarms and reminders.</string>
+    <string name="exact_alarm_permission_denied">Alarms and reminders permission denied, alerts may be inaccurate. You can enable it in settings.</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

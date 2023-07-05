@@ -872,9 +872,9 @@
     </plurals>
     <string name="altimeter_cache">Keš visinomjera</string>
     <string name="running_in_background">Radi u pozadini</string>
-    <string name="battery_usage_restricted_benefit">Uklanjanje ograničenja baterije za Trail Sense može poboljšati preciznost.
+    <string name="allow_ignore_battery_restrictions_instructions">Uklanjanje ograničenja baterije za Trail Sense može poboljšati preciznost.
 \n
-\nNa većini uređaja kliknite na \'OK\', zatim se prebacite na sve aplikacije i isključite optimizaciju baterije za Trail Sense.
+\nNa većini uređaja kliknite na \'%s\', zatim se prebacite na sve aplikacije i isključite optimizaciju baterije za Trail Sense.
 \n
 \nPosjetite [Don\'t kill my app](https://dontkillmyapp.com/) za upute za određeni uređaj.</string>
     <string name="map_export_error">Nije moguće izvesti mapu u odabranu datoteku</string>

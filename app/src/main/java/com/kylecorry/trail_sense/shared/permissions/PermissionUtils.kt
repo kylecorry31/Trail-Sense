@@ -4,10 +4,14 @@ import android.Manifest
 import android.os.Build
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.IPermissionRequester
+import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.andromeda.permissions.PermissionRationale
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
 
 fun Fragment.alertNoCameraPermission() {
@@ -26,13 +30,72 @@ fun Fragment.alertNoActivityRecognitionPermission() {
     )
 }
 
-fun <T> T.requestActivityRecognition(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T: Fragment {
+fun Fragment.alertBatteryUsageRestricted(){
+    toast(getString(R.string.battery_usage_restricted), short = false)
+}
+
+fun Fragment.alertExactAlarmsDenied(){
+    toast(getString(R.string.exact_alarm_permission_denied), short = false)
+}
+
+fun <T> T.requestActivityRecognition(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
             action(Permissions.canRecognizeActivity(requireContext()))
         }
     } else {
         action(true)
+    }
+}
+
+fun <T> T.requestIgnoreBatteryOptimizations(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
+    requestPermission(
+        SpecialPermission.IGNORE_BATTERY_OPTIMIZATIONS,
+        PermissionRationale(
+            getString(R.string.allow_ignore_battery_restrictions, getString(R.string.app_name)),
+            MarkdownService(requireContext()).toMarkdown(
+                getString(
+                    R.string.allow_ignore_battery_restrictions_instructions,
+                    getString(R.string.settings)
+                )
+            ),
+            ok = getString(R.string.settings),
+        )
+    ) {
+        val isGranted = Permissions.hasPermission(
+            requireContext(),
+            SpecialPermission.IGNORE_BATTERY_OPTIMIZATIONS
+        )
+        if (!isGranted){
+            alertBatteryUsageRestricted()
+        }
+        action(isGranted)
+    }
+}
+
+fun <T> T.requestScheduleExactAlarms(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
+    requestPermission(
+        SpecialPermission.SCHEDULE_EXACT_ALARMS,
+        PermissionRationale(
+            getString(R.string.allow_schedule_exact_alarms, getString(R.string.app_name)),
+            MarkdownService(requireContext()).toMarkdown(
+                getString(
+                    R.string.allow_schedule_exact_alarms_instructions,
+                    getString(R.string.app_name),
+                    getString(R.string.settings)
+                )
+            ),
+            ok = getString(R.string.settings),
+        )
+    ) {
+        val isGranted = Permissions.hasPermission(
+            requireContext(),
+            SpecialPermission.SCHEDULE_EXACT_ALARMS
+        )
+        if (!isGranted){
+            alertExactAlarmsDenied()
+        }
+        action(isGranted)
     }
 }
 

@@ -937,9 +937,9 @@
     <string name="diamond">菱形</string>
     <string name="error">错误</string>
     <string name="warning">警告</string>
-    <string name="battery_usage_restricted_benefit">去除对 Trail Sense 的电池限制可能会改善精度。
+    <string name="allow_ignore_battery_restrictions_instructions">去除对 Trail Sense 的电池限制可能会改善精度。
 \n
-\n在大多数设备上，单击“确定”，然后切换到所有应用程序，然后关闭 Trail Sense 的电池优化。
+\n在大多数设备上，单击“%s”，然后切换到所有应用程序，然后关闭 Trail Sense 的电池优化。
 \n
 \n访问 [Don\'t kill my app](https://dontkillmyapp.com/) 了解不同设备操作指南。</string>
     <string name="remove_battery_restrictions">去除电池限制？</string>

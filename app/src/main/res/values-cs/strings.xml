@@ -829,9 +829,9 @@
         <item quantity="other">%d cest importováno</item>
         <item quantity="many">%d cest importováno</item>
     </plurals>
-    <string name="battery_usage_restricted_benefit">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.
+    <string name="allow_ignore_battery_restrictions_instructions">Odstranění omezení baterie pro Trail Sense může zlepšit přesnost.
 \n
-\nNa většině zařízení klikněte na tlačítko OK, přepněte na všechny aplikace a vypněte optimalizaci baterie pro Trail Sense.
+\nNa většině zařízení klikněte na tlačítko %s, přepněte na všechny aplikace a vypněte optimalizaci baterie pro Trail Sense.
 \n
 \nPokyny pro konkrétní zařízení naleznete na stránce [Don\'t kill my app](https://dontkillmyapp.com/).</string>
     <string name="season_spring">Jaro</string>

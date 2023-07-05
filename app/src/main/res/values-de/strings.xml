@@ -948,9 +948,9 @@
     <string name="pref_only_navigate_path_points_title">Nur zu aufgenommenen Punkten navigieren</string>
     <string name="error">Fehler</string>
     <string name="warning">Warnung</string>
-    <string name="battery_usage_restricted_benefit">Die Akkuoptimierung für Trail Sense auszuschalten kann die Genauigkeit verbessern.
+    <string name="allow_ignore_battery_restrictions_instructions">Die Akkuoptimierung für Trail Sense auszuschalten kann die Genauigkeit verbessern.
 \n
-\nAuf den meisten Geräten, klicke „OK“, dann gehe zu allen Apps und deaktiviere Akkuoptimierung für Trail Sense.
+\nAuf den meisten Geräten, klicke „%s“, dann gehe zu allen Apps und deaktiviere Akkuoptimierung für Trail Sense.
 \n
 \nBesuche [Don\'t kill my app](https://dontkillmyapp.com/) für gerätespezifische Anleitungen.</string>
     <string name="running_in_background">Läuft im Hintergrund</string>

@@ -9,6 +9,8 @@ import androidx.annotation.StringRes
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
@@ -247,7 +249,9 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
 
     private fun alarmAndReminderAction(): Action? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            intentAction(Intents.alarmAndReminderSettings(context))
+            Action(getString(R.string.settings)) {
+                Permissions.requestPermission(context, SpecialPermission.SCHEDULE_EXACT_ALARMS)
+            }
         } else {
             null
         }

@@ -952,9 +952,9 @@
     <string name="average_speed">Velocidad media</string>
     <string name="running_in_background">Ejecutando en segundo plano</string>
     <string name="remove_battery_restrictions">¿Eliminar limitaciones de batería\?</string>
-    <string name="battery_usage_restricted_benefit">Eliminar las restricciones de batería para Trail Sense puede mejorar la precisión.
+    <string name="allow_ignore_battery_restrictions_instructions">Eliminar las restricciones de batería para Trail Sense puede mejorar la precisión.
 \n
-\nEn la mayoría de los dispositivos, haz clic en \"Aceptar\", cambia a todas las aplicaciones y desactiva la optimización de la batería para Trail Sense.
+\nEn la mayoría de los dispositivos, haz clic en \"%s\", cambia a todas las aplicaciones y desactiva la optimización de la batería para Trail Sense.
 \n
 \nVisita [Don\'t kill my app](https://dontkillmyapp.com/) para obtener instrucciones específicas para cada dispositivo.</string>
     <string name="point">Punto</string>

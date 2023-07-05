@@ -885,9 +885,9 @@
     <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="current_speed_gps">Aktuel hastighed (GPS)</string>
     <string name="error">Fejl</string>
-    <string name="battery_usage_restricted_benefit">Fjernelse af batterirestriktioner for Trail Sense kan forbedre nøjagtigheden.
+    <string name="allow_ignore_battery_restrictions_instructions">Fjernelse af batterirestriktioner for Trail Sense kan forbedre nøjagtigheden.
 \n
-\nPå de fleste enheder skal du klikke på \'OK\', derefter skifte til alle apps og slå batterioptimering fra for Trail Sense.
+\nPå de fleste enheder skal du klikke på \'%s\', derefter skifte til alle apps og slå batterioptimering fra for Trail Sense.
 \n
 \nBesøg [Don\'t kill my app](https://dontkillmyapp.com/) for enhedsspecifikke instruktioner.</string>
     <string name="tide_diurnal_description">Højvande én gang om dagen - de fleste tidevand er ikke daglige</string>
