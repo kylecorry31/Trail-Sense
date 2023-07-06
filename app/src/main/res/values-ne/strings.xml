@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">नेभिगेसन</string>
     <string name="weather">मौसम</string>
     <string name="settings">सेटिंग्स</string>
@@ -7,8 +7,6 @@
     <string name="astronomy">खगोल विज्ञान</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्यास्त</string>
-
-
     <string name="true_north">साँचो उत्तर</string>
     <string name="pref_use_sea_level_pressure_title">समुद्री सतह दबाव</string>
     <string name="general">सामान्य</string>
@@ -25,30 +23,24 @@
     <string name="pref_show_sun_moon_compass_title">कम्पासमा सूर्य /चन्द्रमा देखाउनुहोस्</string>
     <string name="pref_show_linear_compass_title">रैखिक कम्पास देखाउनुहोस्</string>
     <string name="pref_show_linear_compass_summary">जब फोन ठाडो हुन्छ</string>
-
     <plurals name="last_hours">
         <item quantity="one">अन्तिम %d घण्टा</item>
         <item quantity="other">अन्तिम %d घण्टा</item>
     </plurals>
-
     <plurals name="last_minutes">
         <item quantity="one">अन्तिम %d मिनेट</item>
         <item quantity="other">अन्तिम %d मिनेट</item>
     </plurals>
-
     <string name="feet_miles">फुट /माइल</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">हल्का</string>
     <string name="theme_dark">गाढा</string>
     <string name="theme_black">कालो</string>
     <string name="theme_system">प्रणाली</string>
-
     <string name="gps">जीपीएस</string>
-
     <string name="sun_actual">वास्तविक समय</string>
     <string name="sun_civil">नागरिक गोधूलि</string>
     <string name="sun_nautical">समुद्री गोधूलि</string>
@@ -56,10 +48,1072 @@
     <string name="today">आज</string>
     <string name="tomorrow">भोली</string>
     <string name="yesterday">हिजो</string>
-
     <string name="pressure_48_hours"> ४८ घण्टा</string>
     <string name="pressure_24_hours">२ घण्टा</string>
     <string name="pressure_12_hours">१२ घण्टा</string>
     <string name="pressure_4_hours">४ घण्टा</string>
     <string name="pref_pressure_history_title">दवाव ईतिहास</string>
+    <string name="weight">वजन</string>
+    <string name="clinometer_title">क्लिनोमिटर</string>
+    <string name="elevation">उचाइ</string>
+    <string name="difficulty">कठिनाई</string>
+    <string name="simplification_quality">सरलीकरण गुणस्तर</string>
+    <string name="slope_amount">%s ढलान</string>
+    <string name="error">त्रुटि</string>
+    <string name="sensor">सेन्सर</string>
+    <string name="reduce_map_resolution_crop_disclaimer">नक्सा क्रप गर्दा अझै पनि रिजोल्युसन कम हुनेछ। यदि तपाईंलाई उच्च रिजोल्युसनमा नक्सा क्रप गर्न आवश्यक छ भने, कृपया फोटो सम्पादक एप प्रयोग गर्नुहोस्। भविष्यमा यसलाई ठीक गर्ने योजना छ।</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d वेपोइन्ट मेटाइयो</item>
+        <item quantity="other">%d वेपोइन्टहरू मेटाइयो</item>
+    </plurals>
+    <string name="dialog_grant">सेटिङ्हरू अपडेट गर्नुहोस्</string>
+    <string name="next_24_hours">अर्को २४ घण्टा</string>
+    <string name="tool_user_guide_title">प्रयोगकर्ता गाइड</string>
+    <string name="tool_user_guide_summary">ट्रेल सेन्स प्रयोग गर्नको लागि कसरी गाइड</string>
+    <string name="satellites">उपग्रहहरू</string>
+    <string name="right_quick_action">सही छिटो कारबाही</string>
+    <string name="experimental">प्रयोगात्मक</string>
+    <string name="since_time">%s देखि</string>
+    <string name="us_ounces_volume">अमेरिकी औंस</string>
+    <string name="imperial_gallons">इम्पेरियल गैलन</string>
+    <string name="pounds">पाउन्ड</string>
+    <string name="seconds_format">%s s</string>
+    <string name="days_format">%s घ</string>
+    <string name="time">समय</string>
+    <string name="notifications_blocked">सूचनाहरू अवरुद्ध</string>
+    <string name="no_issues">कुनै समस्या पत्ता लागेन</string>
+    <string name="grant_permission">%s अनुमति दिनुहोस्</string>
+    <string name="solar_eclipses">सूर्यग्रहणहरू</string>
+    <string name="solar_eclipse_start">सूर्यग्रहण (सुरुवात)</string>
+    <string name="solar_eclipse">सूर्यग्रहण</string>
+    <string name="enable">सक्षम गर्नुहोस्</string>
+    <string name="saving">बचत गर्दै</string>
+    <string name="merge">मर्ज गर्नुहोस्</string>
+    <string name="pref_auto_simplify_paths_title">आयातमा मार्गहरू सरल बनाउनुहोस्</string>
+    <string name="gps_timeouts">GPS टाइमआउट</string>
+    <string name="qr_text_too_long">पाठ धेरै लामो छ, QR कोड काटियो</string>
+    <string name="distance_alert">दूरी सतर्कता</string>
+    <string name="now">अब</string>
+    <string name="tools">उपकरणहरू</string>
+    <string name="dash">-</string>
+    <string name="kilometers_per_hour_format">%.1f किमी/घन्टा</string>
+    <string name="location">स्थान</string>
+    <string name="convert">रूपान्तरण गर्नुहोस्</string>
+    <string name="total">कुल</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="roll_pitch_yaw">रोल: %1$s, पिच: %2$s, Yaw: %3$s</string>
+    <string name="distance">दूरी</string>
+    <string name="very_soon">धेरै चाँडै</string>
+    <string name="waxing_crescent">वेक्सिङ क्रिसेन्ट</string>
+    <string name="compass_azimuth">अजिमुथ</string>
+    <string name="battery_power_ac">AC</string>
+    <string name="pressure_format">%1$s %2$s</string>
+    <string name="precise_kilometers_format">%s किमी</string>
+    <string name="duration_hour_format">%dघन्टा</string>
+    <string name="copied_to_clipboard_toast">क्लिपबोर्डमा प्रतिलिपि गरियो</string>
+    <string name="dialog_deny">हैन धन्यवाद</string>
+    <string name="duration_minute_format">%dमि</string>
+    <string name="direction_north">एन</string>
+    <string name="notification_storm_alert_text">आँधी आउन सक्छ</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
+    <string name="no_data">डाटा छैन</string>
+    <string name="weather_storm">आँधी</string>
+    <string name="soon">चाँडै</string>
+    <string name="sunset_alert_notification_title">सूर्य छिट्टै अस्ताउँदैछ</string>
+    <string name="sunset_alerts">सूर्यास्त अलर्टहरू</string>
+    <string name="tool_clinometer_summary">हिमस्खलनको जोखिम र वस्तुहरूको उचाइ अनुमान गर्नुहोस्</string>
+    <string name="delete">मेटाउन</string>
+    <string name="edit">सम्पादन गर्नुहोस्</string>
+    <string name="category">श्रेणी</string>
+    <string name="dialog_item_amount">रकम</string>
+    <string name="pref_ruler_calibration_title">शासक स्केल</string>
+    <string name="compass_reported_accuracy">रिपोर्ट गरिएको शुद्धता: %s</string>
+    <string name="pref_weather_update_frequency_title">मौसम अपडेट आवृत्ति</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="pref_monitor_weather_summary">नेपथ्यमा</string>
+    <string name="battery_settings_limit_accuracy">ब्याट्री प्रतिबन्धहरूले सटीकता कम गर्न सक्छ</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
+    <string name="forecasts_category">पूर्वानुमान</string>
+    <string name="one">१</string>
+    <string name="three">३</string>
+    <string name="clock_sync_time_settings">समय सेटिङहरू खोल्ने हो\?</string>
+    <string name="magnetic_field_format_precise">%s uT</string>
+    <string name="pref_nmea_elevation_title">NMEA एलिभेसन अफसेटहरू</string>
+    <string name="pref_backtrack_history_days_title">ब्याकट्र्याक इतिहास</string>
+    <string name="pref_privacy_screenshot_protection_title">स्क्रिनसटहरू रोक्नुहोस्</string>
+    <string name="privacy">गोपनीयता</string>
+    <string name="location_not_mocked">वास्तविक स्थान प्रयोग गर्दै</string>
+    <string name="season_fall">पतन</string>
+    <string name="up_to_amount">%s सम्म</string>
+    <string name="precipitation_snow_grains">हिउँ अनाज</string>
+    <string name="ascent">आरोहण</string>
+    <string name="lowest_point_elevation">सबैभन्दा तल्लो बिन्दु</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">यदि कुहिरो छ भने अर्को %d घण्टाको लागि उचित मौसम संकेत गर्न सक्छ, अन्यथा यसले चाँडै वर्षाको संकेत गर्न सक्छ।</string>
+    <string name="photo_maps">फोटो नक्सा</string>
+    <string name="autofill_source">स्वत: भरण स्रोत</string>
+    <string name="save">बचत गर्नुहोस्</string>
+    <string name="current_speed_gps">हालको गति (GPS)</string>
+    <string name="high_pressure">उच्च</string>
+    <string name="low_pressure">कम</string>
+    <string name="weather_clear">खाली गर्नुहोस्</string>
+    <string name="set">सेट</string>
+    <string name="pref_auto_low_power_summary">जब तपाईको ब्याट्री कम हुन्छ</string>
+    <string name="yards_format">%s yd</string>
+    <string name="percent_packed">%s प्याक गरियो</string>
+    <string name="camera">क्यामेरा</string>
+    <string name="location_override_resolution">सेटिङहरूमा स्वत: समायोजन स्थान सक्षम गर्नुहोस्।</string>
+    <string name="path_color">बाटोको रंग</string>
+    <string name="temporary">अस्थायी</string>
+    <string name="map_projection_mercator">मर्केटर</string>
+    <string name="tide_instructions">तपाईंको यात्राको लम्बाइको लागि सन्दर्भ टाइडहरू प्रविष्ट गर्न आधिकारिक ज्वार तालिका प्रयोग गर्नुहोस्।</string>
+    <string name="sun_does_not_rise">उठ्दैन</string>
+    <string name="waning_gibbous">Waning Gibbous</string>
+    <string name="full_moon">पुर्णिमा</string>
+    <string name="waxing_gibbous">Waxing Gibbous</string>
+    <string name="lunar_noon">चन्द्रमा मध्यान्ह</string>
+    <string name="set_inclination_instructions">लक/अनलक गर्न जहाँ पनि ट्याप गर्नुहोस् वा होल्ड गर्नुहोस्</string>
+    <string name="pref_sunset_alert_time_title">सूर्यास्त चेतावनी समय</string>
+    <string name="pref_open_source_licenses_title">इजाजतपत्रहरू</string>
+    <string name="guide_weather_prediction_title">मौसम पूर्वानुमान</string>
+    <string name="strobe_warning_content">स्ट्रोब सुविधाले फ्ल्यासिङ लाइटहरू समावेश गर्दछ, जुन केही प्रयोगकर्ताहरूको लागि खतरनाक हुन सक्छ।</string>
+    <string name="update_gps_override">GPS ओभरराइड अपडेट गर्नुहोस्</string>
+    <string name="unit_centimeters_abbreviation">सेमी</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">अर्को %d घण्टाको लागि उचित मौसम संकेत गर्न सक्छ।</string>
+    <string name="unavailable">अनुपलब्ध</string>
+    <string name="low">कम</string>
+    <string name="high_tide">उच्च</string>
+    <string name="time_not_set">समय तोकिएको छैन</string>
+    <string name="preview">पूर्वावलोकन</string>
+    <string name="map_perspective_instructions">नक्साको रूपरेखा बनाउनुहोस्</string>
+    <string name="pref_cell_signal_refresh_cache_title">सिग्नल क्यास रिफ्रेस गर्नुहोस्</string>
+    <string name="base_elevation">आधार उचाइ</string>
+    <string name="imperial_pints">इम्पेरियल पिन्ट</string>
+    <string name="ounces_weight">औंस</string>
+    <string name="days">दिनहरू</string>
+    <string name="default_pack_name">पूर्वनिर्धारित प्याक</string>
+    <string name="desired_amount">इच्छित रकम</string>
+    <string name="clear_amounts">स्पष्ट मात्रा</string>
+    <string name="electronics">इलेक्ट्रोनिक्स</string>
+    <string name="documents">कागजातहरू</string>
+    <string name="pack_sort_percent_low_to_high">प्रतिशत प्याक (कम देखि उच्च)</string>
+    <string name="gps_unavailable_resolution">स्थान सक्षम गर्नुहोस् वा तपाईंको स्थान स्रोतलाई यन्त्र मात्र वा उच्च शुद्धतामा परिवर्तन गर्नुहोस्</string>
+    <string name="autofill">स्वतः भर्नुहोस्</string>
+    <string name="choose_photo">फोटो छान्नुहोस्</string>
+    <string name="path">बाटो</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">भोल्युम बटनहरूसँग लक गर्नुहोस्</string>
+    <string name="remove_battery_restrictions">ब्याट्री प्रतिबन्धहरू हटाउने हो\?</string>
+    <string name="point">बिन्दु</string>
+    <string name="frequency">आवृत्ति</string>
+    <string name="camera_unavailable">क्यामेरा उपलब्ध छैन</string>
+    <string name="manual">म्यानुअल</string>
+    <string name="weather_overcast">बादल</string>
+    <string name="hour_symbol">h</string>
+    <string name="maps">नक्सा</string>
+    <string name="beacon_invalid_name">अमान्य नाम</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="degree">%.0f°</string>
+    <string name="units_mmhg">mmHg</string>
+    <string name="units_inhg_short">मा</string>
+    <string name="update_180_minutes">3 घण्टा</string>
+    <string name="sun_up_no_set">सूर्योदय भएको छ</string>
+    <string name="new_moon">औंसी</string>
+    <string name="delete_tide_prompt">ज्वार मेट्ने हो\?</string>
+    <string name="tool_thermometer_title">थर्मोमिटर</string>
+    <string name="milliliters">मिलिलिटर</string>
+    <string name="merging">मर्ज गर्दै</string>
+    <string name="compass_accuracy">कम्पास शुद्धता</string>
+    <string name="place_beacon_at">%s मा बीकन राख्नुहोस्\?</string>
+    <string name="pref_odometer_reset_daily_title">दैनिक रिसेट गर्नुहोस्</string>
+    <string name="search">खोज्नुहोस्</string>
+    <string name="dashed">ड्यास गरिएको</string>
+    <string name="pref_default_path_style_title">पूर्वनिर्धारित मार्ग शैली</string>
+    <string name="whistle_signal_where_are_you">तिमी कंहा छौ\?</string>
+    <string name="pref_barometer_info_summary">दबाब नजिकैको स्टेशनहरु भन्दा फरक हुन सक्छ</string>
+    <string name="pref_nmea_elevation_summary">उचाइ रूपान्तरणको लागि NMEA अफसेटहरू प्रयोग गर्दछ</string>
+    <string name="delete_map_group_message">%s र यसका सबै नक्साहरू मेटिने छन्।</string>
+    <string name="beacon_create">सिर्जना गर्नुहोस्</string>
+    <string name="cliff_height_guide">चट्टानको उचाइ अनुमान गर्नुहोस्</string>
+    <string name="distance_from">बाट</string>
+    <string name="unit_miles">माइल</string>
+    <string name="unit_nautical_miles">समुद्री माइल</string>
+    <string name="tool_solar_panel_title">सौर प्यानल Aligner</string>
+    <string name="tool_clock_title">घडी</string>
+    <string name="precise_inches_format">%s इन्च</string>
+    <string name="tool_category_signaling">सिग्नलिङ</string>
+    <string name="tool_triangulate_title">त्रिभुज स्थान</string>
+    <string name="beacon_2">बीकन २</string>
+    <string name="how">कसरी</string>
+    <string name="cumulus">कम्युलस</string>
+    <string name="export">निर्यात गर्नुहोस्</string>
+    <string name="gravity">गुरुत्वाकर्षण</string>
+    <string name="beam_distance">%s बीम दूरी</string>
+    <string name="location_not_set">स्थान सेट गरिएको छैन</string>
+    <string name="none">कुनै पनि छैन</string>
+    <string name="pedometer">Pedometer</string>
+    <string name="meteors_per_hour" tools:ignore="PluralsCandidate">अधिकतम %d उल्का / घन्टा</string>
+    <string name="no_maps">कुनै नक्सा छैन</string>
+    <string name="meteor_shower">उल्का वर्षा</string>
+    <string name="pref_meteor_showers_title">उल्का वर्षा</string>
+    <string name="guide_signaling_for_help_title">मद्दतको लागि संकेत गर्दै</string>
+    <string name="guide_using_printed_maps">मुद्रित नक्सा प्रयोग गर्दै</string>
+    <string name="create_map">नक्सा बनाउनुहोस्</string>
+    <string name="error_importing_map">नक्सा आयात गर्दा त्रुटि</string>
+    <string name="import_gpx">GPX आयात गर्नुहोस्</string>
+    <string name="elevation_override_resolution">सेटिङहरूमा स्वत: क्यालिब्रेसन सक्षम गर्नुहोस्।</string>
+    <string name="lightning_dangerously_close">चट्याङ खतरनाक रूपमा नजिक छ</string>
+    <string name="old">पुरानो</string>
+    <string name="navigate">नेभिगेट गर्नुहोस्</string>
+    <string name="medium_amount">मध्यम (%s)</string>
+    <string name="weather_monitoring_disabled">मौसम अनुगमन अक्षम</string>
+    <string name="hide">लुकाउनुहोस्</string>
+    <string name="show">देखाउनु</string>
+    <string name="sort_by">क्रमबद्ध गर्नुहोस्: %s</string>
+    <string name="measure">मापन</string>
+    <string name="clinometer_measure_height_title">लक्ष्यको दूरी</string>
+    <string name="gps_unavailable">GPS अनुपलब्ध</string>
+    <string name="error_occurred">एउटा त्रुटि भयो</string>
+    <string name="beacon_create_beacon">बीकन</string>
+    <string name="guide_conserving_battery_title">ब्याट्री बचत गर्दै</string>
+    <string name="category_shelter">आश्रय</string>
+    <string name="category_safety">सुरक्षा</string>
+    <string name="action_inventory_clear_confirm">प्याक गरिएका सबै रकमहरू खाली गर्ने हो\?</string>
+    <string name="inventory_empty_text">कुनै वस्तुहरू छैनन्</string>
+    <string name="pref_privacy_policy_title">गोपनीयता नीति</string>
+    <string name="water_boil_timer_done_title">पानी उमालेर सकियो</string>
+    <string name="water_boil_timer_done_content">तिम्रो पानी अब पिउन योग्य छ</string>
+    <string name="battery_health_cold">चिसो</string>
+    <string name="battery_health_dead">मृत</string>
+    <string name="notification_channel_clock_sync_description">GPS समय मा आफ्नो घडी सिंक गर्न एक सूचना</string>
+    <string name="delete_note_title">नोट मेट्ने हो\?</string>
+    <string name="note_title_hint">शीर्षक</string>
+    <string name="contents">सामग्री</string>
+    <string name="map_fractional_separator">:</string>
+    <string name="max_temp_calibrated">अधिकतम परिवेश तापमान (क्यालिब्रेट)</string>
+    <string name="min_temp_uncalibrated">फोनको न्यूनतम तापक्रम (अनक्यालिब्रेट गरिएको)</string>
+    <string name="unsaved_changes">सुरक्षित नगरिएका परिवर्तनहरू</string>
+    <string name="nimbostratus">निम्बोस्ट्राटस</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">अर्को %d घण्टामा वर्षा वा चट्याङको संकेत गर्न सक्छ।</string>
+    <string name="cumulus_desc">कपासको बल जस्तो देखिने तल्लो पफी बादलहरू। तिनीहरू खाली ठाउँमा छन् र सामान्यतया सेतो छन् तल गाढा प्याचहरू।</string>
+    <string name="onboarding_user_guide">प्रयोगकर्ता गाइडको साथ ट्रेल सेन्सका सुविधाहरू कसरी प्रयोग गर्ने जान्नुहोस्। उपकरण ट्याबको तलमा उपलब्ध छ।
+\n
+\nथप गाइडहरू चाँडै आउँदैछन्।</string>
+    <string name="gps_stale">बासी</string>
+    <string name="gps_searching">खोज्दै</string>
+    <string name="quality_poor">गरिब</string>
+    <string name="time_ago">%s पहिले</string>
+    <string name="network_5g">5G</string>
+    <string name="network_4g">4G</string>
+    <string name="dbm_format">%s dBm</string>
+    <string name="two">२</string>
+    <string name="battery_power_wireless">ताररहित</string>
+    <string name="duration_of_charge">चार्ज को अवधि</string>
+    <string name="sun">सूर्य</string>
+    <string name="pref_auto_low_power_title">स्वचालित पावर बचत</string>
+    <string name="find_next_occurrence">अर्को घटना पत्ता लगाउनुहोस्</string>
+    <string name="clear_cache">क्यास खाली गर्नुहोस्</string>
+    <string name="pref_map_url_source_title">स्थान साझा नक्शा</string>
+    <string name="liters">लिटर</string>
+    <string name="packed_amount">प्याक गरिएको रकम</string>
+    <string name="new_packing_list">नयाँ प्याकिंग सूची</string>
+    <string name="delete_pack">प्याक मेट्ने हो\?</string>
+    <string name="overridden">ओभरराइड गरियो</string>
+    <string name="no_resolution">कुनै संकल्प छैन</string>
+    <string name="lunar_eclipse_end">चन्द्रग्रहण (अन्त)</string>
+    <string name="precipitation_snow_pellets">हिउँका छर्राहरू</string>
+    <string name="precipitation_hail">जय हो</string>
+    <string name="notification_backtrack_update_title">ब्याकट्र्याक अपडेट</string>
+    <string name="point_style">बिन्दु शैली</string>
+    <string name="line_style">रेखा शैली</string>
+    <string name="elevation_loss">उचाइ हानि</string>
+    <string name="easy">सजिलो</string>
+    <string name="open">खोल्नुहोस्</string>
+    <string name="note">नोट</string>
+    <string name="beacon">बीकन</string>
+    <string name="beacon_created">बिकन सिर्जना गरियो</string>
+    <string name="navigating_to_nearest_path_point">निकटतम पथ बिन्दुमा नेभिगेट गर्दै</string>
+    <string name="pref_coordinate_format_title">समन्वय ढाँचा</string>
+    <string name="fahrenheit">फरेनहाइट</string>
+    <string name="altimeter_mode_gps_barometer">GPS + ब्यारोमिटर</string>
+    <string name="liter_format">%s l</string>
+    <string name="humidity">आर्द्रता</string>
+    <string name="duration">अवधि</string>
+    <string name="sunset_alert_notification_text">सूर्य %s मा अस्ताउनेछ</string>
+    <string name="sunset_alert_channel_title">सूर्यास्त चेतावनी</string>
+    <string name="solar_noon">सौर्य दिउँसो</string>
+    <string name="subtract">घटाउनुहोस्</string>
+    <string name="create_item_title">वस्तु सिर्जना गर्नुहोस्</string>
+    <string name="edit_item_title">वस्तु सम्पादन गर्नुहोस्</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
+    <string name="celsius">सेल्सियस</string>
+    <string name="temperature">तापक्रम</string>
+    <string name="sensors">सेन्सरहरू</string>
+    <string name="pref_ruler_calibration_summary">क्यालिब्रेसन प्रोटोकल:
+\n
+\n- यो मान १ मा सेट गर्नुहोस्।
+\n
+\n- भौतिक शासकको एक एकाइसँग सम्बन्धित ट्रेल सेन्स शासक मान नाप्नुहोस्।
+\n
+\n- यहाँ मापन मूल्य रिपोर्ट गर्नुहोस्।</string>
+    <string name="pref_auto_declination_summary">तपाईंको हालको स्थानमा आधारित</string>
+    <string name="never">कहिल्यै</string>
+    <string name="update_90_minutes">1 घण्टा 30 मिनेट</string>
+    <string name="update_120_minutes">2 घण्टा</string>
+    <string name="update_150_minutes">2 घण्टा 30 मिनेट</string>
+    <string name="pref_category_about">बारे</string>
+    <string name="pref_app_version_title">संस्करण</string>
+    <string name="pref_email_title">इमेल विकासकर्ता</string>
+    <string name="advanced">उन्नत</string>
+    <string name="navigation_nearby_category">नजिकै</string>
+    <string name="tool_bubble_level_summary">सतहहरू समतल छन् भने निर्धारण गर्नुहोस्</string>
+    <string name="other">अन्य</string>
+    <string name="tool_cliff_height_description">चट्टान वा ड्रपको उचाइ नाप्नुहोस्</string>
+    <string name="tool_whistle_title">सिट्टी</string>
+    <string name="unit_meters">मीटर</string>
+    <string name="lightning">चट्याङ</string>
+    <string name="water_purification_step_3">टाइमर सुरु गर्नुहोस्</string>
+    <string name="tool_triangulate_summary">GPS बिना आफ्नो स्थान निर्धारण गर्नुहोस्</string>
+    <string name="could_not_triangulate">त्रिभुज गर्न सकिएन</string>
+    <string name="pip_button">प्रणाली समय अपडेट गर्नुहोस्</string>
+    <string name="pip_notification_scheduled">सूचना %s को लागि निर्धारित</string>
+    <string name="notification_channel_clock_sync">घडी सिंक</string>
+    <string name="clock_sync_notification">घडी सिंक - %s</string>
+    <string name="bubble_level_angles">X: %1$s
+\nY: %2$s</string>
+    <string name="clock_sync_instructions">सूचना आउँदा %s मा समय सेट गर्नुहोस्</string>
+    <string name="threshold">थ्रेसहोल्ड</string>
+    <string name="tool_metal_detector_title">मेटल डिटेक्टर</string>
+    <string name="tool_white_noise_summary">तपाईंलाई निदाउन मद्दत गर्दछ</string>
+    <string name="map_scale_ratio">अनुपात</string>
+    <string name="max_temp_uncalibrated">अधिकतम फोन तापमान (अनक्यालिब्रेट)</string>
+    <string name="min_temp_calibrated">न्यूनतम परिवेश तापमान (क्यालिब्रेट)</string>
+    <string name="unit_centimeters">सेन्टिमिटर</string>
+    <string name="unit_inches_abbreviation">मा</string>
+    <string name="create_at_distance">दूरीमा सिर्जना गर्नुहोस्</string>
+    <string name="backtrack">ब्याकट्र्याक</string>
+    <string name="waypoint_time_format">%1$s, %2$s</string>
+    <string name="create_beacon">बीकन सिर्जना गर्नुहोस्</string>
+    <string name="pref_backtrack_enabled_summary">स्थान इतिहास रेकर्ड गर्नुहोस्</string>
+    <string name="pref_backtrack_frequency_title">ब्याकट्र्याक अन्तराल</string>
+    <string name="pref_low_power_mode_title">पावर बचत मोड</string>
+    <string name="pref_require_satellites_description">कम्तिमा 4 उपग्रहहरू चाहिन्छ, शुद्धता सुधार गर्दछ</string>
+    <string name="cumulonimbus">Cumulonimbus</string>
+    <string name="altostratus_desc">आकाश ढाकेको मध्य स्तरको बादल। घामलाई एक चम्किलो प्याचको रूपमा मुश्किलले देख्न सकिन्छ।</string>
+    <string name="cumulonimbus_forecast">केही मिनेटमा मेघ गर्जनको संकेत हुन सक्छ।</string>
+    <plurals name="beacons_imported">
+        <item quantity="one">%d बीकन आयात गरियो</item>
+        <item quantity="other">%d बीकन आयात गरियो</item>
+    </plurals>
+    <string name="network_no_signal">कुनै संकेत छैन</string>
+    <string name="lux_format">%s lx</string>
+    <string name="tool_light_meter_title">लाइट मिटर</string>
+    <string name="left_quick_action">द्रुत कार्य छोडियो</string>
+    <string name="tides">ज्वारभाटा</string>
+    <string name="low_tide">कम</string>
+    <string name="map_auto_rotated">नक्सा रोटेशन क्यालिब्रेसन संग समायोजित</string>
+    <string name="solid">ठोस</string>
+    <string name="dotted">डटेड</string>
+    <string name="pref_default_path_color_title">पूर्वनिर्धारित मार्ग रङ</string>
+    <string name="backtrack_high_priority_notification">प्रत्येक %s बाटो बिन्दु राख्दै</string>
+    <string name="battery_warning">ब्याट्री ड्रेन चेतावनी</string>
+    <string name="dusk_type">साँझ (%s)</string>
+    <string name="battery_history">ब्याट्री इतिहास - अन्तिम %s</string>
+    <string name="humidity_history">आर्द्रता इतिहास - अन्तिम %s</string>
+    <string name="temperature_history">तापमान इतिहास - अन्तिम %s</string>
+    <string name="move">चल्नु</string>
+    <string name="move_to">मा सार्नुहोस्</string>
+    <string name="map_rotate_instructions">उत्तर अंक माथि सम्म घुमाउनुहोस्</string>
+    <string name="pref_flashlight_toggle_with_system_title">प्रणालीसँग टगल गर्नुहोस्</string>
+    <string name="pref_flashlight_toggle_with_system_summary">ट्रेल सेन्सको बाहिर फ्ल्यासलाइट अन हुँदा सूचना प्रदर्शन गर्दछ</string>
+    <string name="pref_cell_signal_refresh_cache_summary">भर्खरको सिग्नल बलहरू लोड गर्न बलहरू</string>
+    <string name="import_map">नक्सा आयात गर्नुहोस्</string>
+    <string name="pref_tiles_enabled_summary">ब्याट्री सेभर एपहरूलाई ट्रेल सेन्स पूर्ण रूपमा बन्द गर्नबाट रोक्न सक्छ</string>
+    <string name="volume">भोल्युम</string>
+    <string name="kilograms">किलोग्राम</string>
+    <string name="get_gps_signal">आकाशको अबाधित दृश्यको साथ बाहिर जानुहोस्।</string>
+    <string name="calibrate_map_point">ज्ञात स्थानहरूसँग क्यालिब्रेट गर्नुहोस् (%1$d / %2$d)</string>
+    <string name="second_symbol">s</string>
+    <string name="done">सकियो</string>
+    <string name="descent">अवतरण</string>
+    <string name="highest_point_elevation">उच्चतम बिन्दु</string>
+    <string name="updating_weather">मौसम अपडेट गर्दै</string>
+    <string name="path_slope_flat">फ्ल्याट</string>
+    <string name="path_slope_moderate">मध्यम</string>
+    <string name="clouds_clear">खाली गर्नुहोस्</string>
+    <string name="pressure_system">दबाव प्रणाली</string>
+    <string name="then_weather">त्यसपछि %s</string>
+    <string name="weather_precipitation">वर्षा</string>
+    <string name="weather_thunderstorm">आँधी</string>
+    <string name="pref_keep_map_facing_up_title">नक्सालाई माथि फर्काएर राख्नुहोस्</string>
+    <string name="pref_keep_map_facing_up_summary">नक्सा साँचो उत्तरको सट्टा स्क्रिनको शीर्षमा पङ्क्तिबद्ध हुनेछ।</string>
+    <string name="daylight_duration">%s दिनको उज्यालो</string>
+    <string name="times">समय</string>
+    <string name="yes">हो</string>
+    <string name="until_sunset">सूर्यास्त नभएसम्म</string>
+    <string name="rate">दर</string>
+    <string name="season">सिजन</string>
+    <string name="horizon">क्षितिज</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d मार्ग आयात गरियो</item>
+        <item quantity="other">%d मार्गहरू आयात गरियो</item>
+    </plurals>
+    <string name="next">अर्को</string>
+    <string name="sun_down_no_set">घाम अस्ताएको छ</string>
+    <string name="sun_does_not_set">सेट गर्दैन</string>
+    <string name="waning_crescent">झर्ने क्रिसेन्ट</string>
+    <string name="third_quarter">तेस्रो क्वार्टर</string>
+    <string name="coordinate_format_degrees_decimal_minutes">डिग्री दशमलव मिनेट</string>
+    <string name="coordinate_format_degrees_minutes_seconds">डिग्री मिनेट सेकेन्ड</string>
+    <string name="compass_declination">चुम्बकीय गिरावट</string>
+    <string name="calibrate">क्यालिब्रेट गर्नुहोस्</string>
+    <string name="pref_auto_location_title">स्वतः समायोजन स्थान</string>
+    <string name="always">सधैं</string>
+    <string name="pref_require_satellites_title">स्याटेलाइट फिक्स आवश्यक छ</string>
+    <string name="tide_diurnal">दैनिक</string>
+    <string name="tide_diurnal_description">दिनमा एक पटक उच्च ज्वारभाटा - धेरैजसो ज्वारहरू दैनिक हुँदैनन्</string>
+    <string name="quality_good">राम्रो</string>
+    <string name="no_tides">कुनै ज्वारभाटा छैन</string>
+    <string name="quarter_moon">चौथाई चन्द्रमा</string>
+    <string name="estimated">अनुमानित</string>
+    <string name="high_tide_letter">एच</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="pressure_tendency_format_2">%s / 3 घन्टा</string>
+    <string name="alerts">अलर्टहरू</string>
+    <string name="precise_temp_c_format">%s °C</string>
+    <string name="pressure_reading_time_ago">%1$s - %2$s पहिले</string>
+    <string name="storm_alerts">आँधी चेतावनी</string>
+    <string name="moon">चन्द्रमा</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">तापक्रम ऐतिहासिक तथ्याङ्कको %d वर्षको औसतमा आधारित हुन्छ र वर्तमान मौसम अवस्था प्रतिबिम्बित नहुन सक्छ।</string>
+    <string name="direction_south">एस</string>
+    <string name="direction_east">इ</string>
+    <string name="battery_usage_allowed">ब्याट्री प्रयोग अनुमति छ</string>
+    <string name="precise_temp_f_format">%s °F</string>
+    <string name="square">वर्ग</string>
+    <string name="diamond">हीरा</string>
+    <string name="cross">क्रस</string>
+    <string name="arrow">तीर</string>
+    <string name="last_signal_beacon_name">अन्तिम संकेत - %1$s (%2$s)</string>
+    <string name="reset_distance_title">दूरी रिसेट गर्ने हो\?</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">%d मार्ग</item>
+        <item quantity="other">%d मार्गहरू</item>
+    </plurals>
+    <plurals name="beacons_exported">
+        <item quantity="one">%d बीकन निर्यात गरियो</item>
+        <item quantity="other">%d बीकनहरू निर्यात गरियो</item>
+    </plurals>
+    <string name="pref_show_last_signal_beacon_summary">अन्तिम सेल संकेत स्थानको लागि एक बीकन सिर्जना गर्दछ</string>
+    <string name="whistle_signal_come_here">यहाँ आउनुहोस</string>
+    <string name="weather_monitor">मौसम मनिटर</string>
+    <string name="us_quarts">अमेरिकी क्वार्ट्स</string>
+    <string name="us_gallons">अमेरिकी ग्यालन</string>
+    <string name="imperial_cups">इम्पेरियल कपहरू</string>
+    <string name="imperial_ounces_volume">इम्पेरियल औंस</string>
+    <string name="grams">ग्राम</string>
+    <string name="pounds_format">%s पाउन्ड</string>
+    <string name="grams_format">%s g</string>
+    <string name="pressure_tendency">प्रवृत्ति</string>
+    <string name="path_slope">ढलान</string>
+    <string name="hot">तातो</string>
+    <string name="no">छैन</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d नक्सा</item>
+        <item quantity="other">%d नक्सा</item>
+    </plurals>
+    <plurals name="beacon_group_summary">
+        <item quantity="one">%d बीकन</item>
+        <item quantity="other">%d बीकन</item>
+    </plurals>
+    <string name="notification_storm_alert_title">आँधीको चेतावनी</string>
+    <string name="menu">मेनु</string>
+    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="access_background_location">स्थान सेटिङहरू अपडेट गर्नुहोस्</string>
+    <string name="disclaimer_message_title">अस्वीकरण</string>
+    <string name="app_disclaimer_message_title">अस्वीकरण / सेवा सर्तहरू</string>
+    <string name="precise_feet_format">%s फीट</string>
+    <string name="precise_miles_format">%s माइल</string>
+    <string name="precise_nautical_miles_format">%s nm</string>
+    <string name="precise_meters_format">%s मि</string>
+    <string name="accuracy_info">"GPS: आकाशको अबाधित दृश्यको साथ बाहिर जानुहोस्।
+\n    वास्तविक स्थानको %1$s
+\n    वास्तविक उचाइको %2$s
+\n    %3$s उपग्रहहरू
+\n
+\nकम्पास: यन्त्रलाई चित्र 8 ढाँचामा वा सबै दिशाहरूमा घुमाउनुहोस् र धातुबाट टाढा जानुहोस्।"</string>
+    <string name="tap_sun_moon_hint">स्थिति विवरणहरूको लागि सूर्य वा चन्द्रमा ट्याप गर्नुहोस्</string>
+    <string name="category_hydration">हाइड्रेसन</string>
+    <string name="category_clothing">लुगा</string>
+    <string name="power">शक्ति</string>
+    <string name="file">फाइल</string>
+    <string name="saved">सुरक्षित गरियो</string>
+    <string name="weather_alert_cold_description">चिसो तापमानको लागि तयारी गर्नुहोस्। हाइपोथर्मिया र फ्रस्टबाइट विरुद्ध अतिरिक्त सावधानीहरू लिनुहोस्।</string>
+    <string name="moon_phase">चन्द्र चरण</string>
+    <string name="pack_sort_percent_high_to_low">प्याक गरिएको प्रतिशत (उच्च देखि कम)</string>
+    <string name="diagnostic_message_template">%1$s: %2$s
+\n
+\n### प्रभावित उपकरणहरू
+\n%3$s
+\n
+\n### संकल्प
+\n%4$s</string>
+    <string name="update_30_minutes">30 मिनेट</string>
+    <string name="update_60_minutes">1 घण्टा</string>
+    <string name="group">समूह</string>
+    <string name="color">रङ</string>
+    <string name="camera_permission_denied">क्यामेरा अनुमति अस्वीकार गरियो, क्यामेरा सुविधाहरू सक्रिय गर्न असमर्थ। तपाइँ यसलाई सेटिङहरूमा सक्षम गर्न सक्नुहुन्छ।</string>
+    <string name="activity_recognition_permission_denied">शारीरिक गतिविधि अनुमति अस्वीकार गरियो, pedometer सुविधाहरू सक्रिय गर्न असमर्थ। तपाइँ यसलाई सेटिङहरूमा सक्षम गर्न सक्नुहुन्छ।</string>
+    <string name="start">सुरु गर्नुहोस्</string>
+    <string name="stratus_desc">आकाश छोप्ने तल्लो बादल। वस्तुहरूले छायाँ पर्दैन र यो कुहिरो हुन सक्छ।</string>
+    <string name="import_btn">आयात गर्नुहोस्</string>
+    <string name="network_2g">२ जी</string>
+    <string name="network_3g">3G</string>
+    <string name="guide_light_meter_title">फ्ल्यासलाइट प्रभावकारिता निर्धारण गर्नुहोस्</string>
+    <string name="always_on">सधैं सक्रिय</string>
+    <string name="weather_monitor_disabled_resolution">मौसम सेटिङहरूबाट मनिटर मौसम सक्षम गर्नुहोस्</string>
+    <string name="no_group">कुनै समूह छैन</string>
+    <string name="tool_bubble_level_title">बबल स्तर</string>
+    <string name="tool_cliff_height_title">चट्टानको उचाइ</string>
+    <string name="battery_health_overheat">अति तातो</string>
+    <string name="battery_health">स्वास्थ्य: %s</string>
+    <string name="guide_location_no_gps_title">GPS बिना स्थान निर्धारण गर्नुहोस्</string>
+    <string name="unsaved_changes_message">तपाईंले गर्नुभएका परिवर्तनहरू बचत हुने छैनन्।</string>
+    <string name="dialog_leave">छोड</string>
+    <string name="backtrack_disabled_low_power_toast">ब्याकट्र्याक पावर बचत मोडमा असक्षम गरिएको छ</string>
+    <string name="pref_low_power_mode_summary">पावर बचत गर्न केही सुविधाहरू असक्षम पार्छ</string>
+    <string name="beacon_comment">नोटहरू (वैकल्पिक)</string>
+    <string name="stratus">स्ट्र्याटस</string>
+    <string name="illumination">रोशनी</string>
+    <string name="clinometer_rotate_device">आफ्नो फोन ठाडो होल्ड गर्नुहोस्</string>
+    <string name="add">थप्नुहोस्</string>
+    <string name="declination_override_updated_toast">अस्वीकार ओभरराइड अपडेट गरियो</string>
+    <string name="tool_cliff_height_disclaimer">यो उपकरण सुरक्षित हुँदा मात्र प्रयोग गर्नुहोस्, र चोटबाट बच्नको लागि चट्टान तल के छ भनेर जाँच गर्न निश्चित हुनुहोस्। निर्देशनहरूको लागि प्रयोगकर्ता गाइड हेर्नुहोस्।</string>
+    <string name="distance_to">को</string>
+    <string name="unit_kilometers">किलोमिटर</string>
+    <string name="tool_solar_panel_summary">इष्टतम ऊर्जा उत्पादनको लागि सौर प्यानलहरू राख्नुहोस्</string>
+    <string name="solar_panel_instructions">सुरु गर्न आफ्नो फोन सौर प्यानलको अनुहारमा राख्नुहोस्।</string>
+    <string name="water_boil_timer">पानी उमाल्ने टाइमर</string>
+    <string name="tool_boil_summary">जब पानी पिउन योग्य छ भन्नुहोस्</string>
+    <string name="pref_sensor_details_title">सेन्सर विवरण</string>
+    <string name="thunder">गर्जन</string>
+    <string name="reset">रिसेट गर्नुहोस्</string>
+    <string name="tool_lightning_description">बिजुली स्ट्राइकबाट दूरी नाप्नुहोस्</string>
+    <string name="water_purification_step_2">रोलिङ फोडामा पानी ल्याउनुहोस्</string>
+    <string name="notes_empty_text">कुनै नोट छैन</string>
+    <string name="tool_notes_title">नोटहरू</string>
+    <string name="backtrack_notification_channel_description">ब्याकट्र्याक स्थान अद्यावधिकहरू</string>
+    <string name="low_power_mode_on_message">पावर बचत मोड सक्रिय छ, केही सुविधाहरू असक्षम हुन सक्छ।</string>
+    <string name="open_beacon_in_maps">नक्सामा हेर्नुहोस्</string>
+    <string name="compass_calibrate_toast">कम्पास शुद्धता %s, क्यालिब्रेसन सल्लाह दिइन्छ</string>
+    <string name="clouds">बादल</string>
+    <string name="cirrus">सिरस</string>
+    <string name="cirrocumulus">सिरोक्यूमुलस</string>
+    <string name="cirrostratus">सिरोस्ट्रेटस</string>
+    <string name="altocumulus">अल्टोक्यूमुलस</string>
+    <string name="altostratus">Altostratus</string>
+    <string name="stratocumulus">Stratocumulus</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">अर्को %1$d देखि %2$d घन्टामा वर्षा हुने संकेत हुन सक्छ।</string>
+    <string name="cirrocumulus_desc">उच्च तहको बादल जसले लहरा पाना बनाउँछ। पाना साना थोप्लाहरू मिलेर बनेको छ जुन लगभग दुई आयामी देखिन्छ।</string>
+    <string name="altocumulus_desc">कपासको बलजस्तै देखिने मध्यम स्तरका पफी बादलहरू। तिनीहरू सामान्यतया सेतो हुन्छन् जसमा तल गाढा प्याचहरू हुन्छन् र खाली वा पाना-जस्तै गर्न सकिन्छ।</string>
+    <string name="nimbostratus_desc">मध्य स्तरको बादल जुन गाढा खैरो र आकाश छोप्छ। यदि पानी परेको छैन भने, यो एक स्ट्रेटस बादल हुन सक्छ।</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">उचित मौसम संकेत गर्न सक्छ। यदि अग्लो बढ्दै छ भने, अर्को %d घण्टामा वर्षा वा चट्याङको संकेत गर्न सक्छ।</string>
+    <string name="cirrus_desc">सेतो कपालको टुक्राजस्तै देखिने उच्च चकचके बादलहरू।</string>
+    <string name="privacy_and_location">गोपनीयता र स्थान</string>
+    <string name="barometer">ब्यारोमिटर</string>
+    <string name="acceleration_m_s2_format">%s m/s²</string>
+    <string name="magnetometer">म्याग्नेटोमिटर</string>
+    <string name="help">मद्दत गर्नुहोस्</string>
+    <string name="beacon_export_error">बीकन निर्यात गर्न सकिएन</string>
+    <string name="tomorrows_forecast">भोलिको पूर्वानुमान</string>
+    <string name="service_update_frequency">प्रत्येक %s अद्यावधिकहरू</string>
+    <string name="create_map_description">नक्साको नाम प्रविष्ट गर्नुहोस्</string>
+    <string name="guide_importing_maps_title">नक्सा आयात गर्दै</string>
+    <string name="time_until_full">पूर्ण नभएसम्म</string>
+    <string name="map_auto_calibrated">नक्सा स्वतः क्यालिब्रेट गरिएको, कृपया यसको शुद्धता प्रमाणित गर्नुहोस्</string>
+    <string name="minute_symbol">m</string>
+    <string name="icon">आइकन</string>
+    <string name="calibrate_compass_dialog_content">आफ्नो फोनलाई चित्र 8 ढाँचामा वा सबै दिशाहरूमा धेरै पटक घुमाउनुहोस्, समाप्त भएपछि %s मा क्लिक गर्नुहोस्।</string>
+    <string name="tool_ruler_title">शासक</string>
+    <string name="auto">अटो</string>
+    <string name="notification_monitoring_weather">पृष्ठभूमिमा मौसम निगरानी</string>
+    <string name="direction_west">डब्लु</string>
+    <string name="direction_north_east">NE</string>
+    <string name="direction_south_east">SE</string>
+    <string name="direction_north_west">NW</string>
+    <string name="direction_south_west">SW</string>
+    <string name="increase">+</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="current_format">%s mA</string>
+    <string name="charging_fast">छिटो चार्ज हुँदै (%s)</string>
+    <string name="charging_slow">बिस्तारै चार्ज गर्दै (%s)</string>
+    <string name="discharging_slow">बिस्तारै डिस्चार्ज गर्दै (%s)</string>
+    <string name="discharging_fast">द्रुत रूपमा डिस्चार्ज (%s)</string>
+    <string name="unknown">अज्ञात</string>
+    <string name="accuracy_distance_unknown">\?</string>
+    <string name="accuracy_distance_format">± %s</string>
+    <string name="accuracy_info_title">सेन्सर डेटा शुद्धता सुधार गर्न सुझावहरू</string>
+    <string name="flashlight_title">टर्चलाइट</string>
+    <string name="tap_to_turn_off">बन्द गर्न ट्याप गर्नुहोस्</string>
+    <string name="turn_off">बन्द गर्नुहोस्</string>
+    <string name="sos">SOS</string>
+    <string name="share_action_send">पठाउनुहोस्</string>
+    <string name="first_quarter">पहिलो क्वार्टर</string>
+    <string name="previous">अघिल्लो</string>
+    <string name="time_until_empty">खाली नभएसम्म</string>
+    <string name="sighting_compass">अवलोकन कम्पास</string>
+    <string name="access_background_location_rationale">ट्रेल सेन्सले पृष्ठभूमिमा स्थान डेटा प्रयोग गर्दछ। यो यात्रा गर्दा अधिक सटीक सूर्यास्त अलर्ट प्रदान गर्न प्रयोग गरिन्छ। [गोपनीयता नीति हेर्नुहोस्](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="onboarding_privacy">- ट्रेल सेन्सले तपाइँको गोपनीयताको सम्मान गर्दछ र स्थान डेटाले तपाइँको उपकरणलाई कहिल्यै छोड्दैन
+\n
+\n- ट्रेल सेन्सलाई इन्टरनेट अनुमतिको आवश्यकता पर्दैन
+\n
+\n- हेर्नुहोस् [गोपनीयता नीति](https://kylecorry.com/Trail-Sense/privacy_policy.html) (तपाईंको फोनको ब्राउजरमा खुल्छ)
+\n
+\n- ट्रेल सेन्सका केही सुविधाहरू तपाईंको स्थानमा पहुँच चाहिन्छ
+\n
+\n- स्थान अनुमति प्रदान गर्दा निम्न सुविधाहरू सक्षम हुनेछ:
+\n
+\n- बीकनहरूमा नेभिगेट गर्दै
+\n
+\n- सुधारिएको पूर्वानुमान सटीकता (सबै उपकरणहरूमा उपलब्ध छैन)
+\n
+\n- ब्याकट्र्याक
+\n
+\n- तपाईंको हालको स्थानको लागि सूर्य र चन्द्र समय (सूर्यास्त अलर्टहरूलाई पृष्ठभूमि स्थान आवश्यक हुन सक्छ)
+\n
+\n- यदि तपाईंले स्थान अनुमति प्रदान नगर्ने छनौट गर्नुभयो भने, तपाईंले म्यानुअल रूपमा सेटिङहरू &gt; सेन्सरहरू &gt; GPS क्यालिब्रेसन मेनुमा ट्रेल सेन्समा स्थान प्रविष्ट गर्न सक्नुहुन्छ।
+\n
+\n- जारी राख्नुहोस् क्लिक गरेपछि, तपाईंलाई स्थान अनुमति प्रदान गर्न प्रेरित गरिनेछ। यो अनुमति अस्वीकार गर्दा ट्रेल सेन्सलाई तपाईंको स्थान पहुँच गर्नबाट रोकिनेछ, त्यसैले म्यानुअल स्थान प्रविष्टि सिफारिस गरिन्छ।</string>
+    <string name="dawn_type">बिहान (%s)</string>
+    <string name="moved_to">%s मा सारियो</string>
+    <string name="pref_navigation_lock_screen_presence_title">नेभिगेट गर्दा लक स्क्रिनमा देखाउनुहोस्</string>
+    <plurals name="number_days">
+        <item quantity="one">%d दिन</item>
+        <item quantity="other">%d दिन</item>
+    </plurals>
+    <string name="location_mocked">ठट्टा गरिएको स्थान प्रयोग गर्दै</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">जबकि ट्रेल सेन्स खुला छ</string>
+    <string name="pref_flashlight_toggle_with_volume_title">भोल्युम बटनहरूसँग टगल गर्नुहोस्</string>
+    <string name="daylight">दिनको उज्यालो</string>
+    <string name="unit_yards">गज</string>
+    <string name="base_temperature">आधार तापमान</string>
+    <string name="cup_format">%s ग</string>
+    <string name="quart_format">%s qt</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="kilograms_format">%s किलो</string>
+    <string name="seconds">सेकेन्ड</string>
+    <string name="minutes">मिनेट</string>
+    <string name="hours">घण्टा</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="minutes_format">%s मि</string>
+    <string name="hygiene">स्वच्छता</string>
+    <string name="packing_lists">प्याकिङ सूचीहरू</string>
+    <string name="sort">क्रमबद्ध गर्नुहोस्</string>
+    <string name="pack_sort_weight_low_to_high">वजन (कम देखि उच्च)</string>
+    <string name="pack_sort_weight_high_to_low">वजन (उच्च देखि कम)</string>
+    <string name="no_permission">अनुमति दिइएको छैन</string>
+    <string name="diagnostics">निदान</string>
+    <string name="on">अन</string>
+    <string name="path_exported">मार्ग निर्यात गरियो</string>
+    <string name="export_path_error">मार्ग निर्यात गर्न सकिएन</string>
+    <string name="pick_file">फाइल छान्नुहोस्</string>
+    <string name="high_amount">उच्च (%s)</string>
+    <string name="lunar_eclipses">चन्द्रग्रहण</string>
+    <string name="partial">आंशिक (%s)</string>
+    <string name="lunar_eclipse_start">चन्द्रग्रहण (सुरुवात)</string>
+    <string name="lunar_eclipse">चन्द्रग्रहण</string>
+    <string name="solar_eclipse_end">सूर्यग्रहण (अन्त)</string>
+    <string name="astronomy_alerts">खगोल विज्ञान अलर्ट</string>
+    <string name="no_clouds">बादल छैन</string>
+    <string name="precipitation_none">कुनै वर्षा छैन</string>
+    <string name="precipitation_rain">वर्षा</string>
+    <string name="precipitation_drizzle">मुसलधारे पानी</string>
+    <string name="precipitation_snow">हिउँ</string>
+    <string name="capture">कब्जा</string>
+    <string name="results">परिणामहरू</string>
+    <string name="cloud_photo_mask_toast">मास्क टगल गर्न फोटो ट्याप गर्नुहोस्</string>
+    <string name="no_camera_access">क्यामेरा पहुँच गर्न असमर्थ</string>
+    <string name="longest">सबैभन्दा लामो</string>
+    <string name="shortest">सबैभन्दा छोटो</string>
+    <string name="append_onto">मा जोड्नुहोस्</string>
+    <string name="simplify">सरल बनाउनुहोस्</string>
+    <string name="clinometer_measure_height_instructions">%s टाढा रहेको लक्ष्यको उचाइ नाप्न:
+\n
+\n1. क्लिनोमिटरलाई लक्ष्यको आधारमा पङ्क्तिबद्ध गर्नुहोस्
+\n2. स्क्रिन ट्याप गर्नुहोस् र होल्ड गर्नुहोस्
+\n3. क्लिनोमिटरलाई लक्ष्यको शीर्षमा पुन: व्यवस्थित गर्नुहोस्
+\n4. लक गर्न रिलीज गर्नुहोस् र लक्ष्यको उचाइ हेर्नुहोस्</string>
+    <string name="clinometer_measure_distance_instructions">%s अग्लो लक्ष्यको दूरी नाप्न:
+\n
+\n1. क्लिनोमिटरलाई लक्ष्यको आधारमा पङ्क्तिबद्ध गर्नुहोस्
+\n2. स्क्रिन ट्याप गर्नुहोस् र होल्ड गर्नुहोस्
+\n3. क्लिनोमिटरलाई लक्ष्यको शीर्षमा पुन: व्यवस्थित गर्नुहोस्
+\n4. लक गर्न रिलीज गर्नुहोस् र लक्ष्यको दूरी हेर्नुहोस्</string>
+    <string name="clinometer_measure_distance_title">लक्ष्यको उचाइ</string>
+    <string name="instructions">निर्देशनहरू</string>
+    <string name="error_banners">त्रुटि ब्यानरहरू</string>
+    <string name="errors">त्रुटिहरू</string>
+    <string name="compass_unavailable">कम्पास उपलब्ध छैन</string>
+    <string name="saved_to_note">नोटमा सुरक्षित गरियो</string>
+    <string name="result_deleted">नतिजा मेटाइयो</string>
+    <string name="pref_flashlight_should_timeout_title">स्वचालित रूपमा बन्द गर्नुहोस्</string>
+    <string name="pref_flashlight_timeout_title">पछि बन्द गर्नुहोस्</string>
+    <string name="view">हेर्नुहोस्</string>
+    <string name="low_tide_letter">एल</string>
+    <string name="tide_deleted">टाइड हटाइयो</string>
+    <string name="disclaimer_estimated_tide_title">अनुमानित ज्वार</string>
+    <string name="tool_temperature_estimation_title">तापमान अनुमान</string>
+    <string name="tool_temperature_estimation_description">फरक उचाइमा तापक्रमको अनुमान गर्नुहोस्</string>
+    <string name="explore">अन्वेषण गर्नुहोस्</string>
+    <string name="average_speed">औसत गति</string>
+    <string name="average_speed_pedometer">औसत गति (पेडोमिटर)</string>
+    <string name="average_speed_backtrack">औसत गति (ब्याकट्र्याक)</string>
+    <string name="beacons">बीकन</string>
+    <string name="pref_only_navigate_path_points_title">रेकर्ड गरिएका बिन्दुहरूमा मात्र नेभिगेट गर्नुहोस्</string>
+    <string name="allow_ignore_battery_restrictions_instructions">ट्रेल सेन्सका लागि ब्याट्री प्रतिबन्धहरू हटाउँदा सटीकतामा सुधार हुन सक्छ।
+\n
+\nधेरैजसो यन्त्रहरूमा, \'%s\' मा क्लिक गर्नुहोस्, त्यसपछि सबै एपहरूमा स्विच गर्नुहोस्, र Trail Sense को लागि ब्याट्री अप्टिमाइजेसन बन्द गर्नुहोस्।
+\n
+\nडिभाइसका विशेष निर्देशनहरूका लागि [डोन्ट किल माइ एप](https://dontkillmyapp.com/) मा जानुहोस्।</string>
+    <string name="high_pressure_system_description">उचित मौसम, सफा आकाश, र चिसो तापक्रमसँग सम्बन्धित।</string>
+    <string name="low_pressure_system_description">खराब मौसम, बादल छाएको आकाश, र तातो तापक्रमसँग सम्बन्धित छ।</string>
+    <string name="weather_front">मौसम अगाडि</string>
+    <string name="weather_warm_front">न्यानो</string>
+    <string name="weather_cold_front">चिसो</string>
+    <string name="weather_wind">हावा</string>
+    <string name="later">पछि</string>
+    <string name="smoothing">स्मूथिङ</string>
+    <string name="samples">नमूनाहरू</string>
+    <string name="sensor_summary">कम्पास, जीपीएस, अल्टिमिटर, ब्यारोमिटर, आदि।</string>
+    <string name="historic">ऐतिहासिक</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">ऐतिहासिक (%d वर्ष)</string>
+    <string name="temperature_high_low">उच्च / कम</string>
+    <string name="altimeter_cache">अल्टिमिटर क्यास</string>
+    <string name="tool_climate">जलवायु</string>
+    <string name="source">मुहान</string>
+    <string name="for_historic_temperatures">ऐतिहासिक तापमान को लागी</string>
+    <string name="pref_backfill_temperatures_title">रेकर्ड गरिएको तापक्रम अद्यावधिक गर्नुहोस्</string>
+    <string name="pref_backfill_temperatures_description">सबै रेकर्ड गरिएका तापक्रमहरू क्यालिब्रेट गरिएको ऐतिहासिक तापक्रमसँग प्रतिस्थापन गरिनेछ।</string>
+    <string name="at_time">मा %s</string>
+    <string name="last_lightning_strike_at">%s मा अन्तिम स्ट्राइक</string>
+    <string name="historic_temperatures">ऐतिहासिक तापमान</string>
+    <string name="create_path">बाटो बनाउनुहोस्</string>
+    <string name="map_is_not_calibrated">नक्सा क्यालिब्रेट गरिएको छैन</string>
+    <string name="loading">लोड गर्दै</string>
+    <string name="print">छाप्नुहोस्</string>
+    <string name="until_sunrise">सूर्योदय सम्म</string>
+    <string name="astronomy_set">सेट</string>
+    <string name="astronomy_rise">उठ्नुहोस्</string>
+    <string name="crop_map_instructions_long">रूपरेखा बनाउनको लागि नक्साको कुनाहरूमा बाकसको कुनाहरू तान्नुहोस्।</string>
+    <string name="rotation_amount">परिक्रमा: %s</string>
+    <string name="learn_more">अझै सिक</string>
+    <string name="allow_ignore_battery_restrictions">%s लाई ब्याट्री प्रतिबन्धहरू बेवास्ता गर्न अनुमति दिनुहोस्</string>
+    <string name="allow_schedule_exact_alarms">%s लाई अलार्म र रिमाइन्डरहरू सेट गर्न अनुमति दिनुहोस्</string>
+    <string name="allow_schedule_exact_alarms_instructions">यसले %1$s लाई सटीक अलार्म र रिमाइन्डरहरू सेट गर्न अनुमति दिन्छ, जस्तै सूर्यास्त अलर्टहरू। यो बिना, अलार्म सही समयमा ट्रिगर नहुन सक्छ।
+\n
+\nअनुमति दिनको लागि, \'%2$s\' मा क्लिक गर्नुहोस् र अलार्म र रिमाइन्डरहरूलाई अनुमति दिनको लागि सेटिङ सक्षम गर्नुहोस्।</string>
+    <string name="exact_alarm_permission_denied">अलार्म र रिमाइन्डरहरू अनुमति अस्वीकार गरियो, अलर्टहरू गलत हुन सक्छन्। तपाइँ यसलाई सेटिङहरूमा सक्षम गर्न सक्नुहुन्छ।</string>
+    <string name="sunset_alerts_background_location_disclaimer">यात्रा गर्दा सूर्यास्त अलर्टहरू गलत हुन सक्छ</string>
+    <string name="pref_compass_sensor_title">कम्पास</string>
+    <string name="compass_auto_declination">स्वतः समायोजन अस्वीकार</string>
+    <string name="water_boil_timer_channel_description">पानी उम्लिरहेको छ</string>
+    <string name="water_boil_timer_title">पानी उमाल्ने</string>
+    <string name="pref_weather_show_detailed_icon_title">रंगीन सूचना प्रतिमा देखाउनुहोस्</string>
+    <string name="pref_show_temperature_in_notification_title">सूचनामा तापमान देखाउनुहोस्</string>
+    <string name="delete_path_group_message">%s र यसका सबै मार्गहरू मेटिने छन्।</string>
+    <string name="category_food">खाना</string>
+    <string name="category_medical">मेडिकल</string>
+    <string name="category_fire">आगो</string>
+    <string name="category_natural">प्राकृतिक</string>
+    <string name="toast_destination_bearing_set">गन्तव्य असर सेट</string>
+    <string name="unit_feet">खुट्टा</string>
+    <string name="guide_recommended_apps">सिफारिस गरिएका एपहरू</string>
+    <string name="guide_recommended_apps_description">जीवित अवस्थाहरूको लागि उपयोगी अनुप्रयोगहरू</string>
+    <string name="battery_health_over_voltage">ओभर भोल्टेज</string>
+    <string name="tool_category_angles">कोणहरू</string>
+    <string name="unit_inches">इन्च</string>
+    <string name="map_distance">नक्सा: %s</string>
+    <string name="tool_white_noise_title">सेतो आवाज</string>
+    <string name="map_scale_title">नक्सा स्केल</string>
+    <string name="location_input_help">दशमलव डिग्री (जस्तै 1.00, -2.00)
+\n
+\nडिग्री दशमलव मिनेट (उदाहरण 1°23.12\'N, 3°12.1\'W)
+\n
+\nडिग्री मिनेट सेकेन्ड (उदाहरण 1°23\'12.1\"N, 3°12\'1.2\"W)
+\n
+\nUTM (उदा. 03T 12345E 67890N)
+\n
+\nMGRS (उदा. 27PXM 09601 05579)
+\n
+\nUSNG (उदाहरण 14S NJ 39521 41744)
+\n
+\nOSGB (उदाहरण TG 51409 13177)</string>
+    <string name="guide_thermometer_calibration_title">थर्मोमिटर क्यालिब्रेसन</string>
+    <string name="charging_wireless">चार्ज गर्दै (%s)</string>
+    <string name="compass_source_mag_gyro">म्याग्नेटोमीटर + जाइरो</string>
+    <string name="compass_source_legacy_ts">लिगेसी (ट्रेल सेन्स)</string>
+    <string name="pref_include_leading_zero_title">अगाडिको शून्य समय थप्नुहोस्</string>
+    <string name="theme_sunset_sunrise">सुर्योदय सुर्यास्त</string>
+    <string name="coordinate_format_decimal_degrees">दशमलव डिग्री</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="override_from_gps">GPS बाट ओभरराइड सेट गर्नुहोस्</string>
+    <string name="compass_declination_override">अस्वीकार ओभरराइड</string>
+    <string name="map_scale_verbal">मौखिक</string>
+    <string name="guide_barometer_calibration_title">ब्यारोमिटर क्यालिब्रेसन</string>
+    <string name="cirrostratus_desc">आकाश छोप्ने उच्च बादल। यो पारदर्शी छ र सामान्यतया सूर्य वरिपरि एक हलो बनाउँछ।</string>
+    <string name="cumulonimbus_desc">धेरै अग्लो कम पफी बादलहरू। तिनीहरूसँग सामान्यतया एभिल आकार हुन्छ र अँध्यारो हुन्छ।</string>
+    <string name="gps_user">प्रयोगकर्ता</string>
+    <string name="cell_signal">सेल संकेत</string>
+    <string name="us_cups">अमेरिकी कप</string>
+    <string name="us_pints">US Pints</string>
+    <string name="gps_signal_lost">GPS सिग्नल हरायो</string>
+    <string name="battery_usage_restricted">ब्याट्री प्रयोग प्रतिबन्धित</string>
+    <string name="background_location_permission">स्थान (सधैं अनुमति दिनुहोस्)</string>
+    <string name="activity_recognition">गतिविधि पहिचान</string>
+    <string name="battery_restricted_resolution">अप्टिमाइज नभएको रूपमा ट्रेल सेन्स सेट गर्नुहोस्</string>
+    <string name="delete_path">बाटो मेट्ने हो\?</string>
+    <string name="no_paths">कुनै बाटो छैन</string>
+    <string name="height">उचाइ</string>
+    <string name="pref_clinometer_baseline_distance_title">आधारभूत दूरी</string>
+    <string name="tide_user_guide_recommendation">आधिकारिक टाइड तालिका वेबसाइटहरू प्रयोगकर्ता गाइडमा फेला पार्न सकिन्छ।</string>
+    <string name="tide_semidiurnal">सेमिडियुर्नल</string>
+    <string name="path_slope_steep">ठाडो</string>
+    <string name="updating">अद्यावधिक गर्दै</string>
+    <string name="blank">खाली</string>
+    <string name="center">केन्द्र</string>
+    <string name="size">साइज</string>
+    <string name="create_blank_map">खाली नक्सा बनाउनुहोस्</string>
+    <string name="weather_no_change">परिवर्तन छैन</string>
+    <string name="photo_map_summary">नक्साको रूपमा फोटो प्रयोग गर्नुहोस्</string>
+    <string name="photo_map_disclaimer">ब्याकअपको लागि सधैं भौतिक नक्सा बोक्नुहोस् र ट्रेल सेन्सको शुद्धता प्रमाणित गर्नुहोस्।</string>
+    <string name="beta">बिटा</string>
+    <string name="beta_disclaimer">यो उपकरण हाल बिटामा छ, त्यसैले कृपया %s मा कुनै पनि समस्या वा प्रतिक्रिया रिपोर्ट गर्नुहोस्।</string>
+    <string name="pref_show_map_previews_title">नक्सा पूर्वावलोकन देखाउनुहोस्</string>
+    <string name="step_progression">चरण %1$d / %2$d</string>
+    <plurals name="water_boil_timer_content">
+        <item quantity="one">%d सेकेन्ड पिउने सम्म</item>
+        <item quantity="other">%d सेकेन्ड पिउने सम्म</item>
+    </plurals>
+    <string name="unblock_notification_channel">ट्रेल सेन्सको लागि %s सूचना अनब्लक गर्नुहोस्</string>
+    <string name="location_override_not_set_resolution">सेटिङ्हरूमा स्थान ओभरराइड सेट गर्नुहोस्</string>
+    <string name="power_saving_mode_resolution">पावर बचत मोड असक्षम गर्नुहोस्</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="new_text">नयाँ</string>
+    <string name="notification_backtrack_update_content">तपाईंको स्थान रेकर्ड गर्दै</string>
+    <string name="precipitation_chance">वर्षाको सम्भावना: %s</string>
+    <string name="take_photo">तस्बिर लेउ</string>
+    <string name="or">वा</string>
+    <string name="notification_weather_update_title">मौसम मनिटर अपडेट</string>
+    <string name="notification_weather_update_content">दबाब रेकर्ड गर्दै</string>
+    <string name="keep_forever">सधैंको लागि राख्नुहोस्</string>
+    <string name="closest">सबैभन्दा नजिक</string>
+    <string name="points">अंक</string>
+    <string name="paths">मार्गहरू</string>
+    <string name="qr_code_scanner">QR कोड स्क्यानर</string>
+    <string name="no_qr_code_found">कुनै QR कोड फेला परेन</string>
+    <string name="onboarding_explore">- पैदल यात्रा, ब्याकप्याकिंग, क्याम्पिङ, र जियोक्याचिङको लागि डिजाइन गरिएको
+\n
+\n- बीकनहरू राख्नुहोस् र तिनीहरूलाई नेभिगेट गर्नुहोस्
+\n
+\n- मार्गहरू पछ्याउनुहोस्
+\n
+\n- ब्याकट्र्याकको साथ आफ्नो चरणहरू रिट्रेस गर्नुहोस्
+\n
+\n- के प्याक गर्ने योजना बनाउनुहोस्
+\n
+\n- घाम अस्ताउनुअघि नै सचेत हुनुहोस्
+\n
+\n- मौसम भविष्यवाणी
+\n
+\n- एक टर्च रूपमा आफ्नो फोन प्रयोग गर्नुहोस्
+\n
+\n- र धेरै धेरै!</string>
+    <string name="steps">चरणहरू</string>
+    <string name="camera_capture">कब्जा</string>
+    <string name="map_file">फाइल (JPG, PNG, PDF)</string>
+    <string name="compass_accuracy_improved">कम्पास शुद्धता %s मा सुधारियो</string>
+    <string name="calibrate_compass_dialog_title">कम्पास क्यालिब्रेट गर्नुहोस्</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">आफ्नो फोनलाई चित्र 8 ढाँचामा वा सबै दिशाहरूमा धेरै पटक घुमाउनुहोस्, समाप्त भएपछि %s मा क्लिक गर्नुहोस्।
+\n
+\nयो अलर्ट एप सेटिङहरूमा असक्षम गर्न सकिन्छ।</string>
+    <string name="request_permission">अनुमति अनुरोध गर्नुहोस्</string>
+    <string name="pref_elevation_override_title">उचाइ ओभरराइड</string>
+    <string name="elevation_override_updated_toast">उचाइ ओभरराइड अपडेट गरियो</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">hPa मा समुद्र स्तर मा वर्तमान दबाव प्रविष्ट गर्नुहोस्</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">समुद्री स्तरको दबाव प्रविष्ट गर्नुहोस्</string>
+    <string name="pref_altimeter_calibration_title">अल्टिमिटर</string>
+    <string name="elevation_from_pressure">ब्यारोमिटरबाट ओभरराइड सेट गर्नुहोस्</string>
+    <string name="pref_elevation_override_sea_level_title">ज्ञात समुद्री सतह दबाव प्रयोग गर्दै</string>
+    <string name="pref_altimeter_calibration_mode_title">स्वत: क्यालिब्रेसन</string>
+    <string name="pref_adjust_for_temperature_title">तापमान मा कारक</string>
+    <string name="pref_adjust_for_temperature_summary">समुद्र स्तर दबाव रूपान्तरण मा तापमान प्रयोग गर्नुहोस्</string>
+    <string name="pref_num_visible_beacons_title">नजिकैको बीकनहरू</string>
+    <string name="pref_display_multi_beacons_summary">कम्पासमा नजिकको बीकनहरू देखाउनुहोस्</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">नेभिगेट गर्नु अघि क्यालिब्रेट गर्नुहोस्</string>
+    <string name="pref_max_beacon_distance_title">नजिकैको बीकन त्रिज्या</string>
+    <string name="pref_monitor_weather_title">मौसम निगरानी गर्नुहोस्</string>
+    <string name="pref_forecast_sensitivity_title">पूर्वानुमान संवेदनशीलता</string>
+    <string name="pref_show_weather_notification_title">मौसम सूचना देखाउनुहोस्</string>
+    <string name="pref_show_pressure_in_notification_title">सूचनामा दबाब देखाउनुहोस्</string>
+    <string name="pref_center_sun_and_moon_title">सूर्य/चन्द्रमा केन्द्रित राख्नुहोस्</string>
+    <string name="sun_moon_compass_when_up">जब माथि</string>
+    <string name="error_occurred_message">ट्रेल सेन्समा त्रुटि भयो। कृपया यो समस्या समाधान गर्न विकासकर्तालाई इमेल गर्नुहोस्।</string>
+    <string name="delete_beacon_group_message">%s र यसको सबै बीकनहरू मेटिने छन्।</string>
+    <string name="tool_lightning_title">बिजुली स्ट्राइक दूरी</string>
+    <string name="precise_centimeters_format">%s सेमी</string>
+    <string name="water_purification_step_1">पानी फिल्टर गर्नुहोस्</string>
+    <string name="clock_waiting_for_gps">GPS बाट समय अद्यावधिक गर्दै…</string>
+    <string name="strobe_warning_title">चम्किरहेको बत्तीहरू</string>
+    <string name="beacon_1">बीकन १</string>
+    <string name="tool_battery_title">ब्याट्री</string>
+    <string name="metal_detector_disclaimer">चुम्बकीय धातुहरू मात्र पत्ता लगाउँदछ (उदाहरण फलाम)</string>
+    <string name="location_override_updated">स्थान ओभरराइड अपडेट गरियो</string>
+    <string name="location_input_help_title">समर्थित स्थान ढाँचाहरू</string>
+    <string name="coordinate_input_invalid_location">अमान्य स्थान</string>
+    <string name="pref_gps_override_title">स्थान ओभरराइड</string>
+    <string name="delete_waypoint_prompt">वेपोइन्ट मेट्ने हो\?</string>
+    <string name="battery_power_usb">USB</string>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">अर्को %d घण्टामा वर्षाको संकेत गर्न सक्छ।</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">अर्को %d घण्टाको लागि वर्षा हुन सक्छ।</string>
+    <string name="stratocumulus_desc">कम बादलहरू जुन साना खाली ठाउँहरूमा कपासको बलको पाना जस्तो देखिन्छ। रंग सेतो देखि गाढा खैरो सम्म।</string>
+    <string name="hygrometer">हाइग्रोमिटर</string>
+    <string name="distance_from_flashlight">फोनबाट फ्ल्यासलाइटको दूरी</string>
+    <string name="candela_format">%s cd</string>
+    <string name="pref_backtrack_save_cell_summary">वेपोइन्टमा सेल सिग्नल रेकर्ड गर्दछ। इन्टरनेट प्रयोग गर्दैन।</string>
+    <string name="pref_backtrack_save_cell_title">सेल सिग्नल रेकर्ड गर्नुहोस्</string>
+    <string name="location_disabled">स्थान असक्षम गरिएको छ</string>
+    <string name="battery_usage">%s ब्याट्री प्रयोग</string>
+    <string name="high">उच्च</string>
+    <string name="moderate">मध्यम</string>
+    <string name="no_gps_signal">GPS सिग्नल छैन</string>
+    <string name="gps_cache">GPS क्यास</string>
+    <string name="guide_light_meter_description">फ्ल्यासलाइटको बीम दूरी कसरी निर्धारण गर्ने</string>
+    <string name="todays_forecast">आजको पूर्वानुमान</string>
+    <string name="pref_daily_weather_notification_title">दैनिक मौसम सूचना</string>
+    <string name="pref_daily_weather_time_title">दैनिक मौसम समय</string>
+    <string name="half_tide">आधा</string>
+    <string name="screen_flashlight">स्क्रिन</string>
+    <string name="speedometer">स्पीडोमिटर</string>
+    <string name="odometer">ओडोमिटर</string>
+    <string name="rename">पुन: नामाकरण गर्नुहोस्</string>
+    <string name="pref_stride_length_title">स्ट्राइड लम्बाइ</string>
+    <string name="pref_nearby_radar_title">नजिकैको राडार कम्पास देखाउनुहोस्</string>
+    <string name="tomorrow_at">भोलि %s मा</string>
+    <string name="pedometer_disclaimer">पेडोमिटरको शुद्धता र ब्याट्री प्रयोग तपाईंको उपकरणको निर्माता र प्रविष्ट गरिएको स्ट्राइड लम्बाइमा निर्भर हुन्छ। ट्रेलमा प्रयोग गर्नु अघि ब्याट्री ड्रेन र शुद्धता प्रमाणित गर्न यसलाई घरमै प्रयास गर्नुहोस्।</string>
+    <string name="actual_frequency_disclaimer">वास्तविक आवृत्ति फरक हुन सक्छ किनकि केही यन्त्रहरूमा पृष्ठभूमि सीमाहरू छन्।</string>
+    <string name="on_map">नक्सामा</string>
+    <string name="importing_map">नक्सा आयात गर्दै</string>
+    <string name="sleep_timer">सुत्ने टाइमर</string>
+    <string name="backtrack_battery_warning">साना अन्तरालहरू (१५ मिनेट भन्दा कम) ले ब्याट्रीको अतिरिक्त निकास हुन सक्छ</string>
+    <string name="calibrate_new_tide">नयाँ ज्वारमा क्यालिब्रेट गर्ने\?</string>
+    <string name="water_boil_guide_title">पानी पिउन सुरक्षित बनाउनुहोस्</string>
+    <string name="pref_show_last_signal_beacon_title">अन्तिम संकेत बिकन</string>
+    <string name="fields">क्षेत्रहरू</string>
+    <string name="noon">दिउँसो</string>
+    <string name="whistle_signal_acknowledged">स्वीकार गरे</string>
+    <string name="pref_barometer_pressure_smoothing_title">दबाब चिकनी</string>
+    <string name="coordinates_tab">समन्वय गर्दछ</string>
+    <string name="no_groups">कुनै समूह छैन</string>
+    <string name="sensor_gyroscope">जाइरोस्कोप</string>
+    <string name="units">एकाइहरू</string>
+    <string name="pref_experimental_metal_direction_title">धातु दिशा देखाउनुहोस्</string>
+    <string name="pref_tiles_enabled_title">प्रणाली टाइलहरू</string>
+    <string name="destination_elevation">गन्तव्य उचाइ</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="pint_format">%s pt</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="gallon_format">%s महिला</string>
+    <string name="imperial_quarts">इम्पेरियल क्वार्ट्स</string>
+    <string name="hours_format">%s घन्टा</string>
+    <string name="no_packing_lists">कुनै प्याकिङ सूची छैन</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="weight_per_item">प्रति वस्तु वजन</string>
+    <string name="guide_packing_list">प्याकिङ सूचीहरू सिर्जना गर्नुहोस्</string>
+    <string name="no_compass_message">तपाईंको यन्त्रमा कम्पास सेन्सर छैन</string>
+    <string name="num_satellites">%d उपग्रहहरू</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="elevation_history">उचाइ इतिहास</string>
+    <string name="qr_code">QR कोड</string>
+    <string name="beacon_qr_import_instructions">आयात गर्न QR कोड स्क्यान गर्नुहोस्</string>
+    <string name="last_duration">पछिल्लो %s</string>
+    <string name="elevation_history_length">उचाइ इतिहास लम्बाइ</string>
+    <string name="low_amount">न्यून (%s)</string>
+    <string name="magnitude">परिमाण</string>
+    <string name="obscuration">अस्पष्टता</string>
+    <string name="astronomy_altitude_peak">शिखर उचाइ</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="one">%d वेपोइन्ट मेटिनेछ</item>
+        <item quantity="other">%d वेपोइन्टहरू मेटिने छन्</item>
+    </plurals>
+    <string name="start_time">सुरु गर्नुहोस्</string>
+    <string name="end_time">अन्त्य</string>
+    <string name="peak_time">शिखर</string>
+    <string name="astronomy_direction_peak">शिखर दिशा</string>
+    <string name="season_winter">जाडो</string>
+    <string name="season_spring">वसन्त</string>
+    <string name="season_summer">गर्मी</string>
+    <string name="supermoon">सुपरमुन</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="tilt">झुकाव</string>
+    <string name="pref_export_weather_csv_title">मौसम पठनहरू निर्यात गर्नुहोस्</string>
+    <string name="weather_exported">मौसम निर्यात गरियो</string>
+    <string name="pref_show_nearest_tide_title">निकटतम ज्वार देखाउनुहोस्</string>
+    <string name="sun_moon_position_template">### %1$s
+\n**उचाई**: %2$s
+\n
+\n**अजीमुथ**: %3$s</string>
+    <string name="elevation_gain">उचाइ लाभ</string>
+    <string name="hard">कडा</string>
+    <string name="precipitation_small_hail">सानो असिना</string>
+    <string name="precipitation_ice_pellets">आइस पेलेटहरू</string>
+    <string name="most_recent">भर्खरको</string>
+    <string name="importing">आयात गर्दै</string>
+    <string name="waypoint">वेपोइन्ट</string>
+    <string name="simplifying">सरलीकरण गर्दै</string>
+    <string name="navigation_guide_description">बीकन र मार्गहरू प्रयोग गर्दै</string>
+    <string name="change_map_projection">प्रक्षेपण परिवर्तन गर्नुहोस्</string>
+    <string name="map_projection_equidistant">इक्विडिस्ट</string>
+    <string name="reduce_map_resolution">नक्सा रिजोल्युसन कम गर्नुहोस्</string>
+    <string name="avalanche_risk">हिमस्खलनको जोखिम</string>
+    <string name="distance_unset">दूरी सेट गरिएको छैन</string>
+    <string name="undo">पूर्ववत गर्नुहोस्</string>
+    <string name="share_ellipsis">सेयर…</string>
+    <string name="night">रात</string>
+    <string name="tide_table">टाइड टेबल</string>
+    <string name="disclaimer_estimated_tide">अनुमानित टाइडहरू गलत हुन सक्छन्। सही समयको लागि कृपया आधिकारिक ज्वार तालिका प्रयोग गर्नुहोस्।</string>
+    <string name="remove_distance_alert">दूरी चेतावनी (%s) हटाउने हो\?</string>
+    <string name="distance_alert_distance_reached">तपाईं %s पुग्नुभएको छ</string>
+    <string name="off">बन्द</string>
+    <string name="estimate_stride_length">स्ट्राइड लम्बाइ अनुमान गर्नुहोस्</string>
+    <string name="stride_length_stand_still">चुपचाप उभिनुहोस्</string>
+    <string name="stride_length_walk">एक सीधा रेखा मा हिड्नुहोस्, जब तपाईं सकियो रोक थिच्नुहोस्</string>
+    <string name="current_speed">हालको गति</string>
+    <string name="current_speed_pedometer">वर्तमान गति (पेडोमिटर)</string>
+    <string name="pref_start_on_boot_title">बुटमा सुरु गर्नुहोस्</string>
+    <string name="bearing">असर</string>
+    <string name="warning">चेतावनी</string>
+    <string name="exporting_map">नक्सा निर्यात गर्दै</string>
+    <string name="map_exported">नक्सा निर्यात गरियो</string>
+    <string name="map_export_error">चयन गरिएको फाइलमा नक्सा निर्यात गर्न असमर्थ</string>
+    <string name="point_added">बाटोमा बिन्दु थपियो</string>
+    <string name="tide_frequency_description">प्रति दिन उच्च ज्वार संख्या। धेरैजसो ज्वार अर्ध-दिवसीय हुन्छन्।</string>
+    <string name="permission_alarms_and_reminders">अलार्म र रिमाइन्डरहरू</string>
+    <string name="change_resolution">संकल्प परिवर्तन गर्नुहोस्</string>
+    <string name="tool_climate_summary">ऐतिहासिक तापमान हेर्नुहोस्</string>
+    <string name="now_value">अहिले: %s</string>
+    <string name="cold">चिसो</string>
+    <string name="weather_alert_storm_description">उच्च हावा र भारी वर्षाको लागि तयारी गर्नुहोस्।</string>
+    <string name="weather_alert_hot_description">तातो तापक्रमको लागि तयारी गर्नुहोस्। गर्मी थकान र गर्मी स्ट्रोक विरुद्ध अतिरिक्त सावधानीहरू लिनुहोस्।</string>
+    <string name="unable_to_find_next_astronomy">अर्को फेला पार्न असमर्थ %s</string>
+    <string name="map_calibration">नक्सा क्यालिब्रेसन</string>
+    <string name="map_calibration_instructions">नक्सामा ज्ञात स्थानमा ट्याप गर्नुहोस्, त्यसपछि वास्तविक-विश्व निर्देशांकहरू प्रविष्ट गर्नुहोस्। तपाईंले \"डन\" बटन क्लिक गरेर क्यालिब्रेसन बचत गर्न सक्नुहुन्छ।
+\n
+\nराम्रो क्यालिब्रेसन बिन्दुहरूका उदाहरणहरू पार्किङ स्थल, साइनेज पोइन्ट, ल्यान्डमार्क वा ट्रेलको साथमा जंक्शन हुन्।</string>
+    <string name="compass_source_legacy_android">लिगेसी (एन्ड्रोइड)</string>
+    <string name="accelerometer">एक्सेलेरोमिटर</string>
+    <string name="data_source">स्रोत: %s</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d ज्वार</item>
+        <item quantity="other">%d ज्वार</item>
+    </plurals>
+    <string name="i_agree">म सहमत छु</string>
 </resources>
