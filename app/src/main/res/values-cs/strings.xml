@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="pref_altimeter_calibration_mode_title">Automatická kalibrace</string>
     <string name="never">Nikdy</string>
@@ -898,6 +898,7 @@
     <string name="tide_table">Tabulka přílivů a odlivů</string>
     <string name="tool_temperature_estimation_description">Předpovídejte teplotu v jiné nadmořské výšce</string>
     <string name="steps">Kroky</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="remove_distance_alert">Odebrat upozornění na vzdálenost (%s)\?</string>
     <string name="off">Vypnuto</string>
     <string name="save">Uložit</string>
@@ -915,6 +916,7 @@
     <string name="gps_unavailable">GPS není k dispozici</string>
     <string name="result_deleted">Výsledek odstraněn</string>
     <string name="qr_text_too_long">Text je příliš dlouhý, QR kód byl zkrácen</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="stride_length_stand_still">Zůstaňte stát</string>
     <string name="reset_distance_title">Obnovit vzdálenost\?</string>
     <string name="easy">Snadná</string>

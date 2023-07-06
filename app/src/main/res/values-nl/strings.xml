@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">Navigatie</string>
     <string name="weather">Weer</string>
@@ -773,6 +773,8 @@
     <string name="share_ellipsis">Delen…</string>
     <string name="undo">Ongedaan maken</string>
     <string name="tool_temperature_estimation_description">Voorspel de temperatuur op een andere hoogte</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Afstand waarschuwing</string>
     <string name="remove_distance_alert">Verwijder afstand waarschuwing (%s)\?</string>
     <string name="off">Uit</string>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--Tabs-->
     <string name="navigation">Navegação</string>
@@ -928,6 +928,7 @@
     <string name="explore">Explorar</string>
     <string name="average_speed">Velocidade média</string>
     <string name="steps">Passos</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Aviso sobre distância</string>
     <string name="remove_distance_alert">Remover aviso sobre distância (%s)\?</string>

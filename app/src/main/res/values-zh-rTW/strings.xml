@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pref_monitor_weather_summary">在背景執行</string>
     <string name="pressure_4_hours">4 小時</string>

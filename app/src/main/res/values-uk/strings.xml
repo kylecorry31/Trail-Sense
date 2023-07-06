@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="color">Колір</string>
     <string name="water_boil_guide_title">Убезпечте воду для її споживання</string>
@@ -914,6 +914,7 @@
     </plurals>
     <string name="average_speed">Сер. швидкість</string>
     <string name="steps">Кроки</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Попередження про відстань</string>
     <string name="remove_distance_alert">Видалити попередження про відстань (%s)\?</string>

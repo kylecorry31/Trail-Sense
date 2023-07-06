@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Navigation</string>
     <string name="weather">Météo</string>
@@ -897,6 +897,7 @@
     <string name="smoothing">Lissage</string>
     <string name="samples">Exemples</string>
     <string name="historic">Historique</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="allow_ignore_battery_restrictions_instructions">La suppression des restrictions de batterie pour Trail Sense peut améliorer la précision.
 \n
 \nSur la plupart des appareils, cliquez sur \'%s\', puis passez à toutes les applications, et désactivez l’optimisation de la batterie pour Trail Sense.
@@ -995,7 +996,7 @@
     <plurals name="tides_entered_count">
         <item quantity="one">%d marée</item>
         <item quantity="many">%d marées</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="altocumulus_forecast">Peut indiquer des précipitations ou orages dans les %d prochaines heures.</string>
     <string name="nimbostratus_forecast">Précipitations possibles dans les %d prochaines heures.</string>
@@ -1006,6 +1007,7 @@
     <string name="result_deleted">Résultat supprimé</string>
     <string name="tide_deleted">Marée supprimée</string>
     <string name="pressure_tendency">Tendance</string>
+    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="average_speed_pedometer">Vitesse moyenne (Podomètre)</string>
     <string name="change_resolution">Changer la résolution</string>
     <string name="path_slope_flat">Plat</string>
