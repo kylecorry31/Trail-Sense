@@ -3,12 +3,9 @@ package com.kylecorry.trail_sense.onboarding
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.main.MainActivity
@@ -64,23 +61,6 @@ class OnboardingActivity : AppCompatActivity() {
     private fun load(page: Int) {
         binding.pageSettings.removeAllViews()
 
-        if (page == OnboardingPages.EXPLORE) {
-            addSwitch(getString(R.string.backtrack), prefs.backtrackEnabled) {
-                prefs.backtrackEnabled = it
-            }
-            if (Sensors.hasBarometer(this)) {
-                addSwitch(
-                    getString(R.string.pref_monitor_weather_title),
-                    prefs.weather.shouldMonitorWeather
-                ) {
-                    prefs.weather.shouldMonitorWeather = it
-                }
-            }
-            addSwitch(getString(R.string.sunset_alerts), prefs.astronomy.sendSunsetAlerts) {
-                prefs.astronomy.sendSunsetAlerts = it
-            }
-        }
-
         pageIdx = page
 
         if (page >= OnboardingPages.pages.size) {
@@ -105,22 +85,6 @@ class OnboardingActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.popBackStackImmediate()
         }
-    }
-
-    private fun addSwitch(title: String, isChecked: Boolean, onCheckedChange: (Boolean) -> Unit) {
-        val switch = SwitchCompat(this)
-        switch.isChecked = isChecked
-        switch.text = title
-        switch.setOnCheckedChangeListener { _, checked ->
-            onCheckedChange(checked)
-        }
-        switch.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            bottomMargin = Resources.dp(this@OnboardingActivity, 8f).toInt()
-        }
-        binding.pageSettings.addView(switch)
     }
 
 }
