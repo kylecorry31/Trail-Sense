@@ -170,6 +170,19 @@ class HardCodedAppName(StringDiagnostic):
     def is_warning(self) -> bool:
         return True
 
+class EmptyTranslation(StringDiagnostic):
+    def check(self, source_tree, tree, element) -> bool:
+        if source_tree == tree:
+            return False
+        return len(element.text.strip()) == 0
+
+    def fix(self, source_tree, tree, element) -> bool:
+        delete_element(tree, element)
+        return True
+    
+    def is_warning(self) -> bool:
+        return True
+
 script_dir = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 
 reference_file = script_dir + '/../app/src/main/res/values/strings.xml'
@@ -182,7 +195,8 @@ diagnostics = [
     NotInSource(),
     PositionalFormattingUnspecified(),
     TranslatedAppName(),
-    HardCodedAppName()
+    HardCodedAppName(),
+    EmptyTranslation()
 ]
 
 
