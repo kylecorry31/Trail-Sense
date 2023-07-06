@@ -925,7 +925,6 @@
     <string name="pref_clinometer_baseline_distance_title">Distância de linha de base</string>
     <string name="clinometer_measure_distance_title">Altura do destino</string>
     <string name="error_banners">Avisos de erro</string>
-    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="off">Desligado</string>
     <string name="weather_monitor_disabled_resolution">Ativar o monitorização da previsão metrológica em configurações meteorológicas</string>
     <string name="beacon_created">Alfinete criado</string>
