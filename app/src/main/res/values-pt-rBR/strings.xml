@@ -1084,4 +1084,44 @@
     <string name="compass_source_legacy_android">Legado (Android)</string>
     <string name="accelerometer">Acelerômetro</string>
     <string name="data_source">Origem: %s</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Cortar o mapa ainda reduzirá a resolução. Se você precisar cortar o mapa em uma alta resolução, use um aplicativo de editor de fotos. Há planos para corrigir isso no futuro.</string>
+    <string name="crop_map_instructions_long">Arraste os cantos da caixa para os cantos do mapa para delinear.</string>
+    <string name="create_path">Criar caminho</string>
+    <string name="last_lightning_strike_at">Última greve em %s</string>
+    <string name="center">Centro</string>
+    <string name="size">Tamanho</string>
+    <string name="map_is_not_calibrated">O mapa não está calibrado</string>
+    <string name="learn_more">Saiba mais</string>
+    <string name="rotation_amount">Rotação: %s</string>
+    <string name="step_progression">Passo %1$d / %2$d</string>
+    <string name="autofill_source">Fonte de preenchimento automático</string>
+    <string name="map_calibration">Calibração do mapa</string>
+    <string name="map_calibration_instructions">Toque em um local conhecido no mapa e digite as coordenadas do mundo real. Você pode salvar a calibração clicando no botão “Done”.
+\n
+\nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um marco ou uma junção ao longo de uma trilha.</string>
+    <string name="pref_keep_map_facing_up_title">Mantenha o mapa virado para cima</string>
+    <string name="daylight_duration">%s luz do dia</string>
+    <string name="times">Tempo</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="rate">Taxa</string>
+    <string name="season">Temporada</string>
+    <string name="until_sunset">até o pôr do sol</string>
+    <string name="until_sunrise">até o nascer do sol</string>
+    <string name="astronomy_rise">Rise</string>
+    <string name="horizon">Horizonte</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">As temperaturas são baseadas em uma média anual %d de dados históricos e podem não refletir as condições climáticas atuais.</string>
+    <string name="create_blank_map">Criar mapa em branco</string>
+    <string name="pref_keep_map_facing_up_summary">O mapa se alinhará com a parte superior da tela em vez de True North.</string>
+    <string name="astronomy_set">Conjunto</string>
+    <string name="battery_settings_limit_accuracy">Precisão do limite das configurações da bateria</string>
+    <string name="battery_usage_allowed">Uso de bateria permitido</string>
+    <string name="print">Impressão</string>
+    <string name="altimeter_cache">Altimeter cache</string>
+    <string name="at_time">em %s</string>
+    <string name="blank">Em branco</string>
+    <string name="photo_map_summary">Use uma foto como um mapa</string>
+    <string name="beta">Beta</string>
+    <string name="beta_disclaimer">Esta ferramenta está atualmente em beta, por isso, informe quaisquer problemas ou feedback em %s.</string>
+    <string name="photo_map_disclaimer">Sempre carregar um mapa físico para backup e verificar a precisão do Sentido de Trilha.</string>
 </resources>
