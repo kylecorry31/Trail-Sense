@@ -1106,7 +1106,8 @@
     <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recortar el mapa seguirá reduciendo la resolución. Si necesitas recortar el mapa a alta resolución, utiliza una aplicación de edición fotográfica. Hay planes para solucionar este problema en el futuro.</string>
     <string name="rotation_amount">Rotación: %s</string>
-    <string name="battery_settings_limit_accuracy">Los ajustes de la batería limitan la precisión.</string>
+    <string name="battery_settings_limit_accuracy">Los ajustes de la batería limitan la precisión</string>
     <string name="learn_more">Más información</string>
     <string name="i_agree">Acepto</string>
+    <string name="battery_usage_allowed">Se permite el uso de la batería</string>
 </resources>
