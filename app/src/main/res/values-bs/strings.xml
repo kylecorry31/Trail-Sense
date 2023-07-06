@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="navigation">Navigacija</string>
     <string name="weather">Vrijeme</string>
@@ -821,7 +821,6 @@
 \n- Koristite svoj telefon kao baterijsku lampu
 \n
 \n- I mnogo više!</string>
-    <string name="pref_distance_alert">pref_udaljenost_pozor</string>
     <string name="reset_distance_title">Ponovo namjestite udaljenost\?</string>
     <string name="qr_code_scanner">QR skener koda</string>
     <string name="note">Bilješka</string>
@@ -839,7 +838,6 @@
     <string name="high_tide_letter">V</string>
     <string name="view">Prikaz</string>
     <string name="average_speed">Prosječna brzina</string>
-    <string name="pref_pedometer_enabled">pref_pedometar_omogućen</string>
     <string name="stride_length_walk">Hodajte u pravoj liniji, pritisnite stop kada završite</string>
     <string name="current_speed">Trenutna brzina</string>
     <string name="current_speed_pedometer">Trenutna brzina (Pedometar)</string>

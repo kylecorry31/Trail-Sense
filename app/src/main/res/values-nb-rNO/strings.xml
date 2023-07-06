@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="continue_button">Fortsett</string>
     <string name="pref_email_title">E-post til utvikler</string>
@@ -973,7 +973,6 @@
     <string name="blank">Blankt</string>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="capture">Registrer</string>
-    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="activity_recognition">Aktivitetsgjenkjennelse</string>
     <string name="background_location_permission">Posisjon (tillat hele tiden)</string>
     <string name="location_override_resolution">Skru på auto-justering av posisjon i innstillingene.</string>
@@ -981,7 +980,6 @@
     <string name="notification_backtrack_update_title">Tilbakesporingsoppdatering</string>
     <string name="cloud_photo_mask_toast">Trykk på bildet for å veksle maske</string>
     <string name="auto">Automatisk</string>
-    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="onboarding_explore">- Designet for fotturer, ryggsekkturer, telttur og geocaching
 \n
 \n- Plasser navigeringsmarkører og naviger til dem
