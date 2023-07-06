@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Navigasi</string>
     <string name="weather">Cuaca</string>
@@ -903,7 +903,6 @@
     <string name="bearing">Bantalan</string>
     <string name="warning">Peringatan</string>
     <string name="tool_temperature_estimation_description">Memprediksi suhu pada ketinggian yang berbeda</string>
-    <string name="pref_pedometer_enabled">pref_pedometer_enabled</string>
     <string name="save">Simpan</string>
     <string name="stride_length_stand_still">Berdiri diam</string>
     <string name="notification_backtrack_update_title">Perbarui Backtrack</string>

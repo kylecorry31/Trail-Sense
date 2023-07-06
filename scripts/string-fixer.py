@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import os
 import re
 
-should_fix_issues = False
+should_fix_issues = True
 show_warnings = True
 
 
@@ -54,6 +54,8 @@ class NonTranslatableTranslated(StringDiagnostic):
         if tree == source_tree:
             return False
         source_element = get_string_element(source_tree, element.get('name'))
+        if source_element is None:
+            return False
         return source_element.get('translatable') == 'false'
 
     def fix(self, source_tree, tree, element) -> bool:
