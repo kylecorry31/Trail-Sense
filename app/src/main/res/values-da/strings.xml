@@ -1053,4 +1053,59 @@
 \n
 \n- Når du har klikket på Fortsæt, bliver du bedt om at give tilladelser til placering og baggrundsplacering. Hvis du afviser disse tilladelser, kan Trail Sense ikke få adgang til din placering, så manuel placeringsindtastning anbefales.</string>
     <string name="backtrack_battery_warning">Små intervaller (under 15 min.) kan forårsage højt batteriforbrug</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Belægning af kortet vil stadig reducere opløsning. Hvis du har brug for at beskære kortet på en høj opløsning, skal du bruge en foto editor app. Der er planer om at løse dette i fremtiden.</string>
+    <string name="learn_more">Læs mere</string>
+    <string name="roll_pitch_yaw">Roll: %1$s, Pitch: %2$s, Yaw: %3$s</string>
+    <string name="rotation_amount">Rotation: %s</string>
+    <string name="autofill_source">Automatisk påfyldningskilde</string>
+    <string name="start_time">Start start</string>
+    <string name="end_time">End End</string>
+    <string name="loading">Loading Loading</string>
+    <string name="unable_to_find_next_astronomy">Kan ikke finde næste %s</string>
+    <string name="illumination">Lysdæmpning</string>
+    <string name="map_auto_rotated">Kort rotation tilpasset med kalibrering</string>
+    <string name="solar_eclipses">Solformørkelser</string>
+    <string name="map_is_not_calibrated">Kort er ikke kalibreret</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>
+    <string name="pref_keep_map_facing_up_title">Hold kort mod op</string>
+    <string name="pref_keep_map_facing_up_summary">Kortet vil tilpasse sig toppen af skærmen i stedet for True North.</string>
+    <string name="until_sunset">indtil solnedgang</string>
+    <string name="astronomy_rise">Rise Rise Rise</string>
+    <string name="horizon">Horizon Horizon</string>
+    <string name="crop_map_instructions_long">Træk hjørnerne af kassen til hjørnerne af kortet for at skitsere.</string>
+    <string name="calibrate_map_point">Kalibrering med kendte steder (%1$d / %2$d)</string>
+    <string name="peak_time">Peak Peak Peak</string>
+    <string name="magnitude">Forstørrelse</string>
+    <string name="obscuration">Obscuration</string>
+    <string name="astronomy_altitude_peak">Peak højde</string>
+    <string name="astronomy_direction_peak">Peak retning</string>
+    <string name="step_progression">Trin %1$d / %2$d</string>
+    <string name="map_calibration">Kort kalibrering</string>
+    <string name="map_calibration_instructions">Tryk på en kendt placering på kortet, og indtast derefter den virkelige verden koordinater. Du kan gemme kalibreringen ved at klikke på knappen “Done”.
+\n
+\nEksempler på gode kalibreringspunkter er en parkeringsplads, et tegnpunkt, et vartegn eller et krydset langs en sti.</string>
+    <string name="compass_source_legacy_ts">Hoteller i nærheden af Legacy (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Billeder af Legacy (Android)</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="daylight_duration">%s dagslys</string>
+    <string name="times">Times Times</string>
+    <string name="yes">Ja</string>
+    <string name="no">Ingen Ingen</string>
+    <string name="rate">Pris pr. pris</string>
+    <string name="season">Sæsonsæson</string>
+    <string name="until_sunrise">indtil solopgang</string>
+    <string name="astronomy_set">Indstil sæt</string>
+    <string name="battery_settings_limit_accuracy">Batteriindstillinger begrænser nøjagtighed</string>
+    <string name="battery_usage_allowed">Batteriforbrug tilladt</string>
+    <string name="print">Udskriv</string>
+    <string name="photo_map_summary">Brug et billede som et kort</string>
+    <string name="photo_map_disclaimer">Altid bære et fysisk kort til backup og bekræfte nøjagtigheden af Trail Sense.</string>
+    <string name="beta">Beta Beta</string>
+    <string name="beta_disclaimer">Dette værktøj er i øjeblikket i beta, så fortæl om eventuelle problemer eller feedback på %s.</string>
+    <string name="solar_eclipse_start">Solformørkelse (start)</string>
+    <string name="solar_eclipse_end">Solformørkelse (end)</string>
+    <string name="solar_eclipse">Solformørkelse</string>
+    <string name="map_file">Fil (JPG, PNG, PDF)</string>
+    <string name="data_source">Kilde: %s</string>
+    <string name="i_agree">Jeg accepterer</string>
 </resources>
