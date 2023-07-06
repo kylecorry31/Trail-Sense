@@ -1134,7 +1134,4 @@
     <string name="crop_map_instructions_long">Перетягніть кути рамки до кутів мапи, щоб створити контур.</string>
     <string name="rotation_amount">Обертання: %s</string>
     <string name="i_agree">Я згоден</string>
-    <string name="battery_settings_limit_accuracy">Точність параметрів акумулятора</string>
-    <string name="learn_more">Детальніше</string>
-    <string name="battery_usage_allowed">Використання акумулятора</string>
 </resources>

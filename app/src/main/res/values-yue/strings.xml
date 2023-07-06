@@ -543,9 +543,9 @@
     <string name="dialog_item_amount">數量</string>
     <string name="feet_miles">呎 / 哩</string>
     <string name="theme_light">白頭浪</string>
-    <string name="theme_sunset_sunrise">明或暗</string>
+    <string name="theme_sunset_sunrise">視乎日出/日落</string>
     <string name="theme_dark">黑眼睛</string>
-    <string name="theme_black">未復光</string>
+    <string name="theme_black">紅日降</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">座標格式</string>
@@ -575,7 +575,7 @@
     <string name="stratocumulus">層積雲</string>
     <string name="cumulonimbus">積雨雲</string>
     <string name="general">一般</string>
-    <string name="theme_system">侍大路</string>
+    <string name="theme_system">跟返系統噉樣</string>
     <string name="other">其他</string>
     <string name="lunar_eclipses">月蝕</string>
     <string name="start_time">開始</string>
@@ -804,25 +804,4 @@
     <string name="category_food">嘢食</string>
     <string name="category_clothing">衫褲</string>
     <string name="i_agree">我同意</string>
-    <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
-    <string name="acceleration_m_s2_format">%s 米每二次方秒</string>
-    <string name="pref_odometer_reset_daily_title">每日歸零</string>
-    <string name="coordinate_format_degrees_decimal_minutes">度數、小數點角分</string>
-    <string name="location_input_help_title">支援嘅位置格式</string>
-    <string name="coordinate_format_decimal_degrees">小數點度數</string>
-    <string name="location_input_help">小數點度數 (例如 1.00、-2.00)
-\n
-\n度數、小數點角分 (例如 1°23.12\'N、3°12.1\'W)
-\n
-\n度分秒 (例如 1°23\'12.1\"N、3°12\'1.2\"W)
-\n
-\nUTM (例如 03T 12345E 67890N)
-\n
-\nMGRS (例如 27PXM 09601 05579)
-\n
-\nUSNG (例如 14S NJ 39521 41744)
-\n
-\nOSGB (例如 TG 51409 13177)</string>
-    <string name="sleep_timer">睡眠計時器</string>
-    <string name="avalanche_risk">雪崩風險</string>
 </resources>

@@ -1071,41 +1071,4 @@
     <string name="print">Yazdır</string>
     <string name="step_progression">Adım %1$d / %2$d</string>
     <string name="autofill_source">Otomatik doldurma kaynağı</string>
-    <string name="learn_more">Daha fazla bilgi edinin</string>
-    <string name="calibrate_map_point">Bilinen konumlarla Kalibrate (%1$d / %2$d)</string>
-    <string name="illumination">Aydınlatma</string>
-    <string name="map_auto_rotated">Kalibrasyon ile ayarlanan harita rotasyonu</string>
-    <string name="compass_source_mag_gyro">Magnetometre + Gyro</string>
-    <string name="compass_source_legacy_ts">Legacy (Trail Sense)</string>
-    <string name="rate">Tarife</string>
-    <string name="horizon">Menü</string>
-    <string name="battery_usage_allowed">Pil kullanımı izin</string>
-    <string name="reduce_map_resolution_crop_disclaimer">Haritayı kırpma hala çözünürlüğü azaltacaktır. Haritayı yüksek çözünürlükte kırpmanız gerekiyorsa, lütfen bir fotoğraf editörü uygulamasını kullanın. Gelecekte bunu düzeltmek için planlar vardır.</string>
-    <string name="crop_map_instructions_long">Kutusun köşelerine haritanın köşelerine çevrimdışı olarak sürükleyin.</string>
-    <string name="rotation_amount">Rotasyon: %s</string>
-    <string name="map_calibration_instructions">Haritada bilinen bir konuma dokunun, ardından gerçek dünya koordinatlarını girin. \"Done\" düğmesine tıklayarak kalibrasyondan tasarruf edebilirsiniz.
-\n
-\nİyi kalibrasyon noktaları örnekleri park yeri, bir tabela noktası, bir yer işareti veya bir park yeri vardır.</string>
-    <string name="compass_source_legacy_android">Legacy (Android)</string>
-    <string name="accelerometer">Accelerometre</string>
-    <string name="pref_keep_map_facing_up_title">Ortaya bakan haritayı tutun</string>
-    <string name="pref_keep_map_facing_up_summary">Harita gerçek Kuzey yerine ekranın üst ile hizalanacaktır.</string>
-    <string name="daylight_duration">%s gün ışığı</string>
-    <string name="times">XHamster</string>
-    <string name="yes">Evet</string>
-    <string name="no">Yok hayır</string>
-    <string name="season">Sezon</string>
-    <string name="until_sunset">güne kadar</string>
-    <string name="until_sunrise">güneşlenmeye kadar</string>
-    <string name="astronomy_set">Menü</string>
-    <string name="astronomy_rise">Menü</string>
-    <string name="battery_settings_limit_accuracy">Pil ayarları limit doğruluğu</string>
-    <string name="i_agree">Ben Agree</string>
-    <string name="photo_map_summary">Bir harita olarak bir fotoğraf kullanın</string>
-    <string name="photo_map_disclaimer">Her zaman yedekleme için fiziksel bir harita taşımak ve Trail Sense doğruluğunu doğrulamak.</string>
-    <string name="beta">Menü</string>
-    <string name="beta_disclaimer">Bu araç şu anda beta\'dadır, bu nedenle %s\'de herhangi bir sorunu veya geribildirimi bildirin.</string>
-    <string name="map_file">Dosya (JPG, PNG, PDF)</string>
-    <string name="map_calibration">Harita kalibrasyonu</string>
-    <string name="data_source">Kaynak: %s</string>
 </resources>
