@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">Navigation</string>
     <string name="weather">Wetter</string>
@@ -1066,4 +1066,51 @@
     <string name="print">Drucken</string>
     <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Quelle automatisch ausfüllen</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Durch das Zuschneiden der Karte wird die Auflösung immer noch verringert. Wenn Sie die Karte in hoher Auflösung zuschneiden müssen, verwenden Sie bitte eine Bildbearbeitungs-App. Es gibt Pläne, dies in Zukunft zu beheben.</string>
+    <string name="learn_more">Erfahren Sie mehr</string>
+    <string name="magnitude">Größe</string>
+    <string name="illumination">Erleuchtung</string>
+    <string name="calibrate_map_point">Mit bekannten Standorten kalibrieren (%1$d / %2$d)</string>
+    <string name="pref_keep_map_facing_up_title">Halten Sie die Karte nach oben gerichtet</string>
+    <string name="pref_keep_map_facing_up_summary">Die Karte wird am oberen Bildschirmrand statt am geografischen Norden ausgerichtet.</string>
+    <string name="daylight_duration">%s Tageslicht</string>
+    <string name="times">Mal</string>
+    <string name="rate">Rate</string>
+    <string name="season">Jahreszeit</string>
+    <string name="until_sunset">bis Sonnenuntergang</string>
+    <string name="until_sunrise">bis zum Sonnenaufgang</string>
+    <string name="astronomy_set">Satz</string>
+    <string name="astronomy_rise">Erheben</string>
+    <string name="horizon">Horizont</string>
+    <string name="map_auto_rotated">Kartendrehung durch Kalibrierung angepasst</string>
+    <string name="battery_usage_allowed">Batterienutzung erlaubt</string>
+    <string name="yes">Ja</string>
+    <string name="astronomy_altitude_peak">Gipfelhöhe</string>
+    <string name="accelerometer">Beschleunigungsmesser</string>
+    <string name="compass_source_legacy_ts">Legacy (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Legacy (Android)</string>
+    <string name="battery_settings_limit_accuracy">Batteriebeschränkungen können die Genauigkeit beeinträchtigen</string>
+    <string name="exact_alarm_permission_denied">Die Berechtigung für Alarme und Erinnerungen wurde verweigert. Warnungen sind möglicherweise ungenau. Sie können es in den Einstellungen aktivieren.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Während der Reise können Sonnenuntergangswarnungen ungenau sein</string>
+    <string name="allow_ignore_battery_restrictions">Erlauben Sie %s, Batteriebeschränkungen zu ignorieren</string>
+    <string name="allow_schedule_exact_alarms">Erlauben Sie %s, Alarme und Erinnerungen einzustellen</string>
+    <string name="astronomy_direction_peak">Spitzenrichtung</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>
+    <string name="crop_map_instructions_long">Ziehen Sie die Ecken des Felds auf die Ecken der Karte, um sie zu skizzieren.</string>
+    <string name="rotation_amount">Drehung: %s</string>
+    <string name="allow_schedule_exact_alarms_instructions">Dadurch kann %1$s genaue Alarme und Erinnerungen einstellen, z. B. Sonnenuntergangswarnungen. Andernfalls werden Alarme möglicherweise nicht zum richtigen Zeitpunkt ausgelöst.
+\n
+\nKlicken Sie zum Zulassen auf „%2$s“ und aktivieren Sie die Einstellung zum Zulassen von Alarmen und Erinnerungen.</string>
+    <string name="map_calibration_instructions">Tippen Sie auf einen bekannten Ort auf der Karte und geben Sie dann die realen Koordinaten ein. Sie können die Kalibrierung speichern, indem Sie auf die Schaltfläche „Fertig“ klicken.
+\n
+\nBeispiele für gute Kalibrierungspunkte sind ein Parkplatz, ein Wegweiser, ein Orientierungspunkt oder eine Kreuzung entlang eines Weges.</string>
+    <string name="no">NEIN</string>
+    <string name="beta_disclaimer">Dieses Tool befindet sich derzeit in der Betaphase. Bitte melden Sie Probleme oder Feedback unter %s.</string>
+    <string name="photo_map_summary">Verwenden Sie ein Foto als Karte</string>
+    <string name="photo_map_disclaimer">Tragen Sie immer eine physische Karte zur Sicherung bei sich und überprüfen Sie die Genauigkeit von Trail Sense.</string>
+    <string name="beta">Beta</string>
+    <string name="map_calibration">Kartenkalibrierung</string>
+    <string name="map_file">Datei (JPG, PNG, PDF)</string>
+    <string name="data_source">Quelle: %s</string>
+    <string name="i_agree">Ich stimme zu</string>
 </resources>
