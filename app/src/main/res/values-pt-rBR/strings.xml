@@ -928,6 +928,7 @@
     <string name="explore">Explorar</string>
     <string name="average_speed">Velocidade média</string>
     <string name="steps">Passos</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Aviso sobre distância</string>
     <string name="remove_distance_alert">Remover aviso sobre distância (%s)\?</string>
     <string name="distance_alert_distance_reached">Você chegou a %s</string>

@@ -914,6 +914,7 @@
     </plurals>
     <string name="average_speed">Сер. швидкість</string>
     <string name="steps">Кроки</string>
+    <string name="pref_distance_alert">pref_distance_alert</string>
     <string name="distance_alert">Попередження про відстань</string>
     <string name="remove_distance_alert">Видалити попередження про відстань (%s)\?</string>
     <string name="distance_alert_distance_reached">Ви подолали %s</string>
