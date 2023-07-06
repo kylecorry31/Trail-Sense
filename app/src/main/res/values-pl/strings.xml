@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Nawigacja</string>
     <string name="weather">Pogoda</string>
     <string name="settings">Ustawienia</string>
@@ -937,4 +937,206 @@
     <string name="lowest_point_elevation">Najniższy punkt</string>
     <string name="updating_weather">Aktualizowanie pogody</string>
     <string name="camera_unavailable">Aparat niedostępny</string>
+    <string name="elevation">Podniesienie</string>
+    <string name="beacons">Punkty nawigacyjne</string>
+    <string name="crop_map_instructions_long">Przeciągnij rogi pola do rogów mapy, aby obrysować.</string>
+    <string name="create_path">Utwórz ścieżkę</string>
+    <string name="solar_eclipses">Zaćmienia Słońca</string>
+    <string name="solar_eclipse_start">Zaćmienie Słońca (początek)</string>
+    <string name="solar_eclipse_end">Zaćmienie Słońca (koniec)</string>
+    <string name="navigation_guide_description">Korzystanie z latarni i ścieżek</string>
+    <string name="remove_battery_restrictions">Usunąć ograniczenia dotyczące baterii\?</string>
+    <string name="tide_diurnal">Dzienny</string>
+    <string name="tide_semidiurnal">Półgodzinne</string>
+    <string name="ascent">Wzniesienie się</string>
+    <string name="path_slope_flat">Płaski</string>
+    <string name="path_slope_steep">Stromy</string>
+    <string name="low_pressure">Niskie</string>
+    <string name="then_weather">wtedy %s</string>
+    <string name="smoothing">Wygładzanie</string>
+    <string name="temperature_high_low">Wysoki niski</string>
+    <string name="source">Źródło</string>
+    <string name="hot">Gorący</string>
+    <string name="weather_alert_storm_description">Przygotuj się na silne wiatry i obfite opady.</string>
+    <string name="weather_alert_hot_description">Przygotuj się na wysokie temperatury. Zachowaj dodatkowe środki ostrożności przed wyczerpaniem cieplnym i udarem cieplnym.</string>
+    <string name="weather_alert_cold_description">Przygotuj się na niskie temperatury. Zachowaj dodatkowe środki ostrożności przed hipotermią i odmrożeniami.</string>
+    <string name="pref_backfill_temperatures_title">Zaktualizuj zarejestrowane temperatury</string>
+    <string name="pref_backfill_temperatures_description">Wszystkie zarejestrowane temperatury zostaną zastąpione skalibrowaną temperaturą historyczną.</string>
+    <string name="loading">Ładowanie</string>
+    <string name="high_tide_letter">H</string>
+    <string name="weather_wind">Wiatr</string>
+    <string name="later">Później</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="learn_more">Ucz się więcej</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="few"></item>
+        <item quantity="many">%d mapy</item>
+        <item quantity="other">%d mapy</item>
+    </plurals>
+    <string name="sensor_summary">Kompas, GPS, wysokościomierz, barometr itp.</string>
+    <string name="obscuration">Zaciemnienie</string>
+    <string name="tide_diurnal_description">Przypływ raz dziennie - większość przypływów nie jest dobowa</string>
+    <string name="samples">Próbki</string>
+    <string name="next_24_hours">Następne 24 godziny</string>
+    <string name="tool_climate">Klimat</string>
+    <string name="now_value">Teraz: %s</string>
+    <string name="size">Rozmiar</string>
+    <string name="create_blank_map">Utwórz pustą mapę</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na ładną pogodę. Jeśli rośnie, może to oznaczać opady atmosferyczne lub burzę w ciągu następnych %d godzin.</string>
+    <string name="weather_clear">Bezchmurnie</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Może oznaczać ładną pogodę przez następne %d godzin.</string>
+    <string name="path_slope_moderate">Umiarkowany</string>
+    <string name="blank">Pusty</string>
+    <string name="photo_maps">Mapy fotograficzne</string>
+    <string name="pref_include_leading_zero_title">Dodaj wiodące zero do czasu</string>
+    <string name="illumination">Oświetlenie</string>
+    <string name="pref_show_temperature_in_notification_title">Pokaż temperaturę w powiadomieniu</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na opady atmosferyczne lub burzę w ciągu najbliższych %d godzin.</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Przez następne %d godzin mogą występować opady atmosferyczne.</string>
+    <string name="cumulonimbus_forecast">Za kilka minut może zapowiadać burzę.</string>
+    <string name="map_auto_rotated">Obrót mapy dostosowany za pomocą kalibracji</string>
+    <string name="square">Kwadrat</string>
+    <string name="icon">Ikona</string>
+    <string name="clinometer_measure_distance_instructions">Aby zmierzyć odległość do celu o wysokości %s:
+\n
+\n1. Wyrównaj klinometr z podstawą celu
+\n2. Dotknij ekranu i przytrzymaj
+\n3. Ponownie wyrównaj klinometr z górną częścią celu
+\n4. Zwolnij, aby zablokować i zobaczyć odległość do celu</string>
+    <string name="disclaimer_estimated_tide">Szacowane pływy mogą być niedokładne. Dokładne godziny można znaleźć w oficjalnej tabeli pływów.</string>
+    <string name="tide_instructions">Skorzystaj z oficjalnej tabeli pływów, aby wprowadzić referencyjne pływy dla długości podróży.</string>
+    <string name="high_pressure">Wysokie</string>
+    <string name="weather_overcast">Pochmurny</string>
+    <string name="weather_precipitation">Opad atmosferyczny</string>
+    <string name="pref_show_map_previews_title">Pokaż podglądy map</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historyczny (%d rok)</string>
+    <string name="sensor">Czujnik</string>
+    <string name="for_historic_temperatures">Dla historycznych temperatur</string>
+    <string name="weather_thunderstorm">Burza z piorunami</string>
+    <string name="at_time">o %s</string>
+    <string name="step_progression">Krok %1$d / %2$d</string>
+    <string name="pref_keep_map_facing_up_title">Trzymaj mapę skierowaną do góry</string>
+    <string name="pref_keep_map_facing_up_summary">Mapa zostanie wyrównana z górą ekranu zamiast rzeczywistej północy.</string>
+    <string name="daylight_duration">%s światło dzienne</string>
+    <string name="season">Pora roku</string>
+    <string name="times">Czasy</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="rate">Wskaźnik</string>
+    <string name="until_sunset">do zachodu słońca</string>
+    <string name="until_sunrise">aż do wschodu słońca</string>
+    <string name="astronomy_set">Ustawić</string>
+    <string name="astronomy_rise">Wzrastać</string>
+    <string name="horizon">Horyzont</string>
+    <string name="historic_temperatures">Temperatury historyczne</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperatury są oparte na danych historycznych z okresu %d i mogą nie odzwierciedlać aktualnych warunków pogodowych.</string>
+    <string name="weather_cold_front">Zimna</string>
+    <string name="tool_climate_summary">Zobacz historyczne temperatury</string>
+    <string name="cold">Zimna</string>
+    <string name="print">Wydrukować</string>
+    <string name="estimate_stride_length">Oszacuj długość kroku</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d pływ</item>
+        <item quantity="few"></item>
+        <item quantity="many">%d pływy</item>
+        <item quantity="other">%d pływy</item>
+    </plurals>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na opady w ciągu najbliższych %d godzin.</string>
+    <string name="high_pressure_system_description">Kojarzony z ładną pogodą, czystym niebem i niższymi temperaturami.</string>
+    <string name="delete_map_group_message">%s i wszystkie jego mapy zostaną usunięte.</string>
+    <string name="rotation_amount">Obrót: %s</string>
+    <string name="magnitude">Ogrom</string>
+    <string name="low_tide_letter">Ł</string>
+    <string name="tide_user_guide_recommendation">Oficjalne strony z tabelami pływów można znaleźć w podręczniku użytkownika.</string>
+    <string name="path_slope">Nachylenie</string>
+    <string name="weather_warm_front">Ciepły</string>
+    <string name="now">Teraz</string>
+    <string name="altimeter_cache">Pamięć podręczna wysokościomierza</string>
+    <string name="compass_source_legacy_android">Starsze (Android)</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy nadal zmniejszy rozdzielczość. Jeśli chcesz przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawienia tego w przyszłości.</string>
+    <string name="battery_usage_allowed">Dozwolone użycie baterii</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d punkt trasy usunięty</item>
+        <item quantity="few"></item>
+        <item quantity="many">%d punkty trasy usunięte</item>
+        <item quantity="other">%d punkty trasy usunięte</item>
+    </plurals>
+    <string name="allow_ignore_battery_restrictions">Pozwól %s zignorować ograniczenia dotyczące baterii</string>
+    <string name="allow_schedule_exact_alarms">Pozwól %s ustawić alarmy i przypomnienia</string>
+    <string name="allow_schedule_exact_alarms_instructions">Dzięki temu %1$s może ustawić dokładne alarmy i przypomnienia, takie jak ostrzeżenia o zachodzie słońca. Bez tego alarmy mogą nie uruchamiać się we właściwym czasie.
+\n
+\nAby zezwolić, kliknij „%2$s” i włącz ustawienie zezwalania na alarmy i przypomnienia.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Alerty o zachodzie słońca mogą być niedokładne podczas podróży</string>
+    <string name="exact_alarm_permission_denied">Odmowa dostępu do alarmów i przypomnień, alerty mogą być niedokładne. Możesz to włączyć w ustawieniach.</string>
+    <string name="solar_eclipse">Zaćmienie Słońca</string>
+    <string name="low_pressure_system_description">Kojarzony ze złą pogodą, zachmurzonym niebem i wyższymi temperaturami.</string>
+    <string name="compass_source_legacy_ts">Dziedzictwo (wyczucie szlaku)</string>
+    <string name="allow_ignore_battery_restrictions_instructions">Usunięcie ograniczeń baterii dla Trail Sense może poprawić dokładność.
+\n
+\nNa większości urządzeń kliknij „%s”, a następnie przełącz się na wszystkie aplikacje i wyłącz optymalizację baterii dla Trail Sense.
+\n
+\nOdwiedź stronę [Nie zabijaj mojej aplikacji](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
+    <string name="battery_settings_limit_accuracy">Ograniczenia dotyczące baterii mogą zmniejszyć dokładność</string>
+    <string name="start_time">Rozpocznij</string>
+    <string name="end_time">Koniec</string>
+    <string name="peak_time">Szczyt</string>
+    <string name="clinometer_measure_height_instructions">Aby zmierzyć wysokość celu znajdującego się w odległości %s:
+\n
+\n1. Wyrównaj klinometr z podstawą celu
+\n2. Dotknij ekranu i przytrzymaj
+\n3. Ponownie wyrównaj klinometr z górną częścią celu
+\n4. Zwolnij, aby zablokować i zobaczyć wysokość celu</string>
+    <string name="bearing">Namiar</string>
+    <string name="tide_frequency_description">Liczba przypływów dziennie. Większość pływów ma charakter półpołudniowy.</string>
+    <string name="manual">podręcznik</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Może oznaczać ładną pogodę przez następne %d godzin, jeśli jest mgła, w przeciwnym razie może oznaczać wkrótce opady.</string>
+    <string name="historic">Historyczny</string>
+    <string name="updating">Aktualizowanie</string>
+    <string name="map_is_not_calibrated">Mapa nie jest skalibrowana</string>
+    <string name="autofill_source">Źródło autouzupełniania</string>
+    <string name="map_calibration_instructions">Dotknij znanej lokalizacji na mapie, a następnie wprowadź rzeczywiste współrzędne. Możesz zapisać kalibrację, klikając przycisk „Gotowe”.
+\n
+\nPrzykładami dobrych punktów kalibracji są parking, oznakowanie, punkt orientacyjny lub skrzyżowanie na szlaku.</string>
+    <string name="accelerometer">Akcelerometr</string>
+    <string name="beta_disclaimer">To narzędzie jest obecnie w wersji beta, więc wszelkie problemy lub uwagi prosimy zgłaszać na %s.</string>
+    <string name="notification_backtrack_update_title">Aktualizacja wsteczna</string>
+    <string name="descent">Zejście</string>
+    <string name="pressure_system">Układ ciśnieniowy</string>
+    <string name="weather_front">Front pogodowy</string>
+    <string name="last_lightning_strike_at">Ostatnie uderzenie o %s</string>
+    <string name="center">Centrum</string>
+    <string name="beta">Beta</string>
+    <string name="photo_map_summary">Użyj zdjęcia jako mapy</string>
+    <string name="photo_map_disclaimer">Zawsze miej przy sobie mapę fizyczną jako kopię zapasową i weryfikuj dokładność funkcji Trail Sense.</string>
+    <string name="astronomy_altitude_peak">Szczytowa wysokość</string>
+    <string name="astronomy_direction_peak">Kierunek szczytowy</string>
+    <string name="map_file">Plik (JPG, PNG, PDF)</string>
+    <string name="delete_path_group_message">%s i wszystkie jego ścieżki zostaną usunięte.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Może wskazywać na opady w ciągu najbliższych %1$d do %2$d godzin.</string>
+    <string name="diamond">Diament</string>
+    <string name="cross">Przechodzić</string>
+    <string name="onboarding_explore">Zaprojektowany do uprawiania turystyki pieszej, wędrówek z plecakiem, biwakowania i geocachingu
+\n
+\n- Umieść latarnie i nawiguj do nich
+\n
+\n- Podążaj ścieżkami
+\n
+\n- Śledź swoje kroki za pomocą funkcji Backtrack
+\n
+\n- Zaplanuj, co spakować
+\n
+\n- Bądź ostrzeżony przed zachodem słońca
+\n
+\n- Przewiduj pogodę
+\n
+\n- Używaj telefonu jako latarki
+\n
+\n- I wiele więcej!</string>
+    <string name="calibrate_map_point">Kalibruj ze znanymi lokalizacjami (%1$d / %2$d)</string>
+    <string name="unable_to_find_next_astronomy">Nie można znaleźć następnego %s</string>
+    <string name="map_calibration">Kalibracja mapy</string>
+    <string name="compass_source_mag_gyro">Magnetometr + żyroskop</string>
+    <string name="data_source">Źródło: %s</string>
+    <string name="i_agree">Zgadzam się</string>
 </resources>
