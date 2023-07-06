@@ -9,14 +9,14 @@ import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
-class RequestRemoveBatteryRestrictionCommand<T>(
+class RequestBackgroundLocationCommand<T>(
     private val fragment: T,
     flag: Flag = PreferencesFlag(
         PreferencesSubsystem.getInstance(fragment.requireContext()).preferences,
         SHOWN_KEY
     ),
-    alerter: IAlerter = RemoveBatteryRestrictionsAlerter(fragment),
-    isRequired: Specification<Context> = IsBatteryExemptionRequired()
+    alerter: IAlerter = BackgroundLocationAlerter(fragment),
+    isRequired: Specification<Context> = IsBackgroundLocationRequired()
 ) : RequestOptionalPermissionCommand<T>(
     fragment,
     flag,
@@ -24,6 +24,6 @@ class RequestRemoveBatteryRestrictionCommand<T>(
     isRequired
 ) where T : Fragment, T : IPermissionRequester {
     companion object {
-        private const val SHOWN_KEY = "cache_battery_exemption_requested"
+        private const val SHOWN_KEY = "cache_background_location_requested"
     }
 }

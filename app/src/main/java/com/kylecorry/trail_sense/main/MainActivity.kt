@@ -11,20 +11,16 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
-import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.ColorTheme
-import com.kylecorry.andromeda.markdown.MarkdownService
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.ColorFilterConstraintLayout
@@ -37,7 +33,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
@@ -63,9 +58,6 @@ class MainActivity : AndromedaActivity() {
     )
 
     init {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-            permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissions.add(Manifest.permission.POST_NOTIFICATIONS)
         }
@@ -117,13 +109,7 @@ class MainActivity : AndromedaActivity() {
         }
 
         requestPermissions(permissions) {
-            if (shouldRequestBackgroundLocation()) {
-                requestBackgroundLocation {
-                    startApp()
-                }
-            } else {
-                startApp()
-            }
+            startApp()
         }
     }
 
@@ -196,43 +182,6 @@ class MainActivity : AndromedaActivity() {
         }
         navController.currentDestination?.id?.let {
             outState.putInt("navigation", it)
-        }
-    }
-
-    private fun hasBackgroundLocation(): Boolean {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Permissions.hasPermission(
-            this,
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
-        )
-    }
-
-    private fun shouldRequestBackgroundLocation(): Boolean {
-        return SensorService(this).hasLocationPermission() &&
-                !hasBackgroundLocation() &&
-                cache.getBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != true
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun requestBackgroundLocation(action: () -> Unit) {
-        cache.putBoolean(Manifest.permission.ACCESS_BACKGROUND_LOCATION, true)
-
-        val markdown = MarkdownService(this)
-        val contents = markdown.toMarkdown(getString(R.string.access_background_location_rationale))
-
-        dialog(
-            getString(R.string.access_background_location),
-            contents,
-            okText = getString(R.string.dialog_grant),
-            cancelText = getString(R.string.dialog_deny),
-            allowLinks = true
-        ) { cancelled ->
-            if (!cancelled) {
-                requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-                    action()
-                }
-            } else {
-                action()
-            }
         }
     }
 

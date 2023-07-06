@@ -11,7 +11,7 @@
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
-    <string name="access_background_location_rationale">Trail Sense uses location data in the background. It is used for sea level pressure calibration in weather monitoring and to provide more accurate sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense uses location data in the background. It is used to provide more accurate sunset alerts while traveling. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_grant">Update settings</string>
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
@@ -1315,6 +1315,7 @@
     <string name="allow_schedule_exact_alarms">Allow %s to set alarms and reminders</string>
     <string name="allow_schedule_exact_alarms_instructions">This allows %1$s to set exact alarms and reminders, such as sunset alerts. Without this, alarms may not trigger at the correct time.\n\nTo allow, click ‘%2$s’ and enable the setting for allowing alarms and reminders.</string>
     <string name="exact_alarm_permission_denied">Alarms and reminders permission denied, alerts may be inaccurate. You can enable it in settings.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Sunset alerts may be inaccurate while traveling</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

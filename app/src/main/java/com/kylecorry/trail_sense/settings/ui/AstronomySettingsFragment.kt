@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class AstronomySettingsFragment : AndromedaPreferenceFragment() {
@@ -58,14 +57,7 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
             return
         }
 
-        if (shouldRequestPermissions){
-            // TODO: Show toast to background location permission - since it may be beneficial if the user is traveling
-            requestScheduleExactAlarms {
-                SunsetAlarmReceiver.start(requireContext())
-            }
-        } else {
-            SunsetAlarmReceiver.start(requireContext())
-        }
+        SunsetAlarmReceiver.enable(this, shouldRequestPermissions)
     }
 
 }
