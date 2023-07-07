@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
-import com.kylecorry.andromeda.background.PeriodicTaskSchedulerFactory
+import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
@@ -36,7 +36,7 @@ class RepoCleanupWorker(private val context: Context, params: WorkerParameters) 
 
     companion object {
         fun scheduler(context: Context): IPeriodicTaskScheduler {
-            return PeriodicTaskSchedulerFactory(context.applicationContext).deferrable(
+            return TaskSchedulerFactory(context.applicationContext).interval(
                 RepoCleanupWorker::class.java,
                 2739523
             )

@@ -12,7 +12,8 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.Backtr
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 
-class BacktrackService : IntervalService(wakelockDuration = Duration.ofSeconds(30)) {
+class BacktrackService :
+    IntervalService(wakelockDuration = Duration.ofSeconds(30), useOneTimeWorkers = true) {
     private val prefs by lazy { UserPreferences(applicationContext) }
 
     private val backtrackCommand by lazy {
