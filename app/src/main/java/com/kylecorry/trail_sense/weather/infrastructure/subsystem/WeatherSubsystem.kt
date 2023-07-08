@@ -265,7 +265,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         WeatherUpdateScheduler.stop(context)
     }
 
-    override suspend fun updateWeather() {
+    override suspend fun updateWeather() = onDefault {
         updateWeatherMutex.withLock {
             val last = weatherRepo.getLast()?.time
             val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
@@ -273,7 +273,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
                 // Still send out the weather alerts, just don't log a new reading
                 SendWeatherAlertsCommand(context).execute(getWeather())
-                return
+                return@onDefault
             }
 
             MonitorWeatherCommand.create(context).execute()

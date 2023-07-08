@@ -73,7 +73,7 @@ class WeatherRepo private constructor(context: Context) : IReadingRepo<RawWeathe
         _readingsChanged.publish()
     }
 
-    override suspend fun clean() {
+    override suspend fun clean() = onIO {
         pressureDao.deleteOlderThan(Instant.now().minus(PRESSURE_HISTORY_DURATION).toEpochMilli())
 
         // TODO: Only do this if there was a change

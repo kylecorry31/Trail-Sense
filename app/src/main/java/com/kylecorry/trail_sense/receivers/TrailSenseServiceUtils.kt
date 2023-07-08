@@ -4,12 +4,14 @@ import android.content.Context
 import android.os.Build
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 
 object TrailSenseServiceUtils {
@@ -39,7 +41,9 @@ object TrailSenseServiceUtils {
     private fun startWeatherMonitoring(context: Context) {
         val prefs = UserPreferences(context)
         if (prefs.weather.shouldMonitorWeather) {
-            WeatherUpdateScheduler.start(context)
+            if (!WeatherMonitorService.isRunning) {
+                WeatherUpdateScheduler.start(context)
+            }
         } else {
             WeatherUpdateScheduler.stop(context)
         }
@@ -48,7 +52,9 @@ object TrailSenseServiceUtils {
     private fun startBacktrack(context: Context) {
         val backtrack = BacktrackSubsystem.getInstance(context)
         if (backtrack.getState() == FeatureState.On) {
-            backtrack.enable(false)
+            if (!BacktrackService.isRunning) {
+                backtrack.enable(false)
+            }
         } else {
             backtrack.disable()
         }

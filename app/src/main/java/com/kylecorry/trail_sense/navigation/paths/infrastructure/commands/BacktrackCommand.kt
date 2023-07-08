@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
+import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
@@ -32,7 +33,7 @@ class BacktrackCommand(
 
     private val pathService = PathService.getInstance(context)
 
-    override suspend fun execute() {
+    override suspend fun execute() = onDefault {
         updateSensors()
         val point = recordWaypoint()
         CreateLastSignalBeaconCommand(context).execute(point)
