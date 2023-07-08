@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure.services
 
 import android.content.Context
+import android.content.Intent
 import com.kylecorry.andromeda.background.IAlwaysOnTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
@@ -43,7 +44,13 @@ class BacktrackService :
         })
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        isRunning = true
+        return super.onStartCommand(intent, flags, startId)
+    }
+
     override fun onDestroy() {
+        isRunning = false
         runner.cancel()
         stopService(true)
         super.onDestroy()
@@ -51,6 +58,9 @@ class BacktrackService :
 
     companion object {
         const val FOREGROUND_CHANNEL_ID = "Backtrack"
+
+        var isRunning = false
+            private set
 
         fun start(context: Context) {
             scheduler(context).start()

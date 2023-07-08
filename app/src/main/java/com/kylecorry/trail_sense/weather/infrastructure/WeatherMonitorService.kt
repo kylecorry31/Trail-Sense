@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import android.content.Intent
 import com.kylecorry.andromeda.background.IAlwaysOnTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
@@ -32,12 +33,22 @@ class WeatherMonitorService :
         WeatherSubsystem.getInstance(applicationContext).updateWeather()
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        isRunning = true
+        return super.onStartCommand(intent, flags, startId)
+    }
+
     override fun onDestroy() {
+        isRunning = false
         stopService(true)
         super.onDestroy()
     }
 
     companion object {
+
+        var isRunning = false
+            private set
+
         fun start(context: Context) {
             scheduler(context).start()
         }
