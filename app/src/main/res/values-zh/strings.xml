@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">导航</string>
     <string name="weather">天气</string>
@@ -1091,6 +1091,14 @@
     <string name="crop_map_instructions_long">将方框的角拖动到地图的角上来绘制轮廓。</string>
     <string name="rotation_amount">旋转：%s</string>
     <string name="i_agree">我同意</string>
-    <string name="battery_settings_limit_accuracy">电池设置限制精度。</string>
+    <string name="battery_settings_limit_accuracy">限制使用电量可能降低精度</string>
     <string name="learn_more">了解更多</string>
+    <string name="sunset_alerts_background_location_disclaimer">旅行时日落警报可能不精确</string>
+    <string name="allow_ignore_battery_restrictions">允许 %s 忽略电量限制</string>
+    <string name="battery_usage_allowed">已允许使用电量</string>
+    <string name="allow_schedule_exact_alarms">允许 %s 设置闹铃和提醒</string>
+    <string name="allow_schedule_exact_alarms_instructions">这允许 %1$s 设置精确闹铃和提醒，比如日落警报。如果缺少这个，可能无法在正确时间触发闹铃。
+\n
+\n要允许，单击 ‘%2$s’ 并开启设置来允许闹铃和提醒。</string>
+    <string name="exact_alarm_permission_denied">闹铃和提醒权限被拒，警报可能不精确。你可以在设置中启用它。</string>
 </resources>
