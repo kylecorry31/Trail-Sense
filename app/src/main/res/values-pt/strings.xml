@@ -223,7 +223,6 @@
     <string name="always">Sempre</string>
     <string name="pref_weather_update_frequency_title">Frequência da atualização meteorológica</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar pressão atmosférica na notificação</string>
-    <string name="pref_show_weather_notification_title">Mostrar notificação meteorológica</string>
     <string name="pref_forecast_sensitivity_title">Sensibilidade de previsão</string>
     <string name="pref_monitor_weather_title">Monitorizar previsão meteorológica</string>
     <string name="pref_monitor_weather_summary">Em segundo plano</string>

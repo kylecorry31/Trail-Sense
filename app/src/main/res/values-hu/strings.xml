@@ -141,7 +141,6 @@
     <string name="sun_nautical">Tengeri</string>
     <string name="map_scale_verbal">Szóbeli</string>
     <string name="location_input_help_title">Támogatott helyformátumok</string>
-    <string name="pref_show_weather_notification_title">Időjárás értesítés mutatása</string>
     <string name="pref_privacy_screenshot_protection_title">Képernyőképek megakadályozása</string>
     <string name="us_gallons">US Gallon</string>
     <string name="minutes_format">%s p</string>

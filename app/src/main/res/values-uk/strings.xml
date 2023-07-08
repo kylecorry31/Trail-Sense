@@ -251,7 +251,6 @@
     <string name="pref_sun_time_mode_title">Схід/захід сонця</string>
     <string name="pref_weather_update_frequency_title">Частота оновлення погоди</string>
     <string name="pref_show_pressure_in_notification_title">Показувати тиск у сповіщенні</string>
-    <string name="pref_show_weather_notification_title">Показувати сповіщення про погоду</string>
     <string name="pref_forecast_sensitivity_title">Чутливість прогнозу</string>
     <string name="pref_monitor_weather_title">Відстеження погоди</string>
     <string name="pref_monitor_weather_summary">У тлі</string>

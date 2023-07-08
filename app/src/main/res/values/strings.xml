@@ -262,7 +262,6 @@
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
 
-    <string name="pref_show_weather_notification_title">Show weather notification</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
     <string name="pref_show_temperature_in_notification_title">Show temperature in notification</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
@@ -317,7 +316,6 @@
     <string name="pref_coordinate_format" translatable="false">pref_coordinate_format</string>
     <string name="pref_sunset_alerts" translatable="false">pref_sunset_alerts</string>
     <string name="pref_sunset_alert_time" translatable="false">pref_sunset_alert_time</string>
-    <string name="pref_show_weather_notification" translatable="false">pref_show_weather_notification</string>
     <string name="pref_compass_sensor" translatable="false">pref_compass_calibration</string>
     <string name="pref_holder_altitude" translatable="false">pref_holder_altitude</string>
     <string name="pref_auto_altitude" translatable="false">pref_auto_altitude</string>

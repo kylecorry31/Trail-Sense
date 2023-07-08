@@ -32,7 +32,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
     private var prefMonitorWeather: SwitchPreferenceCompat? = null
     private var prefWeatherUpdateFrequency: Preference? = null
-    private var prefShowWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowDailyWeatherNotification: SwitchPreferenceCompat? = null
     private var prefShowPressureInNotification: SwitchPreferenceCompat? = null
     private var prefShowTemperatureInNotification: SwitchPreferenceCompat? = null
@@ -47,7 +46,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private fun bindPreferences() {
         prefMonitorWeather = switch(R.string.pref_monitor_weather)
         prefWeatherUpdateFrequency = preference(R.string.pref_weather_update_frequency)
-        prefShowWeatherNotification = switch(R.string.pref_show_weather_notification)
         prefShowDailyWeatherNotification = switch(R.string.pref_daily_weather_notification)
         prefShowPressureInNotification = switch(R.string.pref_show_pressure_in_notification)
         prefShowTemperatureInNotification = switch(R.string.pref_show_temperature_in_notification)
@@ -83,10 +81,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             } else {
                 WeatherUpdateScheduler.stop(requireContext())
             }
-            true
-        }
-        prefShowWeatherNotification?.setOnPreferenceClickListener {
-            restartWeatherMonitor()
             true
         }
         prefShowDailyWeatherNotification?.setOnPreferenceClickListener {

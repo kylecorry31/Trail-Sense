@@ -75,7 +75,6 @@
     <string name="sun_moon_compass_when_up">太陽/月が昇っている場合</string>
     <string name="always">常に</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
-    <string name="pref_show_weather_notification_title">天気通知を表示</string>
     <string name="pref_forecast_sensitivity_title">予報の感度</string>
     <string name="pref_monitor_weather_title">天気を監視</string>
     <string name="pref_monitor_weather_summary">バックグラウンドで動作します</string>

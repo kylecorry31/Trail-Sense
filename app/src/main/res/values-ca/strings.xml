@@ -50,7 +50,6 @@
     <string name="pref_sun_time_mode_title">Albada / ocàs</string>
     <string name="pref_weather_update_frequency_title">Freqüencia d\'actualizació de temps</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar la pressió en les alertes</string>
-    <string name="pref_show_weather_notification_title">Mostrar alertes del temps</string>
     <string name="pref_forecast_sensitivity_title">Sensibilitat de la previsió</string>
     <string name="pref_monitor_weather_title">Monitoratge del temps</string>
     <string name="pref_monitor_weather_summary">Activitat de fons</string>

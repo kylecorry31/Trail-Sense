@@ -134,7 +134,6 @@
     <string name="lunar_noon">Meio-dia lunar</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="degree_format">%.0f°</string>
-    <string name="pref_show_weather_notification_title">Mostrar notificação meteorológica</string>
     <string name="alerts">Alertas</string>
     <string name="storm_alerts">Alertas de tempestade</string>
     <string name="update_90_minutes">1 hora 30 minutos</string>

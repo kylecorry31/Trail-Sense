@@ -202,7 +202,6 @@
     <string name="pref_open_source_licenses_title">Licencje</string>
     <string name="pref_weather_update_frequency_title">Częstotliwość aktualizacji pogody</string>
     <string name="pref_show_pressure_in_notification_title">Pokaż ciśnienie w powiadomieniu</string>
-    <string name="pref_show_weather_notification_title">Pokaż powiadomienie o pogodzie</string>
     <string name="pref_forecast_sensitivity_title">Dokładność prognozy</string>
     <string name="pref_monitor_weather_summary">W tle</string>
     <string name="pref_altimeter_calibration_mode_title">Automatyczna kalibracja</string>

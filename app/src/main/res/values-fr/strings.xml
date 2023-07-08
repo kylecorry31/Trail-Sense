@@ -71,7 +71,6 @@
     <string name="always">Toujours</string>
     <string name="pref_weather_update_frequency_title">Fréquence de mise à jour des données météo</string>
     <string name="pref_show_pressure_in_notification_title">Afficher la pression dans les notifications</string>
-    <string name="pref_show_weather_notification_title">Afficher les notifications liées à la météo</string>
     <string name="pref_monitor_weather_title">Suivi des données météo</string>
     <string name="pref_monitor_weather_summary">En tâche de fond</string>
     <string name="pref_max_beacon_distance_title">Rayon de visibilité des balises de proximité</string>

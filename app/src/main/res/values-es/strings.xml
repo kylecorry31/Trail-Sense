@@ -225,7 +225,6 @@
     <string name="always">Siempre</string>
     <string name="pref_weather_update_frequency_title">Frecuencia de actualización de clima</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar presión en notificación</string>
-    <string name="pref_show_weather_notification_title">Mostrar notificación de clima</string>
     <string name="pref_forecast_sensitivity_title">Sensibilidad de pronóstico</string>
     <string name="pref_max_beacon_distance_title">Radio de balizas cercanas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>

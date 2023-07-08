@@ -74,7 +74,6 @@
     <string name="pref_center_sun_and_moon_title">Sonne/Mond zentriert lassen</string>
     <string name="sun_moon_compass_when_up">Wenn aufgegangen</string>
     <string name="always">Immer</string>
-    <string name="pref_show_weather_notification_title">Wetterbenachrichtigung anzeigen</string>
     <string name="update_90_minutes">1 Stunde 30 Minuten</string>
     <string name="update_120_minutes">2 Stunden</string>
     <string name="update_150_minutes">2 Stunden 30 Minuten</string>

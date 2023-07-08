@@ -14,7 +14,6 @@
     <string name="update_120_minutes">2 timer</string>
     <string name="always">Alltid</string>
     <string name="pref_show_pressure_in_notification_title">Vis lufttrykk i varsel</string>
-    <string name="pref_show_weather_notification_title">Vis værvarsel</string>
     <string name="pref_monitor_weather_title">Overvåk været</string>
     <string name="pref_monitor_weather_summary">I bakgrunnen</string>
     <string name="pressure_4_hours">4 timer</string>

@@ -358,7 +358,6 @@
     <string name="tool_user_guide_summary">Una guida per l’utilizzo di Trial Sense</string>
     <string name="pref_weather_update_frequency_title">Frequenza aggiornamento del meteo</string>
     <string name="pref_show_pressure_in_notification_title">Mostra notifiche di temperatura</string>
-    <string name="pref_show_weather_notification_title">Mostra notifiche meteo</string>
     <string name="pref_forecast_sensitivity_title">Sensibilità delle previsioni</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>

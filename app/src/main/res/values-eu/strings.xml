@@ -406,7 +406,6 @@
     <string name="pref_adjust_for_temperature_summary">Erabili tenperatura presio atmosferikoaren bihurketetan</string>
     <string name="pref_display_multi_beacons_title">Erakutsi gertuko balizak</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibratu nabigatu baino lehen</string>
-    <string name="pref_show_weather_notification_title">Erakutsi eguraldiaren jakinarazpena</string>
     <string name="pref_show_pressure_in_notification_title">Erakutsi presioa jakinarazpenean</string>
     <string name="pref_weather_update_frequency_title">Eguraldiaren eguneraketaren maiztasuna</string>
     <string name="pref_sun_time_mode_title">Egunsentia / ilunabarra</string>

@@ -268,7 +268,6 @@
     <string name="pref_monitor_weather_summary">Di latar belakang</string>
     <string name="pref_forecast_sensitivity_title">Sensitivitas perkiraan</string>
     <string name="sun_civil">Sipil</string>
-    <string name="pref_show_weather_notification_title">Tampilkan pemberitahuan cuaca</string>
     <string name="sun_actual">Aktual</string>
     <string name="always">Selalu</string>
     <string name="sun_astronomical">Astronomis</string>

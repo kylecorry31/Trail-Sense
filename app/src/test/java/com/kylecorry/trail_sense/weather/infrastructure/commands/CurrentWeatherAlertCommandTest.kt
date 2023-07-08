@@ -9,7 +9,12 @@ import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArriv
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import java.time.Instant
 
 internal class CurrentWeatherAlertCommandTest {
@@ -30,7 +35,6 @@ internal class CurrentWeatherAlertCommandTest {
         alerter = mock()
 
         whenever(prefs.shouldMonitorWeather).thenReturn(true)
-        whenever(prefs.shouldShowWeatherNotification).thenReturn(true)
 
         command = CurrentWeatherAlertCommand(prefs, alerter)
     }
@@ -43,16 +47,6 @@ internal class CurrentWeatherAlertCommandTest {
 
         verify(alerter, never()).alert(any())
     }
-
-    @Test
-    fun shouldNotAlertIfNotificationDisabled(){
-        whenever(prefs.shouldShowWeatherNotification).thenReturn(false)
-
-        command.execute(weather)
-
-        verify(alerter, never()).alert(any())
-    }
-
     @Test
     fun shouldAlert(){
         command.execute(weather)

@@ -11,7 +11,6 @@ interface IWeatherPreferences {
     val pressureSmoothing: Float
     var weatherUpdateFrequency: Duration
     val shouldShowDailyWeatherNotification: Boolean
-    val shouldShowWeatherNotification: Boolean
     val shouldShowPressureInNotification: Boolean
     val shouldShowTemperatureInNotification: Boolean
     val useSeaLevelPressure: Boolean

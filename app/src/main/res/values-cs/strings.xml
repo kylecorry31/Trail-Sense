@@ -215,7 +215,6 @@
     <string name="pref_storm_alert_sensitivity_title">Citlivost na bouře</string>
     <string name="pressure_48_hours">48 hodin</string>
     <string name="pref_monitor_weather_title">Monitorovat počasí</string>
-    <string name="pref_show_weather_notification_title">Ukazovat oznámení počasí</string>
     <string name="pref_weather_update_frequency_title">Interval aktualizace počasí</string>
     <string name="pref_sun_time_mode_title">Časy východů / západů</string>
     <string name="pref_show_sun_moon_compass_title">Ukazovat slunce / měsíc na kompasu</string>

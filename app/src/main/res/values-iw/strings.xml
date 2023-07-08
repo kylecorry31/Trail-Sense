@@ -415,7 +415,6 @@
     <string name="never">אף פעם</string>
     <string name="pref_monitor_weather_title">ניטור מזג האוויר</string>
     <string name="pref_forecast_sensitivity_title">רגישות התחזית</string>
-    <string name="pref_show_weather_notification_title">הצגת הודעת מזג אוויר</string>
     <string name="sun_moon_compass_when_up">כאשר למעלה</string>
     <string name="pref_elevation_override_sea_level_title">שימוש בלחץ ידוע בגובה פני הים</string>
     <string name="calibrate_compass_on_navigate_dialog_content">יש לסובב את הטלפון בתבנית איור 8 או בכל הכיוונים מספר פעמים, וללחוץ על %s בסיום.

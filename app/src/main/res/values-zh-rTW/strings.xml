@@ -229,7 +229,6 @@
     <string name="pref_sun_time_mode_title">日出 / 日落時間</string>
     <string name="pref_weather_update_frequency_title">天氣更新頻率</string>
     <string name="pref_show_pressure_in_notification_title">於通知中顯示壓力</string>
-    <string name="pref_show_weather_notification_title">顯示天氣通知</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">導航前校正</string>
     <string name="pref_show_linear_compass_title">顯示線性羅盤</string>
     <string name="pref_display_multi_beacons_title">顯示附近地標</string>

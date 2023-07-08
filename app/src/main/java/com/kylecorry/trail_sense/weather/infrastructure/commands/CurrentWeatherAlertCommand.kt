@@ -14,7 +14,7 @@ internal class CurrentWeatherAlertCommand(
     private val alerter: IValueAlerter<CurrentWeather>
 ) : Command<CurrentWeather> {
     override fun execute(weather: CurrentWeather) {
-        if (prefs.shouldShowWeatherNotification && prefs.shouldMonitorWeather) {
+        if (prefs.shouldMonitorWeather) {
             alerter.alert(weather)
         }
     }

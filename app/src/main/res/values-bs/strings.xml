@@ -489,7 +489,6 @@
     <string name="always">Uvijek</string>
     <string name="pref_weather_update_frequency_title">Učestalost ažuriranja vremena</string>
     <string name="pref_show_pressure_in_notification_title">Pokažite pritisak u obavijesti</string>
-    <string name="pref_show_weather_notification_title">Prikaži obavijest o vremenu</string>
     <string name="sunset_alert_channel_title">Upozorenje na zalazak</string>
     <string name="sunset_alert_notification_text">Sunce će zaći u %s</string>
     <string name="sunset_alert_notification_title">Sunce uskoro zalazi</string>

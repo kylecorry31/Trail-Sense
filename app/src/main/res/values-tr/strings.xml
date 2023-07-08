@@ -279,7 +279,6 @@
     <string name="pref_sun_time_mode_title">Gün doğumu / gün batımı vakitleri</string>
     <string name="pref_weather_update_frequency_title">Hava durumu güncellenme sıklığı</string>
     <string name="pref_show_pressure_in_notification_title">Bildirimde basıncı göster</string>
-    <string name="pref_show_weather_notification_title">Hava durumu bildirimini göster</string>
     <string name="pref_forecast_sensitivity_title">Hava tahmini hassaslığı</string>
     <string name="pref_monitor_weather_title">Hava durumunu gözlemle</string>
     <string name="pref_monitor_weather_summary">arkaplanda</string>

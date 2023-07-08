@@ -684,7 +684,6 @@
     <string name="always_on">幾時都用</string>
     <string name="pref_nmea_elevation_summary">海拔換算時計入 NMEA 偏差</string>
     <string name="compass_auto_declination">自動調整磁偏角</string>
-    <string name="pref_show_weather_notification_title">顯示氣象通知</string>
     <string name="pref_show_pressure_in_notification_title">喺通知度顯示埋氣壓</string>
     <string name="pref_monitor_weather_title">監測氣象</string>
     <string name="overridden">已推翻</string>

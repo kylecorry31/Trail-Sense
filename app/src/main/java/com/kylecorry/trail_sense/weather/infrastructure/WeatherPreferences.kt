@@ -51,9 +51,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         get() = cache.getBoolean(context.getString(R.string.pref_daily_weather_notification))
             ?: true
 
-    override val shouldShowWeatherNotification: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_weather_notification)) ?: true
-
     override val shouldShowPressureInNotification: Boolean
         get() = cache.getBoolean(
             context.getString(R.string.pref_show_pressure_in_notification)
