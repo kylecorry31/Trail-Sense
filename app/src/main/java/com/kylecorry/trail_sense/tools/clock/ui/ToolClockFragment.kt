@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.background.AlarmTaskScheduler
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.background.AlarmTaskScheduler
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
@@ -39,7 +40,9 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.pipButton.setOnClickListener {
-            sendNextMinuteNotification()
+            requestScheduleExactAlarms {
+                sendNextMinuteNotification()
+            }
         }
         CustomUiUtils.setButtonState(binding.clockTitle.rightButton, false)
         binding.clockTitle.rightButton.setOnClickListener {
