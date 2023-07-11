@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="tools">架生</string>
     <string name="copied_to_clipboard_toast">複製咗去剪貼簿</string>
     <string name="access_background_location">更新定位設定</string>
     <string name="dialog_grant">更新設定</string>
-    <string name="navigation">方位</string>
+    <string name="navigation">定向</string>
     <string name="weather">氣象</string>
     <string name="astronomy">天文</string>
     <string name="precise_miles_format">%s 英里</string>
@@ -543,7 +543,7 @@
     <string name="dialog_item_amount">數量</string>
     <string name="feet_miles">呎 / 哩</string>
     <string name="theme_light">白頭浪</string>
-    <string name="theme_sunset_sunrise">視乎日出/日落</string>
+    <string name="theme_sunset_sunrise">明或暗</string>
     <string name="theme_dark">黑眼睛</string>
     <string name="theme_black">紅日降</string>
     <string name="coordinate_format_utm">UTM</string>
@@ -707,7 +707,7 @@
     <string name="dialog_deny">係噉先啦</string>
     <string name="notification_weather_update_title">氣象監測更新</string>
     <string name="notification_weather_update_content">紀錄緊氣壓</string>
-    <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，用嚟喺氣象監測入面做海平面氣壓校正，同埋挺日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，挺移動之時日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="tide_user_guide_recommendation">使用指南載有提供官方潮汐表嘅網站。</string>
     <string name="kilometers_per_hour_format">時速 %.1f 公里</string>
     <string name="miles_per_hour_format">時速 %.1f 英里</string>
@@ -803,4 +803,51 @@
     <string name="category_food">嘢食</string>
     <string name="category_clothing">衫褲</string>
     <string name="i_agree">我同意</string>
+    <string name="smoothing_summary">校高啲或者可以遮掩雜訊</string>
+    <string name="delete_beacon_group_message">%s 同埋入面嗰啲地標，統統都會剷走晒個囉噃。</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">定向之前先校正</string>
+    <string name="acceleration_m_s2_format">%s 米每二次方秒</string>
+    <string name="coordinate_format_degrees_decimal_minutes">度數、小數點角分</string>
+    <string name="location_input_help_title">支援嘅位置格式</string>
+    <string name="learn_more">講多啲畀我聽</string>
+    <string name="delete_tide_prompt">係咪要刪除潮汐？</string>
+    <string name="clinometer_rotate_device">打直拎起部機</string>
+    <string name="edit">有嘢改</string>
+    <string name="pref_backtrack_enabled_summary">紀錄位置蹤跡</string>
+    <string name="pref_odometer_reset_daily_title">每日歸零</string>
+    <string name="pref_backtrack_history_days_title">踏雪留蹤紀錄</string>
+    <string name="navigate">定向</string>
+    <string name="distance_unset">距離未設定</string>
+    <string name="average_speed_backtrack">平均速度 (踏雪留蹤)</string>
+    <string name="backtrack_disabled_low_power_toast">慳電模式之下，停用踏雪留蹤</string>
+    <string name="notification_backtrack_update_title">踏雪留蹤更新</string>
+    <string name="delete_waypoint_prompt">係咪要刪除中途點？</string>
+    <string name="location_input_help">小數點度數 (例如 1.00、-2.00)
+\n
+\n度數、小數點角分 (例如 1°23.12\'N、3°12.1\'W)
+\n
+\n度分秒 (例如 1°23\'12.1\"N、3°12\'1.2\"W)
+\n
+\nUTM (例如 03T 12345E 67890N)
+\n
+\nMGRS (例如 27PXM 09601 05579)
+\n
+\nUSNG (例如 14S NJ 39521 41744)
+\n
+\nOSGB (例如 TG 51409 13177)</string>
+    <string name="pref_barometer_info_summary">氣壓同附近嘅監測站可能有所出入</string>
+    <string name="sleep_timer">睡眠計時器</string>
+    <string name="pref_navigation_lock_screen_presence_title">定向時喺鎖定畫面擺出嚟</string>
+    <string name="navigating_to_nearest_path_point">定向緊去路徑最就近嗰點</string>
+    <string name="pref_only_navigate_path_points_title">淨係定向去紀錄咗嘅點</string>
+    <string name="backtrack">踏雪留蹤</string>
+    <string name="notification_backtrack_update_content">紀錄緊您嘅位置</string>
+    <string name="backtrack_notification_channel_description">踏雪留蹤定位更新</string>
+    <string name="avalanche_risk">雪崩風險</string>
+    <string name="coordinate_format_decimal_degrees">小數點度數</string>
+    <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
+    <string name="get_gps_signal">出走一處抬頭望向天空一覽無遺嘅地方。</string>
+    <string name="delete_map_group_message">%s 同埋入面嗰啲地圖，統統都會剷走晒個囉噃。</string>
+    <string name="delete_path_group_message">%s 同埋入面嗰啲路徑，統統都會剷走晒個囉噃。</string>
+    <string name="sunset_alerts_background_location_disclaimer">移動之時日落警示未必太準</string>
 </resources>
