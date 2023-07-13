@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="color">Колір</string>
     <string name="water_boil_guide_title">Убезпечте воду для її споживання</string>
@@ -188,7 +188,7 @@
 \n- Виміряйте значення лінійки Trail Sense, що відповідає одній одиниці фізичної лінійки.
 \n
 \n- Повідомте виміряне значення тут.</string>
-    <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для калібрування тиску на рівні моря під час відстеження погоди та для забезпечення точніших попереджень про захід сонця. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense використовує дані про місцеперебування у тлі. Він використовується для забезпечення точніших попереджень про захід сонця під час подорожей. [Переглянути політику приватності] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="altimeter_mode_gps_barometer">GPS + Барометр</string>
     <string name="elevation_from_pressure">Задати зсув за допомогою барометра на пристрої</string>
     <string name="category_natural">Природне</string>

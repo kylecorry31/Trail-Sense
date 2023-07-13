@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Navegación</string>
     <string name="weather">Clima</string>
@@ -1106,4 +1106,12 @@
     <string name="battery_settings_limit_accuracy">Los ajustes de la batería limitan la precisión.</string>
     <string name="learn_more">Más información</string>
     <string name="i_agree">Acepto</string>
+    <string name="battery_usage_allowed">Se permite el uso de la batería</string>
+    <string name="sunset_alerts_background_location_disclaimer">Las alertas de puesta de sol pueden ser imprecisas durante los viajes</string>
+    <string name="allow_ignore_battery_restrictions">Permitir que %s ignore las restricciones de la batería</string>
+    <string name="exact_alarm_permission_denied">Permiso de alarmas y recordatorios denegado, las alertas pueden ser inexactas. Puedes habilitarlo en los ajustes.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Esto permite a %1$s establecer alarmas y recordatorios exactos, como alertas de la puesta de sol. Sin esto, es posible que las alarmas no se activen a la hora correcta.
+\n
+\nPara permitirlo, haga clic en \"%2$s\" y active el ajuste para permitir alarmas y recordatorios.</string>
+    <string name="allow_schedule_exact_alarms">Permitir a %s establecer alarmas y recordatorios</string>
 </resources>
