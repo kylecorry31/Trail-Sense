@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.math.Range
@@ -39,6 +40,8 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
             binding.displayDate.date = it
         }
     }
+
+    private val runner = ControlledRunner<Unit>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -113,17 +116,19 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         recalculate: Boolean
     ) {
         inBackground {
-            if (recalculate) {
-                temperatures = weather.getTemperatureRanges(date.year, location, elevation)
-                currentYear = date.year
-            }
+            runner.cancelPreviousThenRun {
+                if (recalculate) {
+                    temperatures = weather.getTemperatureRanges(date.year, location, elevation)
+                    currentYear = date.year
+                }
 
-            val range = temperatures.first { it.first == date }.second
+                val range = temperatures.first { it.first == date }.second
 
-            onMain {
-                if (isBound) {
-                    plotTemperatures(temperatures)
-                    updateTitle(range)
+                onMain {
+                    if (isBound) {
+                        plotTemperatures(temperatures)
+                        updateTitle(range)
+                    }
                 }
             }
         }
