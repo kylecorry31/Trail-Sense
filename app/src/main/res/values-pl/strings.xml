@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation">Nawigacja</string>
     <string name="weather">Pogoda</string>
@@ -124,7 +124,7 @@
     <string name="dialog_deny">Nie, dzięki</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
-    <string name="access_background_location_rationale">Trail Sense używa w tle danych o lokalizacji. Służy to do kalibracji ciśnienia na poziomie morza w monitorowaniu pogody i do zapewniania dokładniejszych alertów o zachodzie słońca. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense używa w tle danych o lokalizacji. Służą one do zapewnienia dokładniejszych alertów o zachodzie słońca podczas podróży. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
@@ -247,7 +247,7 @@
     <string name="water_purification_step_3">Uruchom minutnik</string>
     <string name="precise_inches_format">%s cali</string>
     <string name="inventory_empty_text">Brak przedmiotów</string>
-    <string name="error_occurred_message">Program Trail Sence napotkał błąd i zostanie zamknięty. Wyślij wiadomość e-mail do twórcy aplikacji, aby rozwiązać ten problem.</string>
+    <string name="error_occurred_message">Program Trail Sense napotkał błąd. Wyślij wiadomość e-mail do twórcy aplikacji w celu rozwiązania tego problemu.</string>
     <string name="tap_sun_moon_hint">Kliknij ikonę Słońca lub Księżyca, aby wyświetlić szczegóły ich pozycji</string>
     <string name="delete_beacon_group_message">%s i wszystkie punkty nawigacjne zostaną usunięte.</string>
     <string name="pref_center_sun_and_moon_title">Utrzymuj słońce/księżyc wyśrodkowane</string>
@@ -274,8 +274,8 @@
     <string name="discharging_slow">Powolne rozładowywanie (%s)</string>
     <string name="charging_slow">Wolne ładowanie (%s)</string>
     <string name="charging_fast">Szybkie ładowanie (%s)</string>
-    <string name="compass_auto_declination">Automatyczna korekta deklinacji</string>
-    <string name="compass_declination_override">Nadpisz deklinację</string>
+    <string name="compass_auto_declination">Automatyczne dostosowanie deklinacji</string>
+    <string name="compass_declination_override">Nadpisanie deklinacji</string>
     <string name="notes_empty_text">Brak notatek</string>
     <string name="delete_note_title">Usunąć notatkę\?</string>
     <string name="tool_notes_title">Notatki</string>
@@ -285,7 +285,7 @@
     <string name="unit_inches">Cale</string>
     <string name="map_distance">Mapa: %s</string>
     <string name="map_fractional_separator">:</string>
-    <string name="declination_override_updated_toast">Deklinacja nadpisana</string>
+    <string name="declination_override_updated_toast">Zaktualizowano nadpisanie deklinacji</string>
     <string name="power">Zasilanie</string>
     <string name="tool_solar_panel_title">Pozycjonowanie paneli słonecznych</string>
     <string name="solar_panel_instructions">Połóż telefon na powierzchni ogniwa słonecznego.</string>
@@ -326,7 +326,7 @@
     <string name="strobe_warning_title">Migające światła</string>
     <string name="clock_waiting_for_gps">Aktualizacja czasu z GPS…</string>
     <string name="tool_solar_panel_summary">Ustaw panele słoneczne, aby uzyskać optymalną produkcję energii</string>
-    <string name="tool_cliff_height_description">Zmierz wysokość klifu lub urwiska</string>
+    <string name="tool_cliff_height_description">Pomiar wysokości klifu lub urwiska</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_percent_format">%s%%</string>
@@ -346,7 +346,7 @@
 \n
 \nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 lub we wszystkie kierunki oraz odejdź od metalu."</string>
     <string name="create_at_distance">Utwórz w odległości</string>
-    <string name="toast_destination_bearing_set">Namiar ustawiony</string>
+    <string name="toast_destination_bearing_set">Docelowy namiar ustawiony</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
     <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00)
@@ -936,4 +936,8 @@
     <string name="lowest_point_elevation">Najniższy punkt</string>
     <string name="updating_weather">Aktualizowanie pogody</string>
     <string name="camera_unavailable">Aparat niedostępny</string>
+    <string name="pref_show_temperature_in_notification_title">Pokazuj temperaturę w powiadomieniu</string>
+    <string name="delete_map_group_message">%s i wszystkie zawarte w niej mapy zostaną usunięte.</string>
+    <string name="pref_include_leading_zero_title">Dodaj wiodące zero do czasu</string>
+    <string name="delete_path_group_message">%s i wszystkie zawarte w niej ścieżki zostaną usunięte.</string>
 </resources>
