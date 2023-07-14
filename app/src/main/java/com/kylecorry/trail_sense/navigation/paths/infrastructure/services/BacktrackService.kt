@@ -24,7 +24,7 @@ class BacktrackService :
     override val uniqueId: Int
         get() = 7238542
 
-    override fun getForegroundInfo(): ForegroundInfo? {
+    override fun getForegroundInfo(): ForegroundInfo {
         val units = prefs.baseDistanceUnits
         return ForegroundInfo(
             BacktrackAlerter.NOTIFICATION_ID,

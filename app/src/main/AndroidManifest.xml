@@ -24,6 +24,10 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
     <!--Force remove this permission from androidx-->
     <uses-permission
@@ -92,7 +96,8 @@
             android:exported="false" />
         <service
             android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="specialUse"/>
 
         <service
             android:name=".astronomy.infrastructure.SunsetAlarmService"
@@ -109,13 +114,13 @@
             android:name=".weather.infrastructure.WeatherMonitorService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="location" />
+            android:foregroundServiceType="location|specialUse" />
 
-        <!-- TODO: Make this "health" foreground service type -->
         <service
             android:name=".tools.pedometer.infrastructure.StepCounterService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="health"/>
 
         <service
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"

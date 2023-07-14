@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
-        targetSdk = 33
-        versionCode = 100
-        versionName = "5.0.0"
+        targetSdk = 34
+        versionCode = 101
+        versionName = "5.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations.addAll(listOf("en", "af", "ar", "bg", "bn", "bs", "ca", "cs", "da", "de", "es", "eu", "fa-rIR", "fi", "fr", "hi", "hu", "hy", "in", "it", "iw", "js", "nb-rNO", "ne", "nl", "ny", "pl", "pt", "pt-rBR", "ro", "ru", "sk", "tr", "uk", "vi", "yue", "zh", "zh-rTW"))
     }
@@ -91,7 +91,7 @@ dependencies {
     implementation("com.github.kylecorry31:sol:7.0.0")
 
     // Andromeda
-    val andromedaVersion = "9f22dc8dc8"
+    val andromedaVersion = "96926e6bdb"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")

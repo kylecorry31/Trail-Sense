@@ -47,15 +47,15 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
 
-    override fun onDraw(canvas: Canvas?) {
-        if (isSetup && canvas != null) {
+    override fun onDraw(canvas: Canvas) {
+        if (isSetup) {
             drawer.canvas = canvas
             drawer.push()
             drawer.rotate(-imageRotation + rotationOffset)
         }
 
         super.onDraw(canvas)
-        if (!isReady || canvas == null) {
+        if (!isReady) {
             return
         }
 
