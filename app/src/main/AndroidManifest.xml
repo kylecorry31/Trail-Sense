@@ -175,6 +175,10 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
+            android:name=".tools.pedometer.infrastructure.StopPedometerReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
             android:name=".tools.waterpurification.infrastructure.WaterPurificationCancelReceiver"
             android:enabled="true"
             android:exported="false" />
