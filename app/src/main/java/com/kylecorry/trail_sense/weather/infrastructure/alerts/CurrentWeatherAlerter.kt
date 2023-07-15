@@ -105,7 +105,7 @@ class CurrentWeatherAlerter(
     }
 
     private fun updateNotificationText(notification: Notification) {
-        Notify.send(context, WeatherUpdateScheduler.WEATHER_NOTIFICATION_ID, notification)
+        Notify.update(context, WeatherUpdateScheduler.WEATHER_NOTIFICATION_ID, notification)
     }
 
     companion object {

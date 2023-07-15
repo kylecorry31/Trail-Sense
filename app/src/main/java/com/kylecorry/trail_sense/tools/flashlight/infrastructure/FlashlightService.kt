@@ -59,7 +59,7 @@ class FlashlightService : AndromedaService() {
         topic.subscribe(this::onStateChanged)
         stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
         offTimer.interval(1000)
-        return START_STICKY_COMPATIBILITY
+        return START_STICKY
     }
 
     private fun onStateChanged(mode: FlashlightMode): Boolean {

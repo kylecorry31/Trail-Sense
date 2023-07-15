@@ -39,7 +39,7 @@ class WaterPurificationTimerService : AndromedaService() {
         seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
         super.onStartCommand(intent, flags, startId)
         startTimer(seconds)
-        return START_STICKY_COMPATIBILITY
+        return START_STICKY
     }
 
     override fun onDestroy() {
@@ -60,7 +60,7 @@ class WaterPurificationTimerService : AndromedaService() {
         timer = object : CountDownTimer(seconds * ONE_SECOND, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = (millisUntilFinished / ONE_SECOND.toFloat()).roundToInt()
-                Notify.send(
+                Notify.update(
                     this@WaterPurificationTimerService,
                     NOTIFICATION_ID,
                     getNotification(secondsLeft)

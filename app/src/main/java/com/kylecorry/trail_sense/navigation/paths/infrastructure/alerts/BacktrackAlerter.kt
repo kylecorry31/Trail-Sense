@@ -7,8 +7,12 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.receivers.StopBacktrackReceiver
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.NavigationUtils
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
+import com.kylecorry.trail_sense.shared.toRelativeDistance
 
 class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
 
@@ -17,7 +21,7 @@ class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
     override fun alert(value: Distance) {
         val notification =
             getNotification(context, value.convertTo(prefs.baseDistanceUnits).toRelativeDistance())
-        Notify.send(context, NOTIFICATION_ID, notification)
+        Notify.update(context, NOTIFICATION_ID, notification)
     }
 
     companion object {

@@ -33,7 +33,7 @@ class WhiteNoiseService : AndromedaService() {
 
         whiteNoise = PinkNoise()
         whiteNoise?.fadeOn()
-        return START_STICKY_COMPATIBILITY
+        return START_STICKY
     }
 
     override fun getForegroundInfo(): ForegroundInfo {
