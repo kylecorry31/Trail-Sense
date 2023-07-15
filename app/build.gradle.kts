@@ -61,37 +61,41 @@ android {
 }
 
 dependencies {
-    kapt("androidx.room:room-compiler:2.5.2")
+    // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+
+    // AndroidX
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.core:core-ktx:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
     implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("androidx.work:work-runtime-ktx:2.8.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    val navVersion = "2.6.0"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.room:room-runtime:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
-    implementation("androidx.lifecycle:lifecycle-service:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    val roomVersion = "2.5.2"
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    val lifecycleVersion = "2.6.1"
+    implementation("androidx.lifecycle:lifecycle-service:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     val cameraxVersion = "1.2.3"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
-    implementation("com.google.android.material:material:1.9.0")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
-    implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
 
-    // Sol
-    implementation("com.github.kylecorry31:sol:7.0.0")
+    // Material
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
-    val andromedaVersion = "96926e6bdb"
+    val andromedaVersion = "6.0.0"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -124,12 +128,16 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:print:$andromedaVersion")
 
     // Ceres
-    val ceresVersion = "0.3.5"
+    val ceresVersion = "0.4.0"
     implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:chart:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:image:$ceresVersion")
+
+    // Misc
+    implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
+    implementation("com.github.kylecorry31:sol:7.0.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
