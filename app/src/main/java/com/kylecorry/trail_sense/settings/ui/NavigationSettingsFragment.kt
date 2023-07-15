@@ -68,6 +68,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                         RequestRemoveBatteryRestrictionCommand(this).execute()
                     } else {
                         backtrack.disable()
+                        prefBacktrack?.isChecked = false
                     }
                 }
             } else {
