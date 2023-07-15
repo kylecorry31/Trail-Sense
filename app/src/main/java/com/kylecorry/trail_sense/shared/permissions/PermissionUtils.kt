@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.permissions
 
 import android.Manifest
+import android.content.Context
 import android.os.Build
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
@@ -102,5 +103,30 @@ fun <T> T.requestScheduleExactAlarms(action: (hasPermission: Boolean) -> Unit) w
 fun AndromedaFragment.requestCamera(action: (hasPermission: Boolean) -> Unit) {
     requestPermissions(listOf(Manifest.permission.CAMERA)) {
         action(Camera.isAvailable(requireContext()))
+    }
+}
+
+fun Permissions.canRunLocationForegroundService(context: Context): Boolean {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        return true
+    }
+    return canGetLocation(context)
+}
+
+/**
+ * Request location permission when absolutely required to start a foreground service (Android 14+)
+ */
+fun <T> T.requestLocationForegroundServicePermission(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
+    if (Permissions.canRunLocationForegroundService(requireContext())) {
+        action(true)
+        return
+    }
+
+    requestPermissions(listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+        val hasPermission = Permissions.canRunLocationForegroundService(requireContext())
+        if (!hasPermission){
+            toast(getString(R.string.backtrack_no_permission))
+        }
+        action(hasPermission)
     }
 }

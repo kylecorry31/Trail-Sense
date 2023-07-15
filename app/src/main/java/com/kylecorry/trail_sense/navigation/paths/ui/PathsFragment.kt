@@ -49,6 +49,7 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
@@ -139,8 +140,12 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             when (backtrack.getState()) {
                 FeatureState.On -> backtrack.disable()
                 FeatureState.Off -> {
-                    backtrack.enable(true)
-                    RequestRemoveBatteryRestrictionCommand(this).execute()
+                    requestLocationForegroundServicePermission { success ->
+                        if (success) {
+                            backtrack.enable(true)
+                            RequestRemoveBatteryRestrictionCommand(this).execute()
+                        }
+                    }
                 }
                 FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
             }

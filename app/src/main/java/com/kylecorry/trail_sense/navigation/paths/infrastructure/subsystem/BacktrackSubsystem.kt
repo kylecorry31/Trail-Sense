@@ -5,12 +5,14 @@ import android.content.Context
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBacktrackCommand
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.permissions.canRunLocationForegroundService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.util.*
@@ -64,8 +66,12 @@ class BacktrackSubsystem private constructor(private val context: Context) {
     }
 
     fun enable(startNewPath: Boolean) {
-        prefs.backtrackEnabled = true
-        BacktrackScheduler.start(context, startNewPath)
+        if (Permissions.canRunLocationForegroundService(context)) {
+            prefs.backtrackEnabled = true
+            BacktrackScheduler.start(context, startNewPath)
+        } else {
+            disable()
+        }
     }
 
     fun disable() {
