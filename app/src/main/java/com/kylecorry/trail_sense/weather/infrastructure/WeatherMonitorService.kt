@@ -1,12 +1,16 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import com.kylecorry.andromeda.background.IAlwaysOnTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.canRunLocationForegroundService
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
@@ -16,10 +20,16 @@ class WeatherMonitorService :
 
     private val prefs by lazy { UserPreferences(applicationContext) }
 
+    @SuppressLint("InlinedApi")
     override fun getForegroundInfo(): ForegroundInfo {
         return ForegroundInfo(
             WeatherUpdateScheduler.WEATHER_NOTIFICATION_ID,
-            CurrentWeatherAlerter.getDefaultNotification(applicationContext)
+            CurrentWeatherAlerter.getDefaultNotification(applicationContext),
+            if (!Permissions.canRunLocationForegroundService(applicationContext)) {
+                listOf(ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+            } else {
+                null
+            }
         )
     }
 
