@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -286,9 +287,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun setFragment(fragment: Fragment) {
         val fragmentManager = parentFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        currentFragment = fragment
-        transaction.replace(binding.mapFragment.id, fragment)
-            .addToBackStack(null).commit()
+        fragmentManager.commit {
+            replace(binding.mapFragment.id, fragment)
+        }
     }
 }
