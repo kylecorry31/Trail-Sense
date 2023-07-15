@@ -46,6 +46,17 @@ class GeographicImageSource(
     }
 
     companion object {
+
+        fun scaledDecoder(a: Float, b: Float): (Int?) -> List<Float> {
+            return {
+                val red = it?.red?.toFloat() ?: 0f
+                val green = it?.green?.toFloat() ?: 0f
+                val blue = it?.blue?.toFloat() ?: 0f
+                val alpha = it?.alpha?.toFloat() ?: 0f
+                listOf(red / a - b, green / a - b, blue / a - b, alpha / a - b)
+            }
+        }
+
         fun offsetDecoder(offset: Float): (Int?) -> List<Float> {
             return {
                 val red = it?.red?.toFloat() ?: 0f

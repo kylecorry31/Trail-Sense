@@ -14,11 +14,12 @@ object AltitudeCorrection {
     private var cache = LRUCache<PixelCoordinate, Float>(size = 5)
 
     // Image data source
-    private const val offset = 106f
+    private const val a = 1.3350785f
+    private const val b = 106f
     private const val file = "geoids.webp"
     private val source = GeographicImageSource(
         Size(361, 181),
-        decoder = GeographicImageSource.offsetDecoder(offset)
+        decoder = GeographicImageSource.scaledDecoder(a, b)
     )
 
     suspend fun getGeoid(context: Context, location: Coordinate): Float = onIO {
