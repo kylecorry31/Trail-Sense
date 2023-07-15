@@ -24,10 +24,10 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <!--Force remove this permission from androidx-->
     <uses-permission
@@ -97,7 +97,11 @@
         <service
             android:name=".tools.waterpurification.infrastructure.WaterPurificationTimerService"
             android:exported="false"
-            android:foregroundServiceType="specialUse"/>
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="timer" />
+        </service>
 
         <service
             android:name=".astronomy.infrastructure.SunsetAlarmService"
@@ -114,13 +118,17 @@
             android:name=".weather.infrastructure.WeatherMonitorService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="location|specialUse" />
+            android:foregroundServiceType="location|specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="barometer" />
+        </service>
 
         <service
             android:name=".tools.pedometer.infrastructure.StepCounterService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="health"/>
+            android:foregroundServiceType="health" />
 
         <service
             android:name=".tools.whitenoise.infrastructure.WhiteNoiseService"
