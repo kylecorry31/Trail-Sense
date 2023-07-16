@@ -48,6 +48,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             fragment: T,
             shouldRequestPermissions: Boolean
         ) where T : Fragment, T : IPermissionRequester {
+            UserPreferences(fragment.requireContext()).astronomy.sendSunsetAlerts = true
             if (shouldRequestPermissions) {
                 fragment.requestScheduleExactAlarms {
                     start(fragment.requireContext())

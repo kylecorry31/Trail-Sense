@@ -17,6 +17,7 @@ enum class QuickActionType(val id: Int) {
     LowPowerMode(10),
     Thunder(11),
     Climate(12),
+    SunsetAlert(13)
 }
 
 object QuickActionUtils {
@@ -35,6 +36,7 @@ object QuickActionUtils {
             QuickActionType.LowPowerMode -> context.getString(R.string.pref_low_power_mode_title)
             QuickActionType.Thunder -> context.getString(R.string.tool_lightning_title)
             QuickActionType.Climate -> context.getString(R.string.tool_climate)
+            QuickActionType.SunsetAlert -> context.getString(R.string.sunset_alerts)
         }
     }
 
@@ -70,7 +72,8 @@ object QuickActionUtils {
             if (FlashlightSubsystem.getInstance(context).isAvailable()) QuickActionType.Flashlight else null,
             QuickActionType.Whistle,
             QuickActionType.WhiteNoise,
-            QuickActionType.LowPowerMode
+            QuickActionType.LowPowerMode,
+            QuickActionType.SunsetAlert
         )
     }
 }

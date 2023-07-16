@@ -35,6 +35,7 @@ class AstronomyQuickActionBinder(
             QuickActionType.Flashlight -> QuickActionFlashlight(button, fragment)
             QuickActionType.WhiteNoise -> QuickActionWhiteNoise(button, fragment)
             QuickActionType.LowPowerMode -> LowPowerQuickAction(button, fragment)
+            QuickActionType.SunsetAlert -> QuickActionSunsetAlert(button, fragment)
             else -> QuickActionNone(button, fragment)
         }
     }
