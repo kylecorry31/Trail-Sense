@@ -133,7 +133,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_notifications_link"
             app:singleLineTitle="false"
-            app:title="@string/notifications" />
+            app:title="@string/notifications_channel" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

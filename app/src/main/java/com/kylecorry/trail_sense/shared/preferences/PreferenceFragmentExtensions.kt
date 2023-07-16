@@ -11,9 +11,10 @@ fun AndromedaPreferenceFragment.setupNotificationSetting(key: String, channelId:
     val pref = preferenceManager.findPreference<Preference>(key)
     val summaryProvider = {
         val isBlocked = Notify.isChannelBlocked(requireContext(), channelId)
-        val status = if (isBlocked) getString(R.string.off) else getString(R.string.on)
-        "$channelName: $status"
+        if (isBlocked) getString(R.string.off) else getString(R.string.on)
     }
+
+    pref?.title = getString(R.string.notifications_channel, channelName)
 
     pref?.summary = summaryProvider.invoke()
 
