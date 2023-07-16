@@ -12,9 +12,16 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
+import com.kylecorry.trail_sense.shared.notificationSettings
 import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
 
 class DiagnosticAlertService(private val context: Context, private val navigation: IAppNavigation) :
     IDiagnosticAlertService {
@@ -235,12 +242,12 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.AccelerometerPoor -> null
             DiagnosticCode.GPSPoor -> null
             DiagnosticCode.GPSTimedOut -> null
-            DiagnosticCode.SunsetAlertsBlocked -> notificationAction()
-            DiagnosticCode.StormAlertsBlocked -> notificationAction()
-            DiagnosticCode.DailyForecastNotificationsBlocked -> notificationAction()
-            DiagnosticCode.FlashlightNotificationsBlocked -> notificationAction()
-            DiagnosticCode.PedometerNotificationsBlocked -> notificationAction()
-            DiagnosticCode.WeatherNotificationsBlocked -> notificationAction()
+            DiagnosticCode.SunsetAlertsBlocked -> notificationAction(SunsetAlarmService.NOTIFICATION_CHANNEL_ID)
+            DiagnosticCode.StormAlertsBlocked -> notificationAction(StormAlerter.STORM_CHANNEL_ID)
+            DiagnosticCode.DailyForecastNotificationsBlocked -> notificationAction(DailyWeatherAlerter.DAILY_CHANNEL_ID)
+            DiagnosticCode.FlashlightNotificationsBlocked -> notificationAction(FlashlightService.CHANNEL_ID)
+            DiagnosticCode.PedometerNotificationsBlocked -> notificationAction(StepCounterService.CHANNEL_ID)
+            DiagnosticCode.WeatherNotificationsBlocked -> notificationAction(CurrentWeatherAlerter.WEATHER_CHANNEL_ID)
             DiagnosticCode.LightSensorUnavailable -> null
             DiagnosticCode.WeatherMonitorDisabled -> navigateAction(R.id.weatherSettingsFragment)
             DiagnosticCode.ExactAlarmNoPermission -> alarmAndReminderAction()
@@ -267,8 +274,8 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
         }
     }
 
-    private fun notificationAction(): Action {
-        return intentAction(Intents.appSettings(context))
+    private fun notificationAction(channel: String? = null): Action {
+        return intentAction(Intents.notificationSettings(context, channel))
     }
 
     private fun permissionAction(): Action {
