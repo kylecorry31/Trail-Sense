@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.navigation.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrict
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
+import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import java.time.Duration
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
@@ -157,6 +159,12 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                 onCurrentPaceSpeedometerSelected()
             }
         }
+
+        setupNotificationSetting(
+            getString(R.string.pref_backtrack_notifications_link),
+            BacktrackService.FOREGROUND_CHANNEL_ID,
+            getString(R.string.backtrack)
+        )
 
         updateNearbyRadius()
     }

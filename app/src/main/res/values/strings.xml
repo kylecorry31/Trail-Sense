@@ -1317,6 +1317,8 @@
     <string name="exact_alarm_permission_denied">Alarms and reminders permission denied, alerts may be inaccurate. You can enable it in settings.</string>
     <string name="sunset_alerts_background_location_disclaimer">Sunset alerts may be inaccurate while traveling</string>
     <string name="backtrack_no_permission">Backtrack requires location permission to run</string>
+    <string name="pref_backtrack_notifications_link" translatable="false">pref_backtrack_notifications_link</string>
+    <string name="notifications">Notifications</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

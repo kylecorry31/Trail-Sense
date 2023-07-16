@@ -129,6 +129,12 @@
             app:singleLineTitle="false"
             app:title="@string/pref_backtrack_history_days_title" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_notifications_link"
+            app:singleLineTitle="false"
+            app:title="@string/notifications" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
