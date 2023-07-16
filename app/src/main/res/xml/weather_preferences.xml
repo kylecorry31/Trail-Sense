@@ -35,6 +35,12 @@
             app:summary="@string/pref_monitor_weather_summary"
             app:title="@string/pref_monitor_weather_title" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_monitor_notification_link"
+            app:singleLineTitle="false"
+            app:title="@string/notifications_channel" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:dependency="@string/pref_monitor_weather"

@@ -95,7 +95,7 @@ object NotificationChannels {
         Notify.createChannel(
             context,
             CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
-            context.getString(R.string.weather),
+            context.getString(R.string.weather_monitor),
             context.getString(R.string.notification_monitoring_weather),
             Notify.CHANNEL_IMPORTANCE_LOW,
             true
@@ -130,7 +130,7 @@ object NotificationChannels {
             false
         )
 
-        // Odometer
+        // Pedometer
         Notify.createChannel(
             context,
             StepCounterService.CHANNEL_ID,

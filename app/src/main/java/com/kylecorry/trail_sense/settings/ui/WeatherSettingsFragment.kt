@@ -18,10 +18,12 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
@@ -135,6 +137,12 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         onClick(preference(R.string.pref_export_weather_csv)) {
             exportWeatherData()
         }
+
+        setupNotificationSetting(
+            getString(R.string.pref_weather_monitor_notification_link),
+            CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
+            getString(R.string.weather_monitor)
+        )
     }
 
     private fun restartWeatherMonitor() {
