@@ -26,6 +26,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_pedometer_notification_link"
+            app:singleLineTitle="false"
+            app:title="@string/notifications_channel" />
+
+        <Preference
             android:title="@string/request_permission"
             app:iconSpaceReserved="false"
             app:key="@string/pref_odometer_request_permission"

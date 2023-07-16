@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 
 
@@ -90,6 +91,12 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
         onClick(preference(R.string.pref_estimate_stride_length_holder)) {
             findNavController().navigate(R.id.action_calibrate_pedometer_to_estimate_stride_length)
         }
+
+        setupNotificationSetting(
+            getString(R.string.pref_pedometer_notification_link),
+            StepCounterService.CHANNEL_ID,
+            getString(R.string.pedometer)
+        )
     }
 
     override fun onResume() {

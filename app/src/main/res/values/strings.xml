@@ -1321,6 +1321,7 @@
     <!--    %s is the notification channel name. Ex. Backtrack-->
     <string name="notifications_channel">Notifications (%s)</string>
     <string name="pref_weather_monitor_notification_link" translatable="false">pref_weather_monitor_notification_link</string>
+    <string name="pref_pedometer_notification_link" translatable="false">pref_pedometer_notification_link</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
