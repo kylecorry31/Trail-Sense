@@ -681,6 +681,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.compassCenter = gps.location
         }
 
+        // This gets set with the other compass layers as well, but also set it here to keep it up to date since this changes more often
+        myLocationLayer.setLocation(gps.location)
+        myLocationLayer.setAzimuth(compass.bearing)
+        myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
+
         // Location
         binding.navigationTitle.subtitle.text = formatService.formatLocation(gps.location)
 
