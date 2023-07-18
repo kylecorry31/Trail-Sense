@@ -850,4 +850,5 @@
     <string name="delete_map_group_message">%s 同埋入面嗰啲地圖，統統都會剷走晒個囉噃。</string>
     <string name="delete_path_group_message">%s 同埋入面嗰啲路徑，統統都會剷走晒個囉噃。</string>
     <string name="sunset_alerts_background_location_disclaimer">移動之時日落警示未必太準</string>
+    <string name="rotation_amount">旋轉：%s</string>
 </resources>

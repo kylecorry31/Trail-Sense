@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="continue_button">Fortsett</string>
     <string name="pref_email_title">E-post til utvikler</string>
@@ -133,7 +133,7 @@
 \nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
     <string name="kilometers_per_hour_format">%.1f km/t</string>
-    <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Posisjonsdata brukes til kalibrering av havnivåtrykk i værovervåking og for å gi mer nøyaktige solnedgangsvarsler. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Posisjonsdata brukes for å gi mer nøyaktige solnedgangsvarsler mens du reiser. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
     <string name="tool_user_guide_summary">Veiledning for bruk av Trail Sense</string>
     <string name="tool_user_guide_title">Brukerveiledning</string>
@@ -1044,4 +1044,18 @@
     <string name="map_auto_rotated">Kartrotasjon justert med kalibrering</string>
     <string name="season">Årstid</string>
     <string name="rate">Rate</string>
+    <string name="pref_keep_map_facing_up_title">Hold kartet vendt opp</string>
+    <string name="pref_keep_map_facing_up_summary">Kartet vil justeres med toppen av skjermen i stedet for sann nord.</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Beskjæring av kartet vil stadig redusere oppløsningen. Hvis du trenger å beskjære kartet i høy oppløsning, bruk en fotoredigeringsapp. Det er planer om å fikse dette i fremtiden.</string>
+    <string name="allow_ignore_battery_restrictions">Tillat %s å ignorere batterirestriksjoner</string>
+    <string name="allow_schedule_exact_alarms">Tillat %s å stille inn alarmer og påminnelser</string>
+    <string name="allow_schedule_exact_alarms_instructions">Dette lar %1$s stille inn nøyaktige alarmer og påminnelser, for eksempel solnedgangsvarsler. Uten dette kan det hende at alarmer ikke utløses på riktig tidspunkt.
+\n
+\nFor å tillate, trykk \"%2$s\" og aktiver innstillingen for å tillate alarmer og påminnelser.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Solnedgangsvarsler kan være unøyaktige mens du reiser</string>
+    <string name="photo_map_disclaimer">Ha alltid med et fysisk kart som en sikkerhet og verifiser nøyaktigheten til Trail Sense.</string>
+    <string name="i_agree">Jeg er enig</string>
+    <string name="battery_settings_limit_accuracy">Batterirestriksjoner kan redusere nøyaktigheten</string>
+    <string name="battery_usage_allowed">Batteribruk tillatt</string>
+    <string name="exact_alarm_permission_denied">Tillatelse for alarmer og påminnelser nektet, varsler kan være unøyaktige. Du kan aktivere tillatelse i innstillinger.</string>
 </resources>
