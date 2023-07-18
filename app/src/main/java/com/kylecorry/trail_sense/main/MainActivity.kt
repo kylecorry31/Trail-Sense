@@ -96,12 +96,6 @@ class MainActivity : AndromedaActivity() {
             bottomNavigation.setBackgroundColor(Color.BLACK)
         }
 
-        Package.setComponentEnabled(
-            this,
-            "com.kylecorry.trail_sense.AliasMainActivity",
-            true
-        )
-
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
