@@ -169,6 +169,7 @@ The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 - Thanks to @qwerty287 and @Portagoras for implementing several features and bugfixes
 - Please see the in app licenses for all open source licenses
+- Contributors and translators: https://github.com/kylecorry31/Trail-Sense/graphs/contributors
 
 # License
 
