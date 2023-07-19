@@ -33,7 +33,7 @@
     </plurals>
     <string name="feet_miles">Pies / Millas</string>
     <string name="units_hpa">hPa</string>
-    <string name="units_inhg">inHg</string>
+    <string name="units_inhg">Pulgadas Hg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
     <string name="theme_light">Claro</string>
@@ -55,17 +55,20 @@
     <string name="pref_pressure_history_title">Historial de presiones</string>
     <string name="pref_monitor_weather_title">Monitorizar el clima</string>
     <string name="pref_ruler_calibration_title">Escala de la regla</string>
-    <string name="pref_ruler_calibration_summary">"Protocolo de calibración:
-\n-  Establece este valor en 1.
-\n-  Mide el valor de la regla virtual correspondiente a una unidad de una regla física.
-\n-  Reporte aquí el valor medido."</string>
+    <string name="pref_ruler_calibration_summary">"Calibración:
+\n
+\n-  Ajusta este valor a 1.
+\n
+\n- Mide el valor de una unidad de la regla que ves en la pantalla de Trail Sense (con una regla real o un calibre).
+\n
+\n- Escribe el valor que has medido aquí."</string>
     <string name="pref_num_visible_beacons_title">Balizas cercanas</string>
     <string name="pref_display_multi_beacons_summary">Mostrar las balizas más cercanas en la brújula</string>
     <string name="pref_monitor_weather_summary">"En segundo plano"</string>
     <string name="sun_does_not_set">no está de salida</string>
     <string name="sun_does_not_rise">no está de puesta</string>
     <string name="sun_up_no_set">el sol está arriba</string>
-    <string name="sun_down_no_set">el sol está abajo</string>
+    <string name="sun_down_no_set">el sol está puesto</string>
     <string name="tools">Herramientas</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
@@ -75,7 +78,7 @@
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="beacon_comment">Notas (opcional)</string>
-    <string name="beacon_invalid_name">Nombre inválido</string>
+    <string name="beacon_invalid_name">Nombre no válido</string>
     <string name="maps">Mapas</string>
     <string name="share_action_send">Enviar</string>
     <string name="flashlight_title">Linterna</string>
@@ -91,19 +94,19 @@
     <string name="coordinate_format_degrees_minutes_seconds">Grados Minutos Segundos</string>
     <string name="coordinate_format_degrees_decimal_minutes">Grados Decimales Minutos</string>
     <string name="set_inclination_instructions">Toque o mantenga pulsado en cualquier lugar para bloquear/desbloquear</string>
-    <string name="clinometer_rotate_device">Sostenga su teléfono verticalmente para medir la inclinación</string>
+    <string name="clinometer_rotate_device">Mantén el teléfono vertical para medir la inclinación</string>
     <string name="tool_clinometer_summary">Estimar los riesgos de avalanchas y la altura de los objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="lunar_noon">Mediodía lunar</string>
     <string name="solar_noon">Mediodía solar</string>
     <string name="sunset_alert_notification_text">El sol se pondrá a las %s</string>
-    <string name="first_quarter">Primer Cuarto</string>
+    <string name="first_quarter">Cuarto Creciente</string>
     <string name="waxing_gibbous">Luna Creciente</string>
     <string name="full_moon">Luna Llena</string>
-    <string name="waning_gibbous">Menguante Gibosa</string>
-    <string name="third_quarter">Tercer Cuarto</string>
-    <string name="waning_crescent">Creciente Menguante</string>
+    <string name="waning_gibbous">Gibosa Menguante</string>
+    <string name="third_quarter">Cuarto menguante</string>
+    <string name="waning_crescent">Media Luna menguante</string>
     <string name="new_moon">Luna nueva</string>
     <string name="notification_monitoring_weather">Monitoreo del clima en segundo plano</string>
     <plurals name="beacon_group_summary">
@@ -114,17 +117,17 @@
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>
     <string name="tap_to_turn_off">Toca para apagar</string>
-    <string name="accuracy_info">"GPS: Sal al exterior con una vista despejada del cielo.
-\n    %1$s de ubicación real
-\n    %2$s de elevación real
-\n    %3$s de satélites
+    <string name="accuracy_info">"GPS: Sal donde tengas una vista del cielo despejada.
+\n    %1$s de ubicación actual
+\n    %2$s de elevación actual
+\n    %3$s satélites
 \n
-\nBrújula: Gira el dispositivo en forma de un 8 o en todas direcciones y aléjate del metal."</string>
+\nBrújula: Rota el aparato en un patrón de 8 ó gíralo en sus tres ejes, y alejado de elementos de metal."</string>
     <string name="accuracy_info_title">Consejos para mejorar la precisión de los datos de los sensores</string>
-    <string name="discharging_fast">Descargando rápido (%s)</string>
-    <string name="discharging_slow">Descargando lento (%s)</string>
-    <string name="charging_slow">Cargando lento (%s)</string>
-    <string name="charging_fast">Cargando rápido (%s)</string>
+    <string name="discharging_fast">Descarga rápida (%s)</string>
+    <string name="discharging_slow">Descarga lenta (%s)</string>
+    <string name="charging_slow">Carga lenta (%s)</string>
+    <string name="charging_fast">Carga rápida (%s)</string>
     <string name="increase">+</string>
     <string name="direction_south_west">SO</string>
     <string name="direction_north_west">NO</string>
@@ -143,16 +146,16 @@
     <string name="precise_feet_format">%s pies</string>
     <string name="dialog_deny">No, gracias</string>
     <string name="dialog_grant">Actualizar ajustes</string>
-    <string name="access_background_location_rationale">Trail Sense utiliza datos de ubicación en segundo plano. Se utilizan para la calibración de la presión a nivel del mar en el monitoreo del clima y para proporcionar alertas de puesta de sol más precisas. [Ver política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense utiliza datos de ubicación en segundo plano. Se utiliza para proporcionar alertas de puesta de sol más precisas mientras se desplaza. [Ver política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Actualizar ajustes de ubicación</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="dash">-</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="direction_south_east">SE</string>
-    <string name="precise_nautical_miles_format">%s nm</string>
-    <string name="app_disclaimer_message_title">Descargo de responsabilidad / Términos de servicio</string>
-    <string name="disclaimer_message_title">Aviso legal</string>
-    <string name="copied_to_clipboard_toast">Copiado al portapapeles</string>
+    <string name="precise_nautical_miles_format">%s mill. naut</string>
+    <string name="app_disclaimer_message_title">Descargo de Responsabilidad/ Términos de Servicio</string>
+    <string name="disclaimer_message_title">Descargo de responsabilidad</string>
+    <string name="copied_to_clipboard_toast">Copiado a portapapeles</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
@@ -262,7 +265,7 @@
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
-    <string name="waxing_crescent">Luna Creciente</string>
+    <string name="waxing_crescent">Media Luna Creciente</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="pref_elevation_override_title">Anulación de altitud</string>
@@ -423,7 +426,7 @@
     <string name="battery_health">Salúd: %s</string>
     <string name="power">Energía</string>
     <string name="clock_sync_notification">Sincronizar tu reloj - %s</string>
-    <string name="units_mmhg">mmHg</string>
+    <string name="units_mmhg">mm Hg</string>
     <string name="water_boil_timer">Temporizador de hervir agua</string>
     <string name="battery_power_ac">AC</string>
     <string name="none">Ninguna</string>
@@ -473,7 +476,7 @@
     <string name="barometer">Barómetro</string>
     <string name="cell_signal">Señal telefónica</string>
     <string name="dbm_format">%s dBm</string>
-    <string name="satellites">Satélites</string>
+    <string name="satellites">satélites</string>
     <string name="hygrometer">Higrómetro</string>
     <string name="gravity">Gravedad</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
@@ -485,7 +488,7 @@
     <string name="beam_distance">%s distancia del rayo de luz</string>
     <string name="tool_light_meter_title">Medidor de luz</string>
     <string name="pref_backtrack_save_cell_title">Registrar la señal telefónica</string>
-    <string name="location_not_set">Localización no ajustada</string>
+    <string name="location_not_set">Ubicación no definida</string>
     <string name="set">Establecer</string>
     <string name="location_disabled">La localización está deshabilitada</string>
     <string name="gps_cache">Caché de GPS</string>
@@ -493,8 +496,8 @@
     <string name="tomorrows_forecast">El pronóstico para mañana</string>
     <string name="pref_daily_weather_notification_title">Notificación diaria de clima</string>
     <string name="always_on">Siempre encendido</string>
-    <string name="service_update_frequency">Se actualiza cada %s</string>
-    <string name="battery_usage">%s uso de bateria</string>
+    <string name="service_update_frequency">Actualizar cada %s</string>
+    <string name="battery_usage">%s uso de batería</string>
     <string name="high">Alto</string>
     <string name="moderate">Moderado</string>
     <string name="no_gps_signal">Sin señal GPS</string>
@@ -815,8 +818,9 @@
         <item quantity="other">Puntos de referencias eliminados %d</item>
     </plurals>
     <plurals name="paths_imported">
-        <item quantity="one">Ruta importada %d</item>
-        <item quantity="other">Rutas importadas %d</item>
+        <item quantity="one">%d ruta importada</item>
+        <item quantity="many">%d rutas importadas</item>
+        <item quantity="other">%d rutas importadas</item>
     </plurals>
     <string name="roll_pitch_yaw">Giro:%1$s, Paso:%2$s, Guiñada:%3$s</string>
     <string name="camera">Cámara</string>
@@ -963,9 +967,9 @@
     <string name="tide_diurnal_description">Marea alta una vez al día - la mayoría de las mareas no son diurnas</string>
     <string name="tide_diurnal">Diurno</string>
     <plurals name="path_group_summary">
-        <item quantity="one">ruta %d</item>
-        <item quantity="many">rutas %d</item>
-        <item quantity="other">rutas %d</item>
+        <item quantity="one">%d ruta</item>
+        <item quantity="many">%d rutas</item>
+        <item quantity="other">%d rutas</item>
     </plurals>
     <string name="delete_path_group_message">%s y todas sus rutas se eliminarán.</string>
     <string name="path">Ruta</string>
@@ -1037,7 +1041,7 @@
     <string name="last_lightning_strike_at">Último rayo hace %s</string>
     <string name="pref_show_temperature_in_notification_title">Mostrar la temperatura en las notificaciones</string>
     <string name="at_time">en %s</string>
-    <string name="photo_maps">Mapas de las fotos</string>
+    <string name="photo_maps">Mapas calibrados</string>
     <string name="historic_temperature_years">Historial (%d año)</string>
     <string name="historic_temperatures_full_disclaimer">Las temperaturas se basan en una media de %d años de datos históricos y pueden no reflejar las condiciones meteorológicas actuales.</string>
     <plurals name="map_group_summary">
