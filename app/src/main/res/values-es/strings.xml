@@ -171,7 +171,7 @@
     <string name="tool_solar_panel_title">Alineador de Panel Solar</string>
     <string name="tool_solar_panel_summary">Posicionar paneles solares para generar energía en forma óptima</string>
     <string name="pref_privacy_policy_title">Política de Privacidad</string>
-    <string name="guide_recommended_apps_description">Apps útiles para situaciones de supervivencia</string>
+    <string name="guide_recommended_apps_description">Aplicaciones útiles para situaciones de supervivencia</string>
     <string name="guide_recommended_apps">Aplicaciones recomendadas</string>
     <string name="unit_nautical_miles">Millas náuticas</string>
     <string name="unit_miles">Millas</string>
@@ -353,7 +353,7 @@
     <string name="color">Color</string>
     <string name="camera_permission_denied">Permiso de la cámara denegado, no se pueden activar las funciones de la cámara. Puede habilitarlo en la configuración.</string>
     <string name="coordinate_input_invalid_location">Ubicación inválida</string>
-    <string name="open_beacon_in_maps">Ver en mapa</string>
+    <string name="open_beacon_in_maps">Ver en el mapa</string>
     <string name="cumulonimbus_desc">Nubes bajas e hinchadas que son muy altas. Por lo general, tienen forma de yunque y son oscuras.</string>
     <string name="cirrus_desc">Nubes altas y tenues que parecen mechones de cabello blanco.</string>
     <string name="privacy_and_location">Privacidad y Ubicación</string>
@@ -392,7 +392,7 @@
     <string name="bubble_level_angles">X: %1$s
 \nY: %2$s</string>
     <string name="tool_white_noise_title">Ruido Blanco</string>
-    <string name="tool_white_noise_summary">Te ayuda a dormir</string>
+    <string name="tool_white_noise_summary">Te ayuda a dormirte</string>
     <string name="map_scale_ratio">Proporción</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="max_temp_calibrated">Temperatura ambiente máxima (calibrada)</string>
@@ -403,7 +403,7 @@
     <string name="guide_location_no_gps_title">Determinar ubicación sin GPS</string>
     <string name="backtrack">Retractarse</string>
     <string name="backtrack_notification_channel_description">Actualizar ubicaciones para retroceder</string>
-    <string name="create_beacon">Crear Faro</string>
+    <string name="create_beacon">Crear baliza</string>
     <string name="low">Bajo</string>
     <string name="speedometer">Velocímetro</string>
     <string name="odometer">Odometro</string>
@@ -426,7 +426,7 @@
     <string name="strobe_warning_content">La función parpadear contiene luces intermitentes, que pueden ser peligrosas para algunos usuarios.</string>
     <string name="battery_health_overheat">Sobrecalentar</string>
     <string name="battery_health_cold">Frío</string>
-    <string name="battery_health_over_voltage">Sobrecarga</string>
+    <string name="battery_health_over_voltage">Sobretensión</string>
     <string name="battery_health">Salúd: %s</string>
     <string name="power">Energía</string>
     <string name="clock_sync_notification">Sincronizar tu reloj - %s</string>
@@ -533,7 +533,7 @@
     <string name="error_importing_map">Error importando mapa</string>
     <string name="import_gpx">Importar GPX</string>
     <string name="sleep_timer">Temporizador de hora de dormir</string>
-    <string name="pref_odometer_reset_daily_title">Resetear a diario</string>
+    <string name="pref_odometer_reset_daily_title">Reiniciar a diario</string>
     <string name="search">Buscar</string>
     <string name="actual_frequency_disclaimer">La frecuencia real puede variar ya que algunos dispositivos tienen límites en segundo plano.</string>
     <string name="pref_weather_show_detailed_icon_title">Mostrar icono de notificación coloreado</string>
@@ -561,7 +561,7 @@
     <string name="elevation_from_pressure">Establecer la anulación del barómetro</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
     <string name="pref_elevation_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
-    <string name="unsaved_changes">Lo cambios no se guardaron</string>
+    <string name="unsaved_changes">Cambios sin guardar</string>
     <string name="solar_panel_instructions">Coloca el teléfono en la parte frontal del panel solar para comenzar.</string>
     <string name="water_boil_timer_channel_description">El agua está hirviendo</string>
     <string name="water_boil_timer_title">El agua está hirviendo</string>
@@ -572,11 +572,11 @@
     <string name="tool_triangulate_title">Triangular Ubicación</string>
     <string name="tool_triangulate_summary">Determinar tu ubicación sin GPS</string>
     <string name="could_not_triangulate">No se pudo triangular</string>
-    <string name="beacon_1">Faro 1</string>
-    <string name="beacon_2">Faro 2</string>
-    <string name="pip_button">Actualizar el tiempo del sistema</string>
-    <string name="pip_notification_scheduled">Notificacion programada para %s</string>
-    <string name="notification_channel_clock_sync">Sincronizar Reloj</string>
+    <string name="beacon_1">Baliza 1</string>
+    <string name="beacon_2">Baliza 2</string>
+    <string name="pip_button">Actualizar el reloj del sistema</string>
+    <string name="pip_notification_scheduled">Notificacion programada para las %s</string>
+    <string name="notification_channel_clock_sync">Sincronización del Reloj</string>
     <string name="metal_detector_disclaimer">Solo detecta metales magnéticos (ej. hierro)</string>
     <string name="unsaved_changes_message">Los cambios que hiciste no serán guardados.</string>
     <string name="dialog_leave">Salir</string>
