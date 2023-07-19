@@ -1100,4 +1100,7 @@
 \n
 \n要允许，单击 ‘%2$s’ 并开启设置来允许闹铃和提醒。</string>
     <string name="exact_alarm_permission_denied">闹铃和提醒权限被拒，警报可能不精确。你可以在设置中启用它。</string>
+    <string name="backtrack_no_permission">Backtrack 功能需要位置权限才能工作</string>
+    <string name="notifications_channel">通知（%s）</string>
+    <string name="sunset_alert_scheduled">警报定于日落前 %s 发出</string>
 </resources>
