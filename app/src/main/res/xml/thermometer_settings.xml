@@ -126,6 +126,12 @@
             app:key="@string/pref_backfill_temperatures"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:title="@string/tool_user_guide_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_thermometer_user_guide_button"
+            app:singleLineTitle="false" />
+
 
     </PreferenceCategory>
 

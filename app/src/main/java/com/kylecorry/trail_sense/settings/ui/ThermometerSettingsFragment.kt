@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.weather.infrastructure.commands.BackfillHistoricalTemperaturesCommand
@@ -175,6 +176,10 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
         onClick(preference(R.string.pref_reset_thermometer_calibration_button)){
             resetCalibration()
+        }
+
+        onClick(preference(R.string.pref_thermometer_user_guide_button)){
+            UserGuideUtils.showGuide(this, R.raw.calibrating_thermometer)
         }
     }
 
