@@ -67,7 +67,7 @@
     <string name="pref_monitor_weather_summary">"En segundo plano"</string>
     <string name="sun_does_not_set">no está de salida</string>
     <string name="sun_does_not_rise">no está de puesta</string>
-    <string name="sun_up_no_set">el sol está arriba</string>
+    <string name="sun_up_no_set">El sol salió</string>
     <string name="sun_down_no_set">el sol está puesto</string>
     <string name="tools">Herramientas</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
@@ -77,7 +77,7 @@
     <string name="pressure_reading_time_ago">%1$s - hace %2$s</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
-    <string name="beacon_comment">Notas (opcional)</string>
+    <string name="beacon_comment">Notas (Opcional)</string>
     <string name="beacon_invalid_name">Nombre no válido</string>
     <string name="maps">Mapas</string>
     <string name="share_action_send">Enviar</string>
@@ -108,7 +108,7 @@
     <string name="third_quarter">Cuarto menguante</string>
     <string name="waning_crescent">Media Luna menguante</string>
     <string name="new_moon">Luna nueva</string>
-    <string name="notification_monitoring_weather">Monitoreo del clima en segundo plano</string>
+    <string name="notification_monitoring_weather">Monitorización del clima en segundo plano</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">baliza %d</item>
         <item quantity="many">balizas %d</item>
@@ -256,12 +256,12 @@
     <string name="theme_sunset_sunrise">Salida/Puesta del sol</string>
     <string name="edit_item_title">Editar ítem</string>
     <string name="create_item_title">Crear ítem</string>
-    <string name="dialog_item_amount">Monto</string>
+    <string name="dialog_item_amount">Cantidad</string>
     <string name="category">Categoría</string>
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
     <string name="subtract">Restar</string>
-    <string name="add">Agregar</string>
+    <string name="add">Añadir</string>
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
