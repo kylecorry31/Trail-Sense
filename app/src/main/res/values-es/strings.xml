@@ -249,7 +249,7 @@
     <string name="declination_override_updated_toast">Sobreescritura de declinación actualizada</string>
     <string name="compass_declination">Declinación magnética</string>
     <string name="compass_auto_declination">Autoajustar declinación</string>
-    <string name="compass_declination_override">Reemplazo de declinación</string>
+    <string name="compass_declination_override">Reemplazar declinación</string>
     <string name="override_from_gps">Reemplazar con GPS</string>
     <string name="pref_compass_sensor_title">Brújula</string>
     <string name="coordinate_format_decimal_degrees">Grados Decimales</string>
