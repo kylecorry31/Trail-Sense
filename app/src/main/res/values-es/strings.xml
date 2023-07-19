@@ -68,7 +68,7 @@
     <string name="sun_does_not_set">no está de salida</string>
     <string name="sun_does_not_rise">no está de puesta</string>
     <string name="sun_up_no_set">El sol salió</string>
-    <string name="sun_down_no_set">el sol está puesto</string>
+    <string name="sun_down_no_set">Se ha puesto el sol</string>
     <string name="tools">Herramientas</string>
     <string name="notification_storm_alert_title">Alerta de tormenta</string>
     <string name="notification_storm_alert_text">Podría estar acercándose una tormenta</string>
@@ -102,7 +102,7 @@
     <string name="solar_noon">Mediodía solar</string>
     <string name="sunset_alert_notification_text">El sol se pondrá a las %s</string>
     <string name="first_quarter">Cuarto Creciente</string>
-    <string name="waxing_gibbous">Luna Creciente</string>
+    <string name="waxing_gibbous">Luna Creciente a Llena</string>
     <string name="full_moon">Luna Llena</string>
     <string name="waning_gibbous">Gibosa Menguante</string>
     <string name="third_quarter">Cuarto menguante</string>
@@ -209,9 +209,9 @@
     <string name="delete_beacon_group_message">%s y todas sus balizas se eliminarán.</string>
     <string name="tool_user_guide_summary">Una guía sobre cómo usar Trail Sense</string>
     <string name="tool_user_guide_title">Guía de Usuario</string>
-    <string name="error_occurred_message">Trail Sense se ha encontrado con un error. Envíe un correo electrónico al desarrollador para solucionar este problema.</string>
+    <string name="error_occurred_message">Trail Sense ha encontrado un error. Envíe un correo al desarrollador para solucionar este problema.</string>
     <string name="error_occurred">Ocurrió un error</string>
-    <string name="pref_email_title">Escribir un correo electrónico al desarrollador</string>
+    <string name="pref_email_title">Correo electrónico al desarrollador</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Versión</string>
     <string name="pref_category_about">Acerca de</string>
@@ -226,23 +226,23 @@
     <string name="pref_center_sun_and_moon_title">Mantener sol/luna centrados</string>
     <string name="sun_moon_compass_when_up">Al estar arriba</string>
     <string name="always">Siempre</string>
-    <string name="pref_weather_update_frequency_title">Frecuencia de actualización de clima</string>
+    <string name="pref_weather_update_frequency_title">Frecuencia de actualización meteorológica</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar presión en notificación</string>
-    <string name="pref_forecast_sensitivity_title">Sensibilidad de pronóstico</string>
+    <string name="pref_forecast_sensitivity_title">Sensibilidad de la previsión</string>
     <string name="pref_max_beacon_distance_title">Radio de balizas cercanas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
-    <string name="pref_adjust_for_temperature_summary">Usar la temperatura en conversiones de presión atmosférica</string>
+    <string name="pref_adjust_for_temperature_summary">Usar temperatura en conversiones de presión a nivel del mar</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto-calibración</string>
     <string name="never">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barómetro</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="compass_accuracy_improved">Precisión de brújula mejorada a %s</string>
-    <string name="compass_reported_accuracy">Precisión reportada: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Rote varias veces su teléfono en patrones de figura de 8, presione %s cuando haya finalizado.
+    <string name="compass_reported_accuracy">Precisión informada: %s</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Rota varias veces el teléfono siguiendo un patrón de 8, pulsa %s cuando termines.
 \n
-\nEsta alerta puede estar deshabilitada en las configuraciones de la aplicación.</string>
-    <string name="calibrate_compass_dialog_content">Rote varias veces su teléfono en patrón de 8 (o en todas las direcciones); presione %s cuando haya finalizado.</string>
+\nEsta alerta puede desactivarse en la configuración de la aplicación.</string>
+    <string name="calibrate_compass_dialog_content">Rota varias veces el teléfono en patrón de 8 (o en los tres ejes); pulsa %s cuando hayas terminado.</string>
     <string name="calibrate">Calibrar</string>
     <string name="pref_auto_declination_summary">Basado en tu ubicación actual</string>
     <string name="calibrate_compass_dialog_title">Calibrar brújula</string>
@@ -265,7 +265,7 @@
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
-    <string name="waxing_crescent">Media Luna Creciente</string>
+    <string name="waxing_crescent">Luna Nueva a Creciente</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="pref_elevation_override_title">Anulación de altitud</string>
