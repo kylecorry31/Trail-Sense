@@ -116,7 +116,7 @@
     </plurals>
     <string name="sos">SOS</string>
     <string name="turn_off">Apagar</string>
-    <string name="tap_to_turn_off">Toca para apagar</string>
+    <string name="tap_to_turn_off">Toque para apagar</string>
     <string name="accuracy_info">"GPS: Sal donde tengas una vista del cielo despejada.
 \n    %1$s de ubicación actual
 \n    %2$s de elevación actual
@@ -163,7 +163,7 @@
     <string name="request_permission">Solicitar permiso</string>
     <string name="pref_auto_location_title">Autoajustar ubicación</string>
     <string name="location">Ubicación</string>
-    <string name="no_data">No hay datos</string>
+    <string name="no_data">Sin datos</string>
     <string name="units_inhg_short">pulgadas</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="tool_solar_panel_title">Alineador de Panel Solar</string>
@@ -249,7 +249,7 @@
     <string name="declination_override_updated_toast">Sobreescritura de declinación actualizada</string>
     <string name="compass_declination">Declinación magnética</string>
     <string name="compass_auto_declination">Autoajustar declinación</string>
-    <string name="compass_declination_override">Sobreescribir declinación</string>
+    <string name="compass_declination_override">Reemplazo de declinación</string>
     <string name="override_from_gps">Reemplazar con GPS</string>
     <string name="pref_compass_sensor_title">Brújula</string>
     <string name="coordinate_format_decimal_degrees">Grados Decimales</string>
