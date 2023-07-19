@@ -167,7 +167,7 @@
     <string name="units_inhg_short">pulgadas</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="tool_solar_panel_title">Alineador de Panel Solar</string>
-    <string name="tool_solar_panel_summary">Posicione paneles solares para generar electricidad en forma óptima</string>
+    <string name="tool_solar_panel_summary">Posicionar paneles solares para generar energía en forma óptima</string>
     <string name="pref_privacy_policy_title">Política de Privacidad</string>
     <string name="guide_recommended_apps_description">Apps útiles para situaciones de supervivencia</string>
     <string name="guide_recommended_apps">Aplicaciones recomendadas</string>
@@ -270,10 +270,10 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="pref_elevation_override_title">Anulación de altitud</string>
     <string name="start">Iniciar</string>
-    <string name="tool_boil_summary">Dime cuando el agua sea potable</string>
+    <string name="tool_boil_summary">Avisar cuando el agua sea potable</string>
     <string name="pref_sensor_details_title">Detalles del sensor</string>
     <string name="clock_waiting_for_gps">Actualizando el reloj desde el GPS…</string>
-    <string name="precise_inches_format">%s adentro</string>
+    <string name="precise_inches_format">%s pulgadas</string>
     <string name="water_purification_step_1">Filtrar el agua</string>
     <string name="note_title_hint">Título</string>
     <string name="contents">Contenidos</string>
@@ -366,6 +366,7 @@
     <string name="action_inventory_clear_confirm">¿Borrar todas las cantidades empaquetadas\?</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo hasta que sea potable</item>
+        <item quantity="many">%d segundos hasta que sea potable</item>
         <item quantity="other">%d segundos hasta que sea potable</item>
     </plurals>
     <string name="tool_clock_title">Reloj</string>
@@ -557,11 +558,11 @@
     <string name="pref_elevation_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
     <string name="pref_elevation_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
     <string name="unsaved_changes">Lo cambios no se guardaron</string>
-    <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
+    <string name="solar_panel_instructions">Coloca el teléfono en la parte frontal del panel solar para comenzar.</string>
     <string name="water_boil_timer_channel_description">El agua está hirviendo</string>
     <string name="water_boil_timer_title">El agua está hirviendo</string>
     <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
-    <string name="water_boil_timer_done_content">Ahora tu agua es potable</string>
+    <string name="water_boil_timer_done_content">Ahora el agua es potable</string>
     <string name="strobe_warning_title">Luces intermitentes</string>
     <string name="tool_category_signaling">Señalización</string>
     <string name="tool_triangulate_title">Triangular Ubicación</string>
