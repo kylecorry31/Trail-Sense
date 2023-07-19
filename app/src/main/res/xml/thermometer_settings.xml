@@ -115,6 +115,12 @@
             app:useSimpleSummaryProvider="true" />
 
         <Preference
+            android:title="@string/reset_calibration"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_reset_thermometer_calibration_button"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:title="@string/pref_backfill_temperatures_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_backfill_temperatures"
