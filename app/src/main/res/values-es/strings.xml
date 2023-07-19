@@ -562,7 +562,7 @@
     <string name="water_boil_timer_title">El agua está hirviendo</string>
     <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
     <string name="water_boil_timer_done_content">Ahora tu agua es potable</string>
-    <string name="strobe_warning_title">Linternas</string>
+    <string name="strobe_warning_title">Luces intermitentes</string>
     <string name="tool_category_signaling">Señalización</string>
     <string name="tool_triangulate_title">Triangular Ubicación</string>
     <string name="tool_triangulate_summary">Determinar tu ubicación sin GPS</string>
