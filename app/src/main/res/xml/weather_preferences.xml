@@ -124,6 +124,13 @@
             app:singleLineTitle="false"
             app:title="@string/pref_export_weather_csv_title" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="@string/pref_debug_weather_timing"
+            app:singleLineTitle="false"
+            app:title="Timing (Debug)" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

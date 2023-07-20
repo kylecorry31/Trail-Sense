@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
@@ -16,6 +17,9 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.isDebug
+import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
@@ -28,7 +32,9 @@ import com.kylecorry.trail_sense.weather.infrastructure.commands.ChangeWeatherFr
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.Duration
 import java.time.Instant
+import kotlin.math.roundToInt
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -93,7 +99,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefWeatherUpdateFrequency?.summary =
             formatService.formatDuration(prefs.weather.weatherUpdateFrequency)
         prefWeatherUpdateFrequency?.setOnPreferenceClickListener {
-            ChangeWeatherFrequencyCommand(requireContext()){
+            ChangeWeatherFrequencyCommand(requireContext()) {
                 prefWeatherUpdateFrequency?.summary = formatService.formatDuration(it)
             }.execute()
             true
@@ -143,6 +149,38 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
             getString(R.string.weather_monitor)
         )
+
+        if (isDebug()) {
+            val timingPref = preference(R.string.pref_debug_weather_timing)
+            timingPref?.isVisible = true
+
+            inBackground {
+                onDefault {
+                    val readings = WeatherRepo.getInstance(requireContext()).getAll()
+                        .zipWithNext { a, b -> Duration.between(a.time, b.time).seconds / 60f }
+
+                    if (readings.isEmpty()){
+                        return@onDefault
+                    }
+
+                    val mean = Statistics.mean(readings).roundToInt()
+                    val stdev = Statistics.stdev(readings, mean=mean.toFloat()).roundToInt()
+                    val max = readings.maxOrNull()?.roundToInt() ?: 0
+                    val median = Statistics.median(readings).roundToInt()
+                    val quantile75 = Statistics.quantile(readings, 0.75f).roundToInt()
+                    val quantile90 = Statistics.quantile(readings, 0.9f).roundToInt()
+                    onMain {
+                        timingPref?.summary = "Mean: $mean\n" +
+                                "Stdev: $stdev\n" +
+                                "Max: $max\n" +
+                                "Median: $median\n" +
+                                "75th: $quantile75\n" +
+                                "90th: $quantile90"
+                    }
+                }
+            }
+
+        }
     }
 
     private fun restartWeatherMonitor() {

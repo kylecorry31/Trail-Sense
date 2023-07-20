@@ -137,7 +137,7 @@ dependencies {
 
     // Misc
     implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
-    implementation("com.github.kylecorry31:sol:7.0.0")
+    implementation("com.github.kylecorry31:sol:7.1.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

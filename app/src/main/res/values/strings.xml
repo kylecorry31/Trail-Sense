@@ -1327,6 +1327,7 @@
     <string name="reset_calibration">Reset calibration</string>
     <string name="pref_reset_thermometer_calibration_button" translatable="false">pref_reset_thermometer_calibration_button</string>
     <string name="pref_thermometer_user_guide_button" translatable="false">pref_thermometer_user_guide_button</string>
+    <string name="pref_debug_weather_timing" translatable="false">pref_debug_weather_timing</string>
 
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>

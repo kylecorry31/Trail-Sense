@@ -21,6 +21,8 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -66,6 +68,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -533,6 +536,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         Colors.setImageColor(binding.pathColor, path.style.color)
 
         updateWaypoints()
+
+        updateDebugStats()
     }
 
     private fun updateWaypoints() {
@@ -676,5 +681,41 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun getPointFactory(): IPointDisplayFactory {
         return getPointFactory(requireContext(), path?.style?.point ?: PathPointColoringStyle.None)
+    }
+
+    private fun updateDebugStats() {
+        if (!isDebug()) {
+            return
+        }
+
+        binding.pathsTiming.isVisible = true
+
+        inBackground {
+            onDefault {
+                val readings = waypoints
+                    .filter { it.time != null }
+                    .sortedBy { it.time }
+                    .zipWithNext { a, b -> Duration.between(a.time, b.time).seconds / 60f }
+
+                if (readings.isEmpty()) {
+                    return@onDefault
+                }
+
+                val mean = Statistics.mean(readings).roundPlaces(2)
+                val stdev = Statistics.stdev(readings, mean = mean).roundPlaces(2)
+                val max = readings.maxOrNull()?.roundPlaces(2) ?: 0f
+                val median = Statistics.median(readings).roundPlaces(2)
+                val quantile75 = Statistics.quantile(readings, 0.75f).roundPlaces(2)
+                val quantile90 = Statistics.quantile(readings, 0.9f).roundPlaces(2)
+                onMain {
+                    binding.pathsTiming.text = "Mean: $mean\n" +
+                            "Stdev: $stdev\n" +
+                            "Max: $max\n" +
+                            "Median: $median\n" +
+                            "75th: $quantile75\n" +
+                            "90th: $quantile90"
+                }
+            }
+        }
     }
 }
