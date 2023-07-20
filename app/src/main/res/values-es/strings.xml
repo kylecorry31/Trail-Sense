@@ -1131,4 +1131,5 @@
     <string name="backtrack_no_permission">Backtrack requiere permiso de ubicación para ejecutarse</string>
     <string name="sunset_alert_scheduled">Alerta programada para %s antes de la puesta de sol</string>
     <string name="notifications_channel">Notificaciones (%s)</string>
+    <string name="reset_calibration">Restablecer la calibración</string>
 </resources>
