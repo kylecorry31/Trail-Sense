@@ -1103,4 +1103,5 @@
     <string name="backtrack_no_permission">Backtrack 功能需要位置权限才能工作</string>
     <string name="notifications_channel">通知（%s）</string>
     <string name="sunset_alert_scheduled">警报定于日落前 %s 发出</string>
+    <string name="reset_calibration">重置校准</string>
 </resources>
