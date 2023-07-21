@@ -1,0 +1,21 @@
+Backtrack
+- Always show notification while running
+
+Weather
+- Always show notification while running
+- Improve historical temperature accuracy
+- Improve weather forecast using clouds
+
+Astronomy
+- Add quick action for sunset alert
+
+Photo Maps
+- Improve auto-rotation
+
+Pedometer
+- Allow stopping pedometer from the notification
+
+Misc
+- Android 14 support
+- Improve permission request flow
+- Bug fixes
