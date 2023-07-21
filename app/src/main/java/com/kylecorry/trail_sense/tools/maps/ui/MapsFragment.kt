@@ -286,6 +286,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun setFragment(fragment: Fragment) {
+        currentFragment = fragment
         val fragmentManager = parentFragmentManager
         fragmentManager.commit {
             replace(binding.mapFragment.id, fragment)
