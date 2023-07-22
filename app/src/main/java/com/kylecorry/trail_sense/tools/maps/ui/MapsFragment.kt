@@ -290,6 +290,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         val fragmentManager = parentFragmentManager
         fragmentManager.commit {
             replace(binding.mapFragment.id, fragment)
+            addToBackStack(null)
         }
     }
 }
