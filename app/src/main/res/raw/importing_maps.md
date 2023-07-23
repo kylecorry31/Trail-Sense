@@ -6,15 +6,15 @@ This tool is currently in beta, so please report any issues or feedback at trail
 
 1. On the Tools tab, click Photo Maps
 2. Tap the plus button on the bottom right and choose how you want to import your map
-    a. Camera - Take a picture of your map, making sure to include the entire map in the picture
-    b. File - Select a file from your device (JPG, PNG, or PDF)
-    c. Blank - Create a blank map given a location and the size of the map - useful if you have paths or beacons created
+    - **Camera** - Take a picture of your map, making sure to include the entire map in the picture
+    - **File** - Select a file from your device (JPG, PNG, or PDF)
+    - **Blank** - Create a blank map given a location and the size of the map - useful if you have paths or beacons created
 3. Crop the photo to the map bounds
 4. Calibrate the map using 2 known locations:
-    a. Enter the real-world location in the input field. For example, a trail sign, fork, or point of interest.
-    b. Tap the map where the location is
-    c. Use Previous/Next to switch between calibration points.
-    d. You can click Next + Done to save the calibration at any time.
+    - Enter the real-world location in the input field. For example, a trail sign, fork, or point of interest.
+    - Tap the map where the location is
+    - Use Previous/Next to switch between calibration points.
+    - You can click Next + Done to save the calibration at any time.
 5. Tap Done to save the calibration and use the map
 
 **Note**: If you choose to use a blank map or Geospatial PDF, your map will automatically be calibrated. A good source for Geospatial PDFs is [CalTopo](https://caltopo.com).
