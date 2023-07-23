@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Nawigacja</string>
     <string name="weather">Pogoda</string>
     <string name="settings">Ustawienia</string>
@@ -940,4 +940,123 @@
     <string name="delete_map_group_message">%s i wszystkie zawarte w niej mapy zostaną usunięte.</string>
     <string name="pref_include_leading_zero_title">Dodaj wiodące zero do czasu</string>
     <string name="delete_path_group_message">%s i wszystkie zawarte w niej ścieżki zostaną usunięte.</string>
+    <string name="elevation">Wysokość</string>
+    <string name="create_path">Utwórz ścieżkę</string>
+    <string name="smoothing">Wygładzanie</string>
+    <string name="source">Źródło</string>
+    <string name="pref_backfill_temperatures_title">Zaktualizuj zarejestrowane temperatury</string>
+    <string name="loading">Ładowanie</string>
+    <string name="reset_calibration">Zresetuj kalibrację</string>
+    <string name="weather_wind">Wiatr</string>
+    <string name="learn_more">Dowiedz się więcej</string>
+    <string name="samples">Próbki</string>
+    <string name="size">Rozmiar</string>
+    <string name="step_progression">Krok %1$d / %2$d</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="few">%d mapy</item>
+        <item quantity="many">%d map</item>
+        <item quantity="other">%d map</item>
+    </plurals>
+    <string name="astronomy_direction_peak">Kierunek górowania</string>
+    <string name="pref_backfill_temperatures_description">Wszystkie zarejestrowane temperatury zostaną zastąpione skalibrowaną temperaturą historyczną.</string>
+    <string name="weather_alert_cold_description">Przygotuj się na niskie temperatury. Zachowaj dodatkowe środki ostrożności przeciwko hipotermii i odmrożeniom.</string>
+    <string name="next_24_hours">Następne 24 godziny</string>
+    <string name="tool_climate">Klimat</string>
+    <string name="now_value">Teraz: %s</string>
+    <string name="for_historic_temperatures">Dla historycznych temperatur</string>
+    <string name="hot">Gorąco</string>
+    <string name="temperature_high_low">Wysoka / Niska</string>
+    <string name="sensor_summary">Kompas, GPS, wysokościomierz, barometr itp.</string>
+    <string name="weather_alert_storm_description">Przygotuj się na silny wiatr i obfite opady.</string>
+    <string name="weather_alert_hot_description">Przygotuj się na wysokie temperatury. Zachowaj dodatkowe środki ostrożności przeciwko wyczerpaniu i udarowi cieplnemu.</string>
+    <string name="backtrack_no_permission">Ślad powrotny wymaga uprawnień lokalizacji do uruchomienia</string>
+    <string name="notifications_channel">Powiadomienia (%s)</string>
+    <string name="sunset_alert_scheduled">Alert zaplanowany na %s przed zachodem słońca</string>
+    <string name="weather_thunderstorm">Burza z piorunami</string>
+    <string name="sensor">Czujnik</string>
+    <string name="yes">Tak</string>
+    <string name="rate">Skala</string>
+    <string name="season">Sezon</string>
+    <string name="times">Czasy</string>
+    <string name="no">Nie</string>
+    <string name="historic_temperatures">Historyczne temperatury</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperatury są oparte na %d-letniej średniej danych historycznych i mogą nie odzwierciedlać aktualnych warunków pogodowych.</string>
+    <string name="weather_cold_front">Zimno</string>
+    <string name="tool_climate_summary">Zobacz historyczne temperatury</string>
+    <string name="cold">Zimno</string>
+    <string name="print">Drukuj</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d pływ</item>
+        <item quantity="few">%d pływy</item>
+        <item quantity="many">%d pływów</item>
+        <item quantity="other">%d pływów</item>
+    </plurals>
+    <string name="rotation_amount">Rotacja: %s</string>
+    <string name="weather_warm_front">Ciepło</string>
+    <string name="now">Teraz</string>
+    <string name="altimeter_cache">Pamięć podręczna wysokościomierza</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d punkt usunięty</item>
+        <item quantity="few">%d punkty usunięte</item>
+        <item quantity="many">%d punktów usuniętych</item>
+        <item quantity="other">%d punktów usuniętych</item>
+    </plurals>
+    <string name="battery_usage_allowed">Dozwolone użycie baterii</string>
+    <string name="allow_ignore_battery_restrictions">Zezwalaj %s na ignorowanie ograniczeń dotyczących baterii</string>
+    <string name="allow_schedule_exact_alarms">Zezwalaj %s na ustawianie alarmów i przypomnień</string>
+    <string name="allow_schedule_exact_alarms_instructions">Pozwala to %1$s ustawić dokładne alarmy i przypomnienia, takie jak alerty o zachodzie słońca. Bez tej opcji alarmy mogą nie uruchamiać się we właściwym czasie.
+\n
+\nAby zezwolić, kliknij \"%2$s\" i włącz ustawienie zezwalające na alarmy i przypomnienia.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Alerty o zachodzie słońca mogą być niedokładne podczas podróży.</string>
+    <string name="start_time">Początek</string>
+    <string name="end_time">Koniec</string>
+    <string name="map_is_not_calibrated">Mapa nie jest skalibrowana</string>
+    <string name="beta_disclaimer">Narzędzie jest obecnie w wersji beta, więc prosimy o zgłaszanie wszelkich problemów lub opinii pod adresem %s.</string>
+    <string name="accelerometer">Akcelerometr</string>
+    <string name="autofill_source">Źródło autouzupełniania</string>
+    <string name="remove_battery_restrictions">Usunąć ograniczenia baterii\?</string>
+    <string name="data_source">Źródło: %s</string>
+    <string name="icon">Ikona</string>
+    <string name="later">Później</string>
+    <string name="pref_show_map_previews_title">Pokaż podglądy map</string>
+    <string name="historic">Historyczne</string>
+    <string name="updating">Aktualizowanie</string>
+    <string name="at_time">o %s</string>
+    <string name="last_lightning_strike_at">Ostatnie uderzenie o %s</string>
+    <string name="photo_maps">Mapy z zdjęć</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historyczne (%d rok)</string>
+    <string name="astronomy_altitude_peak">Wysokość górowania</string>
+    <string name="map_calibration_instructions">Dotknij znanej lokalizacji na mapie, a następnie wprowadź współrzędne rzeczywiste. Kalibrację można zapisać, klikając przycisk \"Gotowe\".
+\n
+\nPrzykłady dobrych punktów kalibracji to parking, punkt oznakowania, punkt orientacyjny lub skrzyżowanie wzdłuż szlaku.</string>
+    <string name="compass_source_mag_gyro">Magnetometr + Żyroskop</string>
+    <string name="pref_keep_map_facing_up_title">Trzymaj mapę skierowaną do góry</string>
+    <string name="pref_keep_map_facing_up_summary">Mapa zostanie wyrównana do górnej części ekranu zamiast do prawdziwej północy.</string>
+    <string name="illumination">Oświetlenie</string>
+    <string name="until_sunrise">do wschodu słońca</string>
+    <string name="astronomy_set">Zachód</string>
+    <string name="astronomy_rise">Wschód</string>
+    <string name="horizon">Horyzont</string>
+    <string name="beta">Beta</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy spowoduje zmniejszenie rozdzielczości. Jeśli chcesz przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawienia tego w przyszłości.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">Usunięcie ograniczeń baterii dla Trail Sense może poprawić dokładność.
+\n
+\nNa większości urządzeń kliknij \"%s\", a następnie przejdź do wszystkich aplikacji i wyłącz optymalizację baterii dla Trail Sense.
+\n
+\nOdwiedź stronę [Don\'t kill my app](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
+    <string name="crop_map_instructions_long">Przeciągnij rogi ramki do rogów mapy, aby ją obrysować.</string>
+    <string name="i_agree">Zgadzam się</string>
+    <string name="battery_settings_limit_accuracy">Ograniczenia baterii mogą zmniejszyć dokładność</string>
+    <string name="photo_map_summary">Użyj zdjęcia jako mapy</string>
+    <string name="photo_map_disclaimer">Zawsze miej przy sobie mapę fizyczną jako kopię zapasową i weryfikuj dokładność Trail Sense.</string>
+    <string name="map_file">Plik (JPG, PNG, PDF)</string>
+    <string name="map_calibration">Kalibracja mapy</string>
+    <string name="peak_time">Górowanie</string>
+    <string name="unable_to_find_next_astronomy">Nie można znaleźć następnego %s</string>
+    <string name="until_sunset">do zachodu słońca</string>
+    <string name="exact_alarm_permission_denied">Odmowa pozwolenia na alarmy i przypomnienia, powiadomienia mogą być niedokładne. Można je włączyć w ustawieniach.</string>
+    <string name="daylight_duration">%s światła dziennego</string>
+    <string name="center">Centrum</string>
+    <string name="create_blank_map">Utwórz pustą mapę</string>
 </resources>
