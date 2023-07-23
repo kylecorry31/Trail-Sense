@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -34,7 +34,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
     private var duration: Duration? = null
     private val waterService = WaterService()
     private var selectedTime = TimeSelection.Auto
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -126,7 +126,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
     private fun updateSelectedDuration() {
         duration = null
         inBackground {
-            runner.cancelPreviousThenRun {
+            runner.replace {
                 val duration = getSelectedDuration()
 
                 onMain {

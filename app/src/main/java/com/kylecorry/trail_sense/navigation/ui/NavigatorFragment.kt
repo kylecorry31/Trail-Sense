@@ -11,7 +11,6 @@ import androidx.core.view.isInvisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -26,6 +25,7 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
@@ -159,8 +159,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val pathLoader by lazy { PathLoader(pathService) }
 
-    private val loadPathRunner = ControlledRunner<Unit>()
-    private val loadBeaconsRunner = ControlledRunner<Unit>()
+    private val loadPathRunner = CoroutineQueueRunner()
+    private val loadBeaconsRunner = CoroutineQueueRunner()
 
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
@@ -562,10 +562,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun updateNearbyBeacons() {
         inBackground {
             onIO {
-                loadBeaconsRunner.joinPreviousOrRun {
+                loadBeaconsRunner.skipIfRunning {
                     if (!isNearbyEnabled) {
                         nearbyBeacons = listOfNotNull(destination)
-                        return@joinPreviousOrRun
+                        return@skipIfRunning
                     }
 
                     nearbyBeacons = (navigationService.getNearbyBeacons(
@@ -737,13 +737,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateCompassPaths(reload: Boolean = false) {
         inBackground {
-            loadPathRunner.joinPreviousOrRun {
+            loadPathRunner.skipIfRunning {
 
                 if (!useRadarCompass) {
-                    return@joinPreviousOrRun
+                    return@skipIfRunning
                 }
 
-                val mappablePaths = withContext(Dispatchers.IO) {
+                val mappablePaths = onIO {
                     val loadGeofence = Geofence(
                         gps.location,
                         Distance.meters(nearbyDistance + 10)

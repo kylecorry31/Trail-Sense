@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.navigation.ui.layers.compass
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.IMappableReferencePoint
@@ -24,7 +24,7 @@ class BeaconCompassLayer(
 
     private val lock = Any()
 
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private var _compass: ICompassView? = null
@@ -63,7 +63,7 @@ class BeaconCompassLayer(
 
     private fun updateMarkers(compass: ICompassView) {
         scope.launch {
-            runner.cancelPreviousThenRun {
+            runner.replace {
                 synchronized(lock) {
                     val markers = convertToMarkers(_beacons, compass)
                     markerLayer.clearMarkers()

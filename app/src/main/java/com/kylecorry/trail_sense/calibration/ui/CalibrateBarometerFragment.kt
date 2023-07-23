@@ -5,13 +5,13 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
@@ -21,7 +21,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onMain
-
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.WeatherObservation
@@ -52,7 +51,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
 
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
@@ -70,7 +69,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         super.onViewCreated(view, savedInstanceState)
         observe(weatherSubsystem.weatherChanged) {
             inBackground {
-                runner.cancelPreviousThenRun {
+                runner.replace {
                     history = weatherSubsystem.getHistory()
                     uncalibratedHistory = weatherSubsystem.getRawHistory()
                     onMain {

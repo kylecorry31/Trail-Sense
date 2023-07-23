@@ -4,11 +4,15 @@ import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.ObjectPool
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.geometry.Rectangle
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.*
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.ClippedPathRenderer
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
+import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.getBounds
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +33,7 @@ class PathLayer : ILayer {
 
     private val lock = Any()
 
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.Default)
 
     fun setShouldClip(shouldClip: Boolean) {
@@ -88,7 +92,7 @@ class PathLayer : ILayer {
     private fun renderInBackground(renderer: IRenderedPathFactory) {
         renderInProgress = true
         scope.launch {
-            runner.cancelPreviousThenRun {
+            runner.replace {
                 render(renderer)
             }
         }

@@ -7,7 +7,6 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.core.system.Resources
@@ -16,6 +15,7 @@ import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
@@ -67,7 +67,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     private var history: List<WeatherObservation> = emptyList()
     private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = emptyList()
 
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.thermometer_settings, rootKey)
@@ -205,7 +205,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
         observe(weather.weatherChanged) {
             inBackground {
-                runner.cancelPreviousThenRun {
+                runner.replace {
                     history = weather.getHistory()
                     uncalibratedHistory = weather.getRawHistory()
                     onMain {

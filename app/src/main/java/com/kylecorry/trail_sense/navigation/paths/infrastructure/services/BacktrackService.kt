@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.background.IAlwaysOnTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
-import com.kylecorry.andromeda.core.coroutines.SingleRunner
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.BacktrackCommand
@@ -36,12 +36,12 @@ class BacktrackService :
     override val period: Duration
         get() = prefs.backtrackRecordFrequency
 
-    private val runner = SingleRunner()
+    private val runner = CoroutineQueueRunner()
 
     override suspend fun doWork() {
-        runner.single({
+        runner.skipIfRunning {
             backtrackCommand.execute()
-        })
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.shared.lists
 
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
 import kotlinx.coroutines.CoroutineScope
@@ -21,15 +22,17 @@ class GroupListManager<T : Groupable>(
 
     private var _root: T? = initialRoot
     private var query: String? = null
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
 
     fun refresh(resetScroll: Boolean = false) {
         scope.launch {
-            runner.cancelPreviousThenRun {
+            runner.replace {
                 val items = onIO {
                     augment(loader.load(query, root?.id))
                 }
-                onChange(root, items, resetScroll)
+                onMain {
+                    onChange(root, items, resetScroll)
+                }
             }
         }
     }

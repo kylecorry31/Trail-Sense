@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.navigation.ui.layers
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.coroutines.ControlledRunner
 import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
@@ -31,7 +31,7 @@ class BeaconLayer(
 
     private val lock = Any()
 
-    private val runner = ControlledRunner<Unit>()
+    private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.IO)
 
     fun setBeacons(beacons: List<Beacon>) {
@@ -67,7 +67,7 @@ class BeaconLayer(
 
     private fun updateMarkers() {
         scope.launch {
-            runner.cancelPreviousThenRun {
+            runner.replace {
                 synchronized(lock) {
                     val markers = convertToMarkers(_beacons)
                     clearMarkers()
