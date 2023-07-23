@@ -46,6 +46,17 @@ class WaterPurificationTimerService : AndromedaService() {
         timer?.cancel()
         if (!done) {
             Notify.cancel(this, NOTIFICATION_ID)
+        } else {
+            val notification = Notify.alert(
+                this@WaterPurificationTimerService,
+                CHANNEL_ID,
+                getString(R.string.water_boil_timer_done_title),
+                getString(R.string.water_boil_timer_done_content),
+                R.drawable.ic_tool_boil_done,
+                group = NotificationChannels.GROUP_WATER,
+                intent = openIntent
+            )
+            Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
         }
         stopService(false)
         super.onDestroy()
@@ -68,16 +79,6 @@ class WaterPurificationTimerService : AndromedaService() {
             }
 
             override fun onFinish() {
-                val notification = Notify.alert(
-                    this@WaterPurificationTimerService,
-                    CHANNEL_ID,
-                    getString(R.string.water_boil_timer_done_title),
-                    getString(R.string.water_boil_timer_done_content),
-                    R.drawable.ic_tool_boil_done,
-                    group = NotificationChannels.GROUP_WATER,
-                    intent = openIntent
-                )
-                Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
                 done = true
                 stopService(false)
             }
