@@ -38,8 +38,8 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun navigateToApp() {
-        // Disclaimer shown when boolean is false
-        cache.putBoolean(getString(R.string.pref_main_disclaimer_shown_key), false)
+        // Consider the disclaimer as shown
+        cache.putBoolean(getString(R.string.pref_main_disclaimer_shown_key), true)
         cache.putBoolean(getString(R.string.pref_onboarding_completed), true)
         startActivity(Intent(this, MainActivity::class.java))
     }
@@ -71,6 +71,7 @@ class OnboardingActivity : AppCompatActivity() {
             binding.pageImage.setImageResource(pageContents.image)
             binding.pageImage.imageTintList =
                 ColorStateList.valueOf(Resources.androidTextColorPrimary(this))
+            binding.nextButton.text = getString(pageContents.nextButtonText)
             markdown.setMarkdown(binding.pageContents, getString(pageContents.contents))
         }
     }
