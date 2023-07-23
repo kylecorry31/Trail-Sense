@@ -13,6 +13,11 @@ def read_xml(file) -> ET.ElementTree:
 
 def write_xml(tree: ET.ElementTree, file):
     tree.write(file, encoding='utf-8', xml_declaration=True, short_empty_elements=False)
+    # Replace the single quotes with double quotes
+    with open(file, 'r', encoding='utf-8') as f:
+        content = f.read()
+    with open(file, 'w', encoding='utf-8') as f:
+        f.write(content.replace("<?xml version='1.0' encoding='utf-8'?>", '<?xml version="1.0" encoding="utf-8"?>'))
 
 def delete_element(tree, element):
     root = tree.getroot()
