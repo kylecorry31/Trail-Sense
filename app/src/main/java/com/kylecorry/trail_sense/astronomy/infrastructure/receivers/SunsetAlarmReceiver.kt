@@ -6,12 +6,14 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
-import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.IPermissionRequester
-import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
+import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SunsetAlarmReceiver : BroadcastReceiver() {
 
@@ -22,7 +24,17 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        Intents.startService(context, SunsetAlarmService.intent(context))
+        val pendingResult = goAsync()
+
+        val command = SunsetAlarmCommand(context.applicationContext)
+        val scope = CoroutineScope(Dispatchers.Default)
+        scope.launch {
+            try {
+                command.execute()
+            } finally {
+                pendingResult.finish()
+            }
+        }
     }
 
     companion object {

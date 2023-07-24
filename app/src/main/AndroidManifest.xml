@@ -153,11 +153,6 @@
         </service>
 
         <service
-            android:name=".astronomy.infrastructure.SunsetAlarmService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <service
             android:name="com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService"
             android:enabled="true"
             android:exported="false"

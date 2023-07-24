@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
+import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
 import com.kylecorry.trail_sense.shared.notificationSettings
@@ -242,7 +242,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.AccelerometerPoor -> null
             DiagnosticCode.GPSPoor -> null
             DiagnosticCode.GPSTimedOut -> null
-            DiagnosticCode.SunsetAlertsBlocked -> notificationAction(SunsetAlarmService.NOTIFICATION_CHANNEL_ID)
+            DiagnosticCode.SunsetAlertsBlocked -> notificationAction(SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID)
             DiagnosticCode.StormAlertsBlocked -> notificationAction(StormAlerter.STORM_CHANNEL_ID)
             DiagnosticCode.DailyForecastNotificationsBlocked -> notificationAction(DailyWeatherAlerter.DAILY_CHANNEL_ID)
             DiagnosticCode.FlashlightNotificationsBlocked -> notificationAction(FlashlightService.CHANNEL_ID)

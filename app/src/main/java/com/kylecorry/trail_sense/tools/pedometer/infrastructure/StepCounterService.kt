@@ -110,7 +110,7 @@ class StepCounterService : AndromedaService() {
             private set
 
         fun intent(context: Context): Intent {
-            return Intent(context, StepCounterService::class.java)
+            return Intent(context.applicationContext, StepCounterService::class.java)
         }
 
         fun stop(context: Context) {
@@ -134,7 +134,7 @@ class StepCounterService : AndromedaService() {
                 return
             }
 
-            Intents.startService(context, intent(context), true)
+            Intents.startService(context.applicationContext, intent(context), true)
         }
 
     }
