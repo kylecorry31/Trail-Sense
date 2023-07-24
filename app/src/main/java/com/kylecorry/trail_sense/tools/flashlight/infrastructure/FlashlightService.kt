@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.trail_sense.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -102,11 +102,11 @@ class FlashlightService : AndromedaService() {
         const val NOTIFICATION_ID = 983589
 
         fun intent(context: Context): Intent {
-            return Intent(context, FlashlightService::class.java)
+            return Intent(context.applicationContext, FlashlightService::class.java)
         }
 
         fun start(context: Context) {
-            Intents.startService(context, intent(context), false)
+            Intents.startService(context.applicationContext, intent(context), false)
         }
 
         fun stop(context: Context) {

@@ -113,13 +113,13 @@ class WaterPurificationTimerService : AndromedaService() {
         private const val DEFAULT_SECONDS = 60L
 
         fun intent(context: Context, seconds: Long = DEFAULT_SECONDS): Intent {
-            val i = Intent(context, WaterPurificationTimerService::class.java)
+            val i = Intent(context.applicationContext, WaterPurificationTimerService::class.java)
             i.putExtra(KEY_SECONDS, seconds)
             return i
         }
 
         fun start(context: Context, seconds: Long) {
-            Intents.startService(context, intent(context, seconds), true)
+            Intents.startService(context.applicationContext, intent(context, seconds), true)
         }
 
         fun stop(context: Context) {

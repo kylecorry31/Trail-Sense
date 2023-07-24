@@ -146,7 +146,7 @@ class SunsetAlarmService : CoroutineService() {
 
 
         fun intent(context: Context): Intent {
-            return Intent(context, SunsetAlarmService::class.java)
+            return Intent(context.applicationContext, SunsetAlarmService::class.java)
         }
     }
 

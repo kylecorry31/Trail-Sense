@@ -22,7 +22,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        Intents.startService(context, SunsetAlarmService.intent(context))
+        Intents.startService(context.applicationContext, SunsetAlarmService.intent(context))
     }
 
     companion object {
