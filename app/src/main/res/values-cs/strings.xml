@@ -70,7 +70,7 @@
     <string name="charging_slow">Pomalu nabíjeno (%s)</string>
     <string name="charging_fast">Rychle nabíjeno (%s)</string>
     <string name="dialog_grant">Změnit nastavení</string>
-    <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána ke kalibraci atmosférického tlaku v sekci Počasí a na poskytnutí přesnějšího času západu slunce. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána na poskytnutí přesnějšího času západu slunce při cestování. [Zobrazit zásady ochrany osobních údajů](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
     <string name="share_action_send">Poslat</string>
     <plurals name="beacon_group_summary">
@@ -482,15 +482,15 @@
 \n
 \n\t- Navigace k majákům
 \n
-\n\t- Vylepšená přesnost předpovědi (vyžaduje polohu na pozadí, není k dispozici na všech zařízeních).
+\n\t- Vylepšená přesnost předpovědi (není k dispozici na všech zařízeních).
 \n
-\n\t- Zpětnou navigaci (vyžaduje polohu na pozadí)
+\n\t- Zpětnou navigaci
 \n
-\n\t- Časy Slunce a Měsíce pro vaši aktuální polohu
+\n\t- Časy Slunce a Měsíce pro vaši aktuální polohu (upozornění na západ slunce mohou vyžadovat polohu na pozadí)
 \n
-\n- Pokud se rozhodnete neudělit povolení k určování polohy, můžete polohu zadat manuální v nabídce Nastavení &gt; Kalibrace GPS v aplikaci Trail Sense.
+\n- Pokud se rozhodnete neudělit povolení k určování polohy, můžete polohu zadat manuální v nabídce Nastavení &gt; Senzory &gt; Kalibrace GPS v menu Trail Sense.
 \n
-\n- Po klepnutí na tlačítko pokračovat budete vyzváni k udělení povolení k poloze a poloze na pozadí. Odmítnutí těchto povolení zabrání aplikaci Trail Sense v přístupu k určování vaší polohy, proto se doporučuje manuální zadání polohy.</string>
+\n- Po klepnutí na tlačítko pokračovat budete vyzváni k udělení povolení k poloze. Odmítnutí tohoto povolení zabrání aplikaci Trail Sense v přístupu k určování vaší polohy, proto se doporučuje manuální zadání polohy.</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d maják exportován</item>
         <item quantity="few">%d majáky exportovány</item>
@@ -1130,4 +1130,18 @@
 \nPříklady dobrých bodů kalibrace: parkoviště, bod značení, orientační bod nebo křižovatka podél stezky.</string>
     <string name="rotation_amount">Rotace: %s</string>
     <string name="i_agree">Souhlasím</string>
+    <string name="reset_calibration">Resetovat kalibraci</string>
+    <string name="learn_more">Dozvědět se více</string>
+    <string name="backtrack_no_permission">Zpětná navigace vyžaduje pro běh oprávnění polohy</string>
+    <string name="notifications_channel">Oznámení (%s)</string>
+    <string name="sunset_alert_scheduled">Upozornění naplánováno %s před západem slunce</string>
+    <string name="battery_usage_allowed">Využití baterie povoleno</string>
+    <string name="battery_settings_limit_accuracy">Omezení baterie mohou snížit přesnost</string>
+    <string name="allow_ignore_battery_restrictions">Povolit %s ignorovat omezení baterie</string>
+    <string name="exact_alarm_permission_denied">Oprávnění alarmů a připomenutí odepřeno, upozornění mohou být nepřesná. Můžete ji povolit v nastavení.</string>
+    <string name="allow_schedule_exact_alarms">Povolit %s nastavit budíky a připomenutí</string>
+    <string name="allow_schedule_exact_alarms_instructions">To umožňuje %1$s nastavit přesné alarmy a připomenutí, například upozornění na západ slunce. Bez toho se alarmy nemusí spustit ve správný čas.
+\n
+\nChcete-li povolit, klikněte na \"%2$s\" a povolte nastavení pro povolení alarmů a připomenutí.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Upozornění na západ slunce mohou být při cestování nepřesná</string>
 </resources>
