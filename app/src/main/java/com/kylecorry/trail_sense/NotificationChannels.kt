@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense
 
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
+import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
@@ -113,7 +113,7 @@ object NotificationChannels {
         // Sunset
         Notify.createChannel(
             context,
-            SunsetAlarmService.NOTIFICATION_CHANNEL_ID,
+            SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
             context.getString(R.string.sunset_alert_channel_title),
             context.getString(R.string.sunset_alerts),
             Notify.CHANNEL_IMPORTANCE_HIGH,

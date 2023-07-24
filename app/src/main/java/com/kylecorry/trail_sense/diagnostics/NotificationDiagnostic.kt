@@ -6,7 +6,7 @@ import android.hardware.Sensor
 import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.trail_sense.astronomy.infrastructure.SunsetAlarmService
+import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
@@ -22,7 +22,7 @@ class NotificationDiagnostic(private val context: Context) : IDiagnostic {
             codes.add(DiagnosticCode.FlashlightNotificationsBlocked)
         }
 
-        if (isChannelBlocked(context, SunsetAlarmService.NOTIFICATION_CHANNEL_ID)) {
+        if (isChannelBlocked(context, SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID)) {
             codes.add(DiagnosticCode.SunsetAlertsBlocked)
         }
 
