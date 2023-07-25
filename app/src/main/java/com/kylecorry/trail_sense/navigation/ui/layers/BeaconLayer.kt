@@ -53,6 +53,7 @@ class BeaconLayer(
 
     protected fun finalize() {
         _loader?.clear()
+        _loader = null
     }
 
     fun setOutlineColor(@ColorInt color: Int) {
