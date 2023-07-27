@@ -1,18 +1,10 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import android.text.Layout
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.AlignmentSpan
-import android.text.style.ImageSpan
-import androidx.annotation.ColorInt
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.text.inSpans
 import androidx.fragment.app.Fragment
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
@@ -112,4 +104,13 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
 inline fun Enum<*>.readableName(): String {
     return name.map { if (it.isUpperCase()) " $it" else it }
         .joinToString("").trim()
+}
+
+inline fun Alerts.withLoading(context: Context, title: String, action: () -> Unit) {
+    val loadingAlert = loading(context, title)
+    try {
+        action()
+    } finally {
+        loadingAlert.dismiss()
+    }
 }
