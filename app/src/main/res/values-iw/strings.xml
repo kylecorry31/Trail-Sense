@@ -796,7 +796,7 @@
     <string name="ounces_volume_format">%s אונק</string>
     <string name="privacy">פרטיות</string>
     <string name="pref_auto_low_power_title">חיסכון אוטומטי בצריכת החשמל</string>
-    <string name="daylight">אור</string>
+    <string name="daylight">אור יום</string>
     <string name="destination_elevation">גובה היעד</string>
     <string name="clear_cache">נקה מטמון</string>
     <string name="liter_format">%s ל</string>
@@ -848,7 +848,7 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="sun_does_not_set">אינו מוגדר</string>
-    <string name="theme_light">אור</string>
+    <string name="theme_light">בהיר</string>
     <string name="no_group">אין קבוצה</string>
     <string name="unknown">לא ידוע</string>
     <string name="alerts">התראות</string>
@@ -972,4 +972,46 @@
     <string name="paths">נתיבים</string>
     <string name="keep_forever">שמור לנצח</string>
     <string name="second_symbol">שנ</string>
+    <string name="solar_eclipses">ליקויי חמה</string>
+    <string name="solar_eclipse_start">ליקוי חמה (התחלה)</string>
+    <string name="point">נקודה</string>
+    <plurals name="path_group_summary">
+        <item quantity="one">נתיב אחד</item>
+        <item quantity="two">שני נתיבים</item>
+        <item quantity="many">%d נתיבים</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="delete_path_group_message">%s וכל נתיביו יימחקו.</string>
+    <string name="icon">סמליל</string>
+    <string name="point_added">נקודה נוספה לנתיב</string>
+    <string name="delete_map_group_message">%s וכל המפות שלו יימחקו.</string>
+    <string name="map_auto_rotated">סיבוב המפה מותאם לכיול</string>
+    <string name="solar_eclipse_end">ליקוי חמה (סיום)</string>
+    <string name="solar_eclipse">ליקויי חמה</string>
+    <string name="map_file">קובץ (JPG, PNG, PDF)</string>
+    <string name="pref_include_leading_zero_title">הוספת אפס מוביל לזמן</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים ב-%1$d עד %2$d שעות הבאות.</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים או סופת רעמים ב-%d שעות הבאות.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על מזג אוויר נאה. אם אתם גדלים גבוה יותר, עשויים להצביע על משקעים או סופת רעמים ב-%d שעות הבאות.</string>
+    <string name="cumulonimbus_forecast">עשוי להצביע על סופת רעמים בעוד מספר דקות.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">הסרת מגבלות הסוללה עבור Trail Sense עשויה לשפר את הדיוק.
+\n
+\nברוב ההתקנים, לחצו על \'%s\', ואז עברו לכל היישומים וכבו את מיטוב הסוללה עבור Trail Sense.
+\n
+\nבקרו בדף [אל תהרוג את האפליקציה שלי](https://dontkillmyapp.com/) לקבלת הוראות ספציפיות להתקן.</string>
+    <string name="pref_show_temperature_in_notification_title">הצגת טמפרטורה בהודעה</string>
+    <string name="illumination">תאורה</string>
+    <string name="photo_maps">תמונות מפה</string>
+    <string name="obscuration">התקדרות</string>
+    <string name="astronomy_altitude_peak">שיא הגובה</string>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים ב-%d שעות הבאות.</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">ייתכן שיהיו משקעים ב-%d שעות הבאות.</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">עשוי להצביע על מזג אוויר נאה ב-%d שעות הבאות.</string>
+    <string name="start_time">התחלה</string>
+    <string name="end_time">סיום</string>
+    <string name="peak_time">שיא</string>
+    <string name="magnitude">עוצמה</string>
+    <string name="astronomy_direction_peak">שיא הכיוון</string>
+    <string name="path">נתיב</string>
 </resources>
