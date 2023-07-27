@@ -82,12 +82,12 @@
     <string name="no_beacons">Žádné majáky</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Svítilna</string>
-    <string name="accuracy_info">"GPS: Vyjděte ven, kde budete mít nerušený výhled na oblohu.
+    <string name="accuracy_info">"GPS: vyjděte ven, kde budete mít nerušený výhled na oblohu.
 \n    %1$s od skutečné polohy
 \n    %2$s od skutečného převýšení
 \n    %3$s satelitů
 \n
-\nKompas: Otáčejte zařízením ve tvaru osmičky nebo všemi směry a vzdalte se od kovových předmětů."</string>
+\nKompas: otáčejte zařízením ve tvaru osmičky nebo všemi směry a vzdalte se od kovových předmětů."</string>
     <string name="accuracy_info_title">Tipy na zlepšení přesnosti dat ze senzorů</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
