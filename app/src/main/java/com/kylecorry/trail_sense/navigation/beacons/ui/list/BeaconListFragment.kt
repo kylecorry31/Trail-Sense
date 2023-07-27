@@ -333,7 +333,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 ) {
                     if (it != null) {
                         inBackground {
-                            val gpxToImport = GPXData(waypoints.filterIndices(it), emptyList())
+                            val gpxToImport = GPXData(waypoints.filterIndices(it), emptyList(), emptyList())
                             val count = onIO {
                                 importer.import(gpxToImport, manager.root?.id)
                             }

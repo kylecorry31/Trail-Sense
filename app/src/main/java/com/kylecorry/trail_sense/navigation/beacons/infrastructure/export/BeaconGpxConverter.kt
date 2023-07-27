@@ -24,7 +24,7 @@ class BeaconGpxConverter {
             )
         }
 
-        return GPXData(waypoints, emptyList())
+        return GPXData(waypoints, emptyList(), emptyList())
     }
 
 }

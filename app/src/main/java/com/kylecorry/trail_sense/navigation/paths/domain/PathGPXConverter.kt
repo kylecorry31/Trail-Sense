@@ -15,7 +15,7 @@ class PathGPXConverter {
 
         val trackSegment = GPXTrackSegment(waypoints)
         val track = GPXTrack(name, null, pathId, null, listOf(trackSegment))
-        return GPXData(emptyList(), listOf(track))
+        return GPXData(emptyList(), listOf(track), emptyList())
     }
 
 }

@@ -33,12 +33,11 @@ class PreferenceMigrator private constructor() {
             }
         }
     }
-
     companion object {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 14
+        private const val version = 15
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -166,6 +165,16 @@ class PreferenceMigrator private constructor() {
                 }
                 userPrefs.compass.source = sources.firstOrNull() ?: CompassSource.CustomMagnetometer
                 prefs.remove("pref_use_legacy_compass_2")
+            },
+            PreferenceMigration(14, 15){ context, prefs ->
+                val userPrefs = UserPreferences(context)
+
+                // By grabbing the preferences, it will solidify the defaults
+                userPrefs.use24HourTime
+                userPrefs.distanceUnits
+                userPrefs.weightUnits
+                userPrefs.pressureUnits
+                userPrefs.temperatureUnits
             }
         )
 

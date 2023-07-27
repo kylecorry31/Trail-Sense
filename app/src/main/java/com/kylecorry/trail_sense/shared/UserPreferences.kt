@@ -2,12 +2,16 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.hardware.SensorManager
-import android.text.format.DateFormat
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.PressureUnits
+import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
@@ -51,55 +55,68 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
     var hapticsEnabled = false
 
-    val distanceUnits: DistanceUnits
-        get() {
-            val rawUnits =
-                cache.getString(context.getString(R.string.pref_distance_units)) ?: "meters"
-            return if (rawUnits == "meters") DistanceUnits.Meters else DistanceUnits.Feet
-        }
+    private val isMetricPreferred = Resources.isMetricPreferred(context)
+
+    val distanceUnits by StringEnumPreference(
+        cache,
+        getString(R.string.pref_distance_units),
+        mapOf(
+            "meters" to DistanceUnits.Meters,
+            "feet_miles" to DistanceUnits.Feet
+        ),
+        if (isMetricPreferred) DistanceUnits.Meters else DistanceUnits.Feet,
+        saveDefault = true
+    )
 
     val weightUnits by StringEnumPreference(
-        cache, getString(R.string.pref_weight_units), mapOf(
+        cache,
+        getString(R.string.pref_weight_units),
+        mapOf(
             "kg" to WeightUnits.Kilograms,
             "lbs" to WeightUnits.Pounds
         ),
-        WeightUnits.Kilograms
+        if (isMetricPreferred) WeightUnits.Kilograms else WeightUnits.Pounds,
+        saveDefault = true
     )
 
     val baseDistanceUnits: com.kylecorry.sol.units.DistanceUnits
-        get() = if (distanceUnits == DistanceUnits.Meters) com.kylecorry.sol.units.DistanceUnits.Meters else com.kylecorry.sol.units.DistanceUnits.Feet
-
-    val pressureUnits: PressureUnits
-        get() {
-            return when (cache.getString(context.getString(R.string.pref_pressure_units))) {
-                "in" -> PressureUnits.Inhg
-                "mbar" -> PressureUnits.Mbar
-                "psi" -> PressureUnits.Psi
-                "mm" -> PressureUnits.MmHg
-                else -> PressureUnits.Hpa
-            }
+        get() = if (distanceUnits == DistanceUnits.Meters) {
+            com.kylecorry.sol.units.DistanceUnits.Meters
+        } else {
+            com.kylecorry.sol.units.DistanceUnits.Feet
         }
 
-    val temperatureUnits: TemperatureUnits
-        get() {
-            return when (cache.getString(getString(R.string.pref_temperature_units))) {
-                "f" -> TemperatureUnits.F
-                else -> TemperatureUnits.C
-            }
-        }
+    val pressureUnits by StringEnumPreference(
+        cache,
+        getString(R.string.pref_pressure_units),
+        mapOf(
+            "hpa" to PressureUnits.Hpa,
+            "in" to PressureUnits.Inhg,
+            "mbar" to PressureUnits.Mbar,
+            "psi" to PressureUnits.Psi,
+            "mm" to PressureUnits.MmHg
+        ),
+        if (isMetricPreferred) PressureUnits.Hpa else PressureUnits.Inhg,
+        saveDefault = true
+    )
 
-    val use24HourTime: Boolean
-        get() {
-            val value = cache.getBoolean(context.getString(R.string.pref_use_24_hour))
-            return if (value == null) {
-                val system = DateFormat.is24HourFormat(context)
-                cache.putBoolean(context.getString(R.string.pref_use_24_hour), system)
-                system
-            } else {
-                value
-            }
+    val temperatureUnits by StringEnumPreference(
+        cache,
+        getString(R.string.pref_temperature_units),
+        mapOf(
+            "c" to TemperatureUnits.C,
+            "f" to TemperatureUnits.F
+        ),
+        if (isMetricPreferred) TemperatureUnits.C else TemperatureUnits.F,
+        saveDefault = true
+    )
 
-        }
+    val use24HourTime by BooleanPreference(
+        cache,
+        getString(R.string.pref_use_24_hour),
+        Resources.uses24HourClock(context),
+        saveDefault = true
+    )
 
     val addLeadingZeroToTime by BooleanPreference(
         cache,
