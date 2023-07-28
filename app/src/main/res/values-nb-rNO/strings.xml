@@ -1057,8 +1057,8 @@
     <string name="i_agree">Jeg er enig</string>
     <string name="battery_settings_limit_accuracy">Batterirestriksjoner kan redusere nøyaktigheten</string>
     <string name="battery_usage_allowed">Batteribruk tillatt</string>
-    <string name="exact_alarm_permission_denied">Tillatelse for alarmer og påminnelser nektet, varsler kan være unøyaktige. Du kan aktivere tillatelse i innstillinger.</string>
-    <string name="reset_calibration">Nullstill kalibering</string>
+    <string name="exact_alarm_permission_denied">Alarmer og påminnelser nektet, varsler kan være unøyaktige.</string>
+    <string name="reset_calibration">Nullstill kalibrering</string>
     <string name="backtrack_no_permission">Tilbakesporing krever posisjonstillatelse for å kjøre</string>
     <string name="notifications_channel">Varsler (%s)</string>
     <string name="sunset_alert_scheduled">Varsel planlagt for %s før solnedgang</string>
