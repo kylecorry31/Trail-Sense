@@ -308,8 +308,8 @@
     <string name="flashlight_title">פנס</string>
     <string name="turn_off">כיבוי</string>
     <string name="sos">SOS</string>
-    <string name="accuracy_info">"GPS: צאו החוצה עם נוף ושמים ללא הפרעה.
-\n    %1$s של המיקום בפועל
+    <string name="accuracy_info">"GPS: יש לצאת החוצה עם נוף ושמים ללא הפרעה.
+\n    %1$sשל המיקום בפועל
 \n    %2$s מהגובה בפועל
 \n    %3$s לוויינים
 \n
@@ -979,7 +979,7 @@
         <item quantity="one">נתיב אחד</item>
         <item quantity="two">שני נתיבים</item>
         <item quantity="many">%d נתיבים</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="delete_path_group_message">%s וכל נתיביו יימחקו.</string>
@@ -988,7 +988,7 @@
     <string name="delete_map_group_message">%s וכל המפות שלו יימחקו.</string>
     <string name="map_auto_rotated">סיבוב המפה מותאם לכיול</string>
     <string name="solar_eclipse_end">ליקוי חמה (סיום)</string>
-    <string name="solar_eclipse">ליקויי חמה</string>
+    <string name="solar_eclipse">ליקוי חמה</string>
     <string name="map_file">קובץ (JPG, PNG, PDF)</string>
     <string name="pref_include_leading_zero_title">הוספת אפס מוביל לזמן</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים ב-%1$d עד %2$d שעות הבאות.</string>
@@ -1014,4 +1014,52 @@
     <string name="magnitude">עוצמה</string>
     <string name="astronomy_direction_peak">שיא הכיוון</string>
     <string name="path">נתיב</string>
+    <string name="create_path">יצירת נתיב</string>
+    <string name="loading">טוען</string>
+    <string name="weather_precipitation">משקעים</string>
+    <string name="weather_wind">רוח</string>
+    <string name="weather_overcast">מעונן</string>
+    <string name="later">מאוחר יותר</string>
+    <string name="tide_diurnal">יומי</string>
+    <string name="weather_alert_storm_description">היכונו לרוחות חזקות ולמשקעים כבדים.</string>
+    <string name="updating">עדכון</string>
+    <string name="size">גודל</string>
+    <string name="create_blank_map">יצירת מפה ריקה</string>
+    <string name="map_calibration">כיול מפה</string>
+    <string name="weather_alert_hot_description">היכונו לטמפרטורות חמות. נקוט אמצעי זהירות נוספים נגד תשישות חום ומכת חום.</string>
+    <string name="weather_alert_cold_description">היכונו לטמפרטורות קרות. יש לנקוט אמצעי זהירות נוספים נגד היפותרמיה וכוויות קור.</string>
+    <string name="at_time">ב- %s</string>
+    <string name="last_lightning_strike_at">מכה אחרונה ב-%s</string>
+    <string name="historic_temperatures">טמפרטורות היסטוריות</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">הטמפרטורות מבוססות על ממוצע של %d שנים עם נתונים היסטוריים וייתכן שלא ישקפו את תנאי מזג האוויר הנוכחיים.</string>
+    <string name="print">הדפסה</string>
+    <string name="historic">היסטורי</string>
+    <string name="sensor_summary">מצפן, GPS, מד גובה, ברומטר וכו\'.</string>
+    <string name="cold">קַר</string>
+    <string name="pref_backfill_temperatures_description">כל הטמפרטורות המתועדות יוחלפו בטמפרטורה ההיסטורית המכוילת.</string>
+    <string name="center">מרכז</string>
+    <string name="step_progression">שלב %1$d / %2$d</string>
+    <string name="weather_clear">בהיר</string>
+    <string name="now">כעת</string>
+    <string name="source">מקור</string>
+    <string name="now_value">כעת: %s</string>
+    <string name="samples">דגימות</string>
+    <string name="sensor">חיישן</string>
+    <string name="temperature_high_low">גבוה / נמוך</string>
+    <string name="altimeter_cache">מטמון מד גובה</string>
+    <string name="next_24_hours">24 השעות הבאות</string>
+    <string name="tool_climate">אקלים</string>
+    <string name="for_historic_temperatures">לטמפרטורות היסטוריות</string>
+    <string name="hot">חם</string>
+    <string name="weather_thunderstorm">סופת רעמים</string>
+    <string name="pref_backfill_temperatures_title">עדכון טמפרטורות מתועדות</string>
+    <string name="pref_show_map_previews_title">הצגת מפה מקדימה</string>
+    <string name="smoothing">החלקה</string>
+    <string name="tool_climate_summary">צפיה בטמפרטורות היסטוריות</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">היסטורי (%d שנים)</string>
+    <string name="blank">ריק</string>
+    <string name="map_is_not_calibrated">המפה אינה מכויילת</string>
+    <string name="unable_to_find_next_astronomy">לא ניתן למצוא את %s הבא</string>
+    <string name="autofill_source">מקור מילוי אוטומטי</string>
+    <string name="tide_diurnal_description">גאות גבוהה פעם ביום - רוב הגאות והשפל אינם יומיים</string>
 </resources>
