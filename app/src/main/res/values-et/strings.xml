@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Seadistused</string>
+    <string name="tools">Tarvikud</string>
+    <string name="copied_to_clipboard_toast">Kopeeritud lõikelauale</string>
+    <string name="access_background_location">Värskenda asukohaseadistusi</string>
+    <string name="dialog_grant">Uuenda seadistusi</string>
+    <string name="dialog_deny">Tänan, ei</string>
+    <string name="disclaimer_message_title">Vastutusnõue</string>
+    <string name="app_disclaimer_message_title">Vastutusnõue / Kasutustingimused</string>
+    <string name="precise_miles_format">%s mi</string>
+    <string name="direction_south_west">SW</string>
+    <string name="increase">+</string>
+    <string name="direction_north_east">NE</string>
+    <string name="elevation_diff_format">%1$s%2$s</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="current_format">%s mA</string>
+    <string name="navigation">Tee juhatamine</string>
+    <string name="astronomy">Astronoomia</string>
+    <string name="precise_meters_format">%s m</string>
+    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="weather">Ilm</string>
+    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="degree">%s°</string>
+    <string name="access_background_location_rationale">Trail Sense kasutab asukohaandmeid taustal. Seda kasutatakse täpsemate päikeseloojanguteadete jagamiseks reisi ajal. [Vaata privaatsuspoliitikat](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="duration_second_format">%ds</string>
+    <string name="precise_feet_format">%s ft</string>
+    <string name="duration_hour_format">%dh</string>
+    <string name="direction_east">E</string>
+    <string name="direction_south_east">SE</string>
+    <string name="precise_nautical_miles_format">%s nm</string>
+    <string name="precise_kilometers_format">%s km</string>
+    <string name="duration_minute_format">%dm</string>
+    <string name="direction_south">S</string>
+    <string name="direction_north">N</string>
+    <string name="direction_west">W</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="direction_north_west">NW</string>
+</resources>
