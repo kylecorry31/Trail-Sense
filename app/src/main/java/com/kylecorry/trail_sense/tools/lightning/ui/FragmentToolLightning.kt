@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -15,13 +17,11 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightningBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.weather.domain.lightning.LightningStrike
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningRepo
 import java.time.Instant
@@ -67,7 +67,6 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         binding.startBtn.setImageResource(R.drawable.ic_thunder)
         binding.startBtn.setText(getString(R.string.thunder))
         binding.startBtn.setState(true)
-        binding.startBtn.keepScreenOn = true
     }
 
     private fun onThunder() {
@@ -84,7 +83,6 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         binding.startBtn.setImageResource(R.drawable.ic_torch_on)
         binding.startBtn.setText(getString(R.string.lightning))
         binding.startBtn.setState(false)
-        binding.startBtn.keepScreenOn = false
     }
 
     override fun generateBinding(
