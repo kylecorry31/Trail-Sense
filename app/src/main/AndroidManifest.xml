@@ -94,7 +94,8 @@
     <application
         android:name=".TrailSenseApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
+        android:fullBackupContent="@xml/backup_rules_30_lower"
+        android:dataExtractionRules="@xml/backup_rules_31_higher"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="false"
