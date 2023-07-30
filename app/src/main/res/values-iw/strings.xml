@@ -21,7 +21,7 @@
     <string name="disclaimer_message_title">כתב ויתור</string>
     <string name="precise_kilometers_format">%s ק\"מ</string>
     <string name="current_format">%s mA</string>
-    <string name="access_background_location_rationale">Trail Sense משתמש בנתוני מיקום ברקע. הוא משמש לכיול לחץ בגובה פני הים בניטור מזג האוויר ולספק התראות שקיעה מדויקות יותר. [הצג מדיניות פרטיות] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense משתמש בנתוני מיקום ברקע. הוא משמש כדי לספק התראות שקיעה מדויקות יותר בזמן נסיעה. [הצג מדיניות פרטיות] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="app_disclaimer_message_title">כתב ויתור / תנאי שירות</string>
     <string name="degree_format">%.0f°</string>
     <string name="precise_miles_format">%s מייל</string>
@@ -50,9 +50,12 @@
     <string name="sensors">חיישנים</string>
     <string name="pref_ruler_calibration_title">קנה מידה של סרגל</string>
     <string name="pref_ruler_calibration_summary">פרוטוקול כיול:
-\nהגדרת ערך זה ל-1.
-\n- מדיגת ערך הסרגל של \'תחושת שביל\' (Trail Sense) המתאים ליחידה אחת של סרגל פיזי.
-\n- דווח על הערך הנמדד כאן.</string>
+\n
+\n- הגדרת ערך זה ל- 1.
+\n
+\n- יש למדוד את ערך סרגל חיישן השביל המתאים ליחידה אחת של סרגל פיזי.
+\n
+\n- לדווח כאן על הערך הנמדד.</string>
     <string name="pref_compass_sensor_title">מצפן</string>
     <string name="calibrate">כיול</string>
     <string name="pref_elevation_override_sea_level_dialog_title">הנתן לחץ פני הים</string>
@@ -456,7 +459,7 @@
     <string name="pref_center_sun_and_moon_title">שמור על מרכז השמש/ירח</string>
     <string name="update_60_minutes">שעה אחת</string>
     <string name="tool_user_guide_title">מדריך למשתמש</string>
-    <string name="error_occurred_message">Trail Sense נתקל בשגיאה וייסגר. נא לשלוח דוא\"ל למפתח כדי לפתור בעיה זו.</string>
+    <string name="error_occurred_message">Trail Sense נתקל בשגיאה. יש לשלח דוא\"ל למפתח כדי לפתור בעיה זו.</string>
     <string name="update_90_minutes">שעה וחצי</string>
     <string name="update_120_minutes">שעתיים</string>
     <string name="unit_nautical_miles">מיילים ימיים</string>
@@ -609,7 +612,7 @@
     <string name="cumulonimbus">קומולונימבוס</string>
     <string name="cirrostratus_desc">ענן גבוה המכסה את השמיים. הוא שקוף ובדרך כלל גורם להילה להיווצר סביב השמש.</string>
     <string name="altostratus_desc">ענן בגובה בינוני המכסה את השמיים. השמש בקושי יכולה להיראות ככתם בהיר.</string>
-    <string name="nimbostratus_desc">ענן בגובה בינוני שהוא אפור כהה ומכסה את השמיים. ייתכן שירד גשם.</string>
+    <string name="nimbostratus_desc">ענן ברמה בינונית שצבעו אפור כהה ומכסה את השמים. אם לא יורד גשם, ייתכן שמדובר בענן שכבה.</string>
     <string name="cirrus_desc">עננים דקיקים גבוהים שנראים כמו צמרמורת של שיער לבן.</string>
     <string name="privacy_and_location">פרטיות ומיקום</string>
     <string name="onboarding_user_guide">למדו כיצד להשתמש בתכונות של Trail Sense בעזרת מדריך למשתמש. זמין בתחתית הכרטיסיה כלים.
@@ -641,15 +644,15 @@
 \n
 \n- ניווט למשואות איתות
 \n
-\n- דיוק תחזית משופר (דורש מיקום רקע, לא זמין בכל המכשירים)
+\n- דיוק תחזית משופר ( לא זמין בכל המכשירים)
 \n
-\n- מסלול חזרה (דורש מיקום רקע)
+\n- מסלול חזרה
 \n
-\n- זמני שמש וירח למיקום הנוכחי שלך
+\n- זמני שמש וירח למיקום הנוכחי שלך (התראות שקיעה עלולים לדרוש גישה ברקע למיקום(
 \n
-\n- אם תבחר שלא להעניק את הרשאת המיקום, תוכל להזין באופן ידני מיקום בתפריט כיול GPS &gt; הגדרות ב- Trail Sense.
+\n- אם בחרת שלא להעניק את הרשאת המיקום, ניתן להזין באופן ידני מיקום בתפריט הגדרות &gt; חיישנים &gt; כיול GPS ב- Trail Sense.
 \n
-\n- לאחר לחיצה על המשך, תתבקש להעניק את הרשאות המיקום ומיקום הרקע. שלילת הרשאות אלה תמנע מ-Trail Sense גישה למיקום שלך, ולכן מומלץ ערך מיקום ידני.</string>
+\n- לאחר לחיצה על המשך, נבקש להעניק הרשאות מיקום. דחיית הרשאה זו תמנע מ-Trail Sense גישה למיקום שלך, ולכן מומלץ להזין ידניץ ערך מיקום.</string>
     <string name="quality_poor">עני</string>
     <string name="network_2g">2G</string>
     <string name="dbm_format">%s dBm</string>
@@ -1062,4 +1065,84 @@
     <string name="unable_to_find_next_astronomy">לא ניתן למצוא את %s הבא</string>
     <string name="autofill_source">מקור מילוי אוטומטי</string>
     <string name="tide_diurnal_description">גאות גבוהה פעם ביום - רוב הגאות והשפל אינם יומיים</string>
+    <string name="crop_map_instructions_long">יש לגרור את פינות התיבה לפינות המפה כדי לחלק לרמות.</string>
+    <string name="path_slope_moderate">מתון</string>
+    <string name="reset_calibration">איפוס כיול</string>
+    <string name="battery_settings_limit_accuracy">הגבלות סוללה עלולות לפגוע ברמת הדיוק</string>
+    <string name="learn_more">ללמוד עוד</string>
+    <string name="rotation_amount">סיבוב: %s</string>
+    <string name="tide_user_guide_recommendation">ניתן למצוא אתרי טבלת גאות ושפל רשמיים במדריך למשתמש.</string>
+    <string name="clouds_clear">בהיר</string>
+    <string name="tide_semidiurnal">חצי יומי</string>
+    <string name="low_pressure_system_description">מזוהה עם מזג אוויר גרוע, שמים מעוננים וטמפרטורות חמות יותר.</string>
+    <string name="done">בוצע</string>
+    <string name="backtrack_no_permission">מסלול חזרה דורש הרשאת מיקום כדי לפעול</string>
+    <string name="notifications_channel">התראות (%s)</string>
+    <string name="sunset_alert_scheduled">התראה מתוזמנת ל-%s לפני השקיעה</string>
+    <string name="pressure_system">מערכת לחץ</string>
+    <string name="compass_source_legacy_ts">מורשת (Trail Sense)</string>
+    <string name="compass_source_legacy_android">מורשת (אנדרואיד)</string>
+    <string name="pref_keep_map_facing_up_title">שמירת המפה כלפי מעלה</string>
+    <string name="pref_keep_map_facing_up_summary">המפה תתיישר עם החלק העליון של המסך במקום עם הצפון האמיתי.</string>
+    <string name="ascent">מעלה</string>
+    <string name="high_pressure_system_description">מזוהה עם מזג אוויר נאה, שמיים בהירים וטמפרטורות קרירות יותר.</string>
+    <string name="path_slope">מדרון</string>
+    <string name="path_slope_steep">תלול</string>
+    <string name="camera_unavailable">המצלמה אינה זמינה</string>
+    <string name="manual">ידני</string>
+    <string name="battery_usage_allowed">השימוש בסוללה מותר</string>
+    <string name="sunset_alerts_background_location_disclaimer">התראות שקיעה עשויות להיות לא מדויקות בזמן נסיעה</string>
+    <string name="lowest_point_elevation">הנקודה הנמוכה ביותר</string>
+    <string name="highest_point_elevation">הנקודה הגבוהה ביותר</string>
+    <string name="high_pressure">גבוה</string>
+    <string name="low_pressure">נמוך</string>
+    <string name="weather_front">חזית מזג האוויר</string>
+    <string name="weather_warm_front">חם</string>
+    <string name="weather_cold_front">קר</string>
+    <string name="i_agree">מסכים</string>
+    <string name="allow_ignore_battery_restrictions">אפשר ל-%s להתעלם מהגבלות הסוללה</string>
+    <string name="allow_schedule_exact_alarms">אפשר ל-%s להגדיר התראות ותזכורות</string>
+    <string name="exact_alarm_permission_denied">התראןת ותזכורות נדחו, התראות עשויות להיות לא מדויקות.</string>
+    <string name="photo_map_summary">שימוש בתמונה כמפה</string>
+    <string name="beta">בטא</string>
+    <string name="beta_disclaimer">כלי זה נמצא כעת בגרסת בטא, נא לדווח על בעיות או משוב בכתובת %s.</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">מפה אחת</item>
+        <item quantity="two">%d מפות</item>
+        <item quantity="many">%d מפות</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="calibrate_map_point">כיול עם מיקומים ידועים (%1$d / %2$d)</string>
+    <string name="descent">מוצא</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על מזג אוויר בהיר ל-%d שעות הבאות אם יהיה ערפילי, אחרת זה עשוי להצביע על משקעים בקרוב.</string>
+    <string name="then_weather">ואז %s</string>
+    <string name="horizon">אופק</string>
+    <string name="photo_map_disclaimer">יש לשאת תמיד מפה פיזית לגיבוי ולווידוא הדיוק של Trail Sense.</string>
+    <string name="map_calibration_instructions">יש להקיש על מיקום ידוע במפה, ואז להזין את הקואורדינטות בעולם האמיתי. ניתן לשמור את הכיול על ידי לחיצה על כפתור \"סיום\".
+\n
+\nדוגמאות לנקודות כיול טובות הן מגרש חניה, נקודת שילוט, נקודת ציון או צומת לאורך שביל.</string>
+    <string name="reduce_map_resolution_crop_disclaimer">חיתוך המפה עדיין יפחית את הרזולוציה. אם ברצונך לחתוך את המפה ברזולוציה גבוהה, יש להשתמש ביישום עורך תמונות. יש צפי לתקן את זה בעתיד.</string>
+    <string name="allow_schedule_exact_alarms_instructions">הדבר מאפשר ל-%1$s להגדיר התראות ותזכורות מדויקות, כגון התראות שקיעה. בלי זה, ייתכן שההתראות לא יופעלו בזמן הנכון.
+\n
+\nכדי להתיר, יש ללחוץ על \'%2$s\' ולהפעיל את ההגדרה המאפשרת התראות ותזכורות.</string>
+    <string name="tide_frequency_description">מספר הגאות והשפל ליום. רוב הגאות והשפל הם חצי יומיים.</string>
+    <string name="frequency">תדירות</string>
+    <string name="permission_alarms_and_reminders">התראות ותזכורות</string>
+    <string name="change_resolution">שינוי רזולוציה</string>
+    <string name="updating_weather">מעדכן מזג אוויר</string>
+    <string name="path_slope_flat">שטוח</string>
+    <string name="compass_source_mag_gyro">מגנטומטר + ג\'ירו</string>
+    <string name="tide_instructions">שימוש בטבלת גאות ושפל רשמית כדי להזין את הגאות והשפל עבור אורך הטיול שלך.</string>
+    <string name="accelerometer">מד תאוצה</string>
+    <string name="data_source">מקור: %s</string>
+    <string name="daylight_duration">%s אור יום</string>
+    <string name="times">זמנים</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="rate">ציון</string>
+    <string name="season">עונה</string>
+    <string name="until_sunset">עד השקיעה</string>
+    <string name="until_sunrise">עד הזריחה</string>
+    <string name="astronomy_set">הגדרה</string>
+    <string name="astronomy_rise">זורח</string>
 </resources>
