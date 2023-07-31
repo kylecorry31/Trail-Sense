@@ -1138,7 +1138,7 @@
     <string name="battery_usage_allowed">Využití baterie povoleno</string>
     <string name="battery_settings_limit_accuracy">Omezení baterie mohou snížit přesnost</string>
     <string name="allow_ignore_battery_restrictions">Povolit %s ignorovat omezení baterie</string>
-    <string name="exact_alarm_permission_denied">Oprávnění alarmů a připomenutí odepřeno, upozornění mohou být nepřesná. Můžete ji povolit v nastavení.</string>
+    <string name="exact_alarm_permission_denied">Budíky a připomenutí odepřeny, upozornění mohou být nepřesná.</string>
     <string name="allow_schedule_exact_alarms">Povolit %s nastavit budíky a připomenutí</string>
     <string name="allow_schedule_exact_alarms_instructions">To umožňuje %1$s nastavit přesné alarmy a připomenutí, například upozornění na západ slunce. Bez toho se alarmy nemusí spustit ve správný čas.
 \n
