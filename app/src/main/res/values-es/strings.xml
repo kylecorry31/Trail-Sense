@@ -1123,7 +1123,7 @@
     <string name="battery_usage_allowed">Se permite el uso de la batería</string>
     <string name="sunset_alerts_background_location_disclaimer">Las alertas de puesta de sol pueden ser imprecisas durante los viajes</string>
     <string name="allow_ignore_battery_restrictions">Permitir que %s ignore las restricciones de la batería</string>
-    <string name="exact_alarm_permission_denied">Permiso de alarmas y recordatorios denegado, las alertas pueden ser inexactas. Puedes habilitarlo en los ajustes.</string>
+    <string name="exact_alarm_permission_denied">Alarmas y recordatorios denegados, las alertas pueden ser inexactas.</string>
     <string name="allow_schedule_exact_alarms_instructions">Esto permite a %1$s establecer alarmas y recordatorios exactos, como alertas de la puesta de sol. Sin esto, es posible que las alarmas no se activen a la hora correcta.
 \n
 \nPara permitirlo, haga clic en \"%2$s\" y active el ajuste para permitir alarmas y recordatorios.</string>
