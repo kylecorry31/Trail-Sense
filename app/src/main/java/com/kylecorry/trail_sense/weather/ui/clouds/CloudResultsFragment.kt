@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -25,13 +26,12 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.LBPCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import java.time.Instant
@@ -40,7 +40,7 @@ import kotlin.math.abs
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private var image: Bitmap? = null
-    private var classifier: ICloudClassifier = SoftmaxCloudClassifier(this::debugLogFeatures)
+    private var classifier: ICloudClassifier = LBPCloudClassifier(this::debugLogFeatures)
     private var selection: List<CloudSelection> = emptyList()
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private var time = Instant.now()
@@ -177,14 +177,15 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
             val exif = ExifInterface(uri.toFile())
             exif.rotationDegrees
         }
+        val size = LBPCloudClassifier.IMAGE_SIZE
         val full = BitmapUtils.decodeBitmapScaled(
             path,
-            SoftmaxCloudClassifier.IMAGE_SIZE,
-            SoftmaxCloudClassifier.IMAGE_SIZE
+            size,
+            size
         ) ?: return@onIO null
         val bmp = full.resizeExact(
-            SoftmaxCloudClassifier.IMAGE_SIZE,
-            SoftmaxCloudClassifier.IMAGE_SIZE
+            size,
+            size
         )
         full.recycle()
         val rotated = bmp.rotate(rotation.toFloat())

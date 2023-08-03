@@ -9,12 +9,12 @@ import com.kylecorry.andromeda.files.BaseFileSystem
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.SoftmaxCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.LBPCloudClassifier
 import kotlinx.coroutines.runBlocking
+import org.junit.Test
 
 class CloudTrainingDataGenerator {
-
-//    @Test
+    @Test
     fun generateTrainingData() {
         /*
             Before running this test ensure the androidTest/assets/clouds is populated with folders for each cloud genus.
@@ -50,14 +50,14 @@ class CloudTrainingDataGenerator {
         val training = mutableListOf<List<Any>>()
         var i = 0
         for (image in images) {
-            val size = SoftmaxCloudClassifier.IMAGE_SIZE
+            val size = LBPCloudClassifier.IMAGE_SIZE
             val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size) ?: continue
             val bitmap = original.resizeExact(size, size)
             original.recycle()
 
             // Calculate training data
             var features = listOf<Float>()
-            val classifier = SoftmaxCloudClassifier { features = it }
+            val classifier = LBPCloudClassifier { features = it }
             runBlocking { classifier.classify(bitmap) }
             // By genus
             val cloudMap = mapOf(
@@ -83,7 +83,7 @@ class CloudTrainingDataGenerator {
         }
 
         // Record training data
-        documentFiles.write("clouds.csv", CSVConvert.toCSV(training))
+        documentFiles.write("clouds4.csv", CSVConvert.toCSV(training))
         cacheFiles.delete("clouds", true)
     }
 
