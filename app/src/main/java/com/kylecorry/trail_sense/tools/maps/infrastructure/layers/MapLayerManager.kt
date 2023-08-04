@@ -5,26 +5,17 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 
 // TODO: Create a loader for each layer that keeps it up to date - this class will manage all loaders
 
 class MapLayerManager(context: Context, layers: List<ILayer>) :
     ILayerManager {
 
+    private val factory = LayerManagerFactory(context)
     private var managers: List<ILayerManager>
 
     init {
-        val managersToAdd = mutableListOf<ILayerManager>()
-
-        val pathLayer = layers.firstOrNull { it is PathLayer } as? PathLayer
-        if (pathLayer != null) {
-            managersToAdd.add(PathLayerManager(context, pathLayer))
-        }
-
-        // TODO: Initialize other managers
-
-        managers = managersToAdd
+        managers = layers.mapNotNull { factory.getLayerManager(it) }
     }
 
     override fun start() {
