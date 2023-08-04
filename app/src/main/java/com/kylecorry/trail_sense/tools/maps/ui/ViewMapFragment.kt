@@ -134,6 +134,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             )
         )
         layerManager?.start()
+
+        // Populate the last known location
+        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -163,7 +166,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         )
 
         observe(gps) {
-            myLocationLayer.setLocation(gps.location)
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             navigationLayer.setStart(gps.location)
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
@@ -181,9 +183,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             val bearing = compass.bearing
             binding.map.azimuth = bearing
             layerManager?.onBearingChanged(bearing)
-            myLocationLayer.setAzimuth(bearing)
             if (compassLocked) {
-                myLocationLayer.setAzimuth(bearing) // TODO: Not sure why this is needed - it shouldn't be
                 binding.map.mapAzimuth = bearing.value
             }
             updateDestination()
