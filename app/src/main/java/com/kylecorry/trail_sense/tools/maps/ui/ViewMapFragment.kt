@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -27,7 +26,6 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
@@ -53,7 +51,6 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayerManage
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.Duration
 
 class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
@@ -94,17 +91,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val throttle = Throttle(20)
 
     private var beacons: List<Beacon> = emptyList()
-
-    private val updateTideLayerCommand by lazy {
-        UpdateTideLayerCommand(
-            requireContext(),
-            tideLayer
-        )
-    }
-
-    private val tideTimer = Timer {
-        updateTides()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,9 +150,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             navigationLayer.setStart(gps.location)
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
             updateDestination()
-            if (!tideTimer.isRunning()) {
-                tideTimer.interval(Duration.ofMinutes(1))
-            }
             if (locationLocked) {
                 binding.map.mapCenter = gps.location
             }
@@ -453,16 +436,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         super.onPause()
         layerManager?.stop()
         layerManager = null
-        tideTimer.stop()
         lastDistanceToast?.cancel()
     }
 
     fun recenter() {
         binding.map.recenter()
-    }
-
-    private fun updateTides() = inBackground {
-        updateTideLayerCommand.execute()
     }
 
     companion object {
