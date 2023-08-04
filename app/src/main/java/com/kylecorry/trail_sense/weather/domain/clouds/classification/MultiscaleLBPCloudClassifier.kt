@@ -3,10 +3,13 @@ package com.kylecorry.trail_sense.weather.domain.clouds.classification
 import android.graphics.Bitmap
 import android.graphics.Rect
 import androidx.core.graphics.red
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.ClassificationResult
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.roundToInt
+import kotlin.math.sin
 
 class MultiscaleLBPCloudClassifier(
     private val onFeaturesCalculated: (List<Float>) -> Unit = {}
@@ -14,60 +17,51 @@ class MultiscaleLBPCloudClassifier(
 
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus?>> {
 
-        // Calculate the LBP for the whole image (smaller scale details)
-        val lbpSmallScale = lbp(bitmap, WINDOW_SIZE_SMALL_SCALE)
+        val lbpSmallScale = lbp(bitmap, 1.0)
+        val lbpLargeScale = lbp(bitmap, 5.0)
 
-        // Calculate the LBP for a smaller version of the image (larger scale details)
-        val smallerBitmap = bitmap.resizeExact(IMAGE_SIZE_LARGE_SCALE, IMAGE_SIZE_LARGE_SCALE)
-        try {
-            val lbpLargeScale = lbp(smallerBitmap)
+        val features = (lbpSmallScale + lbpLargeScale).toList()
 
-            val features = (lbpSmallScale + lbpLargeScale).toList()
-
-            onFeaturesCalculated(features)
+        onFeaturesCalculated(features)
 
 //        val isClear = features[0] < 0.55 && features[4] < 0.15f
 
-            val classifier = LogisticRegressionClassifier.fromWeights(weights)
+        val classifier = LogisticRegressionClassifier.fromWeights(weights)
 
 
-            val cloudMap = arrayOf(
-                CloudGenus.Cirrus,
-                CloudGenus.Cirrocumulus,
-                CloudGenus.Cirrostratus,
-                CloudGenus.Altostratus,
-                CloudGenus.Altocumulus,
-                CloudGenus.Nimbostratus,
-                CloudGenus.Stratocumulus,
-                CloudGenus.Cumulus,
-                CloudGenus.Stratus,
-                CloudGenus.Cumulonimbus
+        val cloudMap = arrayOf(
+            CloudGenus.Cirrus,
+            CloudGenus.Cirrocumulus,
+            CloudGenus.Cirrostratus,
+            CloudGenus.Altostratus,
+            CloudGenus.Altocumulus,
+            CloudGenus.Nimbostratus,
+            CloudGenus.Stratocumulus,
+            CloudGenus.Cumulus,
+            CloudGenus.Stratus,
+            CloudGenus.Cumulonimbus
+        )
+
+        val prediction = classifier.classify(features)
+        val result = cloudMap.zip(prediction) { genus, confidence ->
+            ClassificationResult<CloudGenus?>(
+                genus,
+                confidence //* (if (isClear) 0.5f else 1f)
             )
-
-            val prediction = classifier.classify(features)
-            val result = cloudMap.zip(prediction) { genus, confidence ->
-                ClassificationResult<CloudGenus?>(
-                    genus,
-                    confidence //* (if (isClear) 0.5f else 1f)
-                )
-            } + listOf(
-                ClassificationResult<CloudGenus?>(
-                    null,
-                    0f
+        } + listOf(
+            ClassificationResult<CloudGenus?>(
+                null,
+                0f
 //                if (isClear) 0.5f else 0f
-                )
             )
+        )
 
-
-            return result.sortedByDescending { it.confidence }
-        } finally {
-            smallerBitmap.recycle()
-        }
+        return result.sortedByDescending { it.confidence }
     }
 
-    private fun lbp(bitmap: Bitmap, windowSize: Int? = null): FloatArray {
+    private fun lbp(bitmap: Bitmap, radius: Double = 1.0, windowSize: Int? = null): FloatArray {
         if (windowSize == null) {
-            return getLbpHistogram(bitmap)
+            return getLbpHistogram(bitmap, null, getNeighborOffsets(radius))
         }
 
         val regions = mutableListOf<Rect>()
@@ -77,8 +71,9 @@ class MultiscaleLBPCloudClassifier(
             }
         }
 
+        val offsets = getNeighborOffsets(radius)
         val histograms = regions.map {
-            getLbpHistogram(bitmap, it)
+            getLbpHistogram(bitmap, it, offsets)
         }
 
         // Average each value in the histogram
@@ -92,21 +87,27 @@ class MultiscaleLBPCloudClassifier(
         return lbp
     }
 
-    private fun getLbpHistogram(bitmap: Bitmap, region: Rect? = null): FloatArray {
+    private fun getLbpHistogram(
+        bitmap: Bitmap,
+        region: Rect? = null,
+        offsets: List<Pair<Int, Int>> = getNeighborOffsets(1.0)
+    ): FloatArray {
         val width = bitmap.width
         val height = bitmap.height
         val histogram = FloatArray(10)
         var total = 0f
 
-        val startX = region?.left?.coerceAtLeast(1) ?: 1
-        val startY = region?.top?.coerceAtLeast(1) ?: 1
-        val endX = region?.right?.coerceAtMost(width - 1) ?: (width - 1)
-        val endY = region?.bottom?.coerceAtMost(height - 1) ?: (height - 1)
+        val maxOffset = offsets.maxOf { maxOf(it.first, it.second) }
+
+        val startX = region?.left?.coerceAtLeast(maxOffset) ?: maxOffset
+        val startY = region?.top?.coerceAtLeast(maxOffset) ?: maxOffset
+        val endX = region?.right?.coerceAtMost(width - maxOffset) ?: (width - maxOffset)
+        val endY = region?.bottom?.coerceAtMost(height - maxOffset) ?: (height - maxOffset)
 
 
         for (y in startY until endY) {
             for (x in startX until endX) {
-                val lbpValue = getInvariantLbpValue(bitmap, x, y)
+                val lbpValue = getInvariantLbpValue(bitmap, x, y, offsets)
                 histogram[lbpValue]++
                 total++
             }
@@ -120,29 +121,29 @@ class MultiscaleLBPCloudClassifier(
     }
 
 
-    private fun getInvariantLbpValue(bitmap: Bitmap, x: Int, y: Int): Int {
+    private fun getInvariantLbpValue(
+        bitmap: Bitmap,
+        x: Int,
+        y: Int,
+        offsets: List<Pair<Int, Int>>
+    ): Int {
         val centerPixel = bitmap.getPixel(x, y)
         var ones = 0
         var lastBit = false
         var firstBit = false
         var transitions = 0
 
-        val neighbors = arrayOf(
-            bitmap.getPixel(x - 1, y - 1), bitmap.getPixel(x, y - 1), bitmap.getPixel(x + 1, y - 1),
-            bitmap.getPixel(x + 1, y), bitmap.getPixel(x + 1, y + 1), bitmap.getPixel(x, y + 1),
-            bitmap.getPixel(x - 1, y + 1), bitmap.getPixel(x - 1, y)
-        )
-
         val center = centerPixel.red
 
-        for (i in neighbors.indices) {
-            val greater = neighbors[i].red >= center
+        for (i in offsets.indices) {
+            val neighbor = bitmap.getPixel(x + offsets[i].first, y + offsets[i].second)
+            val greater = neighbor.red >= center
             if (greater) {
                 ones++
             }
             if (i == 0) {
                 firstBit = greater
-            } else if (i == neighbors.lastIndex) {
+            } else if (i == offsets.lastIndex) {
                 if (greater != lastBit) transitions++
                 if (greater != firstBit) transitions++
             } else if (greater != lastBit) {
@@ -154,6 +155,18 @@ class MultiscaleLBPCloudClassifier(
         return if (transitions <= 2) ones else 9
     }
 
+    private fun getNeighborOffsets(radius: Double): List<Pair<Int, Int>> {
+        val numPoints = 8
+        val offsets = mutableListOf<Pair<Int, Int>>()
+        for (i in 0 until numPoints) {
+            val angle = 2 * PI * i / numPoints
+            val x = radius * cos(angle)
+            val y = radius * sin(angle)
+            offsets.add(Pair(x.roundToInt(), y.roundToInt()))
+        }
+        return offsets
+    }
+
 
     companion object {
         const val IMAGE_SIZE = 400
@@ -161,26 +174,26 @@ class MultiscaleLBPCloudClassifier(
         private const val WINDOW_SIZE_SMALL_SCALE = IMAGE_SIZE / 4
         private const val WINDOW_SIZE_LARGE_SCALE = IMAGE_SIZE_LARGE_SCALE / 4
         private val weights = arrayOf(
-            arrayOf(-5.4952374f,14.3737f,-10.882078f,-3.255804f,3.823193f,-2.8884892f,6.668241f,-0.832418f,-1.859536f,0.6951365f),
-            arrayOf(1.1457338f,19.609545f,-8.704219f,-0.15394968f,-8.451331f,3.6013277f,-4.1095495f,-3.6958568f,-2.0789752f,3.1820178f),
-            arrayOf(6.7047973f,3.0830042f,-8.238715f,-5.5073886f,8.729959f,-6.82094f,4.3253193f,-0.0363455f,-3.7712533f,2.1054692f),
-            arrayOf(-18.21645f,-9.126273f,-18.36646f,-6.8289104f,41.734936f,-21.767262f,15.309f,19.13645f,-7.292664f,5.9592824f),
-            arrayOf(15.616538f,-8.76335f,-22.957687f,-15.834219f,31.700148f,-44.9996f,39.803314f,7.9940443f,-9.861126f,7.9073844f),
-            arrayOf(-11.872581f,9.49199f,2.5856948f,15.971031f,-8.413082f,-1.5221947f,-17.45032f,22.554323f,-8.283221f,-2.5849464f),
-            arrayOf(26.504328f,-3.0573368f,27.25383f,8.799754f,-8.971977f,-3.0444381f,-27.23077f,-12.135906f,-3.9422965f,-3.6586668f),
-            arrayOf(41.70144f,-32.33795f,40.759766f,-2.87653f,-3.5337694f,-17.273558f,13.698017f,-21.301947f,2.589413f,-20.969849f),
-            arrayOf(-12.25585f,1.0795798f,-16.591925f,9.391767f,-9.351604f,33.421925f,-1.2435396f,-19.715761f,-5.0261602f,20.608599f),
-            arrayOf(-22.46554f,8.423439f,-7.6144776f,-15.783428f,-0.016059287f,18.595003f,-3.208793f,11.510101f,23.765535f,-12.49839f),
-            arrayOf(3.5873046f,16.750248f,-10.0935545f,-3.7497709f,15.082966f,-7.721108f,8.281942f,-17.266544f,-6.892593f,2.5609255f),
-            arrayOf(44.351185f,13.153697f,-9.162293f,-4.290022f,-4.680824f,-10.652019f,20.526693f,-43.602493f,-6.1145205f,0.8628841f),
-            arrayOf(-0.23207298f,0.50697947f,-6.8701806f,-0.52500284f,5.6606627f,-10.132881f,7.1389914f,3.5591712f,0.5564963f,0.90878475f),
-            arrayOf(-27.655094f,-17.566086f,-24.831867f,-0.038645342f,52.580395f,-6.2711396f,-9.969889f,26.273338f,8.081296f,-0.23154052f),
-            arrayOf(23.62309f,2.1759636f,14.126063f,3.760014f,-23.27429f,-9.161221f,-3.2834785f,2.0302908f,-7.4835486f,-2.066845f),
-            arrayOf(-22.30737f,2.9640496f,1.2861146f,2.8930092f,-25.097383f,18.771051f,23.01847f,-8.652806f,-0.5972308f,8.122886f),
-            arrayOf(-20.367853f,-13.729655f,-9.253454f,1.8178215f,17.71808f,11.071396f,18.212843f,-21.645912f,8.914153f,7.718482f),
-            arrayOf(-5.6944284f,-23.249775f,1.4978211f,-0.8388633f,13.159605f,3.0490649f,3.0190952f,10.465397f,-0.018448314f,-0.8689759f),
-            arrayOf(8.062579f,-18.31595f,4.3917193f,-16.274044f,12.708615f,-18.84219f,-24.521013f,55.92148f,-3.0963252f,0.49164608f),
-            arrayOf(17.86629f,40.12858f,15.943505f,0.97814894f,-16.581198f,-12.880777f,-15.731276f,-3.5121963f,-9.039307f,-16.704418f)
+            arrayOf(-4.545511f,13.800323f,-14.081253f,-3.6412048f,6.4762626f,-2.5266614f,9.610536f,-3.1358275f,-2.9644222f,1.5508752f),
+            arrayOf(10.438164f,20.882975f,-10.470973f,0.58085954f,-11.467854f,4.961277f,-5.181354f,-10.807014f,-3.4993176f,5.0246763f),
+            arrayOf(17.064995f,6.727053f,-9.271355f,-6.5672116f,4.431277f,-8.152893f,2.6728873f,-4.7798753f,-5.1762443f,3.5049965f),
+            arrayOf(-20.45375f,-8.8936405f,-22.193487f,-8.6166935f,44.9864f,-27.046625f,16.87383f,26.234146f,-8.6076975f,8.332416f),
+            arrayOf(17.606098f,-10.506829f,-27.653027f,-21.317152f,33.247883f,-54.660515f,50.49329f,14.042252f,-10.467446f,9.9184065f),
+            arrayOf(-11.9675665f,12.196302f,3.0299077f,18.209713f,-5.217884f,-5.2951736f,-18.897963f,21.17157f,-8.408922f,-4.198887f),
+            arrayOf(43.2703f,6.810288f,35.62771f,11.092865f,-11.395496f,-8.376616f,-39.83585f,-27.031885f,-4.6622014f,-4.9353447f),
+            arrayOf(42.047634f,-38.524403f,52.01215f,-2.8399131f,-1.1209841f,-22.538103f,17.988314f,-23.537909f,3.410169f,-26.112373f),
+            arrayOf(-22.473627f,-1.1667529f,-20.982935f,9.977379f,-7.357363f,42.803127f,-4.801257f,-14.957552f,-4.012658f,23.532925f),
+            arrayOf(-25.246876f,3.32296f,-12.565598f,-17.356977f,-1.3445458f,24.393295f,-0.36021218f,13.579202f,27.942297f,-11.75107f),
+            arrayOf(15.005948f,13.454452f,-15.629221f,-5.0159874f,25.46512f,-12.582835f,13.537132f,-30.603018f,-7.914577f,4.9494424f),
+            arrayOf(59.72347f,19.926468f,-13.604916f,-4.4995165f,-11.752292f,-13.759323f,19.773596f,-50.134632f,-7.8357124f,2.6968143f),
+            arrayOf(-13.708365f,-6.315825f,-4.914649f,-3.3488452f,18.600977f,-10.109349f,2.1394851f,8.032404f,8.31331f,1.9235543f),
+            arrayOf(-39.28324f,-15.109934f,-22.097502f,1.127199f,53.47302f,2.1344748f,-19.903906f,33.96935f,9.8318615f,-3.4485106f),
+            arrayOf(22.012997f,6.096421f,26.567585f,7.913859f,-21.721302f,-5.973033f,-12.158716f,-8.41044f,-10.246373f,-3.4232156f),
+            arrayOf(-12.418239f,3.2717702f,-16.515377f,3.4335685f,-40.28525f,15.7003f,39.517708f,5.4480643f,-6.7512965f,9.04797f),
+            arrayOf(-21.904476f,-6.179507f,-8.031224f,0.0559989f,18.188316f,7.57812f,24.743107f,-41.090736f,10.665343f,16.602499f),
+            arrayOf(10.850959f,-49.26027f,6.244005f,-3.4461281f,8.01207f,-1.3282794f,9.58861f,17.245064f,3.2907178f,-0.6875341f),
+            arrayOf(25.180182f,-7.352062f,2.327598f,-20.167097f,17.068754f,-31.66709f,-28.335323f,51.8646f,-5.451301f,-2.7521098f),
+            arrayOf(0.3047355f,46.254894f,19.190851f,3.46935f,-15.673309f,-6.604365f,-20.277687f,4.607669f,-10.520321f,-20.005714f)
         )
     }
 }
