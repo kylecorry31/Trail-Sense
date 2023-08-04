@@ -31,7 +31,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.weather.domain.clouds.classification.ICloudClassifier
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.LBPCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.MultiscaleLBPCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
 import java.time.Instant
@@ -40,7 +40,7 @@ import kotlin.math.abs
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private var image: Bitmap? = null
-    private var classifier: ICloudClassifier = LBPCloudClassifier(this::debugLogFeatures)
+    private var classifier: ICloudClassifier = MultiscaleLBPCloudClassifier(this::debugLogFeatures)
     private var selection: List<CloudSelection> = emptyList()
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private var time = Instant.now()
@@ -177,7 +177,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
             val exif = ExifInterface(uri.toFile())
             exif.rotationDegrees
         }
-        val size = LBPCloudClassifier.IMAGE_SIZE
+        val size = MultiscaleLBPCloudClassifier.IMAGE_SIZE
         val full = BitmapUtils.decodeBitmapScaled(
             path,
             size,

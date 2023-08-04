@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.files.BaseFileSystem
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.LBPCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.MultiscaleLBPCloudClassifier
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -50,14 +50,14 @@ class CloudTrainingDataGenerator {
         val training = mutableListOf<List<Any>>()
         var i = 0
         for (image in images) {
-            val size = LBPCloudClassifier.IMAGE_SIZE
+            val size = MultiscaleLBPCloudClassifier.IMAGE_SIZE
             val original = BitmapUtils.decodeBitmapScaled(image.second.path, size, size) ?: continue
             val bitmap = original.resizeExact(size, size)
             original.recycle()
 
             // Calculate training data
             var features = listOf<Float>()
-            val classifier = LBPCloudClassifier { features = it }
+            val classifier = MultiscaleLBPCloudClassifier { features = it }
             runBlocking { classifier.classify(bitmap) }
             // By genus
             val cloudMap = mapOf(
@@ -83,7 +83,7 @@ class CloudTrainingDataGenerator {
         }
 
         // Record training data
-        documentFiles.write("clouds6.csv", CSVConvert.toCSV(training))
+        documentFiles.write("clouds7.csv", CSVConvert.toCSV(training))
         cacheFiles.delete("clouds", true)
     }
 

@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.weather.domain.clouds.classification.LBPCloudClassifier
+import com.kylecorry.trail_sense.weather.domain.clouds.classification.MultiscaleLBPCloudClassifier
 import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
@@ -84,7 +84,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
                 inBackground {
                     val uri = CustomUiUtils.takePhoto(
                         this@CloudFragment,
-                        Size(LBPCloudClassifier.IMAGE_SIZE, LBPCloudClassifier.IMAGE_SIZE)
+                        Size(MultiscaleLBPCloudClassifier.IMAGE_SIZE, MultiscaleLBPCloudClassifier.IMAGE_SIZE)
                     )
                     uri?.let {
                         findNavController().navigate(
