@@ -83,7 +83,7 @@ class CloudTrainingDataGenerator {
         }
 
         // Record training data
-        documentFiles.write("clouds4.csv", CSVConvert.toCSV(training))
+        documentFiles.write("clouds6.csv", CSVConvert.toCSV(training))
         cacheFiles.delete("clouds", true)
     }
 

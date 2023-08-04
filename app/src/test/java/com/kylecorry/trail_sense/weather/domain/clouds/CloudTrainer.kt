@@ -45,8 +45,8 @@ class CloudTrainer {
         clf.fitClasses(
             trainX,
             trainY,
-            20000,
-            learningRate = 0.01f,
+            10000,
+            learningRate = 0.2f,
             batchSize = 3
         ) { error, epoch ->
             loss.add(listOf(epoch, error))
