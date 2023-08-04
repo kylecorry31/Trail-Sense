@@ -29,10 +29,14 @@ class PathLayerManager(private val context: Context, private val layer: PathLaye
     override fun start() {
         scope.launch {
             listenerRunner.skipIfRunning {
-                // TODO: Listen for path changes
+                pathService.getPaths().collect {
+                    paths = it
+                    loadRunner.replace {
+                        loadPaths(true)
+                    }
+                }
             }
         }
-        TODO("Listen for path changes / load initial paths")
     }
 
     override fun stop() {
