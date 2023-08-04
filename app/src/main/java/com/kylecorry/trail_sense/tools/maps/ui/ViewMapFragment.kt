@@ -47,7 +47,11 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -106,17 +110,16 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        layerManager = MapLayerManager(
-            requireContext(),
+        layerManager = MultiLayerManager(
             listOf(
-                navigationLayer,
-                pathLayer,
-                myAccuracyLayer,
-                myLocationLayer,
-                tideLayer,
-                beaconLayer,
-                selectedPointLayer,
-                distanceLayer
+                PathLayerManager(requireContext(), pathLayer),
+                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color),
+                MyLocationLayerManager(myLocationLayer, AppColor.Orange.color),
+                TideLayerManager(requireContext(), tideLayer),
+                // selectedPointLayer and distanceLayer do not need to be managed
+                // navigationLayer - make it listen to the destination change
+                // beaconLayer - make it listen to the destination change + beacons
+                // TODO: Add a navigation topic to the NavigationService or similar
             )
         )
         layerManager?.start()
