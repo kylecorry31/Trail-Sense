@@ -6,6 +6,8 @@ import androidx.lifecycle.map
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
 import com.kylecorry.trail_sense.shared.database.AppDatabase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class PathRepo private constructor(context: Context) : IPathRepo {
 
@@ -37,7 +39,7 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         return pathDao.getAllSuspend().map { it.toPath() }
     }
 
-    override fun getAllLive(): LiveData<List<Path>> {
+    override fun getPaths(): Flow<List<Path>> {
         return pathDao.getAll().map { it.map { path -> path.toPath() } }
     }
 

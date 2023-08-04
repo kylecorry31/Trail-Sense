@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.ICleanable
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
+import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 
 interface IPathService : ICleanable {
@@ -13,7 +14,7 @@ interface IPathService : ICleanable {
     suspend fun getBacktrackPathId(): Long?
 
     fun loader(): IGroupLoader<IPath>
-    fun getLivePaths(): LiveData<List<Path>>
+    fun getPaths(): Flow<List<Path>>
     suspend fun getPath(id: Long): Path?
     suspend fun getGroup(id: Long?): PathGroup?
 

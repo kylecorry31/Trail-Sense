@@ -11,18 +11,25 @@ import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.navigation.paths.domain.*
+import com.kylecorry.trail_sense.navigation.paths.domain.IPath
+import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
+import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.PathSimplificationQuality
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant
+import java.util.stream.Collectors
 import kotlin.math.absoluteValue
-import kotlin.streams.toList
 
 class PathService(
     private val pathRepo: IPathRepo,
@@ -76,8 +83,8 @@ class PathService(
         return loader
     }
 
-    override fun getLivePaths(): LiveData<List<Path>> {
-        return pathRepo.getAllLive()
+    override fun getPaths(): Flow<List<Path>> {
+        return pathRepo.getPaths()
     }
 
     override suspend fun getPath(id: Long): Path? {
@@ -243,7 +250,7 @@ class PathService(
         waypointRepo.getAll(since).stream()
             .filter { it.elevation != null && it.time != null }
             .map { Reading(it.elevation!!, it.time!!) }
-            .toList()
+            .collect(Collectors.toList())
     }
 
     override suspend fun clean() {

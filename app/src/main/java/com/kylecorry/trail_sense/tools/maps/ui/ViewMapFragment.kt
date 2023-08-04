@@ -46,6 +46,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.trail_sense.shared.observeFlow
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -179,13 +180,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             updateBeacons()
         }
 
-        observe(pathService.getLivePaths()) {
-            inBackground {
-                onDefault {
-                    paths = it.filter { path -> path.style.visible }
-                }
-                updatePaths(true)
+        observeFlow(pathService.getPaths()) {
+            onDefault {
+                paths = it.filter { path -> path.style.visible }
             }
+            updatePaths(true)
         }
 
         reloadMap()

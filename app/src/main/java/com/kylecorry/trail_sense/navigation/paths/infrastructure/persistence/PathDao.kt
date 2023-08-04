@@ -2,11 +2,12 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PathDao {
     @Query("SELECT * FROM paths")
-    fun getAll(): LiveData<List<PathEntity>>
+    fun getAll(): Flow<List<PathEntity>>
 
     @Query("SELECT * FROM paths")
     suspend fun getAllSuspend(): List<PathEntity>

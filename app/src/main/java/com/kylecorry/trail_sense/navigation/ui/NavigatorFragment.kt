@@ -296,14 +296,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
 
-        observe(pathService.getLivePaths()) {
-            inBackground {
-                onIO {
-                    paths = it.filter { path -> path.style.visible }
-                    updateCompassPaths(true)
-                }
+        observeFlow(pathService.getPaths()) {
+            onIO {
+                paths = it.filter { path -> path.style.visible }
+                updateCompassPaths(true)
             }
-
         }
 
         navController = findNavController()
@@ -587,9 +584,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destLocation != null -> {
                 fromTrueNorth(gps.location.bearingTo(destLocation).value)
             }
+
             destinationBearing != null -> {
                 destinationBearing
             }
+
             else -> {
                 null
             }
