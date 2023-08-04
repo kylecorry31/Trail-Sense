@@ -159,13 +159,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         distanceLayer.isEnabled = false
         beaconLayer.setOutlineColor(Color.WHITE)
         selectedPointLayer.setOutlineColor(Color.WHITE)
-        myAccuracyLayer.setColors(
-            AppColor.Orange.color,
-            Color.TRANSPARENT
-        )
 
         observe(gps) {
-            myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             navigationLayer.setStart(gps.location)
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
             updateDestination()
