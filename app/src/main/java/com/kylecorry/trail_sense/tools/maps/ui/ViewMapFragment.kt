@@ -159,7 +159,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         distanceLayer.isEnabled = false
         beaconLayer.setOutlineColor(Color.WHITE)
         selectedPointLayer.setOutlineColor(Color.WHITE)
-        myLocationLayer.setColor(AppColor.Orange.color)
         myAccuracyLayer.setColors(
             AppColor.Orange.color,
             Color.TRANSPARENT
