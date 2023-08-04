@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.time.Timer
@@ -26,10 +25,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
@@ -46,13 +42,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.observeFlow
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayerManager
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -80,11 +77,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val myAccuracyLayer = MyAccuracyLayer()
     private val navigationLayer = NavigationLayer()
     private val selectedPointLayer = BeaconLayer()
+    private var layerManager: ILayerManager? = null
 
     // Paths
-    private var paths: List<Path> = emptyList()
     private val pathService by lazy { PathService.getInstance(requireContext()) }
-    private val pathLoader by lazy { PathLoader(pathService) }
 
     private var lastDistanceToast: Toast? = null
 
@@ -122,6 +118,24 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         return FragmentMapsViewBinding.inflate(layoutInflater, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        layerManager = MapLayerManager(
+            requireContext(),
+            listOf(
+                navigationLayer,
+                pathLayer,
+                myAccuracyLayer,
+                myLocationLayer,
+                tideLayer,
+                beaconLayer,
+                selectedPointLayer,
+                distanceLayer
+            )
+        )
+        layerManager?.start()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -152,9 +166,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             myLocationLayer.setLocation(gps.location)
             myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
             navigationLayer.setStart(gps.location)
-            inBackground {
-                updatePaths()
-            }
+            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
             updateDestination()
             if (!tideTimer.isRunning()) {
                 tideTimer.interval(Duration.ofMinutes(1))
@@ -168,6 +180,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.bearing
             binding.map.azimuth = bearing
+            layerManager?.onBearingChanged(bearing)
             myLocationLayer.setAzimuth(bearing)
             if (compassLocked) {
                 myLocationLayer.setAzimuth(bearing) // TODO: Not sure why this is needed - it shouldn't be
@@ -178,13 +191,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         observe(beaconRepo.getBeacons()) {
             beacons = it.map { it.toBeacon() }.filter { it.visible }
             updateBeacons()
-        }
-
-        observeFlow(pathService.getPaths()) {
-            onDefault {
-                paths = it.filter { path -> path.style.visible }
-            }
-            updatePaths(true)
         }
 
         reloadMap()
@@ -304,22 +310,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun updateBeacons() {
         val all = (beacons + listOfNotNull(destination)).distinctBy { it.id }
         beaconLayer.setBeacons(all)
-    }
-
-    private suspend fun updatePaths(reload: Boolean = false) = onDefault {
-        if (reload) {
-            val bounds = map?.boundary() ?: return@onDefault
-            pathLoader.update(paths, bounds, bounds, true)
-        }
-
-        val mappablePaths =
-            pathLoader.getPointsWithBacktrack(requireContext()).mapNotNull {
-                val path =
-                    paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
-                it.value.asMappable(requireContext(), path)
-            }
-
-        pathLayer.setPaths(mappablePaths)
     }
 
     private fun updateDestination() {
@@ -462,10 +452,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.map.showMap(map)
+        layerManager?.onBoundsChanged(map.boundary())
     }
 
     override fun onPause() {
         super.onPause()
+        layerManager?.stop()
+        layerManager = null
         tideTimer.stop()
         lastDistanceToast?.cancel()
     }

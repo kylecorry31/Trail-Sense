@@ -11,6 +11,6 @@ interface ILayerManager {
 
     fun onLocationChanged(location: Coordinate, accuracy: Float? = null)
     fun onBearingChanged(bearing: Bearing)
-    fun onBoundsChanged(bounds: CoordinateBounds)
+    fun onBoundsChanged(bounds: CoordinateBounds?)
 
 }

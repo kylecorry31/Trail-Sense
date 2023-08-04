@@ -26,7 +26,7 @@ class MapLayerManager(context: Context, layers: List<ILayer>) :
         managers.forEach { it.stop() }
     }
 
-    override fun onBoundsChanged(bounds: CoordinateBounds) {
+    override fun onBoundsChanged(bounds: CoordinateBounds?) {
         managers.forEach {
             it.onBoundsChanged(bounds)
         }

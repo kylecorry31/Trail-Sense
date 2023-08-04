@@ -15,7 +15,7 @@ abstract class BaseLayerManager : ILayerManager {
         this.bearing = bearing
     }
 
-    override fun onBoundsChanged(bounds: CoordinateBounds) {
+    override fun onBoundsChanged(bounds: CoordinateBounds?) {
         this.bounds = bounds
     }
 
