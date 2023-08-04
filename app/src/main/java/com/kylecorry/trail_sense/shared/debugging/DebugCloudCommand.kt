@@ -10,21 +10,14 @@ class DebugCloudCommand(
 ) : DebugCommand() {
 
     override fun executeDebug() {
-        val header = listOf(
-            listOf(
-                "NRBR",
-                "EN",
-                "CON",
-                "GLCM AVG",
-                "GLCM STDEV",
-                "BIAS"
-            )
-        )
-        val data = header + listOf(features)
+        val data = listOf(features)
 
+        val csv = CSVConvert.toCSV(data)
         FileSubsystem.getInstance(context).writeDebug(
             "cloud.csv",
-            CSVConvert.toCSV(data)
+            csv
         )
+
+        println(csv)
     }
 }
