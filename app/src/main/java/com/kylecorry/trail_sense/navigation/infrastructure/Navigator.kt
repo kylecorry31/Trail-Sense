@@ -5,23 +5,20 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.receiveAsFlow
 
 class Navigator private constructor(context: Context) {
 
     private val prefs = PreferencesSubsystem.getInstance(context).preferences
     private val repo = BeaconRepo.getInstance(context)
 
-    private val destinationIdChannel = Channel<Long?>()
-
     // Flows
-    val destinationId = destinationIdChannel.receiveAsFlow()
-        .onStart { emit(getDestinationId()) }
-        .distinctUntilChanged()
+    private val _destinationId = MutableStateFlow(getDestinationId())
+    val destinationId: Flow<Long?> = _destinationId
+        .distinctUntilChanged { old, new -> old == new }
 
     val destination = destinationId.map { it?.let { repo.getBeacon(it)?.toBeacon() } }
 
@@ -31,12 +28,12 @@ class Navigator private constructor(context: Context) {
 
     fun navigateTo(beaconId: Long) {
         prefs.putLong(DESTINATION_ID_KEY, beaconId)
-        destinationIdChannel.trySend(beaconId)
+        _destinationId.tryEmit(beaconId)
     }
 
     fun cancelNavigation() {
         prefs.remove(DESTINATION_ID_KEY)
-        destinationIdChannel.trySend(null)
+        _destinationId.tryEmit(null)
     }
 
     fun getDestinationId(): Long? {
