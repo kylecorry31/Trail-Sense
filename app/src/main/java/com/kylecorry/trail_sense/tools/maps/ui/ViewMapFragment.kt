@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
@@ -49,6 +48,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
@@ -114,8 +114,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 MyLocationLayerManager(myLocationLayer, AppColor.Orange.color),
                 TideLayerManager(requireContext(), tideLayer),
                 BeaconLayerManager(requireContext(), beaconLayer),
+                NavigationLayerManager(requireContext(), navigationLayer)
                 // selectedPointLayer and distanceLayer do not need to be managed
-                // navigationLayer - make it listen to the destination change
             )
         )
         layerManager?.start()
@@ -145,7 +145,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         selectedPointLayer.setOutlineColor(Color.WHITE)
 
         observe(gps) {
-            navigationLayer.setStart(gps.location)
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
             updateDestination()
             if (locationLocked) {
@@ -385,16 +384,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private fun navigateTo(beacon: Beacon): Boolean {
         navigator.navigateTo(beacon)
         destination = beacon
-        val colorWithAlpha = beacon.color.withAlpha(127)
-        navigationLayer.setColor(colorWithAlpha)
-        navigationLayer.setEnd(beacon.coordinate)
         binding.cancelNavigationBtn.show()
         updateDestination()
         return true
     }
 
     private fun hideNavigation() {
-        navigationLayer.setEnd(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
         destination = null
