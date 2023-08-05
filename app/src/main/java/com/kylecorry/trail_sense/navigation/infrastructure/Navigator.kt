@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 
 class Navigator private constructor(context: Context) {
 
@@ -28,12 +29,12 @@ class Navigator private constructor(context: Context) {
 
     fun navigateTo(beaconId: Long) {
         prefs.putLong(DESTINATION_ID_KEY, beaconId)
-        _destinationId.tryEmit(beaconId)
+        _destinationId.update { beaconId }
     }
 
     fun cancelNavigation() {
         prefs.remove(DESTINATION_ID_KEY)
-        _destinationId.tryEmit(null)
+        _destinationId.update { null }
     }
 
     fun getDestinationId(): Long? {
