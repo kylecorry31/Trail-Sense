@@ -8,9 +8,10 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 
-class Navigator(context: Context) {
+class Navigator private constructor(context: Context) {
 
     private val prefs = PreferencesSubsystem.getInstance(context).preferences
     private val repo = BeaconRepo.getInstance(context)
@@ -18,7 +19,10 @@ class Navigator(context: Context) {
     private val destinationIdChannel = Channel<Long?>()
 
     // Flows
-    val destinationId = destinationIdChannel.receiveAsFlow().distinctUntilChanged()
+    val destinationId = destinationIdChannel.receiveAsFlow()
+        .onStart { emit(getDestinationId()) }
+        .distinctUntilChanged()
+
     val destination = destinationId.map { it?.let { repo.getBeacon(it)?.toBeacon() } }
 
     fun navigateTo(beacon: Beacon) {
@@ -46,6 +50,16 @@ class Navigator(context: Context) {
 
     companion object {
         val DESTINATION_ID_KEY = "last_beacon_id_long"
+
+        private var instance: Navigator? = null
+
+        @Synchronized
+        fun getInstance(context: Context): Navigator {
+            if (instance == null) {
+                instance = Navigator(context.applicationContext)
+            }
+            return instance!!
+        }
     }
 
 }

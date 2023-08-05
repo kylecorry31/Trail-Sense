@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
-import androidx.lifecycle.LiveData
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
+import kotlinx.coroutines.flow.Flow
 
 interface IBeaconRepo {
-    fun getBeacons(): LiveData<List<BeaconEntity>>
+    fun getBeacons(): Flow<List<Beacon>>
     suspend fun getBeaconsSync(): List<BeaconEntity>
     suspend fun searchBeacons(text: String): List<BeaconEntity>
     suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity>

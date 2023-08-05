@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
@@ -45,6 +44,7 @@ import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
@@ -61,13 +61,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
-    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private val navigator by lazy { Navigator(requireContext()) }
+    private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
     // Map layers
     private val tideLayer = TideLayer()
@@ -94,8 +93,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private val throttle = Throttle(20)
 
-    private var beacons: List<Beacon> = emptyList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
@@ -116,10 +113,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color),
                 MyLocationLayerManager(myLocationLayer, AppColor.Orange.color),
                 TideLayerManager(requireContext(), tideLayer),
+                BeaconLayerManager(requireContext(), beaconLayer),
                 // selectedPointLayer and distanceLayer do not need to be managed
                 // navigationLayer - make it listen to the destination change
-                // beaconLayer - make it listen to the destination change + beacons
-                // TODO: Add a navigation topic to the NavigationService or similar
             )
         )
         layerManager?.start()
@@ -146,7 +142,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
         distanceLayer.isEnabled = false
-        beaconLayer.setOutlineColor(Color.WHITE)
         selectedPointLayer.setOutlineColor(Color.WHITE)
 
         observe(gps) {
@@ -167,10 +162,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 binding.map.mapAzimuth = bearing.value
             }
             updateDestination()
-        }
-        observe(beaconRepo.getBeacons()) {
-            beacons = it.map { it.toBeacon() }.filter { it.visible }
-            updateBeacons()
         }
 
         reloadMap()
@@ -280,11 +271,6 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 }
             }
         }
-    }
-
-    private fun updateBeacons() {
-        val all = (beacons + listOfNotNull(destination)).distinctBy { it.id }
-        beaconLayer.setBeacons(all)
     }
 
     private fun updateDestination() {
@@ -402,20 +388,16 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         val colorWithAlpha = beacon.color.withAlpha(127)
         navigationLayer.setColor(colorWithAlpha)
         navigationLayer.setEnd(beacon.coordinate)
-        beaconLayer.highlight(beacon)
         binding.cancelNavigationBtn.show()
-        updateBeacons()
         updateDestination()
         return true
     }
 
     private fun hideNavigation() {
         navigationLayer.setEnd(null)
-        beaconLayer.highlight(null)
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
         destination = null
-        updateBeacons()
     }
 
     private fun cancelNavigation() {

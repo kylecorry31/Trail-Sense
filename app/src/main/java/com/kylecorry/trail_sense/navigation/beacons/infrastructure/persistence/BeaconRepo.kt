@@ -1,16 +1,22 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
 import android.content.Context
-import androidx.lifecycle.LiveData
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.shared.database.AppDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     private val beaconDao = AppDatabase.getInstance(context).beaconDao()
     private val beaconGroupDao = AppDatabase.getInstance(context).beaconGroupDao()
 
-    override fun getBeacons(): LiveData<List<BeaconEntity>> = beaconDao.getAll()
+    override fun getBeacons(): Flow<List<Beacon>> = beaconDao.getAll()
+        .map { it.map { it.toBeacon() } }
+        .flowOn(Dispatchers.IO)
 
     override suspend fun getBeaconsSync(): List<BeaconEntity> = beaconDao.getAllSuspend()
 
@@ -53,7 +59,7 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
         // Delete groups
         val groups = getGroupsWithParent(group.id)
-        for (subGroup in groups){
+        for (subGroup in groups) {
             deleteBeaconGroup(subGroup)
         }
 

@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BeaconDao {
     @Query("SELECT * FROM beacons WHERE `temporary` = 0")
-    fun getAll(): LiveData<List<BeaconEntity>>
+    fun getAll(): Flow<List<BeaconEntity>>
 
     @Query("SELECT * FROM beacons WHERE `temporary` = 0")
     suspend fun getAllSuspend(): List<BeaconEntity>

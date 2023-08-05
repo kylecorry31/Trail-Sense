@@ -406,7 +406,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun navigate(beacon: Beacon) {
-        val navigator = Navigator(requireContext())
+        val navigator = Navigator.getInstance(requireContext())
         navigator.navigateTo(beacon)
         // TODO: Confirm it is always navigate up that gets there
         navController.navigateUp()

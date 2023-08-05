@@ -117,7 +117,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var destination: Beacon? = null
     private var destinationBearing: Float? = null
-    private val navigator by lazy { Navigator(requireContext()) }
+    private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
     // Status badges
     private val gpsStatusBadgeProvider by lazy { GpsStatusBadgeProvider(gps, requireContext()) }
@@ -286,13 +286,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             userPrefs.navigation
         ).bind()
 
-        observe(beaconRepo.getBeacons()) {
-            inBackground {
-                onDefault {
-                    beacons = it.map { it.toBeacon() }
-                }
-                updateNearbyBeacons()
-            }
+        observeFlow(beaconRepo.getBeacons()) {
+            beacons = it
+            updateNearbyBeacons()
         }
 
         observeFlow(pathService.getPaths()) {
