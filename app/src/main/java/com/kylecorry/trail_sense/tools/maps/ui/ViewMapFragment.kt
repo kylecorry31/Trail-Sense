@@ -24,8 +24,8 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
@@ -40,7 +40,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -64,10 +63,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
-    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+
+    private val navigator by lazy { Navigator(requireContext()) }
 
     // Map layers
     private val tideLayer = TideLayer()
@@ -229,16 +229,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             binding.map.zoomBy(2f)
         }
 
-        val dest = cache.getLong(NavigatorFragment.LAST_BEACON_ID)
-        if (dest != null) {
-            inBackground {
-                val beacon = withContext(Dispatchers.IO) {
-                    beaconRepo.getBeacon(dest)?.toBeacon()
-                }
-                if (beacon != null) {
-                    withContext(Dispatchers.Main) {
-                        navigateTo(beacon)
-                    }
+        // Update navigation
+        inBackground {
+            navigator.getDestination()?.let {
+                onMain {
+                    navigateTo(it)
                 }
             }
         }
@@ -402,7 +397,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun navigateTo(beacon: Beacon): Boolean {
-        cache.putLong(NavigatorFragment.LAST_BEACON_ID, beacon.id)
+        navigator.navigateTo(beacon)
         destination = beacon
         val colorWithAlpha = beacon.color.withAlpha(127)
         navigationLayer.setColor(colorWithAlpha)
@@ -424,7 +419,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun cancelNavigation() {
-        cache.remove(NavigatorFragment.LAST_BEACON_ID)
+        navigator.cancelNavigation()
         destination = null
         hideNavigation()
     }

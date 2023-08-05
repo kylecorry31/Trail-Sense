@@ -43,6 +43,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
@@ -116,6 +117,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var destination: Beacon? = null
     private var destinationBearing: Float? = null
+    private val navigator by lazy { Navigator(requireContext()) }
 
     // Status badges
     private val gpsStatusBadgeProvider by lazy { GpsStatusBadgeProvider(gps, requireContext()) }
@@ -195,16 +197,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onCreate(savedInstanceState)
         val beaconId = arguments?.getLong("destination") ?: 0L
 
+        // Load the destination and start navigation
         if (beaconId != 0L) {
             showCalibrationDialog()
             inBackground {
-                withContext(Dispatchers.IO) {
-                    destination = beaconRepo.getBeacon(beaconId)?.toBeacon()
-                    cache.putLong(LAST_BEACON_ID, beaconId)
-                }
-                withContext(Dispatchers.Main) {
-                    handleShowWhenLocked()
-                }
+                navigator.navigateTo(beaconId)
+                destination = navigator.getDestination()
+                onMain { handleShowWhenLocked() }
             }
         }
     }
@@ -356,7 +355,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
             } else {
                 destination = null
-                cache.remove(LAST_BEACON_ID)
+                navigator.cancelNavigation()
                 updateNavigator()
             }
         }
@@ -520,15 +519,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         lastOrientation = null
 
         // Resume navigation
-        val lastBeaconId = cache.getLong(LAST_BEACON_ID)
-        if (lastBeaconId != null) {
-            inBackground {
-                withContext(Dispatchers.IO) {
-                    destination = beaconRepo.getBeacon(lastBeaconId)?.toBeacon()
-                }
-                withContext(Dispatchers.Main) {
-                    handleShowWhenLocked()
-                }
+        inBackground {
+            destination = navigator.getDestination()
+            if (destination != null) {
+                onMain { handleShowWhenLocked() }
             }
         }
 
@@ -935,7 +929,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     companion object {
-        const val LAST_BEACON_ID = "last_beacon_id_long"
         const val LAST_DEST_BEARING = "last_dest_bearing"
         const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
     }

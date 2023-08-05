@@ -38,6 +38,7 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.BeaconSo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.MostRecentBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeaconSort
+import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -50,7 +51,6 @@ import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import java.time.Instant
@@ -406,10 +406,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun navigate(beacon: Beacon) {
-        PreferencesSubsystem.getInstance(requireContext()).preferences.putLong(
-            "last_beacon_id_long",
-            beacon.id
-        )
+        val navigator = Navigator(requireContext())
+        navigator.navigateTo(beacon)
         // TODO: Confirm it is always navigate up that gets there
         navController.navigateUp()
     }
