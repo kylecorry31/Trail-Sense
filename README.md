@@ -9,6 +9,8 @@ Trail Sense is a tool, and just like any other tool that you bring into the wild
 
 As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
+See the [Technical Blog](https://kylecorry.com/research/trail-sense/)
+
 <table>
     <tr>
         <th>F-Droid</th>
