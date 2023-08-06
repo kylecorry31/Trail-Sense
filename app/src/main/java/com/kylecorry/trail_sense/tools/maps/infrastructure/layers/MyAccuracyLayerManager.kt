@@ -5,10 +5,14 @@ import androidx.annotation.ColorInt
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 
-class MyAccuracyLayerManager(private val layer: MyAccuracyLayer, @ColorInt private val color: Int) :
+class MyAccuracyLayerManager(
+    private val layer: MyAccuracyLayer,
+    @ColorInt private val color: Int,
+    private val opacity: Int = 50
+) :
     BaseLayerManager() {
     override fun start() {
-        layer.setColors(color, Color.TRANSPARENT)
+        layer.setColors(color, Color.TRANSPARENT, opacity)
     }
 
     override fun stop() {

@@ -77,6 +77,10 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
 import java.time.Duration
 
 
@@ -147,9 +151,31 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
 
+    private var layerManager: ILayerManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        layerManager = MultiLayerManager(
+            listOf(
+                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color, 25),
+                MyLocationLayerManager(myLocationLayer, AppColor.Orange.color)
+            )
+        )
+        layerManager?.start()
+
+        // Populate the last known location
+        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        layerManager?.stop()
+        layerManager = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -242,18 +268,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         observe(gps) {
             updateDeclination()
-            myLocationLayer.setLocation(gps.location)
-            myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
+            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
             onPathChanged()
         }
 
         observe(compass) {
-            onPathChanged()
-            myLocationLayer.setAzimuth(compass.bearing)
+            layerManager?.onBearingChanged(compass.bearing)
         }
 
-        myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
-        myLocationLayer.setColor(AppColor.Orange.color)
         waypointLayer.setOutlineColor(Color.TRANSPARENT)
         binding.pathImage.setLayers(
             listOf(pathLayer, waypointLayer, myAccuracyLayer, myLocationLayer)
