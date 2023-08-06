@@ -13,18 +13,31 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.calibration.MapRotationCalculator
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.BeaconLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 
 class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
@@ -45,9 +58,53 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         updateMapCalibration()
     }
 
+    // Layers
+    private var layerManager: ILayerManager? = null
+    private val beaconLayer = BeaconLayer()
+    private val pathLayer = PathLayer()
+    private val myLocationLayer = MyLocationLayer()
+    private val myAccuracyLayer = MyAccuracyLayer()
+
+    // Sensors
+    private val sensorService by lazy { SensorService(requireContext()) }
+    private val gps by lazy { sensorService.getGPS() }
+    private val compass by lazy { sensorService.getCompass() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        layerManager = MultiLayerManager(
+            listOf(
+                PathLayerManager(requireContext(), pathLayer),
+                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color),
+                MyLocationLayerManager(myLocationLayer, AppColor.Orange.color),
+                BeaconLayerManager(requireContext(), beaconLayer)
+            )
+        )
+        layerManager?.start()
+
+        // Populate the last known location
+        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+
+        observe(gps) {
+            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        }
+
+        observe(compass) {
+            // TODO: Use declination provider
+            compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
+            layerManager?.onBearingChanged(compass.bearing)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        layerManager?.stop()
+        layerManager = null
     }
 
     override fun generateBinding(
@@ -120,6 +177,17 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         backCallback = promptIfUnsavedChanges {
             hasChanges()
         }
+
+        // Set map layers
+        // TODO: Make this opaque
+        binding.calibrationMap.setLayers(
+            listOf(
+                pathLayer,
+                myAccuracyLayer,
+                myLocationLayer,
+                beaconLayer
+            )
+        )
     }
 
     fun setOnCompleteListener(listener: () -> Unit) {
@@ -141,8 +209,11 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
+        binding.calibrationMap.mapAzimuth = 0f
+        binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
         calibrateMap()
+        layerManager?.onBoundsChanged(map.boundary())
     }
 
     private fun updateMapCalibration() {
@@ -151,7 +222,11 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
                 calibrationPoints = manager.getCalibration(false)
             )
         )
+        // TODO: Hide layers until calibrated
+        layerManager?.onBoundsChanged(map?.boundary())
         val map = map ?: return
+        binding.calibrationMap.mapAzimuth = 0f
+        binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
         binding.calibrationMap.highlightedIndex = calibrationIndex
         updateCompletionState()
