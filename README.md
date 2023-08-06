@@ -130,7 +130,9 @@ Location information gathered by this application does not leave your device (as
 # Debug features
 Only available on debug APKs / builds via Android Studio
 - Weather tool's barometer chart shows unsmoothed readings in background
-- Weather history, elevation history, and path elevations are logged to the files/debug folder in Trail Sense data as CSV files
+- Weather history, elevation history, path elevations, and latest cloud scan are logged to the files/debug folder in Trail Sense data as CSV files
+- Weather settings shows statistics timing (for weather monitor service)
+- Paths show statistics about timing (for backtrack service)
 
 # Contributing
 
