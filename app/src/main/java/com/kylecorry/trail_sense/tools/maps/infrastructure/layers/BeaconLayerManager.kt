@@ -27,7 +27,7 @@ class BeaconLayerManager(context: Context, private val layer: BeaconLayer) :
             // Load beacons
             launch {
                 beaconRepo.getBeacons().collect {
-                    beacons = it
+                    beacons = it.filter { beacon -> beacon.visible }
                     updateBeacons()
                 }
             }
