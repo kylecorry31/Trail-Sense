@@ -9,12 +9,12 @@ class PathGPXConverter {
 
     fun toGPX(name: String?, path: List<PathPoint>): GPXData {
         val waypoints = path.map {
-            GPXWaypoint(it.coordinate, null, it.elevation, null, it.time, null)
+            GPXWaypoint(it.coordinate, elevation = it.elevation, time = it.time)
         }
         val pathId = path.firstOrNull()?.pathId ?: 0
 
         val trackSegment = GPXTrackSegment(waypoints)
-        val track = GPXTrack(name, null, pathId, null, listOf(trackSegment))
+        val track = GPXTrack(name, id = pathId, segments = listOf(trackSegment))
         return GPXData(emptyList(), listOf(track), emptyList())
     }
 
