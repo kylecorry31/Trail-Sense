@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
@@ -47,7 +48,6 @@ import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.bind
-import com.kylecorry.trail_sense.shared.observeFlow
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService

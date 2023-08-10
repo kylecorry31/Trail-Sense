@@ -1,11 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
-import android.content.Context
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -23,12 +18,7 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.database.Identifiable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.collections.set
-import kotlin.coroutines.CoroutineContext
 
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
@@ -112,30 +102,4 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
 inline fun Enum<*>.readableName(): String {
     return name.map { if (it.isUpperCase()) " $it" else it }
         .joinToString("").trim()
-}
-
-inline fun Alerts.withLoading(context: Context, title: String, action: () -> Unit) {
-    val loadingAlert = loading(context, title)
-    try {
-        action()
-    } finally {
-        loadingAlert.dismiss()
-    }
-}
-
-fun <T> Fragment.observeFlow(
-    flow: Flow<T>,
-    state: Lifecycle.State = Lifecycle.State.STARTED,
-    observeOn: CoroutineContext = Dispatchers.Main,
-    listener: suspend (T) -> Unit
-) {
-    lifecycleScope.launch {
-        repeatOnLifecycle(state) {
-            withContext(observeOn) {
-                flow.collect {
-                    listener(it)
-                }
-            }
-        }
-    }
 }

@@ -20,8 +20,6 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPa
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ImportService
-import com.kylecorry.trail_sense.shared.withLoading
-
 
 class ImportPathsCommand(
     private val context: Context,
