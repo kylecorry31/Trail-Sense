@@ -16,11 +16,10 @@ class BeaconGpxConverter {
         val waypoints = beacons.map {
             GPXWaypoint(
                 it.coordinate,
-                it.name,
-                it.elevation,
-                it.comment,
-                null,
-                if (it.parentId == null) null else groupNames[it.parentId]
+                name = it.name,
+                elevation = it.elevation,
+                comment = it.comment,
+                group = if (it.parentId == null) null else groupNames[it.parentId]
             )
         }
 

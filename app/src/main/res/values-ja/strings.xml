@@ -313,9 +313,15 @@
     <string name="water_purification_step_1">水をろ過します</string>
     <string name="water_purification_step_3">タイマーを開始してください</string>
     <string name="tool_category_angles">アングル</string>
-    <string name="access_background_location_rationale">Trail Senceはバックグラウンドで位置情報を取得します。これは、潮汐計算、気象把握、および正確な日没通知に使用されます。[個人情報保護方針を閲覧する](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense はバックグラウンドで位置情報を取得します。これは移動中のより正確な日没通知を提供するために使用されます。[プライバシーポリシーを閲覧する](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation_nearby_category">付近</string>
     <string name="edit_item_title">所持品を編集</string>
     <string name="tool_cliff_height_disclaimer">安全を確保できる場合にのみ使用してください。下に物を落としてもケガや災害が起きないことを確かめてください。使い方は説明書をお読みください。</string>
     <string name="water_boil_timer_title">お湯が沸きました</string>
+    <string name="precise_percent_format">%s%%</string>
+    <string name="no_data">データなし</string>
+    <string name="weather_storm">荒天</string>
+    <string name="units_mmhg">mmHg</string>
+    <string name="temp_f_short">°F</string>
+    <string name="temp_c_short">°C</string>
 </resources>
