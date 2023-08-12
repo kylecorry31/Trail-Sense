@@ -139,7 +139,7 @@ dependencies {
 
     // Misc
     implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
-    implementation("com.github.kylecorry31:sol:7.1.2")
+    implementation("com.github.kylecorry31:sol:7.1.3")
     implementation("com.github.kylecorry31:luna:6a88851e2b")
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 
