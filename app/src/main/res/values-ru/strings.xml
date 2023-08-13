@@ -1064,4 +1064,5 @@
     <string name="size">Размер</string>
     <string name="create_blank_map">Создать пустую карту</string>
     <string name="photo_maps">Фотографии карт</string>
+    <string name="illumination">Освещение</string>
 </resources>
