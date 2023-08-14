@@ -24,12 +24,14 @@
     <string name="pref_show_linear_compass_title">Mostra bussola lineare</string>
     <string name="pref_show_linear_compass_summary">Quando il telefono è verticale</string>
     <plurals name="last_hours">
-        <item quantity="one">scorsa %d ora</item>
-        <item quantity="other">scorsa %d ore</item>
+        <item quantity="one">Scorsa %d ora</item>
+        <item quantity="many">Scorse %d ore</item>
+        <item quantity="other"></item>
     </plurals>
     <plurals name="last_minutes">
-        <item quantity="one">scorsa %d minuta</item>
-        <item quantity="other">scorsa %d minuti</item>
+        <item quantity="one">Scorso %d minuto</item>
+        <item quantity="many">Scorsi %d minuti</item>
+        <item quantity="other"></item>
     </plurals>
     <string name="feet_miles">Piedi / Miglia</string>
     <string name="units_hpa">hPa</string>
@@ -72,7 +74,7 @@
     <string name="high_tide">Alta</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per calibrare la pressione al livello del mare nelle osservazioni meteo e per fornire dati più accurati sulle notifiche sull\'alba. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per fornire notifiche sul tramonto più accurate mentre si è in viaggio. [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Aggiorna le impostazioni di geolocalizzazione</string>
     <string name="dialog_deny">No grazie</string>
     <string name="dialog_grant">Aggiorna le impostazioni</string>
@@ -124,9 +126,14 @@
     <string name="units_inhg_short">in</string>
     <string name="sos">SOS</string>
     <string name="accuracy_info">"GPS: Recarsi all\'aperto con una visione libera del cielo
-\n    %1$s di posizione reale
+\n
+\n    %1$s dalla posizione effettiva
+\n
 \n    %2$s di altitudine reale
+\n
 \n    %3$s satelliti
+\n
+\n
 \n
 \nBussola: Ruotare il dispositivo formando un 8  lontano da oggetti di metallo."</string>
     <string name="accuracy_info_title">Suggerimenti per migliorare l\'accuratezza dei sensori</string>
@@ -134,10 +141,10 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Sconosciuto</string>
     <string name="dash">-</string>
-    <string name="discharging_fast">In rapida scarica (%s)</string>
-    <string name="discharging_slow">In lenta scarica (%s)</string>
-    <string name="charging_slow">In ricarica lenta (%s)</string>
-    <string name="charging_fast">In ricarica rapida (%s)</string>
+    <string name="discharging_fast">In rapido scaricamento (%s)</string>
+    <string name="discharging_slow">In lento scaricamento (%s)</string>
+    <string name="charging_slow">In lenta ricarica (%s)</string>
+    <string name="charging_fast">In rapida ricarica (%s)</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
@@ -357,7 +364,7 @@
     <string name="advanced">Avanzate</string>
     <string name="tool_user_guide_summary">Una guida per l’utilizzo di Trial Sense</string>
     <string name="pref_weather_update_frequency_title">Frequenza aggiornamento del meteo</string>
-    <string name="pref_show_pressure_in_notification_title">Mostra notifiche di temperatura</string>
+    <string name="pref_show_pressure_in_notification_title">Mostra la pressione nella notifica</string>
     <string name="pref_forecast_sensitivity_title">Sensibilità delle previsioni</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
@@ -444,23 +451,23 @@
 \n
 \n- Trail Sense non richiederà mai di accedere ad Internet
 \n
-\n- Guarda la [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (si apre nel browser del tuo telefono)
+\n- Visiona la [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (si apre nel browser del tuo telefono)
 \n
 \n- Alcune funzionalità di Trail Sense richiedono l\'accesso alla tua posizione
 \n
 \n- Consentire l\'accesso alla posizione abiliterà le seguenti funzionalità:
 \n
-\n\t- Navigazione verso i beacons
+\n\t- Navigazione verso i punti di riferimento
 \n
-\n\t- Accuratezza delle previsioni meteo migliorata (richiede di accedere alla posizione in background, non disponibile in tutti i dispositivi)
+\n\t- Migliore accuratezza delle previsioni meteo (richiede di accedere alla posizione in background, non disponibile in tutti i dispositivi)
 \n
-\n\t- Backtrack (richiede la posizione in background)
+\n\t- Percorso di ritorno (richiede la posizione in background)
 \n
 \n\t- Orari di Sole e Luna per la tua posizione
 \n
-\n- Se decidi di non consentire l\'accesso alla posizione, puoi inserire una posizione nel menù Impostazioni &gt; Calibrazione GPS in Trail Sense.
+\n- Se decidi di non consentire l\'accesso alla posizione, puoi inserire manualmente una posizione accedendo all\'apposito menù presente in Trail Sense: Impostazioni &gt; Sensori &gt; Calibrazione GPS.
 \n
-\n- Dopo aver cliccato continua, ti verrà chiesto di consentire l\'accesso alla posizione e alla posizione in background. Negare tali autorizzazioni preverrà Trail Sens dall\'accedere alla tua posizione, quindi un inserimento manuale della posizione è raccomandato.</string>
+\n- Dopo aver premuto continua, ti verrà chiesta l\'autorizzazione per accedere alla tua posizione. Negare tale autorizzazione impedirà a Trail Sense di accedere alla tua posizione, è quindi raccomandato inserire manualmente una posizione.</string>
     <string name="left_quick_action">Azione rapida sinistra</string>
     <string name="sleep_timer">Timer per il sonno</string>
     <string name="pedometer_disclaimer">L\'accuratezza e l\'impatto sulla batteria del pedometro dipendono dal produttore del dispositivo e dalla lunghezza di passo inserita. Provalo a casa per un po\' per verificare il consumo di batteria e l\'accuratezza prima di usarlo fuori.</string>
@@ -588,7 +595,7 @@
     <string name="pref_include_leading_zero_title">Aggiungi lo zero iniziale all\'ora</string>
     <string name="pref_stride_length_title">Lunghezza del passo</string>
     <string name="time_until_full">fino a quando non è pieno</string>
-    <string name="actual_frequency_disclaimer">La frequenza effettiva può variare in quanto alcuni dispositivi hanno dei limitazioni alle attività in background.</string>
+    <string name="actual_frequency_disclaimer">La frequenza effettiva può variare in quanto alcuni dispositivi hanno delle limitazioni alle attività in background.</string>
     <string name="weather_no_change">Nessun cambiamento</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Può indicare bel tempo per le prossime %d ore.</string>
     <string name="cumulonimbus_forecast">Può indicare un temporale tra pochi minuti.</string>
@@ -602,4 +609,208 @@
     <string name="weather_monitor">Monitoraggio meteo</string>
     <string name="dawn_type">Alba (%s)</string>
     <string name="dusk_type">Crepuscolo (%s)</string>
+    <string name="no_groups">Nessun gruppo</string>
+    <string name="pref_flashlight_toggle_with_system_title">Attiva tramite il sistema</string>
+    <string name="pref_navigation_lock_screen_presence_title">Mostra sulla schermata di blocco durante la navigazione</string>
+    <string name="imperial_quarts">Quarti imperiali</string>
+    <string name="volume">Volume</string>
+    <string name="simplifying">Semplificando</string>
+    <string name="simplification_quality">Qualità della semplificazione</string>
+    <string name="map_projection_mercator">Mercatore</string>
+    <string name="map_projection_equidistant">Equidistante</string>
+    <string name="tide_table">Tavola delle maree</string>
+    <string name="tide_deleted">Marea eliminata</string>
+    <string name="explore">Esplora</string>
+    <string name="weight">Peso</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="us_cups">Tazze US</string>
+    <string name="qr_code">Codice QR</string>
+    <string name="gps_signal_lost">Segnale GPS interrotto</string>
+    <string name="path_exported">Percorso esportato</string>
+    <string name="points">Punti</string>
+    <string name="preview">Anteprima</string>
+    <string name="tool_temperature_estimation_title">Estimazione temperatura</string>
+    <string name="last_duration">Ultime %s</string>
+    <string name="battery_usage_restricted">Utilizzo della batteria ristretto</string>
+    <string name="merging">Unificazione</string>
+    <string name="pref_barometer_pressure_smoothing_title">Stabilizzazione pressione</string>
+    <string name="location_not_mocked">Utilizzando una posizione effettiva</string>
+    <string name="no_compass_message">Il tuo dispositivo non possiede il sensore della bussola</string>
+    <plurals name="number_days">
+        <item quantity="one">%d giorno</item>
+        <item quantity="many">%d giorni</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="no_resolution">Nessun rimedio</string>
+    <string name="unblock_notification_channel">Sbolla le notifiche %s per Trail Sense</string>
+    <string name="slope_amount">%s pendenza</string>
+    <string name="daylight">Ore di luce</string>
+    <string name="export_path_error">Impossibile esportare il percorso</string>
+    <string name="guide_packing_list">Crea liste invetario</string>
+    <string name="battery_history">Utilizzo batteria - ultime %s</string>
+    <string name="pref_barometer_info_summary">La pressione può differire da quella registrata dalle stazioni vicine</string>
+    <string name="pref_cell_signal_refresh_cache_summary">Forza il caricamento delle ultime intensità del segnale</string>
+    <string name="privacy">Riservatezza</string>
+    <string name="location_mocked">Utilizzando una posizione simulata</string>
+    <string name="yards_format">%s yd</string>
+    <string name="unit_yards">Iarde</string>
+    <string name="liter_format">%s l</string>
+    <string name="us_quarts">Quarti US</string>
+    <string name="minutes">Minuti</string>
+    <string name="seconds">Secondi</string>
+    <string name="packed_amount">Quantità trasportata</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="desired_amount">Quantità desiderata</string>
+    <string name="clear_amounts">Cancella le quantità</string>
+    <string name="electronics">Dispositivi elettronici</string>
+    <string name="documents">Documenti</string>
+    <string name="hygiene">Prodotti per l\'igiene</string>
+    <string name="sort">Filtra</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="humidity">Umidità</string>
+    <string name="pack_sort_weight_low_to_high">Peso (ordine crescente)</string>
+    <string name="elevation_history">Cronologia delle altitudini</string>
+    <string name="wgs84">WGS 84</string>
+    <string name="battery_restricted_resolution">Imposta Trail Sense come Non Ottimizzata</string>
+    <string name="pick_file">Seleziona file</string>
+    <string name="navigate">Naviga</string>
+    <string name="high_tide_letter">A</string>
+    <string name="convert">Converti</string>
+    <string name="map_perspective_instructions">Delinea la mappa</string>
+    <string name="distance">Distanza</string>
+    <string name="days">Giorni</string>
+    <string name="hours">Ore</string>
+    <string name="pref_tiles_enabled_title">Pulsanti di sistema</string>
+    <string name="roll_pitch_yaw">Rollio: %1$s, Beccheggio: %2$s, Imbardata: %3$s</string>
+    <string name="pref_experimental_metal_direction_title">Mostra la direzione del metallo</string>
+    <string name="cup_format">%s t</string>
+    <string name="us_ounces_volume">Once US</string>
+    <string name="us_gallons">Galloni US</string>
+    <string name="imperial_gallons">Galloni imperiali</string>
+    <string name="pack_sort_percent_high_to_low">Percentuale di spazio utilizzato (ordine decrescente)</string>
+    <string name="location_override_not_set_resolution">Imposta la sovrascrittura della posizione nelle impostazioni</string>
+    <string name="diagnostic_message_template">%1$s: %2$s
+\n
+\n### Strumenti influenzati
+\n%3$s
+\n
+\n### Soluzione
+\n%4$s</string>
+    <string name="delete_path">Eliminare percorso\?</string>
+    <string name="elevation_gain">Quota guadagnata</string>
+    <string name="easy">Semplice</string>
+    <string name="difficulty">Difficoltà</string>
+    <string name="merge">Unire</string>
+    <string name="view">Visualizza</string>
+    <string name="estimated">Stimato</string>
+    <string name="disclaimer_estimated_tide_title">Marea stimata</string>
+    <string name="hours_format">%s h</string>
+    <string name="no_paths">Nessun percorso</string>
+    <string name="map_rotate_instructions">Ruotare fin quando il Nord non è rivolto verso l\'alto</string>
+    <string name="disclaimer_estimated_tide">Le maree stimate potrebbero essere inaccurate. Per favore utilizza una tavola delle maree ufficiale per le tempistiche esatte.</string>
+    <string name="imperial_cups">Tazze imperiali</string>
+    <string name="shortest">Più breve</string>
+    <string name="time">Tempo</string>
+    <string name="clear_cache">Svuota cache</string>
+    <string name="on">On</string>
+    <string name="elevation_history_length">Lunghezza della cronologia delle altitudini</string>
+    <string name="closest">Più vicino</string>
+    <string name="liters">Litri</string>
+    <string name="pressure_tendency">Tendenza</string>
+    <string name="elevation">Altitudine</string>
+    <string name="new_packing_list">Nuova lista inventario</string>
+    <string name="coordinates_tab">Coordinate</string>
+    <string name="move">Sposta</string>
+    <string name="pref_cell_signal_refresh_cache_title">Aggiorna la cache dei segnali</string>
+    <string name="import_map">Importa mappa</string>
+    <string name="units">Unità di misura</string>
+    <string name="pref_tiles_enabled_summary">Potrebbe impedire alle app per il risparmio della batteria di arrestare completamente Trail Sense</string>
+    <string name="pref_privacy_screenshot_protection_title">Impedisci l\'acquisizione di schermate</string>
+    <string name="grams">Grammi</string>
+    <string name="beacon_qr_import_instructions">Scansiona un codice QR per importare</string>
+    <string name="quarter_moon">Quarto di luna</string>
+    <string name="notifications_blocked">Notifiche bloccate</string>
+    <string name="sighting_compass">Bussola di avvistamento</string>
+    <string name="grant_permission">Aturizza il permesso %s</string>
+    <string name="auto">Auto</string>
+    <string name="distance_unset">Distanza non impostata</string>
+    <string name="low_tide_letter">B</string>
+    <string name="minutes_format">%s m</string>
+    <string name="days_format">%s gg</string>
+    <string name="location_override_resolution">Attiva la regolazione automatica della posizione nel menù impostazioni.</string>
+    <string name="pref_nmea_elevation_summary">Utilizza gli offsets NMEA per la conversione dell\'elevazione</string>
+    <string name="elevation_override_resolution">Attiva la calibrazione automatica nel menù impostazioni.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Potrebbe indicare la presenza di precipitazioni nelle prossime %1$d-%2$d ore.</string>
+    <string name="quart_format">%s qt</string>
+    <string name="milliseconds_format">%s ms</string>
+    <string name="new_text">Nuovo</string>
+    <string name="avalanche_risk">Rischio valanga</string>
+    <string name="navigation_guide_description">Utilizzando percorsi e segnaposto</string>
+    <string name="reduce_map_resolution">Riduci la risoluzione della mappa</string>
+    <string name="humidity_history">Evoluzione dell\'umidità - ultime %s</string>
+    <string name="pref_flashlight_toggle_with_system_summary">Mostra una notifica al di fuori di Trail Sense quando la torcia è attiva</string>
+    <string name="move_to">Sposta in</string>
+    <string name="moved_to">Sposta in %s</string>
+    <string name="base_elevation">Altitudine alla base</string>
+    <string name="sensor_gyroscope">Giroscopio</string>
+    <string name="pref_backtrack_history_days_title">Cronologia dei percorsi di ritorno</string>
+    <string name="pref_auto_low_power_summary">Quando la batteria ha un livello di carica basso</string>
+    <string name="pounds_format">%s lb</string>
+    <string name="background_location_permission">Posizione (Autorizza sempre)</string>
+    <string name="activity_recognition">Riconoscimento attività</string>
+    <string name="gps_unavailable_resolution">Attiva la posizione o modifica l\'origine dei dati sulla posizione in Solo dispositivo o Alta precisione</string>
+    <string name="power_saving_mode_resolution">Disattiva modalità risparmio energetico</string>
+    <string name="autofill">Riempimento automatico</string>
+    <string name="lightning_dangerously_close">Fulmine pericolosamente vicino</string>
+    <string name="importing">Importando</string>
+    <string name="duration">Durata</string>
+    <string name="waypoint">Punto intermedio</string>
+    <string name="pref_show_last_signal_beacon_title">Ultimo punto in cui è possibile avere copertura di rete</string>
+    <string name="temperature_history">Evoluzione della temperatura - ultime %s</string>
+    <string name="pref_nmea_elevation_title">Offsets di elevazione NMEA</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Mentre Trail Sense è aperta</string>
+    <string name="imperial_pints">Pinte imperiali</string>
+    <string name="imperial_ounces_volume">Once imperiali</string>
+    <string name="pounds">Libbre</string>
+    <string name="ounces_weight">Once</string>
+    <string name="camera">Fotocamera</string>
+    <string name="no_permission">Autorizzazione negata</string>
+    <string name="diagnostics">Diagnostica</string>
+    <string name="overridden">Sovrascritto</string>
+    <string name="no_issues">Nessun problema riscontrato</string>
+    <string name="pref_auto_simplify_paths_title">Semplifica i percorsi importati</string>
+    <string name="saving">Risparmiando</string>
+    <string name="change_map_projection">Cambia proiezione</string>
+    <string name="append_onto">Aggiungere a</string>
+    <string name="simplify">Semplificare</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Attiva con i pulsanti del volume</string>
+    <string name="pref_auto_low_power_title">Risparmio energetico automatico</string>
+    <string name="base_temperature">Temperatura alla base</string>
+    <string name="destination_elevation">Altitudine della destinazione</string>
+    <string name="seconds_format">%s s</string>
+    <string name="grams_format">%s g</string>
+    <string name="kilograms_format">%s kg</string>
+    <string name="ounces_weight_format">%s oz</string>
+    <string name="pint_format">%s pt</string>
+    <string name="find_next_occurrence">Trova la prossima ricorrenza</string>
+    <string name="ounces_volume_format">%s oz</string>
+    <string name="gallon_format">%s gal</string>
+    <string name="milliliters">Millilitri</string>
+    <string name="us_pints">Pinte US</string>
+    <string name="kilograms">Chilogrammi</string>
+    <string name="default_pack_name">Zaino predefinito</string>
+    <string name="percent_packed">Pieno al %s</string>
+    <string name="delete_pack">Eliminare questa lista inventario\?</string>
+    <string name="pack_sort_percent_low_to_high">Percentuale di spazio utilizzato (ordine crescente)</string>
+    <string name="pack_sort_weight_high_to_low">Peso (ordine decrescente)</string>
+    <string name="weight_per_item">Peso per oggetto</string>
+    <string name="num_satellites">%d satelliti</string>
+    <string name="get_gps_signal">Recati all\'esterno dove si ha una visuale libera del cielo</string>
+    <string name="units_mmhg_short">mm</string>
+    <string name="old">Vecchi</string>
+    <string name="elevation_loss">Quota persa</string>
+    <string name="hard">Difficile</string>
+    <string name="pref_flashlight_should_timeout_title">Spegni automaticamente</string>
+    <string name="pref_flashlight_timeout_title">Spegni dopo</string>
+    <string name="tool_temperature_estimation_description">Predice la temperatura ad una quota differente</string>
 </resources>
