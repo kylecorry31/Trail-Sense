@@ -11,6 +11,6 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.experimental_preferences, rootKey)
 
         preference(R.string.pref_experimental_metal_direction)?.isVisible =
-            Sensors.hasGyroscope(requireContext())
+            Sensors.hasGyroscope(requireContext()) && Sensors.hasCompass(requireContext())
     }
 }
