@@ -443,6 +443,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
+        // If there is no compass, don't allow setting a destination bearing
+        if (!hasCompass){
+            destinationBearing = null
+            cache.remove(LAST_DEST_BEARING)
+            return
+        }
+
         if (destinationBearing == null) {
             destinationBearing = compass.rawBearing
             cache.putFloat(LAST_DEST_BEARING, compass.rawBearing)
@@ -537,7 +544,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
-        if (lastDestBearing != null) {
+        if (lastDestBearing != null && hasCompass) {
             destinationBearing = lastDestBearing
         }
 
