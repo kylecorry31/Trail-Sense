@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
@@ -19,7 +20,9 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
     private val formatter by lazy { FormatService.getInstance(getContext()) }
-    private val compass by lazy { SensorService(getContext()).getCompass() }
+    private val sensors by lazy { SensorService(getContext()) }
+    private val compass by lazy { sensors.getCompass() }
+    private val hasCompass by lazy { sensors.hasCompass() }
 
     var bearing: Bearing?
         get() = _bearing
@@ -68,6 +71,8 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
             bearing = compass.bearing
             trueNorth = false
         }
+
+        compassBtn.isVisible = hasCompass
     }
 
     fun start() {
