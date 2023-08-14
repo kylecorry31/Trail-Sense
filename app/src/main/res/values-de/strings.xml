@@ -54,9 +54,12 @@
     <string name="pressure_12_hours">12 Stunden</string>
     <string name="pressure_4_hours">4 Stunden</string>
     <string name="pref_pressure_history_title">Luftdruckverlauf</string>
-    <string name="pref_ruler_calibration_summary">Kalibrierungsprotokoll
+    <string name="pref_ruler_calibration_summary">Kalibrierungsprotokoll:
+\n
 \nDiesen Wert auf 1 setzen.
-\nDann das Trail-Senes-Lineal gegen eine Einheit eines realen Lineal messen.
+\n
+\nDann die Trail-Sense-Wasserwage gegen eine reale Wasserwage halten.
+\n
 \nKorrekturfaktor hier eingeben.</string>
     <string name="pref_ruler_calibration_title">Linealskala</string>
     <string name="pref_num_visible_beacons_title">Nahegelegene Wegpunkte</string>
@@ -189,7 +192,7 @@
     <string name="error_occurred_message">Ein Fehler ist aufgetreten. Bitte sende eine E-Mail an den Entwickler, um den Fehler beheben zu lassen.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
-    <string name="access_background_location_rationale">Trail Sense nutzt Ortungsdaten im Hintergrund. Diese werden verwendet zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor und um eine genauere Sonnenuntergangsbenachrichtigung zu bieten. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense nutzt Ortungsdaten im Hintergrund. Diese werden zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor verwendet. Sie werden außerdem verwendet, um Sonnenuntergangsbenachrichtigung zu bieten. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
@@ -1065,4 +1068,5 @@
     <string name="print">Drucken</string>
     <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Quelle automatisch ausfüllen</string>
+    <string name="illumination">Beleuchtung</string>
 </resources>
