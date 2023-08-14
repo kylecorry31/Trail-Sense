@@ -49,6 +49,8 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
     private var prevQuality = Quality.Unknown
 
+    private var hasCompass = true
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.compass_calibration, rootKey)
 
@@ -56,6 +58,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
+        hasCompass = sensorService.hasCompass()
 
         compass = sensorService.getCompass()
         gps = sensorService.getGPS()
@@ -135,6 +138,22 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
                 cancelOnOutsideTouch = false
             )
             true
+        }
+
+        // Disable compass settings if there is no compass
+        val prefsRequiringCompass = listOf(
+            compassSource,
+            compassSmoothingBar,
+            trueNorthSwitch,
+            calibrateBtn,
+            azimuthTxt,
+            calibrateBtn
+        )
+
+        if (!hasCompass) {
+            prefsRequiringCompass.forEach {
+                it.isVisible = false
+            }
         }
     }
 
