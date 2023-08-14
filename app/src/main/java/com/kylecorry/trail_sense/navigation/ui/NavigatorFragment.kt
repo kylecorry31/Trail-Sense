@@ -23,7 +23,6 @@ import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -168,6 +167,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val astronomyCompassLayer = MarkerCompassLayer()
     private val navigationCompassLayer = NavigationCompassLayer()
 
+    // Feature availability
+    private val hasCompass by lazy { sensorService.hasCompass() }
 
     // Cached preferences
     private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
@@ -177,7 +178,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         get() = userPrefs.navigation.maxBeaconDistance
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
-    private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation) }
+    private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
 
     override fun onDestroyView() {
@@ -271,7 +272,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
 
-        if (!Sensors.hasCompass(requireContext())) {
+        if (!hasCompass) {
             requireMainActivity().errorBanner.report(
                 UserError(
                     ErrorBannerReason.NoCompass,
@@ -543,8 +544,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateDeclination()
 
         binding.beaconBtn.show()
-        binding.roundCompass.isInvisible = useRadarCompass
-        binding.radarCompass.isInvisible = !useRadarCompass
 
         // Update the UI
         updateNavigator()
@@ -556,6 +555,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadBeaconsRunner.cancel()
         sightingCompass?.stop()
         requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.NoCompass)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.NoGPS)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
+        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
         shownAccuracyToast = false
         gpsErrorShown = false
     }
@@ -659,13 +662,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
 
         // Azimuth
-        val azimuthText = formatService.formatDegrees(compass.bearing.value, replace360 = true)
-            .padStart(4, ' ')
-        val directionText = formatService.formatDirection(compass.bearing.direction)
-            .padStart(2, ' ')
-        @SuppressLint("SetTextI18n")
-        binding.navigationTitle.title.text = "$azimuthText   $directionText"
-
+        if (hasCompass) {
+            val azimuthText = formatService.formatDegrees(compass.bearing.value, replace360 = true)
+                .padStart(4, ' ')
+            val directionText = formatService.formatDirection(compass.bearing.direction)
+                .padStart(2, ' ')
+            @SuppressLint("SetTextI18n")
+            binding.navigationTitle.title.text = "$azimuthText   $directionText"
+        } else {
+            binding.navigationTitle.title.text = getString(R.string.dash)
+        }
         // Altitude
         binding.altitude.title = formatService.formatDistance(
             Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)

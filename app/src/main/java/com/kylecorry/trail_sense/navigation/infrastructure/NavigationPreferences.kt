@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
 import java.time.Duration
 
@@ -29,6 +30,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     IPathPreferences, IBeaconPreferences, IMapPreferences {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
+    private val sensors by lazy { SensorService(context) }
 
     val showCalibrationOnNavigateDialog: Boolean
         get() = cache.getBoolean(
@@ -54,9 +56,14 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             return raw.toIntOrNull() ?: 10
         }
 
+    private val _useRadarCompassPref by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_nearby_radar),
+        true
+    )
+
     override val useRadarCompass: Boolean
-        get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar))
-            ?: true)
+        get() = !sensors.hasCompass() || (showMultipleBeacons && _useRadarCompassPref)
 
     var defaultPathColor: AppColor
         get() {
