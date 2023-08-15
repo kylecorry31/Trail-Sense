@@ -63,6 +63,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass() }
+    private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
@@ -91,8 +92,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private var map: PhotoMap? = null
     private var destination: Beacon? = null
 
-    private var locationLocked = false
-    private var compassLocked = false
+    private var mapLockMode = MapLockMode.Free
 
     private val throttle = Throttle(20)
 
@@ -158,7 +158,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             if (!tideTimer.isRunning()) {
                 tideTimer.interval(Duration.ofMinutes(1))
             }
-            if (locationLocked) {
+            if (mapLockMode != MapLockMode.Free) {
                 binding.map.mapCenter = gps.location
             }
         }
@@ -168,7 +168,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             val bearing = compass.bearing
             binding.map.azimuth = bearing
             myLocationLayer.setAzimuth(bearing)
-            if (compassLocked) {
+            if (mapLockMode == MapLockMode.Compass) {
                 myLocationLayer.setAzimuth(bearing) // TODO: Not sure why this is needed - it shouldn't be
                 binding.map.mapAzimuth = bearing.value
             }
@@ -197,38 +197,64 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         val keepMapUp = prefs.navigation.keepMapFacingUp
 
         // TODO: Don't show if location not on map
-        locationLocked = false
-        compassLocked = false
+
+        // Update initial map rotation
         binding.map.mapAzimuth = 0f
         binding.map.keepMapUp = keepMapUp
+
+        // Set the button states
         CustomUiUtils.setButtonState(binding.lockBtn, false)
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
         CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
+
+        // Handle when the lock button is pressed
         binding.lockBtn.setOnClickListener {
-            // TODO: If user drags too far from location, don't follow their location or rotate with them
-            if (!locationLocked && !compassLocked) { // Location mode
-                binding.map.isPanEnabled = false
-                binding.map.metersPerPixel = 0.5f
-                binding.map.mapCenter = gps.location
-                // TODO: Make this the GPS icon (locked)
-                binding.lockBtn.setImageResource(R.drawable.satellite)
-                CustomUiUtils.setButtonState(binding.lockBtn, true)
-                locationLocked = true
-            } else if (locationLocked && !compassLocked) { // Compass mode
-                compassLocked = true
-                binding.map.keepMapUp = false
-                binding.map.mapAzimuth = -compass.rawBearing
-                binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
-                CustomUiUtils.setButtonState(binding.lockBtn, true)
-            } else { // Free mode
-                binding.map.isPanEnabled = true
-                locationLocked = false
-                compassLocked = false
-                binding.map.mapAzimuth = 0f
-                binding.map.keepMapUp = keepMapUp
-                // TODO: Make this the GPS icon (unlocked)
-                binding.lockBtn.setImageResource(R.drawable.satellite)
-                CustomUiUtils.setButtonState(binding.lockBtn, false)
+            mapLockMode = getNextLockMode(mapLockMode)
+
+            when (mapLockMode){
+                MapLockMode.Location -> {
+                    // Disable pan
+                    binding.map.isPanEnabled = false
+
+                    // Zoom in and center on location
+                    binding.map.metersPerPixel = 0.5f
+                    binding.map.mapCenter = gps.location
+
+                    // Reset the rotation
+                    binding.map.mapAzimuth = 0f
+                    binding.map.keepMapUp = keepMapUp
+
+                    // Show as locked
+                    binding.lockBtn.setImageResource(R.drawable.satellite)
+                    CustomUiUtils.setButtonState(binding.lockBtn, true)
+                }
+                MapLockMode.Compass -> {
+                    // Disable pan
+                    binding.map.isPanEnabled = false
+
+                    // Center on location
+                    binding.map.mapCenter = gps.location
+
+                    // Rotate
+                    binding.map.keepMapUp = false
+                    binding.map.mapAzimuth = -compass.rawBearing
+
+                    // Show as locked
+                    binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
+                    CustomUiUtils.setButtonState(binding.lockBtn, true)
+                }
+                MapLockMode.Free -> {
+                    // Enable pan
+                    binding.map.isPanEnabled = true
+
+                    // Reset the rotation
+                    binding.map.mapAzimuth = 0f
+                    binding.map.keepMapUp = keepMapUp
+
+                    // Show as unlocked
+                    binding.lockBtn.setImageResource(R.drawable.satellite)
+                    CustomUiUtils.setButtonState(binding.lockBtn, false)
+                }
             }
         }
 
@@ -477,6 +503,30 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun updateTides() = inBackground {
         updateTideLayerCommand.execute()
+    }
+
+    private fun getNextLockMode(mode: MapLockMode): MapLockMode {
+        return when (mode) {
+            MapLockMode.Location -> {
+                if (hasCompass) {
+                    MapLockMode.Compass
+                } else {
+                    MapLockMode.Free
+                }
+            }
+            MapLockMode.Compass -> {
+                MapLockMode.Free
+            }
+            MapLockMode.Free -> {
+                MapLockMode.Location
+            }
+        }
+    }
+
+    private enum class MapLockMode {
+        Location,
+        Compass,
+        Free
     }
 
     companion object {
