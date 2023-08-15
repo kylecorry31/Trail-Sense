@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -72,7 +73,9 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
             trueNorth = false
         }
 
-        compassBtn.isVisible = hasCompass
+        if (!hasCompass) {
+            findViewById<View>(R.id.compass_autofill_holder).isVisible = false
+        }
     }
 
     fun start() {
