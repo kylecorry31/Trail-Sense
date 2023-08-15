@@ -283,6 +283,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 }
             }
         }
+
+        if (!hasCompass){
+            myLocationLayer.setShowDirection(false)
+        }
     }
 
     private fun onLongPress(location: Coordinate) {

@@ -393,6 +393,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             toggleDestinationBearing()
         }
 
+        if (!hasCompass){
+            myLocationLayer.setShowDirection(false)
+        }
+
         scheduleUpdates(INTERVAL_60_FPS)
     }
 
