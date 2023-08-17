@@ -1069,4 +1069,33 @@
     <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Quelle automatisch ausfüllen</string>
     <string name="illumination">Beleuchtung</string>
+    <string name="calibrate_map_point">Kalibrieren mit bekannten punkten</string>
+    <string name="pref_keep_map_facing_up_title">Karte zeigt nach oben</string>
+    <string name="rate">Rate</string>
+    <string name="season">Saison</string>
+    <string name="astronomy_altitude_peak">Höchster punk</string>
+    <string name="yes">Ja</string>
+    <string name="accelerometer">Beschleunigungsmesser</string>
+    <string name="map_auto_rotated">Karten Rotation kalibriert</string>
+    <string name="daylight_duration">Tageslicht</string>
+    <string name="times">Zeit</string>
+    <string name="horizon">Horizont</string>
+    <string name="map_file">Datei (JPG, PNG, PDF)</string>
+    <string name="no">Nein</string>
+    <string name="photo_map_summary">Benutze ein bild als Karte</string>
+    <string name="photo_map_disclaimer">Besitze immer eine echte Karte als Sicherheit und zur Überprüfung der Genauigkeit von Trail Sense.</string>
+    <string name="map_calibration">Karte kalibrieren</string>
+    <string name="compass_source_legacy_android">Normal (Android)</string>
+    <string name="astronomy_set">Untergang</string>
+    <string name="pref_keep_map_facing_up_summary">Die karte zeigt immer nach oben und nicht zu dem echten Norden.</string>
+    <string name="until_sunrise">bus Sonnenaufgang</string>
+    <string name="until_sunset">bis Sonnenuntergang</string>
+    <string name="map_calibration_instructions">Wähle einen bekannten Punkt aus, und gebe seine echten Koordinaten ein.
+\nDu kannst mit fertig speichern.
+\n
+\nGut geeignet für die Kalibration sind, Parkplätze, Häuser oder Kreuzungen.</string>
+    <string name="astronomy_rise">Aufgang</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyroskpo</string>
+    <string name="data_source">Quelle</string>
+    <string name="compass_source_legacy_ts">Normal (Trail Sense)</string>
 </resources>
