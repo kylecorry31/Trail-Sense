@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPe
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
@@ -32,6 +33,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
     private var prefleftButton: ListPreference? = null
     private var prefrightButton: ListPreference? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
+    private val hasCompass by lazy { SensorService(requireContext()).hasCompass() }
 
     private lateinit var prefs: UserPreferences
 
@@ -165,6 +167,22 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             BacktrackService.FOREGROUND_CHANNEL_ID,
             getString(R.string.backtrack)
         )
+
+        // Hide preferences if there is no compass
+        if (!hasCompass){
+            // Set multi beacons to true (enables other settings)
+            switch(R.string.pref_display_multi_beacons)?.isChecked = true
+
+            // Hide the preferences
+            listOf(
+                preference(R.string.pref_display_multi_beacons),
+                preference(R.string.pref_nearby_radar),
+                preference(R.string.pref_show_linear_compass),
+                preference(R.string.pref_show_calibrate_on_navigate_dialog)
+            ).forEach {
+                it?.isVisible = false
+            }
+        }
 
         updateNearbyRadius()
     }

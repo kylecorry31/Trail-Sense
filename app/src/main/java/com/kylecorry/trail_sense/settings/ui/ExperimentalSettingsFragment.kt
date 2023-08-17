@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -11,6 +12,6 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.experimental_preferences, rootKey)
 
         preference(R.string.pref_experimental_metal_direction)?.isVisible =
-            Sensors.hasGyroscope(requireContext()) && Sensors.hasCompass(requireContext())
+            Sensors.hasGyroscope(requireContext()) && SensorService(requireContext()).hasCompass()
     }
 }

@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class SettingsFragment : AndromedaPreferenceFragment() {
@@ -71,7 +72,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
 
         // TODO: Re-enable this if there are other experimental settings
-        preference(R.string.pref_experimental_settings)?.isVisible = Sensors.hasCompass(requireContext()) &&
+        preference(R.string.pref_experimental_settings)?.isVisible = SensorService(requireContext()).hasCompass() &&
                 Sensors.hasGyroscope(requireContext())
     }
 
