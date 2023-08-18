@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.NullBarometer
+import com.kylecorry.trail_sense.shared.sensors.NullSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
@@ -59,7 +60,12 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
     // Hardware sensors
-    private val accelerometer by lazy { Accelerometer(requireContext(), SensorService.MOTION_SENSOR_DELAY) }
+    private val accelerometer by lazy {
+        Accelerometer(
+            requireContext(),
+            SensorService.MOTION_SENSOR_DELAY
+        )
+    }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
     private val barometer by lazy { sensorService.getBarometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
@@ -77,6 +83,8 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     // Cache
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
     private val cachedAltimeter by lazy { CachedAltimeter(requireContext(), 500) }
+
+    private val unavailableText by lazy { getString(R.string.unavailable) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -252,13 +260,23 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateCompass() {
-        sensorDetailsMap["compass"] = SensorDetails(
-            getString(R.string.pref_compass_sensor_title),
-            formatService.formatDegrees(compass.bearing.value, replace360 = true),
-            formatService.formatQuality(compass.quality),
-            CustomUiUtils.getQualityColor(compass.quality),
-            R.drawable.ic_compass_icon
-        )
+        sensorDetailsMap["compass"] = if (compass is NullSensor) {
+            SensorDetails(
+                getString(R.string.pref_compass_sensor_title),
+                "-",
+                unavailableText,
+                CustomUiUtils.getQualityColor(Quality.Unknown),
+                R.drawable.ic_compass_icon
+            )
+        } else {
+            SensorDetails(
+                getString(R.string.pref_compass_sensor_title),
+                formatService.formatDegrees(compass.bearing.value, replace360 = true),
+                formatService.formatQuality(compass.quality),
+                CustomUiUtils.getQualityColor(compass.quality),
+                R.drawable.ic_compass_icon
+            )
+        }
     }
 
     private fun updateThermometer() {

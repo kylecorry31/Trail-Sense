@@ -158,12 +158,6 @@
     <string name="share_action_send">Envoyer</string>
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
-    <string name="accuracy_info">GPS : Placez vous en extérieur avec une vue dégagée du ciel.
-\n\tIncertitude sur la localisation : %1$s
-\n\tIncertitude sur l\'élévation : %2$s
-\n\tNombre de satellites : %3$s
-\n
-\nBoussole : Déplacez votre téléphone selon une trajectoire décrivant un « 8 » de manière répétitive, tout en prenant soin de vous éloigner d\'objets métalliques.</string>
     <string name="accuracy_info_title">Conseils pour améliorer la précision des données issues des capteurs</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Inconnue</string>

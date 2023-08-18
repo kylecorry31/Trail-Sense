@@ -11,12 +11,6 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Ukitu itzaltzeko</string>
     <string name="flashlight_title">Linterna</string>
-    <string name="accuracy_info">"GPS: Atera kanpora zeruaren ikuspegi garbia izan arte.
-\n    %1$s benetako kokapenetik
-\n    %2$s benetako altueratik
-\n    %3$s satelite
-\n
-\nIparrorratza: Biratu mugikorra 8 formako patroi batean eta aldendu metaletatik."</string>
     <string name="accuracy_info_title">Sentsoreen datuen zehaztasuna hobetzeko aholkuak</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

@@ -248,14 +248,6 @@
     <string name="pressure_reading_time_ago">%1$s - %2$s 之前</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="share_action_send">寄送</string>
-    <string name="accuracy_info">"GPS: 走到室外無視野遮擋的天空下
-\n    實際位置的 %1$s  
-\n
-\n    實際高度的 %2$s  
-\n
-\n    %3$s 個衛星
-\n
-\n電子羅盤校正: 以8字旋轉裝置或是於各方向旋轉並且遠離金屬"</string>
     <string name="accuracy_info_title">提升感測器資料精確度的訣竅</string>
     <string name="discharging_fast">快速放電中 (%s)</string>
     <string name="discharging_slow">慢速放電中 (%s)</string>

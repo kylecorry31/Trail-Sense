@@ -339,12 +339,6 @@
     <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="set_inclination_instructions">Dotknij lub przytrzymaj w dowolnym miejscu, aby zablokować/odblokować</string>
-    <string name="accuracy_info">"GPS: Wyjdź na zewnątrz, w miejsce z niezakłóconym widokiem nieba.
-\n    %1$s rzeczywistej lokalizacji
-\n    %2$s rzeczywistej wysokości
-\n    %3$s satelity
-\n
-\nKompas: Obróć urządzenie zgodnie ze wzorem cyfry 8 lub we wszystkie kierunki oraz odejdź od metalu."</string>
     <string name="create_at_distance">Utwórz w odległości</string>
     <string name="toast_destination_bearing_set">Docelowy namiar ustawiony</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>

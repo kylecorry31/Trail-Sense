@@ -155,7 +155,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.BatteryUsageRestricted -> getString(R.string.battery_restricted_resolution)
             DiagnosticCode.CameraUnavailable -> getString(R.string.no_resolution)
             DiagnosticCode.BarometerUnavailable -> getString(R.string.no_resolution)
-            DiagnosticCode.MagnetometerUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.MagnetometerUnavailable -> getString(R.string.no_compass_description)
             DiagnosticCode.AccelerometerUnavailable -> getString(R.string.no_resolution)
             DiagnosticCode.GPSUnavailable -> getString(R.string.gps_unavailable_resolution)
             DiagnosticCode.FlashlightUnavailable -> getString(R.string.no_resolution)

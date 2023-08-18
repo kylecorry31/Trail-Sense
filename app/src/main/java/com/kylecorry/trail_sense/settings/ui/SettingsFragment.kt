@@ -9,8 +9,8 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class SettingsFragment : AndromedaPreferenceFragment() {
@@ -37,7 +37,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
     )
 
-    private val prefs by lazy { UserPreferences(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -71,6 +70,10 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         val version = Package.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version
         setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
+
+        // TODO: Re-enable this if there are other experimental settings
+        preference(R.string.pref_experimental_settings)?.isVisible = SensorService(requireContext()).hasCompass() &&
+                Sensors.hasGyroscope(requireContext())
     }
 
     override fun onResume() {

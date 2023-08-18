@@ -8,6 +8,7 @@ object OnboardingPages {
     const val USER_GUIDE = 1
     const val PRIVACY = 2
     const val DISCLAIMER = 3
+    const val MISSING_COMPASS = 4
 
     val pages = listOf(
         OnboardingPage(R.string.explore, R.string.onboarding_explore, R.drawable.steps),
@@ -26,6 +27,11 @@ object OnboardingPages {
             R.string.disclaimer_message_content,
             R.drawable.ic_tool_notes,
             R.string.i_agree
+        ),
+        OnboardingPage(
+            R.string.no_compass_message,
+            R.string.no_compass_description,
+            R.drawable.ic_compass_icon
         )
     )
 

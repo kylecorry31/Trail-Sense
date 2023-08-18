@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
+import com.kylecorry.trail_sense.shared.sensors.compass.NullCompass
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
@@ -27,6 +28,12 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         // Handle if the available sources have changed (not likely)
         val allSources = getAvailableSources(context)
+
+        // There were no compass sensors found
+        if (allSources.isEmpty()){
+            return NullCompass()
+        }
+
         if (!allSources.contains(source)) {
             source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
         }

@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
 import java.time.Duration
 
@@ -29,11 +30,16 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     IPathPreferences, IBeaconPreferences, IMapPreferences {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
+    private val sensors by lazy { SensorService(context) }
+
+    private val _showCalibrationOnNavigateDialog by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_calibrate_on_navigate_dialog),
+        true
+    )
 
     val showCalibrationOnNavigateDialog: Boolean
-        get() = cache.getBoolean(
-            context.getString(R.string.pref_show_calibrate_on_navigate_dialog)
-        ) ?: true
+        get() = sensors.hasCompass() && _showCalibrationOnNavigateDialog
 
     val lockScreenPresence: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence))
@@ -46,7 +52,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
 
     val showMultipleBeacons: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
+        get() = !sensors.hasCompass() || cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
 
     val numberOfVisibleBeacons: Int
         get() {
@@ -54,9 +60,14 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             return raw.toIntOrNull() ?: 10
         }
 
+    private val _useRadarCompassPref by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_nearby_radar),
+        true
+    )
+
     override val useRadarCompass: Boolean
-        get() = showMultipleBeacons && (cache.getBoolean(context.getString(R.string.pref_nearby_radar))
-            ?: true)
+        get() = !sensors.hasCompass() || (showMultipleBeacons && _useRadarCompassPref)
 
     var defaultPathColor: AppColor
         get() {

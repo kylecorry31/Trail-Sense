@@ -56,7 +56,12 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
-    <string name="accuracy_info">GPS: Go outside with an unobstructed view of the sky.\n\u0020\u0020\u0020\u0020%1$s of actual location\n\u0020\u0020\u0020\u0020%2$s of actual elevation\n\u0020\u0020\u0020\u0020%3$s satellites\n\nCompass: Rotate device in a figure 8 pattern or in all directions and move away from metal.</string>
+
+    <string name="gps_accuracy_tip">Ensure you have an unobstructed view of the sky, and move away from tall buildings and trees.</string>
+    <string name="gps_location_accuracy">GPS location accuracy</string>
+    <string name="gps_elevation_accuracy">GPS elevation accuracy</string>
+    <string name="gps_satellites">GPS satellites</string>
+
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
@@ -872,6 +877,7 @@
     <string name="guide_packing_list">Create packing lists</string>
     <string name="humidity">Humidity</string>
     <string name="no_compass_message">Your device does not have a compass sensor</string>
+    <string name="no_compass_description">Your device does not have a built-in compass sensor. This is a hardware component, so there is nothing that can be done to add it. Some features that use the compass will be unavailable.</string>
     <string name="num_satellites">%d satellites</string>
     <string name="wgs84">WGS 84</string>
     <string name="elevation_history">Elevation history</string>

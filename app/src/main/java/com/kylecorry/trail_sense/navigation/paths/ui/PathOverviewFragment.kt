@@ -93,6 +93,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val compass by lazy { sensorService.getCompass() }
+    private val hasCompass by lazy { sensorService.hasCompass() }
     private val declinationProvider by lazy {
         DeclinationFactory().getDeclinationStrategy(
             prefs,
@@ -297,6 +298,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             val path = path ?: return@setOnClickListener
             val command = ChangePointStyleCommand(requireContext(), this)
             command.execute(path)
+        }
+
+        if (!hasCompass){
+            myLocationLayer.setShowDirection(false)
         }
     }
 

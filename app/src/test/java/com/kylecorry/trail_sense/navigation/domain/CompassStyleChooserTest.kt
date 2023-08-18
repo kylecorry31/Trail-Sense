@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.navigation.domain
 
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -22,8 +24,26 @@ internal class CompassStyleChooserTest {
         val prefs = mock<ICompassStylePreferences>()
         whenever(prefs.useLinearCompass).thenReturn(useLinear)
         whenever(prefs.useRadarCompass).thenReturn(useRadar)
-        val chooser = CompassStyleChooser(prefs)
-        chooser.getStyle(orientation)
+        val chooser = CompassStyleChooser(prefs, true)
+        assertEquals(expected, chooser.getStyle(orientation))
+    }
+
+    @Test
+    fun getStylesReturnsRadarWhenNoCompassInsteadOfLinear() {
+        val prefs = mock<ICompassStylePreferences>()
+        whenever(prefs.useLinearCompass).thenReturn(true)
+        whenever(prefs.useRadarCompass).thenReturn(false)
+        val chooser = CompassStyleChooser(prefs, false)
+        assertEquals(CompassStyle.Radar, chooser.getStyle(DeviceOrientation.Orientation.Portrait))
+    }
+
+    @Test
+    fun getStylesReturnsRadarWhenNoCompassInsteadOfRound() {
+        val prefs = mock<ICompassStylePreferences>()
+        whenever(prefs.useLinearCompass).thenReturn(true)
+        whenever(prefs.useRadarCompass).thenReturn(false)
+        val chooser = CompassStyleChooser(prefs, false)
+        assertEquals(CompassStyle.Radar, chooser.getStyle(DeviceOrientation.Orientation.Flat))
     }
 
     companion object {

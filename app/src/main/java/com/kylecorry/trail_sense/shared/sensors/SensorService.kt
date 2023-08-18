@@ -185,6 +185,10 @@ class SensorService(ctx: Context) {
         }
     }
 
+    fun hasCompass(): Boolean {
+        return Sensors.hasCompass(context)
+    }
+
     fun getCompass(): ICompass {
         return CompassProvider(context, userPrefs.compass).get()
     }

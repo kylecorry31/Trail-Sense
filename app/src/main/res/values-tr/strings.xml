@@ -429,12 +429,6 @@
     <string name="turn_off">Kapat</string>
     <string name="tap_to_turn_off">Kapatmak için dokun</string>
     <string name="flashlight_title">El feneri</string>
-    <string name="accuracy_info">"GPS: Gökyüzünün görüşünün engellenmediği bir yere çıkın.
-\n    %1$s mevcut konum
-\n    %2$s mevcut rakım
-\n    %3$s uydular
-\n
-\nPusula: Aygıtınızı havada 8 çizecek şekilde veya tüm yönlerde döndürün ve metal nesnelerden uzaklaşın."</string>
     <string name="accuracy_info_title">Sensör verilerinin doğruluğunu arttırmak için öneriler</string>
     <string name="accuracy_distance_format">±%s</string>
     <string name="accuracy_distance_unknown">\?</string>

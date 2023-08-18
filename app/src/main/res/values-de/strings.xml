@@ -54,9 +54,12 @@
     <string name="pressure_12_hours">12 Stunden</string>
     <string name="pressure_4_hours">4 Stunden</string>
     <string name="pref_pressure_history_title">Luftdruckverlauf</string>
-    <string name="pref_ruler_calibration_summary">Kalibrierungsprotokoll
+    <string name="pref_ruler_calibration_summary">Kalibrierungsprotokoll:
+\n
 \nDiesen Wert auf 1 setzen.
-\nDann das Trail-Senes-Lineal gegen eine Einheit eines realen Lineal messen.
+\n
+\nDann die Trail-Sense-Wasserwage gegen eine reale Wasserwage halten.
+\n
 \nKorrekturfaktor hier eingeben.</string>
     <string name="pref_ruler_calibration_title">Linealskala</string>
     <string name="pref_num_visible_beacons_title">Nahegelegene Wegpunkte</string>
@@ -113,12 +116,6 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_reading_time_ago">vor %1$s - %2$s</string>
-    <string name="accuracy_info">"GPS: Gehe nach draußen mit freiem Blick auf den Himmel.
-\n    %1$s der aktuellen Position
-\n    %2$s der aktuellen Höhe
-\n    %3$s Satelliten
-\n
-\nKompass: Entferne dich von Metallgegenständen und bewege das Gerät in Form einer 8 oder in alle Richtungen."</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
     <string name="location">Standort</string>
@@ -189,7 +186,7 @@
     <string name="error_occurred_message">Ein Fehler ist aufgetreten. Bitte sende eine E-Mail an den Entwickler, um den Fehler beheben zu lassen.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
-    <string name="access_background_location_rationale">Trail Sense nutzt Ortungsdaten im Hintergrund. Diese werden verwendet zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor und um eine genauere Sonnenuntergangsbenachrichtigung zu bieten. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense nutzt Ortungsdaten im Hintergrund. Diese werden zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor verwendet. Sie werden außerdem verwendet, um Sonnenuntergangsbenachrichtigung zu bieten. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
@@ -1065,4 +1062,34 @@
     <string name="print">Drucken</string>
     <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Quelle automatisch ausfüllen</string>
+    <string name="illumination">Beleuchtung</string>
+    <string name="calibrate_map_point">Kalibrieren mit bekannten punkten</string>
+    <string name="pref_keep_map_facing_up_title">Karte zeigt nach oben</string>
+    <string name="rate">Rate</string>
+    <string name="season">Saison</string>
+    <string name="astronomy_altitude_peak">Höchster punk</string>
+    <string name="yes">Ja</string>
+    <string name="accelerometer">Beschleunigungsmesser</string>
+    <string name="map_auto_rotated">Karten Rotation kalibriert</string>
+    <string name="daylight_duration">Tageslicht</string>
+    <string name="times">Zeit</string>
+    <string name="horizon">Horizont</string>
+    <string name="map_file">Datei (JPG, PNG, PDF)</string>
+    <string name="no">Nein</string>
+    <string name="photo_map_summary">Benutze ein bild als Karte</string>
+    <string name="photo_map_disclaimer">Besitze immer eine echte Karte als Sicherheit und zur Überprüfung der Genauigkeit von Trail Sense.</string>
+    <string name="map_calibration">Karte kalibrieren</string>
+    <string name="compass_source_legacy_android">Normal (Android)</string>
+    <string name="astronomy_set">Untergang</string>
+    <string name="pref_keep_map_facing_up_summary">Die karte zeigt immer nach oben und nicht zu dem echten Norden.</string>
+    <string name="until_sunrise">bus Sonnenaufgang</string>
+    <string name="until_sunset">bis Sonnenuntergang</string>
+    <string name="map_calibration_instructions">Wähle einen bekannten Punkt aus, und gebe seine echten Koordinaten ein.
+\nDu kannst mit fertig speichern.
+\n
+\nGut geeignet für die Kalibration sind, Parkplätze, Häuser oder Kreuzungen.</string>
+    <string name="astronomy_rise">Aufgang</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyroskpo</string>
+    <string name="data_source">Quelle</string>
+    <string name="compass_source_legacy_ts">Normal (Trail Sense)</string>
 </resources>

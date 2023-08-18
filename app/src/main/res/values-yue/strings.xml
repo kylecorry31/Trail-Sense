@@ -125,7 +125,7 @@
     <string name="result_deleted">剷走咗個結果</string>
     <string name="undo">復原</string>
     <string name="share_ellipsis">分享…</string>
-    <string name="night">夜晚</string>
+    <string name="night">紅日降</string>
     <string name="qr_text_too_long">文字太長，二維碼經已斬斷</string>
     <string name="pref_flashlight_should_timeout_title">自動熄燈</string>
     <string name="pref_flashlight_timeout_title">過幾耐就熄燈</string>
@@ -545,7 +545,7 @@
     <string name="theme_light">白頭浪</string>
     <string name="theme_sunset_sunrise">明或暗</string>
     <string name="theme_dark">黑眼睛</string>
-    <string name="theme_black">紅日降</string>
+    <string name="theme_black">未復光</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">座標格式</string>
@@ -595,8 +595,8 @@
     <string name="charging_wireless">叉緊電 (%s)</string>
     <string name="low_power_mode_on_message">慳電模式開啟，有啲功能可能停用。</string>
     <string name="clouds">雲</string>
-    <string name="pref_require_satellites_title">須要衛星定位</string>
-    <string name="pref_require_satellites_description">須要至少 4 枚衛星，提昇準繩</string>
+    <string name="pref_require_satellites_title">事必要衛星定位</string>
+    <string name="pref_require_satellites_description">事必要至少 4 枚衛星，提昇準繩</string>
     <string name="cirrus">卷雲</string>
     <string name="altocumulus">高積雲</string>
     <string name="nimbostratus">雨層雲</string>
@@ -717,7 +717,7 @@
     <string name="tool_bubble_level_title">平水尺</string>
     <string name="pref_meteor_showers_title">流星雨</string>
     <string name="roll_pitch_yaw">俯仰：%1$s、滾轉：%2$s、偏擺：%3$s</string>
-    <string name="daylight">日光</string>
+    <string name="daylight">天有光</string>
     <string name="lightning_dangerously_close">閃電殺到埋身喇</string>
     <string name="average_speed_pedometer">平均速度 (步程計)</string>
     <string name="sun_moon_position_template">### %1$s
@@ -778,12 +778,6 @@
     <string name="illumination">亮面</string>
     <string name="photo_map_summary">用幅相做地圖</string>
     <string name="beta">試住先</string>
-    <string name="accuracy_info">"GPS：出走一處抬頭望向天空一覽無遺嘅地方。
-\n    %1$s 實際位置誤差
-\n    %2$s 實際海拔誤差
-\n    %3$s 枚衛星
-\n
-\n羅經：將部機打 8 字或朝四方八面兜轉，同時遠離金屬。"</string>
     <string name="map_file">檔案 (JPG、PNG、PDF)</string>
     <string name="peak_time">高峰</string>
     <string name="tool_clinometer_summary">估計雪崩風險同埋物件嘅高度</string>
@@ -854,4 +848,29 @@
     <string name="reset_calibration">重設校正</string>
     <string name="notifications_channel">通知 (%s)</string>
     <string name="sunset_alert_scheduled">安排好日落之前 %s發出警示</string>
+    <string name="onboarding_privacy">- Trail Sense 尊重您嘅私隱，唔會將位置資料由您部機度外流出去
+\n
+\n- Trail Sense 唔會請求互聯網權限
+\n
+\n- 查閱[私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html) (喺您部機嘅瀏覽器開啟)
+\n
+\n- Trail Sense 有啲功能須要存取您嘅位置
+\n
+\n- 畀位置權限會啟用下列功能：
+\n
+\n\t- 定向去地標
+\n
+\n\t- 提昇預測準繩 (唔係部部機都用得)
+\n
+\n\t- 踏雪留蹤
+\n
+\n\t- 您目前位置嘅日月時間 (日落警示可能要幕後位置)
+\n
+\n- 若果您選擇唔畀位置權限，可以喺 Trail Sense 入面嘅「設定 &gt; 感應器 &gt; GPS」校正功能表，自己啪返個位置入去。
+\n
+\n- 撳一下繼續之後，會提示您去畀位置權限。唔畀呢個權限嘅話，Trail Sense 就存取唔到您嘅位置，建議改為人手輸入位置。</string>
+    <string name="backtrack_no_permission">踏雪留蹤須要位置權限先至行得</string>
+    <string name="lowest_point_elevation">最低點</string>
+    <string name="map_scale_verbal">明述</string>
+    <string name="highest_point_elevation">最高點</string>
 </resources>

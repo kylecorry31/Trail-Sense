@@ -6,7 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 data class ToolGroup(val name: String, val tools: List<Tool>)
 data class Tool(
@@ -18,9 +18,9 @@ data class Tool(
 
 object Tools {
     fun getTools(context: Context): List<ToolGroup> {
-        val prefs = UserPreferences(context)
         val hasLightMeter = Sensors.hasSensor(context, Sensor.TYPE_LIGHT)
         val hasPedometer = Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER)
+        val hasCompass = SensorService(context).hasCompass()
         val signaling = ToolGroup(
             context.getString(R.string.tool_category_signaling), listOf(
                 Tool(
@@ -123,12 +123,12 @@ object Tools {
                     R.drawable.ic_tool_battery,
                     R.id.action_action_experimental_tools_to_fragmentToolBattery
                 ),
-                Tool(
+                if (hasCompass) Tool(
                     context.getString(R.string.tool_solar_panel_title),
                     R.drawable.ic_tool_solar_panel,
                     R.id.action_action_experimental_tools_to_fragmentToolSolarPanel,
                     context.getString(R.string.tool_solar_panel_summary)
-                ),
+                ) else null,
                 if (hasLightMeter) Tool(
                     context.getString(R.string.tool_light_meter_title),
                     R.drawable.flashlight,
@@ -178,11 +178,11 @@ object Tools {
                     R.drawable.ic_tool_pack,
                     R.id.action_action_experimental_tools_to_action_inventory
                 ),
-                Tool(
+                if (hasCompass) Tool(
                     context.getString(R.string.tool_metal_detector_title),
                     R.drawable.ic_tool_metal_detector,
                     R.id.action_action_experimental_tools_to_fragmentToolMetalDetector
-                ),
+                ) else null,
                 Tool(
                     context.getString(R.string.tool_white_noise_title),
                     R.drawable.ic_tool_white_noise,

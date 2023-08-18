@@ -191,12 +191,6 @@
     <string name="sun_does_not_set">не заходит</string>
     <string name="notification_monitoring_weather">Сбор данных о погоде в фоне</string>
     <string name="notification_storm_alert_title">Штормовое предупреждение</string>
-    <string name="accuracy_info">"GPS: Выйдите на открытое пространство с беспрепятственным видом на небо.
-\n    %1$s на текущем месте
-\n    %2$s на текущей высоте
-\n    %3$s спутников
-\n
-\nКомпас: Вращайте устройство по траектории восьмерки или во всех направлениях и постарайтесь находиться подальше от крупных металлоконструкций."</string>
     <string name="pref_forecast_sensitivity_title">Чувствительность прогноза</string>
     <string name="tool_bubble_level_summary">Показывает наклон поверхностей</string>
     <string name="tool_bubble_level_title">Пузырьковый уровень</string>
@@ -1064,4 +1058,5 @@
     <string name="size">Размер</string>
     <string name="create_blank_map">Создать пустую карту</string>
     <string name="photo_maps">Фотографии карт</string>
+    <string name="illumination">Освещение</string>
 </resources>

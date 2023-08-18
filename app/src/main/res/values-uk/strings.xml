@@ -521,12 +521,6 @@
     <string name="turn_off">Вимкнути</string>
     <string name="tap_to_turn_off">Торкніться, щоб вимкнути</string>
     <string name="flashlight_title">Ліхтарик</string>
-    <string name="accuracy_info">"GPS: Вийдіть на відкритий простір з безперепонним видом на небо.
-\n    %1$s на поточному місці
-\n    %2$s на поточній висоті
-\n    %3$s супутників
-\n
-\nКомпас: Повертайте пристрій за траєкторією вісімки чи за всіма іншими напрямами й постарайтеся знаходитися якомога далі від великих металоконструкцій."</string>
     <string name="accuracy_info_title">Поради щодо уточнення датників</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

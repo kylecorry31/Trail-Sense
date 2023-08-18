@@ -41,12 +41,6 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Érintse meg a kikapcsoláshoz</string>
     <string name="flashlight_title">Zseblámpa</string>
-    <string name="accuracy_info">"GPS: Menj a szabadba, ahol semmi nem takarja az eget.
-\n    %1$s az aktuális helytől
-\n    %2$s az aktuális magasságtól
-\n    %3$s műhold
-\n
-\nIránytű: Forgasd az eszközt 8-as alakban vagy minden irányban, és tarts távolságot fémektől"</string>
     <string name="accuracy_info_title">Tippek a szenzor adatainak pontosításához</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

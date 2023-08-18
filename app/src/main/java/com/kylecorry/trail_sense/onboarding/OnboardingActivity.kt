@@ -11,13 +11,14 @@ import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 
 class OnboardingActivity : AppCompatActivity() {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
     private val markdown by lazy { MarkdownService(this) }
-    private val prefs by lazy { UserPreferences(this) }
+    private val sensors by lazy { SensorService(this) }
 
     private lateinit var binding: ActivityOnboardingBinding
 
@@ -32,7 +33,14 @@ class OnboardingActivity : AppCompatActivity() {
         load(pageIdx)
 
         binding.nextButton.setOnClickListener {
-            load(++pageIdx)
+            var nextPage = pageIdx + 1
+
+            // Skip the missing compass page if the compass is available
+            if (nextPage == OnboardingPages.MISSING_COMPASS && sensors.hasCompass()){
+                nextPage++
+            }
+            
+            load(nextPage)
         }
 
     }

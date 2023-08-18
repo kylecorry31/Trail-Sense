@@ -529,12 +529,6 @@
     <string name="turn_off">Ugasi</string>
     <string name="tap_to_turn_off">Dodirnite da ugasite</string>
     <string name="flashlight_title">Svjetiljka</string>
-    <string name="accuracy_info">"GPS: Izađite napolje s nesmetanim pogledom na nebo.
-\n     %1$s stvarne lokacije
-\n     %2$s stvarne nadmorske visine
-\n     %3$s satelita
-\n
-\nKompas: Zakrenite uređaj u obliku broja 8 ili u svim smjerovima, i odmaknite se od metala."</string>
     <string name="accuracy_info_title">Savjeti za poboljšanje tačnosti podataka senzora</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

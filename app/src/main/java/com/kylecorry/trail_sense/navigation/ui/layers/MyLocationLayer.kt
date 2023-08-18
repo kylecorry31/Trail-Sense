@@ -6,6 +6,7 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.navigation.ui.markers.PathMapMarker
 
 class MyLocationLayer : BaseLayer() {
@@ -13,9 +14,15 @@ class MyLocationLayer : BaseLayer() {
     private var _location: Coordinate? = null
     private var _azimuth: Bearing? = null
     private var _path: Path? = null
+    private var _showDirection = true
 
     @ColorInt
     private var _color: Int = Color.WHITE
+
+    fun setShowDirection(show: Boolean) {
+        _showDirection = show
+        invalidate()
+    }
 
     fun setLocation(location: Coordinate) {
         _location = location
@@ -33,6 +40,28 @@ class MyLocationLayer : BaseLayer() {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        if (_showDirection) {
+            drawArrow(drawer, map)
+        } else {
+            drawCircle(map)
+        }
+        super.draw(drawer, map)
+    }
+
+    private fun drawCircle(map: IMapView) {
+        clearMarkers()
+        addMarker(
+            CircleMapMarker(
+                _location ?: map.mapCenter,
+                color = _color,
+                strokeColor = Color.WHITE,
+                strokeWeight = 2f,
+                size = 16f
+            )
+        )
+    }
+
+    private fun drawArrow(drawer: ICanvasDrawer, map: IMapView) {
         val path = _path ?: Path()
         if (_path == null) {
             val size = drawer.dp(16f)
@@ -64,12 +93,6 @@ class MyLocationLayer : BaseLayer() {
                 rotation = (_azimuth?.value ?: 0f) + map.mapRotation
             )
         )
-//        // TODO: Convert the drawable to a path
-//        // Outline
-//        addMarker(BitmapMapMarker(_location ?: map.mapCenter, image, 16f, (_azimuth?.value ?: 0f) + map.mapRotation, Color.WHITE))
-//        // Fill
-//        addMarker(BitmapMapMarker(_location ?: map.mapCenter, image, 12f, (_azimuth?.value ?: 0f) + map.mapRotation, _color))
-        super.draw(drawer, map)
     }
 
     protected fun finalize() {

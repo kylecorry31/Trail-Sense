@@ -125,12 +125,6 @@
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notater (valgfritt)</string>
     <string name="sos">SOS</string>
-    <string name="accuracy_info">"GPS: Gå ut med fri sikt mot himmelen.
-\n         %1$s av faktisk posisjon
-\n         %2$s av faktisk høyde
-\n         %3$s satellitter
-\n
-\nKompass: Roter enheten i et åttetallsmønster eller i alle retninger og flytt deg unna metall."</string>
     <string name="dash">-</string>
     <string name="kilometers_per_hour_format">%.1f km/t</string>
     <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Posisjonsdata brukes for å gi mer nøyaktige solnedgangsvarsler mens du reiser. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>

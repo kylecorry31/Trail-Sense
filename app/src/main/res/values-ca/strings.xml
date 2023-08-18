@@ -110,12 +110,6 @@
     <string name="turn_off">Apagar</string>
     <string name="tap_to_turn_off">Toca per apagar</string>
     <string name="flashlight_title">Llanterna</string>
-    <string name="accuracy_info">"GPS: Surti a l\'exterior amb una visibilitat clara cap al cel.
-\n     %1$s de la ubicació real
-\n     %2$s de la altitut real
-\n     %3$s satèlits
-\n
-\nBrújula: Giri el dispositiu en un patró de 8 (o en totes les direccions) i lluny de objectes metàlics."</string>
     <string name="accuracy_info_title">Consells per millorar la precisió de les dades del sensor</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>
