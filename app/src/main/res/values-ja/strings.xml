@@ -142,12 +142,6 @@
     <string name="beacon_comment">ノート (オプション)</string>
     <string name="beacon_invalid_name">不正な名前</string>
     <string name="share_action_send">送信</string>
-    <string name="accuracy_info">"GPS: 屋外の空を遮るものがない場所に移動してください。
-\n    実位置との誤差: %1$s
-\n    実高度との誤差: %2$s
-\n    衛星の数: %3$s 機
-\n
-\nコンパス: デバイスを8の字パターンか全方向に回転させ、金属から遠ざけてください。"</string>
     <string name="accuracy_info_title">精度を改善するためのヒント</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

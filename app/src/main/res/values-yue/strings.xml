@@ -778,12 +778,6 @@
     <string name="illumination">亮面</string>
     <string name="photo_map_summary">用幅相做地圖</string>
     <string name="beta">試住先</string>
-    <string name="accuracy_info">"GPS：出走一處抬頭望向天空一覽無遺嘅地方。
-\n    %1$s 實際位置誤差
-\n    %2$s 實際海拔誤差
-\n    %3$s 枚衛星
-\n
-\n羅經：將部機打 8 字或朝四方八面兜轉，同時遠離金屬。"</string>
     <string name="map_file">檔案 (JPG、PNG、PDF)</string>
     <string name="peak_time">高峰</string>
     <string name="tool_clinometer_summary">估計雪崩風險同埋物件嘅高度</string>

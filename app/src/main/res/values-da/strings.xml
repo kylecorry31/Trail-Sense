@@ -19,12 +19,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips til forbedring af sensordatas nøjagtighed</string>
-    <string name="accuracy_info">"GPS: Gå udenfor med frit udsyn til himlen.
-\n    %1$s af den faktiske placering
-\n    %2$s af den faktiske højde
-\n    %3$s satellitter
-\n
-\nKompas: Roter enheden i et 8-talsmønster eller i alle retninger, og hold dig væk fra metal."</string>
     <string name="flashlight_title">Lommelygte</string>
     <string name="tap_to_turn_off">Tryk for at slukke</string>
     <string name="no_beacons">Ingen fyrtårne</string>

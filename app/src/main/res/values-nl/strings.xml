@@ -145,12 +145,6 @@
     <string name="turn_off">Uitschakelen</string>
     <string name="tap_to_turn_off">Tik om uit te schakelen</string>
     <string name="flashlight_title">Zaklamp</string>
-    <string name="accuracy_info">"GPS: Ga naar buiten met een vrij zicht op de hemel.
-\n    %1$s van werkelijke locatie
-\n    %2$s van werkelijke hoogte
-\n    %3$s satellieten
-\n
-\nKompas: Draai het apparaat in een 8-vormige figuur of in alle richtingen en ga weg van metalen."</string>
     <string name="accuracy_info_title">Tips voor het verbeteren van de juistheid van de sensorgegevens</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

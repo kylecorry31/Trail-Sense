@@ -121,13 +121,6 @@
     <string name="sos">紧急求救信号</string>
     <string name="tap_to_turn_off">轻触以关闭</string>
     <string name="flashlight_title">手电筒</string>
-    <string name="accuracy_info">"GPS：到室外天空未被遮挡的地方。
-\n
-\n    %1$s 的实际位置
-\n    %2$s 的实际高度
-\n    %3$s 颗卫星
-\n
-\n指南针：以8字形或全方位旋转设备，并使其远离金属物体。"</string>
     <string name="accuracy_info_title">提高传感器精确度的小提示</string>
     <string name="unknown">未知</string>
     <string name="degree_format">%.0f°</string>

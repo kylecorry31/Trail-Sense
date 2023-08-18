@@ -116,12 +116,6 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_reading_time_ago">vor %1$s - %2$s</string>
-    <string name="accuracy_info">"GPS: Gehe nach draußen mit freiem Blick auf den Himmel.
-\n    %1$s der aktuellen Position
-\n    %2$s der aktuellen Höhe
-\n    %3$s Satelliten
-\n
-\nKompass: Entferne dich von Metallgegenständen und bewege das Gerät in Form einer 8 oder in alle Richtungen."</string>
     <string name="pref_altimeter_calibration_title">Höhenmesser</string>
     <string name="request_permission">Berechtigung anfordern</string>
     <string name="location">Standort</string>

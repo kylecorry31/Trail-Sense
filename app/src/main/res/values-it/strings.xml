@@ -126,12 +126,6 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="units_inhg_short">in</string>
     <string name="sos">SOS</string>
-    <string name="accuracy_info">"GPS: Recarsi all\'aperto con una visione libera del cielo
-\n    %1$s dalla posizione effettiva
-\n    %2$s di altitudine effettiva
-\n    %3$s satelliti
-\n
-\nBussola: Ruotare il dispositivo formando un 8 lontano da oggetti di metallo."</string>
     <string name="accuracy_info_title">Suggerimenti per migliorare l\'accuratezza dei sensori</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_distance_unknown">\?</string>

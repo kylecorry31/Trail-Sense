@@ -21,12 +21,6 @@
     <string name="access_background_location_rationale">Trail Sense menggunakan data lokasi di latar belakang. Data tersebut digunakan untuk kalibrasi tekanan permukaan laut di pemantauan cuaca dan untuk memberikan peringatan matahari terbenam yang lebih akurat. [Lihat Kebijakan Privasi](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="duration_hour_format">%d jam</string>
     <string name="degree">%s°</string>
-    <string name="accuracy_info">"GPS: Pergi ke luar dengan pemandangan langit yang tidak terhalang.
-\n    %1$s dari lokasi sebenarnya 
-\n    %2$s dari ketinggian sebenarnya
-\n    %3$s satelit
-\n
-\nKalibrasi kompas: Putar perangkat dalam pola angka 8 atau ke segala arah dan jauhkan dari benda logam."</string>
     <plurals name="last_hours">
         <item quantity="other">%d jam terakhir</item>
     </plurals>

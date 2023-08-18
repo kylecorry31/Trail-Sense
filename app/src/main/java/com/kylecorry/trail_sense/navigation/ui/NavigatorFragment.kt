@@ -33,6 +33,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
+import com.kylecorry.trail_sense.calibration.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
@@ -393,7 +394,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             toggleDestinationBearing()
         }
 
-        if (!hasCompass){
+        if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
         }
 
@@ -448,7 +449,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // If there is no compass, don't allow setting a destination bearing
-        if (!hasCompass){
+        if (!hasCompass) {
             destinationBearing = null
             cache.remove(LAST_DEST_BEARING)
             return
@@ -482,40 +483,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun displayAccuracyTips() {
         context ?: return
 
-        val gpsHorizontalAccuracy = gps.horizontalAccuracy
-        val gpsVerticalAccuracy = gps.verticalAccuracy
-
-        val gpsHAccuracyStr =
-            if (gpsHorizontalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
-                R.string.accuracy_distance_format,
-                formatService.formatDistance(
-                    Distance.meters(gpsHorizontalAccuracy).convertTo(baseDistanceUnits)
-                )
-            )
-        val gpsVAccuracyStr =
-            if (gpsVerticalAccuracy == null) getString(R.string.accuracy_distance_unknown) else getString(
-                R.string.accuracy_distance_format,
-                formatService.formatDistance(
-                    Distance.meters(gpsVerticalAccuracy).convertTo(baseDistanceUnits)
-                )
-            )
-
-        Alerts.dialog(
-            requireContext(),
-            getString(R.string.accuracy_info_title),
-            getString(
-                R.string.accuracy_info,
-                gpsHAccuracyStr,
-                gpsVAccuracyStr,
-                gps.satellites.toString()
-            ),
-            contentView = CompassCalibrationView.withFrame(
-                requireContext(),
-                height = Resources.dp(requireContext(), 200f).toInt()
-            ),
-            cancelText = null,
-            cancelOnOutsideTouch = false
-        )
+        val alerter = ImproveAccuracyAlerter(requireContext())
+        alerter.alert(listOf(gps, compass))
     }
 
     private fun updateAstronomyData() {
@@ -601,9 +570,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destLocation != null -> {
                 fromTrueNorth(gps.location.bearingTo(destLocation).value)
             }
+
             destinationBearing != null -> {
                 destinationBearing
             }
+
             else -> {
                 null
             }

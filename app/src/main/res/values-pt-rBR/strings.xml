@@ -25,12 +25,6 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Dicas para melhorar a precisão de dados dos sensores</string>
-    <string name="accuracy_info">"GPS: vá para fora e encontre um lugar ao ar livre desobstruído.
-\n    %1$s da localização atual
-\n    %2$s da elevação atual
-\n    %3$s satélites
-\n
-\nBússola: Rotacione o dispositivo num padrão de número 8 ou em todas as direções e afaste-se de metais."</string>
     <!--Navigation Tab - Destination Panel-->
     <!--Navigation Tab - Beacon List-->
     <string name="no_beacons">Nenhum ponto de orientação</string>
