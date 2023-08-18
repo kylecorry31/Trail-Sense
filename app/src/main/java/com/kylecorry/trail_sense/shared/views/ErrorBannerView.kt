@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewErrorBannerBinding
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
@@ -18,10 +19,14 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
     private val prefs by lazy { UserPreferences(this.context) }
 
     private var onAction: (() -> Unit)? = null
+    private var overallAction: (() -> Unit)? = null
 
     init {
         inflate(context, R.layout.view_error_banner, this)
         binding = ViewErrorBannerBinding.bind(this)
+        binding.errorBanner.setOnClickListener {
+            overallAction?.invoke()
+        }
         binding.errorAction.setOnClickListener {
             onAction?.invoke()
         }
@@ -79,19 +84,20 @@ class ErrorBannerView(context: Context, attrs: AttributeSet?) : ConstraintLayout
         binding.errorAction.text = error.action
         binding.errorIcon.setImageResource(error.icon)
         onAction = error.onAction
-        if (error.action.isNullOrEmpty()) {
-            binding.errorAction.visibility = View.GONE
+        binding.errorAction.isVisible = !error.action.isNullOrEmpty()
+        overallAction = if (error.action == null) {
+            error.onAction
         } else {
-            binding.errorAction.visibility = View.VISIBLE
+            null
         }
     }
 
     fun show() {
-        visibility = View.VISIBLE
+        isVisible = true
     }
 
     fun hide() {
-        visibility = View.GONE
+        isVisible = false
     }
 
 }
