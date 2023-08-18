@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class MagnetometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IMagnetometer>(
@@ -17,7 +18,7 @@ class MagnetometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) 
     ) {
 
     override fun scan(): List<DiagnosticCode> {
-        if (!Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
+        if (!SensorService(context).hasCompass()) {
             return listOf(DiagnosticCode.MagnetometerUnavailable)
         }
 
