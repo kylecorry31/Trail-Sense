@@ -1063,7 +1063,6 @@
     <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Daten automatisch ausfüllen</string>
     <string name="illumination">Beleuchtung</string>
-    <string name="calibrate_map_point">Kalibrieren mit bekannten punkten</string>
     <string name="pref_keep_map_facing_up_title">Karte zeigt nach oben</string>
     <string name="rate">Rate</string>
     <string name="season">Saison</string>
@@ -1071,7 +1070,6 @@
     <string name="yes">Ja</string>
     <string name="accelerometer">Beschleunigungsmesser</string>
     <string name="map_auto_rotated">Karten Rotation kalibriert</string>
-    <string name="daylight_duration">Tageslicht</string>
     <string name="times">Zeit</string>
     <string name="horizon">Horizont</string>
     <string name="map_file">Datei (JPG, PNG, PDF)</string>
@@ -1090,7 +1088,6 @@
 \nGut geeignet für die Kalibration sind, Parkplätze, Häuser, Wasser oder Kreuzungen.</string>
     <string name="astronomy_rise">Aufgang</string>
     <string name="compass_source_mag_gyro">Magnetometer + Gyroskpo</string>
-    <string name="data_source">Quelle</string>
     <string name="compass_source_legacy_ts">Normal (Trail Sense)</string>
     <string name="reduce_map_resolution_crop_disclaimer">Bilder schneiden reduziert die Auflösung.
 \nWenn du die karte bearbeiten musst, und sie eine hohe Auflösung haben muss, benutze einen Fotoeditor. Dies wird in naher Zukunft behoben.</string>
