@@ -11,13 +11,12 @@
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
-    <string name="access_background_location_rationale">Trail Sense uses location data in the background. It is used to provide more accurate sunset alerts while traveling. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense uses location data in the background for the sea level pressure calibration in weather monitoring and to provide more accurate sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_grant">Update settings</string>
     <string name="dialog_deny">No thanks</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="app_disclaimer_message_title">Disclaimer / Terms of Service</string>
-
     <!--    This is a legal statement, not to be translated-->
     <string name="disclaimer_message_content" translatable="false">Trail Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Trail Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Trail Sense.\n\nThe developers of Trail Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. Please do not rely upon it and always have backup plans and gear.\n\nTrail Sense is available under the MIT License</string>
     <!--Navigation Tab - Unit Formats-->
@@ -56,12 +55,10 @@
     <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
-
     <string name="gps_accuracy_tip">Ensure you have an unobstructed view of the sky, and move away from tall buildings and trees.</string>
     <string name="gps_location_accuracy">GPS location accuracy</string>
     <string name="gps_elevation_accuracy">GPS elevation accuracy</string>
     <string name="gps_satellites">GPS satellites</string>
-
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
@@ -87,7 +84,6 @@
     <string name="beacon_comment">Notes (Optional)</string>
     <!--Weather Tab-->
     <string name="units_hpa">hPa</string>
-
     <!--    This will always be in inches-->
     <string name="units_inhg">inHg</string>
     <!--    This will always be in mm-->
@@ -156,7 +152,7 @@
     <string name="clinometer_title">Clinometer</string>
     <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
     <string name="clinometer_rotate_device">Hold your phone vertically</string>
-    <string name="set_inclination_instructions">Tap or hold anywhere to lock/unlock</string>
+    <string name="set_inclination_instructions">Tap or hold anywhere to lock or unlock</string>
     <!--Inventory-->
     <string name="add">Add</string>
     <string name="subtract">Subtract</string>
@@ -266,7 +262,6 @@
     <string name="pref_monitor_weather_summary">In the background</string>
     <string name="pref_monitor_weather_title">Monitor weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
-
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
     <string name="pref_show_temperature_in_notification_title">Show temperature in notification</string>
     <string name="pref_weather_update_frequency_title">Weather update frequency</string>
@@ -950,24 +945,20 @@
         <item quantity="one">%d waypoint will be deleted</item>
         <item quantity="other">%d waypoints will be deleted</item>
     </plurals>
-
     <string name="start_time">Start</string>
     <string name="end_time">End</string>
     <string name="peak_time">Peak</string>
     <string name="magnitude">Magnitude</string>
     <string name="obscuration">Obscuration</string>
-
     <!--  The astronomical altitude of the sun / moon in the sky  -->
     <string name="astronomy_altitude_peak">Peak altitude</string>
     <string name="astronomy_direction_peak">Peak direction</string>
-
     <string name="supermoon">Supermoon</string>
     <string name="season_winter">Winter</string>
     <string name="season_spring">Spring</string>
     <string name="season_summer">Summer</string>
     <string name="season_fall">Fall</string>
     <string name="up_to_amount">Up to %s</string>
-
     <!--Kilowatt hour / meter squared - solar energy -->
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="tilt">Tilt</string>
@@ -978,7 +969,6 @@
     <string name="pref_show_nearest_tide" translatable="false">pref_show_nearest_tide</string>
     <string name="pref_show_nearest_tide_title">Show closest tide</string>
     <string name="pref_tide_settings" translatable="false">pref_tide_settings</string>
-
     <!--This is in markdown formatting - the first %s is either Sun or Moon-->
     <string name="sun_moon_position_template">### %1$s\n**Altitude**: %2$s\n\n**Azimuth**: %3$s</string>
     <string name="sun">Sun</string>
@@ -1252,7 +1242,6 @@
     <string name="pref_historic_temperatures_disclaimer_shown" translatable="false">pref_historic_temperatures_disclaimer_shown</string>
     <string name="pref_map_sort" translatable="false">pref_map_sort</string>
     <string name="blank">Blank</string>
-
     <!--    Center point-->
     <string name="center">Center</string>
     <string name="size">Size</string>
@@ -1260,7 +1249,6 @@
     <string name="create_path">Create path</string>
     <string name="map_is_not_calibrated">Map is not calibrated</string>
     <string name="loading">Loading</string>
-
     <!--    Unable to find the next astronomy event (ex. solar eclipse)-->
     <string name="unable_to_find_next_astronomy">Unable to find next %s</string>
     <!--    The action of printing a document/map-->
@@ -1275,7 +1263,6 @@
     <string name="compass_source_legacy_ts">Legacy (Trail Sense)</string>
     <string name="compass_source_legacy_android">Legacy (Android)</string>
     <string name="accelerometer">Accelerometer</string>
-
     <!-- Indicates the source of the data -->
     <string name="data_source">Source: %s</string>
     <string name="pref_keep_map_facing_up" translatable="false">pref_keep_map_facing_up</string>
@@ -1298,7 +1285,6 @@
     <!--    as in sun / moon rise-->
     <string name="astronomy_rise">Rise</string>
     <string name="horizon">Horizon</string>
-
     <string name="photo_map_summary">Use a photo as a map</string>
     <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.</string>
     <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown</string>
@@ -1334,12 +1320,10 @@
     <string name="pref_reset_thermometer_calibration_button" translatable="false">pref_reset_thermometer_calibration_button</string>
     <string name="pref_thermometer_user_guide_button" translatable="false">pref_thermometer_user_guide_button</string>
     <string name="pref_debug_weather_timing" translatable="false">pref_debug_weather_timing</string>
-
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
     </plurals>
-
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
