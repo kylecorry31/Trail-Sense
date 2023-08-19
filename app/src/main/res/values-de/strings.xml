@@ -1002,7 +1002,7 @@
     <string name="cumulus_forecast">Kann auf schönes Wetter hinweisen. Wenn sie größer werden, kann das auf Niederschlag oder ein Gewitter in den nächsten %d Stunden hinweisen.</string>
     <string name="weather_cold_front">Kalt</string>
     <string name="high_pressure_system_description">Verbunden mit schönem Wetter, klarem Himmel und kühleren Temperaturen.</string>
-    <string name="nimbostratus_forecast">Es kann in den nächsten %d Stunden zu Niederschlägen kommen.</string>
+    <string name="nimbostratus_forecast">Es kann in den nächsten %d Stunden Niederschläge geben.</string>
     <string name="cumulonimbus_forecast">Kann auf ein Gewitter in wenigen Minuten hindeuten.</string>
     <string name="weather_overcast">Bewölkt</string>
     <string name="cloud_stratus_forecast">Kann schönes Wetter für die nächsten %d Stunden andeuten, wenn es neblig ist. Ansonsten kann es bald Niederschlag bedeuten.</string>
