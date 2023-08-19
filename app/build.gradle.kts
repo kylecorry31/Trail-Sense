@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "com.kylecorry.trail_sense"
     compileSdk = 34
 
     defaultConfig {
@@ -18,21 +19,25 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     androidResources {
+        // Support for auto-generated locales for per-app language settings
         generateLocaleConfig = true
     }
     buildFeatures {
+        // Support for view binding
         viewBinding = true
     }
     buildTypes {
+        // Release build (Google Play / F-Droid)
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-        create("beta") {
+        // Debug build (GitHub)
+        create("dev") {
             initWith(getByName("debug"))
-            applicationIdSuffix = ".beta"
-            versionNameSuffix = " (Beta)"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
         }
     }
     testOptions {
@@ -45,7 +50,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    packagingOptions {
+    packaging {
         resources.merges += "META-INF/LICENSE.md"
         resources.merges += "META-INF/LICENSE-notice.md"
         jniLibs {
@@ -59,7 +64,6 @@ android {
     lint {
         abortOnError = false
     }
-    namespace = "com.kylecorry.trail_sense"
 }
 
 dependencies {
