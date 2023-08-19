@@ -1106,7 +1106,7 @@
     <string name="rotation_amount">Rotation: %s</string>
     <string name="astronomy_direction_peak">Spitzenrichtung</string>
     <string name="i_agree">Ich akzeptiere</string>
-    <string name="battery_usage_allowed">Batterie nutzung erlaubt 🔋🔋</string>
+    <string name="battery_usage_allowed">Batterie nutzung erlaubt</string>
     <string name="allow_ignore_battery_restrictions">Erlaube %s den Energiesparmodus zu ignorieren.</string>
     <string name="sunset_alerts_background_location_disclaimer">Sonnenuntergang Alarme sind vielleicht ungenau während dem Reisen</string>
     <string name="beta">Beta</string>
