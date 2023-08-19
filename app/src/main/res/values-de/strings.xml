@@ -195,7 +195,7 @@
     <string name="tap_sun_moon_hint">Tippe Sonne oder Mond an, um Positionseinzelheiten zu sehen</string>
     <string name="tool_user_guide_title">Benutzerhandbuch</string>
     <string name="pref_weather_update_frequency_title">Häufigkeit der Wetteraktualisierungen</string>
-    <string name="pref_show_pressure_in_notification_title">Zeige den Luftdruck in den Benachrichtigungen</string>
+    <string name="pref_show_pressure_in_notification_title">Luftdruck in den Benachrichtigungen zeigen</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Vor dem Navigieren kalibrieren</string>
     <string name="pref_elevation_override_sea_level_title">Verwendung bekannten Luftdrucks auf Meereshöhe</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Gib den Luftdruck auf Meereshöhe ein</string>
@@ -1002,7 +1002,7 @@
     <string name="cumulus_forecast">Kann auf schönes Wetter hinweisen. Wenn sie größer werden, kann das auf Niederschlag oder ein Gewitter in den nächsten %d Stunden hinweisen.</string>
     <string name="weather_cold_front">Kalt</string>
     <string name="high_pressure_system_description">Verbunden mit schönem Wetter, klarem Himmel und kühleren Temperaturen.</string>
-    <string name="nimbostratus_forecast">In den nächsten %d Stunden kann es zu Niederschlägen kommen.</string>
+    <string name="nimbostratus_forecast">Es kann in den nächsten %d Stunden Niederschläge geben.</string>
     <string name="cumulonimbus_forecast">Kann auf ein Gewitter in wenigen Minuten hindeuten.</string>
     <string name="weather_overcast">Bewölkt</string>
     <string name="cloud_stratus_forecast">Kann schönes Wetter für die nächsten %d Stunden andeuten, wenn es neblig ist. Ansonsten kann es bald Niederschlag bedeuten.</string>
@@ -1061,7 +1061,7 @@
     <string name="unable_to_find_next_astronomy">Nächste %s kann nicht gefunden werden</string>
     <string name="print">Drucken</string>
     <string name="step_progression">Schritt %1$d / %2$d</string>
-    <string name="autofill_source">Quelle automatisch ausfüllen</string>
+    <string name="autofill_source">Daten automatisch ausfüllen</string>
     <string name="illumination">Beleuchtung</string>
     <string name="calibrate_map_point">Kalibrieren mit bekannten punkten</string>
     <string name="pref_keep_map_facing_up_title">Karte zeigt nach oben</string>
@@ -1087,9 +1087,33 @@
     <string name="map_calibration_instructions">Wähle einen bekannten Punkt aus, und gebe seine echten Koordinaten ein.
 \nDu kannst mit fertig speichern.
 \n
-\nGut geeignet für die Kalibration sind, Parkplätze, Häuser oder Kreuzungen.</string>
+\nGut geeignet für die Kalibration sind, Parkplätze, Häuser, Wasser oder Kreuzungen.</string>
     <string name="astronomy_rise">Aufgang</string>
     <string name="compass_source_mag_gyro">Magnetometer + Gyroskpo</string>
     <string name="data_source">Quelle</string>
     <string name="compass_source_legacy_ts">Normal (Trail Sense)</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Bilder schneiden reduziert die Auflösung.
+\nWenn du die karte bearbeiten musst, und sie eine hohe Auflösung haben muss, benutze einen Fotoeditor. Dies wird in naher Zukunft behoben.</string>
+    <string name="reset_calibration">Lösche Kalibrierung</string>
+    <string name="learn_more">Lerne mehr.</string>
+    <string name="magnitude">Größe</string>
+    <string name="backtrack_no_permission">Rückweg benötigt Standort Zugriff das es funktioniert</string>
+    <string name="notifications_channel">Benachrichtigung (%s)</string>
+    <string name="sunset_alert_scheduled">Alarm gesetzt für %s vor Sonnenuntergang</string>
+    <string name="battery_settings_limit_accuracy">Energiesparer reduziert eventuell die Genauigkeit.</string>
+    <string name="exact_alarm_permission_denied">Alarme und Erinnerungen wurden nicht erlaubt, Alarme sind vielleicht ungenau.</string>
+    <string name="crop_map_instructions_long">Bewege die Ecken der box zu den enden der katrte.</string>
+    <string name="rotation_amount">Rotation: %s</string>
+    <string name="astronomy_direction_peak">Spitzenrichtung</string>
+    <string name="i_agree">Ich akzeptiere</string>
+    <string name="battery_usage_allowed">Batterie nutzung erlaubt 🔋🔋</string>
+    <string name="allow_ignore_battery_restrictions">Erlaube %s den Energiesparmodus zu ignorieren.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Sonnenuntergang Alarme sind vielleicht ungenau während dem Reisen</string>
+    <string name="beta">Beta</string>
+    <string name="beta_disclaimer">"Diese Funktion ist zurzeit nicht fertig.
+\nBitte melde Fehler hier:  %s"</string>
+    <string name="allow_schedule_exact_alarms">Erlaube %s Alarme und Erinnerungen zu starten</string>
+    <string name="allow_schedule_exact_alarms_instructions">Dies erlaubt %1$s exakte Alarme und Erinnerungen, wie z.B. Sonnenuntergangs Alarme zu starten.
+\nOhne dies, Alarme starten vielleicht nicht zur richtigen zeit.
+\n\tUm dies zu erlauben, drücke \"%2$s\" und schalte die Einstellung für das erlauben der exakten Alarme und Erinnerungen.</string>
 </resources>
