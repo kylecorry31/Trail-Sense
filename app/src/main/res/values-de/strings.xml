@@ -521,7 +521,7 @@
     <string name="minute_symbol">m</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe ihre Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
-    <string name="search">Suche</string>
+    <string name="search">Sucht</string>
     <string name="pref_odometer_reset_daily_title">Täglich zurücksetzen</string>
     <string name="sleep_timer">Schlaf-Timer</string>
     <plurals name="beacons_exported">
@@ -1002,7 +1002,7 @@
     <string name="cumulus_forecast">Kann auf schönes Wetter hinweisen. Wenn sie größer werden, kann das auf Niederschlag oder ein Gewitter in den nächsten %d Stunden hinweisen.</string>
     <string name="weather_cold_front">Kalt</string>
     <string name="high_pressure_system_description">Verbunden mit schönem Wetter, klarem Himmel und kühleren Temperaturen.</string>
-    <string name="nimbostratus_forecast">Es kann in den nächsten %d Stunden Niederschläge geben.</string>
+    <string name="nimbostratus_forecast">Kann Niederschlag die nächsten %d Stunden haben.</string>
     <string name="cumulonimbus_forecast">Kann auf ein Gewitter in wenigen Minuten hindeuten.</string>
     <string name="weather_overcast">Bewölkt</string>
     <string name="cloud_stratus_forecast">Kann schönes Wetter für die nächsten %d Stunden andeuten, wenn es neblig ist. Ansonsten kann es bald Niederschlag bedeuten.</string>
@@ -1023,7 +1023,7 @@
     <string name="cold">Kalt</string>
     <string name="now_value">Aktuell: %s</string>
     <string name="for_historic_temperatures">Für Temperaturverlauf</string>
-    <string name="pref_show_temperature_in_notification_title">Zeige die Temperatur in den Benachrichtigungen</string>
+    <string name="pref_show_temperature_in_notification_title">Temperatur in Benachrichtigungen zeigen</string>
     <string name="last_lightning_strike_at">Letzter Blitz um %s</string>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="photo_maps">Bilderkarten</string>
@@ -1063,57 +1063,62 @@
     <string name="step_progression">Schritt %1$d / %2$d</string>
     <string name="autofill_source">Daten automatisch ausfüllen</string>
     <string name="illumination">Beleuchtung</string>
-    <string name="calibrate_map_point">Kalibrieren mit bekannten punkten</string>
+    <string name="calibrate_map_point">Mit bekannten Orten kalibrieren (%1$d / %2$d)</string>
     <string name="pref_keep_map_facing_up_title">Karte zeigt nach oben</string>
     <string name="rate">Rate</string>
-    <string name="season">Saison</string>
+    <string name="season">Jahreszeit</string>
     <string name="astronomy_altitude_peak">Höchster punk</string>
     <string name="yes">Ja</string>
     <string name="accelerometer">Beschleunigungsmesser</string>
-    <string name="map_auto_rotated">Karten Rotation kalibriert</string>
-    <string name="daylight_duration">Tageslicht</string>
-    <string name="times">Zeit</string>
+    <string name="map_auto_rotated">Automatische Kartendrehung</string>
+    <string name="daylight_duration">%s Tagesdauer</string>
+    <string name="times">Zeiten</string>
     <string name="horizon">Horizont</string>
     <string name="map_file">Datei (JPG, PNG, PDF)</string>
     <string name="no">Nein</string>
-    <string name="photo_map_summary">Benutze ein bild als Karte</string>
-    <string name="photo_map_disclaimer">Besitze immer eine echte Karte als Sicherheit und zur Überprüfung der Genauigkeit von Trail Sense.</string>
+    <string name="photo_map_summary">Ein Foto als Karte benutzen</string>
+    <string name="photo_map_disclaimer">Habe immer eine physische Karte dabei und stelle die Genauigkeit von Trail Sense infrage.</string>
     <string name="map_calibration">Karte kalibrieren</string>
-    <string name="compass_source_legacy_android">Normal (Android)</string>
+    <string name="compass_source_legacy_android">Veraltet (Android)</string>
     <string name="astronomy_set">Untergang</string>
     <string name="pref_keep_map_facing_up_summary">Die karte zeigt immer nach oben und nicht zu dem echten Norden.</string>
-    <string name="until_sunrise">bus Sonnenaufgang</string>
-    <string name="until_sunset">bis Sonnenuntergang</string>
+    <string name="until_sunrise">Bis Sonnenaufgang</string>
+    <string name="until_sunset">Bis Sonnenuntergang</string>
     <string name="map_calibration_instructions">Wähle einen bekannten Punkt aus, und gebe seine echten Koordinaten ein.
 \nDu kannst mit fertig speichern.
 \n
-\nGut geeignet für die Kalibration sind, Parkplätze, Häuser, Wasser oder Kreuzungen.</string>
+\nGut geeignet für die Kalibration sind, Parkplätze, Häuser oder Kreuzungen.</string>
     <string name="astronomy_rise">Aufgang</string>
-    <string name="compass_source_mag_gyro">Magnetometer + Gyroskpo</string>
-    <string name="data_source">Quelle</string>
-    <string name="compass_source_legacy_ts">Normal (Trail Sense)</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>
+    <string name="data_source">Quelle: %s</string>
+    <string name="compass_source_legacy_ts">Veraltet (Trail Sense)</string>
     <string name="reduce_map_resolution_crop_disclaimer">Bilder schneiden reduziert die Auflösung.
 \nWenn du die karte bearbeiten musst, und sie eine hohe Auflösung haben muss, benutze einen Fotoeditor. Dies wird in naher Zukunft behoben.</string>
     <string name="reset_calibration">Lösche Kalibrierung</string>
-    <string name="learn_more">Lerne mehr.</string>
+    <string name="learn_more">Lerne mehr</string>
     <string name="magnitude">Größe</string>
     <string name="backtrack_no_permission">Rückweg benötigt Standort Zugriff das es funktioniert</string>
     <string name="notifications_channel">Benachrichtigung (%s)</string>
     <string name="sunset_alert_scheduled">Alarm gesetzt für %s vor Sonnenuntergang</string>
-    <string name="battery_settings_limit_accuracy">Energiesparer reduziert eventuell die Genauigkeit.</string>
+    <string name="battery_settings_limit_accuracy">Energiesparer reduziert eventuell die Genauigkeit</string>
     <string name="exact_alarm_permission_denied">Alarme und Erinnerungen wurden nicht erlaubt, Alarme sind vielleicht ungenau.</string>
     <string name="crop_map_instructions_long">Bewege die Ecken der box zu den enden der katrte.</string>
     <string name="rotation_amount">Rotation: %s</string>
     <string name="astronomy_direction_peak">Spitzenrichtung</string>
     <string name="i_agree">Ich akzeptiere</string>
     <string name="battery_usage_allowed">Batterie nutzung erlaubt 🔋🔋</string>
-    <string name="allow_ignore_battery_restrictions">Erlaube %s den Energiesparmodus zu ignorieren.</string>
+    <string name="allow_ignore_battery_restrictions">Erlaube %s den Energiesparmodus zu ignorieren</string>
     <string name="sunset_alerts_background_location_disclaimer">Sonnenuntergang Alarme sind vielleicht ungenau während dem Reisen</string>
     <string name="beta">Beta</string>
-    <string name="beta_disclaimer">"Diese Funktion ist zurzeit nicht fertig.
-\nBitte melde Fehler hier:  %s"</string>
+    <string name="beta_disclaimer">Diese Funktion ist zurzeit nicht fertig.
+\nBitte melde Fehler hier: %s .</string>
     <string name="allow_schedule_exact_alarms">Erlaube %s Alarme und Erinnerungen zu starten</string>
     <string name="allow_schedule_exact_alarms_instructions">Dies erlaubt %1$s exakte Alarme und Erinnerungen, wie z.B. Sonnenuntergangs Alarme zu starten.
 \nOhne dies, Alarme starten vielleicht nicht zur richtigen zeit.
 \n\tUm dies zu erlauben, drücke \"%2$s\" und schalte die Einstellung für das erlauben der exakten Alarme und Erinnerungen.</string>
+    <string name="gps_elevation_accuracy">GPS höhen Genauigkeit</string>
+    <string name="gps_satellites">GPS satelliten</string>
+    <string name="gps_location_accuracy">GPS positions Genauigkeit</string>
+    <string name="gps_accuracy_tip">Stelle sicher das du eine freie sicht auf den Himmel hast und bewege dich von großen Gebäuden und bäumen weg.</string>
+    <string name="no_compass_description">Dein Gerät hat keinen eingebauten Kompass. Dies ist ein Technischer Bestandteil, so kann ein Kompass nicht nachträglich hinzugefügt werden. Manche Funktionen die einen Kompass benutzen werden nicht verfügbar sein.</string>
 </resources>
