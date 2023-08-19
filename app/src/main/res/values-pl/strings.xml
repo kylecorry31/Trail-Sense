@@ -1053,4 +1053,13 @@
     <string name="daylight_duration">%s światła dziennego</string>
     <string name="center">Centrum</string>
     <string name="create_blank_map">Utwórz pustą mapę</string>
+    <string name="solar_eclipses">Zaćmienia Słońca</string>
+    <string name="solar_eclipse_start">Zaćmienie Słońca (początek)</string>
+    <string name="high_tide_letter">Przypływ</string>
+    <string name="weather_clear">Pogodnie</string>
+    <string name="weather_precipitation">Opad</string>
+    <string name="solar_eclipse">Zaćmienie Słońca</string>
+    <string name="weather_front">Front pogodowy</string>
+    <string name="low_tide_letter">Odpływ</string>
+    <string name="solar_eclipse_end">Zaćmienie Słońca (koniec)</string>
 </resources>
