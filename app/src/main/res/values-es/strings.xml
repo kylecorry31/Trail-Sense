@@ -95,7 +95,7 @@
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_degrees_minutes_seconds">Grados Minutos Segundos</string>
     <string name="coordinate_format_degrees_decimal_minutes">Grados Decimales Minutos</string>
-    <string name="set_inclination_instructions">Toque o mantenga pulsado en cualquier lugar para bloquear/desbloquear</string>
+    <string name="set_inclination_instructions">Toca o mantén pulsado en cualquier lugar para bloquear o desbloquear</string>
     <string name="clinometer_rotate_device">Mantén el teléfono vertical para medir la inclinación</string>
     <string name="tool_clinometer_summary">Estimar los riesgos de avalanchas y la altura de los objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
@@ -142,7 +142,7 @@
     <string name="precise_feet_format">%s pies</string>
     <string name="dialog_deny">No, gracias</string>
     <string name="dialog_grant">Actualizar ajustes</string>
-    <string name="access_background_location_rationale">Trail Sense utiliza datos de ubicación en segundo plano. Se utiliza para proporcionar alertas de puesta de sol más precisas mientras se desplaza. [Ver política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense utiliza datos de localización en segundo plano para calibrar la presión a nivel del mar en la monitorización meteorológica y para proporcionar alertas más precisas sobre la puesta de sol. [Ver la política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Actualizar ajustes de ubicación</string>
     <string name="accuracy_distance_unknown">\?</string>
     <string name="dash">-</string>
@@ -1126,4 +1126,9 @@
     <string name="sunset_alert_scheduled">Alerta programada para %s antes de la puesta de sol</string>
     <string name="notifications_channel">Notificaciones (%s)</string>
     <string name="reset_calibration">Restablecer la calibración</string>
+    <string name="gps_accuracy_tip">Asegúrate de tener una vista despejada del cielo y aléjate de los edificios altos y los árboles.</string>
+    <string name="gps_location_accuracy">Precisión de la ubicación por GPS</string>
+    <string name="gps_satellites">Satélites GPS</string>
+    <string name="gps_elevation_accuracy">Precisión de elevación del GPS</string>
+    <string name="no_compass_description">Tu dispositivo no tiene un sensor de brújula integrado. Se trata de un componente de hardware, por lo que no se puede hacer nada para añadirlo. Algunas funciones que utilizan la brújula no estarán disponibles.</string>
 </resources>
