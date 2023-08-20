@@ -40,7 +40,7 @@ object Guides {
                 ),
                 UserGuide(
                     context.getString(R.string.guide_importing_maps_title),
-                    context.getString(R.string.beta),
+                    null,
                     R.raw.importing_maps
                 ),
                 UserGuide(

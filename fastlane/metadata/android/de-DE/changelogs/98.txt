@@ -1,0 +1,8 @@
+Bildkarten (Experimental)
+-Karte Ausdrucken
+
+Sonstiges
+-Monochrome icon Unterstützung
+-höhere GPS Geschwindigkeit verfügbar
+-Fehler behoben
+-Leistungsverbesserungen

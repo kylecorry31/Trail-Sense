@@ -12,12 +12,7 @@ class ShowMapsDisclaimerCommand(private val fragment: Fragment) : Command {
         CustomUiUtils.disclaimer(
             context,
             context.getString(R.string.photo_maps),
-            "${context.getString(R.string.photo_map_disclaimer)}\n\n${
-                context.getString(
-                    R.string.beta_disclaimer,
-                    context.getString(R.string.email)
-                )
-            }",
+            context.getString(R.string.photo_map_disclaimer),
             context.getString(R.string.photo_map_disclaimer_shown),
             okText = context.getString(android.R.string.ok),
             considerShownIfCancelled = true,

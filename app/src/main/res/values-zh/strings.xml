@@ -82,7 +82,7 @@
     <string name="celsius">摄氏度</string>
     <string name="fahrenheit">华氏度</string>
     <string name="pref_coordinate_format_title">坐标格式</string>
-    <string name="set_inclination_instructions">点击或按住任意位置以锁定/解锁</string>
+    <string name="set_inclination_instructions">轻按或按住任意位置来锁定/解锁</string>
     <string name="clinometer_rotate_device">将您的手机垂直放置以测量倾斜角</string>
     <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
     <string name="clinometer_title">测斜仪</string>
@@ -136,7 +136,7 @@
     <string name="duration_hour_format">%d 小时</string>
     <string name="dialog_deny">不，谢谢</string>
     <string name="dialog_grant">更新设置</string>
-    <string name="access_background_location_rationale">Trail Sense 将在后台使用位置信息。这被用来改善天气监测和日落警报的准确性。[查看隐私权条款](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense 在后台使用位置信息，用于天气检测部分的海平面气压校正以及提供更精确的日落警报。[查看隐私权条款](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">更新定位设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
@@ -1097,4 +1097,9 @@
     <string name="notifications_channel">通知（%s）</string>
     <string name="sunset_alert_scheduled">警报定于日落前 %s 发出</string>
     <string name="reset_calibration">重置校准</string>
+    <string name="gps_accuracy_tip">确保你有不受遮挡的天际视线且远离高楼和树木。</string>
+    <string name="gps_location_accuracy">GPS 定位精度</string>
+    <string name="gps_elevation_accuracy">GPS 海拔精度</string>
+    <string name="gps_satellites">GPS 卫星</string>
+    <string name="no_compass_description">你的设备没有内置指南针传感器。这是硬件部件，无法随意添加。因此某些使用指南针的功能将不可用。</string>
 </resources>

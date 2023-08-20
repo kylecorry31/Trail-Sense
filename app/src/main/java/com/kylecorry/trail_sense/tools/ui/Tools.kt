@@ -59,7 +59,7 @@ object Tools {
         val location = ToolGroup(
             context.getString(R.string.location), listOfNotNull(
                 Tool(
-                    "${context.getString(R.string.photo_maps)} (${context.getString(R.string.beta)})",
+                    context.getString(R.string.photo_maps),
                     R.drawable.maps,
                     R.id.action_tools_to_maps_list,
                     context.getString(R.string.photo_map_summary)
