@@ -1056,4 +1056,9 @@
     <string name="backtrack_no_permission">Tilbakesporing krever posisjonstillatelse for å kjøre</string>
     <string name="notifications_channel">Varsler (%s)</string>
     <string name="sunset_alert_scheduled">Varsel planlagt for %s før solnedgang</string>
+    <string name="gps_satellites">GPS-satellitter</string>
+    <string name="gps_location_accuracy">GPS-posisjonsnøyakighet</string>
+    <string name="gps_elevation_accuracy">GPS-høydenøyakighet</string>
+    <string name="gps_accuracy_tip">Sørg for å ha fri sikt mot himmelen, og flytt deg unna høye bygninger og trær.</string>
+    <string name="no_compass_description">Enheten din har ikke en innebygd kompassensor. Dette er en maskinvarekomponent, så det er ikke noe som kan gjøres for å legge den til. Noen funksjoner som bruker kompasset vil være utilgjengelige.</string>
 </resources>

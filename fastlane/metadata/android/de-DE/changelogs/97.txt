@@ -1,0 +1,8 @@
+Astronomie
+- Sonnen Eclipse Berechnung hinzugefügt
+- Sonnen Eclipse Alarme hinzugefügt
+‐ Kompass richtung von Eclipse hinzugefügt
+- Koordinaten von der Eclipse hinzufügen
+
+Sonstiges
+- Leistungs Verbesserungen
