@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -70,6 +71,12 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private val gps by lazy { sensorService.getGPS() }
     private val compass by lazy { sensorService.getCompass() }
 
+    private val declinationStrategy by lazy {
+        GPSDeclinationStrategy(gps)
+    }
+
+    private var shouldShowLayers = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
@@ -85,18 +92,20 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
                 BeaconLayerManager(requireContext(), beaconLayer)
             )
         )
-        layerManager?.start()
+
+        if (shouldShowLayers) {
+            layerManager?.start()
+        }
 
         // Populate the last known location
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         observe(gps) {
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            compass.declination = declinationStrategy.getDeclination()
         }
 
         observe(compass) {
-            // TODO: Use declination provider
-            compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             layerManager?.onBearingChanged(compass.bearing)
         }
     }
@@ -179,15 +188,16 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         }
 
         // Set map layers
-        // TODO: Make this opaque
-        binding.calibrationMap.setLayers(
-            listOf(
-                pathLayer,
-                myAccuracyLayer,
-                myLocationLayer,
-                beaconLayer
+        if (shouldShowLayers) {
+            binding.calibrationMap.setLayers(
+                listOf(
+                    pathLayer,
+                    myAccuracyLayer,
+                    myLocationLayer,
+                    beaconLayer
+                )
             )
-        )
+        }
     }
 
     fun setOnCompleteListener(listener: () -> Unit) {

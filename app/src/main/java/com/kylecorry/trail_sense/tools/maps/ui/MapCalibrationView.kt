@@ -36,7 +36,7 @@ class MapCalibrationView : BasePhotoMapView {
     override fun showMap(map: PhotoMap) {
         // TODO: Maybe force rotation to remain the same?
         // TODO: This isn't working when the map rotation is not divisible by 90 and it changes
-        super.showMap(map)//.copy(calibration = map.calibration.copy(rotation = map.baseRotation().toFloat())))
+        super.showMap(map.copy(calibration = map.calibration.copy(rotation = map.baseRotation().toFloat())))
     }
 
     override fun onSinglePress(e: MotionEvent) {
