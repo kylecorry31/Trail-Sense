@@ -190,7 +190,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))
                 ?.toIntCompat()
             return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.Flashlight
+                ?: QuickActionType.Maps
         }
 
     var speedometerMode by StringEnumPreference(

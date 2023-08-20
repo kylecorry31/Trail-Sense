@@ -1,7 +1,5 @@
 The Photo Map feature allows you to use a photo as a map in Trail Sense. Always carry a physical map for backup and verify the accuracy of Trail Sense.
 
-This tool is currently in beta, so please report any issues or feedback at trailsense@protonmail.com.
-
 ## How to create a photo map?
 
 1. On the Tools tab, click Photo Maps
