@@ -26,7 +26,7 @@
     <plurals name="last_hours">
         <item quantity="one">Scorsa %d ora</item>
         <item quantity="many">Scorse %d ore</item>
-        <item quantity="other"/>
+        <item quantity="other">Scorse %d ore</item>
     </plurals>
     <plurals name="last_minutes">
         <item quantity="one">Scorso %d minuto</item>
@@ -63,7 +63,7 @@
     <plurals name="beacon_group_summary">
         <item quantity="one">%d segnaposto</item>
         <item quantity="many">%d segnaposti</item>
-        <item quantity="other"/>
+        <item quantity="other">%d segnaposti</item>
     </plurals>
     <string name="turn_off">Spegni</string>
     <string name="tap_to_turn_off">Premi per spegnere</string>
@@ -75,7 +75,7 @@
     <string name="high_tide">Alta</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per fornire notifiche sul tramonto più accurate mentre si è in viaggio. [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per calibrare la pressione al livello del mare nelle osservazioni meteo e per fornire dati più accurati sulle notifiche sull\'alba. [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Aggiorna le impostazioni di geolocalizzazione</string>
     <string name="dialog_deny">No grazie</string>
     <string name="dialog_grant">Aggiorna le impostazioni</string>
@@ -354,7 +354,7 @@
     <string name="advanced">Avanzate</string>
     <string name="tool_user_guide_summary">Una guida per l’utilizzo di Trial Sense</string>
     <string name="pref_weather_update_frequency_title">Frequenza aggiornamento del meteo</string>
-    <string name="pref_show_pressure_in_notification_title">Mostra la pressione nella notifica</string>
+    <string name="pref_show_pressure_in_notification_title">Mostra pressione nella notifica</string>
     <string name="pref_forecast_sensitivity_title">Sensibilità delle previsioni</string>
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
@@ -497,8 +497,9 @@
     <string name="nimbostratus_desc">Una nuvola di medio livello di colore grigio scuro che copre il cielo. Se non piove, può trattarsi di nubi stratificate.</string>
     <string name="privacy_and_location">Privacy e Posizione</string>
     <plurals name="beacons_exported">
-        <item quantity="one">%d beacon esportato</item>
-        <item quantity="other">%d beacons esportati</item>
+        <item quantity="one">%d segnaposto esportato</item>
+        <item quantity="many">%d segnaposti esportati</item>
+        <item quantity="other">%d segnaposti esportati</item>
     </plurals>
     <string name="menu">Menu</string>
     <string name="import_gpx">Importa GPX</string>
@@ -631,7 +632,7 @@
     <plurals name="number_days">
         <item quantity="one">%d giorno</item>
         <item quantity="many">%d giorni</item>
-        <item quantity="other"/>
+        <item quantity="other">%d giorni</item>
     </plurals>
     <string name="no_resolution">Nessun rimedio</string>
     <string name="unblock_notification_channel">Sbolla le notifiche %s per Trail Sense</string>
@@ -732,7 +733,7 @@
     <string name="location_override_resolution">Attiva la regolazione automatica della posizione nel menù impostazioni.</string>
     <string name="pref_nmea_elevation_summary">Utilizza gli offsets NMEA per la conversione dell\'elevazione</string>
     <string name="elevation_override_resolution">Attiva la calibrazione automatica nel menù impostazioni.</string>
-    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Potrebbe indicare la presenza di precipitazioni nelle prossime %1$d-%2$d ore.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Potrebbe indicare precipitazioni nelle prossime %1$d - %2$d ore.</string>
     <string name="quart_format">%s qt</string>
     <string name="milliseconds_format">%s ms</string>
     <string name="new_text">Nuovo</string>
@@ -1123,4 +1124,9 @@
     <string name="step_progression">Passaggio %1$d / %2$d</string>
     <string name="pref_keep_map_facing_up_title">Tenere la mappa rivolta verso l\'alto</string>
     <string name="pref_keep_map_facing_up_summary">La mappa si allineerà alla parte superiore dello schermo invece che al vero Nord.</string>
+    <string name="gps_accuracy_tip">Assicurarsi di avere una visione libera del cielo, lontano da alti edifici e alberi.</string>
+    <string name="gps_location_accuracy">Precisione della posizione GPS</string>
+    <string name="gps_elevation_accuracy">Precisione dell\'altitudine GPS</string>
+    <string name="gps_satellites">Satelliti GPS</string>
+    <string name="no_compass_description">Il tuo dispositivo non posiede una bussola. Questo è un compenente harsware, pertanto non si può far nulla per aggiungerlo. Alcune funzionalità che utilizzano la bussola non saranno disponibili.</string>
 </resources>
