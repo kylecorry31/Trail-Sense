@@ -28,8 +28,8 @@ This tool is currently in beta, so please report any issues or feedback at trail
 ### From the map grid
 If your map has gridlines, you can follow the 'Using printed maps' guid to get the coordinates of several features on the map and enter them into Trail Sense.
 
-The intersection points between gridlines are the easiest to calibrate off of.
+The intersection points between gridlines are the easiest to calibrate from.
 
 ### From an online source
 
-If you have Internet access, you can look up the coordinates of a map feature and tap them in Trail Sense and enter the coordinates.
+If you have Internet access, you can look up the coordinates of a map feature. Then in Trail Sense, tap the same location on the map and enter the coordinates.
