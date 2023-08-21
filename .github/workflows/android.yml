@@ -14,5 +14,9 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 17
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: Make gradlew executable
+      run: chmod +x gradlew
+    - name: Build
+      run: ./gradlew assembleDebug
+    - name: Run unit tests
+      run: ./gradlew testDebugUnitTest
