@@ -5,7 +5,7 @@
         app:singleLineTitle="false"
         app:title="@string/flashlight_title">
         <SwitchPreferenceCompat
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/pref_flashlight_toggle_with_system"
             android:summary="@string/pref_flashlight_toggle_with_system_summary"
             android:title="@string/pref_flashlight_toggle_with_system_title"
