@@ -1,0 +1,12 @@
+Photo Maps
+- No longer in beta
+- Preview map layers during calibration
+
+Paths
+- Import paths from GPX routes
+
+Misc
+- Improve messaging when device does not have a compass
+- Automatically select units
+- Performance improvements
+- Bug fixes
