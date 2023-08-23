@@ -16,7 +16,6 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
@@ -52,6 +51,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private var onDone: () -> Unit = {}
     private var showRotation: (Float) -> Unit = {}
     private val rotationCalculator = MapRotationCalculator()
+    private var originalRotation = 0f
 
     private lateinit var backCallback: OnBackPressedCallback
 
@@ -75,7 +75,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         GPSDeclinationStrategy(gps)
     }
 
-    private var shouldShowLayers = false
+    private var showPreview = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +93,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
             )
         )
 
-        if (shouldShowLayers) {
+        if (showPreview) {
             layerManager?.start()
         }
 
@@ -188,7 +188,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         }
 
         // Set map layers
-        if (shouldShowLayers) {
+        if (showPreview) {
             binding.calibrationMap.setLayers(
                 listOf(
                     pathLayer,
@@ -219,6 +219,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
+        originalRotation = map.calibration.rotation
         binding.calibrationMap.mapAzimuth = 0f
         binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
@@ -232,7 +233,12 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
                 calibrationPoints = manager.getCalibration(false)
             )
         )
-        // TODO: Hide layers until calibrated
+
+        map = map?.copy(
+            calibration = map!!.calibration.copy(
+                rotation = if (showPreview) rotationCalculator.calculate(map!!) else originalRotation
+            )
+        )
         layerManager?.onBoundsChanged(map?.boundary())
         val map = map ?: return
         binding.calibrationMap.mapAzimuth = 0f
