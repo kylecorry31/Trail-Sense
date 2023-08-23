@@ -93,10 +93,6 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
             )
         )
 
-        if (showPreview) {
-            layerManager?.start()
-        }
-
         // Populate the last known location
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
@@ -172,6 +168,10 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
             manager.calibrate(calibrationIndex, it)
         }
 
+        binding.previewButton.setOnClickListener {
+            setPreviewMode(!showPreview)
+        }
+
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
         CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
 
@@ -185,18 +185,6 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
         backCallback = promptIfUnsavedChanges {
             hasChanges()
-        }
-
-        // Set map layers
-        if (showPreview) {
-            binding.calibrationMap.setLayers(
-                listOf(
-                    pathLayer,
-                    myAccuracyLayer,
-                    myLocationLayer,
-                    beaconLayer
-                )
-            )
         }
     }
 
@@ -228,6 +216,16 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     }
 
     private fun updateMapCalibration() {
+        val isCalibrated = isFullyCalibrated()
+        if (binding.previewButton.isVisible != isCalibrated) {
+            binding.previewButton.isVisible = isCalibrated
+            CustomUiUtils.setButtonState(binding.previewButton, showPreview)
+        }
+
+        if (!isCalibrated && showPreview){
+            setPreviewMode(false)
+        }
+
         map = map?.copy(
             calibration = map!!.calibration.copy(
                 calibrationPoints = manager.getCalibration(false)
@@ -311,6 +309,35 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
                 Resources.androidTextColorSecondary(requireContext())
             )
         }
+    }
+
+    private fun setPreviewMode(enabled: Boolean) {
+        if (showPreview == enabled) {
+            return
+        }
+
+        CustomUiUtils.setButtonState(binding.previewButton, enabled)
+
+        showPreview = enabled
+        val layers = if (enabled) listOf(
+            pathLayer,
+            myAccuracyLayer,
+            myLocationLayer,
+            beaconLayer
+        ) else emptyList()
+        binding.calibrationMap.setLayers(layers)
+        updateMapCalibration()
+
+        if (showPreview){
+            layerManager?.start()
+        } else {
+            layerManager?.stop()
+        }
+
+    }
+
+    private fun isFullyCalibrated(): Boolean {
+        return manager.getCalibration(true).size == maxPoints
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
