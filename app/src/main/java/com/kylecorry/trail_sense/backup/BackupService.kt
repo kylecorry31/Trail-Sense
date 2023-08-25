@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.files.ZipUtils
+import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
+import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import java.io.File
 
@@ -27,8 +29,19 @@ class BackupService(
 
         val nonNull = listOfNotNull(files, databases, sharedPrefsDir, validityFile)
 
-        fileSubsystem.output(destination)?.use {
-            ZipUtils.zip(it, *nonNull.toTypedArray())
+        TrailSenseServiceUtils.stopServices(context)
+
+        try {
+            // Close the DB before backing up
+            AppDatabase.close()
+
+            // Zip the files
+            fileSubsystem.output(destination)?.use {
+                ZipUtils.zip(it, *nonNull.toTypedArray())
+            }
+        } finally {
+            TrailSenseServiceUtils.restartServices(context)
+            validityFile.delete()
         }
     }
 
@@ -47,6 +60,11 @@ class BackupService(
             }
         } ?: return@onIO
 
+        TrailSenseServiceUtils.stopServices(context)
+
+        // Close the DB before restoring
+        AppDatabase.close()
+
         // Copy the zip data - this will replace the existing files
         fileSubsystem.stream(source)?.use {
             ZipUtils.unzip(it, root, 1000)
@@ -58,6 +76,8 @@ class BackupService(
         val prefsFile = getSharedPrefsFile() ?: return@onIO
         // Rename it to match the current package name (allows switching between nightly, dev, and regular builds)
         prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
+
+        // App is going to restart after this is done, so don't restart the services
     }
 
     private fun getDatabaseDir(): File? {

@@ -29,6 +29,19 @@ object TrailSenseServiceUtils {
         )
     }
 
+    /**
+     * Temporarily stops all services (will restart when the app is opened again)
+     */
+    fun stopServices(context: Context) {
+        WeatherUpdateScheduler.stop(context)
+        BacktrackService.stop(context)
+        StepCounterService.stop(context)
+        AstronomyDailyWorker.stop(context)
+        BatteryLogWorker.scheduler(context).cancel()
+        SunsetAlarmReceiver.scheduler(context).cancel()
+        TileManager().setTilesEnabled(context, false)
+    }
+
     private fun startPedometer(context: Context) {
         val prefs = UserPreferences(context)
         if (prefs.pedometer.isEnabled) {

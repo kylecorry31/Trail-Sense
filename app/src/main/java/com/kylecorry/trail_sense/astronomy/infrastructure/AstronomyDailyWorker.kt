@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.astronomy.infrastructure
 import android.content.Context
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.DailyWorker
+import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -38,11 +39,20 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
     companion object {
 
         const val UNIQUE_ID = 72394823
-        fun start(context: Context) {
-            OneTimeTaskSchedulerFactory(context).deferrable(
+
+        fun getScheduler(context: Context): IOneTimeTaskScheduler {
+            return OneTimeTaskSchedulerFactory(context).deferrable(
                 AstronomyDailyWorker::class.java,
                 UNIQUE_ID
-            ).start()
+            )
+        }
+
+        fun start(context: Context) {
+            getScheduler(context).start()
+        }
+
+        fun stop(context: Context) {
+            getScheduler(context).cancel()
         }
     }
 }
