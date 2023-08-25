@@ -1,3 +1,5 @@
+import java.time.LocalDate
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -17,6 +19,16 @@ android {
         versionCode = 104
         versionName = "5.3.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        create("nightly") {
+            if (System.getProperty("nightly_store_file") != null) {
+                storeFile = file(System.getProperty("nightly_store_file"))
+                storePassword = System.getProperty("nightly_store_password")
+                keyAlias = System.getProperty("nightly_key_alias")
+                keyPassword = System.getProperty("nightly_key_password")
+            }
+        }
     }
     androidResources {
         // Support for auto-generated locales for per-app language settings
@@ -38,6 +50,12 @@ android {
             initWith(getByName("debug"))
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
+        }
+        create("nightly") {
+            initWith(getByName("debug"))
+            signingConfig = signingConfigs.getByName("nightly")
+            applicationIdSuffix = ".nightly"
+            versionNameSuffix = "-nightly-${LocalDate.now()}"
         }
     }
     testOptions {
