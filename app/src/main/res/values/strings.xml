@@ -1320,6 +1320,16 @@
     <string name="pref_reset_thermometer_calibration_button" translatable="false">pref_reset_thermometer_calibration_button</string>
     <string name="pref_thermometer_user_guide_button" translatable="false">pref_thermometer_user_guide_button</string>
     <string name="pref_debug_weather_timing" translatable="false">pref_debug_weather_timing</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <!--    %s is the app name (Trail Sense)-->
+    <string name="restore_disclaimer">This action will overwrite all of your current data. Please make sure you have a backup before continuing. Only select a backup file that you have created with %s and trust.</string>
+    <string name="backup_disclaimer">The backup file can be used to restore your data. This file is not encrypted, so do not share it with anyone you do not trust.</string>
+    <string name="backing_up_loading_message">Backing up…</string>
+    <string name="restoring_loading_message">Restoring…</string>
+    <string name="restore_complete_message">Restore successful, restarting to apply changes</string>
+    <string name="invalid_backup_file">Invalid backup file</string>
+    <string name="backup_restore">Backup / Restore</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

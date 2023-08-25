@@ -40,6 +40,10 @@
             app:icon="@drawable/ic_experimental"
             app:key="@string/pref_experimental_settings"
             app:title="@string/experimental" />
+        <Preference
+            android:key="backup_restore"
+            android:title="@string/backup_restore"
+            app:icon="@drawable/backup_restore" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -138,7 +142,6 @@
             android:title="@string/pref_open_source_licenses_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
-
 
     </PreferenceCategory>
 
