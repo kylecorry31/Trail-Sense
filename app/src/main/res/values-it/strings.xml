@@ -1061,8 +1061,7 @@
     <string name="descent">Discesa</string>
     <string name="ascent">Ascesa</string>
     <string name="lowest_point_elevation">Altitudine minima</string>
-    <string name="tide_frequency_description">Il numero di alte maree per giornata.
-\nLa maggior parte delle maree sono semidiurne.</string>
+    <string name="tide_frequency_description">Numero di alte maree per giornata. La maggior parte delle maree sono semidiurne.</string>
     <string name="calibrate_map_point">Calibra con coordinate note (%1$d / %2$d)</string>
     <string name="highest_point_elevation">Altitudine massima</string>
     <string name="path_slope_flat">Pianeggiante</string>
