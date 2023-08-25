@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlinx.coroutines.delay
 import java.io.File
 
 class BackupService(
@@ -24,23 +25,26 @@ class BackupService(
         val files = context.filesDir
         val databases = getDatabaseDir()
         val sharedPrefsDir = getSharedPrefsDir()
-        val validityFile = File(context.cacheDir, "trail_sense")
+        val validityFile = File(context.cacheDir, VALIDITY_FILE_NAME)
         validityFile.createNewFile()
+        val filesToBackup = listOfNotNull(files, databases, sharedPrefsDir, validityFile)
 
-        val nonNull = listOfNotNull(files, databases, sharedPrefsDir, validityFile)
-
+        // Stop the services while backing up to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
 
         try {
             // Close the DB before backing up
             AppDatabase.close()
 
-            // Zip the files
+            // Create the zip file
             fileSubsystem.output(destination)?.use {
-                ZipUtils.zip(it, *nonNull.toTypedArray())
+                ZipUtils.zip(it, *filesToBackup.toTypedArray())
             }
         } finally {
+            // Restart the services
             TrailSenseServiceUtils.restartServices(context)
+
+            // Delete the temporary validity file
             validityFile.delete()
         }
     }
@@ -50,24 +54,29 @@ class BackupService(
      * @param source the source file - must be a zip file
      */
     suspend fun restore(source: Uri): Unit = onIO {
+        // Get the root directory where the files will be restored to
         val root = getDataDir() ?: return@onIO
 
         // Check the validity of the zip file
         fileSubsystem.stream(source)?.use {
-            val files = ZipUtils.list(it, 1000)
-            if (files.none { (file, _) -> file.path == "trail_sense" }){
+            val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+            if (files.none { (file, _) -> file.path == VALIDITY_FILE_NAME }){
                 throw InvalidBackupException()
             }
         } ?: return@onIO
 
+        // Stop the services while restoring to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
 
         // Close the DB before restoring
         AppDatabase.close()
 
-        // Copy the zip data - this will replace the existing files
+        // Remove the shared prefs directory (this is to support switching between nightly, dev, and regular builds)
+        getSharedPrefsDir()?.deleteRecursively()
+
+        // Unzip the files to the root directory (this will overwrite existing files)
         fileSubsystem.stream(source)?.use {
-            ZipUtils.unzip(it, root, 1000)
+            ZipUtils.unzip(it, root, MAX_ZIP_FILE_COUNT)
         } ?: return@onIO
 
         // Rename the shared prefs file
@@ -97,5 +106,10 @@ class BackupService(
     }
 
     class InvalidBackupException: Exception()
+
+    companion object {
+        private const val VALIDITY_FILE_NAME = "trail_sense"
+        private const val MAX_ZIP_FILE_COUNT = 1000
+    }
 
 }
