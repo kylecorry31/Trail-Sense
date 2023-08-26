@@ -22,12 +22,7 @@ class BackupService(
      */
     suspend fun backup(destination: Uri): Unit = onIO {
         // Get the files to backup
-        val files = context.filesDir
-        val databases = getDatabaseDir()
-        val sharedPrefsDir = getSharedPrefsDir()
-        val validityFile = File(context.cacheDir, VALIDITY_FILE_NAME)
-        validityFile.createNewFile()
-        val filesToBackup = listOfNotNull(files, databases, sharedPrefsDir, validityFile)
+        val filesToBackup = getFilesToBackup()
 
         // Stop the services while backing up to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
@@ -43,9 +38,6 @@ class BackupService(
         } finally {
             // Restart the services
             TrailSenseServiceUtils.restartServices(context)
-
-            // Delete the temporary validity file
-            validityFile.delete()
         }
     }
 
@@ -58,12 +50,9 @@ class BackupService(
         val root = getDataDir() ?: return@onIO
 
         // Check the validity of the zip file
-        fileSubsystem.stream(source)?.use {
-            val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
-            if (files.none { (file, _) -> file.path == VALIDITY_FILE_NAME }){
-                throw InvalidBackupException()
-            }
-        } ?: return@onIO
+        if (!isBackupValid(source)){
+            throw InvalidBackupException()
+        }
 
         // Stop the services while restoring to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
@@ -80,13 +69,35 @@ class BackupService(
         } ?: return@onIO
 
         // Rename the shared prefs file
+        renameSharedPrefsFile()
+
+        // App is going to restart after this is done, so don't restart the services
+    }
+
+    private suspend fun renameSharedPrefsFile(): Unit = onIO {
         val sharedPrefsDir = getSharedPrefsDir()
         // Get the xml file from that directory
         val prefsFile = getSharedPrefsFile() ?: return@onIO
         // Rename it to match the current package name (allows switching between nightly, dev, and regular builds)
         prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
+    }
 
-        // App is going to restart after this is done, so don't restart the services
+    private suspend fun isBackupValid(backupUri: Uri): Boolean = onIO {
+        val pathsToLookFor = listOf(
+            Regex("databases/trail_sense.*"),
+            Regex("shared_prefs/com\\.kylecorry\\.trail_sense.*_preferences.xml"),
+        )
+        fileSubsystem.stream(backupUri)?.use {
+            val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+            files.any { (file, _) -> pathsToLookFor.any { re -> re.matches(file.path) } }
+        } ?: false
+    }
+
+    private fun getFilesToBackup(): List<File> {
+        val files = context.filesDir
+        val databases = getDatabaseDir()
+        val sharedPrefsDir = getSharedPrefsDir()
+        return listOfNotNull(files, databases, sharedPrefsDir)
     }
 
     private fun getDatabaseDir(): File? {
@@ -108,7 +119,6 @@ class BackupService(
     class InvalidBackupException: Exception()
 
     companion object {
-        private const val VALIDITY_FILE_NAME = "trail_sense"
         private const val MAX_ZIP_FILE_COUNT = 1000
     }
 
