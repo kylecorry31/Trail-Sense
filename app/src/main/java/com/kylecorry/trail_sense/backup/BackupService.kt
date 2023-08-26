@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.backup
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.database.AppDatabase
@@ -22,7 +24,11 @@ class BackupService(
      */
     suspend fun backup(destination: Uri): Unit = onIO {
         // Get the files to backup
-        val filesToBackup = getFilesToBackup()
+        val filesToBackup = getFilesToBackup().toMutableList()
+
+        val appVersionFile = File(context.cacheDir, "app-version-${getVersionCode()}.txt")
+        appVersionFile.createNewFile()
+        filesToBackup.add(appVersionFile)
 
         // Stop the services while backing up to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
@@ -36,6 +42,9 @@ class BackupService(
                 ZipUtils.zip(it, *filesToBackup.toTypedArray())
             }
         } finally {
+            // Delete the app version file
+            appVersionFile.delete()
+
             // Restart the services
             TrailSenseServiceUtils.restartServices(context)
         }
@@ -89,6 +98,14 @@ class BackupService(
         )
         fileSubsystem.stream(backupUri)?.use {
             val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+
+            // If the app version file doesn't exist or the version code is greater than the current version, return false
+            val appVersionFile = files.firstOrNull { (file, _) -> file.path.contains("app-version") }
+            val version = appVersionFile?.let { extractVersionCode(it.file.path) }
+            if (version == null || version > getVersionCode()){
+                return@onIO false
+            }
+
             files.any { (file, _) -> pathsToLookFor.any { re -> re.matches(file.path) } }
         } ?: false
     }
@@ -114,6 +131,22 @@ class BackupService(
 
     private fun getDataDir(): File? {
         return ContextCompat.getDataDir(context) ?: context.filesDir.parentFile
+    }
+
+    private fun extractVersionCode(path: String): Long? {
+        val regex = Regex("app-version-(\\d+).txt")
+        val match = regex.find(path) ?: return null
+        return match.groupValues[1].toLongOrNull()
+    }
+
+    private fun getVersionCode(): Long {
+        val info = Package.getPackageInfo(context)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            info.longVersionCode
+        } else {
+            @Suppress("DEPRECATION")
+            info.versionCode.toLong()
+        }
     }
 
     class InvalidBackupException: Exception()
