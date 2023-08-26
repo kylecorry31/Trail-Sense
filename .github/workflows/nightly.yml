@@ -12,6 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Generate changelog
+        run: |
+        echo "## Changelog" >> $GITHUB_STEP_SUMMARY
+        sh ./scripts/list-nightly-commits.sh >> $GITHUB_STEP_SUMMARY
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -32,13 +36,5 @@ jobs:
         with:
           name: Trail-Sense-Nightly.apk
           path: ./app/build/outputs/apk/nightly/*.apk
-          retention-days: 7
-      - name: Generate changelog
-        run: sh ./scripts/list-nightly-commits.sh > commits.txt
-      - name: Upload changelog
-        uses: actions/upload-artifact@v3
-        with:
-          name: Trail-Sense-Nightly-Changelog.txt
-          path: ./commits.txt
           retention-days: 7
       
