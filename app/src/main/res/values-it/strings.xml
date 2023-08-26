@@ -133,8 +133,8 @@
     <string name="dash">-</string>
     <string name="discharging_fast">In rapido scaricamento (%s)</string>
     <string name="discharging_slow">In lento scaricamento (%s)</string>
-    <string name="charging_slow">In lenta ricarica (%s)</string>
-    <string name="charging_fast">In rapida ricarica (%s)</string>
+    <string name="charging_slow">In ricarica lenta (%s)</string>
+    <string name="charging_fast">In ricarica rapida (%s)</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
@@ -160,7 +160,7 @@
     <string name="pref_max_beacon_distance_title">Raggio del Segnaposto vicino</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibra prima della navigazione</string>
     <string name="pref_display_multi_beacons_summary">Mostra sulla bussola i Segnaposto più vicini</string>
-    <string name="pref_adjust_for_temperature_title">Fattore in temperatura</string>
+    <string name="pref_adjust_for_temperature_title">Considera la temperatura</string>
     <string name="pref_altimeter_calibration_mode_title">Auto calibrazione</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometro</string>
     <string name="pref_elevation_override_sea_level_title">Utilizza una pressione nota al livello del mare</string>
@@ -196,7 +196,7 @@
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="notification_storm_alert_title">Avviso temporale</string>
-    <string name="notification_storm_alert_text">Potrebbe essere in arriv un temporale</string>
+    <string name="notification_storm_alert_text">Potrebbe essere in arrivo un temporale</string>
     <string name="storm_alerts">Allarme temporali</string>
     <string name="alerts">Allarmi</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s fa</string>
@@ -359,7 +359,7 @@
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
     <string name="notification_channel_clock_sync_description">Una notifica per sincronizzare il tuo orologio con l\'orario del GPS</string>
-    <string name="clock_sync_instructions">Imposta l\'ora a %s quando la notifica arriva</string>
+    <string name="clock_sync_instructions">Imposta l\'ora a %s quando arriva la notifica</string>
     <string name="clock_sync_time_settings">Aprire impostazioni orario\?</string>
     <string name="metal_detector_disclaimer">Rileva solo metalli magnetici (es. ferro)</string>
     <string name="unit_inches">Pollici</string>
@@ -673,7 +673,7 @@
     <string name="distance">Distanza</string>
     <string name="days">Giorni</string>
     <string name="hours">Ore</string>
-    <string name="pref_tiles_enabled_title">Pulsanti di sistema</string>
+    <string name="pref_tiles_enabled_title">Impostazioni rapide</string>
     <string name="roll_pitch_yaw">Rollio: %1$s, Beccheggio: %2$s, Imbardata: %3$s</string>
     <string name="pref_experimental_metal_direction_title">Mostra la direzione del metallo</string>
     <string name="cup_format">%s t</string>
@@ -995,7 +995,7 @@
     <string name="map_exported">Mappa esportata</string>
     <string name="camera_capture">Acquisisci</string>
     <string name="weather_cold_front">Freddo</string>
-    <string name="hot">Caldo</string>
+    <string name="hot">Molto caldo</string>
     <string name="weather_thunderstorm">Temporale</string>
     <string name="unable_to_find_next_astronomy">Impossibile trovare la prossima %s</string>
     <string name="map_calibration_instructions">Tocca una posizione nota sulla mappa poi inserisci le coordinate reali. Puoi salvare la calibrazione premendo il tasto \"Fatto\".
@@ -1110,7 +1110,7 @@
 \n- E molto altro!</string>
     <string name="qr_code_scanner">Scansionatore codice QR</string>
     <string name="result_deleted">Risultato eliminato</string>
-    <string name="weather_alert_storm_description">Prepararsi per venti forti e precipitazioni intense.</string>
+    <string name="weather_alert_storm_description">Prepararsi a venti forti e precipitazioni intense.</string>
     <string name="weather_alert_hot_description">Prepararsi ad alte temperature. Prendere precauzioni extra contro esaurimenti da calore e colpi di calore.</string>
     <string name="pref_backfill_temperatures_title">Aggiorna le temperature registrate</string>
     <string name="at_time">Alle %s</string>
@@ -1123,9 +1123,18 @@
     <string name="step_progression">Passaggio %1$d / %2$d</string>
     <string name="pref_keep_map_facing_up_title">Tenere la mappa rivolta verso l\'alto</string>
     <string name="pref_keep_map_facing_up_summary">La mappa si allineerà alla parte superiore dello schermo invece che al vero Nord.</string>
-    <string name="gps_accuracy_tip">Assicurarsi di avere una visione libera del cielo, lontano da alti edifici e alberi.</string>
+    <string name="gps_accuracy_tip">Assicurarsi di avere una visione libera del cielo, lontano da edifici alti ed alberi.</string>
     <string name="gps_location_accuracy">Precisione della posizione GPS</string>
     <string name="gps_elevation_accuracy">Precisione dell\'altitudine GPS</string>
     <string name="gps_satellites">Satelliti GPS</string>
     <string name="no_compass_description">Il tuo dispositivo non posiede una bussola. Questo è un compenente harsware, pertanto non si può far nulla per aggiungerlo. Alcune funzionalità che utilizzano la bussola non saranno disponibili.</string>
+    <string name="restore">Ripristino</string>
+    <string name="backup">Backup</string>
+    <string name="restore_disclaimer">Questa azione sovrascriverà tutti i dati correnti. Assicurarsi di avere un backup prima di continuare. Selezionare solo file di backup creati con %s e fidati.</string>
+    <string name="backup_disclaimer">Il file di backup può essere utilizzato per ripristinare i dati. Questo file non è cifrato, per cui non va condiviso con persone non fidate.</string>
+    <string name="restoring_loading_message">Ripristino in corso…</string>
+    <string name="backing_up_loading_message">Backup in corso…</string>
+    <string name="restore_complete_message">Ripristino riuscito, l\'applicazione viene riavviata per applicare i cambiamenti</string>
+    <string name="invalid_backup_file">File di backup non valido</string>
+    <string name="backup_restore">Backup / Ripristino</string>
 </resources>
