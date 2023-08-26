@@ -27,9 +27,18 @@ jobs:
           NIGHTLY_STORE_PASSWORD: ${{ secrets.NIGHTLY_STORE_PASSWORD }}
           NIGHTLY_KEY_ALIAS: ${{ secrets.NIGHTLY_KEY_ALIAS }}
           NIGHTLY_STORE_FILE: ${{ secrets.NIGHTLY_STORE_FILE }}
-      - name: Archive
+      - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: Trail-Sense-Nightly.apk
           path: ./app/build/outputs/apk/nightly/*.apk
           retention-days: 7
+      - name: Generate changelog
+        run: sh ./scripts/list-nightly-commits.sh > commits.txt
+      - name: Upload changelog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Trail-Sense-Nightly-Changelog.txt
+          path: ./commits.txt
+          retention-days: 7
+      
