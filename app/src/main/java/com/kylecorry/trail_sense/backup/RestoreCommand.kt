@@ -46,6 +46,12 @@ class RestoreCommand(private val context: Context, private val uriPicker: UriPic
             CurrentApp.restart(context)
         } catch (e: BackupService.InvalidBackupException) {
             Alerts.toast(context, context.getString(R.string.invalid_backup_file))
+        } catch (e: BackupService.NewerBackupException){
+            Alerts.toast(context,
+                context.getString(
+                    R.string.restore_failure_newer_version,
+                    context.getString(R.string.app_name)
+                ))
         }
     }
 }

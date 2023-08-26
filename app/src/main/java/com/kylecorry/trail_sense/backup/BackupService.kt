@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import kotlinx.coroutines.delay
 import java.io.File
 
 class BackupService(
@@ -59,9 +58,7 @@ class BackupService(
         val root = getDataDir() ?: return@onIO
 
         // Check the validity of the zip file
-        if (!isBackupValid(source)){
-            throw InvalidBackupException()
-        }
+        verifyBackupFile(source)
 
         // Stop the services while restoring to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
@@ -91,23 +88,28 @@ class BackupService(
         prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
     }
 
-    private suspend fun isBackupValid(backupUri: Uri): Boolean = onIO {
+    private suspend fun verifyBackupFile(backupUri: Uri): Unit = onIO {
+        // Retrieve the files in the zip file
+        val files = fileSubsystem.stream(backupUri)?.use {
+            ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+        } ?: throw InvalidBackupException()
+
+        // If the app version file doesn't exist or the version code is greater than the current version, return false
+        val appVersionFile =
+            files.firstOrNull { (file, _) -> file.path.contains("app-version") }
+        val version = appVersionFile?.let { extractVersionCode(it.file.path) }
+        if (version == null || version > getVersionCode()) {
+            throw NewerBackupException()
+        }
+
+        // Verify it looks like a backup
         val pathsToLookFor = listOf(
             Regex("databases/trail_sense.*"),
             Regex("shared_prefs/com\\.kylecorry\\.trail_sense.*_preferences.xml"),
         )
-        fileSubsystem.stream(backupUri)?.use {
-            val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
-
-            // If the app version file doesn't exist or the version code is greater than the current version, return false
-            val appVersionFile = files.firstOrNull { (file, _) -> file.path.contains("app-version") }
-            val version = appVersionFile?.let { extractVersionCode(it.file.path) }
-            if (version == null || version > getVersionCode()){
-                return@onIO false
-            }
-
-            files.any { (file, _) -> pathsToLookFor.any { re -> re.matches(file.path) } }
-        } ?: false
+        if (files.none { (file, _) -> pathsToLookFor.any { re -> re.matches(file.path) } }) {
+            throw InvalidBackupException()
+        }
     }
 
     private fun getFilesToBackup(): List<File> {
@@ -149,7 +151,8 @@ class BackupService(
         }
     }
 
-    class InvalidBackupException: Exception()
+    class InvalidBackupException : Exception()
+    class NewerBackupException : Exception()
 
     companion object {
         private const val MAX_ZIP_FILE_COUNT = 1000

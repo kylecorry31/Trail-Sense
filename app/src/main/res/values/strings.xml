@@ -1330,6 +1330,8 @@
     <string name="restore_complete_message">Restore successful, restarting to apply changes</string>
     <string name="invalid_backup_file">Invalid backup file</string>
     <string name="backup_restore">Backup / Restore</string>
+    <!--    %s is the app name (Trail Sense)-->
+    <string name="restore_failure_newer_version">This backup was created with a newer version of %s. Please update the app and try again.</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
