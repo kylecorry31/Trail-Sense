@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Generate changelog
         run: |
           echo "## Changelog" >> $GITHUB_STEP_SUMMARY
