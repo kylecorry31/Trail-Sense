@@ -14,8 +14,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Generate changelog
         run: |
-        echo "## Changelog" >> $GITHUB_STEP_SUMMARY
-        sh ./scripts/list-nightly-commits.sh >> $GITHUB_STEP_SUMMARY
+          echo "## Changelog" >> $GITHUB_STEP_SUMMARY
+          sh ./scripts/list-nightly-commits.sh >> $GITHUB_STEP_SUMMARY
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
