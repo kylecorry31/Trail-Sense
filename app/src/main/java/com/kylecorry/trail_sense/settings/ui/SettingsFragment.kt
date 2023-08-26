@@ -4,10 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.CoroutineAlerts
-import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.system.CurrentApp
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
@@ -15,14 +11,14 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.backup.BackupService
+import com.kylecorry.trail_sense.backup.BackupCommand
+import com.kylecorry.trail_sense.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import kotlinx.coroutines.launch
-import java.time.Instant
 
 class SettingsFragment : AndromedaPreferenceFragment() {
 
@@ -50,7 +46,8 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val uriPicker by lazy { ActivityUriPicker(requireMainActivity()) }
-    private val backupService by lazy { BackupService(requireContext()) }
+    private val backupCommand by lazy { BackupCommand(requireContext(), uriPicker) }
+    private val restoreCommand by lazy { RestoreCommand(requireContext(), uriPicker) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -91,7 +88,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             SensorService(requireContext()).hasCompass() &&
                     Sensors.hasGyroscope(requireContext())
 
-        // TODO: Extract backup and restore into commands
         onClick(findPreference("backup_restore")) {
             Pickers.item(
                 requireContext(),
@@ -118,68 +114,15 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
     private fun backup() {
         lifecycleScope.launch {
-            // Alert the user before continuing
-            val isCancelled = CoroutineAlerts.dialog(
-                requireContext(),
-                getString(R.string.backup),
-                getString(R.string.backup_disclaimer),
-                okText = getString(R.string.backup)
-            )
-
-            if (isCancelled) return@launch
-
-            // Select the destination file
-            val destination = uriPicker.create(
-                "trail-sense-${Instant.now().epochSecond}.zip",
-                "application/zip"
-            ) ?: return@launch
-
-            Alerts.withLoading(
-                requireContext(),
-                getString(R.string.backing_up_loading_message)
-            ) {
-                backupService.backup(destination)
-            }
-
-            toast(getString(R.string.done))
+            backupCommand.execute()
         }
     }
 
     private fun restore() {
         lifecycleScope.launch {
-            // Alert the user before continuing
-            val isCancelled = CoroutineAlerts.dialog(
-                requireContext(),
-                getString(R.string.restore),
-                getString(R.string.restore_disclaimer, getString(R.string.app_name)),
-                okText = getString(R.string.restore)
-            )
-
-            if (isCancelled) return@launch
-
-            // Select the source file
-            val source = uriPicker.open(listOf("application/zip")) ?: return@launch
-
-            try {
-                Alerts.withLoading(
-                    requireContext(),
-                    getString(R.string.restoring_loading_message)
-                ) {
-                    backupService.restore(source)
-                }
-
-                toast(
-                    getString(R.string.restore_complete_message),
-                    short = false
-                )
-                // Restart the app
-                CurrentApp.restart(requireContext())
-            } catch (e: BackupService.InvalidBackupException) {
-                toast(getString(R.string.invalid_backup_file))
-            }
+            restoreCommand.execute()
         }
     }
-
 
     private fun refresh(recordChange: Boolean) {
         cache.putBoolean("pref_theme_just_changed", recordChange)
