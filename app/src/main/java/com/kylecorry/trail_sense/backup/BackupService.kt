@@ -2,9 +2,8 @@ package com.kylecorry.trail_sense.backup
 
 import android.content.Context
 import android.net.Uri
-import android.os.Build
-import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.system.AppData
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
@@ -25,7 +24,7 @@ class BackupService(
         // Get the files to backup
         val filesToBackup = getFilesToBackup().toMutableList()
 
-        val appVersionFile = File(context.cacheDir, "app-version-${getVersionCode()}.txt")
+        val appVersionFile = File(context.cacheDir, "app-version-${Package.getVersionCode(context)}.txt")
         appVersionFile.createNewFile()
         filesToBackup.add(appVersionFile)
 
@@ -55,7 +54,7 @@ class BackupService(
      */
     suspend fun restore(source: Uri): Unit = onIO {
         // Get the root directory where the files will be restored to
-        val root = getDataDir() ?: return@onIO
+        val root = AppData.getDataDirectory(context)
 
         // Check the validity of the zip file
         verifyBackupFile(source)
@@ -67,7 +66,7 @@ class BackupService(
         AppDatabase.close()
 
         // Remove the shared prefs directory (this is to support switching between nightly, dev, and regular builds)
-        getSharedPrefsDir()?.deleteRecursively()
+        AppData.getSharedPrefsDirectory(context).deleteRecursively()
 
         // Unzip the files to the root directory (this will overwrite existing files)
         fileSubsystem.stream(source)?.use {
@@ -81,9 +80,9 @@ class BackupService(
     }
 
     private suspend fun renameSharedPrefsFile(): Unit = onIO {
-        val sharedPrefsDir = getSharedPrefsDir()
+        val sharedPrefsDir = AppData.getSharedPrefsDirectory(context)
         // Get the xml file from that directory
-        val prefsFile = getSharedPrefsFile() ?: return@onIO
+        val prefsFile = AppData.getSharedPrefsFiles(context).firstOrNull() ?: return@onIO
         // Rename it to match the current package name (allows switching between nightly, dev, and regular builds)
         prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
     }
@@ -98,7 +97,7 @@ class BackupService(
         val appVersionFile =
             files.firstOrNull { (file, _) -> file.path.contains("app-version") }
         val version = appVersionFile?.let { extractVersionCode(it.file.path) }
-        if (version == null || version > getVersionCode()) {
+        if (version == null || version > Package.getVersionCode(context)) {
             throw NewerBackupException()
         }
 
@@ -113,42 +112,16 @@ class BackupService(
     }
 
     private fun getFilesToBackup(): List<File> {
-        val files = context.filesDir
-        val databases = getDatabaseDir()
-        val sharedPrefsDir = getSharedPrefsDir()
+        val files = AppData.getFilesDirectory(context)
+        val databases = AppData.getDatabaseDirectory(context, "trail_sense")
+        val sharedPrefsDir = AppData.getSharedPrefsDirectory(context)
         return listOfNotNull(files, databases, sharedPrefsDir)
-    }
-
-    private fun getDatabaseDir(): File? {
-        return context.getDatabasePath("trail_sense")?.parentFile
-    }
-
-    private fun getSharedPrefsDir(): File? {
-        return getDataDir()?.resolve("shared_prefs")
-    }
-
-    private fun getSharedPrefsFile(): File? {
-        return getSharedPrefsDir()?.listFiles()?.firstOrNull { it.extension == "xml" }
-    }
-
-    private fun getDataDir(): File? {
-        return ContextCompat.getDataDir(context) ?: context.filesDir.parentFile
     }
 
     private fun extractVersionCode(path: String): Long? {
         val regex = Regex("app-version-(\\d+).txt")
         val match = regex.find(path) ?: return null
         return match.groupValues[1].toLongOrNull()
-    }
-
-    private fun getVersionCode(): Long {
-        val info = Package.getPackageInfo(context)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            info.longVersionCode
-        } else {
-            @Suppress("DEPRECATION")
-            info.versionCode.toLong()
-        }
     }
 
     class InvalidBackupException : Exception()
