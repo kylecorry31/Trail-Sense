@@ -1323,8 +1323,8 @@
     <string name="backup">Backup</string>
     <string name="restore">Restore</string>
     <!--    %s is the app name (Trail Sense)-->
-    <string name="restore_disclaimer">This action will overwrite all of your current data. Please make sure you have a backup before continuing. Only select a backup file that you have created with %s and trust.</string>
-    <string name="backup_disclaimer">The backup file can be used to restore your data. This file is not encrypted, so do not share it with anyone you do not trust.</string>
+    <string name="restore_disclaimer">This action will overwrite all of your current data. Please make sure you have a backup before continuing.\n\nOnly select a backup file that you have created with %s and trust.</string>
+    <string name="backup_disclaimer">A backup file will be created containing all your current data. It will include settings, paths, beacons, maps, etc.\n\nThis file is not encrypted. Do not share it with anyone you do not trust.</string>
     <string name="backing_up_loading_message">Backing up…</string>
     <string name="restoring_loading_message">Restoring…</string>
     <string name="restore_complete_message">Restore successful, restarting to apply changes</string>
