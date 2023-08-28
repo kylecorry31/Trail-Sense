@@ -49,7 +49,8 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [x] Q1 2023: Improved weather forecasts
 - [x] Q2 2023: Photo Maps
 - [ ] Q3-Q4 2023: Usability (at a glance, tutorials, data export)
-- [ ] Q1 2024: Path navigation
+- [ ] Q1-Q2 2024: Augmented reality
+- [ ] Q3 2024: Path navigation
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
