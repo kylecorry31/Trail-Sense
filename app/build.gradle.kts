@@ -119,7 +119,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
-    val andromedaVersion = "7.0.0-beta02"
+    val andromedaVersion = "b0ae4d1e21"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -152,7 +152,7 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:print:$andromedaVersion")
 
     // Ceres
-    val ceresVersion = "0.4.0"
+    val ceresVersion = "e087704b28"
     implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")

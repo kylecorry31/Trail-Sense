@@ -33,7 +33,7 @@ class CustomGPS(
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
 
-    override val satellites: Int
+    override val satellites: Int?
         get() = _satellites
 
     override val quality: Quality
@@ -85,7 +85,7 @@ class CustomGPS(
     private var _quality = Quality.Unknown
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
-    private var _satellites: Int = 0
+    private var _satellites: Int? = null
     private var _speed: Speed = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
     private var _location = Coordinate.zero
     private var _mslAltitude: Float? = null
@@ -219,7 +219,7 @@ class CustomGPS(
         var shouldNotify = true
 
         // Verify satellite requirement for notification
-        if (userPrefs.requiresSatellites && baseGPS.satellites < 4) {
+        if (userPrefs.requiresSatellites && (baseGPS.satellites ?: 0) < 4) {
             shouldNotify = false
         } else {
             // Reset the timeout, there's a valid reading

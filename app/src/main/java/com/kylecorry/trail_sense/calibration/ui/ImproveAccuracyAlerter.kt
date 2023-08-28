@@ -102,7 +102,7 @@ class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<
         bold {
             append(context.getString(R.string.gps_satellites) + ": ")
         }
-        appendLine(gps.satellites.toString())
+        appendLine((gps.satellites ?: 0).toString())
     }
 
     private fun SpannableStringBuilder.title(title: String) {

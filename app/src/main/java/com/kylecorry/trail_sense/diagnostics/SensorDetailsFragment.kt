@@ -252,7 +252,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private fun updateGPS() {
         sensorDetailsMap["gps"] = SensorDetails(
             getString(R.string.gps),
-            "${formatService.formatLocation(gps.location)}\n${gps.satellites} ${getString(R.string.satellites)}",
+            "${formatService.formatLocation(gps.location)}\n${gps.satellites ?: 0} ${getString(R.string.satellites)}",
             getGPSStatus(),
             getGPSColor(),
             R.drawable.satellite
@@ -405,7 +405,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
@@ -457,7 +457,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && gps.satellites < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
             return getString(R.string.gps_searching)
         }
 
