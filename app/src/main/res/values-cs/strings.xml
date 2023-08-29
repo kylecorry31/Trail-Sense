@@ -70,7 +70,7 @@
     <string name="charging_slow">Pomalu nabíjeno (%s)</string>
     <string name="charging_fast">Rychle nabíjeno (%s)</string>
     <string name="dialog_grant">Změnit nastavení</string>
-    <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí, která je používána na poskytnutí přesnějšího času západu slunce při cestování. [Zobrazit zásady ochrany osobních údajů](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí pro kalibraci tlaku výšky nad mořem v monitoru počasí a pro poskytnutí přesnějších upozornění na západ slunce. [Zobrazit zásady ochrany osobních údajů](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
     <string name="share_action_send">Poslat</string>
     <plurals name="beacon_group_summary">
@@ -118,7 +118,7 @@
 \n
 \n-  Nastavte tuto hodnotu na 1.
 \n
-\n- Změřte, jaká hodnota pravítka této aplikace odpovídá jedné jednotce fyzického pravítka.
+\n- Změřte, jaká hodnota pravítka aplikace Trail Sense odpovídá jedné jednotce fyzického pravítka.
 \n
 \n- Zadejte sem naměřenou hodnotu."</string>
     <string name="sunset_alert_channel_title">Upozornění na západ slunce</string>
@@ -155,7 +155,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
     <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
-    <string name="set_inclination_instructions">Stiskněte kdekoli k uzamknutí/odemknutí úhlu</string>
+    <string name="set_inclination_instructions">Klepněte nebo držte kdekoli k uzamknutí nebo odemknutí</string>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
     <string name="waning_gibbous">Měsíc Couvá</string>
     <string name="sun_down_no_set">Slunce je nízko</string>
@@ -280,7 +280,7 @@
     <string name="distance_to">K</string>
     <string name="beacon_create">Vytvořit</string>
     <string name="guide_recommended_apps">Doporučené aplikace</string>
-    <string name="tool_bubble_level_title">Bublinková vodováha</string>
+    <string name="tool_bubble_level_title">Bublinová vodováha</string>
     <string name="category_clothing">Oblečení</string>
     <string name="unit_nautical_miles">Námořní míle</string>
     <string name="pref_privacy_policy_title">Zásady ochrany osobních údajů</string>
@@ -528,7 +528,7 @@
     <string name="battery_health">Zdraví: %s</string>
     <string name="power">Energie</string>
     <string name="tool_category_angles">Úhly</string>
-    <string name="tool_triangulate_title">Triangulovat polohu</string>
+    <string name="tool_triangulate_title">Triangulace polohy</string>
     <string name="create_beacon">Vytvořit maják</string>
     <string name="hygrometer">Vlhkoměr</string>
     <string name="gravity">Gravitace</string>
@@ -1138,4 +1138,18 @@
 \n
 \nChcete-li povolit, klikněte na \"%2$s\" a povolte nastavení pro povolení alarmů a připomenutí.</string>
     <string name="sunset_alerts_background_location_disclaimer">Upozornění na západ slunce mohou být při cestování nepřesná</string>
+    <string name="backup">Záloha</string>
+    <string name="restore">Obnovení</string>
+    <string name="restore_disclaimer">Tato akce přepíše všechna vaše aktuální data. Před pokračováním se ujistěte, že máte zálohu. Vyberte pouze soubor zálohy, který jste vytvořili s aplikací %s a věříte mu.</string>
+    <string name="backing_up_loading_message">Zálohování…</string>
+    <string name="restoring_loading_message">Obnovování…</string>
+    <string name="gps_accuracy_tip">Ujistěte se, že máte volný výhled na oblohu a odejděte od vysokých budov a stromů.</string>
+    <string name="gps_elevation_accuracy">Přesnost nadmořské výšky GPS</string>
+    <string name="gps_location_accuracy">Přesnost lokace GPS</string>
+    <string name="gps_satellites">Satelity GPS</string>
+    <string name="no_compass_description">Vaše zařízení nemá vestavěný senzor kompasu. Jedná se o hardwarovou součást, takže ji nelze nijak přidat. Některé funkce, které kompas využívají, nebudou k dispozici.</string>
+    <string name="backup_disclaimer">Soubor zálohy můžete použít k obnovení vašich dat. Tento soubor není šifrován, takže jej nesdílejte s nikým, komu nevěříte.</string>
+    <string name="restore_complete_message">Obnova úspěšná, restartování pro uplatnění změn</string>
+    <string name="invalid_backup_file">Neplatný soubor zálohy</string>
+    <string name="backup_restore">Záloha / obnovení</string>
 </resources>

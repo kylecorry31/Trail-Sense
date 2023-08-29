@@ -123,16 +123,19 @@
     <string name="celsius">degré Celsius °C</string>
     <string name="pref_compass_sensor_title">Boussole</string>
     <string name="pref_ruler_calibration_summary">Protocole d\'étalonnage :
-\n- réglez cette valeur sur 1 ;
-\n- mesurez la valeur de la règle intégrée à Trail Sense qui correspond à une unité d\'une règle graduée physique ;
-\n- reportez la valeur mesurée ici.</string>
+\n
+\nRéglez cette valeur sur 1 .
+\n
+\nMesurez la valeur de la règle intégrée à Trail Sense qui correspond à une unité d\'une règle graduée physique.
+\n
+\nReportez la valeur mesurée ici.</string>
     <string name="pref_ruler_calibration_title">Échelle de la règle graduée</string>
     <string name="sensors">Capteurs</string>
     <string name="temperature">Unité de température</string>
     <string name="pref_coordinate_format_title">Unité des coordonnées géographiques</string>
     <string name="coordinate_format_degrees_minutes_seconds">Degrés (notation sexagésimale)</string>
     <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>
-    <string name="set_inclination_instructions">Touchez ou maintenez pour verrouiller / déverrouiller</string>
+    <string name="set_inclination_instructions">Touchez ou maintenez pour verrouiller ou déverrouiller</string>
     <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
     <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
     <string name="clinometer_title">Inclinomètre</string>
@@ -185,7 +188,7 @@
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
     <string name="dialog_deny">Non merci</string>
     <string name="dialog_grant">Mettre à jour les paramètres</string>
-    <string name="access_background_location_rationale">Trail Sense utilise vos données de position. Elles sont utilisées pour calibrer la pression atmosphérique au niveau de la mer et fournir des prévisions de lever de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense utilise les données de localisation en arrière-plan pour l\'étalonnage de la pression atmosphérique au niveau de la mer dans le cadre de la surveillance météorologique et pour fournir des alertes de coucher de soleil plus précises. [Voir la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Actualiser les paramètres de localisation</string>
     <string name="error_occurred_message">Trail Sense a rencontré une erreur. Veuillez envoyer un courriel au développeur pour que ce problème soit résolu.</string>
     <string name="error_occurred">Une erreur est survenue</string>
@@ -451,7 +454,7 @@
     <string name="action_inventory_clear_confirm">Effacer toutes les quantités \?</string>
     <string name="cirrocumulus_desc">Nuages de haute altitude formant un tissu ondulé composé de petits points apparaissant en deux dimensions.</string>
     <string name="altostratus_desc">Nuage de moyenne altitude couvrant le ciel. Le Soleil se devine comme un point lumineux.</string>
-    <string name="nimbostratus_desc">Un nuage d’altitude moyenne gris foncé et couvrant le ciel. Si il ne pleut pas, cela peut être un nuage stratus.</string>
+    <string name="nimbostratus_desc">Un nuage d’altitude moyenne gris foncé et couvrant le ciel. S\'il ne pleut pas, il peut s\'agir d\'un nuage stratus.</string>
     <string name="backtrack_disabled_low_power_toast">Le retour en arrière est désactivé en mode d\'économie d\'énergie</string>
     <string name="current_format">%s mA</string>
     <string name="duration_second_format">%d s</string>
@@ -750,7 +753,7 @@
     <string name="reduce_map_resolution">Réduire la résolution de la carte</string>
     <string name="slope_amount">%s déclinaison</string>
     <string name="distance_unset">Distance non prédéfinie</string>
-    <string name="saving">Sauvegarde</string>
+    <string name="saving">Enregistrement</string>
     <string name="weather_exported">Données météo exportées</string>
     <string name="pref_show_nearest_tide_title">Afficher la marée la plus proche</string>
     <string name="moon">Lune</string>
@@ -813,15 +816,15 @@
 \n
 \n\t- Navigation vers les repères
 \n
-\n\t- Amélioration de la précision des prévisions (nécessite la localisation en arrière-plan, pas disponible sur tous les appareils)
+\n\t- Amélioration de la précision des prévisions (pas disponible sur tous les appareils)
 \n
-\n\t- Retour en arrière (nécessite la localisation en arrière-plan)
+\n\t- Retour en arrière
 \n
-\n\t- Heures du soleil et de la lune pour votre position actuelle
+\n\t- Heures du soleil et de la lune pour votre position actuelle (les alertes de coucher de soleil peuvent nécessiter une localisation en arrière-plan.)
 \n
-\n- Si vous choisissez de ne pas accorder l\'autorisation de localisation, vous pouvez saisir manuellement un emplacement dans le menu Paramètres &gt; Calibrage GPS de Trail Sense.
+\n- Si vous choisissez de ne pas accorder l\'autorisation de localisation, vous pouvez saisir manuellement un emplacement dans le menu Paramètres &gt; Capteurs &gt; Calibrage GPS de Trail Sense.
 \n
-\n- Après avoir cliqué sur Continuer, vous serez invité à accorder les autorisations de localisation et de localisation en arrière-plan. Si vous refusez ces autorisations, Trail Sense ne pourra pas accéder à votre position. Il est donc recommandé de saisir manuellement votre position.</string>
+\n- Après avoir cliqué sur Continuer, vous serez invité à accorder l\'autorisation de localisation. Si vous refusez cette autorisation, Trail Sense ne pourra pas accéder à votre position. Il est donc recommandé de saisir manuellement votre position.</string>
     <string name="tool_light_meter_title">Luminomètre</string>
     <string name="icon">Icône</string>
     <string name="precipitation_snow_grains">Neige en grains</string>
@@ -988,11 +991,11 @@
     <plurals name="tides_entered_count">
         <item quantity="one">%d marée</item>
         <item quantity="many">%d marées</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="altocumulus_forecast">Peut indiquer des précipitations ou orages dans les %d prochaines heures.</string>
-    <string name="nimbostratus_forecast">Précipitations possibles dans les %d prochaines heures.</string>
-    <string name="cumulonimbus_forecast">Peut annoncer un orage dans les minutes à suivre.</string>
+    <string name="nimbostratus_forecast">Il peut y avoir des précipitations dans les %d prochaines heures.</string>
+    <string name="cumulonimbus_forecast">Peut indiquer un orage dans quelques minutes.</string>
     <string name="cumulus_forecast">Peut indiquer un beau temps. S’il grandit, peut indiquer des précipitations ou un orage dans les prochaines %d heures.</string>
     <string name="cloud_fair_forecast_hours">Peut indiquer du beau temps pour les %d heures à venir.</string>
     <string name="beacon_created">Repère créé</string>
@@ -1027,15 +1030,114 @@
     <string name="remove_battery_restrictions">Supprimer les restrictions de batterie \?</string>
     <string name="camera_capture">Capturer</string>
     <string name="file">Fichier</string>
-    <string name="updating">Actualisation</string>
+    <string name="updating">Mise à jour</string>
     <string name="hot">Chaud</string>
     <string name="cold">Froid</string>
     <string name="weather_thunderstorm">Orage</string>
     <string name="weather_alert_cold_description">Préparez-vous à des températures froides. Prenez des précautions supplémentaires contre l\'hypothermie et les engelures.</string>
     <string name="now_value">Maintenant : %s</string>
-    <string name="for_historic_temperatures">Pour les températures historiques</string>
-    <string name="weather_alert_hot_description">Préparez-vous à des températures chaudes. Prenez des précautions supplémentaires contre l\'épuisement dû à la chaleur et le coup de chaleur.</string>
+    <string name="for_historic_temperatures">pour les températures historiques</string>
+    <string name="weather_alert_hot_description">Préparez-vous pour des températures élevées. Prenez des précautions supplémentaires contre l\'épuisement dû à la chaleur et les coups de chaleur.</string>
     <string name="weather_alert_storm_description">Préparez-vous à des vents forts et à de fortes précipitations.</string>
     <string name="pref_backfill_temperatures_title">Mettre à jour les températures enregistrées</string>
-    <string name="pref_backfill_temperatures_description">Toutes les températures enregistrées seront remplacées avec la température historique calibrée.</string>
+    <string name="pref_backfill_temperatures_description">Toutes les températures enregistrées seront remplacées par les températures historiques calibrées.</string>
+    <string name="crop_map_instructions_long">Faites glisser les coins de la zone vers les coins de la carte à définir.</string>
+    <string name="pref_show_temperature_in_notification_title">Afficher la température dans la notification</string>
+    <string name="backup">Sauvegarde</string>
+    <string name="restore">Restaurer</string>
+    <string name="restore_disclaimer">Cette action écrasera toutes vos données actuelles. Assurez-vous d\'avoir une sauvegarde avant de continuer. Ne sélectionnez qu\'un fichier de sauvegarde que vous avez créé avec %s et en qui vous avez confiance.</string>
+    <string name="backing_up_loading_message">En cours de sauvegarde…</string>
+    <string name="invalid_backup_file">Fichier de sauvegarde invalide</string>
+    <string name="backup_restore">Sauvegarde / Restauration</string>
+    <string name="step_progression">Étape %1$d / %2$d</string>
+    <string name="historic_temperatures">Températures historiques</string>
+    <string name="loading">Chargement</string>
+    <string name="calibrate_map_point">Calibrer avec des emplacements connus (%1$d / %2$d)</string>
+    <string name="notifications_channel">Notifications (%s)</string>
+    <string name="at_time">à %s</string>
+    <string name="data_source">Source : %s</string>
+    <string name="daylight_duration">%s lumière du jour</string>
+    <string name="times">Heures</string>
+    <string name="yes">Oui</string>
+    <string name="rate">Taux</string>
+    <string name="season">Saison</string>
+    <string name="astronomy_set">Coucher</string>
+    <string name="gps_accuracy_tip">Assurez-vous d\'avoir une vue dégagée sur le ciel et éloignez-vous des grands bâtiments et des arbres.</string>
+    <string name="no_compass_description">Votre appareil ne dispose pas de capteur de boussole intégré. Il s’agit d’un composant matériel, il n’y a donc rien à faire pour l’ajouter. Certaines fonctionnalités utilisant la boussole ne seront pas disponibles.</string>
+    <string name="magnitude">Magnitude</string>
+    <string name="astronomy_altitude_peak">Altitude maximale</string>
+    <string name="no">Non</string>
+    <string name="astronomy_rise">Lever</string>
+    <string name="exact_alarm_permission_denied">Alarmes et rappels refusés, les alertes peuvent être imprécises.</string>
+    <string name="sunset_alert_scheduled">Alerte programmée pour %s avant le coucher du soleil</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historique (%d année)</string>
+    <string name="horizon">Horizon</string>
+    <string name="battery_settings_limit_accuracy">Les restrictions de batterie peuvent réduire la précision</string>
+    <string name="backup_disclaimer">Le fichier de sauvegarde peut être utilisé pour restaurer vos données. Ce fichier n\'est pas chiffré, alors ne le partagez pas avec quelqu\'un en qui vous n\'avez pas confiance.</string>
+    <string name="restore_complete_message">Restauration réussie, redémarrage en cours pour appliquer les modifications</string>
+    <string name="restoring_loading_message">Restauration en cours…</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d carte</item>
+        <item quantity="many">%d cartes</item>
+        <item quantity="other">%d cartes</item>
+    </plurals>
+    <string name="print">Imprimer</string>
+    <string name="accelerometer">Accéléromètre</string>
+    <string name="battery_usage_allowed">Utilisation de la batterie autorisée</string>
+    <string name="allow_ignore_battery_restrictions">Autoriser %s à ignorer les restrictions de batterie</string>
+    <string name="learn_more">En savoir plus</string>
+    <string name="peak_time">Culminer</string>
+    <string name="unable_to_find_next_astronomy">Impossible de trouver le suivant %s</string>
+    <string name="until_sunrise">jusqu’au lever du soleil</string>
+    <string name="map_calibration">Calibration de la carte</string>
+    <string name="map_calibration_instructions">Touchez un emplacement connu sur la carte, puis saisissez les coordonnées réelles. Vous pouvez enregistrer l’étalonnage en cliquant sur le bouton « Terminé ».
+\n
+\nDes exemples de bons points d’étalonnage sont un stationnement, un point de signalisation, un point de repère ou une jonction le long d’un sentier.</string>
+    <string name="compass_source_legacy_ts">Héritage (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Héritage (Android)</string>
+    <string name="photo_maps">Cartes photographiques</string>
+    <string name="last_lightning_strike_at">Dernière frappe à %s</string>
+    <string name="pref_include_leading_zero_title">Ajouter un zéro devant l\'heure</string>
+    <string name="solar_eclipse">Éclipse solaire</string>
+    <string name="start_time">Démarrer</string>
+    <string name="astronomy_direction_peak">Direction du pic</string>
+    <string name="illumination">Illumination</string>
+    <string name="allow_schedule_exact_alarms">Autoriser %s à définir des alarmes et des rappels.</string>
+    <string name="rotation_amount">Rotation: %s</string>
+    <string name="allow_schedule_exact_alarms_instructions">Cela permet à %1$s de définir des alarmes et des rappels précis, tels que des alertes au coucher du soleil. Sans cela, les alarmes pourraient ne pas se déclencher au bon moment.
+\n
+\nPour autoriser cela, cliquez sur \'%2$s\' et activez le paramètre permettamt d\'autoriser les alarmes et les rappels.</string>
+    <string name="photo_map_summary">Utiliser une photo comme carte</string>
+    <string name="photo_map_disclaimer">Toujours avoir une carte physique en sauvegarde et vérifier l\'exactitude de Trail Sense.</string>
+    <string name="beta">Bêta</string>
+    <string name="blank">Vide</string>
+    <string name="create_blank_map">Créer une carte vierge</string>
+    <string name="center">Point central</string>
+    <string name="size">Dimension</string>
+    <string name="solar_eclipses">Éclipses solaires</string>
+    <string name="end_time">Terminer</string>
+    <string name="delete_map_group_message">%s et toutes ses cartes sont supprimées.</string>
+    <string name="map_auto_rotated">Rotation de la carte ajustée avec calibrage</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="solar_eclipse_start">Éclipse solaire (début)</string>
+    <string name="solar_eclipse_end">Eclipse totale de Soleil (fin)</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Les températures sont basées sur une moyenne de %d-années de données historiques et peuvent ne pas refléter les conditions météorologiques actuelles.</string>
+    <string name="create_path">Créer un chemin</string>
+    <string name="map_is_not_calibrated">La carte n’est pas calibrée</string>
+    <string name="autofill_source">Remplir automatiquement la source</string>
+    <string name="compass_source_mag_gyro">Magnétomètre + Gyroscope</string>
+    <string name="pref_keep_map_facing_up_title">Gardez la carte orientée vers le haut</string>
+    <string name="pref_keep_map_facing_up_summary">La carte s\'alignera avec le haut de l\'écran au lieu du Nord Vrai.</string>
+    <string name="until_sunset">jusqu\'au coucher du soleil</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Recadrer la carte réduira toujours la résolution. Si vous avez besoin de recadrer la carte avec une haute résolution, veuillez utiliser une application d\'édition de photos. Il est prévu de résoudre ce problème à l’avenir.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Les alertes de coucher de soleil peuvent être imprécises en voyage.</string>
+    <string name="map_file">Fichier (JPG, PNG, PDF)</string>
+    <string name="gps_location_accuracy">Précision de la localisation GPS</string>
+    <string name="gps_elevation_accuracy">Précision d\'élévation GPS</string>
+    <string name="gps_satellites">Satellites GPS</string>
+    <string name="obscuration">Obscurcissement</string>
+    <string name="backtrack_no_permission">Historique de l\'itinéraire nécessite une autorisation d\'emplacement pour fonctionner</string>
+    <string name="reset_calibration">Réinitialiser la calibration</string>
+    <string name="beta_disclaimer">Cet outil est actuellement en version bêta, veuillez donc signaler tout problème ou commentaire à %s.</string>
+    <string name="i_agree">J\'accepte</string>
 </resources>
