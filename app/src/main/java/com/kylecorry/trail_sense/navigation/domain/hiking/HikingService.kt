@@ -40,22 +40,8 @@ class HikingService : IHikingService {
     }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
-        val gain = getElevationGain(points).convertTo(DistanceUnits.Feet).distance
-
-        val distance =
-            Geology.getPathDistance(points.map { it.coordinate })
-                .convertTo(DistanceUnits.Miles).distance
-
-        val rating = sqrt(gain * 2 * distance)
-
-        return when {
-            rating < 50 -> HikingDifficulty.Easiest
-            rating < 100 -> HikingDifficulty.Moderate
-            rating < 150 -> HikingDifficulty.ModeratelyStrenuous
-            rating < 200 -> HikingDifficulty.Strenuous
-            else -> HikingDifficulty.VeryStrenuous
-        }
-
+        val calculator = ShenandoahNationalParkHikingDifficultyCalculator(this)
+        return calculator.calculate(points)
     }
 
     override fun getAveragePace(difficulty: HikingDifficulty, factor: Float): Speed {
@@ -67,6 +53,7 @@ class HikingService : IHikingService {
                 DistanceUnits.Miles,
                 TimeUnits.Hours
             )
+
             HikingDifficulty.Strenuous -> Speed(1.2f * factor, DistanceUnits.Miles, TimeUnits.Hours)
             HikingDifficulty.VeryStrenuous -> Speed(
                 1.2f * factor,
@@ -121,7 +108,7 @@ class HikingService : IHikingService {
         return getHikingDuration(path, getAveragePace(difficulty, paceFactor))
     }
 
-    private fun getElevationGain(path: List<PathPoint>): Distance {
+    override fun getElevationGain(path: List<PathPoint>): Distance {
         val elevations =
             path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
         return Geology.getElevationGain(elevations)
