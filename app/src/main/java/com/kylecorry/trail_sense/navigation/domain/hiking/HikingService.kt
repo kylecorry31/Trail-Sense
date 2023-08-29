@@ -40,7 +40,7 @@ class HikingService : IHikingService {
     }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
-        val calculator = ShenandoahNationalParkHikingDifficultyCalculator(this)
+        val calculator = CustomHikingDifficultyCalculator(this)
         return calculator.calculate(points)
     }
 
