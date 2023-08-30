@@ -670,8 +670,8 @@ class FormatService private constructor(private val context: Context) {
 
     fun formatHikingDifficulty(difficulty: HikingDifficulty): String {
         return when (difficulty) {
-            HikingDifficulty.Easiest -> strings.getString(R.string.easy)
-            HikingDifficulty.Moderate, HikingDifficulty.ModeratelyStrenuous -> strings.getString(R.string.moderate)
+            HikingDifficulty.Easy -> strings.getString(R.string.easy)
+            HikingDifficulty.Moderate -> strings.getString(R.string.moderate)
             else -> strings.getString(R.string.hard)
         }
     }

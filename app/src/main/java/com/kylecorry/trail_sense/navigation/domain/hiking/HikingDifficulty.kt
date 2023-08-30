@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
 enum class HikingDifficulty {
-    Easiest,
+    Easy,
     Moderate,
-    ModeratelyStrenuous,
-    Strenuous,
-    VeryStrenuous
+    Hard
 }

@@ -62,11 +62,9 @@ class CustomHikingDifficultyCalculator(private val hikingService: IHikingService
         val maxFactor = factors.maxOrNull() ?: 0
 
         return when {
-            maxFactor < 40 -> HikingDifficulty.Easiest
-            maxFactor < 50 -> HikingDifficulty.Moderate
-            maxFactor < 60 -> HikingDifficulty.ModeratelyStrenuous
-            maxFactor < 80 -> HikingDifficulty.Strenuous
-            else -> HikingDifficulty.VeryStrenuous
+            maxFactor < 40 -> HikingDifficulty.Easy
+            maxFactor < 60 -> HikingDifficulty.Moderate
+            else -> HikingDifficulty.Hard
         }
     }
 
