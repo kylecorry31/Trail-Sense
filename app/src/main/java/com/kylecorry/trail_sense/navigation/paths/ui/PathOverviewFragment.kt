@@ -116,7 +116,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var elevationLoss = Distance.meters(0f)
     private var elevationRange: Range<Distance>? = null
     private var slopes: List<Triple<PathPoint, PathPoint, Float>> = emptyList()
-    private var difficulty = HikingDifficulty.Easiest
+    private var difficulty = HikingDifficulty.Easy
 
     private val pathLayer = PathLayer()
     private val waypointLayer = BeaconLayer(8f) {

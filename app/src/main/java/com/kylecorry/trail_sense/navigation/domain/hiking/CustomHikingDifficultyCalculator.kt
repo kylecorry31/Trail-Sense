@@ -3,8 +3,10 @@ package com.kylecorry.trail_sense.navigation.domain.hiking
 import android.util.Log
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.filters.RDPFilter
+import com.kylecorry.sol.math.sumOfFloat
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.extensions.ifDebug
 import kotlin.math.abs
@@ -14,69 +16,52 @@ import kotlin.math.roundToInt
 class CustomHikingDifficultyCalculator(private val hikingService: IHikingService) :
     HikingDifficultyCalculator {
     override fun calculate(points: List<PathPoint>): HikingDifficulty {
-        val simplified = simplify(points)
-
         // Gain / Loss
-        val gainLoss = hikingService.getElevationLossGain(simplified)
-        val loss = gainLoss.first.meters()
-        val gain = gainLoss.second.meters()
+        val gainLoss = hikingService.getElevationLossGain(points)
+        val loss = gainLoss.first.convertTo(DistanceUnits.Feet)
+        val gain = gainLoss.second.convertTo(DistanceUnits.Feet)
 
         // Distance
-        val distance = Geology.getPathDistance(simplified.map { it.coordinate }).meters()
+        val distance =
+            Geology.getPathDistance(points.map { it.coordinate }).convertTo(DistanceUnits.Miles)
 
         // Slopes
-        val slopes = hikingService.getSlopes(simplified).map { it.third }
-        val maxSlope = slopes.maxByOrNull { it.absoluteValue }?.absoluteValue ?: 0f
+        val slopes = hikingService.getSlopes(points)
 
-        val isOutAndBack = if (gain.distance > 0f) {
-            abs(gain.distance + loss.distance) / gain.distance < 0.1
-        } else {
-            false
+        var uphillSteepDistance = 0f
+        var downhillSteepDistance = 0f
+
+        slopes.forEach {
+            if (it.third > 25f) {
+                uphillSteepDistance += it.first.coordinate.distanceTo(it.second.coordinate)
+            } else if (it.third < -25f) {
+                downhillSteepDistance += it.first.coordinate.distanceTo(it.second.coordinate)
+            }
         }
 
-        val averageSlopeDistance = if (isOutAndBack){
-            Distance.meters(distance.distance / 2f)
-        } else {
-            distance
-        }
+        // Convert to feet
+        uphillSteepDistance =
+            Distance.meters(uphillSteepDistance).convertTo(DistanceUnits.Feet).distance
+        downhillSteepDistance =
+            Distance.meters(downhillSteepDistance).convertTo(DistanceUnits.Feet).distance
 
-        val averageUphillSlope = Geology.getSlopeGrade(averageSlopeDistance, gain)
-        val averageDownhillSlope = Geology.getSlopeGrade(averageSlopeDistance, loss)
-
-        // Map each factor between 0 and 1
-        val factors = listOf(
-            // A short hike is easier than a long hike
-            SolMath.norm(distance.distance, 0f, 15000f),
-            // A steep area can make a hike more difficult
-            SolMath.norm(maxSlope, 0f, 40f),
-            // An uphill hike is more difficult than flat
-            SolMath.norm(averageUphillSlope, 0f, 35f),
-            // A downhill hike is more difficult than flat, but less than uphill
-            SolMath.norm(-averageDownhillSlope, 0f, 45f)
-        ).map { (it * 100).roundToInt() }
+        // Modified Petzoldt energy miles formula - factors in elevation loss and steep sections
+        val energyMiles =
+            distance.distance + // Longer distance is harder
+                    gain.distance / 500f - // Uphill is harder
+                    loss.distance / 1000f + // Downhill is a little harder
+                    uphillSteepDistance / 100f + // Steep sections are harder
+                    downhillSteepDistance / 200f // Steep sections are harder
 
         ifDebug {
-            Log.d("HikingDifficulty", "Factors: $factors")
+            Log.d("HikingDifficulty", "Energy miles: $energyMiles")
         }
 
-        val maxFactor = factors.maxOrNull() ?: 0
-
         return when {
-            maxFactor < 40 -> HikingDifficulty.Easy
-            maxFactor < 60 -> HikingDifficulty.Moderate
+            energyMiles < 5 -> HikingDifficulty.Easy
+            energyMiles < 10 -> HikingDifficulty.Moderate
             else -> HikingDifficulty.Hard
         }
     }
 
-    private fun simplify(path: List<PathPoint>): List<PathPoint> {
-        val epsilon = 4f // Medium
-        val filter = RDPFilter<PathPoint>(epsilon) { point, start, end ->
-            Geology.getCrossTrackDistance(
-                point.coordinate,
-                start.coordinate,
-                end.coordinate
-            ).distance.absoluteValue
-        }
-        return filter.filter(path)
-    }
 }
