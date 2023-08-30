@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
+import android.util.Log
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.Geology
@@ -8,6 +9,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.extensions.ifDebug
 import kotlin.math.abs
 import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 class CustomHikingDifficultyCalculator(private val hikingService: IHikingService) :
     HikingDifficultyCalculator {
@@ -44,26 +46,26 @@ class CustomHikingDifficultyCalculator(private val hikingService: IHikingService
         // Map each factor between 0 and 1
         val factors = listOf(
             // A short hike is easier than a long hike
-            SolMath.norm(distance.distance, 0f, 5000f),
+            SolMath.norm(distance.distance, 0f, 15000f),
             // A steep area can make a hike more difficult
             SolMath.norm(maxSlope, 0f, 40f),
             // An uphill hike is more difficult than flat
             SolMath.norm(averageUphillSlope, 0f, 35f),
             // A downhill hike is more difficult than flat, but less than uphill
             SolMath.norm(-averageDownhillSlope, 0f, 45f)
-        )
+        ).map { (it * 100).roundToInt() }
 
         ifDebug {
-            println("Factors: $factors")
+            Log.d("HikingDifficulty", "Factors: $factors")
         }
 
-        val maxFactor = factors.maxOrNull() ?: 0f
+        val maxFactor = factors.maxOrNull() ?: 0
 
         return when {
-            maxFactor < 0.4 -> HikingDifficulty.Easiest
-            maxFactor < 0.5 -> HikingDifficulty.Moderate
-            maxFactor < 0.6 -> HikingDifficulty.ModeratelyStrenuous
-            maxFactor < 0.8 -> HikingDifficulty.Strenuous
+            maxFactor < 40 -> HikingDifficulty.Easiest
+            maxFactor < 50 -> HikingDifficulty.Moderate
+            maxFactor < 60 -> HikingDifficulty.ModeratelyStrenuous
+            maxFactor < 80 -> HikingDifficulty.Strenuous
             else -> HikingDifficulty.VeryStrenuous
         }
     }
