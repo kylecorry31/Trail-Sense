@@ -59,7 +59,7 @@ class CustomHikingDifficultyCalculator(private val hikingService: IHikingService
 
         return when {
             energyMiles < 5 -> HikingDifficulty.Easy
-            energyMiles < 10 -> HikingDifficulty.Moderate
+            energyMiles < 8 -> HikingDifficulty.Moderate
             else -> HikingDifficulty.Hard
         }
     }
