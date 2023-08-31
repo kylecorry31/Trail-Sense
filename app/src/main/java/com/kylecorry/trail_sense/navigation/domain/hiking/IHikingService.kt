@@ -23,7 +23,8 @@ interface IHikingService {
 
     fun getHikingDuration(
         path: List<PathPoint>,
-        paceFactor: Float = 2f
+        paceFactor: Float = 2f,
+        difficulty: HikingDifficulty? = null
     ): Duration
 
     fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance>

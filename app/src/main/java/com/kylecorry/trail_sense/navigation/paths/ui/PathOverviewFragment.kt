@@ -352,9 +352,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private suspend fun updateHikingStats() = onDefault {
         val reversed = waypoints.reversed()
+        difficulty = hikingService.getHikingDifficulty(reversed)
         calculatedDuration =
             hikingService.getHikingDuration(reversed, paceFactor)
-        difficulty = hikingService.getHikingDifficulty(reversed)
     }
 
     private fun movePath() {

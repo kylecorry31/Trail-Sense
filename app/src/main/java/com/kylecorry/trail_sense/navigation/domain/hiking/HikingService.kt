@@ -91,10 +91,11 @@ class HikingService : IHikingService {
 
     override fun getHikingDuration(
         path: List<PathPoint>,
-        paceFactor: Float
+        paceFactor: Float,
+        difficulty: HikingDifficulty?
     ): Duration {
-        val difficulty = getHikingDifficulty(path)
-        return getHikingDuration(path, getAveragePace(difficulty, paceFactor))
+        val diff = difficulty ?: getHikingDifficulty(path)
+        return getHikingDuration(path, getAveragePace(diff, paceFactor))
     }
 
     override fun getElevationGain(path: List<PathPoint>): Distance {
