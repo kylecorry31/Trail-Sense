@@ -1140,7 +1140,9 @@
     <string name="sunset_alerts_background_location_disclaimer">Upozornění na západ slunce mohou být při cestování nepřesná</string>
     <string name="backup">Záloha</string>
     <string name="restore">Obnovení</string>
-    <string name="restore_disclaimer">Tato akce přepíše všechna vaše aktuální data. Před pokračováním se ujistěte, že máte zálohu. Vyberte pouze soubor zálohy, který jste vytvořili s aplikací %s a věříte mu.</string>
+    <string name="restore_disclaimer">Tato akce přepíše všechna vaše aktuální data. Před pokračováním se ujistěte, že máte zálohu.
+\n
+\nVyberte pouze soubor zálohy, který jste vytvořili s aplikací %s a věříte mu.</string>
     <string name="backing_up_loading_message">Zálohování…</string>
     <string name="restoring_loading_message">Obnovování…</string>
     <string name="gps_accuracy_tip">Ujistěte se, že máte volný výhled na oblohu a odejděte od vysokých budov a stromů.</string>
@@ -1148,8 +1150,11 @@
     <string name="gps_location_accuracy">Přesnost lokace GPS</string>
     <string name="gps_satellites">Satelity GPS</string>
     <string name="no_compass_description">Vaše zařízení nemá vestavěný senzor kompasu. Jedná se o hardwarovou součást, takže ji nelze nijak přidat. Některé funkce, které kompas využívají, nebudou k dispozici.</string>
-    <string name="backup_disclaimer">Soubor zálohy můžete použít k obnovení vašich dat. Tento soubor není šifrován, takže jej nesdílejte s nikým, komu nevěříte.</string>
+    <string name="backup_disclaimer">Bude vytvořen soubor zálohy obsahující všechna vaše aktuální data. Budou v něm zahrnuta nastavení, trasy, majáky, mapy apod.
+\n
+\nTento soubor není šifrován. Nesdílejte jej s nikým, komu nevěříte.</string>
     <string name="restore_complete_message">Obnova úspěšná, restartování pro uplatnění změn</string>
     <string name="invalid_backup_file">Neplatný soubor zálohy</string>
     <string name="backup_restore">Záloha / obnovení</string>
+    <string name="restore_failure_newer_version">Tato záloha byla vytvořena s novější verzí aplikace %s. Aktualizujte prosím aplikaci a zkuste to znovu.</string>
 </resources>
