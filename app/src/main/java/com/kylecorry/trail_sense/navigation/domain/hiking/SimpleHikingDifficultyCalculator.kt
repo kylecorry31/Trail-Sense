@@ -1,12 +1,14 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
 import android.util.Log
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.extensions.ifDebug
 import kotlin.math.absoluteValue
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 // Adapted from https://www.smcgov.org/parks/county-hiking-trail-difficulty-rating-system
 class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService) :
@@ -19,9 +21,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
             .distance
 
         if (distance >= 4) {
-            ifDebug {
-                Log.d("HikingDifficulty", "Distance: $distance (Hard)")
-            }
+            debugLog(HikingDifficulty.Hard, distance, null, null)
             return HikingDifficulty.Hard
         }
 
@@ -32,12 +32,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
         val elevationChange = max(gain, -loss)
 
         if (elevationChange >= 750) {
-            ifDebug {
-                Log.d(
-                    "HikingDifficulty",
-                    "Distance: $distance, Elevation change: $elevationChange (Hard)"
-                )
-            }
+            debugLog(HikingDifficulty.Hard, distance, elevationChange, null)
             return HikingDifficulty.Hard
         }
 
@@ -53,13 +48,22 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
             HikingDifficulty.Easy
         }
 
+        debugLog(rating, distance, elevationChange, maxSlope)
+
+        return rating
+    }
+
+    private fun debugLog(
+        rating: HikingDifficulty,
+        distance: Float?,
+        elevationChange: Float?,
+        slope: Float?
+    ) {
         ifDebug {
             Log.d(
                 "HikingDifficulty",
-                "Distance: $distance, Elevation change: $elevationChange, Max slope: $maxSlope ($rating)"
+                "Dist: ${distance?.roundPlaces(2)}, Ele: ${elevationChange?.roundToInt()}, Slope: ${slope?.roundToInt()} ($rating)"
             )
         }
-
-        return rating
     }
 }
