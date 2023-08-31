@@ -1103,12 +1103,17 @@
     <string name="gps_satellites">GPS 卫星</string>
     <string name="no_compass_description">你的设备没有内置指南针传感器。这是硬件部件，无法随意添加。因此某些使用指南针的功能将不可用。</string>
     <string name="backup">备份</string>
-    <string name="backup_disclaimer">备份文件可用于还原你的数据。此文件未加密，因此请不要将其分享给任何你不信任的人。</string>
+    <string name="backup_disclaimer">将创建一个包含本应用所有当前数据的备份文件，包括设置、路径、信标、地图等数据。
+\n
+\n此文件未加密，因此请不要将其分享给任何你不信任的人。</string>
     <string name="restore_complete_message">成功还原数据，正重启以应用更改</string>
     <string name="restore">还原</string>
-    <string name="restore_disclaimer">此操作会覆盖当前所有数据。继续操作前确保你有备份文件。请只选择你使用 %s 创建且信赖的备份文件。</string>
+    <string name="restore_disclaimer">此操作会覆盖当前所有数据。继续操作前确保你有备份文件。
+\n
+\n请只选择你使用 %s 创建且信赖的备份文件。</string>
     <string name="backing_up_loading_message">备份中…</string>
     <string name="restoring_loading_message">还原中…</string>
     <string name="invalid_backup_file">无效的备份文件</string>
     <string name="backup_restore">备份/还原</string>
+    <string name="restore_failure_newer_version">此备份文件是用较新版本的 %s 创建的。请更新应用并重试。</string>
 </resources>
