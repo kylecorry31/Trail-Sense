@@ -42,7 +42,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
 
         val rating = if (maxSlope >= 25) {
             HikingDifficulty.Hard
-        } else if (elevationChange >= 250 || distance >= 2) {
+        } else if (elevationChange >= 250 || distance >= 2 || maxSlope >= 15) {
             HikingDifficulty.Moderate
         } else {
             HikingDifficulty.Easy
