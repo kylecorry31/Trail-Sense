@@ -309,7 +309,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         inBackground {
             onDefault {
                 this@PathOverviewFragment.waypoints =
-                    hikingService.correctElevations(waypoints.sortedByDescending { it.id })
+                    hikingService.correctElevations(waypoints.sortedBy { it.id }).reversed()
             }
             onIO {
                 DebugPathElevationsCommand(
