@@ -16,7 +16,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
@@ -26,6 +25,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.ColorFilterConstraintLayout
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.backup.BackupService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.NavigationUtils.setupWithNavController
@@ -109,7 +109,11 @@ class MainActivity : AndromedaActivity() {
 
     private fun startApp() {
         errorBanner.dismissAll()
-        if (navController.currentDestination?.id == R.id.action_navigation) {
+
+        if (cache.getBoolean(BackupService.RECENTLY_BACKED_UP_KEY) == true){
+            cache.remove(BackupService.RECENTLY_BACKED_UP_KEY)
+            navController.navigate(R.id.action_settings)
+        } else if (navController.currentDestination?.id == R.id.action_navigation) {
             navController.navigate(R.id.action_navigation)
         }
 

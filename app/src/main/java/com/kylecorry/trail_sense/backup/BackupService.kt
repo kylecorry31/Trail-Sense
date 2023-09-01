@@ -6,9 +6,11 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.AppData
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.ZipUtils
+import com.kylecorry.andromeda.preferences.SharedPreferences
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.io.File
 
 class BackupService(
@@ -43,8 +45,9 @@ class BackupService(
             // Delete the app version file
             appVersionFile.delete()
 
-            // Restart the services
-            TrailSenseServiceUtils.restartServices(context)
+            // Indicate that a backup just happened
+            val prefs = SharedPreferences(context, commitChanges = true)
+            prefs.putBoolean(RECENTLY_BACKED_UP_KEY, true)
         }
     }
 
@@ -53,11 +56,11 @@ class BackupService(
      * @param source the source file - must be a zip file
      */
     suspend fun restore(source: Uri): Unit = onIO {
-        // Get the root directory where the files will be restored to
-        val root = AppData.getDataDirectory(context)
-
         // Check the validity of the zip file
         verifyBackupFile(source)
+
+        // Get the root directory where the files will be restored to
+        val root = AppData.getDataDirectory(context)
 
         // Stop the services while restoring to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
@@ -76,7 +79,9 @@ class BackupService(
         // Rename the shared prefs file
         renameSharedPrefsFile()
 
-        // App is going to restart after this is done, so don't restart the services
+        // Indicate that a restore just happened (doesn't matter that it is called backup)
+        val prefs = SharedPreferences(context, commitChanges = true)
+        prefs.putBoolean(RECENTLY_BACKED_UP_KEY, true)
     }
 
     private suspend fun renameSharedPrefsFile(): Unit = onIO {
@@ -129,6 +134,7 @@ class BackupService(
 
     companion object {
         private const val MAX_ZIP_FILE_COUNT = 1000
+        const val RECENTLY_BACKED_UP_KEY = "backup_just_happened"
     }
 
 }
