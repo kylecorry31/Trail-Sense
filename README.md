@@ -155,18 +155,7 @@ The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/
 
 # Support
 
-<table>
-    <tr>
-        <th>Buy Me a Coffee</th>
-    </tr>
-    <tr>
-        <td id="Donate">
-         <a href="https://www.buymeacoffee.com/kylecorry">
-          Buy Me a Coffee
-         </a>
-        </td>
-    </tr>
-</table>
+The best way to support Trail Sense is to send me your feedback, share how you are using it, test nightly builds, or post your ideas for new features.
 
 # Open Source Credits
 
