@@ -289,7 +289,8 @@ object CustomUiUtils {
         onAction: () -> Unit = {}
     ): Snackbar {
 
-        val playBar = fragment.view?.findViewWithTag<View>(fragment.getString(R.string.tag_play_bar))
+        val playBar =
+            fragment.view?.findViewWithTag<View>(fragment.getString(R.string.tag_play_bar))
 
         val view = playBar ?: fragment.requireActivity().findViewById(R.id.bottom_navigation)
 
@@ -341,7 +342,9 @@ object CustomUiUtils {
                 return@requestCamera
             }
 
-            val sheet = PhotoImportBottomSheetFragment(size) { uri ->
+            val prefs = UserPreferences(fragment.requireContext()).camera
+
+            val sheet = PhotoImportBottomSheetFragment(size, prefs.useZeroShutterLag) { uri ->
                 onCapture(uri)
             }
 

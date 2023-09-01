@@ -83,11 +83,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_app_version)?.summary = version
         setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
 
-        // TODO: Re-enable this if there are other experimental settings
-        preference(R.string.pref_experimental_settings)?.isVisible =
-            SensorService(requireContext()).hasCompass() &&
-                    Sensors.hasGyroscope(requireContext())
-
         onClick(findPreference("backup_restore")) {
             Pickers.item(
                 requireContext(),

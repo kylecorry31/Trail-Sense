@@ -15,6 +15,7 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CellSignalPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ClinometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
@@ -52,6 +53,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val pedometer by lazy { PedometerPreferences(context) }
     val thermometer by lazy { ThermometerPreferences(context) }
     val compass by lazy { CompassPreferences(context) }
+    val camera by lazy { CameraPreferences(context) }
 
     var hapticsEnabled = false
 
