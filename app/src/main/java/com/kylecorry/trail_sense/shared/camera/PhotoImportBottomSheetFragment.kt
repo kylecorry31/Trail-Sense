@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.camera
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.camera.core.ExperimentalZeroShutterLag
 import androidx.camera.core.ImageCapture
 import androidx.camera.view.PreviewView
 import androidx.core.net.toUri
@@ -23,11 +25,13 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 class PhotoImportBottomSheetFragment(
     private val resolution: Size? = null,
+    private val useZeroShutterLag: Boolean = false,
     private val onCapture: (uri: Uri?) -> Unit
 ) : BoundFullscreenDialogFragment<FragmentPhotoImportSheetBinding>() {
 
     private var isCapturing = false
 
+    @SuppressLint("UnsafeOptInUsageError")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,7 +53,9 @@ class PhotoImportBottomSheetFragment(
             lifecycleOwner = this,
             readFrames = false,
             captureSettings = ImageCaptureSettings(
-                captureMode = if (resolution == null) {
+                captureMode = if (useZeroShutterLag) {
+                    ImageCapture.CAPTURE_MODE_ZERO_SHUTTER_LAG
+                } else if (resolution == null) {
                     ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
                 } else {
                     ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
