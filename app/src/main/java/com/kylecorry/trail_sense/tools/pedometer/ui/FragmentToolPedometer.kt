@@ -118,7 +118,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
 
         // TODO: Use pedometer subsystem topics
-        scheduleUpdates(INTERVAL_30_FPS)
+        scheduleUpdates(500L)
     }
 
     override fun onUpdate() {
