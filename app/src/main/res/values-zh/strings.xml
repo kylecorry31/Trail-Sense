@@ -1116,4 +1116,5 @@
     <string name="invalid_backup_file">无效的备份文件</string>
     <string name="backup_restore">备份/还原</string>
     <string name="restore_failure_newer_version">此备份文件是用较新版本的 %s 创建的。请更新应用并重试。</string>
+    <string name="zero_shutter_lag">零快门延迟</string>
 </resources>
