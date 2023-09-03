@@ -1157,4 +1157,5 @@
     <string name="invalid_backup_file">Neplatný soubor zálohy</string>
     <string name="backup_restore">Záloha / obnovení</string>
     <string name="restore_failure_newer_version">Tato záloha byla vytvořena s novější verzí aplikace %s. Aktualizujte prosím aplikaci a zkuste to znovu.</string>
+    <string name="zero_shutter_lag">Nulové zpoždění závěrky</string>
 </resources>
