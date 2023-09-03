@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.domain.FullPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
@@ -29,10 +30,12 @@ class ImportPathsCommand(
     private val prefs: IPathPreferences = UserPreferences(context).navigation
 ) {
 
+    private val style = prefs.defaultPathStyle
+
     fun execute(parentId: Long?) {
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             val gpx = gpxService.import() ?: return@inBackground
-            val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
+            val paths = mutableListOf<FullPath>()
 
             // Get the tracks and routes from the GPX
             paths.addAll(getTracks(gpx))
@@ -43,7 +46,7 @@ class ImportPathsCommand(
                 context,
                 context.getString(R.string.import_btn),
                 paths.map {
-                    it.first ?: context.getString(android.R.string.untitled)
+                    it.path.name ?: context.getString(android.R.string.untitled)
                 },
                 paths.indices.toList()
             ) ?: return@inBackground
@@ -66,44 +69,50 @@ class ImportPathsCommand(
         }
     }
 
-    private suspend fun getRoutes(gpx: GPXData): List<Pair<String?, List<PathPoint>>> = onDefault {
-        val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
+    private suspend fun getRoutes(gpx: GPXData): List<FullPath> = onDefault {
+        // TODO: Populate the group
+        val paths = mutableListOf<FullPath>()
         for (route in gpx.routes) {
-            paths.add(route.name to route.points.map {
+            val path = Path(0, route.name, style, PathMetadata.empty)
+            paths.add(FullPath(path, route.points.map {
                 PathPoint(
                     0, 0, it.coordinate, it.elevation, it.time
                 )
-            })
+            }))
         }
         paths
     }
 
-    private suspend fun getTracks(gpx: GPXData): List<Pair<String?, List<PathPoint>>> = onDefault {
-        val paths = mutableListOf<Pair<String?, List<PathPoint>>>()
+    private suspend fun getTracks(gpx: GPXData): List<FullPath> = onDefault {
+        // TODO: Populate the group
+        val paths = mutableListOf<FullPath>()
         for (track in gpx.tracks) {
             for ((points) in track.segments) {
-                paths.add(track.name to points.map {
+                val path = Path(0, track.name, style, PathMetadata.empty)
+                paths.add(FullPath(path, points.map {
                     PathPoint(
                         0, 0, it.coordinate, it.elevation, it.time
                     )
-                })
+                }))
             }
         }
         paths
     }
 
     private suspend fun importPaths(
-        paths: List<Pair<String?, List<PathPoint>>>, parentId: Long?
+        paths: List<FullPath>, parentId: Long?
     ) = onIO {
         val shouldSimplify = prefs.simplifyPathOnImport
-        val style = prefs.defaultPathStyle
-        for ((name, waypoints) in paths) {
+
+        // TODO: Create the groups if they don't exist and map the paths to the new group ID
+
+        for (path in paths) {
             // Create the path
-            val pathToCreate = Path(0, name, style, PathMetadata.empty, parentId = parentId)
+            val pathToCreate = path.path.copy(parentId = parentId)
             val pathId = pathService.addPath(pathToCreate)
 
             // Add the waypoints to the path
-            pathService.addWaypointsToPath(waypoints, pathId)
+            pathService.addWaypointsToPath(path.points, pathId)
 
             // Simplify the path
             if (shouldSimplify) {

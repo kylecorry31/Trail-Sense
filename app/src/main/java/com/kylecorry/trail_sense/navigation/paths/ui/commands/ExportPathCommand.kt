@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.paths.domain.FullPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGPXConverter
@@ -27,7 +28,9 @@ class ExportPathCommand(
     override fun execute(path: Path) {
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             val waypoints = pathService.getWaypoints(path.id)
-            val gpx = PathGPXConverter().toGPX(path.name, waypoints)
+            val parent = pathService.getGroup(path.parentId)
+            val full = FullPath(path, waypoints, parent)
+            val gpx = PathGPXConverter().toGPX(full)
             val exportFile = "trail-sense-${Instant.now().epochSecond}.gpx"
             val success = gpxService.export(gpx, exportFile)
             withContext(Dispatchers.Main) {
