@@ -50,12 +50,7 @@ import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
-import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
@@ -73,8 +68,12 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -102,7 +101,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private lateinit var navController: NavController
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-    private val pathService by lazy { PathService.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
@@ -111,7 +109,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
-    private var paths: List<Path> = emptyList()
     private var nearbyBeacons: List<Beacon> = listOf()
 
     private var destination: Beacon? = null
@@ -135,12 +132,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private lateinit var diagnostics: List<IDiagnostic>
 
     // Data commands
-    private val updateTideLayerCommand by lazy {
-        UpdateTideLayerCommand(
-            requireContext(),
-            tideLayer
-        )
-    }
     private val updateAstronomyLayerCommand by lazy {
         UpdateAstronomyLayerCommand(
             astronomyCompassLayer,
@@ -154,9 +145,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var lastOrientation: DeviceOrientation.Orientation? = null
 
-    private val pathLoader by lazy { PathLoader(pathService) }
-
-    private val loadPathRunner = CoroutineQueueRunner()
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
     private val pathLayer = PathLayer()
@@ -164,6 +152,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
+    private var layerManager: ILayerManager? = null
 
     // Compass layers
     private val beaconCompassLayer = BeaconCompassLayer()
@@ -179,6 +168,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
+    private var lastNearbyDistance: Float? = null
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
@@ -193,7 +183,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -239,7 +228,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Initialize layers
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
-        myAccuracyLayer.setColors(AppColor.Orange.color, Color.TRANSPARENT, 25)
         binding.radarCompass.setLayers(
             listOf(
                 pathLayer,
@@ -288,16 +276,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateNearbyBeacons()
         }
 
-        observeFlow(pathService.getPaths()) {
-            onIO {
-                paths = it.filter { path -> path.style.visible }
-                updateCompassPaths(true)
-            }
-        }
-
         navController = findNavController()
 
-        observe(compass) { }
+        observe(compass) {}
         observe(orientation) { onOrientationUpdate() }
         observe(altimeter) { }
         observe(gps) { onLocationUpdate() }
@@ -480,7 +461,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 return@inBackground
             }
 
-            updateTideLayerCommand.execute()
             updateAstronomyLayerCommand.execute()
             astronomyDataLoaded = true
         }
@@ -489,6 +469,21 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
         lastOrientation = null
+
+        layerManager = MultiLayerManager(
+            listOf(
+                PathLayerManager(requireContext(), pathLayer),
+                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color, 25),
+                MyLocationLayerManager(myLocationLayer, Color.WHITE),
+                TideLayerManager(requireContext(), tideLayer)
+            )
+        )
+        if (useRadarCompass) {
+            layerManager?.start()
+        }
+
+        // Populate the last known location
+        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         // Resume navigation
         inBackground {
@@ -513,10 +508,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onPause() {
         super.onPause()
-        loadPathRunner.cancel()
         loadBeaconsRunner.cancel()
         sightingCompass?.stop()
         errors.reset()
+        layerManager?.stop()
+        layerManager = null
     }
 
     private fun updateNearbyBeacons() {
@@ -635,6 +631,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
         )
 
+        layerManager?.onBearingChanged(compass.bearing)
+
         // Compass
         listOf<ICompassView>(
             binding.roundCompass,
@@ -645,11 +643,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.declination = declination
             it.compassCenter = gps.location
         }
-
-        // This gets set with the other compass layers as well, but also set it here to keep it up to date since this changes more often
-        myLocationLayer.setLocation(gps.location)
-        myLocationLayer.setAzimuth(compass.bearing)
-        myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
 
         // Location
         binding.navigationTitle.subtitle.text = formatService.formatLocation(gps.location)
@@ -679,10 +672,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 )
             }
 
-            myLocationLayer.setAzimuth(compass.bearing)
-            myLocationLayer.setLocation(gps.location)
-            myAccuracyLayer.setLocation(gps.location, gps.horizontalAccuracy)
-
             // Update beacon layers
             beaconLayer.setBeacons(nearbyBeacons)
             beaconCompassLayer.setBeacons(nearbyBeacons)
@@ -698,48 +687,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 navigationCompassLayer.setDestination(null as MappableBearing?)
             }
         }
-    }
-
-    private fun updateCompassPaths(reload: Boolean = false) {
-        inBackground {
-            loadPathRunner.skipIfRunning {
-
-                if (!useRadarCompass) {
-                    return@skipIfRunning
-                }
-
-                val mappablePaths = onIO {
-                    val loadGeofence = Geofence(
-                        gps.location,
-                        Distance.meters(nearbyDistance + 10)
-                    )
-                    val load = CoordinateBounds.from(loadGeofence)
-
-                    val unloadGeofence =
-                        loadGeofence.copy(radius = Distance.meters(loadGeofence.radius.distance + 1000))
-                    val unload = CoordinateBounds.from(unloadGeofence)
-
-                    pathLoader.update(paths, load, unload, reload)
-
-                    val mappablePaths =
-                        pathLoader.getPointsWithBacktrack(requireContext()).mapNotNull {
-                            val path =
-                                paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
-                            it.value.asMappable(requireContext(), path)
-                        }
-
-                    mappablePaths
-                }
-
-                withContext(Dispatchers.Main) {
-                    if (isBound) {
-                        pathLayer.setPaths(mappablePaths)
-                    }
-                }
-            }
-        }
-
-
     }
 
     private fun getPosition(): Position {
@@ -796,6 +743,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun onLocationUpdate() {
+        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+
         updateNearbyBeacons()
         updateDeclination()
 
@@ -803,8 +752,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateAstronomyData()
         }
 
-        if (paths.any()) {
-            updateCompassPaths()
+        if (useRadarCompass && lastNearbyDistance != nearbyDistance) {
+            lastNearbyDistance = nearbyDistance
+            val loadGeofence = Geofence(
+                gps.location,
+                Distance.meters(nearbyDistance + 10)
+            )
+            val bounds = CoordinateBounds.from(loadGeofence)
+            layerManager?.onBoundsChanged(bounds)
         }
     }
 
@@ -824,7 +779,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-
     private fun updateNavigationButton() {
         if (destination != null) {
             binding.beaconBtn.setImageResource(R.drawable.ic_cancel)
@@ -839,11 +793,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNavigationButton()
     }
 
-    companion object {
-        const val LAST_DEST_BEARING = "last_dest_bearing"
-        const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
-    }
-
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -851,4 +800,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return ActivityNavigatorBinding.inflate(layoutInflater, container, false)
     }
 
+    companion object {
+        const val LAST_DEST_BEARING = "last_dest_bearing"
+        const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
+    }
 }

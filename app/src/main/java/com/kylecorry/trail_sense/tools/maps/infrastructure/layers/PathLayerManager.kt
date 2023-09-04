@@ -68,6 +68,7 @@ class PathLayerManager(private val context: Context, private val layer: PathLaye
     private suspend fun loadPaths(reload: Boolean) = onDefault {
         if (reload || !loaded) {
             val bounds = bounds ?: return@onDefault
+            // TODO: Make unload bounds larger than load bounds
             pathLoader.update(paths, bounds, bounds, true)
             loaded = true
         }

@@ -6,6 +6,8 @@ import com.kylecorry.sol.units.Coordinate
 
 class MultiLayerManager(private val managers: List<ILayerManager>) : ILayerManager {
 
+    private var lastBounds: CoordinateBounds? = null
+
     override fun start() {
         managers.forEach { it.start() }
     }
@@ -15,6 +17,10 @@ class MultiLayerManager(private val managers: List<ILayerManager>) : ILayerManag
     }
 
     override fun onBoundsChanged(bounds: CoordinateBounds?) {
+        if (bounds == lastBounds) {
+            return
+        }
+        lastBounds = bounds
         managers.forEach {
             it.onBoundsChanged(bounds)
         }
