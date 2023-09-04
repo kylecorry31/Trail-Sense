@@ -10,11 +10,11 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
-class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
+class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?, gps: IGPS? = null) :
     BaseSensorQualityDiagnostic<IGPS>(
         context,
         lifecycleOwner,
-        SensorService(context).getGPS()
+        gps ?: SensorService(context).getGPS()
     ) {
 
     override fun scan(): List<DiagnosticCode> {
@@ -37,15 +37,15 @@ class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
             }
         }
 
-        if (sensorService.hasLocationPermission() && !GPS.isAvailable(context)) {
+        if (prefs.useAutoLocation && sensorService.hasLocationPermission() && !GPS.isAvailable(context)) {
             issues.add(DiagnosticCode.GPSUnavailable)
         }
 
-        if (canRun && sensor!!.quality == Quality.Poor){
+        if (sensor!!.quality == Quality.Poor) {
             issues.add(DiagnosticCode.GPSPoor)
         }
 
-        if (canRun && sensor is CustomGPS && sensor.isTimedOut){
+        if (sensor is CustomGPS && sensor.isTimedOut) {
             issues.add(DiagnosticCode.GPSTimedOut)
         }
 

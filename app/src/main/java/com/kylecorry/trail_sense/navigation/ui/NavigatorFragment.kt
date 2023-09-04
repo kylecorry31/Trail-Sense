@@ -11,9 +11,7 @@ import androidx.core.view.isInvisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
@@ -37,6 +35,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.calibration.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.diagnostics.GPSDiagnostic
+import com.kylecorry.trail_sense.diagnostics.IDiagnostic
+import com.kylecorry.trail_sense.diagnostics.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
@@ -55,6 +56,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateTideLayerCommand
+import com.kylecorry.trail_sense.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.navigation.ui.layers.*
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
@@ -70,11 +72,7 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.shared.views.UserError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -84,7 +82,6 @@ import java.util.*
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
-    private var shownAccuracyToast = false
     private var showSightingCompass = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
@@ -133,6 +130,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var gpsStatusBadge: StatusBadge? = null
     private var compassStatusBadge: StatusBadge? = null
 
+    // Diagnostics
+    private val errors by lazy { NavigatorUserErrors(this) }
+    private lateinit var diagnostics: List<IDiagnostic>
+
     // Data commands
     private val updateTideLayerCommand by lazy {
         UpdateTideLayerCommand(
@@ -150,9 +151,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
 
     private var astronomyDataLoaded = false
-
-    private var gpsErrorShown = false
-    private var gpsTimeoutShown = false
 
     private var lastOrientation: DeviceOrientation.Orientation? = null
 
@@ -215,6 +213,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        diagnostics = listOf(
+            GPSDiagnostic(requireContext(), null, gps),
+            MagnetometerDiagnostic(requireContext(), viewLifecycleOwner)
+        )
+
         sightingCompass = SightingCompassView(
             binding.viewCamera,
             binding.viewCameraLine
@@ -273,22 +276,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
-
-        if (!hasCompass) {
-            requireMainActivity().errorBanner.report(
-                UserError(
-                    ErrorBannerReason.NoCompass,
-                    getString(R.string.no_compass_message),
-                    R.drawable.ic_compass_icon
-                ){
-                    dialog(
-                        getString(R.string.no_compass_message),
-                        getString(R.string.no_compass_description),
-                        cancelText = null
-                    )
-                }
-            )
-        }
 
         NavigationQuickActionBinder(
             this,
@@ -480,7 +467,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun displayAccuracyTips() {
+    fun displayAccuracyTips() {
         context ?: return
 
         val alerter = ImproveAccuracyAlerter(requireContext())
@@ -529,13 +516,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         loadPathRunner.cancel()
         loadBeaconsRunner.cancel()
         sightingCompass?.stop()
-        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
-        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.NoCompass)
-        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.NoGPS)
-        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
-        requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
-        shownAccuracyToast = false
-        gpsErrorShown = false
+        errors.reset()
     }
 
     private fun updateNearbyBeacons() {
@@ -815,12 +796,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun onLocationUpdate() {
-
-        if (gpsTimeoutShown && gps is CustomGPS && !(gps as CustomGPS).isTimedOut) {
-            gpsTimeoutShown = false
-            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.GPSTimeout)
-        }
-
         updateNearbyBeacons()
         updateDeclination()
 
@@ -838,9 +813,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             compassStatusBadge = compassStatusBadgeProvider.getBadge()
             gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
 
+            val codes = onDefault {
+                diagnostics.flatMap { it.scan() }
+            }
+
             onMain {
-                detectAndShowGPSError()
-                detectAndShowCompassError()
+                errors.update(codes)
             }
 
         }
@@ -859,63 +837,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         handleShowWhenLocked()
         onLocationUpdate()
         updateNavigationButton()
-    }
-
-    private fun detectAndShowCompassError() {
-        if ((compass.quality == Quality.Poor) && !shownAccuracyToast) {
-            val banner = requireMainActivity().errorBanner
-            banner.report(
-                UserError(
-                    ErrorBannerReason.CompassPoor,
-                    getString(
-                        R.string.compass_calibrate_toast, formatService.formatQuality(
-                            compass.quality
-                        ).lowercase(Locale.getDefault())
-                    ),
-                    R.drawable.ic_compass_icon,
-                    getString(R.string.how)
-                ) {
-                    displayAccuracyTips()
-                    banner.hide()
-                })
-            shownAccuracyToast = true
-        } else if (compass.quality == Quality.Good || compass.quality == Quality.Moderate) {
-            requireMainActivity().errorBanner.dismiss(ErrorBannerReason.CompassPoor)
-        }
-    }
-
-    private fun detectAndShowGPSError() {
-        if (gps is OverrideGPS && gps.location == Coordinate.zero && !gpsErrorShown) {
-            val activity = requireMainActivity()
-            val navController = findNavController()
-            val error = UserError(
-                ErrorBannerReason.LocationNotSet,
-                getString(R.string.location_not_set),
-                R.drawable.satellite,
-                getString(R.string.set)
-            ) {
-                activity.errorBanner.dismiss(ErrorBannerReason.LocationNotSet)
-                navController.navigate(R.id.calibrateGPSFragment)
-            }
-            activity.errorBanner.report(error)
-            gpsErrorShown = true
-        } else if (gps is CachedGPS && gps.location == Coordinate.zero && !gpsErrorShown) {
-            val error = UserError(
-                ErrorBannerReason.NoGPS,
-                getString(R.string.location_disabled),
-                R.drawable.satellite
-            )
-            requireMainActivity().errorBanner.report(error)
-            gpsErrorShown = true
-        } else if (gps is CustomGPS && (gps as CustomGPS).isTimedOut && !gpsTimeoutShown) {
-            val error = UserError(
-                ErrorBannerReason.GPSTimeout,
-                getString(R.string.gps_signal_lost),
-                R.drawable.satellite
-            )
-            requireMainActivity().errorBanner.report(error)
-            gpsTimeoutShown = true
-        }
     }
 
     companion object {
