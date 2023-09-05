@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.filterIndices
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
+import com.kylecorry.andromeda.gpx.GPXWaypoint
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.FullPath
@@ -74,11 +75,7 @@ class ImportPathsCommand(
         val paths = mutableListOf<FullPath>()
         for (route in gpx.routes) {
             val path = Path(0, route.name, style, PathMetadata.empty)
-            paths.add(FullPath(path, route.points.map {
-                PathPoint(
-                    0, 0, it.coordinate, it.elevation, it.time
-                )
-            }))
+            paths.add(FullPath(path, route.points.toPathPoints()))
         }
         paths
     }
@@ -89,14 +86,16 @@ class ImportPathsCommand(
         for (track in gpx.tracks) {
             for ((points) in track.segments) {
                 val path = Path(0, track.name, style, PathMetadata.empty)
-                paths.add(FullPath(path, points.map {
-                    PathPoint(
-                        0, 0, it.coordinate, it.elevation, it.time
-                    )
-                }))
+                paths.add(FullPath(path, points.toPathPoints()))
             }
         }
         paths
+    }
+
+    private fun List<GPXWaypoint>.toPathPoints(): List<PathPoint> {
+        return map {
+            PathPoint(0, 0, it.coordinate, it.elevation, it.time)
+        }
     }
 
     private suspend fun importPaths(
