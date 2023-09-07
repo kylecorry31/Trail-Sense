@@ -25,8 +25,13 @@ class ExportPathCommand(
     private val pathService: IPathService = PathService.getInstance(context)
 ) : IPathCommand {
 
+    // TODO: Take in an IPath
     override fun execute(path: Path) {
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
+            // TODO: Load all children of the path (if any)
+            // TODO: Ask the user what paths to export (if the path is a Path, don't ask)
+            // TODO: Load all waypoints for the paths
+            // TODO: Assign parent groups and convert to FullPath
             val waypoints = pathService.getWaypoints(path.id)
             val parent = pathService.getGroup(path.parentId)
             val full = FullPath(path, waypoints, parent)
