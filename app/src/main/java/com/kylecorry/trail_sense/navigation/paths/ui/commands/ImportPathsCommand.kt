@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.FullPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
 import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.PathSimplificationQuality
@@ -71,7 +72,7 @@ class ImportPathsCommand(
     }
 
     private suspend fun getRoutes(gpx: GPXData): List<FullPath> = onDefault {
-        // TODO: Populate the group
+        // Groups are a Trail Sense concept, so routes don't have groups
         val paths = mutableListOf<FullPath>()
         for (route in gpx.routes) {
             val path = Path(0, route.name, style, PathMetadata.empty)
@@ -81,12 +82,14 @@ class ImportPathsCommand(
     }
 
     private suspend fun getTracks(gpx: GPXData): List<FullPath> = onDefault {
-        // TODO: Populate the group
         val paths = mutableListOf<FullPath>()
         for (track in gpx.tracks) {
             for ((points) in track.segments) {
                 val path = Path(0, track.name, style, PathMetadata.empty)
-                paths.add(FullPath(path, points.toPathPoints()))
+                val parent = track.group?.let {
+                    PathGroup(0, it)
+                }
+                paths.add(FullPath(path, points.toPathPoints(), parent))
             }
         }
         paths
@@ -103,11 +106,21 @@ class ImportPathsCommand(
     ) = onIO {
         val shouldSimplify = prefs.simplifyPathOnImport
 
-        // TODO: Create the groups if they don't exist and map the paths to the new group ID
+        val groupNames = paths.mapNotNull { it.parent?.name }.distinct()
+        val groupIdMap = mutableMapOf<String, Long>()
+        for (groupName in groupNames) {
+            val id = pathService.addGroup(PathGroup(0, groupName, parentId))
+            groupIdMap[groupName] = id
+        }
 
         for (path in paths) {
+            val parent = if (path.parent != null) {
+                groupIdMap[path.parent.name]
+            } else {
+                parentId
+            }
             // Create the path
-            val pathToCreate = path.path.copy(parentId = parentId)
+            val pathToCreate = path.path.copy(parentId = parent)
             val pathId = pathService.addPath(pathToCreate)
 
             // Add the waypoints to the path
