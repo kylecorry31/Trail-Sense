@@ -20,4 +20,15 @@ class BatteryReadingEntity(
         return BatteryReading(time, percent, capacity, isCharging)
     }
 
+    companion object {
+        fun from(reading: BatteryReading): BatteryReadingEntity {
+            return BatteryReadingEntity(
+                reading.percent,
+                reading.capacity,
+                reading.isCharging,
+                reading.time
+            )
+        }
+    }
+
 }
