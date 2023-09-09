@@ -27,7 +27,9 @@ object ExceptionHandler {
                     DiagnosticsBugReportGenerator(),
                     StackTraceBugReportGenerator()
                 )
-            )
+            ),
+            shouldRestartApp = false,
+            shouldWrapSystemExceptionHandler = true
         ) { context, log ->
             Log.e("Trail Sense", log)
             BugReportEmailMessage(

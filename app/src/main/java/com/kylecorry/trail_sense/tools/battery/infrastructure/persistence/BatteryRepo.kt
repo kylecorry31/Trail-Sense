@@ -2,10 +2,13 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure.persistence
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.kylecorry.andromeda.preferences.FloatPreference
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import java.time.Instant
 
@@ -15,13 +18,13 @@ class BatteryRepo private constructor(context: Context) : IBatteryRepo {
     private val prefs = PreferencesSubsystem.getInstance(context).preferences
     private var maxCapacityPref by FloatPreference(prefs, "pref_max_battery_capacity", 0f)
 
-    override fun get(): LiveData<List<BatteryReadingEntity>> {
-        return batteryDao.get()
+    override fun get(): LiveData<List<BatteryReading>> {
+        return batteryDao.get().map { it.map { reading -> reading.toBatteryReading() } }
     }
 
-    override suspend fun add(reading: BatteryReadingEntity) {
+    override suspend fun add(reading: BatteryReading) {
         onIO {
-            batteryDao.insert(reading)
+            batteryDao.insert(BatteryReadingEntity.from(reading))
 
             // Record the maximum capacity the battery has reached
             if (getMaxCapacity() < reading.capacity) {

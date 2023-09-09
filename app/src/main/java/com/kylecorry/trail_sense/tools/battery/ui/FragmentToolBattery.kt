@@ -147,7 +147,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
         observe(batteryRepo.get()) { allReadings ->
             readings =
-                allReadings.sortedBy { it.time }.map { it.toBatteryReading() } + listOfNotNull(
+                allReadings.sortedBy { it.time } + listOfNotNull(
                     if (battery.hasValidReading)
                         BatteryReading(
                             Instant.now(),

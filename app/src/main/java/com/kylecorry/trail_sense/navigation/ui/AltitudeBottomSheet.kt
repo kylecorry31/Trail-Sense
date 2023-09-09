@@ -41,7 +41,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private var units = DistanceUnits.Meters
     private var backtrackReadings = listOf<Reading<Float>>()
     private var weatherReadings = listOf<Reading<Float>>()
-    private var startTime = Instant.now()
+    private var startTime: Instant = Instant.now()
 
     var currentAltitude: Reading<Float>? = null
 
@@ -102,7 +102,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private fun updateChart(readings: List<Reading<Float>>) {
         if (!isBound) return
 
-        startTime = readings.firstOrNull()?.time
+        startTime = readings.firstOrNull()?.time ?: Instant.now()
 
         val data = Chart.getDataFromReadings(readings) {
             Distance.meters(it).convertTo(units).distance
