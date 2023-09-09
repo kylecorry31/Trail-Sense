@@ -168,7 +168,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
-    private var lastNearbyDistance: Float? = null
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
@@ -752,8 +751,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateAstronomyData()
         }
 
-        if (useRadarCompass && lastNearbyDistance != nearbyDistance) {
-            lastNearbyDistance = nearbyDistance
+        if (useRadarCompass) {
             val loadGeofence = Geofence(
                 gps.location,
                 Distance.meters(nearbyDistance + 10)
