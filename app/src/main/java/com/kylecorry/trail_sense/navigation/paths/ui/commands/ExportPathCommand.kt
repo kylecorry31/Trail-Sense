@@ -34,12 +34,16 @@ class ExportPathCommand(
 
     private val pathNameFactory = PathNameFactory(context)
 
-    fun execute(path: IPath) {
+    fun execute(path: IPath?) {
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             // Load the paths and groups (without waypoints)
             val all = getPaths(path)
             val paths = all.filterIsInstance<Path>()
             val groups = all.filterIsInstance<PathGroup>().associateBy { it.id }
+
+            if (paths.isEmpty()){
+                return@inBackground
+            }
 
             val chosenIds = if (path is Path) {
                 listOf(path.id)
@@ -83,11 +87,11 @@ class ExportPathCommand(
         }
     }
 
-    private suspend fun getPaths(path: IPath): List<IPath> = onIO {
+    private suspend fun getPaths(path: IPath?): List<IPath> = onIO {
         if (path is Path) {
             listOf(path)
         } else {
-            listOf(path) + pathService.loader().getChildren(path.id)
+            listOfNotNull(path) + pathService.loader().getChildren(path?.id)
         }
     }
 

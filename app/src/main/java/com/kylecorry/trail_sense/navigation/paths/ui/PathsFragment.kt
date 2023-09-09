@@ -117,12 +117,15 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         binding.pathsTitle.rightButton.setOnClickListener {
             val defaultSort = prefs.navigation.pathSort
             Pickers.menu(
-                it, listOf(
-                    getString(R.string.sort_by, getSortString(defaultSort))
+                it,
+                listOf(
+                    getString(R.string.sort_by, getSortString(defaultSort)),
+                    getString(R.string.export)
                 )
             ) { selected ->
                 when (selected) {
                     0 -> changeSort()
+                    1 -> exportCurrentGroup()
                 }
                 true
             }
@@ -297,9 +300,13 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         command.execute(manager.root?.id)
     }
 
-    private fun exportPath(path: IPath) {
+    private fun exportPath(path: IPath?) {
         val command = ExportPathCommand(requireContext(), this, gpxService, pathService)
         command.execute(path)
+    }
+
+    private fun exportCurrentGroup() {
+        exportPath(manager.root)
     }
 
     private fun deletePath(path: Path) {
