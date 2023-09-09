@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
+import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.FullPath
 import com.kylecorry.trail_sense.navigation.paths.domain.IPath
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.navigation.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.navigation.paths.ui.PathNameFactory
 import com.kylecorry.trail_sense.shared.io.IOService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,15 +32,31 @@ class ExportPathCommand(
     private val pathService: IPathService = PathService.getInstance(context)
 ) {
 
+    private val pathNameFactory = PathNameFactory(context)
+
     fun execute(path: IPath) {
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
-
+            // Load the paths and groups (without waypoints)
             val all = getPaths(path)
             val paths = all.filterIsInstance<Path>()
             val groups = all.filterIsInstance<PathGroup>().associateBy { it.id }
 
-            // TODO: Ask the user what paths to export, unless the path is a Path
-            val chosenIds = paths.map { it.id }
+            val chosenIds = if (path is Path) {
+                listOf(path.id)
+            } else {
+                val selection = CoroutinePickers.items(
+                    context,
+                    context.getString(R.string.export),
+                    paths.map { pathNameFactory.getName(it) },
+                    List(paths.size) { it }
+                ) ?: return@inBackground
+
+                if (selection.isEmpty()){
+                    return@inBackground
+                }
+
+                selection.map { paths[it].id }
+            }
 
             // Load the waypoints and associate them with the paths
             val waypoints = pathService.getWaypoints(chosenIds)
