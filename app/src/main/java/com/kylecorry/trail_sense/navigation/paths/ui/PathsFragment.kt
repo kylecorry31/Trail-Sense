@@ -226,6 +226,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             PathGroupAction.Rename -> renameGroup(group)
             PathGroupAction.Open -> manager.open(group.id)
             PathGroupAction.Move -> movePath(group)
+            PathGroupAction.Export -> exportPath(group)
         }
     }
 
@@ -296,7 +297,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         command.execute(manager.root?.id)
     }
 
-    private fun exportPath(path: Path) {
+    private fun exportPath(path: IPath) {
         val command = ExportPathCommand(requireContext(), this, gpxService, pathService)
         command.execute(path)
     }
