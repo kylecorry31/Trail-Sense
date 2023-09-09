@@ -7,14 +7,24 @@ import com.kylecorry.andromeda.gpx.GPXWaypoint
 
 class PathGPXConverter {
 
-    fun toGPX(name: String?, path: List<PathPoint>): GPXData {
-        val waypoints = path.map {
+    fun toGPX(paths: List<FullPath>): GPXData {
+        val tracks = paths.map { toGPX(it) }
+        return GPXData(emptyList(), tracks.flatMap { it.tracks }, emptyList())
+    }
+
+    fun toGPX(path: FullPath): GPXData {
+        val waypoints = path.points.map {
             GPXWaypoint(it.coordinate, elevation = it.elevation, time = it.time)
         }
-        val pathId = path.firstOrNull()?.pathId ?: 0
+        val pathId = path.points.firstOrNull()?.pathId ?: 0
 
         val trackSegment = GPXTrackSegment(waypoints)
-        val track = GPXTrack(name, id = pathId, segments = listOf(trackSegment))
+        val track = GPXTrack(
+            path.path.name,
+            id = pathId,
+            segments = listOf(trackSegment),
+            group = path.parent?.name
+        )
         return GPXData(emptyList(), listOf(track), emptyList())
     }
 

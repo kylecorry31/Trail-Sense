@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.grouping.persistence
 
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 
 class GroupLoader<T : Groupable>(
@@ -15,9 +16,9 @@ class GroupLoader<T : Groupable>(
         return groupLoader.invoke(id)
     }
 
-    private suspend fun loadChildren(id: Long?, maxDepth: Int?): List<T> {
+    private suspend fun loadChildren(id: Long?, maxDepth: Int?): List<T> = onIO {
         if (maxDepth != null && maxDepth <= 0) {
-            return emptyList()
+            return@onIO emptyList()
         }
 
         val children = childLoader.invoke(id)
@@ -27,6 +28,6 @@ class GroupLoader<T : Groupable>(
             maxDepth - 1
         }
         val subchildren = children.filter { it.isGroup }.flatMap { loadChildren(it.id, newDepth) }
-        return children + subchildren
+        children + subchildren
     }
 }

@@ -21,6 +21,12 @@ class PathGroupListItemMapper(
                     PathGroupAction.Rename
                 )
             },
+            ListMenuItem(context.getString(R.string.export)) {
+                actionHandler(
+                    value,
+                    PathGroupAction.Export
+                )
+            },
             ListMenuItem(context.getString(R.string.delete)) {
                 actionHandler(
                     value,

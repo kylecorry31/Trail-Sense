@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.WaypointEntity
 import com.kylecorry.trail_sense.shared.database.AppDatabase
@@ -71,12 +72,12 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         }
     }
 
-    override suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint> {
+    override suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint> = onIO {
         val points = mutableListOf<WaypointEntity>()
         for (pathId in pathIds) {
             points.addAll(waypointDao.getAllInPathSync(pathId))
         }
-        return points.map { it.toPathPoint() }
+        points.map { it.toPathPoint() }
     }
 
     override fun getAllInPathLive(pathId: Long): LiveData<List<PathPoint>> {
