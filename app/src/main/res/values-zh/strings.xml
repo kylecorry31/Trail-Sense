@@ -566,8 +566,6 @@
     <string name="map_rotate_instructions">旋转直到北指向上</string>
     <string name="map_perspective_instructions">勾勒地图轮廓</string>
     <string name="preview">预览</string>
-    <string name="pref_flashlight_toggle_with_system_summary">当手电筒在 Trail Sense 外打开时显示一则通知</string>
-    <string name="pref_flashlight_toggle_with_system_title">随系统切换</string>
     <string name="pref_navigation_lock_screen_presence_title">导航时在锁定屏幕上显示</string>
     <string name="import_map">导入地图</string>
     <string name="pref_cell_signal_refresh_cache_summary">强制加载最新信号强度</string>

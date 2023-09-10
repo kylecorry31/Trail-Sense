@@ -603,7 +603,6 @@
     <string name="dawn_type">Alba (%s)</string>
     <string name="dusk_type">Crepuscolo (%s)</string>
     <string name="no_groups">Nessun gruppo</string>
-    <string name="pref_flashlight_toggle_with_system_title">Attiva tramite il sistema</string>
     <string name="pref_navigation_lock_screen_presence_title">Mostra sulla schermata di blocco durante la navigazione</string>
     <string name="imperial_quarts">Quarti imperiali</string>
     <string name="volume">Volume</string>
@@ -741,7 +740,6 @@
     <string name="navigation_guide_description">Utilizzando percorsi e segnaposto</string>
     <string name="reduce_map_resolution">Riduci la risoluzione della mappa</string>
     <string name="humidity_history">Evoluzione dell\'umidità - ultime %s</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Mostra una notifica al di fuori di Trail Sense quando la torcia è attiva</string>
     <string name="move_to">Sposta in</string>
     <string name="moved_to">Sposta in %s</string>
     <string name="base_elevation">Altitudine di partenza</string>

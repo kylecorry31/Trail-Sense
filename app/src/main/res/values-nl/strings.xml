@@ -558,8 +558,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Forceert het laden van de nieuwste signaalsterktes</string>
     <string name="pref_cell_signal_refresh_cache_title">Signaalcache vernieuwen</string>
     <string name="pref_navigation_lock_screen_presence_title">Weergeven op vergrendelscherm tijdens navigeren</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Geeft een melding weer wanneer de zaklamp is ingeschakeld buiten Trail Sense</string>
-    <string name="pref_flashlight_toggle_with_system_title">Met systeem in-/uitschakelen</string>
     <string name="map_rotate_instructions">Draai totdat het noorden omhoog wijst</string>
     <string name="map_perspective_instructions">Maak een overzicht van de kaart</string>
     <string name="preview">Voorbeeld</string>

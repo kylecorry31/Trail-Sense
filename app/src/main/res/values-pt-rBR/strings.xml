@@ -532,8 +532,6 @@
     <string name="import_map">Importar mapa</string>
     <string name="pref_cell_signal_refresh_cache_title">Atualizar o cache de sinal</string>
     <string name="pref_navigation_lock_screen_presence_title">Mostrar na tela de bloqueio durante a navegação</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Exibe uma notificação quando a lanterna for ligada independentemente do Trail Sense</string>
-    <string name="pref_flashlight_toggle_with_system_title">Alternar com o sistema</string>
     <string name="map_rotate_instructions">Girar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Contornar o mapa</string>
     <string name="preview">Pré-visualização</string>

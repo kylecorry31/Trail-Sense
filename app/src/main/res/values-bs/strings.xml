@@ -147,8 +147,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Prisiljava učitavanje najnovijih snaga signala</string>
     <string name="pref_cell_signal_refresh_cache_title">Osvježite predmemoriju signala</string>
     <string name="pref_navigation_lock_screen_presence_title">Prikaži na zaključanom ekranu tijekom navigacije</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Prikazuje obavijest kada je svjetiljka uključena izvan Trail Sense-a</string>
-    <string name="pref_flashlight_toggle_with_system_title">Prebaci sa sistemom</string>
     <string name="map_rotate_instructions">Rotirajte dok Sjever nije prema gore usmjeren</string>
     <string name="map_perspective_instructions">Zacrtajte kartu</string>
     <string name="preview">Pregled</string>

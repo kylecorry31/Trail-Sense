@@ -25,13 +25,11 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 
-
 class FlashlightSubsystem private constructor(private val context: Context) : IFlashlightSubsystem {
 
     private val torchChanged by lazy { TorchStateChangedTopic(context) }
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val prefs by lazy { UserPreferences(context) }
-    private val flashlightSettings by lazy { FlashlightPreferenceRepo(context) }
     private var torch: ITorch? = null
 
     private val transitionDuration = Duration.ofSeconds(1)
@@ -52,18 +50,38 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     private var brightness: Float = 1f
 
-    private val modeLock = Object()
-    private val torchLock = Object()
+    private val modeLock = Any()
+    private val torchLock = Any()
+    private val systemMonitorLock = Any()
 
     private val scope = CoroutineScope(Dispatchers.Default)
+
+    private var systemMonitorCount = 0
 
     init {
         _mode.subscribe { true }
         scope.launch {
-            torchChanged.subscribe(this@FlashlightSubsystem::onTorchStateChanged)
             brightness = prefs.flashlight.brightness
             torch = Torch(context)
             isAvailable = Torch.isAvailable(context)
+        }
+    }
+
+    fun startSystemMonitor(){
+        synchronized(systemMonitorLock){
+            systemMonitorCount++
+            if (systemMonitorCount == 1){
+                torchChanged.subscribe(this@FlashlightSubsystem::onTorchStateChanged)
+            }
+        }
+    }
+
+    fun stopSystemMonitor(){
+        synchronized(systemMonitorLock){
+            systemMonitorCount--
+            if (systemMonitorCount == 0){
+                torchChanged.unsubscribe(this@FlashlightSubsystem::onTorchStateChanged)
+            }
         }
     }
 
@@ -139,10 +157,6 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     private fun onTorchStateChanged(enabled: Boolean): Boolean {
         tryOrLog {
-            if (!flashlightSettings.toggleWithSystem) {
-                return@tryOrLog
-            }
-
             synchronized(modeLock) {
                 if (isTransitioning) {
                     return@tryOrLog

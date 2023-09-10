@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
@@ -105,6 +106,16 @@ class MainActivity : AndromedaActivity() {
         requestPermissions(permissions) {
             startApp()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FlashlightSubsystem.getInstance(this).startSystemMonitor()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        FlashlightSubsystem.getInstance(this).stopSystemMonitor()
     }
 
     private fun startApp() {

@@ -8,12 +8,6 @@ import java.time.Duration
 
 class FlashlightPreferenceRepo(context: Context) : PreferenceRepo(context) {
 
-    var toggleWithSystem by BooleanPreference(
-        cache,
-        getString(R.string.pref_flashlight_toggle_with_system),
-        false
-    )
-
     var toggleWithVolumeButtons by BooleanPreference(
         cache,
         getString(R.string.pref_flashlight_toggle_with_volume),

@@ -449,7 +449,6 @@
     <string name="no_groups">Tidak ada grup</string>
     <string name="coordinates_tab">Koordinat</string>
     <string name="move">Pindah</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Menampilkan notifikasi ketika senter dinyalakan di luar Trail Sense</string>
     <string name="pref_cell_signal_refresh_cache_summary">Memaksa memuat kekuatan sinyal terbaru</string>
     <string name="pref_navigation_lock_screen_presence_title">Tampilkan di layar kunci saat menavigasi</string>
     <string name="unit_feet">Kaki</string>
@@ -485,7 +484,6 @@
     <string name="battery_usage">%s penggunaan baterai</string>
     <string name="whistle_signal_come_here">Kemari</string>
     <string name="battery_history">Riwayat baterai - terakhir %s</string>
-    <string name="pref_flashlight_toggle_with_system_title">Beralih dengan sistem</string>
     <string name="actual_frequency_disclaimer">Frekuensi sebenarnya dapat bervariasi karena beberapa perangkat memiliki batasan latar belakang.</string>
     <string name="weather_monitor">Pemantau Cuaca</string>
     <string name="activity_recognition_permission_denied">Izin aktivitas fisik ditolak, tidak dapat mengaktifkan fitur pedometer. Anda dapat mengaktifkannya di pengaturan.</string>

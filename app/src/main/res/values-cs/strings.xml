@@ -600,8 +600,6 @@
     <string name="move_to">Přesunout do</string>
     <string name="moved_to">Přesunuto do %s</string>
     <string name="map_rotate_instructions">Otáčejte, dokud sever neukazuje nahoru</string>
-    <string name="pref_flashlight_toggle_with_system_title">Přepínat se systémem</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Zobrazí upozornění, když je svítilna zapnutá mimo aplikaci Trail Sense</string>
     <string name="humidity_history">Historie vlhkosti - poslední %s</string>
     <string name="temperature_history">Historie teploty - poslední %s</string>
     <string name="no_groups">Žádné skupiny</string>

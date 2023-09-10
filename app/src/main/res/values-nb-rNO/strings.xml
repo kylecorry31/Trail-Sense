@@ -466,7 +466,6 @@
     <string name="create_map_description">Skriv inn navnet på kartet</string>
     <string name="create_map">Opprett kart</string>
     <string name="battery_history">Batterihistorikk - siste %s</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Viser et varsel når lommelykten er slått på utenfor Trail Sense</string>
     <string name="import_map">Importer kart</string>
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
@@ -552,7 +551,6 @@
     <string name="beacon_create_beacon">Navigeringsmarkør</string>
     <string name="qr_code">QR-kode</string>
     <string name="pref_experimental_metal_direction_title">Vis retning til metall</string>
-    <string name="pref_flashlight_toggle_with_system_title">Slå av/på med system</string>
     <string name="map_rotate_instructions">Roter til Nord peker opp</string>
     <string name="pref_nmea_elevation_summary">Bruker NMEA-offset for høydeomregning</string>
     <string name="pref_nmea_elevation_title">NMEA høyde-offset</string>
