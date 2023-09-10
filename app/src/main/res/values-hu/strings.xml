@@ -771,7 +771,6 @@
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>
     <string name="pref_nmea_elevation_title">NMEA magassági eltérések</string>
     <string name="distance">Távolság</string>
-    <string name="pref_flashlight_toggle_with_system_title">Kapcsolás a rendszerrel</string>
     <string name="pref_navigation_lock_screen_presence_title">Mutatás a zárolt képernyőn navigálás közben</string>
     <string name="pref_cell_signal_refresh_cache_summary">Kényszeríti a legfrissebb térerőadat betöltését</string>
     <string name="roll_pitch_yaw">Vízszintes dőlés: %1$s, Függőleges dőlés: %2$s, Elfordulás: %3$s</string>
@@ -934,7 +933,6 @@
     <string name="actual_frequency_disclaimer">A valós frekvencia változó lehet, mivel egyes eszközöknek vannak háttérbeli korlátozásai.</string>
     <string name="sleep_timer">Elalvás időzítő</string>
     <string name="import_gpx">GPX importálása</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Értesítést jelenít meg, ha a Trail Sense-n kívül kapcsolódik be a zseblámpa</string>
     <string name="sensor_gyroscope">Giroszkóp</string>
     <string name="dotted">Pontozott</string>
     <string name="backtrack_battery_warning">A rövid intervallumok (kevesebb, mint 15 perc) kimagasló akkuhasználatot okozhatnak</string>

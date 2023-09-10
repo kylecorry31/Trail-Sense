@@ -563,7 +563,6 @@
     <string name="coordinates_tab">Współrzędne</string>
     <string name="no_groups">Brak grup</string>
     <string name="preview">Podgląd</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Wyświetla powiadomienie, gdy latarka zostanie włączona poza programem Trail Sense</string>
     <string name="import_map">Importuj mapę</string>
     <string name="camera_permission_denied">Odmowa dostępu do aparatu, nie można włączyć funkcji aparatu. Możesz to włączyć w ustawieniach.</string>
     <string name="days">Dni</string>
@@ -591,7 +590,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Wymusza wczytywanie najnowszych danych o mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
     <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigowania</string>
-    <string name="pref_flashlight_toggle_with_system_title">Przełącz z systemem</string>
     <string name="map_rotate_instructions">Obracaj, aż północ będzie skierowana do góry</string>
     <string name="pref_barometer_pressure_smoothing_title">Wygładzanie ciśnienia</string>
     <string name="pref_nmea_elevation_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>

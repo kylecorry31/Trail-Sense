@@ -312,8 +312,6 @@
     <string name="error_importing_map">匯入地圖嘅時候發生錯誤</string>
     <string name="battery_warning">耗電警告</string>
     <string name="preview">預覽</string>
-    <string name="pref_flashlight_toggle_with_system_title">跟隨系統開關</string>
-    <string name="pref_flashlight_toggle_with_system_summary">當電筒喺 Trail Sense 以外打開，就顯示一則通知</string>
     <string name="pref_cell_signal_refresh_cache_title">重新整理訊號快取</string>
     <plurals name="number_days">
         <item quantity="other">%d 日</item>

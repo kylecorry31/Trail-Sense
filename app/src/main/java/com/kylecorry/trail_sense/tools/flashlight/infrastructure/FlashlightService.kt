@@ -47,6 +47,7 @@ class FlashlightService : AndromedaService() {
     }
 
     override fun onDestroy() {
+        flashlight.stopSystemMonitor()
         topic.unsubscribe(this::onStateChanged)
         offTimer.stop()
         strategy?.stop()
@@ -55,6 +56,7 @@ class FlashlightService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        flashlight.startSystemMonitor()
         Notify.send(this, NOTIFICATION_ID, getNotification())
         topic.subscribe(this::onStateChanged)
         stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))

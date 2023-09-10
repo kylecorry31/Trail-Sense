@@ -583,7 +583,6 @@
     <string name="import_map">Importar mapa</string>
     <string name="quart_format">%s qt</string>
     <string name="sort">Clasificar</string>
-    <string name="pref_flashlight_toggle_with_system_title">Alternar con el sistema</string>
     <string name="pref_cell_signal_refresh_cache_summary">Fuerza la carga de las señales más recientes</string>
     <string name="location_not_mocked">Usando la ubicación real</string>
     <string name="yards_format">%s yd</string>
@@ -663,7 +662,6 @@
     <string name="preview">Vista Previa</string>
     <string name="map_perspective_instructions">Delinear el mapa</string>
     <string name="map_rotate_instructions">Girar hasta que el norte apunte hacia arriba</string>
-    <string name="pref_flashlight_toggle_with_system_summary">Muestra una notificación cuando la linterna se enciende fuera de Trail Sense</string>
     <string name="pref_navigation_lock_screen_presence_title">Mostrar en la pantalla de bloqueo mientras navega</string>
     <string name="pref_cell_signal_refresh_cache_title">Actualizar caché de señales</string>
     <string name="pref_backtrack_history_days_title">Historia de retroceso (vuelta atrás)</string>

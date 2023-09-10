@@ -753,8 +753,6 @@
     <string name="pref_nmea_elevation_summary">שימוש בהיסט NMEA להמרת גובה</string>
     <string name="preview">תצוגה מקדימה</string>
     <string name="map_rotate_instructions">סובב עד שהצפון יצביע למעלה</string>
-    <string name="pref_flashlight_toggle_with_system_title">החלף עם המערכת</string>
-    <string name="pref_flashlight_toggle_with_system_summary">הצגת הודעה כאשר הפנס מופעל מחוץ ל-Trail Sense</string>
     <string name="pref_navigation_lock_screen_presence_title">הצג במסך הנעילה בזמן הניווט</string>
     <string name="pref_cell_signal_refresh_cache_summary">מאלץ טעינת עוצמת האות העדכנית ביותר</string>
     <string name="roll_pitch_yaw">גליל: %1$s, גובה: %2$s, פיתול: %3$s</string>
