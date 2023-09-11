@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import java.time.Duration
 
 object TrailSenseServiceUtils {
 
@@ -22,7 +23,7 @@ object TrailSenseServiceUtils {
         startPedometer(context)
         startSunsetAlarm(context)
         startAstronomyAlerts(context)
-        BatteryLogWorker.scheduler(context).start()
+        BatteryLogWorker.start(context)
         TileManager().setTilesEnabled(
             context,
             UserPreferences(context).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
@@ -37,7 +38,7 @@ object TrailSenseServiceUtils {
         BacktrackService.stop(context)
         StepCounterService.stop(context)
         AstronomyDailyWorker.stop(context)
-        BatteryLogWorker.scheduler(context).cancel()
+        BatteryLogWorker.stop(context)
         SunsetAlarmReceiver.scheduler(context).cancel()
         TileManager().setTilesEnabled(context, false)
     }
