@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.database.Identifiable
 
-// Last ID: 45
+// Last ID: 46
 enum class BeaconIcon(override val id: Long, @DrawableRes val icon: Int) : Identifiable {
     // Activities
     Trail(26, R.drawable.ic_trail),
@@ -37,6 +37,7 @@ enum class BeaconIcon(override val id: Long, @DrawableRes val icon: Int) : Ident
     WiFi(23, R.drawable.ic_wifi),
     FirstAid(24, R.drawable.ic_category_medical),
     Power(32, R.drawable.ic_torch_on),
+    Music(46, R.drawable.ic_music),
 
     // Buildings
     Tent(5, R.drawable.ic_category_shelter),
