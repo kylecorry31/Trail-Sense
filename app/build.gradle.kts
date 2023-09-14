@@ -29,6 +29,14 @@ android {
                 keyPassword = System.getProperty("nightly_key_password")
             }
         }
+        create("dev") {
+            if (System.getProperty("dev_store_file") != null) {
+                storeFile = file(System.getProperty("dev_store_file"))
+                storePassword = System.getProperty("dev_store_password")
+                keyAlias = System.getProperty("dev_key_alias")
+                keyPassword = System.getProperty("dev_key_password")
+            }
+        }
     }
     androidResources {
         // Support for auto-generated locales for per-app language settings
@@ -48,6 +56,7 @@ android {
         // Debug build (GitHub)
         create("dev") {
             initWith(getByName("debug"))
+            signingConfig = signingConfigs.getByName("dev")
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
         }

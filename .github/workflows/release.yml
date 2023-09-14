@@ -1,0 +1,36 @@
+name: Release Upload
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 17
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Build APK
+        run: |
+          echo ${DEV_STORE_FILE} | base64 -d > KEY_DEV.jks
+          DEV_KEY_ALIAS=$(echo -n $DEV_KEY_ALIAS | base64 -d)
+          ./gradlew assembleDev -Ddev_store_file=../KEY_DEV.jks -Ddev_store_password="${DEV_STORE_PASSWORD}" -Ddev_key_alias="${DEV_KEY_ALIAS}" -Ddev_key_password="${DEV_STORE_PASSWORD}"
+        env:
+          DEV_STORE_PASSWORD: ${{ secrets.DEV_STORE_PASSWORD }}
+          DEV_KEY_ALIAS: ${{ secrets.DEV_KEY_ALIAS }}
+          DEV_STORE_FILE: ${{ secrets.DEV_STORE_FILE }}
+      - name: Upload to release
+        uses: Shopify/upload-to-release@v1.0.1
+        with:
+          name: Heart-Rate-${{ github.event.release.tag_name }}.apk
+          path: ./app/build/outputs/apk/dev/app-dev.apk
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
