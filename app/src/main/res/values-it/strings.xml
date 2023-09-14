@@ -43,7 +43,7 @@
     <string name="theme_black">Nero</string>
     <string name="theme_system">Sistema</string>
     <string name="gps">GPS</string>
-    <string name="sun_actual">Adesso</string>
+    <string name="sun_actual">Attuale</string>
     <string name="sun_civil">Civile</string>
     <string name="sun_nautical">Nautico</string>
     <string name="sun_astronomical">Astronomico</string>
@@ -55,7 +55,7 @@
     <string name="pressure_12_hours">12 ore</string>
     <string name="pressure_4_hours">4 ore</string>
     <string name="pref_pressure_history_title">Storia della pressione</string>
-    <string name="tool_category_angles">Angoli</string>
+    <string name="tool_category_angles">Angolazioni</string>
     <string name="beacon_comment">Note (opzionale)</string>
     <string name="maps">Mappe</string>
     <string name="beacon_invalid_name">Nome non valido</string>
@@ -175,7 +175,7 @@
     <string name="location">Posizione</string>
     <string name="compass_accuracy_improved">Accuratezza della bussola migliorata a %s</string>
     <string name="compass_reported_accuracy">Accuratezza riportata: %s</string>
-    <string name="calibrate_compass_dialog_content">Ruota il tuo telefono formando un percorso a 8 oppure in tutte le direzioni diverse volte, clicca %s quando hai terminato.</string>
+    <string name="calibrate_compass_dialog_content">Ruota il tuo telefono formando un 8 oppure in tutte le direzioni diverse volte, clicca %s quando hai terminato.</string>
     <string name="calibrate_compass_dialog_title">Calibrare la bussola</string>
     <string name="calibrate">Calibrare</string>
     <string name="pref_auto_declination_summary">Basato sulla tua posizione corrente</string>
@@ -247,14 +247,14 @@
     <string name="tool_boil_summary">Avvisa quando l’acqua è potabile</string>
     <string name="inventory_empty_text">Nessun oggetto</string>
     <string name="tool_whistle_title">Fischio</string>
-    <string name="tool_cliff_height_description">Misurare l’altezza di un precipizio o di una caduta</string>
+    <string name="tool_cliff_height_description">Misurare l’altezza di un precipizio o di un salto</string>
     <string name="tool_cliff_height_title">Altezza precipizio</string>
-    <string name="tool_bubble_level_summary">Determinare se le superfici sono piane</string>
+    <string name="tool_bubble_level_summary">Determina se le superfici sono piane</string>
     <string name="error_occurred_message">Trail Sense ha incontrato un errore. Per favore invia una email allo sviluppatore affinché il problema venga risolto.</string>
     <string name="none">Nessuno</string>
-    <string name="low">Bassa</string>
-    <string name="moderate">Moderata</string>
-    <string name="high">Elevata</string>
+    <string name="low">Basso</string>
+    <string name="moderate">Moderato</string>
+    <string name="high">Elevato</string>
     <string name="pref_daily_weather_notification_title">Notifica meteo giornaliera</string>
     <string name="tomorrows_forecast">Previsioni per domani</string>
     <string name="todays_forecast">Previsioni per oggi</string>
@@ -271,7 +271,7 @@
     <string name="category_hydration">Idratazione</string>
     <string name="category_food">Cibo</string>
     <string name="other">Altro</string>
-    <string name="tool_bubble_level_title">Livello a bolla</string>
+    <string name="tool_bubble_level_title">Livella a bolla</string>
     <string name="guide_weather_prediction_title">Previsioni meteo</string>
     <string name="tap_sun_moon_hint">Clicca il sole o la luna per dettagli sulla posizione</string>
     <string name="no_group">Nessun gruppo</string>
@@ -296,7 +296,7 @@
     <string name="pref_center_sun_and_moon_title">Mantenere sole/luna centrati</string>
     <string name="sun_moon_compass_when_up">Quando sorti</string>
     <string name="always">Sempre</string>
-    <string name="tool_light_meter_title">Misuratore luminosità</string>
+    <string name="tool_light_meter_title">Misuratore di luminosità</string>
     <string name="beacon_export_error">Esportazione Segnaposto non riuscita</string>
     <string name="notes_empty_text">Nessuna nota</string>
     <string name="water_purification_step_3">Far partire il timer</string>
@@ -347,7 +347,7 @@
     <string name="unit_feet">Piedi</string>
     <string name="unit_kilometers">Chilometri</string>
     <string name="unit_meters">Metri</string>
-    <string name="distance_to">Aggiorna l’orologio di sistema</string>
+    <string name="distance_to">A</string>
     <string name="distance_from">Da</string>
     <string name="navigation_nearby_category">Vicino</string>
     <string name="forecasts_category">Previsioni</string>
@@ -359,7 +359,7 @@
     <string name="pref_adjust_for_temperature_summary">Utilizza la temperatura nelle conversioni della pressione su livello mare</string>
     <string name="no_data">Nessun dato</string>
     <string name="notification_channel_clock_sync_description">Una notifica per sincronizzare il tuo orologio con l\'orario del GPS</string>
-    <string name="clock_sync_instructions">Imposta l\'ora a %s quando arriva la notifica</string>
+    <string name="clock_sync_instructions">Imposta l\'ora a %s quando ricevi la notifica</string>
     <string name="clock_sync_time_settings">Aprire impostazioni orario\?</string>
     <string name="metal_detector_disclaimer">Rileva solo metalli magnetici (es. ferro)</string>
     <string name="unit_inches">Pollici</string>
@@ -426,10 +426,10 @@
     <string name="cirrostratus_desc">Una nuvola alta che copre il cielo. È trasparente e solitamente causa un bagliore attorno al sole.</string>
     <string name="packing_lists">Liste Inventario</string>
     <string name="no_packing_lists">Nessuna lista inventario</string>
-    <string name="tool_cliff_height_disclaimer">Utilizza questa funzione solo quando è sicuro farlo, assicurati di controllare cosa si trova sotto al precipizio per evitare incidenti. Leggi la guida utente per le istruzioni.</string>
+    <string name="tool_cliff_height_disclaimer">Utilizza questa funzione solo quando è sicuro farlo, assicurati di controllare cosa si trova sotto al precipizio per evitare di recare danno a persone, oggetti e animali. Leggi la guida utente per le istruzioni.</string>
     <string name="action_inventory_clear_confirm">Eliminare tutte le quantità di inventario\?</string>
     <string name="tool_solar_panel_summary">Permette di posizionare i pannelli solari in modo da ottenere la potenza ottimale</string>
-    <string name="water_boil_timer">Timer bollitura acqua</string>
+    <string name="water_boil_timer">Timer bollitura dell\' acqua</string>
     <string name="three">3</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
@@ -544,7 +544,7 @@
     <string name="hour_symbol">h</string>
     <string name="importing_map">Importando la mappa</string>
     <string name="error_importing_map">Errore importando la mappa</string>
-    <string name="pref_odometer_reset_daily_title">Resetta giornalmente</string>
+    <string name="pref_odometer_reset_daily_title">Azzera giornalmente</string>
     <string name="search">Cerca</string>
     <string name="pref_weather_show_detailed_icon_title">Mostra un\'icona di notifica colorata</string>
     <string name="solid">Continuo</string>
@@ -578,7 +578,7 @@
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Potrebbero verificarsi precipitazioni nelle prossime %d ore.</string>
     <string name="on_map">Sulla mappa</string>
     <string name="place_beacon_at">Posizionare un faro su %s\?</string>
-    <string name="time_until_empty">fino a quando non è vuoto</string>
+    <string name="time_until_empty">fino allo scaricamento</string>
     <string name="map_auto_rotated">Rotazione della mappa regolata con la calibrazione</string>
     <string name="diamond">Diamante</string>
     <string name="cross">Croce</string>
@@ -587,7 +587,7 @@
     <string name="since_time">da %s</string>
     <string name="pref_include_leading_zero_title">Aggiungi lo zero iniziale all\'ora</string>
     <string name="pref_stride_length_title">Lunghezza del passo</string>
-    <string name="time_until_full">fino a quando non è pieno</string>
+    <string name="time_until_full">fino alla ricarica</string>
     <string name="actual_frequency_disclaimer">La frequenza effettiva può variare in quanto alcuni dispositivi hanno delle limitazioni alle attività in background.</string>
     <string name="weather_no_change">Nessun cambiamento</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Può indicare bel tempo per le prossime %d ore.</string>
@@ -1121,18 +1121,24 @@
     <string name="step_progression">Passaggio %1$d / %2$d</string>
     <string name="pref_keep_map_facing_up_title">Tenere la mappa rivolta verso l\'alto</string>
     <string name="pref_keep_map_facing_up_summary">La mappa si allineerà alla parte superiore dello schermo invece che al vero Nord.</string>
-    <string name="gps_accuracy_tip">Assicurarsi di avere una visione libera del cielo, lontano da edifici alti ed alberi.</string>
+    <string name="gps_accuracy_tip">Assicurarsi di avere una visione libera del cielo, lontano da alberi ed edifici alti.</string>
     <string name="gps_location_accuracy">Precisione della posizione GPS</string>
     <string name="gps_elevation_accuracy">Precisione dell\'altitudine GPS</string>
     <string name="gps_satellites">Satelliti GPS</string>
     <string name="no_compass_description">Il tuo dispositivo non posiede una bussola. Questo è un compenente harsware, pertanto non si può far nulla per aggiungerlo. Alcune funzionalità che utilizzano la bussola non saranno disponibili.</string>
     <string name="restore">Ripristino</string>
     <string name="backup">Backup</string>
-    <string name="restore_disclaimer">Questa azione sovrascriverà tutti i dati correnti. Assicurarsi di avere un backup prima di continuare. Selezionare solo file di backup creati con %s e fidati.</string>
-    <string name="backup_disclaimer">Il file di backup può essere utilizzato per ripristinare i dati. Questo file non è cifrato, per cui non va condiviso con persone non fidate.</string>
+    <string name="restore_disclaimer">Questa azione sovrascriverà tutti i dati correnti. Assicurarsi di eseguire un backup prima di continuare.
+\n
+\nUtilizzare solo file di backup affidabili creati con %s.</string>
+    <string name="backup_disclaimer">Un file di backup contenente tutti i dati correnti verrà creato. Il file includerà le impostazioni, i percorsi, i segnaposti, le mappe, ecc.
+\n
+\nQuesto file non è cifrato, si raccomanda quindi di condividerlo solo con persone fidate.</string>
     <string name="restoring_loading_message">Ripristino in corso…</string>
     <string name="backing_up_loading_message">Backup in corso…</string>
     <string name="restore_complete_message">Ripristino riuscito, l\'applicazione viene riavviata per applicare i cambiamenti</string>
     <string name="invalid_backup_file">File di backup non valido</string>
     <string name="backup_restore">Backup / Ripristino</string>
+    <string name="restore_failure_newer_version">Questo backup è stato creato con una versione più recente di %s. Per favore aggiornare l\'app e riprovare.</string>
+    <string name="zero_shutter_lag">Eliminazione ritardo dello scatto</string>
 </resources>
