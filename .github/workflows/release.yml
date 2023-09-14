@@ -31,6 +31,6 @@ jobs:
       - name: Upload to release
         uses: Shopify/upload-to-release@v1.0.1
         with:
-          name: Heart-Rate-${{ github.event.release.tag_name }}.apk
+          name: Trail-Sense-${{ github.event.release.tag_name }}-dev.apk
           path: ./app/build/outputs/apk/dev/app-dev.apk
           repo-token: ${{ secrets.GITHUB_TOKEN }}
