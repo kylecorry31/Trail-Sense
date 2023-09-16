@@ -78,10 +78,6 @@ class BackupService(
 
         // Rename the shared prefs file
         renameSharedPrefsFile()
-
-        // Indicate that a restore just happened (doesn't matter that it is called backup)
-        val prefs = SharedPreferences(context, commitChanges = true)
-        prefs.putBoolean(RECENTLY_BACKED_UP_KEY, true)
     }
 
     private suspend fun renameSharedPrefsFile(): Unit = onIO {
