@@ -1125,4 +1125,7 @@
     <string name="i_agree">Я згоден</string>
     <string name="battery_settings_limit_accuracy">Обмеження батареї можуть знизити точність</string>
     <string name="learn_more">Докладніше</string>
+    <string name="gps_satellites">GPS супутники</string>
+    <string name="gps_elevation_accuracy">Точність висоти GPS</string>
+    <string name="gps_location_accuracy">Точність розташування GPS</string>
 </resources>
