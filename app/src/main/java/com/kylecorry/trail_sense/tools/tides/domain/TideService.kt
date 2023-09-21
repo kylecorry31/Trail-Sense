@@ -14,6 +14,8 @@ import java.time.*
 
 class TideService : ITideService {
 
+    private val maxSearchIterations = 10
+
     private val ocean = OceanographyService()
 
     override fun getTides(table: TideTable, date: LocalDate, zone: ZoneId): List<Tide> {
@@ -60,7 +62,7 @@ class TideService : ITideService {
     }
 
     override fun getCurrentTide(table: TideTable, time: ZonedDateTime): TideType? {
-        val next = getNextTide(table, time)
+        val next = getNextTide(table, time) ?: return null
         val timeToNextTide = Duration.between(time, next.time)
         val closeToNextTide = timeToNextTide < Duration.ofHours(2)
         val farFromNextTide = timeToNextTide > Duration.ofHours(4)
@@ -76,15 +78,20 @@ class TideService : ITideService {
     }
 
     override fun isRising(table: TideTable, time: ZonedDateTime): Boolean {
-        return getNextTide(table, time).isHigh
+        return getNextTide(table, time)?.isHigh ?: false
     }
 
-    private fun getNextTide(table: TideTable, time: ZonedDateTime): Tide {
+    private fun getNextTide(table: TideTable, time: ZonedDateTime, iteration: Int = 0): Tide? {
+        if (iteration >= maxSearchIterations) {
+            return null
+        }
+
         val todayTides = getTides(table, time.toLocalDate())
         val next = todayTides.firstOrNull { it.time >= time }
         return next ?: getNextTide(
             table,
-            time.toLocalDate().plusDays(1).atStartOfDay().atZone(time.zone)
+            time.toLocalDate().plusDays(1).atStartOfDay().atZone(time.zone),
+            iteration + 1
         )
     }
 }
