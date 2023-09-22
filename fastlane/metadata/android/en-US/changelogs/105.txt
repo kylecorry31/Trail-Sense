@@ -1,0 +1,8 @@
+Paths
+- Import/export path groups
+- Improve hike difficulty metric to account for steep sections
+
+Misc
+- Add full backup / restore to settings (settings and data)
+- Added experimental setting to use zero shutter lag mode for taking photos
+- Bug fixes
