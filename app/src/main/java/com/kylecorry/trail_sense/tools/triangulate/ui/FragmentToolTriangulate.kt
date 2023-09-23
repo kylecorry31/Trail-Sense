@@ -30,6 +30,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     private var direction2: Bearing? = null
     private var location: Coordinate? = null
 
+    private var shouldCalculateMyLocation = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -69,6 +71,15 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         if (prefs.useAutoLocation) {
             binding.updateGpsOverride.isVisible = false
         }
+
+        binding.locationButtonGroup.check(if (shouldCalculateMyLocation) binding.locationButtonSelf.id else binding.locationButtonOther.id)
+        binding.locationButtonGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) {
+                return@addOnButtonCheckedListener
+            }
+            shouldCalculateMyLocation = checkedId == binding.locationButtonSelf.id
+            update()
+        }
     }
 
 
@@ -105,7 +116,11 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         val bearing1 = direction1.withDeclination(declination1)
         val bearing2 = direction2.withDeclination(declination2)
 
-        val location = Geology.triangulate(location1, bearing1, location2, bearing2)
+        val location = if (shouldCalculateMyLocation) {
+            Geology.triangulateSelf(location1, bearing1, location2, bearing2)
+        } else {
+            Geology.triangulateDestination(location1, bearing1, location2, bearing2)
+        }
         setLocation(location)
     }
 
@@ -123,8 +138,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     }
 
     override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
+        layoutInflater: LayoutInflater, container: ViewGroup?
     ): FragmentToolTriangulateBinding {
         return FragmentToolTriangulateBinding.inflate(layoutInflater, container, false)
     }

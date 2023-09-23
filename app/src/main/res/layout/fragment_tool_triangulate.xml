@@ -19,6 +19,32 @@
             app:showSubtitle="false"
             tools:title="10.0000, 40.0000" />
 
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/location_button_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/location_button_self"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="?attr/colorOnSurface"
+                android:text="My location" />
+
+            <Button
+                android:id="@+id/location_button_other"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="?attr/colorOnSurface"
+                android:text="Destination" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
         <TextView
             android:id="@+id/location_1_title"
             android:layout_width="wrap_content"
