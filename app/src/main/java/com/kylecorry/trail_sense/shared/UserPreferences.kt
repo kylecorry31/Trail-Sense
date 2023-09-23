@@ -59,6 +59,12 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 
+    var isCliffHeightEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_cliff_height_enabled),
+        false
+    )
+
     val distanceUnits by StringEnumPreference(
         cache,
         getString(R.string.pref_distance_units),

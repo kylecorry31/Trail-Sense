@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 data class ToolGroup(val name: String, val tools: List<Tool>)
@@ -21,6 +22,7 @@ object Tools {
         val hasLightMeter = Sensors.hasSensor(context, Sensor.TYPE_LIGHT)
         val hasPedometer = Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER)
         val hasCompass = SensorService(context).hasCompass()
+        val prefs = UserPreferences(context)
         val signaling = ToolGroup(
             context.getString(R.string.tool_category_signaling), listOf(
                 Tool(
@@ -47,12 +49,12 @@ object Tools {
                     R.drawable.steps,
                     R.id.action_tools_to_pedometer
                 ) else null,
-                Tool(
+                if (prefs.isCliffHeightEnabled) Tool(
                     context.getString(R.string.tool_cliff_height_title),
                     R.drawable.ic_tool_cliff_height,
                     R.id.action_action_experimental_tools_to_toolCliffHeightFragment,
-                    context.getString(R.string.tool_cliff_height_description)
-                )
+                    context.getString(R.string.experimental) + " - " + context.getString(R.string.tool_cliff_height_description)
+                ) else null
             )
         )
 
@@ -141,10 +143,10 @@ object Tools {
         val weather = ToolGroup(
             context.getString(R.string.weather), listOfNotNull(
                 Tool(
-                  context.getString(R.string.tool_climate),
-                  R.drawable.ic_temperature_range,
-                  R.id.action_toolsFragment_to_toolClimate,
-                  context.getString(R.string.tool_climate_summary)
+                    context.getString(R.string.tool_climate),
+                    R.drawable.ic_temperature_range,
+                    R.id.action_toolsFragment_to_toolClimate,
+                    context.getString(R.string.tool_climate_summary)
                 ),
                 Tool(
                     context.getString(R.string.tool_temperature_estimation_title),

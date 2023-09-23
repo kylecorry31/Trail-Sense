@@ -92,7 +92,7 @@ object Guides {
                     ) else null,
                 UserGuide(
                     context.getString(R.string.cliff_height_guide),
-                    null,
+                    context.getString(R.string.experimental),
                     R.raw.cliff_height
                 ),
                 UserGuide(

@@ -37,7 +37,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 15
+        private const val version = 16
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -175,6 +175,13 @@ class PreferenceMigrator private constructor() {
                 userPrefs.weightUnits
                 userPrefs.pressureUnits
                 userPrefs.temperatureUnits
+            },
+            PreferenceMigration(15, 16){ context, prefs ->
+                if (prefs.getBoolean("cache_dialog_tool_cliff_height") != null){
+                    // Enable the cliff height tool since it was previously used
+                    val userPrefs = UserPreferences(context)
+                    userPrefs.isCliffHeightEnabled = true
+                }
             }
         )
 

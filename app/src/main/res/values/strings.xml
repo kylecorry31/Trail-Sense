@@ -1334,6 +1334,9 @@
     <string name="pref_use_zero_shutter_lag" translatable="false">pref_use_zero_shutter_lag</string>
     <string name="my_location">My location</string>
     <string name="destination">Destination</string>
+    <string name="tool_deprecation_disclaimer">This tool may be removed or redesigned since it is not practical for hiking, backpacking, or camping. If you find this tool useful, please share how you are using it with me at %s.</string>
+    <string name="pref_cliff_height_enabled" translatable="false">pref_cliff_height_enabled</string>
+    <string name="scheduled_for_redesign_or_removal">Scheduled for redesign or removal</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

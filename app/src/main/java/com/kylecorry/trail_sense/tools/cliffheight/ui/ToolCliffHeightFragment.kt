@@ -43,7 +43,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
         super.onViewCreated(view, savedInstanceState)
 
         binding.startBtn.setOnTouchListener { _, event ->
-            when (event.action){
+            when (event.action) {
                 MotionEvent.ACTION_UP -> updateState(PressState.Up)
                 MotionEvent.ACTION_DOWN -> updateState(PressState.Down)
             }
@@ -92,11 +92,16 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
         CustomUiUtils.disclaimer(
             requireContext(),
             getString(R.string.disclaimer_message_title),
-            getString(R.string.tool_cliff_height_disclaimer),
-            "cache_dialog_tool_cliff_height",
+            getString(R.string.tool_cliff_height_disclaimer) + "\n\n" + getString(
+                R.string.tool_deprecation_disclaimer,
+                getString(R.string.email)
+            ),
+            "cache_dialog_tool_cliff_height_deprecation",
             considerShownIfCancelled = true,
             cancelText = null
         )
+
+
     }
 
     override fun onResume() {

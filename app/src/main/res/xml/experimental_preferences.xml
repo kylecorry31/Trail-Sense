@@ -25,6 +25,15 @@
             app:singleLineTitle="false"
             app:title="@string/zero_shutter_lag" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/scheduled_for_redesign_or_removal"
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_cliff_height_enabled"
+            app:singleLineTitle="false"
+            app:title="@string/tool_cliff_height_title" />
+
 
     </PreferenceCategory>
 
