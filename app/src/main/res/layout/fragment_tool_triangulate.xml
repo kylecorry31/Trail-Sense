@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="?attr/colorOnSurface"
-                android:text="My location" />
+                android:text="@string/my_location" />
 
             <Button
                 android:id="@+id/location_button_other"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="?attr/colorOnSurface"
-                android:text="Destination" />
+                android:text="@string/destination" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
