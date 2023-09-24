@@ -46,8 +46,6 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-- [x] Q4 2022: Cloud scanner
-- [x] Q1 2023: Improved weather forecasts
 - [x] Q2 2023: Photo Maps
 - [ ] Q3-Q4 2023: Usability (at a glance, tutorials, data export)
 - [ ] Q1-Q2 2024: Augmented reality
