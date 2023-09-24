@@ -22,7 +22,6 @@
             android:layout_gravity="center"
             android:background="@drawable/rounded_rectangle"
             android:backgroundTint="@color/orange_40"
-            android:elevation="4dp"
             android:padding="8dp"
             app:srcCompat="@drawable/ic_compass_icon"
             app:tint="@color/black" />
@@ -39,6 +38,18 @@
             tools:text="0" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/camera_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/orange_40"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_camera"
+        app:tint="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"

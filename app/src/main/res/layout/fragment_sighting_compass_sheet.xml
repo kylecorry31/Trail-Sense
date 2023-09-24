@@ -14,8 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rightButtonIcon="@drawable/ic_cancel"
-        app:showSubtitle="false"
-        app:title="@string/take_photo" />
+        app:showSubtitle="false" />
 
     <com.kylecorry.trail_sense.shared.views.CameraView
         android:id="@+id/camera"
@@ -31,6 +30,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_title" />
 
+    <View
+        android:id="@+id/view_camera_line"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/orange_40"
+        app:layout_constraintBottom_toBottomOf="@id/camera"
+        app:layout_constraintEnd_toEndOf="@id/camera"
+        app:layout_constraintStart_toStartOf="@id/camera"
+        app:layout_constraintTop_toTopOf="@id/camera" />
+
+    <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
+        android:id="@+id/linear_compass"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/camera"
+        app:layout_constraintEnd_toEndOf="@id/camera"
+        app:layout_constraintStart_toStartOf="@id/camera"
+        app:layout_constraintTop_toTopOf="@id/camera" />
+
     <com.kylecorry.trail_sense.shared.camera.ShutterButton
         android:id="@+id/capture_button"
         android:layout_width="64dp"
@@ -40,16 +58,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/loading_indicator"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/capture_button"
-        app:layout_constraintEnd_toEndOf="@id/capture_button"
-        app:layout_constraintStart_toStartOf="@id/capture_button"
-        app:layout_constraintTop_toTopOf="@id/capture_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

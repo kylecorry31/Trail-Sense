@@ -10,10 +10,16 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.kylecorry.andromeda.fragments.AndromedaActivity
+import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.camera.SightingCompassBottomSheetFragment
 import com.kylecorry.trail_sense.shared.extensions.floatValue
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlin.math.roundToInt
 
@@ -50,8 +56,11 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
 
     private val bearingEdit: EditText
     private val compassBtn: ImageButton
+    private val cameraBtn: ImageButton
     private val compassText: TextView
     private val trueNorthSwitch: SwitchCompat
+
+    private var cameraSheet: SightingCompassBottomSheetFragment? = null
 
 
     init {
@@ -59,6 +68,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
 
         bearingEdit = findViewById(R.id.bearing)
         compassBtn = findViewById(R.id.compass_btn)
+        cameraBtn = findViewById(R.id.camera_btn)
         compassText = findViewById(R.id.compass_bearing)
         trueNorthSwitch = findViewById(R.id.true_north)
 
@@ -73,21 +83,45 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
             trueNorth = false
         }
 
+        cameraBtn.setOnClickListener {
+            val activity = context as? AndromedaActivity ?: return@setOnClickListener
+            val fragment = activity.getFragment() as? AndromedaFragment ?: return@setOnClickListener
+
+            fragment.requestCamera { hasPermission ->
+                if (hasPermission) {
+                    if (cameraSheet == null) {
+                        cameraSheet = SightingCompassBottomSheetFragment {
+                            bearing = it
+                            trueNorth = false
+                        }
+                    }
+
+                    cameraSheet?.show(fragment)
+                } else {
+                    fragment.alertNoCameraPermission()
+                }
+            }
+        }
+
         if (!hasCompass) {
             findViewById<View>(R.id.compass_autofill_holder).isVisible = false
+            cameraBtn.isVisible = false
         }
     }
 
     fun start() {
         stop()
         compass.start {
-            compassText.text = formatter.formatDegrees(compass.bearing.value, replace360 = true)
+            val bearing = compass.rawBearing
+            compassText.text = formatter.formatDegrees(bearing, replace360 = true)
+            cameraSheet?.bearing = bearing
             true
         }
     }
 
     fun stop() {
         compass.stop(null)
+        cameraSheet?.dismiss()
     }
 
     private fun onChange() {
