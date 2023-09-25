@@ -30,7 +30,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     private var direction2: Bearing? = null
     private var location: Coordinate? = null
 
-    private var shouldCalculateMyLocation = true
+    private var shouldCalculateMyLocation = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
