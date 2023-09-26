@@ -1144,4 +1144,8 @@
     <string name="backup_restore">Copia de seguridad / Restaurar</string>
     <string name="restore_failure_newer_version">Esta copia de seguridad se creó con una versión más reciente de %s. Actualiza la aplicación e inténtalo de nuevo.</string>
     <string name="zero_shutter_lag">Sin retardo del obturador</string>
+    <string name="tool_deprecation_disclaimer">Es posible que esta herramienta se elimine o rediseñe, ya que no es práctica para hacer senderismo, ir de mochilero o acampar. Si encuentras útil esta herramienta, por favor comparte conmigo cómo la usas en %s.</string>
+    <string name="my_location">Mi ubicación</string>
+    <string name="scheduled_for_redesign_or_removal">Programado para rediseño o eliminación</string>
+    <string name="destination">Destino</string>
 </resources>
