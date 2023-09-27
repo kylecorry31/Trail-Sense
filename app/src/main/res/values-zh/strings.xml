@@ -1115,4 +1115,8 @@
     <string name="backup_restore">备份/还原</string>
     <string name="restore_failure_newer_version">此备份文件是用较新版本的 %s 创建的。请更新应用并重试。</string>
     <string name="zero_shutter_lag">零快门延迟</string>
+    <string name="my_location">我的位置</string>
+    <string name="destination">目的地</string>
+    <string name="tool_deprecation_disclaimer">此工具可能被删除或重新设计，因它对徒步旅行、背包旅行或露营并不实用。如果你觉得此工具有用，请在 %s 与我分享你如何使用它。</string>
+    <string name="scheduled_for_redesign_or_removal">将被重新设计或删除</string>
 </resources>
