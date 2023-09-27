@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -31,7 +32,10 @@ class LocationSubsystem private constructor(private val context: Context) {
         get() = sensorService.getGPS().location
 
     val elevation: Distance
-        get() = Distance.meters(if (isAltimeterOverridden()) altimeterOverride.altitude else altimeterCache.altitude)
+        get(){
+            val raw = if (isAltimeterOverridden()) altimeterOverride.altitude else altimeterCache.altitude
+            return Distance.meters(raw.real(0f))
+        }
 
     private val userPrefs by lazy { UserPreferences(context) }
 

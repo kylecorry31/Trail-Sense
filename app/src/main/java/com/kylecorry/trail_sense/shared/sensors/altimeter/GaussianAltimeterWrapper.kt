@@ -56,7 +56,7 @@ class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int 
         }
 
         val distribution = GaussianDistribution(
-            altimeter.altitude,
+            altimeter.altitude.real(0f),
             variance
         )
 
@@ -70,8 +70,9 @@ class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int 
         buffer.add(distribution)
         val calculated = Statistics.joint(buffer.toList())
         if (calculated != null) {
-            altitude = calculated.mean
-            altitudeAccuracy = calculated.standardDeviation
+            altitude = calculated.mean.real(0f)
+            altitudeAccuracy =
+                calculated.standardDeviation.real(defaultVariance).positive(defaultVariance)
             if (hasValidReading) {
                 notifyListeners()
             }
