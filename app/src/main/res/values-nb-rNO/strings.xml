@@ -1074,4 +1074,12 @@
     <string name="backing_up_loading_message">Sikkerhetskopierer til …</string>
     <string name="restore_complete_message">Gjenopprettet. Utfører omstart for å ta i bruk endringer.</string>
     <string name="compass_source_mag_gyro">Magnetometer + gyro</string>
+    <string name="my_location">Min posisjon</string>
+    <string name="backup_disclaimer">En sikkerhetskopifil blir opprettet med alle dine nåværende data. Den vil inkludere innstillinger, stier, navigeringsmarkører, kart etc.
+\n
+\nDenne filen er ikke kryptert. Ikke del den med noen du ikke stoler på.</string>
+    <string name="destination">Bestemmelsessted</string>
+    <string name="restore_disclaimer">Denne handlingen vil overskrive alle dine nåværende data. Sørg for å ha en sikkerhetskopi før du fortsetter.
+\n
+\nVelg kun en sikkerhetskopifil som du har opprettet med %s og stoler på.</string>
 </resources>
