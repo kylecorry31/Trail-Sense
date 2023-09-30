@@ -80,8 +80,22 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             shouldCalculateMyLocation = checkedId == binding.locationButtonSelf.id
             update()
         }
-    }
 
+        // Handle expansion
+        binding.location1Expansion.setOnExpandStateChangedListener {
+            // TODO: Set the dropdown icon
+        }
+
+        binding.location2Expansion.setOnExpandStateChangedListener {
+            // TODO: Set the dropdown icon
+        }
+
+        // Expand the first location by default (this will change once it loads the last recorded values)
+        binding.location1Expansion.expand()
+
+        // TODO: Add an status indicator for the location
+        // TODO: Display the distance to the location in the title
+    }
 
     override fun onResume() {
         super.onResume()

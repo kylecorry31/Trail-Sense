@@ -23,6 +23,8 @@
             android:id="@+id/location_button_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:singleSelection="true">
 
             <Button
@@ -31,8 +33,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="?attr/colorOnSurface"
-                android:text="@string/my_location" />
+                android:text="@string/my_location"
+                android:textColor="?attr/colorOnSurface" />
 
             <Button
                 android:id="@+id/location_button_other"
@@ -40,59 +42,106 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="?attr/colorOnSurface"
-                android:text="@string/destination" />
+                android:text="@string/destination"
+                android:textColor="?attr/colorOnSurface" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
-
-        <TextView
-            android:id="@+id/location_1_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/beacon_1" />
-
-        <com.kylecorry.trail_sense.shared.views.CoordinateInputView
-            android:id="@+id/location_1"
+        <com.kylecorry.andromeda.core.ui.ExpansionLayout
+            android:id="@+id/location_1_expansion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="?attr/colorSurface"
+            android:padding="16dp">
 
-        <com.kylecorry.trail_sense.shared.views.BearingInputView
-            android:id="@+id/bearing_1"
+            <TextView
+                android:id="@+id/location_1_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:text="@string/beacon_1"
+                app:drawableEndCompat="@drawable/ic_drop_down"
+                app:drawableStartCompat="@drawable/ic_info"
+                app:drawableTint="?android:textColorSecondary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/location_1_instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Example instructions" />
+
+                <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+                    android:id="@+id/location_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp" />
+
+                <com.kylecorry.trail_sense.shared.views.BearingInputView
+                    android:id="@+id/bearing_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp" />
+            </LinearLayout>
+
+        </com.kylecorry.andromeda.core.ui.ExpansionLayout>
+
+
+        <com.kylecorry.andromeda.core.ui.ExpansionLayout
+            android:id="@+id/location_2_expansion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="?attr/colorSurface"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/location_2_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/beacon_2" />
+            <TextView
+                android:id="@+id/location_2_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:text="@string/beacon_2"
+                app:drawableEndCompat="@drawable/ic_drop_down"
+                app:drawableStartCompat="@drawable/ic_info"
+                app:drawableTint="?android:textColorSecondary" />
 
-        <com.kylecorry.trail_sense.shared.views.CoordinateInputView
-            android:id="@+id/location_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <com.kylecorry.trail_sense.shared.views.BearingInputView
-            android:id="@+id/bearing_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp" />
+                <TextView
+                    android:id="@+id/location_2_instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Example instructions" />
+
+                <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+                    android:id="@+id/location_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp" />
+
+                <com.kylecorry.trail_sense.shared.views.BearingInputView
+                    android:id="@+id/bearing_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp" />
+            </LinearLayout>
+
+        </com.kylecorry.andromeda.core.ui.ExpansionLayout>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/actions"
