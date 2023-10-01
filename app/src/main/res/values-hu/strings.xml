@@ -635,7 +635,7 @@
     <string name="waning_gibbous">Fogyó Domború</string>
     <string name="clinometer_title">Dőlésmérő</string>
     <string name="tool_clinometer_summary">Lavinaveszély és tárgyak magasságának becslése</string>
-    <string name="set_inclination_instructions">Nyomj bárhova a zároláshoz/feloldáshoz</string>
+    <string name="set_inclination_instructions">Nyomj bárhova a zároláshoz vagy feloldáshoz</string>
     <string name="add">Hozzáadás</string>
     <string name="subtract">Kivonás</string>
     <string name="create_item_title">Elem Létrehozása</string>
@@ -808,7 +808,7 @@
     <string name="average_speed_backtrack">Átlagsebesség (Visszakövetés)</string>
     <string name="navigating_to_nearest_path_point">Navigálás a legközelebbi ösvény ponthoz</string>
     <string name="point_added">Pont hozzáadva az ösvényhez</string>
-    <string name="access_background_location_rationale">A Trail Sense használ helyadatokat a háttérben. Ez a tengerszinti nyomás kalibrálásához és a pontosabb naplemente-figyelmeztetéshez szükséges. [Adatvédelmi Irányelvek Megtekintése](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">A Trail Sense helyadatokat használ a háttérben a tengerszinti nyomás kalibrálásához és a pontosabb naplemente-figyelmeztetéshez. [Adatvédelmi Irányelvek Megtekintése](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="onboarding_explore">- Gyalogtúrához, hátizsákos túrához, kempingezéshez és geocachinghez tervezve
 \n
 \n- Helyezz el jelzőpontokat és navigálj hozzájuk
@@ -842,10 +842,13 @@
     <string name="pref_use_24_hour_title">24 órás formátum használata</string>
     <string name="coordinate_format_degrees_decimal_minutes">Fok Tizedes Perc</string>
     <string name="sensors">Érzékelők</string>
-    <string name="pref_ruler_calibration_summary">Kalibrálási eljárás:
-\n- Állítsd ezt az értéket 1-re
-\n- Mérd hozzá a Trail Sense vonalzóját egy fizikai vonalzóhoz.
-\n- Írd be a mért értéket ide.</string>
+    <string name="pref_ruler_calibration_summary">"Kalibrálási eljárás:
+\n
+\n-   Állítsd ezt az értéket 1-re.
+\n
+\n- Mérd meg, mennyit mutat a Trail Sense vonalzója egy fizikai vonalzó egy egységénél.
+\n
+\n- Írd be a mért értéket ide."</string>
     <string name="compass_accuracy">Iránytű pontossága</string>
     <string name="category_safety">Biztonság</string>
     <string name="never">Soha</string>
@@ -919,15 +922,15 @@
 \n
 \n\t- Jelzőpontokhoz navigálás
 \n
-\n\t- Jobb előrejelzési pontosság (háttérbeni helyadatok szükségesek hozzá, nem minden készüléken elérhető)
+\n\t- Jobb előrejelzési pontosság (nem minden készüléken elérhető)
 \n
-\n\t- Visszakövetés (háttérbeni helyadatok szükségesek hozzá)
+\n\t- Visszakövetés
 \n
-\n\t- Nap és Hold időpontok az aktuális helyed szerint
+\n\t- Nap és Hold időpontok az aktuális helyed szerint (a naplemente figyelmeztetésnek szüksége lehet háttérbeli helyadatokhoz)
 \n
 \n- Ha úgy döntesz, nem adod meg a helyhozzáférési engedélyt, kézzel is megadhatsz egy helyet a Trail Sense Beállítások &gt; GPS kalibráció menüjében.
 \n
-\n- A folytatás megnyomása után felugró ablakban dönthetsz a hely- és háttérbeni helyadatok engedélyeinek megadásáról. Az engedélyek megtagadása meggátolja a Trail Sense hozzáférését a helyzetedhez, így a manuális helymegadás javasolt.</string>
+\n- A folytatás megnyomása után felugró ablakban dönthetsz a helyadatok engedélyének megadásáról. Az engedély megtagadása meggátolja a Trail Sense hozzáférését a helyzetedhez, így a manuális helymegadás javasolt.</string>
     <string name="pref_daily_weather_time_title">Napi időjárás ideje</string>
     <string name="time_until_empty">múlva lemerül</string>
     <string name="actual_frequency_disclaimer">A valós frekvencia változó lehet, mivel egyes eszközöknek vannak háttérbeli korlátozásai.</string>
@@ -1015,4 +1018,103 @@
     <string name="source">Forrás</string>
     <string name="now_value">Jelenleg: %s</string>
     <string name="for_historic_temperatures">Történelmi hőmérsékletekhez</string>
+    <string name="size">Méret</string>
+    <string name="pref_include_leading_zero_title">Vezető nulla hozzáadása az időhöz</string>
+    <string name="center">Közép</string>
+    <string name="pref_keep_map_facing_up_summary">A térkép a képernyő tetejéhez igazodik a Valós Észak helyett.</string>
+    <string name="last_lightning_strike_at">Utolsó villámcsapás %s-kor</string>
+    <string name="rate">Gyakoriság</string>
+    <string name="end_time">Vég</string>
+    <string name="rotation_amount">Elfordulás: %s</string>
+    <string name="horizon">Horizont</string>
+    <string name="gps_satellites">GPS műholdak</string>
+    <string name="start_time">Kezdet</string>
+    <string name="weather_alert_hot_description">Készülj fel a forró hőmérsékletre. Tégy fokozott óvintézkedéseket a hőkimerülés és a hőguta ellen.</string>
+    <string name="create_path">Ösvény létrehozása</string>
+    <string name="allow_schedule_exact_alarms_instructions">Ez lehetővé teszi a %1$s számára, hogy pontos riasztásokat és emlékeztetőket állítson be, például naplemente riasztást. E nélkül előfordulhat, hogy a riasztások nem kapcsolnak be a megfelelő időben.
+\n
+\nAz engedélyezéshez kattints a \'%2$s\' gombra, és engedélyezze a riasztások és emlékeztetők engedélyezését.</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="no">Nem</string>
+    <string name="astronomy_rise">Kelte</string>
+    <string name="learn_more">Tudj meg többet</string>
+    <string name="allow_ignore_battery_restrictions">Engedélyezd a %s számára, hogy figyelmen kívül hagyja az akkumulátorra vonatkozó korlátozásokat</string>
+    <string name="i_agree">Egyetértek</string>
+    <string name="map_is_not_calibrated">A térkép nincs kalibrálva</string>
+    <string name="hot">Forró</string>
+    <string name="calibrate_map_point">Kalibrálás ismert helyekkel (%1$d / %2$d)</string>
+    <string name="gps_elevation_accuracy">GPS magasság pontossága</string>
+    <string name="restore">Visszaállítás</string>
+    <string name="compass_source_legacy_android">Régi (Android)</string>
+    <string name="compass_source_legacy_ts">Régi (Trail Sense)</string>
+    <string name="until_sunset">napnyugtáig</string>
+    <string name="cold">Hideg</string>
+    <string name="weather_alert_cold_description">Készülj fel a hideg hőmérsékletre. Tégy fokozott óvintézkedéseket a kihűlés és fagyás ellen.</string>
+    <string name="allow_schedule_exact_alarms">Engedélyezd a %s számára riasztások és emlékeztetők beállítását</string>
+    <string name="yes">Igen</string>
+    <string name="notifications_channel">Értesítések (%s)</string>
+    <string name="peak_time">Csúcs</string>
+    <string name="sunset_alert_scheduled">Riasztás beállítva naplemente előtt %s-val</string>
+    <string name="photo_maps">Fotótérképek</string>
+    <string name="delete_map_group_message">%s és minden térképe törölve lesz.</string>
+    <string name="sunset_alerts_background_location_disclaimer">A naplemente riasztások pontatlanok lehetnek utazás közben</string>
+    <string name="weather_thunderstorm">Zivatar</string>
+    <string name="beta">Béta</string>
+    <string name="backtrack_no_permission">A visszakövetés helyhozzáférést igényel</string>
+    <string name="autofill_source">Forrás automatikus kitöltése</string>
+    <string name="create_blank_map">Üres térkép létrehozása</string>
+    <string name="gps_accuracy_tip">Biztosítsd, hogy az ég nincs takarásban és menj távol magas épületektől és fáktól.</string>
+    <string name="step_progression">%1$d / %2$d lépés</string>
+    <string name="crop_map_instructions_long">Húzd a négyzet sarkait a térkép sarkaihoz a körvonalazáshoz.</string>
+    <string name="map_auto_rotated">A térkép elforgatása kalibrálással igazított</string>
+    <string name="pref_backfill_temperatures_title">Rögzített hőmérsékletek frissítése</string>
+    <string name="backup">Biztonsági mentés</string>
+    <string name="times">Idők</string>
+    <string name="daylight_duration">%s nappali fény</string>
+    <string name="accelerometer">Gyorsulásmérő</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Történelmi (%d év)</string>
+    <string name="map_file">Fájl (JPG, PNG, PDF)</string>
+    <string name="no_compass_description">Az eszközödnek nincs beépített iránytű szenzora. Ez egy hardveres komponens, ezért a hozzáadása utólag nem lehetséges. Néhány, az iránytűt használó funkció nem lesz elérhető.</string>
+    <string name="astronomy_altitude_peak">Csúcsmagasság</string>
+    <string name="unable_to_find_next_astronomy">Nem található a következő %s</string>
+    <string name="updating">Frissítés</string>
+    <string name="astronomy_set">Nyugta</string>
+    <string name="solar_eclipses">Napfogyatkozások</string>
+    <string name="print">Nyomtatás</string>
+    <string name="historic_temperatures">Történelmi hőmérsékletek</string>
+    <string name="astronomy_direction_peak">Csúcs irány</string>
+    <string name="battery_usage_allowed">Akkumulátorhasználat megengedett</string>
+    <string name="map_calibration_instructions">Érints meg egy ismert helyet a térképen, majd add meg a valós koordinátákat. A kalibrálást a „Kész” gombra kattintva mentheted el.
+\n
+\nJó kalibrációs pontok például a parkolók, a jelzőtáblák, a tereptárgyak vagy az ösvények mentén található elágazások.</string>
+    <string name="photo_map_summary">Használ fotót térképként</string>
+    <string name="blank">Üres</string>
+    <string name="illumination">Megvilágítottság</string>
+    <string name="pref_backfill_temperatures_description">Minden rögzített hőmérséklet helyett a kalibrált történelmi hőmérséklet lesz megadva.</string>
+    <string name="battery_settings_limit_accuracy">Az akkumulátorra vonatkozó korlátozások csökkenthetik a pontosságot</string>
+    <string name="gps_location_accuracy">GPS hely pontossága</string>
+    <string name="until_sunrise">napkeltéig</string>
+    <string name="at_time">%s-kor</string>
+    <string name="pref_show_temperature_in_notification_title">Hőmérséklet megjelenítése az értesítésben</string>
+    <string name="solar_eclipse_end">Napfogyatkozás (vége)</string>
+    <string name="exact_alarm_permission_denied">A riasztások és emlékeztetők engedélye megtagadva, a riasztások pontatlanok lehetnek.</string>
+    <string name="map_calibration">Térképkalibrálás</string>
+    <string name="solar_eclipse_start">Napfogyatkozás (kezdet)</string>
+    <string name="obscuration">Takarás</string>
+    <string name="loading">Betöltés</string>
+    <string name="data_source">Forrás: %s</string>
+    <string name="magnitude">Mértéke</string>
+    <string name="weather_alert_storm_description">Készülj fel erős szélre és heves csapadékra.</string>
+    <string name="reset_calibration">Kalibráció visszaállítása</string>
+    <string name="restore_disclaimer">Ez a művelet minden jelenlegi adatod felülírja. Ellenőrizd, hogy van-e biztonsági mentésed, mielőtt továbblépsz.
+\n
+\nCsak olyan mentésfájlt válassz ki amit a %s-szel készítettél és amiben megbízol.</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">A hőmérsékletek a múltbeli adatok %d éves átlagán alapulnak, és nem feltétlenül tükrözik az aktuális időjárási viszonyokat.</string>
+    <string name="beta_disclaimer">Ez az eszköz jelenleg béta állapotban van, ezért kérjük, jelentsd a problémákat vagy visszajelzéseket a(z) %s címen.</string>
+    <string name="compass_source_mag_gyro">Magnetométer + giroszkóp</string>
+    <string name="reduce_map_resolution_crop_disclaimer">A térkép körbevágása továbbra is csökkenti a felbontást. Ha nagy felbontásban kell körbevágnod a térképet, kérjük, használj egy fotószerkesztő alkalmazást. Ennek tervben van a jövőbeli javítása.</string>
+    <string name="solar_eclipse">Napfogyatkozás</string>
+    <string name="photo_map_disclaimer">Mindig vigyél magaddal egy fizikai térképet vésztartaléknak, és ellenőrizd a Trail Sense pontosságát.</string>
+    <string name="pref_keep_map_facing_up_title">Tartsa a térképet felfelé</string>
+    <string name="season">Évszak</string>
 </resources>
