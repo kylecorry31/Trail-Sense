@@ -179,7 +179,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             null
         } else {
             // TODO: Display this on each location instead
-            getDistanceToDestination()?.let {
+            getDistanceToDestination(2)?.let {
                 formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
             }
         }
@@ -193,8 +193,10 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         if (shouldCalculateMyLocation) {
-            binding.location1Instructions.text = getString(R.string.triangulate_self_location_1_instructions)
-            binding.location2Instructions.text = getString(R.string.triangulate_self_location_2_instructions)
+            binding.location1Instructions.text =
+                getString(R.string.triangulate_self_location_1_instructions)
+            binding.location2Instructions.text =
+                getString(R.string.triangulate_self_location_2_instructions)
         } else {
             binding.location1Instructions.text =
                 getString(R.string.triangulate_destination_location_1_instructions)
@@ -209,11 +211,12 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
     }
 
-    private fun getDistanceToDestination(): Distance? {
-        // TODO: Maybe use the GPS for this
-        val location2 = binding.location2.coordinate ?: return null
+    private fun getDistanceToDestination(locationIdx: Int): Distance? {
+        val start =
+            (if (locationIdx == 1) binding.location1.coordinate else binding.location2.coordinate)
+                ?: return null
         val destination = location ?: return null
-        return Distance.meters(location2.distanceTo(destination)).convertTo(prefs.baseDistanceUnits)
+        return Distance.meters(start.distanceTo(destination)).convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()
     }
 
