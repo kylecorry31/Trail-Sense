@@ -27,7 +27,9 @@ import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.AppUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.from
@@ -157,6 +159,39 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         pathLayer.setPaths(listOfNotNull(path1, path2))
     }
 
+    private fun updateDistances() {
+        if (!isBound) {
+            return
+        }
+
+        binding.triangulateTitle.subtitle.text = if (shouldCalculateMyLocation) {
+            null
+        } else {
+            getDistanceToDestination()?.let {
+                getString(
+                    R.string.distance_away,
+                    formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
+                )
+            }
+        }
+
+        // TODO: Display distance between locations
+    }
+
+    private fun getDistanceToDestination(): Distance? {
+        // TODO: Maybe use the GPS for this
+        val location2 = binding.location2.coordinate ?: return null
+        val destination = location ?: return null
+        return Distance.meters(location2.distanceTo(destination)).convertTo(prefs.baseDistanceUnits)
+            .toRelativeDistance()
+    }
+
+    private fun getDistanceBetweenLocations(): Distance? {
+        val location1 = binding.location1.coordinate ?: return null
+        val location2 = binding.location2.coordinate ?: return null
+        return Distance.meters(location1.distanceTo(location2))
+    }
+
     private fun getPath(locationIdx: Int): IMappablePath? {
         val destination = location
         val start =
@@ -243,6 +278,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             binding.actions.isVisible = true
         }
         updateMap()
+        updateDistances()
     }
 
     override fun generateBinding(
