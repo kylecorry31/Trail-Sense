@@ -178,11 +178,9 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.triangulateTitle.subtitle.text = if (shouldCalculateMyLocation) {
             null
         } else {
+            // TODO: Display this on each location instead
             getDistanceToDestination()?.let {
-                getString(
-                    R.string.distance_away,
-                    formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
-                )
+                formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
             }
         }
 

@@ -1337,8 +1337,6 @@
     <string name="tool_deprecation_disclaimer">This tool may be removed or redesigned since it is not practical for hiking, backpacking, or camping. If you find this tool useful, please share how you are using it with me at %s.</string>
     <string name="pref_cliff_height_enabled" translatable="false">pref_cliff_height_enabled</string>
     <string name="scheduled_for_redesign_or_removal">Scheduled for redesign or removal</string>
-    <!--%s will be the distance away a location is. Ex. 12 km away-->
-    <string name="distance_away">%s away</string>
     <string name="triangulate_destination_location_1_instructions">Record your location and the direction to the destination.</string>
     <!--%s is the recommended distance between locations. Ex. 30 m-->
     <string name="triangulate_destination_location_2_instructions">Move at least %s from the first location and record your location and the direction to the destination again.</string>
