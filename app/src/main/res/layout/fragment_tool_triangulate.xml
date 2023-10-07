@@ -37,21 +37,21 @@
             app:singleSelection="true">
 
             <Button
-                android:id="@+id/location_button_self"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/my_location"
-                android:textColor="?attr/colorOnSurface" />
-
-            <Button
                 android:id="@+id/location_button_other"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/destination"
+                android:textColor="?attr/colorOnSurface" />
+
+            <Button
+                android:id="@+id/location_button_self"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/my_location"
                 android:textColor="?attr/colorOnSurface" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
