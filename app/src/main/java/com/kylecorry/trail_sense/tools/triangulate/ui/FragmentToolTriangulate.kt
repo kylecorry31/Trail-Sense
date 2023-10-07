@@ -52,6 +52,15 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
     private val radius = Distance.meters(100f)
 
+    // TODO: Determine what this should actually be
+    private val recommendedMinDistance by lazy {
+        if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
+            Distance.feet(100f)
+        } else {
+            Distance.meters(30f)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -100,12 +109,14 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         binding.locationButtonGroup.check(if (shouldCalculateMyLocation) binding.locationButtonSelf.id else binding.locationButtonOther.id)
+        updateInstructions()
         binding.locationButtonGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (!isChecked) {
                 return@addOnButtonCheckedListener
             }
             shouldCalculateMyLocation = checkedId == binding.locationButtonSelf.id
             update()
+            updateInstructions()
         }
 
         // Handle expansion
@@ -176,6 +187,28 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         // TODO: Display distance between locations
+    }
+
+    private fun updateInstructions() {
+        if (!isBound) {
+            return
+        }
+
+        if (shouldCalculateMyLocation) {
+            binding.location1Instructions.text = getString(R.string.triangulate_self_location_1_instructions)
+            binding.location2Instructions.text = getString(R.string.triangulate_self_location_2_instructions)
+        } else {
+            binding.location1Instructions.text =
+                getString(R.string.triangulate_destination_location_1_instructions)
+            binding.location2Instructions.text =
+                getString(
+                    R.string.triangulate_destination_location_2_instructions,
+                    formatService.formatDistance(
+                        recommendedMinDistance,
+                        Units.getDecimalPlaces(recommendedMinDistance.units)
+                    )
+                )
+        }
     }
 
     private fun getDistanceToDestination(): Distance? {
