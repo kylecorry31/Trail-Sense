@@ -1342,6 +1342,7 @@
     <string name="triangulate_destination_location_2_instructions">Move at least %s from the first location and record your location and the direction to the destination again.</string>
     <string name="triangulate_self_location_1_instructions">Choose a known location that you can see and record the direction from where you are to that location.</string>
     <string name="triangulate_self_location_2_instructions">Choose another known location that you can see and record the direction from where you are to that location.</string>
+    <string name="location_to_triangulate">Location to triangulate</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

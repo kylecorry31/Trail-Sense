@@ -27,12 +27,20 @@
             android:background="@drawable/rounded_rectangle"
             android:backgroundTint="@color/colorSecondary" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/location_to_triangulate" />
+
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/location_button_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:singleSelection="true">
 
