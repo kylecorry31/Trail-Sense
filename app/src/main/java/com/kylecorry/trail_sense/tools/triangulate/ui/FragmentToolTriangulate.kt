@@ -19,9 +19,9 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
@@ -30,6 +30,7 @@ import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.from
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
@@ -47,7 +48,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     private val beaconLayer = BeaconLayer()
     private val pathLayer = PathLayer()
 
-    private val radius = Distance.meters(250f)
+    private val radius = Distance.meters(100f)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -124,14 +125,11 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     }
 
     private fun updateMap() {
-
         val location1 = binding.location1.coordinate
-        val direction1 = direction1
         val location2 = binding.location2.coordinate
-        val direction2 = direction2
         val destination = location
 
-        // TODO: Extract this into a function
+        // Update map bounds
         val fences = listOfNotNull(
             location1,
             location2,
@@ -140,92 +138,56 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             Geofence(it, radius)
         }
 
-        val bounds = fences.map {
-            CoordinateBounds.from(it)
-        }.reduceOrNull { acc, bounds ->
-            CoordinateBounds.from(
-                listOf(
-                    acc.northEast,
-                    acc.northWest,
-                    acc.southEast,
-                    acc.southWest,
-                    bounds.northEast,
-                    bounds.northWest,
-                    bounds.southEast,
-                    bounds.southWest
-                )
-            )
-        }
+        val bounds = CoordinateBounds.from(fences)
 
         binding.map.bounds = bounds
         binding.map.isInteractive = true
         binding.map.recenter()
 
+        // Show the locations on the map
         beaconLayer.setBeacons(listOfNotNull(
-            location1?.let {
-                Beacon(1, "", it, color = AppColor.Orange.color)
-            },
-            location2?.let {
-                Beacon(2, "", it, color = AppColor.Orange.color)
-            },
-            destination?.let {
-                Beacon(2, "", it, color = AppColor.Green.color)
-            }
+            location1?.let { Beacon.temporary(it, id = 1) },
+            location2?.let { Beacon.temporary(it, id = 2) },
+            destination?.let { Beacon.temporary(it, id = 3, color = AppColor.Green.color) }
         ))
 
-        // TODO: Extract this into a function
-        val path1End = if (location1 != null && direction1 != null) {
-            val declination1 = if (trueNorth1) 0f else Geology.getGeomagneticDeclination(location1)
-            val bearing1 = direction1.withDeclination(declination1)
-            destination ?: location1.plus(
-                Distance.kilometers(10f),
-                if (shouldCalculateMyLocation) bearing1.inverse() else bearing1
-            )
-        } else {
-            null
-        }
-
-        val path2End = if (location2 != null && direction2 != null) {
-            val declination2 = if (trueNorth2) 0f else Geology.getGeomagneticDeclination(location2)
-            val bearing2 = direction2.withDeclination(declination2)
-            destination ?: location2.plus(
-                Distance.kilometers(10f),
-                if (shouldCalculateMyLocation) bearing2.inverse() else bearing2
-            )
-        } else {
-            null
-        }
-
-        // TODO: Extract this into a function
-        val path1 = if (location1 != null && path1End != null) {
-            val pts = listOf(
-                MappableLocation(0, location1, AppColor.Orange.color, null),
-                MappableLocation(0, path1End, AppColor.Orange.color, null),
-            )
-            MappablePath(
-                1,
-                if (shouldCalculateMyLocation) pts.reversed() else pts,
-                AppColor.Orange.color, LineStyle.Arrow
-            )
-        } else {
-            null
-        }
-
-        val path2 = if (location2 != null && path2End != null) {
-            val pts = listOf(
-                MappableLocation(0, location2, AppColor.Orange.color, null),
-                MappableLocation(0, path2End, AppColor.Orange.color, null),
-            )
-            MappablePath(
-                2,
-                if (shouldCalculateMyLocation) pts.reversed() else pts,
-                AppColor.Orange.color, LineStyle.Arrow
-            )
-        } else {
-            null
-        }
-
+        // Draw bearing lines
+        val path1 = getPath(1)
+        val path2 = getPath(2)
         pathLayer.setPaths(listOfNotNull(path1, path2))
+    }
+
+    private fun getPath(locationIdx: Int): IMappablePath? {
+        val destination = location
+        val start =
+            if (locationIdx == 1) binding.location1.coordinate else binding.location2.coordinate
+        val direction = if (locationIdx == 1) direction1 else direction2
+        val trueNorth = if (locationIdx == 1) trueNorth1 else trueNorth2
+
+        val end = if (start != null && direction != null) {
+            val declination = if (trueNorth) 0f else Geology.getGeomagneticDeclination(start)
+            val bearing = direction.withDeclination(declination)
+            destination ?: start.plus(
+                Distance.kilometers(10f),
+                if (shouldCalculateMyLocation) bearing.inverse() else bearing
+            )
+        } else {
+            null
+        }
+
+        return if (start != null && end != null) {
+            val pts = listOf(
+                MappableLocation(0, start, AppColor.Orange.color, null),
+                MappableLocation(0, end, AppColor.Orange.color, null),
+            )
+            MappablePath(
+                locationIdx.toLong(),
+                if (shouldCalculateMyLocation) pts.reversed() else pts,
+                AppColor.Orange.color, LineStyle.Arrow
+            )
+        } else {
+            null
+        }
     }
 
     override fun onResume() {
