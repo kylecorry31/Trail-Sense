@@ -871,4 +871,23 @@
     <string name="lowest_point_elevation">最低點</string>
     <string name="map_scale_verbal">明述</string>
     <string name="highest_point_elevation">最高點</string>
+    <string name="tool_deprecation_disclaimer">呢項架生有機會被飛起或者重新執過，因為未見得對行山、遠足或露營有實際用處。若然您覺得呢項架生有用，歡迎來鴻 %s 話過我知您係點樣用得著佢。</string>
+    <string name="min_temp_calibrated">最低環境氣溫 (經校正)</string>
+    <string name="restore_failure_newer_version">呢個備份乃較新版本嘅 %s 整嘅。請更新個 app，然後再試下啦。</string>
+    <string name="min_temp_uncalibrated">最低手機溫度 (未校正)</string>
+    <string name="gps_satellites">GPS 衛星</string>
+    <string name="gps_elevation_accuracy">GPS 海拔準繩</string>
+    <string name="restore">還原</string>
+    <string name="my_location">我嘅位置</string>
+    <string name="max_temp_uncalibrated">最高手機溫度 (未校正)</string>
+    <string name="invalid_backup_file">個備份檔無效</string>
+    <string name="max_temp_calibrated">最高環境氣溫 (經校正)</string>
+    <string name="backup_restore">備份 / 還原</string>
+    <string name="gps_accuracy_tip">請確定您抬頭望向天空能一覽無遺，並遠離高樓大廈同樹木。</string>
+    <string name="restoring_loading_message">還原緊…</string>
+    <string name="scheduled_for_redesign_or_removal">有待重新執過或者飛起</string>
+    <string name="backup">備份</string>
+    <string name="backing_up_loading_message">備份緊…</string>
+    <string name="gps_location_accuracy">GPS 定位準繩</string>
+    <string name="destination">目的地</string>
 </resources>
