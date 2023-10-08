@@ -160,6 +160,14 @@
 
         </com.kylecorry.andromeda.core.ui.ExpansionLayout>
 
+        <Button
+            android:id="@+id/reset_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="@string/reset" />
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/actions"
             android:layout_width="match_parent"
