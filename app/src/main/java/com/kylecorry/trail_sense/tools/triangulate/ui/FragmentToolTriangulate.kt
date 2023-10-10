@@ -9,6 +9,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
@@ -27,6 +29,7 @@ import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.AppUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -208,6 +211,31 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
     }
 
+    private fun updateCompletionState() {
+        if (!isBound) {
+            return
+        }
+
+        binding.location1Title.setCompoundDrawables(
+            left = if (isComplete(1)) R.drawable.ic_check_outline else R.drawable.ic_info
+        )
+        binding.location2Title.setCompoundDrawables(
+            left = if (isComplete(2)) R.drawable.ic_check_outline else R.drawable.ic_info
+        )
+        CustomUiUtils.setImageColor(
+            binding.location1Title,
+            if (isComplete(1)) AppColor.Green.color else Resources.androidTextColorSecondary(
+                requireContext()
+            )
+        )
+        CustomUiUtils.setImageColor(
+            binding.location2Title,
+            if (isComplete(2)) AppColor.Green.color else Resources.androidTextColorSecondary(
+                requireContext()
+            )
+        )
+    }
+
     private fun getDistanceToDestination(locationIdx: Int): Distance? {
         val start =
             (if (locationIdx == 1) binding.location1.coordinate else binding.location2.coordinate)
@@ -228,7 +256,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         val start =
             if (locationIdx == 1) binding.location1.coordinate else binding.location2.coordinate
         val direction = if (locationIdx == 1) binding.bearing1.bearing else binding.bearing2.bearing
-        val trueNorth = if (locationIdx == 1) binding.bearing1.trueNorth else binding.bearing2.trueNorth
+        val trueNorth =
+            if (locationIdx == 1) binding.bearing1.trueNorth else binding.bearing2.trueNorth
 
         val end = if (start != null && direction != null) {
             val declination = if (trueNorth) 0f else Geology.getGeomagneticDeclination(start)
@@ -278,6 +307,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         updateInstructions()
+        updateCompletionState()
 
         val location1 = binding.location1.coordinate
         val location2 = binding.location2.coordinate
@@ -290,8 +320,10 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         // All information is available to triangulate
-        val declination1 = if (binding.bearing1.trueNorth) 0f else Geology.getGeomagneticDeclination(location1)
-        val declination2 = if (binding.bearing2.trueNorth) 0f else Geology.getGeomagneticDeclination(location2)
+        val declination1 =
+            if (binding.bearing1.trueNorth) 0f else Geology.getGeomagneticDeclination(location1)
+        val declination2 =
+            if (binding.bearing2.trueNorth) 0f else Geology.getGeomagneticDeclination(location2)
         val bearing1 = direction1.withDeclination(declination1)
         val bearing2 = direction2.withDeclination(declination2)
 
@@ -318,7 +350,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         updateDistances()
     }
 
-    private fun saveState(){
+    private fun saveState() {
         val preferences = PreferencesSubsystem.getInstance(requireContext()).preferences
         preferences.putBoolean("state_triangulate_self", shouldCalculateMyLocation)
         binding.bearing1.bearing?.let {
@@ -337,20 +369,24 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         preferences.putBoolean("state_triangulate_true_north2", binding.bearing2.trueNorth)
     }
 
-    private fun restoreState(){
+    private fun restoreState() {
         val preferences = PreferencesSubsystem.getInstance(requireContext()).preferences
         shouldCalculateMyLocation = preferences.getBoolean("state_triangulate_self") ?: false
         binding.locationButtonGroup.check(if (shouldCalculateMyLocation) binding.locationButtonSelf.id else binding.locationButtonOther.id)
-        binding.bearing1.bearing = preferences.getFloat("state_triangulate_bearing1")?.let { Bearing(it) }
-        binding.bearing2.bearing = preferences.getFloat("state_triangulate_bearing2")?.let { Bearing(it) }
-        binding.bearing1.trueNorth = preferences.getBoolean("state_triangulate_true_north1") ?: false
-        binding.bearing2.trueNorth = preferences.getBoolean("state_triangulate_true_north2") ?: false
+        binding.bearing1.bearing =
+            preferences.getFloat("state_triangulate_bearing1")?.let { Bearing(it) }
+        binding.bearing2.bearing =
+            preferences.getFloat("state_triangulate_bearing2")?.let { Bearing(it) }
+        binding.bearing1.trueNorth =
+            preferences.getBoolean("state_triangulate_true_north1") ?: false
+        binding.bearing2.trueNorth =
+            preferences.getBoolean("state_triangulate_true_north2") ?: false
         binding.location1.coordinate = preferences.getCoordinate("state_triangulate_location1")
         binding.location2.coordinate = preferences.getCoordinate("state_triangulate_location2")
         update()
     }
 
-    private fun reset(){
+    private fun reset() {
         binding.location1.coordinate = null
         binding.location2.coordinate = null
         binding.bearing1.bearing = null
@@ -368,6 +404,13 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         preferences.remove("state_triangulate_true_north2")
 
         update()
+    }
+
+    private fun isComplete(locationIdx: Int): Boolean {
+        val location =
+            if (locationIdx == 1) binding.location1.coordinate else binding.location2.coordinate
+        val bearing = if (locationIdx == 1) binding.bearing1.bearing else binding.bearing2.bearing
+        return location != null && bearing != null
     }
 
     override fun generateBinding(
