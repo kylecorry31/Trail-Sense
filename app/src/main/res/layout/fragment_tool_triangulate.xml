@@ -71,30 +71,47 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?attr/colorSurface"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/location_1_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:text="@string/beacon_1"
-                app:drawableEndCompat="@drawable/ic_drop_down"
-                app:drawableStartCompat="@drawable/ic_info"
-                app:drawableTint="?android:textColorSecondary" />
+            android:backgroundTint="?attr/colorSurface">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/location_1_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/beacon_1"
+                    app:drawableStartCompat="@drawable/ic_info"
+                    app:drawableTint="?android:textColorSecondary" />
+
+                <ImageView
+                    android:id="@+id/location_1_dropdown_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_drop_down"
+                    app:tint="?android:textColorSecondary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:paddingTop="0dp">
 
                 <TextView
                     android:id="@+id/location_1_instructions"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Example instructions" />
+                    android:layout_height="wrap_content" />
 
                 <com.kylecorry.trail_sense.shared.views.CoordinateInputView
                     android:id="@+id/location_1"
@@ -120,30 +137,47 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?attr/colorSurface"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/location_2_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:text="@string/beacon_2"
-                app:drawableEndCompat="@drawable/ic_drop_down"
-                app:drawableStartCompat="@drawable/ic_info"
-                app:drawableTint="?android:textColorSecondary" />
+            android:backgroundTint="?attr/colorSurface">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/location_2_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/beacon_2"
+                    app:drawableStartCompat="@drawable/ic_info"
+                    app:drawableTint="?android:textColorSecondary" />
+
+                <ImageView
+                    android:id="@+id/location_2_dropdown_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_drop_down"
+                    app:tint="?android:textColorSecondary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:paddingTop="0dp">
 
                 <TextView
                     android:id="@+id/location_2_instructions"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Example instructions" />
+                    android:layout_height="wrap_content" />
 
                 <com.kylecorry.trail_sense.shared.views.CoordinateInputView
                     android:id="@+id/location_2"

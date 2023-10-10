@@ -115,17 +115,16 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         // Handle expansion
         binding.location1Expansion.setOnExpandStateChangedListener {
-            // TODO: Set the dropdown icon
+            binding.location1DropdownIcon.rotation = if (it) 180f else 0f
         }
 
         binding.location2Expansion.setOnExpandStateChangedListener {
-            // TODO: Set the dropdown icon
+            binding.location2DropdownIcon.rotation = if (it) 180f else 0f
         }
 
         // Expand the first location by default (this will change once it loads the last recorded values)
         binding.location1Expansion.expand()
 
-        // TODO: Add an status indicator for the location
         // TODO: Display the distance to the location in the title
         beaconLayer.setOutlineColor(Color.WHITE)
         binding.map.setLayers(listOf(pathLayer, beaconLayer))
