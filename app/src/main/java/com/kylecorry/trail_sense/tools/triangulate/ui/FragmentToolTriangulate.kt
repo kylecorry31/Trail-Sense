@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.buildSpannedString
+import androidx.core.text.scale
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
@@ -174,16 +176,32 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             return
         }
 
-        binding.triangulateTitle.subtitle.text = if (shouldCalculateMyLocation) {
-            null
-        } else {
-            // TODO: Display this on each location instead
-            getDistanceToDestination(2)?.let {
-                formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
-            }
-        }
+        binding.location1Title.text = getLocationTitle(1)
+        binding.location2Title.text = getLocationTitle(2)
 
         // TODO: Display distance between locations
+    }
+
+    private fun getLocationTitle(locationIdx: Int): CharSequence {
+        val distance = getDistanceToDestination(locationIdx)
+        val formattedDistance = distance?.let {
+            formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
+        }
+        return buildSpannedString {
+            append(getString(if (locationIdx == 1) R.string.beacon_1 else R.string.beacon_2))
+            if (distance != null) {
+                appendLine()
+                scale(0.75f) {
+                    append(
+                        if (shouldCalculateMyLocation) {
+                            getString(R.string.distance_away_from_self, formattedDistance)
+                        } else {
+                            getString(R.string.distance_away_from_destination, formattedDistance)
+                        }
+                    )
+                }
+            }
+        }
     }
 
     private fun updateInstructions() {

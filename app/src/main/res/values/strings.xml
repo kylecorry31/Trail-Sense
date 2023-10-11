@@ -1343,6 +1343,10 @@
     <string name="triangulate_self_location_1_instructions">Choose a known location that you can see and record the direction from where you are to that location.</string>
     <string name="triangulate_self_location_2_instructions">Choose another known location that you can see and record the direction from where you are to that location.</string>
     <string name="location_to_triangulate">Location to triangulate</string>
+    <!--The distance away from your current location. Ex. 30 m away-->
+    <string name="distance_away_from_self">%s away</string>
+    <!--The distance away from the destination. Ex. 30 m from destination-->
+    <string name="distance_away_from_destination">%s from destination</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
