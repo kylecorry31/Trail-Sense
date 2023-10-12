@@ -47,6 +47,7 @@ import com.kylecorry.trail_sense.shared.extensions.from
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sharing.Share
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
@@ -106,11 +107,15 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         binding.navigate.setOnClickListener {
-            inBackground {
-                location?.let {
-                    navigator.navigateTo(it, BeaconOwner.Triangulate)
-                    appNavigation.navigate(R.id.action_navigation)
-                }
+            location?.let {
+                navigator.navigateTo(it, getString(R.string.location), BeaconOwner.Triangulate)
+                appNavigation.navigate(R.id.action_navigation)
+            }
+        }
+
+        binding.shareLocation.setOnClickListener {
+            location?.let {
+                Share.shareLocation(this, it)
             }
         }
 

@@ -1,10 +1,41 @@
 package com.kylecorry.trail_sense.shared.sharing
 
 import androidx.fragment.app.Fragment
+import com.kylecorry.andromeda.core.units.CoordinateFormat
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationQRSender
+import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.shared.UserPreferences
 
 object Share {
+
+    fun shareLocation(
+        fragment: Fragment,
+        location: Coordinate,
+        format: CoordinateFormat = UserPreferences(fragment.requireContext()).navigation.coordinateFormat,
+        title: String = fragment.getString(R.string.location)
+    ) {
+        val locationSenders = mapOf(
+            ShareAction.Copy to LocationCopy(fragment.requireContext()),
+            ShareAction.QR to LocationQRSender(fragment),
+            ShareAction.Maps to LocationGeoSender(fragment.requireContext()),
+            ShareAction.Send to LocationSharesheet(fragment.requireContext())
+        )
+
+        share(
+            fragment,
+            title,
+            listOf(ShareAction.Copy, ShareAction.QR, ShareAction.Send, ShareAction.Maps)
+        ) {
+            it?.let {
+                locationSenders[it]?.send(location, format)
+            }
+        }
+    }
 
     fun share(
         fragment: Fragment,

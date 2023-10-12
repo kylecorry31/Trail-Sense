@@ -71,25 +71,12 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
             }
         }
 
-        val locationSenders = mapOf(
-            ShareAction.Copy to LocationCopy(requireContext()),
-            ShareAction.QR to LocationQRSender(this),
-            ShareAction.Maps to LocationGeoSender(requireContext()),
-            ShareAction.Send to LocationSharesheet(requireContext())
-        )
-
         binding.locationTitle.rightButton.setOnClickListener {
-            Share.share(
+            Share.shareLocation(
                 this,
-                getString(R.string.location),
-                listOf(ShareAction.Copy, ShareAction.QR, ShareAction.Send, ShareAction.Maps)
-            ) {
-                it?.let {
-                    gps?.location?.let { location ->
-                        locationSenders[it]?.send(location, format)
-                    }
-                }
-            }
+                gps?.location ?: return@setOnClickListener,
+                format
+            )
         }
     }
 

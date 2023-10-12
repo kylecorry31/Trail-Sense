@@ -68,6 +68,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
@@ -284,16 +285,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         observe(speedometer) { }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
-            // TODO: Show custom share sheet instead
-            Pickers.menu(it, R.menu.location_share_menu) { menuItem ->
-                val sender = when (menuItem) {
-                    R.id.action_send -> LocationSharesheet(requireContext())
-                    R.id.action_maps -> LocationGeoSender(requireContext())
-                    else -> LocationCopy(requireContext())
-                }
-                sender.send(gps.location)
-                true
-            }
+            Share.shareLocation(
+                this,
+                gps.location
+            )
             true
         }
 

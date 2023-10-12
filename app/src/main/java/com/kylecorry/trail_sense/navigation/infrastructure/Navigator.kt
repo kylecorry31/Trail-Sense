@@ -29,8 +29,8 @@ class Navigator private constructor(context: Context) {
 
     val destination = destinationId.map { it?.let { service.getBeacon(it) } }
 
-    fun navigateTo(location: Coordinate, owner: BeaconOwner = BeaconOwner.User) {
-        val beacon = Beacon.temporary(location, visible = false, owner = owner)
+    fun navigateTo(location: Coordinate, name: String = "", owner: BeaconOwner = BeaconOwner.User) {
+        val beacon = Beacon.temporary(location, name = name, visible = false, owner = owner)
         CoroutineScope(Dispatchers.IO).launch {
             val id = service.add(beacon)
             navigateTo(id)
