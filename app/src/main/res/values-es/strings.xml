@@ -566,8 +566,6 @@
     <string name="tool_triangulate_title">Triangular Ubicación</string>
     <string name="tool_triangulate_summary">Determinar tu ubicación sin GPS</string>
     <string name="could_not_triangulate">No se pudo triangular</string>
-    <string name="beacon_1">Baliza 1</string>
-    <string name="beacon_2">Baliza 2</string>
     <string name="pip_button">Actualizar el reloj del sistema</string>
     <string name="pip_notification_scheduled">Notificacion programada para las %s</string>
     <string name="notification_channel_clock_sync">Sincronización del Reloj</string>

@@ -310,8 +310,6 @@
     <string name="notification_channel_clock_sync">Synchronisation de l\'horloge</string>
     <string name="pip_notification_scheduled">Notification planifiée pour %s</string>
     <string name="pip_button">Mettre à jour l\'horloge du téléphone</string>
-    <string name="beacon_2">Marqueur №2</string>
-    <string name="beacon_1">Marqueur №1</string>
     <string name="could_not_triangulate">Impossible d\'effectuer la triangulation</string>
     <string name="tool_triangulate_title">Triangulation</string>
     <string name="tool_category_signaling">Signalisation</string>

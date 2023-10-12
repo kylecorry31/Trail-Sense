@@ -188,7 +188,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             formatService.formatDistance(it, Units.getDecimalPlaces(it.units))
         }
         return buildSpannedString {
-            append(getString(if (locationIdx == 1) R.string.beacon_1 else R.string.beacon_2))
+            append(getString(R.string.location_number, locationIdx))
             if (distance != null) {
                 appendLine()
                 scale(0.75f) {

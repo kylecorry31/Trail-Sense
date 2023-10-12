@@ -681,8 +681,6 @@
     <string name="create_at_distance">Opret på afstand</string>
     <string name="guide_location_no_gps_title">Bestem placering uden GPS</string>
     <string name="pref_backtrack_enabled_summary">Noter placeringshistorik</string>
-    <string name="beacon_1">Beacon 1</string>
-    <string name="beacon_2">Beacon 2</string>
     <string name="map_fractional_separator">:</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>

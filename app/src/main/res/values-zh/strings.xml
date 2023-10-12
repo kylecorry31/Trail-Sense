@@ -156,8 +156,6 @@
     <string name="notification_channel_clock_sync">时钟同步</string>
     <string name="pip_notification_scheduled">已经安排了对 %s 的通知</string>
     <string name="pip_button">更新系统时间</string>
-    <string name="beacon_2">信标 2</string>
-    <string name="beacon_1">信标 1</string>
     <string name="could_not_triangulate">无法进行三角定位</string>
     <string name="tool_triangulate_summary">在没有GPS的情况下确定你的位置</string>
     <string name="tool_triangulate_title">三角定位</string>

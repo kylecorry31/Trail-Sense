@@ -315,8 +315,6 @@
     <string name="notification_channel_clock_sync">Kloksynchronisatie</string>
     <string name="pip_notification_scheduled">Melding gepland voor %s</string>
     <string name="pip_button">Systeemtijd bijwerken</string>
-    <string name="beacon_2">Baken 2</string>
-    <string name="beacon_1">Baken 1</string>
     <string name="could_not_triangulate">Driehoeksmeting mislukt</string>
     <string name="tool_triangulate_summary">Zonder gps je locatie bepalen</string>
     <string name="tool_triangulate_title">Driehoeksmeting</string>

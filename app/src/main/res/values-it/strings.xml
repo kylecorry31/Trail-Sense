@@ -223,8 +223,6 @@
     <string name="notification_channel_clock_sync">Sincronizzazione orologio</string>
     <string name="pip_notification_scheduled">Notifica schedulata per %s</string>
     <string name="pip_button">Aggiorna l’orologio di sistema</string>
-    <string name="beacon_2">Segnaposto 2</string>
-    <string name="beacon_1">Segnaposto 1</string>
     <string name="could_not_triangulate">Triangolazione non possibile</string>
     <string name="tool_triangulate_summary">Determina la posizione senza GPS</string>
     <string name="tool_triangulate_title">Triangolazione della posizione</string>

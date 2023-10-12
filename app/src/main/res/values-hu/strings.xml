@@ -697,7 +697,6 @@
     <string name="pip_button">Rendszer Órájának Frissítése</string>
     <string name="notification_channel_clock_sync_description">Egy értesítés az órád GPS-hez való szinkronizálásához</string>
     <string name="clock_sync_notification">Óra Szinkronizálás - %s</string>
-    <string name="beacon_1">1. Jelzőpont</string>
     <string name="clock_sync_time_settings">Megnyitod az óra beállításokat\?</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="clock_sync_instructions">Állítsd az órát %s időpontra, mikor megkapod az értesítést</string>
@@ -830,7 +829,6 @@
     <string name="turn_off">Kikapcsolás</string>
     <string name="units_mmhg">mmHg</string>
     <string name="beacon_qr_import_instructions">Olvass be egy QR kódot az importáláshoz</string>
-    <string name="beacon_2">2. Jelzőpont</string>
     <string name="pref_max_beacon_distance_title">Közeli jelzőpontok hatósugara</string>
     <string name="beacon_export_error">Nem lehet exportálni a jelzőpontokat</string>
     <string name="navigation_guide_description">Jelzőpontok és ösvények használatával</string>

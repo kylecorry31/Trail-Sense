@@ -535,8 +535,6 @@
     </plurals>
     <string name="create_beacon">Opprett navigeringsmarkør</string>
     <string name="pref_map_url_source_title">Posisjonsdelingskart</string>
-    <string name="beacon_2">Markør 2</string>
-    <string name="beacon_1">Markør 1</string>
     <string name="delete_beacon_group_message">%s og alle tilhørende navigeringsmarkører blir slettet.</string>
     <string name="pref_max_beacon_distance_title">Radius for navigeringsmarkører i nærheten</string>
     <string name="pref_display_multi_beacons_summary">Vis nærmeste navigeringsmarkører på kompasset</string>

@@ -371,8 +371,6 @@
     <string name="notification_channel_clock_sync">Sinkronizacija Sata</string>
     <string name="pip_notification_scheduled">Obavijest zakazana za %s</string>
     <string name="pip_button">Ažurirajte Sistemsko Vrijeme</string>
-    <string name="beacon_2">Svjetionik 2</string>
-    <string name="beacon_1">Svjetionik 1</string>
     <string name="could_not_triangulate">Nije moguće trouglirati</string>
     <string name="tool_triangulate_summary">Odredite svoju lokaciju bez GPS-a</string>
     <string name="tool_triangulate_title">Trouglite Svoju Poziciju</string>

@@ -283,7 +283,6 @@
         <item quantity="many">%d נקודות ציון נמחקו</item>
         <item quantity="other">%d נקודות ציון נמחקו</item>
     </plurals>
-    <string name="beacon_2">משואה 2</string>
     <plurals name="paths_imported">
         <item quantity="one">נתיב אחד יובא</item>
         <item quantity="two">%d נתבים יובאו</item>
@@ -925,7 +924,6 @@
         <item quantity="other">%d גאויות ושפל</item>
     </plurals>
     <string name="elevation_from_pressure">הגדרת עקיפה מברומטר</string>
-    <string name="beacon_1">משואה 1</string>
     <string name="pref_require_satellites_description">דורש לפחות 4 לוויינים, משפר את הדיוק</string>
     <string name="cirrus">ענן נוצות</string>
     <string name="place_beacon_at">למקם משואה ב-%s\?</string>

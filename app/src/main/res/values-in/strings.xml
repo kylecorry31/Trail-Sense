@@ -497,8 +497,6 @@
     <string name="pref_privacy_policy_title">Kebijakan privasi</string>
     <string name="water_boil_timer_done_content">Air Anda sekarang dapat diminum</string>
     <string name="could_not_triangulate">Tidak bisa melakukan triangulasi</string>
-    <string name="beacon_1">Suar 1</string>
-    <string name="beacon_2">Suar 2</string>
     <string name="how">Bagaimana</string>
     <string name="privacy_and_location">Privasi dan Lokasi</string>
     <string name="export">Ekspor</string>

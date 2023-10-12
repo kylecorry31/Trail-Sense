@@ -208,8 +208,6 @@
     <string name="clock_sync_time_settings">開啟時間設定？</string>
     <string name="clock_sync_notification">時鐘同步 - %s</string>
     <string name="pip_button">更新系統時間</string>
-    <string name="beacon_2">地標 2</string>
-    <string name="beacon_1">地標 1</string>
     <string name="clock_waiting_for_gps">自GPS更新時間…</string>
     <string name="water_purification_step_3">開始計時器</string>
     <string name="tool_lightning_title">閃電雷聲測距</string>

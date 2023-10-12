@@ -296,8 +296,6 @@
     <string name="threshold">Schwellenwert</string>
     <string name="clock_sync_time_settings">Einstellungen zur Zeit öffnen\?</string>
     <string name="notification_channel_clock_sync_description">Eine Benachrichtigung, um die Uhr mit der GPS-Zeit zu synchronisieren</string>
-    <string name="beacon_2">Wegpunkt 2</string>
-    <string name="beacon_1">Wegpunkt 1</string>
     <string name="tool_triangulate_title">Standort mittels Triangulation bestimmen</string>
     <string name="tool_category_signaling">Signalisieren</string>
     <string name="power">Energie</string>

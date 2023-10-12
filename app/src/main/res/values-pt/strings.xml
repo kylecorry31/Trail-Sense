@@ -115,8 +115,6 @@
     <string name="notification_channel_clock_sync">Sincronização do relógio</string>
     <string name="pip_notification_scheduled">Notificação programada para %s</string>
     <string name="pip_button">Atualizar o relógio do sistema</string>
-    <string name="beacon_2">Alfinete 2</string>
-    <string name="beacon_1">Alfinete 1</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
     <string name="tool_triangulate_summary">Determina a sua localização sem sinal GPS</string>
     <string name="tool_triangulate_title">Triangular localização</string>

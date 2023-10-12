@@ -437,12 +437,10 @@
     <string name="tool_category_angles">角度</string>
     <string name="battery_health_over_voltage">電壓過高</string>
     <string name="battery_health">狀況：%s</string>
-    <string name="beacon_1">地標 1</string>
     <string name="power">電源</string>
     <string name="tool_triangulate_title">三角定位</string>
     <string name="tool_triangulate_summary">唔用 GPS 之下斷定您嘅位置</string>
     <string name="could_not_triangulate">三角定位唔到</string>
-    <string name="beacon_2">地標 2</string>
     <string name="clock_sync_time_settings">係咪要開啟時間設定？</string>
     <string name="notification_channel_clock_sync_description">將您嘅時鐘同 GPS 時間同步嘅通知</string>
     <string name="clock_sync_notification">時鐘同步 - %s</string>

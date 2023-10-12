@@ -424,8 +424,6 @@
     <string name="one">1</string>
     <string name="tool_battery_title">Baterie</string>
     <string name="battery_health_cold">Chladná</string>
-    <string name="beacon_1">Maják 1</string>
-    <string name="beacon_2">Maják 2</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="could_not_triangulate">Nepodařilo se triangulovat</string>
     <string name="tool_category_signaling">Signalizace</string>

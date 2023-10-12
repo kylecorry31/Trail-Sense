@@ -275,11 +275,9 @@
     <string name="tool_category_angles">Angles</string>
     <string name="tool_category_signaling">Senyalització</string>
     <string name="tool_triangulate_summary">Determineu la vostra ubicació sense GPS</string>
-    <string name="beacon_2">Balisa 2</string>
     <string name="could_not_triangulate">No s\'ha pogut triangular</string>
     <string name="clock_sync_instructions">Establiu l\'hora a %s quan arribi la notificació</string>
     <string name="threshold">Llindar</string>
-    <string name="beacon_1">Balisa 1</string>
     <string name="unit_kilometers">Quilòmetres</string>
     <string name="tool_solar_panel_summary">Col·loqueu plaques solars per una producció òptima d’energia</string>
     <string name="unit_inches">Polzades</string>

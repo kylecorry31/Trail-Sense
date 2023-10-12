@@ -450,8 +450,6 @@
     <string name="tool_triangulate_title">Triangulate Location</string>
     <string name="tool_triangulate_summary">Determine your location without GPS</string>
     <string name="could_not_triangulate">Could not triangulate</string>
-    <string name="beacon_1">Beacon 1</string>
-    <string name="beacon_2">Beacon 2</string>
     <string name="pip_button">Update System Time</string>
     <string name="pip_notification_scheduled">Notification scheduled for %s</string>
     <string name="notification_channel_clock_sync">Clock Sync</string>
@@ -1347,6 +1345,8 @@
     <string name="distance_away_from_self">%s away</string>
     <!--The distance away from the destination. Ex. 30 m from destination-->
     <string name="distance_away_from_destination">%s from destination</string>
+    <!--A numerically named location. Ex. Location 1-->
+    <string name="location_number">Location %d</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

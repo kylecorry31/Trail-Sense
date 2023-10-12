@@ -245,8 +245,6 @@
     <string name="delete_note_title">Oharra ezabatu\?</string>
     <string name="notes_empty_text">Oharrik ez</string>
     <string name="tool_metal_detector_title">Metal-detektagailua</string>
-    <string name="beacon_2">2 baliza</string>
-    <string name="beacon_1">1 baliza</string>
     <string name="tool_triangulate_title">Kokapena triangulatu</string>
     <string name="battery_health">Osasuna: %s</string>
     <string name="precise_inches_format">%s in</string>

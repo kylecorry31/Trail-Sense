@@ -88,7 +88,6 @@
                     android:layout_weight="1"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="@string/beacon_1"
                     app:drawableStartCompat="@drawable/ic_info"
                     app:drawableTint="?android:textColorSecondary" />
 
@@ -154,7 +153,6 @@
                     android:layout_weight="1"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="@string/beacon_2"
                     app:drawableStartCompat="@drawable/ic_info"
                     app:drawableTint="?android:textColorSecondary" />
 

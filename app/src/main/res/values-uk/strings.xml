@@ -420,8 +420,6 @@
     <string name="notification_channel_clock_sync">Синхронізація годинника</string>
     <string name="pip_notification_scheduled">Сповіщення заплановано на %s</string>
     <string name="pip_button">Оновити системний час</string>
-    <string name="beacon_2">Маячок 2</string>
-    <string name="beacon_1">Маячок 1</string>
     <string name="could_not_triangulate">Не вдалося виконати тріангуляцію</string>
     <string name="tool_triangulate_summary">Визначення вашого місця без GPS</string>
     <string name="tool_triangulate_title">Тріангуляція місцеперебування</string>

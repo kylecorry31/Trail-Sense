@@ -162,8 +162,6 @@
     <string name="notification_channel_clock_sync_description">Saatinizi GPS zamanına senkronize etmek için bildirim</string>
     <string name="pip_notification_scheduled">Bildirimler %s için planlandı</string>
     <string name="pip_button">Sistem Zamanını Güncelle</string>
-    <string name="beacon_2">İşaret 2</string>
-    <string name="beacon_1">İşaret 1</string>
     <string name="could_not_triangulate">Triangülasyon başarısız</string>
     <string name="tool_triangulate_summary">Konumunu GPS olmadan belirle</string>
     <string name="tool_triangulate_title">Konumu triangülasyon yöntemiyle belirle</string>

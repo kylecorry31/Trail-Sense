@@ -503,7 +503,6 @@
     <string name="dialog_leave">Lähde</string>
     <string name="allow_schedule_exact_alarms">Salli %s asettaa hälytyksiä ja muistutuksia</string>
     <string name="max_temp_uncalibrated">Puhelimen maksimilämpötila (kalibroimaton)</string>
-    <string name="beacon_1">Majakka 1</string>
     <string name="daylight">Päivänvalo</string>
     <string name="qr_code">QR koodi</string>
     <string name="us_ounces_volume">Yhdysvaltain unssia</string>
@@ -515,7 +514,6 @@
     <string name="qr_code_scanner">QR-koodinlukija</string>
     <string name="notifications_channel">Ilmoitukset (%s)</string>
     <string name="unit_feet">Jalat</string>
-    <string name="beacon_2">Majakka 2</string>
     <string name="peak_time">Huippu</string>
     <string name="base_temperature">Peruslämpötila</string>
     <string name="square">Neliö</string>
