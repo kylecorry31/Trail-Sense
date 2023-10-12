@@ -223,6 +223,17 @@
                 app:iconStartPadding="4dp" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/navigate"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/navigate"
+                app:chipIcon="@drawable/ic_beacon"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp" />
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/update_gps_override"
                 style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"

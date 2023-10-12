@@ -25,7 +25,7 @@ data class Beacon(
     companion object {
         fun temporary(
             coordinate: Coordinate,
-            id: Long = -1L,
+            id: Long = 0L,
             name: String = "",
             visible: Boolean = true,
             comment: String? = null,
