@@ -8,11 +8,11 @@ import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.shared.Season
+import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.extensions.getReadings
 import java.time.Clock
 import java.time.Duration
 import java.time.LocalDate
@@ -54,7 +54,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     ): List<Reading<Float>> {
         val startTime = time.minusHours(12)
         val endTime = time.plusHours(12)
-        return getReadings(
+        return Time.getReadings(
             startTime,
             endTime,
             altitudeGranularity
@@ -64,7 +64,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonAltitudes(location: Coordinate, date: LocalDate): List<Reading<Float>> {
-        return getReadings(
+        return Time.getReadings(
             date,
             ZoneId.systemDefault(),
             altitudeGranularity
@@ -122,7 +122,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getSunAltitudes(location: Coordinate, date: LocalDate): List<Reading<Float>> {
-        return getReadings(
+        return Time.getReadings(
             date,
             ZoneId.systemDefault(),
             altitudeGranularity
@@ -137,7 +137,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     ): List<Reading<Float>> {
         val startTime = time.minusHours(12)
         val endTime = time.plusHours(12)
-        return getReadings(
+        return Time.getReadings(
             startTime,
             endTime,
             altitudeGranularity

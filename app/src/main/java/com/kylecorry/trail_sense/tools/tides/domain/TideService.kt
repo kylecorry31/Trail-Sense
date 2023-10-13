@@ -7,7 +7,6 @@ import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.extensions.getReadings
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.*
@@ -36,7 +35,7 @@ class TideService : ITideService {
     }
 
     override fun getWaterLevels(table: TideTable, date: LocalDate): List<Reading<Float>> {
-        return getReadings(
+        return Time.getReadings(
             date,
             ZoneId.systemDefault(),
             Duration.ofMinutes(10)

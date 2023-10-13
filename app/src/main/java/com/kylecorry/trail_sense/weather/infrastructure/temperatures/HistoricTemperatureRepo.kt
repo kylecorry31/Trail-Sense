@@ -8,7 +8,6 @@ import com.kylecorry.sol.time.Time.daysUntil
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.shared.extensions.getReadings
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.weather.infrastructure.temperatures.calculators.DailyTemperatureCalculator
 import java.time.Duration
@@ -42,7 +41,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
     ): List<Reading<Temperature>> {
         val calculator = DailyTemperatureCalculator(location, this::getDailyRange)
 
-        return getReadings(start, end, Duration.ofMinutes(10)) {
+        return Time.getReadings(start, end, Duration.ofMinutes(10)) {
             calculator.calculate(it)
         }
     }
