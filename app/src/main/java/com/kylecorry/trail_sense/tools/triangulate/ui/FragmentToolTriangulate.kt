@@ -60,7 +60,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
     private var shouldCalculateMyLocation = false
 
-    private val beaconLayer = BeaconLayer()
+    private val beaconLayer = BeaconLayer(showLabels = true)
     private val pathLayer = PathLayer()
 
     private val radius = Distance.meters(100f)
@@ -180,8 +180,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         // Show the locations on the map
         beaconLayer.setBeacons(listOfNotNull(
-            location1?.let { Beacon.temporary(it, id = 1) },
-            location2?.let { Beacon.temporary(it, id = 2) },
+            location1?.let { Beacon.temporary(it, id = 1, name = "1") },
+            location2?.let { Beacon.temporary(it, id = 2, name = "2") },
             destination?.let { Beacon.temporary(it, id = 3, color = AppColor.Green.color) }
         ))
 

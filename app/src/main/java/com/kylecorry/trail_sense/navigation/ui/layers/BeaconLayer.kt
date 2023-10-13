@@ -10,12 +10,15 @@ import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.navigation.ui.markers.MapMarker
+import com.kylecorry.trail_sense.navigation.ui.markers.TextMapMarker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BeaconLayer(
     private val size: Float = 12f,
+    // TODO: Make labels configurable: Preferred position, clipping, outline, etc
+    private val showLabels: Boolean = false,
     private val onBeaconClick: (beacon: Beacon) -> Boolean = { false }
 ) :
     BaseLayer() {
@@ -106,7 +109,7 @@ class BeaconLayer(
                 })
 
             // Create the icon for the marker
-            if (it.icon != null) {
+            if (it.icon != null && !showLabels) {
                 val image = loader.load(it.icon.icon, size)
                 val color =
                     Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
@@ -119,6 +122,21 @@ class BeaconLayer(
                     ) {
                         onBeaconClick(it)
                     })
+            }
+
+            if (showLabels && it.name.isNotBlank()) {
+                val color =
+                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
+                markers.add(
+                    TextMapMarker(
+                        it.coordinate,
+                        it.name.trim(),
+                        color,
+                        size = this.size * 0.75f
+                    ) {
+                        onBeaconClick(it)
+                    }
+                )
             }
         }
         return markers
