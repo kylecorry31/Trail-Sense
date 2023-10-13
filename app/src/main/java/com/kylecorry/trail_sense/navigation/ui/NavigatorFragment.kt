@@ -635,7 +635,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ).forEach {
             it.azimuth = compass.bearing
             it.declination = declination
-            it.compassCenter = gps.location
         }
 
         // Location
@@ -738,6 +737,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun onLocationUpdate() {
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+
+        // Compass center point
+        listOf<ICompassView>(
+            binding.roundCompass,
+            binding.radarCompass,
+            binding.linearCompass
+        ).forEach {
+            it.compassCenter = gps.location
+        }
 
         updateNearbyBeacons()
         updateDeclination()
