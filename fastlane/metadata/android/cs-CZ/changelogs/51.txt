@@ -1,0 +1,3 @@
+- Add temperature estimation (experimental, from the thermometer tool)
+- Allow clearing GPS cache
+- Bug fix for stale GPS cache

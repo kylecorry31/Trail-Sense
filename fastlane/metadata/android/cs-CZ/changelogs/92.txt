@@ -1,0 +1,8 @@
+Weather
+- Estimate time until precipitation when clouds are recorded
+- Display the distance of the previous lightning strike
+- Add option to hide temperature from weather notification
+
+Misc
+- Use volume button to capture photo (clouds, offline maps)
+- Bug fixes

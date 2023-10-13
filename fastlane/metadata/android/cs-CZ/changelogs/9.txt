@@ -1,0 +1,2 @@
+- Fixed bug where the monitor weather notification would show up even if there is no barometer
+- Fixed crash when an invalid coordinate is entered

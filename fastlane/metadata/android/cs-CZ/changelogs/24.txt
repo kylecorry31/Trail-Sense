@@ -1,0 +1,7 @@
+- Add Distance Converter tool
+- Add Cliff Height tool
+- Add whistle tool
+- Add max depth to depth tool
+- Add recommended apps user guide
+- Add delete all to inventory
+- Bug fixes

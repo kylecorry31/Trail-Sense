@@ -1,0 +1,9 @@
+- Add Backtrack for recording waypoints to trace back your steps - replaces ruler on the navigation tab
+- Add map scale converter to the Ruler tool
+- Add UTM coordinate format (and a Coordinate Conversion tool)
+- Update design of the bubble level
+- Add beacon from distance and direction
+- Add temperature calibration
+- Add White Noise tool to help you fall asleep (experimental)
+- Add more user guides
+- Bug fixes

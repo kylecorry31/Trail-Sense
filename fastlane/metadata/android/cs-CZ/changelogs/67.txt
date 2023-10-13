@@ -1,0 +1,12 @@
+Pedometer
+- Replace Speedometer / Odometer with Pedometer
+- Add pedometer distance travelled notification
+- Add pedometer based speedometer (current, average since reset)
+- Add stride length estimator to pedometer settings
+
+Navigation
+- Update layout
+- Update navigation sheet layout
+
+Misc
+- Bug fixes

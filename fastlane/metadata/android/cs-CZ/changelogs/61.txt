@@ -1,0 +1,5 @@
+- Log pressure without background monitor
+- Improve UI theming
+- Add humidity history (on devices with a humidity sensor)
+- Add cloud scanner (experimental)
+- Bug fixes

@@ -1,0 +1,9 @@
+Weather
+- Show more information on weather tab (weather front, pressure system, last cloud)
+- Show time of day on pressure chart
+- Set the date/time of cloud readings
+- Improve sea level calibrator v2 when changing location (experimental)
+- Show raw sea level readings while calibrating barometer
+
+Misc
+- Bug fixes

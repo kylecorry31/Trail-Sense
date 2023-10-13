@@ -1,0 +1,14 @@
+Photo Maps (Experimental)
+- Automatically rotate map based on calibration
+- Improve calibration workflow
+
+Compass
+- Use gyroscope to improve compass responsiveness
+- Add setting for compass sources
+
+Misc
+- Choose between more distance units on input fields
+- Enhance elevation input field - autofill from altimeter or beacons
+- Enhance duration input field
+- Improve performance and battery usage
+- Bug fixes

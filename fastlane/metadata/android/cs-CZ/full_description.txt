@@ -1,0 +1,27 @@
+<p>Prozkoumávejte za hranice internetu s aplikací Trail Sense.</p>
+
+<p>Trail Sense je aplikace, která používá senzory vašeho telefonu, aby vám pomohla při túrách v divočině. Trail Sense obsahuje spoustu nástrojů, které lze použít v různých situacích, například při turistice, táboření, cestování s batohem, lezení po skalách atd.</p>
+
+<p>Tato aplikace také nepoužívá a nikdy nebude používat internet - všechny informace, které aplikace získává, pocházejí přímo ze senzorů vašeho telefonu a žádné z nich aplikaci neopustí.</p>
+
+<ul>
+    <li>Navrženo pro turistiku, cestování, táboření a geocaching</li>
+    <li>Pokládejte body a navigujte se k nim</li>
+    <li>Následujte cesty</li>
+    <li>Zpětně sledujte svou cestu</li>
+    <li>Naplánujte, co si zabalit</li>
+    <li>Dostaňte upozornění před západem slunce</li>
+    <li>Předpovídejte počasí</li>
+    <li>Používejte svůj telefon jako svítilnu</li>
+    <li>A spousta dalších!</li>
+</ul>
+
+<p>Trail Sense je nástroj, který můžete používat, ale němeli byste se na něj spoléhat. Aplikace je určena pouze pro informační účely a přesnost předpovědí a senzorů záleží na množství faktorů, včetně kalibrace, kvality senzorů, externích zdrojů apod. Používejte na vlastní nebezpečí, vždy mějte u sebe záložní nástroje (například kompas) a zůstaňte vždy v bezpečí.</p>
+
+<p>Našli jste problém nebo chcete novou funkci? Kontaktujte mě na adrese trailsense@protonmail.com nebo si vytvořte nový problém na serveru GitHub: github.com/kylecorry31/Trail-Sense</p>
+
+<p>Jsem jediným vývojářem aplikace Trail Sense, takže se budu snažit co nejlépe pomoct - ale mám omezený výběr zařízení, na kterých můžu testovat.</p>
+
+<p>Zásady ochrany osobních údajů: https://kylecorry.com/Trail-Sense/#privacy</p>
+<p>Často kladené dotazy: https://github.com/kylecorry31/Trail-Sense#faq</p>
+<p>Aplikace Trail Sense je dostupná pod licencí MIT License: https://opensource.org/license/mit/</p>

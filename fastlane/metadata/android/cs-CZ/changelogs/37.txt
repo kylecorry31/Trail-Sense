@@ -1,0 +1,8 @@
+- Add cell signal strength to backtrack (does not use Internet, disable in navigation settings)
+- Improved detection of configuration or sensor errors
+- Add a flashlight testing tool
+- Import / export beacons
+- Add SOS and help whistle
+- New compass design and icons (weather and astronomy)
+- Improve sensor details diagnostics (settings)
+- Bug fixes

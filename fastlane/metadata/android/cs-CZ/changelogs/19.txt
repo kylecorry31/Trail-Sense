@@ -1,0 +1,10 @@
+- Barometric altimeter
+- Temperature and humidity
+- More accurate astronomy data
+- Show dusk/dawn times
+- Pressure setpoint (tap and hold the current pressure on the weather tab)
+- Show beacons within a certain radius
+- Allow custom weather update interval
+- Better Android 11 support
+- Improved translations
+- Bug fixes

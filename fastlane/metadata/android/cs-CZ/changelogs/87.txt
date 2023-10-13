@@ -1,0 +1,11 @@
+Weather
+- Improve sea level calibration
+- Add smoothing setting to barometer calibration
+- Update precipitation and storm icons
+
+Altimeter
+- Customize altimeter sample size for noise reduction
+
+Misc
+- Updated chart style
+- Bug fixes

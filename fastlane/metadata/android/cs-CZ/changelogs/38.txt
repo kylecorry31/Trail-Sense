@@ -1,0 +1,6 @@
+- Add tides (experimental, only works for locations that have two high tides a day)
+- Improve compass UI while navigating
+- Add daily weather notification (time configurable in weather settings)
+- Add temperature history
+- Add list of running Trail Sense services in the Battery tool
+- Bug fixes

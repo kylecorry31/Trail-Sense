@@ -1,0 +1,8 @@
+Photo Maps (Experimental)
+- Print a map
+
+Misc
+- Monochrome icon support
+- Increase GPS speed availability
+- Bug fixes
+- Performance improvements

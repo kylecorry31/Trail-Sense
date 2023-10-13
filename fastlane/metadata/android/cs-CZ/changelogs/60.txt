@@ -1,0 +1,6 @@
+- Lunar eclipses and Supermoons on Astronomy tab
+- Astronomy event notifications for meteor showers or lunar eclipses (enable in Astronomy settings)
+- Tap astronomy items for more details
+- Optimize solar panel alignment for remaining sunlight
+- Export weather readings to CSV (Weather settings)
+- Bug fixes

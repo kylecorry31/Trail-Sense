@@ -1,0 +1,9 @@
+Maps (experimental)
+- Center map on current location
+- Rotate map with compass
+- Add scale bar
+- Allow reducing resolution of existing maps
+
+Misc
+- Camera defaults to 100% zoom on devices with wide angle camera
+- Bug fixes
