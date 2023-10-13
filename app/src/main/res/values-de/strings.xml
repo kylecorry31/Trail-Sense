@@ -519,7 +519,7 @@
     <string name="minute_symbol">m</string>
     <string name="map_auto_calibrated">Karte wurde automatisch kalibriert, bitte überprüfe ihre Genauigkeit</string>
     <string name="time_until_empty">bis leer</string>
-    <string name="search">Sucht</string>
+    <string name="search">Suche</string>
     <string name="pref_odometer_reset_daily_title">Täglich zurücksetzen</string>
     <string name="sleep_timer">Schlaf-Timer</string>
     <plurals name="beacons_exported">
