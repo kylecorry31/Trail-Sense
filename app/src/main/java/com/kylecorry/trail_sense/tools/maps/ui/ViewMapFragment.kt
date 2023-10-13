@@ -120,7 +120,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         )
         layerManager?.start()
 
-        // Populate the last known location
+        // Populate the last known location and map bounds
+        layerManager?.onBoundsChanged(map?.boundary())
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
     }
 
