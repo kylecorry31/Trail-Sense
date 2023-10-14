@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.time.Time.isInPast
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -38,6 +39,8 @@ class CustomGPS(
 
     override val quality: Quality
         get() = _quality
+    override val rawBearing: Float?
+        get() = _rawBearing
 
     override val horizontalAccuracy: Float?
         get() = _horizontalAccuracy
@@ -55,12 +58,18 @@ class CustomGPS(
 
     override val speed: Speed
         get() = _speed
+    override val speedAccuracy: Float?
+        get() = _speedAccuracy
 
     override val time: Instant
         get() = _time
 
     override val altitude: Float
         get() = _altitude
+    override val bearing: Bearing?
+        get() = _bearing
+    override val bearingAccuracy: Float?
+        get() = _bearingAccuracy
 
     override val mslAltitude: Float?
         get() = _mslAltitude
@@ -92,6 +101,10 @@ class CustomGPS(
     private var _isTimedOut = false
     private var mslOffset = 0f
     private var geoidOffset = 0f
+    private var _rawBearing: Float? = null
+    private var _bearing: Bearing? = null
+    private var _bearingAccuracy: Float? = null
+    private var _speedAccuracy: Float? = null
 
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
 
@@ -118,6 +131,11 @@ class CustomGPS(
         }
 
         _altitude = baseGPS.altitude - getGeoidOffset(_location)
+
+        _rawBearing = baseGPS.rawBearing
+        _bearing = baseGPS.bearing
+        _bearingAccuracy = baseGPS.bearingAccuracy
+        _speedAccuracy = baseGPS.speedAccuracy
 
 
         updateSpeed()

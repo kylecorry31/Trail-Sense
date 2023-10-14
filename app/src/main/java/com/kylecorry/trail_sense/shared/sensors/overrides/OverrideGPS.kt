@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -21,6 +22,8 @@ class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
         get() = userPrefs.locationOverride
     override val speed: Speed
         get() = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+    override val speedAccuracy: Float?
+        get() = null
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?
@@ -33,6 +36,12 @@ class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
         get() = true
     override val altitude: Float
         get() = userPrefs.altitudeOverride
+    override val bearing: Bearing?
+        get() = null
+    override val bearingAccuracy: Float?
+        get() = null
     override val mslAltitude: Float
         get() = altitude
+    override val rawBearing: Float?
+        get() = null
 }

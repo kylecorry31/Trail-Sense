@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -23,6 +24,8 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
         }
     override val speed: Speed
         get() = Speed(cache.getFloat(CustomGPS.LAST_SPEED) ?: 0.0f, DistanceUnits.Meters, TimeUnits.Seconds)
+    override val speedAccuracy: Float?
+        get() = null
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?
@@ -35,8 +38,14 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
         get() = true
     override val altitude: Float
         get() = cache.getFloat(CustomGPS.LAST_ALTITUDE) ?: userPrefs.altitudeOverride
+    override val bearing: Bearing?
+        get() = null
+    override val bearingAccuracy: Float?
+        get() = null
     override val mslAltitude: Float
         get() = altitude
+    override val rawBearing: Float?
+        get() = null
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
