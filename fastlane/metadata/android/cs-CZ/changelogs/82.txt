@@ -1,0 +1,19 @@
+Flashlight
+- Adjust brightness (Android 13, if supported)
+
+Navigation
+- Radar compass better indicates destination
+
+Weather
+- Smooth temperature and humidity history
+- Improved elevation accuracy for sea level pressure
+
+Backtrack
+- Improved elevation accuracy
+
+Clouds
+- Improved obstacle removal (Experimental)
+
+Misc
+- Android 13 support
+- Bug fixes

@@ -1,0 +1,7 @@
+Beacons
+- Add icons
+- Add more sort options
+
+Misc
+- Add compass calibration animation
+- Bug fixes

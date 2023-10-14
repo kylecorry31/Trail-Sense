@@ -1,0 +1,8 @@
+- Turn on flashlight with volume key (off by default)
+- New settings organization
+- Custom backtrack record duration
+- Improve water depth calculation
+- Metal detector direction (experimental, requires gyroscope)
+- Map improvements (experimental) 
+- Add length of day
+- Bug fixes

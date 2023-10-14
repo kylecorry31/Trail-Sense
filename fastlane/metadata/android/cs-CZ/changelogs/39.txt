@@ -1,0 +1,9 @@
+- Add nearby 'radar' compass (Navigation settings)
+- Add speedometer/odometer/pedometer tool
+- Add screen light
+- Add saltwater/freshwater toggle to the depth tool
+- Show meteor showers on Astronomy (peak and day before)
+- Improve date picker on astronomy
+- [Experimental] Offline maps (upload an image and calibrate it - feedback would be greatly appreciated)
+- [Experimental] Store tides for multiple locations
+- Bug fixes

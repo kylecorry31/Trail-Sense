@@ -1,0 +1,7 @@
+Tides (experimental)
+- Create tide tables
+- Add tide water level chart
+- Indicate if tide is rising / falling
+- Estimate tide height (if between provided tide table readings)
+- Indicate if a tide is estimated or user provided
+- Add user guide

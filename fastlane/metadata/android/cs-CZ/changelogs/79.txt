@@ -1,0 +1,10 @@
+Weather
+- Automatically log weather when tab is opened
+- Add weather monitor status bar
+
+Clouds
+- Show weather prediction based on cloud type
+
+Misc
+- Bug fixes
+- Performance improvements

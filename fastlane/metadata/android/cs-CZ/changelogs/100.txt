@@ -1,0 +1,16 @@
+Photo Maps (Beta)
+- The Photo Maps tools is available for everyone in beta, use a photo as a map
+- Handle maps which don't point to True North
+
+Astronomy
+- Redesigned astronomy for easier at a glance usage
+- Show start and end times of meteor showers
+- Show eclipse peak time
+- Add search button to find next astronomical event
+- Click on sun / moon list items to see advanced details
+
+Weather / Climate
+- Improve historical temperature accuracy
+
+Misc
+- Bug fixes

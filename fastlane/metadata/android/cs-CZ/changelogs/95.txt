@@ -1,0 +1,16 @@
+Paths
+- Show location accuracy
+
+Navigation
+- Show location accuracy on radar compass
+
+Photo Maps (Experimental)
+- Measure path distances
+- Create paths
+- Show location accuracy
+- Bug fixes
+
+Misc
+- Setting to add a leading zero to times (ex. 05:00)
+- Performance improvements
+- Bug fixes

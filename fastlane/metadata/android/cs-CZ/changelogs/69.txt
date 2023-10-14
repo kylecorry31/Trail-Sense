@@ -1,0 +1,9 @@
+Navigation
+- Create groups within a group
+- Update location bottom sheet
+- Navigate to the nearest point of a path
+
+Other
+- Manually enter bearings when placing beacons or triangulating
+- Allow disabling start on boot (Power settings, defaults to enabled)
+- Bug fixes

@@ -1,0 +1,6 @@
+Maps (Experimental)
+- Export map to Geospatial PDF
+- Import map with the camera
+- Improve map PDF importing support
+- Increase path visibility on maps
+- Bug fixes

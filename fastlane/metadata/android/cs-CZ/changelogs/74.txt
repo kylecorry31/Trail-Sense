@@ -1,0 +1,6 @@
+Backtrack
+- Allow more frequent backtrack updates (for mapping out a trail)
+- Show and edit backtrack frequency from Paths tool
+
+Misc
+- Potential camera bug fixes

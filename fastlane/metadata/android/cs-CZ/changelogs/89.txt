@@ -1,0 +1,9 @@
+Weather
+- Show historical high / low temperatures
+- Historical thermometer source (replaces sensor by default, adjust in settings)
+- Climate tool for worldwide historical temperatures
+- Show historical high/low temperature in daily weather notification
+- Add thermometer smoothing setting
+
+Misc
+- Bug fixes

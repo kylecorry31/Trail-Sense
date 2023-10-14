@@ -1,0 +1,10 @@
+Weather
+- Removed thermometer tool (enable temperature display within Weather settings)
+- Updated design of weather tab
+- Added lightning strike distance quick action
+
+Misc
+- Update design to Material3
+- Performance improvements
+- Removed water depth tool
+- Updated onboarding pages

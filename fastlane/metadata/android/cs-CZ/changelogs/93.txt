@@ -1,0 +1,13 @@
+Paths
+- Search by name
+
+Photo Maps (Experimental)
+- Rename Offline Maps to Photo Maps
+- Add map groups
+- Search by name
+- Sort by name, create date, distance
+- Long press to navigate, place a beacon, or measure distance
+- Default map name to filename
+
+Misc
+- Bug fixes

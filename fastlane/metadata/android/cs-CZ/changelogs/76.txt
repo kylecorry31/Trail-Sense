@@ -1,0 +1,10 @@
+Paths
+- Organize paths into groups
+- Manually create a path
+- Manually add points to a path
+
+Beacons
+- Searches now include beacons in subgroups
+
+Misc
+- Bug fixes

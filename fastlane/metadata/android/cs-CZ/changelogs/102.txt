@@ -1,0 +1,21 @@
+Backtrack
+- Vždy zobrazit oznámení za běhu
+
+Počasí
+- Vždy zobrazit oznámení za běhu
+- Zlepšení přesnosti historických teplot
+- Zlepšit předpověď počasí pomocí mraků
+
+Astronomie
+- Přidat rychlou akci pro upozornění na západ slunce
+
+Fotomapy
+- Zlepšení automatického otáčení
+
+Krokoměr
+- Umožnit zastavení krokoměru z oznámení
+
+Různé
+- Podpora systému Android 14
+- Zlepšení žádostí o oprávnění
+- Opravy chyb
