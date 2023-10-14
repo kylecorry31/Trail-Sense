@@ -28,7 +28,11 @@ class WeatherMonitorService :
             if (!Permissions.canRunLocationForegroundService(applicationContext)) {
                 listOf(ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
             } else {
-                null
+                // This shouldn't be needed, but I was seeing several crashes on Android 14 around security exceptions (might be a known bug in Android), so I'm adding it to experiment
+                listOf(
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+                )
             }
         )
     }
