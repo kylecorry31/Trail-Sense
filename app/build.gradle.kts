@@ -124,7 +124,7 @@ dependencies {
     implementation("androidx.camera:camera-view:$cameraxVersion")
 
     // Material
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
