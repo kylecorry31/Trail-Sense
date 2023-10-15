@@ -1122,4 +1122,7 @@
     <string name="triangulate_self_location_2_instructions">选择另一个你看得到的已知位置并记录从你所在位置到那个位置的方向。</string>
     <string name="triangulate_destination_location_2_instructions">从初始位置移动至少 %s 米并再次记录你的位置和到目的地的方向。</string>
     <string name="location_to_triangulate">三角定位法</string>
+    <string name="distance_away_from_destination">离目的地 %s</string>
+    <string name="location_number">位置 %d</string>
+    <string name="distance_away_from_self">%s 远</string>
 </resources>
