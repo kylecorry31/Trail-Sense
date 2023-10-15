@@ -1163,4 +1163,7 @@
     <string name="triangulate_self_location_2_instructions">Vyberte jinou známou lokaci, kterou vidíte a zaznamenejte směr, ze kterého se díváte na danou lokaci.</string>
     <string name="triangulate_destination_location_2_instructions">Pohněte se alespoň %s od první lokace a znovu zaznamenejte svou lokaci a směr k cíli.</string>
     <string name="location_to_triangulate">Triangulace polohy</string>
+    <string name="distance_away_from_destination">%s od cíle</string>
+    <string name="location_number">Lokace %d</string>
+    <string name="distance_away_from_self">vzdálenost %s</string>
 </resources>
