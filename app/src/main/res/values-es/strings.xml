@@ -1151,4 +1151,7 @@
     <string name="triangulate_self_location_2_instructions">Elige otro lugar conocido que puedas ver y anota la dirección desde donde te encuentras hasta ese lugar.</string>
     <string name="triangulate_destination_location_2_instructions">Muévete al menos %s desde la primera ubicación y registra de nuevo tu ubicación y la dirección hacia el destino.</string>
     <string name="location_to_triangulate">Ubicación para triangular</string>
+    <string name="distance_away_from_destination">%s desde el destino</string>
+    <string name="location_number">Situación %d</string>
+    <string name="distance_away_from_self">%s lejos</string>
 </resources>
