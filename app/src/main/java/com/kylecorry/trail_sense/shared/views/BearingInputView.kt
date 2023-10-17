@@ -10,18 +10,20 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.camera.SightingCompassBottomSheetFragment
-import com.kylecorry.trail_sense.shared.extensions.floatValue
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import kotlin.math.roundToInt
 
 class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
@@ -31,34 +33,33 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     private val compass by lazy { sensors.getCompass() }
     private val hasCompass by lazy { sensors.hasCompass() }
 
-    var bearing: Bearing?
-        get() = _bearing
+    var bearing: Bearing? = null
         set(value) {
-            _bearing = value
+            field = value
             if (value == null) {
-                bearingEdit.setText("")
+                bearingTxt.text = context.getString(R.string.direction_not_set)
+                clearBtn.isVisible = false
             } else {
-                val degrees = value.value.roundToInt() % 360
-                bearingEdit.setText(degrees.toString())
+                bearingTxt.text = formatter.formatDegrees(value.value, replace360 = true)
+                clearBtn.isVisible = true
             }
+            onChange()
         }
 
-    @Suppress("MemberVisibilityCanBePrivate")
-    var trueNorth: Boolean
-        get() = trueNorthSwitch.isChecked
+    var trueNorth: Boolean = false
         set(value) {
-            trueNorthSwitch.isChecked = value
+            field = value
+            onChange()
         }
-
-    private var _bearing: Bearing? = null
 
     private var changeListener: ((bearing: Bearing?, isTrueNorth: Boolean) -> Unit)? = null
 
-    private val bearingEdit: EditText
+    private val bearingTxt: TextView
     private val compassBtn: ImageButton
     private val cameraBtn: ImageButton
     private val compassText: TextView
-    private val trueNorthSwitch: SwitchCompat
+    private val manualEntryBtn: TextView
+    private val clearBtn: ImageButton
 
     private var cameraSheet: SightingCompassBottomSheetFragment? = null
 
@@ -66,17 +67,21 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     init {
         inflate(context, R.layout.view_bearing_input, this)
 
-        bearingEdit = findViewById(R.id.bearing)
+        bearingTxt = findViewById(R.id.bearing)
         compassBtn = findViewById(R.id.compass_btn)
         cameraBtn = findViewById(R.id.camera_btn)
         compassText = findViewById(R.id.compass_bearing)
-        trueNorthSwitch = findViewById(R.id.true_north)
+        manualEntryBtn = findViewById(R.id.manual_bearing)
+        clearBtn = findViewById(R.id.clear_btn)
 
-        bearingEdit.addTextChangedListener {
-            onChange()
+        manualEntryBtn.setOnClickListener {
+            pickManualBearing()
         }
 
-        trueNorthSwitch.setOnCheckedChangeListener { _, _ -> onChange() }
+        clearBtn.setOnClickListener {
+            bearing = null
+            trueNorth = false
+        }
 
         compassBtn.setOnClickListener {
             bearing = compass.bearing
@@ -125,13 +130,41 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private fun onChange() {
-        val degrees = bearingEdit.floatValue()
-        _bearing = degrees?.let { Bearing(it) }
-        changeListener?.invoke(_bearing, trueNorthSwitch.isChecked)
+        changeListener?.invoke(bearing, trueNorth)
     }
 
     fun setOnBearingChangeListener(listener: ((bearing: Bearing?, isTrueNorth: Boolean) -> Unit)?) {
         changeListener = listener
+    }
+
+    private fun pickManualBearing() {
+        val view = View.inflate(context, R.layout.view_direction_manual_picker, null)
+        var chosenBearing = bearing
+        var chosenTrueNorth = trueNorth
+
+        val bearingInputView = view.findViewById<EditText>(R.id.bearing)
+        bearingInputView.addTextChangedListener {
+            val text = bearingInputView.text?.toString()
+            chosenBearing = text?.toFloatOrNull()?.let { Bearing(it) }
+        }
+        bearingInputView.setText(chosenBearing?.let { DecimalFormatter.format(it.value, 1) })
+
+        val trueNorthSwitch = view.findViewById<SwitchCompat>(R.id.true_north)
+        trueNorthSwitch.isChecked = chosenTrueNorth
+        trueNorthSwitch.setOnCheckedChangeListener { _, isChecked ->
+            chosenTrueNorth = isChecked
+        }
+
+        Alerts.dialog(
+            context,
+            context.getString(R.string.direction),
+            contentView = view
+        ) { cancelled ->
+            if (!cancelled) {
+                bearing = chosenBearing
+                trueNorth = chosenTrueNorth
+            }
+        }
     }
 
 }

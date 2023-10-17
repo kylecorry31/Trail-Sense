@@ -1347,6 +1347,11 @@
     <string name="distance_away_from_destination">%s from destination</string>
     <!--A numerically named location. Ex. Location 1-->
     <string name="location_number">Location %d</string>
+    <string name="enter_manually">Enter manually</string>
+    <!--When entering the bearing/direction-->
+    <string name="direction_not_set">Direction not set</string>
+    <!--The compass direction / bearing-->
+    <string name="direction">Direction</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

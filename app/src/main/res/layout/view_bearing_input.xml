@@ -39,37 +39,53 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bearing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/direction_not_set"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+        <TextView
+            android:id="@+id/manual_bearing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:text="@string/enter_manually"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorPrimary"
+            app:drawableEndCompat="@drawable/ic_keyboard_arrow_right"
+            app:drawableTint="?attr/colorPrimary" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/clear_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_cancel"
+        app:tint="?android:textColorSecondary" />
+
     <ImageButton
         android:id="@+id/camera_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="@color/orange_40"
+        android:background="@android:color/transparent"
         android:padding="8dp"
         app:srcCompat="@drawable/ic_camera"
-        app:tint="@color/black" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        android:hint="@string/bearing">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/bearing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/true_north"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/true_north" />
+        app:tint="?android:textColorSecondary" />
 
 </LinearLayout>
