@@ -43,6 +43,16 @@ Unfortunately, Google Maps does not allow sharing location to other apps (it ins
 
 To place a beacon a known distance and direction from a location, you can fill out the latitude and longitude fields (the starting location), then toggle the "Create at distance" field on. You will then need to enter the distance away and set the direction to the new location before you can save the beacon. The new beacon will be placed at the distance and direction away from the latitude and longitude entered.
 
+#### With triangulation
+
+If you do not know the distance to the destination, but are able to see it from multiple locations, you can use the Triangulation tool.
+
+1. Open the Triangulation tool
+2. Select 'Destination' as the location to triangulate
+3. Record your location and the direction to the destination
+4. Move to a new location and repeat step 3 (you can put away your phone while you move, the tool will save what you entered)
+5. If the destination can be determined, it will be displayed
+
 ## How to see nearby beacons?
 
 Seeing nearby beacons gives you more reference points to locate your current position and navigate easier.

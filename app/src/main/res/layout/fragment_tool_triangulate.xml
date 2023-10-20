@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/default_bottom_margin"
         android:orientation="vertical">
 
         <com.kylecorry.ceres.toolbar.CeresToolbar
@@ -19,12 +20,68 @@
             app:showSubtitle="false"
             tools:title="10.0000, 40.0000" />
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/create_beacon"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beacon"
+                app:chipIcon="@drawable/ic_location"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/navigate"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/navigate"
+                app:chipIcon="@drawable/ic_beacon"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/share_location"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share_ellipsis"
+                app:chipIcon="@drawable/ic_share"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/update_gps_override"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_gps_override"
+                app:chipIcon="@drawable/satellite"
+                app:chipIconSize="@dimen/chip_icon_size"
+                app:chipIconTint="?android:textColorSecondary"
+                app:iconStartPadding="4dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
         <com.kylecorry.trail_sense.navigation.paths.ui.PathView
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rounded_rectangle"
             android:backgroundTint="@color/colorSecondary" />
 
@@ -200,62 +257,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="@string/reset" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/actions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/create_beacon"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/beacon"
-                app:chipIcon="@drawable/ic_location"
-                app:chipIconSize="@dimen/chip_icon_size"
-                app:chipIconTint="?android:textColorSecondary"
-                app:iconStartPadding="4dp" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/navigate"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/navigate"
-                app:chipIcon="@drawable/ic_beacon"
-                app:chipIconSize="@dimen/chip_icon_size"
-                app:chipIconTint="?android:textColorSecondary"
-                app:iconStartPadding="4dp" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/share_location"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/share_ellipsis"
-                app:chipIcon="@drawable/ic_share"
-                app:chipIconSize="@dimen/chip_icon_size"
-                app:chipIconTint="?android:textColorSecondary"
-                app:iconStartPadding="4dp" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/update_gps_override"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/update_gps_override"
-                app:chipIcon="@drawable/satellite"
-                app:chipIconSize="@dimen/chip_icon_size"
-                app:chipIconTint="?android:textColorSecondary"
-                app:iconStartPadding="4dp" />
-
-        </com.google.android.material.chip.ChipGroup>
 
     </LinearLayout>
 
