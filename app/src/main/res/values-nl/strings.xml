@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Navigatie</string>
     <string name="weather">Weer</string>
     <string name="settings">Instellingen</string>
@@ -67,7 +67,7 @@
 \n
 \nDeze melding kun je in de instellingen afzetten.</string>
     <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur of in alle richtingen en klik %s als je klaar bent.</string>
-    <string name="calibrate_compass_dialog_title">Kompas ijken</string>
+    <string name="calibrate_compass_dialog_title">Kompas kalibreren</string>
     <string name="calibrate">IJken</string>
     <string name="pref_auto_declination_summary">Gebaseerd op je huidige locatie</string>
     <string name="declination_override_updated_toast">Declinatie manueel ingesteld</string>
@@ -77,9 +77,12 @@
     <string name="override_from_gps">Gebruik de waarde van de GPS</string>
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="pref_ruler_calibration_summary">Kalibratieprotocol:
+\n
 \n- Zet deze waarde op 1.
+\n
 \n- Meet de Trail Sense-meetlatwaarde die overeenkomt met één eenheid van een echte meetlat.
-\n- Geef de gemeten waarde hier in.</string>
+\n
+\n- Geef de gemeten waarde hier op.</string>
     <string name="pref_ruler_calibration_title">Schaal meetlat</string>
     <string name="sensors">Sensoren</string>
     <string name="temperature">Temperatuur</string>
@@ -99,7 +102,7 @@
     <string name="edit">Aanpassen</string>
     <string name="delete">Verwijderen</string>
     <string name="subtract">Aftrekken</string>
-    <string name="set_inclination_instructions">Tik of houd ergens vast om te vergrendelen/ontgrendelen</string>
+    <string name="set_inclination_instructions">Tik of houd ergens vast om te vergrendelen of te ontgrendelen</string>
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
     <string name="clinometer_title">Hellingsmeter</string>
@@ -178,7 +181,7 @@
     <string name="precise_feet_format">%s voet</string>
     <string name="dialog_deny">Nee bedankt</string>
     <string name="dialog_grant">Instellingen bijwerken</string>
-    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond. Ze worden gebruikt voor het ijken van de zeeniveauluchtdrukmeter voor weeranalyse, en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond voor het ijken van de zeeniveauluchtdrukmeter, voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Locatie-instellingen bijwerken</string>
     <string name="copied_to_clipboard_toast">Naar klembord gekopieerd</string>
     <string name="moderate">Matig</string>
@@ -233,14 +236,14 @@
     </plurals>
     <string name="export">Exporteren</string>
     <string name="privacy_and_location">Privacy en locatie</string>
-    <string name="cirrus_desc">Hoge, wazige wolken die lijken op kuiven van wit haar.</string>
+    <string name="cirrus_desc">Hoge, spichtige wolken die lijken op kuiven wit haar.</string>
     <string name="cumulonimbus_desc">Lage, gezwollen wolken die erg hoog zijn. Zij hebben doorgaans de vorm van een aambeeld en ze zijn donker.</string>
-    <string name="cumulus_desc">Lage, gezwollen wolken die op watjes lijken. Zij zijn verspreid en zijn doorgaans wit met donker vlekken onderaan.</string>
+    <string name="cumulus_desc">Lage, opgeblazen wolken die op watjes lijken. Zij zijn verspreid en zijn doorgaans wit met donker vlekken onderaan.</string>
     <string name="stratocumulus_desc">Lage wolken die lijken op een plaat van watjes met kleine spleten. De kleur verschilt van wit tot donkergrijs.</string>
     <string name="stratus_desc">Een lage wolk die de hemel verhult. Voorwerpen werpen geen schaduw af en het kan mistig zijn.</string>
     <string name="nimbostratus_desc">Een middelhoge wolk die donkergrijs is en de lucht bedekt. Als het niet regent, kan het een stratuswolk zijn.</string>
     <string name="altostratus_desc">Een middelhoge wolk die de hemel verhult. De zon kan amper worden gezien en lijkt een felle vlek.</string>
-    <string name="altocumulus_desc">Middelhoge gezwollen wolken die op watten lijken. Zij zijn doorgaans wit met donker vlekken onderaan. Ze kunnen alleenstaand zijn of als een plaat gevormd.</string>
+    <string name="altocumulus_desc">Middelhoge opgeblazen wolken die op watten lijken. Doorgaans wit met donkere vlekken onderaan. Ze kunnen alleenstaand zijn of gespreid als een plaat.</string>
     <string name="cirrostratus_desc">Een hoge wolk die de hemel verhult. Het is doorzichtig en veroorzaakt doorgaans een halo rond de zon.</string>
     <string name="cirrocumulus_desc">Hoge wolken die een golvende plaat vormen. De plaat bestaat uit kleine vlekken die bijna 2D lijken.</string>
     <string name="cumulonimbus">Cumulonimbus</string>
@@ -256,7 +259,7 @@
     <string name="pref_require_satellites_description">Vereist minimaal 4 satellieten, verbetert de juistheid</string>
     <string name="clouds">Wolken</string>
     <string name="how">Hoe</string>
-    <string name="compass_calibrate_toast">Kompasjuistheid %s, ijking wordt geadviseerd</string>
+    <string name="compass_calibrate_toast">Kompasjuistheid %s, kalibreren wordt geadviseerd</string>
     <string name="open_beacon_in_maps">Op de Kaart bekijken</string>
     <string name="pref_low_power_mode_summary">Schakelt sommige functies uit om energie te besparen</string>
     <string name="dialog_leave">Verlaten</string>
@@ -292,15 +295,15 @@
 \n
 \n\t- Naar bakens navigeren
 \n
-\n\t- Verbeterde juistheid van de weersvoorspelling (achtergrondlocatie vereist, niet op alle apparaten beschikbaar)
+\n\t- Verbeterde juistheid van de weersvoorspelling (niet op alle apparaten beschikbaar)
 \n
-\n\t- Terugweg (achtergrondlocatie vereist)
+\n\t- Terugweg
 \n
-\n\t- Zon- en maantijden voor je huidige locatie
+\n\t- Zon- en maantijden voor je huidige locatie (zonsondergangmeldingen vereisen misschien achtergrondlocatie)
 \n
-\n- Als je geen locatietoegang verleent, dan kun je handmatig een locatie invoeren in het Instellingen &gt; gps-ijkmenu in Trail Sense.
+\n- Als je geen locatietoegang verleent, dan kun je handmatig een locatie invoeren in de Instellingen &gt; Sensors &gt; gps-kalibratiemenu in Trail Sense.
 \n
-\n- Nadat je op doorgaan klikt, zul je gevraagd worden om locatietoegang en achtergrondlocatietoegang te verlenen. Als je dit weigert heeft Trail Sense geen toegang tot je locatie. In dat geval is dus een handmatige locatie-invoer aanbevolen.</string>
+\n- Nadat je op doorgaan klikt, zul je gevraagd worden om locatietoegang te verlenen. Als je dit weigert heeft Trail Sense geen toegang tot je locatie. In dat geval is dus een handmatige locatie-invoer aanbevolen.</string>
     <string name="backtrack_disabled_low_power_toast">Terugweg is uitgeschakeld in energiebesparingsmodus</string>
     <string name="backtrack">Terugweg</string>
     <string name="backtrack_notification_channel_description">Locatie-updates voor Terugweg</string>
@@ -410,7 +413,7 @@
     <string name="pref_weather_update_frequency_title">Frequentie van weerupdates</string>
     <string name="pref_show_pressure_in_notification_title">Druk tonen in melding</string>
     <string name="pref_forecast_sensitivity_title">Voorspellingsgevoeligheid</string>
-    <string name="pref_monitor_weather_title">Weermonitor</string>
+    <string name="pref_monitor_weather_title">Meet het weer</string>
     <string name="pref_monitor_weather_summary">Op de achtergrond</string>
     <string name="pref_max_beacon_distance_title">Nabijgelegen bakenradius</string>
     <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
@@ -470,10 +473,10 @@
     <string name="create_beacon">Baken maken</string>
     <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="create_at_distance">Op afstand maken</string>
-    <string name="min_temp_uncalibrated">Minimale telefoontemperatuur (niet geijkt)</string>
-    <string name="min_temp_calibrated">Minimale omgevingstemperatuur (geijkt)</string>
-    <string name="max_temp_uncalibrated">Maximale telefoontemperatuur (niet geijkt)</string>
-    <string name="max_temp_calibrated">Maximale omgevingstemperatuur (geijkt)</string>
+    <string name="min_temp_uncalibrated">Minimale telefoontemperatuur (niet gekalibreerd)</string>
+    <string name="min_temp_calibrated">Minimale omgevingstemperatuur (gekalibreerd)</string>
+    <string name="max_temp_uncalibrated">Maximale telefoontemperatuur (niet gekalibreerd)</string>
+    <string name="max_temp_calibrated">Maximale omgevingstemperatuur (gekalibreerd)</string>
     <string name="pref_show_last_signal_beacon_title">Baken van het laatste signaal</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Pakket verwijderen\?</string>
@@ -508,11 +511,11 @@
     <string name="ounces_weight">Ons</string>
     <string name="pounds">Engels Pond</string>
     <string name="volume">Volume</string>
-    <string name="imperial_gallons">Keizerlijke Gallons</string>
-    <string name="imperial_ounces_volume">Keizerlijke Onzen</string>
-    <string name="imperial_quarts">Keizerlijke Quarts</string>
-    <string name="imperial_pints">Keizerlijke Pinten</string>
-    <string name="imperial_cups">Keizerlijke Bekers</string>
+    <string name="imperial_gallons">Imperiale Gallons</string>
+    <string name="imperial_ounces_volume">Imperiale Onzen</string>
+    <string name="imperial_quarts">Imperiale Kwarten</string>
+    <string name="imperial_pints">Imperiale Pints</string>
+    <string name="imperial_cups">Imperiale Cups</string>
     <string name="us_gallons">Amerikaanse Gallons</string>
     <string name="us_ounces_volume">Amerikaanse Onzen</string>
     <string name="us_cups">Amerikaanse Bekers</string>
@@ -544,7 +547,7 @@
     <string name="location_not_mocked">Werkelijke locatie gebruiken</string>
     <string name="location_mocked">Bespotte locatie gebruiken</string>
     <string name="pref_experimental_metal_direction_title">Toon metalen richting</string>
-    <string name="privacy">Privéheid</string>
+    <string name="privacy">Privacy</string>
     <string name="pref_privacy_screenshot_protection_title">Schermafbeeldingen voorkomen</string>
     <plurals name="number_days">
         <item quantity="one">%d dag</item>
@@ -563,7 +566,7 @@
     <string name="move">Verplaatsen</string>
     <string name="no_groups">Geen groepen</string>
     <string name="coordinates_tab">Coördinaten</string>
-    <string name="distance">Distantie</string>
+    <string name="distance">Afstand</string>
     <string name="convert">Omrekenen</string>
     <string name="pref_barometer_pressure_smoothing_title">Drukvereffening</string>
     <string name="pref_nmea_elevation_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
@@ -870,7 +873,7 @@
     <string name="disclaimer_estimated_tide_title">Geschatte tij</string>
     <string name="pressure_tendency">Veranderlijkheid</string>
     <string name="distance_alert_distance_reached">U heeft %s bereikt</string>
-    <string name="estimate_stride_length">Schat lengte in van schreden</string>
+    <string name="estimate_stride_length">Schat lengte in van stappen</string>
     <string name="stride_length_stand_still">Stilstaan</string>
     <string name="saved">Opgeslagen</string>
     <string name="stride_length_walk">Loop een rechte lijn, druk stop als u klaar bent</string>
@@ -919,7 +922,7 @@
     <string name="night">Nacht</string>
     <string name="pref_flashlight_timeout_title">Uitschakelen na</string>
     <string name="steps">Stappen</string>
-    <string name="astronomy_alerts">Sterrenhemel meldingen</string>
+    <string name="astronomy_alerts">Astronomie-meldingen</string>
     <string name="duration_second_format">%ds</string>
     <string name="activity_recognition_permission_denied">Toestemming tot fysieke sensors afgewezen, niet in staat om stappenteller in te schakelen. U kunt dit inschakelen in de instellingen.</string>
     <string name="dashed">Gestreept</string>
@@ -974,7 +977,7 @@
     <string name="path_slope_moderate">Gematigd</string>
     <string name="weather_clear">Helder</string>
     <string name="clouds_clear">Helder</string>
-    <string name="manual">Handleiding</string>
+    <string name="manual">Manueel</string>
     <string name="low_pressure">Lage</string>
     <string name="high_pressure">Hoge</string>
     <string name="pressure_system">Druksysteem</string>
@@ -1007,4 +1010,138 @@
     <string name="cloud_precipitation_forecast_hour_range">Kan duiden op neerslag in de komende %1$d tot %2$d uur.</string>
     <string name="altocumulus_forecast">Kan duiden op neerslag of onweer in de komende %d uren.</string>
     <string name="weather_front">Weerfront</string>
+    <string name="size">Omvang</string>
+    <string name="pref_include_leading_zero_title">Voeg voorloopnul toe aan de tijd</string>
+    <string name="center">Centrum</string>
+    <string name="pref_keep_map_facing_up_summary">De kaart zal uitlijnen met de bovenkant van het scherm, in plaats van het ware noorden.</string>
+    <string name="tool_deprecation_disclaimer">Dit hulpmiddel zal misschien verwijderd worden omdat het niet praktisch is tijdens een wandeling, trektocht of kamperen. Als je het toch een nuttig hulpmiddel vind, deel a.u.b met mij hoe je het gebruikt: %s.</string>
+    <string name="last_lightning_strike_at">Laatste inslag om %s</string>
+    <string name="now_value">Nu: %s</string>
+    <string name="rate">Frequentie</string>
+    <string name="enter_manually">Voer handmatig in</string>
+    <string name="end_time">Eind</string>
+    <string name="tool_climate_summary">Bekijk historische temperaturen</string>
+    <string name="rotation_amount">Rotatie: %s</string>
+    <string name="horizon">Horizon</string>
+    <string name="restore_failure_newer_version">Deze back-up was gemaakt met een nieuwere versie van %s. Werk a.u.b de app bij en probeer opnieuw.</string>
+    <string name="gps_satellites">GPS satellieten</string>
+    <string name="start_time">Begin</string>
+    <string name="weather_alert_hot_description">Bereid je voor op hoge temperaturen. Neem extra voorzorgsmaatregelen tegen uitputting en hitteberoerte.</string>
+    <string name="create_path">Maak pad</string>
+    <string name="allow_schedule_exact_alarms_instructions">Dit laat %1$s toe alarmen en meldingen, zoals zonsondergangsherinneringen te starten. Zonder, gaan alarmen misschien niet op de correcte tijd af.
+\n
+\nOm te accepteren, druk op \'%2$s \' een machtig de instelling voor het toelaten van alarmen en meldingen.</string>
+    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="no">Nee</string>
+    <string name="astronomy_rise">Opgang</string>
+    <string name="learn_more">Leer meer</string>
+    <string name="triangulate_destination_location_1_instructions">Neem je locatie op en de richting naar de bestemming.</string>
+    <string name="allow_ignore_battery_restrictions">%s toelaten batterijbeperkingen te negeren</string>
+    <string name="i_agree">Accepteren</string>
+    <string name="map_is_not_calibrated">Kaart is niet gekalibreerd</string>
+    <string name="hot">Heet</string>
+    <string name="calibrate_map_point">Calibreer met bekende locaties (%1$d / %2$d)</string>
+    <string name="gps_elevation_accuracy">GPS hoogtenauwkeurigheid</string>
+    <string name="restore">Herstel</string>
+    <string name="compass_source_legacy_android">Verouderd (Android)</string>
+    <string name="my_location">Mijn locatie</string>
+    <string name="compass_source_legacy_ts">Verouderd (Trail Sense)</string>
+    <string name="distance_away_from_destination">%s van bestemming</string>
+    <string name="until_sunset">tot zonsondergang</string>
+    <string name="cold">Koud</string>
+    <string name="weather_alert_cold_description">Bereid je voor op lage temperaturen. Neem extra voorzorgsmaatregelen tegen onderkoeling en bevriezing.</string>
+    <string name="allow_schedule_exact_alarms">%s toelaten alarmen en meldingen te starten</string>
+    <string name="yes">Ja</string>
+    <string name="notifications_channel">Meldingen (%s)</string>
+    <string name="peak_time">Maximum</string>
+    <string name="for_historic_temperatures">Voor historische temperaturen</string>
+    <string name="invalid_backup_file">Ongeldig bestand</string>
+    <string name="sunset_alert_scheduled">Alarm ingesteld om %s voor zonsondergang</string>
+    <string name="photo_maps">Fotokaarten</string>
+    <string name="next_24_hours">Volgende 24 uur</string>
+    <string name="backup_restore">Back-up / Herstel</string>
+    <string name="delete_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Zonsondergangmeldingen zijn misschien niet accuraat tijdens een reis</string>
+    <string name="weather_thunderstorm">Onweersbui</string>
+    <string name="beta">Beta</string>
+    <string name="backtrack_no_permission">Terugweg heeft locatietoestemming nodig om te functioneren</string>
+    <string name="autofill_source">Bron automatisch invullen</string>
+    <string name="create_blank_map">Maak lege kaart</string>
+    <string name="gps_accuracy_tip">Zorg ervoor dat je vrij zicht hebt op de hemel, en blijf weg bij bomen en hoge gebouwen.</string>
+    <string name="triangulate_self_location_1_instructions">Kies een bekende locatie waar je zicht op hebt en neem de richting op vanaf waar jij bent ten opzichte van die locatie.</string>
+    <string name="step_progression">Stap %1$d / %2$d</string>
+    <string name="restoring_loading_message">Herstellen…</string>
+    <string name="triangulate_self_location_2_instructions">Kies een andere bekende locatie waar je zicht op hebt een neem de richting op vanaf waar jij bent ten opzichte van die locatie.</string>
+    <string name="scheduled_for_redesign_or_removal">Opgenomen om vernieuwd of verwijderd te worden</string>
+    <string name="crop_map_instructions_long">Sleep de hoeken van het kader naar de hoeken van de kaart.</string>
+    <string name="map_auto_rotated">Kaartrotatie aangepast met kalibratie</string>
+    <string name="pref_backfill_temperatures_title">Werk opgenomen temperaturen bij</string>
+    <string name="backup">Back-up</string>
+    <string name="times">Uren</string>
+    <string name="daylight_duration">%s daglicht</string>
+    <string name="accelerometer">Versnellingsmeter</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historisch (%d jaar)</string>
+    <string name="map_file">Bestand (JPG, PNG, PDF)</string>
+    <string name="no_compass_description">Je apparaat heeft geen ingebouwde kompas-sensor. Dit is een hardware-component, dus er valt niets aan te doen om dit toe te voegen. Sommige functies die het kompas gebruiken zullen niet beschikbaar zijn.</string>
+    <string name="astronomy_altitude_peak">Maximum hoogte</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d kaart</item>
+        <item quantity="other">%d kaarten</item>
+    </plurals>
+    <string name="unable_to_find_next_astronomy">Volgende %s kan niet gevonden worden</string>
+    <string name="updating">Bijwerken</string>
+    <string name="astronomy_set">Ondergang</string>
+    <string name="solar_eclipses">Zonsverduisteringen</string>
+    <string name="direction_not_set">Richting niet ingesteld</string>
+    <string name="location_number">Locatie %d</string>
+    <string name="print">Afdrukken</string>
+    <string name="historic_temperatures">Historische temperaturen</string>
+    <string name="astronomy_direction_peak">Maximum richting</string>
+    <string name="direction">Richting</string>
+    <string name="battery_usage_allowed">Batterijgebruik toelaten</string>
+    <string name="map_calibration_instructions">Kik op een bekende locatie op de kaart, voer vervolgens de coördinaten uit de echte wereld in. Je kan de kalibratie bewaren door op de \"Klaar\" knop te klikken.
+\n
+\nVoorbeelden van gunstige kalibratiepunten zijn: een parkeerplaats, een bewegwijzeringsbord, een bekende plaats of een kruispunt.</string>
+    <string name="photo_map_summary">Gebruik een foto als kaart</string>
+    <string name="zero_shutter_lag">Geen sluitervertraging</string>
+    <string name="blank">Leeg</string>
+    <string name="illumination">Verlichting</string>
+    <string name="pref_backfill_temperatures_description">Alle opgenomen temperaturen worden vervangen door de gekalibreerde historische temperatuur.</string>
+    <string name="triangulate_destination_location_2_instructions">Beweeg tenminste %s van de eerste locatie en neem je locatie en richting van de bestemming opnieuw op.</string>
+    <string name="battery_settings_limit_accuracy">Energiebesparing beïnvloed misschien de nauwkeurigheid</string>
+    <string name="backing_up_loading_message">Reservekopie maken…</string>
+    <string name="gps_location_accuracy">GPS locatienauwkeurigheid</string>
+    <string name="restore_complete_message">Herstel geslaagd, herstarten om veranderingen toe te passen</string>
+    <string name="until_sunrise">tot zonsopkomst</string>
+    <string name="at_time">om %s</string>
+    <string name="location_to_triangulate">Locatie om te trianguleren</string>
+    <string name="pref_show_temperature_in_notification_title">Toon temperatuur in melding</string>
+    <string name="solar_eclipse_end">Zonsverduistering (eind)</string>
+    <string name="exact_alarm_permission_denied">Alarmen en meldingen geweigerd, alarmen zijn misschien niet accuraat.</string>
+    <string name="map_calibration">Kaartkalibratie</string>
+    <string name="solar_eclipse_start">Zonsverduistering (begin)</string>
+    <string name="obscuration">Verduistering</string>
+    <string name="loading">Laden</string>
+    <string name="data_source">Bron: %s</string>
+    <string name="magnitude">Omvang</string>
+    <string name="weather_alert_storm_description">Bereid je voor op hevige wind en zware regenval.</string>
+    <string name="source">Bron</string>
+    <string name="backup_disclaimer">Er zal een herstelbestand gemaakt worden met alle huidige gegevens. Inclusief instellingen, paden, bakens, kaarten, etc.
+\n
+\nDit bestand is niet versleuteld. Deel het niet met iemand die je niet vertrouwd.</string>
+    <string name="reset_calibration">Herstel kalibratie</string>
+    <string name="destination">Bestemming</string>
+    <string name="restore_disclaimer">Dit zal alle huidige gegevens overschrijven. Zorg ervoor dat je een backup hebt voordat je doorgaat.
+\n
+\nSelecteer alleen een bestand dat je hebt gemaakt met %s en dat je vertrouwd.</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperaturen zijn gebaseerd op een %d jaar gemiddelde van historische gegevens en wijken mogelijk af van de huidige weersomstandigheden.</string>
+    <string name="beta_disclaimer">Dit hulpmiddel is op dit moment in ontwikkeling, meld problemen of suggesties a.u.b bij %s.</string>
+    <string name="tool_climate">Klimaat</string>
+    <string name="compass_source_mag_gyro">Magnetometer + Gyroscoop</string>
+    <string name="reduce_map_resolution_crop_disclaimer">De kaart bijsnijden zal de resolutie verlagen. Als je de kaart in een hoge resolutie wil bijsnijden, gebruik a.u.b een fotobewerk-app. Er zijn plannen om dit op te lossen.</string>
+    <string name="solar_eclipse">Zonsverduistering</string>
+    <string name="photo_map_disclaimer">Houd altijd een fysieke kaart bij de hand, als back-up en om de nauwkeurigheid van Trail Sense te vergelijken.</string>
+    <string name="pref_keep_map_facing_up_title">Kaart omhoog laten wijzen</string>
+    <string name="distance_away_from_self">%s ver</string>
+    <string name="season">Seizoen</string>
 </resources>

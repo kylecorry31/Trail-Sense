@@ -1166,4 +1166,7 @@
     <string name="distance_away_from_destination">%s od cíle</string>
     <string name="location_number">Lokace %d</string>
     <string name="distance_away_from_self">vzdálenost %s</string>
+    <string name="enter_manually">Zadat ručně</string>
+    <string name="direction_not_set">Směr nenastaven</string>
+    <string name="direction">Směr</string>
 </resources>
