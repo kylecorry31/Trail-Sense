@@ -93,13 +93,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             update()
         }
 
-        binding.triangulateTitle.rightButton.setOnClickListener {
-            location?.let {
-                val share = LocationCopy(requireContext())
-                share.send(it)
-            }
-        }
-
         binding.createBeacon.setOnClickListener {
             location?.let {
                 AppUtils.placeBeacon(requireContext(), GeoUri(it))
@@ -376,11 +369,9 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         this.location = location
         if (location == null || location.latitude.isNaN() || location.longitude.isNaN()) {
             binding.triangulateTitle.title.text = getString(R.string.could_not_triangulate)
-            binding.triangulateTitle.rightButton.isInvisible = true
             binding.actions.isVisible = false
         } else {
             binding.triangulateTitle.title.text = formatService.formatLocation(location)
-            binding.triangulateTitle.rightButton.isInvisible = false
             binding.actions.isVisible = true
         }
 

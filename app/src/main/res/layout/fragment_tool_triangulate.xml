@@ -16,7 +16,6 @@
             android:id="@+id/triangulate_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:rightButtonIcon="@drawable/ic_copy"
             app:showSubtitle="false"
             tools:title="10.0000, 40.0000" />
 
