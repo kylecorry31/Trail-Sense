@@ -1,0 +1,9 @@
+- Mostrar la velocidad en la pestaña de navegación
+- Mostrar el tiempo estimado a las balizar
+- Pestaña de navegación reorganizada
+- Mostrar precisión de GPS/Brújula
+- Añadir notas y elevación a las balizas
+- Añadir posibilidad de editas balizas
+- Añadir ajustes para sensibilidad de previsión
+- Añadir clima a la notificación
+- Mejorar cálculo de presión de nivel de mar
