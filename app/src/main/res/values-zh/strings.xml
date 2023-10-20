@@ -1125,4 +1125,7 @@
     <string name="distance_away_from_destination">离目的地 %s</string>
     <string name="location_number">位置 %d</string>
     <string name="distance_away_from_self">%s 远</string>
+    <string name="enter_manually">手动输入</string>
+    <string name="direction_not_set">未设置方向</string>
+    <string name="direction">方向</string>
 </resources>
