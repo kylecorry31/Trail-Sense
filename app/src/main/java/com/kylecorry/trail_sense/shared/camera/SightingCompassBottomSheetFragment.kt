@@ -15,10 +15,12 @@ import androidx.camera.view.PreviewView
 import androidx.core.net.toUri
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.databinding.FragmentSightingCompassSheetBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -55,8 +57,7 @@ class SightingCompassBottomSheetFragment(
 
         dialog?.setOnCancelListener { onSelect(null) }
 
-        binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
-        binding.camera.clipToOutline = true
+        binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.start(
             lifecycleOwner = this,
             readFrames = false
@@ -75,6 +76,9 @@ class SightingCompassBottomSheetFragment(
     }
 
     private fun updateUI() {
+        val minimumFOV = 5f
+        binding.linearCompass.range = binding.camera.fov.first.coerceAtLeast(minimumFOV)
+
         binding.toolTitle.title.text = bearing?.let { formatter.formatDegrees(it) } ?: ""
         binding.linearCompass.azimuth = Bearing(bearing ?: 0f)
     }

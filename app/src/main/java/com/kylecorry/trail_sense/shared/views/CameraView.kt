@@ -20,12 +20,19 @@ import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.R
 import java.io.File
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
     var camera: ICamera? = null
+
+    val fov: Pair<Float, Float>
+        get() {
+            val defaultFOV = 45f
+            return camera?.getZoomedFOV() ?: (defaultFOV to defaultFOV)
+        }
 
     private val preview: PreviewView
     private val torchBtn: ImageButton
