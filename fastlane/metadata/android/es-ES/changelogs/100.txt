@@ -1,0 +1,16 @@
+Mapas de fotos (Beta)
+- Las herramientas Mapa de fotos están disponibles para todos en fase beta, usa una foto como un mapa
+- Manipula mapas que no apuntan al Norte geográfico
+
+Astronomía
+- Astronomía rediseñada para facilitar su uso de un vistazo
+- Muestra las horas de inicio y fin de las luvias de estrellas
+- Muestra la hora punta del eclipse
+- Añadido botón de búsqueda para encontrar el siguiente evento astronómico
+- Haz clic en los elementos de lista sol / luna para ver más detalles
+
+Meteorología / Clima
+- Mejorada la precisión del histórico de temperaturas
+
+Interfaz
+- Corrección de errores

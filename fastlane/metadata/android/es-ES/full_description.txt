@@ -1,0 +1,27 @@
+<p>Explora más allá de los confines de Internet con Trail Sense.</p>
+
+<p>Trail Sense es una app que usa los sensores de tu teléfono para ayudarte en tus excursiones por la naturaleza. Trail Sense contiene muchas herramientas que se pueden usar en diferentes escenarios, como senderismo, acampada, mochilero, escalada en roca, etc.</p>
+
+<p>Esta app además no usa, y nunca lo hará, usar internet - en Trail Sense toda la información viene directamente desde los sensores de tu teléfono, y ningún dato saldrá de Trail Sense.</p>
+
+<ul>
+    <li>Diseñado para senderismo, mochilero, camping y geocaching</li>
+    <li>Pon balizas y navega hacia ellas</li>
+    <li>Sigue rutas</li>
+    <li>Vuelve sobre tus pasos con backtrack</li>
+    <li>Planifica que llevar</li>
+    <li>Te alerta antes de que se ponga el sol</li>
+    <li>Predice la climatología</li>
+    <li>Utiliza tu teléfono como linterna</li>
+    <li>¡Y mucho más!</li>
+</ul>
+
+<p>Trail Sense es una herramienta que puedes utilizar, pero no es algo en lo que debas confiar. Esta app sólo tiene fines informativos y la precisión de las predicciones y sensores está determinada por un número de factores, incluyendo calibración, calidad de los sensores, fuentes externas, etc. Utilízala bajo tu responsabilidad, ten siempre herramientas de respaldo (p.ej., una brújula), y mantente a salvo en la medida de lo posible.</p>
+
+<p>¿Encontraste un error o quieres nuevas funciones? Contáctanos en trailsense@protonmail.com o crea un nuevo asunto en GitHub: github.com/kylecorry31/Trail-Sense</p>
+
+<p>Soy el único desarrollador de Trail Sense, así que haré todo lo que puede para ayudar con los errores - pero tengo una selección limitada de dispositivos para probar.</p>
+
+<p>Política de privacidad: https://kylecorry.com/Trail-Sense/#privacy</p>
+<p>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</p>
+<p>Trail Sense está disponible bajo licencia MIT: https://opensource.org/license/mit/</p>
