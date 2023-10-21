@@ -186,7 +186,7 @@
     <string name="error_occurred_message">Ein Fehler ist aufgetreten. Bitte sende eine E-Mail an den Entwickler, um den Fehler beheben zu lassen.</string>
     <string name="error_occurred">Ein Fehler ist aufgetreten</string>
     <string name="access_background_location">Standortseinstellungen aktualisieren</string>
-    <string name="access_background_location_rationale">Trail Sense nutzt Ortungsdaten im Hintergrund. Diese werden zur Kalibrierung des Luftdruck auf Meereshöhe im Wettermonitor verwendet. Sie werden außerdem verwendet, um Sonnenuntergangsbenachrichtigung zu bieten. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense nutzt Ortungsdaten im Hintergrund zur Kalibrierung des Luftdrucks auf Meereshöhe im Wettermonitor und um Sonnenuntergangsbenachrichtigungen anzubieten. [Datenschutzbestimmungen](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="dialog_deny">Nein danke</string>
     <string name="dialog_grant">Einstellungen aktualisieren</string>
     <string name="pref_adjust_for_temperature_title">Faktor für Temperatur</string>
@@ -202,7 +202,7 @@
     <string name="elevation_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="set_inclination_instructions">Tippen oder halten zum Sperren/Entsperren</string>
+    <string name="set_inclination_instructions">Tippen oder halten zum Sperren oder Entsperren</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
     <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Stelle fest, ob eine Oberfläche eben ist</string>
@@ -1117,4 +1117,12 @@
     <string name="gps_location_accuracy">GPS positions Genauigkeit</string>
     <string name="gps_accuracy_tip">Stelle sicher das du eine freie sicht auf den Himmel hast und bewege dich von großen Gebäuden und bäumen weg.</string>
     <string name="no_compass_description">Dein Gerät hat keinen eingebauten Kompass. Dies ist ein Technischer Bestandteil, so kann ein Kompass nicht nachträglich hinzugefügt werden. Manche Funktionen die einen Kompass benutzen werden nicht verfügbar sein.</string>
+    <string name="restore_failure_newer_version">Diese Wiederherstellungsdatei wurde mit einer neueren Version von %s erstellt. Bitte aktualisiere %s und versuche es erneut.</string>
+    <string name="invalid_backup_file">Ungültige Wiederherstellungsdatei</string>
+    <string name="backup_restore">Sichern / Wiederherstellen</string>
+    <string name="restore_complete_message">Wiederherstellung erfolgreich, startet neu um Änderungen zu übernehmen</string>
+    <string name="restore_disclaimer">Diese Aktion überschreibt alle bestehenden Daten. Bitte stelle sicher, dass du ein Backup hast, bevor du fortfährst.
+\n
+\nNutze nur ein Backup welches du mittels %s erstellt hast und dem du vertraust.</string>
+    <string name="distance_away_from_self">%s entfernt</string>
 </resources>

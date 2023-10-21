@@ -1154,4 +1154,7 @@
     <string name="distance_away_from_destination">%s desde el destino</string>
     <string name="location_number">Situación %d</string>
     <string name="distance_away_from_self">%s lejos</string>
+    <string name="enter_manually">Introducir manualmente</string>
+    <string name="direction_not_set">Dirección no establecida</string>
+    <string name="direction">Dirección</string>
 </resources>
