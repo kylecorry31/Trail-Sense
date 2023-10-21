@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme">
+    android:orientation="vertical">
 
     <com.kylecorry.ceres.toolbar.CeresToolbar
         android:id="@+id/tool_title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:flattenButtons="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:rightButtonIcon="@drawable/ic_cancel"
         app:showSubtitle="false" />
 
-    <com.kylecorry.trail_sense.shared.views.CameraView
-        android:id="@+id/camera"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/capture_button"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_title" />
+        android:layout_weight="1">
 
-    <View
-        android:id="@+id/view_camera_line"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:background="@color/orange_40"
-        app:layout_constraintBottom_toBottomOf="@id/camera"
-        app:layout_constraintEnd_toEndOf="@id/camera"
-        app:layout_constraintStart_toStartOf="@id/camera"
-        app:layout_constraintTop_toTopOf="@id/camera" />
+        <com.kylecorry.trail_sense.shared.views.CameraView
+            android:id="@+id/camera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
-        android:id="@+id/linear_compass"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@id/camera"
-        app:layout_constraintEnd_toEndOf="@id/camera"
-        app:layout_constraintStart_toStartOf="@id/camera"
-        app:layout_constraintTop_toTopOf="@id/camera" />
+        <View
+            android:id="@+id/view_camera_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/orange_40" />
 
-    <com.kylecorry.trail_sense.shared.camera.ShutterButton
-        android:id="@+id/capture_button"
+        <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
+            android:id="@+id/linear_compass"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+
+    <FrameLayout
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/camera_capture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.kylecorry.trail_sense.shared.camera.ShutterButton
+            android:id="@+id/capture_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="@string/camera_capture" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+</LinearLayout>
