@@ -31,9 +31,9 @@ class ScanQRBottomSheet(
             onCameraUpdate(it)
         }
 
-        binding.scanQrSheetTitle.text = title
+        binding.toolTitle.title.text = title
 
-        binding.cancelButton.setOnClickListener {
+        binding.toolTitle.rightButton.setOnClickListener {
             onTextScanned(null)
             dismiss()
         }
