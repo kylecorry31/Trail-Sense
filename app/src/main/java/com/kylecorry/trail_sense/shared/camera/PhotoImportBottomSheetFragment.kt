@@ -47,7 +47,6 @@ class PhotoImportBottomSheetFragment(
         dialog?.setOnCancelListener { onCapture(null) }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
-        binding.camera.clipToOutline = true
         binding.camera.start(
             resolution,
             lifecycleOwner = this,
