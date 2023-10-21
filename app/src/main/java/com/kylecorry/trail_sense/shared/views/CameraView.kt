@@ -5,6 +5,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.util.Size
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -19,6 +22,7 @@ import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.R
@@ -56,14 +60,14 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             return
         }
 
-        if (!Camera.isAvailable(context)){
+        if (!Camera.isAvailable(context)) {
             Alerts.toast(context, context.getString(R.string.camera_unavailable))
             return
         }
 
         val useBackCamera = Camera.hasBackCamera(context)
 
-        if (!useBackCamera && !Camera.hasFrontCamera(context)){
+        if (!useBackCamera && !Camera.hasFrontCamera(context)) {
             Alerts.toast(context, context.getString(R.string.camera_unavailable))
             return
         }
@@ -128,7 +132,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun setZoomRatio(ratio: Float){
+    fun setZoomRatio(ratio: Float) {
         val state = camera?.zoom
         val min = state?.ratioRange?.start ?: 1f
         val max = state?.ratioRange?.end ?: 2f
@@ -150,7 +154,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
-        if (zoom == -1f){
+        if (zoom == -1f) {
             setZoomRatio(1f)
         }
         setZoom(zoom)
@@ -192,6 +196,39 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             zoomListener?.invoke(progress / 100f)
             setZoom(progress / 100f)
         }
+    }
+
+    private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onDoubleTap(e: MotionEvent): Boolean {
+            if (zoom != -1f && zoomSeek.isVisible) {
+                val remainingZoom = 1 - zoom
+                val newZoom = (zoom + remainingZoom / 2).coerceIn(0f, 1f)
+                zoomListener?.invoke(newZoom)
+                setZoom(newZoom)
+            }
+            return super.onDoubleTap(e)
+        }
+    }
+
+    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            if (zoom != -1f && zoomSeek.isVisible) {
+                val newZoom = (zoom - 1 + detector.scaleFactor ).coerceIn(0f, 1f)
+                zoomListener?.invoke(newZoom)
+                setZoom(newZoom)
+            }
+            return true
+        }
+    }
+
+    private val gestureDetector = GestureDetector(context, mGestureListener)
+    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        mScaleDetector.onTouchEvent(event)
+        gestureDetector.onTouchEvent(event)
+        return true
     }
 
 
