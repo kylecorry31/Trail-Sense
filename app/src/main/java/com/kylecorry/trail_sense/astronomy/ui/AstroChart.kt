@@ -5,12 +5,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.AreaChartLayer
-import com.kylecorry.ceres.chart.data.BitmapChartLayer
-import com.kylecorry.ceres.chart.data.FullAreaChartLayer
-import com.kylecorry.ceres.chart.data.HorizontalLineChartLayer
-import com.kylecorry.ceres.chart.data.LineChartLayer
-import com.kylecorry.ceres.chart.data.TextChartLayer
+import com.kylecorry.ceres.chart.data.*
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
@@ -19,10 +14,8 @@ import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
 
-
 class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
 
-    // TODO: Experiment with this, if it isn't needed, remove it
     private val fillSunArea = true
     private val fillMoonArea = true
 
@@ -85,19 +78,15 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         emptyList(),
         bitmapLoader.load(R.drawable.ic_sun, imageSize.toInt()),
         16f,
-    ) {
-        onImageClick()
-        true
-    }
+        onImageClick
+    )
 
     private val moonImage = BitmapChartLayer(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_moon, imageSize.toInt()),
-        16f
-    ) {
-        onImageClick()
-        true
-    }
+        16f,
+        onImageClick
+    )
 
     init {
         chart.configureYAxis(
@@ -141,53 +130,44 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
     }
 
     fun moveSun(position: Reading<Float>?) {
-        sunImage.data = if (position == null) {
-            emptyList()
-        } else {
-            Chart.getDataFromReadings(listOf(position), startTime) { it }
-        }
+        sunImage.data = position?.let { Chart.getDataFromReadings(listOf(it), startTime) { it } } ?: emptyList()
         updateSunArea()
     }
 
     fun setMoonImage(@DrawableRes icon: Int) {
-        moonImage.bitmap = bitmapLoader.load(icon, imageSize.toInt())
         if (icon != previousMoonImage) {
             bitmapLoader.unload(previousMoonImage)
+            previousMoonImage = icon
         }
-        previousMoonImage = icon
+        moonImage.bitmap = bitmapLoader.load(icon, imageSize.toInt())
     }
 
-    fun moveMoon(position: Reading<Float>?) {
-        moonImage.data = if (position == null) {
-            emptyList()
-        } else {
-            Chart.getDataFromReadings(listOf(position), startTime) { it }
-        }
+    fun moveMoon(position:Reading<Float>?) {
+        moonImage.data = position?.let { Chart.getDataFromReadings(listOf(it), startTime) { it } } ?: emptyList()
         updateMoonArea()
     }
 
-    private fun updateSunArea(){
-        if (!fillSunArea){
+    private fun updateSunArea() {
+        if (!fillSunArea) {
             return
         }
         val position = sunImage.data.firstOrNull()
-        if (position == null){
-            sunArea.data = emptyList()
+        sunArea.data = if (position == null) {
+            emptyList()
         } else {
-            sunArea.data = sunLine.data.filter { it.x <= position.x } + position
+            sunLine.data.filter { it.x <= position.x } + position
         }
     }
 
-    private fun updateMoonArea(){
-        if (!fillMoonArea){
+    private fun updateMoonArea() {
+        if (!fillMoonArea) {
             return
         }
         val position = moonImage.data.firstOrNull()
-        if (position == null){
-            moonArea.data = emptyList()
+        moonArea.data = if (position == null) {
+            emptyList()
         } else {
-            moonArea.data = moonLine.data.filter { it.x <= position.x } + position
+            moonLine.data.filter { it.x <= position.x } + position
         }
     }
-
 }
