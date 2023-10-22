@@ -52,15 +52,15 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             context.sendBroadcast(Intent(context, SunsetAlarmReceiver::class.java))
         }
 
-        // TODO: Extract this out of the receiver
-        /**
-         * Enable sunset alerts and request permissions if needed
-         */
-        fun <T> enable(
-            fragment: T,
+        fun enable(
+            fragment: Fragment,
             shouldRequestPermissions: Boolean
-        ) where T : Fragment, T : IPermissionRequester {
-            UserPreferences(fragment.requireContext()).astronomy.sendSunsetAlerts = true
+        ) {
+            val preferences = UserPreferences(fragment.requireContext())
+            preferences.astronomy.sendSunsetAlerts = true
+
+            preferences.astronomy.isSunsetAlertEnabled = true
+
             if (shouldRequestPermissions) {
                 fragment.requestScheduleExactAlarms {
                     start(fragment.requireContext())
@@ -69,6 +69,23 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             } else {
                 start(fragment.requireContext())
             }
+        }
+
+        fun disable(
+            fragment: Fragment
+        ) {
+            val preferences = UserPreferences(fragment.requireContext())
+            preferences.astronomy.sendSunsetAlerts = false
+
+            preferences.astronomy.isSunsetAlertEnabled = false
+
+            val scheduler = scheduler(fragment.requireContext())
+            scheduler.cancel()
+        }
+
+        fun isSunsetAlertEnabled(context: Context): Boolean {
+            val preferences = UserPreferences(context)
+            return preferences.astronomy.sendSunsetAlerts && preferences.astronomy.isSunsetAlertEnabled
         }
     }
 }
