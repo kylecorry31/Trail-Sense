@@ -15,20 +15,39 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
         Log.d("TrailSenseApplication", "onCreate")
-        NotificationChannels.createChannels(this)
-        PreferenceMigrator.getInstance().migrate(this)
-        RepoCleanupWorker.scheduler(this).interval(Duration.ofHours(6))
+        createNotificationChannels()
+        migratePreferences()
+        scheduleRepoCleanupWorker()
 
         // Start up the weather subsystem
-        WeatherSubsystem.getInstance(this)
+        startWeatherSubsystem()
 
         // Start up the flashlight subsystem
-        FlashlightSubsystem.getInstance(this)
+        startFlashlightSubsystem()
     }
 
     override fun getCameraXConfig(): CameraXConfig {
-        return CameraXConfig.Builder.fromConfig(Camera2Config.defaultConfig())
+        return Camera2Config.Builder.fromConfig(Camera2Config.defaultConfig())
             .setMinimumLoggingLevel(Log.ERROR).build()
     }
 
+    private fun createNotificationChannels() {
+        NotificationChannels.createChannels(this)
+    }
+
+    private fun migratePreferences() {
+        PreferenceMigrator.getInstance().migrate(this)
+    }
+
+    private fun scheduleRepoCleanupWorker() {
+        RepoCleanupWorker.scheduler(this).interval(Duration.ofHours(6))
+    }
+
+    private fun startWeatherSubsystem() {
+        WeatherSubsystem.getInstance(this)
+    }
+
+    private fun startFlashlightSubsystem() {
+        FlashlightSubsystem.getInstance(this)
+    }
 }
