@@ -1,0 +1,7 @@
+Triangulate Location
+- Triangulate a location in the distance
+- Redesign triangulation tool to include map, instructions, and sighting compass
+
+Misc
+- Increase size of some camera previews
+- Bug fixes
