@@ -16,7 +16,7 @@ class AstronomyPreferences(private val context: Context) {
 
     val sunTimesMode: SunTimesMode
         get() {
-            return when (cache.getString(context.getString(R.string.pref_sun_time_mode))) {
+            return when (val mode = cache.getString(R.string.pref_sun_time_mode.toString())) {
                 "civil" -> SunTimesMode.Civil
                 "nautical" -> SunTimesMode.Nautical
                 "astronomical" -> SunTimesMode.Astronomical
@@ -26,26 +26,24 @@ class AstronomyPreferences(private val context: Context) {
 
     val centerSunAndMoon: Boolean
         get() {
-            return cache.getBoolean(context.getString(R.string.pref_center_sun_and_moon)) ?: false
+            return cache.getBoolean(R.string.pref_center_sun_and_moon.toString()) ?: false
         }
 
     val showOnCompass: Boolean
         get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "never"
-            return raw == "always" || raw == "when_up"
+            val raw = cache.getString(R.string.pref_show_sun_moon_compass.toString()) ?: "never"
+            return raw != "never"
         }
 
     val showOnCompassWhenDown: Boolean
         get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "never"
+            val raw = cache.getString(R.string.pref_show_sun_moon_compass.toString()) ?: "never"
             return raw == "always"
         }
 
     var sendSunsetAlerts by BooleanPreference(
         cache,
-        context.getString(R.string.pref_sunset_alerts),
+        R.string.pref_sunset_alerts.toString(),
         false
     )
 
@@ -59,26 +57,25 @@ class AstronomyPreferences(private val context: Context) {
 
     val sendLunarEclipseAlerts by BooleanPreference(
         cache,
-        context.getString(R.string.pref_send_lunar_eclipse_alerts),
+        R.string.pref_send_lunar_eclipse_alerts.toString(),
         false
     )
 
     val sendSolarEclipseAlerts by BooleanPreference(
         cache,
-        context.getString(R.string.pref_send_solar_eclipse_alerts),
+        R.string.pref_send_solar_eclipse_alerts.toString(),
         false
     )
 
     val sendMeteorShowerAlerts by BooleanPreference(
         cache,
-        context.getString(R.string.pref_send_meteor_shower_alerts),
+        R.string.pref_send_meteor_shower_alerts.toString(),
         false
     )
 
     val sunsetAlertMinutesBefore: Long
         get() {
-            return (cache.getString(context.getString(R.string.pref_sunset_alert_time))
-                ?: "60").toLong()
+            return (cache.getString(R.string.pref_sunset_alert_time.toString()) ?: "60").toLong()
         }
 
     val sunsetAlertLastSent: LocalDate
@@ -93,18 +90,13 @@ class AstronomyPreferences(private val context: Context) {
 
     val leftButton: QuickActionType
         get() {
-            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_left))
-                ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.Flashlight
+            val id = cache.getString(R.string.pref_astronomy_quick_action_left.toString())?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Flashlight
         }
 
     val rightButton: QuickActionType
         get() {
-            val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))
-                ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.SunsetAlert
+            val id = cache.getString(R.string.pref_astronomy_quick_action_right.toString())?.toIntCompat()
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.SunsetAlert
         }
-
 }
