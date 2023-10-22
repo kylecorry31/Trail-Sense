@@ -20,20 +20,20 @@ import java.time.ZonedDateTime
 
 class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
 
-    private val location by lazy { LocationSubsystem.getInstance(context) }
-    private val userPrefs by lazy { UserPreferences(context) }
+    private val location: LocationSubsystem = LocationSubsystem.getInstance(context)
+    private val userPrefs: UserPreferences = UserPreferences(context)
     private val astronomyService = AstronomyService()
 
-    // The window prior the alert time that the alert can be sent
-    private val alertWindow = Duration.ofMinutes(20)
+    private val alertWindowMinutes = 20
+    private val alertWindow: Duration = Duration.ofMinutes(alertWindowMinutes)
 
     override suspend fun execute() = onDefault {
         Log.i(TAG, "Started")
 
-        val now = ZonedDateTime.now()
+        val currentTime = ZonedDateTime.now()
 
         if (location.location == Coordinate.zero) {
-            setAlarm(now.plusDays(1))
+            setAlarm(currentTime.plusDays(1))
             return@onDefault
         }
 
@@ -45,88 +45,22 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
         val tomorrowSunset =
             astronomyService.getTomorrowSunTimes(location.location, suntimesMode).set
 
-        if (todaySunset != null) {
-            when {
-                isPastSunset(todaySunset) -> {
-                    // Missed the sunset, schedule the alarm for tomorrow
-                    setAlarm(
-                        tomorrowSunset?.minus(alertDuration)
-                            ?: todaySunset.plusDays(1)
-                    )
-                }
+        todaySunset ?: return@onDefault
 
-                withinAlertWindow(todaySunset, alertDuration) -> {
-                    // Send alert, schedule alarm for tomorrow's sunset or else at some point tomorrow
-                    sendNotification(todaySunset)
-                    setAlarm(
-                        tomorrowSunset?.minus(alertDuration)
-                            ?: todaySunset.plusDays(1)
-                    )
-                }
-
-                else -> { // Before the alert window
-                    // Schedule alarm for sunset
-                    setAlarm(todaySunset.minus(alertDuration))
-                }
-            }
-        } else {
-            // There isn't a sunset today, schedule it for tomorrow
-            setAlarm(tomorrowSunset?.minus(alertDuration) ?: now.plusDays(1))
-        }
-    }
-
-    private fun isPastSunset(sunset: ZonedDateTime): Boolean {
-        return ZonedDateTime.now().isAfter(sunset)
-    }
-
-    private fun withinAlertWindow(sunset: ZonedDateTime, alertDuration: Duration): Boolean {
-        val alertTime = sunset.minus(alertDuration)
-        val minAlertTime = alertTime.minus(alertWindow)
-        val alertRange = Range(minAlertTime, sunset)
-        return alertRange.contains(ZonedDateTime.now())
-    }
-
-    private fun sendNotification(sunset: ZonedDateTime) {
-
-        val lastSentDate = userPrefs.astronomy.sunsetAlertLastSent
-        if (LocalDate.now() == lastSentDate) {
-            return
+        if (isAfterSunset(todaySunset)) {
+            // Missed the sunset, schedule the alarm for tomorrow
+            setAlarm(
+                tomorrowSunset?.minus(alertDuration)
+                    ?: todaySunset.plusDays(1)
+            )
+            return@onDefault
         }
 
-        userPrefs.astronomy.setSunsetAlertLastSentDate(LocalDate.now())
-
-        val formatService = FormatService.getInstance(context)
-        val formattedTime = formatService.formatTime(sunset.toLocalTime(), false)
-
-        val openIntent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
-
-        val notification = Notify.alert(
-            context,
-            NOTIFICATION_CHANNEL_ID,
-            context.getString(R.string.sunset_alert_notification_title),
-            context.getString(
-                R.string.sunset_alert_notification_text,
-                formattedTime
-            ),
-            R.drawable.ic_sunset_notification,
-            intent = openIntent,
-            autoCancel = true
-        )
-
-        Notify.send(context, NOTIFICATION_ID, notification)
-    }
-
-    private fun setAlarm(time: ZonedDateTime) {
-        val scheduler = SunsetAlarmReceiver.scheduler(context)
-        scheduler.cancel()
-        scheduler.once(time.toInstant())
-        Log.i(TAG, "Scheduled next run at $time")
-    }
-
-    companion object {
-        const val TAG = "SunsetAlarmCommand"
-        const val NOTIFICATION_ID = 1231
-        const val NOTIFICATION_CHANNEL_ID = "Sunset alert"
-    }
-
-}
+        if (withinAlertWindow(todaySunset, alertDuration)) {
+            // Send alert, schedule alarm for tomorrow's sunset or else at some point tomorrow
+            sendNotification(todaySunset)
+            setAlarm(
+                tomorrowSunset?.minus(alertDuration)
+                    ?: todaySunset.plusDays(1)
+            )
+            return@onDefault
