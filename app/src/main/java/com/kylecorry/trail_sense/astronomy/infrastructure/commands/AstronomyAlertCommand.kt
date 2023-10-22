@@ -9,18 +9,31 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 
 class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
     override suspend fun execute() = onDefault {
-        val location = LocationSubsystem.getInstance(context).location
+        val location = getLocation()
 
-        if (location == Coordinate.zero) {
+        if (location == null) {
             return@onDefault
         }
 
-        val command = ComposedCommand(
-            LunarEclipseAlertCommand(context),
-            SolarEclipseAlertCommand(context),
-            MeteorShowerAlertCommand(context)
-        )
+        val command = createComposedCommand()
 
         command.execute(location)
+    }
+
+    private suspend fun getLocation(): Coordinate? {
+        val locationSubsystem = LocationSubsystem.getInstance(context)
+        return locationSubsystem.location
+    }
+
+    private fun createComposedCommand(): ComposedCommand {
+        val lunarEclipseAlertCommand = LunarEclipseAlertCommand(context)
+        val solarEclipseAlertCommand = SolarEclipseAlertCommand(context)
+        val meteorShowerAlertCommand = MeteorShowerAlertCommand(context)
+
+        return ComposedCommand(
+            lunarEclipseAlertCommand,
+            solarEclipseAlertCommand,
+            meteorShowerAlertCommand
+        )
     }
 }
