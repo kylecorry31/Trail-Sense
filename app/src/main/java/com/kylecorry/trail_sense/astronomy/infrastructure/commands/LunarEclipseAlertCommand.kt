@@ -29,8 +29,7 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
         val astronomyService = AstronomyService()
         val today = LocalDate.now()
         val todayEclipse = astronomyService.getLunarEclipse(location, today)
-        val tomorrowEclipse =
-            astronomyService.getLunarEclipse(location, today.plusDays(1))
+        val tomorrowEclipse = astronomyService.getLunarEclipse(location, today.plusDays(1))
 
         val eclipse = listOfNotNull(todayEclipse, tomorrowEclipse).firstOrNull {
             val timeUntilPeak = Duration.between(LocalDateTime.now(), it.peak)
@@ -42,21 +41,32 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
             return
         }
 
-        val notification = Notify.status(
-            context,
-            NotificationChannels.CHANNEL_ASTRONOMY_ALERTS,
-            context.getString(R.string.lunar_eclipse),
-            getEclipseDescription(context, eclipse),
-            R.drawable.ic_astronomy,
-            group = NotificationChannels.GROUP_ASTRONOMY_ALERTS,
-            intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy),
-            autoCancel = true
-        )
+        val notification = createNotification(eclipse)
 
-        Notify.send(context, 7394232, notification)
+        Notify.send(context, NOTIFICATION_ID, notification)
     }
 
-    private fun getEclipseDescription(context: Context, eclipse: Eclipse): String {
+    private fun createNotification(eclipse: Eclipse): Notify.StatusNotification {
+        val notificationTitle = context.getString(R.string.lunar_eclipse)
+        val notificationDescription = getEclipseDescription(eclipse)
+        val notificationIcon = R.drawable.ic_astronomy
+        val notificationGroup = NotificationChannels.GROUP_ASTRONOMY_ALERTS
+        val notificationIntent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
+        val autoCancel = true
+
+        return Notify.status(
+            context,
+            NotificationChannels.CHANNEL_ASTRONOMY_ALERTS,
+            notificationTitle,
+            notificationDescription,
+            notificationIcon,
+            group = notificationGroup,
+            intent = notificationIntent,
+            autoCancel = autoCancel
+        )
+    }
+
+    private fun getEclipseDescription(eclipse: Eclipse): String {
         val formatService = FormatService.getInstance(context)
 
         val timeSpan = formatService.formatTimeSpan(
@@ -72,6 +82,6 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
 
     companion object {
         private const val TAG = "LunarEclipseAlertCommand"
+        private const val NOTIFICATION_ID = 7394232
     }
-
 }
