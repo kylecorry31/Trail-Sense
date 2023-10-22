@@ -18,7 +18,7 @@ internal class WeatherAlertGeneratorTest {
 
     @ParameterizedTest
     @MethodSource("provideAlerts")
-    fun getAlerts(
+    fun `getAlerts should return the expected alerts`(
         conditions: List<WeatherCondition>,
         high: Float,
         low: Float,
