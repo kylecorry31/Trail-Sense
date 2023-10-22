@@ -40,29 +40,35 @@ class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinat
             return
         }
 
-        val notification = Notify.status(
-            context,
-            NotificationChannels.CHANNEL_ASTRONOMY_ALERTS,
-            context.getString(R.string.meteor_shower),
-            getShowerDescription(context, shower),
-            R.drawable.ic_astronomy,
-            group = NotificationChannels.GROUP_ASTRONOMY_ALERTS,
-            intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy),
-            autoCancel = true
-        )
+        val notification = createNotification(shower)
 
-        Notify.send(context, 732094, notification)
+        Notify.send(context, NOTIFICATION_ID, notification)
     }
 
-    private fun getShowerDescription(context: Context, shower: MeteorShowerPeak): String {
+    private fun createNotification(shower: MeteorShowerPeak): Notify.StatusNotification {
+        val notificationTitle = context.getString(R.string.meteor_shower)
+        val notificationDescription = getShowerDescription(shower)
+        val notificationIcon = R.drawable.ic_astronomy
+        val notificationGroup = NotificationChannels.GROUP_ASTRONOMY_ALERTS
+        val notificationIntent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
+        val autoCancel = true
+
+        return Notify.status(
+            context,
+            NotificationChannels.CHANNEL_ASTRONOMY_ALERTS,
+            notificationTitle,
+            notificationDescription,
+            notificationIcon,
+            group = notificationGroup,
+            intent = notificationIntent,
+            autoCancel = autoCancel
+        )
+    }
+
+    private fun getShowerDescription(shower: MeteorShowerPeak): String {
         val formatService = FormatService.getInstance(context)
 
-        val peak =
-            formatService.formatRelativeDate(shower.peak.toLocalDate()) + " " + formatService.formatTime(
-                shower.peak.toLocalTime(),
-                false
-            )
-
+        val peak = formatService.formatRelativeDateTime(shower.peak)
         val rate = context.getString(R.string.meteors_per_hour, shower.shower.rate)
 
         return "$peak\n$rate"
@@ -70,6 +76,6 @@ class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinat
 
     companion object {
         private const val TAG = "MeteorShowerAlertCommand"
+        private const val NOTIFICATION_ID = 732094
     }
-
 }
