@@ -74,8 +74,7 @@ object Tools {
                 Tool(
                     context.getString(R.string.tool_triangulate_title),
                     R.drawable.ic_tool_triangulate,
-                    R.id.action_action_experimental_tools_to_fragmentToolTriangulate,
-                    context.getString(R.string.tool_triangulate_summary)
+                    R.id.action_action_experimental_tools_to_fragmentToolTriangulate
                 ),
             )
         )
