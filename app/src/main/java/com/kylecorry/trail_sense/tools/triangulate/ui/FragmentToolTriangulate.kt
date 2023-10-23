@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.science.geology.Geology
@@ -45,6 +46,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.from
 import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.trail_sense.shared.extensions.putOrRemoveCoordinate
+import com.kylecorry.trail_sense.shared.extensions.putOrRemoveFloat
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -379,18 +382,10 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     private fun saveState() {
         val preferences = PreferencesSubsystem.getInstance(requireContext()).preferences
         preferences.putBoolean("state_triangulate_self", shouldCalculateMyLocation)
-        binding.bearing1.bearing?.let {
-            preferences.putFloat("state_triangulate_bearing1", it.value)
-        }
-        binding.bearing2.bearing?.let {
-            preferences.putFloat("state_triangulate_bearing2", it.value)
-        }
-        binding.location1.coordinate?.let {
-            preferences.putCoordinate("state_triangulate_location1", it)
-        }
-        binding.location2.coordinate?.let {
-            preferences.putCoordinate("state_triangulate_location2", it)
-        }
+        preferences.putOrRemoveFloat("state_triangulate_bearing1", binding.bearing1.bearing?.value)
+        preferences.putOrRemoveFloat("state_triangulate_bearing2", binding.bearing2.bearing?.value)
+        preferences.putOrRemoveCoordinate("state_triangulate_location1", binding.location1.coordinate)
+        preferences.putOrRemoveCoordinate("state_triangulate_location2", binding.location2.coordinate)
         preferences.putBoolean("state_triangulate_true_north1", binding.bearing1.trueNorth)
         preferences.putBoolean("state_triangulate_true_north2", binding.bearing2.trueNorth)
     }
