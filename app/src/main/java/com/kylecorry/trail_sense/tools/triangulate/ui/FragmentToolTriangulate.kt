@@ -65,7 +65,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
     private val radius = Distance.meters(100f)
 
-    // TODO: Determine what this should actually be
     private val recommendedMinDistance by lazy {
         if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
             Distance.feet(100f)
@@ -275,12 +274,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             .toRelativeDistance()
     }
 
-    private fun getDistanceBetweenLocations(): Distance? {
-        val location1 = binding.location1.coordinate ?: return null
-        val location2 = binding.location2.coordinate ?: return null
-        return Distance.meters(location1.distanceTo(location2))
-    }
-
     private fun getPath(locationIdx: Int): IMappablePath? {
         val destination = location
         val start =
@@ -293,7 +286,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             val declination = if (trueNorth) 0f else Geology.getGeomagneticDeclination(start)
             val bearing = direction.withDeclination(declination)
             destination ?: start.plus(
-                Distance.kilometers(10f),
+                Distance.kilometers(1f),
                 if (shouldCalculateMyLocation) bearing.inverse() else bearing
             )
         } else {
