@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -57,63 +58,73 @@ class LinearCompassView : BaseCompassView {
 
     private fun drawCompass() {
         val pixDeg = width / range
-        val minDegrees = (azimuth.value - range / 2).roundToInt()
-        val maxDegrees = (azimuth.value + range / 2).roundToInt()
-        var i = -180
-        while (i < 540) {
-            if (i in minDegrees..maxDegrees) {
-                when {
-                    i % 45 == 0 -> {
-                        noFill()
-                        stroke(Resources.color(context, R.color.orange_40))
-                        strokeWeight(8f)
-                    }
-                    else -> {
-                        stroke(Resources.androidTextColorPrimary(context))
-                        strokeWeight(8f)
-                    }
-                }
-                when {
-                    i % 90 == 0 -> {
-                        line(
-                            pixDeg * (i - minDegrees),
-                            height.toFloat(),
-                            pixDeg * (i - minDegrees),
-                            0.5f * height,
-                        )
-                        val coord = when (i) {
-                            -90, 270 -> west
-                            0, 360 -> north
-                            90, 450 -> east
-                            -180, 180 -> south
-                            else -> ""
-                        }
-                        noStroke()
-                        fill(Resources.androidTextColorPrimary(context))
-                        textMode(TextMode.Corner)
-                        text(coord, pixDeg * (i - minDegrees), 5 / 12f * height)
-                    }
-                    i % 15 == 0 -> {
-                        line(
-                            pixDeg * (i - minDegrees),
-                            height.toFloat(),
-                            pixDeg * (i - minDegrees),
-                            0.75f * height
-                        )
-                    }
-                    else -> {
-                        line(
-                            pixDeg * (i - minDegrees),
-                            height.toFloat(),
-                            pixDeg * (i - minDegrees),
-                            10 / 12f * height
-                        )
-                    }
-                }
+
+        val mn = azimuth.value - range / 2
+        val mx = azimuth.value + range / 2
+
+        val values = getValuesBetween(mn, mx, 5f).map { it.toInt() }
+
+        values.forEach {
+            // Set the color
+            if (it % 45 == 0) {
+                stroke(Resources.color(context, R.color.orange_40))
+                strokeWeight(8f)
+            } else {
+                stroke(Resources.androidTextColorPrimary(context))
+                strokeWeight(8f)
             }
-            i += 5
+
+            val lineHeight = when {
+                it % 90 == 0 -> 0.5f * height
+                it % 15 == 0 -> 0.75f * height
+                else -> 10 / 12f * height
+            }
+
+            // Draw the line
+            line(
+                pixDeg * (it - mn),
+                height.toFloat(),
+                pixDeg * (it - mn),
+                lineHeight,
+            )
+
+            // Draw the label
+            if (it % 90 == 0) {
+                val coord = when (it) {
+                    -90, 270 -> west
+                    0, 360 -> north
+                    90, 450 -> east
+                    -180, 180 -> south
+                    else -> ""
+                }
+                noStroke()
+                fill(Resources.androidTextColorPrimary(context))
+                textMode(TextMode.Corner)
+                text(coord, pixDeg * (it - mn), 5 / 12f * height)
+            }
         }
+
         noStroke()
+    }
+
+    /**
+     * Returns the values between min and max, inclusive, that are divisible by divisor
+     * @param min The minimum value
+     * @param max The maximum value
+     * @param divisor The divisor
+     * @return The values between min and max, inclusive, that are divisible by divisor
+     */
+    private fun getValuesBetween(min: Float, max: Float, divisor: Float): List<Float> {
+        val values = mutableListOf<Float>()
+        val start = min.roundNearest(divisor)
+        var i = start
+        while (i <= max) {
+            if (i >= min) {
+                values.add(i)
+            }
+            i += divisor
+        }
+        return values
     }
 
     override fun setup() {
@@ -153,9 +164,11 @@ class LinearCompassView : BaseCompassView {
             delta < -range / 2f -> {
                 0f // TODO: Display indicator that is off screen
             }
+
             delta > range / 2f -> {
                 width.toFloat() // TODO: Display indicator that is off screen
             }
+
             else -> {
                 val deltaMin = deltaAngle(
                     reference.bearing.value,
