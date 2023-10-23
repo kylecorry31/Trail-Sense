@@ -126,7 +126,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
 
     fun stop() {
         compass.stop(null)
-        cameraSheet?.dismiss()
+        // Note: This does not dismiss the sheet - if the sheet is visible, the camera is already listening to state changes
     }
 
     private fun onChange() {
