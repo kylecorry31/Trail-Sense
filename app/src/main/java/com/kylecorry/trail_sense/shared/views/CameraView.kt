@@ -48,6 +48,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var zoom: Float = -1f
     private var isCapturing = false
 
+    private var isStarted = false
+    private val startLock = Any()
+
     fun start(
         resolution: Size? = null,
         lifecycleOwner: LifecycleOwner? = null,
@@ -72,6 +75,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             return
         }
 
+        synchronized(startLock) {
+            if (isStarted) {
+                return
+            }
+            isStarted = true
+        }
+
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
         camera = Camera(
@@ -89,6 +99,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun stop() {
         camera?.stop(this::onCameraUpdate)
         camera = null
+        synchronized(startLock) {
+            isStarted = false
+        }
     }
 
     fun quickCapture(onImage: (Bitmap) -> Unit) {
