@@ -21,3 +21,4 @@ app/src/androidTest/assets/clouds/
 build-cache/
 /app/dev/
 /app/nightly/
+release-builds-helper.sh
