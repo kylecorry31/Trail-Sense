@@ -56,6 +56,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         lifecycleOwner: LifecycleOwner? = null,
         captureSettings: ImageCaptureSettings? = null,
         readFrames: Boolean = true,
+        shouldStabilizePreview: Boolean = true,
         onImage: ((Bitmap) -> Unit)? = null
     ) {
         val owner = lifecycleOwner ?: this.findViewTreeLifecycleOwner() ?: return
@@ -91,7 +92,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             analyze = readFrames,
             targetResolution = resolution,
             captureSettings = captureSettings,
-            isBackCamera = useBackCamera
+            isBackCamera = useBackCamera,
+            shouldStabilizePreview = shouldStabilizePreview
         )
         camera?.start(this::onCameraUpdate)
     }

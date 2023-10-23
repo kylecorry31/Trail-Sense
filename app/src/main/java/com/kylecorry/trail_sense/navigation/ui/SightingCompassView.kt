@@ -30,7 +30,9 @@ class SightingCompassView(
             return
         }
         try {
-            camera.start()
+            camera.start(
+                shouldStabilizePreview = false
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             Alerts.toast(camera.context, camera.context.getString(R.string.no_camera_access))

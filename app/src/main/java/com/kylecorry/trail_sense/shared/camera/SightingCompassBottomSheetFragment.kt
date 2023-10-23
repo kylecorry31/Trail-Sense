@@ -61,7 +61,8 @@ class SightingCompassBottomSheetFragment(
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.start(
             lifecycleOwner = this,
-            readFrames = false
+            readFrames = false,
+            shouldStabilizePreview = false
         )
 
         binding.toolTitle.rightButton.setOnClickListener {
