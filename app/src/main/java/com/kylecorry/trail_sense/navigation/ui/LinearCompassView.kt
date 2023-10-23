@@ -20,7 +20,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
-import kotlin.math.roundToInt
 
 class LinearCompassView : BaseCompassView {
 
@@ -148,8 +147,8 @@ class LinearCompassView : BaseCompassView {
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
         val sizeDp = size?.let { dp(it.toFloat()).toInt() } ?: iconSize
 
-        val minDegrees = (azimuth.value - range / 2).roundToInt()
-        val maxDegrees = (azimuth.value + range / 2).roundToInt()
+        val minDegrees = azimuth.value - range / 2
+        val maxDegrees = azimuth.value + range / 2
         val tint = reference.tint
         if (tint != null) {
             tint(tint)
@@ -157,8 +156,8 @@ class LinearCompassView : BaseCompassView {
             noTint()
         }
         val delta = deltaAngle(
-            azimuth.value.roundToInt().toFloat(),
-            reference.bearing.value.roundToInt().toFloat()
+            azimuth.value,
+            reference.bearing.value
         )
         val centerPixel = when {
             delta < -range / 2f -> {
@@ -191,8 +190,8 @@ class LinearCompassView : BaseCompassView {
 
     override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
         val delta = deltaAngle(
-            azimuth.value.roundToInt().toFloat(),
-            bearing.bearing.value.roundToInt().toFloat()
+            azimuth.value,
+            bearing.bearing.value
         )
 
         val pixelsPerDegree = width / range
