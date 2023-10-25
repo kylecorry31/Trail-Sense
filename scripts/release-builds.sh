@@ -22,7 +22,7 @@ sh "${BASH_SOURCE%/*}"/../gradlew bundleRelease \
     -Pandroid.injected.signing.key.password=$(head -n 4 "$1" | tail -n 1)
 
 # Get the version name from the gradle file
-export VERSION_CODE=$(grep -oP '(?<=versionCode = )\d+' "${BASH_SOURCE%/*}"/../app/build.gradle.kts)
+export VERSION_CODE=$(LC_ALL=C.UTF-8 grep -oP '(?<=versionCode = )\d+' "${BASH_SOURCE%/*}"/../app/build.gradle.kts)
 
 # Copy the files to the destination folder (line 5 of the signing config file)
 echo "Copying files to $(head -n 5 "$1" | tail -n 1)"
