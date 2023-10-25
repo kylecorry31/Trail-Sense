@@ -4,15 +4,20 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SightingCompassView(
     private val camera: CameraView,
-    private val reticle: View
+    private val reticle: View,
+    private val compass: LinearCompassView
 ) {
 
     private val prefs by lazy {
@@ -20,6 +25,9 @@ class SightingCompassView(
     }
 
     private var _isRunning = false
+
+    private val scope = CoroutineScope(Dispatchers.Default)
+    private val zoomRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.IO)
 
     init {
         camera.setShowTorch(false)
@@ -31,6 +39,7 @@ class SightingCompassView(
         }
         try {
             camera.start(
+                readFrames = false,
                 shouldStabilizePreview = false
             )
         } catch (e: Exception) {
@@ -43,7 +52,11 @@ class SightingCompassView(
         _isRunning = true
 
         camera.setOnZoomChangeListener {
-            prefs.putFloat(NavigatorFragment.CACHE_CAMERA_ZOOM, it)
+            scope.launch {
+                zoomRunner.enqueue {
+                    prefs.putFloat(NavigatorFragment.CACHE_CAMERA_ZOOM, it)
+                }
+            }
         }
 
         camera.setZoom(prefs.getFloat(NavigatorFragment.CACHE_CAMERA_ZOOM) ?: 0.5f)
@@ -56,6 +69,19 @@ class SightingCompassView(
         flashlight.set(FlashlightMode.Off)
     }
 
+    fun update(){
+        if (!isRunning()){
+            return
+        }
+        val compassWidth = compass.width
+        val cameraWidth = camera.width
+
+        val ratio = compassWidth / cameraWidth.toFloat()
+
+        val minimumFOV = 5f
+        compass.range = (camera.fov.first.coerceAtLeast(minimumFOV) * ratio).coerceAtMost(180f)
+    }
+
     fun stop() {
         _isRunning = false
         try {
@@ -63,6 +89,7 @@ class SightingCompassView(
         } catch (e: Exception) {
             e.printStackTrace()
         }
+        compass.range = 180f
         camera.isVisible = false
         reticle.isVisible = false
     }

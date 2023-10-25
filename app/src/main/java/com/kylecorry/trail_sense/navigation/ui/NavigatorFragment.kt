@@ -209,7 +209,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         sightingCompass = SightingCompassView(
             binding.viewCamera,
-            binding.viewCameraLine
+            binding.viewCameraLine,
+            binding.linearCompass
         )
 
         // Register timers
@@ -650,6 +651,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 }
             }
         }
+
+        sightingCompass?.update()
     }
 
     private fun updateCompassLayers() {
