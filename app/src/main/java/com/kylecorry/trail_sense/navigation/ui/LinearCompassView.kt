@@ -9,11 +9,15 @@ import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.roundNearest
+import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import kotlin.math.absoluteValue
+import kotlin.math.cos
+import kotlin.math.sin
 
 class LinearCompassView : BaseCompassView {
 
@@ -34,8 +38,7 @@ class LinearCompassView : BaseCompassView {
 
     var range = 180f
 
-    private val pixelsPerDegree: Float
-        get() = width / range
+    var is3D = true
 
     private val rawMinimum: Float
         get() = azimuth.value - range / 2
@@ -175,10 +178,6 @@ class LinearCompassView : BaseCompassView {
     }
 
     private fun toPixel(bearing: Float): Float {
-        val delta = deltaAngle(
-            azimuth.value,
-            bearing
-        )
-        return width / 2f + delta * pixelsPerDegree
+        return AugmentedRealityUtils.getX(bearing, azimuth.value, range, width.toFloat(), is3D)
     }
 }
