@@ -1,11 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-/**
- * Adapted from https://github.com/RedInput/CompassView
- *
- * View original license: https://github.com/RedInput/CompassView/blob/master/LICENSE
- */
-
 import android.content.Context
 import android.util.AttributeSet
 import androidx.core.view.isVisible
@@ -40,6 +34,15 @@ class LinearCompassView : BaseCompassView {
 
     var range = 180f
 
+    private val pixelsPerDegree: Float
+        get() = width / range
+
+    private val rawMinimum: Float
+        get() = azimuth.value - range / 2
+
+    private val rawMaximum: Float
+        get() = azimuth.value + range / 2
+
     private var iconSize = 0
     private var textSize = 0f
 
@@ -56,14 +59,11 @@ class LinearCompassView : BaseCompassView {
 
 
     private fun drawCompass() {
-        val pixDeg = width / range
-
-        val mn = azimuth.value - range / 2
-        val mx = azimuth.value + range / 2
-
-        val values = getValuesBetween(mn, mx, 5f).map { it.toInt() }
+        val values = getValuesBetween(rawMinimum, rawMaximum, 5f).map { it.toInt() }
 
         values.forEach {
+            val x = toPixel(it.toFloat())
+
             // Set the color
             if (it % 45 == 0) {
                 stroke(Resources.color(context, R.color.orange_40))
@@ -81,9 +81,9 @@ class LinearCompassView : BaseCompassView {
 
             // Draw the line
             line(
-                pixDeg * (it - mn),
+                x,
                 height.toFloat(),
-                pixDeg * (it - mn),
+                x,
                 lineHeight,
             )
 
@@ -99,7 +99,7 @@ class LinearCompassView : BaseCompassView {
                 noStroke()
                 fill(Resources.androidTextColorPrimary(context))
                 textMode(TextMode.Corner)
-                text(coord, pixDeg * (it - mn), 5 / 12f * height)
+                text(coord, x, 5 / 12f * height)
             }
         }
 
@@ -146,41 +146,19 @@ class LinearCompassView : BaseCompassView {
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
         val sizeDp = size?.let { dp(it.toFloat()).toInt() } ?: iconSize
-
-        val minDegrees = azimuth.value - range / 2
-        val maxDegrees = azimuth.value + range / 2
         val tint = reference.tint
         if (tint != null) {
             tint(tint)
         } else {
             noTint()
         }
-        val delta = deltaAngle(
-            azimuth.value,
-            reference.bearing.value
-        )
-        val centerPixel = when {
-            delta < -range / 2f -> {
-                0f // TODO: Display indicator that is off screen
-            }
-
-            delta > range / 2f -> {
-                width.toFloat() // TODO: Display indicator that is off screen
-            }
-
-            else -> {
-                val deltaMin = deltaAngle(
-                    reference.bearing.value,
-                    minDegrees.toFloat()
-                ).absoluteValue / (maxDegrees - minDegrees).toFloat()
-                deltaMin * width
-            }
-        }
+        val x = toPixel(reference.bearing.value).coerceIn(0f, width.toFloat())
         opacity((255 * reference.opacity).toInt())
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         imageMode(ImageMode.Corner)
         image(
-            bitmap, centerPixel - sizeDp / 2f,
+            bitmap,
+            x - sizeDp / 2f,
             (iconSize - sizeDp) * 0.6f
         )
         noTint()
@@ -189,15 +167,18 @@ class LinearCompassView : BaseCompassView {
     }
 
     override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
-        val delta = deltaAngle(
-            azimuth.value,
-            bearing.bearing.value
-        )
-
-        val pixelsPerDegree = width / range
+        val x = toPixel(bearing.bearing.value) - width / 2f
         fill(bearing.color)
         opacity(100)
-        rect(width / 2f, height - 0.5f * height, delta * pixelsPerDegree, height * 0.5f)
+        rect(width / 2f, height - 0.5f * height, x, height * 0.5f)
         opacity(255)
+    }
+
+    private fun toPixel(bearing: Float): Float {
+        val delta = deltaAngle(
+            azimuth.value,
+            bearing
+        )
+        return width / 2f + delta * pixelsPerDegree
     }
 }
