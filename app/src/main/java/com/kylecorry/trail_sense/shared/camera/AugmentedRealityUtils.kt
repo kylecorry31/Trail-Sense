@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.camera
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import kotlin.math.cos
 import kotlin.math.hypot
@@ -35,13 +36,13 @@ object AugmentedRealityUtils {
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
 
-        val rectangular = toRectangular(
+        val cartesian = sphericalToCartesian(
             newBearing,
             newAltitude,
             radius
         )
 
-        var x = size.width / 2f + rectangular.x
+        var x = size.width / 2f + cartesian.x
         // If the coordinate is off the screen, ensure it is not drawn
         if (newBearing > fov.width / 2f){
             x += size.width
@@ -49,7 +50,7 @@ object AugmentedRealityUtils {
             x -= size.width
         }
 
-        var y = size.height / 2f + rectangular.y
+        var y = size.height / 2f + cartesian.y
         // If the coordinate is off the screen, ensure it is not drawn
         if (newAltitude > fov.height / 2f){
             y += size.height
@@ -61,15 +62,28 @@ object AugmentedRealityUtils {
     }
 
 
-    private fun toRectangular(
-        bearing: Float,
-        altitude: Float,
+    /**
+     * Converts a spherical coordinate to a cartesian coordinate.
+     * @param azimuth The azimuth in degrees (rotation around the z axis)
+     * @param elevation The elevation in degrees (rotation around the x axis)
+     * @param radius The radius
+     */
+    private fun sphericalToCartesian(
+        azimuth: Float,
+        elevation: Float,
         radius: Float
-    ): PixelCoordinate {
-        // X and Y are flipped
-        val x = sin(bearing.toRadians()) * cos(altitude.toRadians()) * radius
-        val y = cos(bearing.toRadians()) * sin(altitude.toRadians()) * radius
-        return PixelCoordinate(x, y)
+    ): Vector3 {
+        // https://stackoverflow.com/questions/5278417/rotating-body-from-spherical-coordinates - this may be useful when factoring in roll
+        val azimuthRad = azimuth.toRadians()
+        val pitchRad = elevation.toRadians()
+
+        val sinAzimuth = sin(azimuthRad)
+
+        val x = sinAzimuth * cos(pitchRad) * radius
+        val y = sinAzimuth * sin(pitchRad) * radius
+        val z = cos(azimuthRad) * radius
+
+        return Vector3(x, y, z)
     }
 
 }
