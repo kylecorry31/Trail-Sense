@@ -1,17 +1,16 @@
 package com.kylecorry.trail_sense.shared.camera
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.geometry.Size
-import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.sin
 
 object AugmentedRealityUtils {
 
+    // TODO: Take in full device orientation / quaternion
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
      * @param bearing The compass bearing in degrees of the point
@@ -36,27 +35,29 @@ object AugmentedRealityUtils {
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
 
-        if (newBearing.absoluteValue > fov.width / 2f || newAltitude.absoluteValue > fov.height / 2f) {
-            // TODO: Why is this needed - bearings were looping around when not in place
-            // Linear calculation
-            val horizontalPixelsPerDegree = size.width / fov.width
-            val verticalPixelsPerDegree = size.height / fov.height
-            return PixelCoordinate(
-                size.width / 2f + newBearing * horizontalPixelsPerDegree,
-                size.height / 2f + newAltitude * verticalPixelsPerDegree
-            )
-        }
-
         val rectangular = toRectangular(
             newBearing,
             newAltitude,
             radius
         )
 
-        return PixelCoordinate(
-            size.width / 2f + rectangular.x,
-            size.height / 2f + rectangular.y
-        )
+        var x = size.width / 2f + rectangular.x
+        // If the coordinate is off the screen, ensure it is not drawn
+        if (newBearing > fov.width / 2f){
+            x += size.width
+        } else if (newBearing < -fov.width / 2f){
+            x -= size.width
+        }
+
+        var y = size.height / 2f + rectangular.y
+        // If the coordinate is off the screen, ensure it is not drawn
+        if (newAltitude > fov.height / 2f){
+            y += size.height
+        } else if (newAltitude < -fov.height / 2f){
+            y -= size.height
+        }
+
+        return PixelCoordinate(x, y)
     }
 
 
