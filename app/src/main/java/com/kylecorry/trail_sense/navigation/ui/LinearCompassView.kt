@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -178,6 +179,13 @@ class LinearCompassView : BaseCompassView {
     }
 
     private fun toPixel(bearing: Float): Float {
-        return AugmentedRealityUtils.getX(bearing, azimuth.value, range, width.toFloat(), is3D)
+        return AugmentedRealityUtils.getPixel(
+            bearing,
+            azimuth.value,
+            0f,
+            0f,
+            Size(width.toFloat(), height.toFloat()),
+            Size(range, 0f)
+        ).x
     }
 }
