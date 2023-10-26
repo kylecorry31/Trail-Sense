@@ -13,7 +13,7 @@ object AugmentedRealityUtils {
 
     // TODO: Take in full device orientation / quaternion
     /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
+     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a sphere.
      * @param bearing The compass bearing in degrees of the point
      * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
      * @param altitude The altitude of the point in degrees
@@ -21,7 +21,7 @@ object AugmentedRealityUtils {
      * @param size The size of the view in pixels
      * @param fov The field of view of the camera in degrees
      */
-    fun getPixel(
+    fun getPixelSpherical(
         bearing: Float,
         azimuth: Float,
         altitude: Float,
@@ -57,6 +57,37 @@ object AugmentedRealityUtils {
         } else if (newAltitude < -fov.height / 2f){
             y -= size.height
         }
+
+        return PixelCoordinate(x, y)
+    }
+
+    // TODO: Take in full device orientation / quaternion
+    /**
+     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
+     * @param bearing The compass bearing in degrees of the point
+     * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
+     * @param altitude The altitude of the point in degrees
+     * @param inclination The inclination of the device in degrees
+     * @param size The size of the view in pixels
+     * @param fov The field of view of the camera in degrees
+     */
+    fun getPixelLinear(
+        bearing: Float,
+        azimuth: Float,
+        altitude: Float,
+        inclination: Float,
+        size: Size,
+        fov: Size
+    ): PixelCoordinate {
+
+        val newBearing = SolMath.deltaAngle(azimuth, bearing)
+        val newAltitude = altitude - inclination
+
+        val wPixelsPerDegree = size.width / fov.width
+        val hPixelsPerDegree = size.height / fov.height
+
+        val x = size.width / 2f + newBearing * wPixelsPerDegree
+        val y = size.height / 2f + newAltitude * hPixelsPerDegree
 
         return PixelCoordinate(x, y)
     }
