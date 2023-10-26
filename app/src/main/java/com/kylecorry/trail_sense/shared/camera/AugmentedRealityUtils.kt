@@ -50,7 +50,7 @@ object AugmentedRealityUtils {
             x -= size.width
         }
 
-        var y = size.height / 2f + cartesian.y
+        var y = size.height / 2f - cartesian.y
         // If the coordinate is off the screen, ensure it is not drawn
         if (newAltitude > fov.height / 2f){
             y += size.height
@@ -87,7 +87,7 @@ object AugmentedRealityUtils {
         val hPixelsPerDegree = size.height / fov.height
 
         val x = size.width / 2f + newBearing * wPixelsPerDegree
-        val y = size.height / 2f + newAltitude * hPixelsPerDegree
+        val y = size.height / 2f - newAltitude * hPixelsPerDegree
 
         return PixelCoordinate(x, y)
     }

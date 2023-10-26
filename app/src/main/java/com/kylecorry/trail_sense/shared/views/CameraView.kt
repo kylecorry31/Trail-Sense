@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Size
 import android.view.GestureDetector
@@ -165,6 +166,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     fun setScaleType(type: PreviewView.ScaleType) {
         preview.scaleType = type
+    }
+
+    fun getPreviewSize(): Size {
+        // TODO: Get the actual aspect ratio - maybe calculate as fov w / h and then get the closest normal aspect ratio?
+        val aspect = 3 / 4f
+        val width = preview.width.toFloat()
+        return Size(width.toInt(), (width / aspect).toInt())
     }
 
     @SuppressLint("UnsafeOptInUsageError")

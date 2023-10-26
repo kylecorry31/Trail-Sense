@@ -7,6 +7,7 @@ import androidx.annotation.IdRes
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 data class ToolGroup(val name: String, val tools: List<Tool>)
@@ -205,7 +206,12 @@ object Tools {
                     R.drawable.ic_user_guide,
                     R.id.action_action_experimental_tools_to_guideListFragment,
                     context.getString(R.string.tool_user_guide_summary)
-                )
+                ),
+                if (isDebug()) Tool(
+                    "Experimentation",
+                    R.drawable.ic_experimental,
+                    R.id.action_tools_to_experimentation
+                ) else null
             )
         )
 

@@ -71,6 +71,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_tools_to_experimentation"
+            app:destination="@id/experimentationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_toolsFragment_to_clinometerFragment"
             app:destination="@id/clinometerFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -925,6 +932,10 @@
         android:id="@+id/scanQrFragment"
         android:name="com.kylecorry.trail_sense.tools.qr.ui.ScanQRFragment"
         android:label="ScanQRFragment" />
+    <fragment
+        android:id="@+id/experimentationFragment"
+        android:name="com.kylecorry.trail_sense.tools.experimentation.ExperimentationFragment"
+        android:label="ExperimentationFragment" />
     <fragment
         android:id="@+id/fragmentStrideLengthEstimation"
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentStrideLengthEstimation"
