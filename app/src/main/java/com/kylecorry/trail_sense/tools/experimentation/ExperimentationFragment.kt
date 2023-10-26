@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentExperimentationBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
@@ -64,9 +63,16 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                 val astro = AstronomyService()
                 val location = LocationSubsystem.getInstance(requireContext()).location
                 compass.declination = declinationProvider.getDeclination()
-                val altitude = astro.getMoonAltitude(location)
-                val azimuth = astro.getMoonAzimuth(location).value
-                binding.arView.points = listOf(Triple(azimuth, altitude, 1f))
+                val moonAltitude = astro.getMoonAltitude(location)
+                val moonAzimuth = astro.getMoonAzimuth(location).value
+
+                val sunAltitude = astro.getSunAltitude(location)
+                val sunAzimuth = astro.getSunAzimuth(location).value
+
+                binding.arView.points = listOf(
+                    Triple(moonAzimuth, moonAltitude, 1f),
+                    Triple(sunAzimuth, sunAltitude, 1f)
+                )
             }
         }
     }
