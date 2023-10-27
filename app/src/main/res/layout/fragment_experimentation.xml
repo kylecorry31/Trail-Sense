@@ -33,12 +33,12 @@
             android:layout_gravity="center"
             android:background="@color/orange_40" />
 
-        <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
-            android:id="@+id/linear_compass"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center" />
-
     </FrameLayout>
+
+    <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
+        android:id="@+id/linear_compass"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"/>
 
 </LinearLayout>
