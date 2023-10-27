@@ -64,6 +64,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         super.onViewCreated(view, savedInstanceState)
 
         observe(compass) {
+            binding.linearCompass.azimuth = compass.bearing
             binding.arView.azimuth = compass.rawBearing
         }
 
@@ -81,6 +82,8 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
+
+        binding.linearCompass.showAzimuthArrow = false
 
         scheduleUpdates(INTERVAL_1_FPS)
     }
@@ -165,6 +168,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         super.onUpdate()
         val fov = binding.camera.fov
         binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
+        binding.linearCompass.range = fov.first
 
         // Set the arView size to be the camera preview size
         val size = binding.camera.getPreviewSize()

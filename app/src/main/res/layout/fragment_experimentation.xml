@@ -11,15 +11,33 @@
 
         <com.kylecorry.trail_sense.shared.views.CameraView
             android:id="@+id/camera"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
 
         <com.kylecorry.trail_sense.tools.experimentation.AugmentedRealityView
             android:id="@+id/ar_view"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:background="@color/orange_40" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="@color/orange_40" />
+
+        <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
+            android:id="@+id/linear_compass"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 
