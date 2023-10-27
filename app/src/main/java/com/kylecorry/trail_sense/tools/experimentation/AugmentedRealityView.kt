@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.experimentation
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -21,19 +22,44 @@ class AugmentedRealityView: CanvasView {
     var fov: Size = Size(45f, 45f)
     var azimuth = 0f
     var inclination = 0f
+    var sideInclination = 0f
 
-    var points = listOf<Triple<Float, Float, Float>>()
+    var points = listOf<Point>()
 
     override fun setup() {
     }
 
     override fun draw() {
+        push()
+        // TODO: Come up with a better way to do this
+        rotate(sideInclination)
         clear()
-        fill(Color.WHITE)
-        points.forEach {
-            val pixel = getPixel(it.first, it.second)
-            circle(pixel.x, pixel.y, getSize(it.third))
+
+        val horizonPath = Path()
+        for (i in 0..360 step 5){
+            val pixel = getPixel(i.toFloat(), 0f)
+            if (i == 0){
+                horizonPath.moveTo(pixel.x, pixel.y)
+            } else {
+                horizonPath.lineTo(pixel.x, pixel.y)
+            }
         }
+        horizonPath.close()
+
+        noFill()
+        stroke(Color.WHITE)
+        strokeWeight(2f)
+        path(horizonPath)
+
+        noStroke()
+
+
+        points.forEach {
+            val pixel = getPixel(it.bearing, it.elevation)
+            fill(it.color)
+            circle(pixel.x, pixel.y, getSize(it.size))
+        }
+        pop()
     }
 
     private fun getSize(angularSize: Float): Float {
@@ -51,5 +77,6 @@ class AugmentedRealityView: CanvasView {
         )
     }
 
+    data class Point(val bearing: Float, val elevation: Float, val size: Float, val color: Int)
 
 }
