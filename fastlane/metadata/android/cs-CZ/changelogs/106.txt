@@ -1,0 +1,7 @@
+Triangulace lokace
+- Triangulace lokace v dálce
+- Redesign nástroje triangulace - zahrnutí mapy, instrukcí a kompasu
+
+Různé
+- Zvýšena velikost některých náhledů fotoaparátu
+- Opravy chyb
