@@ -1352,6 +1352,9 @@
     <string name="direction_not_set">Direction not set</string>
     <!--The compass direction / bearing-->
     <string name="direction">Direction</string>
+    <string name="augmented_reality">Augmented Reality</string>
+    <string name="augmented_reality_description">View nearby beacons and the sun / moon with your camera</string>
+    <string name="pref_enable_augmented_reality_tool" translatable="false">pref_enable_augmented_reality_tool</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

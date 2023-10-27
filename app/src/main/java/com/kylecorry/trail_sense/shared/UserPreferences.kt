@@ -59,6 +59,12 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 
+    val isAugmentedRealityEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_enable_augmented_reality_tool),
+        false
+    )
+
     var isCliffHeightEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_cliff_height_enabled),

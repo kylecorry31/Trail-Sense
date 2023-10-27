@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.experimentation
+package com.kylecorry.trail_sense.tools.augmented_reality
 
 import android.graphics.Color
 import android.os.Bundle
@@ -17,18 +17,18 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
-import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.time.Time
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.databinding.FragmentExperimentationBinding
+import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
@@ -37,7 +37,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import kotlin.math.atan2
 
-class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() {
+class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
 
     private val sensors by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensors.getCompass() }
@@ -95,15 +95,24 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
 
     override fun onResume() {
         super.onResume()
-        binding.camera.start(
-            readFrames = false,
-            shouldStabilizePreview = false
-        )
+
+        // TODO: Allow user to turn camera off / ensure it works without camera
+        requestCamera {
+            if (it) {
+                binding.camera.start(
+                    readFrames = false,
+                    shouldStabilizePreview = false
+                )
+            } else {
+                alertNoCameraPermission()
+            }
+        }
 
         inBackground {
             onDefault {
                 val astro = AstronomyService()
                 val location = LocationSubsystem.getInstance(requireContext()).location
+                // TODO: Respect declination preference
                 compass.declination = declinationProvider.getDeclination()
 
                 val moonPositions = Time.getReadings(
@@ -204,8 +213,8 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentExperimentationBinding {
-        return FragmentExperimentationBinding.inflate(layoutInflater, container, false)
+    ): FragmentAugmentedRealityBinding {
+        return FragmentAugmentedRealityBinding.inflate(layoutInflater, container, false)
     }
 
     private fun updateNearbyBeacons() {
@@ -248,6 +257,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
     }
 
     private fun updatePoints() {
+        // TODO: Allow layers to be toggled
         binding.arView.points = astroPoints + beaconPoints
     }
 }

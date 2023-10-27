@@ -170,6 +170,12 @@ object Tools {
 
         val other = ToolGroup(
             context.getString(R.string.other), listOfNotNull(
+                if (prefs.isAugmentedRealityEnabled) Tool(
+                    context.getString(R.string.augmented_reality),
+                    R.drawable.ic_camera,
+                    R.id.action_tools_to_augmented_reality,
+                    context.getString(R.string.augmented_reality_description)
+                ) else null,
                 Tool(
                     context.getString(R.string.convert),
                     R.drawable.ic_tool_distance_convert,
@@ -206,12 +212,7 @@ object Tools {
                     R.drawable.ic_user_guide,
                     R.id.action_action_experimental_tools_to_guideListFragment,
                     context.getString(R.string.tool_user_guide_summary)
-                ),
-                if (isDebug()) Tool(
-                    "Experimentation",
-                    R.drawable.ic_experimental,
-                    R.id.action_tools_to_experimentation
-                ) else null
+                )
             )
         )
 

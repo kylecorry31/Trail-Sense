@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.experimentation
+package com.kylecorry.trail_sense.tools.augmented_reality
 
 import android.content.Context
 import android.graphics.Color
