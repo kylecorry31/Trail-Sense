@@ -14,7 +14,6 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
-import kotlin.math.acos
 import kotlin.math.asin
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -35,45 +34,57 @@ class AugmentedRealityView : CanvasView {
     var inclination = 0f
     var sideInclination = 0f
 
-    // TODO: Is there a better way to do this?
-    val orientation: Quaternion
+    // TODO: Is there a better way to do this - like a rotation matrix or something?
+    private val orientation: Quaternion
         get() = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
 
     var points = listOf<Point>()
+
+    private val horizon = Path()
+
 
     override fun setup() {
     }
 
     override fun draw() {
-        push()
         clear()
 
-        // TODO: Figure out why this is drawing an extra line
-        val horizonPath = Path()
-        for (i in 0..360 step 5) {
-            val pixel = getPixel(i.toFloat(), 0f)
-            if (i == 0) {
-                horizonPath.moveTo(pixel.x, pixel.y)
+        // TODO: Extract to layers
+        drawHorizon()
+        drawPoints()
+    }
+
+    private fun drawPoints() {
+        noStroke()
+        points.forEach {
+            val pixel = toPixel(it.coordinate)
+            fill(it.color)
+            circle(pixel.x, pixel.y, sizeToPixel(it.size))
+        }
+    }
+
+    private fun drawHorizon() {
+        horizon.reset()
+        var horizonPathStarted = false
+
+        val minAngle = (azimuth - fov.width).toInt()
+        val maxAngle = (azimuth + fov.width).toInt()
+
+        for (i in minAngle..maxAngle step 5) {
+            val pixel = toPixel(HorizonCoordinate(i.toFloat(), 0f))
+            if (!horizonPathStarted) {
+                horizon.moveTo(pixel.x, pixel.y)
+                horizonPathStarted = true
             } else {
-                horizonPath.lineTo(pixel.x, pixel.y)
+                horizon.lineTo(pixel.x, pixel.y)
             }
         }
-        horizonPath.close()
 
         noFill()
         stroke(Color.WHITE)
         strokeWeight(2f)
-        path(horizonPath)
-
+        path(horizon)
         noStroke()
-
-
-        points.forEach {
-            val pixel = getPixel(it.bearing, it.elevation)
-            fill(it.color)
-            circle(pixel.x, pixel.y, getSize(it.size))
-        }
-        pop()
     }
 
     private fun toWorldSpace(bearing: Float, elevation: Float, distance: Float): Vector3 {
@@ -92,17 +103,33 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun toSpherical(vector: Vector3): Vector3 {
-        return Vector3(1f, asin(vector.z).toDegrees(), atan2(vector.x, vector.y).toDegrees())
+        val r = vector.magnitude()
+        val theta = asin(vector.z / r).toDegrees().real(0f)
+        val phi = atan2(vector.x, vector.y).toDegrees().real(0f)
+        return Vector3(r, theta, phi)
     }
 
-    private fun getSize(angularSize: Float): Float {
+    /**
+     * Converts an angular size to a pixel size
+     * @param angularSize The angular size in degrees
+     * @return The pixel size
+     */
+    fun sizeToPixel(angularSize: Float): Float {
         return (width / fov.width) * angularSize
     }
 
-    private fun getPixel(bearing: Float, elevation: Float): PixelCoordinate {
-        val world = toWorldSpace(bearing, elevation, 1f)
+    // TODO: These are off by a about a degree
+    /**
+     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
+     * @param bearing The compass bearing in degrees of the point
+     * @param elevation The elevation in degrees of the point
+     * @return The pixel coordinate of the point
+     */
+    fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
+        val world = toWorldSpace(coordinate.bearing, coordinate.elevation, 1f)
         val rotated = applyRotation(world)
         val spherical = toSpherical(rotated)
+        // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
         return AugmentedRealityUtils.getPixelLinear(
             spherical.z,
             0f,
@@ -111,18 +138,10 @@ class AugmentedRealityView : CanvasView {
             Size(width.toFloat(), height.toFloat()),
             fov
         )
-
-
-//        return AugmentedRealityUtils.getPixelLinear(
-//            bearing,
-//            azimuth,
-//            elevation,
-//            inclination,
-//            Size(width.toFloat(), height.toFloat()),
-//            fov
-//        )
     }
 
-    data class Point(val bearing: Float, val elevation: Float, val size: Float, val color: Int)
+    data class HorizonCoordinate(val bearing: Float, val elevation: Float)
+
+    data class Point(val coordinate: HorizonCoordinate, val size: Float, val color: Int)
 
 }

@@ -77,6 +77,10 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
             binding.arView.sideInclination = sideInclinometer.angle - 90
         }
 
+        observe(gps) {
+            updateNearbyBeacons()
+        }
+
         observeFlow(beaconRepo.getBeacons()) {
             beacons = it
             updateNearbyBeacons()
@@ -107,14 +111,16 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                     ZoneId.systemDefault(),
                     Duration.ofMinutes(15)
                 ) {
-                    val alpha = if (it.isBefore(ZonedDateTime.now())){
+                    val alpha = if (it.isBefore(ZonedDateTime.now())) {
                         20
                     } else {
                         127
                     }
                     AugmentedRealityView.Point(
-                        astro.getMoonAzimuth(location, it).value,
-                        astro.getMoonAltitude(location, it),
+                        AugmentedRealityView.HorizonCoordinate(
+                            astro.getMoonAzimuth(location, it).value,
+                            astro.getMoonAltitude(location, it)
+                        ),
                         1f,
                         Color.WHITE.withAlpha(alpha)
                     )
@@ -125,14 +131,16 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                     ZoneId.systemDefault(),
                     Duration.ofMinutes(15)
                 ) {
-                    val alpha = if (it.isBefore(ZonedDateTime.now())){
+                    val alpha = if (it.isBefore(ZonedDateTime.now())) {
                         20
                     } else {
                         127
                     }
                     AugmentedRealityView.Point(
-                        astro.getSunAzimuth(location, it).value,
-                        astro.getSunAltitude(location, it),
+                        AugmentedRealityView.HorizonCoordinate(
+                            astro.getSunAzimuth(location, it).value,
+                            astro.getSunAltitude(location, it)
+                        ),
                         1f,
                         AppColor.Yellow.color.withAlpha(alpha)
                     )
@@ -146,10 +154,17 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
 
                 astroPoints = moonPositions + sunPositions +
                         listOf(
-                            AugmentedRealityView.Point(moonAzimuth, moonAltitude, 2f, Color.WHITE),
                             AugmentedRealityView.Point(
-                                sunAzimuth,
-                                sunAltitude,
+                                AugmentedRealityView.HorizonCoordinate(
+                                    moonAzimuth,
+                                    moonAltitude
+                                ), 2f, Color.WHITE
+                            ),
+                            AugmentedRealityView.Point(
+                                AugmentedRealityView.HorizonCoordinate(
+                                    sunAzimuth,
+                                    sunAltitude
+                                ),
                                 2f,
                                 AppColor.Yellow.color
                             )
@@ -194,11 +209,11 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
     }
 
     private fun updateNearbyBeacons() {
-        val navigationService = NavigationService()
-        val nearbyCount = userPrefs.navigation.numberOfVisibleBeacons
-        val nearbyDistance = userPrefs.navigation.maxBeaconDistance
         inBackground {
             onIO {
+                val navigationService = NavigationService()
+                val nearbyCount = userPrefs.navigation.numberOfVisibleBeacons
+                val nearbyDistance = userPrefs.navigation.maxBeaconDistance
                 val nearby = navigationService.getNearbyBeacons(
                     gps.location,
                     beacons,
@@ -218,8 +233,10 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                     }
                     val scaledSize = (360f / distance).coerceIn(1f, 5f)
                     AugmentedRealityView.Point(
-                        bearing,
-                        elevation,
+                        AugmentedRealityView.HorizonCoordinate(
+                            bearing,
+                            elevation
+                        ),
                         scaledSize,
                         it.color
                     )
