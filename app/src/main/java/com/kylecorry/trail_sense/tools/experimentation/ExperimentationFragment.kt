@@ -9,15 +9,22 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.camera.view.PreviewView
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.time.Time
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentExperimentationBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -26,6 +33,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZonedDateTime
+import kotlin.math.atan2
 
 class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() {
 
@@ -41,8 +50,15 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
             gps
         )
     }
+    private val beaconRepo by lazy {
+        BeaconRepo.getInstance(requireContext())
+    }
 
     private var lastSize: Size? = null
+
+    private var beacons = listOf<Beacon>()
+    private var astroPoints = listOf<AugmentedRealityView.Point>()
+    private var beaconPoints = listOf<AugmentedRealityView.Point>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,6 +73,11 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
 
         observe(sideInclinometer) {
             binding.arView.sideInclination = sideInclinometer.angle - 90
+        }
+
+        observeFlow(beaconRepo.getBeacons()) {
+            beacons = it
+            updateNearbyBeacons()
         }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
@@ -82,11 +103,16 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                     ZoneId.systemDefault(),
                     Duration.ofMinutes(15)
                 ) {
+                    val alpha = if (it.isBefore(ZonedDateTime.now())){
+                        20
+                    } else {
+                        127
+                    }
                     AugmentedRealityView.Point(
                         astro.getMoonAzimuth(location, it).value,
                         astro.getMoonAltitude(location, it),
                         1f,
-                        Color.WHITE.withAlpha(127)
+                        Color.WHITE.withAlpha(alpha)
                     )
                 }.map { it.value }
 
@@ -95,11 +121,16 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                     ZoneId.systemDefault(),
                     Duration.ofMinutes(15)
                 ) {
+                    val alpha = if (it.isBefore(ZonedDateTime.now())){
+                        20
+                    } else {
+                        127
+                    }
                     AugmentedRealityView.Point(
                         astro.getSunAzimuth(location, it).value,
                         astro.getSunAltitude(location, it),
                         1f,
-                        AppColor.Yellow.color.withAlpha(127)
+                        AppColor.Yellow.color.withAlpha(alpha)
                     )
                 }.map { it.value }
 
@@ -109,7 +140,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                 val sunAltitude = astro.getSunAltitude(location)
                 val sunAzimuth = astro.getSunAzimuth(location).value
 
-                binding.arView.points = moonPositions + sunPositions +
+                astroPoints = moonPositions + sunPositions +
                         listOf(
                             AugmentedRealityView.Point(moonAzimuth, moonAltitude, 2f, Color.WHITE),
                             AugmentedRealityView.Point(
@@ -119,6 +150,8 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                                 AppColor.Yellow.color
                             )
                         )
+
+                updatePoints()
             }
         }
     }
@@ -153,5 +186,46 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         container: ViewGroup?
     ): FragmentExperimentationBinding {
         return FragmentExperimentationBinding.inflate(layoutInflater, container, false)
+    }
+
+    private fun updateNearbyBeacons() {
+        val navigationService = NavigationService()
+        val nearbyCount = userPrefs.navigation.numberOfVisibleBeacons
+        val nearbyDistance = userPrefs.navigation.maxBeaconDistance
+        inBackground {
+            onIO {
+                val nearby = navigationService.getNearbyBeacons(
+                    gps.location,
+                    beacons,
+                    nearbyCount,
+                    8f,
+                    nearbyDistance
+                )
+
+                beaconPoints = nearby.map {
+                    val bearing = gps.location.bearingTo(it.coordinate).value
+                    val distance = gps.location.distanceTo(it.coordinate)
+                    // Calculate the elevation angle without calling a method
+                    val elevation = if (it.elevation == null) {
+                        0f
+                    } else {
+                        atan2((it.elevation - gps.altitude), distance).toDegrees()
+                    }
+                    val scaledSize = (360f / distance).coerceIn(1f, 5f)
+                    AugmentedRealityView.Point(
+                        bearing,
+                        elevation,
+                        scaledSize,
+                        it.color
+                    )
+                }.sortedBy { it.size }
+
+                updatePoints()
+            }
+        }
+    }
+
+    private fun updatePoints() {
+        binding.arView.points = astroPoints + beaconPoints
     }
 }

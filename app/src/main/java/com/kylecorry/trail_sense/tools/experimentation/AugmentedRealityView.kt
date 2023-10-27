@@ -31,6 +31,7 @@ class AugmentedRealityView: CanvasView {
 
     override fun draw() {
         push()
+        // TODO: Use quaternion instead of euler angles
         // TODO: Come up with a better way to do this
         rotate(sideInclination)
         clear()
