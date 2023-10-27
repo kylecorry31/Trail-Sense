@@ -70,7 +70,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         }
 
         observe(inclinometer) {
-            binding.arView.inclination = inclinometer.angle
+            binding.arView.inclination = inclinometer.incline
         }
 
         observe(sideInclinometer) {

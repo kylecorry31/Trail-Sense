@@ -50,8 +50,28 @@ class AugmentedRealityView : CanvasView {
         clear()
 
         // TODO: Extract to layers
+        drawNorth()
         drawHorizon()
         drawPoints()
+    }
+
+    private fun drawNorth() {
+        val north = Path()
+
+        for (i in -90..90 step 5) {
+            val pixel = toPixel(HorizonCoordinate(0f, i.toFloat()))
+            if (i == -90) {
+                north.moveTo(pixel.x, pixel.y)
+            } else {
+                north.lineTo(pixel.x, pixel.y)
+            }
+        }
+
+        noFill()
+        stroke(Color.WHITE)
+        strokeWeight(2f)
+        path(north)
+        noStroke()
     }
 
     private fun drawPoints() {
@@ -118,7 +138,7 @@ class AugmentedRealityView : CanvasView {
         return (width / fov.width) * angularSize
     }
 
-    // TODO: These are off by a about a degree
+    // TODO: These are off by a about a degree when you point the device at around 45 degrees (ex. a north line appears 1 degree to the side of actual north)
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
      * @param bearing The compass bearing in degrees of the point
