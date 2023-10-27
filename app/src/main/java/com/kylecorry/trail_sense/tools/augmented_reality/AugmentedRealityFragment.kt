@@ -37,6 +37,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import kotlin.math.atan2
 
+// TODO: Support arguments for default layer visibility (ex. coming from astronomy, enable only sun/moon)
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
 
     private val sensors by lazy { SensorService(requireContext()) }
@@ -64,6 +65,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO: Move sensors to the augmented reality view (similar to how CameraView is)?
+        // TODO: Extract compass and inclinometers into a single orientation sensor
         observe(compass) {
             binding.linearCompass.azimuth = compass.bearing
             binding.arView.azimuth = compass.rawBearing
@@ -81,6 +84,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             updateNearbyBeacons()
         }
 
+        // TODO: Show paths
         observeFlow(beaconRepo.getBeacons()) {
             beacons = it
             updateNearbyBeacons()
@@ -88,6 +92,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
 
+        // TODO: Show azimuth / altitude
         binding.linearCompass.showAzimuthArrow = false
 
         scheduleUpdates(INTERVAL_1_FPS)
@@ -96,7 +101,9 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onResume() {
         super.onResume()
 
-        // TODO: Allow user to turn camera off / ensure it works without camera
+        // TODO: Allow user to turn camera off
+        // TODO: Allow zoom when camera is off
+        // TODO: Allow use without sensors
         requestCamera {
             if (it) {
                 binding.camera.start(
@@ -109,6 +116,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
 
         inBackground {
+            // TODO: Show icons / render path rather than circles
             onDefault {
                 val astro = AstronomyService()
                 val location = LocationSubsystem.getInstance(requireContext()).location
@@ -191,6 +199,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     override fun onUpdate() {
         super.onUpdate()
+
+        // TODO: Move this to a coroutine
         val fov = binding.camera.fov
         binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
         binding.linearCompass.range = fov.first
@@ -232,15 +242,17 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 )
 
                 beaconPoints = nearby.map {
+                    // TODO: Move this logic into the augmented reality view
                     val bearing = gps.location.bearingTo(it.coordinate).value
                     val distance = gps.location.distanceTo(it.coordinate)
-                    // Calculate the elevation angle without calling a method
                     val elevation = if (it.elevation == null) {
                         0f
                     } else {
                         atan2((it.elevation - gps.altitude), distance).toDegrees()
                     }
+                    // TODO: Find a better size / move the scaling to augmented reality view
                     val scaledSize = (360f / distance).coerceIn(1f, 5f)
+                    // TODO: Show icons and names
                     AugmentedRealityView.Point(
                         AugmentedRealityView.HorizonCoordinate(
                             bearing,
