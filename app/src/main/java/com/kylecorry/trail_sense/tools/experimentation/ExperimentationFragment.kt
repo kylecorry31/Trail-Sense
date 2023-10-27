@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
+import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.time.Time
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -69,7 +70,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         }
 
         observe(inclinometer) {
-            binding.arView.inclination = inclinometer.incline
+            binding.arView.inclination = inclinometer.angle
         }
 
         observe(sideInclinometer) {

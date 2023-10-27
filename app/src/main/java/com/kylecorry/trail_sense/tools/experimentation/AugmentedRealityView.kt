@@ -6,10 +6,21 @@ import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.Euler
+import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.SolMath.real
+import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import kotlin.math.acos
+import kotlin.math.asin
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
 
-class AugmentedRealityView: CanvasView {
+class AugmentedRealityView : CanvasView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -24,6 +35,10 @@ class AugmentedRealityView: CanvasView {
     var inclination = 0f
     var sideInclination = 0f
 
+    // TODO: Is there a better way to do this?
+    val orientation: Quaternion
+        get() = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
+
     var points = listOf<Point>()
 
     override fun setup() {
@@ -31,15 +46,13 @@ class AugmentedRealityView: CanvasView {
 
     override fun draw() {
         push()
-        // TODO: Use quaternion instead of euler angles
-        // TODO: Come up with a better way to do this
-        rotate(sideInclination)
         clear()
 
+        // TODO: Figure out why this is drawing an extra line
         val horizonPath = Path()
-        for (i in 0..360 step 5){
+        for (i in 0..360 step 5) {
             val pixel = getPixel(i.toFloat(), 0f)
-            if (i == 0){
+            if (i == 0) {
                 horizonPath.moveTo(pixel.x, pixel.y)
             } else {
                 horizonPath.lineTo(pixel.x, pixel.y)
@@ -63,19 +76,51 @@ class AugmentedRealityView: CanvasView {
         pop()
     }
 
+    private fun toWorldSpace(bearing: Float, elevation: Float, distance: Float): Vector3 {
+        val thetaRad = elevation.toRadians()
+        val phiRad = bearing.toRadians()
+
+        val cosTheta = cos(thetaRad)
+        val x = distance * cosTheta * sin(phiRad)
+        val y = distance * cosTheta * cos(phiRad)
+        val z = distance * sin(thetaRad)
+        return Vector3(x, y, z)
+    }
+
+    private fun applyRotation(vector: Vector3): Vector3 {
+        return orientation.inverse().rotate(vector)
+    }
+
+    private fun toSpherical(vector: Vector3): Vector3 {
+        return Vector3(1f, asin(vector.z).toDegrees(), atan2(vector.x, vector.y).toDegrees())
+    }
+
     private fun getSize(angularSize: Float): Float {
         return (width / fov.width) * angularSize
     }
 
     private fun getPixel(bearing: Float, elevation: Float): PixelCoordinate {
+        val world = toWorldSpace(bearing, elevation, 1f)
+        val rotated = applyRotation(world)
+        val spherical = toSpherical(rotated)
         return AugmentedRealityUtils.getPixelLinear(
-            bearing,
-            azimuth,
-            elevation,
-            inclination,
+            spherical.z,
+            0f,
+            spherical.y,
+            0f,
             Size(width.toFloat(), height.toFloat()),
             fov
         )
+
+
+//        return AugmentedRealityUtils.getPixelLinear(
+//            bearing,
+//            azimuth,
+//            elevation,
+//            inclination,
+//            Size(width.toFloat(), height.toFloat()),
+//            fov
+//        )
     }
 
     data class Point(val bearing: Float, val elevation: Float, val size: Float, val color: Int)
