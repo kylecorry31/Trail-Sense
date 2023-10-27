@@ -43,7 +43,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
     private val compass by lazy { sensors.getCompass() }
     private val inclinometer by lazy { CameraClinometer(requireContext()) }
     private val sideInclinometer by lazy { SideClinometer(requireContext()) }
-    private val gps by lazy { sensors.getGPS() }
+    private val gps by lazy { sensors.getGPS(frequency = Duration.ofMillis(200)) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val declinationProvider by lazy {
         DeclinationFactory().getDeclinationStrategy(

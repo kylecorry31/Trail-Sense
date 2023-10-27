@@ -139,6 +139,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     // TODO: These are off by a about a degree when you point the device at around 45 degrees (ex. a north line appears 1 degree to the side of actual north)
+    // TODO: This may just be the compass being off
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
      * @param bearing The compass bearing in degrees of the point
