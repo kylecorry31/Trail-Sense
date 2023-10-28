@@ -19,6 +19,7 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
@@ -43,6 +44,8 @@ class AugmentedRealityView : CanvasView {
     )
 
     var fov: Size = Size(45f, 45f)
+
+    var viewDistance = Distance.kilometers(1f)
 
     private var orientation = Quaternion.zero
     private var inverseOrientation = Quaternion.zero
@@ -70,6 +73,14 @@ class AugmentedRealityView : CanvasView {
         private set
     var sideInclination = 0f
         private set
+    val location: Coordinate
+        get() = gps.location
+
+    val reticleSize: Float
+        get() = dp(36f)
+
+    private val layers = mutableListOf<ARLayer>()
+    private val layerLock = Any()
 
     private var useSensors = true
     private val orientationLock = Any()
@@ -88,6 +99,31 @@ class AugmentedRealityView : CanvasView {
         sideClinometer.stop(this::onSensorUpdate)
         gps.stop(this::onSensorUpdate)
         altimeter.stop(this::onSensorUpdate)
+    }
+
+    fun addLayer(layer: ARLayer) {
+        synchronized(layerLock) {
+            layers.add(layer)
+        }
+    }
+
+    fun removeLayer(layer: ARLayer) {
+        synchronized(layerLock) {
+            layers.remove(layer)
+        }
+    }
+
+    fun clearLayers() {
+        synchronized(layerLock) {
+            layers.clear()
+        }
+    }
+
+    fun setLayers(layers: List<ARLayer>) {
+        synchronized(layerLock) {
+            this.layers.clear()
+            this.layers.addAll(layers)
+        }
     }
 
     // TODO: Take in zoom
@@ -134,6 +170,10 @@ class AugmentedRealityView : CanvasView {
         updateOrientation()
         clear()
 
+        layers.forEach {
+            it.draw(this, this)
+        }
+
         // TODO: Extract to layers
         drawNorth()
         drawHorizon()
@@ -142,6 +182,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun drawNorth() {
+        // TODO: This is not rendering properly when rotated and pointing south
         val north = Path()
 
         for (i in -90..90 step 5) {
@@ -164,13 +205,13 @@ class AugmentedRealityView : CanvasView {
         stroke(Color.WHITE.withAlpha(127))
         strokeWeight(dp(2f))
         noFill()
-        circle(width / 2f, height / 2f, dp(36f))
+        circle(width / 2f, height / 2f, reticleSize)
     }
 
     private fun drawPoints() {
         noStroke()
         val center = PixelCoordinate(width / 2f, height / 2f)
-        val centerCircle = PixelCircle(center, dp(36f) / 2f)
+        val centerCircle = PixelCircle(center, reticleSize / 2f)
         points.forEach {
             val pixel = toPixel(it.coordinate)
             val diameter = sizeToPixel(it.size)
