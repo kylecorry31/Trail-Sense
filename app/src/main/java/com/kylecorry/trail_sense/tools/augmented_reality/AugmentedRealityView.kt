@@ -34,9 +34,7 @@ class AugmentedRealityView : CanvasView {
     var inclination = 0f
     var sideInclination = 0f
 
-    // TODO: Is there a better way to do this - like a rotation matrix or something?
-    private val orientation: Quaternion
-        get() = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
+    private var orientation = Quaternion.zero
 
     var points = listOf<Point>()
 
@@ -44,9 +42,11 @@ class AugmentedRealityView : CanvasView {
 
 
     override fun setup() {
+        updateOrientation()
     }
 
     override fun draw() {
+        updateOrientation()
         clear()
 
         // TODO: Extract to layers
@@ -159,6 +159,10 @@ class AugmentedRealityView : CanvasView {
             Size(width.toFloat(), height.toFloat()),
             fov
         )
+    }
+
+    private fun updateOrientation(){
+        orientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
     }
 
     data class HorizonCoordinate(val bearing: Float, val elevation: Float)
