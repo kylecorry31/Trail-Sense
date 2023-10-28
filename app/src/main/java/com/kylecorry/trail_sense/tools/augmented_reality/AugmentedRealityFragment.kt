@@ -42,8 +42,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val sensors by lazy { SensorService(requireContext()) }
     private val compass by lazy { sensors.getCompass() }
-    private val inclinometer by lazy { CameraClinometer(requireContext()) }
-    private val sideInclinometer by lazy { SideClinometer(requireContext()) }
     private val gps by lazy { sensors.getGPS(frequency = Duration.ofMillis(200)) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val declinationProvider by lazy {
@@ -65,19 +63,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Move sensors to the augmented reality view (similar to how CameraView is)?
-        // TODO: Extract compass and inclinometers into a single orientation sensor
         observe(compass) {
             binding.linearCompass.azimuth = compass.bearing
-            binding.arView.azimuth = compass.rawBearing
-        }
-
-        observe(inclinometer) {
-            binding.arView.inclination = inclinometer.incline
-        }
-
-        observe(sideInclinometer) {
-            binding.arView.sideInclination = sideInclinometer.angle - 90
         }
 
         observe(gps) {
@@ -101,6 +88,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onResume() {
         super.onResume()
 
+        binding.arView.start()
+
         // TODO: Allow user to turn camera off
         // TODO: Allow zoom when camera is off
         // TODO: Allow use without sensors
@@ -120,8 +109,9 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             onDefault {
                 val astro = AstronomyService()
                 val location = LocationSubsystem.getInstance(requireContext()).location
-                // TODO: Respect declination preference
-                compass.declination = declinationProvider.getDeclination()
+                if (userPrefs.compass.useTrueNorth) {
+                    compass.declination = declinationProvider.getDeclination()
+                }
 
                 val moonPositions = Time.getReadings(
                     LocalDate.now(),
@@ -136,7 +126,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     AugmentedRealityView.Point(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getMoonAzimuth(location, it).value,
-                            astro.getMoonAltitude(location, it)
+                            astro.getMoonAltitude(location, it),
+                            true
                         ),
                         1f,
                         Color.WHITE.withAlpha(alpha)
@@ -156,7 +147,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     AugmentedRealityView.Point(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getSunAzimuth(location, it).value,
-                            astro.getSunAltitude(location, it)
+                            astro.getSunAltitude(location, it),
+                            true
                         ),
                         1f,
                         AppColor.Yellow.color.withAlpha(alpha)
@@ -174,13 +166,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                             AugmentedRealityView.Point(
                                 AugmentedRealityView.HorizonCoordinate(
                                     moonAzimuth,
-                                    moonAltitude
+                                    moonAltitude,
+                                    true
                                 ), 2f, Color.WHITE
                             ),
                             AugmentedRealityView.Point(
                                 AugmentedRealityView.HorizonCoordinate(
                                     sunAzimuth,
-                                    sunAltitude
+                                    sunAltitude,
+                                    true
                                 ),
                                 2f,
                                 AppColor.Yellow.color
@@ -195,12 +189,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onPause() {
         super.onPause()
         binding.camera.stop()
+        binding.arView.stop()
     }
 
     override fun onUpdate() {
         super.onUpdate()
 
-        // TODO: Move this to a coroutine
+        // TODO: Move this to a coroutine (and to the AR view)
         val fov = binding.camera.fov
         binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
         binding.linearCompass.range = fov.first
@@ -242,7 +237,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 )
 
                 beaconPoints = nearby.map {
-                    // TODO: Move this logic into the augmented reality view
+                    // TODO: Remove this logic (already present in AR view)
                     val bearing = gps.location.bearingTo(it.coordinate).value
                     val distance = gps.location.distanceTo(it.coordinate)
                     val elevation = if (it.elevation == null) {

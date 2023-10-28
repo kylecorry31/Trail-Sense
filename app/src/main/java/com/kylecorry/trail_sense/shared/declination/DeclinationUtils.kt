@@ -30,4 +30,30 @@ object DeclinationUtils {
         return bearing.withDeclination(-declination)
     }
 
+    /**
+     * Converts a bearing from Magnetic North
+     * @param bearing the bearing to convert (in Magnetic North)
+     * @param declination the declination in degrees
+     * @return the bearing in true north
+     */
+    fun toTrueNorthBearing(
+        bearing: Float,
+        declination: Float
+    ): Float {
+        return Bearing.getBearing(bearing + declination)
+    }
+
+    /**
+     * Converts a bearing from Magnetic North
+     * @param bearing the bearing to convert (in Magnetic North)
+     * @param declination the declination in degrees
+     * @return the bearing in true north
+     */
+    fun toTrueNorthBearing(
+        bearing: Bearing,
+        declination: Float
+    ): Bearing {
+        return bearing.withDeclination(declination)
+    }
+
 }

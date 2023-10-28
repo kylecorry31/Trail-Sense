@@ -6,6 +6,8 @@ import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
+import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.SolMath.real
@@ -13,12 +15,19 @@ import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import java.time.Duration
 import kotlin.math.asin
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
+// TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
 class AugmentedRealityView : CanvasView {
 
     constructor(context: Context?) : super(context)
@@ -30,15 +39,83 @@ class AugmentedRealityView : CanvasView {
     )
 
     var fov: Size = Size(45f, 45f)
-    var azimuth = 0f
-    var inclination = 0f
-    var sideInclination = 0f
 
     private var orientation = Quaternion.zero
+    private var inverseOrientation = Quaternion.zero
 
     var points = listOf<Point>()
 
     private val horizon = Path()
+
+    private val userPrefs = UserPreferences(context)
+    private val sensors = SensorService(context)
+    private val compass = sensors.getCompass()
+    private val clinometer = CameraClinometer(context)
+    private val sideClinometer = SideClinometer(context)
+    private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
+    private val altimeter = sensors.getAltimeter(gps = gps)
+    private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
+        userPrefs,
+        gps
+    )
+    private val isTrueNorth = userPrefs.compass.useTrueNorth
+
+    private var azimuth = 0f
+    private var inclination = 0f
+    private var sideInclination = 0f
+
+    private var useSensors = true
+    private val orientationLock = Any()
+
+    fun start() {
+        compass.start(this::onSensorUpdate)
+        clinometer.start(this::onSensorUpdate)
+        sideClinometer.start(this::onSensorUpdate)
+        gps.start(this::onSensorUpdate)
+        altimeter.start(this::onSensorUpdate)
+    }
+
+    fun stop() {
+        compass.stop(this::onSensorUpdate)
+        clinometer.stop(this::onSensorUpdate)
+        sideClinometer.stop(this::onSensorUpdate)
+        gps.stop(this::onSensorUpdate)
+        altimeter.stop(this::onSensorUpdate)
+    }
+
+    // TODO: Take in zoom
+    fun pointAt(coordinate: HorizonCoordinate) {
+        synchronized(orientationLock) {
+            useSensors = false
+            azimuth = getActualBearing(coordinate)
+            inclination = coordinate.elevation
+            sideInclination = 0f
+        }
+    }
+
+    fun setFreeform(isFreeform: Boolean) {
+        synchronized(orientationLock) {
+            useSensors = !isFreeform
+            sideInclination = 0f
+            // TODO: Allow dragging
+        }
+    }
+
+    private fun onSensorUpdate(): Boolean {
+        if (isTrueNorth) {
+            compass.declination = declinationProvider.getDeclination()
+        } else {
+            compass.declination = 0f
+        }
+        synchronized(orientationLock) {
+            if (useSensors) {
+                azimuth = compass.rawBearing
+                inclination = clinometer.incline
+                sideInclination = sideClinometer.angle - 90f
+            }
+        }
+        return true
+    }
 
 
     override fun setup() {
@@ -119,7 +196,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun applyRotation(vector: Vector3): Vector3 {
-        return orientation.inverse().rotate(vector)
+        return inverseOrientation.rotate(vector)
     }
 
     private fun toSpherical(vector: Vector3): Vector3 {
@@ -142,12 +219,13 @@ class AugmentedRealityView : CanvasView {
     // TODO: This may just be the compass being off
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
-     * @param bearing The compass bearing in degrees of the point
-     * @param elevation The elevation in degrees of the point
+     * @param coordinate The horizon coordinate of the point
      * @return The pixel coordinate of the point
      */
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
-        val world = toWorldSpace(coordinate.bearing, coordinate.elevation, 1f)
+        val bearing = getActualBearing(coordinate)
+
+        val world = toWorldSpace(bearing, coordinate.elevation, 1f)
         val rotated = applyRotation(world)
         val spherical = toSpherical(rotated)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
@@ -161,11 +239,45 @@ class AugmentedRealityView : CanvasView {
         )
     }
 
-    private fun updateOrientation(){
-        orientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
+    fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
+        val bearing = gps.location.bearingTo(coordinate).value
+        val distance = gps.location.distanceTo(coordinate)
+        val elevationAngle = if (elevation == null) {
+            0f
+        } else {
+            atan2((elevation - gps.altitude), distance).toDegrees()
+        }
+        return toPixel(HorizonCoordinate(bearing, elevationAngle, true))
     }
 
-    data class HorizonCoordinate(val bearing: Float, val elevation: Float)
+    private fun getActualBearing(coordinate: HorizonCoordinate): Float {
+        return if (isTrueNorth && !coordinate.isTrueNorth) {
+            // Convert coordinate to true north
+            DeclinationUtils.toTrueNorthBearing(
+                coordinate.bearing,
+                declinationProvider.getDeclination()
+            )
+        } else if (!isTrueNorth && coordinate.isTrueNorth) {
+            // Convert coordinate to magnetic north
+            DeclinationUtils.fromTrueNorthBearing(
+                coordinate.bearing,
+                declinationProvider.getDeclination()
+            )
+        } else {
+            coordinate.bearing
+        }
+    }
+
+    private fun updateOrientation() {
+        orientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
+        inverseOrientation = orientation.inverse()
+    }
+
+    data class HorizonCoordinate(
+        val bearing: Float,
+        val elevation: Float,
+        val isTrueNorth: Boolean = true
+    )
 
     data class Point(val coordinate: HorizonCoordinate, val size: Float, val color: Int)
 
