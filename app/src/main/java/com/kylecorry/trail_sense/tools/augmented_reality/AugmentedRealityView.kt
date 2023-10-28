@@ -64,9 +64,12 @@ class AugmentedRealityView : CanvasView {
     )
     private val isTrueNorth = userPrefs.compass.useTrueNorth
 
-    private var azimuth = 0f
-    private var inclination = 0f
-    private var sideInclination = 0f
+    var azimuth = 0f
+        private set
+    var inclination = 0f
+        private set
+    var sideInclination = 0f
+        private set
 
     private var useSensors = true
     private val orientationLock = Any()
@@ -88,6 +91,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     // TODO: Take in zoom
+    // TODO: Interpolate
     fun pointAt(coordinate: HorizonCoordinate) {
         synchronized(orientationLock) {
             useSensors = false
@@ -260,6 +264,9 @@ class AugmentedRealityView : CanvasView {
         val world = toWorldSpace(bearing, coordinate.elevation, 1f)
         val rotated = applyRotation(world)
         val spherical = toSpherical(rotated)
+
+        // TODO: Try out Matrix.perspectiveM
+
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
         return AugmentedRealityUtils.getPixelLinear(
             spherical.z,

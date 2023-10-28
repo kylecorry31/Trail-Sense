@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.camera.view.PreviewView
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -19,6 +20,7 @@ import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -46,15 +48,9 @@ import kotlin.math.atan2
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
 
     private val sensors by lazy { SensorService(requireContext()) }
-    private val compass by lazy { sensors.getCompass() }
     private val gps by lazy { sensors.getGPS(frequency = Duration.ofMillis(200)) }
+    private val altimeter by lazy { sensors.getAltimeter(gps = gps) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val declinationProvider by lazy {
-        DeclinationFactory().getDeclinationStrategy(
-            userPrefs,
-            gps
-        )
-    }
     private val beaconRepo by lazy {
         BeaconRepo.getInstance(requireContext())
     }
@@ -66,12 +62,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private var beaconPoints = listOf<AugmentedRealityView.Point>()
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
+    private val compassSyncTimer = CoroutineTimer {
+        binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        observe(compass) {
-            binding.linearCompass.azimuth = compass.bearing
-        }
 
         observe(gps) {
             updateNearbyBeacons()
@@ -115,10 +111,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             onDefault {
                 val astro = AstronomyService()
                 val location = LocationSubsystem.getInstance(requireContext()).location
-                if (userPrefs.compass.useTrueNorth) {
-                    compass.declination = declinationProvider.getDeclination()
-                }
-
                 val moonPositions = Time.getReadings(
                     LocalDate.now(),
                     ZoneId.systemDefault(),
@@ -192,12 +184,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 updatePoints()
             }
         }
+
+        compassSyncTimer.interval(INTERVAL_60_FPS)
     }
 
     override fun onPause() {
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
+        compassSyncTimer.stop()
     }
 
     override fun onUpdate() {
@@ -251,7 +246,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     val elevation = if (it.elevation == null) {
                         0f
                     } else {
-                        atan2((it.elevation - gps.altitude), distance).toDegrees()
+                        atan2((it.elevation - altimeter.altitude), distance).toDegrees()
                     }
                     // TODO: Find a better size / move the scaling to augmented reality view
                     val scaledSize = (360f / distance).coerceIn(1f, 5f)
