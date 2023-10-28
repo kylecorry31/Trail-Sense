@@ -19,11 +19,16 @@ import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -59,6 +64,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private var beacons = listOf<Beacon>()
     private var astroPoints = listOf<AugmentedRealityView.Point>()
     private var beaconPoints = listOf<AugmentedRealityView.Point>()
+    private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -168,7 +174,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                                     moonAzimuth,
                                     moonAltitude,
                                     true
-                                ), 2f, Color.WHITE
+                                ), 2f, Color.WHITE,
+                                getString(R.string.moon)
                             ),
                             AugmentedRealityView.Point(
                                 AugmentedRealityView.HorizonCoordinate(
@@ -177,7 +184,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                                     true
                                 ),
                                 2f,
-                                AppColor.Yellow.color
+                                AppColor.Yellow.color,
+                                getString(R.string.sun)
                             )
                         )
 
@@ -247,6 +255,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     }
                     // TODO: Find a better size / move the scaling to augmented reality view
                     val scaledSize = (360f / distance).coerceIn(1f, 5f)
+                    val userDistance =
+                        Distance.meters(distance).convertTo(userPrefs.baseDistanceUnits)
+                            .toRelativeDistance()
+                    val formattedDistance = formatter.formatDistance(
+                        userDistance,
+                        Units.getDecimalPlaces(userDistance.units),
+                        strict = false
+                    )
                     // TODO: Show icons and names
                     AugmentedRealityView.Point(
                         AugmentedRealityView.HorizonCoordinate(
@@ -254,7 +270,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                             elevation
                         ),
                         scaledSize,
-                        it.color
+                        it.color,
+                        it.name + "\n" + formattedDistance
                     )
                 }.sortedBy { it.size }
 

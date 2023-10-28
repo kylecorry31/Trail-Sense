@@ -5,6 +5,9 @@ import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.TextAlign
+import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
@@ -18,6 +21,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -130,6 +134,7 @@ class AugmentedRealityView : CanvasView {
         drawNorth()
         drawHorizon()
         drawPoints()
+        drawCenter()
     }
 
     private fun drawNorth() {
@@ -151,12 +156,39 @@ class AugmentedRealityView : CanvasView {
         noStroke()
     }
 
+    private fun drawCenter() {
+        stroke(Color.WHITE.withAlpha(127))
+        strokeWeight(dp(2f))
+        noFill()
+        circle(width / 2f, height / 2f, dp(36f))
+    }
+
     private fun drawPoints() {
         noStroke()
+        val center = PixelCoordinate(width / 2f, height / 2f)
+        val centerCircle = PixelCircle(center, dp(36f) / 2f)
         points.forEach {
             val pixel = toPixel(it.coordinate)
+            val diameter = sizeToPixel(it.size)
             fill(it.color)
-            circle(pixel.x, pixel.y, sizeToPixel(it.size))
+            circle(pixel.x, pixel.y, diameter)
+            // If it the center circle (48dp diameter) intersects with this circle, draw the text
+            val pointCircle = PixelCircle(pixel, diameter / 2f)
+            if (it.text != null && centerCircle.intersects(pointCircle)) {
+                fill(Color.WHITE)
+                textSize(sp(16f))
+                textMode(TextMode.Corner)
+                textAlign(TextAlign.Center)
+                val textDims = textDimensions(it.text)
+
+                // Handle newlines (TODO: Do this in andromeda)
+                val lines = it.text.split("\n")
+                val start = pixel.y + textDims.second + diameter / 2f + dp(8f)
+                val lineSpacing = sp(4f)
+                lines.forEachIndexed { index, line ->
+                    text(line, pixel.x, start + index * (textDims.second + lineSpacing))
+                }
+            }
         }
     }
 
@@ -279,6 +311,11 @@ class AugmentedRealityView : CanvasView {
         val isTrueNorth: Boolean = true
     )
 
-    data class Point(val coordinate: HorizonCoordinate, val size: Float, val color: Int)
+    data class Point(
+        val coordinate: HorizonCoordinate,
+        val size: Float,
+        val color: Int,
+        val text: String? = null
+    )
 
 }

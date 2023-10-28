@@ -21,18 +21,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:background="@color/orange_40" />
-
-        <View
-            android:layout_width="20dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:background="@color/orange_40" />
-
     </FrameLayout>
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
