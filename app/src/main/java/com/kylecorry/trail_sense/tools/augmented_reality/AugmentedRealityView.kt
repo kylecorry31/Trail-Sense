@@ -45,8 +45,6 @@ class AugmentedRealityView : CanvasView {
 
     var fov: Size = Size(45f, 45f)
 
-    var viewDistance = Distance.kilometers(1f)
-
     private var orientation = Quaternion.zero
     private var inverseOrientation = Quaternion.zero
 
@@ -290,6 +288,12 @@ class AugmentedRealityView : CanvasView {
      */
     fun sizeToPixel(angularSize: Float): Float {
         return (width / fov.width) * angularSize
+    }
+
+    fun sizeToPixel(size: Distance, distance: Distance): Float {
+        val angularSize =
+            (2 * atan2(size.meters().distance / 2f, distance.meters().distance)).toDegrees()
+        return sizeToPixel(angularSize)
     }
 
     // TODO: These are off by a about a degree when you point the device at around 45 degrees (ex. a north line appears 1 degree to the side of actual north)

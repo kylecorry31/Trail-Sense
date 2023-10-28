@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
 class ARBeaconLayer(
+    private val maxVisibleDistance: Distance = Distance.kilometers(1f),
+    private val beaconSize: Distance = Distance.meters(5f),
     private val labelFormatter: (beacon: Beacon, distance: Distance) -> String? = { beacon, _ -> beacon.name }
 ) : ARLayer {
 
@@ -58,6 +60,9 @@ class ARBeaconLayer(
             loadedImageSize = drawer.dp(24f).toInt()
         }
 
+        val minBeaconPixels = drawer.dp(4f)
+        val maxBeaconPixels = drawer.dp(48f)
+
         val loader = _loader ?: return
 
         val beacons = synchronized(lock) {
@@ -71,7 +76,7 @@ class ARBeaconLayer(
                 return@mapNotNull null
             }
             val distance = view.location.distanceTo(it.coordinate)
-            if (distance > view.viewDistance.meters().distance) {
+            if (distance > maxVisibleDistance.meters().distance) {
                 return@mapNotNull null
             }
             it to distance
@@ -83,8 +88,8 @@ class ARBeaconLayer(
         visible.forEach {
             val pixel = view.toPixel(it.first.coordinate, it.first.elevation)
             // TODO: Pass in angular size (or maybe just size, and scale that)
-            val originalSize = (360f / it.second.positive(1f)).coerceIn(1f, 5f)
-            val diameter = view.sizeToPixel(originalSize)
+            val diameter = view.sizeToPixel(beaconSize, Distance.meters(it.second))
+                .coerceIn(minBeaconPixels, maxBeaconPixels)
             // Draw a circle
             drawer.strokeWeight(drawer.dp(0.5f))
             drawer.stroke(Color.WHITE)
