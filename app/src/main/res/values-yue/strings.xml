@@ -703,7 +703,7 @@
     <string name="dialog_deny">係噉先啦</string>
     <string name="notification_weather_update_title">氣象監測更新</string>
     <string name="notification_weather_update_content">紀錄緊氣壓</string>
-    <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，挺移動之時日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，喺氣象監測入面用嚟做海平面氣壓校正，同埋挺日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="tide_user_guide_recommendation">使用指南載有提供官方潮汐表嘅網站。</string>
     <string name="kilometers_per_hour_format">時速 %.1f 公里</string>
     <string name="miles_per_hour_format">時速 %.1f 英里</string>
@@ -888,4 +888,5 @@
     <string name="backing_up_loading_message">備份緊…</string>
     <string name="gps_location_accuracy">GPS 定位準繩</string>
     <string name="destination">目的地</string>
+    <string name="beta_disclaimer">呢項架生目前都係試住先，如有疏漏或意見，歡迎來鴻 %s。</string>
 </resources>
