@@ -28,6 +28,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.R
 import java.io.File
+import kotlin.math.abs
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -168,9 +169,28 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         preview.scaleType = type
     }
 
+    private val commonAspectRatios = listOf(
+        1f,
+        3 / 2f,
+        2 / 3f,
+        4 / 3f,
+        3 / 4f,
+        16 / 9f,
+        9 / 16f,
+    )
+
+    private val aspectRatioPercentTolerance = 0.1f
+
     fun getPreviewSize(): Size {
-        // TODO: Get the actual aspect ratio - maybe calculate as fov w / h and then get the closest normal aspect ratio?
-        val aspect = 3 / 4f
+        val fov = fov
+        val aspectRatio = fov.first / fov.second
+        val aspect = commonAspectRatios.minByOrNull { abs(it - aspectRatio) }.let {
+            if (it == null || abs(it - aspectRatio) / it > aspectRatioPercentTolerance) {
+                aspectRatio
+            } else {
+                it
+            }
+        }
         val width = preview.width.toFloat()
         return Size(width.toInt(), (width / aspect).toInt())
     }
