@@ -171,7 +171,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     2f,
                     Color.WHITE,
                     onFocusedFn = {
-                        println("Moon")
+                        binding.arView.focusText = getString(R.string.moon)
                         true
                     }
                 )
@@ -185,7 +185,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     2f,
                     AppColor.Yellow.color,
                     onFocusedFn = {
-                        println("Sun")
+                        binding.arView.focusText = getString(R.string.sun)
                         true
                     }
                 )

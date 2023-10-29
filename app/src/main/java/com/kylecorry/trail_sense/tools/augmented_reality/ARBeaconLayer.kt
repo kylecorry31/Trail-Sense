@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.text
 
-// TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet
+// TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet (or move it to the consumer)
 class ARBeaconLayer(
     var maxVisibleDistance: Distance = Distance.kilometers(1f),
     private val beaconSize: Distance = Distance.meters(5f),
@@ -24,6 +24,8 @@ class ARBeaconLayer(
     private val lock = Any()
     private var _loader: DrawerBitmapLoader? = null
     private var loadedImageSize = 24
+
+    private var focusedBeacon: Beacon? = null
 
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
@@ -84,7 +86,8 @@ class ARBeaconLayer(
             it to distance
         }.sortedByDescending { it.second }
 
-        var textToRender: String? = null
+        focusedBeacon = null
+
         val center = PixelCoordinate(view.width / 2f, view.height / 2f)
         val centerCircle = PixelCircle(center, view.reticleDiameter / 2f)
 
@@ -114,28 +117,12 @@ class ARBeaconLayer(
                 drawer.pop()
             }
 
-            // Set the text to render if in the center - this will ensure the closest beacon's text is rendered
+            // Update the focused beacon
             val circle = PixelCircle(pixel, diameter / 2f)
             if (circle.intersects(centerCircle)) {
-                textToRender = labelFormatter(it.first, Distance.meters(it.second))
+                focusedBeacon = it.first
             }
         }
-
-        // TODO: Request the AR view render this text instead of doing it here to avoid conflicts
-        if (!textToRender.isNullOrBlank()) {
-            drawer.fill(Color.WHITE)
-            drawer.textSize(drawer.sp(16f))
-            drawer.textMode(TextMode.Corner)
-            drawer.textAlign(TextAlign.Center)
-
-            drawer.text(
-                textToRender!!,
-                view.width / 2f,
-                view.height / 2f + view.reticleDiameter / 2f + drawer.dp(16f),
-                drawer.dp(4f)
-            )
-        }
-
     }
 
     override fun invalidate() {
@@ -145,10 +132,19 @@ class ARBeaconLayer(
     override fun onClick(
         drawer: ICanvasDrawer, view: AugmentedRealityView, pixel: PixelCoordinate
     ): Boolean {
+        // TODO: Expose this to the consumer
         return false
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
+        // TODO: Move this to the consumer
+        val focused = focusedBeacon ?: return false
+        val distance = view.location.distanceTo(focused.coordinate)
+        val textToRender = labelFormatter(focused, Distance.meters(distance))
+        if (!textToRender.isNullOrBlank()) {
+            view.focusText = textToRender
+            return true
+        }
         return false
     }
 

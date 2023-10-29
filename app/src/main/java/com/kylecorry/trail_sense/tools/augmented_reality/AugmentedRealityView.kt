@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.TextAlign
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
@@ -23,6 +25,7 @@ import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.text
 import java.time.Duration
 import kotlin.math.asin
 import kotlin.math.atan2
@@ -41,6 +44,8 @@ class AugmentedRealityView : CanvasView {
     )
 
     var fov: Size = Size(45f, 45f)
+
+    var focusText: String? = null
 
     private var orientation = Quaternion.zero
     private var inverseOrientation = Quaternion.zero
@@ -174,12 +179,40 @@ class AugmentedRealityView : CanvasView {
             it.draw(this, this)
         }
 
-        layers.reversed().forEach {
-            it.onFocus(this, this)
+        var hasFocus = false
+        for (layer in layers.reversed()){
+            if (layer.onFocus(this, this)){
+                hasFocus = true
+                break
+            }
         }
 
-        // TODO: Draw the reticle label
+        // TODO: Should the onFocus method just return a string?
+        if (!hasFocus){
+            focusText = null
+        }
+
         drawReticle()
+        drawFocusText()
+    }
+
+    private fun drawFocusText() {
+        val textToRender = focusText ?: return
+        if (textToRender.isBlank()) return
+
+        noStroke()
+        fill(Color.WHITE)
+        textSize(drawer.sp(16f))
+        textMode(TextMode.Corner)
+        textAlign(TextAlign.Center)
+
+        // TODO: Save the dp values
+        text(
+            textToRender,
+            width / 2f,
+            height / 2f + reticleDiameter / 2f + dp(16f),
+            dp(4f)
+        )
     }
 
     private fun drawNorth() {
