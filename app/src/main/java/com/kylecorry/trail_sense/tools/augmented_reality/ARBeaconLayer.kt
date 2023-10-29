@@ -7,15 +7,15 @@ import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.positive
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.text
 
+// TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet
 class ARBeaconLayer(
-    private val maxVisibleDistance: Distance = Distance.kilometers(1f),
+    var maxVisibleDistance: Distance = Distance.kilometers(1f),
     private val beaconSize: Distance = Distance.meters(5f),
     private val labelFormatter: (beacon: Beacon, distance: Distance) -> String? = { beacon, _ -> beacon.name }
 ) : ARLayer {
@@ -27,6 +27,7 @@ class ARBeaconLayer(
 
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
+            // TODO: Convert to markers
             this.beacons.clear()
             this.beacons.addAll(beacons)
         }
@@ -81,16 +82,19 @@ class ARBeaconLayer(
                 return@mapNotNull null
             }
             it to distance
-        }.sortedBy { it.second }
+        }.sortedByDescending { it.second }
 
-        var hasShownText = false
+        var textToRender: String? = null
+        val center = PixelCoordinate(view.width / 2f, view.height / 2f)
+        val centerCircle = PixelCircle(center, view.reticleDiameter / 2f)
 
         // Draw the beacons
         visible.forEach {
             val pixel = view.toPixel(it.first.coordinate, it.first.elevation)
             val diameter = view.sizeToPixel(beaconSize, Distance.meters(it.second))
                 .coerceIn(minBeaconPixels, maxBeaconPixels)
-            // Draw a circle
+
+            // Draw a circle for the beacon
             drawer.strokeWeight(drawer.dp(0.5f))
             drawer.stroke(Color.WHITE)
             drawer.fill(it.first.color)
@@ -110,37 +114,27 @@ class ARBeaconLayer(
                 drawer.pop()
             }
 
-            // If it is centered, also draw the label
-            // TODO: Figure out how the reticle should be handled - is the label even this layer's responsibility?
-            // TODO: Should it just return the label and let the ARView handle it?
-            val center = PixelCoordinate(view.width / 2f, view.height / 2f)
-            val centerCircle = PixelCircle(center, view.reticleSize / 2f)
+            // Set the text to render if in the center - this will ensure the closest beacon's text is rendered
             val circle = PixelCircle(pixel, diameter / 2f)
-
-            if (!hasShownText && circle.intersects(centerCircle)) {
-                val text = labelFormatter(it.first, Distance.meters(it.second))
-                if (!text.isNullOrBlank()) {
-                    drawer.push()
-                    drawer.rotate(view.sideInclination, pixel.x, pixel.y)
-                    drawer.fill(Color.WHITE)
-                    drawer.textSize(drawer.sp(16f))
-                    drawer.textMode(TextMode.Corner)
-                    drawer.textAlign(TextAlign.Center)
-
-                    drawer.text(
-                        text,
-                        pixel.x,
-                        pixel.y + diameter / 2f + drawer.dp(16f),
-                        drawer.dp(4f)
-                    )
-
-                    hasShownText = true
-                    drawer.pop()
-                }
+            if (circle.intersects(centerCircle)) {
+                textToRender = labelFormatter(it.first, Distance.meters(it.second))
             }
-
         }
 
+        // TODO: Request the AR view render this text instead of doing it here to avoid conflicts
+        if (!textToRender.isNullOrBlank()) {
+            drawer.fill(Color.WHITE)
+            drawer.textSize(drawer.sp(16f))
+            drawer.textMode(TextMode.Corner)
+            drawer.textAlign(TextAlign.Center)
+
+            drawer.text(
+                textToRender!!,
+                view.width / 2f,
+                view.height / 2f + view.reticleDiameter / 2f + drawer.dp(16f),
+                drawer.dp(4f)
+            )
+        }
 
     }
 
@@ -151,6 +145,10 @@ class ARBeaconLayer(
     override fun onClick(
         drawer: ICanvasDrawer, view: AugmentedRealityView, pixel: PixelCoordinate
     ): Boolean {
+        return false
+    }
+
+    override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         return false
     }
 

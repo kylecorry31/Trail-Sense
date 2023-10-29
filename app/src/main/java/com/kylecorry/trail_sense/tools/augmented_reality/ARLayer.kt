@@ -14,4 +14,6 @@ interface ARLayer {
      */
     fun onClick(drawer: ICanvasDrawer, view: AugmentedRealityView, pixel: PixelCoordinate): Boolean
 
+    fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean
+
 }

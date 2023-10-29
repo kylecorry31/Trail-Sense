@@ -2,9 +2,14 @@ package com.kylecorry.trail_sense.shared.camera
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.sin
@@ -44,17 +49,17 @@ object AugmentedRealityUtils {
 
         var x = size.width / 2f + cartesian.x
         // If the coordinate is off the screen, ensure it is not drawn
-        if (newBearing > fov.width / 2f){
+        if (newBearing > fov.width / 2f) {
             x += size.width
-        } else if (newBearing < -fov.width / 2f){
+        } else if (newBearing < -fov.width / 2f) {
             x -= size.width
         }
 
         var y = size.height / 2f - cartesian.y
         // If the coordinate is off the screen, ensure it is not drawn
-        if (newAltitude > fov.height / 2f){
+        if (newAltitude > fov.height / 2f) {
             y += size.height
-        } else if (newAltitude < -fov.height / 2f){
+        } else if (newAltitude < -fov.height / 2f) {
             y -= size.height
         }
 
@@ -90,6 +95,30 @@ object AugmentedRealityUtils {
         val y = size.height / 2f - newAltitude * hPixelsPerDegree
 
         return PixelCoordinate(x, y)
+    }
+
+    fun getAngularSize(diameter: Distance, distance: Distance): Float {
+        return getAngularSize(diameter.meters().distance, distance.meters().distance)
+    }
+
+    fun getAngularSize(diameterMeters: Float, distanceMeters: Float): Float {
+        return (2 * atan2(diameterMeters / 2f, distanceMeters)).toDegrees()
+    }
+
+    fun getHorizonCoordinate(
+        myLocation: Coordinate,
+        myElevation: Float,
+        destinationCoordinate: Coordinate,
+        destinationElevation: Float? = null
+    ): AugmentedRealityView.HorizonCoordinate {
+        val bearing = myLocation.bearingTo(destinationCoordinate).value
+        val distance = myLocation.distanceTo(destinationCoordinate)
+        val elevationAngle = if (destinationElevation == null) {
+            0f
+        } else {
+            atan2((destinationElevation - myElevation), distance).toDegrees()
+        }
+        return AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, true)
     }
 
 

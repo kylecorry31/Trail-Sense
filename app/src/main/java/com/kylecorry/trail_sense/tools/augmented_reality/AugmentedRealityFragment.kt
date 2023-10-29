@@ -9,40 +9,31 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.camera.view.PreviewView
 import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
-import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
-import com.kylecorry.andromeda.sense.clinometer.SideClinometer
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import kotlin.math.atan2
+import kotlin.math.sqrt
 
 // TODO: Support arguments for default layer visibility (ex. coming from astronomy, enable only sun/moon)
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
@@ -54,7 +45,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private var lastSize: Size? = null
 
-    private var astroPoints = listOf<AugmentedRealityView.Point>()
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     private val beaconLayer = ARBeaconLayer { beacon, distance ->
@@ -66,6 +56,9 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         )
         beacon.name + "\n" + formattedDistance
     }
+
+    private val sunLayer = ARMarkerLayer()
+    private val moonLayer = ARMarkerLayer()
 
     private val compassSyncTimer = CoroutineTimer {
         binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
@@ -84,7 +77,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         // TODO: Show azimuth / altitude
         binding.linearCompass.showAzimuthArrow = false
 
-        binding.arView.setLayers(listOf(beaconLayer))
+        binding.arView.setLayers(listOf(sunLayer, moonLayer, beaconLayer))
 
         scheduleUpdates(INTERVAL_1_FPS)
     }
@@ -107,25 +100,39 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             }
         }
 
+        // TODO: Extract this population
         inBackground {
             // TODO: Show icons / render path rather than circles
             onDefault {
                 val astro = AstronomyService()
-                val location = LocationSubsystem.getInstance(requireContext()).location
+                val locationSubsystem = LocationSubsystem.getInstance(requireContext())
+                val location = locationSubsystem.location
+
+                // TODO: Maybe use this to determine where the horizon line should be drawn instead - too far for beacons
+//                val elevation = locationSubsystem.elevation.meters().distance
+//                val visibleDistance = Distance.miles(1.22459f * sqrt(elevation)).meters()
+//                beaconLayer.maxVisibleDistance = visibleDistance
+
                 val moonPositions = Time.getReadings(
-                    LocalDate.now(), ZoneId.systemDefault(), Duration.ofMinutes(15)
+                    LocalDate.now(),
+                    ZoneId.systemDefault(),
+                    Duration.ofMinutes(15)
                 ) {
                     val alpha = if (it.isBefore(ZonedDateTime.now())) {
                         20
                     } else {
                         127
                     }
-                    AugmentedRealityView.Point(
+
+                    CircleARMarker.horizon(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getMoonAzimuth(location, it).value,
                             astro.getMoonAltitude(location, it),
                             true
-                        ), 1f, Color.WHITE.withAlpha(alpha)
+                        ),
+                        1f,
+                        Color.WHITE,
+                        opacity = alpha
                     )
                 }.map { it.value }
 
@@ -137,12 +144,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     } else {
                         127
                     }
-                    AugmentedRealityView.Point(
+                    CircleARMarker.horizon(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getSunAzimuth(location, it).value,
                             astro.getSunAltitude(location, it),
                             true
-                        ), 1f, AppColor.Yellow.color.withAlpha(alpha)
+                        ),
+                        1f,
+                        AppColor.Yellow.color,
+                        opacity = alpha
                     )
                 }.map { it.value }
 
@@ -152,19 +162,36 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val sunAltitude = astro.getSunAltitude(location)
                 val sunAzimuth = astro.getSunAzimuth(location).value
 
-                astroPoints = moonPositions + sunPositions + listOf(
-                    AugmentedRealityView.Point(
-                        AugmentedRealityView.HorizonCoordinate(
-                            moonAzimuth, moonAltitude, true
-                        ), 2f, Color.WHITE, getString(R.string.moon)
-                    ), AugmentedRealityView.Point(
-                        AugmentedRealityView.HorizonCoordinate(
-                            sunAzimuth, sunAltitude, true
-                        ), 2f, AppColor.Yellow.color, getString(R.string.sun)
-                    )
+                val moon = CircleARMarker.horizon(
+                    AugmentedRealityView.HorizonCoordinate(
+                        moonAzimuth,
+                        moonAltitude,
+                        true
+                    ),
+                    2f,
+                    Color.WHITE,
+                    onFocusedFn = {
+                        println("Moon")
+                        true
+                    }
                 )
 
-                updatePoints()
+                val sun = CircleARMarker.horizon(
+                    AugmentedRealityView.HorizonCoordinate(
+                        sunAzimuth,
+                        sunAltitude,
+                        true
+                    ),
+                    2f,
+                    AppColor.Yellow.color,
+                    onFocusedFn = {
+                        println("Sun")
+                        true
+                    }
+                )
+
+                sunLayer.setMarkers(sunPositions + sun)
+                moonLayer.setMarkers(moonPositions + moon)
             }
         }
 
@@ -205,10 +232,5 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         layoutInflater: LayoutInflater, container: ViewGroup?
     ): FragmentAugmentedRealityBinding {
         return FragmentAugmentedRealityBinding.inflate(layoutInflater, container, false)
-    }
-
-    private fun updatePoints() {
-        // TODO: Allow layers to be toggled
-        binding.arView.points = astroPoints
     }
 }
