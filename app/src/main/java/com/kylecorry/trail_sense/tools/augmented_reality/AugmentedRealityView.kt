@@ -171,9 +171,8 @@ class AugmentedRealityView : CanvasView {
         updateOrientation()
         clear()
 
-        // TODO: Extract these to layers
+        // TODO: Extract this to a layer
         drawNorth()
-        drawHorizon()
 
         layers.forEach {
             it.draw(this, this)
@@ -240,30 +239,6 @@ class AugmentedRealityView : CanvasView {
         strokeWeight(dp(2f))
         noFill()
         circle(width / 2f, height / 2f, reticleDiameter)
-    }
-
-    private fun drawHorizon() {
-        horizon.reset()
-        var horizonPathStarted = false
-
-        val minAngle = (azimuth - fov.width).toInt()
-        val maxAngle = (azimuth + fov.width).toInt()
-
-        for (i in minAngle..maxAngle step 5) {
-            val pixel = toPixel(HorizonCoordinate(i.toFloat(), 0f))
-            if (!horizonPathStarted) {
-                horizon.moveTo(pixel.x, pixel.y)
-                horizonPathStarted = true
-            } else {
-                horizon.lineTo(pixel.x, pixel.y)
-            }
-        }
-
-        noFill()
-        stroke(Color.WHITE)
-        strokeWeight(2f)
-        path(horizon)
-        noStroke()
     }
 
     private fun toWorldSpace(bearing: Float, elevation: Float, distance: Float): Vector3 {

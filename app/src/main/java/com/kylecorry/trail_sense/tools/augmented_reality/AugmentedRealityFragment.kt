@@ -59,6 +59,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val sunLayer = ARMarkerLayer()
     private val moonLayer = ARMarkerLayer()
+    private val horizonLayer = ARHorizonLayer()
 
     private val compassSyncTimer = CoroutineTimer {
         binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
@@ -77,7 +78,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         // TODO: Show azimuth / altitude
         binding.linearCompass.showAzimuthArrow = false
 
-        binding.arView.setLayers(listOf(sunLayer, moonLayer, beaconLayer))
+        binding.arView.setLayers(listOf(horizonLayer, sunLayer, moonLayer, beaconLayer))
 
         scheduleUpdates(INTERVAL_1_FPS)
     }
@@ -87,6 +88,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.arView.start()
 
+        // TODO: Move this to the AR view
         // TODO: Allow user to turn camera off
         // TODO: Allow zoom when camera is off
         // TODO: Allow use without sensors
@@ -100,6 +102,42 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             }
         }
 
+        updateAstronomyLayers()
+
+        compassSyncTimer.interval(INTERVAL_60_FPS)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.camera.stop()
+        binding.arView.stop()
+        compassSyncTimer.stop()
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+
+        // TODO: Move this to a coroutine (and to the AR view)
+        val fov = binding.camera.fov
+        binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
+        binding.linearCompass.range = fov.first
+
+        // Set the arView size to be the camera preview size
+        val size = binding.camera.getPreviewSize()
+        if (size != lastSize) {
+            lastSize = size
+            if (binding.arView.layoutParams == null) {
+                binding.arView.layoutParams = FrameLayout.LayoutParams(size.width, size.height)
+            } else {
+                binding.arView.layoutParams = binding.arView.layoutParams.apply {
+                    width = size.width
+                    height = size.height
+                }
+            }
+        }
+    }
+
+    private fun updateAstronomyLayers(){
         // TODO: Extract this population
         inBackground {
             // TODO: Show icons / render path rather than circles
@@ -107,11 +145,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val astro = AstronomyService()
                 val locationSubsystem = LocationSubsystem.getInstance(requireContext())
                 val location = locationSubsystem.location
-
-                // TODO: Maybe use this to determine where the horizon line should be drawn instead - too far for beacons
-//                val elevation = locationSubsystem.elevation.meters().distance
-//                val visibleDistance = Distance.miles(1.22459f * sqrt(elevation)).meters()
-//                beaconLayer.maxVisibleDistance = visibleDistance
 
                 val moonPositions = Time.getReadings(
                     LocalDate.now(),
@@ -192,38 +225,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
                 sunLayer.setMarkers(sunPositions + sun)
                 moonLayer.setMarkers(moonPositions + moon)
-            }
-        }
-
-        compassSyncTimer.interval(INTERVAL_60_FPS)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.camera.stop()
-        binding.arView.stop()
-        compassSyncTimer.stop()
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-
-        // TODO: Move this to a coroutine (and to the AR view)
-        val fov = binding.camera.fov
-        binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
-        binding.linearCompass.range = fov.first
-
-        // Set the arView size to be the camera preview size
-        val size = binding.camera.getPreviewSize()
-        if (size != lastSize) {
-            lastSize = size
-            if (binding.arView.layoutParams == null) {
-                binding.arView.layoutParams = FrameLayout.LayoutParams(size.width, size.height)
-            } else {
-                binding.arView.layoutParams = binding.arView.layoutParams.apply {
-                    width = size.width
-                    height = size.height
-                }
             }
         }
     }
