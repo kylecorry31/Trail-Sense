@@ -47,14 +47,16 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
-    private val beaconLayer = ARBeaconLayer { beacon, distance ->
-        val userDistance = distance.convertTo(userPrefs.baseDistanceUnits).toRelativeDistance()
-        val formattedDistance = formatter.formatDistance(
-            userDistance,
-            Units.getDecimalPlaces(userDistance.units),
-            strict = false
-        )
-        beacon.name + "\n" + formattedDistance
+    private val beaconLayer by lazy {
+        ARBeaconLayer(Distance.meters(userPrefs.navigation.maxBeaconDistance)) { beacon, distance ->
+            val userDistance = distance.convertTo(userPrefs.baseDistanceUnits).toRelativeDistance()
+            val formattedDistance = formatter.formatDistance(
+                userDistance,
+                Units.getDecimalPlaces(userDistance.units),
+                strict = false
+            )
+            beacon.name + "\n" + formattedDistance
+        }
     }
 
     private val sunLayer = ARMarkerLayer()
@@ -138,7 +140,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
     }
 
-    private fun updateAstronomyLayers(){
+    private fun updateAstronomyLayers() {
         // TODO: Extract this population
         inBackground {
             // TODO: Show icons / render path rather than circles
