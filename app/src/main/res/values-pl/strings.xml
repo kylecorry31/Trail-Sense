@@ -124,7 +124,7 @@
     <string name="dialog_deny">Nie, dzięki</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
-    <string name="access_background_location_rationale">Trail Sense używa w tle danych o lokalizacji. Służą one do zapewnienia dokładniejszych alertów o zachodzie słońca podczas podróży. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense wykorzystuje dane lokalizacji w tle do kalibracji ciśnienia na poziomie morza, w monitorowaniu pogody i w celu zapewnienia dokładniejszych alertów o zachodzie słońca. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
@@ -1058,4 +1058,16 @@
     <string name="weather_front">Front pogodowy</string>
     <string name="low_tide_letter">Odpływ</string>
     <string name="solar_eclipse_end">Zaćmienie Słońca (koniec)</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
+    <string name="gps_satellites">Satelity GPS</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Opady mogą występować przez następne %d godzin.</string>
+    <string name="gps_elevation_accuracy">Dokładność wysokości GPS</string>
+    <string name="gps_accuracy_tip">Upewnij się, że masz niezakłócony widok na niebo i oddal się od wysokich budynków i drzew.</string>
+    <string name="map_auto_rotated">Obrót mapy dostosowany za pomocą kalibracji</string>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na opady w ciągu najbliższych %d godzin.</string>
+    <string name="cumulonimbus_forecast">Może wskazywać na burzę w ciągu kilku minut.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę. Jeśli rośnie, może wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Może wskazywać na opady w ciągu najbliższych %1$d do %2$d godzin.</string>
+    <string name="gps_location_accuracy">Dokładność lokalizacji GPS</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę przez następne %d godzin.</string>
 </resources>
