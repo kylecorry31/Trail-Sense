@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import kotlin.math.hypot
 
 class CircleARMarker private constructor(
     private val position: AugmentedRealityView.HorizonCoordinate?,
@@ -40,7 +41,10 @@ class CircleARMarker private constructor(
 
     fun getAngularDiameter(view: AugmentedRealityView): Float {
         if (actualDiameter != null && location != null) {
-            val distance = view.location.distanceTo(location) + (elevation ?: 0f)
+            val distance = hypot(
+                view.location.distanceTo(location),
+                (elevation ?: view.altitude) - view.altitude
+            )
             return AugmentedRealityUtils.getAngularSize(actualDiameter, distance)
         }
         return angularDiameter ?: 1f

@@ -12,11 +12,12 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.text
+import kotlin.math.hypot
 
 // TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet (or move it to the consumer)
 class ARBeaconLayer(
     var maxVisibleDistance: Distance = Distance.kilometers(1f),
-    private val beaconSize: Distance = Distance.meters(5f),
+    private val beaconSize: Distance = Distance.meters(4f),
     private val labelFormatter: (beacon: Beacon, distance: Distance) -> String? = { beacon, _ -> beacon.name }
 ) : ARLayer {
 
@@ -64,7 +65,7 @@ class ARBeaconLayer(
             loadedImageSize = drawer.dp(24f).toInt()
         }
 
-        val minBeaconPixels = drawer.dp(4f)
+        val minBeaconPixels = drawer.dp(8f)
         val maxBeaconPixels = drawer.dp(48f)
 
         val loader = _loader ?: return
@@ -79,7 +80,10 @@ class ARBeaconLayer(
             if (!it.visible) {
                 return@mapNotNull null
             }
-            val distance = view.location.distanceTo(it.coordinate)
+            val distance = hypot(
+                view.location.distanceTo(it.coordinate),
+                (it.elevation ?: view.altitude) - view.altitude
+            )
             if (distance > maxVisibleDistance.meters().distance) {
                 return@mapNotNull null
             }
@@ -139,7 +143,10 @@ class ARBeaconLayer(
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         // TODO: Move this to the consumer
         val focused = focusedBeacon ?: return false
-        val distance = view.location.distanceTo(focused.coordinate)
+        val distance = hypot(
+            view.location.distanceTo(focused.coordinate),
+            (focused.elevation ?: view.altitude) - view.altitude
+        )
         val textToRender = labelFormatter(focused, Distance.meters(distance))
         if (!textToRender.isNullOrBlank()) {
             view.focusText = textToRender
