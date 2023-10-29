@@ -22,6 +22,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -32,6 +33,7 @@ import kotlin.math.asin
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 // TODO: Notify location change
 // TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
@@ -108,6 +110,12 @@ class AugmentedRealityView : CanvasView {
     private var useSensors = true
     private val orientationLock = Any()
 
+    // Guidance
+    // TODO: Guidance to a geographic coordinate as well - maybe move this to a layer?
+    private var guideCoordinate: HorizonCoordinate? = null
+    private var guideThreshold: Float? = null
+    private var onGuideReached: (() -> Unit)? = null
+
     fun start() {
         compass.start(this::onSensorUpdate)
         clinometer.start(this::onSensorUpdate)
@@ -164,6 +172,22 @@ class AugmentedRealityView : CanvasView {
         }
     }
 
+    fun guideTo(
+        coordinate: HorizonCoordinate,
+        thresholdDegrees: Float? = null,
+        onReached: () -> Unit = { clearGuide() }
+    ) {
+        guideCoordinate = coordinate
+        guideThreshold = thresholdDegrees
+        onGuideReached = onReached
+    }
+
+    fun clearGuide() {
+        guideCoordinate = null
+        guideThreshold = null
+        onGuideReached = null
+    }
+
     /**
      * Sets the AR view to freeform mode
      * @param isFreeform True if the view should be freeform, false otherwise (will use sensors)
@@ -206,20 +230,70 @@ class AugmentedRealityView : CanvasView {
         }
 
         var hasFocus = false
-        for (layer in layers.reversed()){
-            if (layer.onFocus(this, this)){
+        for (layer in layers.reversed()) {
+            if (layer.onFocus(this, this)) {
                 hasFocus = true
                 break
             }
         }
 
         // TODO: Should the onFocus method just return a string?
-        if (!hasFocus){
+        if (!hasFocus) {
             focusText = null
         }
 
         drawReticle()
+        drawGuidance()
         drawFocusText()
+    }
+
+    private fun drawGuidance() {
+        // Draw an arrow around the reticle that points to the desired location
+        val coordinate = guideCoordinate ?: return
+        val threshold = guideThreshold
+        val point = toPixel(coordinate)
+        val center = PixelCoordinate(width / 2f, height / 2f)
+        val reticle = PixelCircle(center, reticleDiameter / 2f)
+        val circle = PixelCircle(
+            point,
+            if (threshold == null) reticleDiameter / 2f else sizeToPixel(threshold)
+        )
+
+        if (circle.contains(center)) {
+            onGuideReached?.invoke()
+        }
+
+        if (reticle.contains(point)) {
+            // No need to draw the arrow - it's already centered
+            return
+        }
+
+        val angle = atan2(point.y - center.y, point.x - center.x).toDegrees()
+        push()
+        rotate(angle, center.x, center.y)
+        val size = drawer.dp(16f)
+        translate(center.x + reticleDiameter / 2f + size / 2f + dp(4f), center.y)
+        rotate(90f, 0f, 0f)
+        // Draw an arrow
+        val path = Path()
+
+        // Bottom Left
+        path.moveTo(-size / 2.5f, size / 2f)
+
+        // Top
+        path.lineTo(0f, -size / 2f)
+
+        // Bottom right
+        path.lineTo(size / 2.5f, size / 2f)
+
+        // Middle dip
+        path.lineTo(0f, size / 3f)
+
+        path.close()
+        noStroke()
+        fill(Color.WHITE.withAlpha(127))
+        path(path)
+        pop()
     }
 
     private fun drawFocusText() {
