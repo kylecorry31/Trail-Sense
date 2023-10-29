@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
+import com.kylecorry.trail_sense.shared.textDimensions
 import java.time.Duration
 import kotlin.math.asin
 import kotlin.math.atan2
@@ -199,7 +200,20 @@ class AugmentedRealityView : CanvasView {
         val textToRender = focusText ?: return
         if (textToRender.isBlank()) return
 
+        // Background
         noStroke()
+        fill(Color.BLACK.withAlpha(127))
+        val totalDimensions = textDimensions(textToRender, dp(4f))
+        val padding = dp(8f)
+        rect(
+            width / 2f - totalDimensions.first / 2f - padding,
+            height / 2f + reticleDiameter / 2f + dp(4f) + padding,
+            totalDimensions.first + padding * 2,
+            totalDimensions.second + padding * 2,
+            dp(4f)
+        )
+
+
         fill(Color.WHITE)
         textSize(drawer.sp(16f))
         textMode(TextMode.Corner)
@@ -209,7 +223,7 @@ class AugmentedRealityView : CanvasView {
         text(
             textToRender,
             width / 2f,
-            height / 2f + reticleDiameter / 2f + dp(16f),
+            height / 2f + reticleDiameter / 2f + dp(24f) + padding,
             dp(4f)
         )
     }

@@ -11,6 +11,7 @@ import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.math.sumOfFloat
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
@@ -114,4 +115,12 @@ fun ICanvasDrawer.text(str: String, x: Float, y: Float, lineSpacing: Float){
         lastHeight = textHeight(line)
         text(line, x, newY)
     }
+}
+
+fun ICanvasDrawer.textDimensions(str: String, lineSpacing: Float): Pair<Float, Float> {
+    val lines = str.split("\n")
+    val totalTextHeight = lines.sumOfFloat { textHeight(it) }
+    val totalSpacing = lineSpacing * (lines.size - 1)
+    val maxWidth = lines.maxOfOrNull { textWidth(it) } ?: 0f
+    return maxWidth to totalTextHeight + totalSpacing
 }
