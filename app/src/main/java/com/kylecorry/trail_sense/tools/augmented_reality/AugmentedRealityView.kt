@@ -33,6 +33,7 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
+// TODO: Notify location change
 // TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
 class AugmentedRealityView : CanvasView {
 
@@ -51,8 +52,7 @@ class AugmentedRealityView : CanvasView {
     private var orientation = Quaternion.zero
     private var inverseOrientation = Quaternion.zero
 
-    private val horizon = Path()
-
+    // Sensors / preferences
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private val compass = sensors.getCompass()
@@ -66,18 +66,39 @@ class AugmentedRealityView : CanvasView {
     )
     private val isTrueNorth = userPrefs.compass.useTrueNorth
 
+    /**
+     * The compass bearing of the device in degrees.
+     */
     var azimuth = 0f
         private set
+
+    /**
+     * The angle of the device from top to bottom in degrees.
+     */
     var inclination = 0f
         private set
+
+    /**
+     * The angle of the device from side to side in degrees
+     */
     var sideInclination = 0f
         private set
+
+    /**
+     * The location of the device
+     */
     val location: Coordinate
         get() = gps.location
 
+    /**
+     * The altitude of the device in meters
+     */
     val altitude: Float
         get() = altimeter.altitude
 
+    /**
+     * The diameter of the reticle in pixels
+     */
     val reticleDiameter: Float
         get() = dp(36f)
 
@@ -130,6 +151,10 @@ class AugmentedRealityView : CanvasView {
 
     // TODO: Take in zoom
     // TODO: Interpolate
+    /**
+     * Points the AR view at a coordinate
+     * @param coordinate The coordinate to point at
+     */
     fun pointAt(coordinate: HorizonCoordinate) {
         synchronized(orientationLock) {
             useSensors = false
@@ -139,6 +164,10 @@ class AugmentedRealityView : CanvasView {
         }
     }
 
+    /**
+     * Sets the AR view to freeform mode
+     * @param isFreeform True if the view should be freeform, false otherwise (will use sensors)
+     */
     fun setFreeform(isFreeform: Boolean) {
         synchronized(orientationLock) {
             useSensors = !isFreeform
@@ -171,9 +200,6 @@ class AugmentedRealityView : CanvasView {
     override fun draw() {
         updateOrientation()
         clear()
-
-        // TODO: Extract this to a layer
-        drawNorth()
 
         layers.forEach {
             it.draw(this, this)
@@ -226,26 +252,6 @@ class AugmentedRealityView : CanvasView {
             height / 2f + reticleDiameter / 2f + dp(24f) + padding,
             dp(4f)
         )
-    }
-
-    private fun drawNorth() {
-        // TODO: This is not rendering properly when rotated and pointing south
-        val north = Path()
-
-        for (i in -90..90 step 5) {
-            val pixel = toPixel(HorizonCoordinate(0f, i.toFloat()))
-            if (i == -90) {
-                north.moveTo(pixel.x, pixel.y)
-            } else {
-                north.lineTo(pixel.x, pixel.y)
-            }
-        }
-
-        noFill()
-        stroke(Color.WHITE)
-        strokeWeight(2f)
-        path(north)
-        noStroke()
     }
 
     private fun drawReticle() {

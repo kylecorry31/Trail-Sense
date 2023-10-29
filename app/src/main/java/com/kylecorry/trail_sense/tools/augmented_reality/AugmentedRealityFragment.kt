@@ -60,6 +60,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val sunLayer = ARMarkerLayer()
     private val moonLayer = ARMarkerLayer()
     private val horizonLayer = ARHorizonLayer()
+    private val northLayer = ARNorthLayer()
 
     private val compassSyncTimer = CoroutineTimer {
         binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
@@ -78,7 +79,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         // TODO: Show azimuth / altitude
         binding.linearCompass.showAzimuthArrow = false
 
-        binding.arView.setLayers(listOf(horizonLayer, sunLayer, moonLayer, beaconLayer))
+        binding.arView.setLayers(listOf(northLayer, horizonLayer, sunLayer, moonLayer, beaconLayer))
 
         scheduleUpdates(INTERVAL_1_FPS)
     }

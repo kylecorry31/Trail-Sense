@@ -6,7 +6,7 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
-class ARHorizonLayer(
+class ARNorthLayer(
     @ColorInt private val color: Int = Color.WHITE,
     private val thicknessDp: Float = 1f,
     private val resolutionDegrees: Int = 5
@@ -17,17 +17,10 @@ class ARHorizonLayer(
     // TODO: Make this into a generic path layer
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         path.reset()
-        var horizonPathStarted = false
-
-        val minAngle = (view.azimuth - view.fov.width).toInt()
-        val maxAngle = (view.azimuth + view.fov.width).toInt()
-
-        for (i in minAngle..maxAngle step resolutionDegrees) {
-            // TODO: Get the actual elevation to the horizon?
-            val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i.toFloat(), 0f))
-            if (!horizonPathStarted) {
+        for (i in -90..90 step resolutionDegrees) {
+            val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(0f, i.toFloat()))
+            if (i == -90) {
                 path.moveTo(pixel.x, pixel.y)
-                horizonPathStarted = true
             } else {
                 path.lineTo(pixel.x, pixel.y)
             }
