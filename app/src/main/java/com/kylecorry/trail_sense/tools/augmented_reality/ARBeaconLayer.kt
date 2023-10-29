@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.shared.text
 
 class ARBeaconLayer(
     private val maxVisibleDistance: Distance = Distance.kilometers(1f),
@@ -87,7 +88,6 @@ class ARBeaconLayer(
         // Draw the beacons
         visible.forEach {
             val pixel = view.toPixel(it.first.coordinate, it.first.elevation)
-            // TODO: Pass in angular size (or maybe just size, and scale that)
             val diameter = view.sizeToPixel(beaconSize, Distance.meters(it.second))
                 .coerceIn(minBeaconPixels, maxBeaconPixels)
             // Draw a circle
@@ -112,6 +112,7 @@ class ARBeaconLayer(
 
             // If it is centered, also draw the label
             // TODO: Figure out how the reticle should be handled - is the label even this layer's responsibility?
+            // TODO: Should it just return the label and let the ARView handle it?
             val center = PixelCoordinate(view.width / 2f, view.height / 2f)
             val centerCircle = PixelCircle(center, view.reticleSize / 2f)
             val circle = PixelCircle(pixel, diameter / 2f)
@@ -125,15 +126,14 @@ class ARBeaconLayer(
                     drawer.textSize(drawer.sp(16f))
                     drawer.textMode(TextMode.Corner)
                     drawer.textAlign(TextAlign.Center)
-                    val textH = drawer.textHeight(text)
 
-                    // Handle newlines (TODO: Do this in andromeda)
-                    val lines = text.split("\n")
-                    val start = pixel.y + textH + diameter / 2f + drawer.dp(8f)
-                    val lineSpacing = drawer.sp(4f)
-                    lines.forEachIndexed { index, line ->
-                        drawer.text(line, pixel.x, start + index * (textH + lineSpacing))
-                    }
+                    drawer.text(
+                        text,
+                        pixel.x,
+                        pixel.y + diameter / 2f + drawer.dp(16f),
+                        drawer.dp(4f)
+                    )
+
                     hasShownText = true
                     drawer.pop()
                 }
