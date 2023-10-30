@@ -32,7 +32,6 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import kotlin.math.sqrt
 
 // TODO: Support arguments for default layer visibility (ex. coming from astronomy, enable only sun/moon)
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
@@ -70,12 +69,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Show paths
         observeFlow(beaconRepo.getBeacons()) {
             beaconLayer.setBeacons(it)
         }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
+        binding.camera.setShowTorch(false)
 
         // TODO: Show azimuth / altitude
         binding.linearCompass.showAzimuthArrow = false
@@ -91,9 +90,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.arView.start()
 
         // TODO: Move this to the AR view
-        // TODO: Allow user to turn camera off
-        // TODO: Allow zoom when camera is off
-        // TODO: Allow use without sensors
         requestCamera {
             if (it) {
                 binding.camera.start(
@@ -148,46 +144,65 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val locationSubsystem = LocationSubsystem.getInstance(requireContext())
                 val location = locationSubsystem.location
 
+                val moonBeforePathObject = CircleCanvasObject(
+                    Color.WHITE,
+                    opacity = 20
+                )
+
+                val moonAfterPathObject = CircleCanvasObject(
+                    Color.WHITE,
+                    opacity = 127
+                )
+
+                val sunBeforePathObject = CircleCanvasObject(
+                    AppColor.Yellow.color,
+                    opacity = 20
+                )
+
+                val sunAfterPathObject = CircleCanvasObject(
+                    AppColor.Yellow.color,
+                    opacity = 127
+                )
+
                 val moonPositions = Time.getReadings(
                     LocalDate.now(),
                     ZoneId.systemDefault(),
                     Duration.ofMinutes(15)
                 ) {
-                    val alpha = if (it.isBefore(ZonedDateTime.now())) {
-                        20
+                    val obj = if (it.isBefore(ZonedDateTime.now())) {
+                        moonBeforePathObject
                     } else {
-                        127
+                        moonAfterPathObject
                     }
 
-                    CircleARMarker.horizon(
+                    ARMarkerImpl.horizon(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getMoonAzimuth(location, it).value,
                             astro.getMoonAltitude(location, it),
                             true
                         ),
                         1f,
-                        Color.WHITE,
-                        opacity = alpha
+                        obj
                     )
                 }.map { it.value }
 
                 val sunPositions = Time.getReadings(
                     LocalDate.now(), ZoneId.systemDefault(), Duration.ofMinutes(15)
                 ) {
-                    val alpha = if (it.isBefore(ZonedDateTime.now())) {
-                        20
+                    val obj = if (it.isBefore(ZonedDateTime.now())) {
+                        sunBeforePathObject
                     } else {
-                        127
+                        sunAfterPathObject
                     }
-                    CircleARMarker.horizon(
+
+                    ARMarkerImpl.horizon(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getSunAzimuth(location, it).value,
                             astro.getSunAltitude(location, it),
                             true
                         ),
                         1f,
-                        AppColor.Yellow.color,
-                        opacity = alpha
+                        obj
                     )
                 }.map { it.value }
 
@@ -197,28 +212,28 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val sunAltitude = astro.getSunAltitude(location)
                 val sunAzimuth = astro.getSunAzimuth(location).value
 
-                val moon = CircleARMarker.horizon(
+                val moon = ARMarkerImpl.horizon(
                     AugmentedRealityView.HorizonCoordinate(
                         moonAzimuth,
                         moonAltitude,
                         true
                     ),
                     2f,
-                    Color.WHITE,
+                    CircleCanvasObject(Color.WHITE),
                     onFocusedFn = {
                         binding.arView.focusText = getString(R.string.moon)
                         true
                     }
                 )
 
-                val sun = CircleARMarker.horizon(
+                val sun = ARMarkerImpl.horizon(
                     AugmentedRealityView.HorizonCoordinate(
                         sunAzimuth,
                         sunAltitude,
                         true
                     ),
                     2f,
-                    AppColor.Yellow.color,
+                    CircleCanvasObject(AppColor.Yellow.color),
                     onFocusedFn = {
                         binding.arView.focusText = getString(R.string.sun)
                         true

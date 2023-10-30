@@ -6,24 +6,24 @@ import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
 class ARMarkerLayer : ARLayer {
 
-    private val markers = mutableListOf<CircleARMarker>()
+    private val markers = mutableListOf<ARMarker>()
     private val lock = Any()
-    private val potentialFocusPoints = mutableListOf<Pair<CircleARMarker, PixelCircle>>()
+    private val potentialFocusPoints = mutableListOf<Pair<ARMarker, PixelCircle>>()
 
-    fun setMarkers(markers: List<CircleARMarker>) {
+    fun setMarkers(markers: List<ARMarker>) {
         synchronized(lock) {
             this.markers.clear()
             this.markers.addAll(markers)
         }
     }
 
-    fun addMarker(marker: CircleARMarker) {
+    fun addMarker(marker: ARMarker) {
         synchronized(lock) {
             markers.add(marker)
         }
     }
 
-    fun removeMarker(marker: CircleARMarker) {
+    fun removeMarker(marker: ARMarker) {
         synchronized(lock) {
             markers.remove(marker)
         }
