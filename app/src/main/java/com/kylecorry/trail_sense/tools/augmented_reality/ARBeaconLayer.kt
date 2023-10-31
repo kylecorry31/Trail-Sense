@@ -13,7 +13,8 @@ import kotlin.math.hypot
 class ARBeaconLayer(
     var maxVisibleDistance: Distance = Distance.kilometers(1f),
     private val beaconSize: Distance = Distance.meters(4f),
-    private val labelFormatter: (beacon: Beacon, distance: Distance) -> String? = { beacon, _ -> beacon.name }
+    private val onFocus: (beacon: Beacon) -> Boolean = { false },
+    private val onClick: (beacon: Beacon) -> Boolean = { false }
 ) : ARLayer {
 
     private val beacons = mutableListOf<Beacon>()
@@ -98,17 +99,10 @@ class ARBeaconLayer(
                         beaconSize.distance,
                         CircleCanvasObject(beacon.color, Color.WHITE),
                         onFocusedFn = {
-                            // TODO: This needs to have access to the view - either pass it in, or move this to the draw method
-                            val distance = hypot(
-                                view.location.distanceTo(beacon.coordinate),
-                                (beacon.elevation ?: view.altitude) - view.altitude
-                            )
-                            val textToRender = labelFormatter(beacon, Distance.meters(distance))
-                            if (!textToRender.isNullOrBlank()) {
-                                view.focusText = textToRender
-                                return@geographic true
-                            }
-                            false
+                            onFocus(beacon)
+                        },
+                        onClickFn = {
+                            onClick(beacon)
                         }
                     ),
                     beacon.icon?.let { icon ->

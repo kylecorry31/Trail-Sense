@@ -19,6 +19,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
+import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -32,6 +33,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import kotlin.math.hypot
 
 // TODO: Support arguments for default layer visibility (ex. coming from astronomy, enable only sun/moon)
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
@@ -46,16 +48,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     private val beaconLayer by lazy {
-        ARBeaconLayer(Distance.meters(userPrefs.navigation.maxBeaconDistance)) { beacon, distance ->
-            // TODO: This should be onFocus rather than returning a string
-            val userDistance = distance.convertTo(userPrefs.baseDistanceUnits).toRelativeDistance()
-            val formattedDistance = formatter.formatDistance(
-                userDistance,
-                Units.getDecimalPlaces(userDistance.units),
-                strict = false
-            )
-            beacon.name + "\n" + formattedDistance
-        }
+        ARBeaconLayer(
+            Distance.meters(userPrefs.navigation.maxBeaconDistance),
+            onFocus = this::onBeaconFocused
+        )
     }
 
     private val sunLayer = ARMarkerLayer()
@@ -245,6 +241,22 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 moonLayer.setMarkers(moonPositions + moon)
             }
         }
+    }
+
+    private fun onBeaconFocused(beacon: Beacon): Boolean {
+        val distance = hypot(
+            binding.arView.location.distanceTo(beacon.coordinate),
+            (beacon.elevation ?: binding.arView.altitude) - binding.arView.altitude
+        )
+        val userDistance = Distance.meters(distance).convertTo(userPrefs.baseDistanceUnits)
+            .toRelativeDistance()
+        val formattedDistance = formatter.formatDistance(
+            userDistance,
+            Units.getDecimalPlaces(userDistance.units),
+            strict = false
+        )
+        binding.arView.focusText = beacon.name + "\n" + formattedDistance
+        return true
     }
 
     override fun generateBinding(
