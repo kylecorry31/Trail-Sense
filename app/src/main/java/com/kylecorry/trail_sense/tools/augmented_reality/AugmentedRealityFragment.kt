@@ -47,6 +47,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val beaconLayer by lazy {
         ARBeaconLayer(Distance.meters(userPrefs.navigation.maxBeaconDistance)) { beacon, distance ->
+            // TODO: This should be onFocus rather than returning a string
             val userDistance = distance.convertTo(userPrefs.baseDistanceUnits).toRelativeDistance()
             val formattedDistance = formatter.formatDistance(
                 userDistance,

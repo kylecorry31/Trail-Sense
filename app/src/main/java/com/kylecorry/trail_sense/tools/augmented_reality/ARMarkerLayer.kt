@@ -4,7 +4,10 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
-class ARMarkerLayer : ARLayer {
+class ARMarkerLayer(
+    private val minimumDpSize: Float = 0f,
+    private val maximumDpSize: Float? = null,
+) : ARLayer {
 
     private val markers = mutableListOf<ARMarker>()
     private val lock = Any()
@@ -45,13 +48,20 @@ class ARMarkerLayer : ARLayer {
 
         potentialFocusPoints.clear()
 
+        val minimumPixelSize = drawer.dp(minimumDpSize)
+        val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
+
         markers.forEach {
             val coordinates = it.getHorizonCoordinate(view)
             val angularDiameter = it.getAngularDiameter(view)
+            val diameter = view.sizeToPixel(angularDiameter)
             val circle =
-                PixelCircle(view.toPixel(coordinates), view.sizeToPixel(angularDiameter) / 2f)
+                PixelCircle(
+                    view.toPixel(coordinates),
+                    diameter.coerceIn(minimumPixelSize, maximumPixelSize) / 2f
+                )
 
-            it.draw(drawer, circle)
+            it.draw(view, drawer, circle)
 
             if (reticle.intersects(circle)) {
                 potentialFocusPoints.add(it to circle)

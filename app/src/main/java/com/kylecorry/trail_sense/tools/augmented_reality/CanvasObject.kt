@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
 interface CanvasObject {
@@ -32,5 +33,38 @@ class CircleCanvasObject(
             drawer.opacity(opacity)
             drawer.circle(area.center.x, area.center.y, size)
         }
+    }
+}
+
+class BitmapCanvasObject(
+    private val bitmap: android.graphics.Bitmap,
+    private val scale: Float = 1f,
+    private val opacity: Int = 255,
+    private val tint: Int? = null
+) : CanvasObject {
+
+    private val aspectRatio = bitmap.width.toFloat() / bitmap.height.toFloat()
+
+    override fun draw(drawer: ICanvasDrawer, area: PixelCircle) {
+        if (tint != null) {
+            drawer.tint(tint)
+        } else {
+            drawer.noTint()
+        }
+        drawer.opacity(opacity)
+
+        // Choose the maximum width and height that fit in the circle
+        val width = area.radius * 2f * scale
+        val height = width / aspectRatio
+        drawer.imageMode(ImageMode.Center)
+        drawer.image(
+            bitmap,
+            area.center.x,
+            area.center.y,
+            width,
+            height
+        )
+
+        drawer.noTint()
     }
 }

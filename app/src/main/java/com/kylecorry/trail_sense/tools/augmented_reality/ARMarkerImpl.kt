@@ -14,12 +14,18 @@ class ARMarkerImpl private constructor(
     private val elevation: Float?,
     private val actualDiameter: Float?,
     private val canvasObject: CanvasObject,
+    private val keepFacingUp: Boolean = false,
     private val onFocusedFn: (() -> Boolean) = { false },
     private val onClickFn: () -> Boolean = { false }
 ) : ARMarker {
 
-    override fun draw(drawer: ICanvasDrawer, anchor: PixelCircle) {
-        canvasObject.draw(drawer, anchor)
+    override fun draw(view: AugmentedRealityView, drawer: ICanvasDrawer, area: PixelCircle) {
+        drawer.push()
+        if (keepFacingUp) {
+            drawer.rotate(view.sideInclination, area.center.x, area.center.y)
+        }
+        canvasObject.draw(drawer, area)
+        drawer.pop()
     }
 
     override fun getAngularDiameter(view: AugmentedRealityView): Float {
@@ -60,6 +66,7 @@ class ARMarkerImpl private constructor(
             position: AugmentedRealityView.HorizonCoordinate?,
             angularDiameter: Float = 12f,
             canvasObject: CanvasObject,
+            keepFacingUp: Boolean = false,
             onFocusedFn: (() -> Boolean) = { false },
             onClickFn: () -> Boolean = { false }
         ): ARMarker {
@@ -70,6 +77,7 @@ class ARMarkerImpl private constructor(
                 null,
                 null,
                 canvasObject,
+                keepFacingUp,
                 onFocusedFn,
                 onClickFn
             )
@@ -77,9 +85,10 @@ class ARMarkerImpl private constructor(
 
         fun geographic(
             location: Coordinate,
-            elevation: Float,
+            elevation: Float?,
             actualDiameter: Float,
             canvasObject: CanvasObject,
+            keepFacingUp: Boolean = false,
             onFocusedFn: (() -> Boolean) = { false },
             onClickFn: () -> Boolean = { false }
         ): ARMarker {
@@ -90,6 +99,7 @@ class ARMarkerImpl private constructor(
                 elevation,
                 actualDiameter,
                 canvasObject,
+                keepFacingUp,
                 onFocusedFn,
                 onClickFn
             )

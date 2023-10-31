@@ -2,16 +2,11 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.canvas.ImageMode
-import com.kylecorry.andromeda.canvas.TextAlign
-import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
-import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.text
 import kotlin.math.hypot
 
 // TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet (or move it to the consumer)
@@ -26,31 +21,37 @@ class ARBeaconLayer(
     private var _loader: DrawerBitmapLoader? = null
     private var loadedImageSize = 24
 
-    private var focusedBeacon: Beacon? = null
+    private val layer = ARMarkerLayer(8f, 48f)
+
+    private var areBeaconsUpToDate = false
 
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
             // TODO: Convert to markers
             this.beacons.clear()
             this.beacons.addAll(beacons)
+            areBeaconsUpToDate = false
         }
     }
 
     fun addBeacon(beacon: Beacon) {
         synchronized(lock) {
             beacons.add(beacon)
+            areBeaconsUpToDate = false
         }
     }
 
     fun removeBeacon(beacon: Beacon) {
         synchronized(lock) {
             beacons.remove(beacon)
+            areBeaconsUpToDate = false
         }
     }
 
     fun clearBeacons() {
         synchronized(lock) {
             beacons.clear()
+            areBeaconsUpToDate = false
         }
     }
 
@@ -65,9 +66,6 @@ class ARBeaconLayer(
             loadedImageSize = drawer.dp(24f).toInt()
         }
 
-        val minBeaconPixels = drawer.dp(8f)
-        val maxBeaconPixels = drawer.dp(48f)
-
         val loader = _loader ?: return
 
         val beacons = synchronized(lock) {
@@ -75,7 +73,6 @@ class ARBeaconLayer(
         }
 
         // TODO: Is this the responsibility of the layer or consumer?
-        // Filter to the beacons which are visible and within the viewDistance
         val visible = beacons.mapNotNull {
             if (!it.visible) {
                 return@mapNotNull null
@@ -90,69 +87,65 @@ class ARBeaconLayer(
             it to distance
         }.sortedByDescending { it.second }
 
-        focusedBeacon = null
+        // TODO: Avoid recreating markers every time
+//        if (!areBeaconsUpToDate) {
+            layer.setMarkers(visible.flatMap {
+                val beacon = it.first
+                listOfNotNull(
+                    ARMarkerImpl.geographic(
+                        beacon.coordinate,
+                        beacon.elevation,
+                        beaconSize.distance,
+                        CircleCanvasObject(beacon.color, Color.WHITE),
+                        onFocusedFn = {
+                            // TODO: This needs to have access to the view - either pass it in, or move this to the draw method
+                            val distance = hypot(
+                                view.location.distanceTo(beacon.coordinate),
+                                (beacon.elevation ?: view.altitude) - view.altitude
+                            )
+                            val textToRender = labelFormatter(beacon, Distance.meters(distance))
+                            if (!textToRender.isNullOrBlank()) {
+                                view.focusText = textToRender
+                                return@geographic true
+                            }
+                            false
+                        }
+                    ),
+                    beacon.icon?.let { icon ->
+                        val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, beacon.color)
+                        ARMarkerImpl.geographic(
+                            beacon.coordinate,
+                            beacon.elevation,
+                            beaconSize.distance,
+                            BitmapCanvasObject(
+                                loader.load(icon.icon, loadedImageSize),
+                                0.75f,
+                                tint = color
+                            ),
+                            keepFacingUp = true
+                        )
+                    }
+                )
+            })
+//            areBeaconsUpToDate = true
+//        }
 
-        val center = PixelCoordinate(view.width / 2f, view.height / 2f)
-        val centerCircle = PixelCircle(center, view.reticleDiameter / 2f)
-
-        // Draw the beacons
-        visible.forEach {
-            val pixel = view.toPixel(it.first.coordinate, it.first.elevation)
-            val diameter = view.sizeToPixel(beaconSize, Distance.meters(it.second))
-                .coerceIn(minBeaconPixels, maxBeaconPixels)
-
-            // Draw a circle for the beacon
-            drawer.strokeWeight(drawer.dp(0.5f))
-            drawer.stroke(Color.WHITE)
-            drawer.fill(it.first.color)
-            drawer.circle(pixel.x, pixel.y, diameter)
-
-            // Draw the icon
-            if (it.first.icon != null) {
-                val image = loader.load(it.first.icon!!.icon, loadedImageSize)
-                val color =
-                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.first.color)
-                drawer.push()
-                drawer.rotate(view.sideInclination, pixel.x, pixel.y)
-                drawer.tint(color)
-                drawer.imageMode(ImageMode.Center)
-                drawer.image(image, pixel.x, pixel.y, diameter * 0.75f, diameter * 0.75f)
-                drawer.noTint()
-                drawer.pop()
-            }
-
-            // Update the focused beacon
-            val circle = PixelCircle(pixel, diameter / 2f)
-            if (circle.intersects(centerCircle)) {
-                focusedBeacon = it.first
-            }
-        }
+        layer.draw(drawer, view)
     }
 
     override fun invalidate() {
-        // Do nothing
+        areBeaconsUpToDate = false
+        layer.invalidate()
     }
 
     override fun onClick(
         drawer: ICanvasDrawer, view: AugmentedRealityView, pixel: PixelCoordinate
     ): Boolean {
-        // TODO: Expose this to the consumer
-        return false
+        return layer.onClick(drawer, view, pixel)
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
-        // TODO: Move this to the consumer
-        val focused = focusedBeacon ?: return false
-        val distance = hypot(
-            view.location.distanceTo(focused.coordinate),
-            (focused.elevation ?: view.altitude) - view.altitude
-        )
-        val textToRender = labelFormatter(focused, Distance.meters(distance))
-        if (!textToRender.isNullOrBlank()) {
-            view.focusText = textToRender
-            return true
-        }
-        return false
+        return layer.onFocus(drawer, view)
     }
 
 }
