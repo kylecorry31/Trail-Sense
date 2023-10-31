@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.camera.view.PreviewView
+import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -34,10 +35,14 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     var camera: ICamera? = null
 
+    private var lastFov: Pair<Float, Float>? = null
+
     val fov: Pair<Float, Float>
         get() {
             val defaultFOV = 45f
-            return camera?.getZoomedFOV() ?: (defaultFOV to defaultFOV)
+            val fieldOfView = camera?.getZoomedFOV() ?: lastFov ?: (defaultFOV to defaultFOV * 4f / 3f)
+            lastFov = fieldOfView
+            return fieldOfView
         }
 
     private val preview: PreviewView
@@ -85,6 +90,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             isStarted = true
         }
 
+        alpha = 1f
+
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
         camera = Camera(
@@ -103,6 +110,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun stop() {
         camera?.stop(this::onCameraUpdate)
         camera = null
+        alpha = 0f
         synchronized(startLock) {
             isStarted = false
         }

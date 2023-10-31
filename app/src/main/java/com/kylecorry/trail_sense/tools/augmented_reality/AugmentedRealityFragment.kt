@@ -59,6 +59,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val horizonLayer = ARHorizonLayer()
     private val northLayer = ARNorthLayer()
 
+    private var isCameraEnabled = true
+
     private val compassSyncTimer = CoroutineTimer {
         binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
     }
@@ -78,6 +80,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.arView.setLayers(listOf(northLayer, horizonLayer, sunLayer, moonLayer, beaconLayer))
 
+        binding.cameraToggle.setOnClickListener {
+            if (isCameraEnabled) {
+                stopCamera()
+            } else {
+                startCamera()
+            }
+        }
+
         scheduleUpdates(INTERVAL_1_FPS)
     }
 
@@ -85,21 +95,38 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onResume()
 
         binding.arView.start()
+        if (isCameraEnabled) {
+            startCamera()
+        }
+        updateAstronomyLayers()
 
-        // TODO: Move this to the AR view
+        compassSyncTimer.interval(INTERVAL_60_FPS)
+    }
+
+    // TODO: Move this to the AR view
+    private fun startCamera() {
+        isCameraEnabled = true
+        binding.cameraToggle.setImageResource(R.drawable.ic_camera)
+        binding.arView.backgroundFillColor = Color.TRANSPARENT
         requestCamera {
             if (it) {
                 binding.camera.start(
                     readFrames = false, shouldStabilizePreview = false
                 )
             } else {
+                isCameraEnabled = false
+                binding.cameraToggle.setImageResource(R.drawable.ic_camera_off)
+                binding.arView.backgroundFillColor = Color.BLACK
                 alertNoCameraPermission()
             }
         }
+    }
 
-        updateAstronomyLayers()
-
-        compassSyncTimer.interval(INTERVAL_60_FPS)
+    private fun stopCamera(){
+        binding.cameraToggle.setImageResource(R.drawable.ic_camera_off)
+        isCameraEnabled = false
+        binding.arView.backgroundFillColor = Color.BLACK
+        binding.camera.stop()
     }
 
     override fun onPause() {

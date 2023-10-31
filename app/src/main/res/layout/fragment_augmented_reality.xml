@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -21,12 +22,23 @@
             android:layout_height="match_parent"
             android:layout_gravity="center" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/camera_toggle"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_camera"
+            app:tint="@color/white" />
+
+
     </FrameLayout>
 
     <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"/>
+        android:layout_marginBottom="@dimen/default_bottom_margin" />
 
 </LinearLayout>

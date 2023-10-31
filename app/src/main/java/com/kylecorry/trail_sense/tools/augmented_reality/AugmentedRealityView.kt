@@ -33,7 +33,6 @@ import kotlin.math.asin
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 // TODO: Notify location change
 // TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
@@ -50,6 +49,8 @@ class AugmentedRealityView : CanvasView {
     var fov: Size = Size(45f, 45f)
 
     var focusText: String? = null
+
+    var backgroundFillColor: Int = Color.TRANSPARENT
 
     private var orientation = Quaternion.zero
     private var inverseOrientation = Quaternion.zero
@@ -223,7 +224,7 @@ class AugmentedRealityView : CanvasView {
 
     override fun draw() {
         updateOrientation()
-        clear()
+        background(backgroundFillColor)
 
         layers.forEach {
             it.draw(this, this)

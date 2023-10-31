@@ -88,7 +88,7 @@ class ARBeaconLayer(
             it to distance
         }.sortedByDescending { it.second }
 
-        // TODO: Avoid recreating markers every time
+        // TODO: Avoid recreating markers every time - it will help if this didn't filter nearby beacons
 //        if (!areBeaconsUpToDate) {
             layer.setMarkers(visible.flatMap {
                 val beacon = it.first
