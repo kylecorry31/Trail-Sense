@@ -5,14 +5,14 @@
     <string name="settings">Instellingen</string>
     <string name="name">Naam</string>
     <string name="astronomy">Astronomie</string>
-    <string name="sunrise_label">Zonsopgang</string>
+    <string name="sunrise_label">Zonsopkomst</string>
     <string name="sunset_label">Zonsondergang</string>
     <string name="true_north">Ware noorden</string>
     <string name="pref_use_sea_level_pressure_title">Druk op zeeniveau</string>
     <string name="general">Algemeen</string>
     <string name="pressure">Druk</string>
     <string name="pref_use_24_hour_title">24-uursnotatie gebruiken</string>
-    <string name="pref_sun_time_mode_title">Zonsopgang/zonsondergang tijden</string>
+    <string name="pref_sun_time_mode_title">Zonsopkomst/zonsondergang tijden</string>
     <string name="no_beacons">Geen bakens</string>
     <string name="continue_button">DOORGAAN</string>
     <string name="stop">Stop</string>
