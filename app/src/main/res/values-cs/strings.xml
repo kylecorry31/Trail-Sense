@@ -1169,4 +1169,6 @@
     <string name="enter_manually">Zadat ručně</string>
     <string name="direction_not_set">Směr nenastaven</string>
     <string name="direction">Směr</string>
+    <string name="augmented_reality">Rozšířená realita</string>
+    <string name="augmented_reality_description">Zobrazte si blízké majáky a slunce/měsíc vaším fotoaparátem</string>
 </resources>
