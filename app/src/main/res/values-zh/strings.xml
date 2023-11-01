@@ -1128,4 +1128,6 @@
     <string name="enter_manually">手动输入</string>
     <string name="direction_not_set">未设置方向</string>
     <string name="direction">方向</string>
+    <string name="augmented_reality">增强现实</string>
+    <string name="augmented_reality_description">用相机查看附近信标及太阳/月亮</string>
 </resources>
