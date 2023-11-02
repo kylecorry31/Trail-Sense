@@ -65,6 +65,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
     }
 
+    // TODO: Draw an indicator around the focused marker
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -282,8 +284,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     }
                 )
 
-                // TODO: Move current sun / moon to a new layer so they can be focused on separately
-                // TODO: If two markers overlap, show the one that is in front
                 sunLayer.setMarkers(sunPositions + sun)
                 moonLayer.setMarkers(moonPositions + moon)
             }

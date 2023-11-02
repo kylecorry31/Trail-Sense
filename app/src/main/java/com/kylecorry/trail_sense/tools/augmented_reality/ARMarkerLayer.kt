@@ -83,6 +83,7 @@ class ARMarkerLayer(
             markers.toList()
         }
         // TODO: Check for intersection instead
+        // TODO: Handle overlap (choose the one in front)
         val clicked = markers.map {
             val anchor = view.toPixel(it.getHorizonCoordinate(view))
             val radius = view.sizeToPixel(it.getAngularDiameter(view) * clickSizeMultiplier) / 2f
@@ -102,10 +103,18 @@ class ARMarkerLayer(
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         val center = PixelCoordinate(view.width / 2f, view.height / 2f)
-
+        // potentialFocusPoints is ordered by farthest to closest to the camera
         // Focus on the closest marker
         val sorted = potentialFocusPoints
-            .sortedBy { it.second.center.distanceTo(center) }
+            .reversed()
+            .sortedBy {
+                // The point is centered (which means if the point is closer to the camera it will be first in the list)
+                if (it.second.contains(center)) {
+                    return@sortedBy 0f
+                }
+                // The circle does not overlap with the center, so calculate the distance to the nearest point on the circle
+                it.second.center.distanceTo(center) - it.second.radius
+            }
         for (marker in sorted) {
             if (marker.first.onFocused()) {
                 return true
