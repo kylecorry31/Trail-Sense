@@ -26,6 +26,8 @@ class ARBeaconLayer(
 
     private var areBeaconsUpToDate = false
 
+    var destination: Beacon? = null
+
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
             // TODO: Convert to markers
@@ -75,14 +77,14 @@ class ARBeaconLayer(
 
         // TODO: Is this the responsibility of the layer or consumer?
         val visible = beacons.mapNotNull {
-            if (!it.visible) {
+            if (it.id != destination?.id && !it.visible) {
                 return@mapNotNull null
             }
             val distance = hypot(
                 view.location.distanceTo(it.coordinate),
                 (it.elevation ?: view.altitude) - view.altitude
             )
-            if (distance > maxVisibleDistance.meters().distance) {
+            if (it.id != destination?.id && distance > maxVisibleDistance.meters().distance) {
                 return@mapNotNull null
             }
             it to distance
@@ -90,6 +92,7 @@ class ARBeaconLayer(
 
         // TODO: Avoid recreating markers every time - it will help if this didn't filter nearby beacons
 //        if (!areBeaconsUpToDate) {
+        // TODO: Change opacity if navigating
             layer.setMarkers(visible.flatMap {
                 val beacon = it.first
                 listOfNotNull(

@@ -4,6 +4,9 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
@@ -112,8 +115,7 @@ class AugmentedRealityView : CanvasView {
     private val orientationLock = Any()
 
     // Guidance
-    // TODO: Guidance to a geographic coordinate as well - maybe move this to a layer?
-    private var guideCoordinate: HorizonCoordinate? = null
+    private var guideLocation: ARPosition? = null
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
@@ -174,17 +176,17 @@ class AugmentedRealityView : CanvasView {
     }
 
     fun guideTo(
-        coordinate: HorizonCoordinate,
+        location: ARPosition,
         thresholdDegrees: Float? = null,
         onReached: () -> Unit = { clearGuide() }
     ) {
-        guideCoordinate = coordinate
+        guideLocation = location
         guideThreshold = thresholdDegrees
         onGuideReached = onReached
     }
 
     fun clearGuide() {
-        guideCoordinate = null
+        guideLocation = null
         guideThreshold = null
         onGuideReached = null
     }
@@ -250,7 +252,7 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawGuidance() {
         // Draw an arrow around the reticle that points to the desired location
-        val coordinate = guideCoordinate ?: return
+        val coordinate = guideLocation?.getHorizonCoordinate(location, altitude) ?: return
         val threshold = guideThreshold
         val point = toPixel(coordinate)
         val center = PixelCoordinate(width / 2f, height / 2f)
@@ -431,6 +433,26 @@ class AugmentedRealityView : CanvasView {
     private fun updateOrientation() {
         orientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
         inverseOrientation = orientation.inverse()
+    }
+
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            val pixel = PixelCoordinate(e.x, e.y)
+            for (layer in layers.reversed()) {
+                if (layer.onClick(this@AugmentedRealityView, this@AugmentedRealityView, pixel)) {
+                    return true
+                }
+            }
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
+    private val mGestureDetector = GestureDetector(context, gestureListener)
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        mGestureDetector.onTouchEvent(event)
+        invalidate()
+        return true
     }
 
     data class HorizonCoordinate(

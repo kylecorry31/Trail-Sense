@@ -48,18 +48,12 @@ class ARMarkerLayer(
 
         potentialFocusPoints.clear()
 
+        // TODO: Save these
         val minimumPixelSize = drawer.dp(minimumDpSize)
         val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
 
         markers.forEach {
-            val coordinates = it.getHorizonCoordinate(view)
-            val angularDiameter = it.getAngularDiameter(view)
-            val diameter = view.sizeToPixel(angularDiameter)
-            val circle =
-                PixelCircle(
-                    view.toPixel(coordinates),
-                    diameter.coerceIn(minimumPixelSize, maximumPixelSize) / 2f
-                )
+            val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize)
 
             it.draw(view, drawer, circle)
 
@@ -78,27 +72,60 @@ class ARMarkerLayer(
         view: AugmentedRealityView,
         pixel: PixelCoordinate
     ): Boolean {
-        val clickSizeMultiplier = 2f
         val markers = synchronized(lock) {
             markers.toList()
         }
-        // TODO: Check for intersection instead
-        // TODO: Handle overlap (choose the one in front)
-        val clicked = markers.map {
-            val anchor = view.toPixel(it.getHorizonCoordinate(view))
-            val radius = view.sizeToPixel(it.getAngularDiameter(view) * clickSizeMultiplier) / 2f
-            it to PixelCircle(anchor, radius)
-        }
-            .filter { it.second.contains(pixel) }
-            .sortedBy { it.second.center.distanceTo(pixel) }
+        val click = PixelCircle(
+            pixel,
+            view.reticleDiameter / 2f
+        )
+        // potentialFocusPoints is ordered by farthest to closest to the camera
+        // Focus on the closest marker
 
-        for (marker in clicked) {
+        val minimumPixelSize = drawer.dp(minimumDpSize)
+        val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
+
+        val sorted = markers
+            .mapNotNull {
+                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize)
+                if (circle.intersects(click)) {
+                    it to circle
+                } else {
+                    null
+                }
+            }
+            .reversed()
+            .sortedBy {
+                // The point is centered (which means if the point is closer to the camera it will be first in the list)
+                if (it.second.contains(pixel)) {
+                    return@sortedBy 0f
+                }
+                // The circle does not overlap with the center, so calculate the distance to the nearest point on the circle
+                it.second.center.distanceTo(pixel) - it.second.radius
+            }
+
+        for (marker in sorted) {
             if (marker.first.onClick()) {
                 return true
             }
         }
 
         return false
+    }
+
+    private fun getCircle(
+        marker: ARMarker,
+        view: AugmentedRealityView,
+        minimumPixelSize: Float,
+        maximumPixelSize: Float
+    ): PixelCircle {
+        val coordinates = marker.getHorizonCoordinate(view)
+        val angularDiameter = marker.getAngularDiameter(view)
+        val diameter = view.sizeToPixel(angularDiameter)
+        return PixelCircle(
+            view.toPixel(coordinates),
+            diameter.coerceIn(minimumPixelSize, maximumPixelSize) / 2f
+        )
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {

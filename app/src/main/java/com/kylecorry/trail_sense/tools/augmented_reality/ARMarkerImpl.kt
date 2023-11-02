@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import kotlin.math.hypot
 
 // TODO: Is the interface even needed?
+// TODO: Use ARPosition and ARSize
 class ARMarkerImpl private constructor(
     private val position: AugmentedRealityView.HorizonCoordinate?,
     private val angularDiameter: Float?,

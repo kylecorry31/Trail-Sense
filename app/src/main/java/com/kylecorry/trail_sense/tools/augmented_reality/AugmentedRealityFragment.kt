@@ -21,6 +21,8 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -51,8 +53,17 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         ARBeaconLayer(
             Distance.meters(userPrefs.navigation.maxBeaconDistance),
             onFocus = this::onBeaconFocused
-        )
+        ) {
+            if (navigator.getDestinationId() != it.id) {
+                navigator.navigateTo(it)
+            } else {
+                navigator.cancelNavigation()
+            }
+            true
+        }
     }
+
+    private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
     private val sunLayer = ARMarkerLayer()
     private val moonLayer = ARMarkerLayer()
@@ -72,6 +83,17 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         observeFlow(beaconRepo.getBeacons()) {
             beaconLayer.setBeacons(it)
+        }
+
+        observeFlow(navigator.destination) {
+            if (it == null) {
+                binding.arView.clearGuide()
+            } else {
+                binding.arView.guideTo(ARPosition.geographic(it.coordinate, it.elevation)) {
+                    // Do nothing when reached
+                }
+            }
+            beaconLayer.destination = it
         }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
