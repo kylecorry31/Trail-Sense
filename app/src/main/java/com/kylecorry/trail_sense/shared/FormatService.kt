@@ -111,6 +111,18 @@ class FormatService private constructor(private val context: Context) {
         }
     }
 
+    fun formatRelativeDateTime(
+        time: ZonedDateTime,
+        abbreviateMonth: Boolean = false,
+        includeSeconds: Boolean = true,
+        includeMinutes: Boolean = true
+    ): String {
+        return formatRelativeDate(
+            time.toLocalDate(),
+            abbreviateMonth
+        ) + " " + formatTime(time.toLocalTime(), includeSeconds, includeMinutes)
+    }
+
     fun formatRelativeDate(date: LocalDate, abbreviateMonth: Boolean = false): String {
         val now = LocalDate.now()
 
@@ -118,12 +130,15 @@ class FormatService private constructor(private val context: Context) {
             now -> {
                 strings.getString(R.string.today)
             }
+
             now.plusDays(1) -> {
                 strings.getString(R.string.tomorrow)
             }
+
             now.minusDays(1) -> {
                 strings.getString(R.string.yesterday)
             }
+
             else -> {
                 DateUtils.formatDateTime(
                     context,
@@ -252,17 +267,20 @@ class FormatService private constructor(private val context: Context) {
                 R.string.precise_kilometers_format,
                 formatted
             )
+
             DistanceUnits.Feet -> strings.getString(R.string.precise_feet_format, formatted)
             DistanceUnits.Miles -> strings.getString(R.string.precise_miles_format, formatted)
             DistanceUnits.NauticalMiles -> strings.getString(
                 R.string.precise_nautical_miles_format,
                 formatted
             )
+
             DistanceUnits.Inches -> strings.getString(R.string.precise_inches_format, formatted)
             DistanceUnits.Centimeters -> strings.getString(
                 R.string.precise_centimeters_format,
                 formatted
             )
+
             DistanceUnits.Yards -> strings.getString(R.string.yards_format, formatted)
         }
     }
@@ -300,6 +318,7 @@ class FormatService private constructor(private val context: Context) {
                 R.string.ounces_volume_format,
                 formatted
             )
+
             VolumeUnits.ImperialGallons -> strings.getString(R.string.gallon_format, formatted)
         }
     }
@@ -583,16 +602,19 @@ class FormatService private constructor(private val context: Context) {
                     R.string.precise_kilometers_format,
                     ""
                 )
+
                 DistanceUnits.Feet -> strings.getString(R.string.precise_feet_format, "")
                 DistanceUnits.Miles -> strings.getString(R.string.precise_miles_format, "")
                 DistanceUnits.NauticalMiles -> strings.getString(
                     R.string.precise_nautical_miles_format,
                     ""
                 )
+
                 DistanceUnits.Centimeters -> strings.getString(
                     R.string.precise_centimeters_format,
                     ""
                 )
+
                 DistanceUnits.Inches -> strings.getString(R.string.precise_inches_format, "")
                 DistanceUnits.Yards -> strings.getString(R.string.yards_format, "")
             }.replace(" ", "")
@@ -682,7 +704,7 @@ class FormatService private constructor(private val context: Context) {
             MapProjectionType.CylindricalEquidistant -> strings.getString(R.string.map_projection_equidistant)
         }
     }
-    
+
     fun formatBooleanYesNo(value: Boolean): String {
         return if (value) context.getString(R.string.yes) else context.getString(R.string.no)
     }

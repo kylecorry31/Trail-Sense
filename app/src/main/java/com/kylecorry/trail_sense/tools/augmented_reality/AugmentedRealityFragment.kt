@@ -122,7 +122,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
     }
 
-    private fun stopCamera(){
+    private fun stopCamera() {
         binding.cameraToggle.setImageResource(R.drawable.ic_camera_off)
         isCameraEnabled = false
         binding.arView.backgroundFillColor = Color.BLACK
@@ -206,7 +206,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                             true
                         ),
                         1f,
-                        obj
+                        obj,
+                        onFocusedFn = {
+                            binding.arView.focusText =
+                                getString(R.string.moon) + "\n" + formatter.formatRelativeDateTime(
+                                    it,
+                                    includeSeconds = false
+                                )
+                            true
+                        }
                     )
                 }.map { it.value }
 
@@ -226,7 +234,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                             true
                         ),
                         1f,
-                        obj
+                        obj,
+                        onFocusedFn = {
+                            binding.arView.focusText =
+                                getString(R.string.sun) + "\n" + formatter.formatRelativeDateTime(
+                                    it,
+                                    includeSeconds = false
+                                )
+                            true
+                        }
                     )
                 }.map { it.value }
 
@@ -243,8 +259,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         true
                     ),
                     2f,
+                    // TODO: Use moon icon
                     CircleCanvasObject(Color.WHITE),
                     onFocusedFn = {
+                        // TODO: Display moon phase
                         binding.arView.focusText = getString(R.string.moon)
                         true
                     }
@@ -264,6 +282,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     }
                 )
 
+                // TODO: Move current sun / moon to a new layer so they can be focused on separately
+                // TODO: If two markers overlap, show the one that is in front
                 sunLayer.setMarkers(sunPositions + sun)
                 moonLayer.setMarkers(moonPositions + moon)
             }
