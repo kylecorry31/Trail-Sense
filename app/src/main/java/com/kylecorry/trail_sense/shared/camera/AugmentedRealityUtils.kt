@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared.camera
 
+import android.hardware.SensorManager
+import android.opengl.Matrix
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
+import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
@@ -144,6 +148,46 @@ object AugmentedRealityUtils {
         val z = cos(azimuthRad) * radius
 
         return Vector3(x, y, z)
+    }
+
+
+    /**
+     * Computes the orientation of the device in the AR coordinate system.
+     * @param orientationSensor The orientation sensor
+     * @param quaternion The array to store the quaternion in
+     * @param rotationMatrix the array to store the rotation matrix in
+     * @param orientation The array to store the orientation in (azimuth, pitch, roll in degrees)
+     * @param declination The declination to use (default null)
+     */
+    fun getOrientation(
+        orientationSensor: IOrientationSensor,
+        quaternion: FloatArray,
+        rotationMatrix: FloatArray,
+        orientation: FloatArray,
+        declination: Float? = null
+    ) {
+        // Convert the orientation a rotation matrix
+        QuaternionMath.inverse(orientationSensor.rawOrientation, quaternion)
+        SensorManager.getRotationMatrixFromVector(rotationMatrix, quaternion)
+
+        // Remap the coordinate system to AR space
+        SensorManager.remapCoordinateSystem(
+            rotationMatrix,
+            SensorManager.AXIS_X,
+            SensorManager.AXIS_Z,
+            rotationMatrix
+        )
+
+        // Add declination
+        if (declination != null) {
+            Matrix.rotateM(rotationMatrix, 0, declination, 0f, 0f, 1f)
+        }
+
+        // Get orientation from rotation matrix
+        SensorManager.getOrientation(rotationMatrix, orientation)
+        orientation[0] = orientation[0].toDegrees()
+        orientation[1] = -orientation[1].toDegrees()
+        orientation[2] = -orientation[2].toDegrees()
     }
 
 }

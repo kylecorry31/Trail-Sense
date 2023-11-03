@@ -61,6 +61,7 @@ class AugmentedRealityView : CanvasView {
     private var legacyOrientation = Quaternion.zero
     private var rotationMatrix = FloatArray(16)
     private val quaternion = FloatArray(4)
+    private val orientation = FloatArray(3)
     private val tempRotationResult = FloatArray(4)
     private val tempWorldVector = FloatArray(4)
 
@@ -435,31 +436,17 @@ class AugmentedRealityView : CanvasView {
             return
         }
 
-
-        // Convert the orientation a rotation matrix
-        QuaternionMath.inverse(orientationSensor.rawOrientation, quaternion)
-        SensorManager.getRotationMatrixFromVector(rotationMatrix, quaternion)
-
-        // Remap the coordinate system to AR space
-        SensorManager.remapCoordinateSystem(
+        AugmentedRealityUtils.getOrientation(
+            orientationSensor,
+            quaternion,
             rotationMatrix,
-            SensorManager.AXIS_X,
-            SensorManager.AXIS_Z,
-            rotationMatrix
+            orientation,
+            if (isTrueNorth) declinationProvider.getDeclination() else null
         )
 
-        // Add declination
-        if (isTrueNorth) {
-            val declination = declinationProvider.getDeclination()
-            Matrix.rotateM(rotationMatrix, 0, declination, 0f, 0f, 1f)
-        }
-
-        // Get orientation from rotation matrix
-        val orientation = FloatArray(3)
-        SensorManager.getOrientation(rotationMatrix, orientation)
-        azimuth = orientation[0].toDegrees()
-        inclination = -orientation[1].toDegrees()
-        sideInclination = -orientation[2].toDegrees()
+        azimuth = orientation[0]
+        inclination = orientation[1]
+        sideInclination = orientation[2]
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
