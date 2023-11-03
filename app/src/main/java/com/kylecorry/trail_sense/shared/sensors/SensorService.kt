@@ -193,6 +193,10 @@ class SensorService(ctx: Context) {
         return CompassProvider(context, userPrefs.compass).get()
     }
 
+    fun getOrientation(): IOrientationSensor? {
+        return CompassProvider(context, userPrefs.compass).getOrientationSensor()
+    }
+
     fun getDeviceOrientationSensor(): DeviceOrientation {
         // While not technically an environment sensor, it doesn't need to update often - and can match their rate
         return DeviceOrientation(context, ENVIRONMENT_SENSOR_DELAY)

@@ -3,10 +3,11 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
+import android.hardware.SensorManager
+import android.opengl.Matrix
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
@@ -16,6 +17,7 @@ import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
@@ -55,8 +57,13 @@ class AugmentedRealityView : CanvasView {
 
     var backgroundFillColor: Int = Color.TRANSPARENT
 
-    private var orientation = Quaternion.zero
-    private var inverseOrientation = Quaternion.zero
+    // TODO: Remove legacy orientation in favor of a custom orientation sensor
+    private var legacyOrientation = Quaternion.zero
+    private var rotationMatrix = FloatArray(16)
+    private val quaternion = FloatArray(4)
+    private val tempRotationResult = FloatArray(4)
+    private val tempWorldVector = FloatArray(4)
+
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
@@ -64,6 +71,7 @@ class AugmentedRealityView : CanvasView {
     private val compass = sensors.getCompass()
     private val clinometer = CameraClinometer(context)
     private val sideClinometer = SideClinometer(context)
+    private val orientationSensor = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
@@ -71,6 +79,8 @@ class AugmentedRealityView : CanvasView {
         gps
     )
     private val isTrueNorth = userPrefs.compass.useTrueNorth
+
+    private val orientationLock = Any()
 
     /**
      * The compass bearing of the device in degrees.
@@ -111,28 +121,33 @@ class AugmentedRealityView : CanvasView {
     private val layers = mutableListOf<ARLayer>()
     private val layerLock = Any()
 
-    private var useSensors = true
-    private val orientationLock = Any()
-
     // Guidance
     private var guideLocation: ARPosition? = null
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
     fun start() {
-        compass.start(this::onSensorUpdate)
-        clinometer.start(this::onSensorUpdate)
-        sideClinometer.start(this::onSensorUpdate)
         gps.start(this::onSensorUpdate)
         altimeter.start(this::onSensorUpdate)
+        if (orientationSensor != null) {
+            orientationSensor.start(this::onSensorUpdate)
+        } else {
+            compass.start(this::onSensorUpdate)
+            clinometer.start(this::onSensorUpdate)
+            sideClinometer.start(this::onSensorUpdate)
+        }
     }
 
     fun stop() {
-        compass.stop(this::onSensorUpdate)
-        clinometer.stop(this::onSensorUpdate)
-        sideClinometer.stop(this::onSensorUpdate)
         gps.stop(this::onSensorUpdate)
         altimeter.stop(this::onSensorUpdate)
+        if (orientationSensor != null) {
+            orientationSensor.stop(this::onSensorUpdate)
+        } else {
+            compass.stop(this::onSensorUpdate)
+            clinometer.stop(this::onSensorUpdate)
+            sideClinometer.stop(this::onSensorUpdate)
+        }
     }
 
     fun addLayer(layer: ARLayer) {
@@ -160,21 +175,6 @@ class AugmentedRealityView : CanvasView {
         }
     }
 
-    // TODO: Take in zoom
-    // TODO: Interpolate
-    /**
-     * Points the AR view at a coordinate
-     * @param coordinate The coordinate to point at
-     */
-    fun pointAt(coordinate: HorizonCoordinate) {
-        synchronized(orientationLock) {
-            useSensors = false
-            azimuth = getActualBearing(coordinate)
-            inclination = coordinate.elevation
-            sideInclination = 0f
-        }
-    }
-
     fun guideTo(
         location: ARPosition,
         thresholdDegrees: Float? = null,
@@ -191,30 +191,20 @@ class AugmentedRealityView : CanvasView {
         onGuideReached = null
     }
 
-    /**
-     * Sets the AR view to freeform mode
-     * @param isFreeform True if the view should be freeform, false otherwise (will use sensors)
-     */
-    fun setFreeform(isFreeform: Boolean) {
-        synchronized(orientationLock) {
-            useSensors = !isFreeform
-            sideInclination = 0f
-            // TODO: Allow dragging
-        }
-    }
-
     private fun onSensorUpdate(): Boolean {
+        if (orientationSensor != null) {
+            // No need to update the positions because the orientation sensor is valid
+            return true
+        }
         if (isTrueNorth) {
             compass.declination = declinationProvider.getDeclination()
         } else {
             compass.declination = 0f
         }
         synchronized(orientationLock) {
-            if (useSensors) {
-                azimuth = compass.rawBearing
-                inclination = clinometer.incline
-                sideInclination = sideClinometer.angle - 90f
-            }
+            azimuth = compass.rawBearing
+            inclination = clinometer.incline
+            sideInclination = sideClinometer.angle - 90f
         }
         return true
     }
@@ -350,7 +340,15 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun applyRotation(vector: Vector3): Vector3 {
-        return inverseOrientation.rotate(vector)
+        if (orientationSensor == null){
+            return legacyOrientation.rotate(vector)
+        }
+        tempWorldVector[0] = vector.x
+        tempWorldVector[1] = vector.y
+        tempWorldVector[2] = vector.z
+        tempWorldVector[3] = 1f
+        Matrix.multiplyMV(tempRotationResult, 0, rotationMatrix, 0, tempWorldVector, 0)
+        return Vector3(tempRotationResult[0], tempRotationResult[1], tempRotationResult[2])
     }
 
     private fun toSpherical(vector: Vector3): Vector3 {
@@ -431,8 +429,37 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun updateOrientation() {
-        orientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth))
-        inverseOrientation = orientation.inverse()
+        if (orientationSensor == null){
+            // TODO: This fails when the device is pointed almost straight up or down
+            legacyOrientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth)).inverse()
+            return
+        }
+
+
+        // Convert the orientation a rotation matrix
+        QuaternionMath.inverse(orientationSensor.rawOrientation, quaternion)
+        SensorManager.getRotationMatrixFromVector(rotationMatrix, quaternion)
+
+        // Remap the coordinate system to AR space
+        SensorManager.remapCoordinateSystem(
+            rotationMatrix,
+            SensorManager.AXIS_X,
+            SensorManager.AXIS_Z,
+            rotationMatrix
+        )
+
+        // Add declination
+        if (isTrueNorth) {
+            val declination = declinationProvider.getDeclination()
+            Matrix.rotateM(rotationMatrix, 0, declination, 0f, 0f, 1f)
+        }
+
+        // Get orientation from rotation matrix
+        val orientation = FloatArray(3)
+        SensorManager.getOrientation(rotationMatrix, orientation)
+        azimuth = orientation[0].toDegrees()
+        inclination = -orientation[1].toDegrees()
+        sideInclination = -orientation[2].toDegrees()
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {

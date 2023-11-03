@@ -10,6 +10,8 @@ import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
+import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
+import com.kylecorry.andromeda.sense.orientation.OrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
@@ -17,6 +19,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.NullCompass
+import com.kylecorry.trail_sense.shared.sensors.compass.NullOrientationSensor
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
@@ -63,6 +66,37 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             ),
             Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
         )
+    }
+
+    fun getOrientationSensor(): IOrientationSensor? {
+        // TODO: This isn't used by the actual orientation sensors (they should use it)
+        val useTrueNorth = prefs.useTrueNorth
+
+        var source = prefs.source
+
+        // Handle if the available sources have changed (not likely)
+        val allSources = getAvailableSources(context)
+
+        // There were no compass sensors found
+        if (allSources.isEmpty()){
+            return NullOrientationSensor()
+        }
+
+        if (!allSources.contains(source)) {
+            source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
+        }
+
+        // TODO: Apply the smoothing / quality to the orientation sensor
+        if (source == CompassSource.RotationVector){
+            return RotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+        }
+
+        if (source == CompassSource.GeomagneticRotationVector){
+            return GeomagneticRotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+        }
+
+        // TODO: Construct this from existing sensors
+        return null
     }
 
     companion object {

@@ -72,10 +72,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private var isCameraEnabled = true
 
-    private val compassSyncTimer = CoroutineTimer {
-        binding.linearCompass.azimuth = Bearing(binding.arView.azimuth)
-    }
-
     // TODO: Draw an indicator around the focused marker
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,9 +95,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.setShowTorch(false)
 
-        // TODO: Show azimuth / altitude
-        binding.linearCompass.showAzimuthArrow = false
-
         binding.arView.setLayers(listOf(northLayer, horizonLayer, sunLayer, moonLayer, beaconLayer))
 
         binding.cameraToggle.setOnClickListener {
@@ -123,8 +116,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             startCamera()
         }
         updateAstronomyLayers()
-
-        compassSyncTimer.interval(INTERVAL_60_FPS)
     }
 
     // TODO: Move this to the AR view
@@ -157,7 +148,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
-        compassSyncTimer.stop()
     }
 
     override fun onUpdate() {
@@ -166,7 +156,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         // TODO: Move this to a coroutine (and to the AR view)
         val fov = binding.camera.fov
         binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
-        binding.linearCompass.range = fov.first
 
         // Set the arView size to be the camera preview size
         val size = binding.camera.getPreviewSize()
