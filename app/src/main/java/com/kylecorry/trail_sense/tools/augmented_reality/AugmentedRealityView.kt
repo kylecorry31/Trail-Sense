@@ -63,7 +63,6 @@ class AugmentedRealityView : CanvasView {
     private var rotationMatrix = FloatArray(16)
     private val quaternion = FloatArray(4)
     private val orientation = FloatArray(3)
-    private val tempRotationResult = FloatArray(4)
     private val tempWorldVector = FloatArray(4)
 
 
@@ -377,8 +376,8 @@ class AugmentedRealityView : CanvasView {
         tempWorldVector[1] = vector.y
         tempWorldVector[2] = vector.z
         tempWorldVector[3] = 1f
-        Matrix.multiplyMV(tempRotationResult, 0, rotationMatrix, 0, tempWorldVector, 0)
-        return Vector3(tempRotationResult[0], tempRotationResult[1], tempRotationResult[2])
+        Matrix.multiplyMV(tempWorldVector, 0, rotationMatrix, 0, tempWorldVector, 0)
+        return Vector3(tempWorldVector[0], tempWorldVector[1], tempWorldVector[2])
     }
 
     private fun toSpherical(vector: Vector3): Vector3 {

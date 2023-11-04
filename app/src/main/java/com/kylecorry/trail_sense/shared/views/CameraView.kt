@@ -90,8 +90,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             isStarted = true
         }
 
-        alpha = 1f
-
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
         camera = Camera(
@@ -110,7 +108,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun stop() {
         camera?.stop(this::onCameraUpdate)
         camera = null
-        alpha = 0f
         synchronized(startLock) {
             isStarted = false
         }

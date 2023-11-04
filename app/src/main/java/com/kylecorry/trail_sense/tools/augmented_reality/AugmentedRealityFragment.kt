@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.camera.view.PreviewView
 import androidx.core.graphics.drawable.toBitmapOrNull
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
@@ -115,8 +118,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onResume()
 
         binding.arView.start()
+        isCameraEnabled = Camera.isAvailable(requireContext())
+        binding.cameraToggle.isVisible = isCameraEnabled
         if (isCameraEnabled) {
             startCamera()
+        } else {
+            stopCamera()
         }
         updateAstronomyLayers()
     }
@@ -128,10 +135,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.arView.backgroundFillColor = Color.TRANSPARENT
         requestCamera {
             if (it) {
+                binding.camera.isVisible = true
                 binding.camera.start(
                     readFrames = false, shouldStabilizePreview = false
                 )
             } else {
+                binding.camera.isInvisible = true
                 isCameraEnabled = false
                 binding.cameraToggle.setImageResource(R.drawable.ic_camera_off)
                 binding.arView.backgroundFillColor = Color.BLACK
@@ -145,6 +154,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         isCameraEnabled = false
         binding.arView.backgroundFillColor = Color.BLACK
         binding.camera.stop()
+        binding.camera.isInvisible = true
     }
 
     override fun onPause() {
