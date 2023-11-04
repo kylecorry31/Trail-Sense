@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.camera.view.PreviewView
+import androidx.core.graphics.drawable.toBitmapOrNull
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -18,6 +20,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
@@ -265,6 +268,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val sunAltitude = astro.getSunAltitude(location)
                 val sunAzimuth = astro.getSunAzimuth(location).value
 
+                val phase = astro.getMoonPhase(LocalDate.now())
+                val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)
+                val moonIcon = Resources.drawable(requireContext(), moonIconId)
+                val moonImageSize = Resources.dp(requireContext(), 24f).toInt()
+                val moonBitmap = moonIcon?.toBitmapOrNull(moonImageSize, moonImageSize)
+
                 val moon = ARMarkerImpl.horizon(
                     AugmentedRealityView.HorizonCoordinate(
                         moonAzimuth,
@@ -272,8 +281,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         true
                     ),
                     2f,
-                    // TODO: Use moon icon
-                    CircleCanvasObject(Color.WHITE),
+                    moonBitmap?.let { BitmapCanvasObject(moonBitmap) }
+                        ?: CircleCanvasObject(Color.WHITE),
                     onFocusedFn = {
                         // TODO: Display moon phase
                         binding.arView.focusText = getString(R.string.moon)
