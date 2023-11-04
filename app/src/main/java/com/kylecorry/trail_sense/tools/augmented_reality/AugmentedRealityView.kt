@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.augmented_reality
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
-import android.hardware.SensorManager
 import android.opengl.Matrix
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -17,14 +17,15 @@ import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
-import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
@@ -80,6 +81,7 @@ class AugmentedRealityView : CanvasView {
         gps
     )
     private val isTrueNorth = userPrefs.compass.useTrueNorth
+    private val formatter = FormatService.getInstance(context)
 
     private val orientationLock = Any()
 
@@ -239,6 +241,18 @@ class AugmentedRealityView : CanvasView {
         drawReticle()
         drawGuidance()
         drawFocusText()
+        drawPosition()
+    }
+
+    private fun drawPosition() {
+        val bearing = Bearing(azimuth)
+        val azimuthText = formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
+        val directionText = formatter.formatDirection(bearing.direction).padStart(2, ' ')
+        val altitudeText = formatter.formatDegrees(inclination, replace360 = true)
+
+        @SuppressLint("SetTextI18n")
+        val text = "$azimuthText   $directionText\n${altitudeText}"
+        drawText(text, width / 2f, drawer.dp(8f), drawer.sp(16f))
     }
 
     private fun drawGuidance() {
@@ -290,35 +304,50 @@ class AugmentedRealityView : CanvasView {
         pop()
     }
 
-    private fun drawFocusText() {
-        val textToRender = focusText ?: return
-        if (textToRender.isBlank()) return
+    private fun drawText(text: String?, x: Float, y: Float, size: Float) {
+        if (text.isNullOrBlank()) return
+
+        val padding = dp(8f)
+        val lineSpacing = dp(4f)
+        val radius = dp(4f)
 
         // Background
         noStroke()
         fill(Color.BLACK.withAlpha(127))
-        val totalDimensions = textDimensions(textToRender, dp(4f))
-        val padding = dp(8f)
+        val totalDimensions = textDimensions(text, lineSpacing)
         rect(
-            width / 2f - totalDimensions.first / 2f - padding,
-            height / 2f + reticleDiameter / 2f + dp(4f) + padding,
+            x - totalDimensions.first / 2f - padding,
+            y,
             totalDimensions.first + padding * 2,
             totalDimensions.second + padding * 2,
-            dp(4f)
+            radius
         )
 
 
         fill(Color.WHITE)
-        textSize(drawer.sp(16f))
+        textSize(size)
         textMode(TextMode.Corner)
         textAlign(TextAlign.Center)
 
-        // TODO: Save the dp values
+        // X is centered, Y is the bottom of the text
+        val firstLineHeight = textHeight(text.split("\n").first())
+
         text(
+            text,
+            x,
+            y + padding + firstLineHeight,
+            lineSpacing
+        )
+    }
+
+    private fun drawFocusText() {
+        val textToRender = focusText ?: return
+
+        drawText(
             textToRender,
             width / 2f,
-            height / 2f + reticleDiameter / 2f + dp(24f) + padding,
-            dp(4f)
+            height / 2f + reticleDiameter / 2f + dp(8f),
+            drawer.sp(16f)
         )
     }
 
@@ -341,7 +370,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun applyRotation(vector: Vector3): Vector3 {
-        if (orientationSensor == null){
+        if (orientationSensor == null) {
             return legacyOrientation.rotate(vector)
         }
         tempWorldVector[0] = vector.x
@@ -430,9 +459,10 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun updateOrientation() {
-        if (orientationSensor == null){
+        if (orientationSensor == null) {
             // TODO: This fails when the device is pointed almost straight up or down
-            legacyOrientation = Quaternion.from(Euler(inclination, -sideInclination, -azimuth)).inverse()
+            legacyOrientation =
+                Quaternion.from(Euler(inclination, -sideInclination, -azimuth)).inverse()
             return
         }
 
