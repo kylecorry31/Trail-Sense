@@ -11,7 +11,11 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.experimental_preferences, rootKey)
 
-        preference(R.string.pref_experimental_metal_direction)?.isVisible =
-            Sensors.hasGyroscope(requireContext()) && SensorService(requireContext()).hasCompass()
+        val sensors = SensorService(requireContext())
+        val hasGyro = Sensors.hasGyroscope(requireContext())
+        val hasCompass = sensors.hasCompass()
+
+        preference(R.string.pref_experimental_metal_direction)?.isVisible = hasGyro && hasCompass
+        preference(R.string.pref_enable_augmented_reality_tool)?.isVisible = hasCompass
     }
 }

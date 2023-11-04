@@ -170,7 +170,7 @@ object Tools {
 
         val other = ToolGroup(
             context.getString(R.string.other), listOfNotNull(
-                if (prefs.isAugmentedRealityEnabled) Tool(
+                if (prefs.isAugmentedRealityEnabled && hasCompass) Tool(
                     context.getString(R.string.augmented_reality),
                     R.drawable.ic_camera,
                     R.id.action_tools_to_augmented_reality,
