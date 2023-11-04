@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
 import com.kylecorry.andromeda.sense.clinometer.SideClinometer
+import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.SolMath.real
@@ -72,7 +73,7 @@ class AugmentedRealityView : CanvasView {
     private val compass = sensors.getCompass()
     private val clinometer = CameraClinometer(context)
     private val sideClinometer = SideClinometer(context)
-    private val orientationSensor = sensors.getOrientation()
+    private var orientationSensor: IOrientationSensor? = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
@@ -131,8 +132,11 @@ class AugmentedRealityView : CanvasView {
     fun start() {
         gps.start(this::onSensorUpdate)
         altimeter.start(this::onSensorUpdate)
+        // Recreate the orientation sensor - seems to be an upstream bug with the rotation vector that if you reuse, it may not be accurate
+        orientationSensor?.stop(this::onSensorUpdate)
+        orientationSensor = sensors.getOrientation()
         if (orientationSensor != null) {
-            orientationSensor.start(this::onSensorUpdate)
+            orientationSensor?.start(this::onSensorUpdate)
         } else {
             compass.start(this::onSensorUpdate)
             clinometer.start(this::onSensorUpdate)
@@ -144,7 +148,7 @@ class AugmentedRealityView : CanvasView {
         gps.stop(this::onSensorUpdate)
         altimeter.stop(this::onSensorUpdate)
         if (orientationSensor != null) {
-            orientationSensor.stop(this::onSensorUpdate)
+            orientationSensor?.stop(this::onSensorUpdate)
         } else {
             compass.stop(this::onSensorUpdate)
             clinometer.stop(this::onSensorUpdate)
@@ -458,6 +462,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun updateOrientation() {
+        val orientationSensor = orientationSensor
         if (orientationSensor == null) {
             // TODO: This fails when the device is pointed almost straight up or down
             legacyOrientation =
