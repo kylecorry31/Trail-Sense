@@ -64,7 +64,6 @@ class AugmentedRealityView : CanvasView {
     private var rotationMatrix = FloatArray(16)
     private val quaternion = FloatArray(4)
     private val orientation = FloatArray(3)
-    private val tempWorldVector = FloatArray(4)
     private var size = Size(width.toFloat(), height.toFloat())
 
 
