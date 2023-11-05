@@ -11,13 +11,16 @@ import androidx.camera.view.PreviewView
 import androidx.core.graphics.drawable.toBitmapOrNull
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
@@ -37,6 +40,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
@@ -77,6 +81,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val northLayer = ARNorthLayer()
 
     private var isCameraEnabled = true
+
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
 
     // TODO: Draw an indicator around the focused marker
 
@@ -166,23 +172,35 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onUpdate() {
         super.onUpdate()
 
-        // TODO: Move this to a coroutine (and to the AR view)
-        val fov = binding.camera.fov
-        binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
+        runInBackground {
+            fovRunner.enqueue {
+                if (!isBound) {
+                    return@enqueue
+                }
 
-        // Set the arView size to be the camera preview size
-        val size = binding.camera.getPreviewSize()
-        if (size != lastSize) {
-            lastSize = size
-            if (binding.arView.layoutParams == null) {
-                binding.arView.layoutParams = FrameLayout.LayoutParams(size.width, size.height)
-            } else {
-                binding.arView.layoutParams = binding.arView.layoutParams.apply {
-                    width = size.width
-                    height = size.height
+                val fov = binding.camera.fov
+
+                onMain {
+                    binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
+
+                    // Set the arView size to be the camera preview size
+                    val size = binding.camera.getPreviewSize()
+                    if (size != lastSize) {
+                        lastSize = size
+                        if (binding.arView.layoutParams == null) {
+                            binding.arView.layoutParams =
+                                FrameLayout.LayoutParams(size.width, size.height)
+                        } else {
+                            binding.arView.layoutParams = binding.arView.layoutParams.apply {
+                                width = size.width
+                                height = size.height
+                            }
+                        }
+                    }
                 }
             }
         }
+
     }
 
     private fun updateAstronomyLayers() {

@@ -28,7 +28,7 @@ class SightingCompassView(
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private val zoomRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.IO)
-    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.IO)
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
 
     init {
         camera.setShowTorch(false)
