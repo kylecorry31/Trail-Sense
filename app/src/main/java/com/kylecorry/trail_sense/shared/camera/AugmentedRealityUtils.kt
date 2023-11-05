@@ -102,26 +102,6 @@ object AugmentedRealityUtils {
     }
 
     /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
-     * @param bearing The compass bearing in degrees of the point
-     * @param elevation The elevation in degrees of the point
-     * @param quaternion The quaternion of the device in the AR coordinate system
-     * @param size The size of the view in pixels
-     * @param fov The field of view of the camera in degrees
-     */
-    fun getPixel(
-        bearing: Float,
-        elevation: Float,
-        quaternion: Quaternion,
-        size: Size,
-        fov: Size
-    ): PixelCoordinate {
-        val spherical = toRelative(bearing, elevation, 1f, quaternion)
-        // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelLinear(spherical.first, 0f, spherical.second, 0f, size, fov)
-    }
-
-    /**
      * Computes the orientation of the device in the AR coordinate system.
      * @param orientationSensor The orientation sensor
      * @param quaternion The array to store the quaternion in

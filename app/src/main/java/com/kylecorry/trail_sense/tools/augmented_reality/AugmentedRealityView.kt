@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
+import android.hardware.SensorManager
 import android.opengl.Matrix
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -18,6 +19,7 @@ import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
@@ -59,13 +61,10 @@ class AugmentedRealityView : CanvasView {
 
     var backgroundFillColor: Int = Color.TRANSPARENT
 
-    // TODO: Remove legacy orientation in favor of a custom orientation sensor
-    private var legacyOrientation = Quaternion.zero
     private var rotationMatrix = FloatArray(16)
     private val quaternion = FloatArray(4)
     private val orientation = FloatArray(3)
     private var size = Size(width.toFloat(), height.toFloat())
-
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
@@ -385,23 +384,13 @@ class AugmentedRealityView : CanvasView {
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
         val bearing = getActualBearing(coordinate)
 
-        return if (orientationSensor == null) {
-            AugmentedRealityUtils.getPixel(
-                bearing,
-                coordinate.elevation,
-                legacyOrientation,
-                size,
-                fov
-            )
-        } else {
-            AugmentedRealityUtils.getPixel(
-                bearing,
-                coordinate.elevation,
-                rotationMatrix,
-                size,
-                fov
-            )
-        }
+        return AugmentedRealityUtils.getPixel(
+            bearing,
+            coordinate.elevation,
+            rotationMatrix,
+            size,
+            fov
+        )
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
@@ -438,9 +427,14 @@ class AugmentedRealityView : CanvasView {
 
         val orientationSensor = orientationSensor
         if (orientationSensor == null) {
-            // TODO: This fails when the device is pointed almost straight up or down
-            legacyOrientation =
-                Quaternion.from(Euler(inclination, -sideInclination, -azimuth)).inverse()
+            QuaternionMath.fromEuler(
+                floatArrayOf(inclination, -sideInclination, -azimuth),
+                quaternion
+            )
+            SensorManager.getRotationMatrixFromVector(
+                rotationMatrix,
+                quaternion
+            )
             return
         }
 
