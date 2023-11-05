@@ -58,6 +58,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var isStarted = false
     private val startLock = Any()
 
+    private var onSingleTapCallback: (e: MotionEvent) -> Unit = {}
+
     fun start(
         resolution: Size? = null,
         lifecycleOwner: LifecycleOwner? = null,
@@ -253,8 +255,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
                 val newZoom = (zoom + remainingZoom / 2).coerceIn(0f, 1f)
                 zoomListener?.invoke(newZoom)
                 setZoom(newZoom)
+                return true
             }
             return super.onDoubleTap(e)
+        }
+
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            return callOnClick() || super.onSingleTapConfirmed(e)
         }
     }
 
@@ -265,8 +272,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
                 val newZoom = (zoom - 1 + detector.scaleFactor ).coerceIn(0f, 1f)
                 zoomListener?.invoke(newZoom)
                 setZoom(newZoom)
+                return true
             }
-            return true
+            return false
         }
     }
 

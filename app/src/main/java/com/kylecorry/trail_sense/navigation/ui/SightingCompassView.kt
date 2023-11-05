@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui
 
 import android.view.View
+import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
@@ -32,6 +33,7 @@ class SightingCompassView(
 
     init {
         camera.setShowTorch(false)
+        camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
     }
 
     fun start() {
@@ -72,6 +74,7 @@ class SightingCompassView(
 
     fun update(){
         if (!isRunning()){
+            compass.range = 180f
             return
         }
         scope.launch {
@@ -95,11 +98,10 @@ class SightingCompassView(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        compass.range = 180f
-        camera.isVisible = false
-        reticle.isVisible = false
         fovRunner.cancel()
         zoomRunner.cancel()
+        camera.isVisible = false
+        reticle.isVisible = false
     }
 
     fun isRunning(): Boolean {

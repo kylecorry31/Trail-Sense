@@ -51,8 +51,8 @@
 
     <com.kylecorry.trail_sense.shared.views.CameraView
         android:id="@+id/view_camera"
-        android:layout_width="200dp"
-        android:layout_height="248dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/circular_display_size"
         android:keepScreenOn="true"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/linear_compass"
@@ -63,13 +63,13 @@
     <View
         android:id="@+id/view_camera_line"
         android:layout_width="1dp"
-        android:layout_height="248dp"
+        android:layout_height="0dp"
         android:background="@color/orange_40"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/linear_compass"
+        app:layout_constraintBottom_toBottomOf="@id/view_camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/linear_compass" />
+        app:layout_constraintTop_toTopOf="@id/view_camera" />
 
 
     <com.kylecorry.trail_sense.navigation.ui.RoundCompassView
