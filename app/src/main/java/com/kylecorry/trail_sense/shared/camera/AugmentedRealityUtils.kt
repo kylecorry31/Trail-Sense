@@ -138,21 +138,6 @@ object AugmentedRealityUtils {
         orientation[0] = orientation[0].toDegrees()
         orientation[1] = -orientation[1].toDegrees()
         orientation[2] = -orientation[2].toDegrees()
-
-        // Convert the rotation matrix to a quaternion
-        // This is not needed as of right now
-//        val trace = rotationMatrix[0] + rotationMatrix[5] + rotationMatrix[10]
-//        val r = sqrt(1 + trace)
-//        val s = 1 / (2 * r)
-//        val w = r / 2
-//        val x = (rotationMatrix[6] - rotationMatrix[9]) * s
-//        val y = (rotationMatrix[8] - rotationMatrix[2]) * s
-//        val z = (rotationMatrix[1] - rotationMatrix[4]) * s
-//
-//        quaternion[0] = x
-//        quaternion[1] = y
-//        quaternion[2] = z
-//        quaternion[3] = w
     }
 
     /**
