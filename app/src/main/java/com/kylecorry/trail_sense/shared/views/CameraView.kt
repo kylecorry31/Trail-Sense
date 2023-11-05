@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Size
 import android.view.GestureDetector
@@ -13,7 +12,6 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.camera.view.PreviewView
-import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -24,9 +22,7 @@ import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.R
 import java.io.File
 import kotlin.math.abs
@@ -57,8 +53,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     private var isStarted = false
     private val startLock = Any()
-
-    private var onSingleTapCallback: (e: MotionEvent) -> Unit = {}
 
     fun start(
         resolution: Size? = null,
@@ -92,6 +86,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             isStarted = true
         }
 
+        // Keep the screen on while the camera is on
+        keepScreenOn = true
+
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
         camera = Camera(
@@ -110,6 +107,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun stop() {
         camera?.stop(this::onCameraUpdate)
         camera = null
+        keepScreenOn = false
         synchronized(startLock) {
             isStarted = false
         }
