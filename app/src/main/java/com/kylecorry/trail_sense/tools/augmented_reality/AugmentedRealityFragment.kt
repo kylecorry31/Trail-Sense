@@ -191,7 +191,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                             binding.arView.layoutParams =
                                 FrameLayout.LayoutParams(size.width, size.height)
                         } else {
-                            binding.arView.layoutParams = binding.arView.layoutParams.apply {
+                            binding.arView.updateLayoutParams {
                                 width = size.width
                                 height = size.height
                             }
