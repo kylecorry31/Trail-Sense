@@ -484,11 +484,4 @@ class AugmentedRealityView : CanvasView {
         val isTrueNorth: Boolean = true
     )
 
-    data class Point(
-        val coordinate: HorizonCoordinate,
-        val size: Float,
-        val color: Int,
-        val text: String? = null
-    )
-
 }
