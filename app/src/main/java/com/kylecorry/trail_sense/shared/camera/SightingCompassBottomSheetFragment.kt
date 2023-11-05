@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.databinding.FragmentSightingCompassSheetBinding
@@ -27,6 +28,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlinx.coroutines.Dispatchers
 
 class SightingCompassBottomSheetFragment(
     private val onSelect: (bearing: Bearing?) -> Unit
@@ -41,6 +43,8 @@ class SightingCompassBottomSheetFragment(
                 updateUI()
             }
         }
+
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,8 +82,15 @@ class SightingCompassBottomSheetFragment(
     }
 
     private fun updateUI() {
-        val minimumFOV = 5f
-        binding.linearCompass.range = binding.camera.fov.first.coerceAtLeast(minimumFOV)
+        inBackground {
+            fovRunner.enqueue {
+                if (!isBound) {
+                    return@enqueue
+                }
+                val minimumFOV = 5f
+                binding.linearCompass.range = binding.camera.fov.first.coerceAtLeast(minimumFOV)
+            }
+        }
 
         binding.toolTitle.title.text = bearing?.let { formatter.formatDegrees(it) } ?: ""
         binding.linearCompass.azimuth = Bearing(bearing ?: 0f)
@@ -94,6 +105,7 @@ class SightingCompassBottomSheetFragment(
         if (isBound) {
             binding.camera.stop()
         }
+        fovRunner.cancel()
         super.onDestroyView()
     }
 

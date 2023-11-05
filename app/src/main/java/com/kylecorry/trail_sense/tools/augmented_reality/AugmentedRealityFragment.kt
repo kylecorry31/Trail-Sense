@@ -167,6 +167,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
+        fovRunner.cancel()
     }
 
     override fun onUpdate() {
