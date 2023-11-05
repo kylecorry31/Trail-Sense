@@ -28,6 +28,7 @@ class SightingCompassView(
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private val zoomRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.IO)
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.IO)
 
     init {
         camera.setShowTorch(false)
@@ -73,13 +74,18 @@ class SightingCompassView(
         if (!isRunning()){
             return
         }
-        val compassWidth = compass.width
-        val cameraWidth = camera.width
+        scope.launch {
+            fovRunner.enqueue {
+                val compassWidth = compass.width
+                val cameraWidth = camera.width
 
-        val ratio = compassWidth / cameraWidth.toFloat()
+                val ratio = compassWidth / cameraWidth.toFloat()
 
-        val minimumFOV = 5f
-        compass.range = (camera.fov.first.coerceAtLeast(minimumFOV) * ratio).coerceAtMost(180f)
+                val minimumFOV = 5f
+                compass.range =
+                    (camera.fov.first.coerceAtLeast(minimumFOV) * ratio).coerceAtMost(180f)
+            }
+        }
     }
 
     fun stop() {
@@ -92,6 +98,8 @@ class SightingCompassView(
         compass.range = 180f
         camera.isVisible = false
         reticle.isVisible = false
+        fovRunner.cancel()
+        zoomRunner.cancel()
     }
 
     fun isRunning(): Boolean {
