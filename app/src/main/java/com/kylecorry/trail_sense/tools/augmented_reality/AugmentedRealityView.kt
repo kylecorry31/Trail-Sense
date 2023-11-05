@@ -65,6 +65,7 @@ class AugmentedRealityView : CanvasView {
     private val quaternion = FloatArray(4)
     private val orientation = FloatArray(3)
     private val tempWorldVector = FloatArray(4)
+    private var size = Size(width.toFloat(), height.toFloat())
 
 
     // Sensors / preferences
@@ -361,36 +362,6 @@ class AugmentedRealityView : CanvasView {
         circle(width / 2f, height / 2f, reticleDiameter)
     }
 
-    private fun toWorldSpace(bearing: Float, elevation: Float, distance: Float): Vector3 {
-        val thetaRad = elevation.toRadians()
-        val phiRad = bearing.toRadians()
-
-        val cosTheta = cos(thetaRad)
-        val x = distance * cosTheta * sin(phiRad)
-        val y = distance * cosTheta * cos(phiRad)
-        val z = distance * sin(thetaRad)
-        return Vector3(x, y, z)
-    }
-
-    private fun applyRotation(vector: Vector3): Vector3 {
-        if (orientationSensor == null) {
-            return legacyOrientation.rotate(vector)
-        }
-        tempWorldVector[0] = vector.x
-        tempWorldVector[1] = vector.y
-        tempWorldVector[2] = vector.z
-        tempWorldVector[3] = 1f
-        Matrix.multiplyMV(tempWorldVector, 0, rotationMatrix, 0, tempWorldVector, 0)
-        return Vector3(tempWorldVector[0], tempWorldVector[1], tempWorldVector[2])
-    }
-
-    private fun toSpherical(vector: Vector3): Vector3 {
-        val r = vector.magnitude()
-        val theta = asin(vector.z / r).toDegrees().real(0f)
-        val phi = atan2(vector.x, vector.y).toDegrees().real(0f)
-        return Vector3(r, theta, phi)
-    }
-
     /**
      * Converts an angular size to a pixel size
      * @param angularSize The angular size in degrees
@@ -415,21 +386,23 @@ class AugmentedRealityView : CanvasView {
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
         val bearing = getActualBearing(coordinate)
 
-        val world = toWorldSpace(bearing, coordinate.elevation, 1f)
-        val rotated = applyRotation(world)
-        val spherical = toSpherical(rotated)
-
-        // TODO: Try out Matrix.perspectiveM
-
-        // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return AugmentedRealityUtils.getPixelLinear(
-            spherical.z,
-            0f,
-            spherical.y,
-            0f,
-            Size(width.toFloat(), height.toFloat()),
-            fov
-        )
+        return if (orientationSensor == null) {
+            AugmentedRealityUtils.getPixel(
+                bearing,
+                coordinate.elevation,
+                legacyOrientation,
+                size,
+                fov
+            )
+        } else {
+            AugmentedRealityUtils.getPixel(
+                bearing,
+                coordinate.elevation,
+                rotationMatrix,
+                size,
+                fov
+            )
+        }
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
@@ -462,6 +435,8 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun updateOrientation() {
+        size = Size(width.toFloat(), height.toFloat())
+
         val orientationSensor = orientationSensor
         if (orientationSensor == null) {
             // TODO: This fails when the device is pointed almost straight up or down
