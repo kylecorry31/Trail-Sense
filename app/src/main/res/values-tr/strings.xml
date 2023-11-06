@@ -69,7 +69,7 @@
         <item quantity="other">%d işaret içeri aktarıldı</item>
     </plurals>
     <string name="export">Dışarı aktar</string>
-    <string name="onboarding_privacy">Trail Sense, gizliliğinize saygı duyar ve konum bilginiz asla cihazınızı terk etmez.
+    <string name="onboarding_privacy">Trail Sense, gizliliğinize saygı duyar ve konum bilginiz asla aygıtınızı terk etmez.
 \n
 \n- Trail Sense, asla internet iznine ihtiyaç duymaz.
 \n
@@ -79,17 +79,17 @@
 \n
 \n- Trail Sense\'e konum izni vermek, aşağıdaki özellikleri devreye sokar:
 \n
-\n - İşaretlere navigasyon
+\n\t- İşaretlere navigasyon
 \n
-\n - İyileştirilmiş hava durumu tahmini hassasiyeti (arkaplanda çalışma gereksinimi duyar, her cihazda kullanılamaz)
+\n\t- İyileştirilmiş hava durumu tahmini hassasiyeti (her aygıtta kullanılabilir değil)
 \n
-\n - Geri iz sürme (arkaplanda Konum\'un açık olmasını gerektirir)
+\n\t- Geri iz sürme
 \n
-\n - Mevcut konumunuz için gün ve ay vakitleri
+\n\t- Geçerli konumunuz için gün ve ay vakitleri (gün batımı uyarıları arka planda konum izni gerektirebilir)
 \n
-\n- Konum izni vermemeyi seçerseniz, mevcut konumunuzu Trail Sense üzerinden Ayarlar &gt; GPS Kalibrasyonu aracılığıyla kendiniz girebilirsiniz.
+\n- Konum izni vermemeyi seçerseniz, Trail Sense üzerinden Ayarlar &gt; Sensörler &gt; GPS Kalibrasyonu menüsünden kendiniz konum girebilirsiniz.
 \n
-\nDevam et\'e tıkladığınızda konum izinleriyle alakalı menü açılacak. Söz konusu izinleri reddetmek Trail Sense\'in konumunuza erişimini engeller, bu sebeple konumunuzu kendiniz girmeniz önerilir.</string>
+\n- Devam ete tıkladıktan sonra konum iznini vermeniz istenecektir. Bu iznin reddedilmesi Trail Sense\'in konumunuza erişmesini engelleyecektir, bu nedenle konumu kendiniz girmeniz tavsiye edilir.</string>
     <string name="onboarding_user_guide">Trail Sense\'in özelliklerini nasıl kullanacağını Araçlar sekmesinde yer alan kullanım kılavuzundan öğren.
 \n
 \nDaha fazla kılavuz yolda.</string>
@@ -162,9 +162,9 @@
     <string name="notification_channel_clock_sync_description">Saatinizi GPS zamanına senkronize etmek için bildirim</string>
     <string name="pip_notification_scheduled">Bildirimler %s için planlandı</string>
     <string name="pip_button">Sistem Zamanını Güncelle</string>
-    <string name="could_not_triangulate">Triangülasyon başarısız</string>
+    <string name="could_not_triangulate">Üçgenleme başarısız</string>
     <string name="tool_triangulate_summary">Konumunu GPS olmadan belirle</string>
-    <string name="tool_triangulate_title">Konumu triangülasyon yöntemiyle belirle</string>
+    <string name="tool_triangulate_title">Konumu üçgenleme yöntemiyle belirle</string>
     <string name="tool_category_signaling">Sinyalleşme</string>
     <string name="tool_category_angles">Açılar</string>
     <string name="power">Güç</string>
@@ -329,8 +329,11 @@
     <string name="true_north">Gerçek Kuzey</string>
     <string name="pref_compass_sensor_title">Pusula</string>
     <string name="pref_ruler_calibration_summary">Kalibrasyon yöntemi:
+\n
 \n-Bu değeri 1\'e ayarlayın.
+\n
 \n-Fiziksel cetvelin bir birimine denk düşen Trail Sense cetvel değerini ölçün.
+\n
 \n-Ölçülen değeri buraya yazın.</string>
     <string name="pref_ruler_calibration_title">Cetvel ölçeği</string>
     <string name="sensors">Sensörler</string>
@@ -361,7 +364,7 @@
     <string name="delete">Sil</string>
     <string name="subtract">Çıkar</string>
     <string name="add">Ekle</string>
-    <string name="set_inclination_instructions">Kilitlemek/kilidini açmak için herhangi bir yere dokunun veya basılı tutun</string>
+    <string name="set_inclination_instructions">Kilitlemek veya kilidini açmak için herhangi bir yere dokunun veya basılı tutun</string>
     <string name="clinometer_rotate_device">Eğim derecesini ölçmek için telefonunuzu dik tutun</string>
     <string name="tool_clinometer_summary">Çığ riskini ve nesnelerin boyunu ölç</string>
     <string name="clinometer_title">Eğim ölçer</string>
@@ -369,7 +372,7 @@
     <string name="solar_noon">Öğle</string>
     <string name="sunset_alert_channel_title">Gün batımı alarmı</string>
     <string name="sunset_alerts">Gün batımı alarmı</string>
-    <string name="access_background_location_rationale">Trail Sense, arkaplanda konum bilgisini kullanır. İşbu bilgi hava durumu gözleminde deniz seviyesi basıncını ölçmek için ve daha isabetli gün doğumu bilgisi sunmak için kullanılır. [Gizlilik Politikasına Göz Atın](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense, hava durumu gözleminde deniz seviyesi basıncını ölçmek ve daha isabetli gün doğumu bilgisi sunmak için arka planda konum bilgisini kullanır. [Gizlilik Politikasına Göz Atın](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="sunset_alert_notification_text">Güneş %s\'de batacak</string>
     <string name="sunset_alert_notification_title">Güneş yakın zamanda batıyor</string>
     <string name="waxing_crescent">Küçülen Hilal</string>
@@ -1058,4 +1061,89 @@
     <string name="print">Yazdır</string>
     <string name="step_progression">Adım %1$d / %2$d</string>
     <string name="autofill_source">Otomatik doldurma kaynağı</string>
+    <string name="pref_keep_map_facing_up_summary">Harita, Gerçek Kuzey yerine ekranın üst kısmı ile hizalanacaktır.</string>
+    <string name="tool_deprecation_disclaimer">Bu araç yürüyüş, sırt çantasıyla gezme veya kamp yapma için kullanışlı olmadığından kaldırılabilir veya yeniden tasarlanabilir. Bu aracı faydalı bulursanız, lütfen nasıl kullandığınızı benimle %s adresinde paylaşın.</string>
+    <string name="rate">Oran</string>
+    <string name="enter_manually">Elle gir</string>
+    <string name="rotation_amount">Dönüş: %s</string>
+    <string name="horizon">Ufuk</string>
+    <string name="augmented_reality">Artırılmış Gerçeklik</string>
+    <string name="restore_failure_newer_version">Bu yedekleme daha yeni bir %s sürümü ile oluşturuldu. Lütfen uygulamayı güncelleyin ve tekrar deneyin.</string>
+    <string name="gps_satellites">GPS uyduları</string>
+    <string name="allow_schedule_exact_alarms_instructions">Bu, %1$s için gün batımı uyarıları gibi kesin alarmlar ve hatırlatıcılar ayarlama izni verir. Bu olmadan, alarmlar doğru zamanda tetiklenmeyebilir.
+\n
+\nİzin vermek için ‘%2$s’ ögesine tıklayın ve alarmlara ve hatırlatıcılara izin verme ayarını etkinleştirin.</string>
+    <string name="no">Hayır</string>
+    <string name="astronomy_rise">Doğuş</string>
+    <string name="learn_more">Daha fazla bilgi edin</string>
+    <string name="triangulate_destination_location_1_instructions">Konumunuzu ve hedef noktasına olan yönü kaydedin.</string>
+    <string name="allow_ignore_battery_restrictions">%s için pil kısıtlamalarını yok sayma izni ver</string>
+    <string name="i_agree">Kabul Ediyorum</string>
+    <string name="calibrate_map_point">Bilinen konumlarla kalibre et (%1$d / %2$d)</string>
+    <string name="gps_elevation_accuracy">GPS yükseklik doğruluğu</string>
+    <string name="restore">Geri yükle</string>
+    <string name="compass_source_legacy_android">Eski (Android)</string>
+    <string name="my_location">Konumum</string>
+    <string name="compass_source_legacy_ts">Eski (Trail Sense)</string>
+    <string name="distance_away_from_destination">hedeften %s</string>
+    <string name="until_sunset">gün batımına kadar</string>
+    <string name="allow_schedule_exact_alarms">%s için alarmları ve hatırlatıcıları ayarlama izni verin</string>
+    <string name="yes">Evet</string>
+    <string name="notifications_channel">Bildirimler (%s)</string>
+    <string name="invalid_backup_file">Geçersiz yedekleme dosyası</string>
+    <string name="sunset_alert_scheduled">Gün batımından %s öncesi için uyarı zamanlandı</string>
+    <string name="backup_restore">Yedekle / Geri yükle</string>
+    <string name="sunset_alerts_background_location_disclaimer">Seyahat ederken gün batımı uyarıları hatalı olabilir</string>
+    <string name="beta">Beta</string>
+    <string name="backtrack_no_permission">Geri iz sürmenin çalıştırması için konum izni gerekir</string>
+    <string name="gps_accuracy_tip">Gökyüzünü engelsiz bir şekilde gördüğünüzden emin olun ve yüksek binalardan ve ağaçlardan uzaklaşın.</string>
+    <string name="triangulate_self_location_1_instructions">Görebildiğiniz bilinen bir konum seçin ve bulunduğunuz yerden o konuma olan yönü kaydedin.</string>
+    <string name="restoring_loading_message">Geri yükleniyor…</string>
+    <string name="augmented_reality_description">Kameranızla yakındaki işaretleri ve güneşi / ayı görüntüleyin</string>
+    <string name="triangulate_self_location_2_instructions">Görebildiğiniz bilinen başka bir konum seçin ve bulunduğunuz yerden o konuma olan yönü kaydedin.</string>
+    <string name="scheduled_for_redesign_or_removal">Yeniden tasarımı veya kaldırması düşünülüyor</string>
+    <string name="crop_map_instructions_long">Çerçevelemek için kutunun köşelerini haritanın köşelerine sürükleyin.</string>
+    <string name="map_auto_rotated">Harita yönü kalibrasyon ile ayarlandı</string>
+    <string name="backup">Yedekle</string>
+    <string name="times">Zamanlar</string>
+    <string name="daylight_duration">%s gün ışığı</string>
+    <string name="accelerometer">İvmeölçer</string>
+    <string name="map_file">Dosya (JPG, PNG, PDF)</string>
+    <string name="no_compass_description">Aygıtınızda yerleşik bir pusula sensörü yok. Bu bir donanım bileşenidir, bu nedenle eklemek için yapılabilecek bir şey yoktur. Pusulayı kullanan bazı özellikler kullanılamayacaktır.</string>
+    <string name="astronomy_set">Batış</string>
+    <string name="direction_not_set">Yön ayarlanmadı</string>
+    <string name="location_number">Konum %d</string>
+    <string name="direction">Yön</string>
+    <string name="battery_usage_allowed">Pil kullanımına izin verilir</string>
+    <string name="map_calibration_instructions">Haritada bilinen bir konuma dokunun, ardından gerçek dünya koordinatlarını girin. “Bitti” düğmesine tıklayarak kalibrasyonu kaydedebilirsiniz.
+\n
+\nİyi kalibrasyon noktalarına örnek olarak bir otopark, bir tabela noktası, bir yer işareti veya bir yol boyunca bir kavşak verilebilir.</string>
+    <string name="photo_map_summary">Harita olarak bir fotoğraf kullan</string>
+    <string name="zero_shutter_lag">Sıfır deklanşör gecikmesi</string>
+    <string name="illumination">Aydınlanma</string>
+    <string name="triangulate_destination_location_2_instructions">İlk konumdan en az %s kadar uzaklaşın ve konumunuzu ve hedef noktasına olan yönü tekrar kaydedin.</string>
+    <string name="battery_settings_limit_accuracy">Pil kısıtlamaları doğruluğu azaltabilir</string>
+    <string name="backing_up_loading_message">Yedekleniyor…</string>
+    <string name="gps_location_accuracy">GPS konum doğruluğu</string>
+    <string name="restore_complete_message">Geri yükleme başarılı, değişikliklerin uygulanması için yeniden başlatılıyor</string>
+    <string name="until_sunrise">gün doğumuna kadar</string>
+    <string name="location_to_triangulate">Üçgenleme yapılacak konum</string>
+    <string name="exact_alarm_permission_denied">Alarmlar ve hatırlatıcılar izni reddedildi, uyarılar hatalı olabilir.</string>
+    <string name="map_calibration">Harita kalibrasyonu</string>
+    <string name="data_source">Kaynak: %s</string>
+    <string name="backup_disclaimer">Geçerli tüm verilerinizi içeren bir yedekleme dosyası oluşturulacaktır. Bu dosya ayarları, yolları, işaretçileri, haritaları vb. içerecektir.
+\n
+\nBu dosya şifreli değildir. Güvenmediğiniz kişilerle paylaşmayın.</string>
+    <string name="reset_calibration">Kalibrasyonu sıfırla</string>
+    <string name="destination">Hedef</string>
+    <string name="restore_disclaimer">Bu işlem geçerli tüm verilerinizin üzerine yazacaktır. Lütfen devam etmeden önce bir yedeğiniz olduğundan emin olun.
+\n
+\nYalnızca %s ile oluşturduğunuz ve güvendiğiniz bir yedekleme dosyasını seçin.</string>
+    <string name="beta_disclaimer">Bu araç şu anda beta aşamasındadır, bu nedenle lütfen sorunları veya geri bildirimleri %s adresine iletin.</string>
+    <string name="compass_source_mag_gyro">Manyetometre + Gyro</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Haritanın kırpılması çözünürlüğü düşürmeye devam edecektir. Haritayı yüksek çözünürlükte kırpmanız gerekiyorsa, lütfen bir fotoğraf düzenleyici uygulaması kullanın. Bunu gelecekte düzeltme planları vardır.</string>
+    <string name="photo_map_disclaimer">Yedek olarak her zaman fiziksel bir harita taşıyın ve Trail Sense\'in doğruluğunu onaylayın.</string>
+    <string name="pref_keep_map_facing_up_title">Haritayı yukarı bakacak şekilde tutun</string>
+    <string name="distance_away_from_self">%s uzaklıkta</string>
+    <string name="season">Mevsim</string>
 </resources>
