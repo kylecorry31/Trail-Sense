@@ -216,6 +216,10 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     }
 
     private fun updateMapCalibration() {
+        if (!isBound){
+            return
+        }
+
         val isCalibrated = isFullyCalibrated()
         if (binding.previewButton.isVisible != isCalibrated) {
             binding.previewButton.isVisible = isCalibrated
