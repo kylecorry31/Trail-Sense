@@ -709,6 +709,15 @@ class FormatService private constructor(private val context: Context) {
         return if (value) context.getString(R.string.yes) else context.getString(R.string.no)
     }
 
+    @DrawableRes
+    fun getCompassReferenceIcon(isTrueNorth: Boolean = prefs.compass.useTrueNorth): Int {
+        return if (isTrueNorth) {
+            R.drawable.ic_star
+        } else {
+            R.drawable.ic_tool_metal_detector
+        }
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: FormatService? = null

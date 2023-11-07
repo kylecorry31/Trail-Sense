@@ -15,7 +15,10 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.interval
@@ -173,6 +176,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
+
+    private val northReferenceHideTimer = CoroutineTimer {
+        if (isBound){
+            binding.northReferenceIndicator.setStatusText(null)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -499,6 +508,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Update the UI
         updateNavigator()
+
+        binding.northReferenceIndicator.setImageResource(formatService.getCompassReferenceIcon(useTrueNorth))
+        binding.northReferenceIndicator.setBackgroundTint(Color.TRANSPARENT)
+        binding.northReferenceIndicator.setForegroundTint(Resources.androidTextColorSecondary(requireContext()))
+        binding.northReferenceIndicator.setStatusText(if (useTrueNorth){
+            getString(R.string.true_north)
+        } else {
+            getString(R.string.magnetic_north)
+        })
+
+        northReferenceHideTimer.once(Duration.ofSeconds(5))
     }
 
     override fun onPause() {
@@ -508,6 +528,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         errors.reset()
         layerManager?.stop()
         layerManager = null
+        northReferenceHideTimer.stop()
     }
 
     private fun updateNearbyBeacons() {
