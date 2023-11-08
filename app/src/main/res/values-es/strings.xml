@@ -57,13 +57,13 @@
     <string name="pref_pressure_history_title">Historial de presiones</string>
     <string name="pref_monitor_weather_title">Monitorizar el clima</string>
     <string name="pref_ruler_calibration_title">Escala de la regla</string>
-    <string name="pref_ruler_calibration_summary">"Protocolo de calibración:
+    <string name="pref_ruler_calibration_summary">Protocolo de la calibración:
 \n
-\n-  Ajusta este valor a 1.
+\n- Ajuste este valor a 1.
 \n
-\n- Mide el valor de una unidad de la regla que ves en la pantalla de Trail Sense (con una regla real o un calibre).
+\n- Mida el valor de la regla Trail Sense correspondiente a una unidad de una regla física.
 \n
-\n- Escribe el valor que has medido aquí."</string>
+\n- Informe aquí del valor medido.</string>
     <string name="pref_num_visible_beacons_title">Balizas cercanas</string>
     <string name="pref_display_multi_beacons_summary">Mostrar las balizas más cercanas en la brújula</string>
     <string name="pref_monitor_weather_summary">"En segundo plano"</string>
@@ -1159,4 +1159,5 @@
     <string name="direction">Dirección</string>
     <string name="augmented_reality">Realidad Aumentada</string>
     <string name="augmented_reality_description">Ver balizas cercanas y el sol / luna con tu cámara</string>
+    <string name="magnetic_north">El Norte magnético</string>
 </resources>
