@@ -1171,4 +1171,5 @@
     <string name="direction">Směr</string>
     <string name="augmented_reality">Rozšířená realita</string>
     <string name="augmented_reality_description">Zobrazte si blízké majáky a slunce/měsíc vaším fotoaparátem</string>
+    <string name="magnetic_north">Magnetický sever</string>
 </resources>
