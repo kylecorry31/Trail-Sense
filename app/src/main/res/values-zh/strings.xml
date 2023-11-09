@@ -1130,4 +1130,5 @@
     <string name="direction">方向</string>
     <string name="augmented_reality">增强现实</string>
     <string name="augmented_reality_description">用相机查看附近信标及太阳/月亮</string>
+    <string name="magnetic_north">磁北</string>
 </resources>
