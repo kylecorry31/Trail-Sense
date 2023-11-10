@@ -1144,4 +1144,6 @@
     <string name="pref_keep_map_facing_up_title">Kaart omhoog laten wijzen</string>
     <string name="distance_away_from_self">%s ver</string>
     <string name="season">Seizoen</string>
+    <string name="augmented_reality">Aangevulde realiteit</string>
+    <string name="augmented_reality_description">Bekijk bakens in de buurt en de zon/maan met je camera</string>
 </resources>
