@@ -6,11 +6,11 @@ import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
+import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 
 class ToolsQuickActionBinder(
     private val fragment: AndromedaFragment,
-    private val binding: FragmentTools2Binding
+    private val binding: FragmentToolsBinding
 ) : IQuickActionBinder {
 
     private fun createButton(): ImageButton {
