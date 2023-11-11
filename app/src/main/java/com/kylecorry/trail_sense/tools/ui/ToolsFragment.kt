@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.ui.sort.CategoricalToolSort
@@ -33,17 +34,10 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
     private val tools by lazy { Tools.getTools(requireContext()) }
 
-    private val pinnedToolManager = PinnedToolManager()
-
-    init {
-        // Navigation
-        pinnedToolManager.pin(6L)
-
-        // Weather
-        pinnedToolManager.pin(20L)
-
-        // Astronomy
-        pinnedToolManager.pin(14L)
+    private val pinnedToolManager by lazy {
+        PinnedToolManager(
+            PreferencesSubsystem.getInstance(requireContext()).preferences
+        )
     }
 
     private val toolSorter by lazy { CategoricalToolSort(requireContext()) }
@@ -97,10 +91,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             }
 
             Pickers.items(
-                requireContext(),
-                getString(R.string.pinned),
-                toolNames,
-                defaultSelected
+                requireContext(), getString(R.string.pinned), toolNames, defaultSelected
             ) { selected ->
                 if (selected != null) {
                     pinnedToolManager.setPinnedToolIds(selected.map { sorted[it].id })
@@ -143,7 +134,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
     private fun populateTools(categories: List<CategorizedTools>, grid: GridLayout) {
         grid.removeAllViews()
 
-        if (categories.size == 1){
+        if (categories.size == 1) {
             categories.first().tools.forEach {
                 grid.addView(createToolButton(it))
             }
@@ -229,7 +220,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                     } else {
                         getString(R.string.pin)
                     },
-                    if (tool.guideId != null ) getString(R.string.tool_user_guide_title) else null,
+                    if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
                 )
             ) { selectedIdx ->
                 when (selectedIdx) {
@@ -242,6 +233,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                         }
                         updatePinnedTools()
                     }
+
                     2 -> {
                         UserGuideUtils.showGuide(this, tool.guideId!!)
                     }
