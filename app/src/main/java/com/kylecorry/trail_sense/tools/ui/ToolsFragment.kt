@@ -217,7 +217,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     private fun createToolButton(tool: Tool): View {
         // TODO: Move this to the class level
         val iconSize = Resources.dp(requireContext(), 24f).toInt()
-        val iconPadding = Resources.dp(requireContext(), 16f).toInt()
+        val iconPadding = Resources.dp(requireContext(), 12f).toInt()
         val iconColor = Resources.androidTextColorPrimary(requireContext())
         val buttonHeight = Resources.dp(requireContext(), 64f).toInt()
         val buttonMargins = Resources.dp(requireContext(), 8f).toInt()
