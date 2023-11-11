@@ -143,7 +143,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
     private fun populateCategorizedTools(categories: List<CategorizedTools>, grid: GridLayout) {
         grid.removeAllViews()
-        
+
         if (categories.size == 1){
             populateTools(categories.first().tools, grid)
             return
@@ -158,7 +158,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         }
     }
 
-    private fun createToolCategoryHeader(name: String): View {
+    private fun createToolCategoryHeader(name: String?): View {
         // TODO: Move this to the class level
         val headerMargins = Resources.dp(requireContext(), 8f).toInt()
 
@@ -254,16 +254,29 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         return button
     }
 
+    // TODO: Add other strategies and extract this
     private fun sortTools(tools: List<Tool>): List<CategorizedTools> {
         // Sort by category, then by name
 //        return tools.sortedWith(compareBy({ it.category.ordinal }, { it.name }))
 
+        val groupNameMap = mapOf(
+            ToolCategory.Signaling to getString(R.string.tool_category_signaling),
+            ToolCategory.Distance to getString(R.string.distance),
+            ToolCategory.Location to getString(R.string.location),
+            ToolCategory.Angles to getString(R.string.tool_category_angles),
+            ToolCategory.Time to getString(R.string.time),
+            ToolCategory.Power to getString(R.string.power),
+            ToolCategory.Weather to getString(R.string.weather),
+            ToolCategory.Other to getString(R.string.other)
+        )
+
         return tools.groupBy { it.category }.map { (category, tools) ->
-            CategorizedTools(category.name, tools.sortedBy { it.name })
+            CategorizedTools(groupNameMap[category], tools.sortedBy { it.name })
         }
 
     }
 
-    data class CategorizedTools(val categoryName: String, val tools: List<Tool>)
+    // TODO: Extract this
+    data class CategorizedTools(val categoryName: String?, val tools: List<Tool>)
 
 }

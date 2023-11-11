@@ -41,17 +41,6 @@ object Tools {
         val hasBarometer = Sensors.hasBarometer(context)
         val prefs = UserPreferences(context)
 
-//        val groupNameMap = mapOf(
-//            ToolCategory.Signaling to context.getString(R.string.tool_category_signaling),
-//            ToolCategory.Distance to context.getString(R.string.distance),
-//            ToolCategory.Location to context.getString(R.string.location),
-//            ToolCategory.Angles to context.getString(R.string.tool_category_angles),
-//            ToolCategory.Time to context.getString(R.string.time),
-//            ToolCategory.Power to context.getString(R.string.power),
-//            ToolCategory.Weather to context.getString(R.string.weather),
-//            ToolCategory.Other to context.getString(R.string.other)
-//        )
-
         return listOfNotNull(
             Tool(
                 1,
