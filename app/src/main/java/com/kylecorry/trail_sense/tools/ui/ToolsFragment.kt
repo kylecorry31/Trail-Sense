@@ -1,140 +1,262 @@
 package com.kylecorry.trail_sense.tools.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.appcompat.widget.SearchView
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.core.view.setMargins
+import androidx.gridlayout.widget.GridLayout
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
-import com.kylecorry.trail_sense.databinding.ListItemToolBinding
-
+import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
+import com.kylecorry.trail_sense.tools.ui.sort.CategoricalToolSort
+import com.kylecorry.trail_sense.tools.ui.sort.CategorizedTools
 
 class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
-    private lateinit var toolsList: ListView<ToolListItem>
     private val tools by lazy { Tools.getTools(requireContext()) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val primaryColor = Resources.getAndroidColorAttr(requireContext(), androidx.appcompat.R.attr.colorPrimary)
-        val textColor = Resources.androidTextColorPrimary(requireContext())
-        val attrs = intArrayOf(android.R.attr.selectableItemBackground)
-        val typedArray = requireContext().obtainStyledAttributes(attrs)
-        val selectableBackground = typedArray.getResourceId(0, 0)
-        typedArray.recycle()
-        toolsList = ListView(binding.toolRecycler, R.layout.list_item_tool) { itemView, tool ->
-            val toolBinding = ListItemToolBinding.bind(itemView)
-
-            if (tool.action != null && tool.icon != null) {
-                // Tool
-                toolBinding.root.setBackgroundResource(selectableBackground)
-                toolBinding.title.text = tool.name.capitalizeWords()
-                toolBinding.title.setTextColor(textColor)
-                toolBinding.description.text = tool.description
-                toolBinding.icon.isVisible = true
-                toolBinding.description.isVisible = tool.description != null
-                toolBinding.icon.setImageResource(tool.icon)
-                Colors.setImageColor(toolBinding.icon, Resources.androidTextColorSecondary(requireContext()))
-                toolBinding.root.setOnClickListener {
-                    tryOrLog {
-                        findNavController().navigate(tool.action)
-                    }
-                }
-            } else {
-                // Tool group
-                toolBinding.root.setBackgroundResource(0)
-                toolBinding.title.text = tool.name
-                toolBinding.title.setTextColor(primaryColor)
-                toolBinding.description.text = ""
-                toolBinding.icon.isVisible = false
-                toolBinding.description.isVisible = false
-                toolBinding.root.setOnClickListener(null)
-            }
-
-        }
-
-        binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                updateToolList()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                updateToolList()
-                return true
-            }
-
-        })
-
-        updateToolList()
+    private val pinnedToolManager by lazy {
+        PinnedToolManager(
+            PreferencesSubsystem.getInstance(requireContext()).preferences
+        )
     }
 
-    private fun updateToolList() {
-        val toolListItems = mutableListOf<ToolListItem>()
-        val search = binding.searchbox.query
-
-        if (search.isNullOrBlank()) {
-            for (group in tools) {
-                toolListItems.add(ToolListItem(group.name, null, null, null))
-                for (tool in group.tools) {
-                    toolListItems.add(
-                        ToolListItem(
-                            tool.name,
-                            tool.description,
-                            tool.icon,
-                            tool.navAction
-                        )
-                    )
-                }
-            }
-        } else {
-            for (group in tools) {
-                for (tool in group.tools) {
-                    if (tool.name.contains(search, true) || tool.description?.contains(
-                            search,
-                            true
-                        ) == true
-                    ) {
-                        toolListItems.add(
-                            ToolListItem(
-                                tool.name,
-                                tool.description,
-                                tool.icon,
-                                tool.navAction
-                            )
-                        )
-                    }
-                }
-            }
-        }
-
-        toolsList.setData(toolListItems)
-    }
+    private val toolSorter by lazy { CategoricalToolSort(requireContext()) }
+    private val pinnedSorter = AlphabeticalToolSort()
 
     override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
+        layoutInflater: LayoutInflater, container: ViewGroup?
     ): FragmentToolsBinding {
         return FragmentToolsBinding.inflate(layoutInflater, container, false)
     }
 
-    internal data class ToolListItem(
-        val name: String,
-        val description: String?,
-        @DrawableRes val icon: Int?,
-        @IdRes val action: Int?
-    )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        updatePinnedTools()
+        updateTools()
+
+        updateQuickActions()
+
+        binding.settingsBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_settings)
+        }
+
+        binding.searchbox.setOnQueryTextListener { _, _ ->
+            updateTools()
+            true
+        }
+
+        binding.pinnedEditBtn.setOnClickListener {
+            // Sort alphabetically, but if the tool is already pinned, put it first
+            val sorted = tools.sortedBy { tool ->
+                if (pinnedToolManager.isPinned(tool.id)) {
+                    "0${tool.name}"
+                } else {
+                    tool.name
+                }
+            }
+            val toolNames = sorted.map { it.name }
+            val defaultSelected = sorted.mapIndexedNotNull { index, tool ->
+                if (pinnedToolManager.isPinned(tool.id)) {
+                    index
+                } else {
+                    null
+                }
+            }
+
+            Pickers.items(
+                requireContext(), getString(R.string.pinned), toolNames, defaultSelected
+            ) { selected ->
+                if (selected != null) {
+                    pinnedToolManager.setPinnedToolIds(selected.map { sorted[it].id })
+                }
+
+                updatePinnedTools()
+            }
+        }
+
+        CustomUiUtils.oneTimeToast(
+            requireContext(),
+            getString(R.string.tool_long_press_hint_toast),
+            "tools_long_press_notice_shown",
+            short = false
+        )
+
+    }
+
+    // TODO: Add a way to customize this
+    private fun updateQuickActions() {
+        ToolsQuickActionBinder(this, binding).bind()
+    }
+
+    private fun updateTools() {
+        val filter = binding.searchbox.query
+
+        // Hide pinned when searching
+        if (filter.isNullOrBlank()) {
+            binding.pinned.isVisible = true
+            binding.pinnedTitle.isVisible = true
+        } else {
+            binding.pinned.isVisible = false
+            binding.pinnedTitle.isVisible = false
+        }
+
+        val tools = if (filter.isNullOrBlank()) {
+            this.tools
+        } else {
+            this.tools.filter {
+                it.name.contains(filter, true) || it.description?.contains(filter, true) == true
+            }
+        }
+
+        populateTools(toolSorter.sort(tools), binding.tools)
+    }
+
+    private fun updatePinnedTools() {
+        val pinned = tools.filter {
+            pinnedToolManager.isPinned(it.id)
+        }
+
+        binding.pinned.isVisible = pinned.isNotEmpty()
+
+        populateTools(pinnedSorter.sort(pinned), binding.pinned)
+    }
+
+    private fun populateTools(categories: List<CategorizedTools>, grid: GridLayout) {
+        grid.removeAllViews()
+
+        if (categories.size == 1) {
+            categories.first().tools.forEach {
+                grid.addView(createToolButton(it))
+            }
+            return
+        }
+
+
+        categories.forEach {
+            grid.addView(createToolCategoryHeader(it.categoryName))
+            it.tools.forEach {
+                grid.addView(createToolButton(it))
+            }
+        }
+    }
+
+    private fun createToolCategoryHeader(name: String?): View {
+        // TODO: Move this to the class level
+        val headerMargins = Resources.dp(requireContext(), 8f).toInt()
+
+        val gridColumnSpec = GridLayout.spec(GridLayout.UNDEFINED, 2, 1f)
+        val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+
+        val header = TextView(requireContext())
+        header.text = name?.capitalizeWords()
+        header.textSize = 14f
+        header.setTextColor(AppColor.Orange.color)
+        // Bold
+        header.paint.isFakeBoldText = true
+        header.layoutParams = GridLayout.LayoutParams().apply {
+            width = 0
+            height = GridLayout.LayoutParams.WRAP_CONTENT
+            columnSpec = gridColumnSpec
+            rowSpec = gridRowSpec
+            setMargins(headerMargins, headerMargins * 2, headerMargins, headerMargins)
+        }
+        header.gravity = Gravity.CENTER_VERTICAL
+
+        return header
+    }
+
+    private fun createToolButton(tool: Tool): View {
+        // TODO: Move this to the class level
+        val iconSize = Resources.dp(requireContext(), 24f).toInt()
+        val iconPadding = Resources.dp(requireContext(), 16f).toInt()
+        val iconColor = Resources.androidTextColorPrimary(requireContext())
+        val buttonHeight = Resources.dp(requireContext(), 64f).toInt()
+        val buttonMargins = Resources.dp(requireContext(), 8f).toInt()
+        val buttonPadding = Resources.dp(requireContext(), 16f).toInt()
+        val buttonBackgroundColor = Resources.getAndroidColorAttr(
+            requireContext(), android.R.attr.colorBackgroundFloating
+        )
+
+        val gridColumnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+        val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+
+        val button = TextView(requireContext())
+        button.text = tool.name.capitalizeWords()
+        button.setCompoundDrawables(iconSize, left = tool.icon)
+        button.compoundDrawablePadding = iconPadding
+        button.elevation = 2f
+        CustomUiUtils.setImageColor(button, iconColor)
+        button.layoutParams = GridLayout.LayoutParams().apply {
+            width = 0
+            height = buttonHeight
+            columnSpec = gridColumnSpec
+            rowSpec = gridRowSpec
+            setMargins(buttonMargins)
+        }
+        button.gravity = Gravity.CENTER_VERTICAL
+        button.setPadding(buttonPadding, 0, buttonPadding, 0)
+
+        button.setBackgroundResource(R.drawable.rounded_rectangle)
+        button.backgroundTintList = ColorStateList.valueOf(buttonBackgroundColor)
+        button.setOnClickListener { _ ->
+            findNavController().navigate(tool.navAction)
+        }
+
+        button.setOnLongClickListener { view ->
+            Pickers.menu(
+                view, listOf(
+                    if (tool.description != null) getString(R.string.pref_category_about) else null,
+                    if (pinnedToolManager.isPinned(tool.id)) {
+                        getString(R.string.unpin)
+                    } else {
+                        getString(R.string.pin)
+                    },
+                    if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
+                )
+            ) { selectedIdx ->
+                when (selectedIdx) {
+                    0 -> dialog(tool.name, tool.description, cancelText = null)
+                    1 -> {
+                        if (pinnedToolManager.isPinned(tool.id)) {
+                            pinnedToolManager.unpin(tool.id)
+                        } else {
+                            pinnedToolManager.pin(tool.id)
+                        }
+                        updatePinnedTools()
+                    }
+
+                    2 -> {
+                        UserGuideUtils.showGuide(this, tool.guideId!!)
+                    }
+                }
+                true
+            }
+            true
+        }
+
+        return button
+    }
 
 }

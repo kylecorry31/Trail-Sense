@@ -21,16 +21,11 @@
         android:icon="@drawable/ic_astronomy"
         app:showAsAction="ifRoom" />
 
+
     <item
         android:id="@+id/action_experimental_tools"
         android:title="@string/tools"
-        android:icon="@drawable/clinometer"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/apps"
         app:showAsAction="ifRoom" />
 
 

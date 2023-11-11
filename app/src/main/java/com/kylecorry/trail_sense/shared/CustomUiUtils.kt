@@ -237,6 +237,19 @@ object CustomUiUtils {
         }
     }
 
+    fun oneTimeToast(
+        context: Context,
+        message: String,
+        shownKey: String,
+        short: Boolean = true
+    ){
+        val prefs = PreferencesSubsystem.getInstance(context).preferences
+        if (prefs.getBoolean(shownKey) != true) {
+            Alerts.toast(context, message, short)
+            prefs.putBoolean(shownKey, true)
+        }
+    }
+
     fun disclaimer(
         context: Context,
         title: String,
