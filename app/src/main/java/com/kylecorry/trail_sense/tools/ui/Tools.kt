@@ -248,7 +248,12 @@ object Tools {
                     R.drawable.ic_user_guide,
                     R.id.action_action_experimental_tools_to_guideListFragment,
                     context.getString(R.string.tool_user_guide_summary)
-                )
+                ),
+                if (isDebug()) Tool(
+                    "Experimentation",
+                    R.drawable.ic_experimental,
+                    R.id.experimentationFragment
+                ) else null
             )
         )
 

@@ -413,6 +413,10 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
+        android:id="@+id/experimentationFragment"
+        android:name="com.kylecorry.trail_sense.experimentation.ExperimentationFragment"
+        android:label="ExperimentationFragment"/>
+    <fragment
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.navigation.beacons.ui.list.BeaconListFragment"
         android:label="BeaconListFragment">
