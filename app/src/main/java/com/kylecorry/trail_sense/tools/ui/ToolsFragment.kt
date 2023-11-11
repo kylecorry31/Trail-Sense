@@ -14,6 +14,7 @@ import androidx.core.view.setMargins
 import androidx.gridlayout.widget.GridLayout
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -51,12 +52,6 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.quickActions.children.forEach {
-            if (it is ImageButton) {
-                CustomUiUtils.setButtonState(it, false)
-            }
-        }
 
         updatePinnedTools()
         updateTools()
@@ -175,7 +170,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
 
         val header = TextView(requireContext())
-        header.text = name
+        header.text = name?.capitalizeWords()
         header.textSize = 14f
         header.setTextColor(AppColor.Orange.color)
         // Bold
@@ -208,7 +203,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
 
         val button = TextView(requireContext())
-        button.text = tool.name
+        button.text = tool.name.capitalizeWords()
         button.setCompoundDrawables(iconSize, left = tool.icon)
         button.compoundDrawablePadding = iconPadding
         button.elevation = 2f
