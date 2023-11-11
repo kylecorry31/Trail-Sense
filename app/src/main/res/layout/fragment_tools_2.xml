@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Pinned"
+                android:text="@string/pinned"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
 
             <androidx.gridlayout.widget.GridLayout
