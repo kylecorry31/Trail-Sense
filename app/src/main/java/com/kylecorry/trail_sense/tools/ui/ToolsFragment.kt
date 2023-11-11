@@ -6,9 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import androidx.gridlayout.widget.GridLayout
@@ -23,17 +21,20 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
-import com.kylecorry.trail_sense.tools.ui.sort.CategoricalToolSort
 import com.kylecorry.trail_sense.tools.ui.sort.CategorizedTools
+import com.kylecorry.trail_sense.tools.ui.sort.ToolSortFactory
+import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
 
 class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     private val tools by lazy { Tools.getTools(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val pinnedToolManager by lazy {
         PinnedToolManager(
@@ -41,7 +42,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         )
     }
 
-    private val toolSorter by lazy { CategoricalToolSort(requireContext()) }
+    private val toolSortFactory by lazy { ToolSortFactory(requireContext()) }
+
     private val pinnedSorter = AlphabeticalToolSort()
 
     override fun generateBinding(
@@ -96,6 +98,10 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             }
         }
 
+        binding.sortBtn.setOnClickListener {
+            changeToolSort()
+        }
+
         CustomUiUtils.oneTimeToast(
             requireContext(),
             getString(R.string.tool_long_press_hint_toast),
@@ -108,6 +114,26 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     // TODO: Add a way to customize this
     private fun updateQuickActions() {
         ToolsQuickActionBinder(this, binding).bind()
+    }
+
+    private fun changeToolSort() {
+        val sortTypes = ToolSortType.values()
+        val sortTypeNames = mapOf(
+            ToolSortType.Name to getString(R.string.name),
+            ToolSortType.Category to getString(R.string.category)
+        )
+
+        Pickers.item(
+            requireContext(),
+            getString(R.string.sort),
+            sortTypes.map { sortTypeNames[it] ?: "" },
+            sortTypes.indexOf(prefs.toolSort)
+        ) { selectedIdx ->
+            if (selectedIdx != null){
+                prefs.toolSort = sortTypes[selectedIdx]
+                updateTools()
+            }
+        }
     }
 
     private fun updateTools() {
@@ -130,7 +156,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             }
         }
 
-        populateTools(toolSorter.sort(tools), binding.tools)
+        val sorter = toolSortFactory.getToolSort(prefs.toolSort)
+        populateTools(sorter.sort(tools), binding.tools)
     }
 
     private fun updatePinnedTools() {

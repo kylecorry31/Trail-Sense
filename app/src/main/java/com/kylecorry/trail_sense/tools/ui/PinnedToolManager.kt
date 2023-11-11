@@ -7,7 +7,7 @@ class PinnedToolManager(private val prefs: IPreferences) {
     private val pinned = mutableSetOf<Long>()
     private val lock = Any()
 
-    private val key = "pinned_tools"
+    private val key = "pref_pinned_tools"
 
     init {
         // TODO: Listen for changes

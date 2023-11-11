@@ -5,6 +5,7 @@ import android.hardware.SensorManager
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Coordinate
@@ -31,6 +32,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.ThermometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
+import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 
@@ -289,6 +291,16 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
             "google" to MapSite.Google,
             "osm" to MapSite.OSM
         ), MapSite.OSM
+    )
+
+    var toolSort: ToolSortType by IntEnumPreference(
+        cache,
+        context.getString(R.string.pref_tool_sort),
+        mapOf(
+            1 to ToolSortType.Name,
+            2 to ToolSortType.Category
+        ),
+        ToolSortType.Category
     )
 
     private fun getString(id: Int): String {

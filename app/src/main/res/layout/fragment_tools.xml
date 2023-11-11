@@ -88,14 +88,32 @@
                 app:columnCount="2"
                 app:useDefaultMargins="false" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/tools"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/tools"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+                <ImageButton
+                    android:id="@+id/sort_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/sort_ascending"
+                    app:tint="?android:textColorSecondary" />
+
+            </LinearLayout>
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/tools"
