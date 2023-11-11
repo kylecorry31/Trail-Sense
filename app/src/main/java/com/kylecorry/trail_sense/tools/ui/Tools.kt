@@ -88,7 +88,8 @@ object Tools {
                 R.id.action_action_experimental_tools_to_toolCliffHeightFragment,
                 ToolCategory.Distance,
                 context.getString(R.string.experimental) + " - " + context.getString(R.string.tool_cliff_height_description),
-                isExperimental = true
+                isExperimental = true,
+                guideId = R.raw.cliff_height
             ) else null,
             Tool(
                 6,
@@ -96,6 +97,7 @@ object Tools {
                 R.drawable.ic_compass_icon,
                 R.id.action_navigation,
                 ToolCategory.Location,
+                guideId = R.raw.navigate
             ),
             Tool(
                 7,
@@ -103,6 +105,7 @@ object Tools {
                 R.drawable.ic_location,
                 R.id.action_tools_to_beacons,
                 ToolCategory.Location,
+                guideId = R.raw.navigate
             ),
             Tool(
                 8,
@@ -119,6 +122,7 @@ object Tools {
                 R.drawable.ic_tool_backtrack,
                 R.id.action_action_experimental_tools_to_fragmentBacktrack,
                 ToolCategory.Location,
+                guideId = R.raw.navigate
             ),
             Tool(
                 10,
@@ -126,6 +130,7 @@ object Tools {
                 R.drawable.ic_tool_triangulate,
                 R.id.action_action_experimental_tools_to_fragmentToolTriangulate,
                 ToolCategory.Location,
+                guideId = R.raw.determine_location_without_gps
             ),
             Tool(
                 11,
@@ -133,7 +138,8 @@ object Tools {
                 R.drawable.clinometer,
                 R.id.action_toolsFragment_to_clinometerFragment,
                 ToolCategory.Angles,
-                context.getString(R.string.tool_clinometer_summary)
+                context.getString(R.string.tool_clinometer_summary),
+                guideId = R.raw.clinometer
             ),
             Tool(
                 12,
@@ -155,7 +161,7 @@ object Tools {
                 context.getString(R.string.astronomy),
                 R.drawable.ic_astronomy,
                 R.id.action_astronomy,
-                ToolCategory.Time,
+                ToolCategory.Time
             ),
             Tool(
                 15,
@@ -163,7 +169,8 @@ object Tools {
                 R.drawable.ic_tool_boil,
                 R.id.action_action_experimental_tools_to_waterPurificationFragment,
                 ToolCategory.Time,
-                context.getString(R.string.tool_boil_summary)
+                context.getString(R.string.tool_boil_summary),
+                guideId = R.raw.making_water_potable
             ),
             Tool(
                 16,
@@ -171,6 +178,7 @@ object Tools {
                 R.drawable.ic_tide_table,
                 R.id.action_toolsFragment_to_tidesFragment,
                 ToolCategory.Time,
+                guideId = R.raw.tides
             ),
             Tool(
                 17,
@@ -178,6 +186,7 @@ object Tools {
                 R.drawable.ic_tool_battery,
                 R.id.action_action_experimental_tools_to_fragmentToolBattery,
                 ToolCategory.Power,
+                guideId = R.raw.conserving_battery
             ),
             if (hasCompass) Tool(
                 18,
@@ -193,7 +202,8 @@ object Tools {
                 R.drawable.flashlight,
                 R.id.action_toolsFragment_to_toolLightFragment,
                 ToolCategory.Power,
-                context.getString(R.string.guide_light_meter_description)
+                context.getString(R.string.guide_light_meter_description),
+                guideId = R.raw.flashlight_testing
             ) else null,
             if (hasBarometer) Tool(
                 20,
@@ -201,6 +211,7 @@ object Tools {
                 R.drawable.cloud,
                 R.id.action_weather,
                 ToolCategory.Weather,
+                guideId = R.raw.weather
             ) else null,
             Tool(
                 21,
@@ -208,7 +219,8 @@ object Tools {
                 R.drawable.ic_temperature_range,
                 R.id.action_toolsFragment_to_toolClimate,
                 ToolCategory.Weather,
-                context.getString(R.string.tool_climate_summary)
+                context.getString(R.string.tool_climate_summary),
+                guideId = R.raw.weather
             ),
             Tool(
                 22,
@@ -216,7 +228,8 @@ object Tools {
                 R.drawable.thermometer,
                 R.id.action_tools_to_temperature_estimation,
                 ToolCategory.Weather,
-                context.getString(R.string.tool_temperature_estimation_description)
+                context.getString(R.string.tool_temperature_estimation_description),
+                guideId = R.raw.weather
             ),
             Tool(
                 23,
@@ -224,6 +237,7 @@ object Tools {
                 R.drawable.ic_tool_clouds,
                 R.id.action_action_experimental_tools_to_cloudFragment,
                 ToolCategory.Weather,
+                guideId = R.raw.weather
             ),
             Tool(
                 24,
@@ -254,6 +268,7 @@ object Tools {
                 R.drawable.ic_tool_pack,
                 R.id.action_action_experimental_tools_to_action_inventory,
                 ToolCategory.Other,
+                guideId = R.raw.packing_lists
             ),
             if (hasCompass) Tool(
                 28,
