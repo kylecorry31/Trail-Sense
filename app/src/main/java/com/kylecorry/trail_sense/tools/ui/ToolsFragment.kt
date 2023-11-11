@@ -25,16 +25,29 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
+import com.kylecorry.trail_sense.tools.ui.sort.CategoricalToolSort
+import com.kylecorry.trail_sense.tools.ui.sort.CategorizedTools
 
 class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
     private val tools by lazy { Tools.getTools(requireContext()) }
 
-    private val pinnedIds = mutableSetOf(
-        6L, // Navigation
-        20L, // Weather
-        14L, // Astronomy
-    )
+    private val pinnedToolManager = PinnedToolManager()
+
+    init {
+        // Navigation
+        pinnedToolManager.pin(6L)
+
+        // Weather
+        pinnedToolManager.pin(20L)
+
+        // Astronomy
+        pinnedToolManager.pin(14L)
+    }
+
+    private val toolSorter by lazy { CategoricalToolSort(requireContext()) }
+    private val pinnedSorter = AlphabeticalToolSort()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -68,7 +81,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         binding.pinnedEditBtn.setOnClickListener {
             // Sort alphabetically, but if the tool is already pinned, put it first
             val sorted = tools.sortedBy { tool ->
-                if (pinnedIds.contains(tool.id)) {
+                if (pinnedToolManager.isPinned(tool.id)) {
                     "0${tool.name}"
                 } else {
                     tool.name
@@ -76,7 +89,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             }
             val toolNames = sorted.map { it.name }
             val defaultSelected = sorted.mapIndexedNotNull { index, tool ->
-                if (pinnedIds.contains(tool.id)) {
+                if (pinnedToolManager.isPinned(tool.id)) {
                     index
                 } else {
                     null
@@ -90,12 +103,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                 defaultSelected
             ) { selected ->
                 if (selected != null) {
-                    // TODO: Save this
-                    pinnedIds.clear()
-                    selected.forEach {
-                        val tool = sorted[it]
-                        pinnedIds.add(tool.id)
-                    }
+                    pinnedToolManager.setPinnedToolIds(selected.map { sorted[it].id })
                 }
 
                 updatePinnedTools()
@@ -119,33 +127,26 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             }
         }
 
-        populateCategorizedTools(sortTools(tools), binding.tools)
+        populateTools(toolSorter.sort(tools), binding.tools)
     }
 
     private fun updatePinnedTools() {
-        // TODO: Load pinned list
         val pinned = tools.filter {
-            it.id in pinnedIds
+            pinnedToolManager.isPinned(it.id)
         }
 
         binding.pinned.isVisible = pinned.isNotEmpty()
 
-        // Always sort pinned tools alphabetically
-        populateTools(pinned.sortedBy { it.name }, binding.pinned)
+        populateTools(pinnedSorter.sort(pinned), binding.pinned)
     }
 
-    private fun populateTools(tools: List<Tool>, grid: GridLayout){
-        grid.removeAllViews()
-        tools.forEach {
-            grid.addView(createToolButton(it))
-        }
-    }
-
-    private fun populateCategorizedTools(categories: List<CategorizedTools>, grid: GridLayout) {
+    private fun populateTools(categories: List<CategorizedTools>, grid: GridLayout) {
         grid.removeAllViews()
 
         if (categories.size == 1){
-            populateTools(categories.first().tools, grid)
+            categories.first().tools.forEach {
+                grid.addView(createToolButton(it))
+            }
             return
         }
 
@@ -223,7 +224,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             Pickers.menu(
                 view, listOf(
                     if (tool.description != null) getString(R.string.pref_category_about) else null,
-                    if (pinnedIds.contains(tool.id)) {
+                    if (pinnedToolManager.isPinned(tool.id)) {
                         getString(R.string.unpin)
                     } else {
                         getString(R.string.pin)
@@ -234,11 +235,10 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                 when (selectedIdx) {
                     0 -> dialog(tool.name, tool.description, cancelText = null)
                     1 -> {
-                        // TODO: Save this
-                        if (pinnedIds.contains(tool.id)) {
-                            pinnedIds.remove(tool.id)
+                        if (pinnedToolManager.isPinned(tool.id)) {
+                            pinnedToolManager.unpin(tool.id)
                         } else {
-                            pinnedIds.add(tool.id)
+                            pinnedToolManager.pin(tool.id)
                         }
                         updatePinnedTools()
                     }
@@ -253,30 +253,5 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
         return button
     }
-
-    // TODO: Add other strategies and extract this
-    private fun sortTools(tools: List<Tool>): List<CategorizedTools> {
-        // Sort by category, then by name
-//        return tools.sortedWith(compareBy({ it.category.ordinal }, { it.name }))
-
-        val groupNameMap = mapOf(
-            ToolCategory.Signaling to getString(R.string.tool_category_signaling),
-            ToolCategory.Distance to getString(R.string.distance),
-            ToolCategory.Location to getString(R.string.location),
-            ToolCategory.Angles to getString(R.string.tool_category_angles),
-            ToolCategory.Time to getString(R.string.time),
-            ToolCategory.Power to getString(R.string.power),
-            ToolCategory.Weather to getString(R.string.weather),
-            ToolCategory.Other to getString(R.string.other)
-        )
-
-        return tools.groupBy { it.category }.map { (category, tools) ->
-            CategorizedTools(groupNameMap[category], tools.sortedBy { it.name })
-        }
-
-    }
-
-    // TODO: Extract this
-    data class CategorizedTools(val categoryName: String?, val tools: List<Tool>)
 
 }
