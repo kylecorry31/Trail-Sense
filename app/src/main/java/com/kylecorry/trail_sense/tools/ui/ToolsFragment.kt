@@ -63,8 +63,46 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             updateTools()
             true
         }
+
+        binding.pinnedEditBtn.setOnClickListener {
+            // Sort alphabetically, but if the tool is already pinned, put it first
+            val sorted = tools.sortedBy { tool ->
+                if (pinnedIds.contains(tool.navAction)) {
+                    "0${tool.name}"
+                } else {
+                    tool.name
+                }
+            }
+            val toolNames = sorted.map { it.name }
+            val defaultSelected = sorted.mapIndexedNotNull { index, tool ->
+                if (pinnedIds.contains(tool.navAction)) {
+                    index
+                } else {
+                    null
+                }
+            }
+
+            Pickers.items(
+                requireContext(),
+                getString(R.string.pinned),
+                toolNames,
+                defaultSelected
+            ) { selected ->
+                if (selected != null) {
+                    // TODO: Save this
+                    pinnedIds.clear()
+                    selected.forEach {
+                        val tool = sorted[it]
+                        pinnedIds.add(tool.navAction)
+                    }
+                }
+
+                updatePinnedTools()
+            }
+        }
     }
 
+    // TODO: Add a way to customize this
     private fun updateQuickActions() {
         ToolsQuickActionBinder(this, binding).bind()
     }
@@ -89,13 +127,8 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             it.navAction in pinnedIds
         }
 
-        if (pinned.isEmpty()) {
-            binding.pinned.isVisible = false
-            binding.pinnedTitle.isVisible = false
-        } else {
-            binding.pinned.isVisible = true
-            binding.pinnedTitle.isVisible = true
-        }
+        // TODO: Show an option to pin tools
+        binding.pinned.isVisible = pinned.isNotEmpty()
 
         populateTools(pinned.sortedBy { it.name }, binding.pinned)
     }

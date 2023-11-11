@@ -12,14 +12,6 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/edit_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            app:srcCompat="@drawable/ic_edit"
-            app:tint="?android:textColorSecondary" />
-
-        <ImageButton
             android:id="@+id/settings_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,14 +39,33 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/pinned_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/pinned"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/pinned"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+                <ImageButton
+                    android:id="@+id/pinned_edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_edit"
+                    app:tint="?android:textColorSecondary" />
+
+            </LinearLayout>
+
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/pinned"
