@@ -195,7 +195,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                             updatePinnedTools()
                         }
                         2 -> {
-                            UserGuideUtils.openGuide(this, it.guideId!!)
+                            UserGuideUtils.showGuide(this, it.guideId!!)
                         }
                     }
                     true

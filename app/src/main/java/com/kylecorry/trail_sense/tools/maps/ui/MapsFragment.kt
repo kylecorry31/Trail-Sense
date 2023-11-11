@@ -107,7 +107,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     }
 
     private fun openGuide() {
-        UserGuideUtils.showGuide(this, R.raw.importing_maps)
+        UserGuideUtils.openGuide(this, R.raw.importing_maps)
     }
 
     private fun calibrate() {
