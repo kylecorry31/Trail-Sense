@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import androidx.gridlayout.widget.GridLayout
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
@@ -24,6 +27,13 @@ import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
     private val tools by lazy { Tools.getTools(requireContext()).flatMap { it.tools } }
+
+    // TODO: Give each tool a unique ID
+    private val pinnedIds = mutableSetOf(
+        R.id.action_navigation,
+        R.id.action_weather,
+        R.id.action_astronomy
+    )
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -55,7 +65,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         }
     }
 
-    private fun updateQuickActions(){
+    private fun updateQuickActions() {
         ToolsQuickActionBinder(this, binding).bind()
     }
 
@@ -74,11 +84,17 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
     }
 
     private fun updatePinnedTools() {
-        val pinnedTools = listOf(
-            R.id.action_navigation, R.id.action_weather, R.id.action_astronomy, R.id.action_settings
-        )
+        // TODO: Load pinned list
         val pinned = tools.filter {
-            it.navAction in pinnedTools
+            it.navAction in pinnedIds
+        }
+
+        if (pinned.isEmpty()) {
+            binding.pinned.isVisible = false
+            binding.pinnedTitle.isVisible = false
+        } else {
+            binding.pinned.isVisible = true
+            binding.pinnedTitle.isVisible = true
         }
 
         populateTools(pinned.sortedBy { it.name }, binding.pinned)
@@ -117,9 +133,37 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
             button.setBackgroundResource(R.drawable.rounded_rectangle)
             button.backgroundTintList = ColorStateList.valueOf(buttonBackgroundColor)
-            button.isClickable = true
             button.setOnClickListener { _ ->
                 findNavController().navigate(it.navAction)
+            }
+
+            button.setOnLongClickListener { view ->
+                Pickers.menu(
+                    view, listOf(
+                        if (it.description != null) getString(R.string.pref_category_about) else null,
+                        if (pinnedIds.contains(it.navAction)) {
+                            getString(R.string.unpin)
+                        } else {
+                            getString(R.string.pin)
+                        }
+                        // TODO: Guide
+                    )
+                ) { selectedIdx ->
+                    when (selectedIdx) {
+                        0 -> dialog(it.name, it.description, cancelText = null)
+                        1 -> {
+                            // TODO: Save this
+                            if (pinnedIds.contains(it.navAction)) {
+                                pinnedIds.remove(it.navAction)
+                            } else {
+                                pinnedIds.add(it.navAction)
+                            }
+                            updatePinnedTools()
+                        }
+                    }
+                    true
+                }
+                true
             }
 
             grid.addView(button)

@@ -1357,6 +1357,8 @@
     <string name="pref_enable_augmented_reality_tool" translatable="false">pref_enable_augmented_reality_tool</string>
     <string name="magnetic_north">Magnetic North</string>
     <string name="pinned">Pinned</string>
+    <string name="unpin">Unpin</string>
+    <string name="pin">Pin</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
