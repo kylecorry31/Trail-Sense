@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.requireMainActivity
@@ -121,6 +122,15 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
         if (!isCompassErrorShown && codes.contains(DiagnosticCode.MagnetometerUnavailable)) {
             show(DiagnosticCode.MagnetometerUnavailable)
             isCompassErrorShown = true
+
+            // Show a one time dialog containing the missing compass text
+            CustomUiUtils.disclaimer(
+                fragment.requireContext(),
+                fragment.getString(R.string.no_compass_message),
+                fragment.getString(R.string.no_compass_description),
+                "no_compass_message_shown",
+                cancelText = null
+            )
         } else if (!codes.contains(DiagnosticCode.MagnetometerUnavailable)) {
             banner.dismiss(ErrorBannerReason.NoCompass)
             // Do not reset isCompassErrorShown
