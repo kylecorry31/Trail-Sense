@@ -23,6 +23,7 @@ object Tools {
         val hasLightMeter = Sensors.hasSensor(context, Sensor.TYPE_LIGHT)
         val hasPedometer = Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER)
         val hasCompass = SensorService(context).hasCompass()
+        val hasBarometer = Sensors.hasBarometer(context)
         val prefs = UserPreferences(context)
         val signaling = ToolGroup(
             context.getString(R.string.tool_category_signaling), listOf(
@@ -61,6 +62,16 @@ object Tools {
 
         val location = ToolGroup(
             context.getString(R.string.location), listOfNotNull(
+                Tool(
+                    context.getString(R.string.navigation),
+                    R.drawable.ic_compass_icon,
+                    R.id.action_navigation
+                ),
+                Tool(
+                    context.getString(R.string.beacons),
+                    R.drawable.ic_location,
+                    R.id.action_tools_to_beacons
+                ),
                 Tool(
                     context.getString(R.string.photo_maps),
                     R.drawable.maps,
@@ -105,6 +116,11 @@ object Tools {
                     R.id.action_action_experimental_tools_to_toolClockFragment
                 ),
                 Tool(
+                    context.getString(R.string.astronomy),
+                    R.drawable.ic_astronomy,
+                    R.id.action_astronomy
+                ),
+                Tool(
                     context.getString(R.string.water_boil_timer),
                     R.drawable.ic_tool_boil,
                     R.id.action_action_experimental_tools_to_waterPurificationFragment,
@@ -142,6 +158,11 @@ object Tools {
 
         val weather = ToolGroup(
             context.getString(R.string.weather), listOfNotNull(
+                if (hasBarometer) Tool(
+                    context.getString(R.string.weather),
+                    R.drawable.cloud,
+                    R.id.action_weather
+                ) else null,
                 Tool(
                     context.getString(R.string.tool_climate),
                     R.drawable.ic_temperature_range,
@@ -206,6 +227,21 @@ object Tools {
                     context.getString(R.string.qr_code_scanner),
                     R.drawable.ic_qr_code,
                     R.id.action_tools_to_qr
+                ),
+                Tool(
+                    context.getString(R.string.sensors),
+                    R.drawable.ic_sensors,
+                    R.id.sensorDetailsFragment
+                ),
+                Tool(
+                    context.getString(R.string.diagnostics),
+                    R.drawable.ic_alert,
+                    R.id.action_tools_to_diagnostics
+                ),
+                Tool(
+                    context.getString(R.string.settings),
+                    R.drawable.ic_settings,
+                    R.id.action_settings
                 ),
                 Tool(
                     context.getString(R.string.tool_user_guide_title),

@@ -57,6 +57,13 @@
         android:name="com.kylecorry.trail_sense.tools.ui.ToolsFragment"
         android:label="ToolsFragment">
         <action
+            android:id="@+id/action_tools_to_beacons"
+            app:destination="@id/beacon_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_toolsFragment_to_toolConvertFragment"
             app:destination="@id/toolConvertFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -206,6 +213,13 @@
         <action
             android:id="@+id/action_action_experimental_tools_to_fragmentToolNotes"
             app:destination="@id/fragmentToolNotes"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_tools_to_diagnostics"
+            app:destination="@id/diagnosticsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
