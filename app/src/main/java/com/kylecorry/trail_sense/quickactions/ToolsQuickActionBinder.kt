@@ -32,7 +32,8 @@ class ToolsQuickActionBinder(
     override fun bind() {
         binding.quickActions.removeAllViews()
         // TODO: Weather monitor
-        QuickActionBacktrack(createButton(), fragment).bind(fragment.viewLifecycleOwner)
+        // TODO: Backtrack quick action should be a toggle rather than opening the path
+//        QuickActionBacktrack(createButton(), fragment).bind(fragment.viewLifecycleOwner)
         QuickActionFlashlight(createButton(), fragment).bind(fragment.viewLifecycleOwner)
         QuickActionWhistle(createButton(), fragment).bind(fragment.viewLifecycleOwner)
         LowPowerQuickAction(createButton(), fragment).bind(fragment.viewLifecycleOwner)

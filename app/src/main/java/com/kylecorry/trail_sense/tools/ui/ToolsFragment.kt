@@ -19,7 +19,7 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
+import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -30,7 +30,7 @@ import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.ui.sort.CategoricalToolSort
 import com.kylecorry.trail_sense.tools.ui.sort.CategorizedTools
 
-class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
+class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     private val tools by lazy { Tools.getTools(requireContext()) }
 
@@ -45,8 +45,8 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
-    ): FragmentTools2Binding {
-        return FragmentTools2Binding.inflate(layoutInflater, container, false)
+    ): FragmentToolsBinding {
+        return FragmentToolsBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,6 +100,14 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                 updatePinnedTools()
             }
         }
+
+        CustomUiUtils.oneTimeToast(
+            requireContext(),
+            getString(R.string.tool_long_press_hint_toast),
+            "tools_long_press_notice_shown",
+            short = false
+        )
+
     }
 
     // TODO: Add a way to customize this
@@ -203,6 +211,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         button.text = tool.name
         button.setCompoundDrawables(iconSize, left = tool.icon)
         button.compoundDrawablePadding = iconPadding
+        button.elevation = 2f
         CustomUiUtils.setImageColor(button, iconColor)
         button.layoutParams = GridLayout.LayoutParams().apply {
             width = 0

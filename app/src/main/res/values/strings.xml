@@ -1359,6 +1359,7 @@
     <string name="pinned">Pinned</string>
     <string name="unpin">Unpin</string>
     <string name="pin">Pin</string>
+    <string name="tool_long_press_hint_toast">Long press a tool to see more options</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
