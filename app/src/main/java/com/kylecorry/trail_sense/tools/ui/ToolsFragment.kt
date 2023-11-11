@@ -1,140 +1,129 @@
 package com.kylecorry.trail_sense.tools.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.core.view.children
+import androidx.core.view.setMargins
+import androidx.gridlayout.widget.GridLayout
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
-import com.kylecorry.trail_sense.databinding.ListItemToolBinding
+import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
+import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 
+class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
-class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
+    private val tools by lazy { Tools.getTools(requireContext()).flatMap { it.tools } }
 
-    private lateinit var toolsList: ListView<ToolListItem>
-    private val tools by lazy { Tools.getTools(requireContext()) }
+    override fun generateBinding(
+        layoutInflater: LayoutInflater, container: ViewGroup?
+    ): FragmentTools2Binding {
+        return FragmentTools2Binding.inflate(layoutInflater, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val primaryColor = Resources.getAndroidColorAttr(requireContext(), androidx.appcompat.R.attr.colorPrimary)
-        val textColor = Resources.androidTextColorPrimary(requireContext())
-        val attrs = intArrayOf(android.R.attr.selectableItemBackground)
-        val typedArray = requireContext().obtainStyledAttributes(attrs)
-        val selectableBackground = typedArray.getResourceId(0, 0)
-        typedArray.recycle()
-        toolsList = ListView(binding.toolRecycler, R.layout.list_item_tool) { itemView, tool ->
-            val toolBinding = ListItemToolBinding.bind(itemView)
 
-            if (tool.action != null && tool.icon != null) {
-                // Tool
-                toolBinding.root.setBackgroundResource(selectableBackground)
-                toolBinding.title.text = tool.name.capitalizeWords()
-                toolBinding.title.setTextColor(textColor)
-                toolBinding.description.text = tool.description
-                toolBinding.icon.isVisible = true
-                toolBinding.description.isVisible = tool.description != null
-                toolBinding.icon.setImageResource(tool.icon)
-                Colors.setImageColor(toolBinding.icon, Resources.androidTextColorSecondary(requireContext()))
-                toolBinding.root.setOnClickListener {
-                    tryOrLog {
-                        findNavController().navigate(tool.action)
-                    }
-                }
-            } else {
-                // Tool group
-                toolBinding.root.setBackgroundResource(0)
-                toolBinding.title.text = tool.name
-                toolBinding.title.setTextColor(primaryColor)
-                toolBinding.description.text = ""
-                toolBinding.icon.isVisible = false
-                toolBinding.description.isVisible = false
-                toolBinding.root.setOnClickListener(null)
+        binding.quickActions.children.forEach {
+            if (it is ImageButton) {
+                CustomUiUtils.setButtonState(it, false)
             }
-
         }
 
-        binding.searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                updateToolList()
-                return true
-            }
+        updatePinnedTools()
+        updateTools()
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                updateToolList()
-                return true
-            }
+        updateQuickActions()
 
-        })
+        binding.settingsBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_settings)
+        }
 
-        updateToolList()
+        binding.searchbox.setOnQueryTextListener { _, _ ->
+            updateTools()
+            true
+        }
     }
 
-    private fun updateToolList() {
-        val toolListItems = mutableListOf<ToolListItem>()
-        val search = binding.searchbox.query
+    private fun updateQuickActions(){
+        ToolsQuickActionBinder(this, binding).bind()
+    }
 
-        if (search.isNullOrBlank()) {
-            for (group in tools) {
-                toolListItems.add(ToolListItem(group.name, null, null, null))
-                for (tool in group.tools) {
-                    toolListItems.add(
-                        ToolListItem(
-                            tool.name,
-                            tool.description,
-                            tool.icon,
-                            tool.navAction
-                        )
-                    )
-                }
-            }
+    private fun updateTools() {
+        val filter = binding.searchbox.query
+
+        val tools = if (filter.isNullOrBlank()) {
+            this.tools
         } else {
-            for (group in tools) {
-                for (tool in group.tools) {
-                    if (tool.name.contains(search, true) || tool.description?.contains(
-                            search,
-                            true
-                        ) == true
-                    ) {
-                        toolListItems.add(
-                            ToolListItem(
-                                tool.name,
-                                tool.description,
-                                tool.icon,
-                                tool.navAction
-                            )
-                        )
-                    }
-                }
+            this.tools.filter {
+                it.name.contains(filter, true) || it.description?.contains(filter, true) == true
             }
+        }.sortedBy { it.name }
+
+        populateTools(tools, binding.tools)
+    }
+
+    private fun updatePinnedTools() {
+        val pinnedTools = listOf(
+            R.id.action_navigation, R.id.action_weather, R.id.action_astronomy, R.id.action_settings
+        )
+        val pinned = tools.filter {
+            it.navAction in pinnedTools
         }
 
-        toolsList.setData(toolListItems)
+        populateTools(pinned.sortedBy { it.name }, binding.pinned)
     }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolsBinding {
-        return FragmentToolsBinding.inflate(layoutInflater, container, false)
-    }
+    private fun populateTools(tools: List<Tool>, grid: GridLayout) {
+        grid.removeAllViews()
+        val iconSize = Resources.dp(requireContext(), 24f).toInt()
+        val iconPadding = Resources.dp(requireContext(), 16f).toInt()
+        val iconColor = Resources.androidTextColorPrimary(requireContext())
+        val buttonHeight = Resources.dp(requireContext(), 64f).toInt()
+        val buttonMargins = Resources.dp(requireContext(), 8f).toInt()
+        val buttonPadding = Resources.dp(requireContext(), 16f).toInt()
+        val buttonBackgroundColor = Resources.getAndroidColorAttr(
+            requireContext(), android.R.attr.colorBackgroundFloating
+        )
 
-    internal data class ToolListItem(
-        val name: String,
-        val description: String?,
-        @DrawableRes val icon: Int?,
-        @IdRes val action: Int?
-    )
+        val gridColumnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+        val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+
+        tools.forEach {
+            val button = TextView(requireContext())
+            button.text = it.name
+            button.setCompoundDrawables(iconSize, left = it.icon)
+            button.compoundDrawablePadding = iconPadding
+            CustomUiUtils.setImageColor(button, iconColor)
+            button.layoutParams = GridLayout.LayoutParams().apply {
+                width = 0
+                height = buttonHeight
+                columnSpec = gridColumnSpec
+                rowSpec = gridRowSpec
+                setMargins(buttonMargins)
+            }
+            button.gravity = Gravity.CENTER_VERTICAL
+            button.setPadding(buttonPadding, 0, buttonPadding, 0)
+
+            button.setBackgroundResource(R.drawable.rounded_rectangle)
+            button.backgroundTintList = ColorStateList.valueOf(buttonBackgroundColor)
+            button.isClickable = true
+            button.setOnClickListener { _ ->
+                findNavController().navigate(it.navAction)
+            }
+
+            grid.addView(button)
+        }
+    }
 
 }

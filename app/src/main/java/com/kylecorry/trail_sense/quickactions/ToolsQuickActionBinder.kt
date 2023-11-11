@@ -4,11 +4,14 @@ import android.widget.ImageButton
 import androidx.core.view.setMargins
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
-import com.kylecorry.trail_sense.experimentation.ExperimentationFragment
 
-class ToolsQuickActionBinder(private val fragment: ExperimentationFragment, private val binding: FragmentTools2Binding) : IQuickActionBinder {
+class ToolsQuickActionBinder(
+    private val fragment: AndromedaFragment,
+    private val binding: FragmentTools2Binding
+) : IQuickActionBinder {
 
     private fun createButton(): ImageButton {
         val size = Resources.dp(fragment.requireContext(), 40f).toInt()
@@ -17,7 +20,8 @@ class ToolsQuickActionBinder(private val fragment: ExperimentationFragment, priv
         button.layoutParams = FlexboxLayout.LayoutParams(size, size).apply {
             setMargins(margins)
         }
-        button.background = Resources.drawable(fragment.requireContext(), R.drawable.rounded_rectangle)
+        button.background =
+            Resources.drawable(fragment.requireContext(), R.drawable.rounded_rectangle)
         button.elevation = 2f
 
         binding.quickActions.addView(button)
@@ -32,5 +36,6 @@ class ToolsQuickActionBinder(private val fragment: ExperimentationFragment, priv
         QuickActionWhistle(createButton(), fragment).bind(fragment.viewLifecycleOwner)
         LowPowerQuickAction(createButton(), fragment).bind(fragment.viewLifecycleOwner)
         QuickActionSunsetAlert(createButton(), fragment).bind(fragment.viewLifecycleOwner)
+        QuickActionWhiteNoise(createButton(), fragment).bind(fragment.viewLifecycleOwner)
     }
 }
