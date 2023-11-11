@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 
@@ -118,7 +119,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             }
         }
 
-        populateTools(sortTools(tools), binding.tools)
+        populateCategorizedTools(sortTools(tools), binding.tools)
     }
 
     private fun updatePinnedTools() {
@@ -127,15 +128,63 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             it.id in pinnedIds
         }
 
-        // TODO: Show an option to pin tools
         binding.pinned.isVisible = pinned.isNotEmpty()
 
         // Always sort pinned tools alphabetically
         populateTools(pinned.sortedBy { it.name }, binding.pinned)
     }
 
-    private fun populateTools(tools: List<Tool>, grid: GridLayout) {
+    private fun populateTools(tools: List<Tool>, grid: GridLayout){
         grid.removeAllViews()
+        tools.forEach {
+            grid.addView(createToolButton(it))
+        }
+    }
+
+    private fun populateCategorizedTools(categories: List<CategorizedTools>, grid: GridLayout) {
+        grid.removeAllViews()
+        
+        if (categories.size == 1){
+            populateTools(categories.first().tools, grid)
+            return
+        }
+
+
+        categories.forEach {
+            grid.addView(createToolCategoryHeader(it.categoryName))
+            it.tools.forEach {
+                grid.addView(createToolButton(it))
+            }
+        }
+    }
+
+    private fun createToolCategoryHeader(name: String): View {
+        // TODO: Move this to the class level
+        val headerMargins = Resources.dp(requireContext(), 8f).toInt()
+
+        val gridColumnSpec = GridLayout.spec(GridLayout.UNDEFINED, 2, 1f)
+        val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+
+        val header = TextView(requireContext())
+        header.text = name
+        header.textSize = 14f
+        header.setTextColor(AppColor.Orange.color)
+        // Bold
+        header.paint.isFakeBoldText = true
+        header.layoutParams = GridLayout.LayoutParams().apply {
+            width = 0
+            height = GridLayout.LayoutParams.WRAP_CONTENT
+            columnSpec = gridColumnSpec
+            rowSpec = gridRowSpec
+            setMargins(headerMargins, headerMargins * 2, headerMargins, headerMargins)
+        }
+        header.gravity = Gravity.CENTER_VERTICAL
+
+        return header
+    }
+
+    private fun createToolButton(tool: Tool): View {
+        // TODO: Move this to the class level
         val iconSize = Resources.dp(requireContext(), 24f).toInt()
         val iconPadding = Resources.dp(requireContext(), 16f).toInt()
         val iconColor = Resources.androidTextColorPrimary(requireContext())
@@ -149,67 +198,72 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         val gridColumnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
         val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
 
-        tools.forEach {
-            val button = TextView(requireContext())
-            button.text = it.name
-            button.setCompoundDrawables(iconSize, left = it.icon)
-            button.compoundDrawablePadding = iconPadding
-            CustomUiUtils.setImageColor(button, iconColor)
-            button.layoutParams = GridLayout.LayoutParams().apply {
-                width = 0
-                height = buttonHeight
-                columnSpec = gridColumnSpec
-                rowSpec = gridRowSpec
-                setMargins(buttonMargins)
-            }
-            button.gravity = Gravity.CENTER_VERTICAL
-            button.setPadding(buttonPadding, 0, buttonPadding, 0)
+        val button = TextView(requireContext())
+        button.text = tool.name
+        button.setCompoundDrawables(iconSize, left = tool.icon)
+        button.compoundDrawablePadding = iconPadding
+        CustomUiUtils.setImageColor(button, iconColor)
+        button.layoutParams = GridLayout.LayoutParams().apply {
+            width = 0
+            height = buttonHeight
+            columnSpec = gridColumnSpec
+            rowSpec = gridRowSpec
+            setMargins(buttonMargins)
+        }
+        button.gravity = Gravity.CENTER_VERTICAL
+        button.setPadding(buttonPadding, 0, buttonPadding, 0)
 
-            button.setBackgroundResource(R.drawable.rounded_rectangle)
-            button.backgroundTintList = ColorStateList.valueOf(buttonBackgroundColor)
-            button.setOnClickListener { _ ->
-                findNavController().navigate(it.navAction)
-            }
+        button.setBackgroundResource(R.drawable.rounded_rectangle)
+        button.backgroundTintList = ColorStateList.valueOf(buttonBackgroundColor)
+        button.setOnClickListener { _ ->
+            findNavController().navigate(tool.navAction)
+        }
 
-            button.setOnLongClickListener { view ->
-                Pickers.menu(
-                    view, listOf(
-                        if (it.description != null) getString(R.string.pref_category_about) else null,
-                        if (pinnedIds.contains(it.id)) {
-                            getString(R.string.unpin)
+        button.setOnLongClickListener { view ->
+            Pickers.menu(
+                view, listOf(
+                    if (tool.description != null) getString(R.string.pref_category_about) else null,
+                    if (pinnedIds.contains(tool.id)) {
+                        getString(R.string.unpin)
+                    } else {
+                        getString(R.string.pin)
+                    },
+                    if (tool.guideId != null ) getString(R.string.tool_user_guide_title) else null,
+                )
+            ) { selectedIdx ->
+                when (selectedIdx) {
+                    0 -> dialog(tool.name, tool.description, cancelText = null)
+                    1 -> {
+                        // TODO: Save this
+                        if (pinnedIds.contains(tool.id)) {
+                            pinnedIds.remove(tool.id)
                         } else {
-                            getString(R.string.pin)
-                        },
-                        if (it.guideId != null ) getString(R.string.tool_user_guide_title) else null,
-                    )
-                ) { selectedIdx ->
-                    when (selectedIdx) {
-                        0 -> dialog(it.name, it.description, cancelText = null)
-                        1 -> {
-                            // TODO: Save this
-                            if (pinnedIds.contains(it.id)) {
-                                pinnedIds.remove(it.id)
-                            } else {
-                                pinnedIds.add(it.id)
-                            }
-                            updatePinnedTools()
+                            pinnedIds.add(tool.id)
                         }
-                        2 -> {
-                            UserGuideUtils.showGuide(this, it.guideId!!)
-                        }
+                        updatePinnedTools()
                     }
-                    true
+                    2 -> {
+                        UserGuideUtils.showGuide(this, tool.guideId!!)
+                    }
                 }
                 true
             }
-
-            grid.addView(button)
+            true
         }
+
+        return button
     }
 
-    private fun sortTools(tools: List<Tool>): List<Tool> {
+    private fun sortTools(tools: List<Tool>): List<CategorizedTools> {
         // Sort by category, then by name
-        return tools.sortedWith(compareBy({ it.category.ordinal }, { it.name }))
+//        return tools.sortedWith(compareBy({ it.category.ordinal }, { it.name }))
+
+        return tools.groupBy { it.category }.map { (category, tools) ->
+            CategorizedTools(category.name, tools.sortedBy { it.name })
+        }
+
     }
+
+    data class CategorizedTools(val categoryName: String, val tools: List<Tool>)
 
 }
