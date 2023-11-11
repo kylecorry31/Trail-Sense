@@ -110,6 +110,15 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
     private fun updateTools() {
         val filter = binding.searchbox.query
 
+        // Hide pinned when searching
+        if (filter.isNullOrBlank()) {
+            binding.pinned.isVisible = true
+            binding.pinnedTitle.isVisible = true
+        } else {
+            binding.pinned.isVisible = false
+            binding.pinnedTitle.isVisible = false
+        }
+
         val tools = if (filter.isNullOrBlank()) {
             this.tools
         } else {

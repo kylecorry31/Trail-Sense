@@ -9,12 +9,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            app:queryHint="@string/search" />
 
         <ImageButton
             android:id="@+id/settings_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@android:color/transparent"
             app:srcCompat="@drawable/ic_settings"
             app:tint="?android:textColorSecondary" />
@@ -25,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
         app:alignItems="center"
         app:flexWrap="wrap"
         app:justifyContent="center" />
@@ -84,15 +96,6 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/tools"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:queryHint="@string/search" />
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/tools"
