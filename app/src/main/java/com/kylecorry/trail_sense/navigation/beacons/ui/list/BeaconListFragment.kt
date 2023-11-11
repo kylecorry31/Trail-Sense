@@ -408,8 +408,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun navigate(beacon: Beacon) {
         val navigator = Navigator.getInstance(requireContext())
         navigator.navigateTo(beacon)
-        // TODO: Confirm it is always navigate up that gets there
-        navController.navigateUp()
+        navController.navigate(R.id.action_navigation)
     }
 
     private fun delete(beacon: Beacon) {
