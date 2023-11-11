@@ -23,16 +23,16 @@ import com.kylecorry.trail_sense.databinding.FragmentTools2Binding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 
 class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
-    private val tools by lazy { Tools.getTools(requireContext()).flatMap { it.tools } }
+    private val tools by lazy { Tools.getTools(requireContext()) }
 
-    // TODO: Give each tool a unique ID
     private val pinnedIds = mutableSetOf(
-        R.id.action_navigation,
-        R.id.action_weather,
-        R.id.action_astronomy
+        6L, // Navigation
+        20L, // Weather
+        14L, // Astronomy
     )
 
     override fun generateBinding(
@@ -67,7 +67,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
         binding.pinnedEditBtn.setOnClickListener {
             // Sort alphabetically, but if the tool is already pinned, put it first
             val sorted = tools.sortedBy { tool ->
-                if (pinnedIds.contains(tool.navAction)) {
+                if (pinnedIds.contains(tool.id)) {
                     "0${tool.name}"
                 } else {
                     tool.name
@@ -75,7 +75,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             }
             val toolNames = sorted.map { it.name }
             val defaultSelected = sorted.mapIndexedNotNull { index, tool ->
-                if (pinnedIds.contains(tool.navAction)) {
+                if (pinnedIds.contains(tool.id)) {
                     index
                 } else {
                     null
@@ -93,7 +93,7 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                     pinnedIds.clear()
                     selected.forEach {
                         val tool = sorted[it]
-                        pinnedIds.add(tool.navAction)
+                        pinnedIds.add(tool.id)
                     }
                 }
 
@@ -116,20 +116,21 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
             this.tools.filter {
                 it.name.contains(filter, true) || it.description?.contains(filter, true) == true
             }
-        }.sortedBy { it.name }
+        }
 
-        populateTools(tools, binding.tools)
+        populateTools(sortTools(tools), binding.tools)
     }
 
     private fun updatePinnedTools() {
         // TODO: Load pinned list
         val pinned = tools.filter {
-            it.navAction in pinnedIds
+            it.id in pinnedIds
         }
 
         // TODO: Show an option to pin tools
         binding.pinned.isVisible = pinned.isNotEmpty()
 
+        // Always sort pinned tools alphabetically
         populateTools(pinned.sortedBy { it.name }, binding.pinned)
     }
 
@@ -174,24 +175,27 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
                 Pickers.menu(
                     view, listOf(
                         if (it.description != null) getString(R.string.pref_category_about) else null,
-                        if (pinnedIds.contains(it.navAction)) {
+                        if (pinnedIds.contains(it.id)) {
                             getString(R.string.unpin)
                         } else {
                             getString(R.string.pin)
-                        }
-                        // TODO: Guide
+                        },
+                        if (it.guideId != null ) getString(R.string.tool_user_guide_title) else null,
                     )
                 ) { selectedIdx ->
                     when (selectedIdx) {
                         0 -> dialog(it.name, it.description, cancelText = null)
                         1 -> {
                             // TODO: Save this
-                            if (pinnedIds.contains(it.navAction)) {
-                                pinnedIds.remove(it.navAction)
+                            if (pinnedIds.contains(it.id)) {
+                                pinnedIds.remove(it.id)
                             } else {
-                                pinnedIds.add(it.navAction)
+                                pinnedIds.add(it.id)
                             }
                             updatePinnedTools()
+                        }
+                        2 -> {
+                            UserGuideUtils.openGuide(this, it.guideId!!)
                         }
                     }
                     true
@@ -201,6 +205,11 @@ class ToolsFragment : BoundFragment<FragmentTools2Binding>() {
 
             grid.addView(button)
         }
+    }
+
+    private fun sortTools(tools: List<Tool>): List<Tool> {
+        // Sort by category, then by name
+        return tools.sortedWith(compareBy({ it.category.ordinal }, { it.name }))
     }
 
 }
