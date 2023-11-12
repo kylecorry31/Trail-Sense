@@ -170,8 +170,6 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     }
 
     private fun populateTools(categories: List<CategorizedTools>, grid: GridLayout) {
-        grid.removeAllViews()
-
         inBackground {
             val viewsToAdd = mutableListOf<View>()
 
@@ -191,6 +189,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             }
 
             onMain {
+                grid.removeAllViews()
                 viewsToAdd.forEach {
                     grid.addView(it)
                 }
