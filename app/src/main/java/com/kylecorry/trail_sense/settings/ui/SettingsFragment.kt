@@ -13,6 +13,9 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.backup.BackupCommand
 import com.kylecorry.trail_sense.backup.RestoreCommand
+import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.QuickActionUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.requireMainActivity
@@ -48,6 +51,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     private val uriPicker by lazy { ActivityUriPicker(requireMainActivity()) }
     private val backupCommand by lazy { BackupCommand(requireContext(), uriPicker) }
     private val restoreCommand by lazy { RestoreCommand(requireContext(), uriPicker) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -95,6 +99,34 @@ class SettingsFragment : AndromedaPreferenceFragment() {
                 when (it) {
                     0 -> backup()
                     1 -> restore()
+                }
+            }
+        }
+
+
+        onClick(findPreference(getString(R.string.pref_tool_quick_action_header_key))){
+            val potentialActions = listOf(
+                QuickActionType.Flashlight,
+                QuickActionType.Whistle,
+                QuickActionType.LowPowerMode,
+                QuickActionType.SunsetAlert,
+                QuickActionType.WhiteNoise,
+            )
+
+            val selected = prefs.toolQuickActions
+
+            val selectedIndices = potentialActions.mapIndexedNotNull { index, quickActionType ->
+                if (selected.contains(quickActionType)) index else null
+            }
+
+            Pickers.items(
+                requireContext(),
+                getString(R.string.tool_quick_actions),
+                potentialActions.map { QuickActionUtils.getName(requireContext(), it) },
+                selectedIndices
+            ) {
+                if (it != null) {
+                    prefs.toolQuickActions = it.map { potentialActions[it] }
                 }
             }
         }

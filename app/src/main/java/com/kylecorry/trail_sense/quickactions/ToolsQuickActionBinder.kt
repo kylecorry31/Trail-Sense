@@ -1,17 +1,22 @@
 package com.kylecorry.trail_sense.quickactions
 
 import android.widget.ImageButton
+import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
+import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.UserPreferences
 
 class ToolsQuickActionBinder(
     private val fragment: AndromedaFragment,
     private val binding: FragmentToolsBinding
 ) : IQuickActionBinder {
+
+    private val prefs by lazy { UserPreferences(fragment.requireContext()) }
 
     private fun createButton(): ImageButton {
         val size = Resources.dp(fragment.requireContext(), 40f).toInt()
@@ -31,13 +36,24 @@ class ToolsQuickActionBinder(
 
     override fun bind() {
         binding.quickActions.removeAllViews()
+
+        val selected = prefs.toolQuickActions.sortedBy { it.id }
+
+        binding.quickActions.isVisible = selected.isNotEmpty()
+
         // TODO: Weather monitor
         // TODO: Backtrack quick action should be a toggle rather than opening the path
-//        QuickActionBacktrack(createButton(), fragment).bind(fragment.viewLifecycleOwner)
-        QuickActionFlashlight(createButton(), fragment).bind(fragment.viewLifecycleOwner)
-        QuickActionWhistle(createButton(), fragment).bind(fragment.viewLifecycleOwner)
-        LowPowerQuickAction(createButton(), fragment).bind(fragment.viewLifecycleOwner)
-        QuickActionSunsetAlert(createButton(), fragment).bind(fragment.viewLifecycleOwner)
-        QuickActionWhiteNoise(createButton(), fragment).bind(fragment.viewLifecycleOwner)
+        selected.forEach {
+            val action = when (it) {
+                QuickActionType.Flashlight -> QuickActionFlashlight(createButton(), fragment)
+                QuickActionType.Whistle -> QuickActionWhistle(createButton(), fragment)
+                QuickActionType.WhiteNoise -> QuickActionWhiteNoise(createButton(), fragment)
+                QuickActionType.LowPowerMode -> LowPowerQuickAction(createButton(), fragment)
+                QuickActionType.SunsetAlert -> QuickActionSunsetAlert(createButton(), fragment)
+                else -> null // No other actions are supported
+            }
+
+            action?.bind(fragment.viewLifecycleOwner)
+        }
     }
 }

@@ -52,6 +52,12 @@
         app:title="@string/tools">
 
         <Preference
+            app:icon="@drawable/apps"
+            app:key="@string/pref_tool_quick_action_header_key"
+            app:singleLineTitle="false"
+            app:title="@string/tool_quick_actions" />
+
+        <Preference
             app:icon="@drawable/ic_compass_icon"
             app:key="@string/pref_navigation_header_key"
             app:singleLineTitle="false"

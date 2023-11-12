@@ -30,6 +30,8 @@ import com.kylecorry.trail_sense.settings.infrastructure.PowerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.PrivacyPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ThermometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
+import com.kylecorry.trail_sense.shared.extensions.getIntArray
+import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
@@ -302,6 +304,32 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         ),
         ToolSortType.Category
     )
+
+    var toolQuickActions: List<QuickActionType>
+        get() {
+            val ids = cache.getIntArray(context.getString(R.string.pref_tool_quick_actions))
+                ?: return listOf(
+                    QuickActionType.Flashlight,
+                    QuickActionType.Whistle,
+                    QuickActionType.LowPowerMode,
+                )
+
+            return ids.mapNotNull { QuickActionType.values().find { q -> q.id == it } }
+        }
+        set(value) {
+            cache.putIntArray(
+                context.getString(R.string.pref_tool_quick_actions),
+                value.map { it.id }
+            )
+        }
+
+//    var toolPinnedIds: List<Long>
+//        get() {
+//            return cache.getLongArray(context.getString(R.string.pref_tool_pinned_ids)) ?: listOf()
+//        }
+//        set(value) {
+//            cache.putLongArray(context.getString(R.string.pref_tool_pinned_ids), value)
+//        }
 
     private fun getString(id: Int): String {
         return context.getString(id)

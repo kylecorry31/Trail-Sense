@@ -18,3 +18,19 @@ fun IPreferences.putOrRemoveCoordinate(key: String, value: Coordinate?) {
         putCoordinate(key, value)
     }
 }
+
+fun IPreferences.putIntArray(key: String, value: List<Int>) {
+    putString(key, value.joinToString(","))
+}
+
+fun IPreferences.getIntArray(key: String): List<Int>? {
+    return getString(key)?.split(",")?.mapNotNull { it.toIntOrNull() }
+}
+
+fun IPreferences.putLongArray(key: String, value: List<Long>) {
+    putString(key, value.joinToString(","))
+}
+
+fun IPreferences.getLongArray(key: String): List<Long>? {
+    return getString(key)?.split(",")?.mapNotNull { it.toLongOrNull() }
+}
