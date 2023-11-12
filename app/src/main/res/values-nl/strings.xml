@@ -1146,4 +1146,5 @@
     <string name="season">Seizoen</string>
     <string name="augmented_reality">Aangevulde realiteit</string>
     <string name="augmented_reality_description">Bekijk bakens in de buurt en de zon/maan met je camera</string>
+    <string name="magnetic_north">Magnetisch Noorden</string>
 </resources>
