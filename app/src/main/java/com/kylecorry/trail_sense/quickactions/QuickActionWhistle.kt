@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -13,20 +15,26 @@ import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
-    private lateinit var whistle: ISoundPlayer
+    private var whistle: ISoundPlayer? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate() {
         super.onCreate()
-        whistle = Whistle()
+
+        fragment.inBackground {
+            onDefault {
+                whistle = Whistle()
+            }
+        }
+
         button.setImageResource(R.drawable.ic_tool_whistle)
         CustomUiUtils.setButtonState(button, false)
         button.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                whistle.on()
+                whistle?.on()
                 CustomUiUtils.setButtonState(button, true)
             } else if (event.action == MotionEvent.ACTION_UP) {
-                whistle.off()
+                whistle?.off()
                 CustomUiUtils.setButtonState(button, false)
             }
             true
@@ -40,12 +48,12 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
 
     override fun onPause() {
         super.onPause()
-        whistle.off()
+        whistle?.off()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        whistle.release()
+        whistle?.release()
     }
 
 }

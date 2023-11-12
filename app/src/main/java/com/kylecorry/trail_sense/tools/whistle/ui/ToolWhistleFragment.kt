@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
@@ -20,7 +21,7 @@ import java.time.Duration
 
 class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
-    private lateinit var whistle: ISoundPlayer
+    private var whistle: ISoundPlayer? = null
 
     private val morseDurationMs = 400L
 
@@ -38,18 +39,18 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         )
     )
 
-    private val signalWhistle by lazy { SignalPlayer(whistle.asSignal()) }
+    private var signalWhistle: SignalPlayer? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.whistleEmergencyBtn.setOnClickListener {
             state = if (state == WhistleState.Emergency) {
-                signalWhistle.cancel()
+                signalWhistle?.cancel()
                 WhistleState.Off
             } else {
-                whistle.off()
-                signalWhistle.play(emergencySignal, true)
+                whistle?.off()
+                signalWhistle?.play(emergencySignal, true)
                 WhistleState.Emergency
             }
             binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
@@ -64,19 +65,19 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
                 options
             ) {
                 if (it != null) {
-                    whistle.off()
+                    whistle?.off()
                     when (it) {
-                        0 -> signalWhistle.play(
+                        0 -> signalWhistle?.play(
                             whereAreYouAndAcknowledgedSignal, false
                         ) { toggleOffInternationWhistleSignals() }
-                        1 -> signalWhistle.play(
+                        1 -> signalWhistle?.play(
                             whereAreYouAndAcknowledgedSignal, false
                         ) { toggleOffInternationWhistleSignals() }
-                        2 -> signalWhistle.play(
+                        2 -> signalWhistle?.play(
                             comeHereSignal,
                             false
                         ) { toggleOffInternationWhistleSignals() }
-                        3 -> signalWhistle.play(emergencySignal, true)
+                        3 -> signalWhistle?.play(emergencySignal, true)
                     }
                     binding.whistleEmergencyBtn.setText(options[it])
                     state = WhistleState.Emergency
@@ -88,11 +89,11 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
         binding.whistleSosBtn.setOnClickListener {
             state = if (state == WhistleState.Sos) {
-                signalWhistle.cancel()
+                signalWhistle?.cancel()
                 WhistleState.Off
             } else {
-                whistle.off()
-                signalWhistle.play(sosSignal, true)
+                whistle?.off()
+                signalWhistle?.play(sosSignal, true)
                 WhistleState.Sos
             }
             updateUI()
@@ -101,11 +102,11 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
         binding.whistleBtn.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                signalWhistle.cancel()
-                whistle.on()
+                signalWhistle?.cancel()
+                whistle?.on()
                 state = WhistleState.On
             } else if (event.action == MotionEvent.ACTION_UP) {
-                whistle.off()
+                whistle?.off()
                 state = WhistleState.Off
             }
             updateUI()
@@ -115,18 +116,23 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        whistle = Whistle()
+        inBackground {
+            whistle = Whistle()
+            whistle?.let {
+                signalWhistle = SignalPlayer(it.asSignal())
+            }
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        whistle.release()
+        whistle?.release()
     }
 
     override fun onPause() {
         super.onPause()
-        whistle.off()
-        signalWhistle.cancel()
+        whistle?.off()
+        signalWhistle?.cancel()
     }
 
 
@@ -138,7 +144,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
     private fun toggleOffInternationWhistleSignals() {
         state = WhistleState.Off
-        signalWhistle.cancel()
+        signalWhistle?.cancel()
         binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
         updateUI()
     }

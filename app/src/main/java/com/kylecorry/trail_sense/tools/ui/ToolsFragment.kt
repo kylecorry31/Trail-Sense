@@ -13,16 +13,18 @@ import androidx.gridlayout.widget.GridLayout
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
@@ -168,19 +170,30 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     private fun populateTools(categories: List<CategorizedTools>, grid: GridLayout) {
         grid.removeAllViews()
 
-        if (categories.size == 1) {
-            categories.first().tools.forEach {
-                grid.addView(createToolButton(it))
-            }
-            return
-        }
+        inBackground {
+            val viewsToAdd = mutableListOf<View>()
 
-
-        categories.forEach {
-            grid.addView(createToolCategoryHeader(it.categoryName))
-            it.tools.forEach {
-                grid.addView(createToolButton(it))
+            onDefault {
+                if (categories.size == 1) {
+                    categories.first().tools.forEach {
+                        viewsToAdd.add(createToolButton(it))
+                    }
+                } else {
+                    categories.forEach {
+                        viewsToAdd.add(createToolCategoryHeader(it.categoryName))
+                        it.tools.forEach {
+                            viewsToAdd.add(createToolButton(it))
+                        }
+                    }
+                }
             }
+
+            onMain {
+                viewsToAdd.forEach {
+                    grid.addView(it)
+                }
+            }
+
         }
     }
 
