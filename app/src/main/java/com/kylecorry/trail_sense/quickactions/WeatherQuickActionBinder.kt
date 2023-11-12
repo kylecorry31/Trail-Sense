@@ -38,6 +38,7 @@ class WeatherQuickActionBinder(
             QuickActionType.LowPowerMode -> LowPowerQuickAction(button, fragment)
             QuickActionType.Thunder -> QuickActionThunder(button, fragment)
             QuickActionType.Climate -> QuickActionClimate(button, fragment)
+            QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
             else -> QuickActionNone(button, fragment)
         }
     }

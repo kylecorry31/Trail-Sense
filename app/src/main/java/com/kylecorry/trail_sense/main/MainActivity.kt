@@ -75,7 +75,7 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.System -> ColorTheme.System
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
-        setTheme(R.style.AppTheme)
+//        setTheme(R.style.AppTheme)
         setColorTheme(mode, userPrefs.useDynamicColors)
         super.onCreate(savedInstanceState)
 
@@ -108,9 +108,19 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
+    fun reloadTheme(){
+        cache.putBoolean("pref_theme_just_changed", true)
+        recreate()
+    }
+
     override fun onResume() {
         super.onResume()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
+
+        if (cache.getBoolean("pref_theme_just_changed") == true) {
+            cache.putBoolean("pref_theme_just_changed", false)
+            recreate()
+        }
     }
 
     override fun onPause() {

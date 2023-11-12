@@ -19,7 +19,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.requireMainActivity
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import kotlinx.coroutines.launch
 
@@ -66,7 +65,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_flashlight_settings)?.isVisible =
             FlashlightSubsystem.getInstance(requireContext()).isAvailable()
 
-        refreshOnChange(list(R.string.pref_theme))
+        reloadThemeOnChange(list(R.string.pref_theme))
 
         onClick(preference(R.string.pref_github)) {
             val i = Intents.url(it.summary.toString())
@@ -105,13 +104,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
 
         onClick(findPreference(getString(R.string.pref_tool_quick_action_header_key))){
-            val potentialActions = listOf(
-                QuickActionType.Flashlight,
-                QuickActionType.Whistle,
-                QuickActionType.LowPowerMode,
-                QuickActionType.SunsetAlert,
-                QuickActionType.WhiteNoise,
-            )
+            val potentialActions = QuickActionUtils.tools(requireContext())
 
             val selected = prefs.toolQuickActions
 
@@ -132,13 +125,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (cache.getBoolean("pref_theme_just_changed") == true) {
-            refresh(false)
-        }
-    }
-
     private fun backup() {
         lifecycleScope.launch {
             backupCommand.execute()
@@ -151,14 +137,9 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
-    private fun refresh(recordChange: Boolean) {
-        cache.putBoolean("pref_theme_just_changed", recordChange)
-        activity?.recreate()
-    }
-
-    private fun refreshOnChange(pref: Preference?) {
+    private fun reloadThemeOnChange(pref: Preference?) {
         pref?.setOnPreferenceChangeListener { _, _ ->
-            refresh(true)
+            requireMainActivity().reloadTheme()
             true
         }
     }

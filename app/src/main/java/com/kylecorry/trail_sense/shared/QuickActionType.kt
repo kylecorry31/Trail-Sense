@@ -17,7 +17,8 @@ enum class QuickActionType(val id: Int) {
     LowPowerMode(10),
     Thunder(11),
     Climate(12),
-    SunsetAlert(13)
+    SunsetAlert(13),
+    NightMode(14)
 }
 
 object QuickActionUtils {
@@ -37,7 +38,19 @@ object QuickActionUtils {
             QuickActionType.Thunder -> context.getString(R.string.tool_lightning_title)
             QuickActionType.Climate -> context.getString(R.string.tool_climate)
             QuickActionType.SunsetAlert -> context.getString(R.string.sunset_alerts)
+            QuickActionType.NightMode -> context.getString(R.string.night)
         }
+    }
+
+    fun tools(context: Context): List<QuickActionType> {
+        return listOfNotNull(
+            if (FlashlightSubsystem.getInstance(context).isAvailable()) QuickActionType.Flashlight else null,
+            QuickActionType.Whistle,
+            QuickActionType.LowPowerMode,
+            QuickActionType.SunsetAlert,
+            QuickActionType.WhiteNoise,
+            QuickActionType.NightMode
+        )
     }
 
     fun navigation(context: Context): List<QuickActionType> {
@@ -48,7 +61,8 @@ object QuickActionUtils {
             QuickActionType.Whistle,
             QuickActionType.Ruler,
             QuickActionType.LowPowerMode,
-            QuickActionType.Maps)
+            QuickActionType.Maps,
+            QuickActionType.NightMode)
 
         return list.filterNotNull()
     }
@@ -62,7 +76,8 @@ object QuickActionUtils {
             QuickActionType.Temperature,
             QuickActionType.LowPowerMode,
             QuickActionType.Thunder,
-            QuickActionType.Climate
+            QuickActionType.Climate,
+            QuickActionType.NightMode
         )
     }
 
@@ -73,7 +88,8 @@ object QuickActionUtils {
             QuickActionType.Whistle,
             QuickActionType.WhiteNoise,
             QuickActionType.LowPowerMode,
-            QuickActionType.SunsetAlert
+            QuickActionType.SunsetAlert,
+            QuickActionType.NightMode
         )
     }
 }

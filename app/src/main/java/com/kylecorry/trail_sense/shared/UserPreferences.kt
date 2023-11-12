@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
@@ -144,20 +145,44 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         false
     )
 
-    val theme: Theme
+    var lastTheme: Theme by StringEnumPreference(
+        cache,
+        "pref_last_theme",
+        mapOf(
+            "light" to Theme.Light,
+            "dark" to Theme.Dark,
+            "black" to Theme.Black,
+            "sunrise_sunset" to Theme.SunriseSunset,
+            "night" to Theme.Night,
+            "system" to Theme.System
+        ),
+        Theme.System
+    )
+
+    private var _theme: Theme by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_theme),
+        mapOf(
+            "light" to Theme.Light,
+            "dark" to Theme.Dark,
+            "black" to Theme.Black,
+            "sunrise_sunset" to Theme.SunriseSunset,
+            "night" to Theme.Night,
+            "system" to Theme.System
+        ),
+        Theme.System
+    )
+
+    var theme: Theme
         get() {
             if (isLowPowerModeOn) {
                 return Theme.Black
             }
 
-            return when (cache.getString(context.getString(R.string.pref_theme))) {
-                "light" -> Theme.Light
-                "dark" -> Theme.Dark
-                "black" -> Theme.Black
-                "sunrise_sunset" -> Theme.SunriseSunset
-                "night" -> Theme.Night
-                else -> Theme.System
-            }
+            return _theme
+        }
+        set(value) {
+            _theme = value
         }
 
     val useDynamicColors = false
@@ -310,8 +335,10 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     var toolQuickActions: List<QuickActionType>
         get() {
             val ids = cache.getIntArray(context.getString(R.string.pref_tool_quick_actions))
-                ?: return listOf(
-                    QuickActionType.Flashlight,
+                ?: return listOfNotNull(
+                    if (FlashlightSubsystem.getInstance(context)
+                            .isAvailable()
+                    ) QuickActionType.Flashlight else null,
                     QuickActionType.Whistle,
                     QuickActionType.LowPowerMode,
                 )

@@ -38,6 +38,7 @@ class NavigationQuickActionBinder(
             QuickActionType.Maps -> QuickActionOfflineMaps(button, fragment)
             QuickActionType.Whistle -> QuickActionWhistle(button, fragment)
             QuickActionType.LowPowerMode -> LowPowerQuickAction(button, fragment)
+            QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
             else -> QuickActionNone(button, fragment)
         }
     }

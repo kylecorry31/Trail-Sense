@@ -50,6 +50,7 @@ class ToolsQuickActionBinder(
                 QuickActionType.WhiteNoise -> QuickActionWhiteNoise(createButton(), fragment)
                 QuickActionType.LowPowerMode -> LowPowerQuickAction(createButton(), fragment)
                 QuickActionType.SunsetAlert -> QuickActionSunsetAlert(createButton(), fragment)
+                QuickActionType.NightMode -> QuickActionNightMode(createButton(), fragment)
                 else -> null // No other actions are supported
             }
 
