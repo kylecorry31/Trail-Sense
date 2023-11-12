@@ -31,7 +31,9 @@ import com.kylecorry.trail_sense.settings.infrastructure.PrivacyPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ThermometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
 import com.kylecorry.trail_sense.shared.extensions.getIntArray
+import com.kylecorry.trail_sense.shared.extensions.getLongArray
 import com.kylecorry.trail_sense.shared.extensions.putIntArray
+import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
@@ -323,13 +325,17 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
             )
         }
 
-//    var toolPinnedIds: List<Long>
-//        get() {
-//            return cache.getLongArray(context.getString(R.string.pref_tool_pinned_ids)) ?: listOf()
-//        }
-//        set(value) {
-//            cache.putLongArray(context.getString(R.string.pref_tool_pinned_ids), value)
-//        }
+    var toolPinnedIds: List<Long>
+        get() {
+            return cache.getLongArray(context.getString(R.string.pref_pinned_tools)) ?: listOf(
+                6L, // Navigation
+                20L, // Weather
+                14L // Astronomy
+            )
+        }
+        set(value) {
+            cache.putLongArray(context.getString(R.string.pref_pinned_tools), value)
+        }
 
     private fun getString(id: Int): String {
         return context.getString(id)

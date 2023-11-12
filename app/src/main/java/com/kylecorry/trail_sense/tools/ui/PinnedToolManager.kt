@@ -1,17 +1,15 @@
 package com.kylecorry.trail_sense.tools.ui
 
 import com.kylecorry.andromeda.preferences.IPreferences
+import com.kylecorry.trail_sense.shared.UserPreferences
 
-class PinnedToolManager(private val prefs: IPreferences) {
+class PinnedToolManager(private val prefs: UserPreferences) {
 
     private val pinned = mutableSetOf<Long>()
     private val lock = Any()
 
-    private val key = "pref_pinned_tools"
-
     init {
-        // TODO: Listen for changes
-        val all = readPrefs()
+        val all = prefs.toolPinnedIds
         synchronized(lock) {
             pinned.clear()
             pinned.addAll(all)
@@ -29,21 +27,21 @@ class PinnedToolManager(private val prefs: IPreferences) {
             pinned.clear()
             pinned.addAll(toolIds)
         }
-        writePrefs(getPinnedToolIds())
+        prefs.toolPinnedIds = getPinnedToolIds()
     }
 
     fun pin(toolId: Long) {
         synchronized(lock) {
             pinned.add(toolId)
         }
-        writePrefs(getPinnedToolIds())
+        prefs.toolPinnedIds = getPinnedToolIds()
     }
 
     fun unpin(toolId: Long) {
         synchronized(lock) {
             pinned.remove(toolId)
         }
-        writePrefs(getPinnedToolIds())
+        prefs.toolPinnedIds = getPinnedToolIds()
     }
 
     fun isPinned(toolId: Long): Boolean {
@@ -51,18 +49,4 @@ class PinnedToolManager(private val prefs: IPreferences) {
             pinned.contains(toolId)
         }
     }
-
-    private fun readPrefs(): List<Long> {
-        val str = prefs.getString(key) ?: return listOf(
-            6L, // Navigation
-            20L, // Weather
-            14L // Astronomy
-        )
-        return str.split(",").mapNotNull { it.toLongOrNull() }
-    }
-
-    private fun writePrefs(toolIds: List<Long>) {
-        prefs.putString(key, toolIds.joinToString(","))
-    }
-
 }

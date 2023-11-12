@@ -36,11 +36,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     private val tools by lazy { Tools.getTools(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
-    private val pinnedToolManager by lazy {
-        PinnedToolManager(
-            PreferencesSubsystem.getInstance(requireContext()).preferences
-        )
-    }
+    private val pinnedToolManager by lazy { PinnedToolManager(prefs) }
 
     private val toolSortFactory by lazy { ToolSortFactory(requireContext()) }
 
@@ -129,7 +125,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             sortTypes.map { sortTypeNames[it] ?: "" },
             sortTypes.indexOf(prefs.toolSort)
         ) { selectedIdx ->
-            if (selectedIdx != null){
+            if (selectedIdx != null) {
                 prefs.toolSort = sortTypes[selectedIdx]
                 updateTools()
             }
