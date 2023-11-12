@@ -46,17 +46,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/quick_actions">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/pinned_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:layout_width="0dp"
@@ -86,14 +86,17 @@
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 app:columnCount="2"
+                app:layout_constraintTop_toBottomOf="@id/pinned_title"
                 app:useDefaultMargins="false" />
 
             <LinearLayout
+                android:id="@+id/tools_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/pinned">
 
                 <TextView
                     android:layout_width="0dp"
@@ -122,9 +125,10 @@
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 app:columnCount="2"
+                app:layout_constraintTop_toBottomOf="@id/tools_title"
                 app:useDefaultMargins="false" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
