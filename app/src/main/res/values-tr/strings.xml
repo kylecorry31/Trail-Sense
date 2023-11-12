@@ -1146,4 +1146,5 @@
     <string name="pref_keep_map_facing_up_title">Haritayı yukarı bakacak şekilde tutun</string>
     <string name="distance_away_from_self">%s uzaklıkta</string>
     <string name="season">Mevsim</string>
+    <string name="magnetic_north">Manyetik Kuzey</string>
 </resources>
