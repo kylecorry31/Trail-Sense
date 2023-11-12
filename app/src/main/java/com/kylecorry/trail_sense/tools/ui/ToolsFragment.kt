@@ -24,7 +24,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.ui.sort.CategorizedTools
@@ -195,7 +194,11 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         val header = TextView(requireContext())
         header.text = name?.capitalizeWords()
         header.textSize = 14f
-        header.setTextColor(AppColor.Orange.color)
+        header.setTextColor(
+            Resources.getAndroidColorAttr(
+                requireContext(), android.R.attr.colorPrimary
+            )
+        )
         // Bold
         header.paint.isFakeBoldText = true
         header.layoutParams = GridLayout.LayoutParams().apply {
@@ -250,6 +253,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         button.setOnLongClickListener { view ->
             Pickers.menu(
                 view, listOf(
+                    if (tool.isExperimental) getString(R.string.experimental) else null,
                     if (tool.description != null) getString(R.string.pref_category_about) else null,
                     if (pinnedToolManager.isPinned(tool.id)) {
                         getString(R.string.unpin)
@@ -260,8 +264,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                 )
             ) { selectedIdx ->
                 when (selectedIdx) {
-                    0 -> dialog(tool.name, tool.description, cancelText = null)
-                    1 -> {
+                    1 -> dialog(tool.name, tool.description, cancelText = null)
+                    2 -> {
                         if (pinnedToolManager.isPinned(tool.id)) {
                             pinnedToolManager.unpin(tool.id)
                         } else {
@@ -270,7 +274,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                         updatePinnedTools()
                     }
 
-                    2 -> {
+                    3 -> {
                         UserGuideUtils.showGuide(this, tool.guideId!!)
                     }
                 }

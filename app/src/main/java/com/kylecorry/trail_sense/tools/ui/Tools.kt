@@ -242,7 +242,8 @@ object Tools {
                 R.drawable.ic_camera,
                 R.id.action_tools_to_augmented_reality,
                 ToolCategory.Other,
-                context.getString(R.string.augmented_reality_description)
+                context.getString(R.string.augmented_reality_description),
+                isExperimental = true
             ) else null,
             Tool(
                 26,
