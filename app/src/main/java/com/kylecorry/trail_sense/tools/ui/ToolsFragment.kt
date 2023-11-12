@@ -140,9 +140,11 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         if (filter.isNullOrBlank()) {
             binding.pinned.isVisible = true
             binding.pinnedTitle.isVisible = true
+            binding.pinnedEditBtn.isVisible = true
         } else {
             binding.pinned.isVisible = false
             binding.pinnedTitle.isVisible = false
+            binding.pinnedEditBtn.isVisible = false
         }
 
         val tools = if (filter.isNullOrBlank()) {
