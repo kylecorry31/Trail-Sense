@@ -1160,4 +1160,9 @@
     <string name="augmented_reality">Realidad Aumentada</string>
     <string name="augmented_reality_description">Ver balizas cercanas y el sol / luna con tu cámara</string>
     <string name="magnetic_north">El Norte magnético</string>
+    <string name="tool_long_press_hint_toast">Pulsa prolongadamente en una herramienta para ver más opciones</string>
+    <string name="unpin">Desbloquear</string>
+    <string name="pinned">Fijado</string>
+    <string name="tool_quick_actions">Herramienta de acciones rápidas</string>
+    <string name="pin">Bloquear</string>
 </resources>
