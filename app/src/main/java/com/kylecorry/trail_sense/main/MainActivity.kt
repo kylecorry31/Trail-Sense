@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.backup.BackupService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
+import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
 import com.kylecorry.trail_sense.shared.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
@@ -142,6 +143,7 @@ class MainActivity : AndromedaActivity() {
             ShowDisclaimerCommand(this),
             PowerSavingModeAlertCommand(this),
             RestartServicesCommand(this),
+            SettingsMoveNotice(this)
         ).execute()
 
         if (!Sensors.hasBarometer(this)) {

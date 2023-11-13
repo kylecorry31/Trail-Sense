@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.main.AppState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -21,6 +22,8 @@ class PreferenceMigrator private constructor() {
         synchronized(lock) {
             val prefs = PreferencesSubsystem.getInstance(context).preferences
             var currentVersion = prefs.getInt("pref_version") ?: 0
+
+            AppState.isReturningUser = currentVersion > 0
 
             while (currentVersion < version) {
                 val current = currentVersion
