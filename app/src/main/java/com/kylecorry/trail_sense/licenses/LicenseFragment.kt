@@ -25,7 +25,7 @@ class LicenseFragment : PreferenceFragmentCompat() {
                 Alerts.dialog(
                     requireContext(),
                     library.name,
-                    library.url + "\n\n" + library.license,
+                    library.url + "\n\n" + library.license(),
                     cancelText = null,
                     allowLinks = true
                 )
