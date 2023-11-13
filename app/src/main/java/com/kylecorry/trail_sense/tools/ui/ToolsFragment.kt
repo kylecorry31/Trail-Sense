@@ -228,38 +228,21 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     }
 
     private fun createToolButton(tool: Tool): View {
-        // TODO: Move this to the class level
-        val iconSize = Resources.dp(requireContext(), 24f).toInt()
-        val iconPadding = Resources.dp(requireContext(), 12f).toInt()
-        val iconColor = Resources.androidTextColorPrimary(requireContext())
-        val buttonHeight = Resources.dp(requireContext(), 64f).toInt()
         val buttonMargins = Resources.dp(requireContext(), 8f).toInt()
-        val buttonPadding = Resources.dp(requireContext(), 16f).toInt()
-        val buttonBackgroundColor = Resources.getAndroidColorAttr(
-            requireContext(), android.R.attr.colorBackgroundFloating
-        )
-
         val gridColumnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
         val gridRowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
 
-        val button = TextView(requireContext())
+        val button = ToolButton(requireContext())
         button.text = tool.name.capitalizeWords()
-        button.setCompoundDrawables(iconSize, left = tool.icon)
-        button.compoundDrawablePadding = iconPadding
-        button.elevation = 2f
-        CustomUiUtils.setImageColor(button, iconColor)
+        button.setIconResource(tool.icon)
         button.layoutParams = GridLayout.LayoutParams().apply {
             width = 0
-            height = buttonHeight
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
             columnSpec = gridColumnSpec
             rowSpec = gridRowSpec
             setMargins(buttonMargins)
         }
-        button.gravity = Gravity.CENTER_VERTICAL
-        button.setPadding(buttonPadding, 0, buttonPadding, 0)
 
-        button.setBackgroundResource(R.drawable.rounded_rectangle)
-        button.backgroundTintList = ColorStateList.valueOf(buttonBackgroundColor)
         button.setOnClickListener { _ ->
             findNavController().navigate(tool.navAction)
         }
