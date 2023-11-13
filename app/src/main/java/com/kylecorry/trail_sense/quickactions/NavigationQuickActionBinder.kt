@@ -32,13 +32,14 @@ class NavigationQuickActionBinder(
     ): QuickActionButton {
         return when (type) {
             QuickActionType.None -> QuickActionNone(button, fragment)
-            QuickActionType.Backtrack -> QuickActionBacktrack(button, fragment)
+            QuickActionType.Paths -> QuickActionPaths(button, fragment)
             QuickActionType.Flashlight -> QuickActionFlashlight(button, fragment)
             QuickActionType.Ruler -> QuickActionRuler(button, fragment, binding.ruler)
             QuickActionType.Maps -> QuickActionOfflineMaps(button, fragment)
             QuickActionType.Whistle -> QuickActionWhistle(button, fragment)
             QuickActionType.LowPowerMode -> LowPowerQuickAction(button, fragment)
             QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
+            QuickActionType.Backtrack -> QuickActionBacktrack(button, fragment)
             else -> QuickActionNone(button, fragment)
         }
     }

@@ -182,7 +182,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         get() {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_left))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Backtrack
+            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Paths
         }
 
     val rightButton: QuickActionType

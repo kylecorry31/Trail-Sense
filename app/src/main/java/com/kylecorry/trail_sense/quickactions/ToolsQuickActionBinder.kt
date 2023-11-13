@@ -45,7 +45,6 @@ class ToolsQuickActionBinder(
         binding.quickActions.isVisible = selected.isNotEmpty()
 
         // TODO: Weather monitor
-        // TODO: Backtrack quick action should be a toggle rather than opening the path
         selected.forEach {
             val action = when (it) {
                 QuickActionType.Flashlight -> QuickActionFlashlight(createButton(), fragment)
@@ -54,6 +53,7 @@ class ToolsQuickActionBinder(
                 QuickActionType.LowPowerMode -> LowPowerQuickAction(createButton(), fragment)
                 QuickActionType.SunsetAlert -> QuickActionSunsetAlert(createButton(), fragment)
                 QuickActionType.NightMode -> QuickActionNightMode(createButton(), fragment)
+                QuickActionType.Backtrack -> QuickActionBacktrack(createButton(), fragment)
                 else -> null // No other actions are supported
             }
 
