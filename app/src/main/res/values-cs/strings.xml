@@ -1172,4 +1172,9 @@
     <string name="augmented_reality">Rozšířená realita</string>
     <string name="augmented_reality_description">Zobrazte si blízké majáky a slunce/měsíc vaším fotoaparátem</string>
     <string name="magnetic_north">Magnetický sever</string>
+    <string name="tool_long_press_hint_toast">Podržte pro zobrazení více možností</string>
+    <string name="unpin">Odepnout</string>
+    <string name="pinned">Připnuto</string>
+    <string name="tool_quick_actions">Rychlé akce nástroje</string>
+    <string name="pin">Připnout</string>
 </resources>
