@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
@@ -56,7 +57,7 @@ object QuickActionUtils {
             QuickActionType.WhiteNoise,
             QuickActionType.NightMode,
             QuickActionType.Backtrack,
-            QuickActionType.WeatherMonitor
+            if (Sensors.hasBarometer(context)) QuickActionType.WeatherMonitor else null
         )
     }
 
@@ -86,7 +87,7 @@ object QuickActionUtils {
             QuickActionType.Thunder,
             QuickActionType.Climate,
             QuickActionType.NightMode,
-            QuickActionType.WeatherMonitor,
+            QuickActionType.WeatherMonitor, // Available since weather is available, no need to check sensors
         )
     }
 
