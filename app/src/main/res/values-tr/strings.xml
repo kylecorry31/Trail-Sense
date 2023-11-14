@@ -1147,4 +1147,11 @@
     <string name="distance_away_from_self">%s uzaklıkta</string>
     <string name="season">Mevsim</string>
     <string name="magnetic_north">Manyetik Kuzey</string>
+    <string name="tool_long_press_hint_toast">Daha fazla seçenek görmek için bir araca uzun basın</string>
+    <string name="unpin">Sabitlemeyi kaldır</string>
+    <string name="settings_have_moved_message">Uygulama ayarları Araçlar sekmesine taşındı</string>
+    <string name="settings_have_moved">Ayarlar taşındı</string>
+    <string name="pinned">Sabitlendi</string>
+    <string name="tool_quick_actions">Araç hızlı eylemleri</string>
+    <string name="pin">Sabitle</string>
 </resources>
