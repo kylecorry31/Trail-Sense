@@ -40,6 +40,7 @@ class WeatherQuickActionBinder(
             QuickActionType.Climate -> QuickActionClimate(button, fragment)
             QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
             QuickActionType.WeatherMonitor -> QuickActionWeather(button, fragment)
+            QuickActionType.Pedometer -> QuickActionPedometer(button, fragment)
             else -> QuickActionNone(button, fragment)
         }
     }
