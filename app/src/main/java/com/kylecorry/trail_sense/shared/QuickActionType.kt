@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
@@ -19,7 +20,8 @@ enum class QuickActionType(val id: Int) {
     Climate(12),
     SunsetAlert(13),
     NightMode(14),
-    Backtrack(15)
+    Backtrack(15),
+    WeatherMonitor(16)
 }
 
 object QuickActionUtils {
@@ -41,7 +43,8 @@ object QuickActionUtils {
             QuickActionType.SunsetAlert -> context.getString(R.string.sunset_alerts)
             QuickActionType.NightMode -> context.getString(R.string.night)
             QuickActionType.Backtrack -> context.getString(R.string.backtrack)
-        }
+            QuickActionType.WeatherMonitor -> context.getString(R.string.weather_monitor)
+        }.capitalizeWords()
     }
 
     fun tools(context: Context): List<QuickActionType> {
@@ -52,7 +55,8 @@ object QuickActionUtils {
             QuickActionType.SunsetAlert,
             QuickActionType.WhiteNoise,
             QuickActionType.NightMode,
-            QuickActionType.Backtrack
+            QuickActionType.Backtrack,
+            QuickActionType.WeatherMonitor
         )
     }
 
@@ -81,7 +85,8 @@ object QuickActionUtils {
             QuickActionType.LowPowerMode,
             QuickActionType.Thunder,
             QuickActionType.Climate,
-            QuickActionType.NightMode
+            QuickActionType.NightMode,
+            QuickActionType.WeatherMonitor,
         )
     }
 

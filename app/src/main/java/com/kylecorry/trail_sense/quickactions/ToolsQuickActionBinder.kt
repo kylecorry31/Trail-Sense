@@ -54,6 +54,7 @@ class ToolsQuickActionBinder(
                 QuickActionType.SunsetAlert -> QuickActionSunsetAlert(createButton(), fragment)
                 QuickActionType.NightMode -> QuickActionNightMode(createButton(), fragment)
                 QuickActionType.Backtrack -> QuickActionBacktrack(createButton(), fragment)
+                QuickActionType.WeatherMonitor -> QuickActionWeather(createButton(), fragment)
                 else -> null // No other actions are supported
             }
 
