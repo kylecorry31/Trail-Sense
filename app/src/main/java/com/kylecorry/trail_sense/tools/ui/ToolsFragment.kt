@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
@@ -16,12 +17,17 @@ import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
+import com.kylecorry.trail_sense.databinding.ListItemToolBinding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -43,6 +49,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     private val pinnedSorter = AlphabeticalToolSort()
 
+    private lateinit var toolListView: ListView<Tool>
+
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
     ): FragmentToolsBinding {
@@ -51,6 +59,67 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolListView = ListView(binding.tools, R.layout.list_item_tool){ view, tool ->
+            // TODO: Have this be a tool list item instead
+            val binding = ListItemToolBinding.bind(view)
+            binding.title.text = tool.name
+            binding.icon.setImageResource(tool.icon)
+            Colors.setImageColor(binding.icon, Resources.androidTextColorPrimary(requireContext()))
+
+            binding.root.setBackgroundResource(R.drawable.rounded_rectangle)
+            binding.root.backgroundTintList = ColorStateList.valueOf(
+                Resources.getAndroidColorAttr(
+                    requireContext(),
+                    android.R.attr.colorBackgroundFloating
+                )
+            )
+
+            // Set margin
+            val margin = Resources.dp(requireContext(), 8f).toInt()
+            val params = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+            params.setMargins(margin)
+            params.height = Resources.dp(requireContext(), 64f).toInt()
+
+            binding.root.elevation = 2f
+
+            binding.root.setOnClickListener {
+                findNavController().navigate(tool.navAction)
+            }
+
+            binding.root.setOnLongClickListener {
+                Pickers.menu(
+                    view, listOf(
+                        if (tool.isExperimental) getString(R.string.experimental) else null,
+                        if (tool.description != null) getString(R.string.pref_category_about) else null,
+                        if (pinnedToolManager.isPinned(tool.id)) {
+                            getString(R.string.unpin)
+                        } else {
+                            getString(R.string.pin)
+                        },
+                        if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
+                    )
+                ) { selectedIdx ->
+                    when (selectedIdx) {
+                        1 -> dialog(tool.name, tool.description, cancelText = null)
+                        2 -> {
+                            if (pinnedToolManager.isPinned(tool.id)) {
+                                pinnedToolManager.unpin(tool.id)
+                            } else {
+                                pinnedToolManager.pin(tool.id)
+                            }
+                            updatePinnedTools()
+                        }
+
+                        3 -> {
+                            UserGuideUtils.showGuide(this, tool.guideId!!)
+                        }
+                    }
+                    true
+                }
+                true
+            }
+        }
 
         updatePinnedTools()
         updateTools()
@@ -66,38 +135,38 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             true
         }
 
-        binding.pinnedEditBtn.setOnClickListener {
-            // Sort alphabetically, but if the tool is already pinned, put it first
-            val sorted = tools.sortedBy { tool ->
-                if (pinnedToolManager.isPinned(tool.id)) {
-                    "0${tool.name}"
-                } else {
-                    tool.name
-                }
-            }
-            val toolNames = sorted.map { it.name }
-            val defaultSelected = sorted.mapIndexedNotNull { index, tool ->
-                if (pinnedToolManager.isPinned(tool.id)) {
-                    index
-                } else {
-                    null
-                }
-            }
-
-            Pickers.items(
-                requireContext(), getString(R.string.pinned), toolNames, defaultSelected
-            ) { selected ->
-                if (selected != null) {
-                    pinnedToolManager.setPinnedToolIds(selected.map { sorted[it].id })
-                }
-
-                updatePinnedTools()
-            }
-        }
-
-        binding.sortBtn.setOnClickListener {
-            changeToolSort()
-        }
+//        binding.pinnedEditBtn.setOnClickListener {
+//            // Sort alphabetically, but if the tool is already pinned, put it first
+//            val sorted = tools.sortedBy { tool ->
+//                if (pinnedToolManager.isPinned(tool.id)) {
+//                    "0${tool.name}"
+//                } else {
+//                    tool.name
+//                }
+//            }
+//            val toolNames = sorted.map { it.name }
+//            val defaultSelected = sorted.mapIndexedNotNull { index, tool ->
+//                if (pinnedToolManager.isPinned(tool.id)) {
+//                    index
+//                } else {
+//                    null
+//                }
+//            }
+//
+//            Pickers.items(
+//                requireContext(), getString(R.string.pinned), toolNames, defaultSelected
+//            ) { selected ->
+//                if (selected != null) {
+//                    pinnedToolManager.setPinnedToolIds(selected.map { sorted[it].id })
+//                }
+//
+//                updatePinnedTools()
+//            }
+//        }
+//
+//        binding.sortBtn.setOnClickListener {
+//            changeToolSort()
+//        }
 
         CustomUiUtils.oneTimeToast(
             requireContext(),
@@ -137,15 +206,15 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         val filter = binding.searchbox.query
 
         // Hide pinned when searching
-        if (filter.isNullOrBlank()) {
-            binding.pinned.isVisible = true
-            binding.pinnedTitle.isVisible = true
-            binding.pinnedEditBtn.isVisible = true
-        } else {
-            binding.pinned.isVisible = false
-            binding.pinnedTitle.isVisible = false
-            binding.pinnedEditBtn.isVisible = false
-        }
+//        if (filter.isNullOrBlank()) {
+//            binding.pinned.isVisible = true
+//            binding.pinnedTitle.isVisible = true
+//            binding.pinnedEditBtn.isVisible = true
+//        } else {
+//            binding.pinned.isVisible = false
+//            binding.pinnedTitle.isVisible = false
+//            binding.pinnedEditBtn.isVisible = false
+//        }
 
         val tools = if (filter.isNullOrBlank()) {
             this.tools
@@ -156,17 +225,31 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         }
 
         val sorter = toolSortFactory.getToolSort(prefs.toolSort)
-        populateTools(sorter.sort(tools), binding.tools)
+//        populateTools(sorter.sort(tools), binding.tools)
+
+//        val items = tools.map {
+//            ListItem(
+//                it.id,
+//                it.name,
+//                icon = ResourceListIcon(it.icon, Resources.androidTextColorPrimary(requireContext()))
+//            ){
+//                findNavController().navigate(it.navAction)
+//            }
+//        }
+
+//        binding.tools.setItems(items)
+
+        toolListView.setData(tools)
     }
 
     private fun updatePinnedTools() {
-        val pinned = tools.filter {
-            pinnedToolManager.isPinned(it.id)
-        }
-
-        binding.pinned.isVisible = pinned.isNotEmpty()
-
-        populateTools(pinnedSorter.sort(pinned), binding.pinned)
+//        val pinned = tools.filter {
+//            pinnedToolManager.isPinned(it.id)
+//        }
+//
+//        binding.pinned.isVisible = pinned.isNotEmpty()
+//
+//        populateTools(pinnedSorter.sort(pinned), binding.pinned)
     }
 
     private fun populateTools(categories: List<CategorizedTools>, grid: GridLayout) {

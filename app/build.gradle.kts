@@ -159,6 +159,7 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:pdf:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:exceptions:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:print:$andromedaVersion")
+    implementation("com.github.kylecorry31.andromeda:list:$andromedaVersion")
 
     // Ceres
     val ceresVersion = "e087704b28"
