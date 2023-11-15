@@ -49,7 +49,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     private val pinnedSorter = AlphabeticalToolSort()
 
-    private lateinit var toolListView: ListView<Tool>
+    private lateinit var toolListView: ListView<ToolListItem>
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -60,20 +60,35 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolListView = ListView(binding.tools, R.layout.list_item_tool){ view, tool ->
+        toolListView = ListView(binding.tools, R.layout.list_item_tool) { view, tool ->
             // TODO: Have this be a tool list item instead
             val binding = ListItemToolBinding.bind(view)
-            binding.title.text = tool.name
-            binding.icon.setImageResource(tool.icon)
-            Colors.setImageColor(binding.icon, Resources.androidTextColorPrimary(requireContext()))
-
-            binding.root.setBackgroundResource(R.drawable.rounded_rectangle)
-            binding.root.backgroundTintList = ColorStateList.valueOf(
-                Resources.getAndroidColorAttr(
-                    requireContext(),
-                    android.R.attr.colorBackgroundFloating
+            binding.title.text = tool.title
+            binding.title.isVisible = tool.title != null
+            if (tool.icon == null) {
+                binding.icon.isVisible = false
+            } else {
+                binding.icon.isVisible = true
+                binding.icon.setImageResource(tool.icon)
+                Colors.setImageColor(
+                    binding.icon,
+                    Resources.androidTextColorPrimary(requireContext())
                 )
-            )
+            }
+
+            if (tool.hasBackground) {
+                binding.root.setBackgroundResource(R.drawable.rounded_rectangle)
+                binding.root.backgroundTintList = ColorStateList.valueOf(
+                    Resources.getAndroidColorAttr(
+                        requireContext(),
+                        android.R.attr.colorBackgroundFloating
+                    )
+                )
+                binding.root.elevation = 2f
+            } else {
+                binding.root.background = null
+                binding.root.elevation = 0f
+            }
 
             // Set margin
             val margin = Resources.dp(requireContext(), 8f).toInt()
@@ -81,42 +96,13 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             params.setMargins(margin)
             params.height = Resources.dp(requireContext(), 64f).toInt()
 
-            binding.root.elevation = 2f
 
             binding.root.setOnClickListener {
-                findNavController().navigate(tool.navAction)
+                tool.onClick()
             }
 
             binding.root.setOnLongClickListener {
-                Pickers.menu(
-                    view, listOf(
-                        if (tool.isExperimental) getString(R.string.experimental) else null,
-                        if (tool.description != null) getString(R.string.pref_category_about) else null,
-                        if (pinnedToolManager.isPinned(tool.id)) {
-                            getString(R.string.unpin)
-                        } else {
-                            getString(R.string.pin)
-                        },
-                        if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
-                    )
-                ) { selectedIdx ->
-                    when (selectedIdx) {
-                        1 -> dialog(tool.name, tool.description, cancelText = null)
-                        2 -> {
-                            if (pinnedToolManager.isPinned(tool.id)) {
-                                pinnedToolManager.unpin(tool.id)
-                            } else {
-                                pinnedToolManager.pin(tool.id)
-                            }
-                            updatePinnedTools()
-                        }
-
-                        3 -> {
-                            UserGuideUtils.showGuide(this, tool.guideId!!)
-                        }
-                    }
-                    true
-                }
+                tool.onLongClick()
                 true
             }
         }
@@ -239,7 +225,52 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
 //        binding.tools.setItems(items)
 
-        toolListView.setData(tools)
+        val items = sorter.sort(tools).flatMap {
+            listOf(ToolListItem(it.categoryName)) + it.tools.map { tool ->
+                ToolListItem(
+                    tool.name,
+                    tool.icon,
+                    hasBackground = true,
+                    onClick = {
+                        findNavController().navigate(tool.navAction)
+                    },
+                    onLongClick = {
+                        Pickers.menu(
+                            binding.root, listOf(
+                                if (tool.isExperimental) getString(R.string.experimental) else null,
+                                if (tool.description != null) getString(R.string.pref_category_about) else null,
+                                if (pinnedToolManager.isPinned(tool.id)) {
+                                    getString(R.string.unpin)
+                                } else {
+                                    getString(R.string.pin)
+                                },
+                                if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
+                            )
+                        ) { selectedIdx ->
+                            when (selectedIdx) {
+                                1 -> dialog(tool.name, tool.description, cancelText = null)
+                                2 -> {
+                                    if (pinnedToolManager.isPinned(tool.id)) {
+                                        pinnedToolManager.unpin(tool.id)
+                                    } else {
+                                        pinnedToolManager.pin(tool.id)
+                                    }
+                                    updatePinnedTools()
+                                }
+
+                                3 -> {
+                                    UserGuideUtils.showGuide(this, tool.guideId!!)
+                                }
+                            }
+                            true
+                        }
+                        true
+                    }
+                )
+            }
+        }
+
+        toolListView.setData(items)
     }
 
     private fun updatePinnedTools() {
@@ -365,5 +396,13 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
         return button
     }
+
+    data class ToolListItem(
+        val title: String?,
+        val icon: Int? = null,
+        val hasBackground: Boolean = false,
+        val onClick: () -> Unit = {},
+        val onLongClick: () -> Boolean = { false }
+    )
 
 }
