@@ -40,96 +40,13 @@
         app:layout_constraintTop_toBottomOf="@id/searchbox"
         app:layout_goneMarginTop="16dp" />
 
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/quick_actions">-->
-
-    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content">-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/pinned_title"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginStart="16dp"-->
-    <!--                android:layout_marginEnd="16dp"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:text="@string/pinned"-->
-    <!--                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"-->
-    <!--                app:layout_constraintEnd_toStartOf="@id/pinned_edit_btn"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--            <ImageButton-->
-    <!--                android:id="@+id/pinned_edit_btn"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginEnd="16dp"-->
-    <!--                android:backgroundTint="@android:color/transparent"-->
-    <!--                app:layout_constraintBottom_toBottomOf="@id/pinned_title"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="@id/pinned_title"-->
-    <!--                app:srcCompat="@drawable/ic_edit"-->
-    <!--                app:tint="?android:textColorSecondary" />-->
-
-
-    <!--            <androidx.gridlayout.widget.GridLayout-->
-    <!--                android:id="@+id/pinned"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_gravity="center"-->
-    <!--                android:layout_margin="8dp"-->
-    <!--                app:columnCount="2"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/pinned_title"-->
-    <!--                app:useDefaultMargins="false" />-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/tools_title"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginStart="16dp"-->
-    <!--                android:layout_marginTop="16dp"-->
-    <!--                android:layout_marginEnd="16dp"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:text="@string/tools"-->
-    <!--                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"-->
-    <!--                app:layout_constraintEnd_toStartOf="@id/sort_btn"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/pinned" />-->
-
-    <!--            <ImageButton-->
-    <!--                android:id="@+id/sort_btn"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginEnd="16dp"-->
-    <!--                android:backgroundTint="@android:color/transparent"-->
-    <!--                app:layout_constraintBottom_toBottomOf="@id/tools_title"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="@id/tools_title"-->
-    <!--                app:srcCompat="@drawable/sort_ascending"-->
-    <!--                app:tint="?android:textColorSecondary" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tools"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/quick_actions" />
-
-    <!--            <androidx.gridlayout.widget.GridLayout-->
-    <!--                android:id="@+id/tools"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_gravity="center"-->
-    <!--                android:layout_margin="8dp"-->
-    <!--                app:columnCount="2"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/tools_title"-->
-    <!--                app:useDefaultMargins="false" />-->
-
-    <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-    <!--    </ScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
