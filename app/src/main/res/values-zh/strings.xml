@@ -1136,4 +1136,6 @@
     <string name="pinned">已固定</string>
     <string name="tool_quick_actions">工具快速操作</string>
     <string name="pin">固定</string>
+    <string name="settings_have_moved_message">应用设置已移动到工具标签页</string>
+    <string name="settings_have_moved">设置已移动</string>
 </resources>
