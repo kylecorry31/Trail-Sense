@@ -979,7 +979,6 @@
     <string name="dashed">Stiplet</string>
     <string name="grams_format">%s g</string>
     <string name="weight_per_item">Vægt pr enhed</string>
-    <string name="no_compass_message">Din enhed har ikke en kompassensor</string>
     <string name="grant_permission">Giv %s-tilladelsen</string>
     <string name="diagnostic_message_template">%1$s: %2$s
 \n

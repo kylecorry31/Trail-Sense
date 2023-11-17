@@ -83,7 +83,6 @@
     <string name="pref_github_title">GitHub</string>
     <string name="pref_email_title">電郵畀開發者</string>
     <string name="continue_button">繼續</string>
-    <string name="no_compass_message">您部機未備有羅經感應器</string>
     <string name="qr_code">二維碼</string>
     <string name="beacon_qr_import_instructions">掃個二維碼去匯入</string>
     <string name="last_duration">過去 %s</string>

@@ -625,7 +625,6 @@
     <string name="merging">Unificazione</string>
     <string name="pref_barometer_pressure_smoothing_title">Stabilizzazione pressione</string>
     <string name="location_not_mocked">In uso: posizione effettiva</string>
-    <string name="no_compass_message">Il tuo dispositivo non possiede il sensore della bussola</string>
     <plurals name="number_days">
         <item quantity="one">%d giorno</item>
         <item quantity="many">%d giorni</item>
@@ -1123,7 +1122,6 @@
     <string name="gps_location_accuracy">Precisione della posizione GPS</string>
     <string name="gps_elevation_accuracy">Precisione dell\'altitudine GPS</string>
     <string name="gps_satellites">Satelliti GPS</string>
-    <string name="no_compass_description">Il tuo dispositivo non posiede una bussola. Questo è un compenente harsware, pertanto non si può far nulla per aggiungerlo. Alcune funzionalità che utilizzano la bussola non saranno disponibili.</string>
     <string name="restore">Ripristino</string>
     <string name="backup">Backup</string>
     <string name="restore_disclaimer">Questa azione sovrascriverà tutti i dati correnti. Assicurarsi di eseguire un backup prima di continuare.

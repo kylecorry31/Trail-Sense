@@ -232,7 +232,6 @@
     <string name="pack_sort_percent_high_to_low">Becsomagolt százalék (csökkenő)</string>
     <string name="pack_sort_weight_low_to_high">Tömeg (növekvő)</string>
     <string name="pack_sort_weight_high_to_low">Tömeg (csökkenő)</string>
-    <string name="no_compass_message">Az eszközödnek nincs iránytű érzékelője</string>
     <string name="guide_packing_list">Csomagjegyzékek létrehozása</string>
     <string name="weight_per_item">Elemenkénti tömeg</string>
     <string name="humidity">Páratartalom</string>
@@ -1072,7 +1071,6 @@
     <string name="accelerometer">Gyorsulásmérő</string>
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Történelmi (%d év)</string>
     <string name="map_file">Fájl (JPG, PNG, PDF)</string>
-    <string name="no_compass_description">Az eszközödnek nincs beépített iránytű szenzora. Ez egy hardveres komponens, ezért a hozzáadása utólag nem lehetséges. Néhány, az iránytűt használó funkció nem lesz elérhető.</string>
     <string name="astronomy_altitude_peak">Csúcsmagasság</string>
     <string name="unable_to_find_next_astronomy">Nem található a következő %s</string>
     <string name="updating">Frissítés</string>

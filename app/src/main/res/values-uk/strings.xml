@@ -681,7 +681,6 @@
     <string name="current_format">%s мА</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d супутників</string>
-    <string name="no_compass_message">Ваш пристрій не має датника компаса</string>
     <string name="elevation_history">Історія висот</string>
     <string name="beacon_qr_import_instructions">Зчитайте QR-код для імпорту</string>
     <string name="qr_code">QR-код</string>

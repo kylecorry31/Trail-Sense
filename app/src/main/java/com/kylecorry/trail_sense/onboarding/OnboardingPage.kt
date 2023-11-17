@@ -5,8 +5,8 @@ import androidx.annotation.StringRes
 import com.kylecorry.trail_sense.R
 
 data class OnboardingPage(
-    @StringRes val title: Int,
-    @StringRes val contents: Int,
+    val title: String,
+    val contents: CharSequence,
     @DrawableRes val image: Int,
-    @StringRes val nextButtonText: Int = R.string.continue_button
+    val nextButtonText: String? = null,
 )

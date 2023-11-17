@@ -653,7 +653,6 @@
     <string name="elevation_history">Historia wysokości</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelity(ów)</string>
-    <string name="no_compass_message">Urządzenie nie posiada czujnika kompasu</string>
     <string name="guide_packing_list">Utwórz listę rzeczy do spakowania</string>
     <string name="new_packing_list">Nowa lista rzeczy do spakowania</string>
     <string name="no_packing_lists">Brak list rzeczy do spakowania</string>

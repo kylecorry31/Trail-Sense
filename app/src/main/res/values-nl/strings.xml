@@ -661,7 +661,6 @@
     <string name="elevation_history">Hoogtegeschiedenis</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satellieten</string>
-    <string name="no_compass_message">Je apparaat heeft geen kompassensor</string>
     <string name="guide_packing_list">Paklijsten maken</string>
     <string name="weight_per_item">Gewicht per voorwerp</string>
     <string name="pack_sort_weight_high_to_low">Gewicht (hoog naar laag)</string>
@@ -1082,7 +1081,6 @@
     <string name="accelerometer">Versnellingsmeter</string>
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historisch (%d jaar)</string>
     <string name="map_file">Bestand (JPG, PNG, PDF)</string>
-    <string name="no_compass_description">Je apparaat heeft geen ingebouwde kompas-sensor. Dit is een hardware-component, dus er valt niets aan te doen om dit toe te voegen. Sommige functies die het kompas gebruiken zullen niet beschikbaar zijn.</string>
     <string name="astronomy_altitude_peak">Maximum hoogte</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d kaart</item>

@@ -696,7 +696,6 @@
     <string name="elevation_history">Histórico de altitude</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satélites</string>
-    <string name="no_compass_message">O seu aparelho não possui um sensor de bússola</string>
     <string name="guide_packing_list">Criar lista de itens na mochila</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto para baixo)</string>

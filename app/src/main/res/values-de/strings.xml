@@ -666,7 +666,6 @@
     <string name="pack_sort_percent_low_to_high">Prozent gepackt (wenig zu viel)</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d Satelliten</string>
-    <string name="no_compass_message">Dein Gerät hat keinen Kompass</string>
     <string name="guide_packing_list">Packlisten erstellen</string>
     <string name="current_format">%s mA</string>
     <string name="beacon_qr_import_instructions">Scanne einen QR-Code zum Importieren</string>
@@ -1116,7 +1115,6 @@
     <string name="gps_satellites">GPS satelliten</string>
     <string name="gps_location_accuracy">GPS positions Genauigkeit</string>
     <string name="gps_accuracy_tip">Stelle sicher das du eine freie sicht auf den Himmel hast und bewege dich von großen Gebäuden und bäumen weg.</string>
-    <string name="no_compass_description">Dein Gerät hat keinen eingebauten Kompass. Dies ist ein Technischer Bestandteil, so kann ein Kompass nicht nachträglich hinzugefügt werden. Manche Funktionen die einen Kompass benutzen werden nicht verfügbar sein.</string>
     <string name="restore_failure_newer_version">Diese Wiederherstellungsdatei wurde mit einer neueren Version von %s erstellt. Bitte aktualisiere %s und versuche es erneut.</string>
     <string name="invalid_backup_file">Ungültige Wiederherstellungsdatei</string>
     <string name="backup_restore">Sichern / Wiederherstellen</string>

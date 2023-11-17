@@ -900,7 +900,6 @@
     <string name="seconds_format">%s שנ</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="sort">מיון</string>
-    <string name="no_compass_message">להתקן שלך אין חיישן מצפן</string>
     <string name="activity_recognition">זיהוי פעילות</string>
     <string name="unblock_notification_channel">בטל את חסימת התראת %s עבור Trail Sense</string>
     <string name="auto">אוטומטי</string>

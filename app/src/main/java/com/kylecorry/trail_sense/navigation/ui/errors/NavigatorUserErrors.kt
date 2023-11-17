@@ -3,12 +3,15 @@ package com.kylecorry.trail_sense.navigation.ui.errors
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.system.Android
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.views.UserError
 import java.util.Locale
@@ -61,14 +64,13 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
         },
         DiagnosticCode.MagnetometerUnavailable to UserError(
             ErrorBannerReason.NoCompass,
-            fragment.getString(R.string.no_compass_message),
+            MissingSensorAlert.getMissingSensorTitle(
+                fragment.requireContext(),
+                fragment.getString(R.string.pref_compass_sensor_title)
+            ),
             R.drawable.ic_compass_icon
         ) {
-            fragment.dialog(
-                fragment.getString(R.string.no_compass_message),
-                fragment.getString(R.string.no_compass_description),
-                cancelText = null
-            )
+            MissingSensorAlert(fragment.requireContext()).alert(fragment.getString(R.string.pref_compass_sensor_title))
         }
     )
 
@@ -126,8 +128,14 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
             // Show a one time dialog containing the missing compass text
             CustomUiUtils.disclaimer(
                 fragment.requireContext(),
-                fragment.getString(R.string.no_compass_message),
-                fragment.getString(R.string.no_compass_description),
+                MissingSensorAlert.getMissingSensorTitle(
+                    fragment.requireContext(),
+                    fragment.getString(R.string.pref_compass_sensor_title)
+                ),
+                MissingSensorAlert.getMissingSensorMessage(
+                    fragment.requireContext(),
+                    fragment.getString(R.string.pref_compass_sensor_title)
+                ),
                 "no_compass_message_shown",
                 cancelText = null
             )

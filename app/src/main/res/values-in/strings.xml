@@ -686,7 +686,6 @@
     <string name="moon">Bulan</string>
     <string name="diamond">Berlian</string>
     <string name="sort">Urut</string>
-    <string name="no_compass_message">Perangkat Anda tidak memiliki sensor kompas</string>
     <string name="overridden">Tertimpa</string>
     <string name="gps_signal_lost">Sinyal GPS hilang</string>
     <string name="background_location_permission">Lokasi (Bolehkan sepanjang waktu)</string>

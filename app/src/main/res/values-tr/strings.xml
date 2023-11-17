@@ -658,7 +658,6 @@
     <string name="elevation_history">Rakım geçmişi</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d uydu</string>
-    <string name="no_compass_message">Aygıtınızda pusula sensörü yok</string>
     <string name="guide_packing_list">Paketleme listeleri oluştur</string>
     <string name="weight_per_item">Öge başına ağırlık</string>
     <string name="pack_sort_weight_high_to_low">Ağırlık (yüksekten düşüğe)</string>
@@ -1109,7 +1108,6 @@
     <string name="daylight_duration">%s gün ışığı</string>
     <string name="accelerometer">İvmeölçer</string>
     <string name="map_file">Dosya (JPG, PNG, PDF)</string>
-    <string name="no_compass_description">Aygıtınızda yerleşik bir pusula sensörü yok. Bu bir donanım bileşenidir, bu nedenle eklemek için yapılabilecek bir şey yoktur. Pusulayı kullanan bazı özellikler kullanılamayacaktır.</string>
     <string name="astronomy_set">Batış</string>
     <string name="direction_not_set">Yön ayarlanmadı</string>
     <string name="location_number">Konum %d</string>

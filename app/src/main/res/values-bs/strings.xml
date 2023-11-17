@@ -667,7 +667,6 @@
     <string name="elevation_history">Povijest visine</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelita</string>
-    <string name="no_compass_message">Vas uređaj nema senzor za kompas</string>
     <string name="guide_packing_list">Napravi liste za pakovanje</string>
     <string name="weight_per_item">Težina po stavci</string>
     <string name="pack_sort_weight_high_to_low">Težina (visoka do niske)</string>

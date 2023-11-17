@@ -669,7 +669,6 @@
     <string name="pref_low_power_mode_title">Virransäästötila</string>
     <string name="get_gps_signal">Mene ulos esteetön näköalalla taivaalle.</string>
     <string name="permission_alarms_and_reminders">Hälytykset ja muistutukset</string>
-    <string name="no_compass_description">Laitteessasi ei ole sisäänrakennettua kompassianturia. Tämä on laitteistokomponentti, joten sen lisäämiseksi ei voi tehdä mitään. Jotkut kompassia käyttävät ominaisuudet eivät ole käytettävissä.</string>
     <string name="change_map_projection">Muuta projektiota</string>
     <string name="weather_front">Sää Front</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Saattaa tarkoittaa sadetta seuraavien %d tunnin aikana.</string>
@@ -739,7 +738,6 @@
     <string name="experimental">Kokeellinen</string>
     <string name="pref_flashlight_toggle_with_volume_title">Vaihda äänenvoimakkuuspainikkeilla</string>
     <string name="tide_semidiurnal">Puolipäiväinen</string>
-    <string name="no_compass_message">Laitteessasi ei ole kompassianturia</string>
     <string name="open">Avaa</string>
     <string name="pref_sensor_details_title">Anturin tiedot</string>
     <string name="minutes">Minuuttia</string>

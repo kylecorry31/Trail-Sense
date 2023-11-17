@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
 import com.kylecorry.trail_sense.shared.notificationSettings
@@ -145,7 +146,7 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
         }
     }
 
-    private fun getResolution(code: DiagnosticCode): String {
+    private fun getResolution(code: DiagnosticCode): CharSequence {
         return when (code) {
             DiagnosticCode.AltitudeOverridden -> getString(R.string.elevation_override_resolution)
             DiagnosticCode.LocationOverridden -> getString(R.string.location_override_resolution)
@@ -155,7 +156,10 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.BatteryUsageRestricted -> getString(R.string.battery_restricted_resolution)
             DiagnosticCode.CameraUnavailable -> getString(R.string.no_resolution)
             DiagnosticCode.BarometerUnavailable -> getString(R.string.no_resolution)
-            DiagnosticCode.MagnetometerUnavailable -> getString(R.string.no_compass_description)
+            DiagnosticCode.MagnetometerUnavailable -> MissingSensorAlert.getMissingSensorMessage(
+                context,
+                getString(R.string.pref_compass_sensor_title)
+            )
             DiagnosticCode.AccelerometerUnavailable -> getString(R.string.no_resolution)
             DiagnosticCode.GPSUnavailable -> getString(R.string.gps_unavailable_resolution)
             DiagnosticCode.FlashlightUnavailable -> getString(R.string.no_resolution)

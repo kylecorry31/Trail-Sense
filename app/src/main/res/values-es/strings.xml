@@ -632,7 +632,6 @@
     <string name="new_text">Nuevo</string>
     <string name="navigate">Navegar</string>
     <string name="no_paths">No hay rutas</string>
-    <string name="no_compass_message">Tu dispositivo no tiene un sensor de brújula</string>
     <string name="num_satellites">%d satelites</string>
     <string name="wgs84">WGS 84</string>
     <string name="hours">Horas</string>
@@ -1126,7 +1125,6 @@
     <string name="gps_location_accuracy">Precisión de la ubicación por GPS</string>
     <string name="gps_satellites">Satélites GPS</string>
     <string name="gps_elevation_accuracy">Precisión de elevación del GPS</string>
-    <string name="no_compass_description">Tu dispositivo no tiene un sensor de brújula integrado. Se trata de un componente de hardware, por lo que no se puede hacer nada para añadirlo. Algunas funciones que utilizan la brújula no estarán disponibles.</string>
     <string name="backup">Copia de seguridad</string>
     <string name="restore">Restaurar</string>
     <string name="restore_disclaimer">Esta acción sobrescribirá todos tus datos actuales. Por favor, asegúrate de tener una copia de seguridad antes de continuar.

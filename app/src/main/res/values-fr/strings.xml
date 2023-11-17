@@ -697,7 +697,6 @@
     <string name="seconds">Secondes</string>
     <string name="packed_amount">Quantité empaqueté</string>
     <string name="new_packing_list">Nouvelle liste</string>
-    <string name="no_compass_message">Appareil sans boussole</string>
     <string name="last_duration">Derniers %s</string>
     <string name="location_override_resolution">Activer l’ajustement automatique de la position dans les paramètres.</string>
     <string name="new_text">Nouveau</string>
@@ -1059,7 +1058,6 @@
     <string name="season">Saison</string>
     <string name="astronomy_set">Coucher</string>
     <string name="gps_accuracy_tip">Assurez-vous d\'avoir une vue dégagée sur le ciel et éloignez-vous des grands bâtiments et des arbres.</string>
-    <string name="no_compass_description">Votre appareil ne dispose pas de capteur de boussole intégré. Il s’agit d’un composant matériel, il n’y a donc rien à faire pour l’ajouter. Certaines fonctionnalités utilisant la boussole ne seront pas disponibles.</string>
     <string name="magnitude">Magnitude</string>
     <string name="astronomy_altitude_peak">Altitude maximale</string>
     <string name="no">Non</string>

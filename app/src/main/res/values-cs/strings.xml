@@ -743,7 +743,6 @@
     <string name="daylight">Denní světlo</string>
     <string name="no_permission">Povolení nebylo uděleno</string>
     <string name="no_issues">Nebyly zjištěny žádné problémy</string>
-    <string name="no_compass_message">Vaše zařízení nemá podporu kompasu</string>
     <string name="wgs84">WGS 84</string>
     <string name="battery_restricted_resolution">Nastavte Trail Sense jako Neoptimalizováné</string>
     <string name="power_saving_mode_resolution">Vypněte úsporný režim</string>
@@ -1145,7 +1144,6 @@
     <string name="gps_elevation_accuracy">Přesnost nadmořské výšky GPS</string>
     <string name="gps_location_accuracy">Přesnost lokace GPS</string>
     <string name="gps_satellites">Satelity GPS</string>
-    <string name="no_compass_description">Vaše zařízení nemá vestavěný senzor kompasu. Jedná se o hardwarovou součást, takže ji nelze nijak přidat. Některé funkce, které kompas využívají, nebudou k dispozici.</string>
     <string name="backup_disclaimer">Bude vytvořen soubor zálohy obsahující všechna vaše aktuální data. Budou v něm zahrnuta nastavení, trasy, majáky, mapy apod.
 \n
 \nTento soubor není šifrován. Nesdílejte jej s nikým, komu nevěříte.</string>
