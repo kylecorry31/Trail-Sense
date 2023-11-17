@@ -1137,4 +1137,7 @@
     <string name="backup_restore">Backup / Ripristino</string>
     <string name="restore_failure_newer_version">Questo backup è stato creato con una versione più recente di %s. Per favore aggiornare l\'app e riprovare.</string>
     <string name="zero_shutter_lag">Eliminazione ritardo dello scatto</string>
+    <string name="tool_deprecation_disclaimer">Questo strumento potrebbe essere rimosso o ridesignato dal momento che non è utile per le escursoni o il campeggio. Se pensi che questo strumento sia utile, per favore condivi con me il motivo per cui lo trovi utile scrivendo a %s.</string>
+    <string name="my_location">La mia posizione</string>
+    <string name="destination">Destinazione</string>
 </resources>
