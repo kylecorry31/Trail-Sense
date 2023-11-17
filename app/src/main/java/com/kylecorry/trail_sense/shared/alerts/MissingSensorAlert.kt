@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.alerts
 
 import android.content.Context
 import android.os.Build
+import android.provider.Settings
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Android
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -24,7 +25,7 @@ class MissingSensorAlert(private val context: Context) : IValueAlerter<String> {
         }
 
         fun getMissingSensorMessage(context: Context, sensor: String): CharSequence {
-            val deviceName = "${Android.manufacturer} ${Build.MODEL}"
+            val deviceName = getDeviceName(context)
 
             val part1 = context.getString(
                 R.string.missing_sensor_message_1,
@@ -42,6 +43,22 @@ class MissingSensorAlert(private val context: Context) : IValueAlerter<String> {
             val markdown = "$part1\n\n## $part2Title\n\n$part2\n\n## $part3Title\n\n$part3"
 
             return MarkdownService(context).toMarkdown(markdown)
+        }
+
+        private fun getDeviceName(context: Context): String {
+            val name = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                Settings.Global.getString(context.contentResolver, Settings.Global.DEVICE_NAME) ?: Android.model
+            } else {
+                Android.model
+            }
+
+            val manufacturer = Android.manufacturer
+
+            if (name.lowercase().startsWith(manufacturer.lowercase())) {
+                return name
+            }
+
+            return "$manufacturer $name"
         }
     }
 
