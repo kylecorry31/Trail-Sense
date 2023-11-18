@@ -29,7 +29,7 @@ import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
 
 class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
-    private val tools by lazy { Tools.getTools(requireContext()) }
+    private var tools: List<Tool> = emptyList()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val pinnedToolManager by lazy { PinnedToolManager(prefs) }
@@ -99,6 +99,11 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             short = false
         )
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tools = Tools.getTools(requireContext())
     }
 
     // TODO: Add a way to customize this
