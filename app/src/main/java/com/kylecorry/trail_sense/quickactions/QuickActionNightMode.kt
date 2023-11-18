@@ -23,7 +23,6 @@ class QuickActionNightMode(btn: ImageButton, fragment: Fragment) :
                 return@setOnClickListener
             }
             isSwitching = true
-            fragment.toast(fragment.getString(R.string.loading))
 
             prefs.theme = if (prefs.theme == UserPreferences.Theme.Night) {
                 prefs.lastTheme
