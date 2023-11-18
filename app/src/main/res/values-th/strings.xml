@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="direction_north_west">ตะวันตกเฉียงเหนือ</string>
+    <string name="direction_west">ตะวันตก</string>
+    <string name="kilometers_per_hour_format">%.1f กิโลเมตร/ชั่วโมง</string>
+    <string name="maps">แผนที่</string>
+    <string name="direction_north_east">ตะวันออกเฉียงเหนือ</string>
+    <string name="navigation">การนำทาง</string>
+    <string name="direction_east">ตะวันออก</string>
+    <string name="current_format">%s มิลลิแอมป์</string>
+    <string name="gps_satellites">ดาวเทียม GPS</string>
+    <string name="miles_per_hour_format">%.1f ไมล์/ชั่วโมง</string>
+    <string name="charging_slow">กำลังชาร์จอย่างช้าๆ (%s)</string>
+    <string name="direction_south_west">ตะวันตกเฉียงใต้</string>
+    <string name="unknown">ไม่รู้จัก</string>
+    <string name="increase">เพื่ม</string>
+    <string name="gps_elevation_accuracy">ความแม่นยำของระดับความสูงจาก GPS</string>
+    <string name="direction_south_east">ตะวันออกเฉียงใต้</string>
+    <string name="tap_to_turn_off">แตะเพื่อปิด</string>
+    <string name="precise_kilometers_format">%s กิโลเมตร</string>
+    <string name="flashlight_title">ไฟฉาย</string>
+    <string name="precise_nautical_miles_format">%s ไมล์ทะเล</string>
+    <string name="charging_fast">กำลังชาร์จอย่างรวดเร็ว (%s)</string>
+    <string name="gps_accuracy_tip">แนะนำให้อยู่ในที่โล่งๆโดยไม่มีสิ่งกีดขวาง และห่างจากอาคารและต้นไม้สูง</string>
+    <string name="turn_off">ปิด</string>
+    <string name="astronomy">ดวงดาว</string>
+    <string name="weather">สภาพอากาศ</string>
+    <string name="dialog_deny">ไม่ล่ะ ขอบคุณ</string>
+    <string name="dialog_grant">อัปเดตการตั้งค่า</string>
+    <string name="direction_south">ใต้</string>
+    <string name="precise_miles_format">%s ไมล์</string>
+    <string name="accuracy_info_title">เคล็ดลับเพื่อเพื่มความแม่นยำของข้อมูลจากเซนเซอร์</string>
+    <string name="sos">สัญญาณฉุกเฉิน</string>
+    <string name="discharging_slow">กำลังคายประจุอย่างช้าๆ (%s)</string>
+    <string name="disclaimer_message_title">หมายเหตุ</string>
+    <string name="copied_to_clipboard_toast">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
+    <string name="tools">เครื่องมือ</string>
+    <string name="precise_feet_format">%s ฟุต</string>
+    <string name="gps_location_accuracy">ความแม่นยำของตำแหน่งจาก GPS</string>
+    <string name="precise_meters_format">%s เมตร</string>
+    <string name="settings">การตั้งค่า</string>
+    <string name="direction_north">เหนือ</string>
+    <string name="access_background_location">อัปเดตการตั้งค่าตำแหน่ง</string>
+    <string name="discharging_fast">กำลังคายประจุอย่างรวดเร็ว(%s)</string>
+    <string name="battery_capacity_format">%s มิลลิแอมป์ชั่วโมง</string>
+    <string name="access_background_location_rationale">Trail Sense ใช้ข้อมูลตำแหน่งในพื้นหลังสำหรับการปรับเทียบค่าความกดอากาศจากระดับน้ำทะเลในการติดตามสภาพอากาศ และเพื่อการแจ้งเตือนพระอาทิตย์ขึ้นลงได้แม่นยำยิ่งขึ้น [ดูนโยบายความเป็นส่วนตัว] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+</resources>

@@ -1145,4 +1145,11 @@
     <string name="augmented_reality">Aangevulde realiteit</string>
     <string name="augmented_reality_description">Bekijk bakens in de buurt en de zon/maan met je camera</string>
     <string name="magnetic_north">Magnetisch Noorden</string>
+    <string name="tool_long_press_hint_toast">Houdt een hulpmiddel ingedrukt voor meer opties</string>
+    <string name="unpin">Losmaken</string>
+    <string name="settings_have_moved_message">Instellingen zijn verplaatst naar het tabblad Hulpmiddelen</string>
+    <string name="settings_have_moved">Instellingen zijn verplaatst</string>
+    <string name="pinned">Vastgezet</string>
+    <string name="tool_quick_actions">Hulpmiddel snelle acties</string>
+    <string name="pin">Vastzetten</string>
 </resources>
