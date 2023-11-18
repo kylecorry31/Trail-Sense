@@ -1373,6 +1373,8 @@
     <string name="no_sensor_unable_to_fix">No, unfortunately this is a hardware feature, so there is nothing that can be done to add it.</string>
     <string name="why_missing_sensor">My device is new/expensive, why is it missing this sensor?</string>
     <string name="missing_sensor_explanation">Some phone manufacturers choose not to add this sensor, even on new or expensive devices. You can get more information by visiting your device manufacturer\’s website or getting in touch with them.</string>
+    <string name="true_north_description">Points to the geographic North Pole using the declination for your location. This will align with most maps.</string>
+    <string name="magnetic_north_description">Points to the magnetic North Pole. This will align with most compasses.</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

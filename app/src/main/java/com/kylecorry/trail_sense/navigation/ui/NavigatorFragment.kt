@@ -509,6 +509,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Update the UI
         updateNavigator()
 
+        binding.northReferenceIndicator.showDetailsOnClick = true
         binding.northReferenceIndicator.useTrueNorth = useTrueNorth
         binding.northReferenceIndicator.showLabel = true
         northReferenceHideTimer.once(Duration.ofSeconds(5))
