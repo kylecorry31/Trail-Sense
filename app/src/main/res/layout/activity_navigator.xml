@@ -129,16 +129,14 @@
         app:layout_constraintTop_toBottomOf="@id/linear_compass"
         app:srcCompat="@drawable/ic_camera" />
 
-    <com.kylecorry.ceres.badge.CeresBadge
+    <com.kylecorry.trail_sense.shared.views.NorthReferenceBadge
         android:id="@+id/north_reference_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_bottom_margin"
         app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:foregroundTint="?android:textColorPrimary"
-        app:icon="@drawable/ic_star" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/beaconBtn"

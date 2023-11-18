@@ -179,7 +179,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val northReferenceHideTimer = CoroutineTimer {
         if (isBound){
-            binding.northReferenceIndicator.setStatusText(null)
+            binding.northReferenceIndicator.showLabel = false
         }
     }
 
@@ -509,15 +509,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Update the UI
         updateNavigator()
 
-        binding.northReferenceIndicator.setImageResource(formatService.getCompassReferenceIcon(useTrueNorth))
-        binding.northReferenceIndicator.setBackgroundTint(Color.TRANSPARENT)
-        binding.northReferenceIndicator.setForegroundTint(Resources.androidTextColorSecondary(requireContext()))
-        binding.northReferenceIndicator.setStatusText(if (useTrueNorth){
-            getString(R.string.true_north)
-        } else {
-            getString(R.string.magnetic_north)
-        })
-
+        binding.northReferenceIndicator.useTrueNorth = useTrueNorth
+        binding.northReferenceIndicator.showLabel = true
         northReferenceHideTimer.once(Duration.ofSeconds(5))
     }
 
