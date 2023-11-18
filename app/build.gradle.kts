@@ -53,6 +53,12 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+        // Staging build (a release build with a ID)
+        create("staging") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+        }
         // Debug build (GitHub)
         create("dev") {
             initWith(getByName("debug"))
