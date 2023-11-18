@@ -12,7 +12,6 @@ import androidx.core.graphics.drawable.toBitmapOrNull
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
-import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
@@ -121,8 +120,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onResume()
 
         binding.arView.start()
-        isCameraEnabled = Camera.isAvailable(requireContext())
-        binding.cameraToggle.isVisible = isCameraEnabled
         if (isCameraEnabled) {
             startCamera()
         } else {
