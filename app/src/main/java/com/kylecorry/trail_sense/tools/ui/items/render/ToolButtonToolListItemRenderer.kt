@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
+import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
@@ -39,7 +40,7 @@ class ToolButtonToolListItemRenderer : ToolListItemRenderer {
         binding.title.setTextColor(Resources.androidTextColorPrimary(context))
         binding.title.paint.isFakeBoldText = false
         binding.title.textSize = 14f
-        binding.title.text = item.title
+        binding.title.text = item.title?.capitalizeWords()
         binding.title.isVisible = item.title != null
 
         // Click action
