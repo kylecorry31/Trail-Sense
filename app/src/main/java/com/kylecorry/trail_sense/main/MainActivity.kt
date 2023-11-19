@@ -76,7 +76,6 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.System -> ColorTheme.System
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
-//        setTheme(R.style.AppTheme)
         setColorTheme(mode, userPrefs.useDynamicColors)
         super.onCreate(savedInstanceState)
 
@@ -109,7 +108,7 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    fun reloadTheme(){
+    fun reloadTheme() {
         cache.putBoolean("pref_theme_just_changed", true)
         recreate()
     }
@@ -117,11 +116,6 @@ class MainActivity : AndromedaActivity() {
     override fun onResume() {
         super.onResume()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
-
-        if (cache.getBoolean("pref_theme_just_changed") == true) {
-            cache.putBoolean("pref_theme_just_changed", false)
-            recreate()
-        }
     }
 
     override fun onPause() {
@@ -130,9 +124,14 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun startApp() {
+        if (cache.getBoolean("pref_theme_just_changed") == true) {
+            cache.putBoolean("pref_theme_just_changed", false)
+            recreate()
+        }
+
         errorBanner.dismissAll()
 
-        if (cache.getBoolean(BackupService.RECENTLY_BACKED_UP_KEY) == true){
+        if (cache.getBoolean(BackupService.RECENTLY_BACKED_UP_KEY) == true) {
             cache.remove(BackupService.RECENTLY_BACKED_UP_KEY)
             navController.navigate(R.id.action_settings)
         } else if (navController.currentDestination?.id == R.id.action_navigation) {
@@ -262,7 +261,7 @@ class MainActivity : AndromedaActivity() {
         }
 
         // If the white noise service is running, don't override the volume buttons so the user can adjust the volume
-        if (WhiteNoiseService.isRunning){
+        if (WhiteNoiseService.isRunning) {
             return false
         }
 
