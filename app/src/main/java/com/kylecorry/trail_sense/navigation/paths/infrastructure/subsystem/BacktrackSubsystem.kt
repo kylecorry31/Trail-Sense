@@ -65,7 +65,7 @@ class BacktrackSubsystem private constructor(private val context: Context) {
         return frequency.getOrNull() ?: Duration.ofMinutes(30)
     }
 
-    fun enable(startNewPath: Boolean) {
+    suspend fun enable(startNewPath: Boolean) {
         if (Permissions.canRunLocationForegroundService(context)) {
             prefs.backtrackEnabled = true
             BacktrackScheduler.start(context, startNewPath)

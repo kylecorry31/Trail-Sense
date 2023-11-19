@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
@@ -10,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 
 object BacktrackScheduler {
 
-    fun restart(context: Context) {
+    suspend fun restart(context: Context) {
         val prefs = UserPreferences(context)
         if (prefs.backtrackEnabled) {
             stop(context)
@@ -18,15 +19,13 @@ object BacktrackScheduler {
         }
     }
 
-    fun start(context: Context, startNewPath: Boolean) {
+    suspend fun start(context: Context, startNewPath: Boolean) = onDefault {
         if (startNewPath) {
-            runBlocking {
-                PathService.getInstance(context).endBacktrackPath()
-            }
+            PathService.getInstance(context).endBacktrackPath()
         }
 
         if (!BacktrackIsAvailable().isSatisfiedBy(context)) {
-            return
+            return@onDefault
         }
 
         BacktrackService.start(context)

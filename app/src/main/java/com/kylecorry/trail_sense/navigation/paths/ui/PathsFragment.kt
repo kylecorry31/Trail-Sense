@@ -132,7 +132,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
 
         binding.backtrackPlayBar.setOnSubtitleClickListener {
-            ChangeBacktrackFrequencyCommand(requireContext()) { onUpdate() }.execute()
+            ChangeBacktrackFrequencyCommand(requireContext(), lifecycleScope) { onUpdate() }.execute()
         }
 
         backtrack.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
@@ -145,8 +145,10 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 FeatureState.Off -> {
                     requestLocationForegroundServicePermission { success ->
                         if (success) {
-                            backtrack.enable(true)
-                            RequestRemoveBatteryRestrictionCommand(this).execute()
+                            inBackground {
+                                backtrack.enable(true)
+                                RequestRemoveBatteryRestrictionCommand(this@PathsFragment).execute()
+                            }
                         }
                     }
                 }

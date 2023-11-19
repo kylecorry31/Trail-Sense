@@ -67,15 +67,15 @@ class PathService(
         }
     }
 
-    override suspend fun endBacktrackPath() {
+    override suspend fun endBacktrackPath() = onIO {
         backtrackLock.withLock {
             cache.remove(BACKTRACK_PATH_KEY)
         }
     }
 
-    override suspend fun getBacktrackPathId(): Long? {
+    override suspend fun getBacktrackPathId(): Long? = onIO {
         backtrackLock.withLock {
-            return cache.getLong(BACKTRACK_PATH_KEY)
+            cache.getLong(BACKTRACK_PATH_KEY)
         }
     }
 

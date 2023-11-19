@@ -2,10 +2,12 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import android.text.InputType
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -68,8 +70,10 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             if (prefs.backtrackEnabled) {
                 requestLocationForegroundServicePermission { success ->
                     if (success) {
-                        backtrack.enable(true)
-                        RequestRemoveBatteryRestrictionCommand(this).execute()
+                        inBackground {
+                            backtrack.enable(true)
+                            RequestRemoveBatteryRestrictionCommand(this@NavigationSettingsFragment).execute()
+                        }
                     } else {
                         backtrack.disable()
                         prefBacktrack?.isChecked = false
@@ -86,7 +90,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             formatService.formatDuration(prefs.backtrackRecordFrequency, includeSeconds = true)
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
-            ChangeBacktrackFrequencyCommand(requireContext()) {
+            ChangeBacktrackFrequencyCommand(requireContext(), lifecycleScope) {
                 prefBacktrackInterval.summary =
                     formatService.formatDuration(it, includeSeconds = true)
             }.execute()

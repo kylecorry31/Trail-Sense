@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
@@ -27,8 +28,10 @@ class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: Andr
                 FeatureState.Off -> {
                     andromedaFragment.requestLocationForegroundServicePermission { success ->
                         if (success) {
-                            backtrack.enable(true)
-                            RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
+                            andromedaFragment.inBackground {
+                                backtrack.enable(true)
+                                RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
+                            }
                         }
                     }
                 }

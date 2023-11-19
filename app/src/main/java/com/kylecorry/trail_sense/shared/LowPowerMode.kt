@@ -7,10 +7,14 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackSchedu
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LowPowerMode(val context: Context) {
 
     private val prefs by lazy { UserPreferences(context) }
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     fun enable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = true
@@ -35,17 +39,19 @@ class LowPowerMode(val context: Context) {
             return
         }
 
-        // Only need to be restarted if the activity doesn't get recreated
-        if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
-            WeatherUpdateScheduler.start(context)
-        }
+        scope.launch {
+            // Only need to be restarted if the activity doesn't get recreated
+            if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
+                WeatherUpdateScheduler.start(context)
+            }
 
-        if (BacktrackIsEnabled().isSatisfiedBy(context)) {
-            BacktrackScheduler.start(context, false)
-        }
+            if (BacktrackIsEnabled().isSatisfiedBy(context)) {
+                BacktrackScheduler.start(context, false)
+            }
 
-        if (prefs.pedometer.isEnabled){
-            StepCounterService.start(context)
+            if (prefs.pedometer.isEnabled) {
+                StepCounterService.start(context)
+            }
         }
     }
 
