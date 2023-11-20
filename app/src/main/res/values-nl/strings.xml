@@ -1152,4 +1152,12 @@
     <string name="pinned">Vastgezet</string>
     <string name="tool_quick_actions">Hulpmiddel snelle acties</string>
     <string name="pin">Vastzetten</string>
+    <string name="no_sensor_message">Je apparaat heef geen %ssensor</string>
+    <string name="missing_sensor_message_1">Jouw %1$s heeft geen ingebouwde %2$ssensor. Helaas betekent dit dat sommige functies in %3$s niet beschikbaar zijn.</string>
+    <string name="why_missing_sensor">Mijn apparaat is nieuw/prijzig, waarom ontbreekt deze sensor?</string>
+    <string name="magnetic_north_description">Wijst naar de magnetische Noordpool. Dit werkt met de meeste kompassen.</string>
+    <string name="missing_sensor_explanation">Sommige telefoonfabrikanten kiezen ervoor om deze sensor niet in te bouwen, zelfs in nieuwe of prijzige apparaten. Je kunt meer te weten komen door de website van de telefoonfabrikant te bezoeken, of hen te contacteren.</string>
+    <string name="no_sensor_unable_to_fix">Nee, dit is helaas een hardware-functie, er is dus niks aan te doen om dit toe te voegen.</string>
+    <string name="true_north_description">Wijst naar de geografische Noordpool door de declinatie voor jouw locatie te gebruiken. Dit werkt met de meeste kaarten.</string>
+    <string name="is_there_a_way_to_fix_this">Is er een manier om dit op te lossen?</string>
 </resources>
