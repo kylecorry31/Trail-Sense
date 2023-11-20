@@ -1177,4 +1177,12 @@
     <string name="pin">Připnout</string>
     <string name="settings_have_moved_message">Nastavení aplikace byla přesunuta na kartu Nástroje</string>
     <string name="settings_have_moved">Přesunuli jsme nastavení</string>
+    <string name="no_sensor_message">Vaše zařízení nemá senzor %s</string>
+    <string name="missing_sensor_message_1">Vaše zařízení %1$s nemá vestavěný senzor %2$s. To bohužel znamená, že některé funkce v %3$s nebudou dostupné.</string>
+    <string name="why_missing_sensor">Moje zařízení je nové/drahé, proč mu chybí tento senzor?</string>
+    <string name="magnetic_north_description">Ukazuje na magnetický severní pól. To odpovídá většině kompasů.</string>
+    <string name="missing_sensor_explanation">Někteří výrobci telefonů nezahrnují tento senzor ani na nových nebo drahých zařízeních. Více informací naleznete na webu výrobce vašeho zařízení nebo jeho kontaktováním.</string>
+    <string name="no_sensor_unable_to_fix">Bohužel ne, jedná se o hardwarovou funkci, takže se s tím bohužel nedá nic dělat.</string>
+    <string name="true_north_description">Ukazuje na zeměpisný severní pól pomocí deklinace pro vaši polohu. To odpovídá většině map.</string>
+    <string name="is_there_a_way_to_fix_this">Dá se to nějak opravit?</string>
 </resources>

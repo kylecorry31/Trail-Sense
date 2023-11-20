@@ -1136,4 +1136,12 @@
     <string name="pin">固定</string>
     <string name="settings_have_moved_message">应用设置已移动到工具标签页</string>
     <string name="settings_have_moved">设置已移动</string>
+    <string name="no_sensor_message">你的设备没有 %s 传感器</string>
+    <string name="missing_sensor_message_1">你的 %1$s 没有内置的 %2$s 传感器。不幸的是，这意味着 %3$s 的某些功能将不可用。</string>
+    <string name="why_missing_sensor">我的设备刚出/很贵，为什么会缺少这个传感器？</string>
+    <string name="magnetic_north_description">指向磁北极。这么做会与多数指南针对齐。</string>
+    <string name="missing_sensor_explanation">某些收集制造商选择即使在刚推出或很贵的设备上也不添加这一传感器。要获取更多信息，请访问设备制造商网站或和制造商取得联系。</string>
+    <string name="no_sensor_unable_to_fix">没有，这是硬件功能。因此我们无法从软件层面加以解决。</string>
+    <string name="true_north_description">用你所在位置的磁偏角指向地理北极。这么做会与大多数地图对齐。</string>
+    <string name="is_there_a_way_to_fix_this">有办法解决吗？</string>
 </resources>

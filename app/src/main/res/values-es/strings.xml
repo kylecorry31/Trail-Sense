@@ -1165,4 +1165,12 @@
     <string name="pin">Bloquear</string>
     <string name="settings_have_moved_message">Los ajustes de la aplicación se han trasladado a la pestaña Herramientas</string>
     <string name="settings_have_moved">Los ajustes se han desplazado</string>
+    <string name="no_sensor_message">Su dispositivo no tiene un sensor %s</string>
+    <string name="missing_sensor_message_1">Su %1$s no tiene un sensor %2$s incorporado. Lamentablemente, esto significa que algunas funciones de %3$s no estarán disponibles.</string>
+    <string name="why_missing_sensor">Mi dispositivo es nuevo/caro, ¿por qué no tiene este sensor?</string>
+    <string name="magnetic_north_description">Apunta al Polo Norte magnético. Se alineará con la mayoría de las brújulas.</string>
+    <string name="missing_sensor_explanation">Algunos fabricantes de teléfonos optan por no añadir este sensor, incluso en dispositivos nuevos o caros. Puedes obtener más información visitando la página web del fabricante de tu dispositivo o poniéndote en contacto con él.</string>
+    <string name="no_sensor_unable_to_fix">No, lamentablemente se trata de una función de hardware, por lo que no se puede hacer nada para añadirla.</string>
+    <string name="true_north_description">Señala el Polo Norte geográfico utilizando la declinación correspondiente a tu ubicación. Esto se alineará con la mayoría de los mapas.</string>
+    <string name="is_there_a_way_to_fix_this">¿Hay alguna forma de solucionarlo?</string>
 </resources>
