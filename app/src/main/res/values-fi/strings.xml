@@ -568,7 +568,6 @@
     <string name="waypoint">Reittipiste</string>
     <string name="water_boil_timer_channel_description">Vesi kiehuu</string>
     <string name="reduce_map_resolution">Pienennä kartan resoluutiota</string>
-    <string name="frequency"></string>
     <plurals name="beacons_imported">
         <item quantity="one">%d majakka tuotu</item>
         <item quantity="other">%d majakkaa tuotu</item>
@@ -726,7 +725,6 @@
     <string name="pref_privacy_policy_title">Tietosuojakäytäntö</string>
     <string name="guide_thermometer_calibration_title">Lämpömittarin kalibrointi</string>
     <string name="season_summer">Kesä</string>
-    <string name="astronomy_set"></string>
     <string name="odometer">Matkamittari</string>
     <string name="solar_eclipses">Auringonpimennykset</string>
     <string name="battery_health_overheat">Ylikuuma</string>

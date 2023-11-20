@@ -179,7 +179,7 @@ class EmptyTranslation(StringDiagnostic):
     def check(self, source_tree, tree, element) -> bool:
         if source_tree == tree:
             return False
-        return len(element.text.strip()) == 0
+        return element.text is None or len(element.text.strip()) == 0
 
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
@@ -194,14 +194,14 @@ reference_file = script_dir + '/../app/src/main/res/values/strings.xml'
 reference_tree = read_xml(reference_file)
 
 diagnostics = [
+    EmptyTranslation(),
     PreferenceKeyTranslatable(),
     NonTranslatableTranslated(),
     FormattingDoesNotMatch(),
     NotInSource(),
     PositionalFormattingUnspecified(),
     TranslatedAppName(),
-    HardCodedAppName(),
-    EmptyTranslation()
+    HardCodedAppName()
 ]
 
 
