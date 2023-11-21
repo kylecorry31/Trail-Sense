@@ -15,6 +15,7 @@ import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observeFlow
@@ -73,8 +74,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val sunLayer = ARMarkerLayer()
     private val moonLayer = ARMarkerLayer()
-    private val horizonLayer = ARHorizonLayer()
-    private val northLayer = ARNorthLayer()
+    private val gridLayer = ARGridLayer(
+        30,
+        northColor = AppColor.Orange.color,
+        horizonColor = Color.WHITE,
+        labelColor = Color.WHITE,
+        color = Color.WHITE.withAlpha(100)
+    )
 
     private var isCameraEnabled = true
 
@@ -103,7 +109,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.setShowTorch(false)
 
-        binding.arView.setLayers(listOf(northLayer, horizonLayer, sunLayer, moonLayer, beaconLayer))
+        binding.arView.setLayers(listOf(gridLayer, sunLayer, moonLayer, beaconLayer))
 
         binding.cameraToggle.setOnClickListener {
             if (isCameraEnabled) {
