@@ -60,6 +60,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
 
+    private val isMetalDetected = Debouncer(Duration.ofMillis(100))
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chart = MetalDetectorChart(
@@ -73,6 +75,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         binding.highSensitivityToggle.setOnCheckedChangeListener { _, isChecked ->
             isHighSensitivity = isChecked
+            if (isChecked){
+                isMetalDetected.debounceTime = Duration.ofMillis(50)
+            } else {
+                isMetalDetected.debounceTime = Duration.ofMillis(100)
+            }
         }
     }
 
@@ -180,7 +187,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private fun isMetalDetected(reading: Float):  Boolean {
         val delta = (reading - referenceMagnitude).absoluteValue
-        return delta >= threshold && referenceMagnitude != 0f
+        val current = delta >= threshold && referenceMagnitude != 0f
+
+        isMetalDetected.update(current)
+        return isMetalDetected.value
     }
 
     private fun canAddReading(reading: Float): Boolean {
