@@ -176,27 +176,6 @@ object AugmentedRealityUtils {
         bearing: Float,
         elevation: Float,
         distance: Float,
-        quaternion: Quaternion
-    ): Pair<Float, Float> {
-        // Convert to world space
-        val worldVector = toWorldCoordinate(bearing, elevation, distance)
-
-        // Rotate
-        val rotated = quaternion.rotate(worldVector)
-
-        // Convert back to spherical
-        val spherical = toSpherical(rotated)
-        return spherical.z to spherical.y
-    }
-
-    /**
-     * Converts a geographic spherical coordinate to a relative spherical coordinate in the AR coordinate system.
-     * @return The relative spherical coordinate (bearing, inclination)
-     */
-    private fun toRelative(
-        bearing: Float,
-        elevation: Float,
-        distance: Float,
         rotationMatrix: FloatArray
     ): Pair<Float, Float> {
         // Convert to world space

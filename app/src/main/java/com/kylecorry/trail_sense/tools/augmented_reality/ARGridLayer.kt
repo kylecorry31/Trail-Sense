@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
 import kotlin.math.absoluteValue
 import kotlin.math.hypot
+import kotlin.math.min
 
 class ARGridLayer(
     private val spacing: Int = 30,
@@ -59,6 +60,8 @@ class ARGridLayer(
         drawer.noFill()
         drawer.strokeWeight(drawer.dp(thicknessDp))
 
+        val maxDistance = min(view.width, view.height)
+
         // Draw horizontal lines
         val horizontalPointRange = steppedRangeInclusive(minHorizontal, maxHorizontal, resolutionDegrees)
         for (i in latitudes) {
@@ -71,6 +74,11 @@ class ARGridLayer(
                 }
                 val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(j.toFloat(), i))
                 if (previous != null){
+                    val distance = pixel.distanceTo(previous)
+                    if (distance > maxDistance){
+                        previous = pixel
+                        continue
+                    }
                     drawer.line(previous.x, previous.y, pixel.x, pixel.y)
                 }
                 previous = pixel
@@ -89,6 +97,11 @@ class ARGridLayer(
                 }
                 val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i, j.toFloat()))
                 if (previous != null){
+                    val distance = pixel.distanceTo(previous)
+                    if (distance > maxDistance){
+                        previous = pixel
+                        continue
+                    }
                     drawer.line(previous.x, previous.y, pixel.x, pixel.y)
                 }
                 previous = pixel
