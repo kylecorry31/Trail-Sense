@@ -1,22 +1,21 @@
 package com.kylecorry.trail_sense.tools.metaldetector.ui
 
-import android.graphics.Color
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.ceres.chart.Chart
+import com.kylecorry.ceres.chart.data.BoundsChartLayer
+import com.kylecorry.ceres.chart.data.LineChartLayer
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.AreaChartLayer
-import com.kylecorry.ceres.chart.data.LineChartLayer
 import kotlin.math.max
 import kotlin.math.min
 
 class MetalDetectorChart(private val chart: Chart, color: Int) {
 
-    private val thresholdArea = AreaChartLayer(
+    private val thresholdArea = BoundsChartLayer(
         emptyList(),
-        initialLineColor = Color.TRANSPARENT,
-        initialAreaColor = AppColor.Gray.color.withAlpha(50)
+        emptyList(),
+        initialColor = AppColor.Gray.color.withAlpha(50)
     )
 
     private val line = LineChartLayer(
@@ -40,16 +39,20 @@ class MetalDetectorChart(private val chart: Chart, color: Int) {
         chart.plot(thresholdArea, line)
     }
 
-    fun plot(data: List<Float>, threshold: Float) {
+    fun plot(data: List<Float>, lowerThreshold: Float, upperThreshold: Float) {
+        val minimum = 30f
+        val maximum = 70f
+
         chart.configureYAxis(
             labelCount = 5,
             drawGridLines = true,
-            minimum = min(30f, data.minOrNull() ?: 30f),
-            maximum = max(100f, data.maxOrNull() ?: 100f)
+            minimum = min(minimum, data.minOrNull() ?: minimum),
+            maximum = max(maximum, data.maxOrNull() ?: maximum)
         )
 
-        thresholdArea.data =
-            listOf(Vector2(0f, threshold), Vector2(data.lastIndex.toFloat(), threshold))
+        thresholdArea.lower = listOf(Vector2(0f, lowerThreshold), Vector2(data.lastIndex.toFloat(), lowerThreshold))
+        thresholdArea.upper = listOf(Vector2(0f, upperThreshold), Vector2(data.lastIndex.toFloat(), upperThreshold))
+
         line.data = Chart.indexedData(data)
     }
 }

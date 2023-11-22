@@ -23,8 +23,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:max="125"
-        android:progress="65"
+        android:max="100"
+        android:progress="50"
         app:layout_constraintEnd_toStartOf="@+id/calibrate_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/metal_detector_title" />
@@ -58,6 +58,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/threshold" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/high_sensitivity_toggle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/high_sensitivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calibrate_btn" />
+
+    <com.kylecorry.trail_sense.tools.metaldetector.ui.MagnetometerView
+        android:id="@+id/magnetometerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/metal_chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/high_sensitivity_toggle" />
+
     <com.kylecorry.ceres.chart.Chart
         android:id="@+id/metal_chart"
         android:layout_width="0dp"
@@ -77,14 +98,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.kylecorry.trail_sense.tools.metaldetector.ui.MagnetometerView
-        android:id="@+id/magnetometerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/metal_chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calibrate_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
