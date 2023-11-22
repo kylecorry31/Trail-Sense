@@ -73,12 +73,7 @@ class ARGridLayer(
                     drawer.stroke(color)
                 }
                 val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(j.toFloat(), i))
-                if (previous != null){
-                    val distance = pixel.distanceTo(previous)
-                    if (distance > maxDistance){
-                        previous = pixel
-                        continue
-                    }
+                if (previous != null && pixel.distanceTo(previous) < maxDistance){
                     drawer.line(previous.x, previous.y, pixel.x, pixel.y)
                 }
                 previous = pixel
@@ -96,12 +91,7 @@ class ARGridLayer(
                     drawer.stroke(color)
                 }
                 val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i, j.toFloat()))
-                if (previous != null){
-                    val distance = pixel.distanceTo(previous)
-                    if (distance > maxDistance){
-                        previous = pixel
-                        continue
-                    }
+                if (previous != null && pixel.distanceTo(previous) < maxDistance){
                     drawer.line(previous.x, previous.y, pixel.x, pixel.y)
                 }
                 previous = pixel
